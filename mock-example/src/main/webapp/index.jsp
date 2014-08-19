@@ -1,5 +1,1 @@
-<html>
-<body>
-<h2>Hello World!</h2>
-</body>
-</html>
+<%@page contentType="application/xml; charset=UTF-8" %><%@ include file="WEB-INF/applicationContext.xml"%>
