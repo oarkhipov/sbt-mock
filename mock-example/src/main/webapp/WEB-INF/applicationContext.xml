@@ -33,8 +33,16 @@ http://www.springframework.org/schema/util		http://www.springframework.org/schem
            
 
 <!-- Входной и выходной каналы -->	
-	<channel id="fromGateChannel"/>
-	<channel id="toGateChannel"/>
+    <channel id="fromGateChannel">
+        <interceptors><wire-tap channel="fromGateLogger"/></interceptors>
+    </channel>
+    <channel id="toGateChannel">
+        <interceptors><wire-tap channel="toGateLogger"/></interceptors>
+    </channel>
+    
+    <logging-channel-adapter id="fromGateLogger" logger-name="fromGateLogger"/>
+    <logging-channel-adapter id="toGateLogger" logger-name="toGateLogger"/>
+    
         
 	<beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
 
