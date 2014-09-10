@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1:Envelope xmlns:ns1="http://schemas.xmlsoap.org/soap/envelope/"> 	
+    <ns2:Header xmlns:ns1="http://sbrf.ru/prpc/mq/headers" xmlns:ns2="http://schemas.xmlsoap.org/soap/envelope/"> 		
+        <ns1:AsyncHeader> 			
+            <ns1:message-id>8DBCB801FAC04A13B9C5A69EF04B2970</ns1:message-id> 			
+            <ns1:request-time>2014-06-10T03:47:44.402Z</ns1:request-time>  			
+            <ns1:eis-name>urn:sbrfsystems:99-bbmo</ns1:eis-name> 			
+            <ns1:proc-inst-tb>36</ns1:proc-inst-tb>  			
+            <ns1:operation-name>SrvSendBasicDocumentInformation</ns1:operation-name> 			
+            <ns1:operation-version>5</ns1:operation-version> 			
+            <ns1:user-id>Shulgina-LV</ns1:user-id> 			
+            <ns1:user-name>FL09.70.sudir.performer FL09.70.sudir.performer</ns1:user-name> 		
+        </ns1:AsyncHeader> 	
+    </ns2:Header>  	
+    <ns3:Body xmlns:ns1="http://sbrf.ru/prpc/bbmo/commonTypes/10" xmlns:ns2="http://sbrf.ru/prpc/bbmo/10" xmlns:ns3="http://schemas.xmlsoap.org/soap/envelope/">  		
+        <ns2:SrvSendBasicDocumentInformationRq> 			
+            <ns2:BasicDocumentInformation> 				
+                <ns2:BasicDocumentID>36-RC09-03-49-RC09M1-FL9-70-9070-004833</ns2:BasicDocumentID> 				
+                <ns2:FACode>03</ns2:FACode> 				
+                <ns2:SubprocessCode>RC09M1</ns2:SubprocessCode> 				
+                <ns2:BasicDocumentType>2</ns2:BasicDocumentType> 			
+            </ns2:BasicDocumentInformation> 		
+        </ns2:SrvSendBasicDocumentInformationRq>  	
+    </ns3:Body>  
+</ns1:Envelope>
