@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:ix= "http://www.springframework.org/schema/integration/xml"
+	xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans		http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/integration	http://www.springframework.org/schema/integration/spring-integration.xsd
+http://www.springframework.org/schema/integration/jms	http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+http://www.springframework.org/schema/integration/xml	http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
+http://www.springframework.org/schema/util		http://www.springframework.org/schema/util/spring-util.xsd
+http://www.springframework.org/schema/context       http://www.springframework.org/schema/context/spring-context.xsd
+	">
+
+    <!-- Настройки подключения к MQ 
+    <beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <beans:property name="jndiName" value="jms/QueueConnectionFactory"/>
+    </beans:bean>
+    <beans:bean id="requestQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <beans:property name="jndiName" value="jms/ESB.BPM.IN"/>
+    </beans:bean>
+    <beans:bean id="replyQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <beans:property name="jndiName" value="jms/ESB.BPM.OUT"/>
+    </beans:bean>
+    
+    <jms:inbound-gateway 
+            id="jmsin" 
+            request-destination="requestQueue" 
+            request-channel="fromGateChannel"
+            reply-channel="toGateChannel"
+            default-reply-destination="replyQueue"
+            header-mapper="defHeaderMapper"
+            connection-factory="jndiConnectionFactory"
+    />   -->
+           
+
+    <!-- Входной и выходной каналы -->	
+    <channel id="fromGateChannel">
+        <interceptors>
+            <wire-tap channel="fromGateLogger"/>
+        </interceptors>
+    </channel>
+    <channel id="toGateChannel">
+        <interceptors>
+            <wire-tap channel="toGateLogger"/>
+        </interceptors>
+    </channel>
+    <!--настройка логгеров -->   
+    <logging-channel-adapter id="fromGateLogger" logger-name="fromGateLogger"/>
+    <logging-channel-adapter id="toGateLogger" logger-name="toGateLogger"/>
+    
+        
+    <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
+     
+    <!-- Роутер-->
+    <util:map id="sbrfNamespaceMap">
+        <beans:entry key="soap-env" value="http://schemas.xmlsoap.org/soap/envelope/" />
+        <beans:entry key="mqhd" value="http://sbrf.ru/prpc/mq/headers" />
+    </util:map>
+    <channel id="defaultChannel"/>
+    <channel id="RegPersonAccount"/>
+    <channel id="GetClientReferenceData"/>
+    <channel id="SendBasicDocumentInformation"/>
+
+    <ix:xpath-router id="operationRouter" input-channel="fromGateChannel" default-output-channel="defaultChannel" >
+        <ix:xpath-expression expression="/soap-env:Envelope/soap-env:Header/*/mqhd:operation-name/text()" namespace-map="sbrfNamespaceMap" />
+        <ix:mapping value="SrvRegisterLegalPersonAccountOperationApplication" channel="RegPersonAccount"/>
+        <ix:mapping value="SrvGetClientReferenceData" channel="GetClientReferenceData"/>
+        <ix:mapping value="SrvSendBasicDocumentInformation" channel="SendBasicDocumentInformation"/>
+    </ix:xpath-router>
+
+    <!-- здесь уже реализация -->
+    
+    <beans:bean id="regPerson" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/RegPersonAccount.xsl"/>
+    </beans:bean>
+    <beans:bean id="getClient" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/GetClientReferenceData.xsl"/>
+    </beans:bean>
+    <beans:bean id="sendInfo" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/SendBasicDocumentInformation.xsl"/>
+    </beans:bean>
+    
+ <!--маппинг трасформеров на каналы-->   
+    <transformer input-channel="RegPersonAccount" output-channel="toGateChannel" method="transform" ref="regPerson"/>            
+    <transformer input-channel="GetClientReferenceData" output-channel="toGateChannel" method="transform" ref="getClient"/>
+    <transformer input-channel="SendBasicDocumentInformation" output-channel="toGateChannel" method="transform" ref="sendInfo"/>
+
+    <context:component-scan base-package="ru.sbt.bpm.mock.controller"/>
+    
+    <beans:bean id="jspResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <beans:property name="prefix" value="/WEB-INF/jsp/"/>
+        <beans:property name="suffix" value=".jsp"/>
+    </beans:bean>
+    
+    <beans:bean id="channelService" class="ru.sbt.bpm.mock.service.ChannelService">
+        <beans:property name="subscribeChannels">
+            <util:list>
+                <beans:ref bean="toGateChannel"/>
+            </util:list>
+        </beans:property>
+    </beans:bean>
+    <beans:bean name="transformService" class="ru.sbt.bpm.mock.service.TransformService"/>
+</beans:beans>
+    

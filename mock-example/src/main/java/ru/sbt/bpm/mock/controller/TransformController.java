@@ -20,33 +20,32 @@ import ru.sbt.bpm.mock.service.TransformService;
  * @author sbt-barinov-sv
  */
 @Controller
-@RequestMapping("/transform")
 public class TransformController {
-    public static final String XSL="xsl";
+    public static final String PARAM_NAME="object";
     @Autowired
-    private TransformService service;
+    private TransformService transformService;
     
-    public void setService(TransformService service) {
-        this.service = service;
-    }
-    
-    @RequestMapping(value="/transform")
+    @RequestMapping(value="/transform/")
     public String list(Model model) {
-        model.addAttribute("list", service.keySet());
-        return "list";
-    }
-    
-    @RequestMapping(value="/transform/{name}", method=RequestMethod.GET)
-    public String get(@PathVariable("name") String name, Model model) {
-        model.addAttribute(XSL, service.getXSL(name));
+        model.addAttribute("list", transformService.getTransformers());
+        model.addAttribute("name", "blablabla");
+        for(String entry:transformService.getTransformers())
+            System.out.println(entry);
         return "form";
     }
-    @RequestMapping(value="/transform/{name}", method=RequestMethod.POST)
+    
+    @RequestMapping(value="/transform/{name}/", method=RequestMethod.GET)
+    public String get(@PathVariable("name") String name, Model model) {
+        model.addAttribute(PARAM_NAME, transformService.getXSL(name));
+        return "form";
+    }
+    @RequestMapping(value="/transform/{name}/", method=RequestMethod.POST)
     public String post(
             @PathVariable("name") String name, 
-            @RequestParam(XSL) String xsl,
+            @RequestParam(PARAM_NAME) String xsl,
             ModelMap model) {
-        service.putXSL(name, xsl);
+        transformService.putXSL(name, xsl);
+        model.addAttribute(PARAM_NAME, transformService.getXSL(name));
         return "form";
     }
     
