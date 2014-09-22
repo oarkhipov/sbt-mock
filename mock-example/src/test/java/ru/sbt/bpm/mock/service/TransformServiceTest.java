@@ -43,6 +43,15 @@ public class TransformServiceTest extends TestCase {
         System.out.println(FileUtils.readFileToString(appContext.getResource("WEB-INF/web.xml").getFile()));
         
     }
+    
+    private String getMessage() throws Exception {
+        return FileUtils.readFileToString(appContext.getResource("WEB-INF/request/vivat.xml").getFile());
+    }
+    
+    private String prepareResult(String result) {
+        return result.replace('\n',' ').replace('\r',' ').replaceAll(".*<title>","").replaceAll("</title>.*", "");
+    }
+    
     /**
      * Test of transform method, of class TransformService.
      */
@@ -50,11 +59,29 @@ public class TransformServiceTest extends TestCase {
     public void testTransform() throws Exception {
         System.out.println("transform");
         
-        String message = FileUtils.readFileToString(appContext.getResource("WEB-INF/request/vivat.xml").getFile());
+        String message = getMessage();
         String result = service.transform("sendInfo", message);
         System.out.println(result);
-        result = result.replace('\n',' ').replace('\r',' ').replaceAll(".*<title>","").replaceAll("</title>.*", "");
+        result = prepareResult(result);
         assertEquals("SendBasicDocumentInformation.xsl", result);
-    }  
+    }
     
+    private void testSetXSL(String xslName) throws Exception {
+        System.out.println("setXSL");
+        String xsl = FileUtils.readFileToString(appContext.getResource("WEB-INF/xsl/"+xslName).getFile());
+        service.putXSL("sendInfo", xsl);
+        String message = getMessage();
+        String result = service.transform("sendInfo", message);
+        result = result.replace('\n',' ').replace('\r',' ').replaceAll(".*<title>","").replaceAll("</title>.*", "");
+        assertEquals(xslName, result);
+    }
+    
+    @Test
+    public void testSetXSL() throws Exception {
+        System.out.println("setXSL");
+        testSetXSL("GetClientReferenceData.xsl");
+        testSetXSL("SendBasicDocumentInformation.xsl");
+    }
+    
+
 }

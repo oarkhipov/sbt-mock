@@ -56,15 +56,6 @@ public class ChannelService {
         return Arrays.asList(appContext.getBeanNamesForType(SubscribableChannel.class));
     }
     
-    public String getBeanClass(String beanName) {
-        return appContext.getBean(beanName).getClass().getCanonicalName();
-    }
-    
-    public String getMessage(String channelName) {
-        SubscribableChannel channel = appContext.getBean(channelName, SubscribableChannel.class);
-        return "";
-    }
-    
     public void sendMessage(String channelName, String payload) {
         SubscribableChannel channel = appContext.getBean(channelName, SubscribableChannel.class);
         Message msg = new GenericMessage(payload);
@@ -74,16 +65,6 @@ public class ChannelService {
     public void clearMessages(String channelName) {
         List msgList = messageMap.get(channelName);
         if(msgList!=null) msgList.clear();
-    }
-    
-    public List<String> getPayloads(String channelName) {
-        List<Message> messages = messageMap.get(channelName);
-        if(messages == null) return Arrays.asList();
-        List<String> payloads = new LinkedList<String>();
-        for(Message msg : messages) {
-            payloads.add(String.valueOf(msg.getPayload()));
-        }
-        return payloads;
     }
     
     public int getPayloadsCount(String channelName) {
