@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.sbt.bpm.mock</groupId>
-    <artifactId>mock-interactive</artifactId>
+    <artifactId>ncpdb-interactive</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>mock-interactive</name>
+    <name>ncpdb-interactive</name>
     <url>http://maven.apache.org</url>
     <distributionManagement>
         <repository>
@@ -112,6 +112,6 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>mock-interactive</finalName>
+        <finalName>ncpdb-interactive</finalName>
     </build>
 </project>

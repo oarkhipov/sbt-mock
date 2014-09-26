@@ -20,10 +20,10 @@ http://www.springframework.org/schema/context       http://www.springframework.o
             <beans:property name="jndiName" value="jms/QueueConnectionFactory"/>
     </beans:bean>
     <beans:bean id="requestQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.IN"/>
+            <beans:property name="jndiName" value="jms/ESB.FED.NCP.IN"/>
     </beans:bean>
     <beans:bean id="replyQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.OUT"/>
+            <beans:property name="jndiName" value="jms/ESB.FED.NCP.OUT"/>
     </beans:bean>
     
     <jms:inbound-gateway 
@@ -60,34 +60,24 @@ http://www.springframework.org/schema/context       http://www.springframework.o
         <beans:entry key="soap-env" value="http://schemas.xmlsoap.org/soap/envelope/" />
         <beans:entry key="mqhd" value="http://sbrf.ru/prpc/mq/headers" />
     </util:map>
+    
     <channel id="defaultChannel"/>
-    <channel id="RegPersonAccount"/>
-    <channel id="GetClientReferenceData"/>
-    <channel id="SendBasicDocumentInformation"/>
+    <channel id="ESBSynCallForNCPDB"/>
 
-    <ix:xpath-router id="operationRouter" input-channel="fromGateChannel" default-output-channel="defaultChannel" >
+    <ix:xpath-router id="operationRouter" input-channel="fromGateChannel" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
         <ix:xpath-expression expression="/soap-env:Envelope/soap-env:Header/*/mqhd:operation-name/text()" namespace-map="sbrfNamespaceMap" />
-        <ix:mapping value="SrvRegisterLegalPersonAccountOperationApplication" channel="RegPersonAccount"/>
-        <ix:mapping value="SrvGetClientReferenceData" channel="GetClientReferenceData"/>
-        <ix:mapping value="SrvSendBasicDocumentInformation" channel="SendBasicDocumentInformation"/>
+        
+        <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="ESBSynCallForNCPDB"/>
     </ix:xpath-router>
 
     <!-- здесь уже реализация -->
     
-    <beans:bean id="regPerson" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/RegPersonAccount.xsl"/>
-    </beans:bean>
-    <beans:bean id="getClient" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/GetClientReferenceData.xsl"/>
-    </beans:bean>
-    <beans:bean id="sendInfo" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/SendBasicDocumentInformation.xsl"/>
+    <beans:bean id="ESBSynCallNCPDB" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/ESBSynCallForNCPDB.xsl"/>
     </beans:bean>
     
  <!--маппинг трасформеров на каналы-->   
-    <transformer input-channel="RegPersonAccount" output-channel="toGateChannel" method="transform" ref="regPerson"/>            
-    <transformer input-channel="GetClientReferenceData" output-channel="toGateChannel" method="transform" ref="getClient"/>
-    <transformer input-channel="SendBasicDocumentInformation" output-channel="toGateChannel" method="transform" ref="sendInfo"/>
+    <transformer input-channel="ESBSynCallForNCPDB" output-channel="toGateChannel" method="transform" ref="ESBSynCallNCPDB"/>            
 
     <context:component-scan base-package="ru.sbt.bpm.mock.controller"/>
     
