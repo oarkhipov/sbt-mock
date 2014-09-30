@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"
-	xmlns:mqhd="http://sbrf.ru/prpc/mq/headers" xmlns:bbmo="http://sbrf.ru/prpc/bbmo/10"
+	xmlns:esbhd="http://sbrf.ru/prpc/esb/headers" xmlns:bbmo="http://sbrf.ru/prpc/bbmo/10"
 	xmlns:bbmo-types="http://sbrf.ru/prpc/bbmo/commonTypes/10" xmlns:math="http://exslt.org/math"
 	extension-element-prefixes="math">
 	<xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0" />
@@ -15,10 +15,10 @@
 			<xsl:copy-of select="soap-env:Header"/>
 			<soap-env:Body>
 				<xsl:choose>
-					<xsl:when test="/soap-env:Envelope/soap-env:Header/mqhd:AsyncHeader/mqhd:operation-name='SrvSendApplicationForCBDFProcessing'">
+					<xsl:when test="/soap-env:Envelope/soap-env:Header/esbhd:AsyncHeader/esbhd:operation-name='SrvSendApplicationForCBDFProcessing'">
 						<xsl:call-template name="SrvSendApplicationForCBDFProcessing" />
 					</xsl:when>
-					<xsl:when test="/soap-env:Envelope/soap-env:Header/mqhd:AsyncHeader/mqhd:operation-name='CreateTask'">
+					<xsl:when test="/soap-env:Envelope/soap-env:Header/esbhd:AsyncHeader/esbhd:operation-name='CreateTask'">
 						<xsl:call-template name="CreateTask" />
 					</xsl:when>
 				</xsl:choose>

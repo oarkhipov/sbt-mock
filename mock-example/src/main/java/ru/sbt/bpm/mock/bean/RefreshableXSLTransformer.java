@@ -43,12 +43,14 @@ public class RefreshableXSLTransformer {
         xsl = FileUtils.readFileToString(resource.getFile());
     }
     public void setXSL(String xsl) {
+    	System.out.println("Mock XSL start working");
         XsltPayloadTransformer backup = delegate;
         try {
             Resource resource = new ByteArrayResource(xsl.getBytes("UTF-8"));
             delegate = new XsltPayloadTransformer(resource);
             this.xsl = xsl;
         } catch(Exception e) {
+        	System.out.println("Mock XSL some error");
             e.printStackTrace();
             delegate = backup;        
         }
