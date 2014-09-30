@@ -58,14 +58,14 @@ http://www.springframework.org/schema/context       http://www.springframework.o
     <!-- Роутер-->
     <util:map id="sbrfNamespaceMap">
         <beans:entry key="soap-env" value="http://schemas.xmlsoap.org/soap/envelope/" />
-        <beans:entry key="mqhd" value="http://sbrf.ru/prpc/mq/headers" />
+        <beans:entry key="esbhd" value="http://sbrf.ru/prpc/esb/headers/" />
     </util:map>
     
     <channel id="defaultChannel"/>
     <channel id="ESBSynCallForNCPDB"/>
 
     <ix:xpath-router id="operationRouter" input-channel="fromGateChannel" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
-        <ix:xpath-expression expression="/soap-env:Envelope/soap-env:Header/*/mqhd:operation-name/text()" namespace-map="sbrfNamespaceMap" />
+        <ix:xpath-expression expression="/soap-env:Envelope/soap-env:Header/*/esbhd:operation-name/text()" namespace-map="sbrfNamespaceMap" />
         
         <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="ESBSynCallForNCPDB"/>
     </ix:xpath-router>

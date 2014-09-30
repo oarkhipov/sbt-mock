@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"
-	xmlns:esbhd="http://sbrf.ru/prpc/esb/headers" xmlns:bbmo="http://sbrf.ru/prpc/bbmo/10"
-	xmlns:bbmo-types="http://sbrf.ru/prpc/bbmo/commonTypes/10" xmlns:math="http://exslt.org/math"
-	extension-element-prefixes="math">
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+	xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:esbhd="http://sbrf.ru/prpc/esb/headers/">
 	<xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0" />
 
 	<xsl:template match="/">
@@ -21,6 +20,9 @@
 					<xsl:when test="/soap-env:Envelope/soap-env:Header/esbhd:AsyncHeader/esbhd:operation-name='CreateTask'">
 						<xsl:call-template name="CreateTask" />
 					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="CreateTask"/>
+					</xsl:otherwise>
 				</xsl:choose>
 			</soap-env:Body>
 		</xsl:element>
@@ -71,4 +73,3 @@
 	</xsl:template>
 
 </xsl:stylesheet>
-

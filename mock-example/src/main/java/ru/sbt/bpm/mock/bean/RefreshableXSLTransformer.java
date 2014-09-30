@@ -50,8 +50,8 @@ public class RefreshableXSLTransformer {
             delegate = new XsltPayloadTransformer(resource);
             this.xsl = xsl;
         } catch(Exception e) {
-        	System.out.println("Mock XSL some error");
-            e.printStackTrace();
+        	System.out.println("Mock XSL some error: "+e.getMessage());
+            e.printStackTrace(System.out);
             delegate = backup;        
         }
     }
