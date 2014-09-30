@@ -34,8 +34,7 @@ http://www.springframework.org/schema/context       http://www.springframework.o
             default-reply-destination="replyQueue"
             header-mapper="defHeaderMapper"
             connection-factory="jndiConnectionFactory"
-    /> 
-           
+    />
 
     <!-- Входной и выходной каналы -->	
     <channel id="fromGateChannel">
@@ -89,4 +88,3 @@ http://www.springframework.org/schema/context       http://www.springframework.o
     <beans:bean id="channelService" class="ru.sbt.bpm.mock.service.ChannelService"/>
     <beans:bean name="transformService" class="ru.sbt.bpm.mock.service.TransformService"/>
 </beans:beans>
-    
