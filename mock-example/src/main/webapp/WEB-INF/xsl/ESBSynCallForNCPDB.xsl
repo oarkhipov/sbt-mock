@@ -20,6 +20,9 @@
 					<xsl:when test="/soap-env:Envelope/soap-env:Header/esbhd:AsyncHeader/esbhd:operation-name='CreateTask'">
 						<xsl:call-template name="CreateTask" />
 					</xsl:when>
+					<xsl:when test="/soap-env:Envelope/soap-env:Header/esbhd:AsyncHeader/esbhd:operation-name='ReferenceDictionary'">
+						<xsl:call-template name="ReferenceDictionary" />
+					</xsl:when>
 					<xsl:otherwise>
 						<xsl:call-template name="CreateTask"/>
 					</xsl:otherwise>
@@ -70,6 +73,28 @@
 				<ns1:FullNameOfResponsiblePerson>Иванов Иван Семёнович</ns1:FullNameOfResponsiblePerson>
 			</ns1:ContractInfo>
 		</ns1:CreateTaskRs>
+	</xsl:template>
+	
+	<xsl:template name="ReferenceDictionary">
+		<ns1:responseDictionary xmlns:ns1="http://sbrf.ru/NCP/RefData/">
+			<listOfReferenceData>
+				<id>item-1</id>
+				<description>item-1</description>
+				<parentId>parent</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>item-2</id>
+				<description>item-2</description>
+				<parentId>parent</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>parent</id>
+				<description>parent</description>
+				<parentId></parentId>
+			</listOfReferenceData>
+		<errorCode>0</errorCode>
+		<errorMessage>No error</errorMessage>
+		</ns1:responseDictionary>
 	</xsl:template>
 
 </xsl:stylesheet>
