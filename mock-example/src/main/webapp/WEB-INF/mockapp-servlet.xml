@@ -51,7 +51,6 @@ http://www.springframework.org/schema/context       http://www.springframework.o
     <logging-channel-adapter id="fromGateLogger" logger-name="fromGateLogger"/>
     <logging-channel-adapter id="toGateLogger" logger-name="toGateLogger"/>
     
-        
     <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
      
     <!-- Роутер-->
@@ -62,11 +61,14 @@ http://www.springframework.org/schema/context       http://www.springframework.o
     
     <channel id="defaultChannel"/>
     <channel id="ESBSynCallForNCPDB"/>
-
+    <channel id="ReferenceData"/>
+    
     <ix:xpath-router id="operationRouter" input-channel="fromGateChannel" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
-        <ix:xpath-expression expression="/soap-env:Envelope/soap-env:Header/*/esbhd:operation-name/text()" namespace-map="sbrfNamespaceMap" />
+        <ix:xpath-expression expression="/soap-env:Envelope/soap-env:Header/*/esbhd:operation-name" namespace-map="sbrfNamespaceMap" />
         
         <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="ESBSynCallForNCPDB"/>
+        <ix:mapping value="CreateTask" channel="ESBSynCallForNCPDB"/>
+        <ix:mapping value="RefData" channel="ReferenceData"/>
     </ix:xpath-router>
 
     <!-- здесь уже реализация -->
@@ -75,8 +77,13 @@ http://www.springframework.org/schema/context       http://www.springframework.o
         <beans:property name="xslPath" value="/WEB-INF/xsl/ESBSynCallForNCPDB.xsl"/>
     </beans:bean>
     
+    <beans:bean id="ReferenData" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/ReferenceData.xsl"/>
+    </beans:bean>
+    
  <!--маппинг трасформеров на каналы-->   
-    <transformer input-channel="ESBSynCallForNCPDB" output-channel="toGateChannel" method="transform" ref="ESBSynCallNCPDB"/>            
+    <transformer input-channel="ESBSynCallForNCPDB" output-channel="toGateChannel" method="transform" ref="ESBSynCallNCPDB"/>     
+    <transformer input-channel="ReferenceData" output-channel="toGateChannel" method="transform" ref="ReferenData"/>         
 
     <context:component-scan base-package="ru.sbt.bpm.mock.controller"/>
     
