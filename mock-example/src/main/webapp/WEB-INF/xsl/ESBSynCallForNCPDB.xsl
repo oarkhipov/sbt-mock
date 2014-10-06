@@ -21,11 +21,26 @@
 						<xsl:call-template name="CreateTask" />
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:call-template name="CreateTask"/>
+						<xsl:call-template name="Error"/>
 					</xsl:otherwise>
 				</xsl:choose>
 			</soap-env:Body>
 		</xsl:element>
+	</xsl:template>
+	
+		<xsl:template name="Error">
+		<ns1:CreateTaskRs xmlns:ns1="http://sbrf.ru/NCP/CRM/">
+			<ns1:ErrorCode>1</ns1:ErrorCode>
+			<ns1:ErrorMessage>Ошибка в запросе. Не удалось найти ответ с указанным operation-name</ns1:ErrorMessage>
+			<ns1:ContractInfo>
+				<ns1:ContractID>1</ns1:ContractID>
+				<ns1:ContractBPMID>1</ns1:ContractBPMID>
+				<ns1:Status>1</ns1:Status>
+				<ns1:Comment>1</ns1:Comment>
+				<ns1:RequestType>1</ns1:RequestType>
+				<ns1:FullNameOfResponsiblePerson>1</ns1:FullNameOfResponsiblePerson>
+			</ns1:ContractInfo>
+		</ns1:CreateTaskRs>
 	</xsl:template>
 
 	<xsl:template name="SrvSendApplicationForCBDFProcessing">

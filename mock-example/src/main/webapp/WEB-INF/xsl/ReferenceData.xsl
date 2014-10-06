@@ -71,11 +71,20 @@
 						<xsl:call-template name="REF_SUPPLIERS_SHARE" />
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:call-template name="REF_LEGAL_ENTITY_TYPE"/>
+						<xsl:call-template name="Error"/>
 					</xsl:otherwise>
 				</xsl:choose>
 			</soap-env:Body>
 		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template name="Error">
+		<ref:responseDictionary xmlns:ref="http://sbrf.ru/NCP/RefData/">
+			<listOfReferenceData>
+				<id>0</id>
+				<description>Ошибка в запросе. Не удалось найти справочник с указанным referenceId</description>
+			</listOfReferenceData>
+		</ref:responseDictionary>
 	</xsl:template>
 
 	<xsl:template name="REF_CURRENCY">
