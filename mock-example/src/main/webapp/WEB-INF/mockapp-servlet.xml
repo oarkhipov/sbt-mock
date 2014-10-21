@@ -46,9 +46,8 @@ http://www.springframework.org/schema/context       http://www.springframework.o
     <jms:outbound-gateway 
             id="jmsout" 
             request-destination="requestQueueCRM" 
-            request-channel="toGateChannel1"
-            reply-channel="fromGateChannel1"
-            default-reply-destination="replyQueueCRM"
+            request-channel="toGateChannelCRM"
+            reply-channel="fromGateChannelCRM"
             header-mapper="defHeaderMapper"
             connection-factory="jndiConnectionFactory"
     />
@@ -67,15 +66,15 @@ http://www.springframework.org/schema/context       http://www.springframework.o
     </channel>
     
       <!-- Входной и выходной каналы1 -->	
-    <channel id="fromGateChannel1">
+    <channel id="fromGateChannelCRM">
         <interceptors>
-            <wire-tap channel="fromGateLogger1"/>
+            <wire-tap channel="fromGateLoggerCRM"/>
         </interceptors>
     </channel>
     
-    <channel id="toGateChannel1">
+    <channel id="toGateChannelCRM">
         <interceptors>
-            <wire-tap channel="toGateLogger1"/>
+            <wire-tap channel="toGateLoggerCRM"/>
         </interceptors>
     </channel>  
     
@@ -84,8 +83,8 @@ http://www.springframework.org/schema/context       http://www.springframework.o
     <logging-channel-adapter id="toGateLogger" logger-name="toGateLogger"/>
     
         <!--настройка логгеров1 -->   
-    <logging-channel-adapter id="fromGateLogger1" logger-name="fromGateLogger1"/>
-    <logging-channel-adapter id="toGateLogger1" logger-name="toGateLogger1"/>
+    <logging-channel-adapter id="fromGateLoggerCRM" logger-name="fromGateLoggerCRM"/>
+    <logging-channel-adapter id="toGateLoggerCRM" logger-name="toGateLoggerCRM"/>
     
     <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
      
@@ -131,8 +130,8 @@ http://www.springframework.org/schema/context       http://www.springframework.o
     
     <beans:bean id="channelService" class="ru.sbt.bpm.mock.service.ChannelService">
    		 <beans:property name="subscribeChannels">
-   		 	<util:list id="channelsList" value-type="java.lang.String">
-   		 		<beans:bean ref="fromGateChannel1"/>
+   		 	<util:list>
+   		 		<beans:ref bean="fromGateChannelCRM"/>
    		 	</util:list>
    		 </beans:property> 
     </beans:bean>
