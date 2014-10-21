@@ -70,6 +70,9 @@
 					<xsl:when test="/soap-env:Envelope/soap-env:Body/ns1:requestDictionary/referenceId='REF_SUPPLIERS_SHARE'">
 						<xsl:call-template name="REF_SUPPLIERS_SHARE" />
 					</xsl:when>
+					<xsl:when test="/soap-env:Envelope/soap-env:Body/ns1:requestDictionary/referenceId='REF_DISBURSEMENT_MODEL'">
+						<xsl:call-template name="REF_SUPPLIERS_SHARE" />
+					</xsl:when>
 					<xsl:otherwise>
 						<xsl:call-template name="Error"/>
 					</xsl:otherwise>
@@ -1326,6 +1329,26 @@
 				<id>REF_SUPPLIERS_SHARE_5</id>
 				<description>Нет информации</description>
 				<parentId />
+			</listOfReferenceData>
+		</ref:responseDictionary>
+	</xsl:template>
+	
+	<xsl:template name="REF_DISBURSEMENT_MODEL">
+		<ref:responseDictionary xmlns:ref="http://sbrf.ru/NCP/RefData/">
+			<listOfReferenceData>
+				<id>PERIOD</id>
+				<description>Период</description>
+				<parentId/>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>SCHEDULE</id>
+				<description>Дата/Сумма</description>
+				<parentId/>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>NOT_AVAILABLE</id>
+				<description>Не устанавливается</description>
+				<parentId/>
 			</listOfReferenceData>
 		</ref:responseDictionary>
 	</xsl:template>

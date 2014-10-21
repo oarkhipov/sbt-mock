@@ -26,12 +26,29 @@ http://www.springframework.org/schema/context       http://www.springframework.o
             <beans:property name="jndiName" value="jms/ESB.FED.NCP.OUT"/>
     </beans:bean>
     
+     <beans:bean id="requestQueueCRM" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <beans:property name="jndiName" value="jms/ESB.FED.NCP.CRM.IN"/>
+    </beans:bean>
+    <beans:bean id="replyQueueCRM" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <beans:property name="jndiName" value="jms/ESB.FED.NCP.CRM.OUT"/>
+    </beans:bean>
+    
     <jms:inbound-gateway 
             id="jmsin" 
             request-destination="requestQueue" 
             request-channel="fromGateChannel"
             reply-channel="toGateChannel"
             default-reply-destination="replyQueue"
+            header-mapper="defHeaderMapper"
+            connection-factory="jndiConnectionFactory"
+    />
+    
+    <jms:outbound-gateway 
+            id="jmsout" 
+            request-destination="requestQueueCRM" 
+            request-channel="toGateChannel1"
+            reply-channel="fromGateChannel1"
+            default-reply-destination="replyQueueCRM"
             header-mapper="defHeaderMapper"
             connection-factory="jndiConnectionFactory"
     />
@@ -42,14 +59,33 @@ http://www.springframework.org/schema/context       http://www.springframework.o
             <wire-tap channel="fromGateLogger"/>
         </interceptors>
     </channel>
+    
     <channel id="toGateChannel">
         <interceptors>
             <wire-tap channel="toGateLogger"/>
         </interceptors>
     </channel>
+    
+      <!-- Входной и выходной каналы1 -->	
+    <channel id="fromGateChannel1">
+        <interceptors>
+            <wire-tap channel="fromGateLogger1"/>
+        </interceptors>
+    </channel>
+    
+    <channel id="toGateChannel1">
+        <interceptors>
+            <wire-tap channel="toGateLogger1"/>
+        </interceptors>
+    </channel>  
+    
     <!--настройка логгеров -->   
     <logging-channel-adapter id="fromGateLogger" logger-name="fromGateLogger"/>
     <logging-channel-adapter id="toGateLogger" logger-name="toGateLogger"/>
+    
+        <!--настройка логгеров1 -->   
+    <logging-channel-adapter id="fromGateLogger1" logger-name="fromGateLogger1"/>
+    <logging-channel-adapter id="toGateLogger1" logger-name="toGateLogger1"/>
     
     <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
      
@@ -62,6 +98,7 @@ http://www.springframework.org/schema/context       http://www.springframework.o
     <channel id="defaultChannel"/>
     <channel id="ESBSynCallForNCPDB"/>
     <channel id="ReferenceData"/>
+    
     
     <ix:xpath-router id="operationRouter" input-channel="fromGateChannel" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
         <ix:xpath-expression expression="/soap-env:Envelope/soap-env:Header/*/esbhd:operation-name" namespace-map="sbrfNamespaceMap" />
@@ -92,6 +129,13 @@ http://www.springframework.org/schema/context       http://www.springframework.o
         <beans:property name="suffix" value=".jsp"/>
     </beans:bean>
     
-    <beans:bean id="channelService" class="ru.sbt.bpm.mock.service.ChannelService"/>
+    <beans:bean id="channelService" class="ru.sbt.bpm.mock.service.ChannelService">
+   		 <beans:property name="subscribeChannels">
+   		 	<util:list id="channelsList" value-type="java.lang.String">
+   		 		<beans:bean ref="fromGateChannel1"/>
+   		 	</util:list>
+   		 </beans:property> 
+    </beans:bean>
+    
     <beans:bean name="transformService" class="ru.sbt.bpm.mock.service.TransformService"/>
 </beans:beans>
