@@ -46,6 +46,7 @@ http://www.springframework.org/schema/context       http://www.springframework.o
     <jms:outbound-gateway 
             id="jmsout" 
             request-destination="requestQueueCRM" 
+            reply-destination="replyQueueCRM"
             request-channel="toGateChannelCRM"
             reply-channel="fromGateChannelCRM"
             header-mapper="defHeaderMapper"
