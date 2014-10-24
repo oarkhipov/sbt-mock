@@ -71,7 +71,7 @@
 						<xsl:call-template name="REF_SUPPLIERS_SHARE" />
 					</xsl:when>
 					<xsl:when test="/soap-env:Envelope/soap-env:Body/ns1:requestDictionary/referenceId='REF_DISBURSEMENT_MODEL'">
-						<xsl:call-template name="REF_SUPPLIERS_SHARE" />
+						<xsl:call-template name="REF_DISBURSEMENT_MODEL" />
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:call-template name="Error"/>
