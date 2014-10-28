@@ -73,6 +73,15 @@
 					<xsl:when test="/soap-env:Envelope/soap-env:Body/ns1:requestDictionary/referenceId='REF_DISBURSEMENT_MODEL'">
 						<xsl:call-template name="REF_DISBURSEMENT_MODEL" />
 					</xsl:when>
+					<xsl:when test="/soap-env:Envelope/soap-env:Body/ns1:requestDictionary/referenceId='REF_PARTICIPANT_TYPE'">
+						<xsl:call-template name="REF_PARTICIPANT_TYPE" />
+					</xsl:when>
+					<xsl:when test="/soap-env:Envelope/soap-env:Body/ns1:requestDictionary/referenceId='REF_RISK_GROUP_TYPE'">
+						<xsl:call-template name="REF_RISK_GROUP_TYPE" />
+					</xsl:when>
+					<xsl:when test="/soap-env:Envelope/soap-env:Body/ns1:requestDictionary/referenceId='REF_RISK_TYPE'">
+						<xsl:call-template name="REF_RISK_TYPE" />
+					</xsl:when>
 					<xsl:otherwise>
 						<xsl:call-template name="Error"/>
 					</xsl:otherwise>
@@ -1349,6 +1358,246 @@
 				<id>NOT_AVAILABLE</id>
 				<description>Не устанавливается</description>
 				<parentId/>
+			</listOfReferenceData>
+		</ref:responseDictionary>
+	</xsl:template>
+	
+	<xsl:template name="REF_PARTICIPANT_TYPE">
+		<ref:responseDictionary xmlns:ref="http://sbrf.ru/NCP/RefData/">
+			<listOfReferenceData>
+				<id>REF_PARTICIPANT_GUARANTOR</id>
+				<description>Гарант</description>
+				<parentId/>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_PARTICIPANT_PLEDGER</id>
+				<description>Залогодатель</description>
+				<parentId/>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_PARTICIPANT_SURETY</id>
+				<description>Поручитель</description>
+				<parentId/>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_PARTICIPANT_DEBTOR</id>
+				<description>Должник</description>
+				<parentId/>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_PARTICIPANT_LEASEHOLDER</id>
+				<description>Лизингополучатель</description>
+				<parentId/>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_PARTICIPANT_CONSOLIDATED_GROUP</id>
+				<description>Консолидированная группа</description>
+				<parentId/>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_PARTICIPANT_DOMINANT_COMPANY</id>
+				<description>Доминирующая компания</description>
+				<parentId/>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_PARTICIPANT_OTHER</id>
+				<description>Иной участник</description>
+				<parentId/>
+			</listOfReferenceData>
+		</ref:responseDictionary>
+	</xsl:template>
+	
+	<xsl:template name="REF_RISK_GROUP_TYPE">
+		<ref:responseDictionary xmlns:ref="http://sbrf.ru/NCP/RefData/">
+			<listOfReferenceData>
+				<id>REF_RISK_GROUP_TYPE_0</id>
+				<description>Риск заявителя</description>
+				<parentId/>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_GROUP_TYPE_1</id>
+				<description>Риск сделки</description>
+				<parentId/>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_GROUP_TYPE_2</id>
+				<description>Риск проекта</description>
+				<parentId/>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_GROUP_TYPE_3</id>
+				<description>Риск контракта</description>
+				<parentId/>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_GROUP_TYPE_4</id>
+				<description>Прочие риски</description>
+				<parentId/>
+			</listOfReferenceData>
+		</ref:responseDictionary>
+	</xsl:template>
+	
+	<xsl:template name="REF_RISK_TYPE">
+		<ref:responseDictionary xmlns:ref="http://sbrf.ru/NCP/RefData/">
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_0</id>
+				<description>Финансовые риски</description>
+				<parentId>REF_RISK_GROUP_TYPE_0</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_1</id>
+				<description>Риски деловой репутации/репутационные риски</description>
+				<parentId>REF_RISK_GROUP_TYPE_0</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_2</id>
+				<description>Маркетинговый риск</description>
+				<parentId>REF_RISK_GROUP_TYPE_0</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_3</id>
+				<description>Акционерный/управленческий риск</description>
+				<parentId>REF_RISK_GROUP_TYPE_0</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_4</id>
+				<description>Регуляторный риск</description>
+				<parentId>REF_RISK_GROUP_TYPE_0</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_5</id>
+				<description>Риски концентрации</description>
+				<parentId>REF_RISK_GROUP_TYPE_0</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_6</id>
+				<description>Страновой риск</description>
+				<parentId>REF_RISK_GROUP_TYPE_0</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_7</id>
+				<description>Риск оттока капитала</description>
+				<parentId>REF_RISK_GROUP_TYPE_0</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_8</id>
+				<description>Производственный риск</description>
+				<parentId>REF_RISK_GROUP_TYPE_0</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_9</id>
+				<description>Риск форсмажорных обстоятельств</description>
+				<parentId>REF_RISK_GROUP_TYPE_0</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_10</id>
+				<description>Валютный риск</description>
+				<parentId>REF_RISK_GROUP_TYPE_0</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_11</id>
+				<description>Юридический риск</description>
+				<parentId>REF_RISK_GROUP_TYPE_1</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_12</id>
+				<description>Риск недостаточности/отсутствия обеспечения</description>
+				<parentId>REF_RISK_GROUP_TYPE_1</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_13</id>
+				<description>Риск утраты обеспечения</description>
+				<parentId>REF_RISK_GROUP_TYPE_1</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_14</id>
+				<description>Риск отсутствия/утраты источника погашения кредита</description>
+				<parentId>REF_RISK_GROUP_TYPE_1</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_15</id>
+				<description>Риск некорректности Cash Flow</description>
+				<parentId>REF_RISK_GROUP_TYPE_1</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_16</id>
+				<description>Риск неправильного/некорректного структурирования сделки</description>
+				<parentId>REF_RISK_GROUP_TYPE_1</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_17</id>
+				<description>Риск невыполнения обязательств поставщиками/подрядчиками/субподрядчиками</description>
+				<parentId>REF_RISK_GROUP_TYPE_2</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_18</id>
+				<description>Риск недофинансирования проекта</description>
+				<parentId>REF_RISK_GROUP_TYPE_2</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_19</id>
+				<description>Технологический риск</description>
+				<parentId>REF_RISK_GROUP_TYPE_2</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_20</id>
+				<description>Риск увеличения стоимости проекта</description>
+				<parentId>REF_RISK_GROUP_TYPE_2</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_21</id>
+				<description>Риск не достижения заданных параметров проекта</description>
+				<parentId>REF_RISK_GROUP_TYPE_2</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_22</id>
+				<description>Логистические и инфраструктурные риски</description>
+				<parentId>REF_RISK_GROUP_TYPE_2</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_23</id>
+				<description>Экологические риски</description>
+				<parentId>REF_RISK_GROUP_TYPE_2</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_24</id>
+				<description>Риск невыполнения обязательств поставщиками / подрядчиками/ соисполнителями Заявителя</description>
+				<parentId>REF_RISK_GROUP_TYPE_3</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_25</id>
+				<description>Риск невыполнения обязательств заказчиками Заявителя</description>
+				<parentId>REF_RISK_GROUP_TYPE_3</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_26</id>
+				<description>Риск неисполнения обязательств контрагентами-соисполнителями в рамках одного контракта</description>
+				<parentId>REF_RISK_GROUP_TYPE_3</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_27</id>
+				<description>Риск недофинансирования контракта</description>
+				<parentId>REF_RISK_GROUP_TYPE_3</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_28</id>
+				<description>Риск увеличения стоимости реализации контракта</description>
+				<parentId>REF_RISK_GROUP_TYPE_3</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_29</id>
+				<description>Риск неисполнения контракта</description>
+				<parentId>REF_RISK_GROUP_TYPE_3</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_30</id>
+				<description>Юридический риск</description>
+				<parentId>REF_RISK_GROUP_TYPE_3</parentId>
+			</listOfReferenceData>
+			<listOfReferenceData>
+				<id>REF_RISK_TYPE_31</id>
+				<description>Риск изменения основных условий контракта (стоимости/графика/условий поставки/оплаты)</description>
+				<parentId>REF_RISK_GROUP_TYPE_3</parentId>
 			</listOfReferenceData>
 		</ref:responseDictionary>
 	</xsl:template>
