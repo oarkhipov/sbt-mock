@@ -105,6 +105,7 @@ http://www.springframework.org/schema/context       http://www.springframework.o
         
         <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="ESBSynCallForNCPDB"/>
         <ix:mapping value="CreateTask" channel="ESBSynCallForNCPDB"/>
+        <ix:mapping value="GetParticipants" channel="ESBSynCallForNCPDB"/>
         <ix:mapping value="RefData" channel="ReferenceData"/>
     </ix:xpath-router>
 
