@@ -82,6 +82,9 @@
 					<xsl:when test="/soap-env:Envelope/soap-env:Body/ns1:requestDictionary/referenceId='REF_RISK_TYPE'">
 						<xsl:call-template name="REF_RISK_TYPE" />
 					</xsl:when>
+					<xsl:when test="/soap-env:Envelope/soap-env:Body/ns1:requestDictionary/referenceId='REF_REJECTION_REASON'">
+						<xsl:call-template name="REF_REJECTION_REASON" />
+					</xsl:when>					
 					<xsl:otherwise>
 						<xsl:call-template name="Error"/>
 					</xsl:otherwise>
@@ -1599,6 +1602,21 @@
 				<description>Риск изменения основных условий контракта (стоимости/графика/условий поставки/оплаты)</description>
 				<parentId>REF_RISK_GROUP_TYPE_3</parentId>
 			</listOfReferenceData>
+		</ref:responseDictionary>
+	</xsl:template>
+	
+	<xsl:template name="REF_REJECTION_REASON">
+		<ref:responseDictionary xmlns:ref="http://sbrf.ru/NCP/RefData/">
+		   <listOfReferenceData>
+		      <id>REF_REJECTION_REASON_0</id>
+		      <description>Недостаточно поступивших документов</description>
+		      <parentId/>
+		   </listOfReferenceData>
+		   <listOfReferenceData>
+		      <id>REF_REJECTION_REASON_1</id>
+			  <description>Необходимо актуализировать в BPM структуру Сделки</description>
+			  <parentId/>
+		   </listOfReferenceData>
 		</ref:responseDictionary>
 	</xsl:template>
 
