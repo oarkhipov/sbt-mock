@@ -75,20 +75,20 @@
 		</ns1:calculateResponse>
 	</xsl:template>
 	
-    <xsl:template name="CreateTask">
-        <ns1:createTaskRs xmlns:ns1="http://sbrf.ru/NCP/CRM/" xmlns:ns2="http://sbrf.ru/NCP/CRM/CreateTaskRs/">
-            <ns2:errorCode>0</ns2:errorCode>
-            <ns2:errorMessage>Success</ns2:errorMessage>
-            <ns2:contractInfo>
-                <ns2:ContractID>GDF567GF</ns2:ContractID>
-                <ns2:ContractBPMID>D-123</ns2:ContractBPMID>
-                <ns2:Status>New</ns2:Status>
-                <ns2:Comment>Some note</ns2:Comment>
-                <ns2:RequestType>Согласование сделки с клиентом</ns2:RequestType>
-                <ns2:FullNameOfResponsiblePerson>Иванов Иван Семёнович</ns2:FullNameOfResponsiblePerson>
-            </ns2:contractInfo>
-        </ns1:createTaskRs>
-    </xsl:template>
+	<xsl:template name="CreateTask">
+		<ns1:createTaskRs xmlns:ns1="http://sbrf.ru/NCP/CRM/" xmlns:ns2="http://sbrf.ru/NCP/CRM/CreateTaskRs/">
+			<ns2:errorCode>0</ns2:errorCode>
+			<ns2:errorMessage>Success</ns2:errorMessage>
+			<ns2:contractInfo>
+				<ns2:ContractID>GDF567GF</ns2:ContractID>
+				<ns2:ContractBPMID>D-123</ns2:ContractBPMID>
+				<ns2:Status>New</ns2:Status>
+				<ns2:Comment>Some note</ns2:Comment>
+				<ns2:RequestType>Согласование сделки с клиентом</ns2:RequestType>
+				<ns2:FullNameOfResponsiblePerson>Иванов Иван Семёнович</ns2:FullNameOfResponsiblePerson>
+			</ns2:contractInfo>
+		</ns1:createTaskRs>
+	</xsl:template>
 	
  	<xsl:template name="SaveDeal">
         <crm:saveDealRs xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:ur="http://sbrf.ru/NCP/CRM/SaveDealRs/"/>
