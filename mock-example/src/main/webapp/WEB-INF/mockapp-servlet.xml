@@ -97,18 +97,18 @@ http://www.springframework.org/schema/context       http://www.springframework.o
     
     <channel id="defaultChannel"/>
     <channel id="ESBSynCallForNCPDB"/>
-    <channel id="ReferenceData"/>
+<!--     <channel id="ReferenceData"/>
     <channel id="GetParticipants"/>
-    <channel id="UpdateRef"/>
+    <channel id="UpdateRef"/> -->
 
     <ix:xpath-router id="operationRouter" input-channel="fromGateChannel" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
         <ix:xpath-expression expression="/soap-env:Envelope/soap-env:Header/*/esbhd:operation-name" namespace-map="sbrfNamespaceMap" />
         
         <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="ESBSynCallForNCPDB"/>
-        <ix:mapping value="CreateTask" channel="ESBSynCallForNCPDB"/>
+<!--         <ix:mapping value="CreateTask" channel="ESBSynCallForNCPDB"/>
         <ix:mapping value="RefData" channel="ReferenceData"/>
         <ix:mapping value="GetParticipants" channel="GetParticipants"/>
-        <ix:mapping value="UpdateRef" channel="UpdateRef"/>
+        <ix:mapping value="UpdateRef" channel="UpdateRef"/> -->
     </ix:xpath-router>
 
     <!-- здесь уже реализация -->
@@ -116,7 +116,7 @@ http://www.springframework.org/schema/context       http://www.springframework.o
     <beans:bean id="ESBSynCallNCPDB" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/ESBSynCallForNCPDB.xsl"/>
     </beans:bean>
-    <beans:bean id="ReferenData" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+<!--     <beans:bean id="ReferenData" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/ReferenceData.xsl"/>
     </beans:bean>
     <beans:bean id="GetPrtsp" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
@@ -124,13 +124,13 @@ http://www.springframework.org/schema/context       http://www.springframework.o
     </beans:bean>
     <beans:bean id="UpdatRef" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/UpdateRef.xsl"/>
-    </beans:bean>
+    </beans:bean> -->
     
  <!--маппинг трасформеров на каналы-->   
     <transformer input-channel="ESBSynCallForNCPDB" output-channel="toGateChannel" method="transform" ref="ESBSynCallNCPDB"/>     
-    <transformer input-channel="ReferenceData" output-channel="toGateChannel" method="transform" ref="ReferenData"/>     
+<!--     <transformer input-channel="ReferenceData" output-channel="toGateChannel" method="transform" ref="ReferenData"/>     
     <transformer input-channel="GetParticipants" output-channel="toGateChannel" method="transform" ref="GetPrtsp"/>   
-    <transformer input-channel="UpdateRef" output-channel="toGateChannel" method="transform" ref="UpdatRef"/> 
+    <transformer input-channel="UpdateRef" output-channel="toGateChannel" method="transform" ref="UpdatRef"/>  -->
 
     <context:component-scan base-package="ru.sbt.bpm.mock.controller"/>
     
