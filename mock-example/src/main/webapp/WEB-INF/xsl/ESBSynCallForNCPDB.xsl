@@ -1253,6 +1253,11 @@
 					<ur:valueId>REF_SEGMENT_1</ur:valueId>
 					<ur:parentValueId/>
 				</ur:listOfValue>
+				<ur:listOfValue>
+					<ur:value>Национальные компании и институты развития</ur:value>
+					<ur:valueId>REF_SEGMENT_2</ur:valueId>
+					<ur:parentValueId/>
+				</ur:listOfValue>
 			</ur:referenceItem>
 			<ur:referenceItem>
 				<ur:referenceid>REF_STRESS_ANALYSIS</ur:referenceid>
