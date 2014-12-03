@@ -5,40 +5,18 @@
 	xmlns:esbhd="http://sbrf.ru/prpc/esb/headers/">
 	<xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0" />
 
-	<xsl:template match="/">
-		<xsl:apply-templates />
-	</xsl:template>
+    <xsl:template match="/">
+        <xsl:apply-templates />
+    </xsl:template>
 
-	<xsl:template match="soap-env:Envelope">
-		<xsl:element name="soap-env:Envelope">
-			<xsl:copy-of select="soap-env:Header"/>
-			<soap-env:Body>
-				<xsl:choose>
-					<xsl:when test="/soap-env:Envelope/soap-env:Header/esbhd:AsyncHeader/esbhd:operation-name='UpdateRef'">
-						<xsl:call-template name="UpdateRef" />
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:call-template name="Error"/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</soap-env:Body>
-		</xsl:element>
-	</xsl:template>
-	
-		<xsl:template name="Error">
-		<ns1:CreateTaskRs xmlns:ns1="http://sbrf.ru/NCP/CRM/">
-			<ns1:ErrorCode>1</ns1:ErrorCode>
-			<ns1:ErrorMessage>Ошибка в запросе. Не удалось найти ответ с указанным operation-name</ns1:ErrorMessage>
-			<ns1:ContractInfo>
-				<ns1:ContractID>1</ns1:ContractID>
-				<ns1:ContractBPMID>1</ns1:ContractBPMID>
-				<ns1:Status>1</ns1:Status>
-				<ns1:Comment>1</ns1:Comment>
-				<ns1:RequestType>1</ns1:RequestType>
-				<ns1:FullNameOfResponsiblePerson>1</ns1:FullNameOfResponsiblePerson>
-			</ns1:ContractInfo>
-		</ns1:CreateTaskRs>
-	</xsl:template>
+    <xsl:template match="soap-env:Envelope">
+        <xsl:element name="soap-env:Envelope">
+            <xsl:copy-of select="soap-env:Header"/>
+            <soap-env:Body>
+                <xsl:call-template name="UpdateRef" />
+            </soap-env:Body>
+        </xsl:element>
+    </xsl:template>
 
 	<xsl:template name="UpdateRef">
         <crm:updateRefRs xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:ur="http://sbrf.ru/NCP/CRM/UpdateRefRs/">

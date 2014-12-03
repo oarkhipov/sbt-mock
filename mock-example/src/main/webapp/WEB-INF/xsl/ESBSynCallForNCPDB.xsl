@@ -35,6 +35,7 @@
         </ns1:errorRs>
     </xsl:template>
 
+    <!--EXTRACTED-->
     <xsl:template name="CreateTask">
         <ns1:createTaskRs xmlns:ns1="http://sbrf.ru/NCP/CRM/" xmlns:ns2="http://sbrf.ru/NCP/CRM/CreateTaskRs/">
             <ns2:errorCode>0</ns2:errorCode>
