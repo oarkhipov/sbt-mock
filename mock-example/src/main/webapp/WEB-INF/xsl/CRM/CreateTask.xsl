@@ -7,17 +7,18 @@
 
     <xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>
 
+    <!--Prepare data and section of data XML-->
     <xsl:template match="soap-env:Envelope">
         <xsl:element name="soap-env:Envelope">
             <xsl:copy-of select="soap-env:Header"/>
             <soap-env:Body>
                 <xsl:variable name="data" select="document('../../xml/CRM_data/CreateTask.xml')/data"/>
-                <xsl:variable name="comment" select="./soap-env:Body/rq:createTaskRq/rq:comment"/>
+                <xsl:variable name="linkedTag" select="./soap-env:Body/rq:createTaskRq/rq:comment"/>
                 <xsl:call-template name="createTaskRs">
                     <xsl:with-param name="data" select="$data"/>
                     <xsl:with-param name="response">
                         <xsl:choose>
-                            <xsl:when test="count($data/response[@name=$comment])=1"><xsl:value-of select="$comment"/></xsl:when>
+                            <xsl:when test="count($data/response[@name=$linkedTag])=1"><xsl:value-of select="$linkedTag"/></xsl:when>
                             <xsl:otherwise>default</xsl:otherwise>
                         </xsl:choose>
                     </xsl:with-param>
@@ -26,16 +27,19 @@
         </xsl:element>
     </xsl:template>
 
+    <!--Fill blocks with data from data.xml-->
     <xsl:template match="response">
         <xsl:apply-templates select="errorMessage"/>
     </xsl:template>
 
+    <!--Fill tags with data from data.xml-->
     <xsl:template match="errorMessage">
         <ns2:errorMessage>
             <xsl:value-of select="."/>
         </ns2:errorMessage>
     </xsl:template>
 
+    <!--Transform main XML-->
     <xsl:template name="createTaskRs">
         <xsl:param name="response"/>
         <xsl:param name="data"/>
