@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Header xmlns:rq="http://sbrf.ru/NCP/CRM/CreateTaskRq/" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"/>
+    <soap-env:Body>
+        <ns1:createTaskRs xmlns:ns1="http://sbrf.ru/NCP/CRM/" xmlns:ns2="http://sbrf.ru/NCP/CRM/CreateTaskRs/">
+            <ns2:errorCode>Success</ns2:errorCode>
+            <ns2:errorCode>0</ns2:errorCode>
+            <ns2:contractID>GDF567GF</ns2:contractID>
+            <ns2:fullNameOfResponsiblePerson>Иванов Иван Семёнович</ns2:fullNameOfResponsiblePerson>
+            <ns2:comment>Some note</ns2:comment>
+            <ns2:contractBPMID>D-123</ns2:contractBPMID>
+            <ns2:requestType>Согласование сделки с клиентом</ns2:requestType>
+        </ns1:createTaskRs>
+    </soap-env:Body>
+</soap-env:Envelope>

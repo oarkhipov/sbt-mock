@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/" targetNamespace="http://sbrf.ru/NCP/CRM/ForceSignalRq/" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sbrf.ru/NCP/CRM/ForceSignalRq/">
+	
+		<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="CommonTypes.xsd"/>
+		
+	<xsd:complexType name="ForceSignalRq">
+		<xsd:sequence>
+			<xsd:element name="contractID" type="crmct:string15">
+				<xsd:annotation>
+					<xsd:documentation>
+						ID сделки в CRM
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="contractBPMID" type="crmct:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						ID сделки в PRPC
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="status" type="crmct:string15">
+				<xsd:annotation>
+					<xsd:documentation>
+						Статус
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="comment" type="crmct:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						Примечание
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestType" type="crmct:string50">
+				<xsd:annotation>
+					<xsd:documentation>
+						Тип сообщения
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="fullNameOfResponsiblePerson" type="crmct:string50">
+				<xsd:annotation>
+					<xsd:documentation>
+						ФИО Исполнителя
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="participantsGroup" type="tns:ParticipantsGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ParticipantsGroup">
+		<xsd:annotation>
+			<xsd:documentation>
+				Данные о КГ/ГСЗ
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="id" type="crmct:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						ID КГ/ГСЗ
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="label" type="crmct:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						Наименование КГ/ГСЗ
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="status" type="crmct:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						Статус КГ/ГСЗ
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="updateDate" type="xsd:date">
+				<xsd:annotation>
+					<xsd:documentation>
+						Дата обновления ГСЗ
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="approvalDate" type="xsd:date">
+				<xsd:annotation>
+					<xsd:documentation>
+						Дата утверждения ГСЗ
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="topLevelGroupName" type="crmct:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						Наименование ГСЗ верхнего уровня
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

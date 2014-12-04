@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/" targetNamespace="http://sbrf.ru/NCP/CRM/CreateTaskRs/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sbrf.ru/NCP/CRM/CreateTaskRs/" elementFormDefault="qualified">
+
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="CommonTypes.xsd"/>
+
+	<xsd:complexType name="CreateTaskRs">
+		<xsd:sequence>
+			<xsd:element name="contractID" type="crmct:string15">
+				<xsd:annotation>
+					<xsd:documentation>
+						ID сделки в CRM
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="contractBPMID" type="crmct:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						ID сделки в PRPC
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="comment" type="crmct:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						Примечание
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestType" type="crmct:string50">
+				<xsd:annotation>
+					<xsd:documentation>
+						Тип сообщения
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="fullNameOfResponsiblePerson" type="crmct:string50">
+				<xsd:annotation>
+					<xsd:documentation>
+						ФИО Исполнителя
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="errorCode" type="crmct:string50">
+				<xsd:annotation>
+					<xsd:documentation>
+						Код ошибки
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="errorCode" type="crmct:string2000" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						Сообщение об ошибке
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 	xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"
-	xmlns:esbhd="http://sbrf.ru/prpc/esb/headers/">
+	>
 	<xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0" />
 
 	<xsl:template match="/">

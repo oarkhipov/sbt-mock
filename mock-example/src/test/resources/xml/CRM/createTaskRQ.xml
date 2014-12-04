@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:rq="http://sbrf.ru/NCP/CRM/CreateTaskRq/">
+    <soap:Header/>
+    <soap:Body>
+        <rq:CreateTaskRq>
+            <rq:contractID>contractId</rq:contractID>
+            <rq:requestType>reqType</rq:requestType>
+            <rq:fullNameOfResponsiblePerson>person</rq:fullNameOfResponsiblePerson>
+            <rq:contractBPMID>bpmid</rq:contractBPMID>
+            <rq:comment>comment</rq:comment>
+        </rq:CreateTaskRq>
+    </soap:Body>
+</soap:Envelope>

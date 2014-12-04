@@ -1,56 +1,185 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:env="http://sbrf.ru/NCP/esb/envelope/">
-    <xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>
+    <xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0" />
     <xsl:template match="/">
-        <xsl:apply-templates/>
+        <xsl:apply-templates />
     </xsl:template>
     <xsl:template match="env:Envelope">
         <xsl:element name="env:Envelope">
-            <xsl:copy-of select="env:Header"/>
-            <env:Body>
+            <xsl:copy-of select="env:Header" />
+            <env:Body xmlns:crm="http://sbrf.ru/NCP/CRM/">
                 <xsl:choose>
                     <xsl:when test="/env:Envelope/env:Header/env:operation-name='CreateTask'">
-                        <xsl:call-template name="CreateTask"/>
+                        <xsl:call-template name="CreateTask" />
                     </xsl:when>
                     <xsl:when test="/env:Envelope/env:Header/env:operation-name='UpdateRef'">
-                        <xsl:call-template name="UpdateRef"/>
+                        <xsl:call-template name="UpdateRef" />
                     </xsl:when>
                     <xsl:when test="/env:Envelope/env:Header/env:operation-name='GetParticipants'">
-                        <xsl:call-template name="GetParticipants"/>
+                        <xsl:call-template name="GetParticipants" />
                     </xsl:when>
                     <xsl:when test="/env:Envelope/env:Header/env:operation-name='SaveDeal'">
-                        <xsl:call-template name="SaveDeal"/>
+                        <xsl:call-template name="SaveDeal" />
+                    </xsl:when>
+                    <xsl:when test="/env:Envelope/env:Header/env:operation-name='CalculateRatings'">
+                        <xsl:call-template name="CalculateRatings" />
+                    </xsl:when>
+                    <xsl:when test="/env:Envelope/env:Header/env:operation-name='CalculateLGD'">
+                        <xsl:call-template name="CalculateLGD" />
+                    </xsl:when>
+                    <xsl:when test="/env:Envelope/env:Header/env:operation-name='FinalizeLGD'">
+                        <xsl:call-template name="FinalizeLGD" />
+                    </xsl:when>
+                    <xsl:when test="/env:Envelope/env:Header/env:operation-name='ImportFinReport'">
+                        <xsl:call-template name="ImportFinReport" />
+                    </xsl:when>
+                    <xsl:when test="/env:Envelope/env:Header/env:operation-name='ImportFinAnalysis'">
+                        <xsl:call-template name="ImportFinAnalysis" />
+                    </xsl:when>
+                    <xsl:when test="/env:Envelope/env:Header/env:operation-name='ConfirmRatings'">
+                        <xsl:call-template name="ConfirmRatings" />
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:call-template name="Error"/>
+                        <xsl:call-template name="Error" />
                     </xsl:otherwise>
                 </xsl:choose>
             </env:Body>
         </xsl:element>
     </xsl:template>
-    <xsl:template name="Error">
-        <ns1:errorRs xmlns:ns1="http://sbrf.ru/NCP/CRM/">
-            <ns1:ErrorCode>1</ns1:ErrorCode>
-            <ns1:ErrorMessage>Ошибка в запросе. Не удалось найти ответ с указанным operation-name</ns1:ErrorMessage>
-        </ns1:errorRs>
+    <xsl:template name="CalculateRatings">
+        <r:calculateRatingRs xmlns:b="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/" xmlns:r="http://sbrf.ru/NCP/AMRLIRT/"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <b:return>
+                <b:errorCode>0</b:errorCode>
+                <b:errorMessage>String</b:errorMessage>
+                <b:listOfResultRating>
+                    <!-- Primary rating -->
+                    <b:resultRating>
+                        <b:isPrimary>true</b:isPrimary>
+                        <b:name>Name</b:name>
+                        <b:value>15</b:value>
+                        <b:type>Type</b:type>
+                    </b:resultRating>
+                    <b:resultRating>
+                        <b:isPrimary>false</b:isPrimary>
+                        <b:name>Name</b:name>
+                        <b:value>13</b:value>
+                        <b:type>Type</b:type>
+                    </b:resultRating>
+                    <b:resultRating>
+                        <b:isPrimary>false</b:isPrimary>
+                        <b:name>Name</b:name>
+                        <b:value>15</b:value>
+                        <b:type>Type</b:type>
+                    </b:resultRating>
+                </b:listOfResultRating>
+                <b:listOfCalculatedFactor>
+                    <b:calculatedFactor>
+                        <b:code>Code</b:code>
+                        <b:name>Name</b:name>
+                        <b:value>Value</b:value>
+                    </b:calculatedFactor>
+                    <b:calculatedFactor>
+                        <b:code>Code</b:code>
+                        <b:name>Name</b:name>
+                        <b:value>Value</b:value>
+                    </b:calculatedFactor>
+                    <b:calculatedFactor>
+                        <b:code>Code</b:code>
+                        <b:name>Name</b:name>
+                        <b:value>Value</b:value>
+                    </b:calculatedFactor>
+                </b:listOfCalculatedFactor>
+                <b:listOfAddParameter>
+                    <b:addParameter>
+                        <b:order>1</b:order>
+                        <b:name>Name</b:name>
+                        <b:value>Value</b:value>
+                    </b:addParameter>
+                    <b:addParameter>
+                        <b:order>1</b:order>
+                        <b:name>Name</b:name>
+                        <b:value>Value</b:value>
+                    </b:addParameter>
+                    <b:addParameter>
+                        <b:order>1</b:order>
+                        <b:name>Name</b:name>
+                        <b:value>Value</b:value>
+                    </b:addParameter>
+                </b:listOfAddParameter>
+            </b:return>
+        </r:calculateRatingRs>
     </xsl:template>
-
-    <!--EXTRACTED-->
+    <xsl:template name="CalculateLGD">
+        <amr:calculateLGDRs xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:rq="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"
+                            xmlns:rs="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/">
+            <rs:errorCode>0</rs:errorCode>
+            <rs:errorMessage>Success</rs:errorMessage>
+            <rs:crmId>
+                <xsl:value-of select="env:Body/amr:calculateLGDRq/rq:crmId" />
+            </rs:crmId>
+            <rs:lgdType>
+                <xsl:value-of select="env:Body/amr:calculateLGDRq/rq:lgdType" />
+            </rs:lgdType>
+            <rs:lgdDate>2014-11-20</rs:lgdDate>
+            <rs:pd>10</rs:pd>
+            <rs:lgd>15</rs:lgd>
+            <rs:ead>100000</rs:ead>
+            <rs:sum>123000</rs:sum>
+            <rs:elPercent>12</rs:elPercent>
+            <rs:el>120000</rs:el>
+            <rs:totalValue>1000000</rs:totalValue>
+            <rs:totalColValueLgd>1000000</rs:totalColValueLgd>
+            <rs:totalColValueEad>1000000</rs:totalColValueEad>
+            <rs:listOfCollateral>
+                <xsl:for-each select="env:Body/amr:calculateLGDRq/rq:listOfCollateral/rq:collateral">
+                    <rs:collateral>
+                        <rs:crmId>
+                            <xsl:value-of select="rq:crmId" />
+                        </rs:crmId>
+                        <rs:collType>
+                            <xsl:value-of select="rq:collType" />
+                        </rs:collType>
+                        <rs:returnRate>100000</rs:returnRate>
+                        <rs:discountRate>11</rs:discountRate>
+                        <rs:collValueEad>123000</rs:collValueEad>
+                        <rs:collValueLgd>140000</rs:collValueLgd>
+                    </rs:collateral>
+                </xsl:for-each>
+            </rs:listOfCollateral>
+        </amr:calculateLGDRs>
+    </xsl:template>
+    <xsl:template name="FinalizeLGD">
+        <amr:finalizeLGDRs xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:rq="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRq/"
+                           xmlns:rs="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/">
+            <rs:errorCode>0</rs:errorCode>
+            <rs:errorMessage>Success</rs:errorMessage>
+            <rs:crmId>
+                <xsl:value-of select="env:Body/amr:finalizeLGDRq/rq:crmId" />
+            </rs:crmId>
+            <rs:type>
+                <xsl:value-of select="env:Body/amr:finalizeLGDRq/rq:type" />
+            </rs:type>
+        </amr:finalizeLGDRs>
+    </xsl:template>
+    <xsl:template name="Error">
+        <ns1:srvErrorResponse xmlns:ns1="http://sbrf.ru/commonTypes/">
+            <ns1:initialSID>ESB_MOCK</ns1:initialSID>
+            <ns1:errorCode>1</ns1:errorCode>
+            <ns1:errorMessage>Ошибка в запросе. Не удалось найти ответ с указанным operation-name</ns1:errorMessage>
+        </ns1:srvErrorResponse>
+    </xsl:template>
     <xsl:template name="CreateTask">
         <ns1:createTaskRs xmlns:ns1="http://sbrf.ru/NCP/CRM/" xmlns:ns2="http://sbrf.ru/NCP/CRM/CreateTaskRs/">
+            <ns2:contractID>contractID0</ns2:contractID>
+            <ns2:contractBPMID>contractBPMID0</ns2:contractBPMID>
+            <ns2:comment>comment0</ns2:comment>
+            <ns2:requestType>requestType0</ns2:requestType>
+            <ns2:fullNameOfResponsiblePerson>fullNameOfResponsiblePerson0</ns2:fullNameOfResponsiblePerson>
             <ns2:errorCode>0</ns2:errorCode>
-            <ns2:errorMessage>Success</ns2:errorMessage>
-            <ns2:contractInfo>
-                <ns2:ContractID>GDF567GF</ns2:ContractID>
-                <ns2:ContractBPMID>D-123</ns2:ContractBPMID>
-                <ns2:Status>New</ns2:Status>
-                <ns2:Comment>Some note</ns2:Comment>
-                <ns2:RequestType>Согласование сделки с клиентом</ns2:RequestType>
-                <ns2:FullNameOfResponsiblePerson>Иванов Иван Семёнович</ns2:FullNameOfResponsiblePerson>
-            </ns2:contractInfo>
+            <ns2:errorCode>errorMessage0</ns2:errorCode>
         </ns1:createTaskRs>
     </xsl:template>
-
     <xsl:template name="SaveDeal">
         <ns1:saveDealRs xmlns:ns1="http://sbrf.ru/NCP/CRM/" xmlns:svd="http://sbrf.ru/NCP/CRM/SaveDealRs/">
             <svd:operationStatus>
@@ -60,7 +189,6 @@
             <svd:dealID>Deal-ID-XX</svd:dealID>
         </ns1:saveDealRs>
     </xsl:template>
-
     <xsl:template name="UpdateRef">
         <crm:updateRefRs xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:ur="http://sbrf.ru/NCP/CRM/UpdateRefRs/">
             <ur:referenceItem>
@@ -68,27 +196,27 @@
                 <ur:listOfValue>
                     <ur:value>KZT</ur:value>
                     <ur:valueId>REF_CURRENCY_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>RUR</ur:value>
                     <ur:valueId>REF_CURRENCY_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>USD</ur:value>
                     <ur:valueId>REF_CURRENCY_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>EUR</ur:value>
                     <ur:valueId>REF_CURRENCY_3</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>BYR</ur:value>
                     <ur:valueId>REF_CURRENCY_4</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -97,37 +225,37 @@
                     <ur:value>Высокий (доля одного потребителя более 50%)
                     </ur:value>
                     <ur:valueId>REF_CUSTOMERS_SHARE_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Значительный (доля одного потребителя от 30% до 50%)
                     </ur:value>
                     <ur:valueId>REF_CUSTOMERS_SHARE_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Средний (доля одного потребителя от 10% до 30%)
                     </ur:value>
                     <ur:valueId>REF_CUSTOMERS_SHARE_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Низкий (доля одного потребителя менее 10%)
                     </ur:value>
                     <ur:valueId>REF_CUSTOMERS_SHARE_3</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Зависимость потребителя не влияет на стабильность в
                         данной отрасли
                     </ur:value>
                     <ur:valueId>REF_CUSTOMERS_SHARE_4</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Нет информации</ur:value>
                     <ur:valueId>REF_CUSTOMERS_SHARE_5</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -136,110 +264,111 @@
                     <ur:value>Пищевая промышленность и производство табачных изделий
                     </ur:value>
                     <ur:valueId>REF_INDUSTRY_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Химическая промышленность</ur:value>
                     <ur:valueId>REF_INDUSTRY_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Энергетика и водоснабжение</ur:value>
                     <ur:valueId>REF_INDUSTRY_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Металлургическая промышленность</ur:value>
                     <ur:valueId>REF_INDUSTRY_3</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Машиностроение</ur:value>
                     <ur:valueId>REF_INDUSTRY_4</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Лесная, деревообрабатывающая и целлюлозно-бумажная
                         промышленность
                     </ur:value>
                     <ur:valueId>REF_INDUSTRY_5</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Угольная промышленность</ur:value>
                     <ur:valueId>REF_INDUSTRY_6</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Нефтегазовая промышленность</ur:value>
                     <ur:valueId>REF_INDUSTRY_7</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Сельское хозяйство</ur:value>
                     <ur:valueId>REF_INDUSTRY_8</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Строительство и операции с недвижимым имуществом
                     </ur:value>
                     <ur:valueId>REF_INDUSTRY_9</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Транспорт</ur:value>
                     <ur:valueId>REF_INDUSTRY_10</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Связь и телекоммуникации</ur:value>
                     <ur:valueId>REF_INDUSTRY_11</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Торговля (Кроме специализированной оптовой)
                     </ur:value>
                     <ur:valueId>REF_INDUSTRY_12</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Услуги (кроме специализированных услуг, указанных в
                         других разделах классификатора)
                     </ur:value>
                     <ur:valueId>REF_INDUSTRY_13</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Здравоохранение, образование</ur:value>
                     <ur:valueId>REF_INDUSTRY_14</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Деятельность в области лизинга</ur:value>
                     <ur:valueId>REF_INDUSTRY_15</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Финансовая деятельность</ur:value>
                     <ur:valueId>REF_INDUSTRY_16</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Страховая компания</ur:value>
                     <ur:valueId>REF_INDUSTRY_17</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Государственное управление и обеспечение гражданской
-                        безопасности; обязательное социальное обеспечение
+                        безопасности; обязательное социальное
+                        обеспечение
                     </ur:value>
                     <ur:valueId>REF_INDUSTRY_18</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Прочие виды экономической деятельности.</ur:value>
                     <ur:valueId>REF_INDUSTRY_19</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -247,17 +376,17 @@
                 <ur:listOfValue>
                     <ur:value>Не возобновляемая кредитная линия</ur:value>
                     <ur:valueId>REF_INSTRUMENT_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Единовременная выдача займа</ur:value>
                     <ur:valueId>REF_INSTRUMENT_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Возобновляемая кредитная линия</ur:value>
                     <ur:valueId>REF_INSTRUMENT_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -265,65 +394,65 @@
                 <ur:listOfValue>
                     <ur:value>Фиксированная</ur:value>
                     <ur:valueId>REF_INTEREST_RATE_TYPE_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Переменная</ur:value>
                     <ur:valueId>REF_INTEREST_RATE_TYPE_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Плавающая + фиксирован. Маржа</ur:value>
                     <ur:valueId>REF_INTEREST_RATE_TYPE_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Плавающая + перемен. Маржа</ur:value>
                     <ur:valueId>REF_INTEREST_RATE_TYPE_3</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Комбинированная</ur:value>
                     <ur:valueId>REF_INTEREST_RATE_TYPE_4</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
-                <ur:referenceid>REF_LEGAL_ENTITY_TYPE</ur:referenceid>
+                <ur:referenceid>REF_BUSINESS_ENTITY_TYPE</ur:referenceid>
                 <ur:listOfValue>
                     <ur:value>ОАО</ur:value>
-                    <ur:valueId>REF_LEGAL_ENTITY_TYPE_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:valueId>REF_BUSINESS_ENTITY_TYPE_0</ur:valueId>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>ЗАО</ur:value>
-                    <ur:valueId>REF_LEGAL_ENTITY_TYPE_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:valueId>REF_BUSINESS_ENTITY_TYPE_1</ur:valueId>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>ООО</ur:value>
-                    <ur:valueId>REF_LEGAL_ENTITY_TYPE_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:valueId>REF_BUSINESS_ENTITY_TYPE_2</ur:valueId>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>ИП</ur:value>
-                    <ur:valueId>REF_LEGAL_ENTITY_TYPE_3</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:valueId>REF_BUSINESS_ENTITY_TYPE_3</ur:valueId>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>ФЛ</ur:value>
-                    <ur:valueId>REF_LEGAL_ENTITY_TYPE_4</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:valueId>REF_BUSINESS_ENTITY_TYPE_4</ur:valueId>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>КФХ</ur:value>
-                    <ur:valueId>REF_LEGAL_ENTITY_TYPE_5</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:valueId>REF_BUSINESS_ENTITY_TYPE_5</ur:valueId>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>СПК</ur:value>
-                    <ur:valueId>REF_LEGAL_ENTITY_TYPE_6</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:valueId>REF_BUSINESS_ENTITY_TYPE_6</ur:valueId>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -331,19 +460,19 @@
                 <ur:listOfValue>
                     <ur:value>Унифицированный</ur:value>
                     <ur:valueId>REF_LIMIT_TYPE_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Унифицированный, переданный на использование по старой
                         системе
                     </ur:value>
                     <ur:valueId>REF_LIMIT_TYPE_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Структурированный</ur:value>
                     <ur:valueId>REF_LIMIT_TYPE_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -351,93 +480,95 @@
                 <ur:listOfValue>
                     <ur:value>Овердрафт</ur:value>
                     <ur:valueId>REF_LOAN_PURPOSE_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Корпоративное кредитование</ur:value>
                     <ur:valueId>REF_LOAN_PURPOSE_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Инвестиционное кредитование (кроме строительства)
                     </ur:value>
                     <ur:valueId>REF_LOAN_PURPOSE_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Инвестиционное кредитование строительства объектов
                         жилой недвижимости
                     </ur:value>
                     <ur:valueId>REF_LOAN_PURPOSE_3</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Инвестиционное кредитование строительства объектов
                         коммерческой недвижимости
                     </ur:value>
                     <ur:valueId>REF_LOAN_PURPOSE_4</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Непокрытые аккредитивы (с постфинансированием или с
-                        обеспечением денежными средствами менее 100%)
+                        обеспечением денежными средствами менее
+                        100%)
                     </ur:value>
                     <ur:valueId>REF_LOAN_PURPOSE_5</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Факторинг</ur:value>
                     <ur:valueId>REF_LOAN_PURPOSE_6</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Проектное финансирование (кроме строительства)
                     </ur:value>
                     <ur:valueId>REF_LOAN_PURPOSE_7</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Непокрытые аккредитивы (с постфинансированием или с
-                        обеспечением денежными средствами менее 100%)
+                        обеспечением денежными средствами менее
+                        100%)
                     </ur:value>
                     <ur:valueId>REF_LOAN_PURPOSE_8</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Проектное финансирование строительства объектов жилой
                         недвижимости
                     </ur:value>
                     <ur:valueId>REF_LOAN_PURPOSE_9</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Проектное финансирование строительства объектов
                         коммерческой недвижимости
                     </ur:value>
                     <ur:valueId>REF_LOAN_PURPOSE_10</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Контрактное кредитование предприятий</ur:value>
                     <ur:valueId>REF_LOAN_PURPOSE_11</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Гарантия исполнения обязательств по договору исполнения
                         контракта
                     </ur:value>
                     <ur:valueId>REF_LOAN_PURPOSE_12</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Тендерная гарантия</ur:value>
                     <ur:valueId>REF_LOAN_PURPOSE_13</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Финансирование лизинговых сделок</ur:value>
                     <ur:valueId>REF_LOAN_PURPOSE_14</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -445,346 +576,388 @@
                 <ur:listOfValue>
                     <ur:value>Рост</ur:value>
                     <ur:valueId>REF_MARKET_TREND_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Стагнация</ur:value>
                     <ur:valueId>REF_MARKET_TREND_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Падение</ur:value>
                     <ur:valueId>REF_MARKET_TREND_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Волатильность</ur:value>
                     <ur:valueId>REF_MARKET_TREND_3</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
                 <ur:referenceid>REF_PROBLEM_CATEGORY</ur:referenceid>
                 <ur:listOfValue>
                     <ur:value>ухудшение рейтинга заемщика на 3 уровня, при этом
-                        рейтинг заемщика после снижения определен на уровне 17 и хуже, но
+                        рейтинг заемщика после снижения определен
+                        на уровне 17 и хуже, но
                         не превышает уровень 24
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>ухудшение рейтинга заемщика до уровня 22 – 24
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>наличие просроченной задолженности по обязательствам
-                        перед Банком непрерывной длительностью от 5 до 30 календарных дней
+                        перед Банком непрерывной длительностью
+                        от 5 до 30 календарных дней
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>снижение выручки и/или EBITDA заемщика, в течение 2
-                        последних квартальных отчетных дат от запланированного и
+                        последних квартальных отчетных дат от
+                        запланированного и
                         утвержденного Банком значения, в соответствии с прогнозом движения
-                        денежных средств, утвержденным Банком при принятии решения
-                        Коллегиальным органом о заключении наиболее поздней из действующих
-                        сделок, более чем на 20%, но не более чем на 50%
-                    </ur:value>
+                        денежных
+                        средств, утвержденным Банком при принятии решения
+                        Коллегиальным органом о заключении наиболее
+                        поздней из действующих
+                        сделок, более чем на 20%, но не более чем на 50% </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_3</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>возникновение у участника кредитной сделки просроченной
-                        дебиторской задолженности сроком более 3 месяцев в размере не менее
+                        дебиторской задолженности сроком
+                        более 3 месяцев в размере не менее
                         25 процентов от его совокупной дебиторской задолженности
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_4</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>снижение собственного капитала заемщика до
-                        отрицательной величины и сохранение данного отрицательного значения
+                        отрицательной величины и сохранение данного
+                        отрицательного значения
                         собственного капитала на протяжении 3 последних квартальных
                         отчетных дат
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_5</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>возрастание (по сравнению с уровнем на дату образования
-                        задолженности) рисков, связанных с регулированием деятельности
+                        задолженности) рисков, связанных с
+                        регулированием деятельности
                         заемщика, включая отмену существующих льгот, изменение режима
                         налогообложения и другие подобные факторы, негативно влияющие на
-                        бизнес участника кредитной сделки
+                        бизнес участника кредитной
+                        сделки
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_6</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>изменения в составе собственников и/или руководстве
-                        участника кредитной сделки, которые могут негативно повлиять на
+                        участника кредитной сделки, которые
+                        могут негативно повлиять на
                         бизнес, информация о наличии серьезных разногласий и конфронтации
                         между акционерами/участниками и их возможной смене
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_7</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>усиление влияния рисков по сравнению с их уровнем на
-                        момент образования задолженности, связанных с наличием негативной
+                        момент образования задолженности,
+                        связанных с наличием негативной
                         информации о деловой репутации участника кредитной сделки, его
                         владельцах, руководителях и взаимосвязанных с ними лиц, в том числе
-                        недобросовестные действия участника кредитной сделки, в частности
-                        предоставление фиктивных документов, нарушение достигнутых с Банком
+                        недобросовестные действия
+                        участника кредитной сделки, в частности
+                        предоставление фиктивных документов, нарушение
+                        достигнутых с Банком
                         договоренностей, выраженных в устной (отраженной в протоколе
-                        переговоров) и письменной форме
+                        переговоров) и
+                        письменной форме
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_8</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>обращение заемщика с заявлением о реструктуризации
-                        задолженности, связанное с отсутствием возможности или намерения
+                        задолженности, связанное с отсутствием
+                        возможности или намерения
                         заемщика исполнить обязательства на первоначальных условиях
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_9</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>по результатам проверки консолидированной группы
-                        выявлено отрицательное влияние члена консолидированной группы,
+                        выявлено отрицательное влияние члена
+                        консолидированной группы,
                         относящегося к желтой зоне, обосновывающее отнесение заемщика к
-                        желтой зоне
+                        желтой
+                        зоне
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_10</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>наличие предъявленных к участнику кредитной сделки
-                        исков третьих лиц, которые могут оказать негативное влияние на
+                        исков третьих лиц, которые могут оказать
+                        негативное влияние на
                         возврат задолженности
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_11</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>наличие просроченной задолженности Участника кредитной
-                        сделки перед другими кредиторами непрерывной длительностью от 15 до
+                        сделки перед другими кредиторами
+                        непрерывной длительностью от 15 до
                         90 календарных дней в сумме, превышающей 50 процентов его
                         собственного капитала
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_12</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>снижение совокупной стоимости залогового обеспечения,
-                        отнесенного к категориям "основное" и "комфортное обеспечение" (в
+                        отнесенного к категориям "основное" и
+                        "комфортное обеспечение" (в
                         том числе в результате его повреждения, утраты и т.п.) в размере
                         более чем на 20%, но не более чем на 30% от рыночной стоимости
-                        данного обеспечения, определенной последним заключением залоговой
+                        данного обеспечения, определенной
+                        последним заключением залоговой
                         службы
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_13</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>нарушение условий кредитной документации/ковенант
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_14</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>ухудшение рейтинга заемщика до уровня 25 или 26
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_15</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>наличие просроченной задолженности по обязательствам
-                        перед Банком непрерывной длительностью от 31 до 90 календарных дней
+                        перед Банком непрерывной длительностью
+                        от 31 до 90 календарных дней
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_16</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>наличие просроченной задолженности участника кредитной
-                        сделки перед другими кредиторами непрерывной длительностью свыше 90
-                        календарных дней в сумме, превышающей 50% его собственного капитала
+                        сделки перед другими кредиторами
+                        непрерывной длительностью свыше 90
+                        календарных дней в сумме, превышающей 50% его собственного
+                        капитала
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_17</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>снижение выручки и/или EBITDA заемщика, в течение 2
-                        (двух) последних квартальных отчетных дат от запланированного и
+                        (двух) последних квартальных отчетных
+                        дат от запланированного и
                         утвержденного Банком значения, в соответствии с прогнозом движения
                         денежных средств, утвержденным Банком при принятии решения
-                        Коллегиальным органом о заключении наиболее поздней из действующих
-                        сделок, более чем на 50%
-                    </ur:value>
+                        Коллегиальным органом о заключении
+                        наиболее поздней из действующих
+                        сделок, более чем на 50% </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_18</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>отсутствие у заемщика действующей лицензии на право
-                        осуществления деятельности, поступления от которой генерировали
+                        осуществления деятельности, поступления
+                        от которой генерировали
                         свыше 30 % денежных потоков заемщика на протяжении последних 6
-                        месяцев, если данный вид деятельности подлежит лицензированию
+                        месяцев,
+                        если данный вид деятельности подлежит лицензированию
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_19</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>принятие судом к рассмотрению иска о признании
-                        недействительности сделки, в рамках исполнения которой на заемщика
+                        недействительности сделки, в рамках
+                        исполнения которой на заемщика
                         возложена обязанность по погашению задолженности, или отдельных
                         условий данной сделки, снижающих риски Банка
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_20</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>снижение совокупной стоимости залогового обеспечения,
-                        отнесенного к категориям "основное" и "комфортное обеспечение" (в
+                        отнесенного к категориям "основное" и
+                        "комфортное обеспечение" (в
                         том числе в результате его повреждения, утраты и т.п.) в размере
                         более чем на 30% от рыночной стоимости данного обеспечения,
-                        определенной последним заключением залоговой службы
+                        определенной последним заключением
+                        залоговой службы
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_21</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>по результатам проверки консолидированной группы
-                        выявлено отрицательное влияние члена консолидированной группы,
+                        выявлено отрицательное влияние члена
+                        консолидированной группы,
                         относящегося к красной зоне, обосновывающее отнесение заемщика к
                         красной зоне
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_22</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>фактическое прекращение участником кредитной сделки,
-                        кроме заемщика, финансово-хозяйственной деятельности
+                        кроме заемщика,
+                        финансово-хозяйственной деятельности
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_23</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>повторное обращение заемщика с заявлением о
-                        реструктуризации задолженности, связанное с отсутствием возможности
+                        реструктуризации задолженности, связанное с
+                        отсутствием возможности
                         или намерения заемщика исполнить обязательства на первоначальных
                         условиях, если в составе задолженности есть обязательства, которые
-                        ранее уже были реструктурированы
+                        ранее уже были
+                        реструктурированы
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_24</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>иные факторы, которые лидер процесса и/или андеррайтер
-                        считает достаточным основанием для отнесения задолженности к
+                        считает достаточным основанием для
+                        отнесения задолженности к
                         красной зоне
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_25</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>наличие просроченной задолженности по обязательствам
-                        перед Банком непрерывной длительностью свыше 90 календарных дней
+                        перед Банком непрерывной длительностью
+                        свыше 90 календарных дней
                         (дефолт)
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_26</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>отказ заемщика от погашения задолженности, выраженный в
                         письменной или устной форме
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_27</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>принятие участником кредитной сделки решения о
                         ликвидации
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_28</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>наличие производства по делу о несостоятельности
                         (банкротстве) участника кредитной сделки
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_29</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>фактическое прекращение заемщиком
                         финансово-хозяйственной деятельности
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_30</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>принятие кредитующим подразделением и ПРПА совместного
-                        решения о выборе дефолтной стратегии работы с ПА
+                        решения о выборе дефолтной стратегии
+                        работы с ПА
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_31</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>инициирование Банком процедуры принудительного
-                        взыскания всей суммы/части задолженности заемщика в судебном
+                        взыскания всей суммы/части задолженности
+                        заемщика в судебном
                         порядке/обращения взыскания на заложенное имущество
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_32</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>принятие коллегиальным органом Банка решения обратить
-                        взыскание на заложенное имущество во внесудебном порядке
+                        взыскание на заложенное имущество во
+                        внесудебном порядке
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_33</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>инициирование Банком возбуждения уголовных дел в
-                        отношении участника кредитной сделки/его руководителей и/или
+                        отношении участника кредитной сделки/его
+                        руководителей и/или
                         владельцев
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_34</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>введение временной финансовой администрации
-                        (конкурсный, реабилитационный управляющий и т.п.) в отношении
+                        (конкурсный, реабилитационный управляющий и
+                        т.п.) в отношении
                         заемщика
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_35</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>по результатам проверки ГСЗ выявлено отрицательное
-                        влияние члена ГСЗ, относящегося к черной зоне, обосновывающее
+                        влияние члена ГСЗ, относящегося к черной
+                        зоне, обосновывающее
                         отнесение заемщика к черной зоне
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_36</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>иные факторы, которые лидер процесса и/или андеррайтер
-                        считает достаточным основанием для отнесения задолженности к черной
+                        считает достаточным основанием для
+                        отнесения задолженности к черной
                         зоне
                     </ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_37</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>отсутствие любых источников погашения</ur:value>
                     <ur:valueId>REF_PROBLEM_CATEGORY_38</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -792,256 +965,274 @@
                 <ur:listOfValue>
                     <ur:value>Признаки проблемности не идентифицированы</ur:value>
                     <ur:valueId>REF_PROBLEM_CRITERIA_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Потенциально проблемный</ur:value>
                     <ur:valueId>REF_PROBLEM_CRITERIA_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Проблемный</ur:value>
                     <ur:valueId>REF_PROBLEM_CRITERIA_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Безнадежный</ur:value>
                     <ur:valueId>REF_PROBLEM_CRITERIA_3</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
                 <ur:referenceid>REF_PRODUCT</ur:referenceid>
                 <ur:listOfValue>
                     <ur:value>Кредит на пополнение оборотных активов (финансирование
-                        производственной, торговой, снабженческой, иной деятельности)
+                        производственной, торговой,
+                        снабженческой, иной деятельности)
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Кредит на выплату заработной платы, включая суммы
-                        обязательных страховых взносов и подоходного налога с физических
-                        лиц, взносов в Фонд социальной защиты населения Министерства труда
+                        обязательных страховых взносов и
+                        подоходного налога с физических
+                        лиц, взносов в Фонд социальной защиты населения Министерства
+                        труда
                         и социальной защиты населения Министерства труда и социальной
-                        защиты, и иные взносы, исчисляемые с суммы заработной платы
+                        защиты, и иные взносы,
+                        исчисляемые с суммы заработной платы
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Кредит на уплату налогов, сборов, пошлин и иных
                         обязательных платежей, взносов и т.п.
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Кредит на финансирование затрат по капитальному
                         (текущему) ремонту
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_3</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Кредит на иные расходы, необходимые для осуществления
                         текущей деятельности
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_4</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Кредит на приобретение отдельных единиц движимого и
-                        недвижимого имущества и нематериальных активов (включая косвенные
+                        недвижимого имущества и нематериальных
+                        активов (включая косвенные
                         затраты) вне реализации клиентом проектов технического
-                        перевооружения, модернизации действующего/создания нового
-                        производства с общим принципом классификации кредита по типу
+                        перевооружения,
+                        модернизации действующего/создания нового
+                        производства с общим принципом классификации кредита по
+                        типу
                         финансирования
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_5</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Кредиты на реконструкцию/модернизацию зданий,
-                        сооружений, инженерных и транспортных коммуникаций в соответствии с
+                        сооружений, инженерных и транспортных
+                        коммуникаций в соответствии с
                         общим принципом классификации кредита по типу финансирования.
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_6</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Кредиты на приобретение движимого и недвижимого
-                        имущества и нематериальных активов (включая косвенные затраты) в
+                        имущества и нематериальных активов (включая
+                        косвенные затраты) в
                         рамках реализации клиентом проектов технического перевооружения,
                         модернизации действующего/создания нового производства в
-                        соответствии с общим принципом классификации кредита по типу
+                        соответствии с общим принципом
+                        классификации кредита по типу
                         финансирования
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_7</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Операции прямого финансового лизинга в соответствии с
-                        общим принципом классификации кредита по типу финансирования
+                        общим принципом классификации кредита
+                        по типу финансирования
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_8</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Финансирование под уступку денежных требований
                         (факторинг)
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_9</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Финансирование в рамках специализированных программ
-                        ЕАБР и ЕБРР с общим принципом классификации продукта по типу
+                        ЕАБР и ЕБРР с общим принципом
+                        классификации продукта по типу
                         финансирования
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_10</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Финансирование с привлечением ресурсов иностранных
-                        банков с общим принципом классификации продукта по типу
+                        банков с общим принципом классификации
+                        продукта по типу
                         финансирования
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_11</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Контрактное кредитование</ur:value>
                     <ur:valueId>REF_PRODUCT_12</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Кредитование под заклад денег</ur:value>
                     <ur:valueId>REF_PRODUCT_13</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Кредитование внешнеторговых контрактов</ur:value>
                     <ur:valueId>REF_PRODUCT_14</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Финансирование строительства объектов жилой
                         недвижимости
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_15</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Финансирование строительства объектов коммерческой
                         недвижимости
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_16</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Проектное финансирование (кроме строительства)
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_17</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Кредитование на приобретение лизингодателем
                         (лизинговыми компаниями) предметов лизинга
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_18</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Контрактное кредитование предприятий</ur:value>
                     <ur:valueId>REF_PRODUCT_19</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Корпоративное кредитование на инвестиционные цели
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_20</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Корпоративное кредитование на пополнение оборотных
                         средств
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_21</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Овердрафт</ur:value>
                     <ur:valueId>REF_PRODUCT_22</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Факторинг</ur:value>
                     <ur:valueId>REF_PRODUCT_23</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Гарантия исполнения обязательств по договору исполнения
                         контракта
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_24</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Аккредитивы без перевода покрытия</ur:value>
                     <ur:valueId>REF_PRODUCT_25</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Гарантия/ контргарантия исполнения обязательств по
-                        договору/ контракту с общим принципом распределения продукта по
+                        договору/ контракту с общим принципом
+                        распределения продукта по
                         типу финансирования
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_26</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Гарантия/ контргарантия возврата авансового платежа с
-                        общим принципом распределения продукта по типу финансирования
+                        общим принципом распределения
+                        продукта по типу финансирования
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_27</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Гарантия обеспечения кредита с общим принципом
-                        распределения продукта по типу финансирования
+                        распределения продукта по типу
+                        финансирования
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_28</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Тендерные гарантии</ur:value>
                     <ur:valueId>REF_PRODUCT_29</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Гарантия/контргарантия платежа с общим принципом
-                        распределения продукта по типу финансирования
+                        распределения продукта по типу
+                        финансирования
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_30</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Гарантии в пользу таможенных органов</ur:value>
                     <ur:valueId>REF_PRODUCT_31</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Гарантии в пользу БАМАП</ur:value>
                     <ur:valueId>REF_PRODUCT_32</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Непокрытые аккредитивы (с постфинансированием или с
-                        обеспечением денежными средствами менее 100%)
+                        обеспечением денежными средствами менее
+                        100%)
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_33</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -1049,19 +1240,19 @@
                 <ur:listOfValue>
                     <ur:value>Унифицированный</ur:value>
                     <ur:valueId>REF_PRODUCT_CATEGORY_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Унифицированный, в рамках лимита, переданного на
                         использование по старой системе
                     </ur:value>
                     <ur:valueId>REF_PRODUCT_CATEGORY_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Структурированный</ur:value>
                     <ur:valueId>REF_PRODUCT_CATEGORY_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -1069,27 +1260,27 @@
                 <ur:listOfValue>
                     <ur:value>Овердрафт</ur:value>
                     <ur:valueId>REF_PRODUCT_LIMIT_TYPE_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Корпоративное кредитование</ur:value>
                     <ur:valueId>REF_PRODUCT_LIMIT_TYPE_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Проектное финансирование</ur:value>
                     <ur:valueId>REF_PRODUCT_LIMIT_TYPE_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Контрактное кредитование</ur:value>
                     <ur:valueId>REF_PRODUCT_LIMIT_TYPE_3</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Гарантии</ur:value>
                     <ur:valueId>REF_PRODUCT_LIMIT_TYPE_4</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -1097,137 +1288,137 @@
                 <ur:listOfValue>
                     <ur:value>Не рассчитан</ur:value>
                     <ur:valueId>REF_RATING_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>1</ur:value>
                     <ur:valueId>REF_RATING_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>2</ur:value>
                     <ur:valueId>REF_RATING_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>3</ur:value>
                     <ur:valueId>REF_RATING_3</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>4</ur:value>
                     <ur:valueId>REF_RATING_4</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>5</ur:value>
                     <ur:valueId>REF_RATING_5</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>6</ur:value>
                     <ur:valueId>REF_RATING_6</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>7</ur:value>
                     <ur:valueId>REF_RATING_7</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>8</ur:value>
                     <ur:valueId>REF_RATING_8</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>9</ur:value>
                     <ur:valueId>REF_RATING_9</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>10</ur:value>
                     <ur:valueId>REF_RATING_10</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>11</ur:value>
                     <ur:valueId>REF_RATING_11</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>12</ur:value>
                     <ur:valueId>REF_RATING_12</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>13</ur:value>
                     <ur:valueId>REF_RATING_13</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>14</ur:value>
                     <ur:valueId>REF_RATING_14</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>15</ur:value>
                     <ur:valueId>REF_RATING_15</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>16</ur:value>
                     <ur:valueId>REF_RATING_16</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>17</ur:value>
                     <ur:valueId>REF_RATING_17</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>18</ur:value>
                     <ur:valueId>REF_RATING_18</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>19</ur:value>
                     <ur:valueId>REF_RATING_19</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>20</ur:value>
                     <ur:valueId>REF_RATING_20</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>21</ur:value>
                     <ur:valueId>REF_RATING_21</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>22</ur:value>
                     <ur:valueId>REF_RATING_22</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>23</ur:value>
                     <ur:valueId>REF_RATING_23</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>24</ur:value>
                     <ur:valueId>REF_RATING_24</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>25</ur:value>
                     <ur:valueId>REF_RATING_25</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>26</ur:value>
                     <ur:valueId>REF_RATING_26</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -1235,22 +1426,22 @@
                 <ur:listOfValue>
                     <ur:value>Одним платежом</ur:value>
                     <ur:valueId>REF_REPAYMENT_MODEL_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Ежемесячно</ur:value>
                     <ur:valueId>REF_REPAYMENT_MODEL_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Ежеквартально</ur:value>
                     <ur:valueId>REF_REPAYMENT_MODEL_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Иное</ur:value>
                     <ur:valueId>REF_REPAYMENT_MODEL_3</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -1258,17 +1449,17 @@
                 <ur:listOfValue>
                     <ur:value>Крупный и крупнейший бизнес</ur:value>
                     <ur:valueId>REF_SEGMENT_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Средний бизнес</ur:value>
                     <ur:valueId>REF_SEGMENT_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Национальные компании и институты развития</ur:value>
                     <ur:valueId>REF_SEGMENT_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -1276,22 +1467,22 @@
                 <ur:listOfValue>
                     <ur:value>Финансовый долг / EBITDA</ur:value>
                     <ur:valueId>REF_STRESS_ANALYSIS_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Чистый Долг / EBITDA</ur:value>
                     <ur:valueId>REF_STRESS_ANALYSIS_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Скорректированный финансовый долг/EBITDA</ur:value>
                     <ur:valueId>REF_STRESS_ANALYSIS_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Скорректированный чистый долг / EBITDA</ur:value>
                     <ur:valueId>REF_STRESS_ANALYSIS_3</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -1300,36 +1491,36 @@
                     <ur:value>Высокий (доля одного поставщика более 50%)
                     </ur:value>
                     <ur:valueId>REF_SUPPLIERS_SHARE_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Значительный (доля одного поставщика от 30% до 50%)
                     </ur:value>
                     <ur:valueId>REF_SUPPLIERS_SHARE_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Средний (доля одного поставщика от 10% до 30%)
                     </ur:value>
                     <ur:valueId>REF_SUPPLIERS_SHARE_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Низкий (доля одного поставщика менее 10%)</ur:value>
                     <ur:valueId>REF_SUPPLIERS_SHARE_3</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Зависимость поставщика не влияет на стабильность в
                         данной отрасли
                     </ur:value>
                     <ur:valueId>REF_SUPPLIERS_SHARE_4</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Нет информации</ur:value>
                     <ur:valueId>REF_SUPPLIERS_SHARE_5</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -1337,17 +1528,17 @@
                 <ur:listOfValue>
                     <ur:value>Период</ur:value>
                     <ur:valueId>PERIOD</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Дата/Сумма</ur:value>
                     <ur:valueId>SCHEDULE</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Не устанавливается</ur:value>
                     <ur:valueId>NOT_AVAILABLE</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -1355,42 +1546,42 @@
                 <ur:listOfValue>
                     <ur:value>Гарант</ur:value>
                     <ur:valueId>REF_PARTICIPANT_GUARANTOR</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Залогодатель</ur:value>
                     <ur:valueId>REF_PARTICIPANT_PLEDGER</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Поручитель</ur:value>
                     <ur:valueId>REF_PARTICIPANT_SURETY</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Должник</ur:value>
                     <ur:valueId>REF_PARTICIPANT_DEBTOR</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Лизингополучатель</ur:value>
                     <ur:valueId>REF_PARTICIPANT_LEASEHOLDER</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Консолидированная группа</ur:value>
                     <ur:valueId>REF_PARTICIPANT_CONSOLIDATED_GROUP</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Доминирующая компания</ur:value>
                     <ur:valueId>REF_PARTICIPANT_DOMINANT_COMPANY</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Иной участник</ur:value>
                     <ur:valueId>REF_PARTICIPANT_OTHER</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -1398,27 +1589,27 @@
                 <ur:listOfValue>
                     <ur:value>Риск заявителя</ur:value>
                     <ur:valueId>REF_RISK_GROUP_TYPE_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Риск сделки</ur:value>
                     <ur:valueId>REF_RISK_GROUP_TYPE_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Риск проекта</ur:value>
                     <ur:valueId>REF_RISK_GROUP_TYPE_2</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Риск контракта</ur:value>
                     <ur:valueId>REF_RISK_GROUP_TYPE_3</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Прочие риски</ur:value>
                     <ur:valueId>REF_RISK_GROUP_TYPE_4</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
             <ur:referenceItem>
@@ -1544,7 +1735,8 @@
                     <ur:parentValueId>REF_RISK_GROUP_TYPE_2</ur:parentValueId>
                 </ur:listOfValue>
                 <ur:listOfValue>
-                    <ur:value>Риск невыполнения обязательств поставщиками / подрядчиками/ соисполнителями Заявителя</ur:value>
+                    <ur:value>Риск невыполнения обязательств поставщиками / подрядчиками/ соисполнителями Заявителя
+                    </ur:value>
                     <ur:valueId>REF_RISK_TYPE_24</ur:valueId>
                     <ur:parentValueId>REF_RISK_GROUP_TYPE_3</ur:parentValueId>
                 </ur:listOfValue>
@@ -1554,7 +1746,8 @@
                     <ur:parentValueId>REF_RISK_GROUP_TYPE_3</ur:parentValueId>
                 </ur:listOfValue>
                 <ur:listOfValue>
-                    <ur:value>Риск неисполнения обязательств контрагентами-соисполнителями в рамках одного контракта</ur:value>
+                    <ur:value>Риск неисполнения обязательств контрагентами-соисполнителями в рамках одного контракта
+                    </ur:value>
                     <ur:valueId>REF_RISK_TYPE_26</ur:valueId>
                     <ur:parentValueId>REF_RISK_GROUP_TYPE_3</ur:parentValueId>
                 </ur:listOfValue>
@@ -1579,7 +1772,8 @@
                     <ur:parentValueId>REF_RISK_GROUP_TYPE_3</ur:parentValueId>
                 </ur:listOfValue>
                 <ur:listOfValue>
-                    <ur:value>Риск изменения основных условий контракта (стоимости/графика/условий поставки/оплаты)</ur:value>
+                    <ur:value>Риск изменения основных условий контракта (стоимости/графика/условий поставки/оплаты)
+                    </ur:value>
                     <ur:valueId>REF_RISK_TYPE_31</ur:valueId>
                     <ur:parentValueId>REF_RISK_GROUP_TYPE_3</ur:parentValueId>
                 </ur:listOfValue>
@@ -1589,27 +1783,2854 @@
                 <ur:listOfValue>
                     <ur:value>Недостаточно поступивших документов</ur:value>
                     <ur:valueId>REF_REJECTION_REASON_0</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
                 <ur:listOfValue>
                     <ur:value>Необходимо актуализировать в BPM структуру Сделки</ur:value>
                     <ur:valueId>REF_REJECTION_REASON_1</ur:valueId>
-                    <ur:parentValueId/>
+                    <ur:parentValueId />
                 </ur:listOfValue>
             </ur:referenceItem>
+            <ur:referenceItem>
+                <ur:referenceid>REF_ESTIMATION_MODEL</ur:referenceid>
+                <ur:listOfValue>
+                    <ur:value>Корпоративные клиенты</ur:value>
+                    <ur:valueId>BR_CC_LGD_LONGRUN</ur:valueId>
+                    <ur:parentValueId />
+                </ur:listOfValue>
+            </ur:referenceItem>
+            <ur:referenceItem>
+                <ur:referenceid>REF_CALCULATION_TYPE</ur:referenceid>
+                <ur:listOfValue>
+                    <ur:value>По сделке</ur:value>
+                    <ur:valueId>REF_CALCULATION_TYPE_0</ur:valueId>
+                    <ur:parentValueId />
+                </ur:listOfValue>
+                <ur:listOfValue>
+                    <ur:value>По продукту</ur:value>
+                    <ur:valueId>REF_CALCULATION_TYPE_1</ur:valueId>
+                    <ur:parentValueId />
+                </ur:listOfValue>
+            </ur:referenceItem>
+            <ur:errorCode>0</ur:errorCode>
+            <ur:errorMessage>Success</ur:errorMessage>
         </crm:updateRefRs>
     </xsl:template>
-
     <xsl:template name="GetParticipants">
-        <r:prtspRs xmlns:b="http://sbrf.ru/NCP/CRM/GetParticipantsRs/" xmlns:r="http://sbrf.ru/NCP/CRM/" xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <b:participantsInfo>
+        <r:prtspRs xmlns:b="http://sbrf.ru/NCP/CRM/GetParticipantsRs/" xmlns:prtspRq="http://sbrf.ru/NCP/CRM/GetParticipantsRq/"
+                   xmlns:r="http://sbrf.ru/NCP/CRM/" xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <b:dealID>dealID0</b:dealID>
+            <b:requestType>requestType0</b:requestType>
+            <b:participantsGroup>
                 <!-- Legal Person -->
-                <b:participant xsi:type="b:LegalPerson">
-                    <b:participantID>String</b:participantID>
-                    <b:type>String</b:type>
+                <xsl:choose>
+                    <xsl:when test="/env:Envelope/env:Body/r:prtspRq/prtspRq:requestType='GetParticipants'">
+                        <b:participants xsi:type="b:LegalPerson">
+                            <b:participantID>ID-1</b:participantID>
+                            <b:type>REF_PARTICIPANT_TYPE_2</b:type>
+                            <b:clientType>String</b:clientType>
+                            <b:name>Participant1(GetParticipants)</b:name>
+                            <b:resident>true</b:resident>
+                            <b:address>
+                                <b:type>String</b:type>
+                                <b:city>String</b:city>
+                                <b:street>String</b:street>
+                                <b:building>String</b:building>
+                                <b:block>String</b:block>
+                                <b:phone>String</b:phone>
+                                <b:email>String</b:email>
+                            </b:address>
+                            <b:address>
+                                <b:type>String</b:type>
+                                <b:city>String</b:city>
+                                <b:street>String</b:street>
+                                <b:building>String</b:building>
+                                <b:block>String</b:block>
+                                <b:phone>String</b:phone>
+                                <b:email>String</b:email>
+                            </b:address>
+                            <b:share>
+                                <b:ownershipID>String</b:ownershipID>
+                                <b:share>0</b:share>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                <b:comment>String</b:comment>
+                            </b:share>
+                            <b:share>
+                                <b:ownershipID>String</b:ownershipID>
+                                <b:share>0</b:share>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                <b:comment>String</b:comment>
+                            </b:share>
+                            <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                            <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                            <b:industry>String</b:industry>
+                            <b:isProblemClient>1</b:isProblemClient>
+                            <b:rating>
+                                <b:ratingID>String</b:ratingID>
+                                <b:ratingType>String</b:ratingType>
+                                <b:ratingValue>1.0</b:ratingValue>
+                                <b:ratingQualitative>String</b:ratingQualitative>
+                                <b:ratingSupport>String</b:ratingSupport>
+                                <b:ratingCalculated>1</b:ratingCalculated>
+                                <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                <b:ownerID>String</b:ownerID>
+                            </b:rating>
+                            <b:rating>
+                                <b:ratingID>String</b:ratingID>
+                                <b:ratingType>String</b:ratingType>
+                                <b:ratingValue>1.0</b:ratingValue>
+                                <b:ratingQualitative>String</b:ratingQualitative>
+                                <b:ratingSupport>String</b:ratingSupport>
+                                <b:ratingCalculated>1</b:ratingCalculated>
+                                <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                <b:ownerID>String</b:ownerID>
+                            </b:rating>
+                            <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                            <b:businessEntityType>REF_BUSINESS_ENTITY_TYPE_2</b:businessEntityType>
+                            <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                            <b:topManager>
+                                <b:managerID>String</b:managerID>
+                                <b:fullName>String</b:fullName>
+                                <b:position>String</b:position>
+                                <b:age>999</b:age>
+                                <b:experienceInPosition>String</b:experienceInPosition>
+                                <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                <b:education>String</b:education>
+                                <b:feedback>String</b:feedback>
+                            </b:topManager>
+                            <b:topManager>
+                                <b:managerID>String</b:managerID>
+                                <b:fullName>String</b:fullName>
+                                <b:position>String</b:position>
+                                <b:age>999</b:age>
+                                <b:experienceInPosition>String</b:experienceInPosition>
+                                <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                <b:education>String</b:education>
+                                <b:feedback>String</b:feedback>
+                            </b:topManager>
+                            <!-- Natural Person Shareholder -->
+                            <b:shareholder xsi:type="b:NaturalPerson">
+                                <b:participantID>ID-2</b:participantID>
+                                <b:type>String</b:type>
+                                <b:clientType>String</b:clientType>
+                                <b:name>String</b:name>
+                                <b:resident>true</b:resident>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                <b:industry>String</b:industry>
+                                <b:isProblemClient>1</b:isProblemClient>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                <b:lastName>String</b:lastName>
+                                <b:firstName>String</b:firstName>
+                                <b:middleName>String</b:middleName>
+                                <b:dateOfBirth>1967-08-13</b:dateOfBirth>
+                                <b:plaсeOfBirth>String</b:plaсeOfBirth>
+                                <b:gender>String</b:gender>
+                                <b:identities>
+                                    <b:identityTypeCode>String</b:identityTypeCode>
+                                    <b:identityType>String</b:identityType>
+                                    <b:identitySeries>String</b:identitySeries>
+                                    <b:identityNumber>String</b:identityNumber>
+                                    <b:identityIssueDate>1967-08-13</b:identityIssueDate>
+                                    <b:identityIssuer>String</b:identityIssuer>
+                                    <b:identityIssuerCode>String</b:identityIssuerCode>
+                                    <b:identityIsPrimary>1</b:identityIsPrimary>
+                                </b:identities>
+                                <b:identities>
+                                    <b:identityTypeCode>String</b:identityTypeCode>
+                                    <b:identityType>String</b:identityType>
+                                    <b:identitySeries>String</b:identitySeries>
+                                    <b:identityNumber>String</b:identityNumber>
+                                    <b:identityIssueDate>1967-08-13</b:identityIssueDate>
+                                    <b:identityIssuer>String</b:identityIssuer>
+                                    <b:identityIssuerCode>String</b:identityIssuerCode>
+                                    <b:identityIsPrimary>1</b:identityIsPrimary>
+                                </b:identities>
+                            </b:shareholder>
+                            <!-- Legal Person Shareholders -->
+                            <b:shareholder xsi:type="b:LegalPerson">
+                                <b:participantID>ID-3</b:participantID>
+                                <b:type>String</b:type>
+                                <b:clientType>String</b:clientType>
+                                <b:name>String</b:name>
+                                <b:resident>true</b:resident>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                <b:industry>String</b:industry>
+                                <b:isProblemClient>1</b:isProblemClient>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                <b:businessEntityType>String</b:businessEntityType>
+                                <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                <b:topManager>
+                                    <b:managerID>String</b:managerID>
+                                    <b:fullName>String</b:fullName>
+                                    <b:position>String</b:position>
+                                    <b:age>999</b:age>
+                                    <b:experienceInPosition>String</b:experienceInPosition>
+                                    <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                    <b:education>String</b:education>
+                                    <b:feedback>String</b:feedback>
+                                </b:topManager>
+                                <b:topManager>
+                                    <b:managerID>String</b:managerID>
+                                    <b:fullName>String</b:fullName>
+                                    <b:position>String</b:position>
+                                    <b:age>999</b:age>
+                                    <b:experienceInPosition>String</b:experienceInPosition>
+                                    <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                    <b:education>String</b:education>
+                                    <b:feedback>String</b:feedback>
+                                </b:topManager>
+                                <b:beneficiar xsi:type="b:LegalPerson">
+                                    <b:participantID>ID-4</b:participantID>
+                                    <b:type>String</b:type>
+                                    <b:clientType>String</b:clientType>
+                                    <b:name>String</b:name>
+                                    <b:resident>true</b:resident>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                    <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                    <b:industry>String</b:industry>
+                                    <b:isProblemClient>1</b:isProblemClient>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                    <b:businessEntityType>String</b:businessEntityType>
+                                    <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:registrationDate>1967-08-13</b:registrationDate>
+                                    <b:registrationNumber>0000000000000</b:registrationNumber>
+                                    <b:segment>REF_SEGMENT_0</b:segment>
+                                    <b:problemGroup>String</b:problemGroup>
+                                    <b:mainActivity>String</b:mainActivity>
+                                </b:beneficiar>
+                                <b:beneficiar xsi:type="b:LegalPerson">
+                                    <b:participantID>ID-5</b:participantID>
+                                    <b:type>String</b:type>
+                                    <b:clientType>String</b:clientType>
+                                    <b:name>String</b:name>
+                                    <b:resident>true</b:resident>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                    <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                    <b:industry>String</b:industry>
+                                    <b:isProblemClient>1</b:isProblemClient>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                    <b:businessEntityType>String</b:businessEntityType>
+                                    <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:registrationDate>1967-08-13</b:registrationDate>
+                                    <b:registrationNumber>0000000000000</b:registrationNumber>
+                                    <b:segment>REF_SEGMENT_0</b:segment>
+                                    <b:problemGroup>String</b:problemGroup>
+                                    <b:mainActivity>String</b:mainActivity>
+                                </b:beneficiar>
+                                <b:registrationDate>1967-08-13</b:registrationDate>
+                                <b:registrationNumber>0000000000000</b:registrationNumber>
+                                <b:segment>REF_SEGMENT_0</b:segment>
+                                <b:problemGroup>String</b:problemGroup>
+                                <b:mainActivity>String</b:mainActivity>
+                            </b:shareholder>
+                            <b:shareholder xsi:type="b:LegalPerson">
+                                <b:participantID>ID-6</b:participantID>
+                                <b:type>String</b:type>
+                                <b:clientType>String</b:clientType>
+                                <b:name>String</b:name>
+                                <b:resident>true</b:resident>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                <b:industry>String</b:industry>
+                                <b:isProblemClient>1</b:isProblemClient>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                <b:businessEntityType>String</b:businessEntityType>
+                                <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                <b:topManager>
+                                    <b:managerID>String</b:managerID>
+                                    <b:fullName>String</b:fullName>
+                                    <b:position>String</b:position>
+                                    <b:age>999</b:age>
+                                    <b:experienceInPosition>String</b:experienceInPosition>
+                                    <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                    <b:education>String</b:education>
+                                    <b:feedback>String</b:feedback>
+                                </b:topManager>
+                                <b:topManager>
+                                    <b:managerID>String</b:managerID>
+                                    <b:fullName>String</b:fullName>
+                                    <b:position>String</b:position>
+                                    <b:age>999</b:age>
+                                    <b:experienceInPosition>String</b:experienceInPosition>
+                                    <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                    <b:education>String</b:education>
+                                    <b:feedback>String</b:feedback>
+                                </b:topManager>
+                                <b:beneficiar xsi:type="b:LegalPerson">
+                                    <b:participantID>ID-7</b:participantID>
+                                    <b:type>String</b:type>
+                                    <b:clientType>String</b:clientType>
+                                    <b:name>String</b:name>
+                                    <b:resident>true</b:resident>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                    <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                    <b:industry>String</b:industry>
+                                    <b:isProblemClient>1</b:isProblemClient>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                    <b:businessEntityType>String</b:businessEntityType>
+                                    <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:registrationDate>1967-08-13</b:registrationDate>
+                                    <b:registrationNumber>0000000000000</b:registrationNumber>
+                                    <b:segment>REF_SEGMENT_0</b:segment>
+                                    <b:problemGroup>String</b:problemGroup>
+                                    <b:mainActivity>String</b:mainActivity>
+                                </b:beneficiar>
+                                <b:beneficiar xsi:type="b:LegalPerson">
+                                    <b:participantID>ID-8</b:participantID>
+                                    <b:type>String</b:type>
+                                    <b:clientType>String</b:clientType>
+                                    <b:name>String</b:name>
+                                    <b:resident>true</b:resident>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                    <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                    <b:industry>String</b:industry>
+                                    <b:isProblemClient>1</b:isProblemClient>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                    <b:businessEntityType>String</b:businessEntityType>
+                                    <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:registrationDate>1967-08-13</b:registrationDate>
+                                    <b:registrationNumber>0000000000000</b:registrationNumber>
+                                    <b:segment>REF_SEGMENT_0</b:segment>
+                                    <b:problemGroup>String</b:problemGroup>
+                                    <b:mainActivity>String</b:mainActivity>
+                                </b:beneficiar>
+                                <b:registrationDate>1967-08-13</b:registrationDate>
+                                <b:registrationNumber>0000000000000</b:registrationNumber>
+                                <b:segment>REF_SEGMENT_0</b:segment>
+                                <b:problemGroup>String</b:problemGroup>
+                                <b:mainActivity>String</b:mainActivity>
+                            </b:shareholder>
+                            <!-- NAtural Person Beneficiar -->
+                            <b:beneficiar xsi:type="b:NaturalPerson">
+                                <b:participantID>ID-9</b:participantID>
+                                <b:type>String</b:type>
+                                <b:clientType>String</b:clientType>
+                                <b:name>String</b:name>
+                                <b:resident>true</b:resident>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                <b:industry>String</b:industry>
+                                <b:isProblemClient>1</b:isProblemClient>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                <b:lastName>String</b:lastName>
+                                <b:firstName>String</b:firstName>
+                                <b:middleName>String</b:middleName>
+                                <b:dateOfBirth>1967-08-13</b:dateOfBirth>
+                                <b:plaсeOfBirth>String</b:plaсeOfBirth>
+                                <b:gender>String</b:gender>
+                                <b:identities>
+                                    <b:identityTypeCode>String</b:identityTypeCode>
+                                    <b:identityType>String</b:identityType>
+                                    <b:identitySeries>String</b:identitySeries>
+                                    <b:identityNumber>String</b:identityNumber>
+                                    <b:identityIssueDate>1967-08-13</b:identityIssueDate>
+                                    <b:identityIssuer>String</b:identityIssuer>
+                                    <b:identityIssuerCode>String</b:identityIssuerCode>
+                                    <b:identityIsPrimary>1</b:identityIsPrimary>
+                                </b:identities>
+                                <b:identities>
+                                    <b:identityTypeCode>String</b:identityTypeCode>
+                                    <b:identityType>String</b:identityType>
+                                    <b:identitySeries>String</b:identitySeries>
+                                    <b:identityNumber>String</b:identityNumber>
+                                    <b:identityIssueDate>1967-08-13</b:identityIssueDate>
+                                    <b:identityIssuer>String</b:identityIssuer>
+                                    <b:identityIssuerCode>String</b:identityIssuerCode>
+                                    <b:identityIsPrimary>1</b:identityIsPrimary>
+                                </b:identities>
+                            </b:beneficiar>
+                            <!-- Legal Person beneficiaries -->
+                            <b:beneficiar xsi:type="b:LegalPerson">
+                                <b:participantID>ID-10</b:participantID>
+                                <b:type>String</b:type>
+                                <b:clientType>String</b:clientType>
+                                <b:name>String</b:name>
+                                <b:resident>true</b:resident>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                <b:industry>String</b:industry>
+                                <b:isProblemClient>1</b:isProblemClient>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                <b:businessEntityType>String</b:businessEntityType>
+                                <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                <b:topManager>
+                                    <b:managerID>String</b:managerID>
+                                    <b:fullName>String</b:fullName>
+                                    <b:position>String</b:position>
+                                    <b:age>999</b:age>
+                                    <b:experienceInPosition>String</b:experienceInPosition>
+                                    <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                    <b:education>String</b:education>
+                                    <b:feedback>String</b:feedback>
+                                </b:topManager>
+                                <b:topManager>
+                                    <b:managerID>String</b:managerID>
+                                    <b:fullName>String</b:fullName>
+                                    <b:position>String</b:position>
+                                    <b:age>999</b:age>
+                                    <b:experienceInPosition>String</b:experienceInPosition>
+                                    <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                    <b:education>String</b:education>
+                                    <b:feedback>String</b:feedback>
+                                </b:topManager>
+                                <b:shareholder xsi:type="b:LegalPerson">
+                                    <b:participantID>ID-11</b:participantID>
+                                    <b:type>String</b:type>
+                                    <b:clientType>String</b:clientType>
+                                    <b:name>String</b:name>
+                                    <b:resident>true</b:resident>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                    <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                    <b:industry>String</b:industry>
+                                    <b:isProblemClient>1</b:isProblemClient>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                    <b:businessEntityType>String</b:businessEntityType>
+                                    <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:registrationDate>1967-08-13</b:registrationDate>
+                                    <b:registrationNumber>0000000000000</b:registrationNumber>
+                                    <b:segment>REF_SEGMENT_0</b:segment>
+                                    <b:problemGroup>String</b:problemGroup>
+                                    <b:mainActivity>String</b:mainActivity>
+                                </b:shareholder>
+                                <b:shareholder xsi:type="b:LegalPerson">
+                                    <b:participantID>ID-12</b:participantID>
+                                    <b:type>String</b:type>
+                                    <b:clientType>String</b:clientType>
+                                    <b:name>String</b:name>
+                                    <b:resident>true</b:resident>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                    <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                    <b:industry>String</b:industry>
+                                    <b:isProblemClient>1</b:isProblemClient>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                    <b:businessEntityType>String</b:businessEntityType>
+                                    <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:registrationDate>1967-08-13</b:registrationDate>
+                                    <b:registrationNumber>0000000000000</b:registrationNumber>
+                                    <b:segment>REF_SEGMENT_0</b:segment>
+                                    <b:problemGroup>String</b:problemGroup>
+                                    <b:mainActivity>String</b:mainActivity>
+                                </b:shareholder>
+                                <b:registrationDate>1967-08-13</b:registrationDate>
+                                <b:registrationNumber>0000000000000</b:registrationNumber>
+                                <b:segment>REF_SEGMENT_0</b:segment>
+                                <b:problemGroup>String</b:problemGroup>
+                                <b:mainActivity>String</b:mainActivity>
+                            </b:beneficiar>
+                            <b:beneficiar xsi:type="b:LegalPerson">
+                                <b:participantID>ID-13</b:participantID>
+                                <b:type>String</b:type>
+                                <b:clientType>String</b:clientType>
+                                <b:name>String</b:name>
+                                <b:resident>true</b:resident>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                <b:industry>String</b:industry>
+                                <b:isProblemClient>1</b:isProblemClient>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                <b:businessEntityType>String</b:businessEntityType>
+                                <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                <b:topManager>
+                                    <b:managerID>String</b:managerID>
+                                    <b:fullName>String</b:fullName>
+                                    <b:position>String</b:position>
+                                    <b:age>999</b:age>
+                                    <b:experienceInPosition>String</b:experienceInPosition>
+                                    <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                    <b:education>String</b:education>
+                                    <b:feedback>String</b:feedback>
+                                </b:topManager>
+                                <b:topManager>
+                                    <b:managerID>String</b:managerID>
+                                    <b:fullName>String</b:fullName>
+                                    <b:position>String</b:position>
+                                    <b:age>999</b:age>
+                                    <b:experienceInPosition>String</b:experienceInPosition>
+                                    <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                    <b:education>String</b:education>
+                                    <b:feedback>String</b:feedback>
+                                </b:topManager>
+                                <b:shareholder xsi:type="b:LegalPerson">
+                                    <b:participantID>ID-14</b:participantID>
+                                    <b:type>String</b:type>
+                                    <b:clientType>String</b:clientType>
+                                    <b:name>String</b:name>
+                                    <b:resident>true</b:resident>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                    <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                    <b:industry>String</b:industry>
+                                    <b:isProblemClient>1</b:isProblemClient>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                    <b:businessEntityType>String</b:businessEntityType>
+                                    <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:registrationDate>1967-08-13</b:registrationDate>
+                                    <b:registrationNumber>0000000000000</b:registrationNumber>
+                                    <b:segment>REF_SEGMENT_0</b:segment>
+                                    <b:problemGroup>String</b:problemGroup>
+                                    <b:mainActivity>String</b:mainActivity>
+                                </b:shareholder>
+                                <b:shareholder xsi:type="b:LegalPerson">
+                                    <b:participantID>ID-15</b:participantID>
+                                    <b:type>String</b:type>
+                                    <b:clientType>String</b:clientType>
+                                    <b:name>String</b:name>
+                                    <b:resident>true</b:resident>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                    <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                    <b:industry>String</b:industry>
+                                    <b:isProblemClient>1</b:isProblemClient>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                    <b:businessEntityType>String</b:businessEntityType>
+                                    <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:registrationDate>1967-08-13</b:registrationDate>
+                                    <b:registrationNumber>0000000000000</b:registrationNumber>
+                                    <b:segment>REF_SEGMENT_0</b:segment>
+                                    <b:problemGroup>String</b:problemGroup>
+                                    <b:mainActivity>String</b:mainActivity>
+                                </b:shareholder>
+                                <b:registrationDate>1967-08-13</b:registrationDate>
+                                <b:registrationNumber>0000000000000</b:registrationNumber>
+                                <b:segment>REF_SEGMENT_0</b:segment>
+                                <b:problemGroup>String</b:problemGroup>
+                                <b:mainActivity>String</b:mainActivity>
+                            </b:beneficiar>
+                            <b:registrationDate>1967-08-13</b:registrationDate>
+                            <b:registrationNumber>0000000000000</b:registrationNumber>
+                            <b:segment>REF_SEGMENT_0</b:segment>
+                            <b:problemGroup>String</b:problemGroup>
+                            <b:mainActivity>String</b:mainActivity>
+                        </b:participants>
+                    </xsl:when>
+                    <xsl:when test="/env:Envelope/env:Body/r:prtspRq/prtspRq:requestType='UpdateParticipants'">
+                        <b:participants xsi:type="b:LegalPerson">
+                            <b:participantID>ID-02</b:participantID>
+                            <b:type>REF_PARTICIPANT_TYPE_2</b:type>
+                            <b:clientType>String</b:clientType>
+                            <b:name>Participant2(UpdateParticipants)</b:name>
+                            <b:resident>true</b:resident>
+                            <b:address>
+                                <b:type>String</b:type>
+                                <b:city>String</b:city>
+                                <b:street>String</b:street>
+                                <b:building>String</b:building>
+                                <b:block>String</b:block>
+                                <b:phone>String</b:phone>
+                                <b:email>String</b:email>
+                            </b:address>
+                            <b:address>
+                                <b:type>String</b:type>
+                                <b:city>String</b:city>
+                                <b:street>String</b:street>
+                                <b:building>String</b:building>
+                                <b:block>String</b:block>
+                                <b:phone>String</b:phone>
+                                <b:email>String</b:email>
+                            </b:address>
+                            <b:share>
+                                <b:ownershipID>String</b:ownershipID>
+                                <b:share>0</b:share>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                <b:comment>String</b:comment>
+                            </b:share>
+                            <b:share>
+                                <b:ownershipID>String</b:ownershipID>
+                                <b:share>0</b:share>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                <b:comment>String</b:comment>
+                            </b:share>
+                            <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                            <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                            <b:industry>String</b:industry>
+                            <b:isProblemClient>1</b:isProblemClient>
+                            <b:rating>
+                                <b:ratingID>String</b:ratingID>
+                                <b:ratingType>String</b:ratingType>
+                                <b:ratingValue>1.0</b:ratingValue>
+                                <b:ratingQualitative>String</b:ratingQualitative>
+                                <b:ratingSupport>String</b:ratingSupport>
+                                <b:ratingCalculated>1</b:ratingCalculated>
+                                <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                <b:ownerID>String</b:ownerID>
+                            </b:rating>
+                            <b:rating>
+                                <b:ratingID>String</b:ratingID>
+                                <b:ratingType>String</b:ratingType>
+                                <b:ratingValue>1.0</b:ratingValue>
+                                <b:ratingQualitative>String</b:ratingQualitative>
+                                <b:ratingSupport>String</b:ratingSupport>
+                                <b:ratingCalculated>1</b:ratingCalculated>
+                                <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                <b:ownerID>String</b:ownerID>
+                            </b:rating>
+                            <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                            <b:businessEntityType>REF_BUSINESS_ENTITY_TYPE_1</b:businessEntityType>
+                            <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                            <b:topManager>
+                                <b:managerID>String</b:managerID>
+                                <b:fullName>String</b:fullName>
+                                <b:position>String</b:position>
+                                <b:age>999</b:age>
+                                <b:experienceInPosition>String</b:experienceInPosition>
+                                <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                <b:education>String</b:education>
+                                <b:feedback>String</b:feedback>
+                            </b:topManager>
+                            <b:topManager>
+                                <b:managerID>String</b:managerID>
+                                <b:fullName>String</b:fullName>
+                                <b:position>String</b:position>
+                                <b:age>999</b:age>
+                                <b:experienceInPosition>String</b:experienceInPosition>
+                                <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                <b:education>String</b:education>
+                                <b:feedback>String</b:feedback>
+                            </b:topManager>
+                            <!-- Natural Person Shareholder -->
+                            <b:shareholder xsi:type="b:NaturalPerson">
+                                <b:participantID>ID-2</b:participantID>
+                                <b:type>String</b:type>
+                                <b:clientType>String</b:clientType>
+                                <b:name>String</b:name>
+                                <b:resident>true</b:resident>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                <b:industry>String</b:industry>
+                                <b:isProblemClient>1</b:isProblemClient>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                <b:lastName>String</b:lastName>
+                                <b:firstName>String</b:firstName>
+                                <b:middleName>String</b:middleName>
+                                <b:dateOfBirth>1967-08-13</b:dateOfBirth>
+                                <b:plaсeOfBirth>String</b:plaсeOfBirth>
+                                <b:gender>String</b:gender>
+                                <b:identities>
+                                    <b:identityTypeCode>String</b:identityTypeCode>
+                                    <b:identityType>String</b:identityType>
+                                    <b:identitySeries>String</b:identitySeries>
+                                    <b:identityNumber>String</b:identityNumber>
+                                    <b:identityIssueDate>1967-08-13</b:identityIssueDate>
+                                    <b:identityIssuer>String</b:identityIssuer>
+                                    <b:identityIssuerCode>String</b:identityIssuerCode>
+                                    <b:identityIsPrimary>1</b:identityIsPrimary>
+                                </b:identities>
+                                <b:identities>
+                                    <b:identityTypeCode>String</b:identityTypeCode>
+                                    <b:identityType>String</b:identityType>
+                                    <b:identitySeries>String</b:identitySeries>
+                                    <b:identityNumber>String</b:identityNumber>
+                                    <b:identityIssueDate>1967-08-13</b:identityIssueDate>
+                                    <b:identityIssuer>String</b:identityIssuer>
+                                    <b:identityIssuerCode>String</b:identityIssuerCode>
+                                    <b:identityIsPrimary>1</b:identityIsPrimary>
+                                </b:identities>
+                            </b:shareholder>
+                            <!-- Legal Person Shareholders -->
+                            <b:shareholder xsi:type="b:LegalPerson">
+                                <b:participantID>ID-3</b:participantID>
+                                <b:type>String</b:type>
+                                <b:clientType>String</b:clientType>
+                                <b:name>String</b:name>
+                                <b:resident>true</b:resident>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                <b:industry>String</b:industry>
+                                <b:isProblemClient>1</b:isProblemClient>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                <b:businessEntityType>String</b:businessEntityType>
+                                <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                <b:topManager>
+                                    <b:managerID>String</b:managerID>
+                                    <b:fullName>String</b:fullName>
+                                    <b:position>String</b:position>
+                                    <b:age>999</b:age>
+                                    <b:experienceInPosition>String</b:experienceInPosition>
+                                    <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                    <b:education>String</b:education>
+                                    <b:feedback>String</b:feedback>
+                                </b:topManager>
+                                <b:topManager>
+                                    <b:managerID>String</b:managerID>
+                                    <b:fullName>String</b:fullName>
+                                    <b:position>String</b:position>
+                                    <b:age>999</b:age>
+                                    <b:experienceInPosition>String</b:experienceInPosition>
+                                    <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                    <b:education>String</b:education>
+                                    <b:feedback>String</b:feedback>
+                                </b:topManager>
+                                <b:beneficiar xsi:type="b:LegalPerson">
+                                    <b:participantID>ID-4</b:participantID>
+                                    <b:type>String</b:type>
+                                    <b:clientType>String</b:clientType>
+                                    <b:name>String</b:name>
+                                    <b:resident>true</b:resident>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                    <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                    <b:industry>String</b:industry>
+                                    <b:isProblemClient>1</b:isProblemClient>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                    <b:businessEntityType>String</b:businessEntityType>
+                                    <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:registrationDate>1967-08-13</b:registrationDate>
+                                    <b:registrationNumber>0000000000000</b:registrationNumber>
+                                    <b:segment>REF_SEGMENT_0</b:segment>
+                                    <b:problemGroup>String</b:problemGroup>
+                                    <b:mainActivity>String</b:mainActivity>
+                                </b:beneficiar>
+                                <b:beneficiar xsi:type="b:LegalPerson">
+                                    <b:participantID>ID-5</b:participantID>
+                                    <b:type>String</b:type>
+                                    <b:clientType>String</b:clientType>
+                                    <b:name>String</b:name>
+                                    <b:resident>true</b:resident>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                    <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                    <b:industry>String</b:industry>
+                                    <b:isProblemClient>1</b:isProblemClient>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                    <b:businessEntityType>String</b:businessEntityType>
+                                    <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:registrationDate>1967-08-13</b:registrationDate>
+                                    <b:registrationNumber>0000000000000</b:registrationNumber>
+                                    <b:segment>REF_SEGMENT_0</b:segment>
+                                    <b:problemGroup>String</b:problemGroup>
+                                    <b:mainActivity>String</b:mainActivity>
+                                </b:beneficiar>
+                                <b:registrationDate>1967-08-13</b:registrationDate>
+                                <b:registrationNumber>0000000000000</b:registrationNumber>
+                                <b:segment>REF_SEGMENT_0</b:segment>
+                                <b:problemGroup>String</b:problemGroup>
+                                <b:mainActivity>String</b:mainActivity>
+                            </b:shareholder>
+                            <b:shareholder xsi:type="b:LegalPerson">
+                                <b:participantID>ID-6</b:participantID>
+                                <b:type>String</b:type>
+                                <b:clientType>String</b:clientType>
+                                <b:name>String</b:name>
+                                <b:resident>true</b:resident>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                <b:industry>String</b:industry>
+                                <b:isProblemClient>1</b:isProblemClient>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                <b:businessEntityType>String</b:businessEntityType>
+                                <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                <b:topManager>
+                                    <b:managerID>String</b:managerID>
+                                    <b:fullName>String</b:fullName>
+                                    <b:position>String</b:position>
+                                    <b:age>999</b:age>
+                                    <b:experienceInPosition>String</b:experienceInPosition>
+                                    <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                    <b:education>String</b:education>
+                                    <b:feedback>String</b:feedback>
+                                </b:topManager>
+                                <b:topManager>
+                                    <b:managerID>String</b:managerID>
+                                    <b:fullName>String</b:fullName>
+                                    <b:position>String</b:position>
+                                    <b:age>999</b:age>
+                                    <b:experienceInPosition>String</b:experienceInPosition>
+                                    <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                    <b:education>String</b:education>
+                                    <b:feedback>String</b:feedback>
+                                </b:topManager>
+                                <b:beneficiar xsi:type="b:LegalPerson">
+                                    <b:participantID>ID-7</b:participantID>
+                                    <b:type>String</b:type>
+                                    <b:clientType>String</b:clientType>
+                                    <b:name>String</b:name>
+                                    <b:resident>true</b:resident>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                    <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                    <b:industry>String</b:industry>
+                                    <b:isProblemClient>1</b:isProblemClient>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                    <b:businessEntityType>String</b:businessEntityType>
+                                    <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:registrationDate>1967-08-13</b:registrationDate>
+                                    <b:registrationNumber>0000000000000</b:registrationNumber>
+                                    <b:segment>REF_SEGMENT_0</b:segment>
+                                    <b:problemGroup>String</b:problemGroup>
+                                    <b:mainActivity>String</b:mainActivity>
+                                </b:beneficiar>
+                                <b:beneficiar xsi:type="b:LegalPerson">
+                                    <b:participantID>ID-8</b:participantID>
+                                    <b:type>String</b:type>
+                                    <b:clientType>String</b:clientType>
+                                    <b:name>String</b:name>
+                                    <b:resident>true</b:resident>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                    <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                    <b:industry>String</b:industry>
+                                    <b:isProblemClient>1</b:isProblemClient>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                    <b:businessEntityType>String</b:businessEntityType>
+                                    <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:registrationDate>1967-08-13</b:registrationDate>
+                                    <b:registrationNumber>0000000000000</b:registrationNumber>
+                                    <b:segment>REF_SEGMENT_0</b:segment>
+                                    <b:problemGroup>String</b:problemGroup>
+                                    <b:mainActivity>String</b:mainActivity>
+                                </b:beneficiar>
+                                <b:registrationDate>1967-08-13</b:registrationDate>
+                                <b:registrationNumber>0000000000000</b:registrationNumber>
+                                <b:segment>REF_SEGMENT_0</b:segment>
+                                <b:problemGroup>String</b:problemGroup>
+                                <b:mainActivity>String</b:mainActivity>
+                            </b:shareholder>
+                            <!-- NAtural Person Beneficiar -->
+                            <b:beneficiar xsi:type="b:NaturalPerson">
+                                <b:participantID>ID-9</b:participantID>
+                                <b:type>String</b:type>
+                                <b:clientType>String</b:clientType>
+                                <b:name>String</b:name>
+                                <b:resident>true</b:resident>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                <b:industry>String</b:industry>
+                                <b:isProblemClient>1</b:isProblemClient>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                <b:lastName>String</b:lastName>
+                                <b:firstName>String</b:firstName>
+                                <b:middleName>String</b:middleName>
+                                <b:dateOfBirth>1967-08-13</b:dateOfBirth>
+                                <b:plaсeOfBirth>String</b:plaсeOfBirth>
+                                <b:gender>String</b:gender>
+                                <b:identities>
+                                    <b:identityTypeCode>String</b:identityTypeCode>
+                                    <b:identityType>String</b:identityType>
+                                    <b:identitySeries>String</b:identitySeries>
+                                    <b:identityNumber>String</b:identityNumber>
+                                    <b:identityIssueDate>1967-08-13</b:identityIssueDate>
+                                    <b:identityIssuer>String</b:identityIssuer>
+                                    <b:identityIssuerCode>String</b:identityIssuerCode>
+                                    <b:identityIsPrimary>1</b:identityIsPrimary>
+                                </b:identities>
+                                <b:identities>
+                                    <b:identityTypeCode>String</b:identityTypeCode>
+                                    <b:identityType>String</b:identityType>
+                                    <b:identitySeries>String</b:identitySeries>
+                                    <b:identityNumber>String</b:identityNumber>
+                                    <b:identityIssueDate>1967-08-13</b:identityIssueDate>
+                                    <b:identityIssuer>String</b:identityIssuer>
+                                    <b:identityIssuerCode>String</b:identityIssuerCode>
+                                    <b:identityIsPrimary>1</b:identityIsPrimary>
+                                </b:identities>
+                            </b:beneficiar>
+                            <!-- Legal Person beneficiaries -->
+                            <b:beneficiar xsi:type="b:LegalPerson">
+                                <b:participantID>ID-10</b:participantID>
+                                <b:type>String</b:type>
+                                <b:clientType>String</b:clientType>
+                                <b:name>String</b:name>
+                                <b:resident>true</b:resident>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                <b:industry>String</b:industry>
+                                <b:isProblemClient>1</b:isProblemClient>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                <b:businessEntityType>String</b:businessEntityType>
+                                <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                <b:topManager>
+                                    <b:managerID>String</b:managerID>
+                                    <b:fullName>String</b:fullName>
+                                    <b:position>String</b:position>
+                                    <b:age>999</b:age>
+                                    <b:experienceInPosition>String</b:experienceInPosition>
+                                    <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                    <b:education>String</b:education>
+                                    <b:feedback>String</b:feedback>
+                                </b:topManager>
+                                <b:topManager>
+                                    <b:managerID>String</b:managerID>
+                                    <b:fullName>String</b:fullName>
+                                    <b:position>String</b:position>
+                                    <b:age>999</b:age>
+                                    <b:experienceInPosition>String</b:experienceInPosition>
+                                    <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                    <b:education>String</b:education>
+                                    <b:feedback>String</b:feedback>
+                                </b:topManager>
+                                <b:shareholder xsi:type="b:LegalPerson">
+                                    <b:participantID>ID-11</b:participantID>
+                                    <b:type>String</b:type>
+                                    <b:clientType>String</b:clientType>
+                                    <b:name>String</b:name>
+                                    <b:resident>true</b:resident>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                    <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                    <b:industry>String</b:industry>
+                                    <b:isProblemClient>1</b:isProblemClient>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                    <b:businessEntityType>String</b:businessEntityType>
+                                    <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:registrationDate>1967-08-13</b:registrationDate>
+                                    <b:registrationNumber>0000000000000</b:registrationNumber>
+                                    <b:segment>REF_SEGMENT_0</b:segment>
+                                    <b:problemGroup>String</b:problemGroup>
+                                    <b:mainActivity>String</b:mainActivity>
+                                </b:shareholder>
+                                <b:shareholder xsi:type="b:LegalPerson">
+                                    <b:participantID>ID-12</b:participantID>
+                                    <b:type>String</b:type>
+                                    <b:clientType>String</b:clientType>
+                                    <b:name>String</b:name>
+                                    <b:resident>true</b:resident>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                    <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                    <b:industry>String</b:industry>
+                                    <b:isProblemClient>1</b:isProblemClient>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                    <b:businessEntityType>String</b:businessEntityType>
+                                    <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:registrationDate>1967-08-13</b:registrationDate>
+                                    <b:registrationNumber>0000000000000</b:registrationNumber>
+                                    <b:segment>REF_SEGMENT_0</b:segment>
+                                    <b:problemGroup>String</b:problemGroup>
+                                    <b:mainActivity>String</b:mainActivity>
+                                </b:shareholder>
+                                <b:registrationDate>1967-08-13</b:registrationDate>
+                                <b:registrationNumber>0000000000000</b:registrationNumber>
+                                <b:segment>REF_SEGMENT_0</b:segment>
+                                <b:problemGroup>String</b:problemGroup>
+                                <b:mainActivity>String</b:mainActivity>
+                            </b:beneficiar>
+                            <b:beneficiar xsi:type="b:LegalPerson">
+                                <b:participantID>ID-13</b:participantID>
+                                <b:type>String</b:type>
+                                <b:clientType>String</b:clientType>
+                                <b:name>String</b:name>
+                                <b:resident>true</b:resident>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:address>
+                                    <b:type>String</b:type>
+                                    <b:city>String</b:city>
+                                    <b:street>String</b:street>
+                                    <b:building>String</b:building>
+                                    <b:block>String</b:block>
+                                    <b:phone>String</b:phone>
+                                    <b:email>String</b:email>
+                                </b:address>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:share>
+                                    <b:ownershipID>String</b:ownershipID>
+                                    <b:share>0</b:share>
+                                    <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                    <b:comment>String</b:comment>
+                                </b:share>
+                                <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                <b:industry>String</b:industry>
+                                <b:isProblemClient>1</b:isProblemClient>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:rating>
+                                    <b:ratingID>String</b:ratingID>
+                                    <b:ratingType>String</b:ratingType>
+                                    <b:ratingValue>1.0</b:ratingValue>
+                                    <b:ratingQualitative>String</b:ratingQualitative>
+                                    <b:ratingSupport>String</b:ratingSupport>
+                                    <b:ratingCalculated>1</b:ratingCalculated>
+                                    <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                    <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                    <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                    <b:ownerID>String</b:ownerID>
+                                </b:rating>
+                                <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                <b:businessEntityType>String</b:businessEntityType>
+                                <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                <b:topManager>
+                                    <b:managerID>String</b:managerID>
+                                    <b:fullName>String</b:fullName>
+                                    <b:position>String</b:position>
+                                    <b:age>999</b:age>
+                                    <b:experienceInPosition>String</b:experienceInPosition>
+                                    <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                    <b:education>String</b:education>
+                                    <b:feedback>String</b:feedback>
+                                </b:topManager>
+                                <b:topManager>
+                                    <b:managerID>String</b:managerID>
+                                    <b:fullName>String</b:fullName>
+                                    <b:position>String</b:position>
+                                    <b:age>999</b:age>
+                                    <b:experienceInPosition>String</b:experienceInPosition>
+                                    <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                    <b:education>String</b:education>
+                                    <b:feedback>String</b:feedback>
+                                </b:topManager>
+                                <b:shareholder xsi:type="b:LegalPerson">
+                                    <b:participantID>ID-14</b:participantID>
+                                    <b:type>String</b:type>
+                                    <b:clientType>String</b:clientType>
+                                    <b:name>String</b:name>
+                                    <b:resident>true</b:resident>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                    <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                    <b:industry>String</b:industry>
+                                    <b:isProblemClient>1</b:isProblemClient>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                    <b:businessEntityType>String</b:businessEntityType>
+                                    <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:registrationDate>1967-08-13</b:registrationDate>
+                                    <b:registrationNumber>0000000000000</b:registrationNumber>
+                                    <b:segment>REF_SEGMENT_0</b:segment>
+                                    <b:problemGroup>String</b:problemGroup>
+                                    <b:mainActivity>String</b:mainActivity>
+                                </b:shareholder>
+                                <b:shareholder xsi:type="b:LegalPerson">
+                                    <b:participantID>ID-15</b:participantID>
+                                    <b:type>String</b:type>
+                                    <b:clientType>String</b:clientType>
+                                    <b:name>String</b:name>
+                                    <b:resident>true</b:resident>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:address>
+                                        <b:type>String</b:type>
+                                        <b:city>String</b:city>
+                                        <b:street>String</b:street>
+                                        <b:building>String</b:building>
+                                        <b:block>String</b:block>
+                                        <b:phone>String</b:phone>
+                                        <b:email>String</b:email>
+                                    </b:address>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:share>
+                                        <b:ownershipID>String</b:ownershipID>
+                                        <b:share>0</b:share>
+                                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
+                                        <b:comment>String</b:comment>
+                                    </b:share>
+                                    <b:consolidatedGroupID>String</b:consolidatedGroupID>
+                                    <b:linkedBorrowersGroupID>String</b:linkedBorrowersGroupID>
+                                    <b:industry>String</b:industry>
+                                    <b:isProblemClient>1</b:isProblemClient>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:rating>
+                                        <b:ratingID>String</b:ratingID>
+                                        <b:ratingType>String</b:ratingType>
+                                        <b:ratingValue>1.0</b:ratingValue>
+                                        <b:ratingQualitative>String</b:ratingQualitative>
+                                        <b:ratingSupport>String</b:ratingSupport>
+                                        <b:ratingCalculated>1</b:ratingCalculated>
+                                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
+                                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
+                                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
+                                        <b:ownerID>String</b:ownerID>
+                                    </b:rating>
+                                    <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
+                                    <b:businessEntityType>String</b:businessEntityType>
+                                    <b:taxAgencyNumber>String</b:taxAgencyNumber>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:topManager>
+                                        <b:managerID>String</b:managerID>
+                                        <b:fullName>String</b:fullName>
+                                        <b:position>String</b:position>
+                                        <b:age>999</b:age>
+                                        <b:experienceInPosition>String</b:experienceInPosition>
+                                        <b:experienceInSimilarPosition>String</b:experienceInSimilarPosition>
+                                        <b:education>String</b:education>
+                                        <b:feedback>String</b:feedback>
+                                    </b:topManager>
+                                    <b:registrationDate>1967-08-13</b:registrationDate>
+                                    <b:registrationNumber>0000000000000</b:registrationNumber>
+                                    <b:segment>REF_SEGMENT_0</b:segment>
+                                    <b:problemGroup>String</b:problemGroup>
+                                    <b:mainActivity>String</b:mainActivity>
+                                </b:shareholder>
+                                <b:registrationDate>1967-08-13</b:registrationDate>
+                                <b:registrationNumber>0000000000000</b:registrationNumber>
+                                <b:segment>REF_SEGMENT_0</b:segment>
+                                <b:problemGroup>String</b:problemGroup>
+                                <b:mainActivity>String</b:mainActivity>
+                            </b:beneficiar>
+                            <b:registrationDate>1967-08-13</b:registrationDate>
+                            <b:registrationNumber>0000000000000</b:registrationNumber>
+                            <b:segment>REF_SEGMENT_0</b:segment>
+                            <b:problemGroup>String</b:problemGroup>
+                            <b:mainActivity>String</b:mainActivity>
+                        </b:participants>
+                    </xsl:when>
+                    <xsl:otherwise>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <b:participants xsi:type="b:LegalPerson">
+                    <b:participantID>ID-1</b:participantID>
+                    <b:type>REF_PARTICIPANT_TYPE_2</b:type>
                     <b:clientType>String</b:clientType>
                     <b:name>Borrower</b:name>
+                    <b:resident>true</b:resident>
                     <b:address>
                         <b:type>String</b:type>
                         <b:city>String</b:city>
@@ -1631,13 +4652,13 @@
                     <b:share>
                         <b:ownershipID>String</b:ownershipID>
                         <b:share>0</b:share>
-                        <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                         <b:comment>String</b:comment>
                     </b:share>
                     <b:share>
                         <b:ownershipID>String</b:ownershipID>
                         <b:share>0</b:share>
-                        <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                         <b:comment>String</b:comment>
                     </b:share>
                     <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -1647,7 +4668,7 @@
                     <b:rating>
                         <b:ratingID>String</b:ratingID>
                         <b:ratingType>String</b:ratingType>
-                        <b:ratingValue>0.0</b:ratingValue>
+                        <b:ratingValue>1.0</b:ratingValue>
                         <b:ratingQualitative>String</b:ratingQualitative>
                         <b:ratingSupport>String</b:ratingSupport>
                         <b:ratingCalculated>1</b:ratingCalculated>
@@ -1659,7 +4680,7 @@
                     <b:rating>
                         <b:ratingID>String</b:ratingID>
                         <b:ratingType>String</b:ratingType>
-                        <b:ratingValue>0.0</b:ratingValue>
+                        <b:ratingValue>1.0</b:ratingValue>
                         <b:ratingQualitative>String</b:ratingQualitative>
                         <b:ratingSupport>String</b:ratingSupport>
                         <b:ratingCalculated>1</b:ratingCalculated>
@@ -1669,7 +4690,7 @@
                         <b:ownerID>String</b:ownerID>
                     </b:rating>
                     <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
-                    <b:businessEntityType>String</b:businessEntityType>
+                    <b:businessEntityType>REF_BUSINESS_ENTITY_TYPE_2</b:businessEntityType>
                     <b:taxAgencyNumber>String</b:taxAgencyNumber>
                     <b:topManager>
                         <b:managerID>String</b:managerID>
@@ -1691,12 +4712,13 @@
                         <b:education>String</b:education>
                         <b:feedback>String</b:feedback>
                     </b:topManager>
-                    <!-- Natural Person Shareholder-->
+                    <!-- Natural Person Shareholder -->
                     <b:shareholder xsi:type="b:NaturalPerson">
-                        <b:participantID>String</b:participantID>
+                        <b:participantID>ID-2</b:participantID>
                         <b:type>String</b:type>
                         <b:clientType>String</b:clientType>
                         <b:name>String</b:name>
+                        <b:resident>true</b:resident>
                         <b:address>
                             <b:type>String</b:type>
                             <b:city>String</b:city>
@@ -1718,13 +4740,13 @@
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -1734,7 +4756,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -1746,7 +4768,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -1785,10 +4807,11 @@
                     </b:shareholder>
                     <!-- Legal Person Shareholders -->
                     <b:shareholder xsi:type="b:LegalPerson">
-                        <b:participantID>String</b:participantID>
+                        <b:participantID>ID-3</b:participantID>
                         <b:type>String</b:type>
                         <b:clientType>String</b:clientType>
                         <b:name>String</b:name>
+                        <b:resident>true</b:resident>
                         <b:address>
                             <b:type>String</b:type>
                             <b:city>String</b:city>
@@ -1810,13 +4833,13 @@
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -1826,7 +4849,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -1838,7 +4861,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -1871,10 +4894,11 @@
                             <b:feedback>String</b:feedback>
                         </b:topManager>
                         <b:beneficiar xsi:type="b:LegalPerson">
-                            <b:participantID>String</b:participantID>
+                            <b:participantID>ID-4</b:participantID>
                             <b:type>String</b:type>
                             <b:clientType>String</b:clientType>
                             <b:name>String</b:name>
+                            <b:resident>true</b:resident>
                             <b:address>
                                 <b:type>String</b:type>
                                 <b:city>String</b:city>
@@ -1896,13 +4920,13 @@
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -1912,7 +4936,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -1924,7 +4948,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -1956,17 +4980,18 @@
                                 <b:education>String</b:education>
                                 <b:feedback>String</b:feedback>
                             </b:topManager>
-                            <b:registrationDate>String</b:registrationDate>
+                            <b:registrationDate>1967-08-13</b:registrationDate>
                             <b:registrationNumber>0000000000000</b:registrationNumber>
-                            <b:segment>String</b:segment>
+                            <b:segment>REF_SEGMENT_0</b:segment>
                             <b:problemGroup>String</b:problemGroup>
                             <b:mainActivity>String</b:mainActivity>
                         </b:beneficiar>
                         <b:beneficiar xsi:type="b:LegalPerson">
-                            <b:participantID>String</b:participantID>
+                            <b:participantID>ID-5</b:participantID>
                             <b:type>String</b:type>
                             <b:clientType>String</b:clientType>
                             <b:name>String</b:name>
+                            <b:resident>true</b:resident>
                             <b:address>
                                 <b:type>String</b:type>
                                 <b:city>String</b:city>
@@ -1988,13 +5013,13 @@
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -2004,7 +5029,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -2016,7 +5041,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -2048,23 +5073,24 @@
                                 <b:education>String</b:education>
                                 <b:feedback>String</b:feedback>
                             </b:topManager>
-                            <b:registrationDate>String</b:registrationDate>
+                            <b:registrationDate>1967-08-13</b:registrationDate>
                             <b:registrationNumber>0000000000000</b:registrationNumber>
-                            <b:segment>String</b:segment>
+                            <b:segment>REF_SEGMENT_0</b:segment>
                             <b:problemGroup>String</b:problemGroup>
                             <b:mainActivity>String</b:mainActivity>
                         </b:beneficiar>
-                        <b:registrationDate>String</b:registrationDate>
+                        <b:registrationDate>1967-08-13</b:registrationDate>
                         <b:registrationNumber>0000000000000</b:registrationNumber>
-                        <b:segment>String</b:segment>
+                        <b:segment>REF_SEGMENT_0</b:segment>
                         <b:problemGroup>String</b:problemGroup>
                         <b:mainActivity>String</b:mainActivity>
                     </b:shareholder>
                     <b:shareholder xsi:type="b:LegalPerson">
-                        <b:participantID>String</b:participantID>
+                        <b:participantID>ID-6</b:participantID>
                         <b:type>String</b:type>
                         <b:clientType>String</b:clientType>
                         <b:name>String</b:name>
+                        <b:resident>true</b:resident>
                         <b:address>
                             <b:type>String</b:type>
                             <b:city>String</b:city>
@@ -2086,13 +5112,13 @@
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -2102,7 +5128,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -2114,7 +5140,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -2147,10 +5173,11 @@
                             <b:feedback>String</b:feedback>
                         </b:topManager>
                         <b:beneficiar xsi:type="b:LegalPerson">
-                            <b:participantID>String</b:participantID>
+                            <b:participantID>ID-7</b:participantID>
                             <b:type>String</b:type>
                             <b:clientType>String</b:clientType>
                             <b:name>String</b:name>
+                            <b:resident>true</b:resident>
                             <b:address>
                                 <b:type>String</b:type>
                                 <b:city>String</b:city>
@@ -2172,13 +5199,13 @@
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -2188,7 +5215,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -2200,7 +5227,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -2232,17 +5259,18 @@
                                 <b:education>String</b:education>
                                 <b:feedback>String</b:feedback>
                             </b:topManager>
-                            <b:registrationDate>String</b:registrationDate>
+                            <b:registrationDate>1967-08-13</b:registrationDate>
                             <b:registrationNumber>0000000000000</b:registrationNumber>
-                            <b:segment>String</b:segment>
+                            <b:segment>REF_SEGMENT_0</b:segment>
                             <b:problemGroup>String</b:problemGroup>
                             <b:mainActivity>String</b:mainActivity>
                         </b:beneficiar>
                         <b:beneficiar xsi:type="b:LegalPerson">
-                            <b:participantID>String</b:participantID>
+                            <b:participantID>ID-8</b:participantID>
                             <b:type>String</b:type>
                             <b:clientType>String</b:clientType>
                             <b:name>String</b:name>
+                            <b:resident>true</b:resident>
                             <b:address>
                                 <b:type>String</b:type>
                                 <b:city>String</b:city>
@@ -2264,13 +5292,13 @@
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -2280,7 +5308,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -2292,7 +5320,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -2324,24 +5352,25 @@
                                 <b:education>String</b:education>
                                 <b:feedback>String</b:feedback>
                             </b:topManager>
-                            <b:registrationDate>String</b:registrationDate>
+                            <b:registrationDate>1967-08-13</b:registrationDate>
                             <b:registrationNumber>0000000000000</b:registrationNumber>
-                            <b:segment>String</b:segment>
+                            <b:segment>REF_SEGMENT_0</b:segment>
                             <b:problemGroup>String</b:problemGroup>
                             <b:mainActivity>String</b:mainActivity>
                         </b:beneficiar>
-                        <b:registrationDate>String</b:registrationDate>
+                        <b:registrationDate>1967-08-13</b:registrationDate>
                         <b:registrationNumber>0000000000000</b:registrationNumber>
-                        <b:segment>String</b:segment>
+                        <b:segment>REF_SEGMENT_0</b:segment>
                         <b:problemGroup>String</b:problemGroup>
                         <b:mainActivity>String</b:mainActivity>
                     </b:shareholder>
                     <!-- NAtural Person Beneficiar -->
                     <b:beneficiar xsi:type="b:NaturalPerson">
-                        <b:participantID>String</b:participantID>
+                        <b:participantID>ID-9</b:participantID>
                         <b:type>String</b:type>
                         <b:clientType>String</b:clientType>
                         <b:name>String</b:name>
+                        <b:resident>true</b:resident>
                         <b:address>
                             <b:type>String</b:type>
                             <b:city>String</b:city>
@@ -2363,13 +5392,13 @@
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -2379,7 +5408,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -2391,7 +5420,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -2430,10 +5459,11 @@
                     </b:beneficiar>
                     <!-- Legal Person beneficiaries -->
                     <b:beneficiar xsi:type="b:LegalPerson">
-                        <b:participantID>String</b:participantID>
+                        <b:participantID>ID-10</b:participantID>
                         <b:type>String</b:type>
                         <b:clientType>String</b:clientType>
                         <b:name>String</b:name>
+                        <b:resident>true</b:resident>
                         <b:address>
                             <b:type>String</b:type>
                             <b:city>String</b:city>
@@ -2455,13 +5485,13 @@
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -2471,7 +5501,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -2483,7 +5513,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -2516,10 +5546,11 @@
                             <b:feedback>String</b:feedback>
                         </b:topManager>
                         <b:shareholder xsi:type="b:LegalPerson">
-                            <b:participantID>String</b:participantID>
+                            <b:participantID>ID-11</b:participantID>
                             <b:type>String</b:type>
                             <b:clientType>String</b:clientType>
                             <b:name>String</b:name>
+                            <b:resident>true</b:resident>
                             <b:address>
                                 <b:type>String</b:type>
                                 <b:city>String</b:city>
@@ -2541,13 +5572,13 @@
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -2557,7 +5588,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -2569,7 +5600,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -2601,17 +5632,18 @@
                                 <b:education>String</b:education>
                                 <b:feedback>String</b:feedback>
                             </b:topManager>
-                            <b:registrationDate>String</b:registrationDate>
+                            <b:registrationDate>1967-08-13</b:registrationDate>
                             <b:registrationNumber>0000000000000</b:registrationNumber>
-                            <b:segment>String</b:segment>
+                            <b:segment>REF_SEGMENT_0</b:segment>
                             <b:problemGroup>String</b:problemGroup>
                             <b:mainActivity>String</b:mainActivity>
                         </b:shareholder>
                         <b:shareholder xsi:type="b:LegalPerson">
-                            <b:participantID>String</b:participantID>
+                            <b:participantID>ID-12</b:participantID>
                             <b:type>String</b:type>
                             <b:clientType>String</b:clientType>
                             <b:name>String</b:name>
+                            <b:resident>true</b:resident>
                             <b:address>
                                 <b:type>String</b:type>
                                 <b:city>String</b:city>
@@ -2633,13 +5665,13 @@
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -2649,7 +5681,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -2661,7 +5693,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -2693,23 +5725,24 @@
                                 <b:education>String</b:education>
                                 <b:feedback>String</b:feedback>
                             </b:topManager>
-                            <b:registrationDate>String</b:registrationDate>
+                            <b:registrationDate>1967-08-13</b:registrationDate>
                             <b:registrationNumber>0000000000000</b:registrationNumber>
-                            <b:segment>String</b:segment>
+                            <b:segment>REF_SEGMENT_0</b:segment>
                             <b:problemGroup>String</b:problemGroup>
                             <b:mainActivity>String</b:mainActivity>
                         </b:shareholder>
-                        <b:registrationDate>String</b:registrationDate>
+                        <b:registrationDate>1967-08-13</b:registrationDate>
                         <b:registrationNumber>0000000000000</b:registrationNumber>
-                        <b:segment>String</b:segment>
+                        <b:segment>REF_SEGMENT_0</b:segment>
                         <b:problemGroup>String</b:problemGroup>
                         <b:mainActivity>String</b:mainActivity>
                     </b:beneficiar>
                     <b:beneficiar xsi:type="b:LegalPerson">
-                        <b:participantID>String</b:participantID>
+                        <b:participantID>ID-13</b:participantID>
                         <b:type>String</b:type>
                         <b:clientType>String</b:clientType>
                         <b:name>String</b:name>
+                        <b:resident>true</b:resident>
                         <b:address>
                             <b:type>String</b:type>
                             <b:city>String</b:city>
@@ -2731,13 +5764,13 @@
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -2747,7 +5780,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -2759,7 +5792,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -2792,10 +5825,11 @@
                             <b:feedback>String</b:feedback>
                         </b:topManager>
                         <b:shareholder xsi:type="b:LegalPerson">
-                            <b:participantID>String</b:participantID>
+                            <b:participantID>ID-14</b:participantID>
                             <b:type>String</b:type>
                             <b:clientType>String</b:clientType>
                             <b:name>String</b:name>
+                            <b:resident>true</b:resident>
                             <b:address>
                                 <b:type>String</b:type>
                                 <b:city>String</b:city>
@@ -2817,13 +5851,13 @@
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -2833,7 +5867,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -2845,7 +5879,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -2877,17 +5911,18 @@
                                 <b:education>String</b:education>
                                 <b:feedback>String</b:feedback>
                             </b:topManager>
-                            <b:registrationDate>String</b:registrationDate>
+                            <b:registrationDate>1967-08-13</b:registrationDate>
                             <b:registrationNumber>0000000000000</b:registrationNumber>
-                            <b:segment>String</b:segment>
+                            <b:segment>REF_SEGMENT_0</b:segment>
                             <b:problemGroup>String</b:problemGroup>
                             <b:mainActivity>String</b:mainActivity>
                         </b:shareholder>
                         <b:shareholder xsi:type="b:LegalPerson">
-                            <b:participantID>String</b:participantID>
+                            <b:participantID>ID-15</b:participantID>
                             <b:type>String</b:type>
                             <b:clientType>String</b:clientType>
                             <b:name>String</b:name>
+                            <b:resident>true</b:resident>
                             <b:address>
                                 <b:type>String</b:type>
                                 <b:city>String</b:city>
@@ -2909,13 +5944,13 @@
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -2925,7 +5960,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -2937,7 +5972,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -2969,29 +6004,30 @@
                                 <b:education>String</b:education>
                                 <b:feedback>String</b:feedback>
                             </b:topManager>
-                            <b:registrationDate>String</b:registrationDate>
+                            <b:registrationDate>1967-08-13</b:registrationDate>
                             <b:registrationNumber>0000000000000</b:registrationNumber>
-                            <b:segment>String</b:segment>
+                            <b:segment>REF_SEGMENT_0</b:segment>
                             <b:problemGroup>String</b:problemGroup>
                             <b:mainActivity>String</b:mainActivity>
                         </b:shareholder>
-                        <b:registrationDate>String</b:registrationDate>
+                        <b:registrationDate>1967-08-13</b:registrationDate>
                         <b:registrationNumber>0000000000000</b:registrationNumber>
-                        <b:segment>String</b:segment>
+                        <b:segment>REF_SEGMENT_0</b:segment>
                         <b:problemGroup>String</b:problemGroup>
                         <b:mainActivity>String</b:mainActivity>
                     </b:beneficiar>
-                    <b:registrationDate>String</b:registrationDate>
+                    <b:registrationDate>1967-08-13</b:registrationDate>
                     <b:registrationNumber>0000000000000</b:registrationNumber>
-                    <b:segment>String</b:segment>
+                    <b:segment>REF_SEGMENT_0</b:segment>
                     <b:problemGroup>String</b:problemGroup>
                     <b:mainActivity>String</b:mainActivity>
-                </b:participant>
-                <b:participant xsi:type="b:LegalPerson">
-                    <b:participantID>String</b:participantID>
-                    <b:type>String</b:type>
+                </b:participants>
+                <b:participants xsi:type="b:LegalPerson">
+                    <b:participantID>ID-2</b:participantID>
+                    <b:type>REF_PARTICIPANT_TYPE_2</b:type>
                     <b:clientType>String</b:clientType>
-                    <b:name>String</b:name>
+                    <b:name>NotBorrower</b:name>
+                    <b:resident>true</b:resident>
                     <b:address>
                         <b:type>String</b:type>
                         <b:city>String</b:city>
@@ -3013,13 +6049,13 @@
                     <b:share>
                         <b:ownershipID>String</b:ownershipID>
                         <b:share>0</b:share>
-                        <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                         <b:comment>String</b:comment>
                     </b:share>
                     <b:share>
                         <b:ownershipID>String</b:ownershipID>
                         <b:share>0</b:share>
-                        <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                         <b:comment>String</b:comment>
                     </b:share>
                     <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -3029,7 +6065,7 @@
                     <b:rating>
                         <b:ratingID>String</b:ratingID>
                         <b:ratingType>String</b:ratingType>
-                        <b:ratingValue>0.0</b:ratingValue>
+                        <b:ratingValue>1.0</b:ratingValue>
                         <b:ratingQualitative>String</b:ratingQualitative>
                         <b:ratingSupport>String</b:ratingSupport>
                         <b:ratingCalculated>1</b:ratingCalculated>
@@ -3041,7 +6077,7 @@
                     <b:rating>
                         <b:ratingID>String</b:ratingID>
                         <b:ratingType>String</b:ratingType>
-                        <b:ratingValue>0.0</b:ratingValue>
+                        <b:ratingValue>1.0</b:ratingValue>
                         <b:ratingQualitative>String</b:ratingQualitative>
                         <b:ratingSupport>String</b:ratingSupport>
                         <b:ratingCalculated>1</b:ratingCalculated>
@@ -3051,7 +6087,7 @@
                         <b:ownerID>String</b:ownerID>
                     </b:rating>
                     <b:roleInConsolidatedGroup>String</b:roleInConsolidatedGroup>
-                    <b:businessEntityType>String</b:businessEntityType>
+                    <b:businessEntityType>REF_BUSINESS_ENTITY_TYPE_1</b:businessEntityType>
                     <b:taxAgencyNumber>String</b:taxAgencyNumber>
                     <b:topManager>
                         <b:managerID>String</b:managerID>
@@ -3074,10 +6110,11 @@
                         <b:feedback>String</b:feedback>
                     </b:topManager>
                     <b:shareholder xsi:type="b:LegalPerson">
-                        <b:participantID>String</b:participantID>
+                        <b:participantID>ID-17</b:participantID>
                         <b:type>String</b:type>
                         <b:clientType>String</b:clientType>
                         <b:name>String</b:name>
+                        <b:resident>true</b:resident>
                         <b:address>
                             <b:type>String</b:type>
                             <b:city>String</b:city>
@@ -3099,13 +6136,13 @@
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -3115,7 +6152,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -3127,7 +6164,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -3160,10 +6197,11 @@
                             <b:feedback>String</b:feedback>
                         </b:topManager>
                         <b:beneficiar xsi:type="b:LegalPerson">
-                            <b:participantID>String</b:participantID>
+                            <b:participantID>ID-18</b:participantID>
                             <b:type>String</b:type>
                             <b:clientType>String</b:clientType>
                             <b:name>String</b:name>
+                            <b:resident>true</b:resident>
                             <b:address>
                                 <b:type>String</b:type>
                                 <b:city>String</b:city>
@@ -3185,13 +6223,13 @@
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -3201,7 +6239,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -3213,7 +6251,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -3245,17 +6283,18 @@
                                 <b:education>String</b:education>
                                 <b:feedback>String</b:feedback>
                             </b:topManager>
-                            <b:registrationDate>String</b:registrationDate>
+                            <b:registrationDate>1967-08-13</b:registrationDate>
                             <b:registrationNumber>0000000000000</b:registrationNumber>
-                            <b:segment>String</b:segment>
+                            <b:segment>REF_SEGMENT_0</b:segment>
                             <b:problemGroup>String</b:problemGroup>
                             <b:mainActivity>String</b:mainActivity>
                         </b:beneficiar>
                         <b:beneficiar xsi:type="b:LegalPerson">
-                            <b:participantID>String</b:participantID>
+                            <b:participantID>ID-19</b:participantID>
                             <b:type>String</b:type>
                             <b:clientType>String</b:clientType>
                             <b:name>String</b:name>
+                            <b:resident>true</b:resident>
                             <b:address>
                                 <b:type>String</b:type>
                                 <b:city>String</b:city>
@@ -3277,13 +6316,13 @@
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -3293,7 +6332,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -3305,7 +6344,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -3337,23 +6376,24 @@
                                 <b:education>String</b:education>
                                 <b:feedback>String</b:feedback>
                             </b:topManager>
-                            <b:registrationDate>String</b:registrationDate>
+                            <b:registrationDate>1967-08-13</b:registrationDate>
                             <b:registrationNumber>0000000000000</b:registrationNumber>
-                            <b:segment>String</b:segment>
+                            <b:segment>REF_SEGMENT_0</b:segment>
                             <b:problemGroup>String</b:problemGroup>
                             <b:mainActivity>String</b:mainActivity>
                         </b:beneficiar>
-                        <b:registrationDate>String</b:registrationDate>
+                        <b:registrationDate>1967-08-13</b:registrationDate>
                         <b:registrationNumber>0000000000000</b:registrationNumber>
-                        <b:segment>String</b:segment>
+                        <b:segment>REF_SEGMENT_0</b:segment>
                         <b:problemGroup>String</b:problemGroup>
                         <b:mainActivity>String</b:mainActivity>
                     </b:shareholder>
                     <b:shareholder xsi:type="b:LegalPerson">
-                        <b:participantID>String</b:participantID>
+                        <b:participantID>ID-20</b:participantID>
                         <b:type>String</b:type>
                         <b:clientType>String</b:clientType>
                         <b:name>String</b:name>
+                        <b:resident>true</b:resident>
                         <b:address>
                             <b:type>String</b:type>
                             <b:city>String</b:city>
@@ -3375,13 +6415,13 @@
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -3391,7 +6431,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -3403,7 +6443,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -3436,10 +6476,11 @@
                             <b:feedback>String</b:feedback>
                         </b:topManager>
                         <b:beneficiar xsi:type="b:LegalPerson">
-                            <b:participantID>String</b:participantID>
+                            <b:participantID>ID-21</b:participantID>
                             <b:type>String</b:type>
                             <b:clientType>String</b:clientType>
                             <b:name>String</b:name>
+                            <b:resident>true</b:resident>
                             <b:address>
                                 <b:type>String</b:type>
                                 <b:city>String</b:city>
@@ -3461,13 +6502,13 @@
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -3477,7 +6518,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -3489,7 +6530,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -3521,17 +6562,18 @@
                                 <b:education>String</b:education>
                                 <b:feedback>String</b:feedback>
                             </b:topManager>
-                            <b:registrationDate>String</b:registrationDate>
+                            <b:registrationDate>1967-08-13</b:registrationDate>
                             <b:registrationNumber>0000000000000</b:registrationNumber>
-                            <b:segment>String</b:segment>
+                            <b:segment>REF_SEGMENT_0</b:segment>
                             <b:problemGroup>String</b:problemGroup>
                             <b:mainActivity>String</b:mainActivity>
                         </b:beneficiar>
                         <b:beneficiar xsi:type="b:LegalPerson">
-                            <b:participantID>String</b:participantID>
+                            <b:participantID>ID-22</b:participantID>
                             <b:type>String</b:type>
                             <b:clientType>String</b:clientType>
                             <b:name>String</b:name>
+                            <b:resident>true</b:resident>
                             <b:address>
                                 <b:type>String</b:type>
                                 <b:city>String</b:city>
@@ -3553,13 +6595,13 @@
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -3569,7 +6611,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -3581,7 +6623,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -3613,23 +6655,24 @@
                                 <b:education>String</b:education>
                                 <b:feedback>String</b:feedback>
                             </b:topManager>
-                            <b:registrationDate>String</b:registrationDate>
+                            <b:registrationDate>1967-08-13</b:registrationDate>
                             <b:registrationNumber>0000000000000</b:registrationNumber>
-                            <b:segment>String</b:segment>
+                            <b:segment>REF_SEGMENT_0</b:segment>
                             <b:problemGroup>String</b:problemGroup>
                             <b:mainActivity>String</b:mainActivity>
                         </b:beneficiar>
-                        <b:registrationDate>String</b:registrationDate>
+                        <b:registrationDate>1967-08-13</b:registrationDate>
                         <b:registrationNumber>0000000000000</b:registrationNumber>
-                        <b:segment>String</b:segment>
+                        <b:segment>REF_SEGMENT_0</b:segment>
                         <b:problemGroup>String</b:problemGroup>
                         <b:mainActivity>String</b:mainActivity>
                     </b:shareholder>
                     <b:beneficiar xsi:type="b:LegalPerson">
-                        <b:participantID>String</b:participantID>
+                        <b:participantID>ID-23</b:participantID>
                         <b:type>String</b:type>
                         <b:clientType>String</b:clientType>
                         <b:name>String</b:name>
+                        <b:resident>true</b:resident>
                         <b:address>
                             <b:type>String</b:type>
                             <b:city>String</b:city>
@@ -3651,13 +6694,13 @@
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -3667,7 +6710,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -3679,7 +6722,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -3712,10 +6755,11 @@
                             <b:feedback>String</b:feedback>
                         </b:topManager>
                         <b:shareholder xsi:type="b:LegalPerson">
-                            <b:participantID>String</b:participantID>
+                            <b:participantID>ID-24</b:participantID>
                             <b:type>String</b:type>
                             <b:clientType>String</b:clientType>
                             <b:name>String</b:name>
+                            <b:resident>true</b:resident>
                             <b:address>
                                 <b:type>String</b:type>
                                 <b:city>String</b:city>
@@ -3737,13 +6781,13 @@
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -3753,7 +6797,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -3765,7 +6809,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -3797,17 +6841,18 @@
                                 <b:education>String</b:education>
                                 <b:feedback>String</b:feedback>
                             </b:topManager>
-                            <b:registrationDate>String</b:registrationDate>
+                            <b:registrationDate>1967-08-13</b:registrationDate>
                             <b:registrationNumber>0000000000000</b:registrationNumber>
-                            <b:segment>String</b:segment>
+                            <b:segment>REF_SEGMENT_0</b:segment>
                             <b:problemGroup>String</b:problemGroup>
                             <b:mainActivity>String</b:mainActivity>
                         </b:shareholder>
                         <b:shareholder xsi:type="b:LegalPerson">
-                            <b:participantID>String</b:participantID>
+                            <b:participantID>ID-25</b:participantID>
                             <b:type>String</b:type>
                             <b:clientType>String</b:clientType>
                             <b:name>String</b:name>
+                            <b:resident>true</b:resident>
                             <b:address>
                                 <b:type>String</b:type>
                                 <b:city>String</b:city>
@@ -3829,13 +6874,13 @@
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -3845,7 +6890,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -3857,7 +6902,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -3889,23 +6934,24 @@
                                 <b:education>String</b:education>
                                 <b:feedback>String</b:feedback>
                             </b:topManager>
-                            <b:registrationDate>String</b:registrationDate>
+                            <b:registrationDate>1967-08-13</b:registrationDate>
                             <b:registrationNumber>0000000000000</b:registrationNumber>
-                            <b:segment>String</b:segment>
+                            <b:segment>REF_SEGMENT_0</b:segment>
                             <b:problemGroup>String</b:problemGroup>
                             <b:mainActivity>String</b:mainActivity>
                         </b:shareholder>
-                        <b:registrationDate>String</b:registrationDate>
+                        <b:registrationDate>1967-08-13</b:registrationDate>
                         <b:registrationNumber>0000000000000</b:registrationNumber>
-                        <b:segment>String</b:segment>
+                        <b:segment>REF_SEGMENT_0</b:segment>
                         <b:problemGroup>String</b:problemGroup>
                         <b:mainActivity>String</b:mainActivity>
                     </b:beneficiar>
                     <b:beneficiar xsi:type="b:LegalPerson">
-                        <b:participantID>String</b:participantID>
+                        <b:participantID>ID-26</b:participantID>
                         <b:type>String</b:type>
                         <b:clientType>String</b:clientType>
                         <b:name>String</b:name>
+                        <b:resident>true</b:resident>
                         <b:address>
                             <b:type>String</b:type>
                             <b:city>String</b:city>
@@ -3927,13 +6973,13 @@
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:share>
                             <b:ownershipID>String</b:ownershipID>
                             <b:share>0</b:share>
-                            <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                            <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                             <b:comment>String</b:comment>
                         </b:share>
                         <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -3943,7 +6989,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -3955,7 +7001,7 @@
                         <b:rating>
                             <b:ratingID>String</b:ratingID>
                             <b:ratingType>String</b:ratingType>
-                            <b:ratingValue>0.0</b:ratingValue>
+                            <b:ratingValue>1.0</b:ratingValue>
                             <b:ratingQualitative>String</b:ratingQualitative>
                             <b:ratingSupport>String</b:ratingSupport>
                             <b:ratingCalculated>1</b:ratingCalculated>
@@ -3988,10 +7034,11 @@
                             <b:feedback>String</b:feedback>
                         </b:topManager>
                         <b:shareholder xsi:type="b:LegalPerson">
-                            <b:participantID>String</b:participantID>
+                            <b:participantID>ID-27</b:participantID>
                             <b:type>String</b:type>
                             <b:clientType>String</b:clientType>
                             <b:name>String</b:name>
+                            <b:resident>true</b:resident>
                             <b:address>
                                 <b:type>String</b:type>
                                 <b:city>String</b:city>
@@ -4013,13 +7060,13 @@
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -4029,7 +7076,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -4041,7 +7088,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -4073,17 +7120,18 @@
                                 <b:education>String</b:education>
                                 <b:feedback>String</b:feedback>
                             </b:topManager>
-                            <b:registrationDate>String</b:registrationDate>
+                            <b:registrationDate>1967-08-13</b:registrationDate>
                             <b:registrationNumber>0000000000000</b:registrationNumber>
-                            <b:segment>String</b:segment>
+                            <b:segment>REF_SEGMENT_0</b:segment>
                             <b:problemGroup>String</b:problemGroup>
                             <b:mainActivity>String</b:mainActivity>
                         </b:shareholder>
                         <b:shareholder xsi:type="b:LegalPerson">
-                            <b:participantID>String</b:participantID>
+                            <b:participantID>ID-28</b:participantID>
                             <b:type>String</b:type>
                             <b:clientType>String</b:clientType>
                             <b:name>String</b:name>
+                            <b:resident>true</b:resident>
                             <b:address>
                                 <b:type>String</b:type>
                                 <b:city>String</b:city>
@@ -4105,13 +7153,13 @@
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:share>
                                 <b:ownershipID>String</b:ownershipID>
                                 <b:share>0</b:share>
-                                <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                                <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                                 <b:comment>String</b:comment>
                             </b:share>
                             <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -4121,7 +7169,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -4133,7 +7181,7 @@
                             <b:rating>
                                 <b:ratingID>String</b:ratingID>
                                 <b:ratingType>String</b:ratingType>
-                                <b:ratingValue>0.0</b:ratingValue>
+                                <b:ratingValue>1.0</b:ratingValue>
                                 <b:ratingQualitative>String</b:ratingQualitative>
                                 <b:ratingSupport>String</b:ratingSupport>
                                 <b:ratingCalculated>1</b:ratingCalculated>
@@ -4165,30 +7213,31 @@
                                 <b:education>String</b:education>
                                 <b:feedback>String</b:feedback>
                             </b:topManager>
-                            <b:registrationDate>String</b:registrationDate>
+                            <b:registrationDate>1967-08-13</b:registrationDate>
                             <b:registrationNumber>0000000000000</b:registrationNumber>
-                            <b:segment>String</b:segment>
+                            <b:segment>REF_SEGMENT_0</b:segment>
                             <b:problemGroup>String</b:problemGroup>
                             <b:mainActivity>String</b:mainActivity>
                         </b:shareholder>
-                        <b:registrationDate>String</b:registrationDate>
+                        <b:registrationDate>1967-08-13</b:registrationDate>
                         <b:registrationNumber>0000000000000</b:registrationNumber>
-                        <b:segment>String</b:segment>
+                        <b:segment>REF_SEGMENT_0</b:segment>
                         <b:problemGroup>String</b:problemGroup>
                         <b:mainActivity>String</b:mainActivity>
                     </b:beneficiar>
-                    <b:registrationDate>String</b:registrationDate>
+                    <b:registrationDate>1967-08-13</b:registrationDate>
                     <b:registrationNumber>0000000000000</b:registrationNumber>
-                    <b:segment>String</b:segment>
+                    <b:segment>REF_SEGMENT_0</b:segment>
                     <b:problemGroup>String</b:problemGroup>
                     <b:mainActivity>String</b:mainActivity>
-                </b:participant>
+                </b:participants>
                 <!-- Natural Persons -->
-                <b:participant xsi:type="b:NaturalPerson">
-                    <b:participantID>String</b:participantID>
-                    <b:type>String</b:type>
+                <b:participants xsi:type="b:NaturalPerson">
+                    <b:participantID>ID-29</b:participantID>
+                    <b:type>REF_PARTICIPANT_TYPE_3</b:type>
                     <b:clientType>String</b:clientType>
                     <b:name>String</b:name>
+                    <b:resident>true</b:resident>
                     <b:address>
                         <b:type>String</b:type>
                         <b:city>String</b:city>
@@ -4210,13 +7259,13 @@
                     <b:share>
                         <b:ownershipID>String</b:ownershipID>
                         <b:share>0</b:share>
-                        <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                         <b:comment>String</b:comment>
                     </b:share>
                     <b:share>
                         <b:ownershipID>String</b:ownershipID>
                         <b:share>0</b:share>
-                        <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                         <b:comment>String</b:comment>
                     </b:share>
                     <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -4226,7 +7275,7 @@
                     <b:rating>
                         <b:ratingID>String</b:ratingID>
                         <b:ratingType>String</b:ratingType>
-                        <b:ratingValue>0.0</b:ratingValue>
+                        <b:ratingValue>1.0</b:ratingValue>
                         <b:ratingQualitative>String</b:ratingQualitative>
                         <b:ratingSupport>String</b:ratingSupport>
                         <b:ratingCalculated>1</b:ratingCalculated>
@@ -4238,7 +7287,7 @@
                     <b:rating>
                         <b:ratingID>String</b:ratingID>
                         <b:ratingType>String</b:ratingType>
-                        <b:ratingValue>0.0</b:ratingValue>
+                        <b:ratingValue>1.0</b:ratingValue>
                         <b:ratingQualitative>String</b:ratingQualitative>
                         <b:ratingSupport>String</b:ratingSupport>
                         <b:ratingCalculated>1</b:ratingCalculated>
@@ -4274,12 +7323,13 @@
                         <b:identityIssuerCode>String</b:identityIssuerCode>
                         <b:identityIsPrimary>1</b:identityIsPrimary>
                     </b:identities>
-                </b:participant>
-                <b:participant xsi:type="b:NaturalPerson">
-                    <b:participantID>String</b:participantID>
-                    <b:type>String</b:type>
+                </b:participants>
+                <b:participants xsi:type="b:NaturalPerson">
+                    <b:participantID>ID-30</b:participantID>
+                    <b:type>REF_PARTICIPANT_TYPE_6</b:type>
                     <b:clientType>String</b:clientType>
                     <b:name>String</b:name>
+                    <b:resident>true</b:resident>
                     <b:address>
                         <b:type>String</b:type>
                         <b:city>String</b:city>
@@ -4301,13 +7351,13 @@
                     <b:share>
                         <b:ownershipID>String</b:ownershipID>
                         <b:share>0</b:share>
-                        <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                         <b:comment>String</b:comment>
                     </b:share>
                     <b:share>
                         <b:ownershipID>String</b:ownershipID>
                         <b:share>0</b:share>
-                        <b:periodOfOwnerhip>String</b:periodOfOwnerhip>
+                        <b:periodOfOwnerhip>2</b:periodOfOwnerhip>
                         <b:comment>String</b:comment>
                     </b:share>
                     <b:consolidatedGroupID>String</b:consolidatedGroupID>
@@ -4317,7 +7367,7 @@
                     <b:rating>
                         <b:ratingID>String</b:ratingID>
                         <b:ratingType>String</b:ratingType>
-                        <b:ratingValue>0.0</b:ratingValue>
+                        <b:ratingValue>1.0</b:ratingValue>
                         <b:ratingQualitative>String</b:ratingQualitative>
                         <b:ratingSupport>String</b:ratingSupport>
                         <b:ratingCalculated>1</b:ratingCalculated>
@@ -4329,7 +7379,7 @@
                     <b:rating>
                         <b:ratingID>String</b:ratingID>
                         <b:ratingType>String</b:ratingType>
-                        <b:ratingValue>0.0</b:ratingValue>
+                        <b:ratingValue>1.0</b:ratingValue>
                         <b:ratingQualitative>String</b:ratingQualitative>
                         <b:ratingSupport>String</b:ratingSupport>
                         <b:ratingCalculated>1</b:ratingCalculated>
@@ -4365,79 +7415,291 @@
                         <b:identityIssuerCode>String</b:identityIssuerCode>
                         <b:identityIsPrimary>1</b:identityIsPrimary>
                     </b:identities>
-                </b:participant>
-                <b:consolidatedGroup>
-                    <b:id>String</b:id>
-                    <b:label>String</b:label>
-                    <b:status>String</b:status>
-                    <b:updateDate>1967-08-13</b:updateDate>
-                    <b:approvalDate>1967-08-13</b:approvalDate>
-                    <b:ratings>
-                        <b:ratingID>String</b:ratingID>
-                        <b:ratingType>String</b:ratingType>
-                        <b:ratingValue>0.0</b:ratingValue>
-                        <b:ratingQualitative>String</b:ratingQualitative>
-                        <b:ratingSupport>String</b:ratingSupport>
-                        <b:ratingCalculated>1</b:ratingCalculated>
-                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
-                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
-                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
-                        <b:ownerID>String</b:ownerID>
-                    </b:ratings>
-                    <b:ratings>
-                        <b:ratingID>String</b:ratingID>
-                        <b:ratingType>String</b:ratingType>
-                        <b:ratingValue>0.0</b:ratingValue>
-                        <b:ratingQualitative>String</b:ratingQualitative>
-                        <b:ratingSupport>String</b:ratingSupport>
-                        <b:ratingCalculated>1</b:ratingCalculated>
-                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
-                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
-                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
-                        <b:ownerID>String</b:ownerID>
-                    </b:ratings>
-                    <b:topLevelGroupName>String</b:topLevelGroupName>
-                </b:consolidatedGroup>
-                <b:linkedBorrowersGroup>
-                    <b:id>String</b:id>
-                    <b:label>String</b:label>
-                    <b:status>String</b:status>
-                    <b:updateDate>1967-08-13</b:updateDate>
-                    <b:approvalDate>1967-08-13</b:approvalDate>
-                    <b:ratings>
-                        <b:ratingID>String</b:ratingID>
-                        <b:ratingType>String</b:ratingType>
-                        <b:ratingValue>0.0</b:ratingValue>
-                        <b:ratingQualitative>String</b:ratingQualitative>
-                        <b:ratingSupport>String</b:ratingSupport>
-                        <b:ratingCalculated>1</b:ratingCalculated>
-                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
-                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
-                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
-                        <b:ownerID>String</b:ownerID>
-                    </b:ratings>
-                    <b:ratings>
-                        <b:ratingID>String</b:ratingID>
-                        <b:ratingType>String</b:ratingType>
-                        <b:ratingValue>0.0</b:ratingValue>
-                        <b:ratingQualitative>String</b:ratingQualitative>
-                        <b:ratingSupport>String</b:ratingSupport>
-                        <b:ratingCalculated>1</b:ratingCalculated>
-                        <b:ratingCalculatedDate>1967-08-13</b:ratingCalculatedDate>
-                        <b:ratingApprovalDate>1967-08-13</b:ratingApprovalDate>
-                        <b:ratingEndDate>1967-08-13</b:ratingEndDate>
-                        <b:ownerID>String</b:ownerID>
-                    </b:ratings>
-                    <b:topLevelGroupName>String</b:topLevelGroupName>
-                </b:linkedBorrowersGroup>
-                <b:dealID>String</b:dealID>
-            </b:participantsInfo>
+                </b:participants>
+                <xsl:choose>
+                    <xsl:when test="/env:Envelope/env:Body/r:prtspRq/prtspRq:requestType='GetCG'">
+                        <b:groupType>CG</b:groupType>
+                        <b:groupInfo>
+                            <b:id>idCG</b:id>
+                            <b:label>CG</b:label>
+                            <b:status>Approved</b:status>
+                            <b:updateDate>2006-06-06</b:updateDate>
+                            <b:approvalDate>2006-06-06</b:approvalDate>
+                            <b:ratings>
+                                <b:ratingID>ratingID4</b:ratingID>
+                                <b:ratingType>ratingType4</b:ratingType>
+                                <b:ratingValue>0</b:ratingValue>
+                                <b:ratingQualitative>ratingQualitative4</b:ratingQualitative>
+                                <b:ratingSupport>ratingSupport4</b:ratingSupport>
+                                <b:ratingCalculated>false</b:ratingCalculated>
+                                <b:ratingCalculatedDate>2006-06-06</b:ratingCalculatedDate>
+                                <b:ratingApprovalDate>2006-06-06</b:ratingApprovalDate>
+                                <b:ratingEndDate>2006-06-06</b:ratingEndDate>
+                                <b:ownerID>ownerID4</b:ownerID>
+                            </b:ratings>
+                            <b:ratings>
+                                <b:ratingID>ratingID5</b:ratingID>
+                                <b:ratingType>ratingType5</b:ratingType>
+                                <b:ratingValue>0</b:ratingValue>
+                                <b:ratingQualitative>ratingQualitative5</b:ratingQualitative>
+                                <b:ratingSupport>ratingSupport5</b:ratingSupport>
+                                <b:ratingCalculated>false</b:ratingCalculated>
+                                <b:ratingCalculatedDate>2006-06-06</b:ratingCalculatedDate>
+                                <b:ratingApprovalDate>2006-06-06</b:ratingApprovalDate>
+                                <b:ratingEndDate>2006-06-06</b:ratingEndDate>
+                                <b:ownerID>ownerID5</b:ownerID>
+                            </b:ratings>
+                            <b:topLevelGroupName>topLevelGroupName0</b:topLevelGroupName>
+                        </b:groupInfo>
+                    </xsl:when>
+                    <xsl:when test="/env:Envelope/env:Body/r:prtspRq/prtspRq:requestType='GetLBG'">
+                        <b:groupType>LBG</b:groupType>
+                        <b:groupInfo>
+                            <b:id>idLBG</b:id>
+                            <b:label>LBG</b:label>
+                            <b:status>Approved</b:status>
+                            <b:updateDate>2006-05-04</b:updateDate>
+                            <b:approvalDate>2006-05-04</b:approvalDate>
+                            <b:ratings>
+                                <b:ratingID>ratingID4</b:ratingID>
+                                <b:ratingType>ratingType4</b:ratingType>
+                                <b:ratingValue>0</b:ratingValue>
+                                <b:ratingQualitative>ratingQualitative4</b:ratingQualitative>
+                                <b:ratingSupport>ratingSupport4</b:ratingSupport>
+                                <b:ratingCalculated>false</b:ratingCalculated>
+                                <b:ratingCalculatedDate>2006-05-04</b:ratingCalculatedDate>
+                                <b:ratingApprovalDate>2006-05-04</b:ratingApprovalDate>
+                                <b:ratingEndDate>2006-05-04</b:ratingEndDate>
+                                <b:ownerID>ownerID4</b:ownerID>
+                            </b:ratings>
+                            <b:ratings>
+                                <b:ratingID>ratingID5</b:ratingID>
+                                <b:ratingType>ratingType5</b:ratingType>
+                                <b:ratingValue>0</b:ratingValue>
+                                <b:ratingQualitative>ratingQualitative5</b:ratingQualitative>
+                                <b:ratingSupport>ratingSupport5</b:ratingSupport>
+                                <b:ratingCalculated>false</b:ratingCalculated>
+                                <b:ratingCalculatedDate>2006-05-04</b:ratingCalculatedDate>
+                                <b:ratingApprovalDate>2006-05-04</b:ratingApprovalDate>
+                                <b:ratingEndDate>2006-05-04</b:ratingEndDate>
+                                <b:ownerID>ownerID5</b:ownerID>
+                            </b:ratings>
+                            <b:topLevelGroupName>topLevelGroupName0</b:topLevelGroupName>
+                        </b:groupInfo>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <b:groupType>DealParticipants</b:groupType>
+                        <b:groupInfo>
+                            <b:id>idLBG</b:id>
+                            <b:label>LBG</b:label>
+                            <b:status>Approved</b:status>
+                            <b:updateDate>2006-05-04</b:updateDate>
+                            <b:approvalDate>2006-05-04</b:approvalDate>
+                            <b:ratings>
+                                <b:ratingID>ratingID4</b:ratingID>
+                                <b:ratingType>ratingType4</b:ratingType>
+                                <b:ratingValue>0</b:ratingValue>
+                                <b:ratingQualitative>ratingQualitative4</b:ratingQualitative>
+                                <b:ratingSupport>ratingSupport4</b:ratingSupport>
+                                <b:ratingCalculated>false</b:ratingCalculated>
+                                <b:ratingCalculatedDate>2006-05-04</b:ratingCalculatedDate>
+                                <b:ratingApprovalDate>2006-05-04</b:ratingApprovalDate>
+                                <b:ratingEndDate>2006-05-04</b:ratingEndDate>
+                                <b:ownerID>ownerID4</b:ownerID>
+                            </b:ratings>
+                            <b:ratings>
+                                <b:ratingID>ratingID5</b:ratingID>
+                                <b:ratingType>ratingType5</b:ratingType>
+                                <b:ratingValue>0</b:ratingValue>
+                                <b:ratingQualitative>ratingQualitative5</b:ratingQualitative>
+                                <b:ratingSupport>ratingSupport5</b:ratingSupport>
+                                <b:ratingCalculated>false</b:ratingCalculated>
+                                <b:ratingCalculatedDate>2006-05-04</b:ratingCalculatedDate>
+                                <b:ratingApprovalDate>2006-05-04</b:ratingApprovalDate>
+                                <b:ratingEndDate>2006-05-04</b:ratingEndDate>
+                                <b:ownerID>ownerID5</b:ownerID>
+                            </b:ratings>
+                            <b:topLevelGroupName>topLevelGroupName0</b:topLevelGroupName>
+                        </b:groupInfo>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </b:participantsGroup>
             <b:operationStatus>
-                <b:errorCode>String</b:errorCode>
-                <b:errorMessage>String</b:errorMessage>
+                <b:errorCode>0</b:errorCode>
+                <b:errorMessage>Success</b:errorMessage>
             </b:operationStatus>
         </r:prtspRs>
     </xsl:template>
-
+    <xsl:template name="ImportFinReport">
+        <finrep:importFinReportRs xmlns:finrep="http://sbrf.ru/NCP/FinRep/" xmlns:ifrrs="http://sbrf.ru/NCP/FinRep/ImportFinReportRs/"
+                                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ifrrs:nonCurrentAssetsNFRS>1.0</ifrrs:nonCurrentAssetsNFRS>
+            <ifrrs:currentAssetsNFRS>2.0</ifrrs:currentAssetsNFRS>
+            <ifrrs:nonCurrentAssetsIFRS>0.3</ifrrs:nonCurrentAssetsIFRS>
+            <ifrrs:currentAssetsIFRS>4.0</ifrrs:currentAssetsIFRS>
+            <ifrrs:longTermDebtNFRS>0.0</ifrrs:longTermDebtNFRS>
+            <ifrrs:shortTermDebtNFRS>0.0</ifrrs:shortTermDebtNFRS>
+            <ifrrs:longTermDebtIFRS>0.0</ifrrs:longTermDebtIFRS>
+            <ifrrs:shortTermDebtIFRS>0.0</ifrrs:shortTermDebtIFRS>
+            <ifrrs:ebitdaNFRS>2.3</ifrrs:ebitdaNFRS>
+            <ifrrs:numQuarterNFRS>5</ifrrs:numQuarterNFRS>
+            <ifrrs:ebitdaIFRS>0.0</ifrrs:ebitdaIFRS>
+            <ifrrs:numQuarterIFRS>0</ifrrs:numQuarterIFRS>
+            <ifrrs:currencyCode>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</ifrrs:currencyCode>
+            <ifrrs:currencyCodeForFR>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</ifrrs:currencyCodeForFR>
+            <ifrrs:currencyRate>0.0</ifrrs:currencyRate>
+            <ifrrs:futureCurrencyRate>0.0</ifrrs:futureCurrencyRate>
+            <ifrrs:currentCurrencyRate>0.0</ifrrs:currentCurrencyRate>
+            <ifrrs:purpose>aaaaaaaaaaaaaaa</ifrrs:purpose>
+            <ifrrs:currentYear>0</ifrrs:currentYear>
+            <ifrrs:govDebt>0.0</ifrrs:govDebt>
+            <ifrrs:creditGovDebt>0.0</ifrrs:creditGovDebt>
+            <ifrrs:credit>0.0</ifrrs:credit>
+            <ifrrs:liabilities>0.0</ifrrs:liabilities>
+            <ifrrs:liabilitiesNextYear>0.0</ifrrs:liabilitiesNextYear>
+            <ifrrs:income>0.0</ifrrs:income>
+            <ifrrs:incomeNextYear>0.0</ifrrs:incomeNextYear>
+            <ifrrs:plannedCredit>0.0</ifrrs:plannedCredit>
+            <ifrrs:plannedCreditNextYear>0.0</ifrrs:plannedCreditNextYear>
+        </finrep:importFinReportRs>
+    </xsl:template>
+    <xsl:template name="ImportFinAnalysis">
+        <finrep:importFinAnalysisRs xmlns:finrep="http://sbrf.ru/NCP/FinRep/"
+                                    xmlns:ifars="http://sbrf.ru/NCP/FinRep/ImportFinAnalysisRs/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ifars:actualRequirements>
+                <ifars:creditRiskPerDebtor>0.0</ifars:creditRiskPerDebtor>
+                <ifars:creditRiskForRelatedDebtorGroup>0.0</ifars:creditRiskForRelatedDebtorGroup>
+                <ifars:creditRiskPerLegalEntityInsider>1.1</ifars:creditRiskPerLegalEntityInsider>
+                <ifars:economicGroupRiskFactor>0.0</ifars:economicGroupRiskFactor>
+            </ifars:actualRequirements>
+            <ifars:actualRequirementsInTotal>
+                <ifars:creditRiskPerDebtor>0.0</ifars:creditRiskPerDebtor>
+                <ifars:creditRiskForRelatedDebtorGroup>0.0</ifars:creditRiskForRelatedDebtorGroup>
+                <ifars:creditRiskPerLegalEntityInsider>0.0</ifars:creditRiskPerLegalEntityInsider>
+                <ifars:economicGroupRiskFactor>0.0</ifars:economicGroupRiskFactor>
+            </ifars:actualRequirementsInTotal>
+            <ifars:creditHistoryConclusions>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            </ifars:creditHistoryConclusions>
+            <ifars:offBalanceSheetLiabilities>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            </ifars:offBalanceSheetLiabilities>
+            <ifars:liabilitiesDynamicsComment>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            </ifars:liabilitiesDynamicsComment>
+            <ifars:turnoversComment>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            </ifars:turnoversComment>
+            <ifars:revenueExpensesStressAnalysis>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            </ifars:revenueExpensesStressAnalysis>
+            <ifars:fieldInfo>
+                <ifars:mainField>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                </ifars:mainField>
+                <ifars:mainBusiness>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                </ifars:mainBusiness>
+            </ifars:fieldInfo>
+            <ifars:marketPositionAndTrends>
+                <ifars:listOfMarkets>
+                    <ifars:market>
+                        <ifars:name>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        </ifars:name>
+                        <ifars:posidionAndShare>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        </ifars:posidionAndShare>
+                        <ifars:description>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        </ifars:description>
+                        <ifars:lastFinReportQuarter>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        </ifars:lastFinReportQuarter>
+                        <ifars:borrower>
+                            <ifars:advantages>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                            </ifars:advantages>
+                            <ifars:disadvantages>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                            </ifars:disadvantages>
+                            <ifars:revenue>0.0</ifars:revenue>
+                            <ifars:ebitda>0.0</ifars:ebitda>
+                            <ifars:debt>0.0</ifars:debt>
+                            <ifars:assets>0.0</ifars:assets>
+                            <ifars:equity>0.0</ifars:equity>
+                            <ifars:ebitdaRevenue>0.0</ifars:ebitdaRevenue>
+                            <ifars:debtEbitda>0.0</ifars:debtEbitda>
+                            <ifars:debtEquity>0.0</ifars:debtEquity>
+                        </ifars:borrower>
+                        <ifars:listOfCompetitor>
+                            <ifars:competitor>
+                                <ifars:advantages>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                </ifars:advantages>
+                                <ifars:disadvantages>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                </ifars:disadvantages>
+                                <ifars:revenue>2.0</ifars:revenue>
+                                <ifars:ebitda>0.0</ifars:ebitda>
+                                <ifars:debt>0.0</ifars:debt>
+                                <ifars:assets>3.0</ifars:assets>
+                                <ifars:equity>0.0</ifars:equity>
+                                <ifars:ebitdaRevenue>1.0</ifars:ebitdaRevenue>
+                                <ifars:debtEbitda>0.0</ifars:debtEbitda>
+                                <ifars:debtEquity>0.0</ifars:debtEquity>
+                            </ifars:competitor>
+                        </ifars:listOfCompetitor>
+                    </ifars:market>
+                </ifars:listOfMarkets>
+                <ifars:trends>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                </ifars:trends>
+                <ifars:demandDynamics>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                </ifars:demandDynamics>
+            </ifars:marketPositionAndTrends>
+            <ifars:business>
+                <ifars:businessDescription>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                </ifars:businessDescription>
+                <ifars:suppliersConcentrationLevel>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                </ifars:suppliersConcentrationLevel>
+                <ifars:buyersConcentrationLevel>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                </ifars:buyersConcentrationLevel>
+                <ifars:listOfMainSuppliers>
+                    <ifars:supplier>
+                        <ifars:name>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        </ifars:name>
+                        <ifars:isCgParticipant>true</ifars:isCgParticipant>
+                        <ifars:conditions>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        </ifars:conditions>
+                        <ifars:productsAndTrends>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        </ifars:productsAndTrends>
+                    </ifars:supplier>
+                </ifars:listOfMainSuppliers>
+                <ifars:listOfMainBuyers>
+                    <ifars:buyer>
+                        <ifars:name>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        </ifars:name>
+                        <ifars:isCgParticipant>true</ifars:isCgParticipant>
+                        <ifars:conditions>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        </ifars:conditions>
+                        <ifars:productsAndTrends>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        </ifars:productsAndTrends>
+                    </ifars:buyer>
+                </ifars:listOfMainBuyers>
+                <ifars:dependenceComment>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                </ifars:dependenceComment>
+            </ifars:business>
+        </finrep:importFinAnalysisRs>
+    </xsl:template>
+    <xsl:template name="ConfirmRatings">
+        <r:confirmRatingRs xmlns:b="http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRs/" xmlns:r="http://sbrf.ru/NCP/AMRLIRT/"
+                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <b:return>
+                <b:errorCode>0</b:errorCode>
+                <b:errorMessage>Succes</b:errorMessage>
+                <b:listOfAddParameter>
+                    <b:addParameter>
+                        <b:order>1</b:order>
+                        <b:name>Name</b:name>
+                        <b:value>Value</b:value>
+                    </b:addParameter>
+                    <b:addParameter>
+                        <b:order>1</b:order>
+                        <b:name>Name</b:name>
+                        <b:value>Value</b:value>
+                    </b:addParameter>
+                    <b:addParameter>
+                        <b:order>1</b:order>
+                        <b:name>Name</b:name>
+                        <b:value>Value</b:value>
+                    </b:addParameter>
+                </b:listOfAddParameter>
+            </b:return>
+        </r:confirmRatingRs>
+    </xsl:template>
 </xsl:stylesheet>
-                           

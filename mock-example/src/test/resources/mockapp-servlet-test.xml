@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+        <!--                 -->
+        <!--                 -->
+        <!--     THIS IS COPY OF mockapp-servlet.xml            -->
+        <!--                 -->
+        <!--                 -->
 <beans:beans xmlns="http://www.springframework.org/schema/integration"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
@@ -16,42 +21,44 @@
 	">
 
     <!-- Настройки подключения к MQ -->
-    <beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.CF"/>
-    </beans:bean>
-    <beans:bean id="requestQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.IN.MOCK"/>
-    </beans:bean>
-    <beans:bean id="replyQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.OUT.MOCK"/>
-    </beans:bean>
-    
-     <beans:bean id="requestQueueCRM" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.REQUEST"/>
-    </beans:bean>
-    <beans:bean id="replyQueueCRM" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.RESPONSE"/>
-    </beans:bean>
-    
-    <jms:inbound-gateway 
-            id="jmsin" 
-            request-destination="requestQueue" 
-            request-channel="ESB.BPM.NCP.IN.MOCK"
-            reply-channel="ESB.BPM.NCP.OUT.MOCK"
-            default-reply-destination="replyQueue"
-            header-mapper="defHeaderMapper"
-            connection-factory="jndiConnectionFactory"
-    />
-    
-    <jms:outbound-gateway 
-            id="jmsout" 
-            request-destination="requestQueueCRM" 
-            reply-destination="replyQueueCRM"
-            request-channel="ESB.BPM.NCP.REQUEST"
-            reply-channel="ESB.BPM.NCP.RESPONSE"
-            header-mapper="defHeaderMapper"
-            connection-factory="jndiConnectionFactory"
-    />
+    <!--<beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+            <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.CF"/>-->
+    <!--</beans:bean>-->
+
+    <!--<beans:bean id="requestQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+            <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.IN.MOCK"/>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="replyQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+            <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.OUT.MOCK"/>-->
+    <!--</beans:bean>-->
+    <!---->
+     <!--<beans:bean id="requestQueueCRM" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+            <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.REQUEST"/>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="replyQueueCRM" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+            <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.RESPONSE"/>-->
+    <!--</beans:bean>-->
+    <!---->
+
+    <!--<jms:inbound-gateway-->
+            <!--id="jmsin"-->
+            <!--request-destination="requestQueue"-->
+            <!--request-channel="ESB.BPM.NCP.IN.MOCK"-->
+            <!--reply-channel="ESB.BPM.NCP.OUT.MOCK"-->
+            <!--default-reply-destination="replyQueue"-->
+            <!--header-mapper="defHeaderMapper"-->
+            <!--connection-factory="jndiConnectionFactory"-->
+    <!--/>-->
+
+    <!--<jms:outbound-gateway-->
+            <!--id="jmsout"-->
+            <!--request-destination="requestQueueCRM"-->
+            <!--reply-destination="replyQueueCRM"-->
+            <!--request-channel="ESB.BPM.NCP.REQUEST"-->
+            <!--reply-channel="ESB.BPM.NCP.RESPONSE"-->
+            <!--header-mapper="defHeaderMapper"-->
+            <!--connection-factory="jndiConnectionFactory"-->
+    <!--/>-->
 
     <!-- Входной и выходной каналы -->	
     <channel id="ESB.BPM.NCP.IN.MOCK">
@@ -114,8 +121,7 @@
     <ix:xpath-router id="operationRouter" input-channel="ESB.BPM.NCP.IN.MOCK" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
         <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
         
-        <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="ESBSynCallForNCPDB"/>
-        
+
         <ix:mapping value="CreateTask" channel="CreateTask"/>
         <ix:mapping value="GetParticipants" channel="GetParticipants"/>
         <ix:mapping value="SaveDeal" channel="SaveDeal"/>
@@ -203,19 +209,20 @@
     <transformer input-channel="SrvGetFinReport" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_SrvGetFinReport"/>   
     <transformer input-channel="SrvGetFinAnalysis" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_SrvGetFinAnalysis"/> 
    	<transformer input-channel="SrvGetRatingsAndFactors" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_SrvGetRatingsAndFactors"/>   
-    <transformer input-channel="SrvUpdateRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_SrvUpdateRating"/> 
-    
+
     <context:component-scan base-package="ru.sbt.bpm.mock.controller"/>
     
     <beans:bean id="jspResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="prefix" value="/WEB-INF/jsp/"/>
         <beans:property name="suffix" value=".jsp"/>
     </beans:bean>
-    
+
+    <!--MODIFIED FOR TESTING-->
     <beans:bean id="channelService" class="ru.sbt.bpm.mock.service.ChannelService">
    		 <beans:property name="subscribeChannels">
    		 	<util:list>
    		 		<beans:ref bean="ESB.BPM.NCP.RESPONSE"/>
+   		 		<beans:ref bean="ESB.BPM.NCP.OUT.MOCK"/>
    		 	</util:list>
    		 </beans:property> 
     </beans:bean>
