@@ -47,7 +47,7 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="errorCode" type="crmct:string2000" minOccurs="0">
+			<xsd:element name="errorMessage" type="crmct:string2000" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Сообщение об ошибке
