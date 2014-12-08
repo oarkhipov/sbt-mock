@@ -14,18 +14,32 @@ package ru.sbt.bpm.mock.utils;/*
  * limitations under the License.
  */
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.sax.SAXSource;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.messaging.support.GenericMessage;
-import org.w3c.dom.Document;
-
 import org.springframework.xml.transform.StringResult;
+
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+import java.io.*;
+import java.util.ArrayList;
 
 /**
  * @author Jonas Partner
@@ -54,5 +68,4 @@ public class XmlUtil {
 		Document orderDoc = builder.parse(orderRes.getInputStream());
 		return new GenericMessage<Document>(orderDoc);
 	}
-
 }

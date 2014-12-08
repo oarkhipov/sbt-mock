@@ -234,7 +234,7 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="groupType" type="crmct:string25">
+			<xsd:element name="groupType" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Тип группы участников (КГ, ГСЗ, Участники сделки)

@@ -4,9 +4,6 @@ import org.custommonkey.xmlunit.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.messaging.support.GenericMessage;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -60,4 +57,25 @@ public class ChannelTest {
             assertEquals(MSGRS, result);
         }
     }
+
+    @Test
+    public void createTaskTest2() throws Exception {
+        IN="CreateTask";
+        OUT = "ESB.BPM.NCP.OUT.MOCK";
+        MSGRQ = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource("xml/CRM/createTaskRQ2.xml").getPayload());
+        MSGRS = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource("xml/CRM/createTaskRS2.xml").getPayload());
+
+        service.sendMessage(IN, MSGRQ);
+        assertTrue(service.getPayloadsCount(OUT)>0);
+        int index = service.getPayloadsCount(OUT);
+        String result = service.getPayload(OUT, index-1);
+
+        XMLUnit.setIgnoreWhitespace(true);
+
+        Diff diff = new Diff(MSGRS,result);
+        if (!diff.identical()) {
+            assertEquals(MSGRS, result);
+        }
+    }
+
 }

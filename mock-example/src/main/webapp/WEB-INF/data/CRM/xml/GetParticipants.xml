@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data>
     <response name="default">
-        <errorCode>0</errorCode>
     </response>
     <response name="ERROR">
-        <errorCode>325</errorCode>
-        <errorMessage>ERROR: kernel panic!</errorMessage>
     </response>
 </data>

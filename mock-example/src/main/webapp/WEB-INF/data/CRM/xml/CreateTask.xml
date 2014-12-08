@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/NCP/CRM/CreateTaskRs/Data/">
+    <response name="default">
+        <errorCode>0</errorCode>
+    </response>
+    <response name="ERROR">
+        <errorMessage>ERROR: kernel panic!</errorMessage>
+        <errorCode>325</errorCode>
+    </response>
+</data>

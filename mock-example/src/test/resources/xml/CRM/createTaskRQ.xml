@@ -2,12 +2,12 @@
 <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:rq="http://sbrf.ru/NCP/CRM/CreateTaskRq/">
     <soap:Header/>
     <soap:Body>
-        <rq:CreateTaskRq>
+        <rq:createTaskRq>
             <rq:contractID>contractId</rq:contractID>
             <rq:requestType>reqType</rq:requestType>
             <rq:fullNameOfResponsiblePerson>person</rq:fullNameOfResponsiblePerson>
             <rq:contractBPMID>bpmid</rq:contractBPMID>
             <rq:comment>comment</rq:comment>
-        </rq:CreateTaskRq>
+        </rq:createTaskRq>
     </soap:Body>
 </soap:Envelope>

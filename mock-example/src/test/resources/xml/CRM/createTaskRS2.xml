@@ -3,10 +3,11 @@
     <soap:Header xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:rq="http://sbrf.ru/NCP/CRM/CreateTaskRq/"/>
     <soap-env:Body xmlns:rsd="http://sbrf.ru/NCP/CRM/CreateTaskRs/Data/" xmlns:ns2="http://sbrf.ru/NCP/CRM/CreateTaskRs/" xmlns:ns1="http://sbrf.ru/NCP/CRM/" xmlns:rq="http://sbrf.ru/NCP/CRM/CreateTaskRq/">
         <ns2:createTaskRs>
-            <ns2:errorCode>0</ns2:errorCode>
+            <ns2:errorMessage>ERROR: kernel panic!</ns2:errorMessage>
+            <ns2:errorCode>325</ns2:errorCode>
             <ns2:contractID>contractId</ns2:contractID>
             <ns2:fullNameOfResponsiblePerson>person</ns2:fullNameOfResponsiblePerson>
-            <ns2:comment>comment</ns2:comment>
+            <ns2:comment>ERROR</ns2:comment>
             <ns2:contractBPMID>bpmid</ns2:contractBPMID>
             <ns2:requestType>reqType</ns2:requestType>
         </ns2:createTaskRs>
