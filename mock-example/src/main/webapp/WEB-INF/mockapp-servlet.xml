@@ -67,25 +67,25 @@
     </channel>
     
       <!-- Входной и выходной каналы1 -->	
+    <channel id="ESB.BPM.NCP.REQUEST">
+        <interceptors>
+            <wire-tap channel="toGateLoggerCRM"/>
+        </interceptors>
+    </channel>
+    
     <channel id="ESB.BPM.NCP.RESPONSE">
         <interceptors>
             <wire-tap channel="fromGateLoggerCRM"/>
         </interceptors>
     </channel>
     
-    <channel id="ESB.BPM.NCP.REQUEST">
-        <interceptors>
-            <wire-tap channel="toGateLoggerCRM"/>
-        </interceptors>
-    </channel>  
-    
     <!--настройка логгеров -->   
     <logging-channel-adapter id="fromGateLogger" logger-name="jms/ESB.BPM.NCP.IN.MOCK"/>
     <logging-channel-adapter id="toGateLogger" logger-name="jms/ESB.BPM.NCP.OUT.MOCK"/>
     
     <!--настройка логгеров1 -->   
-    <logging-channel-adapter id="fromGateLoggerCRM" logger-name="jms/ESB.BPM.NCP.RESPONSE"/>
     <logging-channel-adapter id="toGateLoggerCRM" logger-name="jms/ESB.BPM.NCP.REQUEST"/>
+    <logging-channel-adapter id="fromGateLoggerCRM" logger-name="jms/ESB.BPM.NCP.RESPONSE"/>
     
     <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
      
