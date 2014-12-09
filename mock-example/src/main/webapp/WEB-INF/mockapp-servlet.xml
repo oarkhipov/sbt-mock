@@ -80,12 +80,12 @@
     </channel>  
     
     <!--настройка логгеров -->   
-    <logging-channel-adapter id="fromGateLogger" logger-name="fromGateLogger"/>
-    <logging-channel-adapter id="toGateLogger" logger-name="toGateLogger"/>
+    <logging-channel-adapter id="fromGateLogger" logger-name="jms/ESB.BPM.NCP.IN.MOCK"/>
+    <logging-channel-adapter id="toGateLogger" logger-name="jms/ESB.BPM.NCP.OUT.MOCK"/>
     
     <!--настройка логгеров1 -->   
-    <logging-channel-adapter id="fromGateLoggerCRM" logger-name="fromGateLoggerCRM"/>
-    <logging-channel-adapter id="toGateLoggerCRM" logger-name="toGateLoggerCRM"/>
+    <logging-channel-adapter id="fromGateLoggerCRM" logger-name="jms/ESB.BPM.NCP.RESPONSE"/>
+    <logging-channel-adapter id="toGateLoggerCRM" logger-name="jms/ESB.BPM.NCP.REQUEST"/>
     
     <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
      
@@ -97,7 +97,7 @@
     <channel id="defaultChannel"/>
     <channel id="ESBSynCallForNCPDB"/>
     
-    <channel id="CreateTask"/>
+<!--     <channel id="CreateTask"/>
     <channel id="GetParticipants"/>
     <channel id="SaveDeal"/>
     <channel id="UpdateRef"/>
@@ -111,13 +111,13 @@
     <channel id="SrvGetFinAnalysis"/>
     <channel id="SrvGetRatingsAndFactors"/>
     <channel id="SrvUpdateRating"/>
-
+ -->
     <ix:xpath-router id="operationRouter" input-channel="ESB.BPM.NCP.IN.MOCK" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
         <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
         
         <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="ESBSynCallForNCPDB"/>
         
-        <ix:mapping value="CreateTask" channel="CreateTask"/>
+       <!--  <ix:mapping value="CreateTask" channel="CreateTask"/>
         <ix:mapping value="GetParticipants" channel="GetParticipants"/>
         <ix:mapping value="SaveDeal" channel="SaveDeal"/>
         <ix:mapping value="UpdateRef" channel="UpdateRef"/>
@@ -130,7 +130,7 @@
         <ix:mapping value="SrvGetFinReport" channel="SrvGetFinReport"/>
         <ix:mapping value="SrvGetFinAnalysis" channel="SrvGetFinAnalysis"/>
         <ix:mapping value="SrvGetRatingsAndFactors" channel="SrvGetRatingsAndFactors"/>
-        <ix:mapping value="SrvUpdateRating" channel="SrvUpdateRating"/>
+        <ix:mapping value="SrvUpdateRating" channel="SrvUpdateRating"/> -->
     </ix:xpath-router>
 
     <!-- здесь уже реализация -->
@@ -139,7 +139,7 @@
         <beans:property name="xslPath" value="/WEB-INF/xsl/ESBSynCallForNCPDB.xsl"/>
     </beans:bean>
     
-    <!-- CRM -->
+ <!--     CRM 
     <beans:bean id="CRM_CreateTask" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/CRM/CreateTask.xsl"/>
     </beans:bean>
@@ -152,7 +152,7 @@
     <beans:bean id="CRM_UpdateRef" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/CRM/UpdateRef.xsl"/>
     </beans:bean>
-    <!-- AMRLiRT -->
+    AMRLiRT
     <beans:bean id="AMRLiRT_SrvCalcRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/SrvCalcRating.xsl"/>
     </beans:bean>
@@ -171,7 +171,7 @@
     <beans:bean id="AMRLiRT_SrvCalcDebtCapacity" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/SrvCalcDebtCapacity.xsl"/>
     </beans:bean>
-    <!-- FinRep -->
+    FinRep
     <beans:bean id="FinRep_SrvGetFinReport" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/SrvGetFinReport.xsl"/>
     </beans:bean>
@@ -183,13 +183,13 @@
     </beans:bean>
     <beans:bean id="FinRep_SrvUpdateRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/SrvUpdateRating.xsl"/>
-    </beans:bean>
+    </beans:bean> -->
 
     
  <!--маппинг трасформеров на каналы-->   
     <transformer input-channel="ESBSynCallForNCPDB" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="ESBSynCallNCPDB"/>
          
-    <transformer input-channel="CreateTask" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CRM_CreateTask"/>     
+ <!--    <transformer input-channel="CreateTask" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CRM_CreateTask"/>     
     <transformer input-channel="GetParticipants" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CRM_GetParticipants"/>   
     <transformer input-channel="SaveDeal" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CRM_SaveDeal"/> 
     <transformer input-channel="UpdateRef" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CRM_UpdateRef"/>     
@@ -202,7 +202,7 @@
     <transformer input-channel="SrvGetFinReport" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_SrvGetFinReport"/>   
     <transformer input-channel="SrvGetFinAnalysis" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_SrvGetFinAnalysis"/> 
    	<transformer input-channel="SrvGetRatingsAndFactors" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_SrvGetRatingsAndFactors"/>   
-    <transformer input-channel="SrvUpdateRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_SrvUpdateRating"/> 
+    <transformer input-channel="SrvUpdateRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_SrvUpdateRating"/>  -->
     
     <context:component-scan base-package="ru.sbt.bpm.mock.controller"/>
     
