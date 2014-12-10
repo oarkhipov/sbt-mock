@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sbrf.ru/NCP/ASFO/GetFinReportRq/" targetNamespace="http://sbrf.ru/NCP/ASFO/GetFinReportRq/" xmlns:amrct="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" elementFormDefault="qualified">
+	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" schemaLocation="CommonTypes.xsd"/>	
+
+	<xsd:complexType name="FinReportImportRequest">
+		<xsd:sequence>
+			<xsd:element name="finReportType">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="entityType">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="entityId">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="15"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

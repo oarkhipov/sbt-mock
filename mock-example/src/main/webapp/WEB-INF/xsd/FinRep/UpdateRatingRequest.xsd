@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sbrf.ru/NCP/ASFO/UpdateRatingRq/" targetNamespace="http://sbrf.ru/NCP/ASFO/UpdateRatingRq/" xmlns:amrct="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" elementFormDefault="qualified">
+	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" schemaLocation="CommonTypes.xsd"/>	
+
+	<xsd:complexType name="Employee">
+		<xsd:sequence>
+			<xsd:element name="login">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="lastName">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="firstName" >
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="middleName" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="division" >
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="divisionCode">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="jobTitle" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="300"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="role">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="RatingAjustment">
+		<xsd:sequence>
+			<xsd:element name="ajustmentDate" type="xsd:dateTime" />
+			<xsd:element name="ajustedValue" type="xsd:int" />
+			<xsd:element name="ajustmetReason" >
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="250"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="comments" minOccurs="0" >
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="status" >
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+
+			<xsd:element name="employeeForAjustment" type="xsd:Employee" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListOfRatingAjustment">
+		<xsd:sequence>
+			<xsd:element name="ratingAjustment" type="xsd:RatingAjustment" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="AddParameter">
+		<xsd:sequence>
+			<xsd:element name="order" type="xsd:int"/>
+			<xsd:element name="name" >
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="value">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfAddParameter">
+		<xsd:sequence>
+			<xsd:element name="addParameter" type="xsd:AddParameter" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CalculatedFactor">
+		<xsd:sequence>
+			<xsd:element name="code">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="name">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="value">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfCalculatedFactor">
+		<xsd:sequence>
+			<xsd:element name="calculatedFactor" type="xsd:CalculatedFactor" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ResultRating">
+		<xsd:sequence>
+			<xsd:element name="isPrimary" type="xsd:boolean"/>
+			<xsd:element name="name">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="value" type="xsd:int"/>
+			<xsd:element name="type" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfResultRating">
+		<xsd:sequence>
+			<xsd:element name="resultRating" type="xsd:ResultRating" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="RatingCalc">
+		<xsd:sequence>
+			<xsd:element name="ratingCalcId">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="15"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="modelName">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="100"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="modelIntegrationId">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>			
+			</xsd:element>
+			<xsd:element name="dateCalc" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="calcValue" type="xsd:int" minOccurs="0"/>
+
+			<xsd:element name="listOfRatingAjustment" type="xsd:ListOfRatingAjustment" minOccurs="0"/>
+			<xsd:element name="employeeForCalc" type="xsd:Employee" minOccurs="0"/>
+			<xsd:element name="listOfResultRating" type="xsd:ListOfResultRating" minOccurs="0"/>
+			<xsd:element name="listOfCalculatedFactor" type="xsd:ListOfCalculatedFactor" minOccurs="0"/>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListOfRatingCalc">
+		<xsd:sequence>
+			<xsd:element name="ratingCalc" type="xsd:RatingCalc" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Rating">
+		<xsd:sequence>
+			<xsd:element name="ratingId">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="15"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="finalRatingValue" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="intermediateRatingValue" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="ajustedRatingValue" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="pd" type="xsd:decimal" minOccurs="0"/>
+
+			<xsd:element name="status">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="15"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="approvalDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="calculationDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="ajustmentDate" type="xsd:dateTime" minOccurs="0"/>
+
+			<xsd:element name="modelName">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="100"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="modelIntegrationId">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>			
+			</xsd:element>
+	
+			<xsd:element name="ratingName">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="ratingType">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>			
+			</xsd:element>
+			<xsd:element name="employeeForApprove" type="xsd:Employee"/>
+			<xsd:element name="listOfRatingCalc" type="xsd:ListOfRatingCalc"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="UpdateRatingRequest">
+		<xsd:sequence>
+			<xsd:element name="rating" type="xsd:Rating"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

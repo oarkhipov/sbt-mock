@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sbrf.ru/NCP/ASFO/GetFinReportRs/" targetNamespace="http://sbrf.ru/NCP/ASFO/GetFinReportRs/" xmlns:amrct="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" elementFormDefault="qualified">
+	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" schemaLocation="CommonTypes.xsd"/>
+
+	<xsd:complexType name="FinReportImportResponse">
+		<xsd:sequence>
+			<xsd:element name="nonCurrentAssetsNFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="currentAssetsNFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="nonCurrentAssetsIFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="currentAssetsIFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="longTermDebtNFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="shortTermDebtNFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="longTermDebtIFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="shortTermDebtIFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ebitdaNFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="numQuarterNFRS" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="ebitdaIFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="numQuarterIFRS" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="currencyCode" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="currencyCodeForFR" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="currencyRate" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="futureCurrencyRate" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="currentCurrencyRate" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="purpose" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="100"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="currentYear" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="govDebt" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="creditGovDebt" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="credit" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="liabilities" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="liabilitiesNextYear" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="income" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="incomeNextYear" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="plannedCredit" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="plannedCreditNextYear" type="xsd:decimal" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>
