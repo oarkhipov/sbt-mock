@@ -1,0 +1,4 @@
+<crm:updateRefRq xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:upd="http://sbrf.ru/NCP/CRM/UpdateRefRq/">
+  <!--Zero or more repetitions:-->
+  <upd:referenceItem>string</upd:referenceItem>
+</crm:updateRefRq>

@@ -1,0 +1,8 @@
+<crm:saveDealRs xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:sav="http://sbrf.ru/NCP/CRM/SaveDealRs/">
+  <sav:operationStatus>
+    <sav:errorCode>string</sav:errorCode>
+    <!--Optional:-->
+    <sav:errorMessage>string</sav:errorMessage>
+  </sav:operationStatus>
+  <sav:dealID>string</sav:dealID>
+</crm:saveDealRs>
