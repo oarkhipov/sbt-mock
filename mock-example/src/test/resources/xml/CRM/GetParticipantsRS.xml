@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Header/>
+    <soap:Body>
+        <crm:prtspRs xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:rs="http://sbrf.ru/NCP/CRM/GetParticipantsRs/">
+            <rs:id>string</rs:id>
+            <rs:requestType>string</rs:requestType>
+            <rs:participantsGroup>
+                <!--Zero or more repetitions:-->
+                <rs:participants>
+                    <rs:participantID>string</rs:participantID>
+                    <rs:type>string</rs:type>
+                    <rs:isBorrower>false</rs:isBorrower>
+                    <rs:clientType>string</rs:clientType>
+                    <rs:name>string</rs:name>
+                    <rs:resident>true</rs:resident>
+                    <!--Zero or more repetitions:-->
+                    <rs:address>
+                        <rs:type>string</rs:type>
+                        <rs:city>string</rs:city>
+                        <rs:street>string</rs:street>
+                        <rs:building>string</rs:building>
+                        <rs:block>string</rs:block>
+                        <rs:phone>string</rs:phone>
+                        <rs:email>string</rs:email>
+                    </rs:address>
+                    <!--Zero or more repetitions:-->
+                    <rs:share>
+                        <rs:ownershipID>string</rs:ownershipID>
+                        <rs:share>1.0</rs:share>
+                        <rs:periodOfOwnerhip>string</rs:periodOfOwnerhip>
+                    </rs:share>
+                    <rs:consolidatedGroupID>string</rs:consolidatedGroupID>
+                    <rs:linkedBorrowersGroupID>string</rs:linkedBorrowersGroupID>
+                    <!--Optional:-->
+                    <rs:industry>string</rs:industry>
+                    <rs:isProblemClient>true</rs:isProblemClient>
+                    <!--Zero or more repetitions:-->
+                    <rs:rating>
+                        <rs:ratingID>string</rs:ratingID>
+                        <rs:ratingValue>1.0</rs:ratingValue>
+                        <rs:ratingType>string</rs:ratingType>
+                        <rs:ratingModel>string</rs:ratingModel>
+                        <rs:ratingCalculatedDate>2014-09-19</rs:ratingCalculatedDate>
+                        <rs:ratingCalculatedRole>string</rs:ratingCalculatedRole>
+                        <rs:ratingCalculatedBy>string</rs:ratingCalculatedBy>
+                        <rs:ratingApprovalDate>2006-08-19+04:00</rs:ratingApprovalDate>
+                        <rs:ratingApprovedBy>string</rs:ratingApprovedBy>
+                    </rs:rating>
+                    <rs:roleInConsolidatedGroup>string</rs:roleInConsolidatedGroup>
+                </rs:participants>
+                <rs:groupType>string</rs:groupType>
+                <!--Optional:-->
+                <rs:groupInfo>
+                    <rs:id>string</rs:id>
+                    <rs:label>string</rs:label>
+                    <rs:status>string</rs:status>
+                    <rs:updateDate>2009-05-16</rs:updateDate>
+                    <rs:approvalDate>2003-08-09+04:00</rs:approvalDate>
+                    <!--Zero or more repetitions:-->
+                    <rs:ratings>
+                        <rs:ratingID>string</rs:ratingID>
+                        <rs:ratingValue>1.0</rs:ratingValue>
+                        <rs:ratingType>string</rs:ratingType>
+                        <rs:ratingModel>string</rs:ratingModel>
+                        <rs:ratingCalculatedDate>2012-09-13+04:00</rs:ratingCalculatedDate>
+                        <rs:ratingCalculatedRole>string</rs:ratingCalculatedRole>
+                        <rs:ratingCalculatedBy>string</rs:ratingCalculatedBy>
+                        <rs:ratingApprovalDate>2009-10-14</rs:ratingApprovalDate>
+                        <rs:ratingApprovedBy>string</rs:ratingApprovedBy>
+                    </rs:ratings>
+                    <rs:topLevelGroupName>string</rs:topLevelGroupName>
+                </rs:groupInfo>
+            </rs:participantsGroup>
+            <rs:operationStatus>
+                <rs:errorCode>string</rs:errorCode>
+                <!--Optional:-->
+                <rs:errorMessage>string</rs:errorMessage>
+            </rs:operationStatus>
+        </crm:prtspRs>
+    </soap:Body>
+</soap:Envelope>

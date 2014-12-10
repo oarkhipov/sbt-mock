@@ -1,0 +1,15 @@
+<crm:updateRefRs xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:upd="http://sbrf.ru/NCP/CRM/UpdateRefRs/">
+  <!--Zero or more repetitions:-->
+  <upd:referenceItem>
+    <upd:referenceid>string</upd:referenceid>
+    <!--Zero or more repetitions:-->
+    <upd:listOfValue>
+      <upd:value>string</upd:value>
+      <upd:valueId>string</upd:valueId>
+      <upd:parentValueId>string</upd:parentValueId>
+    </upd:listOfValue>
+  </upd:referenceItem>
+  <upd:errorCode>string</upd:errorCode>
+  <!--Optional:-->
+  <upd:errorMessage>string</upd:errorMessage>
+</crm:updateRefRs>
