@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/Data/">
+    <!-- Responses -->
+    <response name="default">
+        <participantsGroup>
+            <!--Zero or more repetitions:-->
+            <participants>
+                <participantID>string</participantID>
+                <type>string</type>
+                <isBorrower>false</isBorrower>
+                <clientType>string</clientType>
+                <name>string</name>
+                <resident>true</resident>
+                <!--Zero or more repetitions:-->
+                <address>
+                    <type>string</type>
+                    <city>string</city>
+                    <street>string</street>
+                    <building>string</building>
+                    <block>string</block>
+                    <phone>string</phone>
+                    <email>string</email>
+                </address>
+                <!--Zero or more repetitions:-->
+                <share>
+                    <ownershipID>string</ownershipID>
+                    <share>1.0</share>
+                    <periodOfOwnerhip>string</periodOfOwnerhip>
+                </share>
+                <consolidatedGroupID>string</consolidatedGroupID>
+                <linkedBorrowersGroupID>string</linkedBorrowersGroupID>
+                <!--Optional:-->
+                <industry>Industry string</industry>
+                <isProblemClient>false</isProblemClient>
+                <!--Zero or more repetitions:-->
+                <rating>
+                    <ratingID>string</ratingID>
+                    <ratingValue>1.0</ratingValue>
+                    <ratingType>string</ratingType>
+                    <ratingModel>string</ratingModel>
+                    <ratingCalculatedDate>2014-09-19</ratingCalculatedDate>
+                    <ratingCalculatedRole>string</ratingCalculatedRole>
+                    <ratingCalculatedBy>string</ratingCalculatedBy>
+                    <ratingApprovalDate>2006-08-19+04:00</ratingApprovalDate>
+                    <ratingApprovedBy>string</ratingApprovedBy>
+                </rating>
+                <roleInConsolidatedGroup>string</roleInConsolidatedGroup>
+            </participants>
+            <groupType>string</groupType>
+            <!--Optional:-->
+            <groupInfo>
+                <id>string</id>
+                <label>string</label>
+                <status>string</status>
+                <updateDate>2009-05-16</updateDate>
+                <approvalDate>2003-08-09+04:00</approvalDate>
+                <!--Zero or more repetitions:-->
+                <ratings>
+                    <ratingID>string</ratingID>
+                    <ratingValue>1.0</ratingValue>
+                    <ratingType>string</ratingType>
+                    <ratingModel>string</ratingModel>
+                    <ratingCalculatedDate>2012-09-13+04:00</ratingCalculatedDate>
+                    <ratingCalculatedRole>string</ratingCalculatedRole>
+                    <ratingCalculatedBy>string</ratingCalculatedBy>
+                    <ratingApprovalDate>2009-10-14</ratingApprovalDate>
+                    <ratingApprovedBy>string</ratingApprovedBy>
+                </ratings>
+                <topLevelGroupName>string</topLevelGroupName>
+            </groupInfo>
+        </participantsGroup>
+        <operationStatus>
+            <errorCode>string</errorCode>
+            <!--Optional:-->
+            <errorMessage>string</errorMessage>
+        </operationStatus>
+    </response>
+
+    <response name="ERROR">
+    </response>
+</data>

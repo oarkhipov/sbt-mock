@@ -4,7 +4,22 @@
 			xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/Data/"
 			targetNamespace="http://sbrf.ru/NCP/CRM/GetParticipantsRs/Data/"
 			elementFormDefault="qualified">
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="/xsd/CRM/CommonTypes.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="../../../xsd/CRM/CommonTypes.xsd"/>
+
+	<xsd:element name="data" type="dataValue"/>
+
+	<xsd:complexType name="dataValue">
+		<xsd:sequence>
+			<xsd:element name="response" type="PrtspRs" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						Ответ на запрос
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
 	<xsd:complexType name="OperationStatus">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -659,20 +674,6 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element name="id" type="crmct:string15">
-				<xsd:annotation>
-					<xsd:documentation>
-						ID сделки для requestType=DealParticipats, ID группы для requestType=CL или requestType=LBG
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="requestType" type="crmct:string50">
-				<xsd:annotation>
-					<xsd:documentation>
-						Тип сообщения (getDealParticipats, getCL, getLBG)
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
 			<xsd:element name="participantsGroup" type="tns:ParticipantsGroup">
 				<xsd:annotation>
 					<xsd:documentation>
@@ -688,5 +689,6 @@
 				</xsd:annotation>
 			</xsd:element>
 		</xsd:sequence>
+		<xsd:attribute type="xsd:string" name="name" use="required"/>
 	</xsd:complexType>
 </xsd:schema>

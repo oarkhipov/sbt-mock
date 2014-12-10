@@ -3,9 +3,9 @@
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"
                 xmlns:rq="http://sbrf.ru/NCP/CRM/CreateTaskRq/"
-                xmlns:ns2="http://sbrf.ru/NCP/CRM/CreateTaskRs/"
+                xmlns:rs="http://sbrf.ru/NCP/CRM/CreateTaskRs/"
                 xmlns:rsd="http://sbrf.ru/NCP/CRM/CreateTaskRs/Data/"
-                xmlns:ns1="http://sbrf.ru/NCP/CRM/">
+                xmlns:crm="http://sbrf.ru/NCP/CRM/">
 
     <xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>
 
@@ -14,8 +14,8 @@
         <xsl:element name="soap-env:Envelope">
             <xsl:copy-of select="soap-env:Header"/>
             <soap-env:Body>
-                <xsl:variable name="data" select="document('../../data/CRM/xml/CreateTask.xml')/rsd:data"/>
-                <xsl:variable name="linkedTag" select="./soap-env:Body/rq:createTaskRq/rq:comment"/>
+                <xsl:variable name="data" select="document('../../data/CRM/xml/CreateTaskData.xml')/rsd:data"/>
+                <xsl:variable name="linkedTag" select="./soap-env:Body/crm:createTaskRq/rq:comment"/>
                 <xsl:call-template name="createTaskRs">
                     <xsl:with-param name="data" select="$data"/>
                     <xsl:with-param name="response">
@@ -29,16 +29,12 @@
         </xsl:element>
     </xsl:template>
 
-    <!--Fill blocks with data from data.xml (0..N)-->
-    <!--<xsl:template match="response">-->
-        <!--<xsl:apply-templates select="errorMessage"/>-->
-    <!--</xsl:template>-->
 
     <!--Fill tags with data from data.xml (0..1)-->
     <xsl:template match="rsd:errorMessage">
-        <ns2:errorMessage>
+        <rs:errorMessage>
             <xsl:value-of select="."/>
-        </ns2:errorMessage>
+        </rs:errorMessage>
     </xsl:template>
 
     <!--Transform main XML-->
@@ -47,29 +43,29 @@
         <xsl:param name="response"/>
         <xsl:param name="data"/>
         <!-- - - - - - - - -->
-        <ns2:createTaskRs>
+        <rs:createTaskRs>
             <!-- 0..N -->
             <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
             <!-- 1 -->
-            <ns2:errorCode>
+            <rs:errorCode>
                 <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
-            </ns2:errorCode>
-            <ns2:contractID>
+            </rs:errorCode>
+            <rs:contractID>
                 <xsl:value-of select="./soap-env:Body/rq:createTaskRq/rq:contractID"/>
-            </ns2:contractID>
-            <ns2:fullNameOfResponsiblePerson>
+            </rs:contractID>
+            <rs:fullNameOfResponsiblePerson>
                 <xsl:value-of select="./soap-env:Body/rq:createTaskRq/rq:fullNameOfResponsiblePerson"/>
-            </ns2:fullNameOfResponsiblePerson>
-            <ns2:comment>
+            </rs:fullNameOfResponsiblePerson>
+            <rs:comment>
                 <xsl:value-of select="./soap-env:Body/rq:createTaskRq/rq:comment"/>
-            </ns2:comment>
-            <ns2:contractBPMID>
+            </rs:comment>
+            <rs:contractBPMID>
                 <xsl:value-of select="./soap-env:Body/rq:createTaskRq/rq:contractBPMID"/>
-            </ns2:contractBPMID>
-            <ns2:requestType>
+            </rs:contractBPMID>
+            <rs:requestType>
                 <xsl:value-of select="./soap-env:Body/rq:createTaskRq/rq:requestType"/>
-            </ns2:requestType>
-        </ns2:createTaskRs>
+            </rs:requestType>
+        </rs:createTaskRs>
     </xsl:template>
 
 </xsl:stylesheet>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
     <soap:Header xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:rq="http://sbrf.ru/NCP/CRM/CreateTaskRq/"/>
-    <soap-env:Body xmlns:rsd="http://sbrf.ru/NCP/CRM/CreateTaskRs/Data/" xmlns:ns2="http://sbrf.ru/NCP/CRM/CreateTaskRs/" xmlns:ns1="http://sbrf.ru/NCP/CRM/" xmlns:rq="http://sbrf.ru/NCP/CRM/CreateTaskRq/">
-        <ns2:createTaskRs>
-            <ns2:errorCode>0</ns2:errorCode>
-            <ns2:contractID>contractId</ns2:contractID>
-            <ns2:fullNameOfResponsiblePerson>person</ns2:fullNameOfResponsiblePerson>
-            <ns2:comment>comment</ns2:comment>
-            <ns2:contractBPMID>bpmid</ns2:contractBPMID>
-            <ns2:requestType>reqType</ns2:requestType>
-        </ns2:createTaskRs>
+    <soap-env:Body xmlns:rsd="http://sbrf.ru/NCP/CRM/CreateTaskRs/Data/" xmlns:rs="http://sbrf.ru/NCP/CRM/CreateTaskRs/" xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:rq="http://sbrf.ru/NCP/CRM/CreateTaskRq/">
+        <crm:createTaskRs>
+            <rs:errorCode>0</rs:errorCode>
+            <rs:contractID>contractId</rs:contractID>
+            <rs:fullNameOfResponsiblePerson>person</rs:fullNameOfResponsiblePerson>
+            <rs:comment>comment</rs:comment>
+            <rs:contractBPMID>bpmid</rs:contractBPMID>
+            <rs:requestType>reqType</rs:requestType>
+        </crm:createTaskRs>
     </soap-env:Body>
 </soap-env:Envelope>

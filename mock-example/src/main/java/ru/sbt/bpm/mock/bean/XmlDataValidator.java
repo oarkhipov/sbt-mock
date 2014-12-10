@@ -1,11 +1,8 @@
 package ru.sbt.bpm.mock.bean;
 
-import com.thoughtworks.xstream.XStream;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
-import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;

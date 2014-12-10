@@ -6,10 +6,22 @@
 		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 		elementFormDefault="qualified">
 
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="/xsd/CRM/CommonTypes.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="../../../xsd/CRM/CommonTypes.xsd"/>
 
 
 	<xsd:element name="data" type="dataValue"/>
+
+	<xsd:complexType name="dataValue">
+		<xsd:sequence>
+			<xsd:element name="response" type="CreateTaskRsData" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						Ответ на запрос
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
 
 	<xsd:complexType name="CreateTaskRsData">
 		<xsd:sequence>
@@ -31,15 +43,4 @@
 		<xsd:attribute type="xsd:string" name="name" use="required"/>
 	</xsd:complexType>
 
-	<xsd:complexType name="dataValue">
-		<xsd:sequence>
-			<xsd:element name="response" type="CreateTaskRsData" maxOccurs="unbounded">
-				<xsd:annotation>
-					<xsd:documentation>
-						Ответ на запрос
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-		</xsd:sequence>
-	</xsd:complexType>
 </xsd:schema>
