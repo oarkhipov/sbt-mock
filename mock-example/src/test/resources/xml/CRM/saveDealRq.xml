@@ -37,17 +37,17 @@
         <sav:refinancing>true</sav:refinancing>
         <sav:providing>string</sav:providing>
         <sav:suspensiveСondition>string</sav:suspensiveСondition>
-        <sav:principal>1.051732E7</sav:principal>
-        <sav:principalBaseCurrency>1.051732E7</sav:principalBaseCurrency>
+        <sav:principal>1.05173</sav:principal>
+        <sav:principalBaseCurrency>1.05173</sav:principalBaseCurrency>
         <sav:startDate>2018-11-01+04:00</sav:startDate>
-        <sav:interestRate>1.051732E7</sav:interestRate>
+        <sav:interestRate>1.051</sav:interestRate>
         <sav:creditTerm>100</sav:creditTerm>
         <sav:period>100</sav:period>
         <sav:gracePeriod>100</sav:gracePeriod>
         <sav:repaymentSchedule>string</sav:repaymentSchedule>
         <sav:turnover>100</sav:turnover>
         <sav:covenants>string</sav:covenants>
-        <sav:minRate>1.051732E7</sav:minRate>
+        <sav:minRate>1.051</sav:minRate>
         <sav:proposedCollateral>string</sav:proposedCollateral>
         <sav:debtLimit>string</sav:debtLimit>
         <sav:pledgeInsurance>string</sav:pledgeInsurance>
@@ -65,29 +65,29 @@
         <!--Zero or more repetitions:-->
         <sav:repaymentScheduleDetails>
           <sav:sheduleDate>2013-05-22+04:00</sav:sheduleDate>
-          <sav:sheduleAmount>1.051732E7</sav:sheduleAmount>
+          <sav:sheduleAmount>1.05</sav:sheduleAmount>
         </sav:repaymentScheduleDetails>
         <!--Zero or more repetitions:-->
         <sav:selectionScheduleDetails>
           <sav:sheduleDate>2002-11-05+03:00</sav:sheduleDate>
-          <sav:sheduleAmount>1.051732E7</sav:sheduleAmount>
+          <sav:sheduleAmount>1.05</sav:sheduleAmount>
         </sav:selectionScheduleDetails>
         <!--Zero or more repetitions:-->
         <sav:changesScheduleDetails>
           <sav:sheduleDate>2002-06-24+04:00</sav:sheduleDate>
-          <sav:sheduleAmount>1.051732E7</sav:sheduleAmount>
+          <sav:sheduleAmount>1.05</sav:sheduleAmount>
         </sav:changesScheduleDetails>
       </sav:productInfo>
       <!--Zero or more repetitions:-->
       <sav:collateral>
         <sav:collateralType>string</sav:collateralType>
         <sav:ownerID>string</sav:ownerID>
-        <sav:estimatedValue>1.051732E7</sav:estimatedValue>
-        <sav:discountRate>1.051732E7</sav:discountRate>
-        <sav:estimatedValueCorrected>1.051732E7</sav:estimatedValueCorrected>
+        <sav:estimatedValue>1.0</sav:estimatedValue>
+        <sav:discountRate>1.0</sav:discountRate>
+        <sav:estimatedValueCorrected>1.05</sav:estimatedValueCorrected>
         <sav:qualityCategory>string</sav:qualityCategory>
         <sav:daysForCalculation>100</sav:daysForCalculation>
-        <sav:estimatedValueCorrectedToEAD>1.051732E7</sav:estimatedValueCorrectedToEAD>
+        <sav:estimatedValueCorrectedToEAD>1.05173</sav:estimatedValueCorrectedToEAD>
         <sav:securityShare>100</sav:securityShare>
         <sav:EstimatedValueSource>string</sav:EstimatedValueSource>
         <sav:estimationDate>2016-02-20+04:00</sav:estimationDate>
@@ -99,12 +99,12 @@
       </sav:collateral>
       <!--Optional:-->
       <sav:losses>
-        <sav:percentLGD>1.051732E7</sav:percentLGD>
-        <sav:countEAD>1.051732E7</sav:countEAD>
+        <sav:percentLGD>1.05173</sav:percentLGD>
+        <sav:countEAD>1.05173</sav:countEAD>
         <sav:currency>string</sav:currency>
-        <sav:reportDateAmount>1.051732E7</sav:reportDateAmount>
-        <sav:lossELpercent>1.051732E7</sav:lossELpercent>
-        <sav:lossELcount>1.051732E7</sav:lossELcount>
+        <sav:reportDateAmount>1.05173</sav:reportDateAmount>
+        <sav:lossELpercent>1.05173</sav:lossELpercent>
+        <sav:lossELcount>1.05173</sav:lossELcount>
         <sav:typeLGD>string</sav:typeLGD>
         <sav:statusLGD>string</sav:statusLGD>
         <sav:dateLGDcalculated>2019-08-19</sav:dateLGDcalculated>

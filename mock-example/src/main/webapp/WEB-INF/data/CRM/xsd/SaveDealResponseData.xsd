@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+		xmlns:comTypes="http://sbrf.ru/NCP/CRM/CommonTypes/"
+		targetNamespace="http://sbrf.ru/NCP/CRM/SaveDealRs/Data/"
+		xmlns="http://sbrf.ru/NCP/CRM/SaveDealRs/Data/"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		elementFormDefault="qualified">
+
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="../../../xsd/CRM/CommonTypes.xsd"/>
+
+
+	<xsd:element name="data" type="dataValue"/>
+
+	<xsd:complexType name="dataValue">
+		<xsd:sequence>
+			<xsd:element name="response" type="SaveDealRsData" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						Ответ на запрос
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="SaveDealRsData">
+		<xsd:sequence>
+			<xsd:element name="errorCode" type="comTypes:string50">
+				<xsd:annotation>
+					<xsd:documentation>
+						Код ошибки
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="errorMessage" type="comTypes:string2000" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						Сообщение об ошибке
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute type="xsd:string" name="name" use="required"/>
+	</xsd:complexType>
+
+</xsd:schema>
