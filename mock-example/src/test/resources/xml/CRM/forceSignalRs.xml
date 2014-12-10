@@ -1,0 +1,11 @@
+<crm:forceSignalRs xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:for="http://sbrf.ru/NCP/CRM/ForceSignalRs/">
+  <for:contractID>string</for:contractID>
+  <for:contractBPMID>string</for:contractBPMID>
+  <for:status>string</for:status>
+  <for:comment>string</for:comment>
+  <for:requestType>string</for:requestType>
+  <for:fullNameOfResponsiblePerson>string</for:fullNameOfResponsiblePerson>
+  <for:errorCode>string</for:errorCode>
+  <!--Optional:-->
+  <for:errorMessage>string</for:errorMessage>
+</crm:forceSignalRs>

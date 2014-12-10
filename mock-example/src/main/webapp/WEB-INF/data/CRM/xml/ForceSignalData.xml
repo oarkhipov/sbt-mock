@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/NCP/CRM/ForceSignalRs/Data/">
+    <!-- Responses -->
+    <response name="default">
+        <errorCode>string</errorCode>
+    </response>
+
+    <response name="ERROR">
+        <errorCode>string</errorCode>
+        <!--Optional:-->
+        <errorMessage>string</errorMessage>
+    </response>
+</data>
