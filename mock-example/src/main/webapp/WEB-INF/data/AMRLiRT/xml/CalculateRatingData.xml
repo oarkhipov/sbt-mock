@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/NCP/AMRLIRT/CalculateRating/Data">
+    <response name="default">
+        <errorCode>string</errorCode>
+        <!--Optional:-->
+        <errorMessage>string</errorMessage>
+        <listOfResultRating>
+            <!--Zero or more repetitions:-->
+            <resultRating>
+                <isPrimary>false</isPrimary>
+                <name>string</name>
+                <value>3</value>
+                <!--Optional:-->
+                <type>string</type>
+            </resultRating>
+            <resultRating>
+                <isPrimary>false</isPrimary>
+                <name>string2</name>
+                <value>4</value>
+                <!--Optional:-->
+                <type>string2</type>
+            </resultRating>
+        </listOfResultRating>
+        <!--Optional:-->
+        <listOfCalculatedFactor>
+            <!--Zero or more repetitions:-->
+            <calculatedFactor>
+                <code>string</code>
+                <name>string</name>
+                <value>string</value>
+            </calculatedFactor>
+            <calculatedFactor>
+                <code>string2</code>
+                <name>string2</name>
+                <value>string2</value>
+            </calculatedFactor>
+        </listOfCalculatedFactor>
+        <!--Optional:-->
+        <listOfAddParameter>
+            <!--Zero or more repetitions:-->
+            <addParameter>
+                <order>3</order>
+                <name>string</name>
+                <value>string</value>
+            </addParameter>
+            <addParameter>
+                <order>4</order>
+                <name>string</name>
+                <value>string</value>
+            </addParameter>
+        </listOfAddParameter>
+    </response>
+</data>

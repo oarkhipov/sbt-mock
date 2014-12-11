@@ -1,0 +1,16 @@
+<amr:confirmRatingRs xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:con="http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRs/">
+  <con:return>
+    <con:errorCode>string</con:errorCode>
+    <!--Optional:-->
+    <con:errorMessage>string</con:errorMessage>
+    <!--Optional:-->
+    <con:listOfAddParameter>
+      <!--Zero or more repetitions:-->
+      <con:addParameter>
+        <con:order>3</con:order>
+        <con:name>string</con:name>
+        <con:value>string</con:value>
+      </con:addParameter>
+    </con:listOfAddParameter>
+  </con:return>
+</amr:confirmRatingRs>

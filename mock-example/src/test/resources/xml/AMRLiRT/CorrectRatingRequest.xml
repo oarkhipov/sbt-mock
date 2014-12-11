@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:cor="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRq/">
+  <soap:Header/>
+  <soap:Body>
+    <amr:correctRatingRq>
+  <cor:arg0>
+    <cor:ratingId>string</cor:ratingId>
+    <cor:model>string</cor:model>
+    <cor:modelIntegrationId>string</cor:modelIntegrationId>
+    <cor:correctValue>3</cor:correctValue>
+    <!--Optional:-->
+    <cor:comments>string</cor:comments>
+    <cor:status>string</cor:status>
+    <!--Optional:-->
+    <cor:adjustmentReason>string</cor:adjustmentReason>
+    <cor:requestor>
+      <cor:login>string</cor:login>
+      <cor:lastName>string</cor:lastName>
+      <cor:firstName>string</cor:firstName>
+      <!--Optional:-->
+      <cor:middleName>string</cor:middleName>
+      <cor:division>string</cor:division>
+      <cor:divisionCode>string</cor:divisionCode>
+      <!--Optional:-->
+      <cor:jobTitle>string</cor:jobTitle>
+      <!--Optional:-->
+      <cor:role>string</cor:role>
+    </cor:requestor>
+  </cor:arg0>
+  <!--Optional:-->
+  <cor:siebelMessage>anyType</cor:siebelMessage>
+</amr:correctRatingRq>
+  </soap:Body>
+</soap:Envelope>

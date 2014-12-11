@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"  xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/">
+  <soap:Header/>
+  <soap:Body>
+    <amr:calculateLGDRq>
+  <cal:productType>string</cal:productType>
+  <cal:product>string</cal:product>
+  <cal:agrNum>string</cal:agrNum>
+  <cal:agrDate>2008-09-29</cal:agrDate>
+  <cal:lgdType>string</cal:lgdType>
+  <cal:crmId>string</cal:crmId>
+  <!--Optional:-->
+  <cal:comment>string</cal:comment>
+  <!--Optional:-->
+  <cal:debt>1000.00</cal:debt>
+  <!--Optional:-->
+  <cal:rate>1000.00</cal:rate>
+  <!--Optional:-->
+  <cal:loanMode>string</cal:loanMode>
+  <!--Optional:-->
+  <cal:loanSum>1000.00</cal:loanSum>
+  <!--Optional:-->
+  <cal:agrEndDate>2014-09-19</cal:agrEndDate>
+  <!--Optional:-->
+  <cal:rating>3</cal:rating>
+  <!--Optional:-->
+  <cal:limit>1000.00</cal:limit>
+  <cal:model>string</cal:model>
+  <!--Optional:-->
+  <cal:unutilizedLimit>1000.00</cal:unutilizedLimit>
+  <!--Optional:-->
+  <cal:agreementNum>string</cal:agreementNum>
+  <!--Optional:-->
+  <cal:account>
+    <cal:inn>string</cal:inn>
+    <cal:name>string</cal:name>
+  </cal:account>
+  <cal:user>
+    <cal:fio>string</cal:fio>
+    <cal:position>string</cal:position>
+    <cal:tDivision>string</cal:tDivision>
+    <cal:fDivision>string</cal:fDivision>
+  </cal:user>
+  <!--Optional:-->
+  <cal:listOfCollateral>
+    <!--Zero or more repetitions:-->
+    <cal:collateral>
+      <cal:crmId>string</cal:crmId>
+      <cal:collType>string</cal:collType>
+      <cal:assessType>string</cal:assessType>
+      <!--Optional:-->
+      <cal:assessSource>string</cal:assessSource>
+      <cal:assessment>1000.00</cal:assessment>
+      <cal:businessValue>string</cal:businessValue>
+      <cal:expertRate>string</cal:expertRate>
+      <!--Optional:-->
+      <cal:portfSize>string</cal:portfSize>
+      <cal:assessmentDate>2006-08-19+04:00</cal:assessmentDate>
+      <!--Optional:-->
+      <cal:pdRate>3</cal:pdRate>
+    </cal:collateral>
+  </cal:listOfCollateral>
+</amr:calculateLGDRq>
+  </soap:Body>
+</soap:Envelope>

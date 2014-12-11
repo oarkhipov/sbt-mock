@@ -1,0 +1,32 @@
+<amr:calculateLGDRs xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/">
+  <cal:errorCode>string</cal:errorCode>
+  <!--Optional:-->
+  <cal:errorMessage>string</cal:errorMessage>
+  <cal:crmId>string</cal:crmId>
+  <cal:lgdType>string</cal:lgdType>
+  <cal:lgdDate>2008-09-29</cal:lgdDate>
+  <!--Optional:-->
+  <cal:pd>1000.00</cal:pd>
+  <cal:lgd>1000.00</cal:lgd>
+  <cal:ead>1000.00</cal:ead>
+  <cal:sum>1000.00</cal:sum>
+  <!--Optional:-->
+  <cal:elPercent>1000.00</cal:elPercent>
+  <!--Optional:-->
+  <cal:el>1000.00</cal:el>
+  <cal:totalValue>1000.00</cal:totalValue>
+  <cal:totalColValueLgd>1000.00</cal:totalColValueLgd>
+  <cal:totalColValueEad>1000.00</cal:totalColValueEad>
+  <!--Optional:-->
+  <cal:listOfCollateral>
+    <!--Zero or more repetitions:-->
+    <cal:collateral>
+      <cal:crmId>string</cal:crmId>
+      <cal:collType>string</cal:collType>
+      <cal:returnRate>1000.00</cal:returnRate>
+      <cal:discountRate>1000.00</cal:discountRate>
+      <cal:collValueEad>1000.00</cal:collValueEad>
+      <cal:collValueLgd>1000.00</cal:collValueLgd>
+    </cal:collateral>
+  </cal:listOfCollateral>
+</amr:calculateLGDRs>

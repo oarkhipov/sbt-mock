@@ -1,0 +1,35 @@
+<amr:calculateRatingRs xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/">
+  <cal:return>
+    <cal:errorCode>string</cal:errorCode>
+    <!--Optional:-->
+    <cal:errorMessage>string</cal:errorMessage>
+    <cal:listOfResultRating>
+      <!--Zero or more repetitions:-->
+      <cal:resultRating>
+        <cal:isPrimary>false</cal:isPrimary>
+        <cal:name>string</cal:name>
+        <cal:value>3</cal:value>
+        <!--Optional:-->
+        <cal:type>string</cal:type>
+      </cal:resultRating>
+    </cal:listOfResultRating>
+    <!--Optional:-->
+    <cal:listOfCalculatedFactor>
+      <!--Zero or more repetitions:-->
+      <cal:calculatedFactor>
+        <cal:code>string</cal:code>
+        <cal:name>string</cal:name>
+        <cal:value>string</cal:value>
+      </cal:calculatedFactor>
+    </cal:listOfCalculatedFactor>
+    <!--Optional:-->
+    <cal:listOfAddParameter>
+      <!--Zero or more repetitions:-->
+      <cal:addParameter>
+        <cal:order>3</cal:order>
+        <cal:name>string</cal:name>
+        <cal:value>string</cal:value>
+      </cal:addParameter>
+    </cal:listOfAddParameter>
+  </cal:return>
+</amr:calculateRatingRs>

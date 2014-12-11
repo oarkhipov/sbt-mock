@@ -1,0 +1,27 @@
+<amr:calculateDCRs xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/">
+  <cal:errorCode>s</cal:errorCode>
+  <!--Optional:-->
+  <cal:errorMessage>string</cal:errorMessage>
+  <cal:crmId>string</cal:crmId>
+  <!--Optional:-->
+  <cal:rmk>1000.00</cal:rmk>
+  <cal:debtCapacity>1000.00</cal:debtCapacity>
+  <!--Optional:-->
+  <cal:rmkInDealCurrency>1000.00</cal:rmkInDealCurrency>
+  <cal:debtCapacityInDealCurrency>1000.00</cal:debtCapacityInDealCurrency>
+  <!--Optional:-->
+  <cal:rmkForNextYear>1000.00</cal:rmkForNextYear>
+  <!--Optional:-->
+  <cal:debtCapacityForNextYear>1000.00</cal:debtCapacityForNextYear>
+  <cal:listOfAddParameter>
+    <!--Zero or more repetitions:-->
+    <cal:addParameter>
+      <!--Optional:-->
+      <cal:order>3</cal:order>
+      <cal:name>string</cal:name>
+      <cal:value>string</cal:value>
+    </cal:addParameter>
+  </cal:listOfAddParameter>
+  <!--Optional:-->
+  <cal:amMessage>anyType</cal:amMessage>
+</amr:calculateDCRs>

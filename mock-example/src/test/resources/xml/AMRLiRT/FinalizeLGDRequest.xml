@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:fin="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRq/">
+  <soap:Header/>
+  <soap:Body>
+    <amr:finalizeLGDRq>
+      <fin:fio>string</fin:fio>
+      <fin:position>string</fin:position>
+      <fin:crmId>stringcrmId</fin:crmId>
+      <fin:type>string</fin:type>
+    </amr:finalizeLGDRq>
+  </soap:Body>
+</soap:Envelope>

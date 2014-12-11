@@ -98,4 +98,45 @@ public class ChannelTest {
         }
     }
 
+
+    @Test
+    public void createTaskTest2() throws Exception {
+        IN="CreateTask";
+        OUT = "ESB.BPM.NCP.OUT.MOCK";
+        MSGRQ = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource("xml/CRM/createTaskRQ2.xml").getPayload());
+        MSGRS = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource("xml/CRM/createTaskRS2.xml").getPayload());
+
+        service.sendMessage(IN, MSGRQ);
+        assertTrue(service.getPayloadsCount(OUT)>0);
+        int index = service.getPayloadsCount(OUT);
+        String result = service.getPayload(OUT, index-1);
+
+        XMLUnit.setIgnoreWhitespace(true);
+
+        Diff diff = new Diff(MSGRS,result);
+        if (!diff.identical()) {
+            assertEquals(MSGRS, result);
+        }
+    }
+
+    @Test
+    public void createTaskTestAMRLiRT() throws Exception {
+        IN="SrvCalcDebtCapacity";
+        OUT = "ESB.BPM.NCP.OUT.MOCK";
+        MSGRQ = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource("xml/AMRLiRT/CalculateDebtCapacityRequest.xml").getPayload());
+        MSGRS = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource("xml/AMRLiRT/CalculateDebtCapacityResponse.xml").getPayload());
+
+        service.sendMessage(IN, MSGRQ);
+        assertTrue(service.getPayloadsCount(OUT)>0);
+        int index = service.getPayloadsCount(OUT);
+        String result = service.getPayload(OUT, index-1);
+
+        XMLUnit.setIgnoreWhitespace(true);
+
+        Diff diff = new Diff(MSGRS,result);
+        if (!diff.identical()) {
+            assertEquals(MSGRS, result);
+        }
+    }
+
 }

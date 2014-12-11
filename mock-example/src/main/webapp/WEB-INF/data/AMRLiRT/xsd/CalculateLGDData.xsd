@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+        xmlns:comTypes="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/"
+        targetNamespace="http://sbrf.ru/NCP/AMRLIRT/CalculateLGD/Data"
+        xmlns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGD/Data"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"
+        elementFormDefault="qualified">
+
+    <xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" schemaLocation="../../../xsd/AMRLiRT/CommonTypes.xsd"/>
+
+    <xsd:element name="data" type="dataValue"/>
+
+    <xsd:complexType name="dataValue">
+        <xsd:sequence>
+            <xsd:element name="response" type="CalculateLGD" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Ответ на запрос
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="CalculateLGD">
+        <xsd:sequence>
+            <xsd:element name="crmId" minOccurs="0" >
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="15"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="collType" minOccurs="0" >
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="returnRate" minOccurs="0" type="xsd:decimal"/>
+            <xsd:element name="discountRate" minOccurs="0" type="xsd:decimal"/>
+            <xsd:element name="collValueEad" minOccurs="0" type="xsd:decimal"/>
+            <xsd:element name="collValueLgd" minOccurs="0" type="xsd:decimal"/>
+
+
+            <xsd:element name="errorCode" minOccurs="0" >
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="errorMessage" minOccurs="0">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="2000"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="lgdType" minOccurs="0">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="lgdDate" minOccurs="0" type="xsd:date"/>
+            <xsd:element name="pd" type="xsd:decimal" minOccurs="0"/>
+            <xsd:element name="lgd" minOccurs="0" type="xsd:decimal"/>
+            <xsd:element name="ead" minOccurs="0" type="xsd:decimal"/>
+            <xsd:element name="sum" minOccurs="0" type="xsd:decimal"/>
+            <xsd:element name="elPercent" type="xsd:decimal" minOccurs="0"/>
+            <xsd:element name="el" type="xsd:decimal" minOccurs="0"/>
+            <xsd:element name="totalValue" minOccurs="0" type="xsd:decimal"/>
+            <xsd:element name="totalColValueLgd" minOccurs="0" type="xsd:decimal"/>
+            <xsd:element name="totalColValueEad" minOccurs="0" type="xsd:decimal"/>
+            <xsd:element name="listOfCollateral" type="tns:ListOfCollateral" minOccurs="0"/>
+
+            <xsd:element name="collateral" type="tns:CollateralLGDResponse" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute type="xsd:string" name="name" use="required"/>
+    </xsd:complexType>
+
+</xsd:schema>

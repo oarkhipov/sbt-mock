@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/Data">
+    <response name="default">
+        <errorCode>s</errorCode>
+        <!--Optional:-->
+        <errorMessage>string1</errorMessage>
+        <crmId>string1</crmId>
+        <!--Optional:-->
+        <rmk>1000.001</rmk>
+        <debtCapacity>1000.001</debtCapacity>
+        <!--Optional:-->
+        <rmkInDealCurrency>1000.001</rmkInDealCurrency>
+        <debtCapacityInDealCurrency>1000.001</debtCapacityInDealCurrency>
+        <!--Optional:-->
+        <rmkForNextYear>1000.001</rmkForNextYear>
+        <!--Optional:-->
+        <debtCapacityForNextYear>1000.001</debtCapacityForNextYear>
+        <listOfAddParameter>
+            <!--Zero or more repetitions:-->
+            <addParameter>
+                <!--Optional:-->
+                <order>3</order>
+                <name>string</name>
+                <value>string</value>
+            </addParameter>
+            <addParameter>
+                <!--Optional:-->
+                <order>4</order>
+                <name>string2</name>
+                <value>string2</value>
+            </addParameter>
+        </listOfAddParameter>
+        <!--Optional:-->
+        <amMessage>anyType1</amMessage>
+    </response>
+</data>

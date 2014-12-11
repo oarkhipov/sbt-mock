@@ -1,0 +1,7 @@
+<amr:finalizeLGDRs xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:fin="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/">
+  <fin:errorCode>string</fin:errorCode>
+  <!--Optional:-->
+  <fin:errorMessage>string</fin:errorMessage>
+  <fin:crmId>string</fin:crmId>
+  <fin:type>string</fin:type>
+</amr:finalizeLGDRs>

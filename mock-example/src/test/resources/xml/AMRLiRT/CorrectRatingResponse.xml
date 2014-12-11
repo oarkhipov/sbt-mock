@@ -1,0 +1,16 @@
+<amr:correctRatingRs xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:cor="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/">
+  <cor:return>
+    <cor:errorCode>string</cor:errorCode>
+    <!--Optional:-->
+    <cor:errorMessage>string</cor:errorMessage>
+    <!--Optional:-->
+    <cor:listOfAddParameter>
+      <!--Zero or more repetitions:-->
+      <cor:addParameter>
+        <cor:order>3</cor:order>
+        <cor:name>string</cor:name>
+        <cor:value>string</cor:value>
+      </cor:addParameter>
+    </cor:listOfAddParameter>
+  </cor:return>
+</amr:correctRatingRs>
