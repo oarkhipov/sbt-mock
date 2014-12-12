@@ -14,7 +14,7 @@
         <xsl:element name="soap-env:Envelope">
             <xsl:copy-of select="soap-env:Header"/>
             <soap-env:Body>
-                <xsl:variable name="data" select="document('../../data/CRM/xml/UpdateDealRsData.xml')/rsd:data"/>
+                <xsl:variable name="data" select="document('../../data/CRM/xml/UpdateDealData.xml')/rsd:data"/>
                 <xsl:variable name="linkedTag" select="./soap-env:Body/crm:UpdateDealRq/rq:comment"/>
                 <xsl:call-template name="UpdateDealRs">
                     <xsl:with-param name="data" select="$data"/>
@@ -52,7 +52,7 @@
                 <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
             </rs:operationStatus>
             <rs:dealID>
-                <xsl:value-of select="./soap-env:Body/crm:UpdateDealRq/rq:dealID"/>
+                <xsl:value-of select="./soap-env:Body/crm:updateDealRq/rq:deal/rq:dealID"/>
             </rs:dealID>
         </crm:UpdateDealRs>
     </xsl:template>

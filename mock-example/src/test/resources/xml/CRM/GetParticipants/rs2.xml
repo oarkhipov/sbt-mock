@@ -30,7 +30,7 @@
                     <rs:consolidatedGroupID>string</rs:consolidatedGroupID>
                     <rs:linkedBorrowersGroupID>string</rs:linkedBorrowersGroupID>
                     <rs:industry>Industry string</rs:industry>
-                    <rs:isProblemClient>false</rs:isProblemClient>
+                    <rs:isProblemClient>true</rs:isProblemClient>
                     <rs:rating>
                         <rs:ratingID>string</rs:ratingID>
                         <rs:ratingValue>1.0</rs:ratingValue>
@@ -66,7 +66,8 @@
                 </rs:groupInfo>
             </rs:participantsGroup>
             <rs:operationStatus>
-                <rs:errorCode>0</rs:errorCode>
+                <rs:errorCode>123</rs:errorCode>
+                <rs:errorMessage>main error</rs:errorMessage>
             </rs:operationStatus>
         </crm:prtspRs>
     </soap:Body>
