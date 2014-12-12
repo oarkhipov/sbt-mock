@@ -40,62 +40,17 @@ public class ChannelTest {
 
     @Test
     public void createTaskTest() throws Exception {
-        IN="CreateTask";
-        OUT = "ESB.BPM.NCP.OUT.MOCK";
-        MSGRQ = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource("xml/CRM/createTaskRQ.xml").getPayload());
-        MSGRS = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource("xml/CRM/createTaskRS.xml").getPayload());
-
-        service.sendMessage(IN, MSGRQ);
-        assertTrue(service.getPayloadsCount(OUT)>0);
-        int index = service.getPayloadsCount(OUT);
-        String result = service.getPayload(OUT, index-1);
-
-        XMLUnit.setIgnoreWhitespace(true);
-
-        Diff diff = new Diff(MSGRS,result);
-        if (!diff.identical()) {
-            assertEquals(MSGRS, result);
-        }
+        testXSLT("CreateTask", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/createTaskRQ.xml", "xml/CRM/createTaskRS.xml");
     }
 
     @Test
     public void createTaskTest2() throws Exception {
-        IN="CreateTask";
-        OUT = "ESB.BPM.NCP.OUT.MOCK";
-        MSGRQ = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource("xml/CRM/createTaskRQ2.xml").getPayload());
-        MSGRS = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource("xml/CRM/createTaskRS2.xml").getPayload());
-
-        service.sendMessage(IN, MSGRQ);
-        assertTrue(service.getPayloadsCount(OUT)>0);
-        int index = service.getPayloadsCount(OUT);
-        String result = service.getPayload(OUT, index-1);
-
-        XMLUnit.setIgnoreWhitespace(true);
-
-        Diff diff = new Diff(MSGRS,result);
-        if (!diff.identical()) {
-            assertEquals(MSGRS, result);
-        }
+        testXSLT("CreateTask", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/createTaskRQ2.xml", "xml/CRM/createTaskRS2.xml");
     }
 
     @Test
     public void getParticipants() throws Exception {
-        IN="GetParticipants";
-        OUT = "ESB.BPM.NCP.OUT.MOCK";
-        MSGRQ = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource("xml/CRM/GetParticipantsRQ.xml").getPayload());
-        MSGRS = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource("xml/CRM/GetParticipantsRS.xml").getPayload());
-
-        service.sendMessage(IN, MSGRQ);
-        assertTrue(service.getPayloadsCount(OUT)>0);
-        int index = service.getPayloadsCount(OUT);
-        String result = service.getPayload(OUT, index-1);
-
-        XMLUnit.setIgnoreWhitespace(true);
-
-        Diff diff = new Diff(MSGRS,result);
-        if (!diff.identical()) {
-            assertEquals(MSGRS, result);
-        }
+        testXSLT("GetParticipants", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/GetParticipantsRQ.xml", "xml/CRM/GetParticipantsRS.xml");
     }
 
     @Test
