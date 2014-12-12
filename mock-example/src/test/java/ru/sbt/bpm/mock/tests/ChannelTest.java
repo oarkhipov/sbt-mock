@@ -58,6 +58,21 @@ public class ChannelTest {
         testXSLT("SaveDeal", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/SaveDeal/rq1.xml", "xml/CRM/SaveDeal/rs1.xml");
     }
 
+    @Test
+    public void saveDealTest2() throws Exception {
+        testXSLT("SaveDeal", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/SaveDeal/rq2.xml", "xml/CRM/SaveDeal/rs2.xml");
+    }
+
+    @Test
+    public void updateRefTest1() throws Exception {
+        testXSLT("UpdateRef", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/UpdateRef/rq1.xml", "xml/CRM/UpdateRef/rs1.xml");
+    }
+
+    @Test
+    public void updateRefTest2() throws Exception {
+        testXSLT("UpdateRef", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/UpdateRef/rq2.xml", "xml/CRM/UpdateRef/rs2.xml");
+    }
+
 
 
 //  AMRLiRT testing

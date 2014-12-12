@@ -11,8 +11,25 @@
         <parentValueId>string</parentValueId>
       </listOfValue>
     </referenceItem>
-    <errorCode>string</errorCode>
+    <errorCode>0</errorCode>
+  </response>
+  <response name="ERROR">
+    <referenceItem>
+      <referenceid>string</referenceid>
+      <!--Zero or more repetitions:-->
+      <listOfValue>
+        <value>string</value>
+        <valueId>string</valueId>
+        <parentValueId>string</parentValueId>
+      </listOfValue>
+      <listOfValue>
+        <value>string1</value>
+        <valueId>string1</valueId>
+        <parentValueId>string1</parentValueId>
+      </listOfValue>
+    </referenceItem>
+    <errorCode>325</errorCode>
     <!--Optional:-->
-    <errorMessage>string</errorMessage>
+    <errorMessage>Kernel panic!</errorMessage>
   </response>
 </data>
