@@ -3,7 +3,8 @@
 				xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/"
 				xmlns:rsd="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/Data"
 				xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"
-				xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/">
+				xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/"
+				xmlns:rq="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/">
 	<xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>
 
 	<!--Prepare data and section of data XML-->
@@ -12,7 +13,7 @@
 			<xsl:copy-of select="soap-env:Header"/>
 			<soap-env:Body>
 				<xsl:variable name="data" select="document('../../data/AMRLiRT/xml/CalculateDebtCapacityData.xml')/rsd:data"/>
-				<xsl:variable name="linkedTag" select="./soap-env:Body/amr:calculateDCRq/cal:DebtCapacityCalculationResponse/cal:errorMessage"/>
+				<xsl:variable name="linkedTag" select="./soap-env:Body//rq:comments"/>
 				<xsl:call-template name="RsBody">
 					<xsl:with-param name="data" select="$data"/>
 					<xsl:with-param name="response">

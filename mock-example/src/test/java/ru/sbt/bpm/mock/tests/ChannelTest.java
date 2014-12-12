@@ -69,6 +69,11 @@ public class ChannelTest {
     }
 
     @Test
+    public void createTaskTestAMRLiRT() throws Exception {
+        IN="SrvUpdateRating";
+        OUT = "ESB.BPM.NCP.OUT.MOCK";
+        MSGRQ = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource("xml/AMRLiRT/CalculateDebtCapacityRequest.xml").getPayload());
+        MSGRS = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource("xml/AMRLiRT/CalculateDebtCapacityResponse.xml").getPayload());
     public void createTaskTestAMRLiRT_SrvConfirmRating() throws Exception {
         testXSLT("SrvConfirmRating", "ESB.BPM.NCP.OUT.MOCK", "xml/AMRLiRT/ConfirmRatingRequest.xml", "xml/AMRLiRT/ConfirmRatingResponse.xml");
     }

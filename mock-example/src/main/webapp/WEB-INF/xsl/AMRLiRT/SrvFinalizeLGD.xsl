@@ -3,7 +3,8 @@
 				xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/"
 				xmlns:rsd="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGD/Data"
 				xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"
-				xmlns:fin="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRq/">
+				xmlns:fin="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRq/"
+				xmlns:rs="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/">
 	<xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>
 
 	<!--Prepare data and section of data XML-->
@@ -12,7 +13,7 @@
 			<xsl:copy-of select="soap-env:Header"/>
 			<soap-env:Body>
 				<xsl:variable name="data" select="document('../../data/AMRLiRT/xml/FinalizeLGDData.xml')/rsd:data"/>
-				<xsl:variable name="linkedTag" select="./soap-env:Body//fin:errorMessage"/>
+				<xsl:variable name="linkedTag" select="./soap-env:Body//fin:comments"/>
 				<xsl:call-template name="RsBody">
 					<xsl:with-param name="data" select="$data"/>
 					<xsl:with-param name="response">
