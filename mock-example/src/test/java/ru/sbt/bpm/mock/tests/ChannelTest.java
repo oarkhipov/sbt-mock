@@ -7,16 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 import ru.sbt.bpm.mock.service.ChannelService;
 import ru.sbt.bpm.mock.utils.XmlUtil;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import java.io.StringReader;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -38,21 +30,23 @@ public class ChannelTest {
     private static String IN = "in";
     private static String OUT = "out";
 
+//    CRM testing
     @Test
     public void createTaskTest() throws Exception {
-        testXSLT("CreateTask", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/createTaskRQ.xml", "xml/CRM/createTaskRS.xml");
+        testXSLT("CreateTask", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/CreateTask/rq1.xml", "xml/CRM/CreateTask/rs1.xml");
     }
 
     @Test
     public void createTaskTest2() throws Exception {
-        testXSLT("CreateTask", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/createTaskRQ2.xml", "xml/CRM/createTaskRS2.xml");
+        testXSLT("CreateTask", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/CreateTask/rq2.xml", "xml/CRM/CreateTask/rs2.xml");
     }
 
     @Test
     public void getParticipants() throws Exception {
-        testXSLT("GetParticipants", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/GetParticipantsRQ.xml", "xml/CRM/GetParticipantsRS.xml");
+        testXSLT("GetParticipants", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/GetParticipants/rq1.xml", "xml/CRM/GetParticipants/rs1.xml");
     }
 
+//  AMRLiRT testing
     @Test
     public void createTaskTestAMRLiRT_SrvCalcDebtCapacity() throws Exception {
         testXSLT("SrvCalcDebtCapacity", "ESB.BPM.NCP.OUT.MOCK", "xml/AMRLiRT/CalculateDebtCapacityRequest.xml", "xml/AMRLiRT/CalculateDebtCapacityResponse.xml");
