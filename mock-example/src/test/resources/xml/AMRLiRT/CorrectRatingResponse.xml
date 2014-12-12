@@ -1,16 +1,23 @@
-<amr:correctRatingRs xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:cor="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/">
-  <cor:return>
-    <cor:errorCode>string</cor:errorCode>
-    <!--Optional:-->
-    <cor:errorMessage>string</cor:errorMessage>
-    <!--Optional:-->
-    <cor:listOfAddParameter>
-      <!--Zero or more repetitions:-->
-      <cor:addParameter>
-        <cor:order>3</cor:order>
-        <cor:name>string</cor:name>
-        <cor:value>string</cor:value>
-      </cor:addParameter>
-    </cor:listOfAddParameter>
-  </cor:return>
-</amr:correctRatingRs>
+<?xml version="1.0" encoding="UTF-8"?><soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Header xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:cor="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRq/"/>
+  <soap-env:Body xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:rsd="http://sbrf.ru/NCP/AMRLIRT/CorrectRating/Data" xmlns:cor="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/">
+    <amr:correctRatingRs>
+      <cor:return>
+        <cor:errorCode>string</cor:errorCode>
+        <cor:errorMessage>string</cor:errorMessage>
+        <cor:listOfAddParameter>
+          <cor:addParameter>
+            <cor:order>3</cor:order>
+            <cor:name>string</cor:name>
+            <cor:value>string</cor:value>
+          </cor:addParameter>
+          <cor:addParameter>
+            <cor:order>4</cor:order>
+            <cor:name>string2</cor:name>
+            <cor:value>string2</cor:value>
+          </cor:addParameter>
+        </cor:listOfAddParameter>
+      </cor:return>
+    </amr:correctRatingRs>
+  </soap-env:Body>
+</soap-env:Envelope>

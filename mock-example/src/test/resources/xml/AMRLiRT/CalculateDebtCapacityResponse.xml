@@ -1,27 +1,29 @@
-<amr:calculateDCRs xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/">
-  <cal:errorCode>s</cal:errorCode>
-  <!--Optional:-->
-  <cal:errorMessage>string</cal:errorMessage>
-  <cal:crmId>string</cal:crmId>
-  <!--Optional:-->
-  <cal:rmk>1000.00</cal:rmk>
-  <cal:debtCapacity>1000.00</cal:debtCapacity>
-  <!--Optional:-->
-  <cal:rmkInDealCurrency>1000.00</cal:rmkInDealCurrency>
-  <cal:debtCapacityInDealCurrency>1000.00</cal:debtCapacityInDealCurrency>
-  <!--Optional:-->
-  <cal:rmkForNextYear>1000.00</cal:rmkForNextYear>
-  <!--Optional:-->
-  <cal:debtCapacityForNextYear>1000.00</cal:debtCapacityForNextYear>
-  <cal:listOfAddParameter>
-    <!--Zero or more repetitions:-->
-    <cal:addParameter>
-      <!--Optional:-->
-      <cal:order>3</cal:order>
-      <cal:name>string</cal:name>
-      <cal:value>string</cal:value>
-    </cal:addParameter>
-  </cal:listOfAddParameter>
-  <!--Optional:-->
-  <cal:amMessage>anyType</cal:amMessage>
-</amr:calculateDCRs>
+<?xml version="1.0" encoding="UTF-8"?><soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Header xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/"/>
+  <soap-env:Body xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:rsd="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/Data" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/">
+    <amr:calculateDCRs>
+      <cal:errorCode>s</cal:errorCode>
+      <cal:errorMessage>string1</cal:errorMessage>
+      <cal:crmId/>
+      <cal:rmk>1000.001</cal:rmk>
+      <cal:debtCapacity>1000.001</cal:debtCapacity>
+      <cal:rmkInDealCurrency>1000.001</cal:rmkInDealCurrency>
+      <cal:debtCapacityInDealCurrency>1000.001</cal:debtCapacityInDealCurrency>
+      <cal:rmkForNextYear>1000.001</cal:rmkForNextYear>
+      <cal:debtCapacityForNextYear>1000.001</cal:debtCapacityForNextYear>
+      <cal:listOfAddParameter>
+        <cal:addParameter>
+          <cal:order>3</cal:order>
+          <cal:name>string</cal:name>
+          <cal:value>string</cal:value>
+        </cal:addParameter>
+        <cal:addParameter>
+          <cal:order>4</cal:order>
+          <cal:name>string2</cal:name>
+          <cal:value>string2</cal:value>
+        </cal:addParameter>
+      </cal:listOfAddParameter>
+      <cal:amMessage>anyType1</cal:amMessage>
+    </amr:calculateDCRs>
+  </soap-env:Body>
+</soap-env:Envelope>

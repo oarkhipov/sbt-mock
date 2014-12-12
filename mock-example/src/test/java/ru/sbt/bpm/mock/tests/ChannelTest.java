@@ -98,13 +98,42 @@ public class ChannelTest {
         }
     }
 
+    @Test
+    public void createTaskTestAMRLiRT_SrvCalcDebtCapacity() throws Exception {
+        testXSLT("SrvCalcDebtCapacity", "ESB.BPM.NCP.OUT.MOCK", "xml/AMRLiRT/CalculateDebtCapacityRequest.xml", "xml/AMRLiRT/CalculateDebtCapacityResponse.xml");
+    }
 
     @Test
-    public void createTaskTestAMRLiRT() throws Exception {
-        IN="SrvCalcDebtCapacity";
-        OUT = "ESB.BPM.NCP.OUT.MOCK";
-        MSGRQ = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource("xml/AMRLiRT/CalculateDebtCapacityRequest.xml").getPayload());
-        MSGRS = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource("xml/AMRLiRT/CalculateDebtCapacityResponse.xml").getPayload());
+    public void createTaskTestAMRLiRT_SrvCalcLGD() throws Exception {
+        testXSLT("SrvCalcLGD", "ESB.BPM.NCP.OUT.MOCK", "xml/AMRLiRT/CalculateLGDRequest.xml", "xml/AMRLiRT/CalculateLGDResponse.xml");
+    }
+
+    @Test
+    public void createTaskTestAMRLiRT_SrvCalcRating() throws Exception {
+        testXSLT("SrvCalcRating", "ESB.BPM.NCP.OUT.MOCK", "xml/AMRLiRT/CalculateRatingRequest.xml", "xml/AMRLiRT/CalculateRatingResponse.xml");
+    }
+
+    @Test
+    public void createTaskTestAMRLiRT_SrvConfirmRating() throws Exception {
+        testXSLT("SrvConfirmRating", "ESB.BPM.NCP.OUT.MOCK", "xml/AMRLiRT/ConfirmRatingRequest.xml", "xml/AMRLiRT/ConfirmRatingResponse.xml");
+    }
+
+    @Test
+    public void createTaskTestAMRLiRT_SrvFinalizeLGD() throws Exception {
+        testXSLT("SrvFinalizeLGD", "ESB.BPM.NCP.OUT.MOCK", "xml/AMRLiRT/FinalizeLGDRequest.xml", "xml/AMRLiRT/FinalizeLGDResponse.xml");
+    }
+
+    @Test
+    public void createTaskTestAMRLiRT_SrvUpdateRating() throws Exception {
+        testXSLT("SrvUpdateRating", "ESB.BPM.NCP.OUT.MOCK", "xml/AMRLiRT/CorrectRatingRequest.xml", "xml/AMRLiRT/CorrectRatingResponse.xml");
+    }
+
+
+    private void testXSLT(String INStream, String OUTStream, String request, String responce) throws Exception {
+        IN= INStream;
+        OUT = OUTStream;
+        MSGRQ = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource(request).getPayload());
+        MSGRS = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource(responce).getPayload());
 
         service.sendMessage(IN, MSGRQ);
         assertTrue(service.getPayloadsCount(OUT)>0);
