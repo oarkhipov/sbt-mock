@@ -14,8 +14,9 @@
         <xsl:element name="soap-env:Envelope">
             <xsl:copy-of select="soap-env:Header"/>
             <soap-env:Body>
-                <xsl:variable name="data" select="document('../../data/CRM/xml/SaveDealRsData.xml')/rsd:data"/>
-                <xsl:variable name="linkedTag" select="./soap-env:Body/crm:saveDealRq/rq:comment"/>
+                <xsl:variable name="data" select="document('../../data/CRM/xml/SaveDealData.xml')/rsd:data"/>
+                <xsl:variable name="linkedTag" select="./soap-env:Body/crm:saveDealRq/rq:deal/rq:comment"/>
+                debug:<xsl:value-of select="$linkedTag"/>
                 <xsl:call-template name="saveDealRs">
                     <xsl:with-param name="data" select="$data"/>
                     <xsl:with-param name="response">
@@ -29,6 +30,7 @@
         </xsl:element>
     </xsl:template>
 
+    <!--BLOCKS-->
 
     <!--Fill tags with data from data.xml (0..1)-->
     <xsl:template match="rsd:errorMessage">
@@ -46,10 +48,10 @@
         <crm:saveDealRs>
             <rs:operationStatus>
                 <rs:errorCode>
-                    <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
+                    <!--<xsl:value-of select="$data/rsd:response[@name=$response]/rs:operationStatus/rsd:errorCode"/>-->
                 </rs:errorCode>
                 <!--Optional:-->
-                <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
+                <!--<xsl:apply-templates select="$data/rsd:response[@name=$response]/rs:operationStatus/rsd:errorMessage"/>-->
             </rs:operationStatus>
             <rs:dealID>
                 <xsl:value-of select="./soap-env:Body/crm:saveDealRq/rq:dealID"/>
