@@ -1,17 +1,23 @@
-<crm:forceSignalRq xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:for="http://sbrf.ru/NCP/CRM/ForceSignalRq/">
-  <for:contractID>string</for:contractID>
-  <for:contractBPMID>string</for:contractBPMID>
-  <for:status>string</for:status>
-  <for:comment>string</for:comment>
-  <for:requestType>string</for:requestType>
-  <for:fullNameOfResponsiblePerson>string</for:fullNameOfResponsiblePerson>
-  <!--Zero or more repetitions:-->
-  <for:participantsGroup>
-    <for:id>string</for:id>
-    <for:label>string</for:label>
-    <for:status>string</for:status>
-    <for:updateDate>2008-09-29</for:updateDate>
-    <for:approvalDate>2014-09-19</for:approvalDate>
-    <for:topLevelGroupName>string</for:topLevelGroupName>
-  </for:participantsGroup>
-</crm:forceSignalRq>
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Header/>
+    <soap:Body>
+        <crm:forceSignalRq xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:for="http://sbrf.ru/NCP/CRM/ForceSignalRq/">
+            <for:contractID>string</for:contractID>
+            <for:contractBPMID>string</for:contractBPMID>
+            <for:status>string</for:status>
+            <for:comment>string</for:comment>
+            <for:requestType>string</for:requestType>
+            <for:fullNameOfResponsiblePerson>string</for:fullNameOfResponsiblePerson>
+            <!--Zero or more repetitions:-->
+            <for:participantsGroup>
+                <for:id>string</for:id>
+                <for:label>string</for:label>
+                <for:status>string</for:status>
+                <for:updateDate>2008-09-29</for:updateDate>
+                <for:approvalDate>2014-09-19</for:approvalDate>
+                <for:topLevelGroupName>string</for:topLevelGroupName>
+            </for:participantsGroup>
+        </crm:forceSignalRq>
+    </soap:Body>
+</soap:Envelope>

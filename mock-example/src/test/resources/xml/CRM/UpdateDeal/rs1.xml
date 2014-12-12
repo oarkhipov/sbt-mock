@@ -1,8 +1,14 @@
-<crm:updateDealRs xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:upd="http://sbrf.ru/NCP/CRM/UpdateDealRs/">
-  <upd:operationStatus>
-    <upd:errorCode>string</upd:errorCode>
-    <!--Optional:-->
-    <upd:errorMessage>string</upd:errorMessage>
-  </upd:operationStatus>
-  <upd:dealID>string</upd:dealID>
-</crm:updateDealRs>
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Header/>
+    <soap:Body>
+        <crm:updateDealRs xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:upd="http://sbrf.ru/NCP/CRM/UpdateDealRs/">
+            <upd:operationStatus>
+                <upd:errorCode>string</upd:errorCode>
+                <!--Optional:-->
+                <upd:errorMessage>string</upd:errorMessage>
+            </upd:operationStatus>
+            <upd:dealID>string</upd:dealID>
+        </crm:updateDealRs>
+    </soap:Body>
+</soap:Envelope>
