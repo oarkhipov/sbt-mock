@@ -13,10 +13,15 @@
                     <rs:valueId>string</rs:valueId>
                     <rs:parentValueId>string</rs:parentValueId>
                 </rs:listOfValue>
+                <rs:listOfValue>
+                    <rs:value>string1</rs:value>
+                    <rs:valueId>string1</rs:valueId>
+                    <rs:parentValueId>string1</rs:parentValueId>
+                </rs:listOfValue>
             </rs:referenceItem>
             <rs:errorCode>325</rs:errorCode>
             <!--Optional:-->
-            <errorMessage>Kernel panic!</errorMessage>
+            <rs:errorMessage>Kernel panic!</rs:errorMessage>
         </crm:UpdateDealRs>
     </soap-env:Body>
 </soap-env:Envelope>
