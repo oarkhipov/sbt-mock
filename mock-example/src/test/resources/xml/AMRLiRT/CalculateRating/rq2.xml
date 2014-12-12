@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/">
+  <soap:Header/>
+  <soap:Body>
+    <amr:calculateRatingRq>
+      <cal:comments>testError</cal:comments>
+</amr:calculateRatingRq>
+  </soap:Body>
+</soap:Envelope>

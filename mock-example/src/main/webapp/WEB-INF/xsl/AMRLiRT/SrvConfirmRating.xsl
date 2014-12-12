@@ -50,7 +50,7 @@
 				<!--Optional:-->
 				<con:listOfAddParameter>
 					<!--Zero or more repetitions:-->
-					<xsl:for-each select="$data//rsd:listOfAddParameter/rsd:addParameter">
+					<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfAddParameter/rsd:addParameter">
 					<con:addParameter>
 						<con:order><xsl:value-of select="rsd:order"/></con:order>
 						<con:name><xsl:value-of select="rsd:name"/></con:name>

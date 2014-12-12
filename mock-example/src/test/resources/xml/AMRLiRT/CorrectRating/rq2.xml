@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:cor="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRq/">
+  <soap:Header/>
+  <soap:Body>
+    <amr:correctRatingRq>
+      <cor:comments>testError</cor:comments>
+</amr:correctRatingRq>
+  </soap:Body>
+</soap:Envelope>

@@ -49,7 +49,7 @@
 				<cal:errorMessage><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/></cal:errorMessage>
 				<cal:listOfResultRating>
 					<!--Zero or more repetitions:-->
-					<xsl:for-each select="$data//rsd:listOfResultRating/rsd:resultRating">
+					<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfResultRating/rsd:resultRating">
 					<cal:resultRating>
 						<cal:isPrimary><xsl:value-of select="rsd:isPrimary"/></cal:isPrimary>
 						<cal:name><xsl:value-of select="rsd:name"/></cal:name>
@@ -62,7 +62,7 @@
 				<!--Optional:-->
 				<cal:listOfCalculatedFactor>
 					<!--Zero or more repetitions:-->
-					<xsl:for-each select="$data//rsd:listOfCalculatedFactor/rsd:calculatedFactor">
+					<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfCalculatedFactor/rsd:calculatedFactor">
 					<cal:calculatedFactor>
 						<cal:code><xsl:value-of select="rsd:code"/></cal:code>
 						<cal:name><xsl:value-of select="rsd:name"/></cal:name>
@@ -73,7 +73,7 @@
 				<!--Optional:-->
 				<cal:listOfAddParameter>
 					<!--Zero or more repetitions:-->
-					<xsl:for-each select="$data//rsd:listOfAddParameter/rsd:addParameter">
+					<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfAddParameter/rsd:addParameter">
 					<cal:addParameter>
 						<cal:order><xsl:value-of select="rsd:order"/></cal:order>
 						<cal:name><xsl:value-of select="rsd:name"/></cal:name>

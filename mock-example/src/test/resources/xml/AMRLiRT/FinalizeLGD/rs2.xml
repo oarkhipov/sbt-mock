@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Header xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:fin="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRq/"/>
+  <soap-env:Body xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:rs="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/" xmlns:rsd="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGD/Data" xmlns:fin="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRq/">
+    <amr:finalizeLGDRs>
+      <fin:errorCode>e</fin:errorCode>
+      <fin:errorMessage>testing error message</fin:errorMessage>
+      <fin:crmId/>
+      <fin:type/>
+    </amr:finalizeLGDRs>
+  </soap-env:Body>
+</soap-env:Envelope>

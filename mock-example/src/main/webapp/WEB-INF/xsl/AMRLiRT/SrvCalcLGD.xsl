@@ -64,7 +64,7 @@
 			<!--Optional:-->
 			<cal:listOfCollateral>
 				<!--Zero or more repetitions:-->
-				<xsl:for-each select="$data//rsd:listOfCollateral/rsd:collateral">
+				<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfCollateral/rsd:collateral">
 				<cal:collateral>
 					<cal:crmId><xsl:value-of select="rsd:crmId"/></cal:crmId>
 					<cal:collType><xsl:value-of select="rsd:collType"/></cal:collType>

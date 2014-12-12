@@ -19,4 +19,9 @@
             </addParameter>
         </listOfAddParameter>
     </response>
+    <response name="testError">
+        <errorCode>e</errorCode>
+        <!--Optional:-->
+        <errorMessage>testing error message</errorMessage>
+    </response>
 </data>

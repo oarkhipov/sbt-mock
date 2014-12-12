@@ -46,11 +46,11 @@
 			<cor:return>
 				<cor:errorCode><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/></cor:errorCode>
 				<!--Optional:-->
-				<cor:errorMessage><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/></cor:errorMessage>
+				<cor:errorMessage><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/></cor:errorMessage>
 				<!--Optional:-->
 				<cor:listOfAddParameter>
 					<!--Zero or more repetitions:-->
-					<xsl:for-each select="$data//rsd:listOfAddParameter/rsd:addParameter">
+					<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfAddParameter/rsd:addParameter">
 					<cor:addParameter>
 						<cor:order><xsl:value-of select="rsd:order"/></cor:order>
 						<cor:name><xsl:value-of select="rsd:name"/></cor:name>

@@ -59,7 +59,7 @@
 			<cal:debtCapacityForNextYear><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:debtCapacityForNextYear"/></cal:debtCapacityForNextYear>
 			<cal:listOfAddParameter>
 				<!--Zero or more repetitions:-->
-				<xsl:for-each select="$data//rsd:listOfAddParameter/rsd:addParameter">
+				<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfAddParameter/rsd:addParameter">
 				<cal:addParameter>
 					<!--Optional:-->
 					<cal:order><xsl:value-of select="rsd:order"/></cal:order>

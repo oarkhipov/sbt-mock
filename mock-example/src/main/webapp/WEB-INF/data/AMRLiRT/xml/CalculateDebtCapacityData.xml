@@ -33,4 +33,9 @@
         <!--Optional:-->
         <amMessage>anyType1</amMessage>
     </response>
+    <response name="testError">
+        <errorCode>e</errorCode>
+        <!--Optional:-->
+        <errorMessage>testing error message</errorMessage>
+    </response>
 </data>

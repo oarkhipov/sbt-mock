@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/" xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/">
+  <soap:Header/>
+  <soap:Body>
+    <amr:calculateDCRq>
+      <cal:comments>testError</cal:comments>
+    </amr:calculateDCRq>
+  </soap:Body>
+</soap:Envelope>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:fin="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRq/">
+  <soap:Header/>
+  <soap:Body>
+    <amr:finalizeLGDRq>
+      <fin:comments>testError</fin:comments>
+    </amr:finalizeLGDRq>
+  </soap:Body>
+</soap:Envelope>
