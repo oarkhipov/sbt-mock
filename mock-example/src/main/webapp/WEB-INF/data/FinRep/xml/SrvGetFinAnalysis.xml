@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/NCP/ASFO/GetFinAnalysis/Data">
+    <response name="default">
+        <actualRequirements>
+            <creditRiskPerDebtor>1000.00</creditRiskPerDebtor>
+            <creditRiskForRelatedDebtorGroup>1000.00</creditRiskForRelatedDebtorGroup>
+            <creditRiskPerLegalEntityInsider>1000.00</creditRiskPerLegalEntityInsider>
+            <economicGroupRiskFactor>1000.00</economicGroupRiskFactor>
+        </actualRequirements>
+        <actualRequirementsInTotal>
+            <creditRiskPerDebtor>1000.00</creditRiskPerDebtor>
+            <creditRiskForRelatedDebtorGroup>1000.00</creditRiskForRelatedDebtorGroup>
+            <creditRiskPerLegalEntityInsider>1000.00</creditRiskPerLegalEntityInsider>
+            <economicGroupRiskFactor>1000.00</economicGroupRiskFactor>
+        </actualRequirementsInTotal>
+        <!--Optional:-->
+        <finIndexChangesReasonNFRS>string</finIndexChangesReasonNFRS>
+        <!--Optional:-->
+        <finPerformanceCommentNFRS>string</finPerformanceCommentNFRS>
+        <!--Optional:-->
+        <finIndexChangesReasonIFRS>string</finIndexChangesReasonIFRS>
+        <!--Optional:-->
+        <finPerformanceCommentIFRS>string</finPerformanceCommentIFRS>
+        <creditHistoryConclusions>string</creditHistoryConclusions>
+        <offBalanceSheetLiabilities>string</offBalanceSheetLiabilities>
+        <liabilitiesDynamicsComment>string</liabilitiesDynamicsComment>
+        <turnoversComment>string</turnoversComment>
+        <revenueExpensesStressAnalysis>string</revenueExpensesStressAnalysis>
+        <!--Optional:-->
+        <structuredDealsStressAnalysis>string</structuredDealsStressAnalysis>
+        <fieldInfo>
+            <mainField>string</mainField>
+            <mainBusiness>string</mainBusiness>
+        </fieldInfo>
+        <marketPositionAndTrends>
+            <trends>string</trends>
+            <trends>string2</trends>
+        </marketPositionAndTrends>
+        <business>
+            <suppliersConcentrationLevel>string</suppliersConcentrationLevel>
+            <buyersConcentrationLevel>string</buyersConcentrationLevel>
+            <dependenceComment>string</dependenceComment>
+        </business>
+    </response>
+    <response name="testError">
+        <errorCode>e</errorCode>
+        <!--Optional:-->
+        <errorMessage>testing error message SrvGetFinAnalysis.xml</errorMessage>
+        <offBalanceSheetLiabilities>testing error message SrvGetFinAnalysis.xml</offBalanceSheetLiabilities>
+    </response>
+</data>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+        xmlns:comTypes="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/"
+        targetNamespace="http://sbrf.ru/NCP/ASFO/UpdateRating/Data"
+        xmlns="http://sbrf.ru/NCP/ASFO/UpdateRating/Data"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="http://sbrf.ru/NCP/ASFO/UpdateRatingRs/"
+        elementFormDefault="qualified">
+
+    <xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" schemaLocation="../../../xsd/AMRLiRT/CommonTypes.xsd"/>
+
+    <xsd:element name="data" type="dataValue"/>
+
+    <xsd:complexType name="dataValue">
+        <xsd:sequence>
+            <xsd:element name="response" type="UpdateRating" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Ответ на запрос
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="UpdateRating">
+        <xsd:sequence>
+            <xsd:element name="errorCode">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="30"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="errorMessage" minOccurs="0">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="2000"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>

@@ -2,7 +2,7 @@
 <xsd:schema 
 
 xmlns:gfrrq="http://sbrf.ru/NCP/ASFO/GetFinReportRq/"
-xmlns:gfrrs="http://sbrf.ru/NCP/ASFO/GetFinReportRq/"
+xmlns:gfrrs="http://sbrf.ru/NCP/ASFO/GetFinReportRs/"
 xmlns:gfarq="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRq/"
 xmlns:gfars="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRs/"
 xmlns:grfrq="http://sbrf.ru/NCP/ASFO/GetRatingsAndFactorsRq/"
@@ -12,18 +12,18 @@ xmlns:urrs="http://sbrf.ru/NCP/ASFO/UpdateRatingRs/"
 
 
 xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-targetNamespace="http://sbrf.ru/NCP/ASFO/" 
-xmlns:tns="http://sbrf.ru/NCP/ASFO/"  elementFormDefault="qualified">
+targetNamespace="http://sbrf.ru/NCP/ASFO/"
+xmlns="http://sbrf.ru/NCP/ASFO/"  elementFormDefault="qualified">
 
 	<xsd:import namespace="http://sbrf.ru/NCP/ASFO/GetFinReportRq/" schemaLocation="FinReportImportRequest.xsd" />
-	<xsd:import namespace="http://sbrf.ru/NCP/ASFO/GetFinReportRq/" schemaLocation="FinReportImportResponse.xsd" />
+	<xsd:import namespace="http://sbrf.ru/NCP/ASFO/GetFinReportRs/" schemaLocation="FinReportImportResponse.xsd" />
 	<xsd:import namespace="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRq/" schemaLocation="FinAnalysisImportRequest.xsd" />
 	<xsd:import namespace="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRs/" schemaLocation="FinAnalysisImportResponse.xsd" />
 	<xsd:import namespace="http://sbrf.ru/NCP/ASFO/GetRatingsAndFactorsRq/" schemaLocation="ImportRatingRequest.xsd" />
 	<xsd:import namespace="http://sbrf.ru/NCP/ASFO/GetRatingsAndFactorsRs/" schemaLocation="ImportRatingResponse.xsd" />
 	<xsd:import namespace="http://sbrf.ru/NCP/ASFO/UpdateRatingRq/" schemaLocation="UpdateRatingRequest.xsd" />
 	<xsd:import namespace="http://sbrf.ru/NCP/ASFO/UpdateRatingRs/" schemaLocation="UpdateRatingResponse.xsd" />
-	
+
 	<xsd:element name="getFinReportRq" type="gfrrq:FinReportImportRequest"/>
 	<xsd:element name="getFinReportRs" type="gfrrs:FinReportImportResponse"/>
 	<xsd:element name="getFinAnalysisRq" type="gfarq:FinAnalysisImportRequest"/>

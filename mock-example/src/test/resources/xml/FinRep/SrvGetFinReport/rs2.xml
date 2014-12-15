@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
+	<soap:Header xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fin="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRq/"/>
+	<soap-env:Body xmlns:rs="http://sbrf.ru/NCP/ASFO/GetFinReportRs/" xmlns:rsd="http://sbrf.ru/NCP/ASFO/GetFinReport/Data" xmlns:rq="http://sbrf.ru/NCP/ASFO/GetFinReportRq/" xmlns:crm="http://sbrf.ru/NCP/ASFO/">
+		<crm:getFinAnalysisRq>
+			<rs:nonCurrentAssetsNFRS>testing error message SrvGetFinReport.xml</rs:nonCurrentAssetsNFRS>
+			<rs:currentAssetsNFRS/>
+			<rs:nonCurrentAssetsIFRS/>
+			<rs:currentAssetsIFRS/>
+			<rs:longTermDebtNFRS/>
+			<rs:shortTermDebtNFRS/>
+			<rs:longTermDebtIFRS/>
+			<rs:shortTermDebtIFRS/>
+			<rs:ebitdaNFRS/>
+			<rs:numQuarterNFRS/>
+			<rs:ebitdaIFRS/>
+			<rs:numQuarterIFRS/>
+			<rs:currencyCode/>
+			<rs:currencyCodeForFR/>
+			<rs:currencyRate/>
+			<rs:futureCurrencyRate/>
+			<rs:currentCurrencyRate/>
+			<rs:purpose/>
+			<rs:currentYear/>
+			<rs:govDebt/>
+			<rs:creditGovDebt/>
+			<rs:credit/>
+			<rs:liabilities/>
+			<rs:liabilitiesNextYear/>
+			<rs:income/>
+			<rs:incomeNextYear/>
+			<rs:plannedCredit/>
+			<rs:plannedCreditNextYear/>
+		</crm:getFinAnalysisRq>
+	</soap-env:Body>
+</soap-env:Envelope>

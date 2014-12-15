@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sbrf.ru/NCP/ASFO/UpdateRatingRq/" targetNamespace="http://sbrf.ru/NCP/ASFO/UpdateRatingRq/" xmlns:amrct="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:tns="http://sbrf.ru/NCP/ASFO/UpdateRatingRq/"
+			targetNamespace="http://sbrf.ru/NCP/ASFO/UpdateRatingRq/"
+			xmlns="http://sbrf.ru/NCP/ASFO/UpdateRatingRq/"
+			xmlns:amrct="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" elementFormDefault="qualified">
 	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" schemaLocation="CommonTypes.xsd"/>	
 
 	<xsd:complexType name="Employee">
@@ -91,13 +95,13 @@
 			</xsd:element>
 
 
-			<xsd:element name="employeeForAjustment" type="xsd:Employee" />
+			<xsd:element name="employeeForAjustment" type="Employee" />
 		</xsd:sequence>
 	</xsd:complexType>
 
 	<xsd:complexType name="ListOfRatingAjustment">
 		<xsd:sequence>
-			<xsd:element name="ratingAjustment" type="xsd:RatingAjustment" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="ratingAjustment" type="RatingAjustment" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:sequence>
 	</xsd:complexType>
 
@@ -123,7 +127,7 @@
 	</xsd:complexType>
 	<xsd:complexType name="ListOfAddParameter">
 		<xsd:sequence>
-			<xsd:element name="addParameter" type="xsd:AddParameter" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="addParameter" type="AddParameter" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="CalculatedFactor">
@@ -153,7 +157,7 @@
 	</xsd:complexType>
 	<xsd:complexType name="ListOfCalculatedFactor">
 		<xsd:sequence>
-			<xsd:element name="calculatedFactor" type="xsd:CalculatedFactor" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="calculatedFactor" type="CalculatedFactor" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="ResultRating">
@@ -178,7 +182,7 @@
 	</xsd:complexType>
 	<xsd:complexType name="ListOfResultRating">
 		<xsd:sequence>
-			<xsd:element name="resultRating" type="xsd:ResultRating" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="resultRating" type="ResultRating" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:sequence>
 	</xsd:complexType>
 
@@ -208,17 +212,17 @@
 			<xsd:element name="dateCalc" type="xsd:dateTime" minOccurs="0"/>
 			<xsd:element name="calcValue" type="xsd:int" minOccurs="0"/>
 
-			<xsd:element name="listOfRatingAjustment" type="xsd:ListOfRatingAjustment" minOccurs="0"/>
-			<xsd:element name="employeeForCalc" type="xsd:Employee" minOccurs="0"/>
-			<xsd:element name="listOfResultRating" type="xsd:ListOfResultRating" minOccurs="0"/>
-			<xsd:element name="listOfCalculatedFactor" type="xsd:ListOfCalculatedFactor" minOccurs="0"/>
+			<xsd:element name="listOfRatingAjustment" type="ListOfRatingAjustment" minOccurs="0"/>
+			<xsd:element name="employeeForCalc" type="Employee" minOccurs="0"/>
+			<xsd:element name="listOfResultRating" type="ListOfResultRating" minOccurs="0"/>
+			<xsd:element name="listOfCalculatedFactor" type="ListOfCalculatedFactor" minOccurs="0"/>
 
 		</xsd:sequence>
 	</xsd:complexType>
 
 	<xsd:complexType name="ListOfRatingCalc">
 		<xsd:sequence>
-			<xsd:element name="ratingCalc" type="xsd:RatingCalc" maxOccurs="unbounded"/>
+			<xsd:element name="ratingCalc" type="RatingCalc" maxOccurs="unbounded"/>
 		</xsd:sequence>
 	</xsd:complexType>
 
@@ -276,15 +280,15 @@
 					</xsd:restriction>
 				</xsd:simpleType>			
 			</xsd:element>
-			<xsd:element name="employeeForApprove" type="xsd:Employee"/>
-			<xsd:element name="listOfRatingCalc" type="xsd:ListOfRatingCalc"/>
+			<xsd:element name="employeeForApprove" type="Employee"/>
+			<xsd:element name="listOfRatingCalc" type="ListOfRatingCalc"/>
 		</xsd:sequence>
 	</xsd:complexType>
 
 
 	<xsd:complexType name="UpdateRatingRequest">
 		<xsd:sequence>
-			<xsd:element name="rating" type="xsd:Rating"/>
+			<xsd:element name="rating" type="Rating"/>
 		</xsd:sequence>
 	</xsd:complexType>
 

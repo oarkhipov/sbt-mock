@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+			   xmlns:asfo="http://sbrf.ru/NCP/ASFO/"
+			   xmlns:get="http://sbrf.ru/NCP/ASFO/GetRatingsAndFactorsRq/"
+			   xmlns:fin="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRq/">
+<soap:Header/>
+<soap:Body>
+	<asfo:getRatingsAndFactorsRq >
+		<get:dealId>string</get:dealId>
+		<get:entityType>string</get:entityType>
+		<get:entityId>string</get:entityId>
+	</asfo:getRatingsAndFactorsRq>
+</soap:Body>
+</soap:Envelope>

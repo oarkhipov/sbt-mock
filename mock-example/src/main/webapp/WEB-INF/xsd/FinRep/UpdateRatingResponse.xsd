@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema targetNamespace="http://sbrf.ru/NCP/ASFO/UpdateRating/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sbrf.ru/NCP/ASFO/UpdateRating/">
+<xsd:schema targetNamespace="http://sbrf.ru/NCP/ASFO/UpdateRatingRs/"
+			xmlns="http://sbrf.ru/NCP/ASFO/UpdateRatingRs/"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
 	<xsd:complexType name="UpdateRatingResponse">
 		<xsd:sequence>
