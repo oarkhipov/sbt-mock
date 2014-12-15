@@ -3,9 +3,9 @@ package ru.sbt.bpm.mock.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.service.TransformService;
 import ru.sbt.bpm.mock.service.XmlDataService;
 
@@ -36,5 +36,20 @@ public class MockController {
 
         model.addAttribute("object", xmlDataService.getXml(name + "_Data"));
         return "mock_editor";
+    }
+
+    @RequestMapping(value="/mock/{name}/validate/", method=RequestMethod.POST)
+    public String validate(
+            @PathVariable("name") String name,
+            @RequestParam("xml") String xml,
+            ModelMap model) {
+        try {
+            if (xmlDataService.validate(xml)) {
+                model.addAttribute("object", "true");
+            }
+        } catch (SAXException|IOException e) {
+            model.addAttribute("object", e.getMessage());
+        }
+        return "blank";
     }
 }
