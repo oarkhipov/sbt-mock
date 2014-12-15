@@ -10,6 +10,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import ru.sbt.bpm.mock.service.ChannelService;
 import ru.sbt.bpm.mock.utils.XmlUtil;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -32,7 +34,7 @@ public class ChannelTest {
 
 //    CRM testing
     @Test
-    public void createTaskTest() throws Exception {
+    public void createTaskTest1() throws Exception {
         testXSLT("CreateTask", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/CreateTask/rq1.xml", "xml/CRM/CreateTask/rs1.xml");
     }
 
@@ -42,9 +44,36 @@ public class ChannelTest {
     }
 
     @Test
-    public void getParticipants() throws Exception {
+    public void getParticipantsTest1() throws Exception {
         testXSLT("GetParticipants", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/GetParticipants/rq1.xml", "xml/CRM/GetParticipants/rs1.xml");
     }
+
+    @Test
+    public void getParticipantsTest2() throws Exception {
+        testXSLT("GetParticipants", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/GetParticipants/rq2.xml", "xml/CRM/GetParticipants/rs2.xml");
+    }
+
+    @Test
+    public void saveDealTest1() throws Exception {
+        testXSLT("SaveDeal", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/SaveDeal/rq1.xml", "xml/CRM/SaveDeal/rs1.xml");
+    }
+
+    @Test
+    public void saveDealTest2() throws Exception {
+        testXSLT("SaveDeal", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/SaveDeal/rq2.xml", "xml/CRM/SaveDeal/rs2.xml");
+    }
+
+    @Test
+    public void updateRefTest1() throws Exception {
+        testXSLT("UpdateRef", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/UpdateRef/rq1.xml", "xml/CRM/UpdateRef/rs1.xml");
+    }
+
+    @Test
+    public void updateRefTest2() throws Exception {
+        testXSLT("UpdateRef", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/UpdateRef/rq2.xml", "xml/CRM/UpdateRef/rs2.xml");
+    }
+
+
 
 //  AMRLiRT testing
     @Test
@@ -154,9 +183,17 @@ public class ChannelTest {
         String result = service.getPayload(OUT, index-1);
 
         XMLUnit.setIgnoreWhitespace(true);
+        XMLUnit.setIgnoreComments(true);
 
         Diff diff = new Diff(MSGRS,result);
         if (!diff.identical()) {
+            DetailedDiff detailedDiff = new DetailedDiff(diff);
+            List differences = detailedDiff.getAllDifferences();
+            for (Object difference : differences) {
+                System.out.println("***********************");
+                System.out.println(String.valueOf((Difference) difference));
+            }
+
             assertEquals(MSGRS, result);
         }
     }

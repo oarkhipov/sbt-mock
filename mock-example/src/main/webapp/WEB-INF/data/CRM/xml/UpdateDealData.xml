@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--IT'S A DRIVER = DATA OF REQUEST-->
 <data xmlns="http://sbrf.ru/NCP/CRM/UpdateDealRs/Data/">
     <response name="default">
         <errorCode>0</errorCode>

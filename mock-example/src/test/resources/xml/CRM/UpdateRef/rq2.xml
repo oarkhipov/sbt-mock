@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Header/>
+    <soap:Body>
+        <crm:updateRefRq xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:upd="http://sbrf.ru/NCP/CRM/UpdateRefRq/">
+            <!--Zero or more repetitions:-->
+            <upd:referenceItem>ERROR</upd:referenceItem>
+        </crm:updateRefRq>
+    </soap:Body>
+</soap:Envelope>

@@ -3,7 +3,8 @@
     <soap-env:Body xmlns:rs="http://sbrf.ru/NCP/CRM/SaveDealRs/" xmlns:rsd="http://sbrf.ru/NCP/CRM/SaveDealRs/Data/" xmlns:rq="http://sbrf.ru/NCP/CRM/SaveDealRq/" xmlns:crm="http://sbrf.ru/NCP/CRM/">
         <crm:saveDealRs>
             <rs:operationStatus>
-                <rs:errorCode>0</rs:errorCode>
+                <rs:errorCode>325</rs:errorCode>
+                <rs:errorMessage>ERROR: kernel panic!</rs:errorMessage>
             </rs:operationStatus>
             <rs:dealID>string</rs:dealID>
         </crm:saveDealRs>

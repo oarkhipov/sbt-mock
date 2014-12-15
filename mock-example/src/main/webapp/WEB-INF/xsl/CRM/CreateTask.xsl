@@ -15,7 +15,7 @@
             <xsl:copy-of select="soap-env:Header"/>
             <soap-env:Body>
                 <xsl:variable name="data" select="document('../../data/CRM/xml/CreateTaskData.xml')/rsd:data"/>
-                <xsl:variable name="linkedTag" select="./soap-env:Body/crm:createTaskRq/rq:comments"/>
+                <xsl:variable name="linkedTag" select="./soap-env:Body/crm:createTaskRq/rq:comment"/>
                 <xsl:call-template name="createTaskRs">
                     <xsl:with-param name="data" select="$data"/>
                     <xsl:with-param name="response">

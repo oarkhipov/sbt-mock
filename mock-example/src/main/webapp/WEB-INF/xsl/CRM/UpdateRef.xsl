@@ -14,7 +14,7 @@
         <xsl:element name="soap-env:Envelope">
             <xsl:copy-of select="soap-env:Header"/>
             <soap-env:Body>
-                <xsl:variable name="data" select="document('../../data/CRM/xml/UpdateRefRsData.xml')/rsd:data"/>
+                <xsl:variable name="data" select="document('../../data/CRM/xml/UpdateRefData.xml')/rsd:data"/>
                 <xsl:variable name="linkedTag" select="./soap-env:Body/crm:updateRefRq/rq:referenceItem"/>
                 <xsl:call-template name="UpdateDealRs">
                     <xsl:with-param name="data" select="$data"/>

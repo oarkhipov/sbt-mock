@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Header/>
+  <soap:Body>
+    <crm:prtspRq xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:rq="http://sbrf.ru/NCP/CRM/GetParticipantsRq/">
+      <rq:id>string</rq:id>
+      <rq:comment>ERROR</rq:comment>
+      <rq:requestType>string</rq:requestType>
+      <rq:performer>string</rq:performer>
+    </crm:prtspRq>
+  </soap:Body>
+</soap:Envelope>
