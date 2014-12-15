@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema
 		xmlns:comTypes="http://sbrf.ru/NCP/CRM/CommonTypes/"
-		targetNamespace="http://sbrf.ru/NCP/CRM/UpdateDealRs/Data/"
-		xmlns="http://sbrf.ru/NCP/CRM/UpdateDealRs/Data/"
+		targetNamespace="http://sbrf.ru/NCP/CRM/UpdateDealRq/Data/"
+		xmlns="http://sbrf.ru/NCP/CRM/UpdateDealRq/Data/"
 		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/"
 		elementFormDefault="qualified">
 
 	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="../../../xsd/CRM/CommonTypes.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/UpdateDealRq/" schemaLocation="../../../xsd/CRM/UpdateDealRequest.xsd"/>
 
 
 	<xsd:element name="data" type="dataValue"/>
@@ -25,17 +27,10 @@
 
 	<xsd:complexType name="UpdateDealRsData">
 		<xsd:sequence>
-			<xsd:element name="errorCode" type="comTypes:string50">
+			<xsd:element name="deal" type="tns:Deal">
 				<xsd:annotation>
 					<xsd:documentation>
-						Код ошибки
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="errorMessage" type="comTypes:string2000" minOccurs="0">
-				<xsd:annotation>
-					<xsd:documentation>
-						Сообщение об ошибке
+						Сделка
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>

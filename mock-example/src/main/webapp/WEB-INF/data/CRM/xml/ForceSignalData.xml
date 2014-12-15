@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--IT'S A DRIVER = DATA OF REQUEST-->
-<data xmlns="http://sbrf.ru/NCP/CRM/ForceSignalRs/Data/">
+<data xmlns="http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/">
     <!-- Responses -->
-    <response name="default">
-        <errorCode>string</errorCode>
-    </response>
+    <request name="default">
+        <contractID>string1</contractID>
+        <contractBPMID>string2</contractBPMID>
+        <status>string3</status>
+        <comment>string4</comment>
+        <requestType>string5</requestType>
+        <fullNameOfResponsiblePerson>string6</fullNameOfResponsiblePerson>
+        <!--Zero or more repetitions:-->
+        <participantsGroup>
+            <id>string1</id>
+            <label>string2</label>
+            <status>string3</status>
+            <updateDate>2008-09-04</updateDate>
+            <approvalDate>2014-09-05</approvalDate>
+            <topLevelGroupName>string6</topLevelGroupName>
+        </participantsGroup>
+    </request>
 
-    <response name="ERROR">
-        <errorCode>string</errorCode>
-        <!--Optional:-->
-        <errorMessage>string</errorMessage>
-    </response>
+    <request name="test1">
+        <contractID>string1-2</contractID>
+        <contractBPMID>string2-2</contractBPMID>
+        <status>string3-2</status>
+        <comment>string4-2</comment>
+        <requestType>string5-2</requestType>
+        <fullNameOfResponsiblePerson>string6-2</fullNameOfResponsiblePerson>
+        <!--Zero or more repetitions:-->
+        <participantsGroup>
+            <id>string1-2</id>
+            <label>string2-2</label>
+            <status>string3-2</status>
+            <updateDate>2008-09-04</updateDate>
+            <approvalDate>2014-09-05</approvalDate>
+            <topLevelGroupName>string6-2</topLevelGroupName>
+        </participantsGroup>
+    </request>
 </data>

@@ -4,7 +4,6 @@
         targetNamespace="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGD/Data"
         xmlns="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGD/Data"
         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/"
         elementFormDefault="qualified">
 
     <xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" schemaLocation="../../../xsd/AMRLiRT/CommonTypes.xsd"/>

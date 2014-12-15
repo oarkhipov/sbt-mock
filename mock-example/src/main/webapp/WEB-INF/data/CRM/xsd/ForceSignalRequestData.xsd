@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/"
+			targetNamespace="http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/"
+			elementFormDefault="qualified"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:rq="http://sbrf.ru/NCP/CRM/ForceSignalRq/">
+
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="../../../xsd/CRM/CommonTypes.xsd"/>
+
+	<xsd:element name="data" type="dataValue"/>
+
+	<xsd:complexType name="dataValue">
+		<xsd:sequence>
+			<xsd:element name="request" type="ForceSignalRq" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						Ответ на запрос
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ForceSignalRq">
+		<xsd:sequence>
+			<xsd:element name="contractID" type="crmct:string15">
+				<xsd:annotation>
+					<xsd:documentation>
+						ID сделки в CRM
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="contractBPMID" type="crmct:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						ID сделки в PRPC
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="status" type="crmct:string15">
+				<xsd:annotation>
+					<xsd:documentation>
+						Статус
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="comment" type="crmct:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						Примечание
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestType" type="crmct:string50">
+				<xsd:annotation>
+					<xsd:documentation>
+						Тип сообщения
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="fullNameOfResponsiblePerson" type="crmct:string50">
+				<xsd:annotation>
+					<xsd:documentation>
+						ФИО Исполнителя
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="participantsGroup" type="rq:ParticipantsGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute type="xsd:string" name="name" use="required"/>
+	</xsd:complexType>
+</xsd:schema>

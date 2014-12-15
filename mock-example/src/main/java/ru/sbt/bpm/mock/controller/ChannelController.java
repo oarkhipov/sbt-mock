@@ -38,6 +38,7 @@ public class ChannelController {
     @RequestMapping(value="/channel/{name}/", method = RequestMethod.GET) 
     public String getChannel(@PathVariable("name") String name, Model model) {
         model.addAttribute(PARAM_NAME, "insert value to send there");
+
         int count = service.getPayloadsCount(name);
         List<String> list = new ArrayList<String>(count);
         list.add("clear");
@@ -59,7 +60,7 @@ public class ChannelController {
         service.clearMessages(name);
         return "redirect:../";
     }
-    @RequestMapping(value="/channel/{name}/{index}/") 
+    @RequestMapping(value="/channel/{name}/{index}/")
     public String getPayload(
             @PathVariable("name") String name, 
             @PathVariable("index") int index, 

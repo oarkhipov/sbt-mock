@@ -4,7 +4,7 @@
                 xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"
                 xmlns:rq="http://sbrf.ru/NCP/CRM/ForceSignalRq/"
                 xmlns:rs="http://sbrf.ru/NCP/CRM/ForceSignalRs/"
-                xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRs/Data/"
+                xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/"
                 xmlns:crm="http://sbrf.ru/NCP/CRM/">
 
     <xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>
@@ -14,11 +14,12 @@
     <!-- DRIVER!!! -->
 
     <!--Prepare data and section of data XML-->
-    <xsl:template match="soap-env:Envelope">
+    <xsl:template match="*">
         <xsl:element name="soap-env:Envelope">
             <xsl:copy-of select="soap-env:Header"/>
             <soap-env:Body>
-                <xsl:variable name="data" select="document('../../data/CRM/xml/ForceSignalData.xml')/rsd:data"/>
+                <!--xsl:variable name="data" select="document('../../data/CRM/xml/ForceSignalRequestData.xsd')/rsd:data"/-->
+                <xsl:variable name="data" select="."/>
                 <xsl:variable name="linkedTag" select="./soap-env:Body/crm:ForceSignalRq/rq:comment"/>
                 <xsl:call-template name="forceSignal">
                     <xsl:with-param name="data" select="$data"/>
@@ -47,32 +48,23 @@
         <xsl:param name="response"/>
         <xsl:param name="data"/>
         <!-- - - - - - - - -->
-        <crm:forceSignalRs>
-            <rs:contractID>
-                <xsl:value-of select="./soap-env:Body/crm:forceSignalRq/rq:contractID"/>
-            </rs:contractID>
-            <rs:contractBPMID>
-                <xsl:value-of select="./soap-env:Body/crm:forceSignalRq/rq:contractBPMID"/>
-            </rs:contractBPMID>
-            <rs:status>
-                <xsl:value-of select="./soap-env:Body/crm:forceSignalRq/rq:status"/>
-            </rs:status>
-            <rs:comment>
-                <xsl:value-of select="./soap-env:Body/crm:forceSignalRq/rq:comment"/>
-            </rs:comment>
-            <rs:requestType>
-                <xsl:value-of select="./soap-env:Body/crm:forceSignalRq/rq:requestType"/>
-            </rs:requestType>
-            <rs:fullNameOfResponsiblePerson>
-                <xsl:value-of select="./soap-env:Body/crm:forceSignalRq/rq:fullNameOfResponsiblePerson"/>
-            </rs:fullNameOfResponsiblePerson>
-            <!-- 1 -->
-            <rs:errorCode>
-                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
-            </rs:errorCode>
-            <!-- 0..N -->
-            <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
-        </crm:forceSignalRs>
+        <crm:forceSignalRq xmlns:crm="http://sbrf.ru/NCP/CRM/">
+            <rq:contractID><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:contractID"/></rq:contractID>
+            <rq:contractBPMID><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:contractBPMID"/></rq:contractBPMID>
+            <rq:status><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:status"/></rq:status>
+            <rq:comment><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:comment"/></rq:comment>
+            <rq:requestType><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:requestType"/></rq:requestType>
+            <rq:fullNameOfResponsiblePerson><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:fullNameOfResponsiblePerson"/></rq:fullNameOfResponsiblePerson>
+            <!--Zero or more repetitions:-->
+            <rq:participantsGroup>
+                <rq:id><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:participantsGroup/rsd:id"/></rq:id>
+                <rq:label><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:participantsGroup/rsd:label"/></rq:label>
+                <rq:status><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:participantsGroup/rsd:status"/></rq:status>
+                <rq:updateDate><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:participantsGroup/rsd:updateDate"/></rq:updateDate>
+                <rq:approvalDate><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:participantsGroup/rsd:approvalDate"/></rq:approvalDate>
+                <rq:topLevelGroupName><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:participantsGroup/rsd:topLevelGroupName"/></rq:topLevelGroupName>
+            </rq:participantsGroup>
+        </crm:forceSignalRq>
     </xsl:template>
 
 </xsl:stylesheet>

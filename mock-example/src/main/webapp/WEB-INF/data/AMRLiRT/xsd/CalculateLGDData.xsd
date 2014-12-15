@@ -8,6 +8,7 @@
         elementFormDefault="qualified">
 
     <xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" schemaLocation="../../../xsd/AMRLiRT/CommonTypes.xsd"/>
+    <xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/" schemaLocation="../../../xsd/AMRLiRT/CalculateLGDResponse.xsd"/>
 
     <xsd:element name="data" type="dataValue"/>
 
