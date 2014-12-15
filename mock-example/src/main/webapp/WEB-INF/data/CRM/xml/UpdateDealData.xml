@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--IT'S A DRIVER = DATA OF REQUEST-->
 <data xmlns="http://sbrf.ru/NCP/CRM/UpdateDealRq/Data/">
-    <response name="default">
+    <request name="default">
         <deal>
             <dealID>string1</dealID>
             <!--Optional:-->
@@ -146,9 +146,9 @@
                 <currencyDate>2000-09-25</currencyDate>
             </exchangeRates>
         </deal>
-    </response>
-    <response name="ERROR">
+    </request>
+    <request name="ERROR">
         <errorCode>325</errorCode>
         <errorMessage>ERROR: kernel panic!</errorMessage>
-    </response>
+    </request>
 </data>

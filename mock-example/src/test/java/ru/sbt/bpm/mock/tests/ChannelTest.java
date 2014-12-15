@@ -170,7 +170,6 @@ public class ChannelTest {
         testXSLT("SrvUpdateRating", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/SrvUpdateRating/rq2.xml", "xml/FinRep/SrvUpdateRating/rs2.xml");
     }
 
-
     private void testXSLT(String INStream, String OUTStream, String request, String responce) throws Exception {
         IN= INStream;
         OUT = OUTStream;
