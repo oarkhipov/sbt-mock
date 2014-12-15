@@ -6,9 +6,13 @@
 
 package ru.sbt.bpm.mock.service;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collection;
 import javax.xml.transform.*;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import ru.sbt.bpm.mock.bean.RefreshableXSLTransformer;
@@ -31,6 +35,12 @@ public class TransformService {
     
     public void putXSL(String name, String value) {
         appContext.getBean(name, RefreshableXSLTransformer.class).setXSL(value);
+    }
+
+    public String getXmlData(String name) throws IOException {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        InputStream xmlStream = classLoader.getResourceAsStream(name);
+        return IOUtils.toString(xmlStream, "UTF-8");
     }
     
     public Collection<String> getTransformers() {

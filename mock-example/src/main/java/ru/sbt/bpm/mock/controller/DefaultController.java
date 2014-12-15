@@ -21,6 +21,8 @@ public class DefaultController {
     @RequestMapping("/")
     public String _default(Model model) {
         List<String> functions = new LinkedList<String>();
+        functions.add("mock");
+        functions.add("driver");
         functions.add("transform");
         functions.add("channel");
         model.addAttribute("list", functions);

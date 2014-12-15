@@ -228,4 +228,5 @@
     </beans:bean>
     
     <beans:bean name="transformService" class="ru.sbt.bpm.mock.service.TransformService"/>
+    <beans:bean name="xmlDataService" class="ru.sbt.bpm.mock.service.XmlDataService"/>
 </beans:beans>
