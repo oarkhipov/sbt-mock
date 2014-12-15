@@ -72,6 +72,30 @@ public class XslTransformTest {
                 "\r\ndefault\r\ntestError");
     }
 
+    @Test
+    public void testXMLDataRowToXMLDataListWithParam () throws Exception {
+
+        final String dir = this.getClass().getClassLoader().getResource("").getPath();
+        System.out.println(dir);
+
+        String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl";
+        String XMLFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\FinRep\\xml\\SrvGetFinReport.xml";
+        String validateString = "<response xmlns=\"http://sbrf.ru/NCP/ASFO/GetFinReport/Data\" name=\"testError\">\r\n" +
+                "        <errorCode>e</errorCode>\r\n" +
+                "        <!--Optional:-->\r\n" +
+                "        <errorMessage>testing error message SrvGetFinReport.xml</errorMessage>\r\n" +
+                "        <nonCurrentAssetsNFRS>testing error message SrvGetFinReport.xml</nonCurrentAssetsNFRS>\r\n" +
+                "    </response>";
+
+        String result = XslTransformer.transform(XSLTFile, XMLFile, "name", "testError");
+
+        XMLUnit.setIgnoreWhitespace(true);
+        XMLUnit.setIgnoreComments(true);
+
+        assertEquals(validateString, result);
+    }
+
+
     protected void checkXSLT (String XSLTFile, String XMLFile, String validateFile ) throws Exception {
 
         final String dir = this.getClass().getClassLoader().getResource("").getPath();

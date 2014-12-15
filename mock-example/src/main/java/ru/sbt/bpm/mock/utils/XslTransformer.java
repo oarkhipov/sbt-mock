@@ -16,9 +16,17 @@ import java.io.StringWriter;
  */
 public class XslTransformer {
     public static String transform(String xsltFile, String xmlFile) throws TransformerException {
+        return transform(xsltFile, xmlFile, null, null);
+    }
+
+    public static String transform(String xsltFile, String xmlFile, String paramName, String ParamValue) throws TransformerException {
         TransformerFactory factory = TransformerFactory.newInstance();
         Source xslt = new StreamSource(new File(xsltFile));
         Transformer transformer = factory.newTransformer(xslt);
+
+        if (paramName!=null && !paramName.isEmpty()) {
+            transformer.setParameter(paramName, ParamValue);
+        }
 
         Source xml = new StreamSource(new File(xmlFile));
 

@@ -30,7 +30,8 @@ public class DriverController {
     @RequestMapping("/driver/")
     public String  getDriver(Model model) throws IOException {
 //        List of drivers
-        Path filePath = new File("/WEB-INF/driverList.txt").toPath();
+        //Path filePath = new File("/WEB-INF/driverList.txt").toPath();
+        Path filePath = new File("C:\\Users\\sbt-vostrikov-mi\\Java\\Idea\\XSDMockService\\mock\\mock-example\\src\\main\\webapp\\WEB-INF\\driverList.txt").toPath();
         Charset charset = Charset.defaultCharset();
         List<String> stringList = Files.readAllLines(filePath, charset);
 
