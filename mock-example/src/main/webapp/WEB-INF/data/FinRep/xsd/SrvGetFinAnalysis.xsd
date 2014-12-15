@@ -109,6 +109,7 @@
             <xsd:element name="business" type="tns:Business" />
 
         </xsd:sequence>
+        <xsd:attribute type="xsd:string" name="name" use="required"/>
     </xsd:complexType>
 
 </xsd:schema>

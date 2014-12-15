@@ -28,6 +28,7 @@
         <xsd:sequence>
             <xsd:element name="listOfRating" type="tns:ListOfRating"/>
         </xsd:sequence>
+        <xsd:attribute type="xsd:string" name="name" use="required"/>
     </xsd:complexType>
 
 </xsd:schema>

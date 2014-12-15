@@ -15,7 +15,7 @@
 
 	<xsd:complexType name="dataValue">
 		<xsd:sequence>
-			<xsd:element name="response" type="UpdateDealRsData" maxOccurs="unbounded">
+			<xsd:element name="request" type="UpdateDealRsData" maxOccurs="unbounded">
 				<xsd:annotation>
 					<xsd:documentation>
 						Ответ на запрос

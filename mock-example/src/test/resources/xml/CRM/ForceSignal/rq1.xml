@@ -1,23 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-    <soap:Header/>
-    <soap:Body>
-        <crm:forceSignalRq xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:for="http://sbrf.ru/NCP/CRM/ForceSignalRq/">
-            <for:contractID>string</for:contractID>
-            <for:contractBPMID>string</for:contractBPMID>
-            <for:status>string</for:status>
-            <for:comment>string</for:comment>
-            <for:requestType>string</for:requestType>
-            <for:fullNameOfResponsiblePerson>string</for:fullNameOfResponsiblePerson>
-            <!--Zero or more repetitions:-->
-            <for:participantsGroup>
-                <for:id>string</for:id>
-                <for:label>string</for:label>
-                <for:status>string</for:status>
-                <for:updateDate>2008-09-29</for:updateDate>
-                <for:approvalDate>2014-09-19</for:approvalDate>
-                <for:topLevelGroupName>string</for:topLevelGroupName>
-            </for:participantsGroup>
+<?xml version="1.0" encoding="UTF-8"?><soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap-env:Header xmlns:rs="http://sbrf.ru/NCP/CRM/ForceSignalRs/" xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/" xmlns:rq="http://sbrf.ru/NCP/CRM/ForceSignalRq/" xmlns:crm="http://sbrf.ru/NCP/CRM/"/>
+    <soap-env:Body xmlns:rs="http://sbrf.ru/NCP/CRM/ForceSignalRs/" xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/" xmlns:rq="http://sbrf.ru/NCP/CRM/ForceSignalRq/" xmlns:crm="http://sbrf.ru/NCP/CRM/">
+        <crm:forceSignalRq>
+            <rq:contractID>string1</rq:contractID>
+            <rq:contractBPMID>string2</rq:contractBPMID>
+            <rq:status>string3</rq:status>
+            <rq:comment>string4</rq:comment>
+            <rq:requestType>string5</rq:requestType>
+            <rq:fullNameOfResponsiblePerson>string6</rq:fullNameOfResponsiblePerson>
+            <rq:participantsGroup>
+                <rq:id>string1</rq:id>
+                <rq:label>string2</rq:label>
+                <rq:status>string3</rq:status>
+                <rq:updateDate>2008-09-04</rq:updateDate>
+                <rq:approvalDate>2014-09-05</rq:approvalDate>
+                <rq:topLevelGroupName>string6</rq:topLevelGroupName>
+            </rq:participantsGroup>
         </crm:forceSignalRq>
-    </soap:Body>
-</soap:Envelope>
+    </soap-env:Body>
+</soap-env:Envelope>
