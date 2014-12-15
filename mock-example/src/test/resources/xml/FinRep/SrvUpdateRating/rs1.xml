@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+			   xmlns:fin="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRq/">
+	<soap:Header/>
+	<soap:Body>
+		<asfo:updateRatingRs xmlns:asfo="http://sbrf.ru/NCP/ASFO/">
+			<errorCode>string</errorCode>
+			<!--Optional:-->
+			<errorMessage>string</errorMessage>
+		</asfo:updateRatingRs>
+	</soap:Body>
+</soap:Envelope>

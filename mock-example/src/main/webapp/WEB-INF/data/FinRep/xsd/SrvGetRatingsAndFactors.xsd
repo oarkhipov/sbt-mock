@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+        xmlns:comTypes="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/"
+        targetNamespace="http://sbrf.ru/NCP/ASFO/RatingsAndFactors/Data"
+        xmlns="http://sbrf.ru/NCP/ASFO/RatingsAndFactors/Data"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="http://sbrf.ru/NCP/ASFO/GetRatingsAndFactorsRs/"
+        elementFormDefault="qualified">
+
+    <xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" schemaLocation="../../../xsd/AMRLiRT/CommonTypes.xsd"/>
+
+    <xsd:element name="data" type="dataValue"/>
+
+    <xsd:complexType name="dataValue">
+        <xsd:sequence>
+            <xsd:element name="response" type="GetRatingsAndFactors" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Ответ на запрос
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="GetRatingsAndFactors">
+        <xsd:sequence>
+            <xsd:element name="listOfRating" type="tns:ListOfRating"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>

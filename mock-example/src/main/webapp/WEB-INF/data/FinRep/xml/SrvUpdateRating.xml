@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/NCP/ASFO/UpdateRating/Data">
+    <response name="default">
+        <errorCode>string1</errorCode>
+        <!--Optional:-->
+        <errorMessage>string2</errorMessage>
+    </response>
+    <response name="testError">
+        <errorCode>e</errorCode>
+        <!--Optional:-->
+        <errorMessage>testing error message SrvUpdateRating.xml</errorMessage>
+    </response>
+</data>
