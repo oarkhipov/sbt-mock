@@ -29,7 +29,7 @@ public class XmlDataService {
     @Autowired
     private ApplicationContext appContext;
 
-    public static final String pathBase = "/WEB-INF/data/";
+    private String pathBase = "/WEB-INF/data/";
 
     private Validator validator;
 
@@ -48,11 +48,14 @@ public class XmlDataService {
 
 //            Add Xsd files to source
         for (int i = 0; i < xsdFiles.size(); i++) {
-            System.out.println("add xsd [" + xsdFiles.get(i) + "] to test schema");
             sources[i] = new StreamSource(xsdFiles.get(i));
         }
         Schema schema = factory.newSchema(sources);
         validator = schema.newValidator();
+    }
+
+    public void setPathBase(String pathBase) {
+        this.pathBase = pathBase;
     }
 
     public String getXml(String name) throws IOException {
@@ -61,17 +64,9 @@ public class XmlDataService {
         return FileUtils.readFileToString(resource.getFile());
     }
 
-    public boolean validate(String xmlData) {
-        try {
-            InputStream stream = new ByteArrayInputStream(xmlData.getBytes(StandardCharsets.UTF_8));
-            validator.validate(new StreamSource(stream));
-        } catch (SAXException e) {
-            e.printStackTrace();
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+    public boolean validate(String xmlData) throws SAXException, IOException {
+        InputStream stream = new ByteArrayInputStream(xmlData.getBytes(StandardCharsets.UTF_8));
+        validator.validate(new StreamSource(stream));
         return true;
     }
 
