@@ -57,28 +57,19 @@ public class XslTransformTest {
     public void testXMLDataRowToXMLDataList() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
         System.out.println(dir);
-        checkXSLTByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl",
+        checkXMLDataRowToXMLDataListByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl",
                 dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\UpdateDealData.xml",
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><dt:data xmlns:dt=\"http://sbrf.ru/NCP/Data\">\n" +
-                        "<dt:request name=\"default\"/>\n" +
-                        "<dt:request name=\"ERROR\"/>\n" +
-                        "</dt:data>");
+                "\r\ndefault\r\nERROR");
 
 
-        checkXSLTByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl",
-                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\AMRLiRT\\xml\\CalculateLGDData.xml",
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><dt:data xmlns:dt=\"http://sbrf.ru/NCP/Data\">\n" +
-                        "<dt:response name=\"default\"/>\n" +
-                        "<dt:response name=\"testError\"/>\n" +
-                        "</dt:data>");
+        checkXMLDataRowToXMLDataListByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl",
+                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\AMRLiRT\\xml\\SrvCalcLGDData.xml",
+                "\r\ndefault\r\ntestError");
 
 
-        checkXSLTByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl",
+        checkXMLDataRowToXMLDataListByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl",
                 dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\FinRep\\xml\\SrvGetFinReport.xml",
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><dt:data xmlns:dt=\"http://sbrf.ru/NCP/Data\">\n" +
-                        "<dt:response name=\"default\"/>\n" +
-                        "<dt:response name=\"testError\"/>\n" +
-                        "</dt:data>");
+                "\r\ndefault\r\ntestError");
     }
 
     protected void checkXSLT (String XSLTFile, String XMLFile, String validateFile ) throws Exception {
@@ -104,7 +95,7 @@ public class XslTransformTest {
         }
     }
 
-    protected void checkXSLTByString (String XSLTFile, String XMLFile, String validateString ) throws Exception {
+    protected void checkXMLDataRowToXMLDataListByString (String XSLTFile, String XMLFile, String validateString ) throws Exception {
 
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
         System.out.println(dir);
@@ -113,17 +104,7 @@ public class XslTransformTest {
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreComments(true);
 
-        Diff diff = new Diff(validateString,result);
-        if (!diff.identical()) {
-            DetailedDiff detailedDiff = new DetailedDiff(diff);
-            List differences = detailedDiff.getAllDifferences();
-            for (Object difference : differences) {
-                System.out.println("***********************");
-                System.out.println(String.valueOf((Difference) difference));
-            }
-
-            assertEquals(validateString, result);
-        }
+        assertEquals(validateString, result);
     }
 
 
