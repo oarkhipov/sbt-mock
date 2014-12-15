@@ -12,7 +12,7 @@
 		<xsl:element name="soap-env:Envelope">
 			<xsl:copy-of select="soap-env:Header"/>
 			<soap-env:Body>
-				<xsl:variable name="data" select="document('../../data/AMRLiRT/xml/CalculateRatingData.xml')/rsd:data"/>
+				<xsl:variable name="data" select="document('../../data/AMRLiRT/xml/SrvCalcRatingData.xml')/rsd:data"/>
 				<xsl:variable name="linkedTag" select="./soap-env:Body//rq:comments"/>
 				<xsl:call-template name="RsBody">
 					<xsl:with-param name="data" select="$data"/>
