@@ -57,9 +57,28 @@ public class XslTransformTest {
     public void testXMLDataRowToXMLDataList() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
         System.out.println(dir);
-        checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\UpdateDeal.xsl",
+        checkXSLTByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl",
                 dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\UpdateDealData.xml",
-                "xml/CRM/UpdateDeal/rq1.xml");
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><dt:data xmlns:dt=\"http://sbrf.ru/NCP/Data\">\n" +
+                        "<dt:request name=\"default\"/>\n" +
+                        "<dt:request name=\"ERROR\"/>\n" +
+                        "</dt:data>");
+
+
+        checkXSLTByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl",
+                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\AMRLiRT\\xml\\CalculateLGDData.xml",
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><dt:data xmlns:dt=\"http://sbrf.ru/NCP/Data\">\n" +
+                        "<dt:response name=\"default\"/>\n" +
+                        "<dt:response name=\"testError\"/>\n" +
+                        "</dt:data>");
+
+
+        checkXSLTByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl",
+                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\FinRep\\xml\\SrvGetFinReport.xml",
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><dt:data xmlns:dt=\"http://sbrf.ru/NCP/Data\">\n" +
+                        "<dt:response name=\"default\"/>\n" +
+                        "<dt:response name=\"testError\"/>\n" +
+                        "</dt:data>");
     }
 
     protected void checkXSLT (String XSLTFile, String XMLFile, String validateFile ) throws Exception {
@@ -82,6 +101,28 @@ public class XslTransformTest {
             }
 
             assertEquals(validateFileXML, result);
+        }
+    }
+
+    protected void checkXSLTByString (String XSLTFile, String XMLFile, String validateString ) throws Exception {
+
+        final String dir = this.getClass().getClassLoader().getResource("").getPath();
+        System.out.println(dir);
+        String result = XslTransformer.transform(XSLTFile, XMLFile);
+
+        XMLUnit.setIgnoreWhitespace(true);
+        XMLUnit.setIgnoreComments(true);
+
+        Diff diff = new Diff(validateString,result);
+        if (!diff.identical()) {
+            DetailedDiff detailedDiff = new DetailedDiff(diff);
+            List differences = detailedDiff.getAllDifferences();
+            for (Object difference : differences) {
+                System.out.println("***********************");
+                System.out.println(String.valueOf((Difference) difference));
+            }
+
+            assertEquals(validateString, result);
         }
     }
 

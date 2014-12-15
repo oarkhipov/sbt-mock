@@ -71,6 +71,7 @@
             <xsd:element name="plannedCredit" type="xsd:decimal" minOccurs="0"/>
             <xsd:element name="plannedCreditNextYear" type="xsd:decimal" minOccurs="0"/>
         </xsd:sequence>
+        <xsd:attribute type="xsd:string" name="name" use="required"/>
     </xsd:complexType>
 
 </xsd:schema>

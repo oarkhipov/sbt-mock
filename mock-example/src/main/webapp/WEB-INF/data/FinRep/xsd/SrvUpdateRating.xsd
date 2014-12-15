@@ -39,6 +39,7 @@
                 </xsd:simpleType>
             </xsd:element>
         </xsd:sequence>
+        <xsd:attribute type="xsd:string" name="name" use="required"/>
     </xsd:complexType>
 
 </xsd:schema>
