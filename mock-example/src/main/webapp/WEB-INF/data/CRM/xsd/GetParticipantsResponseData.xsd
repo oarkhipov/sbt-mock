@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/"
 			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-			xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/Data/"
+			xmlns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/Data/"
 			targetNamespace="http://sbrf.ru/NCP/CRM/GetParticipantsRs/Data/"
+			xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/"
 			elementFormDefault="qualified">
 	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="../../../xsd/CRM/CommonTypes.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/GetParticipantsRs/" schemaLocation="../../../xsd/CRM/GetParticipantsResponse.xsd"/>
 
 	<xsd:element name="data" type="dataValue"/>
 

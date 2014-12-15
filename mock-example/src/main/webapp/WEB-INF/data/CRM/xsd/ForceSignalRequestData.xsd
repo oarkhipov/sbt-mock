@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/"
 			targetNamespace="http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/"
+			xmlns="http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/"
 			elementFormDefault="qualified"
 			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 			xmlns:rq="http://sbrf.ru/NCP/CRM/ForceSignalRq/">
 
 	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="../../../xsd/CRM/CommonTypes.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/ForceSignalRq/" schemaLocation="../../../xsd/CRM/ForceSignalRequest.xsd"/>
 
 	<xsd:element name="data" type="dataValue"/>
 
