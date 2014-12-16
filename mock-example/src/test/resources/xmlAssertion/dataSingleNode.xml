@@ -1,0 +1,17 @@
+<request xmlns="http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/" name="test2">
+    <contractID>string1-2</contractID>
+    <contractBPMID>string2-2</contractBPMID>
+    <status>string3-2</status>
+    <comment>string4-2</comment>
+    <requestType>string5-2</requestType>
+    <fullNameOfResponsiblePerson>string6-2</fullNameOfResponsiblePerson>
+    <!--Zero or more repetitions:-->
+    <participantsGroup>
+        <id>string1-2</id>
+        <label>string2-2</label>
+        <status>string3-2</status>
+        <updateDate>2008-09-04</updateDate>
+        <approvalDate>2014-09-05</approvalDate>
+        <topLevelGroupName>string6-2</topLevelGroupName>
+    </participantsGroup>
+</request>
