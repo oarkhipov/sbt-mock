@@ -3,7 +3,7 @@
     <response name="default">
         <errorCode>s</errorCode>
         <!--Optional:-->
-        <errorMessage>string1-two</errorMessage>
+        <errorMessage>string1-one</errorMessage>
         <crmId>string1</crmId>
         <!--Optional:-->
         <rmk>1000.001</rmk>

@@ -91,6 +91,11 @@ public class SaveFile {
         File f = getDataFile(path);
         File back = isFileNeedBackUp(path, f);
         if (back != null) {
+            List<File> backUps = getBackUpFilesList(path, f);
+            while (backUps.size()>logSize-1) {
+                FileUtils.forceDelete(backUps.get(1));//получаем второй файл с конца, не первый. Это важно - нельзя удалять самый старый
+                backUps = getBackUpFilesList(path, f);
+            }
             copyFile(f, back);
         }
         return f;
@@ -268,6 +273,15 @@ public class SaveFile {
     }
 
     protected List<File> getBackUpFilesList(String path, File f) throws IOException {
+
+        //класс чтобы файлы были точно отсоритированны как надо
+        class FileComparator implements Comparator<File> {
+            @Override
+            public int compare(File a, File b) {
+                return a.getName().compareTo(b.getName());
+            }
+        }
+
         String fname = f.getName();
         String fbasename = FilenameUtils.getBaseName(fname);
         String fextname = FilenameUtils.getExtension(fname);
@@ -283,6 +297,8 @@ public class SaveFile {
                 files.add(bf);
             }
         }
+
+        Collections.sort(files, new FileComparator());
         return files;
     }
 
