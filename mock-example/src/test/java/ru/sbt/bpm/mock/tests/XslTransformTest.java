@@ -95,6 +95,40 @@ public class XslTransformTest {
         assertEquals(validateString, result);
     }
 
+    @Test
+    public void testXMLDataRowToXMLDataListWithParam2 () throws Exception {
+
+        final String dir = this.getClass().getClassLoader().getResource("").getPath();
+        System.out.println(dir);
+
+        String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl";
+        String XMLFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\ForceSignalData.xml";
+        String validateString = "<request xmlns=\"http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/\" name=\"test1\">\r\n" +
+                "        <contractID>string1-2</contractID>\r\n" +
+                "        <contractBPMID>string2-2</contractBPMID>\r\n" +
+                "        <status>string3-2</status>\r\n" +
+                "        <comment>string4-2</comment>\r\n" +
+                "        <requestType>string5-2</requestType>\r\n" +
+                "        <fullNameOfResponsiblePerson>string6-2</fullNameOfResponsiblePerson>\r\n" +
+                "        <!--Zero or more repetitions:-->\r\n" +
+                "        <participantsGroup>\r\n" +
+                "            <id>string1-2</id>\r\n" +
+                "            <label>string2-2</label>\r\n" +
+                "            <status>string3-2</status>\r\n" +
+                "            <updateDate>2008-09-04</updateDate>\r\n" +
+                "            <approvalDate>2014-09-05</approvalDate>\r\n" +
+                "            <topLevelGroupName>string6-2</topLevelGroupName>\r\n" +
+                "        </participantsGroup>\r\n" +
+                "    </request>";
+
+        String result = XslTransformer.transform(XSLTFile, XMLFile, "name", "test1");
+
+        XMLUnit.setIgnoreWhitespace(true);
+        XMLUnit.setIgnoreComments(true);
+
+        assertEquals(validateString, result);
+    }
+
 
     protected void checkXSLT (String XSLTFile, String XMLFile, String validateFile ) throws Exception {
 

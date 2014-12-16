@@ -9,7 +9,7 @@
     <xsl:template match="*[local-name()='data']">
         <xsl:choose>
             <xsl:when test="count(./*[(local-name()='response' or  local-name()='request') and @name=$name])=1">
-                <xsl:copy-of select="./*[local-name()='response' and @name=$name]"/>
+                <xsl:copy-of select="./*[(local-name()='response' or  local-name()='request') and @name=$name]"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:for-each select="./*[local-name()='response']"><xsl:text><xsl:value-of select="./@name"/>
