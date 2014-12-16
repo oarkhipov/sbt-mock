@@ -119,6 +119,16 @@ textarea {
     height: 100%;
 }
 
+#error {
+    width: 990px;
+    background-color: rgba(256, 182, 193, .7);
+    font-weight: bold;
+    display: none;
+    border: lightgray solid 1px;
+    font-size: 8pt;
+    padding-left: 10px;
+    color: dimgray;
+}
 
 
 

@@ -27,8 +27,6 @@
   <script src="/lib/codemirror/markdown-fold.js"></script>
   <script src="/lib/codemirror/xml-fold.js"></script>
 
-
-
   <link rel="stylesheet" href="/css/docs.css">
   <style type="text/css">.CodeMirror {border: 1px solid #eee;} .CodeMirror-scroll { height: 100% }</style>
 </head>
@@ -36,6 +34,7 @@
 <h4>Integration point: <i><c:out value="${name}"/></i></h4>
 
 <form>
+  <div id="error"></div>
   <textarea id="code" name="code"><c:out value="${object}" escapeXml="true"/></textarea>
   <div style="text-align: right; width: 1000px; padding-top: 7px">
     <input id="reset" type="button" value="Reset to default" style="display: inline"/>
@@ -132,16 +131,39 @@
   });
   editor.setSize("1000","400");
 
+function showError(text) {
+  text = text.trim();
+  if(text && text!="true") {
+    $("#error").css("display","block").html(text);
+  } else {
+    $("#error").css("display","none");
+  }
+}
+
+//Handlers
 $("#validate").click(function(){
-  alert("Code:"+editor.getValue());
+//  alert("Code:"+editor.getValue());
+  $.ajax({
+    url: QueryString["ip"]+ "/validate/",
+    type: "POST",
+    data: "xml="+editor.getValue(),
+    success: function(msg) {
+      showError(msg);
+    },
+    fail: function() {
+      showError("Unable to verify! Try Later...");
+    }
+  });
 });
 
 $("#save").click(function(){
-  alert("Saving...");
+//  alert("Saving...");
+  showError();
 });
 
 $("#reset").click(function(){
   alert("Restore defaults...");
+  editor.setValue("test");
 });
 
 <c:if test="${link=='driver'}">
