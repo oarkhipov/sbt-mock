@@ -4,10 +4,11 @@
   /* Set height, width, borders, and global font properties here */
   font-family: monospace;
   height: 300px;
+  width: 1000px;
 }
 .CodeMirror-scroll {
   /* Set scrolling behaviour here */
-  overflow: auto;
+  overflow: scroll;
 }
 
 /* PADDING */

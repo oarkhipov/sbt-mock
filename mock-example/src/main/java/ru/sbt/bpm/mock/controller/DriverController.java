@@ -1,6 +1,7 @@
 package ru.sbt.bpm.mock.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,23 +28,26 @@ public class DriverController {
     @Autowired
     XmlDataService xmlDataService;
 
+    @Autowired
+    ApplicationContext appContext;
+
     @RequestMapping("/driver/")
     public String  getDriver(Model model) throws IOException {
+        model.addAttribute("type", "Request");
 //        List of drivers
-        //Path filePath = new File("/WEB-INF/driverList.txt").toPath();
-        Path filePath = new File("C:\\Users\\sbt-vostrikov-mi\\Java\\Idea\\XSDMockService\\mock\\mock-example\\src\\main\\webapp\\WEB-INF\\driverList.txt").toPath();
+        Path filePath = appContext.getResource("/WEB-INF/driverList.txt").getFile().toPath();
         Charset charset = Charset.defaultCharset();
         List<String> stringList = Files.readAllLines(filePath, charset);
-
+        model.addAttribute("link", "driver");
         model.addAttribute("list", stringList);
-        return "mock";
+        return "stepForm";
     }
 
     @RequestMapping(value="/driver/{name}/", method= RequestMethod.GET)
     public String get(@PathVariable("name") String name, Model model) throws IOException {
         model.addAttribute("name", name);
-
+        model.addAttribute("link", "driver");
         model.addAttribute("object", xmlDataService.getXml(name));
-        return "mock_editor";
+        return "editor";
     }
 }

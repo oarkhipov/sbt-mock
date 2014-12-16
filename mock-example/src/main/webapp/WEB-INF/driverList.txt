@@ -1,2 +1,2 @@
-CRM_ForseSignal
+CRM_ForceSignal
 CRM_UpdateDeal

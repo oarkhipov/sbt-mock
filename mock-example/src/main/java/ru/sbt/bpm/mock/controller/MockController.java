@@ -26,16 +26,18 @@ public class MockController {
 
     @RequestMapping("/mock/")
     public String  getMock(Model model) {
+        model.addAttribute("type", "Response");
+        model.addAttribute("link", "mock");
         model.addAttribute("list", transformService.getTransformers());
-        return "mock";
+        return "stepForm";
     }
 
     @RequestMapping(value="/mock/{name}/", method= RequestMethod.GET)
     public String get(@PathVariable("name") String name, Model model) throws IOException {
         model.addAttribute("name", name);
-
+        model.addAttribute("link", "mock");
         model.addAttribute("object", xmlDataService.getXml(name + "_Data"));
-        return "mock_editor";
+        return "editor";
     }
 
     @RequestMapping(value="/mock/{name}/validate/", method=RequestMethod.POST)

@@ -33,14 +33,14 @@
 <div class="content">
   <script>
     var wizard;
-    $(function ()
-    {
+    $(function () {
       wizard = $("#wizard").steps({
         headerTag: "h2",
         bodyTag: "section",
         transitionEffect: "slideLeft",
+        transitionEffectSpeed: 400,
         onStepChanging: function(event, currentIndex, newIndex) {
-          if(currentIndex ==0) {
+          if(currentIndex == 0) {
             if(newIndex == 1) {
               if(int_point===null) {
                 alert("Choose integration point!");
@@ -48,11 +48,21 @@
               }
             }
           }
+          if(currentIndex == 1) {
+            if(newIndex == 0) {
+              history.pushState({}, "Integration points", "?");
+            }
+          }
           return true;
         },
         enablePagination: false
       });
 
+      //if integration point was chosen
+      if(QueryString["ip"]!=undefined) {
+        int_point=QueryString["ip"];
+        selectIp();
+      }
     });
 
     var int_point = null;
@@ -60,20 +70,51 @@
     function chooseIntPoint(obj) {
 //      alert(obj.value)
       int_point = obj.value;
+      selectIp();
+    }
+
+    function selectIp() {
       wizard.steps("remove",1);
       wizard.steps("insert",1 ,{
-        title: "Response Data",
+        title: "<c:out value="${type}"/> Data",
         contentMode: "async",
-        contentUrl: "/mock/" + int_point + "/"
+        contentUrl: "/<c:out value="${link}"/>/" + int_point + "/"
       });
+      history.pushState({ip:int_point}, int_point, "?ip="+int_point);
       wizard.steps("next");
     }
+
+    var QueryString = function () {
+      // This function is anonymous, is executed immediately and
+      // the return value is assigned to QueryString!
+      var query_string = {};
+      var query = window.location.search.substring(1);
+      var vars = query.split("&");
+      for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        // If first entry with this name
+        if (typeof query_string[pair[0]] === "undefined") {
+          query_string[pair[0]] = pair[1];
+          // If second entry with this name
+        } else if (typeof query_string[pair[0]] === "string") {
+          var arr = [ query_string[pair[0]], pair[1] ];
+          query_string[pair[0]] = arr;
+          // If third or later entry with this name
+        } else {
+          query_string[pair[0]].push(pair[1]);
+        }
+      }
+      return query_string;
+    } ();
+
   </script>
 
   <div id="mock">
     <div id="wizard">
       <h2>Integration point</h2>
       <section>
+        <input type="button" value="BACK" onclick="window.location.href='../'"/>
+        <span style="line-height: 5pt; display: block">&nbsp;</span>
         <select size="25" onchange="chooseIntPoint(this)">
           <c:forEach var="entry" items="${list}">
             <option value="${entry}">${entry}</option>
@@ -81,8 +122,8 @@
         </select>
       </section>
 
-      <h2>Response Data</h2>
-      <section class="dyn_url" data-mode="async" data-url="/">
+      <h2><c:out value="${type}"/> Data</h2>
+      <section class="dyn_url" data-mode="async" data-url="/" style="overflow: scroll">
       </section>
     </div>
   </div>
