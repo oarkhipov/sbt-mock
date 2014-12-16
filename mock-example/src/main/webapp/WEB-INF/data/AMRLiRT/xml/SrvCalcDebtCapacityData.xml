@@ -3,13 +3,13 @@
     <response name="default">
         <errorCode>s</errorCode>
         <!--Optional:-->
-        <errorMessage>string1</errorMessage>
+        <errorMessage>string1-one</errorMessage>
         <crmId>string1</crmId>
         <!--Optional:-->
         <rmk>1000.001</rmk>
         <debtCapacity>1000.001</debtCapacity>
         <!--Optional:-->
-        <rmkInDealCurrency>1000.001</rmkInDealCurrency>
+        <rmkInDealCurrency>1000.003</rmkInDealCurrency>
         <debtCapacityInDealCurrency>1000.001</debtCapacityInDealCurrency>
         <!--Optional:-->
         <rmkForNextYear>1000.001</rmkForNextYear>

@@ -166,4 +166,149 @@ public class XslTransformTest {
     }
 
 
+    @Test
+    public void testApplyRowToDataList () throws Exception {
+
+        final String dir = this.getClass().getClassLoader().getResource("").getPath();
+        System.out.println(dir);
+
+        String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\ApplyRowToDataList.xsl";
+        String XMLFile = dir + "\\..\\..\\src\\test\\resources\\xmlAssertion\\dataSingleNode.xml";
+        String validateString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><data>\r\n" +
+                "<request xmlns=\"http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/\" name=\"default\">\r\n" +
+                "        <contractID>string1</contractID>\r\n" +
+                "        <contractBPMID>string2</contractBPMID>\r\n" +
+                "        <status>string3</status>\r\n" +
+                "        <comment>string4</comment>\r\n" +
+                "        <requestType>string5</requestType>\r\n" +
+                "        <fullNameOfResponsiblePerson>string6</fullNameOfResponsiblePerson>\r\n" +
+                "        <!--Zero or more repetitions:-->\r\n" +
+                "        <participantsGroup>\r\n" +
+                "            <id>string1</id>\r\n" +
+                "            <label>string2</label>\r\n" +
+                "            <status>string3</status>\r\n" +
+                "            <updateDate>2008-09-04</updateDate>\r\n" +
+                "            <approvalDate>2014-09-05</approvalDate>\r\n" +
+                "            <topLevelGroupName>string6</topLevelGroupName>\r\n" +
+                "        </participantsGroup>\r\n" +
+                "    </request>\r\n" +
+                "<request xmlns=\"http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/\" name=\"test1\">\r\n" +
+                "        <contractID>string1-2</contractID>\r\n" +
+                "        <contractBPMID>string2-2</contractBPMID>\r\n" +
+                "        <status>string3-2</status>\r\n" +
+                "        <comment>string4-2</comment>\r\n" +
+                "        <requestType>string5-2</requestType>\r\n" +
+                "        <fullNameOfResponsiblePerson>string6-2</fullNameOfResponsiblePerson>\r\n" +
+                "        <!--Zero or more repetitions:-->\r\n" +
+                "        <participantsGroup>\r\n" +
+                "            <id>string1-2</id>\r\n" +
+                "            <label>string2-2</label>\r\n" +
+                "            <status>string3-2</status>\r\n" +
+                "            <updateDate>2008-09-04</updateDate>\r\n" +
+                "            <approvalDate>2014-09-05</approvalDate>\r\n" +
+                "            <topLevelGroupName>string6-2</topLevelGroupName>\r\n" +
+                "        </participantsGroup>\r\n" +
+                "    </request>\r\n" +
+                "<request xmlns=\"http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/\" name=\"test2\">\r\n" +
+                "    <contractID>string1-2</contractID>\r\n" +
+                "    <contractBPMID>string2-2</contractBPMID>\r\n" +
+                "    <status>string3-2</status>\r\n" +
+                "    <comment>string4-2</comment>\r\n" +
+                "    <requestType>string5-2</requestType>\r\n" +
+                "    <fullNameOfResponsiblePerson>string6-2</fullNameOfResponsiblePerson>\r\n" +
+                "    <!--Zero or more repetitions:-->\r\n" +
+                "    <participantsGroup>\r\n" +
+                "        <id>string1-2</id>\r\n" +
+                "        <label>string2-2</label>\r\n" +
+                "        <status>string3-2</status>\r\n" +
+                "        <updateDate>2008-09-04</updateDate>\r\n" +
+                "        <approvalDate>2014-09-05</approvalDate>\r\n" +
+                "        <topLevelGroupName>string6-2</topLevelGroupName>\r\n" +
+                "    </participantsGroup>\r\n" +
+                "</request>\r\n" +
+                "</data>\r\n";
+
+        String result = XslTransformer.transform(XSLTFile, XMLFile, "dataFile", "CRM\\xml\\ForceSignalData.xml");
+
+        XMLUnit.setIgnoreWhitespace(true);
+        XMLUnit.setIgnoreComments(true);
+
+        assertEquals(validateString, result);
+    }
+
+    @Test
+    public void testApplyRowToDataList2 () throws Exception {
+
+        final String dir = this.getClass().getClassLoader().getResource("").getPath();
+        System.out.println(dir);
+
+        String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\ApplyRowToDataList.xsl";
+        String XMLFile = dir + "\\..\\..\\src\\test\\resources\\xmlAssertion\\dataSingleNode.xml";
+        String validateString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><data>\r\n" +
+                "<response xmlns=\"http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/Data\" name=\"default\">\r\n" +
+                "        <errorCode>s</errorCode>\r\n" +
+                "        <!--Optional:-->\r\n" +
+                "        <errorMessage>string1-two</errorMessage>\r\n" +
+                "        <crmId>string1</crmId>\r\n" +
+                "        <!--Optional:-->\r\n" +
+                "        <rmk>1000.001</rmk>\r\n" +
+                "        <debtCapacity>1000.001</debtCapacity>\r\n" +
+                "        <!--Optional:-->\r\n" +
+                "        <rmkInDealCurrency>1000.003</rmkInDealCurrency>\r\n" +
+                "        <debtCapacityInDealCurrency>1000.001</debtCapacityInDealCurrency>\r\n" +
+                "        <!--Optional:-->\r\n" +
+                "        <rmkForNextYear>1000.001</rmkForNextYear>\r\n" +
+                "        <!--Optional:-->\r\n" +
+                "        <debtCapacityForNextYear>1000.001</debtCapacityForNextYear>\r\n" +
+                "        <listOfAddParameter>\r\n" +
+                "            <!--Zero or more repetitions:-->\r\n" +
+                "            <addParameter>\r\n" +
+                "                <!--Optional:-->\r\n" +
+                "                <order>3</order>\r\n" +
+                "                <name>string</name>\r\n" +
+                "                <value>string</value>\r\n" +
+                "            </addParameter>\r\n" +
+                "            <addParameter>\r\n" +
+                "                <!--Optional:-->\r\n" +
+                "                <order>4</order>\r\n" +
+                "                <name>string2</name>\r\n" +
+                "                <value>string2</value>\r\n" +
+                "            </addParameter>\r\n" +
+                "        </listOfAddParameter>\r\n" +
+                "        <!--Optional:-->\r\n" +
+                "        <amMessage>anyType1</amMessage>\r\n" +
+                "    </response>\r\n" +
+                "<response xmlns=\"http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/Data\" name=\"testError\">\r\n" +
+                "        <errorCode>e</errorCode>\r\n" +
+                "        <!--Optional:-->\r\n" +
+                "        <errorMessage>testing error message</errorMessage>\r\n" +
+                "    </response>\r\n" +
+                "<request xmlns=\"http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/\" name=\"test2\">\r\n" +
+                "    <contractID>string1-2</contractID>\r\n" +
+                "    <contractBPMID>string2-2</contractBPMID>\r\n" +
+                "    <status>string3-2</status>\r\n" +
+                "    <comment>string4-2</comment>\r\n" +
+                "    <requestType>string5-2</requestType>\r\n" +
+                "    <fullNameOfResponsiblePerson>string6-2</fullNameOfResponsiblePerson>\r\n" +
+                "    <!--Zero or more repetitions:-->\r\n" +
+                "    <participantsGroup>\r\n" +
+                "        <id>string1-2</id>\r\n" +
+                "        <label>string2-2</label>\r\n" +
+                "        <status>string3-2</status>\r\n" +
+                "        <updateDate>2008-09-04</updateDate>\r\n" +
+                "        <approvalDate>2014-09-05</approvalDate>\r\n" +
+                "        <topLevelGroupName>string6-2</topLevelGroupName>\r\n" +
+                "    </participantsGroup>\r\n" +
+                "</request>\r\n" +
+                "</data>\r\n";
+
+        String result = XslTransformer.transform(XSLTFile, XMLFile, "dataFile", "AMRLiRT\\xml\\SrvCalcDebtCapacityData.xml");
+
+        XMLUnit.setIgnoreWhitespace(true);
+        XMLUnit.setIgnoreComments(true);
+
+        assertEquals(validateString, result);
+    }
+
+
 }
