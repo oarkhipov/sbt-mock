@@ -189,10 +189,14 @@ public class DriverController {
         ajaxObject.setInfo("DONE!");
         ajaxObject.setData(clientService.invoke(xml));
         Gson gson = new Gson();
-        String json = StringEscapeUtils.unescapeJava(gson.toJson(ajaxObject));
+        String json = customEscape(gson.toJson(ajaxObject));
         System.out.println(json);
         model.addAttribute("object", json);
 
         return "blank";
+    }
+
+    private String customEscape(String in) {
+        return in.replace("\r", "\\r").replace("\n","\\n");
     }
 }
