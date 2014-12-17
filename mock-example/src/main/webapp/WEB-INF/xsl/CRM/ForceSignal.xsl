@@ -9,6 +9,7 @@
 
     <xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>
 
+    <xsl:param name="name" select="all"/>
     <!-- OH MY GOD! -->
     <!-- IT'S A -->
     <!-- DRIVER!!! -->
@@ -23,7 +24,7 @@
             <soap-env:Body>
                 <!--xsl:variable name="data" select="document('../../data/CRM/xml/ForceSignalRequestData.xsd')/rsd:data"/-->
                 <xsl:variable name="data" select="."/>
-                <xsl:variable name="linkedTag" select="./soap-env:Body/crm:ForceSignalRq/rq:comment"/>
+                <xsl:variable name="linkedTag" select="$name"/>
                 <xsl:call-template name="forceSignal">
                     <xsl:with-param name="data" select="$data"/>
                     <xsl:with-param name="response">
