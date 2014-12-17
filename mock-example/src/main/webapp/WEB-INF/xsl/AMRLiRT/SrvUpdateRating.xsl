@@ -46,8 +46,11 @@
 			<cor:return>
 				<cor:errorCode><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/></cor:errorCode>
 				<!--Optional:-->
+				<xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
 				<cor:errorMessage><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/></cor:errorMessage>
+				</xsl:if>
 				<!--Optional:-->
+				<xsl:if test="$data/rsd:response[@name=$response]/rsd:listOfAddParameter">
 				<cor:listOfAddParameter>
 					<!--Zero or more repetitions:-->
 					<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfAddParameter/rsd:addParameter">
@@ -58,6 +61,7 @@
 					</cor:addParameter>
 					</xsl:for-each>
 				</cor:listOfAddParameter>
+				</xsl:if>
 			</cor:return>
 		</amr:correctRatingRs>
 	</xsl:template>

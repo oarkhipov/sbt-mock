@@ -14,16 +14,11 @@
 				<rs:creditRiskPerLegalEntityInsider/>
 				<rs:economicGroupRiskFactor/>
 			</rs:actualRequirementsInTotal>
-			<rs:finIndexChangesReasonNFRS/>
-			<rs:finPerformanceCommentNFRS/>
-			<rs:finIndexChangesReasonIFRS/>
-			<rs:finPerformanceCommentIFRS/>
 			<rs:creditHistoryConclusions/>
 			<rs:offBalanceSheetLiabilities>testing error message SrvGetFinAnalysis.xml</rs:offBalanceSheetLiabilities>
 			<rs:liabilitiesDynamicsComment/>
 			<rs:turnoversComment/>
 			<rs:revenueExpensesStressAnalysis/>
-			<rs:structuredDealsStressAnalysis/>
 			<rs:fieldInfo>
 				<rs:mainField/>
 				<rs:mainBusiness/>

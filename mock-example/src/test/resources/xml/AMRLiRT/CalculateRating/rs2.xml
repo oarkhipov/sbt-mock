@@ -6,8 +6,6 @@
         <cal:errorCode>e</cal:errorCode>
         <cal:errorMessage>testing error message</cal:errorMessage>
         <cal:listOfResultRating/>
-        <cal:listOfCalculatedFactor/>
-        <cal:listOfAddParameter/>
       </cal:return>
     </amr:calculateRatingRs>
   </soap-env:Body>

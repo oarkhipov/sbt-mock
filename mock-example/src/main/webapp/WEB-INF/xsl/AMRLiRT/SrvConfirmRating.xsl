@@ -46,18 +46,22 @@
 			<con:return>
 				<con:errorCode><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/></con:errorCode>
 				<!--Optional:-->
-				<con:errorMessage><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/></con:errorMessage>
+				<xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+					<con:errorMessage><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/></con:errorMessage>
+				</xsl:if>
 				<!--Optional:-->
-				<con:listOfAddParameter>
-					<!--Zero or more repetitions:-->
-					<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfAddParameter/rsd:addParameter">
-					<con:addParameter>
-						<con:order><xsl:value-of select="rsd:order"/></con:order>
-						<con:name><xsl:value-of select="rsd:name"/></con:name>
-						<con:value><xsl:value-of select="rsd:value"/></con:value>
-					</con:addParameter>
-					</xsl:for-each>
-				</con:listOfAddParameter>
+				<xsl:if test="$data/rsd:response[@name=$response]/rsd:listOfAddParameter">
+					<con:listOfAddParameter>
+						<!--Zero or more repetitions:-->
+						<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfAddParameter/rsd:addParameter">
+							<con:addParameter>
+								<con:order><xsl:value-of select="rsd:order"/></con:order>
+								<con:name><xsl:value-of select="rsd:name"/></con:name>
+								<con:value><xsl:value-of select="rsd:value"/></con:value>
+							</con:addParameter>
+						</xsl:for-each>
+					</con:listOfAddParameter>
+				</xsl:if>
 			</con:return>
 		</amr:confirmRatingRs>
 	</xsl:template>

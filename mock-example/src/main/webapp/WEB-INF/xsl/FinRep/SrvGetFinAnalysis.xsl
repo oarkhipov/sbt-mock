@@ -14,7 +14,7 @@
 		<xsl:element name="soap-env:Envelope">
 			<xsl:copy-of select="soap-env:Header"/>
 			<soap-env:Body>
-				<xsl:variable name="data" select="document('../../data/FinRep/xml/SrvGetFinAnalysis.xml')/rsd:data"/>
+				<xsl:variable name="data" select="document('../../data/FinRep/xml/SrvGetFinAnalysisData.xml')/rsd:data"/>
 				<xsl:variable name="linkedTag" select="./soap-env:Body/crm:getFinAnalysisRq/rq:comment"/>
 				<xsl:call-template name="FinAnalysis">
 					<xsl:with-param name="data" select="$data"/>
@@ -57,20 +57,30 @@
 				<rs:economicGroupRiskFactor><xsl:value-of select="$data/rsd:response[@name=$response]//rsd:economicGroupRiskFactor"/></rs:economicGroupRiskFactor>
 			</rs:actualRequirementsInTotal>
 			<!--Optional:-->
+			<xsl:if test="$data/rsd:response[@name=$response]/rsd:finIndexChangesReasonNFRS">
 			<rs:finIndexChangesReasonNFRS><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:finIndexChangesReasonNFRS"/></rs:finIndexChangesReasonNFRS>
+			</xsl:if>
 			<!--Optional:-->
+			<xsl:if test="$data/rsd:response[@name=$response]/rsd:finPerformanceCommentNFRS">
 			<rs:finPerformanceCommentNFRS><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:finPerformanceCommentNFRS"/></rs:finPerformanceCommentNFRS>
+			</xsl:if>
 			<!--Optional:-->
+			<xsl:if test="$data/rsd:response[@name=$response]/rsd:finIndexChangesReasonIFRS">
 			<rs:finIndexChangesReasonIFRS><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:finIndexChangesReasonIFRS"/></rs:finIndexChangesReasonIFRS>
+			</xsl:if>
 			<!--Optional:-->
+			<xsl:if test="$data/rsd:response[@name=$response]/rsd:finPerformanceCommentIFRS">
 			<rs:finPerformanceCommentIFRS><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:finPerformanceCommentIFRS"/></rs:finPerformanceCommentIFRS>
+			</xsl:if>
 			<rs:creditHistoryConclusions><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:creditHistoryConclusions"/></rs:creditHistoryConclusions>
 			<rs:offBalanceSheetLiabilities><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:offBalanceSheetLiabilities"/></rs:offBalanceSheetLiabilities>
 			<rs:liabilitiesDynamicsComment><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:liabilitiesDynamicsComment"/></rs:liabilitiesDynamicsComment>
 			<rs:turnoversComment><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:turnoversComment"/></rs:turnoversComment>
 			<rs:revenueExpensesStressAnalysis><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:revenueExpensesStressAnalysis"/></rs:revenueExpensesStressAnalysis>
 			<!--Optional:-->
+			<xsl:if test="$data/rsd:response[@name=$response]/rsd:structuredDealsStressAnalysis">
 			<rs:structuredDealsStressAnalysis><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:structuredDealsStressAnalysis"/></rs:structuredDealsStressAnalysis>
+			</xsl:if>
 			<rs:fieldInfo>
 				<rs:mainField><xsl:value-of select="$data/rsd:response[@name=$response]//rsd:mainField"/></rs:mainField>
 				<rs:mainBusiness><xsl:value-of select="$data/rsd:response[@name=$response]//rsd:mainBusiness"/></rs:mainBusiness>

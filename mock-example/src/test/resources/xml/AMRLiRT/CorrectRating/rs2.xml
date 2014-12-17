@@ -5,7 +5,6 @@
       <cor:return>
         <cor:errorCode>e</cor:errorCode>
         <cor:errorMessage>testing error message</cor:errorMessage>
-        <cor:listOfAddParameter/>
       </cor:return>
     </amr:correctRatingRs>
   </soap-env:Body>

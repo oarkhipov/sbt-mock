@@ -46,7 +46,9 @@
 			<cal:return>
 				<cal:errorCode><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/></cal:errorCode>
 				<!--Optional:-->
+				<xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
 				<cal:errorMessage><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/></cal:errorMessage>
+				</xsl:if>
 				<cal:listOfResultRating>
 					<!--Zero or more repetitions:-->
 					<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfResultRating/rsd:resultRating">
@@ -55,11 +57,14 @@
 						<cal:name><xsl:value-of select="rsd:name"/></cal:name>
 						<cal:value><xsl:value-of select="rsd:value"/></cal:value>
 						<!--Optional:-->
+						<xsl:if test="rsd:type">
 						<cal:type><xsl:value-of select="rsd:type"/></cal:type>
+						</xsl:if>
 					</cal:resultRating>
 					</xsl:for-each>
 				</cal:listOfResultRating>
 				<!--Optional:-->
+				<xsl:if test="$data/rsd:response[@name=$response]//rsd:listOfCalculatedFactor/rsd:calculatedFactor">
 				<cal:listOfCalculatedFactor>
 					<!--Zero or more repetitions:-->
 					<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfCalculatedFactor/rsd:calculatedFactor">
@@ -70,7 +75,9 @@
 					</cal:calculatedFactor>
 					</xsl:for-each>
 				</cal:listOfCalculatedFactor>
+				</xsl:if>
 				<!--Optional:-->
+				<xsl:if test="$data/rsd:response[@name=$response]//rsd:listOfAddParameter/rsd:addParameter">
 				<cal:listOfAddParameter>
 					<!--Zero or more repetitions:-->
 					<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfAddParameter/rsd:addParameter">
@@ -81,6 +88,7 @@
 					</cal:addParameter>
 					</xsl:for-each>
 				</cal:listOfAddParameter>
+				</xsl:if>
 			</cal:return>
 		</amr:calculateRatingRs>
 	</xsl:template>

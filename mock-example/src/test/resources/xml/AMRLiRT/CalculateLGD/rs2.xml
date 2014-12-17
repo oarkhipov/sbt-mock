@@ -7,16 +7,12 @@
       <cal:crmId/>
       <cal:lgdType/>
       <cal:lgdDate/>
-      <cal:pd/>
       <cal:lgd/>
       <cal:ead/>
       <cal:sum/>
-      <cal:elPercent/>
-      <cal:el/>
       <cal:totalValue/>
       <cal:totalColValueLgd/>
       <cal:totalColValueEad/>
-      <cal:listOfCollateral/>
     </amr:calculateLGDRs>
   </soap-env:Body>
 </soap-env:Envelope>

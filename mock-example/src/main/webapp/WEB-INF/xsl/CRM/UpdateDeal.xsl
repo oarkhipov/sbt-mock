@@ -56,20 +56,47 @@
                 <rq:deal>
                     <rq:dealID><xsl:value-of select="./rsd:dealID"/></rq:dealID>
                     <!--Optional:-->
-                    <rq:contractID><xsl:value-of select="./rsd:contractID"/></rq:contractID>
+                    <xsl:if test="./rsd:contractID">
+                        <rq:contractID><xsl:value-of select="./rsd:contractID"/></rq:contractID>
+                    </xsl:if><xsl:if test="./rsd:dealCreationDate">
                     <rq:dealCreationDate><xsl:value-of select="./rsd:dealCreationDate"/></rq:dealCreationDate>
-                    <rq:dealEssense><xsl:value-of select="./rsd:dealEssense"/></rq:dealEssense>
-                    <rq:requestPurpose><xsl:value-of select="./rsd:requestPurpose"/></rq:requestPurpose>
-                    <rq:salesMethod><xsl:value-of select="./rsd:salesMethod"/></rq:salesMethod>
-                    <rq:dealStatus><xsl:value-of select="./rsd:dealStatus"/></rq:dealStatus>
-                    <rq:requestDate><xsl:value-of select="./rsd:requestDate"/></rq:requestDate>
-                    <rq:origOrgUnit><xsl:value-of select="./rsd:origOrgUnit"/></rq:origOrgUnit>
-                    <rq:origOrgDivision><xsl:value-of select="./rsd:origOrgDivision"/></rq:origOrgDivision>
-                    <rq:clientFileID><xsl:value-of select="./rsd:clientFileID"/></rq:clientFileID>
-                    <rq:dealFileID><xsl:value-of select="./rsd:dealFileID"/></rq:dealFileID>
-                    <rq:comment><xsl:value-of select="./rsd:comment"/></rq:comment>
-                    <rq:supLMID><xsl:value-of select="./rsd:supLMID"/></rq:supLMID>
-                    <rq:clientManagerID><xsl:value-of select="./rsd:clientManagerID"/></rq:clientManagerID>
+                </xsl:if>
+                    <xsl:if test="./rsd:dealEssense">
+                        <rq:dealEssense><xsl:value-of select="./rsd:dealEssense"/></rq:dealEssense>
+                    </xsl:if>
+                    <xsl:if test="./rsd:requestPurpose">
+                        <rq:requestPurpose><xsl:value-of select="./rsd:requestPurpose"/></rq:requestPurpose>
+                    </xsl:if>
+                    <xsl:if test="./rsd:salesMethod">
+                        <rq:salesMethod><xsl:value-of select="./rsd:salesMethod"/></rq:salesMethod>
+                    </xsl:if>
+                    <xsl:if test="./rsd:dealStatus">
+                        <rq:dealStatus><xsl:value-of select="./rsd:dealStatus"/></rq:dealStatus>
+                    </xsl:if>
+                    <xsl:if test="./rsd:requestDate">
+                        <rq:requestDate><xsl:value-of select="./rsd:requestDate"/></rq:requestDate>
+                    </xsl:if>
+                    <xsl:if test="./rsd:origOrgUnit">
+                        <rq:origOrgUnit><xsl:value-of select="./rsd:origOrgUnit"/></rq:origOrgUnit>
+                    </xsl:if>
+                    <xsl:if test="./rsd:origOrgDivision">
+                        <rq:origOrgDivision><xsl:value-of select="./rsd:origOrgDivision"/></rq:origOrgDivision>
+                    </xsl:if>
+                    <xsl:if test="./rsd:clientFileID">
+                        <rq:clientFileID><xsl:value-of select="./rsd:clientFileID"/></rq:clientFileID>
+                    </xsl:if>
+                    <xsl:if test="./rsd:dealFileID">
+                        <rq:dealFileID><xsl:value-of select="./rsd:dealFileID"/></rq:dealFileID>
+                    </xsl:if>
+                    <xsl:if test="./rsd:comment">
+                        <rq:comment><xsl:value-of select="./rsd:comment"/></rq:comment>
+                    </xsl:if>
+                    <xsl:if test="./rsd:supLMID">
+                        <rq:supLMID><xsl:value-of select="./rsd:supLMID"/></rq:supLMID>
+                    </xsl:if>
+                    <xsl:if test="./rsd:clientManagerID">
+                        <rq:clientManagerID><xsl:value-of select="./rsd:clientManagerID"/></rq:clientManagerID>
+                    </xsl:if>
                     <!--Zero or more repetitions:-->
                     <xsl:for-each select="./rsd:products">
                         <rq:products>
@@ -165,21 +192,21 @@
                                 </rq:collateral>
                             </xsl:for-each>
                             <!--Optional:-->
-                            <xsl:for-each select="./rsd:losses">
+                            <xsl:if test="./rsd:losses">
                                 <rq:losses>
-                                    <rq:percentLGD><xsl:value-of select="./rsd:percentLGD"/></rq:percentLGD>
-                                    <rq:countEAD><xsl:value-of select="./rsd:countEAD"/></rq:countEAD>
-                                    <rq:currency><xsl:value-of select="./rsd:currency"/></rq:currency>
-                                    <rq:reportDateAmount><xsl:value-of select="./rsd:reportDateAmount"/></rq:reportDateAmount>
-                                    <rq:lossELpercent><xsl:value-of select="./rsd:lossELpercent"/></rq:lossELpercent>
-                                    <rq:lossELcount><xsl:value-of select="./rsd:lossELcount"/></rq:lossELcount>
-                                    <rq:typeLGD><xsl:value-of select="./rsd:typeLGD"/></rq:typeLGD>
-                                    <rq:statusLGD><xsl:value-of select="./rsd:statusLGD"/></rq:statusLGD>
-                                    <rq:dateLGDcalculated><xsl:value-of select="./rsd:dateLGDcalculated"/></rq:dateLGDcalculated>
-                                    <rq:finalizationDate><xsl:value-of select="./rsd:finalizationDate"/></rq:finalizationDate>
-                                    <rq:comment><xsl:value-of select="./rsd:comment"/></rq:comment>
+                                    <rq:percentLGD><xsl:value-of select="./rsd:losses/rsd:percentLGD"/></rq:percentLGD>
+                                    <rq:countEAD><xsl:value-of select="./rsd:losses/rsd:countEAD"/></rq:countEAD>
+                                    <rq:currency><xsl:value-of select="./rsd:losses/rsd:currency"/></rq:currency>
+                                    <rq:reportDateAmount><xsl:value-of select="./rsd:losses/rsd:reportDateAmount"/></rq:reportDateAmount>
+                                    <rq:lossELpercent><xsl:value-of select="./rsd:losses/rsd:lossELpercent"/></rq:lossELpercent>
+                                    <rq:lossELcount><xsl:value-of select="./rsd:losses/rsd:lossELcount"/></rq:lossELcount>
+                                    <rq:typeLGD><xsl:value-of select="./rsd:losses/rsd:typeLGD"/></rq:typeLGD>
+                                    <rq:statusLGD><xsl:value-of select="./rsd:losses/rsd:statusLGD"/></rq:statusLGD>
+                                    <rq:dateLGDcalculated><xsl:value-of select="./rsd:losses/rsd:dateLGDcalculated"/></rq:dateLGDcalculated>
+                                    <rq:finalizationDate><xsl:value-of select="./rsd:losses/rsd:finalizationDate"/></rq:finalizationDate>
+                                    <rq:comment><xsl:value-of select="./rsd:losses/rsd:comment"/></rq:comment>
                                 </rq:losses>
-                            </xsl:for-each>
+                            </xsl:if>
                         </rq:products>
                     </xsl:for-each>
                     <rq:project>
