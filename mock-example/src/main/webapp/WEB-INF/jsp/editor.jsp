@@ -163,7 +163,7 @@ $("#validate").click(function(){
     data: "xml="+editor.getValue(),
     success: function(obj) {
       obj = $.parseJSON(obj);
-      showInfo(obj.info)
+      showInfo(obj.info);
       showError(obj.error);
     },
     fail: function() {
@@ -178,9 +178,10 @@ $("#save").click(function(){
     url: QueryString["ip"]+ "/save/",
     type: "POST",
     data: "xml="+editor.getValue(),
-    success: function(msg) {
-      $("#undo").attr("disabled", false);
-      showInfo(msg);
+    success: function(obj) {
+      obj = $.parseJSON(obj);
+      showInfo(obj.info);
+      showError(obj.error);
     },
     fail: function() {
       showError("Unable to save! Try Later...");
@@ -193,24 +194,20 @@ $("#undo").click(function(){
   $.ajax({
     url: QueryString["ip"]+ "/undo/",
     type: "POST",
-    success: function(msg) {
-      if (!msg.equals("Element is last one in list")) {
+    success: function(obj) {
+      obj = $.parseJSON(obj);
+      if (obj.info=="undo") {
+        showInfo(obj.info);
         var converter = $("#htmlConverter");
-        converter.html(msg);
-        msg = converter.text().trim();
+        converter.html(obj.data);
+        var msg = converter.text().trim();
         editor.setValue(msg);
       } else {
-        $("#undo").attr("disabled", true);
-        $("#redo").attr("disabled", false);
+        showError(obj.error);
       }
-      var converter = $("#htmlConverter");
-      converter.html(msg);
-      msg = converter.text().trim();
-      editor.setValue(msg);
-      showInfo("Reset complete!");
     },
     fail: function() {
-      showError("Unable to save! Try Later...");
+      showError("Unable to Undo! Try Later...");
     }
   });
 });
@@ -221,15 +218,17 @@ $("#redo").click(function(){
   $.ajax({
     url: QueryString["ip"]+ "/redo/",
     type: "POST",
-    success: function(msg) {
-      if (!msg.equals("Element is last one in list")) {
+    success: function(obj) {
+      obj = $.parseJSON(obj);
+      var info = obj.info;
+      if (obj.info=="redo") {
+        showInfo(obj.info);
         var converter = $("#htmlConverter");
-        converter.html(msg);
-        msg = converter.text().trim();
+        converter.html(obj.data);
+        var msg = converter.text().trim();
         editor.setValue(msg);
       } else {
-        $("#redo").attr("disabled", true);
-        $("#undo").attr("disabled", false);
+        showError(obj.error);
       }
     },
     fail: function() {
@@ -243,14 +242,14 @@ $("#reset").click(function(){
   $.ajax({
     url: QueryString["ip"]+ "/resetToDefault/",
     type: "POST",
-    success: function(msg) {
+    success: function(obj) {
+      obj = $.parseJSON(obj);
+      showInfo(obj.info);
+      showError(obj.error);
       var converter = $("#htmlConverter");
-      converter.html(msg);
-      msg = converter.text().trim();
+      converter.html(obj.data);
+      var msg = converter.text().trim();
       editor.setValue(msg);
-//      showError(msg);
-//      location.reload();
-      showInfo("Reset complete!");
     },
     fail: function() {
       showError("Unable to save! Try Later...");

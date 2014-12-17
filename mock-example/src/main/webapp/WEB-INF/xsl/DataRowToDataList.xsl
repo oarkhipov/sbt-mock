@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:dt="http://sbrf.ru/NCP/Data">
-
+<!-- по -->
     <xsl:output method="xml" omit-xml-declaration="yes"/>
     <xsl:param name="name" select="all"/>
     <!--Prepare data and section of data XML-->

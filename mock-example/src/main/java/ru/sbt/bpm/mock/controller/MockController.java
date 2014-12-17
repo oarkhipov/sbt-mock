@@ -1,5 +1,6 @@
 package ru.sbt.bpm.mock.controller;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import ru.sbt.bpm.mock.utils.SaveFile;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 /**
  * Created by sbt-bochev-as on 13.12.2014.
@@ -86,6 +88,7 @@ public class MockController {
                 model.addAttribute("info", "saved");
             } catch (IOException e) {
                 model.addAttribute("error", e.getMessage());
+                model.addAttribute("info", "fail");
             }
         }
         return "ajaxResponseObject";
@@ -100,12 +103,17 @@ public class MockController {
         try {
             String path = saver.TranslateNameToPath(name);
             dataFile = saver.rollbackNextBackUpedDataFile(path);
-            model.addAttribute("data", saver.getFileString(dataFile));
+            String datavalue = saver.getFileString(dataFile);
+            datavalue = datavalue.replace("\r", "\\r").replace("\n", "\\n");
+            model.addAttribute("data", datavalue);
+            model.addAttribute("info", "undo");
         }catch (IndexOutOfBoundsException e) {
             model.addAttribute("error", e.getMessage());
+            model.addAttribute("info", "fail");
         }
         catch (IOException e) {
             model.addAttribute("error", e.getMessage());
+            model.addAttribute("info", "fail");
         }
         return "ajaxResponseObject";
     }
@@ -119,12 +127,17 @@ public class MockController {
         try {
             String path = saver.TranslateNameToPath(name);
             dataFile = saver.rollbackPervBackUpedDataFile(path);
-            model.addAttribute("data", saver.getFileString(dataFile));
+            String datavalue = saver.getFileString(dataFile);
+            datavalue = datavalue.replace("\r", "\\r").replace("\n", "\\n");
+            model.addAttribute("data", datavalue);
+            model.addAttribute("info", "redo");
         }catch (IndexOutOfBoundsException e) {
             model.addAttribute("error", e.getMessage());
+            model.addAttribute("info", "fail");
         }
         catch (IOException e) {
             model.addAttribute("error", e.getMessage());
+            model.addAttribute("info", "fail");
         }
         return "ajaxResponseObject";
     }
@@ -138,9 +151,13 @@ public class MockController {
         try {
             String path = saver.TranslateNameToPath(name);
             dataFile = saver.restoreBackUpedDataFile(path);
-            model.addAttribute("data", saver.getFileString(dataFile));
+            String datavalue = saver.getFileString(dataFile);
+            datavalue = datavalue.replace("\r", "\\r").replace("\n","\\n");
+            model.addAttribute("data", datavalue);
+            model.addAttribute("info", "reset");
         } catch (IOException e) {
             model.addAttribute("error", e.getMessage());
+            model.addAttribute("info", "fail");
         }
         return "ajaxResponseObject";
     }

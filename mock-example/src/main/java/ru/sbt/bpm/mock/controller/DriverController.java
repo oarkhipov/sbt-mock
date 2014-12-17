@@ -77,7 +77,7 @@ public class DriverController {
     public String save(
             @PathVariable("name") String name,
             @RequestParam("xml") String xml,
-            ModelMap model) throws IOException  {
+            ModelMap model) throws IOException {
         SaveFile saver = SaveFile.getInstance(appContext);
         File dataFile = null;
         try {
@@ -92,12 +92,13 @@ public class DriverController {
                 model.addAttribute("info", "saved");
             } catch (IOException e) {
                 model.addAttribute("error", e.getMessage());
+                model.addAttribute("info", "fail");
             }
         }
         return "ajaxResponseObject";
     }
 
-    @RequestMapping(value="/driver/{name}/rollback/", method=RequestMethod.POST)
+    @RequestMapping(value="/driver/{name}/undo/", method=RequestMethod.POST)
     public String rollback(
             @PathVariable("name") String name,
             ModelMap model) throws IOException  {
@@ -105,11 +106,42 @@ public class DriverController {
         File dataFile = null;
         try {
             String path = saver.TranslateNameToPath(name);
-            dataFile = saver.getNextBackUpedDataFile(path);
-            model.put("data", saver.getFileString(dataFile));
-            model.addAttribute("info", "rollbacked. ChangesAreUnsaved");
-        } catch (IOException e) {
+            dataFile = saver.rollbackNextBackUpedDataFile(path);
+            String datavalue = saver.getFileString(dataFile);
+            datavalue = datavalue.replace("\r", "\\r").replace("\n", "\\n");
+            model.addAttribute("data", datavalue);
+            model.addAttribute("info", "undo");
+        }catch (IndexOutOfBoundsException e) {
             model.addAttribute("error", e.getMessage());
+            model.addAttribute("info", "fail");
+        }
+        catch (IOException e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("info", "fail");
+        }
+        return "ajaxResponseObject";
+    }
+
+    @RequestMapping(value="/driver/{name}/redo/", method=RequestMethod.POST)
+    public String rollforward(
+            @PathVariable("name") String name,
+            ModelMap model) throws IOException  {
+        SaveFile saver = SaveFile.getInstance(appContext);
+        File dataFile = null;
+        try {
+            String path = saver.TranslateNameToPath(name);
+            dataFile = saver.rollbackPervBackUpedDataFile(path);
+            String datavalue = saver.getFileString(dataFile);
+            datavalue = datavalue.replace("\r", "\\r").replace("\n", "\\n");
+            model.addAttribute("data", datavalue);
+            model.addAttribute("info", "redo");
+        }catch (IndexOutOfBoundsException e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("info", "fail");
+        }
+        catch (IOException e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("info", "fail");
         }
         return "ajaxResponseObject";
     }
@@ -123,12 +155,17 @@ public class DriverController {
         try {
             String path = saver.TranslateNameToPath(name);
             dataFile = saver.restoreBackUpedDataFile(path);
-            model.addAttribute("data", saver.getFileString(dataFile));
+            String datavalue = saver.getFileString(dataFile);
+            datavalue = datavalue.replace("\r", "\\r").replace("\n","\\n");
+            model.addAttribute("data", datavalue);
+            model.addAttribute("info", "reset");
         } catch (IOException e) {
             model.addAttribute("error", e.getMessage());
+            model.addAttribute("info", "fail");
         }
         return "ajaxResponseObject";
     }
+
     @RequestMapping(value="/driver/{name}/send/", method=RequestMethod.POST)
     public String send(
             @PathVariable("name") String name,
