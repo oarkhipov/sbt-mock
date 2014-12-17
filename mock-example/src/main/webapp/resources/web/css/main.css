@@ -130,6 +130,18 @@ textarea {
     color: dimgray;
 }
 
+#info {
+    width: 990px;
+    background-color: rgba(121, 255, 120, .7);
+    font-weight: bold;
+    display: block;
+    border: lightgray solid 1px;
+    font-size: 8pt;
+    padding-left: 10px;
+    color: dimgray;
+    opacity: 0;
+}
+
 
 
 

@@ -31,9 +31,10 @@
   <style type="text/css">.CodeMirror {border: 1px solid #eee;} .CodeMirror-scroll { height: 100% }</style>
 </head>
 <body>
-<h4>Integration point: <i><c:out value="${name}"/></i></h4>
+<b>Integration point:</b> <i><c:out value="${name}"/></i>
 
 <form>
+  <div id="info">&nbsp;</div>
   <div id="error"></div>
   <textarea id="code" name="code"><c:out value="${object}" escapeXml="true"/></textarea>
   <div style="text-align: right; width: 1000px; padding-top: 7px">
@@ -135,12 +136,19 @@
   });
   editor.setSize("1000","400");
 
+function showInfo(text) {
+  var info = $("#info");
+  info.html(text).fadeTo(0,0.7);
+  info.delay(800).fadeTo(800,0);
+}
+
 function showError(text) {
   text = text.trim();
   if(text && text!="true") {
     $("#error").css("display","block").html(text);
   } else {
     $("#error").css("display","none");
+    showInfo("OK!")
   }
 }
 
@@ -167,7 +175,7 @@ $("#save").click(function(){
     type: "POST",
     data: "xml="+editor.getValue(),
     success: function(msg) {
-      showError(msg);
+      showInfo(msg);
     },
     fail: function() {
       showError("Unable to save! Try Later...");
@@ -182,7 +190,11 @@ $("#rollback").click(function(){
     type: "POST",
     data: "xml="+editor.getValue(),
     success: function(msg) {
-      showError(msg);
+      var converter = $("#htmlConverter");
+      converter.html(msg);
+      msg = converter.text().trim();
+      editor.setValue(msg);
+      showInfo("Reset complete!");
     },
     fail: function() {
       showError("Unable to rollback! Try Later...");
@@ -202,6 +214,7 @@ $("#reset").click(function(){
       editor.setValue(msg);
 //      showError(msg);
 //      location.reload();
+      showInfo("Reset complete!");
     },
     fail: function() {
       showError("Unable to save! Try Later...");
@@ -210,17 +223,31 @@ $("#reset").click(function(){
 });
 
 <c:if test="${link=='driver'}">
+
+  function sendDisable(disabled) {
+    var send = $("#send");
+    send.prop("disabled",disabled);
+    if(disabled) {
+      send.css("color","gray");
+    } else {
+      send.css("color","black");
+    }
+  }
+
   $("#send").click(function(){
-//    alert("sending...");
+    showInfo("Sending...");
+    sendDisable(true);
     $.ajax({
       url: QueryString["ip"]+ "/send/",
       type: "POST",
       data: "xml="+editor.getValue(),
       success: function(msg) {
         showError(msg);
+        sendDisable(false);
       },
       fail: function() {
         showError("Unable to send! Try Later...");
+        sendDisable(false);
       }
     });
   });

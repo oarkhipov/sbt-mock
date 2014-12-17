@@ -232,12 +232,10 @@
     <beans:bean name="xmlDataService" class="ru.sbt.bpm.mock.service.XmlDataService"/>
 
     <channel id="test"/>
-    <channel id="test2"/>
     <!-- Mock gateway to send requests to outbound -->
     <!--<gateway id="systemEntry" default-request-channel="ESB.BPM.NCP.REQUEST" default-reply-channel="ESB.BPM.NCP.RESPONSE"-->
                  <!--service-interface="ru.sbt.bpm.mock.gateway.ClientService" />-->
-    <gateway id="systemEntry" default-request-channel="test" default-reply-channel="test2"
+    <gateway id="systemEntry" default-request-channel="test" default-reply-channel="test"
                  service-interface="ru.sbt.bpm.mock.gateway.ClientService" />
-    <delayer id="delayer" default-delay="5000" input-channel="test" output-channel="test2"/>
 
 </beans:beans>
