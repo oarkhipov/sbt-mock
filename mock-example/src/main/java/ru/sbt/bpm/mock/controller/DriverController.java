@@ -65,12 +65,12 @@ public class DriverController {
             ModelMap model) {
         try {
             if (xmlDataService.validate(xml)) {
-                model.addAttribute("object", "true");
+                model.addAttribute("info", "Valid!");
             }
         } catch (SAXException |IOException e) {
-            model.addAttribute("object", e.getMessage());
+            model.addAttribute("error", e.getMessage());
         }
-        return "blank";
+        return "ajaxResponseObject";
     }
 
     @RequestMapping(value="/driver/{name}/save/", method=RequestMethod.POST)
@@ -84,17 +84,17 @@ public class DriverController {
             String path = saver.TranslateNameToPath(name);
             dataFile = saver.getBackUpedDataFile(path);
         } catch (Exception e) {
-            model.addAttribute("object", e.getMessage());
+            model.addAttribute("error", e.getMessage());
         }
         if (dataFile!=null) {
             try {
                 saver.writeStringToFile(dataFile, xml);
-                model.addAttribute("object", "saved");
+                model.addAttribute("info", "saved");
             } catch (IOException e) {
-                model.addAttribute("object", e.getMessage());
+                model.addAttribute("error", e.getMessage());
             }
         }
-        return "blank";
+        return "ajaxResponseObject";
     }
 
     @RequestMapping(value="/driver/{name}/rollback/", method=RequestMethod.POST)
@@ -106,12 +106,12 @@ public class DriverController {
         try {
             String path = saver.TranslateNameToPath(name);
             dataFile = saver.getNextBackUpedDataFile(path);
-            model.put("object", saver.getFileString(dataFile));
-            model.addAttribute("object", "rollbacked. ChangesAreUnsaved");
+            model.put("data", saver.getFileString(dataFile));
+            model.addAttribute("info", "rollbacked. ChangesAreUnsaved");
         } catch (IOException e) {
-            model.addAttribute("object", e.getMessage());
+            model.addAttribute("error", e.getMessage());
         }
-        return "blank";
+        return "ajaxResponseObject";
     }
 
     @RequestMapping(value="/driver/{name}/resetToDefault/", method=RequestMethod.POST)
@@ -123,18 +123,19 @@ public class DriverController {
         try {
             String path = saver.TranslateNameToPath(name);
             dataFile = saver.restoreBackUpedDataFile(path);
-            model.addAttribute("object", saver.getFileString(dataFile));
+            model.addAttribute("data", saver.getFileString(dataFile));
         } catch (IOException e) {
-            model.addAttribute("object", e.getMessage());
+            model.addAttribute("error", e.getMessage());
         }
-        return "blank";
+        return "ajaxResponseObject";
     }
     @RequestMapping(value="/driver/{name}/send/", method=RequestMethod.POST)
     public String send(
             @PathVariable("name") String name,
             @RequestParam("xml") String xml,
             ModelMap model) {
-        model.addAttribute("object", clientService.invoke(xml));
-        return "blank";
+        model.addAttribute("info", "DONE!");
+        model.addAttribute("data", clientService.invoke(xml));
+        return "ajaxResponseObject";
     }
 }

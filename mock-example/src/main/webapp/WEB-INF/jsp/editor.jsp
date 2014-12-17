@@ -137,18 +137,20 @@
   editor.setSize("1000","400");
 
 function showInfo(text) {
-  var info = $("#info");
-  info.html(text).fadeTo(0,0.7);
-  info.delay(800).fadeTo(800,0);
+  if(text) {
+    text = text.trim();
+    var info = $("#info");
+    info.html(text).fadeTo(0, 0.7);
+    info.delay(800).fadeTo(800, 0);
+  }
 }
 
 function showError(text) {
-  text = text.trim();
-  if(text && text!="true") {
+  if(text) {
+    text = text.trim();
     $("#error").css("display","block").html(text);
   } else {
     $("#error").css("display","none");
-    showInfo("OK!")
   }
 }
 
@@ -159,8 +161,10 @@ $("#validate").click(function(){
     url: QueryString["ip"]+ "/validate/",
     type: "POST",
     data: "xml="+editor.getValue(),
-    success: function(msg) {
-      showError(msg);
+    success: function(obj) {
+      obj = $.parseJSON(obj);
+      showInfo(obj.info)
+      showError(obj.error);
     },
     fail: function() {
       showError("Unable to verify! Try Later...");
@@ -174,8 +178,8 @@ $("#save").click(function(){
     url: QueryString["ip"]+ "/save/",
     type: "POST",
     data: "xml="+editor.getValue(),
-    success: function(msg) {
-      showInfo(msg);
+    success: function(obj) {
+      showInfo(obj.info);
     },
     fail: function() {
       showError("Unable to save! Try Later...");
