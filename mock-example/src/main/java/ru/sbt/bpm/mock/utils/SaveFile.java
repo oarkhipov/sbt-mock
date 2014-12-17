@@ -22,8 +22,23 @@ import java.util.regex.Pattern;
 public class SaveFile {
     private static SaveFile ourInstance = new SaveFile();
 
-    public static SaveFile getInstance(ApplicationContext AppContext) {
-        ourInstance.appContext = AppContext;
+    /**
+     * получает путь через ApplicationContext
+     * @param AppContext
+     * @return
+     */
+    public static SaveFile getInstance(ApplicationContext AppContext) throws IOException {
+        rootpath = AppContext.getResource("/WEB-INF").getFile().getCanonicalPath();
+        return ourInstance;
+    }
+
+    /**
+     * получает путь напрямую
+     * @return
+     * @throws IOException
+     */
+    public static SaveFile getInstance(String RootPath) throws IOException {
+        rootpath = RootPath;
         return ourInstance;
     }
 
@@ -36,7 +51,7 @@ public class SaveFile {
 
     private Map<String, Integer> currentChosenBackUp;
 
-    ApplicationContext appContext;
+    static String rootpath;
 
     protected String slash;
 
@@ -57,7 +72,7 @@ public class SaveFile {
 
     public String getWebInfPath() throws IOException {
         if (webInfPath!=null) return webInfPath;
-        webInfPath = appContext.getResource("/WEB-INF").getFile().getCanonicalPath();
+        webInfPath = rootpath;
         return webInfPath;
     }
 

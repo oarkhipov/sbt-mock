@@ -74,7 +74,7 @@ public class DriverController {
     public String save(
             @PathVariable("name") String name,
             @RequestParam("xml") String xml,
-            ModelMap model) {
+            ModelMap model) throws IOException  {
         SaveFile saver = SaveFile.getInstance(appContext);
         File dataFile = null;
         try {
@@ -97,7 +97,7 @@ public class DriverController {
     @RequestMapping(value="/driver/{name}/rollback/", method=RequestMethod.POST)
     public String rollback(
             @PathVariable("name") String name,
-            ModelMap model) {
+            ModelMap model) throws IOException  {
         SaveFile saver = SaveFile.getInstance(appContext);
         File dataFile = null;
         try {
@@ -114,7 +114,7 @@ public class DriverController {
     @RequestMapping(value="/driver/{name}/resetToDefault/", method=RequestMethod.POST)
     public String resetToDefault(
             @PathVariable("name") String name,
-            ModelMap model) {
+            ModelMap model) throws IOException  {
         SaveFile saver = SaveFile.getInstance(appContext);
         File dataFile = null;
         try {

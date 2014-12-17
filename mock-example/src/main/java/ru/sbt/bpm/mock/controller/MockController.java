@@ -71,7 +71,7 @@ public class MockController {
     public String save(
             @PathVariable("name") String name,
             @RequestParam("xml") String xml,
-            ModelMap model) {
+            ModelMap model) throws IOException {
         SaveFile saver = SaveFile.getInstance(appContext);
         File dataFile = null;
         try {
@@ -94,7 +94,7 @@ public class MockController {
     @RequestMapping(value="/mock/{name}/rollback/", method=RequestMethod.POST)
     public String rollback(
             @PathVariable("name") String name,
-            ModelMap model) {
+            ModelMap model) throws IOException  {
         SaveFile saver = SaveFile.getInstance(appContext);
         File dataFile = null;
         try {
@@ -111,7 +111,7 @@ public class MockController {
     @RequestMapping(value="/mock/{name}/resetToDefault/", method=RequestMethod.POST)
     public String resetToDefault(
             @PathVariable("name") String name,
-            ModelMap model) {
+            ModelMap model) throws IOException  {
         SaveFile saver = SaveFile.getInstance(appContext);
         File dataFile = null;
         try {
