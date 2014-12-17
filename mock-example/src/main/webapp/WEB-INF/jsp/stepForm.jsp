@@ -37,8 +37,8 @@
       wizard = $("#wizard").steps({
         headerTag: "h2",
         bodyTag: "section",
-        transitionEffect: "slideLeft",
-        transitionEffectSpeed: 400,
+//        transitionEffect: "slideLeft",
+//        transitionEffectSpeed: 400,
         onStepChanging: function(event, currentIndex, newIndex) {
           if(currentIndex == 0) {
             if(newIndex == 1) {

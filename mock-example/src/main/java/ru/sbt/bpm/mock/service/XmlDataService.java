@@ -30,6 +30,7 @@ public class XmlDataService {
     private ApplicationContext appContext;
 
     private String pathBase = "/WEB-INF/data/";
+    private String xslPathBase = "/WEB-INF/xsl/";
 
     private Validator validator;
 
@@ -58,10 +59,19 @@ public class XmlDataService {
         this.pathBase = pathBase;
     }
 
+
+
     public String getXml(String name) throws IOException {
+        return FileUtils.readFileToString(getXmlResource(name).getFile());
+    }
+
+    public Resource getXmlResource(String name) throws IOException {
         String[] nameParts = name.split("_");
-        Resource resource = appContext.getResource(pathBase + nameParts[0] + File.separator + "xml" + File.separator + nameParts[1] + "Data.xml");
-        return FileUtils.readFileToString(resource.getFile());
+        return appContext.getResource(pathBase + nameParts[0] + File.separator + "xml" + File.separator + nameParts[1] + "Data.xml");
+    }
+    public Resource getXslResource(String name) throws IOException {
+        String[] nameParts = name.split("_");
+        return appContext.getResource(xslPathBase + nameParts[0] + File.separator + File.separator + nameParts[1] + ".xsl");
     }
 
     public boolean validate(String xmlData) throws SAXException, IOException {

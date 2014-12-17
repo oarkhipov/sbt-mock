@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -13,12 +14,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.gateway.ClientService;
+import ru.sbt.bpm.mock.service.TransformService;
 import ru.sbt.bpm.mock.service.XmlDataService;
 import ru.sbt.bpm.mock.utils.AjaxObject;
 import ru.sbt.bpm.mock.utils.SaveFile;
+import ru.sbt.bpm.mock.utils.XslTransformer;
 
+import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -40,6 +46,9 @@ public class DriverController {
     ApplicationContext appContext;
 
     @Autowired
+    TransformService transformService;
+
+    @Autowired
     ClientService clientService;
 
     @RequestMapping("/driver/")
@@ -55,11 +64,15 @@ public class DriverController {
     }
 
     @RequestMapping(value="/driver/{name}/", method= RequestMethod.GET)
-    public String get(@PathVariable("name") String name, Model model) throws IOException {
+    public String get(@PathVariable("name") String name, Model model) throws IOException, TransformerException {
         model.addAttribute("name", name);
         model.addAttribute("link", "driver");
         model.addAttribute("object", xmlDataService.getXml(name));
-//        model.addAttribute("list", new ArrayList<String>(){"123","123"});
+
+        Resource xslResource = appContext.getResource("/WEB-INF/xsl/DataRowToDataList.xsl");
+        Resource xmlData = xmlDataService.getXmlResource(name);
+        String result = XslTransformer.transform(xslResource, xmlData);
+        model.addAttribute("list", result.split("\\r?\\n"));
         return "editor";
     }
 
@@ -68,14 +81,18 @@ public class DriverController {
             @PathVariable("name") String name,
             @RequestParam("xml") String xml,
             ModelMap model) {
+        AjaxObject ajaxObject = new AjaxObject();
         try {
             if (xmlDataService.validate(xml)) {
-                model.addAttribute("info", "Valid!");
+                ajaxObject.setInfo("Valid!");
             }
         } catch (SAXException |IOException e) {
-            model.addAttribute("error", e.getMessage());
+            ajaxObject.setError(e.getMessage());
         }
-        return "ajaxResponseObject";
+        Gson gson = new Gson();
+        model.addAttribute("object", gson.toJson(ajaxObject));
+
+        return "blank";
     }
 
     @RequestMapping(value="/driver/{name}/save/", method=RequestMethod.POST)
@@ -83,72 +100,74 @@ public class DriverController {
             @PathVariable("name") String name,
             @RequestParam("xml") String xml,
             ModelMap model) throws IOException {
+        AjaxObject ajaxObject = new AjaxObject();
         SaveFile saver = SaveFile.getInstance(appContext);
         File dataFile = null;
         try {
             String path = saver.TranslateNameToPath(name);
             dataFile = saver.getBackUpedDataFile(path);
         } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
+            ajaxObject.setError(e.getMessage());
         }
         if (dataFile!=null) {
             try {
                 saver.writeStringToFile(dataFile, xml);
-                model.addAttribute("info", "saved");
+                ajaxObject.setInfo("saved");
             } catch (IOException e) {
-                model.addAttribute("error", e.getMessage());
-                model.addAttribute("info", "fail");
+                ajaxObject.setError(e.getMessage());
             }
         }
-        return "ajaxResponseObject";
+        Gson gson = new Gson();
+        model.addAttribute("object", gson.toJson(ajaxObject));
+
+        return "blank";
     }
 
     @RequestMapping(value="/driver/{name}/undo/", method=RequestMethod.POST)
     public String rollback(
             @PathVariable("name") String name,
             ModelMap model) throws IOException  {
+        AjaxObject ajaxObject = new AjaxObject();
         SaveFile saver = SaveFile.getInstance(appContext);
-        File dataFile = null;
+        File dataFile;
         try {
             String path = saver.TranslateNameToPath(name);
             dataFile = saver.rollbackNextBackUpedDataFile(path);
             String datavalue = saver.getFileString(dataFile);
-            datavalue = datavalue.replace("\r", "\\r").replace("\n", "\\n");
-            model.addAttribute("data", datavalue);
-            model.addAttribute("info", "undo");
+            ajaxObject.setData(datavalue);
+            ajaxObject.setInfo("undo");
         }catch (IndexOutOfBoundsException e) {
-            model.addAttribute("error", e.getMessage());
-            model.addAttribute("info", "fail");
+            ajaxObject.setError(e.getMessage());
         }
-        catch (IOException e) {
-            model.addAttribute("error", e.getMessage());
-            model.addAttribute("info", "fail");
-        }
-        return "ajaxResponseObject";
+        Gson gson = new Gson();
+        model.addAttribute("object", gson.toJson(ajaxObject));
+
+        return "blank";
     }
 
     @RequestMapping(value="/driver/{name}/redo/", method=RequestMethod.POST)
     public String rollforward(
             @PathVariable("name") String name,
             ModelMap model) throws IOException  {
+        AjaxObject ajaxObject = new AjaxObject();
         SaveFile saver = SaveFile.getInstance(appContext);
-        File dataFile = null;
+        File dataFile;
         try {
             String path = saver.TranslateNameToPath(name);
             dataFile = saver.rollbackPervBackUpedDataFile(path);
             String datavalue = saver.getFileString(dataFile);
-            datavalue = datavalue.replace("\r", "\\r").replace("\n", "\\n");
-            model.addAttribute("data", datavalue);
-            model.addAttribute("info", "redo");
+            ajaxObject.setData(datavalue);
+            ajaxObject.setInfo("redo");
         }catch (IndexOutOfBoundsException e) {
-            model.addAttribute("error", e.getMessage());
-            model.addAttribute("info", "fail");
+            ajaxObject.setError(e.getMessage());
         }
         catch (IOException e) {
             model.addAttribute("error", e.getMessage());
-            model.addAttribute("info", "fail");
         }
-        return "ajaxResponseObject";
+        Gson gson = new Gson();
+        model.addAttribute("object", gson.toJson(ajaxObject));
+
+        return "blank";
     }
 
     @RequestMapping(value="/driver/{name}/resetToDefault/", method=RequestMethod.POST)
@@ -156,26 +175,29 @@ public class DriverController {
             @PathVariable("name") String name,
             ModelMap model) throws IOException  {
         SaveFile saver = SaveFile.getInstance(appContext);
-        File dataFile = null;
+        AjaxObject ajaxObject = new AjaxObject();
+        File dataFile;
         try {
             String path = saver.TranslateNameToPath(name);
             dataFile = saver.restoreBackUpedDataFile(path);
             String datavalue = saver.getFileString(dataFile);
-            datavalue = datavalue.replace("\r", "\\r").replace("\n","\\n");
-            model.addAttribute("data", datavalue);
-            model.addAttribute("info", "reset");
+            ajaxObject.setData(datavalue);
+            ajaxObject.setInfo("reset");
         } catch (IOException e) {
-            model.addAttribute("error", e.getMessage());
-            model.addAttribute("info", "fail");
+            ajaxObject.setError(e.getMessage());
         }
-        return "ajaxResponseObject";
+        Gson gson = new Gson();
+        model.addAttribute("object", gson.toJson(ajaxObject));
+
+        return "blank";
     }
 
     @RequestMapping(value="/driver/{name}/send/", method=RequestMethod.POST)
     public String send(
             @PathVariable("name") String name,
+            @RequestParam("request") String request,
             @RequestParam("xml") String xml,
-            ModelMap model) {
+            ModelMap model) throws IOException, TransformerException {
 //        VALIDATE
 //        try {
 //            if (xmlDataService.validate(xml)) {
@@ -187,16 +209,16 @@ public class DriverController {
 //        }
         AjaxObject ajaxObject = new AjaxObject();
         ajaxObject.setInfo("DONE!");
-        ajaxObject.setData(clientService.invoke(xml));
+//        System.out.println("request: " + request);
+
+        Resource xslResource = xmlDataService.getXslResource(name);
+        Resource xmlData = xmlDataService.getXmlResource(name);
+        String result = XslTransformer.transform(xslResource, xmlData, "name", request);
+
+        ajaxObject.setData(clientService.invoke(result));
         Gson gson = new Gson();
-        String json = customEscape(gson.toJson(ajaxObject));
-        System.out.println(json);
-        model.addAttribute("object", json);
+        model.addAttribute("object", gson.toJson(ajaxObject));
 
         return "blank";
-    }
-
-    private String customEscape(String in) {
-        return in.replace("\r", "\\r").replace("\n","\\n");
     }
 }

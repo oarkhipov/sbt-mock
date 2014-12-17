@@ -1,5 +1,6 @@
 package ru.sbt.bpm.mock.controller;
 
+import com.google.gson.Gson;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.service.TransformService;
 import ru.sbt.bpm.mock.service.XmlDataService;
+import ru.sbt.bpm.mock.utils.AjaxObject;
 import ru.sbt.bpm.mock.utils.SaveFile;
 
 import java.io.File;
@@ -59,14 +61,18 @@ public class MockController {
             @PathVariable("name") String name,
             @RequestParam("xml") String xml,
             ModelMap model) {
+        AjaxObject ajaxObject = new AjaxObject();
         try {
             if (xmlDataService.validate(xml)) {
-                model.addAttribute("info", "Valid!");
+                ajaxObject.setInfo("Valid!");
             }
-        } catch (SAXException|IOException e) {
-            model.addAttribute("error", e.getMessage());
+        } catch (SAXException |IOException e) {
+            ajaxObject.setError(e.getMessage());
         }
-        return "ajaxResponseObject";
+        Gson gson = new Gson();
+        model.addAttribute("object", gson.toJson(ajaxObject));
+
+        return "blank";
     }
 
     @RequestMapping(value="/mock/{name}/save/", method=RequestMethod.POST)
@@ -74,61 +80,74 @@ public class MockController {
             @PathVariable("name") String name,
             @RequestParam("xml") String xml,
             ModelMap model) throws IOException {
+        AjaxObject ajaxObject = new AjaxObject();
         SaveFile saver = SaveFile.getInstance(appContext);
         File dataFile = null;
         try {
             String path = saver.TranslateNameToPath(name);
             dataFile = saver.getBackUpedDataFile(path);
         } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
+            ajaxObject.setError(e.getMessage());
         }
         if (dataFile!=null) {
             try {
                 saver.writeStringToFile(dataFile, xml);
-                model.addAttribute("info", "saved");
+                ajaxObject.setInfo("saved");
             } catch (IOException e) {
-                model.addAttribute("error", e.getMessage());
+                ajaxObject.setError(e.getMessage());
             }
         }
-        return "ajaxResponseObject";
+        Gson gson = new Gson();
+        model.addAttribute("object", gson.toJson(ajaxObject));
+
+        return "blank";
     }
 
     @RequestMapping(value="/mock/{name}/undo/", method=RequestMethod.POST)
     public String rollback(
             @PathVariable("name") String name,
             ModelMap model) throws IOException  {
+        AjaxObject ajaxObject = new AjaxObject();
         SaveFile saver = SaveFile.getInstance(appContext);
-        File dataFile = null;
+        File dataFile;
         try {
             String path = saver.TranslateNameToPath(name);
             dataFile = saver.rollbackNextBackUpedDataFile(path);
-            model.addAttribute("data", saver.getFileString(dataFile));
+            String datavalue = saver.getFileString(dataFile);
+            ajaxObject.setData(datavalue);
+            ajaxObject.setInfo("undo");
         }catch (IndexOutOfBoundsException e) {
-            model.addAttribute("error", e.getMessage());
+            ajaxObject.setError(e.getMessage());
         }
-        catch (IOException e) {
-            model.addAttribute("error", e.getMessage());
-        }
-        return "ajaxResponseObject";
+        Gson gson = new Gson();
+        model.addAttribute("object", gson.toJson(ajaxObject));
+
+        return "blank";
     }
 
     @RequestMapping(value="/mock/{name}/redo/", method=RequestMethod.POST)
     public String rollforward(
             @PathVariable("name") String name,
             ModelMap model) throws IOException  {
+        AjaxObject ajaxObject = new AjaxObject();
         SaveFile saver = SaveFile.getInstance(appContext);
-        File dataFile = null;
+        File dataFile;
         try {
             String path = saver.TranslateNameToPath(name);
             dataFile = saver.rollbackPervBackUpedDataFile(path);
-            model.addAttribute("data", saver.getFileString(dataFile));
+            String datavalue = saver.getFileString(dataFile);
+            ajaxObject.setData(datavalue);
+            ajaxObject.setInfo("redo");
         }catch (IndexOutOfBoundsException e) {
-            model.addAttribute("error", e.getMessage());
+            ajaxObject.setError(e.getMessage());
         }
         catch (IOException e) {
             model.addAttribute("error", e.getMessage());
         }
-        return "ajaxResponseObject";
+        Gson gson = new Gson();
+        model.addAttribute("object", gson.toJson(ajaxObject));
+
+        return "blank";
     }
 
     @RequestMapping(value="/mock/{name}/resetToDefault/", method=RequestMethod.POST)
@@ -136,14 +155,20 @@ public class MockController {
             @PathVariable("name") String name,
             ModelMap model) throws IOException  {
         SaveFile saver = SaveFile.getInstance(appContext);
-        File dataFile = null;
+        AjaxObject ajaxObject = new AjaxObject();
+        File dataFile;
         try {
             String path = saver.TranslateNameToPath(name);
             dataFile = saver.restoreBackUpedDataFile(path);
-            model.addAttribute("data", saver.getFileString(dataFile));
+            String datavalue = saver.getFileString(dataFile);
+            ajaxObject.setData(datavalue);
+            ajaxObject.setInfo("reset");
         } catch (IOException e) {
-            model.addAttribute("error", e.getMessage());
+            ajaxObject.setError(e.getMessage());
         }
-        return "ajaxResponseObject";
+        Gson gson = new Gson();
+        model.addAttribute("object", gson.toJson(ajaxObject));
+
+        return "blank";
     }
 }

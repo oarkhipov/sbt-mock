@@ -38,29 +38,31 @@
     <div id="info">&nbsp;</div>
     <div id="error"></div>
     <textarea id="code" name="code"><c:out value="${object}" escapeXml="true"/></textarea>
+    <div style="text-align: right; width: 1000px; padding-top: 7px">
+      <input id="reset" type="button" value="Reset to default" style="display: inline"/>
+      &nbsp;&nbsp;&nbsp;
+      <input id="undo" type="button" value="Undo" style="display: inline"/>
+      <input id="redo" type="button" value="Redo" style="display: inline"/>
+      &nbsp;&nbsp;&nbsp;
+      <input id="validate" type="button" value="Validate" style="display: inline"/>
+      <input id="save" type="button" value="Save" style="display: inline"/>
+      <c:if test="${link=='driver'}">
+        <select name="request" style="width: 120px">
+          <c:forEach var="entry" items="${list}">
+            <option value="${entry}">${entry}</option>
+          </c:forEach>
+        </select>
+        <input id="send" type="button" value="Send" style="display: inline"/>
+      </c:if>
+
+    </div>
   </div>
+<c:if test="${link=='driver'}">
   <div id="resWrapper" style="">
     Response
   <textarea id="resCode" name="resCode"></textarea>
   </div>
-  <div style="text-align: right; width: 1000px; padding-top: 7px">
-    <input id="reset" type="button" value="Reset to default" style="display: inline"/>
-    &nbsp;&nbsp;&nbsp;
-    <input id="undo" type="button" value="Undo" style="display: inline"/>
-    <input id="redo" type="button" value="Redo" style="display: inline"/>
-    &nbsp;&nbsp;&nbsp;
-    <input id="validate" type="button" value="Validate" style="display: inline"/>
-    <input id="save" type="button" value="Save" style="display: inline"/>
-    <c:if test="${link=='driver'}">
-      <select name="request">
-        <c:forEach var="entry" items="${list}">
-          <option value="${entry}" onclick="chooseIntPoint(this)">${entry}</option>
-        </c:forEach>
-      </select>
-      <input id="send" type="button" value="Send" style="display: inline"/>
-    </c:if>
-
-  </div>
+</c:if>
 </form>
 <div id="htmlConverter" style="display: none"></div>
 
@@ -147,9 +149,11 @@
   };
 
   var editor = CodeMirror.fromTextArea(document.getElementById("code"), editorSettings);
+editor.setSize("1000","400");
+<c:if test="${link=='driver'}">
   var resEditor = CodeMirror.fromTextArea(document.getElementById("resCode"), editorSettings);
-  editor.setSize("1000","400");
   resEditor.setSize("600","400");
+</c:if>
 
 function showInfo(text) {
   if(text) {
@@ -177,6 +181,7 @@ $("#validate").click(function(){
     type: "POST",
     data: "xml="+editor.getValue(),
     success: function(obj) {
+      obj = htmlConvert(obj);
       obj = $.parseJSON(obj);
       showInfo(obj.info)
       showError(obj.error);
@@ -194,6 +199,7 @@ $("#save").click(function(){
     type: "POST",
     data: "xml="+editor.getValue(),
     success: function(obj) {
+      obj = htmlConvert(obj);
       obj = $.parseJSON(obj);
       showInfo(obj.info);
       showError(obj.error);
@@ -210,6 +216,7 @@ $("#undo").click(function(){
     url: QueryString["ip"]+ "/undo/",
     type: "POST",
     success: function(obj) {
+      obj = htmlConvert(obj);
       obj = $.parseJSON(obj);
       if (obj.info=="undo") {
         showInfo(obj.info);
@@ -234,6 +241,7 @@ $("#redo").click(function(){
     url: QueryString["ip"]+ "/redo/",
     type: "POST",
     success: function(obj) {
+      obj = htmlConvert(obj);
       obj = $.parseJSON(obj);
       var info = obj.info;
       if (obj.info=="redo") {
@@ -258,6 +266,7 @@ $("#reset").click(function(){
     url: QueryString["ip"]+ "/resetToDefault/",
     type: "POST",
     success: function(obj) {
+      obj = htmlConvert(obj);
       obj = $.parseJSON(obj);
       showInfo(obj.info);
       showError(obj.error);
@@ -271,6 +280,12 @@ $("#reset").click(function(){
     }
   });
 });
+
+function htmlConvert(data) {
+  var converter = $("#htmlConverter");
+  converter.html(data);
+  return converter.text().trim();
+}
 
 <c:if test="${link=='driver'}">
 
@@ -294,13 +309,13 @@ $("#reset").click(function(){
     $.ajax({
       url: QueryString["ip"]+ "/send/",
       type: "POST",
-      data: "xml="+editor.getValue(),
+      data: {xml: editor.getValue() , request: $('select[name=request]').val() },
       success: function(obj) {
+        obj = htmlConvert(obj);
         obj = $.parseJSON(obj);
-        console.log(obj);
         showInfo(obj.info);
         showError(obj.error);
-        showResponse(obj.data);
+        showResponse(htmlConvert(obj.data));
         sendDisable(false);
       },
       fail: function() {

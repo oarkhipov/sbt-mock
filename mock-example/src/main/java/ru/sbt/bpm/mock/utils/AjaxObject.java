@@ -1,5 +1,7 @@
 package ru.sbt.bpm.mock.utils;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 /**
  * Created by sbt-bochev-as on 17.12.2014.
  * <p/>
@@ -17,15 +19,15 @@ public class AjaxObject {
     }
 
     public void setInfo(String info) {
-        this.info = info;
+        this.info = fixNewLine(info);
     }
 
     public void setError(String error) {
-        this.error = error;
+        this.error = fixNewLine(error);
     }
 
     public void setData(String data) {
-        this.data = data;
+        this.data = StringEscapeUtils.escapeHtml(StringEscapeUtils.unescapeJava(fixNewLine(data)));
     }
 
     public String getInfo() {
@@ -39,5 +41,10 @@ public class AjaxObject {
 
     public String getData() {
         return data;
+    }
+
+    private String fixNewLine(String text) {
+        return text.replace("\r", "\\r").replace("\n", "\\n");
+
     }
 }
