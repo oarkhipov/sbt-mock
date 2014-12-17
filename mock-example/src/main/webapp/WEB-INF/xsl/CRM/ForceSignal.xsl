@@ -29,7 +29,7 @@
                     <xsl:with-param name="data" select="$data"/>
                     <xsl:with-param name="response">
                         <xsl:choose>
-                            <xsl:when test="count($data/rsd:response[@name=$linkedTag])=1"><xsl:value-of select="$linkedTag"/></xsl:when>
+                            <xsl:when test="count($data/rsd:request[@name=$linkedTag])=1"><xsl:value-of select="$linkedTag"/></xsl:when>
                             <xsl:otherwise>default</xsl:otherwise>
                         </xsl:choose>
                     </xsl:with-param>
