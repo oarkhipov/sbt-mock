@@ -91,7 +91,7 @@ public class MockController {
         return "blank";
     }
 
-    @RequestMapping(value="/mock/{name}/rollback/", method=RequestMethod.POST)
+    @RequestMapping(value="/mock/{name}/undo/", method=RequestMethod.POST)
     public String rollback(
             @PathVariable("name") String name,
             ModelMap model) throws IOException  {
@@ -99,10 +99,31 @@ public class MockController {
         File dataFile = null;
         try {
             String path = saver.TranslateNameToPath(name);
-            dataFile = saver.getNextBackUpedDataFile(path);
-            model.put("object", saver.getFileString(dataFile));
-            model.addAttribute("object", "rollbacked. ChangesAreUnsaved");
-        } catch (IOException e) {
+            dataFile = saver.rollbackNextBackUpedDataFile(path);
+            model.addAttribute("object", saver.getFileString(dataFile));
+        }catch (IndexOutOfBoundsException e) {
+            model.addAttribute("object", e.getMessage());
+        }
+        catch (IOException e) {
+            model.addAttribute("object", e.getMessage());
+        }
+        return "blank";
+    }
+
+    @RequestMapping(value="/mock/{name}/redo/", method=RequestMethod.POST)
+    public String rollforward(
+            @PathVariable("name") String name,
+            ModelMap model) throws IOException  {
+        SaveFile saver = SaveFile.getInstance(appContext);
+        File dataFile = null;
+        try {
+            String path = saver.TranslateNameToPath(name);
+            dataFile = saver.rollbackPervBackUpedDataFile(path);
+            model.addAttribute("object", saver.getFileString(dataFile));
+        }catch (IndexOutOfBoundsException e) {
+            model.addAttribute("object", e.getMessage());
+        }
+        catch (IOException e) {
             model.addAttribute("object", e.getMessage());
         }
         return "blank";

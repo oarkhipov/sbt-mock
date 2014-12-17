@@ -51,6 +51,7 @@ public class SaveFile {
 
     private Map<String, Integer> currentChosenBackUp;
 
+
     static String rootpath;
 
     protected String slash;
@@ -147,7 +148,7 @@ public class SaveFile {
      * @param path путь формата "AMRLiRT/xml/SrvCalcDebtCapacityData.xml"
      * @return Java.io.File
      */
-    public File getNextBackUpedDataFile(String path) throws IOException {
+    public File getNextBackUpedDataFile(String path) throws IOException, IndexOutOfBoundsException {
         assert !path.contains(".."+slash) : "other directories are blocked";
         //создаем бэекап текущего, но только если уже нет такого же
         File f = getBackUpedDataFile(path);
@@ -175,11 +176,88 @@ public class SaveFile {
         num--;
         if (num <0) num=backUps.size()-1;
 
-        //запоминаем номер,Ю на котором остановились, чтобы потом начать с него
+        //запоминаем номер, на котором остановились, чтобы потом начать с него
         currentChosenBackUp.put(path, num);
 
         //copyFile(backUps.get(num), f);
         return backUps.get(num);
+    }
+
+
+    /**
+     * Возвращает файл из папки WEB-INF/data, предварительно вернув его из бэкапа
+     * Каждый следующий вызов возвращает новую запись из бэкапа.
+     * @param path путь формата "AMRLiRT/xml/SrvCalcDebtCapacityData.xml"
+     * @return Java.io.File
+     */
+    public File rollbackNextBackUpedDataFile(String path) throws IOException {
+        assert !path.contains(".."+slash) : "other directories are blocked";
+        //создаем бэекап текущего, но только если уже нет такого же
+        File f = getBackUpedDataFile(path);
+        List<File> backUps = getBackUpFilesList(path, f);
+
+        int num=-1;
+        try {
+                long fhash = FileUtils.checksumCRC32(f);
+                for (int i = backUps.size() - 1; num < 0 && i >= 0; i--) {
+                    long bhash = FileUtils.checksumCRC32(backUps.get(i));
+                    if (bhash == fhash) {
+                        num = i;
+                    }
+                }
+            } catch (IOException e) {
+                num = backUps.size() - 1;
+            }
+        // увеличиваем на один. Если перевалили за размер - начинаем с начала.
+        num--;
+        if (num <0) {
+            currentChosenBackUp.put(path, 0);
+            throw new IndexOutOfBoundsException("Element is last one in list");
+        }
+
+        //запоминаем номер, на котором остановились, чтобы потом начать с него
+        currentChosenBackUp.put(path, num);
+
+        copyFile(backUps.get(num), f);
+        return f;
+    }
+
+    /**
+     * Возвращает файл из папки WEB-INF/data, предварительно вернув его из бэкапа
+     * Каждый следующий вызов возвращает новую запись из бэкапа.
+     * @param path путь формата "AMRLiRT/xml/SrvCalcDebtCapacityData.xml"
+     * @return Java.io.File
+     */
+    public File rollbackPervBackUpedDataFile(String path) throws IOException {
+        assert !path.contains(".."+slash) : "other directories are blocked";
+        //создаем бэекап текущего, но только если уже нет такого же
+        File f = getBackUpedDataFile(path);
+        List<File> backUps = getBackUpFilesList(path, f);
+
+        int num=backUps.size();
+        try {
+                long fhash = FileUtils.checksumCRC32(f);
+                for (int i = 0; num >=backUps.size() && i< backUps.size(); i++) {
+                    long bhash = FileUtils.checksumCRC32(backUps.get(i));
+                    if (bhash == fhash) {
+                        num = i;
+                    }
+                }
+            } catch (IOException e) {
+            num = backUps.size() - 1;
+        }
+
+        // увеличиваем на один. Если перевалили за размер - начинаем с начала.
+        num++;
+        if (num > backUps.size() - 1) {
+            currentChosenBackUp.put(path, backUps.size() - 1);
+            throw new IndexOutOfBoundsException("Element is last one in list");
+        }
+        //запоминаем номер, на котором остановились, чтобы потом начать с него
+        currentChosenBackUp.put(path, num);
+
+        copyFile(backUps.get(num), f);
+        return f;
     }
 
     /**

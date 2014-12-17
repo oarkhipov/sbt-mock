@@ -175,6 +175,7 @@ $("#save").click(function(){
     type: "POST",
     data: "xml="+editor.getValue(),
     success: function(msg) {
+      $("#undo").attr("disabled", false);
       showInfo(msg);
     },
     fail: function() {
@@ -183,13 +184,21 @@ $("#save").click(function(){
   });
 });
 
-$("#rollback").click(function(){
+$("#undo").click(function(){
 //  alert("Saving...");
   $.ajax({
-    url: QueryString["ip"]+ "/rollback/",
+    url: QueryString["ip"]+ "/undo/",
     type: "POST",
-    data: "xml="+editor.getValue(),
     success: function(msg) {
+      if (!msg.equals("Element is last one in list")) {
+        var converter = $("#htmlConverter");
+        converter.html(msg);
+        msg = converter.text().trim();
+        editor.setValue(msg);
+      } else {
+        $("#undo").attr("disabled", true);
+        $("#redo").attr("disabled", false);
+      }
       var converter = $("#htmlConverter");
       converter.html(msg);
       msg = converter.text().trim();
@@ -197,7 +206,30 @@ $("#rollback").click(function(){
       showInfo("Reset complete!");
     },
     fail: function() {
-      showError("Unable to rollback! Try Later...");
+      showError("Unable to save! Try Later...");
+    }
+  });
+});
+
+
+$("#redo").click(function(){
+//  alert("Saving...");
+  $.ajax({
+    url: QueryString["ip"]+ "/redo/",
+    type: "POST",
+    success: function(msg) {
+      if (!msg.equals("Element is last one in list")) {
+        var converter = $("#htmlConverter");
+        converter.html(msg);
+        msg = converter.text().trim();
+        editor.setValue(msg);
+      } else {
+        $("#redo").attr("disabled", true);
+        $("#undo").attr("disabled", false);
+      }
+    },
+    fail: function() {
+      showError("Unable to save! Try Later...");
     }
   });
 });
