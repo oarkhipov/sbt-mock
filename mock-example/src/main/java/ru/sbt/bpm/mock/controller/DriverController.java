@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.xml.sax.SAXException;
-import ru.sbt.bpm.mock.service.TransformService;
+import ru.sbt.bpm.mock.gateway.ClientService;
 import ru.sbt.bpm.mock.service.XmlDataService;
 import ru.sbt.bpm.mock.utils.SaveFile;
 
@@ -34,6 +34,9 @@ public class DriverController {
 
     @Autowired
     ApplicationContext appContext;
+
+    @Autowired
+    ClientService clientService;
 
     @RequestMapping("/driver/")
     public String  getDriver(Model model) throws IOException {
@@ -124,6 +127,14 @@ public class DriverController {
         } catch (IOException e) {
             model.addAttribute("object", e.getMessage());
         }
+        return "blank";
+    }
+    @RequestMapping(value="/driver/{name}/send/", method=RequestMethod.POST)
+    public String send(
+            @PathVariable("name") String name,
+            @RequestParam("xml") String xml,
+            ModelMap model) {
+        model.addAttribute("object", clientService.invoke(xml));
         return "blank";
     }
 }

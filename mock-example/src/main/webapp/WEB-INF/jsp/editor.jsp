@@ -39,6 +39,9 @@
   <div style="text-align: right; width: 1000px; padding-top: 7px">
     <input id="reset" type="button" value="Reset to default" style="display: inline"/>
     &nbsp;&nbsp;&nbsp;
+    <input id="undo" type="button" value="Undo" style="display: inline"/>
+    <input id="redo" type="button" value="Redo" style="display: inline"/>
+    &nbsp;&nbsp;&nbsp;
     <input id="validate" type="button" value="Validate" style="display: inline"/>
     <input id="save" type="button" value="Save" style="display: inline"/>
     <c:if test="${link=='driver'}">
@@ -47,6 +50,7 @@
 
   </div>
 </form>
+<div id="htmlConverter" style="display: none"></div>
 
 <script>
 //  var dummy = {
@@ -192,6 +196,9 @@ $("#reset").click(function(){
     url: QueryString["ip"]+ "/resetToDefault/",
     type: "POST",
     success: function(msg) {
+      var converter = $("#htmlConverter");
+      converter.html(msg);
+      msg = converter.text().trim();
       editor.setValue(msg);
 //      showError(msg);
 //      location.reload();
@@ -204,9 +211,43 @@ $("#reset").click(function(){
 
 <c:if test="${link=='driver'}">
   $("#send").click(function(){
-    alert("sending...");
+//    alert("sending...");
+    $.ajax({
+      url: QueryString["ip"]+ "/send/",
+      type: "POST",
+      data: "xml="+editor.getValue(),
+      success: function(msg) {
+        showError(msg);
+      },
+      fail: function() {
+        showError("Unable to send! Try Later...");
+      }
+    });
   });
   </c:if>
+
+var QueryString = function () {
+  // This function is anonymous, is executed immediately and
+  // the return value is assigned to QueryString!
+  var query_string = {};
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+    // If first entry with this name
+    if (typeof query_string[pair[0]] === "undefined") {
+      query_string[pair[0]] = pair[1];
+      // If second entry with this name
+    } else if (typeof query_string[pair[0]] === "string") {
+      var arr = [ query_string[pair[0]], pair[1] ];
+      query_string[pair[0]] = arr;
+      // If third or later entry with this name
+    } else {
+      query_string[pair[0]].push(pair[1]);
+    }
+  }
+  return query_string;
+} ();
 </script>
 </body>
 </html>
