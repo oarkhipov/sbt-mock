@@ -88,7 +88,6 @@ public class MockController {
                 model.addAttribute("info", "saved");
             } catch (IOException e) {
                 model.addAttribute("error", e.getMessage());
-                model.addAttribute("info", "fail");
             }
         }
         return "ajaxResponseObject";
@@ -103,17 +102,12 @@ public class MockController {
         try {
             String path = saver.TranslateNameToPath(name);
             dataFile = saver.rollbackNextBackUpedDataFile(path);
-            String datavalue = saver.getFileString(dataFile);
-            datavalue = datavalue.replace("\r", "\\r").replace("\n", "\\n");
-            model.addAttribute("data", datavalue);
-            model.addAttribute("info", "undo");
+            model.addAttribute("data", saver.getFileString(dataFile));
         }catch (IndexOutOfBoundsException e) {
             model.addAttribute("error", e.getMessage());
-            model.addAttribute("info", "fail");
         }
         catch (IOException e) {
             model.addAttribute("error", e.getMessage());
-            model.addAttribute("info", "fail");
         }
         return "ajaxResponseObject";
     }
@@ -127,17 +121,12 @@ public class MockController {
         try {
             String path = saver.TranslateNameToPath(name);
             dataFile = saver.rollbackPervBackUpedDataFile(path);
-            String datavalue = saver.getFileString(dataFile);
-            datavalue = datavalue.replace("\r", "\\r").replace("\n", "\\n");
-            model.addAttribute("data", datavalue);
-            model.addAttribute("info", "redo");
+            model.addAttribute("data", saver.getFileString(dataFile));
         }catch (IndexOutOfBoundsException e) {
             model.addAttribute("error", e.getMessage());
-            model.addAttribute("info", "fail");
         }
         catch (IOException e) {
             model.addAttribute("error", e.getMessage());
-            model.addAttribute("info", "fail");
         }
         return "ajaxResponseObject";
     }
@@ -151,13 +140,9 @@ public class MockController {
         try {
             String path = saver.TranslateNameToPath(name);
             dataFile = saver.restoreBackUpedDataFile(path);
-            String datavalue = saver.getFileString(dataFile);
-            datavalue = datavalue.replace("\r", "\\r").replace("\n","\\n");
-            model.addAttribute("data", datavalue);
-            model.addAttribute("info", "reset");
+            model.addAttribute("data", saver.getFileString(dataFile));
         } catch (IOException e) {
             model.addAttribute("error", e.getMessage());
-            model.addAttribute("info", "fail");
         }
         return "ajaxResponseObject";
     }

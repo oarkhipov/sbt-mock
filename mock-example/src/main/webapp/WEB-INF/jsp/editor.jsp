@@ -34,9 +34,15 @@
 <b>Integration point:</b> <i><c:out value="${name}"/></i>
 
 <form>
-  <div id="info">&nbsp;</div>
-  <div id="error"></div>
-  <textarea id="code" name="code"><c:out value="${object}" escapeXml="true"/></textarea>
+  <div id="codeWrapper" style="float: left">
+    <div id="info">&nbsp;</div>
+    <div id="error"></div>
+    <textarea id="code" name="code"><c:out value="${object}" escapeXml="true"/></textarea>
+  </div>
+  <div id="resWrapper" style="">
+    Response
+  <textarea id="resCode" name="resCode"></textarea>
+  </div>
   <div style="text-align: right; width: 1000px; padding-top: 7px">
     <input id="reset" type="button" value="Reset to default" style="display: inline"/>
     &nbsp;&nbsp;&nbsp;
@@ -46,6 +52,11 @@
     <input id="validate" type="button" value="Validate" style="display: inline"/>
     <input id="save" type="button" value="Save" style="display: inline"/>
     <c:if test="${link=='driver'}">
+      <select name="request">
+        <c:forEach var="entry" items="${list}">
+          <option value="${entry}" onclick="chooseIntPoint(this)">${entry}</option>
+        </c:forEach>
+      </select>
       <input id="send" type="button" value="Send" style="display: inline"/>
     </c:if>
 
@@ -116,7 +127,7 @@
     });
   }
 
-  var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+  var editorSettings = {
     mode: "xml",
     lineNumbers: true,
     extraKeys: {
@@ -133,8 +144,12 @@
     lineWrapping: true,
     foldGutter: true,
     gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
-  });
+  };
+
+  var editor = CodeMirror.fromTextArea(document.getElementById("code"), editorSettings);
+  var resEditor = CodeMirror.fromTextArea(document.getElementById("resCode"), editorSettings);
   editor.setSize("1000","400");
+  resEditor.setSize("600","400");
 
 function showInfo(text) {
   if(text) {
@@ -163,7 +178,7 @@ $("#validate").click(function(){
     data: "xml="+editor.getValue(),
     success: function(obj) {
       obj = $.parseJSON(obj);
-      showInfo(obj.info);
+      showInfo(obj.info)
       showError(obj.error);
     },
     fail: function() {
@@ -269,6 +284,10 @@ $("#reset").click(function(){
     }
   }
 
+  function showResponse(text) {
+    resEditor.setValue(text);
+  }
+
   $("#send").click(function(){
     showInfo("Sending...");
     sendDisable(true);
@@ -276,8 +295,12 @@ $("#reset").click(function(){
       url: QueryString["ip"]+ "/send/",
       type: "POST",
       data: "xml="+editor.getValue(),
-      success: function(msg) {
-        showError(msg);
+      success: function(obj) {
+        obj = $.parseJSON(obj);
+        console.log(obj);
+        showInfo(obj.info);
+        showError(obj.error);
+        showResponse(obj.data);
         sendDisable(false);
       },
       fail: function() {

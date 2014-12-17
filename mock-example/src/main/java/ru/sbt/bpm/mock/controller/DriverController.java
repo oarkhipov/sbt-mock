@@ -1,5 +1,7 @@
 package ru.sbt.bpm.mock.controller;
 
+import com.google.gson.Gson;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.gateway.ClientService;
 import ru.sbt.bpm.mock.service.XmlDataService;
+import ru.sbt.bpm.mock.utils.AjaxObject;
 import ru.sbt.bpm.mock.utils.SaveFile;
 
 import java.io.File;
@@ -19,6 +22,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,6 +59,7 @@ public class DriverController {
         model.addAttribute("name", name);
         model.addAttribute("link", "driver");
         model.addAttribute("object", xmlDataService.getXml(name));
+//        model.addAttribute("list", new ArrayList<String>(){"123","123"});
         return "editor";
     }
 
@@ -171,8 +176,23 @@ public class DriverController {
             @PathVariable("name") String name,
             @RequestParam("xml") String xml,
             ModelMap model) {
-        model.addAttribute("info", "DONE!");
-        model.addAttribute("data", clientService.invoke(xml));
-        return "ajaxResponseObject";
+//        VALIDATE
+//        try {
+//            if (xmlDataService.validate(xml)) {
+//                model.addAttribute("info", "DONE!");
+//                model.addAttribute("data", clientService.invoke(xml));
+//            }
+//        } catch (SAXException |IOException e) {
+//            model.addAttribute("error", e.getMessage());
+//        }
+        AjaxObject ajaxObject = new AjaxObject();
+        ajaxObject.setInfo("DONE!");
+        ajaxObject.setData(clientService.invoke(xml));
+        Gson gson = new Gson();
+        String json = StringEscapeUtils.unescapeJava(gson.toJson(ajaxObject));
+        System.out.println(json);
+        model.addAttribute("object", json);
+
+        return "blank";
     }
 }

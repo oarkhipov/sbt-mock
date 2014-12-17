@@ -28,7 +28,6 @@ public class TransformController {
     @RequestMapping(value="/transform/")
     public String list(Model model) {
         model.addAttribute("list", transformService.getTransformers());
-        model.addAttribute("name", "blablabla");
         for(String entry:transformService.getTransformers())
             System.out.println(entry);
         return "form";
