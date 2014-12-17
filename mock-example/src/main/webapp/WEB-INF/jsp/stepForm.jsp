@@ -115,9 +115,9 @@
       <section>
         <input type="button" value="BACK" onclick="window.location.href='../'"/>
         <span style="line-height: 5pt; display: block">&nbsp;</span>
-        <select size="25" onchange="chooseIntPoint(this)">
+        <select size="25" <!--onchange="chooseIntPoint(this)"--> >
           <c:forEach var="entry" items="${list}">
-            <option value="${entry}">${entry}</option>
+            <option value="${entry}" onclick="chooseIntPoint(this)">${entry}</option>
           </c:forEach>
         </select>
       </section>

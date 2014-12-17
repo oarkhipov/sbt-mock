@@ -1,6 +1,7 @@
 package ru.sbt.bpm.mock.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -8,7 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.service.TransformService;
 import ru.sbt.bpm.mock.service.XmlDataService;
+import ru.sbt.bpm.mock.utils.SaveFile;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -24,6 +28,9 @@ public class MockController {
     @Autowired
     private XmlDataService xmlDataService;
 
+    @Autowired
+    ApplicationContext appContext;
+
     @RequestMapping("/mock/")
     public String  getMock(Model model) {
         model.addAttribute("type", "Response");
@@ -36,7 +43,12 @@ public class MockController {
     public String get(@PathVariable("name") String name, Model model) throws IOException {
         model.addAttribute("name", name);
         model.addAttribute("link", "mock");
-        model.addAttribute("object", xmlDataService.getXml(name + "_Data"));
+        try {
+            model.addAttribute("object", xmlDataService.getXml(name + "_Data"));
+        }
+        catch (Exception e) {
+            model.addAttribute("object", e.getMessage());
+        }
         return "editor";
     }
 
@@ -50,6 +62,63 @@ public class MockController {
                 model.addAttribute("object", "true");
             }
         } catch (SAXException|IOException e) {
+            model.addAttribute("object", e.getMessage());
+        }
+        return "blank";
+    }
+
+    @RequestMapping(value="/mock/{name}/save/", method=RequestMethod.POST)
+    public String save(
+            @PathVariable("name") String name,
+            @RequestParam("xml") String xml,
+            ModelMap model) {
+        SaveFile saver = SaveFile.getInstance(appContext);
+        File dataFile = null;
+        try {
+            String path = saver.TranslateNameToPath(name);
+            dataFile = saver.getBackUpedDataFile(path);
+        } catch (Exception e) {
+            model.addAttribute("object", e.getMessage());
+        }
+        if (dataFile!=null) {
+            try {
+                saver.writeStringToFile(dataFile, xml);
+                model.addAttribute("object", "saved");
+            } catch (IOException e) {
+                model.addAttribute("object", e.getMessage());
+            }
+        }
+        return "blank";
+    }
+
+    @RequestMapping(value="/mock/{name}/rollback/", method=RequestMethod.POST)
+    public String rollback(
+            @PathVariable("name") String name,
+            ModelMap model) {
+        SaveFile saver = SaveFile.getInstance(appContext);
+        File dataFile = null;
+        try {
+            String path = saver.TranslateNameToPath(name);
+            dataFile = saver.getNextBackUpedDataFile(path);
+            model.put("object", saver.getFileString(dataFile));
+            model.addAttribute("object", "rollbacked. ChangesAreUnsaved");
+        } catch (IOException e) {
+            model.addAttribute("object", e.getMessage());
+        }
+        return "blank";
+    }
+
+    @RequestMapping(value="/mock/{name}/resetToDefault/", method=RequestMethod.POST)
+    public String resetToDefault(
+            @PathVariable("name") String name,
+            ModelMap model) {
+        SaveFile saver = SaveFile.getInstance(appContext);
+        File dataFile = null;
+        try {
+            String path = saver.TranslateNameToPath(name);
+            dataFile = saver.restoreBackUpedDataFile(path);
+            model.addAttribute("object", saver.getFileString(dataFile));
+        } catch (IOException e) {
             model.addAttribute("object", e.getMessage());
         }
         return "blank";

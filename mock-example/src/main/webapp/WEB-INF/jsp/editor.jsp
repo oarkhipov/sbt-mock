@@ -158,12 +158,48 @@ $("#validate").click(function(){
 
 $("#save").click(function(){
 //  alert("Saving...");
-  showError();
+  $.ajax({
+    url: QueryString["ip"]+ "/save/",
+    type: "POST",
+    data: "xml="+editor.getValue(),
+    success: function(msg) {
+      showError(msg);
+    },
+    fail: function() {
+      showError("Unable to save! Try Later...");
+    }
+  });
+});
+
+$("#rollback").click(function(){
+//  alert("Saving...");
+  $.ajax({
+    url: QueryString["ip"]+ "/rollback/",
+    type: "POST",
+    data: "xml="+editor.getValue(),
+    success: function(msg) {
+      showError(msg);
+    },
+    fail: function() {
+      showError("Unable to rollback! Try Later...");
+    }
+  });
 });
 
 $("#reset").click(function(){
-  alert("Restore defaults...");
-  editor.setValue("test");
+//  alert("Restore defaults...");
+  $.ajax({
+    url: QueryString["ip"]+ "/resetToDefault/",
+    type: "POST",
+    success: function(msg) {
+      editor.setValue(msg);
+//      showError(msg);
+//      location.reload();
+    },
+    fail: function() {
+      showError("Unable to save! Try Later...");
+    }
+  });
 });
 
 <c:if test="${link=='driver'}">

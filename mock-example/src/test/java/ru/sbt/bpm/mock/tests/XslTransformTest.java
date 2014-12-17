@@ -68,7 +68,7 @@ public class XslTransformTest {
 
 
         checkXMLDataRowToXMLDataListByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl",
-                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\FinRep\\xml\\SrvGetFinReport.xml",
+                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\FinRep\\xml\\SrvGetFinReportData.xml",
                 "\r\ndefault\r\ntestError");
     }
 
@@ -79,12 +79,12 @@ public class XslTransformTest {
         System.out.println(dir);
 
         String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl";
-        String XMLFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\FinRep\\xml\\SrvGetFinReport.xml";
+        String XMLFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\FinRep\\xml\\SrvGetFinReportData.xml";
         String validateString = "<response xmlns=\"http://sbrf.ru/NCP/ASFO/GetFinReport/Data\" name=\"testError\">\r\n" +
                 "        <errorCode>e</errorCode>\r\n" +
                 "        <!--Optional:-->\r\n" +
-                "        <errorMessage>testing error message SrvGetFinReport.xml</errorMessage>\r\n" +
-                "        <nonCurrentAssetsNFRS>testing error message SrvGetFinReport.xml</nonCurrentAssetsNFRS>\r\n" +
+                "        <errorMessage>testing error message SrvGetFinReportData.xml</errorMessage>\r\n" +
+                "        <nonCurrentAssetsNFRS>testing error message SrvGetFinReportData.xml</nonCurrentAssetsNFRS>\r\n" +
                 "    </response>";
 
         String result = XslTransformer.transform(XSLTFile, XMLFile, "name", "testError");

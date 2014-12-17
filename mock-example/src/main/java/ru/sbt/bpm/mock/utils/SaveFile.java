@@ -2,10 +2,12 @@ package ru.sbt.bpm.mock.utils;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.context.ApplicationContext;
 
 import java.io.*;
 import java.lang.reflect.Array;
 import java.nio.file.Files;
+import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.text.DateFormat;
@@ -20,7 +22,8 @@ import java.util.regex.Pattern;
 public class SaveFile {
     private static SaveFile ourInstance = new SaveFile();
 
-    public static SaveFile getInstance() {
+    public static SaveFile getInstance(ApplicationContext AppContext) {
+        ourInstance.appContext = AppContext;
         return ourInstance;
     }
 
@@ -32,6 +35,8 @@ public class SaveFile {
     public int logSize = 5;//TODO засунуть в конфиг
 
     private Map<String, Integer> currentChosenBackUp;
+
+    ApplicationContext appContext;
 
     protected String slash;
 
@@ -50,21 +55,21 @@ public class SaveFile {
      */
     private String outPath;
 
-    public String getWebInfPath() {
+    public String getWebInfPath() throws IOException {
         if (webInfPath!=null) return webInfPath;
-        webInfPath = System.getProperty("user.dir") + slash +"src"+slash+"main"+slash+"webapp"+slash+"WEB-INF";
+        webInfPath = appContext.getResource("/WEB-INF").getFile().getCanonicalPath();
         return webInfPath;
     }
 
-    public String getResourcesPath() {
+    /*public String getResourcesPath() {
         if (resourcesPath!=null) return resourcesPath;
         resourcesPath = System.getProperty("user.dir") +slash+"src"+slash+"test"+slash+"resources";
         return resourcesPath;
-    }
+    }*/
 
-    public String getOutPath() {
+    public String getOutPath() throws IOException {
         if (outPath!=null) return outPath;
-        outPath = System.getProperty("user.dir") +slash+"out"+slash+"back";
+        outPath = getWebInfPath() +slash+"backup";
         return outPath;
     }
 
@@ -73,7 +78,7 @@ public class SaveFile {
      * @param path путь формата "AMRLiRT/xml/SrvCalcDebtCapacityData.xml"
      * @return Java.io.File
      */
-    protected File getDataFile(String path) throws FileNotFoundException{
+    protected File getDataFile(String path) throws IOException {
         File f = new File(getWebInfPath() +slash+"data"+slash+path);
         if (!f.exists()) {
             throw new FileNotFoundException();
@@ -117,8 +122,8 @@ public class SaveFile {
         List<File> backUps = getBackUpFilesList(path, f);
         assert num<backUps.size()+1 : "cant restore ["+num+"] backupfile. there is only ["+backUps.size()+"] backups";
 
-        //copyFile(backUps.get(num-1), f);
-        return backUps.get(num-1);
+        copyFile(backUps.get(num-1), f);
+        return f;
     }
 
     /**
@@ -127,7 +132,7 @@ public class SaveFile {
      * @param path путь формата "AMRLiRT/xml/SrvCalcDebtCapacityData.xml"
      * @return Java.io.File
      */
-    public File restoreNextBackUpedDataFile(String path) throws IOException {
+    public File getNextBackUpedDataFile(String path) throws IOException {
         assert !path.contains(".."+slash) : "other directories are blocked";
         //создаем бэекап текущего, но только если уже нет такого же
         File f = getBackUpedDataFile(path);
@@ -168,12 +173,11 @@ public class SaveFile {
      * @param f файл для бэкапа
      * @return File если нужно. Null если бэк не нужен
      */
-    protected File isFileNeedBackUp(String path, File f) {
+    protected File isFileNeedBackUp(String path, File f) throws IOException {
         String subPath = path.replace(f.getName(), "");
         File backDir = getBackUpDestinationDir(subPath, f);
         try {
-            assert backDir.exists();//дирректории нет - нуужно делать бэкап
-
+            if (!backDir.exists()) throw new FileNotFoundException(backDir.getCanonicalPath());//дирректории нет - нуужно делать бэкап
             //список бэкапов с похожими намерами
             List<File> backupFiles = getBackUpFilesList(path, f);
 
@@ -186,11 +190,12 @@ public class SaveFile {
                     noBackUpFile = fhash != bhash;
                 }
             }
-            assert !noBackUpFile;
+            if (noBackUpFile) throw new Exception();//такой бэкап уже есть
+
 
             return null;
 
-        } catch (Exception | AssertionError e){
+        } catch (Exception e){
             return new File(backDir.getPath() + slash + composeBackUpFilename(f.getName()));
         }
 
@@ -200,7 +205,7 @@ public class SaveFile {
      * Возвращает директорию, куда надо делать бэкап
      * не проверяет наличие дирректории
      */
-    private File getBackUpDestinationDir(String path, File f) {
+    private File getBackUpDestinationDir(String path, File f) throws IOException {
         String subPath = path.replace(f.getName(), "");
         File dir = new File(getOutPath() +slash+ subPath);
         return dir;
@@ -291,15 +296,65 @@ public class SaveFile {
 
         Pattern p = Pattern.compile("^" + fbasename + "\\.(\\d{8}_\\d{6})\\." + fextname + "$");
 
-        for (File bf : backDir.listFiles()) {
-            Matcher m = p.matcher(bf.getName());
-            if (m.find()) {
-                files.add(bf);
-            }
-        }
+        if (backDir.exists()) {
 
-        Collections.sort(files, new FileComparator());
+            for (File bf : backDir.listFiles()) {
+                Matcher m = p.matcher(bf.getName());
+                if (m.find()) {
+                    files.add(bf);
+                }
+            }
+
+            Collections.sort(files, new FileComparator());
+        }
         return files;
+    }
+
+    public String TranslateNameToPath(String name) throws FileNotFoundException, IOException{
+        String path;
+        if (!name.contains("_")) {
+            throw new IllegalArgumentException("Error: Illegal Argument \"name\":=\""+name+"\"");
+        }
+        String[] parts = name.split("_");
+        path = parts[0]+slash+"xml"+slash+parts[1]+"Data.xml";
+        File file = new File(getWebInfPath()+slash+"data"+slash+path);
+        if (file.exists()) return path; //Нашли файл. Если здесь не нашли - дальше пляски с бубном
+
+        /*//просмотр папок, имя которых похоже на первую часть имени.
+        File dataFolder = new File(getWebInfPath() + slash + "data");
+        File[] catFolders =  dataFolder.listFiles();
+        String category=null;
+        for (File catFolder : catFolders) {
+            if (catFolder.getName().toUpperCase().contains(parts[0].toUpperCase())) category = catFolder.getName();
+        }
+        if (category!=null) {
+            //просмотр файлов внутри группы
+            dataFolder = new File(getWebInfPath() + slash + "data"+slash+category+slash+"xml");
+            File[] files =  dataFolder.listFiles();
+            String dataFilename = null;
+            for (File datafiles : files) {
+                if (datafiles.getName().toUpperCase().contains(parts[1].toUpperCase())) dataFilename = datafiles.getName();
+            }
+            path = dataFolder+slash+dataFilename+".xml";
+            file = new File(path);
+            if (file.exists()) return path; //Нашли файл. Если здесь не нашли - значиьт видимо нет такого файла
+        }*/
+        throw new FileNotFoundException(path);
+    }
+
+    public void writeStringToFile(File f, String data) throws IOException {
+        PrintWriter out = new PrintWriter(f);
+        try {
+            out.print(data);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            out.close();
+        }
+    }
+
+    public String getFileString(File file) throws IOException {
+        return FileUtils.readFileToString(file);
     }
 
 
