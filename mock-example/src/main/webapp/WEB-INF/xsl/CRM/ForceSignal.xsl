@@ -59,14 +59,16 @@
             <rq:requestType><xsl:value-of select="$data/rsd:request[@name=$response]/rsd:requestType"/></rq:requestType>
             <rq:fullNameOfResponsiblePerson><xsl:value-of select="$data/rsd:request[@name=$response]/rsd:fullNameOfResponsiblePerson"/></rq:fullNameOfResponsiblePerson>
             <!--Zero or more repetitions:-->
-            <rq:participantsGroup>
-                <rq:id><xsl:value-of select="$data/rsd:request[@name=$response]/rsd:participantsGroup/rsd:id"/></rq:id>
-                <rq:label><xsl:value-of select="$data/rsd:request[@name=$response]/rsd:participantsGroup/rsd:label"/></rq:label>
-                <rq:status><xsl:value-of select="$data/rsd:request[@name=$response]/rsd:participantsGroup/rsd:status"/></rq:status>
-                <rq:updateDate><xsl:value-of select="$data/rsd:request[@name=$response]/rsd:participantsGroup/rsd:updateDate"/></rq:updateDate>
-                <rq:approvalDate><xsl:value-of select="$data/rsd:request[@name=$response]/rsd:participantsGroup/rsd:approvalDate"/></rq:approvalDate>
-                <rq:topLevelGroupName><xsl:value-of select="$data/rsd:request[@name=$response]/rsd:participantsGroup/rsd:topLevelGroupName"/></rq:topLevelGroupName>
-            </rq:participantsGroup>
+            <xsl:for-each select="$data/rsd:request[@name=$response]/rsd:participantsGroup">
+                <rq:participantsGroup>
+                    <rq:id><xsl:value-of select="./rsd:id"/></rq:id>
+                    <rq:label><xsl:value-of select="./rsd:label"/></rq:label>
+                    <rq:status><xsl:value-of select="./rsd:status"/></rq:status>
+                    <rq:updateDate><xsl:value-of select="./rsd:updateDate"/></rq:updateDate>
+                    <rq:approvalDate><xsl:value-of select="./rsd:approvalDate"/></rq:approvalDate>
+                    <rq:topLevelGroupName><xsl:value-of select="./rsd:topLevelGroupName"/></rq:topLevelGroupName>
+                </rq:participantsGroup>
+            </xsl:for-each>
         </crm:forceSignalRq>
     </xsl:template>
 

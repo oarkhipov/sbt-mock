@@ -45,23 +45,32 @@
 		<amr:calculateLGDRs>
 			<cal:errorCode><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/></cal:errorCode>
 			<!--Optional:-->
+			<xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
 			<cal:errorMessage><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/></cal:errorMessage>
+			</xsl:if>
 			<cal:crmId><xsl:value-of select="//cal:crmId"/></cal:crmId>
 			<cal:lgdType><xsl:value-of select="//cal:lgdType"/></cal:lgdType>
 			<cal:lgdDate><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:lgdDate"/></cal:lgdDate>
 			<!--Optional:-->
+			<xsl:if test="$data/rsd:response[@name=$response]/rsd:pd">
 			<cal:pd><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:pd"/></cal:pd>
+			</xsl:if>
 			<cal:lgd><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:lgd"/></cal:lgd>
 			<cal:ead><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:ead"/></cal:ead>
 			<cal:sum><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:sum"/></cal:sum>
 			<!--Optional:-->
+			<xsl:if test="$data/rsd:response[@name=$response]/rsd:elPercent">
 			<cal:elPercent><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:elPercent"/></cal:elPercent>
+			</xsl:if>
 			<!--Optional:-->
+			<xsl:if test="$data/rsd:response[@name=$response]/rsd:el">
 			<cal:el><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:el"/></cal:el>
+			</xsl:if>
 			<cal:totalValue><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:totalValue"/></cal:totalValue>
 			<cal:totalColValueLgd><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:totalColValueLgd"/></cal:totalColValueLgd>
 			<cal:totalColValueEad><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:totalColValueEad"/></cal:totalColValueEad>
 			<!--Optional:-->
+			<xsl:if test="$data/rsd:response[@name=$response]/rsd:listOfCollateral">
 			<cal:listOfCollateral>
 				<!--Zero or more repetitions:-->
 				<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfCollateral/rsd:collateral">
@@ -75,6 +84,7 @@
 				</cal:collateral>
 				</xsl:for-each>
 			</cal:listOfCollateral>
+			</xsl:if>
 		</amr:calculateLGDRs>
 	</xsl:template>
 

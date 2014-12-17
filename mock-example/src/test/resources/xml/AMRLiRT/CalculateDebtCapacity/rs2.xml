@@ -5,14 +5,9 @@
       <cal:errorCode>e</cal:errorCode>
       <cal:errorMessage>testing error message</cal:errorMessage>
       <cal:crmId/>
-      <cal:rmk/>
       <cal:debtCapacity/>
-      <cal:rmkInDealCurrency/>
       <cal:debtCapacityInDealCurrency/>
-      <cal:rmkForNextYear/>
-      <cal:debtCapacityForNextYear/>
       <cal:listOfAddParameter/>
-      <cal:amMessage/>
     </amr:calculateDCRs>
   </soap-env:Body>
 </soap-env:Envelope>

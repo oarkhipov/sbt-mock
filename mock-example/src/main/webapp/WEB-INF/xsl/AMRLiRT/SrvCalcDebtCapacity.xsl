@@ -45,31 +45,43 @@
 		<amr:calculateDCRs>
 			<cal:errorCode><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/></cal:errorCode>
 			<!--Optional:-->
-			<cal:errorMessage><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/></cal:errorMessage>
+			<xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+				<cal:errorMessage><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/></cal:errorMessage>
+			</xsl:if>
 			<cal:crmId><xsl:value-of select="//cal:crmId"/></cal:crmId>
 			<!--Optional:-->
-			<cal:rmk><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:rmk"/></cal:rmk>
+			<xsl:if test="$data/rsd:response[@name=$response]/rsd:rmk">
+				<cal:rmk><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:rmk"/></cal:rmk>
+			</xsl:if>
 			<cal:debtCapacity><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:debtCapacity"/></cal:debtCapacity>
 			<!--Optional:-->
-			<cal:rmkInDealCurrency><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:rmkInDealCurrency"/></cal:rmkInDealCurrency>
+			<xsl:if test="$data/rsd:response[@name=$response]/rsd:rmkInDealCurrency">
+				<cal:rmkInDealCurrency><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:rmkInDealCurrency"/></cal:rmkInDealCurrency>
+			</xsl:if>
 			<cal:debtCapacityInDealCurrency><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:debtCapacityInDealCurrency"/></cal:debtCapacityInDealCurrency>
 			<!--Optional:-->
-			<cal:rmkForNextYear><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:rmkForNextYear"/></cal:rmkForNextYear>
+			<xsl:if test="$data/rsd:response[@name=$response]/rsd:rmkForNextYear">
+				<cal:rmkForNextYear><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:rmkForNextYear"/></cal:rmkForNextYear>
+			</xsl:if>
 			<!--Optional:-->
-			<cal:debtCapacityForNextYear><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:debtCapacityForNextYear"/></cal:debtCapacityForNextYear>
+			<xsl:if test="$data/rsd:response[@name=$response]/rsd:debtCapacityForNextYear">
+				<cal:debtCapacityForNextYear><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:debtCapacityForNextYear"/></cal:debtCapacityForNextYear>
+			</xsl:if>
 			<cal:listOfAddParameter>
 				<!--Zero or more repetitions:-->
 				<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfAddParameter/rsd:addParameter">
-				<cal:addParameter>
-					<!--Optional:-->
-					<cal:order><xsl:value-of select="rsd:order"/></cal:order>
-					<cal:name><xsl:value-of select="rsd:name"/></cal:name>
-					<cal:value><xsl:value-of select="rsd:value"/></cal:value>
-				</cal:addParameter>
+					<cal:addParameter>
+						<!--Optional:-->
+						<cal:order><xsl:value-of select="rsd:order"/></cal:order>
+						<cal:name><xsl:value-of select="rsd:name"/></cal:name>
+						<cal:value><xsl:value-of select="rsd:value"/></cal:value>
+					</cal:addParameter>
 				</xsl:for-each>
 			</cal:listOfAddParameter>
 			<!--Optional:-->
-			<cal:amMessage><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:amMessage"/></cal:amMessage>
+			<xsl:if test="$data/rsd:response[@name=$response]/rsd:amMessage">
+				<cal:amMessage><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:amMessage"/></cal:amMessage>
+			</xsl:if>
 		</amr:calculateDCRs>
 	</xsl:template>
 

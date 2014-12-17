@@ -14,7 +14,7 @@
 		<xsl:element name="soap-env:Envelope">
 			<xsl:copy-of select="soap-env:Header"/>
 			<soap-env:Body>
-				<xsl:variable name="data" select="document('../../data/FinRep/xml/SrvGetRatingsAndFactors.xml')/rsd:data"/>
+				<xsl:variable name="data" select="document('../../data/FinRep/xml/SrvGetRatingsAndFactorsData.xml')/rsd:data"/>
 				<xsl:variable name="linkedTag" select="./soap-env:Body/crm:getRatingsAndFactorsRq/rq:comment"/>
 				<xsl:call-template name="FinAnalysis">
 					<xsl:with-param name="data" select="$data"/>

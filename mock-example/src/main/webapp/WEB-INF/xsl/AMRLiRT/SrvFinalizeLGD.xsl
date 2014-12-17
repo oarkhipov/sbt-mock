@@ -45,7 +45,9 @@
 		<amr:finalizeLGDRs>
 			<fin:errorCode><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/></fin:errorCode>
 			<!--Optional:-->
-			<fin:errorMessage><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/></fin:errorMessage>
+			<xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+				<fin:errorMessage><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/></fin:errorMessage>
+			</xsl:if>
 			<fin:crmId><xsl:value-of select="./soap-env:Body/amr:finalizeLGDRq/fin:crmId"/></fin:crmId>
 			<fin:type><xsl:value-of select="./soap-env:Body/amr:finalizeLGDRq/fin:type"/></fin:type>
 		</amr:finalizeLGDRs>

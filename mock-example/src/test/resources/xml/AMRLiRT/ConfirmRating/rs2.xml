@@ -5,7 +5,6 @@
       <con:return>
         <con:errorCode>e</con:errorCode>
         <con:errorMessage>testing error message</con:errorMessage>
-        <con:listOfAddParameter/>
       </con:return>
     </amr:confirmRatingRs>
   </soap-env:Body>
