@@ -6,13 +6,13 @@
       <cal:errorMessage>testing error message</cal:errorMessage>
       <cal:crmId/>
       <cal:lgdType/>
-      <cal:lgdDate/>
-      <cal:lgd/>
-      <cal:ead/>
-      <cal:sum/>
-      <cal:totalValue/>
-      <cal:totalColValueLgd/>
-      <cal:totalColValueEad/>
+      <cal:lgdDate>2008-09-29</cal:lgdDate>
+      <cal:lgd>1000.00</cal:lgd>
+      <cal:ead>1000.00</cal:ead>
+      <cal:sum>1000.00</cal:sum>
+      <cal:totalValue>1000.00</cal:totalValue>
+      <cal:totalColValueLgd>1000.00</cal:totalColValueLgd>
+      <cal:totalColValueEad>1000.00</cal:totalColValueEad>
     </amr:calculateLGDRs>
   </soap-env:Body>
 </soap-env:Envelope>

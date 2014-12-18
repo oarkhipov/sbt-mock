@@ -3,31 +3,38 @@
 	<soap-env:Body xmlns:rs="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRs/" xmlns:rsd="http://sbrf.ru/NCP/ASFO/GetFinAnalysis/Data" xmlns:rq="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRq/" xmlns:crm="http://sbrf.ru/NCP/ASFO/">
 		<crm:getFinAnalysisRs>
 			<rs:actualRequirements>
-				<rs:creditRiskPerDebtor/>
-				<rs:creditRiskForRelatedDebtorGroup/>
-				<rs:creditRiskPerLegalEntityInsider/>
-				<rs:economicGroupRiskFactor/>
+				<rs:creditRiskPerDebtor>1000.00</rs:creditRiskPerDebtor>
+				<rs:creditRiskForRelatedDebtorGroup>1000.00</rs:creditRiskForRelatedDebtorGroup>
+				<rs:creditRiskPerLegalEntityInsider>1000.00</rs:creditRiskPerLegalEntityInsider>
+				<rs:economicGroupRiskFactor>1000.00</rs:economicGroupRiskFactor>
 			</rs:actualRequirements>
 			<rs:actualRequirementsInTotal>
-				<rs:creditRiskPerDebtor/>
-				<rs:creditRiskForRelatedDebtorGroup/>
-				<rs:creditRiskPerLegalEntityInsider/>
-				<rs:economicGroupRiskFactor/>
+				<rs:creditRiskPerDebtor>1000.00</rs:creditRiskPerDebtor>
+				<rs:creditRiskForRelatedDebtorGroup>1000.00</rs:creditRiskForRelatedDebtorGroup>
+				<rs:creditRiskPerLegalEntityInsider>1000.00</rs:creditRiskPerLegalEntityInsider>
+				<rs:economicGroupRiskFactor>1000.00</rs:economicGroupRiskFactor>
 			</rs:actualRequirementsInTotal>
-			<rs:creditHistoryConclusions/>
-			<rs:offBalanceSheetLiabilities>testing error message SrvGetFinAnalysis.xml</rs:offBalanceSheetLiabilities>
-			<rs:liabilitiesDynamicsComment/>
-			<rs:turnoversComment/>
-			<rs:revenueExpensesStressAnalysis/>
+			<rs:finIndexChangesReasonNFRS>string</rs:finIndexChangesReasonNFRS>
+			<rs:finPerformanceCommentNFRS>string</rs:finPerformanceCommentNFRS>
+			<rs:finIndexChangesReasonIFRS>string</rs:finIndexChangesReasonIFRS>
+			<rs:finPerformanceCommentIFRS>string</rs:finPerformanceCommentIFRS>
+			<rs:creditHistoryConclusions>string</rs:creditHistoryConclusions>
+			<rs:offBalanceSheetLiabilities>string</rs:offBalanceSheetLiabilities>
+			<rs:liabilitiesDynamicsComment>string</rs:liabilitiesDynamicsComment>
+			<rs:turnoversComment>string</rs:turnoversComment>
+			<rs:revenueExpensesStressAnalysis>string</rs:revenueExpensesStressAnalysis>
+			<rs:structuredDealsStressAnalysis>string</rs:structuredDealsStressAnalysis>
 			<rs:fieldInfo>
-				<rs:mainField/>
-				<rs:mainBusiness/>
+				<rs:mainField>string</rs:mainField>
+				<rs:mainBusiness>string</rs:mainBusiness>
 			</rs:fieldInfo>
-			<rs:marketPositionAndTrends/>
+			<rs:marketPositionAndTrends>
+				<rs:trends>string</rs:trends>
+			</rs:marketPositionAndTrends>
 			<rs:business>
-				<rs:suppliersConcentrationLevel/>
-				<rs:buyersConcentrationLevel/>
-				<rs:dependenceComment/>
+				<rs:suppliersConcentrationLevel>string</rs:suppliersConcentrationLevel>
+				<rs:buyersConcentrationLevel>string</rs:buyersConcentrationLevel>
+				<rs:dependenceComment>string</rs:dependenceComment>
 			</rs:business>
 		</crm:getFinAnalysisRs>
 	</soap-env:Body>

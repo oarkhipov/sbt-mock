@@ -36,6 +36,37 @@
 	</xsl:template>
 
 
+	<xsl:template match="rsd:resultRating">
+		<cal:resultRating>
+			<cal:isPrimary><xsl:value-of select="rsd:isPrimary"/></cal:isPrimary>
+			<cal:name><xsl:value-of select="rsd:name"/></cal:name>
+			<cal:value><xsl:value-of select="rsd:value"/></cal:value>
+			<!--Optional:-->
+			<xsl:if test="rsd:type">
+				<cal:type><xsl:value-of select="rsd:type"/></cal:type>
+			</xsl:if>
+		</cal:resultRating>
+	</xsl:template>
+
+
+	<xsl:template match="rsd:calculatedFactor">
+		<cal:calculatedFactor>
+			<cal:code><xsl:value-of select="rsd:code"/></cal:code>
+			<cal:name><xsl:value-of select="rsd:name"/></cal:name>
+			<cal:value><xsl:value-of select="rsd:value"/></cal:value>
+		</cal:calculatedFactor>
+	</xsl:template>
+
+
+	<xsl:template match="rsd:addParameter">
+		<cal:addParameter>
+			<cal:order><xsl:value-of select="rsd:order"/></cal:order>
+			<cal:name><xsl:value-of select="rsd:name"/></cal:name>
+			<cal:value><xsl:value-of select="rsd:value"/></cal:value>
+		</cal:addParameter>
+	</xsl:template>
+
+
 	<!--Transform main XML-->
 	<xsl:template name="RsBody">
 		<!--Get params-->
@@ -51,42 +82,20 @@
 				</xsl:if>
 				<cal:listOfResultRating>
 					<!--Zero or more repetitions:-->
-					<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfResultRating/rsd:resultRating">
-					<cal:resultRating>
-						<cal:isPrimary><xsl:value-of select="rsd:isPrimary"/></cal:isPrimary>
-						<cal:name><xsl:value-of select="rsd:name"/></cal:name>
-						<cal:value><xsl:value-of select="rsd:value"/></cal:value>
-						<!--Optional:-->
-						<xsl:if test="rsd:type">
-						<cal:type><xsl:value-of select="rsd:type"/></cal:type>
-						</xsl:if>
-					</cal:resultRating>
-					</xsl:for-each>
+					<xsl:apply-templates select="$data/rsd:response[@name=$response]//rsd:listOfResultRating/rsd:resultRating"/>
 				</cal:listOfResultRating>
 				<!--Optional:-->
 				<xsl:if test="$data/rsd:response[@name=$response]//rsd:listOfCalculatedFactor/rsd:calculatedFactor">
 				<cal:listOfCalculatedFactor>
 					<!--Zero or more repetitions:-->
-					<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfCalculatedFactor/rsd:calculatedFactor">
-					<cal:calculatedFactor>
-						<cal:code><xsl:value-of select="rsd:code"/></cal:code>
-						<cal:name><xsl:value-of select="rsd:name"/></cal:name>
-						<cal:value><xsl:value-of select="rsd:value"/></cal:value>
-					</cal:calculatedFactor>
-					</xsl:for-each>
+					<xsl:apply-templates select="$data/rsd:response[@name=$response]//rsd:listOfCalculatedFactor/rsd:calculatedFactor"/>
 				</cal:listOfCalculatedFactor>
 				</xsl:if>
 				<!--Optional:-->
 				<xsl:if test="$data/rsd:response[@name=$response]//rsd:listOfAddParameter/rsd:addParameter">
 				<cal:listOfAddParameter>
 					<!--Zero or more repetitions:-->
-					<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfAddParameter/rsd:addParameter">
-					<cal:addParameter>
-						<cal:order><xsl:value-of select="rsd:order"/></cal:order>
-						<cal:name><xsl:value-of select="rsd:name"/></cal:name>
-						<cal:value><xsl:value-of select="rsd:value"/></cal:value>
-					</cal:addParameter>
-					</xsl:for-each>
+					<xsl:apply-templates select="$data/rsd:response[@name=$response]//rsd:listOfAddParameter/rsd:addParameter"/>
 				</cal:listOfAddParameter>
 				</xsl:if>
 			</cal:return>

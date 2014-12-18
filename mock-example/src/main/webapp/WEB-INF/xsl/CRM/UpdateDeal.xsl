@@ -45,99 +45,111 @@
         </rs:errorMessage>
     </xsl:template>
 
+    <xsl:template match="rsd:collateral">
+        <rq:collateral>
+            <rq:collateralType><xsl:value-of select="./rsd:collateralType"/></rq:collateralType>
+            <rq:ownerID><xsl:value-of select="./rsd:ownerID"/></rq:ownerID>
+            <rq:estimatedValue><xsl:value-of select="./rsd:estimatedValue"/></rq:estimatedValue>
+            <rq:discountRate><xsl:value-of select="./rsd:discountRate"/></rq:discountRate>
+            <rq:estimatedValueCorrected><xsl:value-of select="./rsd:estimatedValueCorrected"/></rq:estimatedValueCorrected>
+            <rq:qualityCategory><xsl:value-of select="./rsd:qualityCategory"/></rq:qualityCategory>
+            <rq:daysForCalculation><xsl:value-of select="./rsd:daysForCalculation"/></rq:daysForCalculation>
+            <rq:estimatedValueCorrectedToEAD><xsl:value-of select="./rsd:estimatedValueCorrectedToEAD"/></rq:estimatedValueCorrectedToEAD>
+            <rq:securityShare><xsl:value-of select="./rsd:securityShare"/></rq:securityShare>
+            <rq:EstimatedValueSource><xsl:value-of select="./rsd:EstimatedValueSource"/></rq:EstimatedValueSource>
+            <rq:estimationDate><xsl:value-of select="./rsd:estimationDate"/></rq:estimationDate>
+            <rq:businessMeaning><xsl:value-of select="./rsd:businessMeaning"/></rq:businessMeaning>
+            <rq:qualityAndLiquidityEstimation><xsl:value-of select="./rsd:qualityAndLiquidityEstimation"/></rq:qualityAndLiquidityEstimation>
+            <rq:currency><xsl:value-of select="./rsd:currency"/></rq:currency>
+            <rq:estimatedValueType><xsl:value-of select="./rsd:estimatedValueType"/></rq:estimatedValueType>
+            <rq:guarantorRating><xsl:value-of select="./rsd:guarantorRating"/></rq:guarantorRating>
+        </rq:collateral>
+    </xsl:template>
+
+    <xsl:template match="rsd:fee">
+        <rq:fee>
+            <rq:feeName><xsl:value-of select="./rsd:feeName"/></rq:feeName>
+            <rq:anotherFeeName><xsl:value-of select="./rsd:anotherFeeName"/></rq:anotherFeeName>
+            <rq:calculationBase><xsl:value-of select="./rsd:calculationBase"/></rq:calculationBase>
+            <rq:paymentOrder><xsl:value-of select="./rsd:paymentOrder"/></rq:paymentOrder>
+        </rq:fee>
+    </xsl:template>
+
+    <xsl:template match="rsd:repaymentScheduleDetails">
+        <rq:repaymentScheduleDetails>
+            <rq:sheduleDate><xsl:value-of select="./rsd:sheduleDate"/></rq:sheduleDate>
+            <rq:sheduleAmount><xsl:value-of select="./rsd:sheduleAmount"/></rq:sheduleAmount>
+        </rq:repaymentScheduleDetails>
+    </xsl:template>
+
+    <xsl:template match="rsd:selectionScheduleDetails">
+        <rq:selectionScheduleDetails>
+            <rq:sheduleDate><xsl:value-of select="./rsd:sheduleDate"/></rq:sheduleDate>
+            <rq:sheduleAmount><xsl:value-of select="./rsd:sheduleAmount"/></rq:sheduleAmount>
+        </rq:selectionScheduleDetails>
+    </xsl:template>
+
+    <xsl:template match="rsd:changesScheduleDetails">
+        <rq:changesScheduleDetails>
+            <rq:sheduleDate><xsl:value-of select="./rsd:sheduleDate"/></rq:sheduleDate>
+            <rq:sheduleAmount><xsl:value-of select="./rsd:sheduleAmount"/></rq:sheduleAmount>
+        </rq:changesScheduleDetails>
+    </xsl:template>
+
+    <xsl:template match="rsd:productInfo">
+        <rq:productInfo>
+            <rq:purpose><xsl:value-of select="./rsd:purpose"/></rq:purpose>
+            <rq:creditMode><xsl:value-of select="./rsd:creditMode"/></rq:creditMode>
+            <rq:currencyOfFunding><xsl:value-of select="./rsd:currencyOfFunding"/></rq:currencyOfFunding>
+            <rq:currency><xsl:value-of select="./rsd:currency"/></rq:currency>
+            <rq:interestRateType><xsl:value-of select="./rsd:interestRateType"/></rq:interestRateType>
+            <rq:selectionSchedule><xsl:value-of select="./rsd:selectionSchedule"/></rq:selectionSchedule>
+            <rq:changesSchedule><xsl:value-of select="./rsd:changesSchedule"/></rq:changesSchedule>
+            <rq:selectionSchedulePeriod><xsl:value-of select="./rsd:selectionSchedulePeriod"/></rq:selectionSchedulePeriod>
+            <rq:changesSchedulePeriod><xsl:value-of select="./rsd:changesSchedulePeriod"/></rq:changesSchedulePeriod>
+            <rq:interestRateOrder><xsl:value-of select="./rsd:interestRateOrder"/></rq:interestRateOrder>
+            <rq:interestPaymentOrder><xsl:value-of select="./rsd:interestPaymentOrder"/></rq:interestPaymentOrder>
+            <rq:refinancing><xsl:value-of select="./rsd:refinancing"/></rq:refinancing>
+            <rq:providing><xsl:value-of select="./rsd:providing"/></rq:providing>
+            <rq:suspensiveСondition><xsl:value-of select="./rsd:suspensiveСondition"/></rq:suspensiveСondition>
+            <rq:principal><xsl:value-of select="./rsd:principal"/></rq:principal>
+            <rq:principalBaseCurrency><xsl:value-of select="./rsd:principalBaseCurrency"/></rq:principalBaseCurrency>
+            <rq:startDate><xsl:value-of select="./rsd:startDate"/></rq:startDate>
+            <rq:interestRate><xsl:value-of select="./rsd:interestRate"/></rq:interestRate>
+            <rq:creditTerm><xsl:value-of select="./rsd:creditTerm"/></rq:creditTerm>
+            <rq:period><xsl:value-of select="./rsd:period"/></rq:period>
+            <rq:gracePeriod><xsl:value-of select="./rsd:gracePeriod"/></rq:gracePeriod>
+            <rq:repaymentSchedule><xsl:value-of select="./rsd:repaymentSchedule"/></rq:repaymentSchedule>
+            <rq:turnover><xsl:value-of select="./rsd:turnover"/></rq:turnover>
+            <rq:covenants><xsl:value-of select="./rsd:covenants"/></rq:covenants>
+            <rq:minRate><xsl:value-of select="./rsd:minRate"/></rq:minRate>
+            <rq:proposedCollateral><xsl:value-of select="./rsd:proposedCollateral"/></rq:proposedCollateral>
+            <rq:debtLimit><xsl:value-of select="./rsd:debtLimit"/></rq:debtLimit>
+            <rq:pledgeInsurance><xsl:value-of select="./rsd:pledgeInsurance"/></rq:pledgeInsurance>
+            <rq:customerProspects><xsl:value-of select="./rsd:customerProspects"/></rq:customerProspects>
+            <rq:financingTerm><xsl:value-of select="./rsd:financingTerm"/></rq:financingTerm>
+            <rq:firstCountry><xsl:value-of select="./rsd:firstCountry"/></rq:firstCountry>
+            <rq:lastCountry><xsl:value-of select="./rsd:lastCountry"/></rq:lastCountry>
+            <!--Zero or more repetitions:-->
+            <xsl:apply-templates select="./rsd:fee"/>
+            <!--Zero or more repetitions:-->
+            <xsl:apply-templates select="./rsd:repaymentScheduleDetails"/>
+            <!--Zero or more repetitions:-->
+            <xsl:apply-templates select="./rsd:selectionScheduleDetails"/>
+            <!--Zero or more repetitions:-->
+            <xsl:apply-templates select="./rsd:changesScheduleDetails"/>
+        </rq:productInfo>
+    </xsl:template>
+
     <xsl:template match="rsd:products">
         <rq:products>
             <rq:productID><xsl:value-of select="./rsd:productID"/></rq:productID>
             <rq:productName><xsl:value-of select="./rsd:productName"/></rq:productName>
             <rq:category><xsl:value-of select="./rsd:category"/></rq:category>
             <!--1 or more repetitions:-->
-            <xsl:for-each select="./rsd:productInfo">
-                <rq:productInfo>
-                    <rq:purpose><xsl:value-of select="./rsd:purpose"/></rq:purpose>
-                    <rq:creditMode><xsl:value-of select="./rsd:creditMode"/></rq:creditMode>
-                    <rq:currencyOfFunding><xsl:value-of select="./rsd:currencyOfFunding"/></rq:currencyOfFunding>
-                    <rq:currency><xsl:value-of select="./rsd:currency"/></rq:currency>
-                    <rq:interestRateType><xsl:value-of select="./rsd:interestRateType"/></rq:interestRateType>
-                    <rq:selectionSchedule><xsl:value-of select="./rsd:selectionSchedule"/></rq:selectionSchedule>
-                    <rq:changesSchedule><xsl:value-of select="./rsd:changesSchedule"/></rq:changesSchedule>
-                    <rq:selectionSchedulePeriod><xsl:value-of select="./rsd:selectionSchedulePeriod"/></rq:selectionSchedulePeriod>
-                    <rq:changesSchedulePeriod><xsl:value-of select="./rsd:changesSchedulePeriod"/></rq:changesSchedulePeriod>
-                    <rq:interestRateOrder><xsl:value-of select="./rsd:interestRateOrder"/></rq:interestRateOrder>
-                    <rq:interestPaymentOrder><xsl:value-of select="./rsd:interestPaymentOrder"/></rq:interestPaymentOrder>
-                    <rq:refinancing><xsl:value-of select="./rsd:refinancing"/></rq:refinancing>
-                    <rq:providing><xsl:value-of select="./rsd:providing"/></rq:providing>
-                    <rq:suspensiveСondition><xsl:value-of select="./rsd:suspensiveСondition"/></rq:suspensiveСondition>
-                    <rq:principal><xsl:value-of select="./rsd:principal"/></rq:principal>
-                    <rq:principalBaseCurrency><xsl:value-of select="./rsd:principalBaseCurrency"/></rq:principalBaseCurrency>
-                    <rq:startDate><xsl:value-of select="./rsd:startDate"/></rq:startDate>
-                    <rq:interestRate><xsl:value-of select="./rsd:interestRate"/></rq:interestRate>
-                    <rq:creditTerm><xsl:value-of select="./rsd:creditTerm"/></rq:creditTerm>
-                    <rq:period><xsl:value-of select="./rsd:period"/></rq:period>
-                    <rq:gracePeriod><xsl:value-of select="./rsd:gracePeriod"/></rq:gracePeriod>
-                    <rq:repaymentSchedule><xsl:value-of select="./rsd:repaymentSchedule"/></rq:repaymentSchedule>
-                    <rq:turnover><xsl:value-of select="./rsd:turnover"/></rq:turnover>
-                    <rq:covenants><xsl:value-of select="./rsd:covenants"/></rq:covenants>
-                    <rq:minRate><xsl:value-of select="./rsd:minRate"/></rq:minRate>
-                    <rq:proposedCollateral><xsl:value-of select="./rsd:proposedCollateral"/></rq:proposedCollateral>
-                    <rq:debtLimit><xsl:value-of select="./rsd:debtLimit"/></rq:debtLimit>
-                    <rq:pledgeInsurance><xsl:value-of select="./rsd:pledgeInsurance"/></rq:pledgeInsurance>
-                    <rq:customerProspects><xsl:value-of select="./rsd:customerProspects"/></rq:customerProspects>
-                    <rq:financingTerm><xsl:value-of select="./rsd:financingTerm"/></rq:financingTerm>
-                    <rq:firstCountry><xsl:value-of select="./rsd:firstCountry"/></rq:firstCountry>
-                    <rq:lastCountry><xsl:value-of select="./rsd:lastCountry"/></rq:lastCountry>
-                    <!--Zero or more repetitions:-->
-                    <xsl:for-each select="./rsd:fee">
-                        <rq:fee>
-                            <rq:feeName><xsl:value-of select="./rsd:feeName"/></rq:feeName>
-                            <rq:anotherFeeName><xsl:value-of select="./rsd:anotherFeeName"/></rq:anotherFeeName>
-                            <rq:calculationBase><xsl:value-of select="./rsd:calculationBase"/></rq:calculationBase>
-                            <rq:paymentOrder><xsl:value-of select="./rsd:paymentOrder"/></rq:paymentOrder>
-                        </rq:fee>
-                    </xsl:for-each>
-                    <!--Zero or more repetitions:-->
-                    <xsl:for-each select="./rsd:repaymentScheduleDetails">
-                        <rq:repaymentScheduleDetails>
-                            <rq:sheduleDate><xsl:value-of select="./rsd:sheduleDate"/></rq:sheduleDate>
-                            <rq:sheduleAmount><xsl:value-of select="./rsd:sheduleAmount"/></rq:sheduleAmount>
-                        </rq:repaymentScheduleDetails>
-                    </xsl:for-each>
-                    <!--Zero or more repetitions:-->
-                    <xsl:for-each select="./rsd:selectionScheduleDetails">
-                        <rq:selectionScheduleDetails>
-                            <rq:sheduleDate><xsl:value-of select="./rsd:sheduleDate"/></rq:sheduleDate>
-                            <rq:sheduleAmount><xsl:value-of select="./rsd:sheduleAmount"/></rq:sheduleAmount>
-                        </rq:selectionScheduleDetails>
-                    </xsl:for-each>
-                    <!--Zero or more repetitions:-->
-                    <xsl:for-each select="./rsd:changesScheduleDetails">
-                        <rq:changesScheduleDetails>
-                            <rq:sheduleDate><xsl:value-of select="./rsd:sheduleDate"/></rq:sheduleDate>
-                            <rq:sheduleAmount><xsl:value-of select="./rsd:sheduleAmount"/></rq:sheduleAmount>
-                        </rq:changesScheduleDetails>
-                    </xsl:for-each>
-                </rq:productInfo>
-            </xsl:for-each>
+            <xsl:apply-templates select="./rsd:productInfo"/>
             <!--Zero or more repetitions:-->
-            <xsl:for-each select="./rsd:collateral">
-                <rq:collateral>
-                    <rq:collateralType><xsl:value-of select="./rsd:collateralType"/></rq:collateralType>
-                    <rq:ownerID><xsl:value-of select="./rsd:ownerID"/></rq:ownerID>
-                    <rq:estimatedValue><xsl:value-of select="./rsd:estimatedValue"/></rq:estimatedValue>
-                    <rq:discountRate><xsl:value-of select="./rsd:discountRate"/></rq:discountRate>
-                    <rq:estimatedValueCorrected><xsl:value-of select="./rsd:estimatedValueCorrected"/></rq:estimatedValueCorrected>
-                    <rq:qualityCategory><xsl:value-of select="./rsd:qualityCategory"/></rq:qualityCategory>
-                    <rq:daysForCalculation><xsl:value-of select="./rsd:daysForCalculation"/></rq:daysForCalculation>
-                    <rq:estimatedValueCorrectedToEAD><xsl:value-of select="./rsd:estimatedValueCorrectedToEAD"/></rq:estimatedValueCorrectedToEAD>
-                    <rq:securityShare><xsl:value-of select="./rsd:securityShare"/></rq:securityShare>
-                    <rq:EstimatedValueSource><xsl:value-of select="./rsd:EstimatedValueSource"/></rq:EstimatedValueSource>
-                    <rq:estimationDate><xsl:value-of select="./rsd:estimationDate"/></rq:estimationDate>
-                    <rq:businessMeaning><xsl:value-of select="./rsd:businessMeaning"/></rq:businessMeaning>
-                    <rq:qualityAndLiquidityEstimation><xsl:value-of select="./rsd:qualityAndLiquidityEstimation"/></rq:qualityAndLiquidityEstimation>
-                    <rq:currency><xsl:value-of select="./rsd:currency"/></rq:currency>
-                    <rq:estimatedValueType><xsl:value-of select="./rsd:estimatedValueType"/></rq:estimatedValueType>
-                    <rq:guarantorRating><xsl:value-of select="./rsd:guarantorRating"/></rq:guarantorRating>
-                </rq:collateral>
-            </xsl:for-each>
+            <xsl:apply-templates select="./rsd:collateral"/>
             <!--Optional:-->
             <xsl:if test="./rsd:losses">
                 <rq:losses>
@@ -155,6 +167,29 @@
                 </rq:losses>
             </xsl:if>
         </rq:products>
+    </xsl:template>
+
+
+    <xsl:template match="rsd:projectRating">
+        <rq:projectRating>
+            <rq:ratingID><xsl:value-of select="./rsd:ratingID"/></rq:ratingID>
+            <rq:ratingValue><xsl:value-of select="./rsd:ratingValue"/></rq:ratingValue>
+            <rq:ratingType><xsl:value-of select="./rsd:ratingType"/></rq:ratingType>
+            <rq:ratingModel><xsl:value-of select="./rsd:ratingModel"/></rq:ratingModel>
+            <rq:ratingCalculatedDate><xsl:value-of select="./rsd:ratingCalculatedDate"/></rq:ratingCalculatedDate>
+            <rq:ratingCalculatedRole><xsl:value-of select="./rsd:ratingCalculatedRole"/></rq:ratingCalculatedRole>
+            <rq:ratingCalculatedBy><xsl:value-of select="./rsd:ratingCalculatedBy"/></rq:ratingCalculatedBy>
+            <rq:ratingApprovalDate><xsl:value-of select="./rsd:ratingApprovalDate"/></rq:ratingApprovalDate>
+            <rq:ratingApprovedBy><xsl:value-of select="./rsd:ratingApprovedBy"/></rq:ratingApprovedBy>
+        </rq:projectRating>
+    </xsl:template>
+
+    <xsl:template match="rsd:exchangeRates">
+        <rq:exchangeRates>
+            <rq:currencyName><xsl:value-of select="./rsd:currencyName"/></rq:currencyName>
+            <rq:currencyValue><xsl:value-of select="./rsd:currencyValue"/></rq:currencyValue>
+            <rq:currencyDate><xsl:value-of select="./rsd:currencyDate"/></rq:currencyDate>
+        </rq:exchangeRates>
     </xsl:template>
 
     <xsl:template match="rsd:deal">
@@ -216,29 +251,11 @@
                 <rq:sameIndustryAsBorrower><xsl:value-of select="./rsd:project/rsd:sameIndustryAsBorrower"/></rq:sameIndustryAsBorrower>
                 <rq:collateralProvided><xsl:value-of select="./rsd:project/rsd:collateralProvided"/></rq:collateralProvided>
                 <!--Zero or more repetitions:-->
-                <xsl:for-each select="./rsd:project/rsd:projectRating">
-                    <rq:projectRating>
-                        <rq:ratingID><xsl:value-of select="./rsd:ratingID"/></rq:ratingID>
-                        <rq:ratingValue><xsl:value-of select="./rsd:ratingValue"/></rq:ratingValue>
-                        <rq:ratingType><xsl:value-of select="./rsd:ratingType"/></rq:ratingType>
-                        <rq:ratingModel><xsl:value-of select="./rsd:ratingModel"/></rq:ratingModel>
-                        <rq:ratingCalculatedDate><xsl:value-of select="./rsd:ratingCalculatedDate"/></rq:ratingCalculatedDate>
-                        <rq:ratingCalculatedRole><xsl:value-of select="./rsd:ratingCalculatedRole"/></rq:ratingCalculatedRole>
-                        <rq:ratingCalculatedBy><xsl:value-of select="./rsd:ratingCalculatedBy"/></rq:ratingCalculatedBy>
-                        <rq:ratingApprovalDate><xsl:value-of select="./rsd:ratingApprovalDate"/></rq:ratingApprovalDate>
-                        <rq:ratingApprovedBy><xsl:value-of select="./rsd:ratingApprovedBy"/></rq:ratingApprovedBy>
-                    </rq:projectRating>
-                </xsl:for-each>
+                <xsl:apply-templates select="./rsd:project/rsd:projectRating"/>
             </rq:project>
             <rq:baseCurrency><xsl:value-of select="./rsd:baseCurrency"/></rq:baseCurrency>
             <!--Zero or more repetitions:-->
-            <xsl:for-each select="./rsd:exchangeRates">
-                <rq:exchangeRates>
-                    <rq:currencyName><xsl:value-of select="./rsd:currencyName"/></rq:currencyName>
-                    <rq:currencyValue><xsl:value-of select="./rsd:currencyValue"/></rq:currencyValue>
-                    <rq:currencyDate><xsl:value-of select="./rsd:currencyDate"/></rq:currencyDate>
-                </rq:exchangeRates>
-            </xsl:for-each>
+            <xsl:apply-templates select="./rsd:exchangeRates"/>
         </rq:deal>
     </xsl:template>
 

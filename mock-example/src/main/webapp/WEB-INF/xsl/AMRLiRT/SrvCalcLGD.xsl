@@ -36,6 +36,18 @@
 	</xsl:template>
 
 
+	<xsl:template match="rsd:collateral">
+		<cal:collateral>
+			<cal:crmId><xsl:value-of select="rsd:crmId"/></cal:crmId>
+			<cal:collType><xsl:value-of select="rsd:collType"/></cal:collType>
+			<cal:returnRate><xsl:value-of select="rsd:returnRate"/></cal:returnRate>
+			<cal:discountRate><xsl:value-of select="rsd:discountRate"/></cal:discountRate>
+			<cal:collValueEad><xsl:value-of select="rsd:collValueEad"/></cal:collValueEad>
+			<cal:collValueLgd><xsl:value-of select="rsd:collValueLgd"/></cal:collValueLgd>
+		</cal:collateral>
+	</xsl:template>
+
+
 	<!--Transform main XML-->
 	<xsl:template name="RsBody">
 		<!--Get params-->
@@ -73,16 +85,7 @@
 			<xsl:if test="$data/rsd:response[@name=$response]/rsd:listOfCollateral">
 			<cal:listOfCollateral>
 				<!--Zero or more repetitions:-->
-				<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfCollateral/rsd:collateral">
-				<cal:collateral>
-					<cal:crmId><xsl:value-of select="rsd:crmId"/></cal:crmId>
-					<cal:collType><xsl:value-of select="rsd:collType"/></cal:collType>
-					<cal:returnRate><xsl:value-of select="rsd:returnRate"/></cal:returnRate>
-					<cal:discountRate><xsl:value-of select="rsd:discountRate"/></cal:discountRate>
-					<cal:collValueEad><xsl:value-of select="rsd:collValueEad"/></cal:collValueEad>
-					<cal:collValueLgd><xsl:value-of select="rsd:collValueLgd"/></cal:collValueLgd>
-				</cal:collateral>
-				</xsl:for-each>
+				<xsl:apply-templates select="$data/rsd:response[@name=$response]//rsd:listOfCollateral/rsd:collateral"/>
 			</cal:listOfCollateral>
 			</xsl:if>
 		</amr:calculateLGDRs>

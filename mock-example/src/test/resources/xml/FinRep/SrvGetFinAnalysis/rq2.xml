@@ -5,7 +5,6 @@
 	<soap:Body>
 		<asfo:getFinAnalysisRq xmlns:asfo="http://sbrf.ru/NCP/ASFO/" xmlns:get="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRq/">
 			<get:dealId>string</get:dealId>
-			<get:comment>testError</get:comment>
 		</asfo:getFinAnalysisRq>
 	</soap:Body>
 </soap:Envelope>

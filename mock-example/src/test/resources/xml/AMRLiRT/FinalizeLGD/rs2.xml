@@ -3,7 +3,6 @@
   <soap-env:Body xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:rs="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/" xmlns:rsd="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGD/Data" xmlns:fin="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRq/">
     <amr:finalizeLGDRs>
       <fin:errorCode>e</fin:errorCode>
-      <fin:errorMessage>testing error message</fin:errorMessage>
       <fin:crmId/>
       <fin:type/>
     </amr:finalizeLGDRs>

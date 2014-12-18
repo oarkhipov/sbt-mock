@@ -2,7 +2,7 @@
 	<soap:Header xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fin="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRq/"/>
 	<soap-env:Body xmlns:rs="http://sbrf.ru/NCP/ASFO/GetFinReportRs/" xmlns:rsd="http://sbrf.ru/NCP/ASFO/GetFinReport/Data" xmlns:rq="http://sbrf.ru/NCP/ASFO/GetFinReportRq/" xmlns:crm="http://sbrf.ru/NCP/ASFO/">
 		<crm:getFinAnalysisRq>
-			<rs:nonCurrentAssetsNFRS>testing error message SrvGetFinReport.xml</rs:nonCurrentAssetsNFRS>
+			<rs:nonCurrentAssetsNFRS/>
 			<rs:currentAssetsNFRS/>
 			<rs:nonCurrentAssetsIFRS/>
 			<rs:currentAssetsIFRS/>

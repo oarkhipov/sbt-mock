@@ -30,7 +30,6 @@
 			</rs:fieldInfo>
 			<rs:marketPositionAndTrends>
 				<rs:trends>string</rs:trends>
-				<rs:trends>string2</rs:trends>
 			</rs:marketPositionAndTrends>
 			<rs:business>
 				<rs:suppliersConcentrationLevel>string</rs:suppliersConcentrationLevel>

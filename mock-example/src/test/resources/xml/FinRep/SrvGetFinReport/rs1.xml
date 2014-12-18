@@ -2,34 +2,34 @@
 	<soap:Header xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fin="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRq/"/>
 	<soap-env:Body xmlns:rs="http://sbrf.ru/NCP/ASFO/GetFinReportRs/" xmlns:rsd="http://sbrf.ru/NCP/ASFO/GetFinReport/Data" xmlns:rq="http://sbrf.ru/NCP/ASFO/GetFinReportRq/" xmlns:crm="http://sbrf.ru/NCP/ASFO/">
 		<crm:getFinAnalysisRq>
-			<rs:nonCurrentAssetsNFRS>string0</rs:nonCurrentAssetsNFRS>
-			<rs:currentAssetsNFRS>string1</rs:currentAssetsNFRS>
-			<rs:nonCurrentAssetsIFRS>string2</rs:nonCurrentAssetsIFRS>
-			<rs:currentAssetsIFRS>string3</rs:currentAssetsIFRS>
-			<rs:longTermDebtNFRS>string4</rs:longTermDebtNFRS>
-			<rs:shortTermDebtNFRS>string5</rs:shortTermDebtNFRS>
-			<rs:longTermDebtIFRS>string6</rs:longTermDebtIFRS>
-			<rs:shortTermDebtIFRS>string7</rs:shortTermDebtIFRS>
-			<rs:ebitdaNFRS>string8</rs:ebitdaNFRS>
-			<rs:numQuarterNFRS>string9</rs:numQuarterNFRS>
-			<rs:ebitdaIFRS>string10</rs:ebitdaIFRS>
-			<rs:numQuarterIFRS>string11</rs:numQuarterIFRS>
+			<rs:nonCurrentAssetsNFRS>1</rs:nonCurrentAssetsNFRS>
+			<rs:currentAssetsNFRS>2</rs:currentAssetsNFRS>
+			<rs:nonCurrentAssetsIFRS>3</rs:nonCurrentAssetsIFRS>
+			<rs:currentAssetsIFRS>4</rs:currentAssetsIFRS>
+			<rs:longTermDebtNFRS>5</rs:longTermDebtNFRS>
+			<rs:shortTermDebtNFRS>6</rs:shortTermDebtNFRS>
+			<rs:longTermDebtIFRS>7</rs:longTermDebtIFRS>
+			<rs:shortTermDebtIFRS>8</rs:shortTermDebtIFRS>
+			<rs:ebitdaNFRS>9</rs:ebitdaNFRS>
+			<rs:numQuarterNFRS>10</rs:numQuarterNFRS>
+			<rs:ebitdaIFRS>11</rs:ebitdaIFRS>
+			<rs:numQuarterIFRS>12</rs:numQuarterIFRS>
 			<rs:currencyCode>string12</rs:currencyCode>
 			<rs:currencyCodeForFR>string13</rs:currencyCodeForFR>
-			<rs:currencyRate>string14</rs:currencyRate>
-			<rs:futureCurrencyRate>string15</rs:futureCurrencyRate>
-			<rs:currentCurrencyRate>string16</rs:currentCurrencyRate>
+			<rs:currencyRate>14</rs:currencyRate>
+			<rs:futureCurrencyRate>15</rs:futureCurrencyRate>
+			<rs:currentCurrencyRate>16</rs:currentCurrencyRate>
 			<rs:purpose>string17</rs:purpose>
-			<rs:currentYear>string18</rs:currentYear>
-			<rs:govDebt>string19</rs:govDebt>
-			<rs:creditGovDebt>string20</rs:creditGovDebt>
-			<rs:credit>string21</rs:credit>
-			<rs:liabilities>string22</rs:liabilities>
-			<rs:liabilitiesNextYear>string23</rs:liabilitiesNextYear>
-			<rs:income>string24</rs:income>
-			<rs:incomeNextYear>string25</rs:incomeNextYear>
-			<rs:plannedCredit>string26</rs:plannedCredit>
-			<rs:plannedCreditNextYear>string27</rs:plannedCreditNextYear>
+			<rs:currentYear>18</rs:currentYear>
+			<rs:govDebt>19</rs:govDebt>
+			<rs:creditGovDebt>20</rs:creditGovDebt>
+			<rs:credit>21</rs:credit>
+			<rs:liabilities>22</rs:liabilities>
+			<rs:liabilitiesNextYear>23</rs:liabilitiesNextYear>
+			<rs:income>24</rs:income>
+			<rs:incomeNextYear>25</rs:incomeNextYear>
+			<rs:plannedCredit>26</rs:plannedCredit>
+			<rs:plannedCreditNextYear>27</rs:plannedCreditNextYear>
 		</crm:getFinAnalysisRq>
 	</soap-env:Body>
 </soap-env:Envelope>

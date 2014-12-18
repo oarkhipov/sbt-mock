@@ -36,6 +36,16 @@
 	</xsl:template>
 
 
+	<xsl:template match="rsd:addParameter">
+		<cal:addParameter>
+			<!--Optional:-->
+			<cal:order><xsl:value-of select="rsd:order"/></cal:order>
+			<cal:name><xsl:value-of select="rsd:name"/></cal:name>
+			<cal:value><xsl:value-of select="rsd:value"/></cal:value>
+		</cal:addParameter>
+	</xsl:template>
+
+
 	<!--Transform main XML-->
 	<xsl:template name="RsBody">
 		<!--Get params-->
@@ -69,14 +79,7 @@
 			</xsl:if>
 			<cal:listOfAddParameter>
 				<!--Zero or more repetitions:-->
-				<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfAddParameter/rsd:addParameter">
-					<cal:addParameter>
-						<!--Optional:-->
-						<cal:order><xsl:value-of select="rsd:order"/></cal:order>
-						<cal:name><xsl:value-of select="rsd:name"/></cal:name>
-						<cal:value><xsl:value-of select="rsd:value"/></cal:value>
-					</cal:addParameter>
-				</xsl:for-each>
+				<xsl:apply-templates select="$data/rsd:response[@name=$response]//rsd:listOfAddParameter/rsd:addParameter"/>
 			</cal:listOfAddParameter>
 			<!--Optional:-->
 			<xsl:if test="$data/rsd:response[@name=$response]/rsd:amMessage">

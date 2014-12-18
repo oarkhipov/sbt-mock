@@ -35,6 +35,14 @@
 		</rsd:errorMessage>
 	</xsl:template>
 
+	<xsl:template match="rsd:addParameter">
+		<cor:addParameter>
+			<cor:order><xsl:value-of select="rsd:order"/></cor:order>
+			<cor:name><xsl:value-of select="rsd:name"/></cor:name>
+			<cor:value><xsl:value-of select="rsd:value"/></cor:value>
+		</cor:addParameter>
+	</xsl:template>
+
 
 	<!--Transform main XML-->
 	<xsl:template name="RsBody">
@@ -53,13 +61,7 @@
 				<xsl:if test="$data/rsd:response[@name=$response]/rsd:listOfAddParameter">
 				<cor:listOfAddParameter>
 					<!--Zero or more repetitions:-->
-					<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:listOfAddParameter/rsd:addParameter">
-					<cor:addParameter>
-						<cor:order><xsl:value-of select="rsd:order"/></cor:order>
-						<cor:name><xsl:value-of select="rsd:name"/></cor:name>
-						<cor:value><xsl:value-of select="rsd:value"/></cor:value>
-					</cor:addParameter>
-					</xsl:for-each>
+					<xsl:apply-templates select="$data/rsd:response[@name=$response]//rsd:listOfAddParameter/rsd:addParameter"/>
 				</cor:listOfAddParameter>
 				</xsl:if>
 			</cor:return>

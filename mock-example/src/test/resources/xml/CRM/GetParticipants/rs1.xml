@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+<?xml version="1.0" encoding="UTF-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
     <soap:Header/>
     <soap:Body xmlns:rs="http://sbrf.ru/NCP/CRM/GetParticipantsRs/" xmlns:rsd="http://sbrf.ru/NCP/CRM/GetParticipantsRs/Data/" xmlns:rq="http://sbrf.ru/NCP/CRM/GetParticipantsRq/" xmlns:crm="http://sbrf.ru/NCP/CRM/">
         <crm:prtspRs>
@@ -39,7 +38,7 @@
                         <rs:ratingCalculatedDate>2014-09-19</rs:ratingCalculatedDate>
                         <rs:ratingCalculatedRole>string</rs:ratingCalculatedRole>
                         <rs:ratingCalculatedBy>string</rs:ratingCalculatedBy>
-                        <rs:ratingApprovalDate>2006-08-19+04:00</rs:ratingApprovalDate>
+                        <rs:ratingApprovalDate>2006-08-19</rs:ratingApprovalDate>
                         <rs:ratingApprovedBy>string</rs:ratingApprovedBy>
                     </rs:rating>
                     <rs:roleInConsolidatedGroup>string</rs:roleInConsolidatedGroup>
@@ -50,13 +49,13 @@
                     <rs:label>string</rs:label>
                     <rs:status>string</rs:status>
                     <rs:updateDate>2009-05-16</rs:updateDate>
-                    <rs:approvalDate>2003-08-09+04:00</rs:approvalDate>
+                    <rs:approvalDate>2003-08-09</rs:approvalDate>
                     <rs:ratings>
                         <rs:ratingID>string</rs:ratingID>
                         <rs:ratingValue>1.0</rs:ratingValue>
                         <rs:ratingType>string</rs:ratingType>
                         <rs:ratingModel>string</rs:ratingModel>
-                        <rs:ratingCalculatedDate>2012-09-13+04:00</rs:ratingCalculatedDate>
+                        <rs:ratingCalculatedDate>2012-09-13</rs:ratingCalculatedDate>
                         <rs:ratingCalculatedRole>string</rs:ratingCalculatedRole>
                         <rs:ratingCalculatedBy>string</rs:ratingCalculatedBy>
                         <rs:ratingApprovalDate>2009-10-14</rs:ratingApprovalDate>

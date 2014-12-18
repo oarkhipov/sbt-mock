@@ -86,9 +86,7 @@
 				<rs:mainBusiness><xsl:value-of select="$data/rsd:response[@name=$response]//rsd:mainBusiness"/></rs:mainBusiness>
 			</rs:fieldInfo>
 			<rs:marketPositionAndTrends>
-				<xsl:for-each select="$data/rsd:response[@name=$response]//rsd:marketPositionAndTrends/rsd:trends">
-					<rs:trends><xsl:value-of select="."/></rs:trends>
-				</xsl:for-each>
+				<rs:trends><xsl:value-of select="."/></rs:trends>
 			</rs:marketPositionAndTrends>
 			<rs:business>
 				<rs:suppliersConcentrationLevel><xsl:value-of select="$data/rsd:response[@name=$response]//rsd:suppliersConcentrationLevel"/></rs:suppliersConcentrationLevel>
