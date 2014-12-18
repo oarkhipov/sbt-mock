@@ -28,7 +28,7 @@
                 <productInfo>
                     <purpose>string19</purpose>
                     <creditMode>string20</creditMode>
-                    <currencyOfFunding>str21</currencyOfFunding>
+                    <currencyOfFunding>s21</currencyOfFunding>
                     <currency>s22</currency>
                     <interestRateType>string23</interestRateType>
                     <selectionSchedule>string24</selectionSchedule>
@@ -39,18 +39,18 @@
                     <interestPaymentOrder>string29</interestPaymentOrder>
                     <refinancing>true</refinancing>
                     <providing>string30</providing>
-                    <suspensiveСondition>string31</suspensiveСondition>
-                    <principal>1.051732E7</principal>
-                    <principalBaseCurrency>1.051733E7</principalBaseCurrency>
-                    <startDate>2018-11-01+04:34</startDate>
-                    <interestRate>1.051735E7</interestRate>
+                    <suspensiveCondition>string31</suspensiveCondition>
+                    <principal>1.051732</principal>
+                    <principalBaseCurrency>1.051733</principalBaseCurrency>
+                    <startDate>2018-11-01</startDate>
+                    <interestRate>1.051735</interestRate>
                     <creditTerm>136</creditTerm>
                     <period>137</period>
                     <gracePeriod>138</gracePeriod>
                     <repaymentSchedule>string39</repaymentSchedule>
                     <turnover>140</turnover>
                     <covenants>string41</covenants>
-                    <minRate>1.051742E7</minRate>
+                    <minRate>1.051742</minRate>
                     <proposedCollateral>string43</proposedCollateral>
                     <debtLimit>string44</debtLimit>
                     <pledgeInsurance>string45</pledgeInsurance>
@@ -67,33 +67,33 @@
                     </fee>
                     <!--Zero or more repetitions:-->
                     <repaymentScheduleDetails>
-                        <sheduleDate>2013-05-22+04:54</sheduleDate>
-                        <sheduleAmount>1.051755E7</sheduleAmount>
+                        <sheduleDate>2013-05-22</sheduleDate>
+                        <sheduleAmount>1.051755</sheduleAmount>
                     </repaymentScheduleDetails>
                     <!--Zero or more repetitions:-->
                     <selectionScheduleDetails>
-                        <sheduleDate>2002-11-05+03:56</sheduleDate>
-                        <sheduleAmount>1.051759E7</sheduleAmount>
+                        <sheduleDate>2002-11-05</sheduleDate>
+                        <sheduleAmount>1.051759</sheduleAmount>
                     </selectionScheduleDetails>
                     <!--Zero or more repetitions:-->
                     <changesScheduleDetails>
-                        <sheduleDate>2002-06-24+04:58</sheduleDate>
-                        <sheduleAmount>1.051759E7</sheduleAmount>
+                        <sheduleDate>2002-06-24</sheduleDate>
+                        <sheduleAmount>1.051759</sheduleAmount>
                     </changesScheduleDetails>
                 </productInfo>
                 <!--Zero or more repetitions:-->
                 <collateral>
                     <collateralType>string60</collateralType>
                     <ownerID>string61</ownerID>
-                    <estimatedValue>1.051762E7</estimatedValue>
-                    <discountRate>1.051763E7</discountRate>
-                    <estimatedValueCorrected>1.051764E7</estimatedValueCorrected>
+                    <estimatedValue>1.051762</estimatedValue>
+                    <discountRate>1.051763</discountRate>
+                    <estimatedValueCorrected>1.051764</estimatedValueCorrected>
                     <qualityCategory>string65</qualityCategory>
                     <daysForCalculation>166</daysForCalculation>
-                    <estimatedValueCorrectedToEAD>1.051767E7</estimatedValueCorrectedToEAD>
+                    <estimatedValueCorrectedToEAD>1.051767</estimatedValueCorrectedToEAD>
                     <securityShare>168</securityShare>
                     <EstimatedValueSource>string69</EstimatedValueSource>
-                    <estimationDate>2016-02-20+04:00</estimationDate>
+                    <estimationDate>2016-02-20</estimationDate>
                     <businessMeaning>strin70g</businessMeaning>
                     <qualityAndLiquidityEstimation>string71</qualityAndLiquidityEstimation>
                     <currency>strin72</currency>
@@ -102,16 +102,16 @@
                 </collateral>
                 <!--Optional:-->
                 <losses>
-                    <percentLGD>1.051775E7</percentLGD>
-                    <countEAD>1.051776E7</countEAD>
+                    <percentLGD>1.051775</percentLGD>
+                    <countEAD>1.051776</countEAD>
                     <currency>string</currency>
-                    <reportDateAmount>1.051777E7</reportDateAmount>
-                    <lossELpercent>1.051778E7</lossELpercent>
-                    <lossELcount>1.051779E7</lossELcount>
+                    <reportDateAmount>1.051777</reportDateAmount>
+                    <lossELpercent>1.051778</lossELpercent>
+                    <lossELcount>1.051779</lossELcount>
                     <typeLGD>strin80g</typeLGD>
                     <statusLGD>string81</statusLGD>
                     <dateLGDcalculated>2019-08-19</dateLGDcalculated>
-                    <finalizationDate>2018-02-04+04:00</finalizationDate>
+                    <finalizationDate>2018-02-04</finalizationDate>
                     <comment>string82</comment>
                 </losses>
             </products>
@@ -128,13 +128,13 @@
                 <!--Zero or more repetitions:-->
                 <projectRating>
                     <ratingID>string90</ratingID>
-                    <ratingValue>1.051791E7</ratingValue>
+                    <ratingValue>1.0</ratingValue>
                     <ratingType>string92</ratingType>
                     <ratingModel>string93</ratingModel>
-                    <ratingCalculatedDate>2014-06-10+04:00</ratingCalculatedDate>
+                    <ratingCalculatedDate>2014-06-10</ratingCalculatedDate>
                     <ratingCalculatedRole>string94</ratingCalculatedRole>
                     <ratingCalculatedBy>string95</ratingCalculatedBy>
-                    <ratingApprovalDate>2003-11-10+03:00</ratingApprovalDate>
+                    <ratingApprovalDate>2003-11-10</ratingApprovalDate>
                     <ratingApprovedBy>string96</ratingApprovedBy>
                 </projectRating>
             </project>
@@ -142,7 +142,7 @@
             <!--Zero or more repetitions:-->
             <exchangeRates>
                 <currencyName>string98</currencyName>
-                <currencyValue>1.051799E7</currencyValue>
+                <currencyValue>1.051799</currencyValue>
                 <currencyDate>2000-09-25</currencyDate>
             </exchangeRates>
         </deal>

@@ -39,7 +39,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="C:\work\IdeaProjects\GitProjects\Mock\mock-example\target/MANIFEST.MF" />
+        <element id="file-copy" path="C:\Users\sbt-vostrikov-mi\Java\Idea\XSDMockService\mock\mock-example\target/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="mock-example/web/Web" />
     </root>
