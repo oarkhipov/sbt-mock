@@ -46,7 +46,9 @@
 		<crm:updateRatingRs>
 			<rs:errorCode><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/></rs:errorCode>
 			<!--Optional:-->
-			<rs:errorMessage><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/></rs:errorMessage>
+			<xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+				<rs:errorMessage><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/></rs:errorMessage>
+			</xsl:if>
 		</crm:updateRatingRs>
 	</xsl:template>
 

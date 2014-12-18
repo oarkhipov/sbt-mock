@@ -46,6 +46,17 @@
         </rs:errorMessage>
     </xsl:template>
 
+    <xsl:template match="rsd:participantsGroup">
+        <rq:participantsGroup>
+            <rq:id><xsl:value-of select="./rsd:id"/></rq:id>
+            <rq:label><xsl:value-of select="./rsd:label"/></rq:label>
+            <rq:status><xsl:value-of select="./rsd:status"/></rq:status>
+            <rq:updateDate><xsl:value-of select="./rsd:updateDate"/></rq:updateDate>
+            <rq:approvalDate><xsl:value-of select="./rsd:approvalDate"/></rq:approvalDate>
+            <rq:topLevelGroupName><xsl:value-of select="./rsd:topLevelGroupName"/></rq:topLevelGroupName>
+        </rq:participantsGroup>
+    </xsl:template>
+
     <!--Transform main XML-->
     <xsl:template name="forceSignal">
         <!--Get params-->
@@ -59,17 +70,7 @@
             <rq:comment><xsl:value-of select="$data/rsd:request[@name=$response]/rsd:comment"/></rq:comment>
             <rq:requestType><xsl:value-of select="$data/rsd:request[@name=$response]/rsd:requestType"/></rq:requestType>
             <rq:fullNameOfResponsiblePerson><xsl:value-of select="$data/rsd:request[@name=$response]/rsd:fullNameOfResponsiblePerson"/></rq:fullNameOfResponsiblePerson>
-            <!--Zero or more repetitions:-->
-            <xsl:for-each select="$data/rsd:request[@name=$response]/rsd:participantsGroup">
-                <rq:participantsGroup>
-                    <rq:id><xsl:value-of select="./rsd:id"/></rq:id>
-                    <rq:label><xsl:value-of select="./rsd:label"/></rq:label>
-                    <rq:status><xsl:value-of select="./rsd:status"/></rq:status>
-                    <rq:updateDate><xsl:value-of select="./rsd:updateDate"/></rq:updateDate>
-                    <rq:approvalDate><xsl:value-of select="./rsd:approvalDate"/></rq:approvalDate>
-                    <rq:topLevelGroupName><xsl:value-of select="./rsd:topLevelGroupName"/></rq:topLevelGroupName>
-                </rq:participantsGroup>
-            </xsl:for-each>
+            <xsl:apply-templates select="$data/rsd:request[@name=$response]/rsd:participantsGroup"/>
         </crm:forceSignalRq>
     </xsl:template>
 

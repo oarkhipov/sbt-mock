@@ -50,20 +50,34 @@
 					<rs:rating>
 						<rs:ratingId><xsl:value-of select="./rsd:ratingId"/></rs:ratingId>
 						<!--Optional:-->
-						<rs:finalRatingValue><xsl:value-of select="./rsd:finalRatingValue"/></rs:finalRatingValue>
+						<xsl:if test="./rsd:finalRatingValue">
+							<rs:finalRatingValue><xsl:value-of select="./rsd:finalRatingValue"/></rs:finalRatingValue>
+						</xsl:if>
 						<!--Optional:-->
-						<rs:intermediateRatingValue><xsl:value-of select="./rsd:intermediateRatingValue"/></rs:intermediateRatingValue>
+						<xsl:if test="./rsd:intermediateRatingValue">
+							<rs:intermediateRatingValue><xsl:value-of select="./rsd:intermediateRatingValue"/></rs:intermediateRatingValue>
+						</xsl:if>
 						<!--Optional:-->
-						<rs:ajustedRatingValue><xsl:value-of select="./rsd:ajustedRatingValue"/></rs:ajustedRatingValue>
+						<xsl:if test="./rsd:ajustedRatingValue">
+							<rs:ajustedRatingValue><xsl:value-of select="./rsd:ajustedRatingValue"/></rs:ajustedRatingValue>
+						</xsl:if>
 						<!--Optional:-->
-						<rs:pd><xsl:value-of select="./rsd:pd"/>0</rs:pd>
+						<xsl:if test="./rsd:pd">
+							<rs:pd><xsl:value-of select="./rsd:pd"/>0</rs:pd>
+						</xsl:if>
 						<rs:status><xsl:value-of select="./rsd:status"/></rs:status>
 						<!--Optional:-->
-						<rs:approvalDate><xsl:value-of select="./rsd:approvalDate"/></rs:approvalDate>
+						<xsl:if test="./rsd:approvalDate">
+							<rs:approvalDate><xsl:value-of select="./rsd:approvalDate"/></rs:approvalDate>
+						</xsl:if>
 						<!--Optional:-->
-						<rs:calculationDate><xsl:value-of select="./rsd:calculationDate"/></rs:calculationDate>
+						<xsl:if test="./rsd:calculationDate">
+							<rs:calculationDate><xsl:value-of select="./rsd:calculationDate"/></rs:calculationDate>
+						</xsl:if>
 						<!--Optional:-->
-						<rs:ajustmentDate><xsl:value-of select="./rsd:ajustmentDate"/></rs:ajustmentDate>
+						<xsl:if test="./rsd:ajustmentDate">
+							<rs:ajustmentDate><xsl:value-of select="./rsd:ajustmentDate"/></rs:ajustmentDate>
+						</xsl:if>
 						<rs:modelName><xsl:value-of select="./rsd:modelName"/></rs:modelName>
 						<rs:modelIntegrationId><xsl:value-of select="./rsd:modelIntegrationId"/></rs:modelIntegrationId>
 						<rs:ratingName><xsl:value-of select="./rsd:ratingName"/></rs:ratingName>
@@ -73,11 +87,15 @@
 							<rs:lastName><xsl:value-of select="./rsd:employeeForApprove/rsd:lastName"/></rs:lastName>
 							<rs:firstName><xsl:value-of select="./rsd:employeeForApprove/rsd:firstName"/></rs:firstName>
 							<!--Optional:-->
-							<rs:middleName><xsl:value-of select="./rsd:employeeForApprove/rsd:middleName"/></rs:middleName>
+							<xsl:if test="./rsd:employeeForApprove/rsd:middleName">
+								<rs:middleName><xsl:value-of select="./rsd:employeeForApprove/rsd:middleName"/></rs:middleName>
+							</xsl:if>
 							<rs:division><xsl:value-of select="./rsd:employeeForApprove/rsd:division"/></rs:division>
 							<rs:divisionCode><xsl:value-of select="./rsd:employeeForApprove/rsd:divisionCode"/></rs:divisionCode>
 							<!--Optional:-->
-							<rs:jobTitle><xsl:value-of select="./rsd:employeeForApprove/rsd:jobTitle"/></rs:jobTitle>
+							<xsl:if test="./rsd:employeeForApprove/rsd:jobTitle">
+								<rs:jobTitle><xsl:value-of select="./rsd:employeeForApprove/rsd:jobTitle"/></rs:jobTitle>
+							</xsl:if>
 							<rs:role><xsl:value-of select="./rsd:employeeForApprove/rsd:role"/></rs:role>
 						</rs:employeeForApprove>
 						<rs:listOfRatingCalc>
@@ -88,145 +106,199 @@
 									<rs:modelName><xsl:value-of select="./rsd:modelName"/></rs:modelName>
 									<rs:modelIntegrationId><xsl:value-of select="./rsd:modelIntegrationId"/></rs:modelIntegrationId>
 									<!--Optional:-->
-									<rs:dateCalc><xsl:value-of select="./rsd:dateCalc"/></rs:dateCalc>
+									<xsl:if test="./rsd:dateCalc">
+										<rs:dateCalc><xsl:value-of select="./rsd:dateCalc"/></rs:dateCalc>
+									</xsl:if>
 									<!--Optional:-->
-									<rs:calcValue><xsl:value-of select="./rsd:calcValue"/></rs:calcValue>
+									<xsl:if test="./rsd:calcValue">
+										<rs:calcValue><xsl:value-of select="./rsd:calcValue"/></rs:calcValue>
+									</xsl:if>
 									<!--Optional:-->
-									<rs:listOfRatingAjustment>
-										<!--Zero or more repetitions:-->
-										<xsl:for-each select="./rsd:listOfRatingAjustment/rsd:ratingAjustment">
-											<rs:ratingAjustment>
-												<rs:ajustmentDate><xsl:value-of select="./rsd:ajustmentDate"/></rs:ajustmentDate>
-												<rs:ajustedValue><xsl:value-of select="./rsd:ajustedValue"/></rs:ajustedValue>
-												<rs:ajustmetReason><xsl:value-of select="./rsd:ajustmetReason"/></rs:ajustmetReason>
-												<!--Optional:-->
-												<rs:comments><xsl:value-of select="./rsd:comments"/></rs:comments>
-												<rs:status><xsl:value-of select="./rsd:status"/></rs:status>
-												<rs:employeeForAjustment>
-													<rs:login><xsl:value-of select="./rsd:employeeForAjustment/rsd:login"/></rs:login>
-													<rs:lastName><xsl:value-of select="./rsd:employeeForAjustment/rsd:lastName"/></rs:lastName>
-													<rs:firstName><xsl:value-of select="./rsd:employeeForAjustment/rsd:firstName"/></rs:firstName>
+									<xsl:if test="./rsd:listOfRatingAjustment">
+										<rs:listOfRatingAjustment>
+											<!--Zero or more repetitions:-->
+											<xsl:for-each select="./rsd:listOfRatingAjustment/rsd:ratingAjustment">
+												<rs:ratingAjustment>
+													<rs:ajustmentDate><xsl:value-of select="./rsd:ajustmentDate"/></rs:ajustmentDate>
+													<rs:ajustedValue><xsl:value-of select="./rsd:ajustedValue"/></rs:ajustedValue>
+													<rs:ajustmetReason><xsl:value-of select="./rsd:ajustmetReason"/></rs:ajustmetReason>
 													<!--Optional:-->
-													<rs:middleName><xsl:value-of select="./rsd:employeeForAjustment/rsd:middleName"/></rs:middleName>
-													<rs:division><xsl:value-of select="./rsd:employeeForAjustment/rsd:division"/></rs:division>
-													<rs:divisionCode><xsl:value-of select="./rsd:employeeForAjustment/rsd:divisionCode"/></rs:divisionCode>
-													<!--Optional:-->
-													<rs:jobTitle><xsl:value-of select="./rsd:employeeForAjustment/rsd:jobTitle"/></rs:jobTitle>
-													<rs:role><xsl:value-of select="./rsd:employeeForAjustment/rsd:role"/></rs:role>
-												</rs:employeeForAjustment>
-											</rs:ratingAjustment>
-										</xsl:for-each>
-									</rs:listOfRatingAjustment>
+													<xsl:if test="./rsd:comments">
+														<rs:comments><xsl:value-of select="./rsd:comments"/></rs:comments>
+													</xsl:if>
+													<rs:status><xsl:value-of select="./rsd:status"/></rs:status>
+													<rs:employeeForAjustment>
+														<rs:login><xsl:value-of select="./rsd:employeeForAjustment/rsd:login"/></rs:login>
+														<rs:lastName><xsl:value-of select="./rsd:employeeForAjustment/rsd:lastName"/></rs:lastName>
+														<rs:firstName><xsl:value-of select="./rsd:employeeForAjustment/rsd:firstName"/></rs:firstName>
+														<!--Optional:-->
+														<xsl:if test="./rsd:employeeForAjustment/rsd:middleName">
+															<rs:middleName><xsl:value-of select="./rsd:employeeForAjustment/rsd:middleName"/></rs:middleName>
+														</xsl:if>
+														<rs:division><xsl:value-of select="./rsd:employeeForAjustment/rsd:division"/></rs:division>
+														<rs:divisionCode><xsl:value-of select="./rsd:employeeForAjustment/rsd:divisionCode"/></rs:divisionCode>
+														<!--Optional:-->
+														<xsl:if test="./rsd:employeeForAjustment/rsd:jobTitl">
+															<rs:jobTitle><xsl:value-of select="./rsd:employeeForAjustment/rsd:jobTitle"/></rs:jobTitle>
+														</xsl:if>
+														<rs:role><xsl:value-of select="./rsd:employeeForAjustment/rsd:role"/></rs:role>
+													</rs:employeeForAjustment>
+												</rs:ratingAjustment>
+											</xsl:for-each>
+										</rs:listOfRatingAjustment>
+									</xsl:if>
 									<!--Optional:-->
+									<xsl:if test="./rsd:employeeForCalc/rsd:login">
 									<rs:employeeForCalc>
 										<rs:login><xsl:value-of select="./rsd:employeeForCalc/rsd:login"/></rs:login>
 										<rs:lastName><xsl:value-of select="./rsd:employeeForCalc/rsd:lastName"/></rs:lastName>
 										<rs:firstName><xsl:value-of select="./rsd:employeeForCalc/rsd:firstName"/></rs:firstName>
 										<!--Optional:-->
-										<rs:middleName><xsl:value-of select="./rsd:employeeForCalc/rsd:middleName"/></rs:middleName>
+										<xsl:if test="./rsd:employeeForCalc/rsd:middleName">
+											<rs:middleName><xsl:value-of select="./rsd:employeeForCalc/rsd:middleName"/></rs:middleName>
+										</xsl:if>
 										<rs:division><xsl:value-of select="./rsd:employeeForCalc/rsd:division"/></rs:division>
 										<rs:divisionCode><xsl:value-of select="./rsd:employeeForCalc/rsd:divisionCode"/></rs:divisionCode>
 										<!--Optional:-->
-										<rs:jobTitle><xsl:value-of select="./rsd:employeeForCalc/rsd:jobTitle"/></rs:jobTitle>
+										<xsl:if test="./rsd:employeeForCalc/rsd:jobTitle">
+											<rs:jobTitle><xsl:value-of select="./rsd:employeeForCalc/rsd:jobTitle"/></rs:jobTitle>
+										</xsl:if>
 										<rs:role><xsl:value-of select="./rsd:employeeForCalc/rsd:role"/></rs:role>
 									</rs:employeeForCalc>
+									</xsl:if>
 									<!--Optional:-->
-									<rs:listOfResultRating>
-										<!--Zero or more repetitions:-->
-										<xsl:for-each select="./rsd:listOfResultRating/rsd:resultRating">
-										<rs:resultRating>
-											<rs:isPrimary><xsl:value-of select="./rsd:isPrimary"/></rs:isPrimary>
-											<rs:name><xsl:value-of select="./rsd:name"/></rs:name>
-											<rs:value><xsl:value-of select="./rsd:value"/></rs:value>
-											<!--Optional:-->
-											<rs:type><xsl:value-of select="./rsd:type"/></rs:type>
-										</rs:resultRating>
-										</xsl:for-each>
-									</rs:listOfResultRating>
-									<!--Optional:-->
-									<rs:listOfCalculatedFactor>
-										<!--Zero or more repetitions:-->
-										<xsl:for-each select="./rsd:listOfCalculatedFactor/rsd:calculatedFactor">
-										<rs:calculatedFactor>
-											<rs:code><xsl:value-of select="./rsd:code"/></rs:code>
-											<rs:name><xsl:value-of select="./rsd:name"/></rs:name>
-											<rs:value><xsl:value-of select="./rsd:value"/></rs:value>
-										</rs:calculatedFactor>
-										</xsl:for-each>
-									</rs:listOfCalculatedFactor>
-									<!--Optional:-->
-									<rs:listOfFixedFactor>
-										<!--1 or more repetitions:-->
-										<xsl:for-each select="./rsd:listOfFixedFactor/rsd:fixedFactor">
-										<rs:fixedFactor>
-											<rs:factor><xsl:value-of select="./rsd:factor"/></rs:factor>
-											<rs:factorIntegrationId><xsl:value-of select="./rsd:factorIntegrationId"/></rs:factorIntegrationId>
-											<rs:group><xsl:value-of select="./rsd:group"/></rs:group>
-											<!--Optional:-->
-											<rs:value><xsl:value-of select="./rsd:value"/></rs:value>
-											<!--Optional:-->
-											<rs:valueIntegrationId><xsl:value-of select="./rsd:valueIntegrationId"/></rs:valueIntegrationId>
-										</rs:fixedFactor>
-										</xsl:for-each>
-									</rs:listOfFixedFactor>
-									<!--Optional:-->
-									<rs:listOfRatingPeriod>
-										<!--1 or more repetitions:-->
-										<xsl:for-each select="./rsd:listOfRatingPeriod/rsd:ratingPeriod">
-										<rs:ratingPeriod>
-											<!--Optional:-->
-											<rs:reportDate><xsl:value-of select="./rsd:reportDate"/></rs:reportDate>
-											<!--Optional:-->
-											<rs:period><xsl:value-of select="./rsd:period"/></rs:period>
-											<!--Optional:-->
-											<rs:startDate><xsl:value-of select="./rsd:startDate"/></rs:startDate>
-											<!--Optional:-->
-											<rs:endDate><xsl:value-of select="./rsd:endDate"/></rs:endDate>
-											<!--Optional:-->
-											<rs:type><xsl:value-of select="./rsd:type"/></rs:type>
-											<!--Optional:-->
-											<rs:comments><xsl:value-of select="./rsd:comments"/></rs:comments>
-											<rs:listOfCardinalFactor>
-												<!--1 or more repetitions:-->
-												<xsl:for-each select="./rsd:listOfCardinalFactor/rsd:cardinalFactor">
-												<rs:cardinalFactor>
-													<rs:factor><xsl:value-of select="./rsd:factor"/></rs:factor>
-													<rs:factorIntegrationId><xsl:value-of select="./rsd:factorIntegrationId"/></rs:factorIntegrationId>
-													<rs:group><xsl:value-of select="./rsd:group"/></rs:group>
-													<!--Optional:-->
-													<rs:numValue><xsl:value-of select="./rsd:numValue"/></rs:numValue>
-												</rs:cardinalFactor>
-												</xsl:for-each>
-											</rs:listOfCardinalFactor>
-										</rs:ratingPeriod>
-										</xsl:for-each>
-									</rs:listOfRatingPeriod>
-									<!--Optional:-->
-									<rs:listOfRatingSupport>
-										<!--Zero or more repetitions:-->
-										<xsl:for-each select="./rsd:listOfRatingSupport/rsd:ratingSupport">
-										<rs:ratingSupport>
-											<rs:name><xsl:value-of select="./rsd:name"/></rs:name>
-											<rs:integrationId><xsl:value-of select="./rsd:integrationId"/></rs:integrationId>
-											<rs:listOfSupportFactor>
-												<!--1 or more repetitions:-->
-												<xsl:for-each select="./rsd:listOfSupportFactor/rsd:supportFactor">
-												<rs:supportFactor>
-													<rs:factor><xsl:value-of select="./rsd:factor"/></rs:factor>
-													<rs:factorIntegrationId><xsl:value-of select="./rsd:factorIntegrationId"/></rs:factorIntegrationId>
-													<rs:group><xsl:value-of select="./rsd:group"/></rs:group>
-													<!--Optional:-->
+									<xsl:if test="./rsd:listOfResultRating">
+										<rs:listOfResultRating>
+											<!--Zero or more repetitions:-->
+											<xsl:for-each select="./rsd:listOfResultRating/rsd:resultRating">
+												<rs:resultRating>
+													<rs:isPrimary><xsl:value-of select="./rsd:isPrimary"/></rs:isPrimary>
+													<rs:name><xsl:value-of select="./rsd:name"/></rs:name>
 													<rs:value><xsl:value-of select="./rsd:value"/></rs:value>
 													<!--Optional:-->
-													<rs:valueIntegrationId><xsl:value-of select="./rsd:valueIntegrationId"/></rs:valueIntegrationId>
+													<xsl:if test="./rsd:type">
+														<rs:type><xsl:value-of select="./rsd:type"/></rs:type>
+													</xsl:if>
+												</rs:resultRating>
+											</xsl:for-each>
+										</rs:listOfResultRating>
+									</xsl:if>
+									<!--Optional:-->
+									<xsl:if test="./rsd:listOfCalculatedFactor">
+										<rs:listOfCalculatedFactor>
+											<!--Zero or more repetitions:-->
+											<xsl:for-each select="./rsd:listOfCalculatedFactor/rsd:calculatedFactor">
+												<rs:calculatedFactor>
+													<rs:code><xsl:value-of select="./rsd:code"/></rs:code>
+													<rs:name><xsl:value-of select="./rsd:name"/></rs:name>
+													<rs:value><xsl:value-of select="./rsd:value"/></rs:value>
+												</rs:calculatedFactor>
+											</xsl:for-each>
+										</rs:listOfCalculatedFactor>
+									</xsl:if>
+									<!--Optional:-->
+									<xsl:if test="./rsd:listOfFixedFactor">
+										<rs:listOfFixedFactor>
+											<!--1 or more repetitions:-->
+											<xsl:for-each select="./rsd:listOfFixedFactor/rsd:fixedFactor">
+												<rs:fixedFactor>
+													<rs:factor><xsl:value-of select="./rsd:factor"/></rs:factor>
+													<rs:factorIntegrationId><xsl:value-of select="./rsd:factorIntegrationId"/></rs:factorIntegrationId>
+													<rs:group><xsl:value-of select="./rsd:group"/></rs:group>
 													<!--Optional:-->
-													<rs:freeValue><xsl:value-of select="./rsd:freeValue"/></rs:freeValue>
-												</rs:supportFactor>
-												</xsl:for-each>
-											</rs:listOfSupportFactor>
-										</rs:ratingSupport>
-										</xsl:for-each>
-									</rs:listOfRatingSupport>
+													<xsl:if test="./rsd:value">
+														<rs:value><xsl:value-of select="./rsd:value"/></rs:value>
+													</xsl:if>
+													<!--Optional:-->
+													<xsl:if test="./rsd:valueIntegrationId">
+														<rs:valueIntegrationId><xsl:value-of select="./rsd:valueIntegrationId"/></rs:valueIntegrationId>
+													</xsl:if>
+												</rs:fixedFactor>
+											</xsl:for-each>
+										</rs:listOfFixedFactor>
+									</xsl:if>
+									<!--Optional:-->
+									<xsl:if test="./rsd:listOfRatingPeriod">
+										<rs:listOfRatingPeriod>
+											<!--1 or more repetitions:-->
+											<xsl:for-each select="./rsd:listOfRatingPeriod/rsd:ratingPeriod">
+												<rs:ratingPeriod>
+													<!--Optional:-->
+													<xsl:if test="./rsd:reportDate">
+														<rs:reportDate><xsl:value-of select="./rsd:reportDate"/></rs:reportDate>
+													</xsl:if>
+													<!--Optional:-->
+													<xsl:if test="./rsd:period">
+														<rs:period><xsl:value-of select="./rsd:period"/></rs:period>
+													</xsl:if>
+													<!--Optional:-->
+													<xsl:if test="./rsd:startDate">
+														<rs:startDate><xsl:value-of select="./rsd:startDate"/></rs:startDate>
+													</xsl:if>
+													<!--Optional:-->
+													<xsl:if test="./rsd:endDate">
+														<rs:endDate><xsl:value-of select="./rsd:endDate"/></rs:endDate>
+													</xsl:if>
+													<!--Optional:-->
+													<xsl:if test="./rsd:type">
+														<rs:type><xsl:value-of select="./rsd:type"/></rs:type>
+													</xsl:if>
+													<!--Optional:-->
+													<xsl:if test="./rsd:comments">
+													<rs:comments><xsl:value-of select="./rsd:comments"/></rs:comments>
+													</xsl:if>
+													<rs:listOfCardinalFactor>
+														<!--1 or more repetitions:-->
+														<xsl:for-each select="./rsd:listOfCardinalFactor/rsd:cardinalFactor">
+															<rs:cardinalFactor>
+																<rs:factor><xsl:value-of select="./rsd:factor"/></rs:factor>
+																<rs:factorIntegrationId><xsl:value-of select="./rsd:factorIntegrationId"/></rs:factorIntegrationId>
+																<rs:group><xsl:value-of select="./rsd:group"/></rs:group>
+																<!--Optional:-->
+																<xsl:if test="./rsd:numValue">
+																	<rs:numValue><xsl:value-of select="./rsd:numValue"/></rs:numValue>
+																</xsl:if>
+															</rs:cardinalFactor>
+														</xsl:for-each>
+													</rs:listOfCardinalFactor>
+												</rs:ratingPeriod>
+											</xsl:for-each>
+										</rs:listOfRatingPeriod>
+									</xsl:if>
+									<!--Optional:-->
+									<xsl:if test="./rsd:listOfRatingSupport">
+										<rs:listOfRatingSupport>
+											<!--Zero or more repetitions:-->
+											<xsl:for-each select="./rsd:listOfRatingSupport/rsd:ratingSupport">
+												<rs:ratingSupport>
+													<rs:name><xsl:value-of select="./rsd:name"/></rs:name>
+													<rs:integrationId><xsl:value-of select="./rsd:integrationId"/></rs:integrationId>
+													<rs:listOfSupportFactor>
+														<!--1 or more repetitions:-->
+														<xsl:for-each select="./rsd:listOfSupportFactor/rsd:supportFactor">
+															<rs:supportFactor>
+																<rs:factor><xsl:value-of select="./rsd:factor"/></rs:factor>
+																<rs:factorIntegrationId><xsl:value-of select="./rsd:factorIntegrationId"/></rs:factorIntegrationId>
+																<rs:group><xsl:value-of select="./rsd:group"/></rs:group>
+																<!--Optional:-->
+																<xsl:if test="./rsd:value">
+																	<rs:value><xsl:value-of select="./rsd:value"/></rs:value>
+																</xsl:if>
+																<!--Optional:-->
+																<xsl:if test="./rsd:valueIntegrationId">
+																	<rs:valueIntegrationId><xsl:value-of select="./rsd:valueIntegrationId"/></rs:valueIntegrationId>
+																</xsl:if>
+																<!--Optional:-->
+																<xsl:if test="./rsd:freeValue">
+																	<rs:freeValue><xsl:value-of select="./rsd:freeValue"/></rs:freeValue>
+																</xsl:if>
+															</rs:supportFactor>
+														</xsl:for-each>
+													</rs:listOfSupportFactor>
+												</rs:ratingSupport>
+											</xsl:for-each>
+										</rs:listOfRatingSupport>
+									</xsl:if>
 								</rs:ratingCalc>
 							</xsl:for-each>
 						</rs:listOfRatingCalc>
