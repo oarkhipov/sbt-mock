@@ -27,6 +27,7 @@ public class XslTransformer {
         return transform(xsltRes, xmlRes, null, null);
     }
 
+
     public static String transform(String xsltFile, String xmlFile, String paramName, String ParamValue) throws TransformerException {
         TransformerFactory factory = TransformerFactory.newInstance();
         Source xslt = new StreamSource(new File(xsltFile));
@@ -56,14 +57,10 @@ public class XslTransformer {
 
         Source xml = new StreamSource(xmlRes.getFile());
 
-        StringWriter writer = new StringWriter();
-        StreamResult result = new StreamResult(writer);
-        transformer.transform(xml, result);
-
-        return writer.toString();
+        return transform(xslt, xml, paramName, ParamValue);
     }
 
-    public static String transform(Resource xsltRes, String xmlRes, String paramName, String ParamValue) throws TransformerException, IOException {
+    public static String transform(Resource xsltRes, String xmlStr, String paramName, String ParamValue) throws TransformerException, IOException {
         TransformerFactory factory = TransformerFactory.newInstance();
         Source xslt = new StreamSource(xsltRes.getFile());
         Transformer transformer = factory.newTransformer(xslt);
@@ -72,7 +69,19 @@ public class XslTransformer {
             transformer.setParameter(paramName, ParamValue);
         }
 
-        Source xml = new StreamSource(new StringReader(xmlRes));
+        Source xml = new StreamSource(new StringReader(xmlStr));
+
+        return transform(xslt, xml, paramName, ParamValue);
+    }
+
+    public static String transform(Source xslt, Source xml, String paramName, String ParamValue) throws TransformerException, IOException {
+        TransformerFactory factory = TransformerFactory.newInstance();
+
+        Transformer transformer = factory.newTransformer(xslt);
+
+        if (paramName!=null && !paramName.isEmpty()) {
+            transformer.setParameter(paramName, ParamValue);
+        }
 
         StringWriter writer = new StringWriter();
         StreamResult result = new StreamResult(writer);
