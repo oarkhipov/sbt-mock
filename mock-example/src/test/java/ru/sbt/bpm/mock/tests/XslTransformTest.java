@@ -59,17 +59,17 @@ public class XslTransformTest {
         System.out.println(dir);
         checkXMLDataRowToXMLDataListByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl",
                 dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\UpdateDealData.xml",
-                "\r\ndefault\r\nERROR");
+                "default\r\nERROR\r\n");
 
 
         checkXMLDataRowToXMLDataListByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl",
                 dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\AMRLiRT\\xml\\SrvCalcLGDData.xml",
-                "\r\ndefault\r\ntestError");
+                "default\r\ntestError\r\n");
 
 
         checkXMLDataRowToXMLDataListByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl",
                 dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\FinRep\\xml\\SrvGetFinReportData.xml",
-                "\r\ndefault\r\ntestError");
+                "default\r\ntestError\r\n");
     }
 
     @Test

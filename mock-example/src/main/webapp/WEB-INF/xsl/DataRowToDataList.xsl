@@ -12,11 +12,11 @@
                 <xsl:copy-of select="./*[(local-name()='response' or  local-name()='request') and @name=$name]"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:for-each select="./*[local-name()='response']"><xsl:text><xsl:value-of select="./@name"/>
+                <xsl:for-each select="./*[local-name()='response']"><xsl:value-of select="./@name"/><xsl:text>
 </xsl:text>
                 </xsl:for-each>
                 <xsl:for-each select="./*[local-name()='request']">
-                <xsl:text><xsl:value-of select="./@name"/>
+                <xsl:value-of select="./@name"/><xsl:text>
 </xsl:text>
                 </xsl:for-each>
             </xsl:otherwise>
