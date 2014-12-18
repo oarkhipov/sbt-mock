@@ -10,6 +10,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.io.StringWriter;
 
 /**
@@ -25,6 +26,7 @@ public class XslTransformer {
     public static String transform(Resource xsltRes, Resource xmlRes) throws TransformerException, IOException {
         return transform(xsltRes, xmlRes, null, null);
     }
+
 
     public static String transform(String xsltFile, String xmlFile, String paramName, String ParamValue) throws TransformerException {
         TransformerFactory factory = TransformerFactory.newInstance();
@@ -54,6 +56,32 @@ public class XslTransformer {
         }
 
         Source xml = new StreamSource(xmlRes.getFile());
+
+        return transform(xslt, xml, paramName, ParamValue);
+    }
+
+    public static String transform(Resource xsltRes, String xmlStr, String paramName, String ParamValue) throws TransformerException, IOException {
+        TransformerFactory factory = TransformerFactory.newInstance();
+        Source xslt = new StreamSource(xsltRes.getFile());
+        Transformer transformer = factory.newTransformer(xslt);
+
+        if (paramName!=null && !paramName.isEmpty()) {
+            transformer.setParameter(paramName, ParamValue);
+        }
+
+        Source xml = new StreamSource(new StringReader(xmlStr));
+
+        return transform(xslt, xml, paramName, ParamValue);
+    }
+
+    public static String transform(Source xslt, Source xml, String paramName, String ParamValue) throws TransformerException, IOException {
+        TransformerFactory factory = TransformerFactory.newInstance();
+
+        Transformer transformer = factory.newTransformer(xslt);
+
+        if (paramName!=null && !paramName.isEmpty()) {
+            transformer.setParameter(paramName, ParamValue);
+        }
 
         StringWriter writer = new StringWriter();
         StreamResult result = new StreamResult(writer);
