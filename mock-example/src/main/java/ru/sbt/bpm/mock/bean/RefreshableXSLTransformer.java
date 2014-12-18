@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -46,7 +47,7 @@ public class RefreshableXSLTransformer {
     	System.out.println("Mock XSL start working");
         XsltPayloadTransformer backup = delegate;
         try {
-            Resource resource = new ByteArrayResource(xsl.getBytes("UTF-8"));
+            Resource resource = new ByteArrayResource(xsl.getBytes(StandardCharsets.UTF_8));
             delegate = new XsltPayloadTransformer(resource);
             this.xsl = xsl;
         } catch(Exception e) {

@@ -27,6 +27,9 @@ public class XslTransformer {
         return transform(xsltRes, xmlRes, null, null);
     }
 
+    public static String transform(Resource xsltRes, String xmlRes) throws TransformerException, IOException {
+        return transform(xsltRes, xmlRes, null, null);
+    }
 
     public static String transform(String xsltFile, String xmlFile, String paramName, String ParamValue) throws TransformerException {
         TransformerFactory factory = TransformerFactory.newInstance();

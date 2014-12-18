@@ -47,11 +47,14 @@
       <input id="validate" type="button" value="Validate" style="display: inline"/>
       <input id="save" type="button" value="Save" style="display: inline"/>
       <c:if test="${link=='driver'}">
-        <select name="request" style="width: 120px">
+        &nbsp;&nbsp;&nbsp;
+        <select id="reqList" name="request" style="width: 120px">
           <c:forEach var="entry" items="${list}">
             <option value="${entry}">${entry}</option>
           </c:forEach>
         </select>
+        <input id="listRefresh" type="button" value="Refresh List" style="display: inline"/>
+        &nbsp;&nbsp;&nbsp;
         <input id="send" type="button" value="Send" style="display: inline"/>
       </c:if>
 
@@ -283,8 +286,12 @@ $("#reset").click(function(){
   }
 
   function showResponse(text) {
-    $("#resWrapper").css("display", "block");
-    resEditor.setValue(text);
+    if(text) {
+      $("#resWrapper").css("display", "block");
+      resEditor.setValue(text);
+    } else {
+      $("#resWrapper").css("display", "none");
+    }
   }
 
   $("#send").click(function(){
@@ -305,6 +312,37 @@ $("#reset").click(function(){
       fail: function() {
         showError("Unable to send! Try Later...");
         sendDisable(false);
+      }
+    });
+  });
+
+  function fillList(data) {
+    if(data) {
+      console.log(data);
+      data = data.split(",");
+      console.log(data);
+      var list = $("#reqList");
+      list.find('option').remove();
+      $.each(data, function () {
+        list.append($("<option />").val(this).text(this));
+      });
+    }
+  }
+
+  $("#listRefresh").click(function(){
+    $.ajax({
+      url: QueryString["ip"]+ "/list/",
+      type: "POST",
+      data: {xml: editor.getValue()},
+      success: function(obj) {
+        obj = htmlConvert(obj);
+        obj = $.parseJSON(obj);
+        showInfo(obj.info);
+        showError(obj.error);
+        fillList(htmlConvert(obj.data));
+      },
+      fail: function() {
+        showError("Unable to refresh! Try Later...");
       }
     });
   });

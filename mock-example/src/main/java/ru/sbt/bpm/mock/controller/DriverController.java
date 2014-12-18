@@ -2,8 +2,10 @@ package ru.sbt.bpm.mock.controller;
 
 import com.google.gson.Gson;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -163,7 +166,7 @@ public class DriverController {
             ajaxObject.setError(e.getMessage());
         }
         catch (IOException e) {
-            model.addAttribute("error", e.getMessage());
+            ajaxObject.setError(e.getMessage());
         }
         Gson gson = new Gson();
         model.addAttribute("object", gson.toJson(ajaxObject));
@@ -206,13 +209,13 @@ public class DriverController {
 
                 ajaxObject.setInfo("DONE!");
                 Resource xslResource = xmlDataService.getXslResource(name);
-                Resource xmlData = xmlDataService.getXmlResource(name);
-                String result = XslTransformer.transform(xslResource, xmlData, "name", request);
+//                Resource xmlData = xmlDataService.getXmlResource(name);
+                String result = XslTransformer.transform(xslResource, xml, "name", request);
 
                 ajaxObject.setData(clientService.invoke(result));
             }
         } catch (SAXException |IOException e) {
-            model.addAttribute("error", e.getMessage());
+            ajaxObject.setError(e.getMessage());
         }
 
         Gson gson = new Gson();
@@ -224,15 +227,33 @@ public class DriverController {
     @RequestMapping(value="/driver/{name}/list/", method=RequestMethod.POST)
     public String getRequestList(
             @PathVariable("name") String name,
+            @RequestParam("xml") String xml,
             ModelMap model) throws IOException, TransformerException {
-        model.addAttribute("object", getRequestList(name));
+        AjaxObject ajaxObject = new AjaxObject();
+        ajaxObject.setInfo("Refreshed!");
+        ajaxObject.setData(StringUtils.join(getRequestList(name, xml), ","));
+        Gson gson = new Gson();
+        model.addAttribute("object", gson.toJson(ajaxObject));
+
         return "blank";
     }
 
     private String[] getRequestList(String name) throws IOException, TransformerException {
-        Resource xslResource = appContext.getResource("/WEB-INF/xsl/DataRowToDataList.xsl");
         Resource xmlData = xmlDataService.getXmlResource(name);
-        String result = XslTransformer.transform(xslResource, xmlData);
+        return getRequestList(xmlData);
+    }
+
+    private String[] getRequestList(String name, String xml) throws IOException, TransformerException {
+        Resource xslResource = appContext.getResource("/WEB-INF/xsl/DataRowToDataList.xsl");
+        String result = XslTransformer.transform(xslResource, xml);
         return result.split("\\r?\\n");
     }
+
+    private String[] getRequestList(Resource xml) throws IOException, TransformerException {
+        Resource xslResource = appContext.getResource("/WEB-INF/xsl/DataRowToDataList.xsl");
+        String result = XslTransformer.transform(xslResource, xml);
+        return result.split("\\r?\\n");
+    }
+
+
 }
