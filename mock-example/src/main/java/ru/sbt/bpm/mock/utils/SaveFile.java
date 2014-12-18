@@ -5,11 +5,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.context.ApplicationContext;
 
 import java.io.*;
-import java.lang.reflect.Array;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
-import java.security.MessageDigest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -44,7 +39,7 @@ public class SaveFile {
 
     private SaveFile() {
         slash = File.separator;
-        currentChosenBackUp = new HashMap<>();
+        currentChosenBackUp = new HashMap<String, Integer>();
     }
 
     public int logSize = 5;//TODO засунуть в конфиг
@@ -435,7 +430,7 @@ public class SaveFile {
         throw new FileNotFoundException(path);
     }
 
-    public void writeStringToFile(File f, String data) throws IOException {
+    public void writeStringToFile(File f, String data) throws Exception {
         PrintWriter out = new PrintWriter(f);
         try {
             out.print(data);

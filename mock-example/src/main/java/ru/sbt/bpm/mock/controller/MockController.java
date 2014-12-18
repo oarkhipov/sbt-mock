@@ -66,7 +66,10 @@ public class MockController {
             if (xmlDataService.validate(xml)) {
                 ajaxObject.setInfo("Valid!");
             }
-        } catch (SAXException |IOException e) {
+        } catch (SAXException e) {
+            ajaxObject.setError(e.getMessage());
+        }
+        catch (IOException e) {
             ajaxObject.setError(e.getMessage());
         }
         Gson gson = new Gson();
@@ -94,6 +97,9 @@ public class MockController {
                 saver.writeStringToFile(dataFile, xml);
                 ajaxObject.setInfo("saved");
             } catch (IOException e) {
+                ajaxObject.setError(e.getMessage());
+            } catch (Exception e) {
+                e.printStackTrace();
                 ajaxObject.setError(e.getMessage());
             }
         }

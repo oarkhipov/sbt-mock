@@ -16,7 +16,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 
@@ -40,7 +39,7 @@ public class XmlDataService {
 
         File dir = new File(resource.getFile().getParent());
 
-        ArrayList<File> xsdFiles = new ArrayList<>();
+        ArrayList<File> xsdFiles = new ArrayList<File>();
         searchFiles(dir, xsdFiles, ".xsd");
 
         SchemaFactory factory =
@@ -75,13 +74,14 @@ public class XmlDataService {
     }
 
     public boolean validate(String xmlData) throws SAXException, IOException {
-        InputStream stream = new ByteArrayInputStream(xmlData.getBytes(StandardCharsets.UTF_8));
+        InputStream stream = new ByteArrayInputStream(xmlData.getBytes("UTF-8"));
         validator.validate(new StreamSource(stream));
         return true;
     }
 
     private void searchFiles(File rootDir, ArrayList<File> files, String ext) {
         File[] listFiles = rootDir.listFiles();
+        assert listFiles != null;
         for (File file : listFiles) {
             if(file.isDirectory()) {
                 searchFiles(file, files, ext);

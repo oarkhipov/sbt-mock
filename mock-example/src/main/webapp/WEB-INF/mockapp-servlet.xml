@@ -21,7 +21,9 @@
     <mvc:resources mapping="/**" location="/resources/web/" />
     <mvc:annotation-driven/>
 
-     <!--Настройки подключения к MQ-->
+    <!--стандартный маппер, чтобы сообщения правильно маршрутизировались внутри MQ -->
+    <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
+    <!--Настройки подключения к MQ-->
     <beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
             <beans:property name="jndiName" value="jms/ESB.BPM.NCP.CF"/>
     </beans:bean>
@@ -47,6 +49,7 @@
             default-reply-destination="replyQueue"
             header-mapper="defHeaderMapper"
             connection-factory="jndiConnectionFactory"
+            receive-timeout="30000"
     />
 
     <jms:outbound-gateway
@@ -57,6 +60,7 @@
             reply-channel="ESB.BPM.NCP.RESPONSE"
             header-mapper="defHeaderMapper"
             connection-factory="jndiConnectionFactory"
+            receive-timeout="30000"
     />
 
     <!-- Входной и выходной каналы -->	
@@ -93,8 +97,6 @@
     <logging-channel-adapter id="fromGateLoggerCRM" logger-name="fromGateLoggerCRM"/>
     <logging-channel-adapter id="toGateLoggerCRM" logger-name="toGateLoggerCRM"/>
     
-    <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
-     
     <!-- Роутер-->
     <util:map id="sbrfNamespaceMap">
         <beans:entry key="env" value="http://sbrf.ru/NCP/esb/envelope/"/>
@@ -232,7 +234,7 @@
     <!--<channel id="test"/>-->
     <!-- Mock gateway to send requests to outbound -->
     <gateway id="systemEntry" default-request-channel="ESB.BPM.NCP.REQUEST" default-reply-channel="ESB.BPM.NCP.RESPONSE"
-                 service-interface="ru.sbt.bpm.mock.gateway.ClientService" />
+                 service-interface="ru.sbt.bpm.mock.gateway.ClientService" default-reply-timeout="0" default-request-timeout="0" />
     <!--<gateway id="systemEntry" default-request-channel="test" default-reply-channel="test"-->
                  <!--service-interface="ru.sbt.bpm.mock.gateway.ClientService" />-->
 

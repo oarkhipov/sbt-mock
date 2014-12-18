@@ -1,11 +1,10 @@
 package ru.sbt.bpm.mock.controller;
 
 import com.google.gson.Gson;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.gateway.ClientService;
-import ru.sbt.bpm.mock.service.TransformService;
 import ru.sbt.bpm.mock.service.XmlDataService;
 import ru.sbt.bpm.mock.utils.AjaxObject;
 import ru.sbt.bpm.mock.utils.SaveFile;
@@ -24,15 +22,8 @@ import ru.sbt.bpm.mock.utils.XslTransformer;
 
 import javax.xml.transform.TransformerException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by sbt-bochev-as on 15.12.2014.
@@ -55,9 +46,9 @@ public class DriverController {
     public String  getDriver(Model model) throws IOException {
         model.addAttribute("type", "Request");
 //        List of drivers
-        Path filePath = appContext.getResource("/WEB-INF/driverList.txt").getFile().toPath();
-        Charset charset = Charset.defaultCharset();
-        List<String> stringList = Files.readAllLines(filePath, charset);
+        File drivers = appContext.getResource("/WEB-INF/driverList.txt").getFile();
+        String string = IOUtils.toString(new FileInputStream(drivers));
+        String[] stringList = string.split("\\r?\\n");
         model.addAttribute("link", "driver");
         model.addAttribute("list", stringList);
         return "stepForm";
@@ -82,7 +73,10 @@ public class DriverController {
             if (xmlDataService.validate(xml)) {
                 ajaxObject.setInfo("Valid!");
             }
-        } catch (SAXException |IOException e) {
+        } catch (SAXException e) {
+            ajaxObject.setError(e.getMessage());
+        }
+        catch (IOException e) {
             ajaxObject.setError(e.getMessage());
         }
         Gson gson = new Gson();
@@ -114,11 +108,17 @@ public class DriverController {
                         ajaxObject.setInfo("saved");
                     } catch (IOException e) {
                         ajaxObject.setError(e.getMessage());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        ajaxObject.setError(e.getMessage());
                     }
                 }
             }
 //            END Save
-        } catch (SAXException |IOException e) {
+        } catch (SAXException e) {
+            ajaxObject.setError(e.getMessage());
+        }
+        catch (IOException e) {
             ajaxObject.setError(e.getMessage());
         }
         Gson gson = new Gson();
@@ -214,7 +214,10 @@ public class DriverController {
 
                 ajaxObject.setData(clientService.invoke(result));
             }
-        } catch (SAXException |IOException e) {
+        } catch (SAXException e) {
+            ajaxObject.setError(e.getMessage());
+        }
+        catch (IOException e) {
             ajaxObject.setError(e.getMessage());
         }
 

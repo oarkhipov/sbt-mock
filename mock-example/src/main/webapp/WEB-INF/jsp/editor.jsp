@@ -11,23 +11,23 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="/css/codemirror/codemirror.css">
-  <script src="/lib/codemirror/codemirror.js"></script>
-  <script src="/lib/codemirror/show-hint.js"></script>
-  <link rel="stylesheet" href="/css/codemirror/show-hint.css">
-  <script src="/lib/codemirror/closetag.js"></script>
-  <script src="/lib/codemirror/xml-hint.js"></script>
-  <script src="/lib/codemirror/xml.js"></script>
+  <link rel="stylesheet" href="../css/codemirror/codemirror.css">
+  <script src="../lib/codemirror/codemirror.js"></script>
+  <script src="../lib/codemirror/show-hint.js"></script>
+  <link rel="stylesheet" href="../css/codemirror/show-hint.css">
+  <script src="../lib/codemirror/closetag.js"></script>
+  <script src="../lib/codemirror/xml-hint.js"></script>
+  <script src="../lib/codemirror/xml.js"></script>
   <%--Folding--%>
-  <link rel="stylesheet" href="/css/codemirror/foldgutter.css">
-  <script src="/lib/codemirror/brace-fold.js"></script>
-  <script src="/lib/codemirror/comment-fold.js"></script>
-  <script src="/lib/codemirror/foldcode.js"></script>
-  <script src="/lib/codemirror/foldgutter.js"></script>
-  <script src="/lib/codemirror/markdown-fold.js"></script>
-  <script src="/lib/codemirror/xml-fold.js"></script>
+  <link rel="stylesheet" href="../css/codemirror/foldgutter.css">
+  <script src="../lib/codemirror/brace-fold.js"></script>
+  <script src="../lib/codemirror/comment-fold.js"></script>
+  <script src="../lib/codemirror/foldcode.js"></script>
+  <script src="../lib/codemirror/foldgutter.js"></script>
+  <script src="../lib/codemirror/markdown-fold.js"></script>
+  <script src="../lib/codemirror/xml-fold.js"></script>
 
-  <link rel="stylesheet" href="/css/docs.css">
+  <link rel="stylesheet" href="../css/docs.css">
   <style type="text/css">.CodeMirror {border: 1px solid #eee;} .CodeMirror-scroll { height: 100% }</style>
 </head>
 <body>
@@ -228,7 +228,9 @@ $("#undo").click(function(){
       obj = $.parseJSON(obj);
       showInfo(obj.info);
       showError(obj.error);
-      editor.setValue(htmlConvert(obj.data));
+      if(obj.data) {
+        editor.setValue(htmlConvert(obj.data));
+      }
     },
     fail: function() {
       showError("Unable to Undo! Try Later...");
@@ -238,7 +240,6 @@ $("#undo").click(function(){
 
 
 $("#redo").click(function(){
-//  alert("Saving...");
   $.ajax({
     url: QueryString["ip"]+ "/redo/",
     type: "POST",
@@ -247,7 +248,9 @@ $("#redo").click(function(){
       obj = $.parseJSON(obj);
       showInfo(obj.info);
       showError(obj.error);
-      editor.setValue(htmlConvert(obj.data));
+      if(obj.data) {
+        editor.setValue(htmlConvert(obj.data));
+      }
     },
     fail: function() {
       showError("Unable to save! Try Later...");
@@ -307,6 +310,10 @@ $("#reset").click(function(){
         showInfo(obj.info);
         showError(obj.error);
         showResponse(htmlConvert(obj.data));
+        sendDisable(false);
+      },
+      error: function (jqXHR, textStatus,obj) {
+        showError(obj);
         sendDisable(false);
       },
       fail: function() {

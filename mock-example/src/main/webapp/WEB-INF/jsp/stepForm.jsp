@@ -17,13 +17,13 @@
   <title>Mock Service</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
-  <link rel="stylesheet" href="/css/normalize.css">
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/jquery.steps.css">
-  <script src="/lib/modernizr-2.6.2.min.js"></script>
-  <script src="/lib/jquery-1.9.1.min.js"></script>
-  <script src="/lib/jquery.cookie-1.3.1.js"></script>
-  <script src="/lib/jquery.steps.min.js"></script>
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/jquery.steps.css">
+  <script src="../lib/modernizr-2.6.2.min.js"></script>
+  <script src="../lib/jquery-1.9.1.min.js"></script>
+  <script src="../lib/jquery.cookie-1.3.1.js"></script>
+  <script src="../lib/jquery.steps.min.js"></script>
 </head>
 <body>
 <!--[if lt IE 7]>
@@ -37,8 +37,8 @@
       wizard = $("#wizard").steps({
         headerTag: "h2",
         bodyTag: "section",
-//        transitionEffect: "slideLeft",
-//        transitionEffectSpeed: 400,
+        transitionEffect: "slideLeft",
+        transitionEffectSpeed: 400,
         onStepChanging: function(event, currentIndex, newIndex) {
           if(currentIndex == 0) {
             if(newIndex == 1) {
@@ -78,7 +78,7 @@
       wizard.steps("insert",1 ,{
         title: "<c:out value="${type}"/> Data",
         contentMode: "async",
-        contentUrl: "/<c:out value="${link}"/>/" + int_point + "/"
+        contentUrl: int_point + "/"
       });
       history.pushState({ip:int_point}, int_point, "?ip="+int_point);
       wizard.steps("next");
