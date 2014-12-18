@@ -46,9 +46,6 @@ public class DriverController {
     ApplicationContext appContext;
 
     @Autowired
-    TransformService transformService;
-
-    @Autowired
     ClientService clientService;
 
     @RequestMapping("/driver/")
@@ -68,11 +65,7 @@ public class DriverController {
         model.addAttribute("name", name);
         model.addAttribute("link", "driver");
         model.addAttribute("object", xmlDataService.getXml(name));
-
-        Resource xslResource = appContext.getResource("/WEB-INF/xsl/DataRowToDataList.xsl");
-        Resource xmlData = xmlDataService.getXmlResource(name);
-        String result = XslTransformer.transform(xslResource, xmlData);
-        model.addAttribute("list", result.split("\\r?\\n"));
+        model.addAttribute("list", getRequestList(name));
         return "editor";
     }
 
@@ -101,21 +94,29 @@ public class DriverController {
             @RequestParam("xml") String xml,
             ModelMap model) throws IOException {
         AjaxObject ajaxObject = new AjaxObject();
-        SaveFile saver = SaveFile.getInstance(appContext);
-        File dataFile = null;
         try {
-            String path = saver.TranslateNameToPath(name);
-            dataFile = saver.getBackUpedDataFile(path);
-        } catch (Exception e) {
-            ajaxObject.setError(e.getMessage());
-        }
-        if (dataFile!=null) {
-            try {
-                saver.writeStringToFile(dataFile, xml);
-                ajaxObject.setInfo("saved");
-            } catch (IOException e) {
-                ajaxObject.setError(e.getMessage());
+            if (xmlDataService.validate(xml)) {
+//                IF Valid - then save
+                SaveFile saver = SaveFile.getInstance(appContext);
+                File dataFile = null;
+                try {
+                    String path = saver.TranslateNameToPath(name);
+                    dataFile = saver.getBackUpedDataFile(path);
+                } catch (Exception e) {
+                    ajaxObject.setError(e.getMessage());
+                }
+                if (dataFile!=null) {
+                    try {
+                        saver.writeStringToFile(dataFile, xml);
+                        ajaxObject.setInfo("saved");
+                    } catch (IOException e) {
+                        ajaxObject.setError(e.getMessage());
+                    }
+                }
             }
+//            END Save
+        } catch (SAXException |IOException e) {
+            ajaxObject.setError(e.getMessage());
         }
         Gson gson = new Gson();
         model.addAttribute("object", gson.toJson(ajaxObject));
@@ -199,26 +200,39 @@ public class DriverController {
             @RequestParam("xml") String xml,
             ModelMap model) throws IOException, TransformerException {
 //        VALIDATE
-//        try {
-//            if (xmlDataService.validate(xml)) {
-//                model.addAttribute("info", "DONE!");
-//                model.addAttribute("data", clientService.invoke(xml));
-//            }
-//        } catch (SAXException |IOException e) {
-//            model.addAttribute("error", e.getMessage());
-//        }
         AjaxObject ajaxObject = new AjaxObject();
-        ajaxObject.setInfo("DONE!");
-//        System.out.println("request: " + request);
+        try {
+            if (xmlDataService.validate(xml)) {
 
-        Resource xslResource = xmlDataService.getXslResource(name);
-        Resource xmlData = xmlDataService.getXmlResource(name);
-        String result = XslTransformer.transform(xslResource, xmlData, "name", request);
+                ajaxObject.setInfo("DONE!");
+                Resource xslResource = xmlDataService.getXslResource(name);
+                Resource xmlData = xmlDataService.getXmlResource(name);
+                String result = XslTransformer.transform(xslResource, xmlData, "name", request);
 
-        ajaxObject.setData(clientService.invoke(result));
+                ajaxObject.setData(clientService.invoke(result));
+            }
+        } catch (SAXException |IOException e) {
+            model.addAttribute("error", e.getMessage());
+        }
+
         Gson gson = new Gson();
         model.addAttribute("object", gson.toJson(ajaxObject));
 
         return "blank";
+    }
+
+    @RequestMapping(value="/driver/{name}/list/", method=RequestMethod.POST)
+    public String getRequestList(
+            @PathVariable("name") String name,
+            ModelMap model) throws IOException, TransformerException {
+        model.addAttribute("object", getRequestList(name));
+        return "blank";
+    }
+
+    private String[] getRequestList(String name) throws IOException, TransformerException {
+        Resource xslResource = appContext.getResource("/WEB-INF/xsl/DataRowToDataList.xsl");
+        Resource xmlData = xmlDataService.getXmlResource(name);
+        String result = XslTransformer.transform(xslResource, xmlData);
+        return result.split("\\r?\\n");
     }
 }

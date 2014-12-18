@@ -58,7 +58,7 @@
     </div>
   </div>
 <c:if test="${link=='driver'}">
-  <div id="resWrapper" style="">
+  <div id="resWrapper">
     Response
   <textarea id="resCode" name="resCode"></textarea>
   </div>
@@ -149,11 +149,11 @@
   };
 
   var editor = CodeMirror.fromTextArea(document.getElementById("code"), editorSettings);
-editor.setSize("1000","400");
-<c:if test="${link=='driver'}">
-  var resEditor = CodeMirror.fromTextArea(document.getElementById("resCode"), editorSettings);
-  resEditor.setSize("600","400");
-</c:if>
+  editor.setSize("1000","400");
+  <c:if test="${link=='driver'}">
+    var resEditor = CodeMirror.fromTextArea(document.getElementById("resCode"), editorSettings);
+    resEditor.setSize("600","400");
+  </c:if>
 
 function showInfo(text) {
   if(text) {
@@ -171,6 +171,12 @@ function showError(text) {
   } else {
     $("#error").css("display","none");
   }
+}
+
+function htmlConvert(data) {
+  var converter = $("#htmlConverter");
+  converter.html(data);
+  return converter.text().trim();
 }
 
 //Handlers
@@ -211,22 +217,15 @@ $("#save").click(function(){
 });
 
 $("#undo").click(function(){
-//  alert("Saving...");
   $.ajax({
     url: QueryString["ip"]+ "/undo/",
     type: "POST",
     success: function(obj) {
       obj = htmlConvert(obj);
       obj = $.parseJSON(obj);
-      if (obj.info=="undo") {
-        showInfo(obj.info);
-        var converter = $("#htmlConverter");
-        converter.html(obj.data);
-        var msg = converter.text().trim();
-        editor.setValue(msg);
-      } else {
-        showError(obj.error);
-      }
+      showInfo(obj.info);
+      showError(obj.error);
+      editor.setValue(htmlConvert(obj.data));
     },
     fail: function() {
       showError("Unable to Undo! Try Later...");
@@ -243,16 +242,9 @@ $("#redo").click(function(){
     success: function(obj) {
       obj = htmlConvert(obj);
       obj = $.parseJSON(obj);
-      var info = obj.info;
-      if (obj.info=="redo") {
-        showInfo(obj.info);
-        var converter = $("#htmlConverter");
-        converter.html(obj.data);
-        var msg = converter.text().trim();
-        editor.setValue(msg);
-      } else {
-        showError(obj.error);
-      }
+      showInfo(obj.info);
+      showError(obj.error);
+      editor.setValue(htmlConvert(obj.data));
     },
     fail: function() {
       showError("Unable to save! Try Later...");
@@ -270,22 +262,13 @@ $("#reset").click(function(){
       obj = $.parseJSON(obj);
       showInfo(obj.info);
       showError(obj.error);
-      var converter = $("#htmlConverter");
-      converter.html(obj.data);
-      var msg = converter.text().trim();
-      editor.setValue(msg);
+      editor.setValue(htmlConvert(obj.data));
     },
     fail: function() {
       showError("Unable to save! Try Later...");
     }
   });
 });
-
-function htmlConvert(data) {
-  var converter = $("#htmlConverter");
-  converter.html(data);
-  return converter.text().trim();
-}
 
 <c:if test="${link=='driver'}">
 
@@ -300,6 +283,7 @@ function htmlConvert(data) {
   }
 
   function showResponse(text) {
+    $("#resWrapper").css("display", "block");
     resEditor.setValue(text);
   }
 

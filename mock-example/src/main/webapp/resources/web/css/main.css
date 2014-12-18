@@ -142,6 +142,9 @@ textarea {
     opacity: 0;
 }
 
+#resWrapper {
+    display: none;
+}
 
 
 
