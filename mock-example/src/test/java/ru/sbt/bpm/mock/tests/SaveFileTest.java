@@ -1,7 +1,15 @@
 package ru.sbt.bpm.mock.tests;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import ru.sbt.bpm.mock.service.ChannelService;
 import ru.sbt.bpm.mock.utils.SaveFile;
 
 import java.io.File;
@@ -13,17 +21,22 @@ import java.util.List;
 /**
  * Created by SBT-Vostrikov-MI on 16.12.2014.
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration({"/mockapp-servlet-test.xml"})
 public class SaveFileTest {
+    @Autowired
+    public ChannelService service;
 
-    static protected SaveFile saveFile;
 
-    @BeforeClass
-    static public void init() throws IOException{
-        saveFile = SaveFile.getInstance("C:\\Users\\sbt-vostrikov-mi\\Java\\Idea\\XSDMockService\\mock\\mock-example\\target\\ncpdb-interactive\\WEB-INF");
-    }
+    @Autowired
+    public ApplicationContext appContext;
+
+    public SaveFile saveFile;
 
     @Test
     public void testPaths() throws IOException {
+        saveFile = SaveFile.getInstance(appContext);
         //проверка что в getWebInfPath содерждатся те папки, что мы и ожидаем
         String getpath = saveFile.getWebInfPath();
 
@@ -47,35 +60,138 @@ public class SaveFileTest {
      */
     @Test
     public void checkBackUp() throws Exception {
-        File file = saveFile.getBackUpedDataFile("AMRLiRT\\xml\\SrvCalcDebtCapacityData.xml");
+        checkBackUpChangedFile("\\backup\\AMRLiRT\\xml", "AMRLiRT\\xml\\SrvCalcDebtCapacityData.xml");
+        checkBackUpChangedFile("\\backup\\CRM\\xml", "CRM\\xml\\ForceSignalData.xml");
+        checkBackUpChangedFile("\\backup\\FinRep\\xml", "FinRep\\xml\\SrvGetFinAnalysisData.xml");
+    }
+
+    private File checkBackUpChangedFile(String backSupFolder, String fileToBackUp) throws Exception  {
+        File f = checkBackUp(backSupFolder, fileToBackUp);
+        String str = saveFile.getFileString(f);
+        String strstr=str.replace("string","string1");
+        FileUtils.writeStringToFile(f, strstr);
+        File f2 = checkBackUp(backSupFolder, fileToBackUp);
+
+        assert f.getAbsolutePath().equals(f2.getAbsolutePath())
+                : "Different files; ["+f.getAbsolutePath()+"] and ["+f2.getAbsolutePath()+"]";
+
+        String strstr2=str.replace("string","string2");
+        FileUtils.writeStringToFile(f, strstr2);
+        File f3 = checkBackUp(backSupFolder, fileToBackUp);
+
+        assert f.getAbsolutePath().equals(f3.getAbsolutePath())
+                : "Different files; ["+f.getAbsolutePath()+"] and ["+f3.getAbsolutePath()+"]";
+
+        File f4 = restorBackUp(backSupFolder, fileToBackUp);
+
+        saveFile = SaveFile.getInstance(appContext);
+        File file = saveFile.getNextBackUpedDataFile(fileToBackUp);
+        System.out.println(file.getName());
+        File file2 = saveFile.getNextBackUpedDataFile(fileToBackUp);
+        System.out.println(file2.getName());
+        File file3 = saveFile.getNextBackUpedDataFile(fileToBackUp);
+        System.out.println(file3.getName());
+        File file4 = saveFile.getNextBackUpedDataFile(fileToBackUp);
+        System.out.println(file4.getName());
+
+        assert !file.getAbsolutePath().equals(file2.getAbsolutePath());
+        assert !file2.getAbsolutePath().equals(file3.getAbsolutePath());
+        assert !file3.getAbsolutePath().equals(file4.getAbsolutePath());
+        assert file4.getAbsolutePath().equals(file.getAbsolutePath())
+                : "В папке были бэкапы до запуска теста - это не ошибка";
+
+        return f;
+    }
+
+    private File checkBackUp(String backSupFolder, String fileToBackUp) throws Exception  {
+        saveFile = SaveFile.getInstance(appContext);
+        String subpath = saveFile.getWebInfPath();
+        File backFolder = new File(subpath + backSupFolder);
+        File[] backupsBefore = backFolder.listFiles();
+        if (backupsBefore == null) backupsBefore = new File[0];
+        File file = saveFile.getBackUpedDataFile(fileToBackUp);
         System.out.println(file.getCanonicalPath());
+
+        assert file.exists() : "файл не существует";
+        File[] backupsAfter = backFolder.listFiles();
+        assert backupsBefore.length<= backupsAfter.length
+                || ( backupsBefore.length==backupsAfter.length && saveFile.logSize==backupsAfter.length )
+                : "Количество бэкапов изменилось backupsBefore.length=["+backupsBefore.length+"], backupsAfter.length=["+backupsAfter.length+"], saveFile.logSize=["+saveFile.logSize+"],";
+        int countSameBefore = 0;
+        long fhash = FileUtils.checksumCRC32(file);
+        for (File bf : backupsBefore) {
+            long bhash = FileUtils.checksumCRC32(bf);
+            if (bhash == fhash) countSameBefore++;
+        }
+
+        int countSame = 0;
+        for (File bf : backupsAfter) {
+            long bhash = FileUtils.checksumCRC32(bf);
+            if (bhash == fhash) countSame++;
+        }
+        assert countSame>0 : "бэкапов нет";
+        assert countSame==1 || countSame==countSameBefore : "бэкапов больше одного countSame:"+countSame+", countSameBefore"+countSameBefore;
+
+        int countSameBacks = 0;
+        for (File ba : backupsAfter) {
+            long ahash = FileUtils.checksumCRC32(ba);
+            for (File bb : backupsBefore) {
+                long bhash = FileUtils.checksumCRC32(bb);
+                if (ahash == bhash) countSameBacks++;
+            }
+        }
+        if (backupsBefore.length==backupsAfter.length && saveFile.logSize==backupsAfter.length) {
+            assert countSame == saveFile.logSize - 1;
+        } else {
+            assert countSameBacks+countSame-countSameBefore == backupsAfter.length :"not equals:"+countSameBacks+"+"+countSame+"-"+countSameBefore+" == "+backupsAfter.length;
+        }
+        return file;
     }
 
-    /**
-     * возвращаемся к самому раннему бэкапу.
-     * Текущая xml также оказывается в бэкапе, если еще не была
-     */
-    @Test
-    public void checkRestoreBackUp() throws Exception {
-        File file = saveFile.restoreBackUpedDataFile("AMRLiRT\\xml\\SrvCalcDebtCapacityData.xml");
-        System.out.println(file.getName());
+    private File restorBackUp(String backSupFolder, String fileToBackUp) throws Exception  {
+        saveFile = SaveFile.getInstance(appContext);
+        String subpath = saveFile.getWebInfPath();
+        File backFolder = new File(subpath + backSupFolder);
+        File[] backupsBefore = backFolder.listFiles();
+        if (backupsBefore == null) backupsBefore = new File[0];
+        File file = saveFile.restoreBackUpedDataFile(fileToBackUp);
+        System.out.println(file.getCanonicalPath());
+
+        assert file.exists() : "файл не существует";
+        File[] backupsAfter = backFolder.listFiles();
+        assert backupsBefore.length == backupsAfter.length || backupsBefore.length + 1 == backupsAfter.length
+                : "Количество бэкапов изменилось backupsBefore.length=["+backupsBefore.length+"], backupsAfter.length=["+backupsAfter.length+"], saveFile.logSize=["+saveFile.logSize+"],";
+
+        int countSameBefore = 0;
+        long fhash = FileUtils.checksumCRC32(file);
+        for (File bf : backupsBefore) {
+            long bhash = FileUtils.checksumCRC32(bf);
+            if (bhash == fhash) countSameBefore++;
+        }
+
+        int countSame = 0;
+        for (File bf : backupsAfter) {
+            long bhash = FileUtils.checksumCRC32(bf);
+            if (bhash == fhash) countSame++;
+        }
+        assert countSame>0 : "бэкапов нет";
+        assert countSame==1 || countSame==countSameBefore : "бэкапов больше одного countSame:"+countSame+", countSameBefore"+countSameBefore;
+
+        int countSameBacks = 0;
+        for (File ba : backupsAfter) {
+            long ahash = FileUtils.checksumCRC32(ba);
+            for (File bb : backupsBefore) {
+                long bhash = FileUtils.checksumCRC32(bb);
+                if (ahash == bhash) countSameBacks++;
+            }
+        }
+        if (backupsBefore.length==backupsAfter.length && saveFile.logSize==backupsAfter.length) {
+            assert countSame == saveFile.logSize - 1;
+        } else {
+            assert countSameBacks+countSame-countSameBefore == backupsAfter.length :"not equals:"+countSameBacks+"+"+countSame+"-"+countSameBefore+" == "+backupsAfter.length;
+        }
+        return file;
     }
 
-    /**
-     * гуляеем по бэкАпам.
-     * restoreNextBackUpedDataFile возвращает следующий бэкап.
-     * Каждый вызов функции будет возвращать следующий файл.
-     * Текущая xml также оказывается в бэкапе, если еще не была.
-     */
-    @Test
-    public void checkNextRestoreBackUp() throws Exception {
-        File file = saveFile.getNextBackUpedDataFile("AMRLiRT\\xml\\SrvCalcDebtCapacityData.xml");
-        System.out.println(file.getName());
-        file = saveFile.getNextBackUpedDataFile("AMRLiRT\\xml\\SrvCalcDebtCapacityData.xml");
-        System.out.println(file.getName());
-        file = saveFile.getNextBackUpedDataFile("AMRLiRT\\xml\\SrvCalcDebtCapacityData.xml");
-        System.out.println(file.getName());
-        file = saveFile.getNextBackUpedDataFile("AMRLiRT\\xml\\SrvCalcDebtCapacityData.xml");
-        System.out.println(file.getName());
-    }
+
 }

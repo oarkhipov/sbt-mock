@@ -3,8 +3,8 @@
     <response name="default">
         <errorCode>s</errorCode>
         <!--Optional:-->
-        <errorMessage>string1-one</errorMessage>
-        <crmId>string1</crmId>
+        <errorMessage>string1111-one</errorMessage>
+        <crmId>string1111</crmId>
         <!--Optional:-->
         <rmk>1000.001</rmk>
         <debtCapacity>1000.001</debtCapacity>
@@ -20,14 +20,14 @@
             <addParameter>
                 <!--Optional:-->
                 <order>3</order>
-                <name>string</name>
-                <value>string</value>
+                <name>string111</name>
+                <value>string111</value>
             </addParameter>
             <addParameter>
                 <!--Optional:-->
                 <order>4</order>
-                <name>string2</name>
-                <value>string2</value>
+                <name>string1112</name>
+                <value>string1112</value>
             </addParameter>
         </listOfAddParameter>
         <!--Optional:-->
