@@ -4,11 +4,9 @@
         targetNamespace="http://sbrf.ru/NCP/ASFO/GetFinAnalysis/Data"
         xmlns="http://sbrf.ru/NCP/ASFO/GetFinAnalysis/Data"
         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns:tns="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRs/"
         elementFormDefault="qualified">
 
     <xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" schemaLocation="../../../xsd/AMRLiRT/CommonTypes.xsd"/>
-    <xsd:import namespace="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRs/" schemaLocation="../../../xsd/FinRep/FinAnalysisImportResponse.xsd"/>
 
     <xsd:element name="data" type="dataValue"/>
 
@@ -25,91 +23,303 @@
     </xsd:complexType>
 
     <xsd:complexType name="GetFinAnalysis">
-        <xsd:sequence>
-            <xsd:element name="actualRequirements" type="tns:ActualRequirements" />
-            <xsd:element name="actualRequirementsInTotal" type="tns:ActualRequirements" />
-            <xsd:element name="finIndexChangesReasonNFRS" minOccurs="0">
-                <xsd:simpleType>
-                    <xsd:restriction base="xsd:string">
-                        <xsd:maxLength value="1024"/>
-                    </xsd:restriction>
-                </xsd:simpleType>
-            </xsd:element>
-            <xsd:element name="finPerformanceCommentNFRS" minOccurs="0">
-                <xsd:simpleType>
-                    <xsd:restriction base="xsd:string">
-                        <xsd:maxLength value="1024"/>
-                    </xsd:restriction>
-                </xsd:simpleType>
-            </xsd:element>
-            <xsd:element name="finIndexChangesReasonIFRS" minOccurs="0">
-                <xsd:simpleType>
-                    <xsd:restriction base="xsd:string">
-                        <xsd:maxLength value="1024"/>
-                    </xsd:restriction>
-                </xsd:simpleType>
-            </xsd:element>
-            <xsd:element name="finPerformanceCommentIFRS" minOccurs="0">
-                <xsd:simpleType>
-                    <xsd:restriction base="xsd:string">
-                        <xsd:maxLength value="1024"/>
-                    </xsd:restriction>
-                </xsd:simpleType>
-            </xsd:element>
+        <xsd:choice>
+            <xsd:sequence>
+                <xsd:element name="actualRequirements" type="ActualRequirements" />
+                <xsd:element name="actualRequirementsInTotal" type="ActualRequirements" />
+                <xsd:element name="finIndexChangesReasonNFRS" minOccurs="0">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:maxLength value="1024"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
+                <xsd:element name="finPerformanceCommentNFRS" minOccurs="0">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:maxLength value="1024"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
+                <xsd:element name="finIndexChangesReasonIFRS" minOccurs="0">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:maxLength value="1024"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
+                <xsd:element name="finPerformanceCommentIFRS" minOccurs="0">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:maxLength value="1024"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
 
+                <xsd:element name="creditHistoryConclusions">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:maxLength value="1024"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
+                <xsd:element name="offBalanceSheetLiabilities">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:maxLength value="1024"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
+                <xsd:element name="liabilitiesDynamicsComment">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:maxLength value="1024"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
+                <xsd:element name="turnoversComment">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:maxLength value="1024"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
+                <xsd:element name="revenueExpensesStressAnalysis">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:maxLength value="1024"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
 
+                <xsd:element name="structuredDealsStressAnalysis" minOccurs="0">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:maxLength value="1024"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
+                <xsd:element name="fieldInfo" type="FieldInfo" />
+                <xsd:element name="marketPositionAndTrends" type="MarketPositionAndTrends" />
+                <xsd:element name="business" type="Business" />
 
-            <xsd:element name="creditHistoryConclusions">
-                <xsd:simpleType>
-                    <xsd:restriction base="xsd:string">
-                        <xsd:maxLength value="1024"/>
-                    </xsd:restriction>
-                </xsd:simpleType>
-            </xsd:element>
-            <xsd:element name="offBalanceSheetLiabilities">
-                <xsd:simpleType>
-                    <xsd:restriction base="xsd:string">
-                        <xsd:maxLength value="1024"/>
-                    </xsd:restriction>
-                </xsd:simpleType>
-            </xsd:element>
-            <xsd:element name="liabilitiesDynamicsComment">
-                <xsd:simpleType>
-                    <xsd:restriction base="xsd:string">
-                        <xsd:maxLength value="1024"/>
-                    </xsd:restriction>
-                </xsd:simpleType>
-            </xsd:element>
-            <xsd:element name="turnoversComment">
-                <xsd:simpleType>
-                    <xsd:restriction base="xsd:string">
-                        <xsd:maxLength value="1024"/>
-                    </xsd:restriction>
-                </xsd:simpleType>
-            </xsd:element>
-            <xsd:element name="revenueExpensesStressAnalysis">
-                <xsd:simpleType>
-                    <xsd:restriction base="xsd:string">
-                        <xsd:maxLength value="1024"/>
-                    </xsd:restriction>
-                </xsd:simpleType>
-            </xsd:element>
-
-
-
-            <xsd:element name="structuredDealsStressAnalysis" minOccurs="0">
-                <xsd:simpleType>
-                    <xsd:restriction base="xsd:string">
-                        <xsd:maxLength value="1024"/>
-                    </xsd:restriction>
-                </xsd:simpleType>
-            </xsd:element>
-            <xsd:element name="fieldInfo" type="tns:FieldInfo" />
-            <xsd:element name="marketPositionAndTrends" type="tns:MarketPositionAndTrends" />
-            <xsd:element name="business" type="tns:Business" />
-
-        </xsd:sequence>
+            </xsd:sequence>
+            <xsd:sequence>
+                <xsd:element name="errorCode">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:maxLength value="30"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
+                <xsd:element name="errorMessage" minOccurs="0">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:maxLength value="2000"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:choice>
         <xsd:attribute type="xsd:string" name="name" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="ActualRequirements">
+        <xsd:sequence>
+            <xsd:element name="creditRiskPerDebtor" type="xsd:decimal" />
+            <xsd:element name="creditRiskForRelatedDebtorGroup" type="xsd:decimal" />
+            <xsd:element name="creditRiskPerLegalEntityInsider" type="xsd:decimal" />
+            <xsd:element name="economicGroupRiskFactor" type="xsd:decimal" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="FieldInfo">
+        <xsd:sequence>
+            <xsd:element name="mainField">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="1024"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="mainBusiness">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="1024"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Competitor">
+        <xsd:sequence>
+            <xsd:element name="advantages">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="1024"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="disadvantages">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="1024"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="revenue" type="xsd:decimal" />
+            <xsd:element name="ebitda" type="xsd:decimal" />
+            <xsd:element name="debt" type="xsd:decimal" />
+            <xsd:element name="assets" type="xsd:decimal" />
+            <xsd:element name="equity" type="xsd:decimal" />
+            <xsd:element name="ebitdaRevenue" type="xsd:decimal" />
+            <xsd:element name="debtEbitda" type="xsd:decimal" />
+            <xsd:element name="debtEquity" type="xsd:decimal" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ListOfCompetitor">
+        <xsd:sequence>
+            <xsd:element name="competitor" type="Competitor" maxOccurs="3"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Market">
+        <xsd:sequence>
+            <xsd:element name="name">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="1024"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="posidionAndShare">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="1024"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="description">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="1024"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="lastFinReportQuarter">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="1024"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="borrower" type="Competitor" />
+            <xsd:element name="listOfCompetitor" type="ListOfCompetitor" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfMarkets">
+        <xsd:sequence>
+            <xsd:element name="market" type="Market" maxOccurs="5"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="MarketPositionAndTrends">
+        <xsd:sequence>
+            <!--			<xsd:element name="listOfMarkets" type="xsd:ListOfMarkets" />
+            -->
+            <xsd:element name="trends">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="1024"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <!--			<xsd:element name="demandDynamics">
+                            <xsd:simpleType>
+                                <xsd:restriction base="xsd:string">
+                                    <xsd:maxLength value="1024"/>
+                                </xsd:restriction>
+                            </xsd:simpleType>
+                        </xsd:element>
+            -->
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Partner">
+        <xsd:sequence>
+            <xsd:element name="name">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="1024"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="isCgParticipant" type="xsd:boolean" />
+            <xsd:element name="conditions">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="1024"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="productsAndTrends">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="1024"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfMainSuppliers">
+        <xsd:sequence>
+            <xsd:element name="supplier" type="Partner" maxOccurs="5"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ListOfMainBuyers">
+        <xsd:sequence>
+            <xsd:element name="buyer" type="Partner" maxOccurs="5"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Business">
+        <xsd:sequence>
+            <!--
+                        <xsd:element name="businessDescription">
+                            <xsd:simpleType>
+                                <xsd:restriction base="xsd:string">
+                                    <xsd:maxLength value="1024"/>
+                                </xsd:restriction>
+                            </xsd:simpleType>
+                        </xsd:element>
+            -->
+            <xsd:element name="suppliersConcentrationLevel">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="1024"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="buyersConcentrationLevel">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="1024"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <!--
+                        <xsd:element name="listOfMainSuppliers" type="xsd:ListOfMainSuppliers" />
+                        <xsd:element name="listOfMainBuyers" type="xsd:ListOfMainBuyers" />
+            -->
+            <xsd:element name="dependenceComment">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="1024"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
     </xsd:complexType>
 
 </xsd:schema>

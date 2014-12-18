@@ -41,7 +41,7 @@
                     <ratingCalculatedDate>2014-09-19</ratingCalculatedDate>
                     <ratingCalculatedRole>string</ratingCalculatedRole>
                     <ratingCalculatedBy>string</ratingCalculatedBy>
-                    <ratingApprovalDate>2006-08-19+04:00</ratingApprovalDate>
+                    <ratingApprovalDate>2006-08-19</ratingApprovalDate>
                     <ratingApprovedBy>string</ratingApprovedBy>
                 </rating>
                 <roleInConsolidatedGroup>string</roleInConsolidatedGroup>
@@ -53,14 +53,14 @@
                 <label>string</label>
                 <status>string</status>
                 <updateDate>2009-05-16</updateDate>
-                <approvalDate>2003-08-09+04:00</approvalDate>
+                <approvalDate>2003-08-09</approvalDate>
                 <!--Zero or more repetitions:-->
                 <ratings>
                     <ratingID>string</ratingID>
                     <ratingValue>1.0</ratingValue>
                     <ratingType>string</ratingType>
                     <ratingModel>string</ratingModel>
-                    <ratingCalculatedDate>2012-09-13+04:00</ratingCalculatedDate>
+                    <ratingCalculatedDate>2012-09-13</ratingCalculatedDate>
                     <ratingCalculatedRole>string</ratingCalculatedRole>
                     <ratingCalculatedBy>string</ratingCalculatedBy>
                     <ratingApprovalDate>2009-10-14</ratingApprovalDate>
@@ -113,7 +113,7 @@
                     <ratingCalculatedDate>2014-09-19</ratingCalculatedDate>
                     <ratingCalculatedRole>string</ratingCalculatedRole>
                     <ratingCalculatedBy>string</ratingCalculatedBy>
-                    <ratingApprovalDate>2006-08-19+04:00</ratingApprovalDate>
+                    <ratingApprovalDate>2006-08-19</ratingApprovalDate>
                     <ratingApprovedBy>string</ratingApprovedBy>
                 </rating>
                 <roleInConsolidatedGroup>string</roleInConsolidatedGroup>
@@ -125,14 +125,14 @@
                 <label>string</label>
                 <status>string</status>
                 <updateDate>2009-05-16</updateDate>
-                <approvalDate>2003-08-09+04:00</approvalDate>
+                <approvalDate>2003-08-09</approvalDate>
                 <!--Zero or more repetitions:-->
                 <ratings>
                     <ratingID>string</ratingID>
                     <ratingValue>1.0</ratingValue>
                     <ratingType>string</ratingType>
                     <ratingModel>string</ratingModel>
-                    <ratingCalculatedDate>2012-09-13+04:00</ratingCalculatedDate>
+                    <ratingCalculatedDate>2012-09-13</ratingCalculatedDate>
                     <ratingCalculatedRole>string</ratingCalculatedRole>
                     <ratingCalculatedBy>string</ratingCalculatedBy>
                     <ratingApprovalDate>2009-10-14</ratingApprovalDate>

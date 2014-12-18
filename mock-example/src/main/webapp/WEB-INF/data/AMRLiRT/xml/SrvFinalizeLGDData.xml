@@ -9,7 +9,7 @@
     </response>
     <response name="testError">
         <errorCode>e</errorCode>
-        <!--Optional:-->
-        <errorMessage>testing error message</errorMessage>
+        <crmId>string</crmId>
+        <type>string</type>
     </response>
 </data>

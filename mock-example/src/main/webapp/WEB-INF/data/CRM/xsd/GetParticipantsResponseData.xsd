@@ -3,10 +3,8 @@
 			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 			xmlns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/Data/"
 			targetNamespace="http://sbrf.ru/NCP/CRM/GetParticipantsRs/Data/"
-			xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/"
 			elementFormDefault="qualified">
 	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="../../../xsd/CRM/CommonTypes.xsd"/>
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/GetParticipantsRs/" schemaLocation="../../../xsd/CRM/GetParticipantsResponse.xsd"/>
 
 	<xsd:element name="data" type="dataValue"/>
 
@@ -248,7 +246,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element name="participants" type="tns:Participant" minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="participants" type="Participant" minOccurs="0" maxOccurs="unbounded">
 				<xsd:annotation>
 					<xsd:documentation>
 						Участники группы
@@ -262,7 +260,7 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="groupInfo" type="tns:GroupInfo" minOccurs="0">
+			<xsd:element name="groupInfo" type="GroupInfo" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Информация о группе
@@ -313,7 +311,7 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="ratings" type="tns:Rating" minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="ratings" type="Rating" minOccurs="0" maxOccurs="unbounded">
 				<xsd:annotation>
 					<xsd:documentation>
 						Рейтинг группы
@@ -466,14 +464,14 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="address" type="tns:Address" minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="address" type="Address" minOccurs="0" maxOccurs="unbounded">
 				<xsd:annotation>
 					<xsd:documentation>
 						Адрес участника
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="share" type="tns:Ownership" minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="share" type="Ownership" minOccurs="0" maxOccurs="unbounded">
 				<xsd:annotation>
 					<xsd:documentation>
 						Участники Заемщика
@@ -508,7 +506,7 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="rating" type="tns:Rating" minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="rating" type="Rating" minOccurs="0" maxOccurs="unbounded">
 				<xsd:annotation>
 					<xsd:documentation>
 						Данные о рейтинге
@@ -526,7 +524,7 @@
 	</xsd:complexType>
 	<xsd:complexType name="NaturalPerson">
 		<xsd:complexContent>
-			<xsd:extension base="tns:Participant">
+			<xsd:extension base="Participant">
 				<xsd:annotation>
 					<xsd:documentation>
 						Физическое лицо
@@ -575,7 +573,7 @@
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element name="identities" type="tns:Identity" minOccurs="0" maxOccurs="unbounded">
+					<xsd:element name="identities" type="Identity" minOccurs="0" maxOccurs="unbounded">
 						<xsd:annotation>
 							<xsd:documentation>
 								Данные о ДУЛ
@@ -588,7 +586,7 @@
 	</xsd:complexType>
 	<xsd:complexType name="LegalPerson">
 		<xsd:complexContent>
-			<xsd:extension base="tns:Participant">
+			<xsd:extension base="Participant">
 				<xsd:annotation>
 					<xsd:documentation>
 						Юридическое лицо
@@ -609,21 +607,21 @@
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element name="topManager" type="tns:TopManager" minOccurs="0" maxOccurs="unbounded">
+					<xsd:element name="topManager" type="TopManager" minOccurs="0" maxOccurs="unbounded">
 						<xsd:annotation>
 							<xsd:documentation>
 								Данные о топ-менеджменте
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element name="shareholder" type="tns:Participant" minOccurs="0" maxOccurs="unbounded">
+					<xsd:element name="shareholder" type="Participant" minOccurs="0" maxOccurs="unbounded">
 						<xsd:annotation>
 							<xsd:documentation>
 								Данные об акционерах
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element name="beneficiar" type="tns:Participant" minOccurs="0" maxOccurs="unbounded">
+					<xsd:element name="beneficiar" type="Participant" minOccurs="0" maxOccurs="unbounded">
 						<xsd:annotation>
 							<xsd:documentation>
 								Данные о бенефициарах
@@ -676,14 +674,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element name="participantsGroup" type="tns:ParticipantsGroup">
+			<xsd:element name="participantsGroup" type="ParticipantsGroup">
 				<xsd:annotation>
 					<xsd:documentation>
 						Информация об участниках
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="operationStatus" type="tns:OperationStatus">
+			<xsd:element name="operationStatus" type="OperationStatus">
 				<xsd:annotation>
 					<xsd:documentation>
 						Статус операции

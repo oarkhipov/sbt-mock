@@ -1,39 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data xmlns="http://sbrf.ru/NCP/ASFO/GetFinReport/Data">
     <response name="default">
-        <nonCurrentAssetsNFRS>string0</nonCurrentAssetsNFRS>
-        <currentAssetsNFRS>string1</currentAssetsNFRS>
-        <nonCurrentAssetsIFRS>string2</nonCurrentAssetsIFRS>
-        <currentAssetsIFRS>string3</currentAssetsIFRS>
-        <longTermDebtNFRS>string4</longTermDebtNFRS>
-        <shortTermDebtNFRS>string5</shortTermDebtNFRS>
-        <longTermDebtIFRS>string6</longTermDebtIFRS>
-        <shortTermDebtIFRS>string7</shortTermDebtIFRS>
-        <ebitdaNFRS>string8</ebitdaNFRS>
-        <numQuarterNFRS>string9</numQuarterNFRS>
-        <ebitdaIFRS>string10</ebitdaIFRS>
-        <numQuarterIFRS>string11</numQuarterIFRS>
+        <nonCurrentAssetsNFRS>1</nonCurrentAssetsNFRS>
+        <currentAssetsNFRS>2</currentAssetsNFRS>
+        <nonCurrentAssetsIFRS>3</nonCurrentAssetsIFRS>
+        <currentAssetsIFRS>4</currentAssetsIFRS>
+        <longTermDebtNFRS>5</longTermDebtNFRS>
+        <shortTermDebtNFRS>6</shortTermDebtNFRS>
+        <longTermDebtIFRS>7</longTermDebtIFRS>
+        <shortTermDebtIFRS>8</shortTermDebtIFRS>
+        <ebitdaNFRS>9</ebitdaNFRS>
+        <numQuarterNFRS>10</numQuarterNFRS>
+        <ebitdaIFRS>11</ebitdaIFRS>
+        <numQuarterIFRS>12</numQuarterIFRS>
         <currencyCode>string12</currencyCode>
         <currencyCodeForFR>string13</currencyCodeForFR>
-        <currencyRate>string14</currencyRate>
-        <futureCurrencyRate>string15</futureCurrencyRate>
-        <currentCurrencyRate>string16</currentCurrencyRate>
+        <currencyRate>14</currencyRate>
+        <futureCurrencyRate>15</futureCurrencyRate>
+        <currentCurrencyRate>16</currentCurrencyRate>
         <purpose>string17</purpose>
-        <currentYear>string18</currentYear>
-        <govDebt>string19</govDebt>
-        <creditGovDebt>string20</creditGovDebt>
-        <credit>string21</credit>
-        <liabilities>string22</liabilities>
-        <liabilitiesNextYear>string23</liabilitiesNextYear>
-        <income>string24</income>
-        <incomeNextYear>string25</incomeNextYear>
-        <plannedCredit>string26</plannedCredit>
-        <plannedCreditNextYear>string27</plannedCreditNextYear>
+        <currentYear>18</currentYear>
+        <govDebt>19</govDebt>
+        <creditGovDebt>20</creditGovDebt>
+        <credit>21</credit>
+        <liabilities>22</liabilities>
+        <liabilitiesNextYear>23</liabilitiesNextYear>
+        <income>24</income>
+        <incomeNextYear>25</incomeNextYear>
+        <plannedCredit>26</plannedCredit>
+        <plannedCreditNextYear>27</plannedCreditNextYear>
     </response>
     <response name="testError">
         <errorCode>e</errorCode>
         <!--Optional:-->
         <errorMessage>testing error message SrvGetFinReport.xml</errorMessage>
-        <nonCurrentAssetsNFRS>testing error message SrvGetFinReport.xml</nonCurrentAssetsNFRS>
     </response>
 </data>

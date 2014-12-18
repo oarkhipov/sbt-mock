@@ -19,7 +19,7 @@
                 <!--Optional:-->
                 <calculationDate>2008-08-08T03:18:33</calculationDate>
                 <!--Optional:-->
-                <ajustmentDate>2009-08-19T21:27:14+04:00</ajustmentDate>
+                <ajustmentDate>2009-08-19T21:27:14</ajustmentDate>
                 <modelName>string10</modelName>
                 <modelIntegrationId>string11</modelIntegrationId>
                 <ratingName>string12</ratingName>
@@ -50,7 +50,7 @@
                         <listOfRatingAjustment>
                             <!--Zero or more repetitions:-->
                             <ratingAjustment>
-                                <ajustmentDate>2027-08-09T04:18:37+04:00</ajustmentDate>
+                                <ajustmentDate>2027-08-09T04:18:37</ajustmentDate>
                                 <ajustedValue>28</ajustedValue>
                                 <ajustmetReason>string29</ajustmetReason>
                                 <!--Optional:-->
@@ -121,11 +121,11 @@
                             <!--1 or more repetitions:-->
                             <ratingPeriod>
                                 <!--Optional:-->
-                                <reportDate>2059-06-24+04:00</reportDate>
+                                <reportDate>2059-06-24</reportDate>
                                 <!--Optional:-->
                                 <period>string60</period>
                                 <!--Optional:-->
-                                <startDate>2061-02-20+04:00</startDate>
+                                <startDate>2061-02-20</startDate>
                                 <!--Optional:-->
                                 <endDate>2062-08-19</endDate>
                                 <!--Optional:-->

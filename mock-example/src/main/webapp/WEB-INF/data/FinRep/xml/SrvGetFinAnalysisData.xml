@@ -34,7 +34,6 @@
         </fieldInfo>
         <marketPositionAndTrends>
             <trends>string</trends>
-            <trends>string2</trends>
         </marketPositionAndTrends>
         <business>
             <suppliersConcentrationLevel>string</suppliersConcentrationLevel>
@@ -46,6 +45,5 @@
         <errorCode>e</errorCode>
         <!--Optional:-->
         <errorMessage>testing error message SrvGetFinAnalysis.xml</errorMessage>
-        <offBalanceSheetLiabilities>testing error message SrvGetFinAnalysis.xml</offBalanceSheetLiabilities>
     </response>
 </data>

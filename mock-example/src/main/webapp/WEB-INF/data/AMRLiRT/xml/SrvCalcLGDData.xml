@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data xmlns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGD/Data">
     <response name="default">
-        <errorCode>string</errorCode>
+        <errorCode>0</errorCode>
         <!--Optional:-->
-        <errorMessage>string</errorMessage>
+        <errorMessage>testing error message</errorMessage>
         <crmId>string</crmId>
         <lgdType>string</lgdType>
         <lgdDate>2008-09-29</lgdDate>
@@ -44,5 +44,14 @@
         <errorCode>e</errorCode>
         <!--Optional:-->
         <errorMessage>testing error message</errorMessage>
+        <crmId>string</crmId>
+        <lgdType>string</lgdType>
+        <lgdDate>2008-09-29</lgdDate>
+        <lgd>1000.00</lgd>
+        <ead>1000.00</ead>
+        <sum>1000.00</sum>
+        <totalValue>1000.00</totalValue>
+        <totalColValueLgd>1000.00</totalColValueLgd>
+        <totalColValueEad>1000.00</totalColValueEad>
     </response>
 </data>
