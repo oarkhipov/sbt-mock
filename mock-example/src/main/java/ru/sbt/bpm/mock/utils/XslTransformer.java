@@ -10,6 +10,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.io.StringWriter;
 
 /**
@@ -54,6 +55,24 @@ public class XslTransformer {
         }
 
         Source xml = new StreamSource(xmlRes.getFile());
+
+        StringWriter writer = new StringWriter();
+        StreamResult result = new StreamResult(writer);
+        transformer.transform(xml, result);
+
+        return writer.toString();
+    }
+
+    public static String transform(Resource xsltRes, String xmlRes, String paramName, String ParamValue) throws TransformerException, IOException {
+        TransformerFactory factory = TransformerFactory.newInstance();
+        Source xslt = new StreamSource(xsltRes.getFile());
+        Transformer transformer = factory.newTransformer(xslt);
+
+        if (paramName!=null && !paramName.isEmpty()) {
+            transformer.setParameter(paramName, ParamValue);
+        }
+
+        Source xml = new StreamSource(new StringReader(xmlRes));
 
         StringWriter writer = new StringWriter();
         StreamResult result = new StreamResult(writer);

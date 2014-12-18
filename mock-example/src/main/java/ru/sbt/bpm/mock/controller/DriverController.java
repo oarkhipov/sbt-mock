@@ -208,17 +208,20 @@ public class DriverController {
 //            model.addAttribute("error", e.getMessage());
 //        }
         AjaxObject ajaxObject = new AjaxObject();
-        ajaxObject.setInfo("DONE!");
 //        System.out.println("request: " + request);
+        try {
 
-        Resource xslResource = xmlDataService.getXslResource(name);
-        Resource xmlData = xmlDataService.getXmlResource(name);
-        String result = XslTransformer.transform(xslResource, xmlData, "name", request);
+            Resource xslResource = xmlDataService.getXslResource(name);
+            //Resource xmlData = xmlDataService.getXmlResource(name);
+            String result = XslTransformer.transform(xslResource, xml, "name", request);
 
-        ajaxObject.setData(clientService.invoke(result));
-        Gson gson = new Gson();
-        model.addAttribute("object", gson.toJson(ajaxObject));
-
+            ajaxObject.setData(clientService.invoke(result));
+            Gson gson = new Gson();
+            model.addAttribute("object", gson.toJson(ajaxObject));
+            ajaxObject.setInfo("DONE!");
+        } catch (Exception e) {
+            ajaxObject.setError(e.getMessage());
+        }
         return "blank";
     }
 }
