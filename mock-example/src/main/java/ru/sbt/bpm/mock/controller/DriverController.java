@@ -215,7 +215,7 @@ public class DriverController {
                 ajaxObject.setInfo("DONE!");
                 Resource xslResource = xmlDataService.getXslResource(name);
 //                Resource xmlData = xmlDataService.getXmlResource(name);
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ss.SSSXXXXX");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'+04:00'");
                 Map<String, String> params = new HashMap<String, String>(2);
                 params.put("name", request);
                 Date date = new Date();
