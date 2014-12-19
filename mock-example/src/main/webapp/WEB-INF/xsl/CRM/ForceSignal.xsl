@@ -13,18 +13,31 @@
     <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
     <xsl:param name="id" select="null"/>
     <xsl:param name="defaultId" select="string('5f4e83ab38514920b55f3eaa1dc378ad')"/>
-    <!-- OH MY GOD! -->
-    <!-- IT'S A -->
-    <!-- DRIVER!!! -->
+
+    <!-- Optional params for optional header values -->
+    <xsl:param name="correlation-id" select="null"/>
+    <xsl:param name="eis-name" select="null"/>
+    <xsl:param name="system-id" select="null"/>
+    <xsl:param name="operation-version" select="null"/>
+    <xsl:param name="user-id" select="null"/>
+    <xsl:param name="user-name" select="null"/>
 
     <!--Prepare data and section of data XML-->
     <xsl:template match="*">
+        <xsl:variable name="data" select="."/>
+        <xsl:variable name="linkedTag" select="$name"/>
         <xsl:element name="soap-env:Envelope">
-            <xsl:call-template name="soap-env:Header"/>
+            <xsl:call-template name="soap-env:Header">
+                <xsl:with-param name="data" select="$data"/>
+                <xsl:with-param name="response">
+                    <xsl:choose>
+                        <xsl:when test="count($data/rsd:request[@name=$linkedTag])=1"><xsl:value-of select="$linkedTag"/></xsl:when>
+                        <xsl:otherwise>default</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+            </xsl:call-template>
             <soap-env:Body>
                 <!--xsl:variable name="data" select="document('../../data/CRM/xml/ForceSignalRequestData.xsd')/rsd:data"/-->
-                <xsl:variable name="data" select="."/>
-                <xsl:variable name="linkedTag" select="$name"/>
                 <xsl:call-template name="forceSignal">
                     <xsl:with-param name="data" select="$data"/>
                     <xsl:with-param name="response">
@@ -39,17 +52,43 @@
     </xsl:template>
 
     <xsl:template name="soap-env:Header">
+        <xsl:param name="response"/>
+        <xsl:param name="data"/>
         <soap-env:Header>
-            <!--<soap-env:message-id><xsl:value-of select="concat(./soap-env:message-id,substring('5f4e83ab38514920b55f3eaa1dc378ad', 1 div mot(./soap-env:message-id)))"/></soap-env:message-id>-->
             <soap-env:message-id>
                 <xsl:choose>
                     <xsl:when test="$id!='null'"><xsl:value-of select="$id"/></xsl:when>
-                    <xsl:when test="soap-env:message-id"><xsl:value-of select="soap-env:message-id"/></xsl:when>
+                    <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/*"><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:message-id"/></xsl:when>
                     <xsl:otherwise><xsl:value-of select="$defaultId"/></xsl:otherwise>
                 </xsl:choose>
             </soap-env:message-id>
             <soap-env:request-time><xsl:value-of select="$timestamp"/></soap-env:request-time>
             <soap-env:operation-name>forceSignal</soap-env:operation-name>
+
+            <xsl:choose>
+                <xsl:when test="$correlation-id!='null'"><soap-env:correlation-id><xsl:value-of select="$correlation-id"/></soap-env:correlation-id></xsl:when>
+                <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:correlation-id"><soap-env:correlation-id><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:correlation-id"/></soap-env:correlation-id></xsl:when>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="$eis-name!='null'"><soap-env:eis-name><xsl:value-of select="$eis-name"/></soap-env:eis-name></xsl:when>
+                <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:eis-name"><soap-env:eis-name><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:eis-name"/></soap-env:eis-name></xsl:when>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="$system-id!='null'"><soap-env:system-id><xsl:value-of select="$system-id"/></soap-env:system-id></xsl:when>
+                <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:system-id"><soap-env:system-id><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:system-id"/></soap-env:system-id></xsl:when>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="$operation-version!='null'"><soap-env:operation-version><xsl:value-of select="$operation-version"/></soap-env:operation-version></xsl:when>
+                <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:operation-version"><soap-env:operation-version><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:operation-version"/></soap-env:operation-version></xsl:when>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="$user-id!='null'"><soap-env:user-id><xsl:value-of select="$correlation-id"/></soap-env:user-id></xsl:when>
+                <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:user-id"><soap-env:user-id><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:user-id"/></soap-env:user-id></xsl:when>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="$user-id!='null'"><soap-env:user-name><xsl:value-of select="$correlation-id"/></soap-env:user-name></xsl:when>
+                <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:user-id"><soap-env:user-name><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:user-id"/></soap-env:user-name></xsl:when>
+            </xsl:choose>
         </soap-env:Header>
     </xsl:template>
 

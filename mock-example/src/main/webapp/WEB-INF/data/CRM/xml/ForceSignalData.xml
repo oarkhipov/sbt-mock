@@ -8,7 +8,7 @@
         <status>string3</status>
         <comment>string4</comment>
         <requestType>string5</requestType>
-        <fullNameOfResponsiblePerson>string6</fullNameOfResponsiblePerson>
+        <responsiblePersonID>string6</responsiblePersonID>
         <!--Zero or more repetitions:-->
         <participantsGroup>
             <id>string1</id>
@@ -18,6 +18,10 @@
             <approvalDate>2014-09-05</approvalDate>
             <topLevelGroupName>string6</topLevelGroupName>
         </participantsGroup>
+        <SoapHeader>
+            <message-id>5f4e83ab38514920b55f3eaa1dc378ad</message-id>
+            <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+        </SoapHeader>
     </request>
 
     <request name="test1">
@@ -26,7 +30,7 @@
         <status>string3-2</status>
         <comment>string4-2</comment>
         <requestType>string5-2</requestType>
-        <fullNameOfResponsiblePerson>string6-2</fullNameOfResponsiblePerson>
+        <responsiblePersonID>string6-2</responsiblePersonID>
         <!--Zero or more repetitions:-->
         <participantsGroup>
             <id>string1-2</id>
