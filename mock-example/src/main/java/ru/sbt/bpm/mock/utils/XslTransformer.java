@@ -93,7 +93,9 @@ public class XslTransformer {
 
         if (params!=null && !params.isEmpty()) {
             for(Map.Entry<String, String> param : params.entrySet()) {
-                transformer.setParameter(param.getKey(), param.getValue());
+                if(param.getKey() != null ) {
+                    transformer.setParameter(param.getKey(), param.getValue());
+                }
             }
         }
 
