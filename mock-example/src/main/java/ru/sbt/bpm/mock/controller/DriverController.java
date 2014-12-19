@@ -24,6 +24,11 @@ import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by sbt-bochev-as on 15.12.2014.
@@ -210,7 +215,12 @@ public class DriverController {
                 ajaxObject.setInfo("DONE!");
                 Resource xslResource = xmlDataService.getXslResource(name);
 //                Resource xmlData = xmlDataService.getXmlResource(name);
-                String result = XslTransformer.transform(xslResource, xml, "name", request);
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ss.SSSXXXXX");
+                Map<String, String> params = new HashMap<String, String>(2);
+                params.put("name", request);
+                Date date = new Date();
+                params.put("timestamp", dateFormat.format(date));
+                String result = XslTransformer.transform(xslResource, xml, params);
 
                 ajaxObject.setData(clientService.invoke(result));
             }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"
+                xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:rq="http://sbrf.ru/NCP/CRM/ForceSignalRq/"
                 xmlns:rs="http://sbrf.ru/NCP/CRM/ForceSignalRs/"
                 xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/"
@@ -10,6 +10,9 @@
     <xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>
 
     <xsl:param name="name" select="all"/>
+    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
+    <xsl:param name="id" select="null"/>
+    <xsl:param name="defaultId" select="string('5f4e83ab38514920b55f3eaa1dc378ad')"/>
     <!-- OH MY GOD! -->
     <!-- IT'S A -->
     <!-- DRIVER!!! -->
@@ -17,10 +20,7 @@
     <!--Prepare data and section of data XML-->
     <xsl:template match="*">
         <xsl:element name="soap-env:Envelope">
-            <xsl:choose>
-                <xsl:when test="soap-env:Header"><xsl:copy-of select="soap-env:Header"/></xsl:when>
-                <xsl:otherwise><soap-env:Header/></xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="soap-env:Header"/>
             <soap-env:Body>
                 <!--xsl:variable name="data" select="document('../../data/CRM/xml/ForceSignalRequestData.xsd')/rsd:data"/-->
                 <xsl:variable name="data" select="."/>
@@ -38,6 +38,20 @@
         </xsl:element>
     </xsl:template>
 
+    <xsl:template name="soap-env:Header">
+        <soap-env:Header>
+            <!--<soap-env:message-id><xsl:value-of select="concat(./soap-env:message-id,substring('5f4e83ab38514920b55f3eaa1dc378ad', 1 div mot(./soap-env:message-id)))"/></soap-env:message-id>-->
+            <soap-env:message-id>
+                <xsl:choose>
+                    <xsl:when test="$id!='null'"><xsl:value-of select="$id"/></xsl:when>
+                    <xsl:when test="soap-env:message-id"><xsl:value-of select="soap-env:message-id"/></xsl:when>
+                    <xsl:otherwise><xsl:value-of select="$defaultId"/></xsl:otherwise>
+                </xsl:choose>
+            </soap-env:message-id>
+            <soap-env:request-time><xsl:value-of select="$timestamp"/></soap-env:request-time>
+            <soap-env:operation-name>forceSignal</soap-env:operation-name>
+        </soap-env:Header>
+    </xsl:template>
 
     <!--Fill tags with data from data.xml (0..1)-->
     <xsl:template match="rsd:errorMessage">

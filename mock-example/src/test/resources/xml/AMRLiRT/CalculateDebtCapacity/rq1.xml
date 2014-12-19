@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/" xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/">
-  <soap:Header/>
+<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/" xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/">
+  <soap:Header>
+    <soap:message-id>5f4e83ab38514920b55f3eaa1dc378ad</soap:message-id>
+    <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
+    <soap:operation-name>UpdateDeal</soap:operation-name>
+  </soap:Header>
   <soap:Body>
     <amr:calculateDCRq>
       <cal:crmId>string</cal:crmId>
