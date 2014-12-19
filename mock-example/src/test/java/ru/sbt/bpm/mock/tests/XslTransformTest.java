@@ -83,8 +83,7 @@ public class XslTransformTest {
         String validateString = "<response xmlns=\"http://sbrf.ru/NCP/ASFO/GetFinReport/Data\" name=\"testError\">\r\n" +
                 "        <errorCode>e</errorCode>\r\n" +
                 "        <!--Optional:-->\r\n" +
-                "        <errorMessage>testing error message SrvGetFinReportData.xml</errorMessage>\r\n" +
-                "        <nonCurrentAssetsNFRS>testing error message SrvGetFinReportData.xml</nonCurrentAssetsNFRS>\r\n" +
+                "        <errorMessage>testing error message SrvGetFinReport.xml</errorMessage>\r\n" +
                 "    </response>";
 
         String result = XslTransformer.transform(XSLTFile, XMLFile, "name", "testError");
