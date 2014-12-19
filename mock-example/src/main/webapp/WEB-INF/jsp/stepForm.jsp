@@ -73,6 +73,7 @@
       selectIp();
     }
 
+    //TODO there is a bug
     function selectIp() {
       wizard.steps("remove",1);
       wizard.steps("insert",1 ,{

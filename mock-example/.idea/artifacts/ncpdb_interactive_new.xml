@@ -2,7 +2,7 @@
   <artifact type="war" name="ncpdb-interactive-new">
     <output-path>$PROJECT_DIR$/classes/artifacts/ncpdb_interactive_new</output-path>
     <root id="archive" name="ncpdb-interactive-new.war">
-      <element id="artifact" artifact-name="mock-example:war exploded" />
+      <element id="artifact" artifact-name="ncpdb-interactive-new exploded" />
     </root>
   </artifact>
 </component>

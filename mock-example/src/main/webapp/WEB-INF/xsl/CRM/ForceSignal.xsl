@@ -7,6 +7,7 @@
                 xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/"
                 xmlns:crm="http://sbrf.ru/NCP/CRM/">
 
+    <xsl:output method="xml" omit-xml-declaration="yes"/>
     <xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>
 
     <xsl:param name="name" select="all"/>

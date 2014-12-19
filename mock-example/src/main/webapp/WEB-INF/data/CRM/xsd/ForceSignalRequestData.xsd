@@ -94,10 +94,9 @@
 				</xsd:any>
 			</xsd:sequence>
 	</xsd:complexType>
-
-
 	<xsd:complexType name="ForceSignalRq">
 		<xsd:sequence>
+			<xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
 			<xsd:element name="contractID" type="crmct:string15">
 				<xsd:annotation>
 					<xsd:documentation>
@@ -141,8 +140,8 @@
 				</xsd:annotation>
 			</xsd:element>
 			<xsd:element name="participantsGroup" type="ParticipantsGroup" minOccurs="0" maxOccurs="unbounded"/>
-			<xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
 		</xsd:sequence>
+		<xsd:attribute name="name"/>
 	</xsd:complexType>
 	<xsd:complexType name="ParticipantsGroup">
 		<xsd:annotation>

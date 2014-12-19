@@ -3,6 +3,10 @@
 <data xmlns="http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/">
     <!-- Responses -->
     <request name="default">
+        <SoapHeader>
+            <message-id>5f4e83ab38514920b55f3eaa1dc378ad</message-id>
+            <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+        </SoapHeader>
         <contractID>string1</contractID>
         <contractBPMID>string2</contractBPMID>
         <status>string3</status>
@@ -18,10 +22,7 @@
             <approvalDate>2014-09-05</approvalDate>
             <topLevelGroupName>string6</topLevelGroupName>
         </participantsGroup>
-        <SoapHeader>
-            <message-id>5f4e83ab38514920b55f3eaa1dc378ad</message-id>
-            <request-time>2014-12-16T17:55:06.410+04:00</request-time>
-        </SoapHeader>
+
     </request>
 
     <request name="test1">
