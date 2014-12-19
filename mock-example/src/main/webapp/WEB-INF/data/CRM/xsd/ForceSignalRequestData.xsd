@@ -7,7 +7,8 @@
 			xmlns:dt="http://sbrf.ru/commonTypes/dataTypes/"
 			xmlns:st="http://sbrf.ru/commonTypes/simpleTypes/">
 
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/dataTypes/" schemaLocation="../../../xsd/CRM/commonTypes/dataTypes.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/commonTypes/dataTypes/" schemaLocation="../../../xsd/CRM/commonTypes/dataTypes.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/commonTypes/simpleTypes/" schemaLocation="../../../xsd/CRM/commonTypes/simpleTypes.xsd"/>
 	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="../../../xsd/CRM/CommonTypes.xsd"/>
 	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="../../../xsd/CRM/commonTypes/commonTypes.xsd"/>
 	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="../../../xsd/CRM/NCPESBEnvelope.xsd"/>
