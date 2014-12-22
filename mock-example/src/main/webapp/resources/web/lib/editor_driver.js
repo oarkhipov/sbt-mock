@@ -56,9 +56,9 @@ $("#send").click(function(){
 
 function fillList(data) {
     if(data) {
-        console.log(data);
+        //console.log(data);
         data = data.split(",");
-        console.log(data);
+        //console.log(data);
         var list = $("#reqList");
         list.find('option').remove();
         $.each(data, function () {

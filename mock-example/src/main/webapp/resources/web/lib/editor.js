@@ -84,7 +84,8 @@ var editorSettings = {
 
 function showInfo(text) {
     if(text) {
-        text = text.trim();
+        //IE8 trim compatibility
+        text = $.trim(text);
         var info = $("#info");
         info.html(text).fadeTo(0, 0.7);
         info.delay(800).fadeTo(800, 0);
@@ -93,7 +94,8 @@ function showInfo(text) {
 
 function showError(text) {
     if(text) {
-        text = text.trim();
+        //IE8 trim compatibility
+        text = $.trim(text);
         $("#error").css("display","block").html(text);
     } else {
         $("#error").css("display","none");
@@ -103,7 +105,8 @@ function showError(text) {
 function htmlConvert(data) {
     var converter = $("#htmlConverter");
     converter.html(data);
-    return converter.text().trim();
+    //IE8 trim compatibility
+    return $.trim(converter.text());
 }
 
 //Handlers
