@@ -3,10 +3,9 @@
 			targetNamespace="http://sbrf.ru/NCP/CRM/UpdateRefRs/Data/"
 			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 			xmlns="http://sbrf.ru/NCP/CRM/UpdateRefRs/Data/"
-			xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateRefRs/" elementFormDefault="qualified">
+			elementFormDefault="qualified">
 	
 		<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="../../../xsd/CRM/CommonTypes.xsd"/>
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/UpdateRefRs/" schemaLocation="../../../xsd/CRM/UpdateRefResponse.xsd"/>
 
 	<xsd:element name="data" type="dataValue"/>
 

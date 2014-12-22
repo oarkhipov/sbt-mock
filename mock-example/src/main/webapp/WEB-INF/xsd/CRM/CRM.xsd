@@ -2,19 +2,19 @@
 <xsd:schema 
 xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/" 
 
-xmlns:ctrq="http://sbrf.ru/NCP/CRM/CreateTaskRq/" 
-xmlns:ctrs="http://sbrf.ru/NCP/CRM/CreateTaskRs/" 
-xmlns:fsrq="http://sbrf.ru/NCP/CRM/ForceSignalRq/" 
-xmlns:fsrs="http://sbrf.ru/NCP/CRM/ForceSignalRs/" 
-xmlns:urrq="http://sbrf.ru/NCP/CRM/UpdateRefRq/" 
-xmlns:urrs="http://sbrf.ru/NCP/CRM/UpdateRefRs/" 
+xmlns:ctrq="http://sbrf.ru/NCP/CRM/CreateTaskRq/1.02/" 
+xmlns:ctrs="http://sbrf.ru/NCP/CRM/CreateTaskRs/1.02/" 
+xmlns:fsrq="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.02/" 
+xmlns:fsrs="http://sbrf.ru/NCP/CRM/ForceSignalRs/1.02/" 
+xmlns:urrq="http://sbrf.ru/NCP/CRM/UpdateRefRq/1.01/" 
+xmlns:urrs="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/" 
 
-xmlns:gprq="http://sbrf.ru/NCP/CRM/GetParticipantsRq/" 
-xmlns:gprs="http://sbrf.ru/NCP/CRM/GetParticipantsRs/" 
-xmlns:sdrq="http://sbrf.ru/NCP/CRM/SaveDealRq/" 
-xmlns:sdrs="http://sbrf.ru/NCP/CRM/SaveDealRs/" 
-xmlns:udrq="http://sbrf.ru/NCP/CRM/UpdateDealRq/" 
-xmlns:udrs="http://sbrf.ru/NCP/CRM/UpdateDealRs/" 
+xmlns:gprq="http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.02/" 
+xmlns:gprs="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.03/" 
+xmlns:sdrq="http://sbrf.ru/NCP/CRM/SaveDealRq/1.04/" 
+xmlns:sdrs="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/" 
+xmlns:udrq="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.04/" 
+xmlns:udrs="http://sbrf.ru/NCP/CRM/UpdateDealRs/1.01/" 
 
 xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 xmlns:tns="http://sbrf.ru/NCP/CRM/" 
@@ -22,19 +22,19 @@ targetNamespace="http://sbrf.ru/NCP/CRM/"
 elementFormDefault="qualified">
 	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="CommonTypes.xsd"/>
 	
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CreateTaskRq/" schemaLocation="CreateTaskRequest.xsd"/>
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CreateTaskRs/" schemaLocation="CreateTaskResponse.xsd"/>
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/ForceSignalRq/" schemaLocation="ForceSignalRequest.xsd"/>
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/ForceSignalRs/" schemaLocation="ForceSignalResponse.xsd"/>
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/UpdateRefRq/" schemaLocation="UpdateRefRequest.xsd"/>
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/UpdateRefRs/" schemaLocation="UpdateRefResponse.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CreateTaskRq/1.02/" schemaLocation="CreateTaskRequest.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CreateTaskRs/1.02/" schemaLocation="CreateTaskResponse.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.02/" schemaLocation="ForceSignalRequest.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/ForceSignalRs/1.02/" schemaLocation="ForceSignalResponse.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/UpdateRefRq/1.01/" schemaLocation="UpdateRefRequest.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/" schemaLocation="UpdateRefResponse.xsd"/>
 		
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/GetParticipantsRq/" schemaLocation="GetParticipantsRequest.xsd"/>
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/GetParticipantsRs/" schemaLocation="GetParticipantsResponse.xsd"/>
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/SaveDealRq/" schemaLocation="SaveDealRequest.xsd"/>
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/SaveDealRs/" schemaLocation="SaveDealResponse.xsd"/>
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/UpdateDealRq/" schemaLocation="UpdateDealRequest.xsd"/>
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/UpdateDealRs/" schemaLocation="UpdateDealResponse.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.02/" schemaLocation="GetParticipantsRequest.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.03/" schemaLocation="GetParticipantsResponse.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/SaveDealRq/1.04/" schemaLocation="SaveDealRequest.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/" schemaLocation="SaveDealResponse.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.04/" schemaLocation="UpdateDealRequest.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/UpdateDealRs/1.01/" schemaLocation="UpdateDealResponse.xsd"/>
 
 	<xsd:element name="createTaskRq" type="ctrq:CreateTaskRq"/>
 	<xsd:element name="createTaskRs" type="ctrs:CreateTaskRs"/>

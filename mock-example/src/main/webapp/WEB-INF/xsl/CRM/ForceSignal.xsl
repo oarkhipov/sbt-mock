@@ -8,14 +8,14 @@
                 xmlns:crm="http://sbrf.ru/NCP/CRM/">
     <xsl:import href="../NCPSoapRqHeaderXSLTTemplate.xsl"/>
 
-    <xsl:output method="xml" omit-xml-declaration="yes"/>
+    <!-- опускаем строку <?xml version="1.0" encoding="UTF-8"?>. С ней не работает MQ очередь -->
+    <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
     <!--<xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>-->
 
 
     <xsl:param name="name" select="all"/>
     <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
     <xsl:param name="id" select="null"/>
-    <xsl:param name="defaultId" select="string('defaultId')"/>
 
     <!-- Optional params for optional header values -->
     <xsl:param name="correlation-id" select="null"/>
@@ -37,7 +37,15 @@
                         <xsl:otherwise>default</xsl:otherwise>
                     </xsl:choose>
                 </xsl:with-param>
-                <xsl:with-param name="defaultId" select="$defaultId"/>
+                <xsl:with-param name="timestamp" select="$timestamp"/>
+                <xsl:with-param name="id" select="$id"/>
+                <xsl:with-param name="operation-name" select="string('forceSignal')"/>
+                <xsl:with-param name="correlation-id" select="$correlation-id"/>
+                <xsl:with-param name="eis-name" select="$eis-name"/>
+                <xsl:with-param name="system-id" select="$system-id"/>
+                <xsl:with-param name="operation-version" select="$operation-version"/>
+                <xsl:with-param name="user-id" select="$user-id"/>
+                <xsl:with-param name="user-name" select="$user-name"/>
             </xsl:call-template>
             <soap-env:Body>
                 <!--xsl:variable name="data" select="document('../../data/CRM/xml/ForceSignalRequestData.xsd')/rsd:data"/-->
@@ -85,7 +93,7 @@
             <rq:status><xsl:value-of select="$data/rsd:request[@name=$response]/rsd:status"/></rq:status>
             <rq:comment><xsl:value-of select="$data/rsd:request[@name=$response]/rsd:comment"/></rq:comment>
             <rq:requestType><xsl:value-of select="$data/rsd:request[@name=$response]/rsd:requestType"/></rq:requestType>
-            <rq:fullNameOfResponsiblePerson><xsl:value-of select="$data/rsd:request[@name=$response]/rsd:fullNameOfResponsiblePerson"/></rq:fullNameOfResponsiblePerson>
+            <rq:responsiblePersonID><xsl:value-of select="$data/rsd:request[@name=$response]/rsd:responsiblePersonID"/></rq:responsiblePersonID>
             <xsl:apply-templates select="$data/rsd:request[@name=$response]/rsd:participantsGroup"/>
         </crm:forceSignalRq>
     </xsl:template>

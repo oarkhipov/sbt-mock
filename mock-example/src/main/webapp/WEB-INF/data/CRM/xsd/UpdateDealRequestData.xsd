@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema
-		xmlns:comTypes="http://sbrf.ru/NCP/CRM/CommonTypes/"
+		xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/"
 		targetNamespace="http://sbrf.ru/NCP/CRM/UpdateDealRq/Data/"
 		xmlns="http://sbrf.ru/NCP/CRM/UpdateDealRq/Data/"
 		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 		elementFormDefault="qualified">
 
 	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="../../../xsd/CRM/CommonTypes.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="../../../xsd/CRM/commonTypes/commonTypes.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="../../../xsd/CRM/NCPESBEnvelope.xsd"/>
 
 
 	<xsd:element name="data" type="dataValue"/>
@@ -23,37 +25,6 @@
 		</xsd:sequence>
 	</xsd:complexType>
 
-	<xsd:complexType name="UpdateDealRsData">
-		<xsd:choice>
-			<xsd:sequence>
-				<xsd:element name="deal" type="Deal" minOccurs="0">
-					<xsd:annotation>
-						<xsd:documentation>
-							Сделка
-						</xsd:documentation>
-					</xsd:annotation>
-				</xsd:element>
-			</xsd:sequence>
-			<xsd:sequence>
-				<xsd:element name="errorCode" type="comTypes:string50" minOccurs="0">
-					<xsd:annotation>
-						<xsd:documentation>
-							Код ошибки
-						</xsd:documentation>
-					</xsd:annotation>
-				</xsd:element>
-				<xsd:element name="errorMessage" type="comTypes:string2000" minOccurs="0">
-					<xsd:annotation>
-						<xsd:documentation>
-							Сообщение об ошибке
-						</xsd:documentation>
-					</xsd:annotation>
-				</xsd:element>
-			</xsd:sequence>
-		</xsd:choice>
-		<xsd:attribute type="xsd:string" name="name" use="required"/>
-	</xsd:complexType>
-
 	<xsd:complexType name="ExchangeRate">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -61,14 +32,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element name="currencyName" type="comTypes:string255">
+			<xsd:element name="currencyName" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Валюта
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="currencyValue" type="comTypes:double17_6">
+			<xsd:element name="currencyValue" type="crmct:double17_5">
 				<xsd:annotation>
 					<xsd:documentation>
 						Курс
@@ -84,7 +55,103 @@
 			</xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
-
+	<xsd:complexType name="DealTeamMember">
+		<xsd:annotation>
+			<xsd:documentation>
+				Участник команды сделки
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="memberId" type="crmct:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						Идентификатор участника
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="memberName" type="crmct:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						ФИО участника
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="mamberEmail" type="crmct:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						E-mail участника
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="mamberRole" type="crmct:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						Роль участника
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FinancingInfo">
+		<xsd:annotation>
+			<xsd:documentation>
+				Финансовая информация по продукту
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="currencyOfFunding" type="crmct:string3">
+				<xsd:annotation>
+					<xsd:documentation>
+						Валюта финансирования
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="principal" type="crmct:double17_5">
+				<xsd:annotation>
+					<xsd:documentation>
+						Сумма, тыс. ед.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InterestRateInfo">
+		<xsd:annotation>
+			<xsd:documentation>
+				Информация о процентных ставках
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="interestRate" type="crmct:double17_5">
+				<xsd:annotation>
+					<xsd:documentation>
+						Процентная ставка
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="interestRateType" type="crmct:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						Тип ставки
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="interestRateOrder" type="crmct:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						Порядок установления процентной ставки
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="minRate" type="crmct:double17_5">
+				<xsd:annotation>
+					<xsd:documentation>
+						Индивидуальная минимальная процентная ставка с учетом субсидий
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
 	<xsd:complexType name="Rating">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -92,28 +159,28 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element name="ratingID" type="comTypes:string255">
+			<xsd:element name="ratingID" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						ID Рейтинга
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="ratingValue" type="comTypes:double17_2">
+			<xsd:element name="ratingValue" type="crmct:integer3">
 				<xsd:annotation>
 					<xsd:documentation>
 						Значение рейтинга
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="ratingType" type="comTypes:string255">
+			<xsd:element name="ratingType" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Тип рейтинга
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="ratingModel" type="comTypes:string255">
+			<xsd:element name="ratingModel" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Модель
@@ -127,14 +194,14 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="ratingCalculatedRole" type="comTypes:string255">
+			<xsd:element name="ratingCalculatedRole" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Роль
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="ratingCalculatedBy" type="comTypes:string255">
+			<xsd:element name="ratingCalculatedBy" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Ф.И.О.
@@ -149,7 +216,7 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="ratingApprovedBy" type="comTypes:string255">
+			<xsd:element name="ratingApprovedBy" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Ф.И.О.
@@ -158,7 +225,6 @@
 			</xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
-
 	<xsd:complexType name="Project">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -166,66 +232,59 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element name="projectName" type="comTypes:string255">
+			<xsd:element name="projectName" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Наименование проекта
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="indicatorsOfConstruction" type="comTypes:string255">
+			<xsd:element name="indicatorsOfConstruction" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Количественные показатели объекта строительства
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="parcel" type="comTypes:string255">
+			<xsd:element name="parcel" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Земельный участок
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="documentsPresence" type="comTypes:string255">
+			<xsd:element name="documentsPresence" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Наличие правоустанавливающей и исходно-разрешительной документации
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="equityVolume" type="comTypes:string255">
+			<xsd:element name="equityVolume" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Объем собственных средств
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="repaymentSpring" type="comTypes:string255">
+			<xsd:element name="repaymentSpring" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Источник погашения
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="projectVariant" type="comTypes:string255">
+			<xsd:element name="fundingDirection" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
-						Вариант проекта
+						Направление финансирования
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="sameIndustryAsBorrower" type="xsd:boolean">
+			<xsd:element name="sameIndustryAsBorrower" type="xsd:boolean" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Отрасль проекта совпадает с отраслью заемщика
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="collateralProvided" type="xsd:boolean">
-				<xsd:annotation>
-					<xsd:documentation>
-						По сделке предоставлено обеспечение
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
@@ -238,7 +297,6 @@
 			</xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
-
 	<xsd:complexType name="Schedule">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -253,7 +311,7 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="sheduleAmount" type="comTypes:double17_6">
+			<xsd:element name="sheduleAmount" type="crmct:double17_5">
 				<xsd:annotation>
 					<xsd:documentation>
 						Сумма
@@ -269,77 +327,77 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element name="percentLGD" type="comTypes:double17_6">
+			<xsd:element name="percentLGD" type="crmct:double17_5" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						LGD – потери при дефолте (%)
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="countEAD" type="comTypes:double17_6">
+			<xsd:element name="countEAD" type="crmct:double17_5" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						EAD – средства под риском (тыс.ед.)
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="currency" type="comTypes:string255">
+			<xsd:element name="currency" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Валюта
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="reportDateAmount" type="comTypes:double17_6">
+			<xsd:element name="reportDateAmount" type="crmct:double17_5" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Сумма на отчетную дату
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="lossELpercent" type="comTypes:double17_6">
+			<xsd:element name="lossELpercent" type="crmct:double17_5" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						EL – ожидаемые потери (%)
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="lossELcount" type="comTypes:double17_6">
+			<xsd:element name="lossELcount" type="crmct:double17_5" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						EL - ожидаемые потери (тыс.ед.)
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="typeLGD" type="comTypes:string255">
+			<xsd:element name="typeLGD" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Тип LGD
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="statusLGD" type="comTypes:string255">
+			<xsd:element name="statusLGD" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Статус LGD
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="dateLGDcalculated" type="xsd:date">
+			<xsd:element name="dateLGDcalculated" type="xsd:date" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Дата расчета LGD
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="finalizationDate" type="xsd:date">
+			<xsd:element name="finalizationDate" type="xsd:date" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Дата финализации
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="comment" type="comTypes:string2000">
+			<xsd:element name="comment" type="crmct:string4500" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Комментарии к расчету
@@ -355,70 +413,70 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element name="collateralType" type="comTypes:string255">
+			<xsd:element name="collateralType" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Вид обеспечения
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="ownerID" type="comTypes:string255">
+			<xsd:element name="ownerID" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						ID Участника
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="estimatedValue" type="comTypes:double17_6">
+			<xsd:element name="estimatedValue" type="crmct:double17_5">
 				<xsd:annotation>
 					<xsd:documentation>
 						Оценочная стоимость
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="discountRate" type="comTypes:double17_6">
+			<xsd:element name="discountRate" type="crmct:double17_5">
 				<xsd:annotation>
 					<xsd:documentation>
 						Ставка дисконта для расчета LGD %
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="estimatedValueCorrected" type="comTypes:double17_6">
+			<xsd:element name="estimatedValueCorrected" type="crmct:double17_5">
 				<xsd:annotation>
 					<xsd:documentation>
 						Скорректированная оценочная стоимость обеспечения
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="qualityCategory" type="comTypes:string255">
+			<xsd:element name="qualityCategory" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Категория качества обеспечения
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="daysForCalculation" type="comTypes:integer3">
+			<xsd:element name="daysForCalculation" type="crmct:integer3">
 				<xsd:annotation>
 					<xsd:documentation>
 						Дни для расчета %
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="estimatedValueCorrectedToEAD" type="comTypes:double17_6">
+			<xsd:element name="estimatedValueCorrectedToEAD" type="crmct:double17_5">
 				<xsd:annotation>
 					<xsd:documentation>
 						Скорректированная оценочная стоимость по отношению к EAD, %
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="securityShare" type="comTypes:integer3">
+			<xsd:element name="securityShare" type="crmct:integer3">
 				<xsd:annotation>
 					<xsd:documentation>
 						Доля обеспечения
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="EstimatedValueSource" type="comTypes:string255">
+			<xsd:element name="EstimatedValueSource" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Источник оценочной стоимости
@@ -432,35 +490,35 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="businessMeaning" type="comTypes:string255">
+			<xsd:element name="businessMeaning" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Значимость для бизнеса
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="qualityAndLiquidityEstimation" type="comTypes:string255">
+			<xsd:element name="qualityAndLiquidityEstimation" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Экспертная оценка ликвидности
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="currency" type="comTypes:string255">
+			<xsd:element name="currency" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Валюта оценки
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="estimatedValueType" type="comTypes:string255">
+			<xsd:element name="estimatedValueType" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Тип оценочной стоимости
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="guarantorRating" type="comTypes:string255">
+			<xsd:element name="guarantorRating" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Рейтинг гаранта/поручителя/эмитента
@@ -476,28 +534,28 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element name="feeName" type="comTypes:string255">
+			<xsd:element name="feeName" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Наименоание вознаграждения
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="anotherFeeName" type="comTypes:string255">
+			<xsd:element name="anotherFeeName" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Наименование для иного вознаграждения
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="calculationBase" type="comTypes:string255">
+			<xsd:element name="calculationBase" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Размер и база расчета
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="paymentOrder" type="comTypes:string255">
+			<xsd:element name="paymentOrder" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Порядок уплаты
@@ -513,77 +571,56 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element name="purpose" type="comTypes:string255">
+			<xsd:element name="productVersion" type="crmct:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						Версия продукта
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="purpose" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Цель кредитования
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="creditMode" type="comTypes:string255">
+			<xsd:element name="creditMode" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Режим кредитования
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="currencyOfFunding" type="comTypes:string3">
-				<xsd:annotation>
-					<xsd:documentation>
-						Валюта финансирования
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="currency" type="comTypes:string3">
-				<xsd:annotation>
-					<xsd:documentation>
-						Валюта выборки
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="interestRateType" type="comTypes:string255">
-				<xsd:annotation>
-					<xsd:documentation>
-						Тип ставки
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="selectionSchedule" type="comTypes:string255">
+			<xsd:element name="selectionSchedule" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						График выборки
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="changesSchedule" type="comTypes:string255">
+			<xsd:element name="changesSchedule" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						График изменения (увеличения/снижения) предельного размера единовременной задолженности
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="selectionSchedulePeriod" type="comTypes:string255">
+			<xsd:element name="selectionSchedulePeriod" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Период для графика выборки
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="changesSchedulePeriod" type="comTypes:string255">
+			<xsd:element name="changesSchedulePeriod" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Период для графика изменения
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="interestRateOrder" type="comTypes:string255">
-				<xsd:annotation>
-					<xsd:documentation>
-						Порядок установления процентной ставки
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="interestPaymentOrder" type="comTypes:string255">
+			<xsd:element name="interestPaymentOrder" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Порядок уплаты процентов
@@ -597,140 +634,133 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="providing" type="comTypes:string255">
+			<xsd:element name="providing" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Обеспеченность
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="suspensiveCondition" type="comTypes:string255">
+			<xsd:element name="suspensiveСondition" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Отлагательные условия
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="principal" type="comTypes:double17_6">
-				<xsd:annotation>
-					<xsd:documentation>
-						Сумма, тыс. ед.
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="principalBaseCurrency" type="comTypes:double17_6">
+			<xsd:element name="principalBaseCurrency" type="crmct:double17_5" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Сумма в баз. вал., тыс.ед.
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="startDate" type="xsd:date">
+			<xsd:element name="financingInfo" type="FinancingInfo" minOccurs="1" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						Финансовая информация по продукту
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="interestRateInfo" type="InterestRateInfo" minOccurs="1" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						Информация о процентных ставках
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="startDate" type="xsd:date" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Дата предоставления
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="interestRate" type="comTypes:double17_6">
-				<xsd:annotation>
-					<xsd:documentation>
-						Процентная ставка
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="creditTerm" type="comTypes:integer5">
+			<xsd:element name="creditTerm" type="crmct:integer5">
 				<xsd:annotation>
 					<xsd:documentation>
 						Срок кредитования
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="period" type="comTypes:integer5">
+			<xsd:element name="period" type="crmct:integer5">
 				<xsd:annotation>
 					<xsd:documentation>
 						Период доступности, в мес.
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="gracePeriod" type="comTypes:integer5">
+			<xsd:element name="gracePeriod" type="crmct:integer5" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Льготный период
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="repaymentSchedule" type="comTypes:string255">
+			<xsd:element name="repaymentSchedule" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						График погашения
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="turnover" type="comTypes:integer5">
+			<xsd:element name="turnover" type="crmct:integer5">
 				<xsd:annotation>
 					<xsd:documentation>
 						Оборачиваемость
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="covenants" type="comTypes:string255">
+			<xsd:element name="covenants" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Ковенанты
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="minRate" type="comTypes:double17_6">
-				<xsd:annotation>
-					<xsd:documentation>
-						Индивидуальная минимальная процентная ставка с учетом субсидий
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="proposedCollateral" type="comTypes:string255">
+			<xsd:element name="proposedCollateral" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Предварительное обеспечение
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="debtLimit" type="comTypes:string255">
+			<xsd:element name="debtLimit" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Предельный размер единовременной задолженности
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="pledgeInsurance" type="comTypes:string255">
+			<xsd:element name="pledgeInsurance" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Страхование залога
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="customerProspects" type="comTypes:string255">
+			<xsd:element name="customerProspects" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Перспективы сотрудничества с клиентом
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="financingTerm" type="comTypes:string255">
+			<xsd:element name="financingTerm" type="crmct:integer3">
 				<xsd:annotation>
 					<xsd:documentation>
 						Срок финансирования по уступаемым денежным требованиям
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="firstCountry" type="comTypes:string255">
+			<xsd:element name="firstCountry" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Первоначальная страна использования
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="lastCountry" type="comTypes:string255">
+			<xsd:element name="lastCountry" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Конечная страна использования
@@ -774,21 +804,21 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element name="productID" type="comTypes:integer10">
+			<xsd:element name="productID" type="crmct:integer10">
 				<xsd:annotation>
 					<xsd:documentation>
 						ID продукта в CRM
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="productName" type="comTypes:string255">
+			<xsd:element name="productName" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Продукт
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="category" type="comTypes:string255">
+			<xsd:element name="category" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Категория продукта
@@ -825,14 +855,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element name="dealID" type="comTypes:string15">
+			<xsd:element name="dealID" type="crmct:string15">
 				<xsd:annotation>
 					<xsd:documentation>
 						ID сделки
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="contractID" type="comTypes:string255" minOccurs="0">
+			<xsd:element name="contractID" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						ID договора
@@ -846,28 +876,28 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="dealEssense" type="comTypes:string255">
+			<xsd:element name="dealEssense" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Суть сделки
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="requestPurpose" type="comTypes:string255">
+			<xsd:element name="requestPurpose" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Цель запроса
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="salesMethod" type="comTypes:string255">
+			<xsd:element name="dealType" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
-						Метод продаж
+						Тип сделки
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="dealStatus" type="comTypes:string255">
+			<xsd:element name="dealStatus" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Статус сделки
@@ -881,52 +911,66 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="origOrgUnit" type="comTypes:string255">
+			<xsd:element name="origOrgUnit" type="crmct:string10">
 				<xsd:annotation>
 					<xsd:documentation>
 						Код подразделения
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="origOrgDivision" type="comTypes:string255">
+			<xsd:element name="origOrgDivision" type="crmct:string2">
 				<xsd:annotation>
 					<xsd:documentation>
 						Код дочернего банка, например, BY, KZ
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="clientFileID" type="comTypes:string255">
+			<xsd:element name="clientFileID" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Идентификатор досье клиента
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="dealFileID" type="comTypes:string255">
+			<xsd:element name="dealFileID" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Идентификатор досье сделки
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="comment" type="comTypes:string255">
+			<xsd:element name="comment" type="crmct:string4500" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Примечание
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="supLMID" type="comTypes:string255">
+			<xsd:element name="supLMID" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						ID Сделки в SupLM
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="clientManagerID" type="comTypes:string255">
+			<xsd:element name="collateralProvided" type="xsd:boolean">
 				<xsd:annotation>
 					<xsd:documentation>
-						ID КМ
+						По сделке предоставлено обеспечение
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="limitKM" type="crmct:string4500">
+				<xsd:annotation>
+					<xsd:documentation>
+						Предложение КМ по лимитам
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="dealTeamMembers" type="DealTeamMember" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						Команда сделки
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
@@ -937,14 +981,14 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="project" type="Project">
+			<xsd:element name="project" type="Project" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Информация по проекту
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="baseCurrency" type="comTypes:string3">
+			<xsd:element name="baseCurrency" type="crmct:string3">
 				<xsd:annotation>
 					<xsd:documentation>
 						Базовая валюта для отчетности и прогноза
@@ -959,6 +1003,23 @@
 				</xsd:annotation>
 			</xsd:element>
 		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="UpdateDealRsData">
+		<xsd:annotation>
+			<xsd:documentation>
+				Элемент верхнего уровня
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="deal" type="Deal">
+				<xsd:annotation>
+					<xsd:documentation>
+						Сделка
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute type="xsd:string" name="name" use="required"/>
 	</xsd:complexType>
 
 </xsd:schema>
