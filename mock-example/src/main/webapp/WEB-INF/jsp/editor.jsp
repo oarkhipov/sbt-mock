@@ -11,6 +11,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script src="../lib/jquery-1.9.1.min.js"></script>
   <link rel="stylesheet" href="../css/codemirror/codemirror.css">
   <script src="../lib/codemirror/codemirror.js"></script>
   <script src="../lib/codemirror/show-hint.js"></script>

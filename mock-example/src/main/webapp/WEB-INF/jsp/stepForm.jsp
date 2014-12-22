@@ -24,6 +24,7 @@
   <script src="../lib/jquery-1.9.1.min.js"></script>
   <script src="../lib/jquery.cookie-1.3.1.js"></script>
   <script src="../lib/jquery.steps.min.js"></script>
+  <script src="../lib/jquery.history.js"></script>
 </head>
 <body>
 <!--[if lt IE 7]>
@@ -50,7 +51,7 @@
           }
           if(currentIndex == 1) {
             if(newIndex == 0) {
-              history.pushState({}, "Integration points", "?");
+              History.pushState({}, "Integration points", "?");
             }
           }
           return true;
@@ -81,7 +82,7 @@
         contentMode: "async",
         contentUrl: int_point + "/"
       });
-      history.pushState({ip:int_point}, int_point, "?ip="+int_point);
+      History.pushState({ip:int_point}, int_point, "?ip="+int_point);
       wizard.steps("next");
     }
 
@@ -98,8 +99,7 @@
           query_string[pair[0]] = pair[1];
           // If second entry with this name
         } else if (typeof query_string[pair[0]] === "string") {
-          var arr = [ query_string[pair[0]], pair[1] ];
-          query_string[pair[0]] = arr;
+          query_string[pair[0]] = [query_string[pair[0]], pair[1]];
           // If third or later entry with this name
         } else {
           query_string[pair[0]].push(pair[1]);
@@ -116,9 +116,9 @@
       <section>
         <input type="button" value="BACK" onclick="window.location.href='../'"/>
         <span style="line-height: 5pt; display: block">&nbsp;</span>
-        <select size="25" <!--onchange="chooseIntPoint(this)"--> >
+        <select size="25" onclick="chooseIntPoint(this)" >
           <c:forEach var="entry" items="${list}">
-            <option value="${entry}" onclick="chooseIntPoint(this)">${entry}</option>
+            <option value="${entry}">${entry}</option>
           </c:forEach>
         </select>
       </section>
