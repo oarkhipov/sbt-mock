@@ -48,7 +48,7 @@
                     <refinancing>false</refinancing>
                     <providing>string29</providing>
                     <!--Optional:-->
-                    <suspensiveСondition>string30</suspensiveСondition>
+                    <suspensiveCondition>string30</suspensiveCondition>
                     <!--Optional:-->
                     <principalBaseCurrency>1.0</principalBaseCurrency>
                     <!--1 or more repetitio-->

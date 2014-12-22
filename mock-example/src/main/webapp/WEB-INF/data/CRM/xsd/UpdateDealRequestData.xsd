@@ -641,7 +641,7 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="suspensiveСondition" type="crmct:string255" minOccurs="0">
+			<xsd:element name="suspensiveCondition" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Отлагательные условия
