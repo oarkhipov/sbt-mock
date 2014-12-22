@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/"
-			targetNamespace="http://sbrf.ru/NCP/CRM/ForceSignalRq/" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sbrf.ru/NCP/CRM/ForceSignalRq/">
-	
-		<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="CommonTypes.xsd"/>
-		
+<xsd:schema xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+targetNamespace="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.02/" 
+xmlns:tns="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.02/"
+elementFormDefault="qualified">
+
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="CommonTypes.xsd"/>
 	<xsd:complexType name="ForceSignalRq">
 		<xsd:sequence>
 			<xsd:element name="contractID" type="crmct:string15">
@@ -27,7 +29,7 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="comment" type="crmct:string255">
+			<xsd:element name="comment" type="crmct:string4500">
 				<xsd:annotation>
 					<xsd:documentation>
 						Примечание
@@ -41,10 +43,10 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="fullNameOfResponsiblePerson" type="crmct:string50">
+			<xsd:element name="responsiblePersonID" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
-						ФИО Исполнителя
+						Идентификатор исполнителя
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
@@ -93,7 +95,7 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="topLevelGroupName" type="crmct:string255">
+			<xsd:element name="topLevelGroupName" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Наименование ГСЗ верхнего уровня

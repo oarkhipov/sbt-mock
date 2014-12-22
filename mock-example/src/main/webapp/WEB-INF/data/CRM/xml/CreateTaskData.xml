@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data xmlns="http://sbrf.ru/NCP/CRM/CreateTaskRs/Data/">
     <response name="default">
-        <errorCode>0</errorCode>
+        <contractID>string1</contractID>
+        <contractBPMID>string2</contractBPMID>
+        <comment>string3</comment>
+        <requestType>string4</requestType>
+        <responsiblePersonID>string5</responsiblePersonID>
+        <errorCode>string6</errorCode>
     </response>
     <response name="ERROR">
-        <errorMessage>ERROR: kernel panic!</errorMessage>
-        <errorCode>325</errorCode>
+        <contractID>string1</contractID>
+        <contractBPMID>string2</contractBPMID>
+        <comment>string3</comment>
+        <requestType>string4</requestType>
+        <responsiblePersonID>string5</responsiblePersonID>
+        <errorCode>string6</errorCode>
+        <!--Optional:-->
+        <errorMessage>string7</errorMessage>
     </response>
 </data>

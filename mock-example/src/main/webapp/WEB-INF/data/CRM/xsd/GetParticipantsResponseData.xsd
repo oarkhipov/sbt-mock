@@ -20,6 +20,7 @@
 		</xsd:sequence>
 	</xsd:complexType>
 
+
 	<xsd:complexType name="OperationStatus">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -99,7 +100,7 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="identityIsPrimary" type="xsd:boolean">
+			<xsd:element name="identityIsPrimary" type="xsd:boolean" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Признак основного документа
@@ -115,49 +116,49 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element name="managerID" type="crmct:string255">
+			<xsd:element name="managerID" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						ID Менеджера
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="fullName" type="crmct:string255">
+			<xsd:element name="fullName" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						ФИО
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="position" type="crmct:string255">
+			<xsd:element name="position" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Должность
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="age" type="crmct:integer3">
+			<xsd:element name="age" type="crmct:integer3" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Возраст
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="experienceInPosition" type="crmct:string255">
+			<xsd:element name="experienceInPosition" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Срок работы в должности
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="experienceInSimilarPosition" type="crmct:string255">
+			<xsd:element name="experienceInSimilarPosition" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Срок работы в аналогичной должности
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="education" type="crmct:string255">
+			<xsd:element name="education" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Образование
@@ -180,7 +181,7 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="ratingValue" type="crmct:double17_2">
+			<xsd:element name="ratingValue" type="crmct:integer3">
 				<xsd:annotation>
 					<xsd:documentation>
 						Значение рейтинга
@@ -222,7 +223,7 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			
+
 			<xsd:element name="ratingApprovalDate" type="xsd:date">
 				<xsd:annotation>
 					<xsd:documentation>
@@ -318,7 +319,7 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="topLevelGroupName" type="crmct:string255">
+			<xsd:element name="topLevelGroupName" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Наименование ГСЗ верхнего уровня
@@ -338,6 +339,13 @@
 				<xsd:annotation>
 					<xsd:documentation>
 						Тип адреса
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="zipCode" type="crmct:string9" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						Почтовый индекс
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
@@ -362,21 +370,21 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="block" type="crmct:string255">
+			<xsd:element name="block" type="crmct:string255"  minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Корпус
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="phone" type="crmct:string255">
+			<xsd:element name="phone" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Телефон
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="email" type="crmct:string255">
+			<xsd:element name="email" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						E-mail
@@ -443,7 +451,7 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="clientType" type="crmct:string255">
+			<xsd:element name="clientType" type="crmct:string255"  minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Тип участника (ФЛ, ЮЛ)
@@ -478,31 +486,31 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="consolidatedGroupID" type="crmct:string255">
+			<xsd:element name="consolidatedGroupID" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						ID КГ
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="linkedBorrowersGroupID" type="crmct:string255">
+			<xsd:element name="linkedBorrowersGroupID" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						ID ГСЗ
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="industry" type="crmct:string255" minOccurs="0">
+			<xsd:element name="industry" type="crmct:string255">
 				<xsd:annotation>
 					<xsd:documentation>
 						Отрасль
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="isProblemClient" type="xsd:boolean">
+			<xsd:element name="inn" type="crmct:string12">
 				<xsd:annotation>
 					<xsd:documentation>
-						Проблемный клиент
+						ИНН
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
@@ -513,7 +521,7 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="roleInConsolidatedGroup" type="crmct:string255">
+			<xsd:element name="roleInConsolidatedGroup" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Функция компании в КГ
@@ -552,21 +560,21 @@
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element name="dateOfBirth" type="xsd:date">
+					<xsd:element name="dateOfBirth" type="xsd:date" minOccurs="0">
 						<xsd:annotation>
 							<xsd:documentation>
 								Дата рождения
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element name="plaсeOfBirth" type="crmct:string255">
+					<xsd:element name="placeOfBirth" type="crmct:string255" minOccurs="0">
 						<xsd:annotation>
 							<xsd:documentation>
 								Место рождения
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element name="gender" type="crmct:string255">
+					<xsd:element name="gender" type="crmct:string255" minOccurs="0">
 						<xsd:annotation>
 							<xsd:documentation>
 								Пол
@@ -649,7 +657,21 @@
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element name="problemGroup" type="crmct:string255">
+					<xsd:element name="isProblemClient" type="xsd:boolean" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								Проблемный клиент
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="problemGroup" type="crmct:string255" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								Группа проблемности
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="problemCriteria" type="crmct:string255" minOccurs="0">
 						<xsd:annotation>
 							<xsd:documentation>
 								Критерий проблемности
@@ -667,6 +689,7 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+
 	<xsd:complexType name="PrtspRs">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -674,6 +697,20 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
+			<xsd:element name="id" type="crmct:string15">
+				<xsd:annotation>
+					<xsd:documentation>
+						ID сделки для requestType=DealParticipats, ID группы для requestType=CL или requestType=LBG
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestType" type="crmct:string50">
+				<xsd:annotation>
+					<xsd:documentation>
+						Тип сообщения (getDealParticipats, getCL, getLBG)
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
 			<xsd:element name="participantsGroup" type="ParticipantsGroup">
 				<xsd:annotation>
 					<xsd:documentation>

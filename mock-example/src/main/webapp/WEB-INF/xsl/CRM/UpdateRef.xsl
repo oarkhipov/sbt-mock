@@ -2,8 +2,8 @@
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"
-                xmlns:rq="http://sbrf.ru/NCP/CRM/UpdateRefRq/"
-                xmlns:rs="http://sbrf.ru/NCP/CRM/UpdateRefRs/"
+                xmlns:rq="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/"
+                xmlns:rs="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/"
                 xmlns:rsd="http://sbrf.ru/NCP/CRM/UpdateRefRs/Data/"
                 xmlns:crm="http://sbrf.ru/NCP/CRM/">
 

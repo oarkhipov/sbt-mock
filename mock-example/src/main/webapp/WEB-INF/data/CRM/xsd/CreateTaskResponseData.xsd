@@ -25,10 +25,38 @@
 
 	<xsd:complexType name="CreateTaskRsData">
 		<xsd:sequence>
-			<xsd:element name="errorMessage" type="comTypes:string2000" minOccurs="0">
+			<xsd:element name="contractID" type="comTypes:string15">
 				<xsd:annotation>
 					<xsd:documentation>
-						Сообщение об ошибке
+						ID сделки в CRM
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="contractBPMID" type="comTypes:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						ID сделки в PRPC
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="comment" type="comTypes:string4500">
+				<xsd:annotation>
+					<xsd:documentation>
+						Примечание
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestType" type="comTypes:string50">
+				<xsd:annotation>
+					<xsd:documentation>
+						Тип сообщения
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="responsiblePersonID" type="comTypes:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						Идентификатор исполнителя
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
@@ -36,6 +64,13 @@
 				<xsd:annotation>
 					<xsd:documentation>
 						Код ошибки
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="errorMessage" type="comTypes:string2000" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						Сообщение об ошибке
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>

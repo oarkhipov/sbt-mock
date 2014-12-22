@@ -2,12 +2,14 @@
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"
-                xmlns:rq="http://sbrf.ru/NCP/CRM/CreateTaskRq/"
-                xmlns:rs="http://sbrf.ru/NCP/CRM/CreateTaskRs/"
+                xmlns:rq="http://sbrf.ru/NCP/CRM/CreateTaskRq/1.02/"
+                xmlns:rs="http://sbrf.ru/NCP/CRM/CreateTaskRq/1.02/"
                 xmlns:rsd="http://sbrf.ru/NCP/CRM/CreateTaskRs/Data/"
                 xmlns:crm="http://sbrf.ru/NCP/CRM/">
 
-    <xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>
+    <!-- опускаем строку <?xml version="1.0" encoding="UTF-8"?>. С ней не работает MQ очередь -->
+    <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
+    <!--<xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>-->
 
     <!--Prepare data and section of data XML-->
     <xsl:template match="soap-env:Envelope">
@@ -44,27 +46,16 @@
         <xsl:param name="data"/>
         <!-- - - - - - - - -->
         <crm:createTaskRs>
-            <!-- 0..N -->
-            <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
-            <!-- 1 -->
-            <rs:errorCode>
-                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
-            </rs:errorCode>
-            <rs:contractID>
-                <xsl:value-of select="./soap-env:Body/crm:createTaskRq/rq:contractID"/>
-            </rs:contractID>
-            <rs:fullNameOfResponsiblePerson>
-                <xsl:value-of select="./soap-env:Body/crm:createTaskRq/rq:fullNameOfResponsiblePerson"/>
-            </rs:fullNameOfResponsiblePerson>
-            <rs:comment>
-                <xsl:value-of select="./soap-env:Body/crm:createTaskRq/rq:comment"/>
-            </rs:comment>
-            <rs:contractBPMID>
-                <xsl:value-of select="./soap-env:Body/crm:createTaskRq/rq:contractBPMID"/>
-            </rs:contractBPMID>
-            <rs:requestType>
-                <xsl:value-of select="./soap-env:Body/crm:createTaskRq/rq:requestType"/>
-            </rs:requestType>
+            <contractID><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:contractID"/></contractID>
+            <contractBPMID><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:contractBPMID"/></contractBPMID>
+            <comment><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:comment"/></comment>
+            <requestType><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:requestType"/></requestType>
+            <responsiblePersonID><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:responsiblePersonID"/></responsiblePersonID>
+            <errorCode><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/></errorCode>
+            <!--Optional:-->
+            <xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+                <errorMessage><xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/></errorMessage>
+            </xsl:if>
         </crm:createTaskRs>
     </xsl:template>
 

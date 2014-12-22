@@ -2,149 +2,173 @@
 <data xmlns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/Data/">
     <!-- Responses -->
     <response name="default">
-        <participantsGroup>
-            <!--Zero or more repetitions:-->
-            <participants>
-                <participantID>string</participantID>
-                <type>string</type>
-                <isBorrower>false</isBorrower>
-                <clientType>string</clientType>
-                <name>string</name>
-                <resident>true</resident>
-                <!--Zero or more repetitions:-->
-                <address>
-                    <type>string</type>
-                    <city>string</city>
-                    <street>string</street>
-                    <building>string</building>
-                    <block>string</block>
-                    <phone>string</phone>
-                    <email>string</email>
-                </address>
-                <!--Zero or more repetitions:-->
-                <share>
-                    <ownershipID>string</ownershipID>
-                    <share>1.0</share>
-                    <periodOfOwnerhip>string</periodOfOwnerhip>
-                </share>
-                <consolidatedGroupID>string</consolidatedGroupID>
-                <linkedBorrowersGroupID>string</linkedBorrowersGroupID>
+            <id>string1</id>
+            <requestType>string2</requestType>
+            <participantsGroup>
+                <!--Zero or more repetitio-->
+                <participants>
+                    <participantID>string3</participantID>
+                    <type>string4</type>
+                    <isBorrower>false</isBorrower>
+                    <!--Optional:-->
+                    <clientType>string5</clientType>
+                    <name>string6</name>
+                    <resident>true</resident>
+                    <!--Zero or more repetitio-->
+                    <address>
+                        <type>string7</type>
+                        <!--Optional:-->
+                        <zipCode>string8</zipCode>
+                        <city>string9</city>
+                        <street>string10</street>
+                        <building>string11</building>
+                        <!--Optional:-->
+                        <block>string12</block>
+                        <!--Optional:-->
+                        <phone>string13</phone>
+                        <!--Optional:-->
+                        <email>string14</email>
+                    </address>
+                    <!--Zero or more repetitio-->
+                    <share>
+                        <ownershipID>string15</ownershipID>
+                        <share>1.051732E7</share>
+                        <periodOfOwnerhip>string16</periodOfOwnerhip>
+                    </share>
+                    <!--Optional:-->
+                    <consolidatedGroupID>string17</consolidatedGroupID>
+                    <!--Optional:-->
+                    <linkedBorrowersGroupID>string18</linkedBorrowersGroupID>
+                    <industry>string19</industry>
+                    <inn>string20</inn>
+                    <!--Zero or more repetitio-->
+                    <rating>
+                        <ratingID>string21</ratingID>
+                        <ratingValue>122</ratingValue>
+                        <ratingType>string23</ratingType>
+                        <ratingModel>string24</ratingModel>
+                        <ratingCalculatedDate>2013-11-25</ratingCalculatedDate>
+                        <ratingCalculatedRole>string26</ratingCalculatedRole>
+                        <ratingCalculatedBy>string27</ratingCalculatedBy>
+                        <ratingApprovalDate>2014-06-09+04:00</ratingApprovalDate>
+                        <ratingApprovedBy>string28</ratingApprovedBy>
+                    </rating>
+                    <!--Optional:-->
+                    <roleInConsolidatedGroup>string29</roleInConsolidatedGroup>
+                </participants>
+                <groupType>string30</groupType>
                 <!--Optional:-->
-                <industry>Industry string</industry>
-                <isProblemClient>false</isProblemClient>
-                <!--Zero or more repetitions:-->
-                <rating>
-                    <ratingID>string</ratingID>
-                    <ratingValue>1.0</ratingValue>
-                    <ratingType>string</ratingType>
-                    <ratingModel>string</ratingModel>
-                    <ratingCalculatedDate>2014-09-19</ratingCalculatedDate>
-                    <ratingCalculatedRole>string</ratingCalculatedRole>
-                    <ratingCalculatedBy>string</ratingCalculatedBy>
-                    <ratingApprovalDate>2006-08-19</ratingApprovalDate>
-                    <ratingApprovedBy>string</ratingApprovedBy>
-                </rating>
-                <roleInConsolidatedGroup>string</roleInConsolidatedGroup>
-            </participants>
-            <groupType>string</groupType>
-            <!--Optional:-->
-            <groupInfo>
-                <id>string</id>
-                <label>string</label>
-                <status>string</status>
-                <updateDate>2009-05-16</updateDate>
-                <approvalDate>2003-08-09</approvalDate>
-                <!--Zero or more repetitions:-->
-                <ratings>
-                    <ratingID>string</ratingID>
-                    <ratingValue>1.0</ratingValue>
-                    <ratingType>string</ratingType>
-                    <ratingModel>string</ratingModel>
-                    <ratingCalculatedDate>2012-09-13</ratingCalculatedDate>
-                    <ratingCalculatedRole>string</ratingCalculatedRole>
-                    <ratingCalculatedBy>string</ratingCalculatedBy>
-                    <ratingApprovalDate>2009-10-14</ratingApprovalDate>
-                    <ratingApprovedBy>string</ratingApprovedBy>
-                </ratings>
-                <topLevelGroupName>string</topLevelGroupName>
-            </groupInfo>
-        </participantsGroup>
-        <operationStatus>
-            <errorCode>0</errorCode>
-        </operationStatus>
+                <groupInfo>
+                    <id>string31</id>
+                    <label>string32</label>
+                    <status>string33</status>
+                    <updateDate>2008-11-15</updateDate>
+                    <approvalDate>2017-05-15</approvalDate>
+                    <!--Zero or more repetitio-->
+                    <ratings>
+                        <ratingID>string34</ratingID>
+                        <ratingValue>100</ratingValue>
+                        <ratingType>string35</ratingType>
+                        <ratingModel>string36</ratingModel>
+                        <ratingCalculatedDate>2013-12-21+04:00</ratingCalculatedDate>
+                        <ratingCalculatedRole>string37</ratingCalculatedRole>
+                        <ratingCalculatedBy>string38</ratingCalculatedBy>
+                        <ratingApprovalDate>2016-01-01</ratingApprovalDate>
+                        <ratingApprovedBy>string39</ratingApprovedBy>
+                    </ratings>
+                    <!--Optional:-->
+                    <topLevelGroupName>string40</topLevelGroupName>
+                </groupInfo>
+            </participantsGroup>
+            <operationStatus>
+                <errorCode>string41</errorCode>
+                <!--Optional:-->
+                <errorMessage>string42</errorMessage>
+            </operationStatus>
     </response>
     <response name="ERROR">
+        <id>string1</id>
+        <requestType>string2</requestType>
         <participantsGroup>
-            <!--Zero or more repetitions:-->
+            <!--Zero or more repetitio-->
             <participants>
-                <participantID>string</participantID>
-                <type>string</type>
+                <participantID>string3</participantID>
+                <type>string4</type>
                 <isBorrower>false</isBorrower>
-                <clientType>string</clientType>
-                <name>string</name>
-                <resident>true</resident>
-                <!--Zero or more repetitions:-->
-                <address>
-                    <type>string</type>
-                    <city>string</city>
-                    <street>string</street>
-                    <building>string</building>
-                    <block>string</block>
-                    <phone>string</phone>
-                    <email>string</email>
-                </address>
-                <!--Zero or more repetitions:-->
-                <share>
-                    <ownershipID>string</ownershipID>
-                    <share>1.0</share>
-                    <periodOfOwnerhip>string</periodOfOwnerhip>
-                </share>
-                <consolidatedGroupID>string</consolidatedGroupID>
-                <linkedBorrowersGroupID>string</linkedBorrowersGroupID>
                 <!--Optional:-->
-                <industry>Industry string</industry>
-                <isProblemClient>true</isProblemClient>
-                <!--Zero or more repetitions:-->
+                <clientType>string5</clientType>
+                <name>string6</name>
+                <resident>true</resident>
+                <!--Zero or more repetitio-->
+                <address>
+                    <type>string7</type>
+                    <!--Optional:-->
+                    <zipCode>string8</zipCode>
+                    <city>string9</city>
+                    <street>string10</street>
+                    <building>string11</building>
+                    <!--Optional:-->
+                    <block>string12</block>
+                    <!--Optional:-->
+                    <phone>string13</phone>
+                    <!--Optional:-->
+                    <email>string14</email>
+                </address>
+                <!--Zero or more repetitio-->
+                <share>
+                    <ownershipID>string15</ownershipID>
+                    <share>1.051732E7</share>
+                    <periodOfOwnerhip>string16</periodOfOwnerhip>
+                </share>
+                <!--Optional:-->
+                <consolidatedGroupID>string17</consolidatedGroupID>
+                <!--Optional:-->
+                <linkedBorrowersGroupID>string18</linkedBorrowersGroupID>
+                <industry>string19</industry>
+                <inn>string20</inn>
+                <!--Zero or more repetitio-->
                 <rating>
-                    <ratingID>string</ratingID>
-                    <ratingValue>1.0</ratingValue>
-                    <ratingType>string</ratingType>
-                    <ratingModel>string</ratingModel>
-                    <ratingCalculatedDate>2014-09-19</ratingCalculatedDate>
-                    <ratingCalculatedRole>string</ratingCalculatedRole>
-                    <ratingCalculatedBy>string</ratingCalculatedBy>
-                    <ratingApprovalDate>2006-08-19</ratingApprovalDate>
-                    <ratingApprovedBy>string</ratingApprovedBy>
+                    <ratingID>string21</ratingID>
+                    <ratingValue>122</ratingValue>
+                    <ratingType>string23</ratingType>
+                    <ratingModel>string24</ratingModel>
+                    <ratingCalculatedDate>2013-11-25</ratingCalculatedDate>
+                    <ratingCalculatedRole>string26</ratingCalculatedRole>
+                    <ratingCalculatedBy>string27</ratingCalculatedBy>
+                    <ratingApprovalDate>2014-06-09+04:00</ratingApprovalDate>
+                    <ratingApprovedBy>string28</ratingApprovedBy>
                 </rating>
-                <roleInConsolidatedGroup>string</roleInConsolidatedGroup>
+                <!--Optional:-->
+                <roleInConsolidatedGroup>string29</roleInConsolidatedGroup>
             </participants>
-            <groupType>string</groupType>
+            <groupType>string30</groupType>
             <!--Optional:-->
             <groupInfo>
-                <id>string</id>
-                <label>string</label>
-                <status>string</status>
-                <updateDate>2009-05-16</updateDate>
-                <approvalDate>2003-08-09</approvalDate>
-                <!--Zero or more repetitions:-->
+                <id>string31</id>
+                <label>string32</label>
+                <status>string33</status>
+                <updateDate>2008-11-15</updateDate>
+                <approvalDate>2017-05-15</approvalDate>
+                <!--Zero or more repetitio-->
                 <ratings>
-                    <ratingID>string</ratingID>
-                    <ratingValue>1.0</ratingValue>
-                    <ratingType>string</ratingType>
-                    <ratingModel>string</ratingModel>
-                    <ratingCalculatedDate>2012-09-13</ratingCalculatedDate>
-                    <ratingCalculatedRole>string</ratingCalculatedRole>
-                    <ratingCalculatedBy>string</ratingCalculatedBy>
-                    <ratingApprovalDate>2009-10-14</ratingApprovalDate>
-                    <ratingApprovedBy>string</ratingApprovedBy>
+                    <ratingID>string34</ratingID>
+                    <ratingValue>100</ratingValue>
+                    <ratingType>string35</ratingType>
+                    <ratingModel>string36</ratingModel>
+                    <ratingCalculatedDate>2013-12-21+04:00</ratingCalculatedDate>
+                    <ratingCalculatedRole>string37</ratingCalculatedRole>
+                    <ratingCalculatedBy>string38</ratingCalculatedBy>
+                    <ratingApprovalDate>2016-01-01</ratingApprovalDate>
+                    <ratingApprovedBy>string39</ratingApprovedBy>
                 </ratings>
-                <topLevelGroupName>string</topLevelGroupName>
+                <!--Optional:-->
+                <topLevelGroupName>string40</topLevelGroupName>
             </groupInfo>
         </participantsGroup>
         <operationStatus>
-            <errorCode>123</errorCode>
+            <errorCode>string41</errorCode>
             <!--Optional:-->
-            <errorMessage>main error</errorMessage>
+            <errorMessage>string42</errorMessage>
         </operationStatus>
     </response>
 </data>
