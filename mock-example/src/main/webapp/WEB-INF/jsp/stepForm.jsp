@@ -25,6 +25,26 @@
   <script src="../lib/jquery.cookie-1.3.1.js"></script>
   <script src="../lib/jquery.steps.min.js"></script>
   <script src="../lib/jquery.history.js"></script>
+
+  <%-- editor pre-load to fix editor display bug, when first time loaded--%>
+  <link rel="stylesheet" href="../css/codemirror/codemirror.css">
+  <script src="../lib/codemirror/codemirror.js"></script>
+  <script src="../lib/codemirror/show-hint.js"></script>
+  <link rel="stylesheet" href="../css/codemirror/show-hint.css">
+  <script src="../lib/codemirror/closetag.js"></script>
+  <script src="../lib/codemirror/xml-hint.js"></script>
+  <script src="../lib/codemirror/xml.js"></script>
+  <%--Folding--%>
+  <link rel="stylesheet" href="../css/codemirror/foldgutter.css">
+  <script src="../lib/codemirror/brace-fold.js"></script>
+  <script src="../lib/codemirror/comment-fold.js"></script>
+  <script src="../lib/codemirror/foldcode.js"></script>
+  <script src="../lib/codemirror/foldgutter.js"></script>
+  <script src="../lib/codemirror/markdown-fold.js"></script>
+  <script src="../lib/codemirror/xml-fold.js"></script>
+  <script src="../lib/codemirror/formatting.js"></script>
+
+  <link rel="stylesheet" href="../css/docs.css">
 </head>
 <body>
 <!--[if lt IE 7]>
@@ -69,12 +89,11 @@
     var int_point = null;
 
     function chooseIntPoint(obj) {
-//      alert(obj.value)
       int_point = obj.value;
       selectIp();
     }
 
-    //TODO there is a bug
+    //there is no bug, because of pre-loading of src
     function selectIp() {
       wizard.steps("remove",1);
       wizard.steps("insert",1 ,{
