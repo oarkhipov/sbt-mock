@@ -1,46 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--IT'S A DRIVER = DATA OF REQUEST-->
-<data xmlns="http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/">
+<data xmlns="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
     <!-- Responses -->
     <request name="default">
         <SoapHeader>
             <message-id>5f4e83ab38514920b55f3eaa1dc378ad</message-id>
-            <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+            <request-time>2014-12-16T17:55:06.410</request-time>
         </SoapHeader>
         <contractID>string1</contractID>
+        <!--Optional:-->
         <contractBPMID>string2</contractBPMID>
+        <!--Optional:-->
         <status>string3</status>
         <comment>string4</comment>
         <requestType>string5</requestType>
         <responsiblePersonID>string6</responsiblePersonID>
-        <!--Zero or more repetitions:-->
-        <participantsGroup>
-            <id>string1</id>
-            <label>string2</label>
-            <status>string3</status>
-            <updateDate>2008-09-04</updateDate>
-            <approvalDate>2014-09-05</approvalDate>
-            <topLevelGroupName>string6</topLevelGroupName>
-        </participantsGroup>
 
     </request>
 
     <request name="test1">
-        <contractID>string1-2</contractID>
-        <contractBPMID>string2-2</contractBPMID>
-        <status>string3-2</status>
-        <comment>string4-2</comment>
-        <requestType>string5-2</requestType>
-        <responsiblePersonID>string6-2</responsiblePersonID>
-        <!--Zero or more repetitions:-->
-        <participantsGroup>
-            <id>string1-2</id>
-            <label>string2-2</label>
-            <status>string3-2</status>
-            <updateDate>2008-09-04</updateDate>
-            <approvalDate>2014-09-05</approvalDate>
-            <topLevelGroupName>string6-2</topLevelGroupName>
-        </participantsGroup>
+        <contractID>string1</contractID>
+        <comment>string2</comment>
+        <requestType>string3</requestType>
+        <responsiblePersonID>string4</responsiblePersonID>
     </request>
 </data>
 
