@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/Data/"
+            xmlns:st="http://sbrf.ru/commonTypes/simpleTypes/"
+            xmlns:dt="http://sbrf.ru/commonTypes/dataTypes/"
+            xmlns:amrct="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/Data/"
+            elementFormDefault="qualified">
+   <xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/"
+               schemaLocation="../../../xsd/CRM/CommonTypes.xsd"/>
+   <xsd:import namespace="http://sbrf.ru/commonTypes/dataTypes/"
+               schemaLocation="../../../xsd/CRM/commonTypes/dataTypes.xsd"/>
+   <xsd:import namespace="http://sbrf.ru/commonTypes/simpleTypes/"
+               schemaLocation="../../../xsd/CRM/commonTypes/simpleTypes.xsd"/>
+   <xsd:complexType name="Header">
+      <xsd:annotation>
+         <xsd:documentation>Заголовок сообщения</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="message-id" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>Уникальный идентификатор сообщения</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="request-time" type="dt:DateTime" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>Системное время при отправке сообщения
+                            АС-отправителем с учетом временной зоны</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="correlation-id" type="st:UUID" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>Идентификатор корреляции</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="eis-name" type="st:SystemName_Type" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>Идентификатор системы инициатора запроса/ответа
+                        </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="system-id"
+                      type="st:SystemName_Type"
+                      minOccurs="0"
+                      maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>Идентификатор системы получателя запроса
+                        </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="operation-name" type="st:OperationName_Type" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>Название операции вызываемого сервиса
+                        </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="operation-version" type="dt:DefString" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>Версия операции</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="user-id" type="dt:DefString" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>Идентификатор пользователя в системе инициаторе
+                            запроса/ответа</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="user-name" type="dt:DefString" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>Полное ФИО пользователя в системе инициаторе
+                            запроса/ответа</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:any namespace="##other"
+                  processContents="lax"
+                  minOccurs="0"
+                  maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>Точка расширения заголовка (не используется,
+                            добавлено на перспективу)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:any>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="data" type="dataValue"/>
+   <xsd:complexType name="dataValue">
+      <xsd:sequence>
+         <xsd:element name="response" type="CorrectResponse" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>Ответ на запрос</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="AddParameter">
+      <xsd:sequence>
+			      <xsd:element name="order" type="xsd:int"/>
+			      <xsd:element name="name">
+				        <xsd:simpleType>
+					          <xsd:restriction base="xsd:string">
+						            <xsd:maxLength value="255"/>
+					          </xsd:restriction>
+				        </xsd:simpleType>
+			      </xsd:element>
+			      <xsd:element name="value">
+				        <xsd:simpleType>
+					          <xsd:restriction base="xsd:string">
+						            <xsd:maxLength value="255"/>
+					          </xsd:restriction>
+				        </xsd:simpleType>
+			      </xsd:element>
+		    </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="ListOfAddParameter">
+      <xsd:sequence>
+			      <xsd:element name="addParameter"
+                      minOccurs="0"
+                      maxOccurs="unbounded"
+                      type="AddParameter"/>
+		    </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="Return">
+      <xsd:sequence>
+			      <xsd:element name="errorCode">
+				        <xsd:simpleType>
+					          <xsd:restriction base="xsd:string">
+						            <xsd:maxLength value="30"/>
+					          </xsd:restriction>
+				        </xsd:simpleType>
+			      </xsd:element>
+			      <xsd:element name="errorMessage" minOccurs="0">
+				        <xsd:simpleType>
+					          <xsd:restriction base="xsd:string">
+						            <xsd:maxLength value="2000"/>
+					          </xsd:restriction>
+				        </xsd:simpleType>
+			      </xsd:element>
+			      <xsd:element name="listOfAddParameter" minOccurs="0" type="ListOfAddParameter"/>
+		    </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="CorrectResponse">
+      <xsd:sequence>
+         <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
+         <xsd:element name="return" type="Return"/>
+      </xsd:sequence>
+      <xsd:attribute name="name"/>
+   </xsd:complexType>
+</xsd:schema>

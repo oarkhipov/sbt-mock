@@ -1,0 +1,16 @@
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
+                   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <soap-env:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
+      <soap-env:message-id>defaultId</soap-env:message-id>
+      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
+      <soap-env:operation-name>ImportRatingRequest</soap-env:operation-name>
+   </soap-env:Header>
+   <soap-env:Body>
+      <FinRep:ImportRatingRequest xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
+                                  xmlns:imp="http://sbrf.ru/NCP/ASFO/GetRatingsAndFactorsRq/">
+         <imp:dealId>string</imp:dealId>
+         <imp:entityType>string</imp:entityType>
+         <imp:entityId>string</imp:entityId>
+      </FinRep:ImportRatingRequest>
+   </soap-env:Body>
+</soap-env:Envelope>

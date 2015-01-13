@@ -1,10 +1,20 @@
-<crm:forceSignalRq xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:ns="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/">
-  <ns:contractID>string</ns:contractID>
-  <!--Optional:-->
-  <ns:contractBPMID>string</ns:contractBPMID>
-  <!--Optional:-->
-  <ns:status>string</ns:status>
-  <ns:comment>string</ns:comment>
-  <ns:requestType>string</ns:requestType>
-  <ns:responsiblePersonID>string</ns:responsiblePersonID>
-</crm:forceSignalRq>
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
+  <soap-env:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/">
+    <soap-env:message-id>defaultId</soap-env:message-id>
+    <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
+    <soap-env:operation-name>ForceSignalRq</soap-env:operation-name>
+  </soap-env:Header>
+  <soap-env:Body xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/"
+                 xmlns:tns="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/"
+                 xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/"
+                 xmlns:crm="http://sbrf.ru/NCP/CRM/">
+    <crm:ForceSignalRq>
+      <tns:contractID>string1</tns:contractID>
+      <tns:contractBPMID>string2</tns:contractBPMID>
+      <tns:status>string3</tns:status>
+      <tns:comment>string4</tns:comment>
+      <tns:requestType>string5</tns:requestType>
+      <tns:responsiblePersonID>string6</tns:responsiblePersonID>
+    </crm:ForceSignalRq>
+  </soap-env:Body>
+</soap-env:Envelope>

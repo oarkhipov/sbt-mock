@@ -1,0 +1,87 @@
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
+                   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <soap-env:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
+      <soap-env:message-id>defaultId</soap-env:message-id>
+      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
+      <soap-env:operation-name>UpdateRatingRequest</soap-env:operation-name>
+   </soap-env:Header>
+   <soap-env:Body>
+      <FinRep:UpdateRatingRequest xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
+                                  xmlns:upd="http://sbrf.ru/NCP/ASFO/UpdateRatingRq/">
+         <upd:rating>
+            <upd:ratingId>string</upd:ratingId>
+            <!--optional--><upd:finalRatingValue>10</upd:finalRatingValue>
+            <!--optional--><upd:intermediateRatingValue>10</upd:intermediateRatingValue>
+            <!--optional--><upd:ajustedRatingValue>10</upd:ajustedRatingValue>
+            <!--optional--><upd:pd>10</upd:pd>
+            <upd:status>string</upd:status>
+            <!--optional--><upd:approvalDate>13.01.2015T12:00:00</upd:approvalDate>
+            <!--optional--><upd:calculationDate>13.01.2015T12:00:00</upd:calculationDate>
+            <!--optional--><upd:ajustmentDate>13.01.2015T12:00:00</upd:ajustmentDate>
+            <upd:modelName>string</upd:modelName>
+            <upd:modelIntegrationId>string</upd:modelIntegrationId>
+            <upd:ratingName>string</upd:ratingName>
+            <upd:ratingType>string</upd:ratingType>
+            <upd:employeeForApprove>
+               <upd:login>string</upd:login>
+               <upd:lastName>string</upd:lastName>
+               <upd:firstName>string</upd:firstName>
+               <!--optional--><upd:middleName>string</upd:middleName>
+               <upd:division>string</upd:division>
+               <upd:divisionCode>string</upd:divisionCode>
+               <!--optional--><upd:jobTitle>string</upd:jobTitle>
+               <upd:role>string</upd:role>
+            </upd:employeeForApprove>
+            <upd:listOfRatingCalc><!--from 1 to unbounded elements --><upd:ratingCalc>
+                  <upd:ratingCalcId>string</upd:ratingCalcId>
+                  <upd:modelName>string</upd:modelName>
+                  <upd:modelIntegrationId>string</upd:modelIntegrationId>
+                  <!--optional--><upd:dateCalc>13.01.2015T12:00:00</upd:dateCalc>
+                  <!--optional--><upd:calcValue>10</upd:calcValue>
+                  <!--optional--><upd:listOfRatingAjustment><!--from 0 to unbounded elements --><upd:ratingAjustment>
+                        <upd:ajustmentDate>13.01.2015T12:00:00</upd:ajustmentDate>
+                        <upd:ajustedValue>10</upd:ajustedValue>
+                        <upd:ajustmetReason>string</upd:ajustmetReason>
+                        <!--optional--><upd:comments>string</upd:comments>
+                        <upd:status>string</upd:status>
+                        <upd:employeeForAjustment>
+                           <upd:login>string</upd:login>
+                           <upd:lastName>string</upd:lastName>
+                           <upd:firstName>string</upd:firstName>
+                           <!--optional--><upd:middleName>string</upd:middleName>
+                           <upd:division>string</upd:division>
+                           <upd:divisionCode>string</upd:divisionCode>
+                           <!--optional--><upd:jobTitle>string</upd:jobTitle>
+                           <upd:role>string</upd:role>
+                        </upd:employeeForAjustment>
+                     </upd:ratingAjustment>
+                  </upd:listOfRatingAjustment>
+                  <!--optional--><upd:employeeForCalc>
+                     <upd:login>string</upd:login>
+                     <upd:lastName>string</upd:lastName>
+                     <upd:firstName>string</upd:firstName>
+                     <!--optional--><upd:middleName>string</upd:middleName>
+                     <upd:division>string</upd:division>
+                     <upd:divisionCode>string</upd:divisionCode>
+                     <!--optional--><upd:jobTitle>string</upd:jobTitle>
+                     <upd:role>string</upd:role>
+                  </upd:employeeForCalc>
+                  <!--optional--><upd:listOfResultRating><!--from 0 to unbounded elements --><upd:resultRating>
+                        <upd:isPrimary>false</upd:isPrimary>
+                        <upd:name>string</upd:name>
+                        <upd:value>10</upd:value>
+                        <!--optional--><upd:type>string</upd:type>
+                     </upd:resultRating>
+                  </upd:listOfResultRating>
+                  <!--optional--><upd:listOfCalculatedFactor><!--from 0 to unbounded elements --><upd:calculatedFactor>
+                        <upd:code>string</upd:code>
+                        <upd:name>string</upd:name>
+                        <upd:value>string</upd:value>
+                     </upd:calculatedFactor>
+                  </upd:listOfCalculatedFactor>
+               </upd:ratingCalc>
+            </upd:listOfRatingCalc>
+         </upd:rating>
+      </FinRep:UpdateRatingRequest>
+   </soap-env:Body>
+</soap-env:Envelope>

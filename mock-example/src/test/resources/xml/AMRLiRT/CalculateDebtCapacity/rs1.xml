@@ -1,29 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?><soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
-  <soap:Header xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/"/>
-  <soap-env:Body xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:rsd="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/Data" xmlns:rq="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/">
-    <amr:calculateDCRs>
-      <cal:errorCode>s</cal:errorCode>
-      <cal:errorMessage>string1-one</cal:errorMessage>
-      <cal:crmId/>
-      <cal:rmk>1000.001</cal:rmk>
-      <cal:debtCapacity>1000.001</cal:debtCapacity>
-      <cal:rmkInDealCurrency>1000.003</cal:rmkInDealCurrency>
-      <cal:debtCapacityInDealCurrency>1000.001</cal:debtCapacityInDealCurrency>
-      <cal:rmkForNextYear>1000.001</cal:rmkForNextYear>
-      <cal:debtCapacityForNextYear>1000.001</cal:debtCapacityForNextYear>
-      <cal:listOfAddParameter>
-        <cal:addParameter>
-          <cal:order>3</cal:order>
-          <cal:name>string</cal:name>
-          <cal:value>string</cal:value>
-        </cal:addParameter>
-        <cal:addParameter>
-          <cal:order>4</cal:order>
-          <cal:name>string2</cal:name>
-          <cal:value>string2</cal:value>
-        </cal:addParameter>
-      </cal:listOfAddParameter>
-      <cal:amMessage>anyType1</cal:amMessage>
-    </amr:calculateDCRs>
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
+                   xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap-env:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
+  <soap-env:message-id>defaultId</soap-env:message-id>
+  <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
+  <soap-env:operation-name>DebtCapacityCalculationResponse</soap-env:operation-name>
+</soap-env:Header>
+  <soap-env:Body>
+    <AMRLiRT:DebtCapacityCalculationResponse xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
+                                             xmlns:deb="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/">
+      <deb:errorCode>s</deb:errorCode>
+      <!--optional--><deb:errorMessage>string</deb:errorMessage>
+      <deb:crmId>string</deb:crmId>
+      <!--optional--><deb:rmk>10</deb:rmk>
+      <deb:debtCapacity>10</deb:debtCapacity>
+      <!--optional--><deb:rmkInDealCurrency>10</deb:rmkInDealCurrency>
+      <deb:debtCapacityInDealCurrency>10</deb:debtCapacityInDealCurrency>
+      <!--optional--><deb:rmkForNextYear>10</deb:rmkForNextYear>
+      <!--optional--><deb:debtCapacityForNextYear>10</deb:debtCapacityForNextYear>
+      <deb:listOfAddParameter>
+
+        <!--from 0 to unbounded elements --><deb:addParameter>
+
+        <!--optional--><deb:order>10</deb:order>
+        <deb:name>string</deb:name>
+        <deb:value>string</deb:value>
+
+      </deb:addParameter>
+
+      </deb:listOfAddParameter>
+      <!--optional--><deb:amMessage>string</deb:amMessage>
+    </AMRLiRT:DebtCapacityCalculationResponse>
   </soap-env:Body>
 </soap-env:Envelope>

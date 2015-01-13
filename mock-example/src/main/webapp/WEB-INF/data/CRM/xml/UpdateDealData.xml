@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--IT'S A DRIVER = DATA OF REQUEST-->
-<data xmlns="http://sbrf.ru/NCP/CRM/UpdateDealRq/Data/">
+<data xmlns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.08/Data/">
     <request name="default">
         <deal>
             <dealID>string1</dealID>
@@ -11,7 +11,7 @@
             <requestPurpose>string4</requestPurpose>
             <dealType>string5</dealType>
             <dealStatus>string6</dealStatus>
-            <requestDate>2014-09-19</requestDate>
+            <requestDate>2014-09-19T03:18:33</requestDate>
             <origOrgUnit>string7</origOrgUnit>
             <origOrgDivision>s8</origOrgDivision>
             <clientFileID>string9</clientFileID>
@@ -46,55 +46,50 @@
                     <changesSchedulePeriod>string27</changesSchedulePeriod>
                     <interestPaymentOrder>string28</interestPaymentOrder>
                     <refinancing>false</refinancing>
-                    <providing>string29</providing>
                     <!--Optional:-->
-                    <suspensiveCondition>string30</suspensiveCondition>
+                    <suspensiveCondition>string29</suspensiveCondition>
                     <!--Optional:-->
                     <principalBaseCurrency>1.0</principalBaseCurrency>
                     <!--1 or more repetitio-->
                     <financingInfo>
-                        <currencyOfFunding>s31</currencyOfFunding>
+                        <interestRate>1.0</interestRate>
+                        <interestRateType>string30</interestRateType>
+                        <interestRateOrder>string31</interestRateOrder>
+                        <minRate>1.0</minRate>
+                        <currencyOfFunding>s32</currencyOfFunding>
                         <principal>1.0</principal>
                     </financingInfo>
-                    <!--1 or more repetitio-->
-                    <interestRateInfo>
-                        <interestRate>1.0</interestRate>
-                        <interestRateType>string32</interestRateType>
-                        <interestRateOrder>string33</interestRateOrder>
-                        <minRate>1.0</minRate>
-                    </interestRateInfo>
                     <!--Optional:-->
                     <startDate>2008-11-15</startDate>
-                    <creditTerm>134</creditTerm>
-                    <period>135</period>
+                    <creditTerm>133</creditTerm>
+                    <period>134</period>
                     <!--Optional:-->
-                    <gracePeriod>136</gracePeriod>
+                    <gracePeriod>135</gracePeriod>
                     <!--Optional:-->
-                    <repaymentSchedule>string37</repaymentSchedule>
-                    <turnover>138</turnover>
-                    <covenants>string39</covenants>
+                    <repaymentSchedule>string36</repaymentSchedule>
+                    <turnover>137</turnover>
+                    <covenants>string38</covenants>
+                    <proposedCollateral>string39</proposedCollateral>
                     <!--Optional:-->
-                    <proposedCollateral>string40</proposedCollateral>
+                    <debtLimit>string40</debtLimit>
                     <!--Optional:-->
-                    <debtLimit>string41</debtLimit>
+                    <pledgeInsurance>string41</pledgeInsurance>
                     <!--Optional:-->
-                    <pledgeInsurance>string42</pledgeInsurance>
+                    <customerProspects>string42</customerProspects>
+                    <financingTerm>100</financingTerm>
                     <!--Optional:-->
-                    <customerProspects>string43</customerProspects>
-                    <financingTerm>144</financingTerm>
+                    <firstCountry>string43</firstCountry>
                     <!--Optional:-->
-                    <firstCountry>string45</firstCountry>
-                    <!--Optional:-->
-                    <lastCountry>string46</lastCountry>
+                    <lastCountry>string44</lastCountry>
                     <!--Zero or more repetitio-->
                     <fee>
-                        <feeName>string47</feeName>
+                        <feeName>string45</feeName>
                         <!--Optional:-->
-                        <anotherFeeName>string48</anotherFeeName>
+                        <anotherFeeName>string46</anotherFeeName>
                         <!--Optional:-->
-                        <calculationBase>string49</calculationBase>
+                        <calculationBase>string47</calculationBase>
                         <!--Optional:-->
-                        <paymentOrder>string50</paymentOrder>
+                        <paymentOrder>string48</paymentOrder>
                     </fee>
                     <!--Zero or more repetitio-->
                     <repaymentScheduleDetails>
@@ -103,7 +98,7 @@
                     </repaymentScheduleDetails>
                     <!--Zero or more repetitio-->
                     <selectionScheduleDetails>
-                        <sheduleDate>2013-12-21+04:00</sheduleDate>
+                        <sheduleDate>2013-12-21</sheduleDate>
                         <sheduleAmount>1.0</sheduleAmount>
                     </selectionScheduleDetails>
                     <!--Zero or more repetitio-->
@@ -114,22 +109,22 @@
                 </productInfo>
                 <!--Zero or more repetitio-->
                 <collateral>
-                    <collateralType>string51</collateralType>
-                    <ownerID>string52</ownerID>
+                    <collateralType>string49</collateralType>
+                    <ownerID>string50</ownerID>
                     <estimatedValue>1.0</estimatedValue>
                     <discountRate>1.0</discountRate>
                     <estimatedValueCorrected>1.0</estimatedValueCorrected>
-                    <qualityCategory>string53</qualityCategory>
-                    <daysForCalculation>154</daysForCalculation>
+                    <qualityCategory>string51</qualityCategory>
+                    <daysForCalculation>152</daysForCalculation>
                     <estimatedValueCorrectedToEAD>1.0</estimatedValueCorrectedToEAD>
-                    <securityShare>155</securityShare>
-                    <EstimatedValueSource>string56</EstimatedValueSource>
+                    <securityShare>153</securityShare>
+                    <EstimatedValueSource>string54</EstimatedValueSource>
                     <estimationDate>2012-01-07</estimationDate>
-                    <businessMeaning>string57</businessMeaning>
-                    <qualityAndLiquidityEstimation>string58</qualityAndLiquidityEstimation>
-                    <currency>string59</currency>
-                    <estimatedValueType>string60</estimatedValueType>
-                    <guarantorRating>string61</guarantorRating>
+                    <businessMeaning>string55</businessMeaning>
+                    <qualityAndLiquidityEstimation>string56</qualityAndLiquidityEstimation>
+                    <currency>string57</currency>
+                    <estimatedValueType>string58</estimatedValueType>
+                    <guarantorRating>99</guarantorRating>
                 </collateral>
                 <!--Optional:-->
                 <losses>
@@ -137,7 +132,7 @@
                     <percentLGD>1.0</percentLGD>
                     <!--Optional:-->
                     <countEAD>1.0</countEAD>
-                    <currency>string62</currency>
+                    <currency>string59</currency>
                     <!--Optional:-->
                     <reportDateAmount>1.0</reportDateAmount>
                     <!--Optional:-->
@@ -145,55 +140,36 @@
                     <!--Optional:-->
                     <lossELcount>1.0</lossELcount>
                     <!--Optional:-->
-                    <typeLGD>string63</typeLGD>
+                    <typeLGD>string60</typeLGD>
                     <!--Optional:-->
-                    <statusLGD>string64</statusLGD>
+                    <statusLGD>string61</statusLGD>
                     <!--Optional:-->
                     <dateLGDcalculated>2014-10-27</dateLGDcalculated>
                     <!--Optional:-->
                     <finalizationDate>2013-06-17</finalizationDate>
                     <!--Optional:-->
-                    <comment>string65</comment>
+                    <comment>string62</comment>
                 </losses>
             </products>
             <!--Optional:-->
             <project>
                 <!--Optional:-->
-                <projectName>string66</projectName>
+                <projectName>string63</projectName>
                 <!--Optional:-->
-                <indicatorsOfConstruction>string67</indicatorsOfConstruction>
+                <indicatorsOfConstruction>string64</indicatorsOfConstruction>
                 <!--Optional:-->
-                <parcel>string68</parcel>
+                <parcel>string65</parcel>
                 <!--Optional:-->
-                <documentsPresence>string69</documentsPresence>
+                <documentsPresence>string66</documentsPresence>
                 <!--Optional:-->
-                <equityVolume>string70</equityVolume>
+                <equityVolume>string67</equityVolume>
                 <!--Optional:-->
-                <repaymentSpring>string71</repaymentSpring>
+                <repaymentSpring>string68</repaymentSpring>
                 <!--Optional:-->
-                <fundingDirection>string72</fundingDirection>
+                <fundingDirection>string69</fundingDirection>
                 <!--Optional:-->
                 <sameIndustryAsBorrower>false</sameIndustryAsBorrower>
-                <!--Zero or more repetitio-->
-                <projectRating>
-                    <ratingID>string73</ratingID>
-                    <ratingValue>100</ratingValue>
-                    <ratingType>string74</ratingType>
-                    <ratingModel>string75</ratingModel>
-                    <ratingCalculatedDate>2014-06-10+04:00</ratingCalculatedDate>
-                    <ratingCalculatedRole>string76</ratingCalculatedRole>
-                    <ratingCalculatedBy>string77</ratingCalculatedBy>
-                    <ratingApprovalDate>2003-11-10+03:00</ratingApprovalDate>
-                    <ratingApprovedBy>string78</ratingApprovedBy>
-                </projectRating>
             </project>
-            <baseCurrency>s78</baseCurrency>
-            <!--Zero or more repetitio-->
-            <exchangeRates>
-                <currencyName>string79</currencyName>
-                <currencyValue>1.0</currencyValue>
-                <currencyDate>2000-09-25</currencyDate>
-            </exchangeRates>
         </deal>
     </request>
     <request name="ERROR">
@@ -204,7 +180,7 @@
             <requestPurpose>string3</requestPurpose>
             <dealType>string4</dealType>
             <dealStatus>string5</dealStatus>
-            <requestDate>2014-09-19</requestDate>
+            <requestDate>2014-09-19T03:18:33</requestDate>
             <origOrgUnit>string6</origOrgUnit>
             <origOrgDivision>s7</origOrgDivision>
             <clientFileID>string8</clientFileID>
@@ -214,18 +190,17 @@
             <limitKM>string11</limitKM>
             <!--1 or more repetitio-->
             <dealTeamMembers>
-                <memberId>string1</memberId>
-                <memberName>string2</memberName>
-                <mamberEmail>string3</mamberEmail>
-                <mamberRole>string4</mamberRole>
+                <memberId>string12</memberId>
+                <memberName>string13</memberName>
+                <mamberEmail>string14</mamberEmail>
+                <mamberRole>string15</mamberRole>
             </dealTeamMembers>
             <dealTeamMembers>
-                <memberId>string5</memberId>
-                <memberName>string6</memberName>
-                <mamberEmail>string7</mamberEmail>
-                <mamberRole>string8</mamberRole>
+                <memberId>string16</memberId>
+                <memberName>string17</memberName>
+                <mamberEmail>string18</mamberEmail>
+                <mamberRole>string19</mamberRole>
             </dealTeamMembers>
-           <baseCurrency>st9</baseCurrency>
         </deal>
     </request>
 </data>

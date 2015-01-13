@@ -1,13 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:rq="http://sbrf.ru/NCP/CRM/CreateTaskRq/" xmlns:crm="http://sbrf.ru/NCP/CRM/">
-    <soap:Header/>
-    <soap:Body>
-        <crm:createTaskRq xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:ns="http://sbrf.ru/NCP/CRM/CreateTaskRq/1.02/">
-            <ns:contractID>string</ns:contractID>
-            <ns:contractBPMID>string</ns:contractBPMID>
-            <ns:comment>string</ns:comment>
-            <ns:requestType>string</ns:requestType>
-            <ns:responsiblePersonID>string</ns:responsiblePersonID>
-        </crm:createTaskRq>
-    </soap:Body>
-</soap:Envelope>
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
+                   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <soap-env:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
+      <soap-env:message-id>defaultId</soap-env:message-id>
+      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
+      <soap-env:operation-name>CreateTaskRq</soap-env:operation-name>
+   </soap-env:Header>
+   <soap-env:Body>
+      <crm:CreateTaskRq xmlns:crm="http://sbrf.ru/NCP/CRM/"
+                        xmlns:cre="http://sbrf.ru/NCP/CRM/CreateTaskRq/1.02/">
+         <cre:contractID>string</cre:contractID>
+         <cre:contractBPMID>string</cre:contractBPMID>
+         <cre:comment>string</cre:comment>
+         <cre:requestType>string</cre:requestType>
+         <cre:responsiblePersonID>string</cre:responsiblePersonID>
+      </crm:CreateTaskRq>
+   </soap-env:Body>
+</soap-env:Envelope>

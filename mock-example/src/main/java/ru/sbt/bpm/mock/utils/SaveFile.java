@@ -86,7 +86,7 @@ public class SaveFile {
 
     /**
      * Возвращает файл из папки WEB-INF/data
-     * @param path путь формата "AMRLiRT/xml/SrvCalcDebtCapacityData.xml"
+     * @param path путь формата "AMRLiRT/xml/CalculateDebtCapacityData.xml"
      * @return Java.io.File
      */
     protected File getDataFile(String path) throws IOException {
@@ -99,7 +99,7 @@ public class SaveFile {
 
     /**
      * Возвращает файл из папки WEB-INF/data, предварительно сохранив бэкап
-     * @param path путь формата "AMRLiRT/xml/SrvCalcDebtCapacityData.xml"
+     * @param path путь формата "AMRLiRT/xml/CalculateDebtCapacityData.xml"
      * @return Java.io.File
      */
     public File getBackUpedDataFile(String path) throws IOException{
@@ -119,7 +119,7 @@ public class SaveFile {
 
     /**
      * Возвращает файл из бэкапа WEB-INF/data
-     * @param path путь формата "AMRLiRT/xml/SrvCalcDebtCapacityData.xml"
+     * @param path путь формата "AMRLiRT/xml/CalculateDebtCapacityData.xml"
      * @return Java.io.File
      */
     public File restoreBackUpedDataFile(String path) throws IOException {
@@ -140,7 +140,7 @@ public class SaveFile {
     /**
      * Возвращает файл из папки WEB-INF/data, предварительно вернув его из бэкапа
      * Каждый следующий вызов возвращает новую запись из бэкапа.
-     * @param path путь формата "AMRLiRT/xml/SrvCalcDebtCapacityData.xml"
+     * @param path путь формата "AMRLiRT/xml/CalculateDebtCapacityData.xml"
      * @return Java.io.File
      */
     public File getNextBackUpedDataFile(String path) throws IOException, IndexOutOfBoundsException {
@@ -182,7 +182,7 @@ public class SaveFile {
     /**
      * Возвращает файл из папки WEB-INF/data, предварительно вернув его из бэкапа
      * Каждый следующий вызов возвращает новую запись из бэкапа.
-     * @param path путь формата "AMRLiRT/xml/SrvCalcDebtCapacityData.xml"
+     * @param path путь формата "AMRLiRT/xml/CalculateDebtCapacityData.xml"
      * @return Java.io.File
      */
     public File rollbackNextBackUpedDataFile(String path) throws IOException {
@@ -220,7 +220,7 @@ public class SaveFile {
     /**
      * Возвращает файл из папки WEB-INF/data, предварительно вернув его из бэкапа
      * Каждый следующий вызов возвращает новую запись из бэкапа.
-     * @param path путь формата "AMRLiRT/xml/SrvCalcDebtCapacityData.xml"
+     * @param path путь формата "AMRLiRT/xml/CalculateDebtCapacityData.xml"
      * @return Java.io.File
      */
     public File rollbackPervBackUpedDataFile(String path) throws IOException {

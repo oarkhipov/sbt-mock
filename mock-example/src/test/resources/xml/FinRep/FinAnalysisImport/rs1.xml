@@ -1,0 +1,47 @@
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
+                   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <soap-env:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
+      <soap-env:message-id>defaultId</soap-env:message-id>
+      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
+      <soap-env:operation-name>FinAnalysisImportResponse</soap-env:operation-name>
+   </soap-env:Header>
+   <soap-env:Body>
+      <FinRep:FinAnalysisImportResponse xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
+                                        xmlns:fin="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRs/">
+         <fin:actualRequirements>
+            <fin:creditRiskPerDebtor>10</fin:creditRiskPerDebtor>
+            <fin:creditRiskForRelatedDebtorGroup>10</fin:creditRiskForRelatedDebtorGroup>
+            <fin:creditRiskPerLegalEntityInsider>10</fin:creditRiskPerLegalEntityInsider>
+            <fin:economicGroupRiskFactor>10</fin:economicGroupRiskFactor>
+         </fin:actualRequirements>
+         <fin:actualRequirementsInTotal>
+            <fin:creditRiskPerDebtor>10</fin:creditRiskPerDebtor>
+            <fin:creditRiskForRelatedDebtorGroup>10</fin:creditRiskForRelatedDebtorGroup>
+            <fin:creditRiskPerLegalEntityInsider>10</fin:creditRiskPerLegalEntityInsider>
+            <fin:economicGroupRiskFactor>10</fin:economicGroupRiskFactor>
+         </fin:actualRequirementsInTotal>
+         <!--optional--><fin:finIndexChangesReasonNFRS>string</fin:finIndexChangesReasonNFRS>
+         <!--optional--><fin:finPerformanceCommentNFRS>string</fin:finPerformanceCommentNFRS>
+         <!--optional--><fin:finIndexChangesReasonIFRS>string</fin:finIndexChangesReasonIFRS>
+         <!--optional--><fin:finPerformanceCommentIFRS>string</fin:finPerformanceCommentIFRS>
+         <fin:creditHistoryConclusions>string</fin:creditHistoryConclusions>
+         <fin:offBalanceSheetLiabilities>string</fin:offBalanceSheetLiabilities>
+         <fin:liabilitiesDynamicsComment>string</fin:liabilitiesDynamicsComment>
+         <fin:turnoversComment>string</fin:turnoversComment>
+         <fin:revenueExpensesStressAnalysis>string</fin:revenueExpensesStressAnalysis>
+         <!--optional--><fin:structuredDealsStressAnalysis>string</fin:structuredDealsStressAnalysis>
+         <fin:fieldInfo>
+            <fin:mainField>string</fin:mainField>
+            <fin:mainBusiness>string</fin:mainBusiness>
+         </fin:fieldInfo>
+         <fin:marketPositionAndTrends>
+            <fin:trends>string</fin:trends>
+         </fin:marketPositionAndTrends>
+         <fin:business>
+            <fin:suppliersConcentrationLevel>string</fin:suppliersConcentrationLevel>
+            <fin:buyersConcentrationLevel>string</fin:buyersConcentrationLevel>
+            <fin:dependenceComment>string</fin:dependenceComment>
+         </fin:business>
+      </FinRep:FinAnalysisImportResponse>
+   </soap-env:Body>
+</soap-env:Envelope>

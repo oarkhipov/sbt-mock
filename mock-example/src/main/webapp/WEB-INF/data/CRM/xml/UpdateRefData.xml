@@ -1,35 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/NCP/CRM/UpdateRefRs/Data/">
+<data xmlns="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/Data/">
   <response name="default">
-    <!--Zero or more repetitions:-->
     <referenceItem>
-      <referenceid>string</referenceid>
-      <!--Zero or more repetitions:-->
+      <referenceid>string2</referenceid>
       <listOfValue>
-        <value>string</value>
-        <valueId>string</valueId>
-        <parentValueId>string</parentValueId>
+        <value>string2</value>
+        <valueId>string4</valueId>
+        <parentValueId>string8</parentValueId>
       </listOfValue>
     </referenceItem>
-    <errorCode>0</errorCode>
+    <errorCode>string2</errorCode>
   </response>
   <response name="ERROR">
-    <referenceItem>
-      <referenceid>string</referenceid>
-      <!--Zero or more repetitions:-->
-      <listOfValue>
-        <value>string</value>
-        <valueId>string</valueId>
-        <parentValueId>string</parentValueId>
-      </listOfValue>
-      <listOfValue>
-        <value>string1</value>
-        <valueId>string1</valueId>
-        <parentValueId>string1</parentValueId>
-      </listOfValue>
-    </referenceItem>
-    <errorCode>325</errorCode>
-    <!--Optional:-->
-    <errorMessage>Kernel panic!</errorMessage>
+    <errorCode>string1</errorCode>
+    <errorMessage>string2</errorMessage>
   </response>
 </data>

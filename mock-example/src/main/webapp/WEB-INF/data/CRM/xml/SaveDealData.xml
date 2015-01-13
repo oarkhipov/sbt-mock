@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/NCP/CRM/SaveDealRs/Data/">
+
+<data xmlns="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/Data/">
     <response name="default">
-        <errorCode>0</errorCode>
+        <operationStatus>
+            <errorCode>string1</errorCode>
+        </operationStatus>
+        <dealID>string2</dealID>
     </response>
-    <response name="ERROR">
-        <errorCode>325</errorCode>
-        <errorMessage>ERROR: kernel panic!</errorMessage>
+    <response name="error">
+        <operationStatus>
+            <errorCode>string1</errorCode>
+            <errorMessage>string2</errorMessage>
+        </operationStatus>
+        <dealID>string3</dealID>
     </response>
 </data>

@@ -1,84 +1,71 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/" xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/">
-  <soap:Header>
-    <soap:message-id>5f4e83ab38514920b55f3eaa1dc378ad</soap:message-id>
-    <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
-    <soap:operation-name>UpdateDeal</soap:operation-name>
-  </soap:Header>
-  <soap:Body>
-    <amr:calculateDCRq>
-      <cal:crmId>string</cal:crmId>
-      <cal:rating>3</cal:rating>
-      <cal:finReportType>string</cal:finReportType>
-      <cal:model>string</cal:model>
-      <cal:rmkType>string</cal:rmkType>
-      <!--Optional:-->
-      <cal:nonCurrentAssetsNFRS>1000.00</cal:nonCurrentAssetsNFRS>
-      <!--Optional:-->
-      <cal:currentAssetsNFRS>1000.00</cal:currentAssetsNFRS>
-      <!--Optional:-->
-      <cal:nonCurrentAssetsIFRS>1000.00</cal:nonCurrentAssetsIFRS>
-      <!--Optional:-->
-      <cal:currentAssetsIFRS>1000.00</cal:currentAssetsIFRS>
-      <!--Optional:-->
-      <cal:longTermDebtNFRS>1000.00</cal:longTermDebtNFRS>
-      <!--Optional:-->
-      <cal:shortTermDebtNFRS>1000.00</cal:shortTermDebtNFRS>
-      <!--Optional:-->
-      <cal:longTermDebtIFRS>1000.00</cal:longTermDebtIFRS>
-      <!--Optional:-->
-      <cal:shortTermDebtIFRS>1000.00</cal:shortTermDebtIFRS>
-      <!--Optional:-->
-      <cal:ebitdaNFRS>1000.00</cal:ebitdaNFRS>
-      <!--Optional:-->
-      <cal:quarterNumNFRS>3</cal:quarterNumNFRS>
-      <!--Optional:-->
-      <cal:ebitdaIFRS>1000.00</cal:ebitdaIFRS>
-      <!--Optional:-->
-      <cal:quarterNumIFRS>3</cal:quarterNumIFRS>
-      <cal:currencyCode>string</cal:currencyCode>
-      <cal:currencyCodeForFinReport>string</cal:currencyCodeForFinReport>
-      <cal:currencyRate>1000.00</cal:currencyRate>
-      <cal:futureCurrencyRate>1000.00</cal:futureCurrencyRate>
-      <cal:currentCurrencyRate>1000.00</cal:currentCurrencyRate>
-      <!--Optional:-->
-      <cal:user>
-        <cal:fio>string</cal:fio>
-        <!--Optional:-->
-        <cal:position>string</cal:position>
-        <cal:tDivision>string</cal:tDivision>
-        <cal:fDivision>string</cal:fDivision>
-      </cal:user>
-      <cal:accountList>
-        <cal:inn>string</cal:inn>
-        <cal:name>string</cal:name>
-        <cal:sbrfPriority>string</cal:sbrfPriority>
-        <cal:sbrfIndustry>string</cal:sbrfIndustry>
-        <!--Zero or more repetitions:-->
-        <cal:facilitySB>
-          <!--Optional:-->
-          <cal:sbName>string</cal:sbName>
-          <cal:sbcd>1000.00</cal:sbcd>
-          <!--Optional:-->
-          <cal:agrNumber>string</cal:agrNumber>
-          <cal:sbcdt>1000.00</cal:sbcdt>
-          <cal:sbDebtCurrencyRate>1000.00</cal:sbDebtCurrencyRate>
-          <!--Optional:-->
-          <cal:sbDebtCurrencyCode>string</cal:sbDebtCurrencyCode>
-        </cal:facilitySB>
-        <!--Zero or more repetitions:-->
-        <cal:facilityNotSB>
-          <!--Optional:-->
-          <cal:name>string</cal:name>
-          <cal:cd>1000.00</cal:cd>
-          <cal:cdt>1000.00</cal:cdt>
-          <!--Optional:-->
-          <cal:date>2008-09-29</cal:date>
-          <cal:debtCurrencyRate>1000.00</cal:debtCurrencyRate>
-          <!--Optional:-->
-          <cal:debtCurrencyCode>string</cal:debtCurrencyCode>
-        </cal:facilityNotSB>
-      </cal:accountList>
-    </amr:calculateDCRq>
-  </soap:Body>
-</soap:Envelope>
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
+                   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <soap-env:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
+    <soap-env:message-id>defaultId</soap-env:message-id>
+    <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
+    <soap-env:operation-name>DebtCapacityCalculationRequest</soap-env:operation-name>
+  </soap-env:Header>
+  <soap-env:Body>
+    <AMRLiRT:DebtCapacityCalculationRequest xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
+                                            xmlns:deb="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/">
+      <deb:crmId>string</deb:crmId>
+      <deb:rating>10</deb:rating>
+      <deb:finReportType>string</deb:finReportType>
+      <deb:model>string</deb:model>
+      <deb:rmkType>string</deb:rmkType>
+      <!--optional--><deb:nonCurrentAssetsNFRS>10</deb:nonCurrentAssetsNFRS>
+      <!--optional--><deb:currentAssetsNFRS>10</deb:currentAssetsNFRS>
+      <!--optional--><deb:nonCurrentAssetsIFRS>10</deb:nonCurrentAssetsIFRS>
+      <!--optional--><deb:currentAssetsIFRS>10</deb:currentAssetsIFRS>
+      <!--optional--><deb:longTermDebtNFRS>10</deb:longTermDebtNFRS>
+      <!--optional--><deb:shortTermDebtNFRS>10</deb:shortTermDebtNFRS>
+      <!--optional--><deb:longTermDebtIFRS>10</deb:longTermDebtIFRS>
+      <!--optional--><deb:shortTermDebtIFRS>10</deb:shortTermDebtIFRS>
+      <!--optional--><deb:ebitdaNFRS>10</deb:ebitdaNFRS>
+      <!--optional--><deb:quarterNumNFRS>10</deb:quarterNumNFRS>
+      <!--optional--><deb:ebitdaIFRS>10</deb:ebitdaIFRS>
+      <!--optional--><deb:quarterNumIFRS>10</deb:quarterNumIFRS>
+      <deb:currencyCode>string</deb:currencyCode>
+      <deb:currencyCodeForFinReport>string</deb:currencyCodeForFinReport>
+      <deb:currencyRate>10</deb:currencyRate>
+      <deb:futureCurrencyRate>10</deb:futureCurrencyRate>
+      <deb:currentCurrencyRate>10</deb:currentCurrencyRate>
+      <!--optional--><deb:user>
+
+      <deb:fio>string</deb:fio>
+      <!--optional--><deb:position>string</deb:position>
+      <deb:tDivision>string</deb:tDivision>
+      <deb:fDivision>string</deb:fDivision>
+
+    </deb:user>
+      <deb:accountList>
+
+        <deb:inn>string</deb:inn>
+        <deb:name>string</deb:name>
+        <deb:sbrfPriority>string</deb:sbrfPriority>
+        <deb:sbrfIndustry>string</deb:sbrfIndustry>
+        <!--from 0 to unbounded elements --><deb:facilitySB>
+
+        <!--optional--><deb:sbName>string</deb:sbName>
+        <deb:sbcd>10</deb:sbcd>
+        <!--optional--><deb:agrNumber>string</deb:agrNumber>
+        <deb:sbcdt>10</deb:sbcdt>
+        <deb:sbDebtCurrencyRate>10</deb:sbDebtCurrencyRate>
+        <!--optional--><deb:sbDebtCurrencyCode>string</deb:sbDebtCurrencyCode>
+
+      </deb:facilitySB>
+        <!--from 0 to unbounded elements --><deb:facilityNotSB>
+
+        <!--optional--><deb:name>string</deb:name>
+        <deb:cd>10</deb:cd>
+        <deb:cdt>10</deb:cdt>
+        <!--optional--><deb:date>13.01.2015</deb:date>
+        <deb:debtCurrencyRate>10</deb:debtCurrencyRate>
+        <!--optional--><deb:debtCurrencyCode>string</deb:debtCurrencyCode>
+
+      </deb:facilityNotSB>
+
+      </deb:accountList>
+    </AMRLiRT:DebtCapacityCalculationRequest>
+  </soap-env:Body>
+</soap-env:Envelope>

@@ -1,39 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?><soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
-  <soap:Header xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"/>
-  <soap-env:Body xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:rsd="http://sbrf.ru/NCP/AMRLIRT/CalculateLGD/Data" xmlns:rq="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/">
-    <amr:calculateLGDRs>
-      <cal:errorCode>0</cal:errorCode>
-      <cal:errorMessage>testing error message</cal:errorMessage>
-      <cal:crmId/>
-      <cal:lgdType/>
-      <cal:lgdDate>2008-09-29</cal:lgdDate>
-      <cal:pd>1000.00</cal:pd>
-      <cal:lgd>1000.00</cal:lgd>
-      <cal:ead>1000.00</cal:ead>
-      <cal:sum>1000.00</cal:sum>
-      <cal:elPercent>1000.00</cal:elPercent>
-      <cal:el>1000.00</cal:el>
-      <cal:totalValue>1000.00</cal:totalValue>
-      <cal:totalColValueLgd>1000.00</cal:totalColValueLgd>
-      <cal:totalColValueEad>1000.00</cal:totalColValueEad>
-      <cal:listOfCollateral>
-        <cal:collateral>
-          <cal:crmId>string</cal:crmId>
-          <cal:collType>string</cal:collType>
-          <cal:returnRate>1000.00</cal:returnRate>
-          <cal:discountRate>1000.00</cal:discountRate>
-          <cal:collValueEad>1000.00</cal:collValueEad>
-          <cal:collValueLgd>1000.00</cal:collValueLgd>
-        </cal:collateral>
-        <cal:collateral>
-          <cal:crmId>string2</cal:crmId>
-          <cal:collType>string2</cal:collType>
-          <cal:returnRate>1000.001</cal:returnRate>
-          <cal:discountRate>1000.001</cal:discountRate>
-          <cal:collValueEad>1000.001</cal:collValueEad>
-          <cal:collValueLgd>1000.001</cal:collValueLgd>
-        </cal:collateral>
-      </cal:listOfCollateral>
-    </amr:calculateLGDRs>
-  </soap-env:Body>
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
+                   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <soap-env:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
+      <soap-env:message-id>defaultId</soap-env:message-id>
+      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
+      <soap-env:operation-name>LgdCalculationResponse</soap-env:operation-name>
+   </soap-env:Header>
+   <soap-env:Body>
+      <AMRLiRT:LgdCalculationResponse xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
+                                      xmlns:lgd="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/">
+         <lgd:errorCode>string</lgd:errorCode>
+         <!--optional--><lgd:errorMessage>string</lgd:errorMessage>
+         <lgd:crmId>string</lgd:crmId>
+         <lgd:lgdType>string</lgd:lgdType>
+         <lgd:lgdDate>13.01.2015</lgd:lgdDate>
+         <!--optional--><lgd:pd>10</lgd:pd>
+         <lgd:lgd>10</lgd:lgd>
+         <lgd:ead>10</lgd:ead>
+         <lgd:sum>10</lgd:sum>
+         <!--optional--><lgd:elPercent>10</lgd:elPercent>
+         <!--optional--><lgd:el>10</lgd:el>
+         <lgd:totalValue>10</lgd:totalValue>
+         <lgd:totalColValueLgd>10</lgd:totalColValueLgd>
+         <lgd:totalColValueEad>10</lgd:totalColValueEad>
+         <!--optional--><lgd:listOfCollateral>
+		
+			<!--from 0 to unbounded elements --><lgd:collateral>
+	
+		             <lgd:crmId>string</lgd:crmId>
+		             <lgd:collType>string</lgd:collType>
+		             <lgd:returnRate>10</lgd:returnRate>
+		             <lgd:discountRate>10</lgd:discountRate>
+		             <lgd:collValueEad>10</lgd:collValueEad>
+		             <lgd:collValueLgd>10</lgd:collValueLgd>
+	
+            </lgd:collateral>
+		
+	        </lgd:listOfCollateral>
+      </AMRLiRT:LgdCalculationResponse>
+   </soap-env:Body>
 </soap-env:Envelope>

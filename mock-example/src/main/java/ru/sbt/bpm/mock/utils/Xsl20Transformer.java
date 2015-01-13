@@ -23,8 +23,9 @@ public class Xsl20Transformer {
 
 
     public static String transform(String xsltFile, String xmlFile) throws TransformerException {
-        return transform(xsltFile, xmlFile, null, null);
+        return transform(xsltFile, xmlFile, null);
     }
+
 
     public static String transform(Resource xsltRes, Resource xmlRes) throws TransformerException, IOException {
         return transform(xsltRes, xmlRes, null, null);
@@ -34,24 +35,32 @@ public class Xsl20Transformer {
         return transform(xsltRes, xmlRes, null, null);
     }
 
-
-    /**
-     * Отличается от остальных типов трансформа, что получает пути к файлам.
-     * @param xsltFile путь к файлу xslt
-     * @param xmlFile путь к файлу xml
-     * @param paramName параметр
-     * @param ParamValue значение параметр
-     * @return трансформированный xml
-     * @throws TransformerException
-     */
     public static String transform(String xsltFile, String xmlFile, String paramName, String ParamValue) throws TransformerException {
+        return transform(xsltFile, xmlFile, fetchParamsToMap(paramName,ParamValue));
+    }
+
+
+        /**
+         * Отличается от остальных типов трансформа, что получает пути к файлам.
+         * @param xsltFile путь к файлу xslt
+         * @param xmlFile путь к файлу xml
+         * @param paramName параметр
+         * @param ParamValue значение параметр
+         * @return трансформированный xml
+         * @throws TransformerException
+         */
+    public static String transform(String xsltFile, String xmlFile, Map<String, String> params) throws TransformerException {
         TransformerFactory factory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null);
 
         Source xslt = new StreamSource(new File(xsltFile));
         Transformer transformer = factory.newTransformer(xslt);
 
-        if (paramName!=null && !paramName.isEmpty()) {
-            transformer.setParameter(paramName, ParamValue);
+        if (params!=null && !params.isEmpty()) {
+            for(Map.Entry<String, String> param : params.entrySet()) {
+                if(param.getKey() != null ) {
+                    transformer.setParameter(param.getKey(), param.getValue());
+                }
+            }
         }
 
         Source xml = new StreamSource(new File(xmlFile));

@@ -1,29 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:con="http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRq/">
-  <soap:Header/>
-  <soap:Body>
-    <amr:confirmRatingRq>
-  <con:arg0>
-    <con:ratingValue>3</con:ratingValue>
-    <con:ratingId>string</con:ratingId>
-    <con:model>string</con:model>
-    <con:modelIntegrationId>string</con:modelIntegrationId>
-    <con:requestor>
-      <con:login>string</con:login>
-      <con:lastName>string</con:lastName>
-      <con:firstName>string</con:firstName>
-      <!--Optional:-->
-      <con:middleName>string</con:middleName>
-      <con:division>string</con:division>
-      <con:divisionCode>string</con:divisionCode>
-      <!--Optional:-->
-      <con:jobTitle>string</con:jobTitle>
-      <!--Optional:-->
-      <con:role>string</con:role>
-    </con:requestor>
-  </con:arg0>
-  <!--Optional:-->
-  <con:siebelMessage>anyType</con:siebelMessage>
-</amr:confirmRatingRq>
-  </soap:Body>
-</soap:Envelope>
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
+                   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <soap-env:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
+      <soap-env:message-id>defaultId</soap-env:message-id>
+      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
+      <soap-env:operation-name>ConfirmRequest</soap-env:operation-name>
+   </soap-env:Header>
+   <soap-env:Body>
+      <AMRLiRT:ConfirmRequest xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
+                              xmlns:con="http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRq/">
+         <con:arg0>
+            <con:ratingValue>10</con:ratingValue>
+            <con:ratingId>string</con:ratingId>
+            <con:model>string</con:model>
+            <con:modelIntegrationId>string</con:modelIntegrationId>
+            <con:requestor>
+               <con:login>string</con:login>
+               <con:lastName>string</con:lastName>
+               <con:firstName>string</con:firstName>
+               <!--optional--><con:middleName>string</con:middleName>
+               <con:division>string</con:division>
+               <con:divisionCode>string</con:divisionCode>
+               <!--optional--><con:jobTitle>string</con:jobTitle>
+               <!--optional--><con:role>string</con:role>
+            </con:requestor>
+         </con:arg0>
+         <!--optional--><con:siebelMessage>string</con:siebelMessage>
+      </AMRLiRT:ConfirmRequest>
+   </soap-env:Body>
+</soap-env:Envelope>

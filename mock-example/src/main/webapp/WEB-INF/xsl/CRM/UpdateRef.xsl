@@ -1,81 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0"
+<xsl:stylesheet xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/"
+                xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/"
+                xmlns:rsd="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/Data/"
+                xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
+                xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"
-                xmlns:rq="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/"
-                xmlns:rs="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/"
-                xmlns:rsd="http://sbrf.ru/NCP/CRM/UpdateRefRs/Data/"
-                xmlns:crm="http://sbrf.ru/NCP/CRM/">
+                version="1.0">
+   <xsl:import href="../util/NCPSoapRqHeaderXSLTTemplate.xsl"/>
+   <!--опускаем строку 'xml version="1.0" encoding="UTF-8"'. С ней не работает MQ очередь-->
+<xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
+   <xsl:param name="name" select="all"/>
+   <xsl:param name="dataFileName" select="'../../data/CRM/xml/UpdateRefData.xml'"/>
+   <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
+   <xsl:param name="id" select="null"/>
+   <!--Optional params for optional header values-->
+<xsl:param name="correlation-id" select="null"/>
+   <xsl:param name="eis-name" select="null"/>
+   <xsl:param name="system-id" select="null"/>
+   <xsl:param name="operation-version" select="null"/>
+   <xsl:param name="user-id" select="null"/>
+   <xsl:param name="user-name" select="null"/>
 
-    <xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>
+   <xsl:template match="soap-env:Envelope">
+      <xsl:variable name="data" select="document($dataFileName)/rsd:data"/>
+      <xsl:variable name="linkedTag" select="$name"/>
+      <xsl:element name="soap-env:Envelope">
+         <xsl:choose>
+            <xsl:when test="soap-env:Header">
+               <xsl:copy-of select="soap-env:Header"/>
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:call-template name="NCPHeader">
+                  <xsl:with-param name="response">
+                     <xsl:choose>
+                        <xsl:when test="count(./rsd:response[@name=$linkedTag])=1">
+                           <xsl:value-of select="$linkedTag"/>
+                        </xsl:when>
+                        <xsl:otherwise>default</xsl:otherwise>
+                     </xsl:choose>
+                  </xsl:with-param>
+                  <xsl:with-param name="timestamp" select="$timestamp"/>
+                  <xsl:with-param name="id" select="$id"/>
+                  <xsl:with-param name="operation-name" select="string('UpdateRefRs')"/>
+                  <xsl:with-param name="correlation-id" select="$correlation-id"/>
+                  <xsl:with-param name="eis-name" select="$eis-name"/>
+                  <xsl:with-param name="system-id" select="$system-id"/>
+                  <xsl:with-param name="operation-version" select="$operation-version"/>
+                  <xsl:with-param name="user-id" select="$user-id"/>
+                  <xsl:with-param name="user-name" select="$user-name"/>
+               </xsl:call-template>
+            </xsl:otherwise>
+         </xsl:choose>
+         <soap-env:Body>
+            <xsl:call-template name="UpdateRefRs">
+               <xsl:with-param name="data" select="$data"/>
+               <xsl:with-param name="response">
+                  <xsl:choose>
+                     <xsl:when test="count($data/rsd:response[@name=$linkedTag])=1">
+                        <xsl:value-of select="$linkedTag"/>
+                     </xsl:when>
+                     <xsl:otherwise>default</xsl:otherwise>
+                  </xsl:choose>
+               </xsl:with-param>
+            </xsl:call-template>
+         </soap-env:Body>
+      </xsl:element>
+   </xsl:template>
 
-    <!--Prepare data and section of data XML-->
-    <xsl:template match="soap-env:Envelope">
-        <xsl:element name="soap-env:Envelope">
-            <xsl:copy-of select="soap-env:Header"/>
-            <soap-env:Body>
-                <xsl:variable name="data" select="document('../../data/CRM/xml/UpdateRefData.xml')/rsd:data"/>
-                <xsl:variable name="linkedTag" select="./soap-env:Body/crm:updateRefRq/rq:referenceItem"/>
-                <xsl:call-template name="UpdateDealRs">
-                    <xsl:with-param name="data" select="$data"/>
-                    <xsl:with-param name="response">
-                        <xsl:choose>
-                            <xsl:when test="count($data/rsd:response[@name=$linkedTag])=1"><xsl:value-of select="$linkedTag"/></xsl:when>
-                            <xsl:otherwise>default</xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:with-param>
-                </xsl:call-template>
-            </soap-env:Body>
-        </xsl:element>
-    </xsl:template>
+   <xsl:template match="rsd:listOfValue">
+      <tns:listOfValue>
+         <tns:value>
+            <xsl:value-of select="./rsd:value"/>
+         </tns:value>
+         <tns:valueId>
+            <xsl:value-of select="./rsd:valueId"/>
+         </tns:valueId>
+         <xsl:if test="./rsd:parentValueId">
+            <tns:parentValueId>
+               <xsl:value-of select="./rsd:parentValueId"/>
+            </tns:parentValueId>
+         </xsl:if>
+      </tns:listOfValue>
+   </xsl:template>
 
-    <!--- - - - - - - - - - -BLOCKS- - -  - - - - - - - - - - -->
-    <xsl:template match="rsd:listOfValue">
-        <!--Zero or more repetitions:-->
-        <rs:listOfValue>
-            <rs:value>
-                <xsl:value-of select="rsd:value"/>
-            </rs:value>
-            <rs:valueId>
-                <xsl:value-of select="rsd:valueId"/>
-            </rs:valueId>
-            <rs:parentValueId>
-                <xsl:value-of select="rsd:parentValueId"/>
-            </rs:parentValueId>
-        </rs:listOfValue>
-    </xsl:template>
+   <xsl:template match="rsd:referenceItem">
+      <tns:referenceItem>
+         <tns:referenceid>
+            <xsl:value-of select="./rsd:referenceid"/>
+         </tns:referenceid>
+         <xsl:apply-templates select="./rsd:listOfValue"/>
+      </tns:referenceItem>
+   </xsl:template>
 
-    <xsl:template match="rsd:referenceItem">
-        <rs:referenceItem>
-            <rs:referenceid>
-                <xsl:value-of select="rsd:referenceid" />
-            </rs:referenceid>
-            <xsl:apply-templates select="rsd:listOfValue"/>
-        </rs:referenceItem>
-    </xsl:template>
-
-
-    <!--Fill tags with data from data.xml (0..1)-->
-    <xsl:template match="rsd:errorMessage">
-        <rs:errorMessage>
-            <xsl:value-of select="."/>
-        </rs:errorMessage>
-    </xsl:template>
-
-    <!--Transform main XML-->
-    <xsl:template name="UpdateDealRs">
-        <!--Get params-->
-        <xsl:param name="response"/>
-        <xsl:param name="data"/>
-        <!-- - - - - - - - -->
-        <crm:UpdateDealRs>
-            <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:referenceItem"/>
-            <rs:errorCode>
-                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
-            </rs:errorCode>
-            <!--Optional:-->
-            <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
-        </crm:UpdateDealRs>
-    </xsl:template>
-
+   <xsl:template name="UpdateRefRs">
+      <xsl:param name="response"/>
+      <xsl:param name="data"/>
+      <xsl:element name="CRM:UpdateRefRs">
+         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:referenceItem"/>
+         <tns:errorCode>
+            <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
+         </tns:errorCode>
+         <xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+            <tns:errorMessage>
+               <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
+            </tns:errorMessage>
+         </xsl:if>
+      </xsl:element>
+   </xsl:template>
 </xsl:stylesheet>

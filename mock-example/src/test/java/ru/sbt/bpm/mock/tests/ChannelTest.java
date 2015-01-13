@@ -138,36 +138,36 @@ public class ChannelTest {
 
     @Test
     public void createTaskTestFinRep_SrvGetFinReport() throws Exception {
-        testXSLT("SrvGetFinReport", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/SrvGetFinReport/rq1.xml", "xml/FinRep/SrvGetFinReport/rs1.xml");
+        testXSLT("SrvGetFinReport", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/FinReportImport/rq1.xml", "xml/FinRep/FinReportImport/rs1.xml");
     }
     @Test
     public void createTaskTestFinRep_SrvGetFinAnalysis() throws Exception {
-        testXSLT("SrvGetFinAnalysis", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/SrvGetFinAnalysis/rq1.xml", "xml/FinRep/SrvGetFinAnalysis/rs1.xml");
+        testXSLT("SrvGetFinAnalysis", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/FinAnalysisImport/rq1.xml", "xml/FinRep/FinAnalysisImport/rs1.xml");
     }
     @Test
     public void createTaskTestFinRep_SrvGetRatingsAndFactors() throws Exception {
-        testXSLT("SrvGetRatingsAndFactors", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/SrvGetRatingsAndFactors/rq1.xml", "xml/FinRep/SrvGetRatingsAndFactors/rs1.xml");
+        testXSLT("SrvGetRatingsAndFactors", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/ImportRating/rq1.xml", "xml/FinRep/ImportRating/rs1.xml");
     }
     @Test
     public void createTaskTestFinRep_SrvUpdateRating() throws Exception {
-        testXSLT("SrvUpdateRating", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/SrvUpdateRating/rq1.xml", "xml/FinRep/SrvUpdateRating/rs1.xml");
+        testXSLT("SrvUpdateRating", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/UpdateRating/rq1.xml", "xml/FinRep/UpdateRating/rs1.xml");
     }
 
     @Test
     public void createTaskTestFinRep_SrvGetFinReport2() throws Exception {
-        testXSLT("SrvGetFinReport", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/SrvGetFinReport/rq2.xml", "xml/FinRep/SrvGetFinReport/rs2.xml");
+        testXSLT("SrvGetFinReport", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/FinReportImport/rq2.xml", "xml/FinRep/FinReportImport/rs2.xml");
     }
     @Test
     public void createTaskTestFinRep_SrvGetFinAnalysis2() throws Exception {
-        testXSLT("SrvGetFinAnalysis", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/SrvGetFinAnalysis/rq2.xml", "xml/FinRep/SrvGetFinAnalysis/rs2.xml");
+        testXSLT("SrvGetFinAnalysis", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/FinAnalysisImport/rq2.xml", "xml/FinRep/FinAnalysisImport/rs2.xml");
     }
     @Test
     public void createTaskTestFinRep_SrvGetRatingsAndFactors2() throws Exception {
-        testXSLT("SrvGetRatingsAndFactors", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/SrvGetRatingsAndFactors/rq2.xml", "xml/FinRep/SrvGetRatingsAndFactors/rs2.xml");
+        testXSLT("SrvGetRatingsAndFactors", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/ImportRating/rq2.xml", "xml/FinRep/ImportRating/rs2.xml");
     }
     @Test
     public void createTaskTestFinRep_SrvUpdateRating2() throws Exception {
-        testXSLT("SrvUpdateRating", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/SrvUpdateRating/rq2.xml", "xml/FinRep/SrvUpdateRating/rs2.xml");
+        testXSLT("SrvUpdateRating", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/UpdateRating/rq2.xml", "xml/FinRep/UpdateRating/rs2.xml");
     }
 
     private void testXSLT(String INStream, String OUTStream, String request, String responce) throws Exception {

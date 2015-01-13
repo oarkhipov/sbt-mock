@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:rq="http://sbrf.ru/NCP/CRM/CreateTaskRq/"
+<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/" xmlns:rq="http://sbrf.ru/NCP/CRM/CreateTaskRq/"
                xmlns:crm="http://sbrf.ru/NCP/CRM/">
     <soap:Header/>
     <soap:Body>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/" 
 xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.03/" 
-targetNamespace="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.03/" 
+xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.05/" 
+targetNamespace="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.05/" 
 elementFormDefault="qualified">
 
 	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="CommonTypes.xsd"/>
@@ -166,7 +166,7 @@ elementFormDefault="qualified">
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="ratingValue" type="crmct:integer3">
+			<xsd:element name="ratingValue" type="crmct:integer2">
 				<xsd:annotation>
 					<xsd:documentation>
 						Значение рейтинга
@@ -283,14 +283,14 @@ elementFormDefault="qualified">
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="updateDate" type="xsd:date">
+			<xsd:element name="updateDate" type="xsd:dateTime">
 				<xsd:annotation>
 					<xsd:documentation>
 						Дата обновления группы
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="approvalDate" type="xsd:date">
+			<xsd:element name="approvalDate" type="xsd:dateTime" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Дата утверждения группы
@@ -392,14 +392,14 @@ elementFormDefault="qualified">
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="share" type="crmct:double17_2">
+			<xsd:element name="share" type="crmct:double17_2" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Доля в уставном капитале\Доля в общем количестве голосующих акций
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="periodOfOwnerhip" type="crmct:string255">
+			<xsd:element name="periodOfOwnerhip" type="crmct:string255" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Период владения
@@ -684,14 +684,14 @@ elementFormDefault="qualified">
 			<xsd:element name="id" type="crmct:string15">
 				<xsd:annotation>
 					<xsd:documentation>
-						ID сделки для requestType=DealParticipats, ID группы для requestType=CL или requestType=LBG
+						ID сделки для requestType=DealParticipats или requestType=getBorrower, ID группы для requestType=CL или requestType=LBG
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
 			<xsd:element name="requestType" type="crmct:string50">
 				<xsd:annotation>
 					<xsd:documentation>
-						Тип сообщения (getDealParticipats, getCL, getLBG)
+						Тип сообщения (getDealParticipats, getCG, getLBG, getBorrower)
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>

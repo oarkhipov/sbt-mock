@@ -1,34 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:cor="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRq/">
-  <soap:Header/>
-  <soap:Body>
-    <amr:correctRatingRq>
-  <cor:arg0>
-    <cor:ratingId>string</cor:ratingId>
-    <cor:model>string</cor:model>
-    <cor:modelIntegrationId>string</cor:modelIntegrationId>
-    <cor:correctValue>3</cor:correctValue>
-    <!--Optional:-->
-    <cor:comments>string</cor:comments>
-    <cor:status>string</cor:status>
-    <!--Optional:-->
-    <cor:adjustmentReason>string</cor:adjustmentReason>
-    <cor:requestor>
-      <cor:login>string</cor:login>
-      <cor:lastName>string</cor:lastName>
-      <cor:firstName>string</cor:firstName>
-      <!--Optional:-->
-      <cor:middleName>string</cor:middleName>
-      <cor:division>string</cor:division>
-      <cor:divisionCode>string</cor:divisionCode>
-      <!--Optional:-->
-      <cor:jobTitle>string</cor:jobTitle>
-      <!--Optional:-->
-      <cor:role>string</cor:role>
-    </cor:requestor>
-  </cor:arg0>
-  <!--Optional:-->
-  <cor:siebelMessage>anyType</cor:siebelMessage>
-</amr:correctRatingRq>
-  </soap:Body>
-</soap:Envelope>
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
+                   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <soap-env:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
+      <soap-env:message-id>defaultId</soap-env:message-id>
+      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
+      <soap-env:operation-name>CorrectRequest</soap-env:operation-name>
+   </soap-env:Header>
+   <soap-env:Body>
+      <AMRLiRT:CorrectRequest xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
+                              xmlns:cor="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRq/">
+         <cor:arg0>
+            <cor:ratingId>string</cor:ratingId>
+            <cor:model>string</cor:model>
+            <cor:modelIntegrationId>string</cor:modelIntegrationId>
+            <cor:correctValue>10</cor:correctValue>
+            <!--optional--><cor:comments>string</cor:comments>
+            <cor:status>string</cor:status>
+            <!--optional--><cor:adjustmentReason>string</cor:adjustmentReason>
+            <cor:requestor>
+               <cor:login>string</cor:login>
+               <cor:lastName>string</cor:lastName>
+               <cor:firstName>string</cor:firstName>
+               <!--optional--><cor:middleName>string</cor:middleName>
+               <cor:division>string</cor:division>
+               <cor:divisionCode>string</cor:divisionCode>
+               <!--optional--><cor:jobTitle>string</cor:jobTitle>
+               <!--optional--><cor:role>string</cor:role>
+            </cor:requestor>
+         </cor:arg0>
+         <!--optional--><cor:siebelMessage>string</cor:siebelMessage>
+      </AMRLiRT:CorrectRequest>
+   </soap-env:Body>
+</soap-env:Envelope>

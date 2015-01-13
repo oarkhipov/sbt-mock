@@ -60,7 +60,7 @@ public class SaveFileTest {
      */
     @Test
     public void checkBackUp() throws Exception {
-        checkBackUpChangedFile("\\backup\\AMRLiRT\\xml", "AMRLiRT\\xml\\SrvCalcDebtCapacityData.xml");
+        checkBackUpChangedFile("\\backup\\AMRLiRT\\xml", "AMRLiRT\\xml\\CalculateDebtCapacityData.xml");
         checkBackUpChangedFile("\\backup\\CRM\\xml", "CRM\\xml\\ForceSignalData.xml");
         checkBackUpChangedFile("\\backup\\FinRep\\xml", "FinRep\\xml\\SrvGetFinAnalysisData.xml");
     }

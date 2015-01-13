@@ -63,7 +63,7 @@ public class XslTransformTest {
 
 
         checkXMLDataRowToXMLDataListByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl",
-                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\AMRLiRT\\xml\\SrvCalcLGDData.xml",
+                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\AMRLiRT\\xml\\CalculateLGDData.xml",
                 "default\r\ntestError\r\n");
 
 
@@ -301,7 +301,7 @@ public class XslTransformTest {
                 "</request>\r\n" +
                 "</data>\r\n";
 
-        String result = XslTransformer.transform(XSLTFile, XMLFile, "dataFile", "AMRLiRT\\xml\\SrvCalcDebtCapacityData.xml");
+        String result = XslTransformer.transform(XSLTFile, XMLFile, "dataFile", "AMRLiRT\\xml\\CalculateDebtCapacityData.xml");
 
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreComments(true);
