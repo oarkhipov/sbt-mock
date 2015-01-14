@@ -11,8 +11,11 @@
     <xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>
 
     <!-- Этот параметр нужен когда имя главного элемента запроса не соответвует тому что мы взяли из неймспейса. Тогда его можно указать параметром -->
+    <!-- TODO выбрать этот параметр более надежным способом. Иногда выбирается неправильно -->
     <xsl:param name="entryPointName" select="replace(xsd:schema/@targetNamespace,'^.+/(\w+)(/[0-9\.]+)?/$','$1')"/>
-    <!-- TODO выбрать этот параметр более надежным способом -->
+
+    <!-- TODO выбрать этот параметр автоматом -->
+    <xsl:param name="systemName" select="'CRM'"/>
 
 
     <xsl:template match="xsd:schema">
@@ -62,7 +65,6 @@
                         </xsl:attribute>
                         <xsl:attribute name="type">
                             <xsl:value-of select="$entryPointName"/>
-                             <!--Более крутой способ только для XPATH 2.0 <xsl:value-of select="replace(./@targetNamespace,'^.+/(\w+)(/[0-9\.]+)?/$','$1')"/>-->
                         </xsl:attribute>
                         <xsl:attribute name="maxOccurs">unbounded</xsl:attribute>
                         <xsl:element name="xsd:annotation">
@@ -87,16 +89,18 @@
                 <xsl:value-of select="./@namespace"/>
             </xsl:attribute>
             <xsl:attribute name="schemaLocation">
-                <xsl:text>../../../xsd/CRM/</xsl:text><xsl:value-of select="./@schemaLocation"/>
+                <xsl:text>../../../xsd/</xsl:text><xsl:value-of select="$systemName"/><xsl:text>/</xsl:text><xsl:value-of select="./@schemaLocation"/>
             </xsl:attribute>
         </xsl:element>
     </xsl:template>
 
+    <!-- перенос типов -->
     <xsl:template match="xsd:complexType">
         <xsl:param name="entryPointName"/>
         <xsl:copy copy-namespaces="no" >
             <xsl:copy-of select="@*"/>
             <xsl:choose>
+                <!-- если имя типа соответвует главному рут-элементу, то нам надо туда что-то добавить - используем для этого complexType темплейт -->
                 <xsl:when test="./@name=$entryPointName">
                     <xsl:for-each select="*">
                         <xsl:apply-templates select=".">
@@ -104,9 +108,11 @@
                         </xsl:apply-templates>
                     </xsl:for-each>
                     <xsl:element name="xsd:attribute">
+                        <!-- и в конце добавляем атрибут с именем -->
                         <xsl:attribute name="name">name</xsl:attribute>
                     </xsl:element>
                 </xsl:when>
+                <!-- если это какой-то другой complexType, то просто копируем его -->
                 <xsl:otherwise>
                     <xsl:apply-templates select="./*" mode="copy"/>
                 </xsl:otherwise>
@@ -114,9 +120,11 @@
         </xsl:copy>
     </xsl:template>
 
+    <!-- перенос главного контейнера -->
     <xsl:template match="*[name(parent::*)='xsd:complexType']" name="complexType">
         <xsl:param name="entryPointName"/>
         <xsl:copy copy-namespaces="no">
+            <!-- в начало добавляем новый элемент - где будет хранится данные для заголовка -->
             <xsl:if test="name(.)='xsd:sequence'">
                 <xsl:element name="xsd:element">
                     <xsl:attribute name="name">SoapHeader</xsl:attribute>
@@ -128,6 +136,7 @@
         </xsl:copy>
     </xsl:template>
 
+    <!-- простое копирование с заменой неймспейса. Главная особенность - нужно убрать алиасы неймспейсов из описания типов. Но не все, а только те, что встречаются в этой самой xsd -->
     <xsl:template match="@* | node()" mode="copy">
         <xsl:copy copy-namespaces="no">
             <xsl:apply-templates select="@*[local-name()!='type' and local-name()!='base']"  mode="copy"/>
