@@ -8,9 +8,7 @@
             <request-time>2014-12-16T17:55:06.410</request-time>
         </SoapHeader>
         <contractID>string1</contractID>
-        <!--Optional:-->
         <contractBPMID>string2</contractBPMID>
-        <!--Optional:-->
         <status>string3</status>
         <comment>string4</comment>
         <requestType>string5</requestType>
@@ -20,9 +18,11 @@
 
     <request name="test1">
         <contractID>string1</contractID>
-        <comment>string2</comment>
-        <requestType>string3</requestType>
-        <responsiblePersonID>string4</responsiblePersonID>
+        <contractBPMID>string2</contractBPMID>
+        <status>string3</status>
+        <comment>string4</comment>
+        <requestType>string5</requestType>
+        <responsiblePersonID>string6</responsiblePersonID>
     </request>
 </data>
 

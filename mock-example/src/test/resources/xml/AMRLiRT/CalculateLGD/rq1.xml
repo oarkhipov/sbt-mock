@@ -11,7 +11,7 @@
       <lgd:productType>string</lgd:productType>
       <lgd:product>string</lgd:product>
       <lgd:agrNum>string</lgd:agrNum>
-      <lgd:agrDate>13.01.2015</lgd:agrDate>
+      <lgd:agrDate>2015-01-14</lgd:agrDate>
       <lgd:lgdType>string</lgd:lgdType>
       <lgd:crmId>string</lgd:crmId>
       <!--optional--><lgd:comment>string</lgd:comment>
@@ -19,7 +19,7 @@
       <!--optional--><lgd:rate>10</lgd:rate>
       <!--optional--><lgd:loanMode>string</lgd:loanMode>
       <!--optional--><lgd:loanSum>10</lgd:loanSum>
-      <!--optional--><lgd:agrEndDate>13.01.2015</lgd:agrEndDate>
+      <!--optional--><lgd:agrEndDate>2015-01-14</lgd:agrEndDate>
       <!--optional--><lgd:rating>10</lgd:rating>
       <!--optional--><lgd:limit>10</lgd:limit>
       <lgd:model>string</lgd:model>
@@ -51,7 +51,7 @@
       <lgd:businessValue>string</lgd:businessValue>
       <lgd:expertRate>string</lgd:expertRate>
       <!--optional--><lgd:portfSize>string</lgd:portfSize>
-      <lgd:assessmentDate>13.01.2015</lgd:assessmentDate>
+      <lgd:assessmentDate>2015-01-14</lgd:assessmentDate>
       <!--optional--><lgd:pdRate>10</lgd:pdRate>
 
     </lgd:collateral>

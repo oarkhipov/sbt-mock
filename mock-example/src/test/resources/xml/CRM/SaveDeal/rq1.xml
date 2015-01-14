@@ -11,12 +11,12 @@
          <sav:deal>
             <sav:dealID>string</sav:dealID>
             <!--optional--><sav:contractID>string</sav:contractID>
-            <sav:dealCreationDate>13.01.2015T12:00:00</sav:dealCreationDate>
+            <sav:dealCreationDate>2015-01-14T12:00:00</sav:dealCreationDate>
             <sav:dealEssense>string</sav:dealEssense>
             <sav:requestPurpose>string</sav:requestPurpose>
             <sav:dealType>string</sav:dealType>
             <sav:dealStatus>string</sav:dealStatus>
-            <sav:requestDate>13.01.2015T12:00:00</sav:requestDate>
+            <sav:requestDate>2015-01-14T12:00:00</sav:requestDate>
             <sav:origOrgUnit>string</sav:origOrgUnit>
             <sav:origOrgDivision>st</sav:origOrgDivision>
             <sav:clientFileID>string</sav:clientFileID>
@@ -55,7 +55,7 @@
                      <sav:currencyOfFunding>str</sav:currencyOfFunding>
                      <sav:principal>1234567890.12345</sav:principal>
                   </sav:financingInfo>
-                  <!--optional--><sav:startDate>13.01.2015</sav:startDate>
+                  <!--optional--><sav:startDate>2015-01-14</sav:startDate>
                   <sav:creditTerm>12345</sav:creditTerm>
                   <sav:period>12345</sav:period>
                   <!--optional--><sav:gracePeriod>12345</sav:gracePeriod>
@@ -76,15 +76,15 @@
                      <!--optional--><sav:paymentOrder>string</sav:paymentOrder>
                   </sav:fee>
                   <!--from 0 to unbounded elements --><sav:repaymentScheduleDetails>
-                     <sav:sheduleDate>13.01.2015</sav:sheduleDate>
+                     <sav:sheduleDate>2015-01-14</sav:sheduleDate>
                      <sav:sheduleAmount>1234567890.12345</sav:sheduleAmount>
                   </sav:repaymentScheduleDetails>
                   <!--from 0 to unbounded elements --><sav:selectionScheduleDetails>
-                     <sav:sheduleDate>13.01.2015</sav:sheduleDate>
+                     <sav:sheduleDate>2015-01-14</sav:sheduleDate>
                      <sav:sheduleAmount>1234567890.12345</sav:sheduleAmount>
                   </sav:selectionScheduleDetails>
                   <!--from 0 to unbounded elements --><sav:changesScheduleDetails>
-                     <sav:sheduleDate>13.01.2015</sav:sheduleDate>
+                     <sav:sheduleDate>2015-01-14</sav:sheduleDate>
                      <sav:sheduleAmount>1234567890.12345</sav:sheduleAmount>
                   </sav:changesScheduleDetails>
                </sav:productInfo>
@@ -99,7 +99,7 @@
                   <sav:estimatedValueCorrectedToEAD>1234567890.12345</sav:estimatedValueCorrectedToEAD>
                   <sav:securityShare>123</sav:securityShare>
                   <sav:EstimatedValueSource>string</sav:EstimatedValueSource>
-                  <sav:estimationDate>13.01.2015</sav:estimationDate>
+                  <sav:estimationDate>2015-01-14</sav:estimationDate>
                   <sav:businessMeaning>string</sav:businessMeaning>
                   <sav:qualityAndLiquidityEstimation>string</sav:qualityAndLiquidityEstimation>
                   <sav:currency>string</sav:currency>
@@ -114,8 +114,8 @@
                   <!--optional--><sav:lossELcount>1234567890.12345</sav:lossELcount>
                   <!--optional--><sav:typeLGD>string</sav:typeLGD>
                   <!--optional--><sav:statusLGD>string</sav:statusLGD>
-                  <!--optional--><sav:dateLGDcalculated>13.01.2015</sav:dateLGDcalculated>
-                  <!--optional--><sav:finalizationDate>13.01.2015</sav:finalizationDate>
+                  <!--optional--><sav:dateLGDcalculated>2015-01-14</sav:dateLGDcalculated>
+                  <!--optional--><sav:finalizationDate>2015-01-14</sav:finalizationDate>
                   <!--optional--><sav:comment>string</sav:comment>
                </sav:losses>
             </sav:products>
@@ -131,10 +131,10 @@
             <!--from 0 to unbounded elements --><sav:committeeResult>
                <sav:committeeLevel>string</sav:committeeLevel>
                <sav:summonNumber>string</sav:summonNumber>
-               <sav:summonDate>13.01.2015</sav:summonDate>
+               <sav:summonDate>2015-01-14</sav:summonDate>
                <sav:registrationNumber>string</sav:registrationNumber>
-               <sav:registrationDate>13.01.2015</sav:registrationDate>
-               <sav:decisionDate>13.01.2015</sav:decisionDate>
+               <sav:registrationDate>2015-01-14</sav:registrationDate>
+               <sav:decisionDate>2015-01-14</sav:decisionDate>
                <sav:decisionNumber>string</sav:decisionNumber>
                <sav:decision>string</sav:decision>
             </sav:committeeResult>
@@ -165,9 +165,9 @@
             </sav:loanOfficerConclusion>
             <!--from 0 to unbounded elements --><sav:services>
                <sav:name>string</sav:name>
-               <sav:requestDate>13.01.2015T12:00:00</sav:requestDate>
+               <sav:requestDate>2015-01-14T12:00:00</sav:requestDate>
                <sav:comment>string</sav:comment>
-               <sav:date>13.01.2015T12:00:00</sav:date>
+               <sav:date>2015-01-14T12:00:00</sav:date>
             </sav:services>
             <!--optional--><sav:riskAnalysis>
                <sav:memberId>string</sav:memberId>

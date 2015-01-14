@@ -15,9 +15,9 @@
             <!--optional--><upd:ajustedRatingValue>10</upd:ajustedRatingValue>
             <!--optional--><upd:pd>10</upd:pd>
             <upd:status>string</upd:status>
-            <!--optional--><upd:approvalDate>13.01.2015T12:00:00</upd:approvalDate>
-            <!--optional--><upd:calculationDate>13.01.2015T12:00:00</upd:calculationDate>
-            <!--optional--><upd:ajustmentDate>13.01.2015T12:00:00</upd:ajustmentDate>
+            <!--optional--><upd:approvalDate>2015-01-14T12:00:00</upd:approvalDate>
+            <!--optional--><upd:calculationDate>2015-01-14T12:00:00</upd:calculationDate>
+            <!--optional--><upd:ajustmentDate>2015-01-14T12:00:00</upd:ajustmentDate>
             <upd:modelName>string</upd:modelName>
             <upd:modelIntegrationId>string</upd:modelIntegrationId>
             <upd:ratingName>string</upd:ratingName>
@@ -36,10 +36,10 @@
                   <upd:ratingCalcId>string</upd:ratingCalcId>
                   <upd:modelName>string</upd:modelName>
                   <upd:modelIntegrationId>string</upd:modelIntegrationId>
-                  <!--optional--><upd:dateCalc>13.01.2015T12:00:00</upd:dateCalc>
+                  <!--optional--><upd:dateCalc>2015-01-14T12:00:00</upd:dateCalc>
                   <!--optional--><upd:calcValue>10</upd:calcValue>
                   <!--optional--><upd:listOfRatingAjustment><!--from 0 to unbounded elements --><upd:ratingAjustment>
-                        <upd:ajustmentDate>13.01.2015T12:00:00</upd:ajustmentDate>
+                        <upd:ajustmentDate>2015-01-14T12:00:00</upd:ajustmentDate>
                         <upd:ajustedValue>10</upd:ajustedValue>
                         <upd:ajustmetReason>string</upd:ajustmetReason>
                         <!--optional--><upd:comments>string</upd:comments>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/Data">
+<data xmlns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/Data/">
     <response name="default">
         <errorCode>s</errorCode>
         <!--optional--><errorMessage>string</errorMessage>
@@ -29,6 +29,7 @@
         <debtCapacity>10</debtCapacity>
         <debtCapacityInDealCurrency>10</debtCapacityInDealCurrency>
         <listOfAddParameter>
+
         </listOfAddParameter>
     </response>
 </data>

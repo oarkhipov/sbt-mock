@@ -15,9 +15,9 @@
                <!--optional--><imp:ajustedRatingValue>10</imp:ajustedRatingValue>
                <!--optional--><imp:pd>10</imp:pd>
                <imp:status>string</imp:status>
-               <!--optional--><imp:approvalDate>13.01.2015T12:00:00</imp:approvalDate>
-               <!--optional--><imp:calculationDate>13.01.2015T12:00:00</imp:calculationDate>
-               <!--optional--><imp:ajustmentDate>13.01.2015T12:00:00</imp:ajustmentDate>
+               <!--optional--><imp:approvalDate>2015-01-14T12:00:00</imp:approvalDate>
+               <!--optional--><imp:calculationDate>2015-01-14T12:00:00</imp:calculationDate>
+               <!--optional--><imp:ajustmentDate>2015-01-14T12:00:00</imp:ajustmentDate>
                <imp:modelName>string</imp:modelName>
                <imp:modelIntegrationId>string</imp:modelIntegrationId>
                <imp:ratingName>string</imp:ratingName>
@@ -36,10 +36,10 @@
                      <imp:ratingCalcId>string</imp:ratingCalcId>
                      <imp:modelName>string</imp:modelName>
                      <imp:modelIntegrationId>string</imp:modelIntegrationId>
-                     <!--optional--><imp:dateCalc>13.01.2015T12:00:00</imp:dateCalc>
+                     <!--optional--><imp:dateCalc>2015-01-14T12:00:00</imp:dateCalc>
                      <!--optional--><imp:calcValue>10</imp:calcValue>
                      <!--optional--><imp:listOfRatingAjustment><!--from 0 to unbounded elements --><imp:ratingAjustment>
-                           <imp:ajustmentDate>13.01.2015T12:00:00</imp:ajustmentDate>
+                           <imp:ajustmentDate>2015-01-14T12:00:00</imp:ajustmentDate>
                            <imp:ajustedValue>10</imp:ajustedValue>
                            <imp:ajustmetReason>string</imp:ajustmetReason>
                            <!--optional--><imp:comments>string</imp:comments>
@@ -87,10 +87,10 @@
                            <!--optional--><imp:valueIntegrationId>string</imp:valueIntegrationId>
                         </imp:fixedFactor>
                      </imp:listOfFixedFactor>
-                     <!--optional--><imp:listOfRatingPeriod><!--from 1 to unbounded elements --><imp:ratingPeriod><!--optional--><imp:reportDate>13.01.2015</imp:reportDate>
+                     <!--optional--><imp:listOfRatingPeriod><!--from 1 to unbounded elements --><imp:ratingPeriod><!--optional--><imp:reportDate>2015-01-14</imp:reportDate>
                            <!--optional--><imp:period>string</imp:period>
-                           <!--optional--><imp:startDate>13.01.2015</imp:startDate>
-                           <!--optional--><imp:endDate>13.01.2015</imp:endDate>
+                           <!--optional--><imp:startDate>2015-01-14</imp:startDate>
+                           <!--optional--><imp:endDate>2015-01-14</imp:endDate>
                            <!--optional--><imp:type>string</imp:type>
                            <!--optional--><imp:comments>string</imp:comments>
                            <imp:listOfCardinalFactor><!--from 1 to unbounded elements --><imp:cardinalFactor>

@@ -1,179 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/NCP/ASFO/RatingsAndFactors/Data">
+<data xmlns="http://sbrf.ru/NCP/ASFO/GetRatingsAndFactorsRs/Data/">
     <response name="default">
-        <listOfRating>
-            <!--1 or more repetitions:-->
-            <rating>
-                <ratingId>string1</ratingId>
-                <!--Optional:-->
-                <finalRatingValue>2</finalRatingValue>
-                <!--Optional:-->
-                <intermediateRatingValue>3</intermediateRatingValue>
-                <!--Optional:-->
-                <ajustedRatingValue>4</ajustedRatingValue>
-                <!--Optional:-->
-                <pd>5000.00</pd>
-                <status>string6</status>
-                <!--Optional:-->
-                <approvalDate>2007-07-07T05:49:45</approvalDate>
-                <!--Optional:-->
-                <calculationDate>2008-08-08T03:18:33</calculationDate>
-                <!--Optional:-->
-                <ajustmentDate>2009-08-19T21:27:14</ajustmentDate>
-                <modelName>string10</modelName>
-                <modelIntegrationId>string11</modelIntegrationId>
-                <ratingName>string12</ratingName>
-                <ratingType>string13</ratingType>
-                <employeeForApprove>
-                    <login>string14</login>
-                    <lastName>string15</lastName>
-                    <firstName>string16</firstName>
-                    <!--Optional:-->
-                    <middleName>string17</middleName>
-                    <division>string18</division>
-                    <divisionCode>string19</divisionCode>
-                    <!--Optional:-->
-                    <jobTitle>string20</jobTitle>
-                    <role>string21</role>
-                </employeeForApprove>
-                <listOfRatingCalc>
-                    <!--1 or more repetitions:-->
-                    <ratingCalc>
-                        <ratingCalcId>string22</ratingCalcId>
-                        <modelName>string23</modelName>
-                        <modelIntegrationId>string24</modelIntegrationId>
-                        <!--Optional:-->
-                        <dateCalc>2025-05-16T16:42:28</dateCalc>
-                        <!--Optional:-->
-                        <calcValue>26</calcValue>
-                        <!--Optional:-->
-                        <listOfRatingAjustment>
-                            <!--Zero or more repetitions:-->
-                            <ratingAjustment>
-                                <ajustmentDate>2027-08-09T04:18:37</ajustmentDate>
-                                <ajustedValue>28</ajustedValue>
-                                <ajustmetReason>string29</ajustmetReason>
-                                <!--Optional:-->
-                                <comments>string30</comments>
-                                <status>string31</status>
-                                <employeeForAjustment>
-                                    <login>string32</login>
-                                    <lastName>string33</lastName>
-                                    <firstName>string34</firstName>
-                                    <!--Optional:-->
-                                    <middleName>string35</middleName>
-                                    <division>string36</division>
-                                    <divisionCode>string37</divisionCode>
-                                    <!--Optional:-->
-                                    <jobTitle>string38</jobTitle>
-                                    <role>string39</role>
-                                </employeeForAjustment>
-                            </ratingAjustment>
-                        </listOfRatingAjustment>
-                        <!--Optional:-->
-                        <employeeForCalc>
-                            <login>string40</login>
-                            <lastName>string41</lastName>
-                            <firstName>string42</firstName>
-                            <!--Optional:-->
-                            <middleName>string43</middleName>
-                            <division>string44</division>
-                            <divisionCode>string45</divisionCode>
-                            <!--Optional:-->
-                            <jobTitle>string46</jobTitle>
-                            <role>string47</role>
-                        </employeeForCalc>
-                        <!--Optional:-->
-                        <listOfResultRating>
-                            <!--Zero or more repetitions:-->
-                            <resultRating>
-                                <isPrimary>false</isPrimary>
-                                <name>string48</name>
-                                <value>49</value>
-                                <!--Optional:-->
-                                <type>string50</type>
-                            </resultRating>
-                        </listOfResultRating>
-                        <!--Optional:-->
-                        <listOfCalculatedFactor>
-                            <!--Zero or more repetitions:-->
-                            <calculatedFactor>
-                                <code>string51</code>
-                                <name>string52</name>
-                                <value>string53</value>
-                            </calculatedFactor>
-                        </listOfCalculatedFactor>
-                        <!--Optional:-->
-                        <listOfFixedFactor>
-                            <!--1 or more repetitions:-->
-                            <fixedFactor>
-                                <factor>string54</factor>
-                                <factorIntegrationId>string55</factorIntegrationId>
-                                <group>string56</group>
-                                <!--Optional:-->
-                                <value>string57</value>
-                                <!--Optional:-->
-                                <valueIntegrationId>string58</valueIntegrationId>
-                            </fixedFactor>
-                        </listOfFixedFactor>
-                        <!--Optional:-->
-                        <listOfRatingPeriod>
-                            <!--1 or more repetitions:-->
-                            <ratingPeriod>
-                                <!--Optional:-->
-                                <reportDate>2059-06-24</reportDate>
-                                <!--Optional:-->
-                                <period>string60</period>
-                                <!--Optional:-->
-                                <startDate>2061-02-20</startDate>
-                                <!--Optional:-->
-                                <endDate>2062-08-19</endDate>
-                                <!--Optional:-->
-                                <type>string63</type>
-                                <!--Optional:-->
-                                <comments>string64</comments>
-                                <listOfCardinalFactor>
-                                    <!--1 or more repetitions:-->
-                                    <cardinalFactor>
-                                        <factor>string65</factor>
-                                        <factorIntegrationId>string66</factorIntegrationId>
-                                        <group>string67</group>
-                                        <!--Optional:-->
-                                        <numValue>68.051732E7</numValue>
-                                    </cardinalFactor>
-                                </listOfCardinalFactor>
-                            </ratingPeriod>
-                        </listOfRatingPeriod>
-                        <!--Optional:-->
-                        <listOfRatingSupport>
-                            <!--Zero or more repetitions:-->
-                            <ratingSupport>
-                                <name>string69</name>
-                                <integrationId>string70</integrationId>
-                                <listOfSupportFactor>
-                                    <!--1 or more repetitions:-->
-                                    <supportFactor>
-                                        <factor>string71</factor>
-                                        <factorIntegrationId>string72</factorIntegrationId>
-                                        <group>string73</group>
-                                        <!--Optional:-->
-                                        <value>string74</value>
-                                        <!--Optional:-->
-                                        <valueIntegrationId>string75</valueIntegrationId>
-                                        <!--Optional:-->
-                                        <freeValue>string76</freeValue>
-                                    </supportFactor>
-                                </listOfSupportFactor>
-                            </ratingSupport>
-                        </listOfRatingSupport>
-                    </ratingCalc>
-                </listOfRatingCalc>
-            </rating>
+        <listOfRating><!--from 1 to unbounded elements --><rating>
+            <ratingId>string</ratingId>
+            <!--optional--><finalRatingValue>10</finalRatingValue>
+            <!--optional--><intermediateRatingValue>10</intermediateRatingValue>
+            <!--optional--><ajustedRatingValue>10</ajustedRatingValue>
+            <!--optional--><pd>10</pd>
+            <status>string</status>
+            <!--optional--><approvalDate>2015-01-14T12:00:00</approvalDate>
+            <!--optional--><calculationDate>2015-01-14T12:00:00</calculationDate>
+            <!--optional--><ajustmentDate>2015-01-14T12:00:00</ajustmentDate>
+            <modelName>string</modelName>
+            <modelIntegrationId>string</modelIntegrationId>
+            <ratingName>string</ratingName>
+            <ratingType>string</ratingType>
+            <employeeForApprove>
+                <login>string</login>
+                <lastName>string</lastName>
+                <firstName>string</firstName>
+                <!--optional--><middleName>string</middleName>
+                <division>string</division>
+                <divisionCode>string</divisionCode>
+                <!--optional--><jobTitle>string</jobTitle>
+                <role>string</role>
+            </employeeForApprove>
+            <listOfRatingCalc><!--from 1 to unbounded elements --><ratingCalc>
+                <ratingCalcId>string</ratingCalcId>
+                <modelName>string</modelName>
+                <modelIntegrationId>string</modelIntegrationId>
+                <!--optional--><dateCalc>2015-01-14T12:00:00</dateCalc>
+                <!--optional--><calcValue>10</calcValue>
+                <!--optional--><listOfRatingAjustment><!--from 0 to unbounded elements --><ratingAjustment>
+                <ajustmentDate>2015-01-14T12:00:00</ajustmentDate>
+                <ajustedValue>10</ajustedValue>
+                <ajustmetReason>string</ajustmetReason>
+                <!--optional--><comments>string</comments>
+                <status>string</status>
+                <employeeForAjustment>
+                    <login>string</login>
+                    <lastName>string</lastName>
+                    <firstName>string</firstName>
+                    <!--optional--><middleName>string</middleName>
+                    <division>string</division>
+                    <divisionCode>string</divisionCode>
+                    <!--optional--><jobTitle>string</jobTitle>
+                    <role>string</role>
+                </employeeForAjustment>
+            </ratingAjustment>
+            </listOfRatingAjustment>
+                <!--optional--><employeeForCalc>
+                <login>string</login>
+                <lastName>string</lastName>
+                <firstName>string</firstName>
+                <!--optional--><middleName>string</middleName>
+                <division>string</division>
+                <divisionCode>string</divisionCode>
+                <!--optional--><jobTitle>string</jobTitle>
+                <role>string</role>
+            </employeeForCalc>
+                <!--optional--><listOfResultRating><!--from 0 to unbounded elements --><resultRating>
+                <isPrimary>false</isPrimary>
+                <name>string</name>
+                <value>10</value>
+                <!--optional--><type>string</type>
+            </resultRating>
+            </listOfResultRating>
+                <!--optional--><listOfCalculatedFactor><!--from 0 to unbounded elements --><calculatedFactor>
+                <code>string</code>
+                <name>string</name>
+                <value>string</value>
+            </calculatedFactor>
+            </listOfCalculatedFactor>
+                <!--optional--><listOfFixedFactor><!--from 1 to unbounded elements --><fixedFactor>
+                <factor>string</factor>
+                <factorIntegrationId>string</factorIntegrationId>
+                <group>string</group>
+                <!--optional--><value>string</value>
+                <!--optional--><valueIntegrationId>string</valueIntegrationId>
+            </fixedFactor>
+            </listOfFixedFactor>
+                <!--optional--><listOfRatingPeriod><!--from 1 to unbounded elements --><ratingPeriod><!--optional--><reportDate>2015-01-14</reportDate>
+                <!--optional--><period>string</period>
+                <!--optional--><startDate>2015-01-14</startDate>
+                <!--optional--><endDate>2015-01-14</endDate>
+                <!--optional--><type>string</type>
+                <!--optional--><comments>string</comments>
+                <listOfCardinalFactor><!--from 1 to unbounded elements --><cardinalFactor>
+                    <factor>string</factor>
+                    <factorIntegrationId>string</factorIntegrationId>
+                    <group>string</group>
+                    <!--optional--><numValue>10</numValue>
+                </cardinalFactor>
+                </listOfCardinalFactor>
+            </ratingPeriod>
+            </listOfRatingPeriod>
+                <!--optional--><listOfRatingSupport><!--from 0 to unbounded elements --><ratingSupport>
+                <name>string</name>
+                <integrationId>string</integrationId>
+                <listOfSupportFactor><!--from 1 to unbounded elements --><supportFactor>
+                    <factor>string</factor>
+                    <factorIntegrationId>string</factorIntegrationId>
+                    <group>string</group>
+                    <!--optional--><value>string</value>
+                    <!--optional--><valueIntegrationId>string</valueIntegrationId>
+                    <!--optional--><freeValue>string</freeValue>
+                </supportFactor>
+                </listOfSupportFactor>
+            </ratingSupport>
+            </listOfRatingSupport>
+            </ratingCalc>
+            </listOfRatingCalc>
+        </rating>
         </listOfRating>
+
     </response>
-    <response name="testError">
-        <errorCode>e</errorCode>
-        <!--Optional:-->
-        <errorMessage>testing error message SrvGetRatingsAndFactors.xml</errorMessage>
+    <response name="testError"><listOfRating><!--from 1 to unbounded elements --><rating>
+        <ratingId>string</ratingId>
+        <status>string</status>
+        <modelName>string</modelName>
+        <modelIntegrationId>string</modelIntegrationId>
+        <ratingName>string</ratingName>
+        <ratingType>string</ratingType>
+        <employeeForApprove>
+            <login>string</login>
+            <lastName>string</lastName>
+            <firstName>string</firstName>
+            <division>string</division>
+            <divisionCode>string</divisionCode>
+            <role>string</role>
+        </employeeForApprove>
+        <listOfRatingCalc><!--from 1 to unbounded elements --><ratingCalc>
+            <ratingCalcId>string</ratingCalcId>
+            <modelName>string</modelName>
+            <modelIntegrationId>string</modelIntegrationId>
+        </ratingCalc>
+        </listOfRatingCalc>
+    </rating>
+    </listOfRating>
     </response>
 </data>

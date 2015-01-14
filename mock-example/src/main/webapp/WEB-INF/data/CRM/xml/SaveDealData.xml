@@ -3,15 +3,15 @@
 <data xmlns="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/Data/">
     <response name="default">
         <operationStatus>
-            <errorCode>string1</errorCode>
+            <errorCode>string</errorCode>
+            <!--optional--><errorMessage>string</errorMessage>
         </operationStatus>
-        <dealID>string2</dealID>
+        <dealID>string</dealID>
     </response>
     <response name="error">
         <operationStatus>
-            <errorCode>string1</errorCode>
-            <errorMessage>string2</errorMessage>
+            <errorCode>string</errorCode>
         </operationStatus>
-        <dealID>string3</dealID>
+        <dealID>string</dealID>
     </response>
 </data>

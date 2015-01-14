@@ -59,7 +59,7 @@
         <!--optional--><deb:name>string</deb:name>
         <deb:cd>10</deb:cd>
         <deb:cdt>10</deb:cdt>
-        <!--optional--><deb:date>13.01.2015</deb:date>
+        <!--optional--><deb:date>2015-01-14</deb:date>
         <deb:debtCurrencyRate>10</deb:debtCurrencyRate>
         <!--optional--><deb:debtCurrencyCode>string</deb:debtCurrencyCode>
 

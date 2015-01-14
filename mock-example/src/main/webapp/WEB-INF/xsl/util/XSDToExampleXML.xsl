@@ -78,13 +78,13 @@
 
     <!--дата-->
     <xsl:template match="xsd:element[@type='xsd:date']" mode="type">
-        <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}"><xsl:value-of select="format-date(current-date(),'[D01].[M01].[Y0001]')"/></xsl:element>
+        <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}"><xsl:value-of select="format-date(current-date(),'[Y0001]-[M01]-[D01]')"/></xsl:element>
     </xsl:template>
 
     <!--дата-время-->
     <xsl:template match="xsd:element[@type='xsd:dateTime']" mode="type">
         <!--<xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}"><xsl:value-of select="format-dateTime(current-dateTime(),'[D01].[M01].[Y0001]T[H01]:[m01]:[s01]')"/></xsl:element>-->
-        <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}"><xsl:value-of select="format-dateTime(current-dateTime(),'[D01].[M01].[Y0001]T12:00:00')"/></xsl:element>
+        <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}"><xsl:value-of select="format-dateTime(current-dateTime(),'[Y0001]-[M01]-[D01]T12:00:00')"/></xsl:element>
     </xsl:template>
 
     <!--буль-->

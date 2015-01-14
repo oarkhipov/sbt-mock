@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGD/Data">
+<data xmlns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/Data/">
     <response name="default">
         <errorCode>string</errorCode>
         <!--optional--><errorMessage>string</errorMessage>
         <crmId>string</crmId>
         <lgdType>string</lgdType>
-        <lgdDate>13.01.2015</lgdDate>
+        <lgdDate>2015-01-14</lgdDate>
         <!--optional--><pd>10</pd>
         <lgd>10</lgd>
         <ead>10</ead>
@@ -34,7 +34,7 @@
         <errorCode>string</errorCode>
         <crmId>string</crmId>
         <lgdType>string</lgdType>
-        <lgdDate>13.01.2015</lgdDate>
+        <lgdDate>2015-01-14</lgdDate>
         <lgd>10</lgd>
         <ead>10</ead>
         <sum>10</sum>

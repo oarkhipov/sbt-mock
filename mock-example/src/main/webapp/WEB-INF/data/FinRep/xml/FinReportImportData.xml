@@ -1,38 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/NCP/ASFO/GetFinReport/Data">
-    <response name="default">
-        <nonCurrentAssetsNFRS>1</nonCurrentAssetsNFRS>
-        <currentAssetsNFRS>2</currentAssetsNFRS>
-        <nonCurrentAssetsIFRS>3</nonCurrentAssetsIFRS>
-        <currentAssetsIFRS>4</currentAssetsIFRS>
-        <longTermDebtNFRS>5</longTermDebtNFRS>
-        <shortTermDebtNFRS>6</shortTermDebtNFRS>
-        <longTermDebtIFRS>7</longTermDebtIFRS>
-        <shortTermDebtIFRS>8</shortTermDebtIFRS>
-        <ebitdaNFRS>9</ebitdaNFRS>
-        <numQuarterNFRS>10</numQuarterNFRS>
-        <ebitdaIFRS>11</ebitdaIFRS>
-        <numQuarterIFRS>12</numQuarterIFRS>
-        <currencyCode>string12</currencyCode>
-        <currencyCodeForFR>string13</currencyCodeForFR>
-        <currencyRate>14</currencyRate>
-        <futureCurrencyRate>15</futureCurrencyRate>
-        <currentCurrencyRate>16</currentCurrencyRate>
-        <purpose>string17</purpose>
-        <currentYear>18</currentYear>
-        <govDebt>19</govDebt>
-        <creditGovDebt>20</creditGovDebt>
-        <credit>21</credit>
-        <liabilities>22</liabilities>
-        <liabilitiesNextYear>23</liabilitiesNextYear>
-        <income>24</income>
-        <incomeNextYear>25</incomeNextYear>
-        <plannedCredit>26</plannedCredit>
-        <plannedCreditNextYear>27</plannedCreditNextYear>
+<data xmlns="http://sbrf.ru/NCP/ASFO/GetFinReportRs/Data/">
+    <response name="default"><!--optional--><nonCurrentAssetsNFRS>10</nonCurrentAssetsNFRS>
+        <!--optional--><currentAssetsNFRS>10</currentAssetsNFRS>
+        <!--optional--><nonCurrentAssetsIFRS>10</nonCurrentAssetsIFRS>
+        <!--optional--><currentAssetsIFRS>10</currentAssetsIFRS>
+        <!--optional--><longTermDebtNFRS>10</longTermDebtNFRS>
+        <!--optional--><shortTermDebtNFRS>10</shortTermDebtNFRS>
+        <!--optional--><longTermDebtIFRS>10</longTermDebtIFRS>
+        <!--optional--><shortTermDebtIFRS>10</shortTermDebtIFRS>
+        <!--optional--><ebitdaNFRS>10</ebitdaNFRS>
+        <!--optional--><numQuarterNFRS>10</numQuarterNFRS>
+        <!--optional--><ebitdaIFRS>10</ebitdaIFRS>
+        <!--optional--><numQuarterIFRS>10</numQuarterIFRS>
+        <!--optional--><currencyCode>string</currencyCode>
+        <!--optional--><currencyCodeForFR>string</currencyCodeForFR>
+        <!--optional--><currencyRate>10</currencyRate>
+        <!--optional--><futureCurrencyRate>10</futureCurrencyRate>
+        <!--optional--><currentCurrencyRate>10</currentCurrencyRate>
+        <!--optional--><purpose>string</purpose>
+        <!--optional--><currentYear>10</currentYear>
+        <!--optional--><govDebt>10</govDebt>
+        <!--optional--><creditGovDebt>10</creditGovDebt>
+        <!--optional--><credit>10</credit>
+        <!--optional--><liabilities>10</liabilities>
+        <!--optional--><liabilitiesNextYear>10</liabilitiesNextYear>
+        <!--optional--><income>10</income>
+        <!--optional--><incomeNextYear>10</incomeNextYear>
+        <!--optional--><plannedCredit>10</plannedCredit>
+        <!--optional--><plannedCreditNextYear>10</plannedCreditNextYear>
     </response>
     <response name="testError">
-        <errorCode>e</errorCode>
-        <!--Optional:-->
-        <errorMessage>testing error message SrvGetFinReport.xml</errorMessage>
     </response>
 </data>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:amrct="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/"
                 xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"
-                xmlns:rsd="http://sbrf.ru/NCP/AMRLIRT/CalculateLGD/Data"
+                xmlns:rsd="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/Data/"
                 xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -23,10 +23,8 @@
    <xsl:param name="user-name" select="null"/>
 
    <xsl:template match="soap-env:Envelope">
-      <xsl:variable name="data" select="document($dataFileName)/*[local-name()='data']"/>
+      <xsl:variable name="data" select="document($dataFileName)/rsd:data"/>
       <xsl:variable name="linkedTag" select="$name"/>
-      <xsl:comment><xsl:value-of select="namespace-uri(document($dataFileName)/*[1])"/></xsl:comment>
-      <xsl:comment><xsl:value-of select="name(document($dataFileName)/*[local-name()='data'])"/></xsl:comment>
       <xsl:element name="soap-env:Envelope">
          <xsl:choose>
             <xsl:when test="soap-env:Header">
@@ -102,7 +100,6 @@
    <xsl:template name="LgdCalculationResponse">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:comment><xsl:value-of select="local-name($data/rsd:response)"/></xsl:comment>
       <xsl:element name="AMRLiRT:LgdCalculationResponse">
          <tns:errorCode>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>

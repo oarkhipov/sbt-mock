@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/NCP/AMRLIRT/ConfirmRating/Data">
+<data xmlns="http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRs/Data/">
     <response name="default">
-        <errorCode>string</errorCode>
-        <!--Optional:-->
-        <errorMessage>string</errorMessage>
-        <!--Optional:-->
-        <listOfAddParameter>
-            <!--Zero or more repetitions:-->
-            <addParameter>
-                <order>3</order>
-                <name>string</name>
-                <value>string</value>
-            </addParameter>
-            <addParameter>
-                <order>4</order>
-                <name>string2</name>
-                <value>string2</value>
-            </addParameter>
+        <return>
+            <errorCode>string</errorCode>
+            <!--optional--><errorMessage>string</errorMessage>
+            <!--optional--><listOfAddParameter><!--from 0 to unbounded elements --><addParameter>
+            <order>10</order>
+            <name>string</name>
+            <value>string</value>
+        </addParameter>
         </listOfAddParameter>
+        </return>
     </response>
     <response name="testError">
-        <errorCode>e</errorCode>
-        <!--Optional:-->
-        <errorMessage>testing error message</errorMessage>
+        <return>
+            <errorCode>string</errorCode>
+        </return>
     </response>
 </data>

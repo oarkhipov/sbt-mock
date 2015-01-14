@@ -12,7 +12,7 @@
          <!--optional--><lgd:errorMessage>string</lgd:errorMessage>
          <lgd:crmId>string</lgd:crmId>
          <lgd:lgdType>string</lgd:lgdType>
-         <lgd:lgdDate>13.01.2015</lgd:lgdDate>
+         <lgd:lgdDate>2015-01-14</lgd:lgdDate>
          <!--optional--><lgd:pd>10</lgd:pd>
          <lgd:lgd>10</lgd:lgd>
          <lgd:ead>10</lgd:ead>

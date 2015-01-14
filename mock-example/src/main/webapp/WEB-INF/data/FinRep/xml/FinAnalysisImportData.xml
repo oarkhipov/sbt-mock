@@ -1,33 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/NCP/ASFO/GetFinAnalysis/Data">
+<data xmlns="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRs/Data/">
     <response name="default">
         <actualRequirements>
-            <creditRiskPerDebtor>1000.00</creditRiskPerDebtor>
-            <creditRiskForRelatedDebtorGroup>1000.00</creditRiskForRelatedDebtorGroup>
-            <creditRiskPerLegalEntityInsider>1000.00</creditRiskPerLegalEntityInsider>
-            <economicGroupRiskFactor>1000.00</economicGroupRiskFactor>
+            <creditRiskPerDebtor>10</creditRiskPerDebtor>
+            <creditRiskForRelatedDebtorGroup>10</creditRiskForRelatedDebtorGroup>
+            <creditRiskPerLegalEntityInsider>10</creditRiskPerLegalEntityInsider>
+            <economicGroupRiskFactor>10</economicGroupRiskFactor>
         </actualRequirements>
         <actualRequirementsInTotal>
-            <creditRiskPerDebtor>1000.00</creditRiskPerDebtor>
-            <creditRiskForRelatedDebtorGroup>1000.00</creditRiskForRelatedDebtorGroup>
-            <creditRiskPerLegalEntityInsider>1000.00</creditRiskPerLegalEntityInsider>
-            <economicGroupRiskFactor>1000.00</economicGroupRiskFactor>
+            <creditRiskPerDebtor>10</creditRiskPerDebtor>
+            <creditRiskForRelatedDebtorGroup>10</creditRiskForRelatedDebtorGroup>
+            <creditRiskPerLegalEntityInsider>10</creditRiskPerLegalEntityInsider>
+            <economicGroupRiskFactor>10</economicGroupRiskFactor>
         </actualRequirementsInTotal>
-        <!--Optional:-->
-        <finIndexChangesReasonNFRS>string</finIndexChangesReasonNFRS>
-        <!--Optional:-->
-        <finPerformanceCommentNFRS>string</finPerformanceCommentNFRS>
-        <!--Optional:-->
-        <finIndexChangesReasonIFRS>string</finIndexChangesReasonIFRS>
-        <!--Optional:-->
-        <finPerformanceCommentIFRS>string</finPerformanceCommentIFRS>
+        <!--optional--><finIndexChangesReasonNFRS>string</finIndexChangesReasonNFRS>
+        <!--optional--><finPerformanceCommentNFRS>string</finPerformanceCommentNFRS>
+        <!--optional--><finIndexChangesReasonIFRS>string</finIndexChangesReasonIFRS>
+        <!--optional--><finPerformanceCommentIFRS>string</finPerformanceCommentIFRS>
         <creditHistoryConclusions>string</creditHistoryConclusions>
         <offBalanceSheetLiabilities>string</offBalanceSheetLiabilities>
         <liabilitiesDynamicsComment>string</liabilitiesDynamicsComment>
         <turnoversComment>string</turnoversComment>
         <revenueExpensesStressAnalysis>string</revenueExpensesStressAnalysis>
-        <!--Optional:-->
-        <structuredDealsStressAnalysis>string</structuredDealsStressAnalysis>
+        <!--optional--><structuredDealsStressAnalysis>string</structuredDealsStressAnalysis>
         <fieldInfo>
             <mainField>string</mainField>
             <mainBusiness>string</mainBusiness>
@@ -42,8 +37,34 @@
         </business>
     </response>
     <response name="testError">
-        <errorCode>e</errorCode>
-        <!--Optional:-->
-        <errorMessage>testing error message SrvGetFinAnalysis.xml</errorMessage>
+        <actualRequirements>
+            <creditRiskPerDebtor>10</creditRiskPerDebtor>
+            <creditRiskForRelatedDebtorGroup>10</creditRiskForRelatedDebtorGroup>
+            <creditRiskPerLegalEntityInsider>10</creditRiskPerLegalEntityInsider>
+            <economicGroupRiskFactor>10</economicGroupRiskFactor>
+        </actualRequirements>
+        <actualRequirementsInTotal>
+            <creditRiskPerDebtor>10</creditRiskPerDebtor>
+            <creditRiskForRelatedDebtorGroup>10</creditRiskForRelatedDebtorGroup>
+            <creditRiskPerLegalEntityInsider>10</creditRiskPerLegalEntityInsider>
+            <economicGroupRiskFactor>10</economicGroupRiskFactor>
+        </actualRequirementsInTotal>
+        <creditHistoryConclusions>string</creditHistoryConclusions>
+        <offBalanceSheetLiabilities>string</offBalanceSheetLiabilities>
+        <liabilitiesDynamicsComment>string</liabilitiesDynamicsComment>
+        <turnoversComment>string</turnoversComment>
+        <revenueExpensesStressAnalysis>string</revenueExpensesStressAnalysis>
+        <fieldInfo>
+            <mainField>string</mainField>
+            <mainBusiness>string</mainBusiness>
+        </fieldInfo>
+        <marketPositionAndTrends>
+            <trends>string</trends>
+        </marketPositionAndTrends>
+        <business>
+            <suppliersConcentrationLevel>string</suppliersConcentrationLevel>
+            <buyersConcentrationLevel>string</buyersConcentrationLevel>
+            <dependenceComment>string</dependenceComment>
+        </business>
     </response>
 </data>

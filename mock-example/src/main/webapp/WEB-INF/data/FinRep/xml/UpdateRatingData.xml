@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/NCP/ASFO/UpdateRating/Data">
+<data xmlns="http://sbrf.ru/NCP/ASFO/UpdateRatingRs/Data/">
     <response name="default">
         <errorCode>string1</errorCode>
         <!--Optional:-->

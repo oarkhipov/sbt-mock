@@ -41,10 +41,10 @@
                   <prt:ratingValue>12</prt:ratingValue>
                   <prt:ratingType>string</prt:ratingType>
                   <prt:ratingModel>string</prt:ratingModel>
-                  <prt:ratingCalculatedDate>13.01.2015</prt:ratingCalculatedDate>
+                  <prt:ratingCalculatedDate>2015-01-14</prt:ratingCalculatedDate>
                   <prt:ratingCalculatedRole>string</prt:ratingCalculatedRole>
                   <prt:ratingCalculatedBy>string</prt:ratingCalculatedBy>
-                  <prt:ratingApprovalDate>13.01.2015</prt:ratingApprovalDate>
+                  <prt:ratingApprovalDate>2015-01-14</prt:ratingApprovalDate>
                   <prt:ratingApprovedBy>string</prt:ratingApprovedBy>
                </prt:rating>
                <!--optional--><prt:roleInConsolidatedGroup>string</prt:roleInConsolidatedGroup>
@@ -54,17 +54,17 @@
                <prt:id>string</prt:id>
                <prt:label>string</prt:label>
                <prt:status>string</prt:status>
-               <prt:updateDate>13.01.2015T12:00:00</prt:updateDate>
-               <!--optional--><prt:approvalDate>13.01.2015T12:00:00</prt:approvalDate>
+               <prt:updateDate>2015-01-14T12:00:00</prt:updateDate>
+               <!--optional--><prt:approvalDate>2015-01-14T12:00:00</prt:approvalDate>
                <!--from 0 to unbounded elements --><prt:ratings>
                   <prt:ratingID>string</prt:ratingID>
                   <prt:ratingValue>12</prt:ratingValue>
                   <prt:ratingType>string</prt:ratingType>
                   <prt:ratingModel>string</prt:ratingModel>
-                  <prt:ratingCalculatedDate>13.01.2015</prt:ratingCalculatedDate>
+                  <prt:ratingCalculatedDate>2015-01-14</prt:ratingCalculatedDate>
                   <prt:ratingCalculatedRole>string</prt:ratingCalculatedRole>
                   <prt:ratingCalculatedBy>string</prt:ratingCalculatedBy>
-                  <prt:ratingApprovalDate>13.01.2015</prt:ratingApprovalDate>
+                  <prt:ratingApprovalDate>2015-01-14</prt:ratingApprovalDate>
                   <prt:ratingApprovedBy>string</prt:ratingApprovedBy>
                </prt:ratings>
                <!--optional--><prt:topLevelGroupName>string</prt:topLevelGroupName>

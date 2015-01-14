@@ -41,10 +41,10 @@
                   <!--optional--><cal:valueIntegrationId>string</cal:valueIntegrationId>
                </cal:fixedFactor>
             </cal:listOfFixedFactor>
-            <cal:listOfRatingPeriod><!--from 1 to unbounded elements --><cal:ratingPeriod><!--optional--><cal:reportDate>13.01.2015</cal:reportDate>
+            <cal:listOfRatingPeriod><!--from 1 to unbounded elements --><cal:ratingPeriod><!--optional--><cal:reportDate>2015-01-14</cal:reportDate>
                   <!--optional--><cal:period>string</cal:period>
-                  <!--optional--><cal:startDate>13.01.2015</cal:startDate>
-                  <!--optional--><cal:endDate>13.01.2015</cal:endDate>
+                  <!--optional--><cal:startDate>2015-01-14</cal:startDate>
+                  <!--optional--><cal:endDate>2015-01-14</cal:endDate>
                   <!--optional--><cal:type>string</cal:type>
                   <!--optional--><cal:comments>string</cal:comments>
                   <cal:listOfCardinalFactor><!--from 1 to unbounded elements --><cal:cardinalFactor>

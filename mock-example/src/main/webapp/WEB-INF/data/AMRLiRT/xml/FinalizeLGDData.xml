@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGD/Data">
+<data xmlns="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/Data/">
     <response name="default">
         <errorCode>string</errorCode>
         <!--Optional:-->
