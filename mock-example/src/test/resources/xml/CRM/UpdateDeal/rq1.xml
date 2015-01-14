@@ -83,7 +83,7 @@
                      <tns:sheduleAmount>1</tns:sheduleAmount>
                   </tns:repaymentScheduleDetails>
                   <tns:selectionScheduleDetails>
-                     <tns:sheduleDate>2013-12-21+04:00</tns:sheduleDate>
+                     <tns:sheduleDate>2013-12-21</tns:sheduleDate>
                      <tns:sheduleAmount>1</tns:sheduleAmount>
                   </tns:selectionScheduleDetails>
                   <tns:changesScheduleDetails>
@@ -136,7 +136,7 @@
             <tns:exchangeRates>
                <tns:currencyName>string</tns:currencyName>
                <tns:currencyValue>1</tns:currencyValue>
-               <tns:currencyDate>2014-06-10+04:00</tns:currencyDate>
+               <tns:currencyDate>2014-06-10</tns:currencyDate>
             </tns:exchangeRates>
          </tns:deal>
       </crm:UpdateDealRq>

@@ -101,7 +101,7 @@
                     </repaymentScheduleDetails>
                     <!--Zero or more repetitio-->
                     <selectionScheduleDetails>
-                        <sheduleDate>2013-12-21+04:00</sheduleDate>
+                        <sheduleDate>2013-12-21</sheduleDate>
                         <sheduleAmount>1</sheduleAmount>
                     </selectionScheduleDetails>
                     <!--Zero or more repetitio-->
@@ -177,7 +177,7 @@
             <exchangeRates>
                 <currencyName>string</currencyName>
                 <currencyValue>1</currencyValue>
-                <currencyDate>2014-06-10+04:00</currencyDate>
+                <currencyDate>2014-06-10</currencyDate>
             </exchangeRates>
         </deal>
     </request>
