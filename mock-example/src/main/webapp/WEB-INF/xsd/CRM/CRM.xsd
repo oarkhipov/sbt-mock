@@ -9,11 +9,11 @@ xmlns:fsrs="http://sbrf.ru/NCP/CRM/ForceSignalRs/1.02/"
 xmlns:urrq="http://sbrf.ru/NCP/CRM/UpdateRefRq/1.01/" 
 xmlns:urrs="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/" 
 
-xmlns:gprq="http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.04/" 
-xmlns:gprs="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.05/" 
+xmlns:gprq="http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.03/" 
+xmlns:gprs="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/" 
 xmlns:sdrq="http://sbrf.ru/NCP/CRM/SaveDealRq/1.07/" 
 xmlns:sdrs="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/" 
-xmlns:udrq="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.08/" 
+xmlns:udrq="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/" 
 xmlns:udrs="http://sbrf.ru/NCP/CRM/UpdateDealRs/1.01/" 
 
 xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
@@ -29,11 +29,11 @@ elementFormDefault="qualified">
 	<xsd:import namespace="http://sbrf.ru/NCP/CRM/UpdateRefRq/1.01/" schemaLocation="UpdateRefRequest.xsd"/>
 	<xsd:import namespace="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/" schemaLocation="UpdateRefResponse.xsd"/>
 		
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.04/" schemaLocation="GetParticipantsRequest.xsd"/>
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.05/" schemaLocation="GetParticipantsResponse.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.03/" schemaLocation="GetParticipantsRequest.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/" schemaLocation="GetParticipantsResponse.xsd"/>
 	<xsd:import namespace="http://sbrf.ru/NCP/CRM/SaveDealRq/1.07/" schemaLocation="SaveDealRequest.xsd"/>
 	<xsd:import namespace="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/" schemaLocation="SaveDealResponse.xsd"/>
-	<xsd:import namespace="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.08/" schemaLocation="UpdateDealRequest.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/" schemaLocation="UpdateDealRequest.xsd"/>
 	<xsd:import namespace="http://sbrf.ru/NCP/CRM/UpdateDealRs/1.01/" schemaLocation="UpdateDealResponse.xsd"/>
 
 	<xsd:element name="createTaskRq" type="ctrq:CreateTaskRq"/>

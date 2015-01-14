@@ -3,9 +3,9 @@
 			   xmlns:fin="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRq/">
 	<soap:Header/>
 	<soap:Body>
-		<asfo:GetFinReportRq xmlns:asfo="http://sbrf.ru/NCP/ASFO/" xmlns:get="http://sbrf.ru/NCP/ASFO/GetFinReportRq/">
-			<get:dealId>string</get:dealId>
-			<get:comment>testError</get:comment>
+		<asfo:GetFinReportRq xmlns:asfo="http://sbrf.ru/NCP/ASFO/" xmlns:tns="http://sbrf.ru/NCP/ASFO/GetFinReportRq/">
+			<tns:dealId>string</tns:dealId>
+			<tns:comment>testError</tns:comment>
 		</asfo:GetFinReportRq>
 	</soap:Body>
 </soap:Envelope>

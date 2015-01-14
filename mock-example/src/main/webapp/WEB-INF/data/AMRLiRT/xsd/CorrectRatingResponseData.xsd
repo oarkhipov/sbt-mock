@@ -6,8 +6,8 @@
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             targetNamespace="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/Data/"
             elementFormDefault="qualified">
-    <xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/"
-                schemaLocation="../../../xsd/AMRLiRT/CommonTypes.xsd"/>
+   <xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/"
+               schemaLocation="../../../xsd/AMRLiRT/CommonTypes.xsd"/>
    <xsd:import namespace="http://sbrf.ru/commonTypes/dataTypes/"
                schemaLocation="../../../xsd/CRM/commonTypes/dataTypes.xsd"/>
    <xsd:import namespace="http://sbrf.ru/commonTypes/simpleTypes/"

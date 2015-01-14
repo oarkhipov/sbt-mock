@@ -1,72 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.05/Data/">
+<data xmlns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/Data/">
     <!-- Responses -->
     <response name="default">
         <id>string</id>
         <requestType>string</requestType>
-        <participantsGroup><!--from 0 to unbounded elements --><participants>
-            <participantID>string</participantID>
-            <type>string</type>
-            <isBorrower>false</isBorrower>
-            <!--optional--><clientType>string</clientType>
-            <name>string</name>
-            <resident>false</resident>
-            <!--from 0 to unbounded elements --><address>
-            <type>string</type>
-            <!--optional--><zipCode>string</zipCode>
-            <city>string</city>
-            <street>string</street>
-            <building>string</building>
-            <!--optional--><block>string</block>
-            <!--optional--><phone>string</phone>
-            <!--optional--><email>string</email>
-        </address>
-            <!--from 0 to unbounded elements --><share>
-            <ownershipID>string</ownershipID>
-            <!--optional--><share>1234567890.12</share>
-            <!--optional--><periodOfOwnerhip>string</periodOfOwnerhip>
-        </share>
-            <!--optional--><consolidatedGroupID>string</consolidatedGroupID>
-            <!--optional--><linkedBorrowersGroupID>string</linkedBorrowersGroupID>
-            <industry>string</industry>
-            <inn>string</inn>
-            <!--from 0 to unbounded elements --><rating>
-            <ratingID>string</ratingID>
-            <ratingValue>12</ratingValue>
-            <ratingType>string</ratingType>
-            <ratingModel>string</ratingModel>
-            <ratingCalculatedDate>2015-01-14</ratingCalculatedDate>
-            <ratingCalculatedRole>string</ratingCalculatedRole>
-            <ratingCalculatedBy>string</ratingCalculatedBy>
-            <ratingApprovalDate>2015-01-14</ratingApprovalDate>
-            <ratingApprovedBy>string</ratingApprovedBy>
-        </rating>
-            <!--optional--><roleInConsolidatedGroup>string</roleInConsolidatedGroup>
-        </participants>
+        <participantsGroup>
+            <participants>
+                <participantID>string</participantID>
+                <type>string</type>
+                <isBorrower>false</isBorrower>
+                <clientType>string</clientType>
+                <name>string</name>
+                <resident>false</resident>
+                <address>
+                    <type>string</type>
+                    <zipCode>string</zipCode>
+                    <city>string</city>
+                    <street>string</street>
+                    <building>string</building>
+                    <block>string</block>
+                    <phone>string</phone>
+                    <email>string</email>
+                </address>
+                <share>
+                    <ownershipID>string</ownershipID>
+                    <share>1234567890.12</share>
+                    <periodOfOwnerhip>string</periodOfOwnerhip>
+                </share>
+                <consolidatedGroupID>string</consolidatedGroupID>
+                <linkedBorrowersGroupID>string</linkedBorrowersGroupID>
+                <industry>string</industry>
+                <inn>string</inn>
+                <rating>
+                    <ratingID>string</ratingID>
+                    <ratingValue>123</ratingValue>
+                    <ratingType>string</ratingType>
+                    <ratingModel>string</ratingModel>
+                    <ratingCalculatedDate>2015-01-14</ratingCalculatedDate>
+                    <ratingCalculatedRole>string</ratingCalculatedRole>
+                    <ratingCalculatedBy>string</ratingCalculatedBy>
+                    <ratingApprovalDate>2015-01-14</ratingApprovalDate>
+                    <ratingApprovedBy>string</ratingApprovedBy>
+                </rating>
+                <roleInConsolidatedGroup>string</roleInConsolidatedGroup>
+            </participants>
             <groupType>string</groupType>
-            <!--optional--><groupInfo>
+            <groupInfo>
                 <id>string</id>
                 <label>string</label>
                 <status>string</status>
-                <updateDate>2015-01-14T12:00:00</updateDate>
-                <!--optional--><approvalDate>2015-01-14T12:00:00</approvalDate>
-                <!--from 0 to unbounded elements --><ratings>
-                <ratingID>string</ratingID>
-                <ratingValue>12</ratingValue>
-                <ratingType>string</ratingType>
-                <ratingModel>string</ratingModel>
-                <ratingCalculatedDate>2015-01-14</ratingCalculatedDate>
-                <ratingCalculatedRole>string</ratingCalculatedRole>
-                <ratingCalculatedBy>string</ratingCalculatedBy>
-                <ratingApprovalDate>2015-01-14</ratingApprovalDate>
-                <ratingApprovedBy>string</ratingApprovedBy>
-            </ratings>
-                <!--optional--><topLevelGroupName>string</topLevelGroupName>
+                <updateDate>2015-01-14</updateDate>
+                <approvalDate>2015-01-14</approvalDate>
+                <ratings>
+                    <ratingID>string</ratingID>
+                    <ratingValue>123</ratingValue>
+                    <ratingType>string</ratingType>
+                    <ratingModel>string</ratingModel>
+                    <ratingCalculatedDate>2015-01-14</ratingCalculatedDate>
+                    <ratingCalculatedRole>string</ratingCalculatedRole>
+                    <ratingCalculatedBy>string</ratingCalculatedBy>
+                    <ratingApprovalDate>2015-01-14</ratingApprovalDate>
+                    <ratingApprovedBy>string</ratingApprovedBy>
+                </ratings>
+                <topLevelGroupName>string</topLevelGroupName>
             </groupInfo>
         </participantsGroup>
         <operationStatus>
             <errorCode>string</errorCode>
-            <!--optional--><errorMessage>string</errorMessage>
+            <errorMessage>string</errorMessage>
         </operationStatus>
     </response>
     <response name="ERROR">

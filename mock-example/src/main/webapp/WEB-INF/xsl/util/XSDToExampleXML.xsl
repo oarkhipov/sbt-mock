@@ -13,22 +13,24 @@
     <xsl:param name="parrentNS" select="'http://sbrf.ru/NCP/CRM/'"/>
     <xsl:param name="systemName" select="'crm'"/>
     <xsl:param name="targetNS" select="xsd:schema/@targetNamespace"/>
-    <xsl:param name="targetNSAlias" select="lower-case(substring($entryPointName, 1, 3))"/>
+    <xsl:param name="targetNSAlias" select="'tns'"/>
     <xsl:param name="localTargetNSAlias" select="local-name(xsd:schema/namespace::*[.=$targetNS][string-length(local-name(.))>0])"/>
     <xsl:param name="typesList" select="//xsd:complexType/@name"/>
+    <xsl:param name="omitComments" select="false()"/>
+    <xsl:param name="operation-name" select="$entryPointName"/>
 
     <xsl:variable name="CommonTypesNSAlias" select="local-name(xsd:schema/namespace::*[contains(.,'CommonTypes')])"/> <!-- алиас для xsd библиотеки типов CommonTypes. нужен потому что отличается от файла к файлу -->
 
     <xsl:template match="xsd:schema">
-        <soap-env:Envelope>
+        <xsl:element name="soap-env:Envelope">
             <!--<xsl:comment><xsl:value-of select="$CommonTypesNSAlias"/></xsl:comment>-->
             <xsl:call-template name="NCPHeaderExample">
-                <xsl:with-param name="operation-name" select="$entryPointName"/>
+                <xsl:with-param name="operation-name" select="$operation-name"/>
             </xsl:call-template>
-            <soap-env:Body>
+            <xsl:element name="soap-env:Body">
                 <xsl:apply-templates select="./xsd:complexType[@name=$entryPointName]" mode="rootBodyElement"/>
-            </soap-env:Body>
-        </soap-env:Envelope>
+            </xsl:element>
+        </xsl:element>
     </xsl:template>
 
     <xsl:template match="xsd:complexType" mode="rootBodyElement">
@@ -51,14 +53,18 @@
     </xsl:template>
 
     <xsl:template match="xsd:element[@minOccurs=0 and not(@maxOccurs)]" mode="subelement">
-        <xsl:comment>optional</xsl:comment>
+        <xsl:if test="$omitComments">
+            <xsl:comment>optional</xsl:comment>
+        </xsl:if>
         <xsl:apply-templates select="self::*" mode="type"/>
     </xsl:template>
 
     <xsl:template match="xsd:element" mode="subelement">
         <xsl:variable name="min" select="if(@minOccurs) then @minOccurs else 1"/>
         <xsl:variable name="max" select="if(@maxOccurs) then @maxOccurs else $min"/>
-        <xsl:comment>from <xsl:value-of select="$min"/> to <xsl:value-of select="$max"/> elements </xsl:comment>
+        <xsl:if test="$omitComments">
+            <xsl:comment>from <xsl:value-of select="$min"/> to <xsl:value-of select="$max"/> elements </xsl:comment>
+        </xsl:if>
         <xsl:apply-templates select="self::*" mode="type"/>
     </xsl:template>
 
@@ -136,7 +142,9 @@
 
     <!-- если не нашли матч - пишем об этом комментарий -->
     <xsl:template match="xsd:element" mode="type">
-        <xsl:comment>not known type</xsl:comment>
+        <xsl:if test="$omitComments">
+            <xsl:comment>not known type</xsl:comment>
+        </xsl:if>
         <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}"/>
     </xsl:template>
 

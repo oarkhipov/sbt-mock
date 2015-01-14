@@ -74,6 +74,7 @@ public class createMockOrDriverFromXSD {
         params.put("RqEntryPointName","CalcRatingRequest");
         params.put("systemName","AMRLiRT");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("dataFileName","CalculateRatingData.xml");
         mockTestCycle(dir, "AMRLiRT", "CalculateRating", "Response", params);
     }
     @Test
@@ -84,6 +85,7 @@ public class createMockOrDriverFromXSD {
         params.put("RqEntryPointName","ConfirmRequest");
         params.put("systemName","AMRLiRT");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("dataFileName","ConfirmRatingData.xml");
         mockTestCycle(dir, "AMRLiRT", "ConfirmRating", "Response", params);
     }
     @Test
@@ -94,6 +96,7 @@ public class createMockOrDriverFromXSD {
         params.put("RqEntryPointName","CorrectRequest");
         params.put("systemName","AMRLiRT");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("dataFileName","CorrectRatingData.xml");
         mockTestCycle(dir, "AMRLiRT", "CorrectRating", "Response", params);
     }
     @Test
@@ -104,6 +107,7 @@ public class createMockOrDriverFromXSD {
         params.put("RqEntryPointName","LgdFinalizationRequest");
         params.put("systemName","AMRLiRT");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("dataFileName","FinalizeLGDData.xml");
         mockTestCycle(dir, "AMRLiRT", "FinalizeLGD", "Response", params);
     }
     @Test
@@ -189,8 +193,15 @@ public class createMockOrDriverFromXSD {
             if (params!=null) {
                 altParams = new HashMap<String, String>(params);
 
+                if (params.containsKey("entryPointName")) {
+                    altParams.put("operation-name", params.get("entryPointName"));
+                }
                 altParams.put("entryPointName", params.get("RqEntryPointName"));
+            } else {
+                altParams = new HashMap<String, String>(1);
             }
+            altParams.put("omitComments", "true");
+            //altParams.put("operation-name", name+"Response");
 
             System.out.println("create rq example 1");
             String exampleRq1 = checkXSLT(webinf + "\\xsl\\util\\XSDToExampleXML.xsl",
@@ -208,11 +219,11 @@ public class createMockOrDriverFromXSD {
             assert !exampleRs1.contains("<!--not known type-->")
                     : "В примере xml заполены известны не все типы";
 
-//            System.out.println("check example 1");
-//            checkXSLT(webinf + "\\xsl\\" + system + "\\" + name + ".xsl",
-//                    dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml",
-//                    "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs1.xml");
-//
+            System.out.println("check example 1");
+            checkXSLT(webinf + "\\xsl\\" + system + "\\" + name + ".xsl",
+                    dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml",
+                    "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs1.xml");
+
 //            System.out.println("check example ");
 //            checkXSLT(webinf + "\\xsl\\" + system + "\\" + name + ".xsl",
 //                    dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq2.xml",

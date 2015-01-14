@@ -1,22 +1,22 @@
-<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
-                   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <soap-env:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
+   <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
       <soap-env:operation-name>UpdateRefRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
       <crm:UpdateRefRs xmlns:crm="http://sbrf.ru/NCP/CRM/"
-                       xmlns:upd="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/"><!--from 0 to unbounded elements --><upd:referenceItem>
-            <upd:referenceid>string</upd:referenceid>
-            <!--from 0 to unbounded elements --><upd:listOfValue>
-               <upd:value>string</upd:value>
-               <upd:valueId>string</upd:valueId>
-               <!--optional--><upd:parentValueId>string</upd:parentValueId>
-            </upd:listOfValue>
-         </upd:referenceItem>
-         <upd:errorCode>string</upd:errorCode>
-         <!--optional--><upd:errorMessage>string</upd:errorMessage>
+                       xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/">
+         <tns:referenceItem>
+            <tns:referenceid>string</tns:referenceid>
+            <tns:listOfValue>
+               <tns:value>string</tns:value>
+               <tns:valueId>string</tns:valueId>
+               <tns:parentValueId>string</tns:parentValueId>
+            </tns:listOfValue>
+         </tns:referenceItem>
+         <tns:errorCode>string</tns:errorCode>
+         <tns:errorMessage>string</tns:errorMessage>
       </crm:UpdateRefRs>
    </soap-env:Body>
 </soap-env:Envelope>

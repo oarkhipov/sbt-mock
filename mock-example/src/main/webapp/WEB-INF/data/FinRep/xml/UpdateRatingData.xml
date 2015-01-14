@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data xmlns="http://sbrf.ru/NCP/ASFO/UpdateRatingRs/Data/">
     <response name="default">
-        <errorCode>string1</errorCode>
+        <errorCode>string</errorCode>
         <!--Optional:-->
-        <errorMessage>string2</errorMessage>
+        <errorMessage>string</errorMessage>
     </response>
     <response name="testError">
         <errorCode>e</errorCode>

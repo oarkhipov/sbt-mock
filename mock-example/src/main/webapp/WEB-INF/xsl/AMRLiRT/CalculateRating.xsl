@@ -11,7 +11,7 @@
 <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
    <xsl:param name="name" select="all"/>
    <xsl:param name="dataFileName"
-              select="'../../data/AMRLiRT/xml/CalcRatingData.xml'"/>
+              select="'../../data/AMRLiRT/xml/CalculateRatingData.xml'"/>
    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
    <xsl:param name="id" select="null"/>
    <!--Optional params for optional header values-->

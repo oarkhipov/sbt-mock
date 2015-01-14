@@ -1,36 +1,38 @@
-<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
-                   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <soap-env:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
+   <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
       <soap-env:operation-name>CalcRatingResponse</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
       <AMRLiRT:CalcRatingResponse xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
-                                  xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/">
-         <cal:return>
-            <cal:errorCode>string</cal:errorCode>
-            <!--optional--><cal:errorMessage>string</cal:errorMessage>
-            <cal:listOfResultRating><!--from 0 to unbounded elements --><cal:resultRating>
-                  <cal:isPrimary>false</cal:isPrimary>
-                  <cal:name>string</cal:name>
-                  <cal:value>10</cal:value>
-                  <!--optional--><cal:type>string</cal:type>
-               </cal:resultRating>
-            </cal:listOfResultRating>
-            <!--optional--><cal:listOfCalculatedFactor><!--from 0 to unbounded elements --><cal:calculatedFactor>
-                  <cal:code>string</cal:code>
-                  <cal:name>string</cal:name>
-                  <cal:value>string</cal:value>
-               </cal:calculatedFactor>
-            </cal:listOfCalculatedFactor>
-            <!--optional--><cal:listOfAddParameter><!--from 0 to unbounded elements --><cal:addParameter>
-                  <cal:order>10</cal:order>
-                  <cal:name>string</cal:name>
-                  <cal:value>string</cal:value>
-               </cal:addParameter>
-            </cal:listOfAddParameter>
-         </cal:return>
+                                  xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/">
+         <tns:return>
+            <tns:errorCode>string</tns:errorCode>
+            <tns:errorMessage>string</tns:errorMessage>
+            <tns:listOfResultRating>
+               <tns:resultRating>
+                  <tns:isPrimary>false</tns:isPrimary>
+                  <tns:name>string</tns:name>
+                  <tns:value>10</tns:value>
+                  <tns:type>string</tns:type>
+               </tns:resultRating>
+            </tns:listOfResultRating>
+            <tns:listOfCalculatedFactor>
+               <tns:calculatedFactor>
+                  <tns:code>string</tns:code>
+                  <tns:name>string</tns:name>
+                  <tns:value>string</tns:value>
+               </tns:calculatedFactor>
+            </tns:listOfCalculatedFactor>
+            <tns:listOfAddParameter>
+               <tns:addParameter>
+                  <tns:order>10</tns:order>
+                  <tns:name>string</tns:name>
+                  <tns:value>string</tns:value>
+               </tns:addParameter>
+            </tns:listOfAddParameter>
+         </tns:return>
       </AMRLiRT:CalcRatingResponse>
    </soap-env:Body>
 </soap-env:Envelope>

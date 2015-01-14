@@ -1,186 +1,187 @@
-<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
-                   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <soap-env:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
+   <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
       <soap-env:operation-name>SaveDealRq</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
       <crm:SaveDealRq xmlns:crm="http://sbrf.ru/NCP/CRM/"
-                      xmlns:sav="http://sbrf.ru/NCP/CRM/SaveDealRq/1.07/">
-         <sav:deal>
-            <sav:dealID>string</sav:dealID>
-            <!--optional--><sav:contractID>string</sav:contractID>
-            <sav:dealCreationDate>2015-01-14T12:00:00</sav:dealCreationDate>
-            <sav:dealEssense>string</sav:dealEssense>
-            <sav:requestPurpose>string</sav:requestPurpose>
-            <sav:dealType>string</sav:dealType>
-            <sav:dealStatus>string</sav:dealStatus>
-            <sav:requestDate>2015-01-14T12:00:00</sav:requestDate>
-            <sav:origOrgUnit>string</sav:origOrgUnit>
-            <sav:origOrgDivision>st</sav:origOrgDivision>
-            <sav:clientFileID>string</sav:clientFileID>
-            <sav:dealFileID>string</sav:dealFileID>
-            <!--optional--><sav:comment>string</sav:comment>
-            <sav:supLMID>string</sav:supLMID>
-            <!--optional--><sav:collateralProvided>false</sav:collateralProvided>
-            <!--optional--><sav:limitKM>string</sav:limitKM>
-            <!--from 1 to unbounded elements --><sav:dealTeamMembers>
-               <sav:memberId>string</sav:memberId>
-               <sav:memberName>string</sav:memberName>
-               <sav:mamberEmail>string</sav:mamberEmail>
-               <sav:mamberRole>string</sav:mamberRole>
-            </sav:dealTeamMembers>
-            <!--from 0 to unbounded elements --><sav:products>
-               <sav:productID>1234567890</sav:productID>
-               <sav:productName>string</sav:productName>
-               <sav:category>string</sav:category>
-               <!--from 1 to unbounded elements --><sav:productInfo>
-                  <sav:productVersion>string</sav:productVersion>
-                  <sav:purpose>string</sav:purpose>
-                  <sav:creditMode>string</sav:creditMode>
-                  <sav:selectionSchedule>string</sav:selectionSchedule>
-                  <sav:changesSchedule>string</sav:changesSchedule>
-                  <!--optional--><sav:selectionSchedulePeriod>string</sav:selectionSchedulePeriod>
-                  <!--optional--><sav:changesSchedulePeriod>string</sav:changesSchedulePeriod>
-                  <sav:interestPaymentOrder>string</sav:interestPaymentOrder>
-                  <sav:refinancing>false</sav:refinancing>
-                  <!--optional--><sav:suspensiveCondition>string</sav:suspensiveCondition>
-                  <!--optional--><sav:principalBaseCurrency>1234567890.12345</sav:principalBaseCurrency>
-                  <!--from 1 to unbounded elements --><sav:financingInfo>
-                     <sav:interestRate>1234567890.12345</sav:interestRate>
-                     <sav:interestRateType>string</sav:interestRateType>
-                     <sav:interestRateOrder>string</sav:interestRateOrder>
-                     <!--optional--><sav:minRate>1234567890.12345</sav:minRate>
-                     <sav:currencyOfFunding>str</sav:currencyOfFunding>
-                     <sav:principal>1234567890.12345</sav:principal>
-                  </sav:financingInfo>
-                  <!--optional--><sav:startDate>2015-01-14</sav:startDate>
-                  <sav:creditTerm>12345</sav:creditTerm>
-                  <sav:period>12345</sav:period>
-                  <!--optional--><sav:gracePeriod>12345</sav:gracePeriod>
-                  <sav:repaymentSchedule>string</sav:repaymentSchedule>
-                  <sav:turnover>12345</sav:turnover>
-                  <!--optional--><sav:covenants>string</sav:covenants>
-                  <sav:proposedCollateral>string</sav:proposedCollateral>
-                  <!--optional--><sav:debtLimit>string</sav:debtLimit>
-                  <!--optional--><sav:pledgeInsurance>string</sav:pledgeInsurance>
-                  <!--optional--><sav:customerProspects>string</sav:customerProspects>
-                  <sav:financingTerm>123</sav:financingTerm>
-                  <!--optional--><sav:firstCountry>string</sav:firstCountry>
-                  <!--optional--><sav:lastCountry>string</sav:lastCountry>
-                  <!--from 0 to unbounded elements --><sav:fee>
-                     <sav:feeName>string</sav:feeName>
-                     <!--optional--><sav:anotherFeeName>string</sav:anotherFeeName>
-                     <!--optional--><sav:calculationBase>string</sav:calculationBase>
-                     <!--optional--><sav:paymentOrder>string</sav:paymentOrder>
-                  </sav:fee>
-                  <!--from 0 to unbounded elements --><sav:repaymentScheduleDetails>
-                     <sav:sheduleDate>2015-01-14</sav:sheduleDate>
-                     <sav:sheduleAmount>1234567890.12345</sav:sheduleAmount>
-                  </sav:repaymentScheduleDetails>
-                  <!--from 0 to unbounded elements --><sav:selectionScheduleDetails>
-                     <sav:sheduleDate>2015-01-14</sav:sheduleDate>
-                     <sav:sheduleAmount>1234567890.12345</sav:sheduleAmount>
-                  </sav:selectionScheduleDetails>
-                  <!--from 0 to unbounded elements --><sav:changesScheduleDetails>
-                     <sav:sheduleDate>2015-01-14</sav:sheduleDate>
-                     <sav:sheduleAmount>1234567890.12345</sav:sheduleAmount>
-                  </sav:changesScheduleDetails>
-               </sav:productInfo>
-               <!--from 0 to unbounded elements --><sav:collateral>
-                  <sav:collateralType>string</sav:collateralType>
-                  <sav:ownerID>string</sav:ownerID>
-                  <sav:estimatedValue>1234567890.12345</sav:estimatedValue>
-                  <sav:discountRate>1234567890.12345</sav:discountRate>
-                  <sav:estimatedValueCorrected>1234567890.12345</sav:estimatedValueCorrected>
-                  <sav:qualityCategory>string</sav:qualityCategory>
-                  <sav:daysForCalculation>123</sav:daysForCalculation>
-                  <sav:estimatedValueCorrectedToEAD>1234567890.12345</sav:estimatedValueCorrectedToEAD>
-                  <sav:securityShare>123</sav:securityShare>
-                  <sav:EstimatedValueSource>string</sav:EstimatedValueSource>
-                  <sav:estimationDate>2015-01-14</sav:estimationDate>
-                  <sav:businessMeaning>string</sav:businessMeaning>
-                  <sav:qualityAndLiquidityEstimation>string</sav:qualityAndLiquidityEstimation>
-                  <sav:currency>string</sav:currency>
-                  <sav:estimatedValueType>string</sav:estimatedValueType>
-                  <sav:guarantorRating>12</sav:guarantorRating>
-               </sav:collateral>
-               <!--optional--><sav:losses><!--optional--><sav:percentLGD>1234567890.12345</sav:percentLGD>
-                  <!--optional--><sav:countEAD>1234567890.12345</sav:countEAD>
-                  <sav:currency>string</sav:currency>
-                  <!--optional--><sav:reportDateAmount>1234567890.12345</sav:reportDateAmount>
-                  <!--optional--><sav:lossELpercent>1234567890.12345</sav:lossELpercent>
-                  <!--optional--><sav:lossELcount>1234567890.12345</sav:lossELcount>
-                  <!--optional--><sav:typeLGD>string</sav:typeLGD>
-                  <!--optional--><sav:statusLGD>string</sav:statusLGD>
-                  <!--optional--><sav:dateLGDcalculated>2015-01-14</sav:dateLGDcalculated>
-                  <!--optional--><sav:finalizationDate>2015-01-14</sav:finalizationDate>
-                  <!--optional--><sav:comment>string</sav:comment>
-               </sav:losses>
-            </sav:products>
-            <!--optional--><sav:project><!--optional--><sav:projectName>string</sav:projectName>
-               <!--optional--><sav:indicatorsOfConstruction>string</sav:indicatorsOfConstruction>
-               <!--optional--><sav:parcel>string</sav:parcel>
-               <!--optional--><sav:documentsPresence>string</sav:documentsPresence>
-               <!--optional--><sav:equityVolume>string</sav:equityVolume>
-               <!--optional--><sav:repaymentSpring>string</sav:repaymentSpring>
-               <!--optional--><sav:fundingDirection>string</sav:fundingDirection>
-               <!--optional--><sav:sameIndustryAsBorrower>false</sav:sameIndustryAsBorrower>
-            </sav:project>
-            <!--from 0 to unbounded elements --><sav:committeeResult>
-               <sav:committeeLevel>string</sav:committeeLevel>
-               <sav:summonNumber>string</sav:summonNumber>
-               <sav:summonDate>2015-01-14</sav:summonDate>
-               <sav:registrationNumber>string</sav:registrationNumber>
-               <sav:registrationDate>2015-01-14</sav:registrationDate>
-               <sav:decisionDate>2015-01-14</sav:decisionDate>
-               <sav:decisionNumber>string</sav:decisionNumber>
-               <sav:decision>string</sav:decision>
-            </sav:committeeResult>
-            <!--from 0 to unbounded elements --><sav:votingResults>
-               <sav:result>string</sav:result>
-               <sav:decisionMakerRole>string</sav:decisionMakerRole>
-               <!--optional--><sav:comment>string</sav:comment>
-            </sav:votingResults>
-            <!--from 0 to unbounded elements --><sav:underwriterConclusion><!--from 1 to 6 elements --><sav:disagreements>string</sav:disagreements>
-               <!--optional--><sav:conclusion>string</sav:conclusion>
-               <!--optional--><sav:decision>string</sav:decision>
-               <!--from 0 to 4 elements --><sav:reasonForRejection>string</sav:reasonForRejection>
-            </sav:underwriterConclusion>
-            <!--optional--><sav:loanOfficerConclusion><!--optional--><sav:coordinatedWithManager>false</sav:coordinatedWithManager>
-               <!--optional--><sav:coordinatedWithPTF>false</sav:coordinatedWithPTF>
-               <!--optional--><sav:levelOfRegularity>string</sav:levelOfRegularity>
-               <!--optional--><sav:liquidityConclusion>string</sav:liquidityConclusion>
-               <!--optional--><sav:risksConclusion>string</sav:risksConclusion>
-               <!--optional--><sav:generalConclusion>string</sav:generalConclusion>
-               <!--optional--><sav:ownershipComment>string</sav:ownershipComment>
-               <!--optional--><sav:topManagementComment>string</sav:topManagementComment>
-               <!--optional--><sav:participantConclusion>string</sav:participantConclusion>
-               <!--from 0 to unbounded elements --><sav:participantsComment><!--optional--><sav:participantId>string</sav:participantId>
-                  <!--optional--><sav:financialConclusion>string</sav:financialConclusion>
-                  <!--optional--><sav:influenceOnBorrowerConclusion>string</sav:influenceOnBorrowerConclusion>
-                  <!--optional--><sav:financialComment>string</sav:financialComment>
-               </sav:participantsComment>
-            </sav:loanOfficerConclusion>
-            <!--from 0 to unbounded elements --><sav:services>
-               <sav:name>string</sav:name>
-               <sav:requestDate>2015-01-14T12:00:00</sav:requestDate>
-               <sav:comment>string</sav:comment>
-               <sav:date>2015-01-14T12:00:00</sav:date>
-            </sav:services>
-            <!--optional--><sav:riskAnalysis>
-               <sav:memberId>string</sav:memberId>
-               <!--from 1 to unbounded elements --><sav:riskInfo><!--optional--><sav:riskGroup>string</sav:riskGroup>
-                  <sav:risk>string</sav:risk>
-                  <sav:riskDescription>string</sav:riskDescription>
-                  <sav:assumptionOfRisk>string</sav:assumptionOfRisk>
-                  <sav:riskLevel>string</sav:riskLevel>
-                  <!--optional--><sav:underwriterAssumptionOfRisk>string</sav:underwriterAssumptionOfRisk>
-                  <!--optional--><sav:underwriterRiskLevel>string</sav:underwriterRiskLevel>
-               </sav:riskInfo>
-            </sav:riskAnalysis>
-         </sav:deal>
+                      xmlns:tns="http://sbrf.ru/NCP/CRM/SaveDealRq/1.07/">
+         <tns:deal>
+            <tns:dealID>string</tns:dealID>
+            <!--optional--><tns:contractID>string</tns:contractID>
+            <tns:dealCreationDate>2015-01-14T12:00:00</tns:dealCreationDate>
+            <tns:dealEssense>string</tns:dealEssense>
+            <tns:requestPurpose>string</tns:requestPurpose>
+            <tns:dealType>string</tns:dealType>
+            <tns:dealStatus>string</tns:dealStatus>
+            <tns:requestDate>2015-01-14</tns:requestDate>
+            <tns:origOrgUnit>string</tns:origOrgUnit>
+            <tns:origOrgDivision>st</tns:origOrgDivision>
+            <tns:clientFileID>string</tns:clientFileID>
+            <tns:dealFileID>string</tns:dealFileID>
+            <!--optional--><tns:comment>string</tns:comment>
+            <tns:supLMID>string</tns:supLMID>
+            <!--optional--><tns:collateralProvided>false</tns:collateralProvided>
+            <!--optional--><tns:limitKM>string</tns:limitKM>
+            <!--from 1 to unbounded elements --><tns:dealTeamMembers>
+               <tns:memberId>string</tns:memberId>
+               <tns:memberName>string</tns:memberName>
+               <tns:mamberEmail>string</tns:mamberEmail>
+               <tns:mamberRole>string</tns:mamberRole>
+            </tns:dealTeamMembers>
+            <!--from 0 to unbounded elements --><tns:products>
+               <tns:productID>1234567890</tns:productID>
+               <tns:productName>string</tns:productName>
+               <tns:category>string</tns:category>
+               <!--from 1 to unbounded elements --><tns:productInfo>
+                  <tns:productVersion>string</tns:productVersion>
+                  <tns:purpose>string</tns:purpose>
+                  <tns:creditMode>string</tns:creditMode>
+                  <tns:selectionSchedule>string</tns:selectionSchedule>
+                  <tns:changesSchedule>string</tns:changesSchedule>
+                  <!--optional--><tns:selectionSchedulePeriod>string</tns:selectionSchedulePeriod>
+                  <!--optional--><tns:changesSchedulePeriod>string</tns:changesSchedulePeriod>
+                  <tns:interestPaymentOrder>string</tns:interestPaymentOrder>
+                  <tns:refinancing>false</tns:refinancing>
+                  <!--optional--><tns:suspensiveCondition>string</tns:suspensiveCondition>
+                  <!--optional--><tns:principalBaseCurrency>1234567890.12345</tns:principalBaseCurrency>
+                  <!--from 1 to unbounded elements --><tns:financingInfo>
+                     <tns:currencyOfFunding>str</tns:currencyOfFunding>
+                     <tns:principal>1234567890.12345</tns:principal>
+                  </tns:financingInfo>
+                  <!--from 1 to unbounded elements --><tns:interestRateInfo>
+                     <tns:interestRate>1234567890.12345</tns:interestRate>
+                     <tns:interestRateType>string</tns:interestRateType>
+                     <tns:interestRateOrder>string</tns:interestRateOrder>
+                     <!--optional--><tns:minRate>1234567890.12345</tns:minRate>
+                  </tns:interestRateInfo>
+                  <!--optional--><tns:startDate>2015-01-14</tns:startDate>
+                  <tns:creditTerm>12345</tns:creditTerm>
+                  <tns:period>12345</tns:period>
+                  <!--optional--><tns:gracePeriod>12345</tns:gracePeriod>
+                  <tns:repaymentSchedule>string</tns:repaymentSchedule>
+                  <tns:turnover>12345</tns:turnover>
+                  <!--optional--><tns:covenants>string</tns:covenants>
+                  <tns:proposedCollateral>string</tns:proposedCollateral>
+                  <!--optional--><tns:debtLimit>string</tns:debtLimit>
+                  <!--optional--><tns:pledgeInsurance>string</tns:pledgeInsurance>
+                  <!--optional--><tns:customerProspects>string</tns:customerProspects>
+                  <tns:financingTerm>123</tns:financingTerm>
+                  <!--optional--><tns:firstCountry>string</tns:firstCountry>
+                  <!--optional--><tns:lastCountry>string</tns:lastCountry>
+                  <!--from 0 to unbounded elements --><tns:fee>
+                     <tns:feeName>string</tns:feeName>
+                     <!--optional--><tns:anotherFeeName>string</tns:anotherFeeName>
+                     <!--optional--><tns:calculationBase>string</tns:calculationBase>
+                     <!--optional--><tns:paymentOrder>string</tns:paymentOrder>
+                  </tns:fee>
+                  <!--from 0 to unbounded elements --><tns:repaymentScheduleDetails>
+                     <tns:sheduleDate>2015-01-14</tns:sheduleDate>
+                     <tns:sheduleAmount>1234567890.12345</tns:sheduleAmount>
+                  </tns:repaymentScheduleDetails>
+                  <!--from 0 to unbounded elements --><tns:selectionScheduleDetails>
+                     <tns:sheduleDate>2015-01-14</tns:sheduleDate>
+                     <tns:sheduleAmount>1234567890.12345</tns:sheduleAmount>
+                  </tns:selectionScheduleDetails>
+                  <!--from 0 to unbounded elements --><tns:changesScheduleDetails>
+                     <tns:sheduleDate>2015-01-14</tns:sheduleDate>
+                     <tns:sheduleAmount>1234567890.12345</tns:sheduleAmount>
+                  </tns:changesScheduleDetails>
+               </tns:productInfo>
+               <!--from 0 to unbounded elements --><tns:collateral>
+                  <tns:collateralType>string</tns:collateralType>
+                  <tns:ownerID>string</tns:ownerID>
+                  <tns:estimatedValue>1234567890.12345</tns:estimatedValue>
+                  <tns:discountRate>1234567890.12345</tns:discountRate>
+                  <tns:estimatedValueCorrected>1234567890.12345</tns:estimatedValueCorrected>
+                  <tns:qualityCategory>string</tns:qualityCategory>
+                  <tns:daysForCalculation>123</tns:daysForCalculation>
+                  <tns:estimatedValueCorrectedToEAD>1234567890.12345</tns:estimatedValueCorrectedToEAD>
+                  <tns:securityShare>123</tns:securityShare>
+                  <tns:EstimatedValueSource>string</tns:EstimatedValueSource>
+                  <tns:estimationDate>2015-01-14</tns:estimationDate>
+                  <tns:businessMeaning>string</tns:businessMeaning>
+                  <tns:qualityAndLiquidityEstimation>string</tns:qualityAndLiquidityEstimation>
+                  <tns:currency>string</tns:currency>
+                  <tns:estimatedValueType>string</tns:estimatedValueType>
+                  <tns:guarantorRating>string</tns:guarantorRating>
+               </tns:collateral>
+               <!--optional--><tns:losses><!--optional--><tns:percentLGD>1234567890.12345</tns:percentLGD>
+                  <!--optional--><tns:countEAD>1234567890.12345</tns:countEAD>
+                  <tns:currency>string</tns:currency>
+                  <!--optional--><tns:reportDateAmount>1234567890.12345</tns:reportDateAmount>
+                  <!--optional--><tns:lossELpercent>1234567890.12345</tns:lossELpercent>
+                  <!--optional--><tns:lossELcount>1234567890.12345</tns:lossELcount>
+                  <!--optional--><tns:typeLGD>string</tns:typeLGD>
+                  <!--optional--><tns:statusLGD>string</tns:statusLGD>
+                  <!--optional--><tns:dateLGDcalculated>2015-01-14</tns:dateLGDcalculated>
+                  <!--optional--><tns:finalizationDate>2015-01-14</tns:finalizationDate>
+                  <!--optional--><tns:comment>string</tns:comment>
+               </tns:losses>
+            </tns:products>
+            <!--optional--><tns:project><!--optional--><tns:projectName>string</tns:projectName>
+               <!--optional--><tns:indicatorsOfConstruction>string</tns:indicatorsOfConstruction>
+               <!--optional--><tns:parcel>string</tns:parcel>
+               <!--optional--><tns:documentsPresence>string</tns:documentsPresence>
+               <!--optional--><tns:equityVolume>string</tns:equityVolume>
+               <!--optional--><tns:repaymentSpring>string</tns:repaymentSpring>
+               <!--optional--><tns:fundingDirection>string</tns:fundingDirection>
+               <!--optional--><tns:sameIndustryAsBorrower>false</tns:sameIndustryAsBorrower>
+            </tns:project>
+            <!--from 0 to unbounded elements --><tns:committeeResult>
+               <tns:committeeLevel>string</tns:committeeLevel>
+               <tns:summonNumber>string</tns:summonNumber>
+               <tns:summonDate>2015-01-14</tns:summonDate>
+               <tns:registrationNumber>string</tns:registrationNumber>
+               <tns:registrationDate>2015-01-14</tns:registrationDate>
+               <tns:decisionDate>2015-01-14</tns:decisionDate>
+               <tns:decisionNumber>string</tns:decisionNumber>
+               <tns:decision>string</tns:decision>
+            </tns:committeeResult>
+            <!--from 0 to unbounded elements --><tns:votingResults>
+               <tns:result>string</tns:result>
+               <tns:decisionMakerRole>string</tns:decisionMakerRole>
+               <!--optional--><tns:comment>string</tns:comment>
+            </tns:votingResults>
+            <!--from 0 to unbounded elements --><tns:underwriterConclusion><!--from 1 to unbounded elements --><tns:disagreements>string</tns:disagreements>
+               <!--optional--><tns:conclusion>string</tns:conclusion>
+               <!--optional--><tns:decision>string</tns:decision>
+               <!--from 0 to 4 elements --><tns:reasonForRejection>string</tns:reasonForRejection>
+            </tns:underwriterConclusion>
+            <!--optional--><tns:loanOfficerConclusion><!--optional--><tns:coordinatedWithManager>false</tns:coordinatedWithManager>
+               <!--optional--><tns:coordinatedWithPTF>false</tns:coordinatedWithPTF>
+               <!--optional--><tns:levelOfRegularity>string</tns:levelOfRegularity>
+               <!--optional--><tns:liquidityConclusion>string</tns:liquidityConclusion>
+               <!--optional--><tns:risksConclusion>string</tns:risksConclusion>
+               <!--optional--><tns:generalConclusion>string</tns:generalConclusion>
+               <!--optional--><tns:ownershipComment>string</tns:ownershipComment>
+               <!--optional--><tns:topManagementComment>string</tns:topManagementComment>
+               <!--optional--><tns:participantConclusion>string</tns:participantConclusion>
+               <!--from 0 to unbounded elements --><tns:participantsComment><!--optional--><tns:participantId>string</tns:participantId>
+                  <!--optional--><tns:financialConclusion>string</tns:financialConclusion>
+                  <!--optional--><tns:influenceOnBorrowerConclusion>string</tns:influenceOnBorrowerConclusion>
+                  <!--optional--><tns:financialComment>string</tns:financialComment>
+               </tns:participantsComment>
+            </tns:loanOfficerConclusion>
+            <!--from 0 to unbounded elements --><tns:services>
+               <tns:name>string</tns:name>
+               <tns:requestDate>2015-01-14T12:00:00</tns:requestDate>
+               <tns:comment>string</tns:comment>
+               <tns:date>2015-01-14T12:00:00</tns:date>
+            </tns:services>
+            <!--optional--><tns:riskAnalysis>
+               <tns:memberId>string</tns:memberId>
+               <!--from 1 to unbounded elements --><tns:riskInfo><!--optional--><tns:riskGroup>string</tns:riskGroup>
+                  <tns:risk>string</tns:risk>
+                  <tns:riskDescription>string</tns:riskDescription>
+                  <tns:assumptionOfRisk>string</tns:assumptionOfRisk>
+                  <tns:riskLevel>string</tns:riskLevel>
+                  <!--optional--><tns:underwriterAssumptionOfRisk>string</tns:underwriterAssumptionOfRisk>
+                  <!--optional--><tns:underwriterRiskLevel>string</tns:underwriterRiskLevel>
+               </tns:riskInfo>
+            </tns:riskAnalysis>
+         </tns:deal>
       </crm:SaveDealRq>
    </soap-env:Body>
 </soap-env:Envelope>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/"
-                xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.05/"
-                xmlns:rsd="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.05/Data/"
+                xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/"
+                xmlns:rsd="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/Data/"
                 xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"

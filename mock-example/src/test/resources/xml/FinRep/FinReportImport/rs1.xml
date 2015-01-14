@@ -1,40 +1,40 @@
-<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
-                   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <soap-env:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
+   <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
       <soap-env:operation-name>FinReportImportResponse</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
       <FinRep:FinReportImportResponse xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
-                                      xmlns:fin="http://sbrf.ru/NCP/ASFO/GetFinReportRs/"><!--optional--><fin:nonCurrentAssetsNFRS>10</fin:nonCurrentAssetsNFRS>
-         <!--optional--><fin:currentAssetsNFRS>10</fin:currentAssetsNFRS>
-         <!--optional--><fin:nonCurrentAssetsIFRS>10</fin:nonCurrentAssetsIFRS>
-         <!--optional--><fin:currentAssetsIFRS>10</fin:currentAssetsIFRS>
-         <!--optional--><fin:longTermDebtNFRS>10</fin:longTermDebtNFRS>
-         <!--optional--><fin:shortTermDebtNFRS>10</fin:shortTermDebtNFRS>
-         <!--optional--><fin:longTermDebtIFRS>10</fin:longTermDebtIFRS>
-         <!--optional--><fin:shortTermDebtIFRS>10</fin:shortTermDebtIFRS>
-         <!--optional--><fin:ebitdaNFRS>10</fin:ebitdaNFRS>
-         <!--optional--><fin:numQuarterNFRS>10</fin:numQuarterNFRS>
-         <!--optional--><fin:ebitdaIFRS>10</fin:ebitdaIFRS>
-         <!--optional--><fin:numQuarterIFRS>10</fin:numQuarterIFRS>
-         <!--optional--><fin:currencyCode>string</fin:currencyCode>
-         <!--optional--><fin:currencyCodeForFR>string</fin:currencyCodeForFR>
-         <!--optional--><fin:currencyRate>10</fin:currencyRate>
-         <!--optional--><fin:futureCurrencyRate>10</fin:futureCurrencyRate>
-         <!--optional--><fin:currentCurrencyRate>10</fin:currentCurrencyRate>
-         <!--optional--><fin:purpose>string</fin:purpose>
-         <!--optional--><fin:currentYear>10</fin:currentYear>
-         <!--optional--><fin:govDebt>10</fin:govDebt>
-         <!--optional--><fin:creditGovDebt>10</fin:creditGovDebt>
-         <!--optional--><fin:credit>10</fin:credit>
-         <!--optional--><fin:liabilities>10</fin:liabilities>
-         <!--optional--><fin:liabilitiesNextYear>10</fin:liabilitiesNextYear>
-         <!--optional--><fin:income>10</fin:income>
-         <!--optional--><fin:incomeNextYear>10</fin:incomeNextYear>
-         <!--optional--><fin:plannedCredit>10</fin:plannedCredit>
-         <!--optional--><fin:plannedCreditNextYear>10</fin:plannedCreditNextYear>
+                                      xmlns:tns="http://sbrf.ru/NCP/ASFO/GetFinReportRs/">
+         <tns:nonCurrentAssetsNFRS>10</tns:nonCurrentAssetsNFRS>
+         <tns:currentAssetsNFRS>10</tns:currentAssetsNFRS>
+         <tns:nonCurrentAssetsIFRS>10</tns:nonCurrentAssetsIFRS>
+         <tns:currentAssetsIFRS>10</tns:currentAssetsIFRS>
+         <tns:longTermDebtNFRS>10</tns:longTermDebtNFRS>
+         <tns:shortTermDebtNFRS>10</tns:shortTermDebtNFRS>
+         <tns:longTermDebtIFRS>10</tns:longTermDebtIFRS>
+         <tns:shortTermDebtIFRS>10</tns:shortTermDebtIFRS>
+         <tns:ebitdaNFRS>10</tns:ebitdaNFRS>
+         <tns:numQuarterNFRS>10</tns:numQuarterNFRS>
+         <tns:ebitdaIFRS>10</tns:ebitdaIFRS>
+         <tns:numQuarterIFRS>10</tns:numQuarterIFRS>
+         <tns:currencyCode>string</tns:currencyCode>
+         <tns:currencyCodeForFR>string</tns:currencyCodeForFR>
+         <tns:currencyRate>10</tns:currencyRate>
+         <tns:futureCurrencyRate>10</tns:futureCurrencyRate>
+         <tns:currentCurrencyRate>10</tns:currentCurrencyRate>
+         <tns:purpose>string</tns:purpose>
+         <tns:currentYear>10</tns:currentYear>
+         <tns:govDebt>10</tns:govDebt>
+         <tns:creditGovDebt>10</tns:creditGovDebt>
+         <tns:credit>10</tns:credit>
+         <tns:liabilities>10</tns:liabilities>
+         <tns:liabilitiesNextYear>10</tns:liabilitiesNextYear>
+         <tns:income>10</tns:income>
+         <tns:incomeNextYear>10</tns:incomeNextYear>
+         <tns:plannedCredit>10</tns:plannedCredit>
+         <tns:plannedCreditNextYear>10</tns:plannedCreditNextYear>
       </FinRep:FinReportImportResponse>
    </soap-env:Body>
 </soap-env:Envelope>

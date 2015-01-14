@@ -1,79 +1,79 @@
-<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
-                   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <soap-env:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
+   <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
       <soap-env:operation-name>PrtspRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
       <crm:PrtspRs xmlns:crm="http://sbrf.ru/NCP/CRM/"
-                   xmlns:prt="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.05/">
-         <prt:id>string</prt:id>
-         <prt:requestType>string</prt:requestType>
-         <prt:participantsGroup><!--from 0 to unbounded elements --><prt:participants>
-               <prt:participantID>string</prt:participantID>
-               <prt:type>string</prt:type>
-               <prt:isBorrower>false</prt:isBorrower>
-               <!--optional--><prt:clientType>string</prt:clientType>
-               <prt:name>string</prt:name>
-               <prt:resident>false</prt:resident>
-               <!--from 0 to unbounded elements --><prt:address>
-                  <prt:type>string</prt:type>
-                  <!--optional--><prt:zipCode>string</prt:zipCode>
-                  <prt:city>string</prt:city>
-                  <prt:street>string</prt:street>
-                  <prt:building>string</prt:building>
-                  <!--optional--><prt:block>string</prt:block>
-                  <!--optional--><prt:phone>string</prt:phone>
-                  <!--optional--><prt:email>string</prt:email>
-               </prt:address>
-               <!--from 0 to unbounded elements --><prt:share>
-                  <prt:ownershipID>string</prt:ownershipID>
-                  <!--optional--><prt:share>1234567890.12</prt:share>
-                  <!--optional--><prt:periodOfOwnerhip>string</prt:periodOfOwnerhip>
-               </prt:share>
-               <!--optional--><prt:consolidatedGroupID>string</prt:consolidatedGroupID>
-               <!--optional--><prt:linkedBorrowersGroupID>string</prt:linkedBorrowersGroupID>
-               <prt:industry>string</prt:industry>
-               <prt:inn>string</prt:inn>
-               <!--from 0 to unbounded elements --><prt:rating>
-                  <prt:ratingID>string</prt:ratingID>
-                  <prt:ratingValue>12</prt:ratingValue>
-                  <prt:ratingType>string</prt:ratingType>
-                  <prt:ratingModel>string</prt:ratingModel>
-                  <prt:ratingCalculatedDate>2015-01-14</prt:ratingCalculatedDate>
-                  <prt:ratingCalculatedRole>string</prt:ratingCalculatedRole>
-                  <prt:ratingCalculatedBy>string</prt:ratingCalculatedBy>
-                  <prt:ratingApprovalDate>2015-01-14</prt:ratingApprovalDate>
-                  <prt:ratingApprovedBy>string</prt:ratingApprovedBy>
-               </prt:rating>
-               <!--optional--><prt:roleInConsolidatedGroup>string</prt:roleInConsolidatedGroup>
-            </prt:participants>
-            <prt:groupType>string</prt:groupType>
-            <!--optional--><prt:groupInfo>
-               <prt:id>string</prt:id>
-               <prt:label>string</prt:label>
-               <prt:status>string</prt:status>
-               <prt:updateDate>2015-01-14T12:00:00</prt:updateDate>
-               <!--optional--><prt:approvalDate>2015-01-14T12:00:00</prt:approvalDate>
-               <!--from 0 to unbounded elements --><prt:ratings>
-                  <prt:ratingID>string</prt:ratingID>
-                  <prt:ratingValue>12</prt:ratingValue>
-                  <prt:ratingType>string</prt:ratingType>
-                  <prt:ratingModel>string</prt:ratingModel>
-                  <prt:ratingCalculatedDate>2015-01-14</prt:ratingCalculatedDate>
-                  <prt:ratingCalculatedRole>string</prt:ratingCalculatedRole>
-                  <prt:ratingCalculatedBy>string</prt:ratingCalculatedBy>
-                  <prt:ratingApprovalDate>2015-01-14</prt:ratingApprovalDate>
-                  <prt:ratingApprovedBy>string</prt:ratingApprovedBy>
-               </prt:ratings>
-               <!--optional--><prt:topLevelGroupName>string</prt:topLevelGroupName>
-            </prt:groupInfo>
-         </prt:participantsGroup>
-         <prt:operationStatus>
-            <prt:errorCode>string</prt:errorCode>
-            <!--optional--><prt:errorMessage>string</prt:errorMessage>
-         </prt:operationStatus>
+                   xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/">
+         <tns:id>string</tns:id>
+         <tns:requestType>string</tns:requestType>
+         <tns:participantsGroup>
+            <tns:participants>
+               <tns:participantID>string</tns:participantID>
+               <tns:type>string</tns:type>
+               <tns:isBorrower>false</tns:isBorrower>
+               <tns:clientType>string</tns:clientType>
+               <tns:name>string</tns:name>
+               <tns:resident>false</tns:resident>
+               <tns:address>
+                  <tns:type>string</tns:type>
+                  <tns:zipCode>string</tns:zipCode>
+                  <tns:city>string</tns:city>
+                  <tns:street>string</tns:street>
+                  <tns:building>string</tns:building>
+                  <tns:block>string</tns:block>
+                  <tns:phone>string</tns:phone>
+                  <tns:email>string</tns:email>
+               </tns:address>
+               <tns:share>
+                  <tns:ownershipID>string</tns:ownershipID>
+                  <tns:share>1234567890.12</tns:share>
+                  <tns:periodOfOwnerhip>string</tns:periodOfOwnerhip>
+               </tns:share>
+               <tns:consolidatedGroupID>string</tns:consolidatedGroupID>
+               <tns:linkedBorrowersGroupID>string</tns:linkedBorrowersGroupID>
+               <tns:industry>string</tns:industry>
+               <tns:inn>string</tns:inn>
+               <tns:rating>
+                  <tns:ratingID>string</tns:ratingID>
+                  <tns:ratingValue>123</tns:ratingValue>
+                  <tns:ratingType>string</tns:ratingType>
+                  <tns:ratingModel>string</tns:ratingModel>
+                  <tns:ratingCalculatedDate>2015-01-14</tns:ratingCalculatedDate>
+                  <tns:ratingCalculatedRole>string</tns:ratingCalculatedRole>
+                  <tns:ratingCalculatedBy>string</tns:ratingCalculatedBy>
+                  <tns:ratingApprovalDate>2015-01-14</tns:ratingApprovalDate>
+                  <tns:ratingApprovedBy>string</tns:ratingApprovedBy>
+               </tns:rating>
+               <tns:roleInConsolidatedGroup>string</tns:roleInConsolidatedGroup>
+            </tns:participants>
+            <tns:groupType>string</tns:groupType>
+            <tns:groupInfo>
+               <tns:id>string</tns:id>
+               <tns:label>string</tns:label>
+               <tns:status>string</tns:status>
+               <tns:updateDate>2015-01-14</tns:updateDate>
+               <tns:approvalDate>2015-01-14</tns:approvalDate>
+               <tns:ratings>
+                  <tns:ratingID>string</tns:ratingID>
+                  <tns:ratingValue>123</tns:ratingValue>
+                  <tns:ratingType>string</tns:ratingType>
+                  <tns:ratingModel>string</tns:ratingModel>
+                  <tns:ratingCalculatedDate>2015-01-14</tns:ratingCalculatedDate>
+                  <tns:ratingCalculatedRole>string</tns:ratingCalculatedRole>
+                  <tns:ratingCalculatedBy>string</tns:ratingCalculatedBy>
+                  <tns:ratingApprovalDate>2015-01-14</tns:ratingApprovalDate>
+                  <tns:ratingApprovedBy>string</tns:ratingApprovedBy>
+               </tns:ratings>
+               <tns:topLevelGroupName>string</tns:topLevelGroupName>
+            </tns:groupInfo>
+         </tns:participantsGroup>
+         <tns:operationStatus>
+            <tns:errorCode>string</tns:errorCode>
+            <tns:errorMessage>string</tns:errorMessage>
+         </tns:operationStatus>
       </crm:PrtspRs>
    </soap-env:Body>
 </soap-env:Envelope>

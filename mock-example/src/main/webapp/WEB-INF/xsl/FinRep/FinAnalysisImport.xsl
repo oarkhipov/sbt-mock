@@ -69,6 +69,202 @@
       </xsl:element>
    </xsl:template>
 
+   <xsl:template match="rsd:actualRequirements">
+      <tns:actualRequirements>
+         <tns:creditRiskPerDebtor>
+            <xsl:value-of select="./rsd:creditRiskPerDebtor"/>
+         </tns:creditRiskPerDebtor>
+         <tns:creditRiskForRelatedDebtorGroup>
+            <xsl:value-of select="./rsd:creditRiskForRelatedDebtorGroup"/>
+         </tns:creditRiskForRelatedDebtorGroup>
+         <tns:creditRiskPerLegalEntityInsider>
+            <xsl:value-of select="./rsd:creditRiskPerLegalEntityInsider"/>
+         </tns:creditRiskPerLegalEntityInsider>
+         <tns:economicGroupRiskFactor>
+            <xsl:value-of select="./rsd:economicGroupRiskFactor"/>
+         </tns:economicGroupRiskFactor>
+      </tns:actualRequirements>
+   </xsl:template>
+
+   <xsl:template match="rsd:actualRequirementsInTotal">
+      <tns:actualRequirementsInTotal>
+         <tns:creditRiskPerDebtor>
+            <xsl:value-of select="./rsd:creditRiskPerDebtor"/>
+         </tns:creditRiskPerDebtor>
+         <tns:creditRiskForRelatedDebtorGroup>
+            <xsl:value-of select="./rsd:creditRiskForRelatedDebtorGroup"/>
+         </tns:creditRiskForRelatedDebtorGroup>
+         <tns:creditRiskPerLegalEntityInsider>
+            <xsl:value-of select="./rsd:creditRiskPerLegalEntityInsider"/>
+         </tns:creditRiskPerLegalEntityInsider>
+         <tns:economicGroupRiskFactor>
+            <xsl:value-of select="./rsd:economicGroupRiskFactor"/>
+         </tns:economicGroupRiskFactor>
+      </tns:actualRequirementsInTotal>
+   </xsl:template>
+
+   <xsl:template match="rsd:fieldInfo">
+      <tns:fieldInfo>
+         <tns:mainField>
+            <xsl:value-of select="./rsd:mainField"/>
+         </tns:mainField>
+         <tns:mainBusiness>
+            <xsl:value-of select="./rsd:mainBusiness"/>
+         </tns:mainBusiness>
+      </tns:fieldInfo>
+   </xsl:template>
+
+   <xsl:template match="rsd:competitor">
+      <tns:competitor>
+         <tns:advantages>
+            <xsl:value-of select="./rsd:advantages"/>
+         </tns:advantages>
+         <tns:disadvantages>
+            <xsl:value-of select="./rsd:disadvantages"/>
+         </tns:disadvantages>
+         <tns:revenue>
+            <xsl:value-of select="./rsd:revenue"/>
+         </tns:revenue>
+         <tns:ebitda>
+            <xsl:value-of select="./rsd:ebitda"/>
+         </tns:ebitda>
+         <tns:debt>
+            <xsl:value-of select="./rsd:debt"/>
+         </tns:debt>
+         <tns:assets>
+            <xsl:value-of select="./rsd:assets"/>
+         </tns:assets>
+         <tns:equity>
+            <xsl:value-of select="./rsd:equity"/>
+         </tns:equity>
+         <tns:ebitdaRevenue>
+            <xsl:value-of select="./rsd:ebitdaRevenue"/>
+         </tns:ebitdaRevenue>
+         <tns:debtEbitda>
+            <xsl:value-of select="./rsd:debtEbitda"/>
+         </tns:debtEbitda>
+         <tns:debtEquity>
+            <xsl:value-of select="./rsd:debtEquity"/>
+         </tns:debtEquity>
+      </tns:competitor>
+   </xsl:template>
+
+   <xsl:template match="rsd:borrower">
+      <tns:borrower>
+         <tns:advantages>
+            <xsl:value-of select="./rsd:advantages"/>
+         </tns:advantages>
+         <tns:disadvantages>
+            <xsl:value-of select="./rsd:disadvantages"/>
+         </tns:disadvantages>
+         <tns:revenue>
+            <xsl:value-of select="./rsd:revenue"/>
+         </tns:revenue>
+         <tns:ebitda>
+            <xsl:value-of select="./rsd:ebitda"/>
+         </tns:ebitda>
+         <tns:debt>
+            <xsl:value-of select="./rsd:debt"/>
+         </tns:debt>
+         <tns:assets>
+            <xsl:value-of select="./rsd:assets"/>
+         </tns:assets>
+         <tns:equity>
+            <xsl:value-of select="./rsd:equity"/>
+         </tns:equity>
+         <tns:ebitdaRevenue>
+            <xsl:value-of select="./rsd:ebitdaRevenue"/>
+         </tns:ebitdaRevenue>
+         <tns:debtEbitda>
+            <xsl:value-of select="./rsd:debtEbitda"/>
+         </tns:debtEbitda>
+         <tns:debtEquity>
+            <xsl:value-of select="./rsd:debtEquity"/>
+         </tns:debtEquity>
+      </tns:borrower>
+   </xsl:template>
+
+   <xsl:template match="rsd:listOfCompetitor">
+      <tns:listOfCompetitor>
+         <xsl:apply-templates select="./rsd:competitor"/>
+      </tns:listOfCompetitor>
+   </xsl:template>
+
+   <xsl:template match="rsd:market">
+      <tns:market>
+         <tns:name>
+            <xsl:value-of select="./rsd:name"/>
+         </tns:name>
+         <tns:posidionAndShare>
+            <xsl:value-of select="./rsd:posidionAndShare"/>
+         </tns:posidionAndShare>
+         <tns:description>
+            <xsl:value-of select="./rsd:description"/>
+         </tns:description>
+         <tns:lastFinReportQuarter>
+            <xsl:value-of select="./rsd:lastFinReportQuarter"/>
+         </tns:lastFinReportQuarter>
+         <xsl:apply-templates select="./rsd:borrower"/>
+         <xsl:apply-templates select="./rsd:listOfCompetitor"/>
+      </tns:market>
+   </xsl:template>
+
+   <xsl:template match="rsd:marketPositionAndTrends">
+      <tns:marketPositionAndTrends>
+         <tns:trends>
+            <xsl:value-of select="./rsd:trends"/>
+         </tns:trends>
+      </tns:marketPositionAndTrends>
+   </xsl:template>
+
+   <xsl:template match="rsd:supplier">
+      <tns:supplier>
+         <tns:name>
+            <xsl:value-of select="./rsd:name"/>
+         </tns:name>
+         <tns:isCgParticipant>
+            <xsl:value-of select="./rsd:isCgParticipant"/>
+         </tns:isCgParticipant>
+         <tns:conditions>
+            <xsl:value-of select="./rsd:conditions"/>
+         </tns:conditions>
+         <tns:productsAndTrends>
+            <xsl:value-of select="./rsd:productsAndTrends"/>
+         </tns:productsAndTrends>
+      </tns:supplier>
+   </xsl:template>
+
+   <xsl:template match="rsd:buyer">
+      <tns:buyer>
+         <tns:name>
+            <xsl:value-of select="./rsd:name"/>
+         </tns:name>
+         <tns:isCgParticipant>
+            <xsl:value-of select="./rsd:isCgParticipant"/>
+         </tns:isCgParticipant>
+         <tns:conditions>
+            <xsl:value-of select="./rsd:conditions"/>
+         </tns:conditions>
+         <tns:productsAndTrends>
+            <xsl:value-of select="./rsd:productsAndTrends"/>
+         </tns:productsAndTrends>
+      </tns:buyer>
+   </xsl:template>
+
+   <xsl:template match="rsd:business">
+      <tns:business>
+         <tns:suppliersConcentrationLevel>
+            <xsl:value-of select="./rsd:suppliersConcentrationLevel"/>
+         </tns:suppliersConcentrationLevel>
+         <tns:buyersConcentrationLevel>
+            <xsl:value-of select="./rsd:buyersConcentrationLevel"/>
+         </tns:buyersConcentrationLevel>
+         <tns:dependenceComment>
+            <xsl:value-of select="./rsd:dependenceComment"/>
+         </tns:dependenceComment>
+      </tns:business>
+   </xsl:template>
+
    <xsl:template name="FinAnalysisImportResponse">
       <xsl:param name="response"/>
       <xsl:param name="data"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/"
-                xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.08/"
-                xmlns:rsd="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.08/Data/"
+                xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/"
+                xmlns:rsd="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/Data/"
                 xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:crm="http://sbrf.ru/NCP/CRM/"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -59,6 +59,20 @@
       </xsl:element>
    </xsl:template>
 
+   <xsl:template match="rsd:exchangeRates">
+      <tns:exchangeRates>
+         <tns:currencyName>
+            <xsl:value-of select="./rsd:currencyName"/>
+         </tns:currencyName>
+         <tns:currencyValue>
+            <xsl:value-of select="./rsd:currencyValue"/>
+         </tns:currencyValue>
+         <tns:currencyDate>
+            <xsl:value-of select="./rsd:currencyDate"/>
+         </tns:currencyDate>
+      </tns:exchangeRates>
+   </xsl:template>
+
    <xsl:template match="rsd:dealTeamMembers">
       <tns:dealTeamMembers>
          <tns:memberId>
@@ -78,6 +92,17 @@
 
    <xsl:template match="rsd:financingInfo">
       <tns:financingInfo>
+         <tns:currencyOfFunding>
+            <xsl:value-of select="./rsd:currencyOfFunding"/>
+         </tns:currencyOfFunding>
+         <tns:principal>
+            <xsl:value-of select="./rsd:principal"/>
+         </tns:principal>
+      </tns:financingInfo>
+   </xsl:template>
+
+   <xsl:template match="rsd:interestRateInfo">
+      <tns:interestRateInfo>
          <tns:interestRate>
             <xsl:value-of select="./rsd:interestRate"/>
          </tns:interestRate>
@@ -90,13 +115,7 @@
          <tns:minRate>
             <xsl:value-of select="./rsd:minRate"/>
          </tns:minRate>
-         <tns:currencyOfFunding>
-            <xsl:value-of select="./rsd:currencyOfFunding"/>
-         </tns:currencyOfFunding>
-         <tns:principal>
-            <xsl:value-of select="./rsd:principal"/>
-         </tns:principal>
-      </tns:financingInfo>
+      </tns:interestRateInfo>
    </xsl:template>
 
    <xsl:template match="rsd:project">
@@ -355,6 +374,7 @@
             </tns:principalBaseCurrency>
          </xsl:if>
          <xsl:apply-templates select="./rsd:financingInfo"/>
+         <xsl:apply-templates select="./rsd:interestRateInfo"/>
          <xsl:if test="./rsd:startDate">
             <tns:startDate>
                <xsl:value-of select="./rsd:startDate"/>
@@ -494,6 +514,7 @@
          <xsl:apply-templates select="./rsd:dealTeamMembers"/>
          <xsl:apply-templates select="./rsd:products"/>
          <xsl:apply-templates select="./rsd:project"/>
+         <xsl:apply-templates select="./rsd:exchangeRates"/>
       </tns:deal>
    </xsl:template>
 

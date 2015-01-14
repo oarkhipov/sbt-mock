@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/" 
 xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.05/" 
-targetNamespace="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.05/" 
+xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/" 
+targetNamespace="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/" 
 elementFormDefault="qualified">
 
 	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="CommonTypes.xsd"/>
@@ -166,7 +166,7 @@ elementFormDefault="qualified">
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="ratingValue" type="crmct:integer2">
+			<xsd:element name="ratingValue" type="crmct:integer3">
 				<xsd:annotation>
 					<xsd:documentation>
 						Значение рейтинга
@@ -283,14 +283,14 @@ elementFormDefault="qualified">
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="updateDate" type="xsd:dateTime">
+			<xsd:element name="updateDate" type="xsd:date">
 				<xsd:annotation>
 					<xsd:documentation>
 						Дата обновления группы
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="approvalDate" type="xsd:dateTime" minOccurs="0">
+			<xsd:element name="approvalDate" type="xsd:date" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Дата утверждения группы

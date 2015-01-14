@@ -198,8 +198,9 @@
     <xsl:template match="xsd:complexType" mode="template">
         <xsl:param name="typeName" select="concat('tns:',self::*/@name)"/>
         <xsl:param name="tagName" select="//xsd:element[@type = $typeName]/@name"/>
+        <xsl:param name="typeNameNoNs" select="self::*/@name"/>
         <xsl:param name="type" select="self::*"/>
-        <xsl:for-each select="//xsd:element[@type = $typeName]/@name">
+        <xsl:for-each select="//xsd:element[@type = $typeName or @type=$typeNameNoNs]/@name">
             <xsl:element name="xsl:template">
                 <xsl:attribute name="match">rsd:<xsl:value-of select="."/></xsl:attribute>
                 <xsl:element name="tns:{.}"  namespace="{$targetNS}">
@@ -234,7 +235,7 @@
         <xsl:choose>
             <xsl:when test="count(//*[name()='xsd:complexType'][upper-case(@name)=upper-case($typeName)])>0">
                 <xsl:element name="xsl:apply-templates">
-                    <xsl:attribute name="select">$data/rsd:response[@name=$response]/rsd:<xsl:value-of select="@name"/></xsl:attribute>
+                        <xsl:attribute name="select">$data/rsd:response[@name=$response]/rsd:<xsl:value-of select="@name"/></xsl:attribute>
                 </xsl:element>
             </xsl:when>
             <xsl:when test="@minOccurs=0">

@@ -1,77 +1,76 @@
-<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
-                   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <soap-env:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
+   <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>CalcRatingRequest</soap-env:operation-name>
+      <soap-env:operation-name>CalcRatingResponse</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
       <AMRLiRT:CalcRatingRequest xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
-                                 xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/">
-         <cal:arg0>
-            <cal:ratingId>string</cal:ratingId>
-            <cal:model>string</cal:model>
-            <cal:modelIntagrationId>string</cal:modelIntagrationId>
-            <!--optional--><cal:accountId>string</cal:accountId>
-            <!--optional--><cal:uid>string</cal:uid>
-            <!--optional--><cal:account>string</cal:account>
-            <!--optional--><cal:inn>string</cal:inn>
-            <!--optional--><cal:kpp>string</cal:kpp>
-            <!--optional--><cal:gszId>string</cal:gszId>
-            <!--optional--><cal:gsz>string</cal:gsz>
-            <!--optional--><cal:subjectId>string</cal:subjectId>
-            <!--optional--><cal:subject>string</cal:subject>
-            <!--optional--><cal:subjectOKATO>string</cal:subjectOKATO>
-            <!--optional--><cal:project>string</cal:project>
-            <cal:requestor>
-               <cal:login>string</cal:login>
-               <cal:lastName>string</cal:lastName>
-               <cal:firstName>string</cal:firstName>
-               <!--optional--><cal:middleName>string</cal:middleName>
-               <cal:division>string</cal:division>
-               <cal:divisionCode>string</cal:divisionCode>
-               <!--optional--><cal:jobTitle>string</cal:jobTitle>
-               <cal:role>string</cal:role>
-            </cal:requestor>
-            <cal:listOfFixedFactor><!--from 1 to unbounded elements --><cal:fixedFactor>
-                  <cal:factor>string</cal:factor>
-                  <cal:factorIntegrationId>string</cal:factorIntegrationId>
-                  <cal:group>string</cal:group>
-                  <!--optional--><cal:value>string</cal:value>
-                  <!--optional--><cal:valueIntegrationId>string</cal:valueIntegrationId>
-               </cal:fixedFactor>
-            </cal:listOfFixedFactor>
-            <cal:listOfRatingPeriod><!--from 1 to unbounded elements --><cal:ratingPeriod><!--optional--><cal:reportDate>2015-01-14</cal:reportDate>
-                  <!--optional--><cal:period>string</cal:period>
-                  <!--optional--><cal:startDate>2015-01-14</cal:startDate>
-                  <!--optional--><cal:endDate>2015-01-14</cal:endDate>
-                  <!--optional--><cal:type>string</cal:type>
-                  <!--optional--><cal:comments>string</cal:comments>
-                  <cal:listOfCardinalFactor><!--from 1 to unbounded elements --><cal:cardinalFactor>
-                        <cal:factor>string</cal:factor>
-                        <cal:factorIntegrationId>string</cal:factorIntegrationId>
-                        <cal:group>string</cal:group>
-                        <!--optional--><cal:numValue>10</cal:numValue>
-                     </cal:cardinalFactor>
-                  </cal:listOfCardinalFactor>
-               </cal:ratingPeriod>
-            </cal:listOfRatingPeriod>
-            <!--optional--><cal:listOfRatingSupport><!--from 0 to unbounded elements --><cal:ratingSupport>
-                  <cal:name>string</cal:name>
-                  <cal:integrationId>string</cal:integrationId>
-                  <cal:listOfSupportFactor><!--from 1 to unbounded elements --><cal:supportFactor>
-                        <cal:factor>string</cal:factor>
-                        <cal:factorIntegrationId>string</cal:factorIntegrationId>
-                        <cal:group>string</cal:group>
-                        <!--optional--><cal:value>string</cal:value>
-                        <!--optional--><cal:valueIntegrationId>string</cal:valueIntegrationId>
-                        <!--optional--><cal:freeValue>string</cal:freeValue>
-                     </cal:supportFactor>
-                  </cal:listOfSupportFactor>
-               </cal:ratingSupport>
-            </cal:listOfRatingSupport>
-         </cal:arg0>
-         <!--optional--><cal:siebelMessage>string</cal:siebelMessage>
+                                 xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/">
+         <tns:arg0>
+            <tns:ratingId>string</tns:ratingId>
+            <tns:model>string</tns:model>
+            <tns:modelIntagrationId>string</tns:modelIntagrationId>
+            <!--optional--><tns:accountId>string</tns:accountId>
+            <!--optional--><tns:uid>string</tns:uid>
+            <!--optional--><tns:account>string</tns:account>
+            <!--optional--><tns:inn>string</tns:inn>
+            <!--optional--><tns:kpp>string</tns:kpp>
+            <!--optional--><tns:gszId>string</tns:gszId>
+            <!--optional--><tns:gsz>string</tns:gsz>
+            <!--optional--><tns:subjectId>string</tns:subjectId>
+            <!--optional--><tns:subject>string</tns:subject>
+            <!--optional--><tns:subjectOKATO>string</tns:subjectOKATO>
+            <!--optional--><tns:project>string</tns:project>
+            <tns:requestor>
+               <tns:login>string</tns:login>
+               <tns:lastName>string</tns:lastName>
+               <tns:firstName>string</tns:firstName>
+               <!--optional--><tns:middleName>string</tns:middleName>
+               <tns:division>string</tns:division>
+               <tns:divisionCode>string</tns:divisionCode>
+               <!--optional--><tns:jobTitle>string</tns:jobTitle>
+               <tns:role>string</tns:role>
+            </tns:requestor>
+            <tns:listOfFixedFactor><!--from 1 to unbounded elements --><tns:fixedFactor>
+                  <tns:factor>string</tns:factor>
+                  <tns:factorIntegrationId>string</tns:factorIntegrationId>
+                  <tns:group>string</tns:group>
+                  <!--optional--><tns:value>string</tns:value>
+                  <!--optional--><tns:valueIntegrationId>string</tns:valueIntegrationId>
+               </tns:fixedFactor>
+            </tns:listOfFixedFactor>
+            <tns:listOfRatingPeriod><!--from 1 to unbounded elements --><tns:ratingPeriod><!--optional--><tns:reportDate>2015-01-14</tns:reportDate>
+                  <!--optional--><tns:period>string</tns:period>
+                  <!--optional--><tns:startDate>2015-01-14</tns:startDate>
+                  <!--optional--><tns:endDate>2015-01-14</tns:endDate>
+                  <!--optional--><tns:type>string</tns:type>
+                  <!--optional--><tns:comments>string</tns:comments>
+                  <tns:listOfCardinalFactor><!--from 1 to unbounded elements --><tns:cardinalFactor>
+                        <tns:factor>string</tns:factor>
+                        <tns:factorIntegrationId>string</tns:factorIntegrationId>
+                        <tns:group>string</tns:group>
+                        <!--optional--><tns:numValue>10</tns:numValue>
+                     </tns:cardinalFactor>
+                  </tns:listOfCardinalFactor>
+               </tns:ratingPeriod>
+            </tns:listOfRatingPeriod>
+            <!--optional--><tns:listOfRatingSupport><!--from 0 to unbounded elements --><tns:ratingSupport>
+                  <tns:name>string</tns:name>
+                  <tns:integrationId>string</tns:integrationId>
+                  <tns:listOfSupportFactor><!--from 1 to unbounded elements --><tns:supportFactor>
+                        <tns:factor>string</tns:factor>
+                        <tns:factorIntegrationId>string</tns:factorIntegrationId>
+                        <tns:group>string</tns:group>
+                        <!--optional--><tns:value>string</tns:value>
+                        <!--optional--><tns:valueIntegrationId>string</tns:valueIntegrationId>
+                        <!--optional--><tns:freeValue>string</tns:freeValue>
+                     </tns:supportFactor>
+                  </tns:listOfSupportFactor>
+               </tns:ratingSupport>
+            </tns:listOfRatingSupport>
+         </tns:arg0>
+         <!--optional--><tns:siebelMessage>string</tns:siebelMessage>
       </AMRLiRT:CalcRatingRequest>
    </soap-env:Body>
 </soap-env:Envelope>

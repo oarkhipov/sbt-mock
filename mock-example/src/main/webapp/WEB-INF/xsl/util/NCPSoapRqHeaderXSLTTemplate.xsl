@@ -1,11 +1,9 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
-                xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/"
-                xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
 
     <xsl:param name="defaultId" select="string('defaultId')"/>
 
-    <xsl:template name="NCPHeader">
+    <xsl:template name="NCPHeader" xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
         <xsl:param name="response"/>
         <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
         <xsl:param name="operation-name"/>
@@ -99,7 +97,7 @@
         </soap-env:Header>
     </xsl:template>
 
-    <xsl:template name="NCPHeaderForXSD">
+    <xsl:template name="NCPHeaderForXSD" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
         <xsl:element name="xsd:import">
             <xsl:attribute name="namespace">http://sbrf.ru/commonTypes/dataTypes/</xsl:attribute>

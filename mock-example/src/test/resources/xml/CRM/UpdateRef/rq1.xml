@@ -1,13 +1,12 @@
-<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
-                   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <soap-env:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
+   <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
       <soap-env:operation-name>UpdateRefRq</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
       <crm:UpdateRefRq xmlns:crm="http://sbrf.ru/NCP/CRM/"
-                       xmlns:upd="http://sbrf.ru/NCP/CRM/UpdateRefRq/1.01/"><!--from 0 to unbounded elements --><upd:referenceItem>string</upd:referenceItem>
+                       xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateRefRq/1.01/"><!--from 0 to unbounded elements --><tns:referenceItem>string</tns:referenceItem>
       </crm:UpdateRefRq>
    </soap-env:Body>
 </soap-env:Envelope>
