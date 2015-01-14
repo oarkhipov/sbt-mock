@@ -57,17 +57,17 @@ public class XslTransformTest {
     public void testXMLDataRowToXMLDataList() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
         System.out.println(dir);
-        checkXMLDataRowToXMLDataListByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl",
+        checkXMLDataRowToXMLDataListByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\DataRowToDataList.xsl",
                 dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\UpdateDealData.xml",
                 "default\r\nERROR\r\n");
 
 
-        checkXMLDataRowToXMLDataListByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl",
+        checkXMLDataRowToXMLDataListByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\DataRowToDataList.xsl",
                 dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\AMRLiRT\\xml\\CalculateLGDData.xml",
                 "default\r\ntestError\r\n");
 
 
-        checkXMLDataRowToXMLDataListByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl",
+        checkXMLDataRowToXMLDataListByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\DataRowToDataList.xsl",
                 dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\FinRep\\xml\\SrvGetFinReportData.xml",
                 "default\r\ntestError\r\n");
     }
@@ -78,7 +78,7 @@ public class XslTransformTest {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
         System.out.println(dir);
 
-        String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl";
+        String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\DataRowToDataList.xsl";
         String XMLFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\FinRep\\xml\\SrvGetFinReportData.xml";
         String validateString = "<response xmlns=\"http://sbrf.ru/NCP/ASFO/GetFinReport/Data\" name=\"testError\">\r\n" +
                 "        <errorCode>e</errorCode>\r\n" +
@@ -100,7 +100,7 @@ public class XslTransformTest {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
         System.out.println(dir);
 
-        String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\DataRowToDataList.xsl";
+        String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\DataRowToDataList.xsl";
         String XMLFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\ForceSignalData.xml";
         String validateString = "<request xmlns=\"http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/\" name=\"test1\">\r\n" +
                 "        <contractID>string1-2</contractID>\r\n" +

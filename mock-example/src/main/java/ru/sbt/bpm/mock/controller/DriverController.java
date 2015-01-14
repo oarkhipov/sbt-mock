@@ -257,13 +257,13 @@ public class DriverController {
     }
 
     private String[] getRequestList(String name, String xml) throws IOException, TransformerException {
-        Resource xslResource = appContext.getResource("/WEB-INF/xsl/DataRowToDataList.xsl");
+        Resource xslResource = appContext.getResource("/WEB-INF/xsl/util/DataRowToDataList.xsl");
         String result = XslTransformer.transform(xslResource, xml);
         return result.split("\\r?\\n");
     }
 
     private String[] getRequestList(Resource xml) throws IOException, TransformerException {
-        Resource xslResource = appContext.getResource("/WEB-INF/xsl/DataRowToDataList.xsl");
+        Resource xslResource = appContext.getResource("/WEB-INF/xsl/util/DataRowToDataList.xsl");
         String result = XslTransformer.transform(xslResource, xml);
         return result.split("\\r?\\n");
     }
