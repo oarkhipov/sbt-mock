@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
-    <soap:Header/>
-    <soap:Body>
-        <crm:updateRefRq xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:upd="http://sbrf.ru/NCP/CRM/UpdateRefRq/">
-            <!--Zero or more repetitions:-->
-            <upd:referenceItem>ERROR</upd:referenceItem>
-        </crm:updateRefRq>
-    </soap:Body>
-</soap:Envelope>
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
+   <soap-env:Header>
+      <soap-env:message-id>defaultId</soap-env:message-id>
+      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
+      <soap-env:operation-name>UpdateRefRs</soap-env:operation-name>
+   </soap-env:Header>
+   <soap-env:Body>
+      <CRM:UpdateRefRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+                       xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateRefRq/1.01/"/>
+   </soap-env:Body>
+</soap-env:Envelope>

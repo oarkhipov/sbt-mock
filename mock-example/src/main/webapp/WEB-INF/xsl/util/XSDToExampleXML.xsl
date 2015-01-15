@@ -5,18 +5,33 @@
     <xsl:import href="NCPSoapRqHeaderXSLTTemplate.xsl"/>
 
     <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
-    <!-- Этот параметр нужен когда имя главного элемента запроса не соответвует тому что мы взяли из неймспейса. Тогда его можно указать параметром -->
-    <xsl:param name="entryPointName" select="replace(xsd:schema/@targetNamespace,'^.+/(\w+)(/[0-9\.]+)?/$','$1')"/>
-    <!-- TODO выбрать этот параметр более надежным способом -->
 
-    <xsl:param name="xsdNsAlias" select="local-name(xsd:schema/namespace::*[.='http://www.w3.org/2001/XMLSchema'])"/>
+    <!--То что можно/нужно задать-->
+    <!-- Этот параметр нужен когда имя главного элемента запроса не соответвует тому что мы взяли из неймспейса. Тогда его можно указать параметром -->
+    <!-- TODO выбрать этот параметр более надежным способом -->
+    <xsl:param name="entryPointName" select="replace(xsd:schema/@targetNamespace,'^.+/(\w+)(/[0-9\.]+)?/$','$1')"/>
+    <!--схема рут-элемента транзакции-->
     <xsl:param name="parrentNS" select="'http://sbrf.ru/NCP/CRM/'"/>
+    <!--система-->
     <xsl:param name="systemName" select="'CRM'"/>
+
+    <!-- пропускать коменты. false - будут комментарии. true - не будет -->
+    <xsl:param name="omitComments" select="'false'"/>
+    <!-- при false все опциональные тэги будут пропущенны -->
+    <xsl:param name="showOptionalTags" select="'true'"/>
+
+    <!--То, что задавать не нужно-->
+    <!--алиас xsd схемы-->
+    <xsl:param name="xsdNsAlias" select="local-name(xsd:schema/namespace::*[.='http://www.w3.org/2001/XMLSchema'])"/>
+    <!--нэймспейс-->
     <xsl:param name="targetNS" select="xsd:schema/@targetNamespace"/>
+    <!--алиас неймспейса. Лучше не менрять-->
     <xsl:param name="targetNSAlias" select="'tns'"/>
+    <!--алиас неймспейса, который используется в исходной xsd-->
     <xsl:param name="localTargetNSAlias" select="local-name(xsd:schema/namespace::*[.=$targetNS][string-length(local-name(.))>0])"/>
+    <!--список всех типов, которые объявленны в схеме-->
     <xsl:param name="typesList" select="//xsd:complexType/@name"/>
-    <xsl:param name="omitComments" select="false()"/>
+    <!--имя операции-->
     <xsl:param name="operation-name" select="$entryPointName"/>
 
     <xsl:variable name="CommonTypesNSAlias" select="local-name(xsd:schema/namespace::*[contains(.,'CommonTypes')])"/> <!-- алиас для xsd библиотеки типов CommonTypes. нужен потому что отличается от файла к файлу -->
@@ -53,19 +68,23 @@
     </xsl:template>
 
     <xsl:template match="xsd:element[@minOccurs=0 and not(@maxOccurs)]" mode="subelement">
-        <xsl:if test="$omitComments">
-            <xsl:comment>optional</xsl:comment>
+        <xsl:if test="$showOptionalTags='true'">
+            <xsl:if test="$omitComments">
+                <xsl:comment>optional</xsl:comment>
+            </xsl:if>
+            <xsl:apply-templates select="self::*" mode="type"/>
         </xsl:if>
-        <xsl:apply-templates select="self::*" mode="type"/>
     </xsl:template>
 
     <xsl:template match="xsd:element" mode="subelement">
         <xsl:variable name="min" select="if(@minOccurs) then @minOccurs else 1"/>
         <xsl:variable name="max" select="if(@maxOccurs) then @maxOccurs else $min"/>
-        <xsl:if test="$omitComments">
-            <xsl:comment>from <xsl:value-of select="$min"/> to <xsl:value-of select="$max"/> elements </xsl:comment>
+        <xsl:if test="$showOptionalTags='true' or $min>0">
+            <xsl:if test="$omitComments">
+                <xsl:comment>from <xsl:value-of select="$min"/> to <xsl:value-of select="$max"/> elements </xsl:comment>
+            </xsl:if>
+            <xsl:apply-templates select="self::*" mode="type"/>
         </xsl:if>
-        <xsl:apply-templates select="self::*" mode="type"/>
     </xsl:template>
 
 

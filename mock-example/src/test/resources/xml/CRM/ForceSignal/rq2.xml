@@ -2,17 +2,15 @@
    <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>CreateTaskRs</soap-env:operation-name>
+      <soap-env:operation-name>ForceSignalRq</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <CRM:CreateTaskRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
-                        xmlns:tns="http://sbrf.ru/NCP/CRM/CreateTaskRs/1.02/">
+      <CRM:ForceSignalRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+                         xmlns:tns="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/">
          <tns:contractID>string</tns:contractID>
-         <tns:contractBPMID>string</tns:contractBPMID>
          <tns:comment>string</tns:comment>
          <tns:requestType>string</tns:requestType>
          <tns:responsiblePersonID>string</tns:responsiblePersonID>
-         <tns:errorCode>string</tns:errorCode>
-      </CRM:CreateTaskRs>
+      </CRM:ForceSignalRq>
    </soap-env:Body>
 </soap-env:Envelope>

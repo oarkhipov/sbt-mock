@@ -1,35 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data xmlns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/Data/">
-    <response name="default">
-        <errorCode>s</errorCode>
-        <!--optional--><errorMessage>string</errorMessage>
-        <crmId>string</crmId>
-        <!--optional--><rmk>10</rmk>
-        <debtCapacity>10</debtCapacity>
-        <!--optional--><rmkInDealCurrency>10</rmkInDealCurrency>
-        <debtCapacityInDealCurrency>10</debtCapacityInDealCurrency>
-        <!--optional--><rmkForNextYear>10</rmkForNextYear>
-        <!--optional--><debtCapacityForNextYear>10</debtCapacityForNextYear>
-        <listOfAddParameter>
-
-            <!--from 0 to unbounded elements --><addParameter>
-
-            <!--optional--><order>10</order>
+   <response name="default">
+      <errorCode>s</errorCode>
+      <errorMessage>string</errorMessage>
+      <crmId>string</crmId>
+      <rmk>10</rmk>
+      <debtCapacity>10</debtCapacity>
+      <rmkInDealCurrency>10</rmkInDealCurrency>
+      <debtCapacityInDealCurrency>10</debtCapacityInDealCurrency>
+      <rmkForNextYear>10</rmkForNextYear>
+      <debtCapacityForNextYear>10</debtCapacityForNextYear>
+      <listOfAddParameter>
+         <addParameter>
+            <order>10</order>
             <name>string</name>
             <value>string</value>
-
-        </addParameter>
-
-        </listOfAddParameter>
-        <!--optional--><amMessage>string</amMessage>
-    </response>
-    <response name="testError">
-        <errorCode>s</errorCode>
-        <crmId>string</crmId>
-        <debtCapacity>10</debtCapacity>
-        <debtCapacityInDealCurrency>10</debtCapacityInDealCurrency>
-        <listOfAddParameter>
-
-        </listOfAddParameter>
-    </response>
+         </addParameter>
+      </listOfAddParameter>
+      <amMessage>string</amMessage>
+   </response>
+   <response name="test1">
+      <errorCode>s</errorCode>
+      <crmId>string</crmId>
+      <debtCapacity>10</debtCapacity>
+      <debtCapacityInDealCurrency>10</debtCapacityInDealCurrency>
+      <listOfAddParameter/>
+   </response>
 </data>

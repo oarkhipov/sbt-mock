@@ -8,22 +8,20 @@
       <AMRLiRT:DebtCapacityCalculationResponse xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
                                                xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/">
          <tns:errorCode>s</tns:errorCode>
-         <tns:errorMessage>string</tns:errorMessage>
+         <!--optional--><tns:errorMessage>string</tns:errorMessage>
          <tns:crmId>string</tns:crmId>
-         <tns:rmk>10</tns:rmk>
+         <!--optional--><tns:rmk>10</tns:rmk>
          <tns:debtCapacity>10</tns:debtCapacity>
-         <tns:rmkInDealCurrency>10</tns:rmkInDealCurrency>
+         <!--optional--><tns:rmkInDealCurrency>10</tns:rmkInDealCurrency>
          <tns:debtCapacityInDealCurrency>10</tns:debtCapacityInDealCurrency>
-         <tns:rmkForNextYear>10</tns:rmkForNextYear>
-         <tns:debtCapacityForNextYear>10</tns:debtCapacityForNextYear>
-         <tns:listOfAddParameter>
-            <tns:addParameter>
-               <tns:order>10</tns:order>
+         <!--optional--><tns:rmkForNextYear>10</tns:rmkForNextYear>
+         <!--optional--><tns:debtCapacityForNextYear>10</tns:debtCapacityForNextYear>
+         <tns:listOfAddParameter><!--from 0 to unbounded elements --><tns:addParameter><!--optional--><tns:order>10</tns:order>
                <tns:name>string</tns:name>
                <tns:value>string</tns:value>
             </tns:addParameter>
          </tns:listOfAddParameter>
-         <tns:amMessage>string</tns:amMessage>
+         <!--optional--><tns:amMessage>string</tns:amMessage>
       </AMRLiRT:DebtCapacityCalculationResponse>
    </soap-env:Body>
 </soap-env:Envelope>

@@ -9,9 +9,8 @@
                                xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRs/">
          <tns:return>
             <tns:errorCode>string</tns:errorCode>
-            <tns:errorMessage>string</tns:errorMessage>
-            <tns:listOfAddParameter>
-               <tns:addParameter>
+            <!--optional--><tns:errorMessage>string</tns:errorMessage>
+            <!--optional--><tns:listOfAddParameter><!--from 0 to unbounded elements --><tns:addParameter>
                   <tns:order>10</tns:order>
                   <tns:name>string</tns:name>
                   <tns:value>string</tns:value>

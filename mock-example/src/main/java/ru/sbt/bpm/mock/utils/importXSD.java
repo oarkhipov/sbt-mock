@@ -71,6 +71,17 @@ public class importXSD {
 
         //TODO backup
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getExamplesPath() + "\\" +  system + "\\" + name + "\\rq1.xml"), exampleRq1);
+
+        if (Params == null) Params = new HashMap<String, String>(2);
+        Params.put("showOptionalTags", "false");
+        String exampleRq2 = useXSLT(getWebInfPath() + "\\xsl\\util\\XSDToExampleXML.xsl",
+                getWebInfPath() + "\\xsd\\" + system + "\\" + name + "Request.xsd",
+                Params);
+        //validateXML(exampleRq1);
+        //TODO тщательно проверить выход
+
+        //TODO backup
+        SaveFile.getInstance(getPath()).writeStringToFile(new File(getExamplesPath() + "\\" +  system + "\\" + name + "\\rq2.xml"), exampleRq2);
     }
 
     /**
@@ -89,6 +100,17 @@ public class importXSD {
 
         //TODO backup
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getExamplesPath() + "\\" +  system + "\\" + name + "\\rs1.xml"), exampleRs1);
+
+        if (Params == null) Params = new HashMap<String, String>(2);
+        Params.put("showOptionalTags", "false");
+        String exampleRs2 = useXSLT(getWebInfPath() + "\\xsl\\util\\XSDToExampleXML.xsl",
+                getWebInfPath() + "\\xsd\\" + system + "\\" + name + "Response.xsd",
+                Params);
+        //validateXML(exampleRq1);
+        //TODO тщательно проверить выход
+
+        //TODO backup
+        SaveFile.getInstance(getPath()).writeStringToFile(new File(getExamplesPath() + "\\" +  system + "\\" + name + "\\rs2.xml"), exampleRs2);
     }
 
     /**
@@ -147,6 +169,58 @@ public class importXSD {
     }
 
     /**
+     * создает пример Дата xml из примера ответа и уже существующего файла с даными
+     * @param system имя подпапки
+     * @param name имя сервиса(имя файла)
+     * @param Params параметры xsl
+     * @throws Exception
+     */
+    private void createRsDataXml(String system, String name, Map<String, String> Params) throws Exception{
+        if (Params == null) Params = new HashMap<String, String>(2);
+        Params.put("dataFileName","../../data/" +  system + "/xml/" + name + "Data.xml");
+        Params.put("replace","true");
+        String dataXML = useXSLT(getWebInfPath() + "\\xsl\\util\\AddExampleToData.xsl",
+                getExamplesPath() + "\\" +  system + "\\" + name + "\\rs1.xml",
+                Params);
+        //TODO тщательно проверить выход
+        //TODO backup
+        SaveFile.getInstance(getPath()).writeStringToFile(new File(getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
+
+        Params.put("replace","false");
+        Params.put("name","test1");
+        dataXML = useXSLT(getWebInfPath() + "\\xsl\\util\\AddExampleToData.xsl",
+                getExamplesPath() + "\\" +  system + "\\" + name + "\\rs2.xml",
+                Params);
+        //validateXML(exampleRq1);
+        //TODO тщательно проверить выход
+
+        //TODO backup
+        SaveFile.getInstance(getPath()).writeStringToFile(new File(getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
+    }
+
+    /**
+     * создает пример Дата xml из примера запроса и уже существующего файла с даными
+     * @param system имя подпапки
+     * @param name имя сервиса(имя файла)
+     * @param Params параметры xsl
+     * @throws Exception
+     */
+    private void createRqDataXml(String system, String name, Map<String, String> Params) throws Exception{
+        if (Params == null) Params = new HashMap<String, String>(3);
+        Params.put("dataFileName","../../data/" +  system + "/xml/" + name + "Data.xml");
+        Params.put("replace","true");
+        Params.put("type","request");
+        String dataXML = useXSLT(getWebInfPath() + "\\xsl\\util\\AddExampleToData.xsl",
+                getExamplesPath() + "\\" +  system + "\\" + name + "\\rq1.xml",
+                Params);
+        //validateXML(exampleRq1);
+        //TODO тщательно проверить выход
+
+        //TODO backup
+        SaveFile.getInstance(getPath()).writeStringToFile(new File(getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
+    }
+
+    /**
      * полный цикл создания mock-сервиса
      * @param system имя подпапки
      * @param name имя сервиса(имя файла)
@@ -179,6 +253,7 @@ public class importXSD {
             createRsExample(system, name, Params);
             createDataXSD(system, name, "Response", Params);
             createMockXSL(system, name, Params);
+            createRsDataXml(system, name, Params);
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -197,6 +272,7 @@ public class importXSD {
             createRqExample(system, name, Params);
             createDataXSD(system, name, "Request", Params);
             createDriverXSL(system, name, Params);
+            createRqDataXml(system, name, Params);
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -227,6 +303,7 @@ public class importXSD {
         params.put("RqEntryPointName","CreateTaskRq");
         mockCycle("CRM", "CreateTask", params);
 
+        params.clear();
         params.put("entryPointName","PrtspRs");
         params.put("RqEntryPointName","PrtspRq");
         params.put("dataFileName","GetParticipantsData.xml");
@@ -331,6 +408,23 @@ public class importXSD {
 
         String result = Xsl20Transformer.transform(XSLTFile, XMLFile, params);
 
+        return result;
+    }
+
+    /**
+     * применение XSLTFile над xml в строке с параметрами params
+     * @param XSLTFile xslt
+     * @param xml строка с xml
+     * @param params параметры
+     * @return текст исходящей xml
+     * @throws Exception
+     */
+    protected String useXSLTonString (String XSLTFile, String xml, Map<String,String> params ) throws Exception {
+
+        Source xslt = new StreamSource(new File(XSLTFile));
+        Source xmlSource = new StreamSource(new StringReader(xml));
+
+        String result = Xsl20Transformer.transform(xslt, xmlSource, params);
         return result;
     }
 

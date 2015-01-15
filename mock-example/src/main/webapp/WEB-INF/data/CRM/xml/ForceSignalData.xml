@@ -1,28 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--IT'S A DRIVER = DATA OF REQUEST-->
 <data xmlns="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
-    <!-- Responses -->
-    <request name="default">
-        <SoapHeader>
-            <message-id>5f4e83ab38514920b55f3eaa1dc378ad</message-id>
-            <request-time>2014-12-16T17:55:06.410</request-time>
-        </SoapHeader>
-        <contractID>string</contractID>
-        <contractBPMID>string</contractBPMID>
-        <status>string</status>
-        <comment>string</comment>
-        <requestType>string</requestType>
-        <responsiblePersonID>string</responsiblePersonID>
-    </request>
-
-    <request name="test1">
-        <contractID>string</contractID>
-        <contractBPMID>string</contractBPMID>
-        <status>string</status>
-        <comment>string</comment>
-        <requestType>string</requestType>
-        <responsiblePersonID>string</responsiblePersonID>
-    </request>
+   <request name="default">
+      <contractID>string</contractID>
+      <contractBPMID>string</contractBPMID>
+      <status>string</status>
+      <comment>string</comment>
+      <requestType>string</requestType>
+      <responsiblePersonID>string</responsiblePersonID>
+   </request>
 </data>
-
-

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data xmlns="http://sbrf.ru/NCP/CRM/CreateTaskRs/1.02/Data/">
-    <response name="default">
-        <contractID>string</contractID>
-        <contractBPMID>string</contractBPMID>
-        <comment>string</comment>
-        <requestType>string</requestType>
-        <responsiblePersonID>string</responsiblePersonID>
-        <errorCode>string</errorCode>
-        <!--optional--><errorMessage>string</errorMessage>
-    </response>
-    <response name="ERROR">
-        <contractID>string</contractID>
-        <contractBPMID>string</contractBPMID>
-        <comment>string</comment>
-        <requestType>string</requestType>
-        <responsiblePersonID>string</responsiblePersonID>
-        <errorCode>string</errorCode>
-    </response>
+   <response name="default">
+      <contractID>string</contractID>
+      <contractBPMID>string</contractBPMID>
+      <comment>string</comment>
+      <requestType>string</requestType>
+      <responsiblePersonID>string</responsiblePersonID>
+      <errorCode>string</errorCode>
+      <errorMessage>string</errorMessage>
+   </response>
+   <response name="test1">
+      <contractID>string</contractID>
+      <contractBPMID>string</contractBPMID>
+      <comment>string</comment>
+      <requestType>string</requestType>
+      <responsiblePersonID>string</responsiblePersonID>
+      <errorCode>string</errorCode>
+   </response>
 </data>

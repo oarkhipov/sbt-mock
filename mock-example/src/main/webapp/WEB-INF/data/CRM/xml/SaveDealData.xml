@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <data xmlns="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/Data/">
-    <response name="default">
-        <operationStatus>
-            <errorCode>string</errorCode>
-            <!--optional--><errorMessage>string</errorMessage>
-        </operationStatus>
-        <dealID>string</dealID>
-    </response>
-    <response name="error">
-        <operationStatus>
-            <errorCode>string</errorCode>
-        </operationStatus>
-        <dealID>string</dealID>
-    </response>
+   <response name="default">
+      <operationStatus>
+         <errorCode>string</errorCode>
+         <errorMessage>string</errorMessage>
+      </operationStatus>
+      <dealID>string</dealID>
+   </response>
+   <response name="test1">
+      <operationStatus>
+         <errorCode>string</errorCode>
+      </operationStatus>
+      <dealID>string</dealID>
+   </response>
 </data>

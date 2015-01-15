@@ -9,7 +9,7 @@
                         xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/">
          <tns:deal>
             <tns:dealID>string</tns:dealID>
-            <tns:contractID>string</tns:contractID>
+            <!--optional--><tns:contractID>string</tns:contractID>
             <tns:dealCreationDate>2015-01-15T12:00:00</tns:dealCreationDate>
             <tns:dealEssense>string</tns:dealEssense>
             <tns:requestPurpose>string</tns:requestPurpose>
@@ -20,76 +20,76 @@
             <tns:origOrgDivision>st</tns:origOrgDivision>
             <tns:clientFileID>string</tns:clientFileID>
             <tns:dealFileID>string</tns:dealFileID>
-            <tns:comment>string</tns:comment>
+            <!--optional--><tns:comment>string</tns:comment>
             <tns:supLMID>string</tns:supLMID>
             <tns:collateralProvided>false</tns:collateralProvided>
             <tns:limitKM>string</tns:limitKM>
-            <tns:dealTeamMembers>
+            <!--from 1 to unbounded elements --><tns:dealTeamMembers>
                <tns:memberId>string</tns:memberId>
                <tns:memberName>string</tns:memberName>
                <tns:mamberEmail>string</tns:mamberEmail>
                <tns:mamberRole>string</tns:mamberRole>
             </tns:dealTeamMembers>
-            <tns:products>
+            <!--from 0 to unbounded elements --><tns:products>
                <tns:productID>1234567890</tns:productID>
                <tns:productName>string</tns:productName>
                <tns:category>string</tns:category>
-               <tns:productInfo>
+               <!--from 1 to unbounded elements --><tns:productInfo>
                   <tns:productVersion>string</tns:productVersion>
                   <tns:purpose>string</tns:purpose>
                   <tns:creditMode>string</tns:creditMode>
                   <tns:selectionSchedule>string</tns:selectionSchedule>
                   <tns:changesSchedule>string</tns:changesSchedule>
-                  <tns:selectionSchedulePeriod>string</tns:selectionSchedulePeriod>
-                  <tns:changesSchedulePeriod>string</tns:changesSchedulePeriod>
+                  <!--optional--><tns:selectionSchedulePeriod>string</tns:selectionSchedulePeriod>
+                  <!--optional--><tns:changesSchedulePeriod>string</tns:changesSchedulePeriod>
                   <tns:interestPaymentOrder>string</tns:interestPaymentOrder>
                   <tns:refinancing>false</tns:refinancing>
-                  <tns:suspensiveCondition>string</tns:suspensiveCondition>
-                  <tns:principalBaseCurrency>1234567890.12345</tns:principalBaseCurrency>
-                  <tns:financingInfo>
+                  <!--optional--><tns:suspensiveCondition>string</tns:suspensiveCondition>
+                  <!--optional--><tns:principalBaseCurrency>1234567890.12345</tns:principalBaseCurrency>
+                  <!--from 1 to unbounded elements --><tns:financingInfo>
                      <tns:currencyOfFunding>str</tns:currencyOfFunding>
                      <tns:principal>1234567890.12345</tns:principal>
                   </tns:financingInfo>
-                  <tns:interestRateInfo>
+                  <!--from 1 to unbounded elements --><tns:interestRateInfo>
                      <tns:interestRate>1234567890.12345</tns:interestRate>
                      <tns:interestRateType>string</tns:interestRateType>
                      <tns:interestRateOrder>string</tns:interestRateOrder>
                      <tns:minRate>1234567890.12345</tns:minRate>
                   </tns:interestRateInfo>
-                  <tns:startDate>2015-01-15</tns:startDate>
+                  <!--optional--><tns:startDate>2015-01-15</tns:startDate>
                   <tns:creditTerm>12345</tns:creditTerm>
                   <tns:period>12345</tns:period>
-                  <tns:gracePeriod>12345</tns:gracePeriod>
-                  <tns:repaymentSchedule>string</tns:repaymentSchedule>
+                  <!--optional--><tns:gracePeriod>12345</tns:gracePeriod>
+                  <!--optional--><tns:repaymentSchedule>string</tns:repaymentSchedule>
                   <tns:turnover>12345</tns:turnover>
                   <tns:covenants>string</tns:covenants>
                   <tns:proposedCollateral>string</tns:proposedCollateral>
-                  <tns:debtLimit>string</tns:debtLimit>
-                  <tns:pledgeInsurance>string</tns:pledgeInsurance>
-                  <tns:customerProspects>string</tns:customerProspects>
+                  <!--optional--><tns:debtLimit>string</tns:debtLimit>
+                  <!--optional--><tns:pledgeInsurance>string</tns:pledgeInsurance>
+                  <!--optional--><tns:customerProspects>string</tns:customerProspects>
                   <tns:financingTerm>123</tns:financingTerm>
-                  <tns:firstCountry>string</tns:firstCountry>
-                  <tns:lastCountry>string</tns:lastCountry>
-                  <tns:fee>
+                  <!--optional--><tns:firstCountry>string</tns:firstCountry>
+                  <!--optional--><tns:lastCountry>string</tns:lastCountry>
+                  <!--from 0 to unbounded elements --><tns:fee>
                      <tns:feeName>string</tns:feeName>
-                     <tns:anotherFeeName>string</tns:anotherFeeName>
-                     <tns:calculationBase>string</tns:calculationBase>
-                     <tns:paymentOrder>string</tns:paymentOrder>
+                     <!--optional--><tns:anotherFeeName>string</tns:anotherFeeName>
+                     <!--optional--><tns:calculationBase>string</tns:calculationBase>
+                     <!--optional--><tns:paymentOrder>string</tns:paymentOrder>
                   </tns:fee>
-                  <tns:repaymentScheduleDetails>
+                  <!--from 0 to unbounded elements --><tns:repaymentScheduleDetails>
                      <tns:sheduleDate>2015-01-15</tns:sheduleDate>
                      <tns:sheduleAmount>1234567890.12345</tns:sheduleAmount>
                   </tns:repaymentScheduleDetails>
-                  <tns:selectionScheduleDetails>
+                  <!--from 0 to unbounded elements --><tns:selectionScheduleDetails>
                      <tns:sheduleDate>2015-01-15</tns:sheduleDate>
                      <tns:sheduleAmount>1234567890.12345</tns:sheduleAmount>
                   </tns:selectionScheduleDetails>
-                  <tns:changesScheduleDetails>
+                  <!--from 0 to unbounded elements --><tns:changesScheduleDetails>
                      <tns:sheduleDate>2015-01-15</tns:sheduleDate>
                      <tns:sheduleAmount>1234567890.12345</tns:sheduleAmount>
                   </tns:changesScheduleDetails>
                </tns:productInfo>
-               <tns:collateral>
+               <!--from 0 to unbounded elements --><tns:collateral>
                   <tns:collateralType>string</tns:collateralType>
                   <tns:ownerID>string</tns:ownerID>
                   <tns:estimatedValue>1234567890.12345</tns:estimatedValue>
@@ -107,31 +107,29 @@
                   <tns:estimatedValueType>string</tns:estimatedValueType>
                   <tns:guarantorRating>string</tns:guarantorRating>
                </tns:collateral>
-               <tns:losses>
-                  <tns:percentLGD>1234567890.12345</tns:percentLGD>
-                  <tns:countEAD>1234567890.12345</tns:countEAD>
+               <!--optional--><tns:losses><!--optional--><tns:percentLGD>1234567890.12345</tns:percentLGD>
+                  <!--optional--><tns:countEAD>1234567890.12345</tns:countEAD>
                   <tns:currency>string</tns:currency>
-                  <tns:reportDateAmount>1234567890.12345</tns:reportDateAmount>
-                  <tns:lossELpercent>1234567890.12345</tns:lossELpercent>
-                  <tns:lossELcount>1234567890.12345</tns:lossELcount>
-                  <tns:typeLGD>string</tns:typeLGD>
-                  <tns:statusLGD>string</tns:statusLGD>
-                  <tns:dateLGDcalculated>2015-01-15</tns:dateLGDcalculated>
-                  <tns:finalizationDate>2015-01-15</tns:finalizationDate>
-                  <tns:comment>string</tns:comment>
+                  <!--optional--><tns:reportDateAmount>1234567890.12345</tns:reportDateAmount>
+                  <!--optional--><tns:lossELpercent>1234567890.12345</tns:lossELpercent>
+                  <!--optional--><tns:lossELcount>1234567890.12345</tns:lossELcount>
+                  <!--optional--><tns:typeLGD>string</tns:typeLGD>
+                  <!--optional--><tns:statusLGD>string</tns:statusLGD>
+                  <!--optional--><tns:dateLGDcalculated>2015-01-15</tns:dateLGDcalculated>
+                  <!--optional--><tns:finalizationDate>2015-01-15</tns:finalizationDate>
+                  <!--optional--><tns:comment>string</tns:comment>
                </tns:losses>
             </tns:products>
-            <tns:project>
-               <tns:projectName>string</tns:projectName>
-               <tns:indicatorsOfConstruction>string</tns:indicatorsOfConstruction>
-               <tns:parcel>string</tns:parcel>
-               <tns:documentsPresence>string</tns:documentsPresence>
-               <tns:equityVolume>string</tns:equityVolume>
-               <tns:repaymentSpring>string</tns:repaymentSpring>
-               <tns:fundingDirection>string</tns:fundingDirection>
-               <tns:sameIndustryAsBorrower>false</tns:sameIndustryAsBorrower>
+            <!--optional--><tns:project><!--optional--><tns:projectName>string</tns:projectName>
+               <!--optional--><tns:indicatorsOfConstruction>string</tns:indicatorsOfConstruction>
+               <!--optional--><tns:parcel>string</tns:parcel>
+               <!--optional--><tns:documentsPresence>string</tns:documentsPresence>
+               <!--optional--><tns:equityVolume>string</tns:equityVolume>
+               <!--optional--><tns:repaymentSpring>string</tns:repaymentSpring>
+               <!--optional--><tns:fundingDirection>string</tns:fundingDirection>
+               <!--optional--><tns:sameIndustryAsBorrower>false</tns:sameIndustryAsBorrower>
             </tns:project>
-            <tns:exchangeRates>
+            <!--from 0 to unbounded elements --><tns:exchangeRates>
                <tns:currencyName>string</tns:currencyName>
                <tns:currencyValue>1234567890.12345</tns:currencyValue>
                <tns:currencyDate>2015-01-15</tns:currencyDate>

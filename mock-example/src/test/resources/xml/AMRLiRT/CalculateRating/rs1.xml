@@ -9,24 +9,21 @@
                                   xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/">
          <tns:return>
             <tns:errorCode>string</tns:errorCode>
-            <tns:errorMessage>string</tns:errorMessage>
-            <tns:listOfResultRating>
-               <tns:resultRating>
+            <!--optional--><tns:errorMessage>string</tns:errorMessage>
+            <tns:listOfResultRating><!--from 0 to unbounded elements --><tns:resultRating>
                   <tns:isPrimary>false</tns:isPrimary>
                   <tns:name>string</tns:name>
                   <tns:value>10</tns:value>
-                  <tns:type>string</tns:type>
+                  <!--optional--><tns:type>string</tns:type>
                </tns:resultRating>
             </tns:listOfResultRating>
-            <tns:listOfCalculatedFactor>
-               <tns:calculatedFactor>
+            <!--optional--><tns:listOfCalculatedFactor><!--from 0 to unbounded elements --><tns:calculatedFactor>
                   <tns:code>string</tns:code>
                   <tns:name>string</tns:name>
                   <tns:value>string</tns:value>
                </tns:calculatedFactor>
             </tns:listOfCalculatedFactor>
-            <tns:listOfAddParameter>
-               <tns:addParameter>
+            <!--optional--><tns:listOfAddParameter><!--from 0 to unbounded elements --><tns:addParameter>
                   <tns:order>10</tns:order>
                   <tns:name>string</tns:name>
                   <tns:value>string</tns:value>

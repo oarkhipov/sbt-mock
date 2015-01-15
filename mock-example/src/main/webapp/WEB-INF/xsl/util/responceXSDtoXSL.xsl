@@ -53,7 +53,7 @@
 
         <xsl:element name="xsl:param">
             <xsl:attribute name="name">name</xsl:attribute>
-            <xsl:attribute name="select">all</xsl:attribute>
+            <xsl:attribute name="select">//soap-env:Body/*/*[1]/text()</xsl:attribute>
         </xsl:element>
         <xsl:element name="xsl:param">
             <xsl:attribute name="name">dataFileName</xsl:attribute>

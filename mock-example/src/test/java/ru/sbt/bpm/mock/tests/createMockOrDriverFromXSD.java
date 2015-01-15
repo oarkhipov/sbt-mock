@@ -199,8 +199,10 @@ public class createMockOrDriverFromXSD {
                     "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\" + system + "\\" + name + ".xsl", params);
 
             Map<String, String> altParams = null;
+            Map<String, String> altParams2 = null;
             if (params!=null) {
                 altParams = new HashMap<String, String>(params);
+                altParams2 = new HashMap<String, String>(params);
 
                 if (params.containsKey("entryPointName")) {
                     altParams.put("operation-name", params.get("entryPointName"));
@@ -210,6 +212,7 @@ public class createMockOrDriverFromXSD {
                 }
             } else {
                 altParams = new HashMap<String, String>(1);
+                altParams2 = new HashMap<String, String>(1);
             }
             altParams.put("omitComments", "true");
             //altParams.put("operation-name", name+"Response");
@@ -219,6 +222,12 @@ public class createMockOrDriverFromXSD {
                     webinf + "\\xsd\\" + system + "\\" + name + "Request.xsd",
                     "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml", altParams);
 
+            System.out.println("create rq example 2");
+            altParams.put("showOptionalTags", "false");
+            String exampleRq2 = checkXSLT(webinf + "\\xsl\\util\\XSDToExampleXML.xsl",
+                    webinf + "\\xsd\\" + system + "\\" + name + "Request.xsd",
+                    "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq2.xml", altParams);
+
             assert !exampleRq1.contains("<!--not known type-->")
                     : "В примере xml заполены известны не все типы";
 
@@ -227,8 +236,23 @@ public class createMockOrDriverFromXSD {
                     webinf + "\\xsd\\" + system + "\\" + name + type + ".xsd",
                     "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs1.xml", params);
 
+            System.out.println("create rs example 2");
+            altParams2.put("showOptionalTags","false");
+            String exampleRs2 = checkXSLT(webinf + "\\xsl\\util\\XSDToExampleXML.xsl",
+                    webinf + "\\xsd\\" + system + "\\" + name + type + ".xsd",
+                    "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs2.xml", altParams2);
+
             assert !exampleRs1.contains("<!--not known type-->")
                     : "В примере xml заполены известны не все типы";
+
+
+//            System.out.println("check data xml file");
+//            Map<String, String> dataParams = new HashMap<String, String>(2);
+//            dataParams.put("dataFileName","../../data/" +  system + "/xml/" + name + "Data.xml");
+//            dataParams.put("replace","true");
+//            checkXSLT(webinf + "\\xsl\\util\\AddExampleToData.xsl",
+//                    dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs1.xml",
+//                    "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\"+system+"\\xml\\"+name+"Data.xml", dataParams);
 
             System.out.println("check example 1");
             checkXSLT(webinf + "\\xsl\\" + system + "\\" + name + ".xsl",
@@ -244,6 +268,15 @@ public class createMockOrDriverFromXSD {
             String xsl = checkXSLT(webinf + "\\xsl\\util\\requestXSDtoXSL.xsl",
                     webinf + "\\xsd\\" + system + "\\" + name + type + ".xsd",
                     "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\" + system + "\\" + name + ".xsl", params);
+
+            System.out.println("check data xml file");
+            Map<String, String> dataParams = new HashMap<String, String>(2);
+            dataParams.put("dataFileName","../../data/" +  system + "/xml/" + name + "Data.xml");
+            dataParams.put("replace","true");
+            dataParams.put("type","request");
+            checkXSLT(webinf + "\\xsl\\util\\AddExampleToData.xsl",
+                    dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml",
+                    "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\"+system+"\\xml\\"+name+"Data.xml", dataParams);
 
             System.out.println("example 1");
             checkXSLT(webinf + "\\xsl\\" + system + "\\" + name + ".xsl",

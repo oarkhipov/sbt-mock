@@ -1,13 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?><soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
-  <soap:Header xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/"/>
-  <soap-env:Body xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:rsd="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/Data" xmlns:rq="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/">
-    <amr:calculateDCRs>
-      <cal:errorCode>e</cal:errorCode>
-      <cal:errorMessage>testing error message</cal:errorMessage>
-      <cal:crmId/>
-      <cal:debtCapacity/>
-      <cal:debtCapacityInDealCurrency/>
-      <cal:listOfAddParameter/>
-    </amr:calculateDCRs>
-  </soap-env:Body>
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
+   <soap-env:Header>
+      <soap-env:message-id>defaultId</soap-env:message-id>
+      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
+      <soap-env:operation-name>DebtCapacityCalculationResponse</soap-env:operation-name>
+   </soap-env:Header>
+   <soap-env:Body>
+      <AMRLiRT:DebtCapacityCalculationResponse xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
+                                               xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/">
+         <tns:errorCode>s</tns:errorCode>
+         <tns:crmId>string</tns:crmId>
+         <tns:debtCapacity>10</tns:debtCapacity>
+         <tns:debtCapacityInDealCurrency>10</tns:debtCapacityInDealCurrency>
+         <tns:listOfAddParameter/>
+      </AMRLiRT:DebtCapacityCalculationResponse>
+   </soap-env:Body>
 </soap-env:Envelope>
