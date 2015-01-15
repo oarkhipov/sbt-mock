@@ -160,35 +160,35 @@
     </beans:bean>
     <!-- AMRLiRT -->
     <beans:bean id="AMRLiRT_SrvCalcRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/SrvCalcRating.xsl"/>
+        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateRating.xsl"/>
     </beans:bean>
     <beans:bean id="AMRLiRT_SrvUpdateRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/SrvUpdateRating.xsl"/>
+        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CorrectRating.xsl"/>
     </beans:bean>
     <beans:bean id="AMRLiRT_SrvConfirmRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/SrvConfirmRating.xsl"/>
+        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/ConfirmRating.xsl"/>
     </beans:bean>
     <beans:bean id="AMRLiRT_SrvCalcLGD" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/SrvCalcLGD.xsl"/>
+        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateLGD.xsl"/>
     </beans:bean>
     <beans:bean id="AMRLiRT_SrvFinalizeLGD" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/SrvFinalizeLGD.xsl"/>
+        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/FinalizeLGD.xsl"/>
     </beans:bean>
     <beans:bean id="AMRLiRT_SrvCalcDebtCapacity" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/SrvCalcDebtCapacity.xsl"/>
+        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateDebtCapacity.xsl"/>
     </beans:bean>
     <!-- FinRep -->
     <beans:bean id="FinRep_SrvGetFinReport" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/SrvGetFinReport.xsl"/>
+        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/FinReportImport.xsl"/>
     </beans:bean>
     <beans:bean id="FinRep_SrvGetFinAnalysis" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/SrvGetFinAnalysis.xsl"/>
+        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/FinAnalysisImport.xsl"/>
     </beans:bean>
     <beans:bean id="FinRep_SrvGetRatingsAndFactors" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/SrvGetRatingsAndFactors.xsl"/>
+        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/ImportRating.xsl"/>
     </beans:bean>
     <beans:bean id="FinRep_SrvUpdateRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/SrvUpdateRating.xsl"/>
+        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/UpdateRating.xsl"/>
     </beans:bean>
 
     
