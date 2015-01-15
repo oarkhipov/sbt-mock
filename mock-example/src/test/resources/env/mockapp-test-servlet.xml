@@ -108,15 +108,15 @@
     <channel id="GetParticipants"/>
     <channel id="SaveDeal"/>
     <channel id="UpdateRef"/>
-    <channel id="CalculateRating"/>
-    <channel id="UpdateRating"/>
-    <channel id="ConfirmRating"/>
-    <channel id="CalculateLGD"/>
-    <channel id="FinalizeLGD"/>
-    <channel id="CalculateDebtCapacity"/>
-    <channel id="FinReportImport"/>
-    <channel id="FinAnalysisImport"/>
-    <channel id="ImportRating"/>
+    <channel id="SrvCalcRating"/>
+    <channel id="SrvUpdateRating"/>    
+    <channel id="SrvConfirmRating"/>
+    <channel id="SrvCalcLGD"/>
+    <channel id="SrvFinalizeLGD"/>
+    <channel id="SrvCalcDebtCapacity"/>
+    <channel id="SrvGetFinReport"/>
+    <channel id="SrvGetFinAnalysis"/>
+    <channel id="SrvGetRatingsAndFactors"/>
 
     <ix:xpath-router id="operationRouter" input-channel="ESB.BPM.NCP.IN.MOCK" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
         <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
@@ -126,16 +126,16 @@
         <ix:mapping value="GetParticipants" channel="GetParticipants"/>
         <ix:mapping value="SaveDeal" channel="SaveDeal"/>
         <ix:mapping value="UpdateRef" channel="UpdateRef"/>
-        <ix:mapping value="CalculateRating" channel="CalculateRating"/>
-        <ix:mapping value="UpdateRating" channel="UpdateRating"/>
-        <ix:mapping value="ConfirmRating" channel="ConfirmRating"/>
-        <ix:mapping value="CalculateLGD" channel="CalculateLGD"/>
-        <ix:mapping value="FinalizeLGD" channel="FinalizeLGD"/>
-        <ix:mapping value="CalculateDebtCapacity" channel="CalculateDebtCapacity"/>
-        <ix:mapping value="FinReportImport" channel="FinReportImport"/>
-        <ix:mapping value="FinAnalysisImport" channel="FinAnalysisImport"/>
-        <ix:mapping value="ImportRating" channel="ImportRating"/>
-        <ix:mapping value="UpdateRating" channel="UpdateRating"/>
+        <ix:mapping value="SrvCalcRating" channel="SrvCalcRating"/>
+        <ix:mapping value="SrvCorrectRating" channel="SrvCorrectRating"/>
+        <ix:mapping value="SrvConfirmRating" channel="SrvConfirmRating"/>
+        <ix:mapping value="SrvCalcLGD" channel="SrvCalcLGD"/>
+        <ix:mapping value="SrvFinalizeLGD" channel="SrvFinalizeLGD"/>
+        <ix:mapping value="SrvCalcDebtCapacity" channel="SrvCalcDebtCapacity"/>
+        <ix:mapping value="SrvGetFinReport" channel="SrvGetFinReport"/>
+        <ix:mapping value="SrvGetFinAnalysis" channel="SrvGetFinAnalysis"/>
+        <ix:mapping value="SrvGetRatingsAndFactors" channel="SrvGetRatingsAndFactors"/>
+        <ix:mapping value="SrvUpdateRating" channel="SrvUpdateRating"/>
     </ix:xpath-router>
 
     <!-- здесь уже реализация -->
@@ -159,35 +159,35 @@
         <beans:property name="xslPath" value="/WEB-INF/xsl/CRM/UpdateRef.xsl"/>
     </beans:bean>
     <!-- AMRLiRT -->
-    <beans:bean id="AMRLiRT_CalculateRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+    <beans:bean id="AMRLiRT_SrvCalcRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateRating.xsl"/>
     </beans:bean>
-    <!--<beans:bean id="AMRLiRT_UpdateRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
-        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/UpdateRating.xsl"/>-->
-    <!--</beans:bean>-->
-    <beans:bean id="AMRLiRT_ConfirmRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+    <beans:bean id="AMRLiRT_SrvCorrectRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CorrectRating.xsl"/>
+    </beans:bean>
+    <beans:bean id="AMRLiRT_SrvConfirmRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/ConfirmRating.xsl"/>
     </beans:bean>
-    <beans:bean id="AMRLiRT_CalculateLGD" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+    <beans:bean id="AMRLiRT_SrvCalcLGD" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateLGD.xsl"/>
     </beans:bean>
-    <beans:bean id="AMRLiRT_FinalizeLGD" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+    <beans:bean id="AMRLiRT_SrvFinalizeLGD" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/FinalizeLGD.xsl"/>
     </beans:bean>
-    <beans:bean id="AMRLiRT_CalculateDebtCapacity" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+    <beans:bean id="AMRLiRT_SrvCalcDebtCapacity" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateDebtCapacity.xsl"/>
     </beans:bean>
     <!-- FinRep -->
-    <beans:bean id="FinRep_FinReportImport" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+    <beans:bean id="FinRep_SrvGetFinReport" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/FinReportImport.xsl"/>
     </beans:bean>
-    <beans:bean id="FinRep_FinAnalysisImport" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+    <beans:bean id="FinRep_SrvGetFinAnalysis" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/FinAnalysisImport.xsl"/>
     </beans:bean>
-    <beans:bean id="FinRep_ImportRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+    <beans:bean id="FinRep_SrvGetRatingsAndFactors" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/ImportRating.xsl"/>
     </beans:bean>
-    <beans:bean id="FinRep_UpdateRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+    <beans:bean id="FinRep_SrvUpdateRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/UpdateRating.xsl"/>
     </beans:bean>
 
@@ -200,15 +200,16 @@
     <transformer input-channel="GetParticipants" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CRM_GetParticipants"/>   
     <transformer input-channel="SaveDeal" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CRM_SaveDeal"/> 
     <transformer input-channel="UpdateRef" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CRM_UpdateRef"/>     
-    <transformer input-channel="CalculateRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_CalculateRating"/>
-    <!--<transformer input-channel="UpdateRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_UpdateRating"/>-->
-    <transformer input-channel="ConfirmRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_ConfirmRating"/>
-    <transformer input-channel="CalculateLGD" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_CalculateLGD"/>
-    <transformer input-channel="FinalizeLGD" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_FinalizeLGD"/>
-    <transformer input-channel="CalculateDebtCapacity" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_CalculateDebtCapacity"/>
-    <transformer input-channel="FinReportImport" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_FinReportImport"/>
-    <transformer input-channel="FinAnalysisImport" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_FinAnalysisImport"/>
-   	<transformer input-channel="ImportRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_ImportRating"/>
+    <transformer input-channel="SrvCalcRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_SrvCalcRating"/>   
+    <transformer input-channel="SrvCorrectRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_SrvCorrectRating"/>
+    <transformer input-channel="SrvConfirmRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_SrvConfirmRating"/>     
+    <transformer input-channel="SrvCalcLGD" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_SrvCalcLGD"/>   
+    <transformer input-channel="SrvFinalizeLGD" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_SrvFinalizeLGD"/> 
+    <transformer input-channel="SrvCalcDebtCapacity" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_SrvCalcDebtCapacity"/>     
+    <transformer input-channel="SrvGetFinReport" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_SrvGetFinReport"/>   
+    <transformer input-channel="SrvGetFinAnalysis" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_SrvGetFinAnalysis"/> 
+   	<transformer input-channel="SrvGetRatingsAndFactors" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_SrvGetRatingsAndFactors"/>
+    <transformer input-channel="SrvUpdateRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_SrvUpdateRating"/>
 
     <context:component-scan base-package="ru.sbt.bpm.mock.controller"/>
     
