@@ -128,11 +128,11 @@ public class ChannelTest {
 
     @Test
     public void createTaskTestAMRLiRT_CorrectRating() throws Exception {
-        testXSLT("SrvUpdateRating", "ESB.BPM.NCP.OUT.MOCK", "xml/AMRLiRT/CorrectRating/rq1.xml", "xml/AMRLiRT/CorrectRating/rs1.xml");
+        testXSLT("SrvCorrectRating", "ESB.BPM.NCP.OUT.MOCK", "xml/AMRLiRT/CorrectRating/rq1.xml", "xml/AMRLiRT/CorrectRating/rs1.xml");
     }
     @Test
     public void createTaskTestAMRLiRT_CorrectRating2() throws Exception {
-        testXSLT("SrvUpdateRating", "ESB.BPM.NCP.OUT.MOCK", "xml/AMRLiRT/CorrectRating/rq2.xml", "xml/AMRLiRT/CorrectRating/rs2.xml");
+        testXSLT("SrvCorrectRating", "ESB.BPM.NCP.OUT.MOCK", "xml/AMRLiRT/CorrectRating/rq2.xml", "xml/AMRLiRT/CorrectRating/rs2.xml");
     }
 
 
