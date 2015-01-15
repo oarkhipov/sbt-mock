@@ -150,6 +150,12 @@
             <artifactId>Saxon-HE</artifactId>
             <version>9.4</version>
         </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.3.1</version>
+        </dependency>
+
     </dependencies>
     <distributionManagement>
         <repository>

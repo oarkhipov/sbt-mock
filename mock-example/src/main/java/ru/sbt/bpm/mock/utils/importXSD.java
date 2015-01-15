@@ -218,6 +218,18 @@ public class importXSD {
 
         //TODO backup
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
+
+        Params.put("replace","false");
+        Params.put("name","test1");
+        Params.put("type","request");
+        dataXML = useXSLT(getWebInfPath() + "\\xsl\\util\\AddExampleToData.xsl",
+                getExamplesPath() + "\\" +  system + "\\" + name + "\\rq2.xml",
+                Params);
+        //validateXML(exampleRq1);
+        //TODO тщательно проверить выход
+
+        //TODO backup
+        SaveFile.getInstance(getPath()).writeStringToFile(new File(getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
     }
 
     /**
@@ -301,6 +313,7 @@ public class importXSD {
         params.clear();
         params.put("entryPointName", "CreateTaskRs");
         params.put("RqEntryPointName","CreateTaskRq");
+        params.put("tagToTakeLinkedTag","*[local-name()='comment']");
         mockCycle("CRM", "CreateTask", params);
 
         params.clear();

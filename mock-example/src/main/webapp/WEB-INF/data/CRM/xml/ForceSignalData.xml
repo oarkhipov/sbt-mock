@@ -8,4 +8,10 @@
       <requestType>string</requestType>
       <responsiblePersonID>string</responsiblePersonID>
    </request>
+   <request name="test1">
+      <contractID>string</contractID>
+      <comment>string</comment>
+      <requestType>string</requestType>
+      <responsiblePersonID>string</responsiblePersonID>
+   </request>
 </data>

@@ -163,7 +163,7 @@ public class ChannelTest {
     }
     @Test
     public void createTaskTestFinRep_GetRatingsAndFactors2() throws Exception {
-        testXSLT("Import0Rating", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/ImportRating/rq2.xml", "xml/FinRep/ImportRating/rs2.xml");
+        testXSLT("ImportRating", "ESB.BPM.NCP.OUT.MOCK", "xml/FinRep/ImportRating/rq2.xml", "xml/FinRep/ImportRating/rs2.xml");
     }
     @Test
     public void createTaskTestFinRep_UpdateRating2() throws Exception {

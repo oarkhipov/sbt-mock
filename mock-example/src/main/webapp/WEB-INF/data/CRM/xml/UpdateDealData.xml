@@ -132,4 +132,28 @@
          </exchangeRates>
       </deal>
    </request>
+   <request name="test1">
+      <deal>
+         <dealID>string</dealID>
+         <dealCreationDate>2015-01-15T12:00:00</dealCreationDate>
+         <dealEssense>string</dealEssense>
+         <requestPurpose>string</requestPurpose>
+         <dealType>string</dealType>
+         <dealStatus>string</dealStatus>
+         <requestDate>2015-01-15</requestDate>
+         <origOrgUnit>string</origOrgUnit>
+         <origOrgDivision>st</origOrgDivision>
+         <clientFileID>string</clientFileID>
+         <dealFileID>string</dealFileID>
+         <supLMID>string</supLMID>
+         <collateralProvided>false</collateralProvided>
+         <limitKM>string</limitKM>
+         <dealTeamMembers>
+            <memberId>string</memberId>
+            <memberName>string</memberName>
+            <mamberEmail>string</mamberEmail>
+            <mamberRole>string</mamberRole>
+         </dealTeamMembers>
+      </deal>
+   </request>
 </data>

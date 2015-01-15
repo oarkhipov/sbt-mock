@@ -27,6 +27,7 @@ public class createMockOrDriverFromXSD {
         Map<String, String> params = new HashMap<String, String>(1);
         params.put("entryPointName","CreateTaskRs");
         params.put("RqEntryPointName","CreateTaskRq");
+        params.put("tagToTakeLinkedTag","*[local-name()='comment']");
         mockTestCycle(dir, "CRM", "CreateTask", "Response", params);
     }
     @Test
@@ -269,19 +270,29 @@ public class createMockOrDriverFromXSD {
                     webinf + "\\xsd\\" + system + "\\" + name + type + ".xsd",
                     "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\" + system + "\\" + name + ".xsl", params);
 
-            System.out.println("check data xml file");
-            Map<String, String> dataParams = new HashMap<String, String>(2);
-            dataParams.put("dataFileName","../../data/" +  system + "/xml/" + name + "Data.xml");
-            dataParams.put("replace","true");
-            dataParams.put("type","request");
-            checkXSLT(webinf + "\\xsl\\util\\AddExampleToData.xsl",
-                    dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml",
-                    "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\"+system+"\\xml\\"+name+"Data.xml", dataParams);
+//
+//            System.out.println("check data xml file");
+//            Map<String, String> dataParams = new HashMap<String, String>(2);
+//            dataParams.put("dataFileName","../../data/" +  system + "/xml/" + name + "Data.xml");
+//            dataParams.put("replace","true");
+//            dataParams.put("type","request");
+//            checkXSLT(webinf + "\\xsl\\util\\AddExampleToData.xsl",
+//                    dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml",
+//                    "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\"+system+"\\xml\\"+name+"Data.xml", dataParams);
 
             System.out.println("example 1");
             checkXSLT(webinf + "\\xsl\\" + system + "\\" + name + ".xsl",
                     webinf + "\\data\\" + system + "\\xml\\" + name + "Data.xml",
                     "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml", params);
+
+            if (params==null) {
+                params = new HashMap<String, String>(1);
+            }
+            params.put("name","test1");
+            System.out.println("example 2");
+            checkXSLT(webinf + "\\xsl\\" + system + "\\" + name + ".xsl",
+                    webinf + "\\data\\" + system + "\\xml\\" + name + "Data.xml",
+                    "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq2.xml", params);
         } else {
             assert false;
         }
