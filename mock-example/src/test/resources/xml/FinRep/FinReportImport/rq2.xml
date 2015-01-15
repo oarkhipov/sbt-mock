@@ -1,11 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
-			   xmlns:fin="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRq/">
-	<soap:Header/>
-	<soap:Body>
-		<asfo:GetFinReportRq xmlns:asfo="http://sbrf.ru/NCP/ASFO/" xmlns:tns="http://sbrf.ru/NCP/ASFO/GetFinReportRq/">
-			<tns:dealId>string</tns:dealId>
-			<tns:comment>testError</tns:comment>
-		</asfo:GetFinReportRq>
-	</soap:Body>
-</soap:Envelope>
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
+   <soap-env:Header>
+      <soap-env:message-id>defaultId</soap-env:message-id>
+      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
+      <soap-env:operation-name>FinReportImportResponse</soap-env:operation-name>
+   </soap-env:Header>
+   <soap-env:Body>
+      <FinRep:FinReportImportRequest xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
+                                     xmlns:tns="http://sbrf.ru/NCP/ASFO/GetFinReportRq/">
+         <tns:finReportType>string</tns:finReportType>
+         <tns:entityType>string</tns:entityType>
+         <tns:entityId>string</tns:entityId>
+      </FinRep:FinReportImportRequest>
+   </soap-env:Body>
+</soap-env:Envelope>

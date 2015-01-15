@@ -6,17 +6,16 @@
    </soap-env:Header>
    <soap-env:Body>
       <CRM:UpdateRefRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
-                       xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/">
-         <tns:referenceItem>
+                       xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/"><!--from 0 to unbounded elements --><tns:referenceItem>
             <tns:referenceid>string</tns:referenceid>
-            <tns:listOfValue>
+            <!--from 0 to unbounded elements --><tns:listOfValue>
                <tns:value>string</tns:value>
                <tns:valueId>string</tns:valueId>
-               <tns:parentValueId>string</tns:parentValueId>
+               <!--optional--><tns:parentValueId>string</tns:parentValueId>
             </tns:listOfValue>
          </tns:referenceItem>
          <tns:errorCode>string</tns:errorCode>
-         <tns:errorMessage>string</tns:errorMessage>
+         <!--optional--><tns:errorMessage>string</tns:errorMessage>
       </CRM:UpdateRefRs>
    </soap-env:Body>
 </soap-env:Envelope>

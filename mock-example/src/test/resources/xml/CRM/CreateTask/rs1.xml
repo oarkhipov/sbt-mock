@@ -13,7 +13,7 @@
          <tns:requestType>string</tns:requestType>
          <tns:responsiblePersonID>string</tns:responsiblePersonID>
          <tns:errorCode>string</tns:errorCode>
-         <tns:errorMessage>string</tns:errorMessage>
+         <!--optional--><tns:errorMessage>string</tns:errorMessage>
       </CRM:CreateTaskRs>
    </soap-env:Body>
 </soap-env:Envelope>

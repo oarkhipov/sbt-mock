@@ -8,21 +8,20 @@
       <AMRLiRT:LgdCalculationResponse xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
                                       xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/">
          <tns:errorCode>string</tns:errorCode>
-         <tns:errorMessage>string</tns:errorMessage>
+         <!--optional--><tns:errorMessage>string</tns:errorMessage>
          <tns:crmId>string</tns:crmId>
          <tns:lgdType>string</tns:lgdType>
          <tns:lgdDate>2015-01-15</tns:lgdDate>
-         <tns:pd>10</tns:pd>
+         <!--optional--><tns:pd>10</tns:pd>
          <tns:lgd>10</tns:lgd>
          <tns:ead>10</tns:ead>
          <tns:sum>10</tns:sum>
-         <tns:elPercent>10</tns:elPercent>
-         <tns:el>10</tns:el>
+         <!--optional--><tns:elPercent>10</tns:elPercent>
+         <!--optional--><tns:el>10</tns:el>
          <tns:totalValue>10</tns:totalValue>
          <tns:totalColValueLgd>10</tns:totalColValueLgd>
          <tns:totalColValueEad>10</tns:totalColValueEad>
-         <tns:listOfCollateral>
-            <tns:collateral>
+         <!--optional--><tns:listOfCollateral><!--from 0 to unbounded elements --><tns:collateral>
                <tns:crmId>string</tns:crmId>
                <tns:collType>string</tns:collType>
                <tns:returnRate>10</tns:returnRate>

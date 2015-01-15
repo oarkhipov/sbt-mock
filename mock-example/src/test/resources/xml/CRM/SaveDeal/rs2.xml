@@ -1,14 +1,16 @@
 <soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
-    <soap:Header xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"/>
-    <soap-env:Body xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/"
-                   xmlns:tns="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/"
-                   xmlns:rsd="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/Data/"
-                   xmlns:crm="http://sbrf.ru/NCP/CRM/">
-        <crm:SaveDealRs>
-            <tns:operationStatus>
-                <tns:errorCode>string1</tns:errorCode>
-            </tns:operationStatus>
-            <tns:dealID>string2</tns:dealID>
-        </crm:SaveDealRs>
-    </soap-env:Body>
+   <soap-env:Header>
+      <soap-env:message-id>defaultId</soap-env:message-id>
+      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
+      <soap-env:operation-name>SaveDealRs</soap-env:operation-name>
+   </soap-env:Header>
+   <soap-env:Body>
+      <CRM:SaveDealRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+                      xmlns:tns="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/">
+         <tns:operationStatus>
+            <tns:errorCode>string</tns:errorCode>
+         </tns:operationStatus>
+         <tns:dealID>string</tns:dealID>
+      </CRM:SaveDealRs>
+   </soap-env:Body>
 </soap-env:Envelope>

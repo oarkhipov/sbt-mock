@@ -6,35 +6,34 @@
    </soap-env:Header>
    <soap-env:Body>
       <FinRep:FinReportImportResponse xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
-                                      xmlns:tns="http://sbrf.ru/NCP/ASFO/GetFinReportRs/">
-         <tns:nonCurrentAssetsNFRS>10</tns:nonCurrentAssetsNFRS>
-         <tns:currentAssetsNFRS>10</tns:currentAssetsNFRS>
-         <tns:nonCurrentAssetsIFRS>10</tns:nonCurrentAssetsIFRS>
-         <tns:currentAssetsIFRS>10</tns:currentAssetsIFRS>
-         <tns:longTermDebtNFRS>10</tns:longTermDebtNFRS>
-         <tns:shortTermDebtNFRS>10</tns:shortTermDebtNFRS>
-         <tns:longTermDebtIFRS>10</tns:longTermDebtIFRS>
-         <tns:shortTermDebtIFRS>10</tns:shortTermDebtIFRS>
-         <tns:ebitdaNFRS>10</tns:ebitdaNFRS>
-         <tns:numQuarterNFRS>10</tns:numQuarterNFRS>
-         <tns:ebitdaIFRS>10</tns:ebitdaIFRS>
-         <tns:numQuarterIFRS>10</tns:numQuarterIFRS>
-         <tns:currencyCode>string</tns:currencyCode>
-         <tns:currencyCodeForFR>string</tns:currencyCodeForFR>
-         <tns:currencyRate>10</tns:currencyRate>
-         <tns:futureCurrencyRate>10</tns:futureCurrencyRate>
-         <tns:currentCurrencyRate>10</tns:currentCurrencyRate>
-         <tns:purpose>string</tns:purpose>
-         <tns:currentYear>10</tns:currentYear>
-         <tns:govDebt>10</tns:govDebt>
-         <tns:creditGovDebt>10</tns:creditGovDebt>
-         <tns:credit>10</tns:credit>
-         <tns:liabilities>10</tns:liabilities>
-         <tns:liabilitiesNextYear>10</tns:liabilitiesNextYear>
-         <tns:income>10</tns:income>
-         <tns:incomeNextYear>10</tns:incomeNextYear>
-         <tns:plannedCredit>10</tns:plannedCredit>
-         <tns:plannedCreditNextYear>10</tns:plannedCreditNextYear>
+                                      xmlns:tns="http://sbrf.ru/NCP/ASFO/GetFinReportRs/"><!--optional--><tns:nonCurrentAssetsNFRS>10</tns:nonCurrentAssetsNFRS>
+         <!--optional--><tns:currentAssetsNFRS>10</tns:currentAssetsNFRS>
+         <!--optional--><tns:nonCurrentAssetsIFRS>10</tns:nonCurrentAssetsIFRS>
+         <!--optional--><tns:currentAssetsIFRS>10</tns:currentAssetsIFRS>
+         <!--optional--><tns:longTermDebtNFRS>10</tns:longTermDebtNFRS>
+         <!--optional--><tns:shortTermDebtNFRS>10</tns:shortTermDebtNFRS>
+         <!--optional--><tns:longTermDebtIFRS>10</tns:longTermDebtIFRS>
+         <!--optional--><tns:shortTermDebtIFRS>10</tns:shortTermDebtIFRS>
+         <!--optional--><tns:ebitdaNFRS>10</tns:ebitdaNFRS>
+         <!--optional--><tns:numQuarterNFRS>10</tns:numQuarterNFRS>
+         <!--optional--><tns:ebitdaIFRS>10</tns:ebitdaIFRS>
+         <!--optional--><tns:numQuarterIFRS>10</tns:numQuarterIFRS>
+         <!--optional--><tns:currencyCode>string</tns:currencyCode>
+         <!--optional--><tns:currencyCodeForFR>string</tns:currencyCodeForFR>
+         <!--optional--><tns:currencyRate>10</tns:currencyRate>
+         <!--optional--><tns:futureCurrencyRate>10</tns:futureCurrencyRate>
+         <!--optional--><tns:currentCurrencyRate>10</tns:currentCurrencyRate>
+         <!--optional--><tns:purpose>string</tns:purpose>
+         <!--optional--><tns:currentYear>10</tns:currentYear>
+         <!--optional--><tns:govDebt>10</tns:govDebt>
+         <!--optional--><tns:creditGovDebt>10</tns:creditGovDebt>
+         <!--optional--><tns:credit>10</tns:credit>
+         <!--optional--><tns:liabilities>10</tns:liabilities>
+         <!--optional--><tns:liabilitiesNextYear>10</tns:liabilitiesNextYear>
+         <!--optional--><tns:income>10</tns:income>
+         <!--optional--><tns:incomeNextYear>10</tns:incomeNextYear>
+         <!--optional--><tns:plannedCredit>10</tns:plannedCredit>
+         <!--optional--><tns:plannedCreditNextYear>10</tns:plannedCreditNextYear>
       </FinRep:FinReportImportResponse>
    </soap-env:Body>
 </soap-env:Envelope>

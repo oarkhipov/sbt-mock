@@ -9,7 +9,7 @@
                       xmlns:tns="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/">
          <tns:operationStatus>
             <tns:errorCode>string</tns:errorCode>
-            <tns:errorMessage>string</tns:errorMessage>
+            <!--optional--><tns:errorMessage>string</tns:errorMessage>
          </tns:operationStatus>
          <tns:dealID>string</tns:dealID>
       </CRM:SaveDealRs>

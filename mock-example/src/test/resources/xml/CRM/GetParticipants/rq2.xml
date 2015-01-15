@@ -1,12 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
-  <soap:Header/>
-  <soap:Body>
-    <crm:prtspRq xmlns:crm="http://sbrf.ru/NCP/CRM/" xmlns:rq="http://sbrf.ru/NCP/CRM/GetParticipantsRq/">
-      <rq:id>string</rq:id>
-      <rq:comment>ERROR</rq:comment>
-      <rq:requestType>string</rq:requestType>
-      <rq:performer>string</rq:performer>
-    </crm:prtspRq>
-  </soap:Body>
-</soap:Envelope>
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
+   <soap-env:Header>
+      <soap-env:message-id>defaultId</soap-env:message-id>
+      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
+      <soap-env:operation-name>PrtspRs</soap-env:operation-name>
+   </soap-env:Header>
+   <soap-env:Body>
+      <CRM:PrtspRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+                   xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.03/">
+         <tns:id>string</tns:id>
+         <tns:requestType>string</tns:requestType>
+         <tns:performer>string</tns:performer>
+      </CRM:PrtspRq>
+   </soap-env:Body>
+</soap-env:Envelope>

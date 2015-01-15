@@ -8,7 +8,7 @@
       <FinRep:UpdateRatingResponse xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
                                    xmlns:tns="http://sbrf.ru/NCP/ASFO/UpdateRatingRs/">
          <tns:errorCode>string</tns:errorCode>
-         <tns:errorMessage>string</tns:errorMessage>
+         <!--optional--><tns:errorMessage>string</tns:errorMessage>
       </FinRep:UpdateRatingResponse>
    </soap-env:Body>
 </soap-env:Envelope>

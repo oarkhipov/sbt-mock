@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data xmlns="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/Data/">
-  <response name="default">
-    <!--from 0 to unbounded elements --><referenceItem>
-    <referenceid>string</referenceid>
-    <!--from 0 to unbounded elements --><listOfValue>
-    <value>string</value>
-    <valueId>string</valueId>
-    <!--optional--><parentValueId>string</parentValueId>
-  </listOfValue>
-  </referenceItem>
-    <errorCode>string</errorCode>
-    <!--optional--><errorMessage>string</errorMessage>
-  </response>
-  <response name="ERROR">
-    <errorCode>string</errorCode>
-  </response>
+   <response name="default">
+      <referenceItem>
+         <referenceid>string</referenceid>
+         <listOfValue>
+            <value>string</value>
+            <valueId>string</valueId>
+            <parentValueId>string</parentValueId>
+         </listOfValue>
+      </referenceItem>
+      <errorCode>string</errorCode>
+      <errorMessage>string</errorMessage>
+   </response>
+   <response name="test1">
+      <errorCode>string</errorCode>
+   </response>
 </data>

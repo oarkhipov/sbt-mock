@@ -19,16 +19,16 @@
             <tns:creditRiskPerLegalEntityInsider>10</tns:creditRiskPerLegalEntityInsider>
             <tns:economicGroupRiskFactor>10</tns:economicGroupRiskFactor>
          </tns:actualRequirementsInTotal>
-         <tns:finIndexChangesReasonNFRS>string</tns:finIndexChangesReasonNFRS>
-         <tns:finPerformanceCommentNFRS>string</tns:finPerformanceCommentNFRS>
-         <tns:finIndexChangesReasonIFRS>string</tns:finIndexChangesReasonIFRS>
-         <tns:finPerformanceCommentIFRS>string</tns:finPerformanceCommentIFRS>
+         <!--optional--><tns:finIndexChangesReasonNFRS>string</tns:finIndexChangesReasonNFRS>
+         <!--optional--><tns:finPerformanceCommentNFRS>string</tns:finPerformanceCommentNFRS>
+         <!--optional--><tns:finIndexChangesReasonIFRS>string</tns:finIndexChangesReasonIFRS>
+         <!--optional--><tns:finPerformanceCommentIFRS>string</tns:finPerformanceCommentIFRS>
          <tns:creditHistoryConclusions>string</tns:creditHistoryConclusions>
          <tns:offBalanceSheetLiabilities>string</tns:offBalanceSheetLiabilities>
          <tns:liabilitiesDynamicsComment>string</tns:liabilitiesDynamicsComment>
          <tns:turnoversComment>string</tns:turnoversComment>
          <tns:revenueExpensesStressAnalysis>string</tns:revenueExpensesStressAnalysis>
-         <tns:structuredDealsStressAnalysis>string</tns:structuredDealsStressAnalysis>
+         <!--optional--><tns:structuredDealsStressAnalysis>string</tns:structuredDealsStressAnalysis>
          <tns:fieldInfo>
             <tns:mainField>string</tns:mainField>
             <tns:mainBusiness>string</tns:mainBusiness>

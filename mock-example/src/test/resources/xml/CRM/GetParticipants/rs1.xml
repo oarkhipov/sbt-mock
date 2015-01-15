@@ -9,34 +9,33 @@
                    xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/">
          <tns:id>string</tns:id>
          <tns:requestType>string</tns:requestType>
-         <tns:participantsGroup>
-            <tns:participants>
+         <tns:participantsGroup><!--from 0 to unbounded elements --><tns:participants>
                <tns:participantID>string</tns:participantID>
                <tns:type>string</tns:type>
                <tns:isBorrower>false</tns:isBorrower>
-               <tns:clientType>string</tns:clientType>
+               <!--optional--><tns:clientType>string</tns:clientType>
                <tns:name>string</tns:name>
                <tns:resident>false</tns:resident>
-               <tns:address>
+               <!--from 0 to unbounded elements --><tns:address>
                   <tns:type>string</tns:type>
-                  <tns:zipCode>string</tns:zipCode>
+                  <!--optional--><tns:zipCode>string</tns:zipCode>
                   <tns:city>string</tns:city>
                   <tns:street>string</tns:street>
                   <tns:building>string</tns:building>
-                  <tns:block>string</tns:block>
-                  <tns:phone>string</tns:phone>
-                  <tns:email>string</tns:email>
+                  <!--optional--><tns:block>string</tns:block>
+                  <!--optional--><tns:phone>string</tns:phone>
+                  <!--optional--><tns:email>string</tns:email>
                </tns:address>
-               <tns:share>
+               <!--from 0 to unbounded elements --><tns:share>
                   <tns:ownershipID>string</tns:ownershipID>
-                  <tns:share>1234567890.12</tns:share>
-                  <tns:periodOfOwnerhip>string</tns:periodOfOwnerhip>
+                  <!--optional--><tns:share>1234567890.12</tns:share>
+                  <!--optional--><tns:periodOfOwnerhip>string</tns:periodOfOwnerhip>
                </tns:share>
-               <tns:consolidatedGroupID>string</tns:consolidatedGroupID>
-               <tns:linkedBorrowersGroupID>string</tns:linkedBorrowersGroupID>
+               <!--optional--><tns:consolidatedGroupID>string</tns:consolidatedGroupID>
+               <!--optional--><tns:linkedBorrowersGroupID>string</tns:linkedBorrowersGroupID>
                <tns:industry>string</tns:industry>
                <tns:inn>string</tns:inn>
-               <tns:rating>
+               <!--from 0 to unbounded elements --><tns:rating>
                   <tns:ratingID>string</tns:ratingID>
                   <tns:ratingValue>123</tns:ratingValue>
                   <tns:ratingType>string</tns:ratingType>
@@ -47,16 +46,16 @@
                   <tns:ratingApprovalDate>2015-01-15</tns:ratingApprovalDate>
                   <tns:ratingApprovedBy>string</tns:ratingApprovedBy>
                </tns:rating>
-               <tns:roleInConsolidatedGroup>string</tns:roleInConsolidatedGroup>
+               <!--optional--><tns:roleInConsolidatedGroup>string</tns:roleInConsolidatedGroup>
             </tns:participants>
             <tns:groupType>string</tns:groupType>
-            <tns:groupInfo>
+            <!--optional--><tns:groupInfo>
                <tns:id>string</tns:id>
                <tns:label>string</tns:label>
                <tns:status>string</tns:status>
                <tns:updateDate>2015-01-15</tns:updateDate>
-               <tns:approvalDate>2015-01-15</tns:approvalDate>
-               <tns:ratings>
+               <!--optional--><tns:approvalDate>2015-01-15</tns:approvalDate>
+               <!--from 0 to unbounded elements --><tns:ratings>
                   <tns:ratingID>string</tns:ratingID>
                   <tns:ratingValue>123</tns:ratingValue>
                   <tns:ratingType>string</tns:ratingType>
@@ -67,12 +66,12 @@
                   <tns:ratingApprovalDate>2015-01-15</tns:ratingApprovalDate>
                   <tns:ratingApprovedBy>string</tns:ratingApprovedBy>
                </tns:ratings>
-               <tns:topLevelGroupName>string</tns:topLevelGroupName>
+               <!--optional--><tns:topLevelGroupName>string</tns:topLevelGroupName>
             </tns:groupInfo>
          </tns:participantsGroup>
          <tns:operationStatus>
             <tns:errorCode>string</tns:errorCode>
-            <tns:errorMessage>string</tns:errorMessage>
+            <!--optional--><tns:errorMessage>string</tns:errorMessage>
          </tns:operationStatus>
       </CRM:PrtspRs>
    </soap-env:Body>

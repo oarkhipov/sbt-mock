@@ -1,18 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?><soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
-  <soap:Header xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"/>
-  <soap-env:Body xmlns:amr="http://sbrf.ru/NCP/AMRLIRT/" xmlns:rsd="http://sbrf.ru/NCP/AMRLIRT/CalculateLGD/Data" xmlns:rq="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/" xmlns:cal="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/">
-    <amr:calculateLGDRs>
-      <cal:errorCode>e</cal:errorCode>
-      <cal:errorMessage>testing error message</cal:errorMessage>
-      <cal:crmId/>
-      <cal:lgdType/>
-      <cal:lgdDate>2008-09-29</cal:lgdDate>
-      <cal:lgd>1000.00</cal:lgd>
-      <cal:ead>1000.00</cal:ead>
-      <cal:sum>1000.00</cal:sum>
-      <cal:totalValue>1000.00</cal:totalValue>
-      <cal:totalColValueLgd>1000.00</cal:totalColValueLgd>
-      <cal:totalColValueEad>1000.00</cal:totalColValueEad>
-    </amr:calculateLGDRs>
-  </soap-env:Body>
+<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
+   <soap-env:Header>
+      <soap-env:message-id>defaultId</soap-env:message-id>
+      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
+      <soap-env:operation-name>LgdCalculationResponse</soap-env:operation-name>
+   </soap-env:Header>
+   <soap-env:Body>
+      <AMRLiRT:LgdCalculationResponse xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
+                                      xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/">
+         <tns:errorCode>string</tns:errorCode>
+         <tns:crmId>string</tns:crmId>
+         <tns:lgdType>string</tns:lgdType>
+         <tns:lgdDate>2015-01-15</tns:lgdDate>
+         <tns:lgd>10</tns:lgd>
+         <tns:ead>10</tns:ead>
+         <tns:sum>10</tns:sum>
+         <tns:totalValue>10</tns:totalValue>
+         <tns:totalColValueLgd>10</tns:totalColValueLgd>
+         <tns:totalColValueEad>10</tns:totalColValueEad>
+      </AMRLiRT:LgdCalculationResponse>
+   </soap-env:Body>
 </soap-env:Envelope>

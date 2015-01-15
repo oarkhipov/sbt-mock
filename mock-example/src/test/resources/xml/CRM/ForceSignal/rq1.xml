@@ -8,8 +8,8 @@
       <CRM:ForceSignalRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                          xmlns:tns="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/">
          <tns:contractID>string</tns:contractID>
-         <tns:contractBPMID>string</tns:contractBPMID>
-         <tns:status>string</tns:status>
+         <!--optional--><tns:contractBPMID>string</tns:contractBPMID>
+         <!--optional--><tns:status>string</tns:status>
          <tns:comment>string</tns:comment>
          <tns:requestType>string</tns:requestType>
          <tns:responsiblePersonID>string</tns:responsiblePersonID>

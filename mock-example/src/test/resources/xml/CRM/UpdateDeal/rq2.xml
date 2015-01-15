@@ -2,11 +2,11 @@
    <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>SaveDealRs</soap-env:operation-name>
+      <soap-env:operation-name>UpdateDealRq</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <CRM:SaveDealRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
-                      xmlns:tns="http://sbrf.ru/NCP/CRM/SaveDealRq/1.07/">
+      <CRM:UpdateDealRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+                        xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/">
          <tns:deal>
             <tns:dealID>string</tns:dealID>
             <tns:dealCreationDate>2015-01-15T12:00:00</tns:dealCreationDate>
@@ -20,6 +20,8 @@
             <tns:clientFileID>string</tns:clientFileID>
             <tns:dealFileID>string</tns:dealFileID>
             <tns:supLMID>string</tns:supLMID>
+            <tns:collateralProvided>false</tns:collateralProvided>
+            <tns:limitKM>string</tns:limitKM>
             <!--from 1 to unbounded elements --><tns:dealTeamMembers>
                <tns:memberId>string</tns:memberId>
                <tns:memberName>string</tns:memberName>
@@ -27,6 +29,6 @@
                <tns:mamberRole>string</tns:mamberRole>
             </tns:dealTeamMembers>
          </tns:deal>
-      </CRM:SaveDealRq>
+      </CRM:UpdateDealRq>
    </soap-env:Body>
 </soap-env:Envelope>

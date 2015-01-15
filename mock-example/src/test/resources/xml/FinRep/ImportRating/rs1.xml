@@ -7,17 +7,16 @@
    <soap-env:Body>
       <FinRep:ImportRatingResponse xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
                                    xmlns:tns="http://sbrf.ru/NCP/ASFO/GetRatingsAndFactorsRs/">
-         <tns:listOfRating>
-            <tns:rating>
+         <tns:listOfRating><!--from 1 to unbounded elements --><tns:rating>
                <tns:ratingId>string</tns:ratingId>
-               <tns:finalRatingValue>10</tns:finalRatingValue>
-               <tns:intermediateRatingValue>10</tns:intermediateRatingValue>
-               <tns:ajustedRatingValue>10</tns:ajustedRatingValue>
-               <tns:pd>10</tns:pd>
+               <!--optional--><tns:finalRatingValue>10</tns:finalRatingValue>
+               <!--optional--><tns:intermediateRatingValue>10</tns:intermediateRatingValue>
+               <!--optional--><tns:ajustedRatingValue>10</tns:ajustedRatingValue>
+               <!--optional--><tns:pd>10</tns:pd>
                <tns:status>string</tns:status>
-               <tns:approvalDate>2015-01-15T12:00:00</tns:approvalDate>
-               <tns:calculationDate>2015-01-15T12:00:00</tns:calculationDate>
-               <tns:ajustmentDate>2015-01-15T12:00:00</tns:ajustmentDate>
+               <!--optional--><tns:approvalDate>2015-01-15T12:00:00</tns:approvalDate>
+               <!--optional--><tns:calculationDate>2015-01-15T12:00:00</tns:calculationDate>
+               <!--optional--><tns:ajustmentDate>2015-01-15T12:00:00</tns:ajustmentDate>
                <tns:modelName>string</tns:modelName>
                <tns:modelIntegrationId>string</tns:modelIntegrationId>
                <tns:ratingName>string</tns:ratingName>
@@ -26,102 +25,92 @@
                   <tns:login>string</tns:login>
                   <tns:lastName>string</tns:lastName>
                   <tns:firstName>string</tns:firstName>
-                  <tns:middleName>string</tns:middleName>
+                  <!--optional--><tns:middleName>string</tns:middleName>
                   <tns:division>string</tns:division>
                   <tns:divisionCode>string</tns:divisionCode>
-                  <tns:jobTitle>string</tns:jobTitle>
+                  <!--optional--><tns:jobTitle>string</tns:jobTitle>
                   <tns:role>string</tns:role>
                </tns:employeeForApprove>
-               <tns:listOfRatingCalc>
-                  <tns:ratingCalc>
+               <tns:listOfRatingCalc><!--from 1 to unbounded elements --><tns:ratingCalc>
                      <tns:ratingCalcId>string</tns:ratingCalcId>
                      <tns:modelName>string</tns:modelName>
                      <tns:modelIntegrationId>string</tns:modelIntegrationId>
-                     <tns:dateCalc>2015-01-15T12:00:00</tns:dateCalc>
-                     <tns:calcValue>10</tns:calcValue>
-                     <tns:listOfRatingAjustment>
-                        <tns:ratingAjustment>
+                     <!--optional--><tns:dateCalc>2015-01-15T12:00:00</tns:dateCalc>
+                     <!--optional--><tns:calcValue>10</tns:calcValue>
+                     <!--optional--><tns:listOfRatingAjustment><!--from 0 to unbounded elements --><tns:ratingAjustment>
                            <tns:ajustmentDate>2015-01-15T12:00:00</tns:ajustmentDate>
                            <tns:ajustedValue>10</tns:ajustedValue>
                            <tns:ajustmetReason>string</tns:ajustmetReason>
-                           <tns:comments>string</tns:comments>
+                           <!--optional--><tns:comments>string</tns:comments>
                            <tns:status>string</tns:status>
                            <tns:employeeForAjustment>
                               <tns:login>string</tns:login>
                               <tns:lastName>string</tns:lastName>
                               <tns:firstName>string</tns:firstName>
-                              <tns:middleName>string</tns:middleName>
+                              <!--optional--><tns:middleName>string</tns:middleName>
                               <tns:division>string</tns:division>
                               <tns:divisionCode>string</tns:divisionCode>
-                              <tns:jobTitle>string</tns:jobTitle>
+                              <!--optional--><tns:jobTitle>string</tns:jobTitle>
                               <tns:role>string</tns:role>
                            </tns:employeeForAjustment>
                         </tns:ratingAjustment>
                      </tns:listOfRatingAjustment>
-                     <tns:employeeForCalc>
+                     <!--optional--><tns:employeeForCalc>
                         <tns:login>string</tns:login>
                         <tns:lastName>string</tns:lastName>
                         <tns:firstName>string</tns:firstName>
-                        <tns:middleName>string</tns:middleName>
+                        <!--optional--><tns:middleName>string</tns:middleName>
                         <tns:division>string</tns:division>
                         <tns:divisionCode>string</tns:divisionCode>
-                        <tns:jobTitle>string</tns:jobTitle>
+                        <!--optional--><tns:jobTitle>string</tns:jobTitle>
                         <tns:role>string</tns:role>
                      </tns:employeeForCalc>
-                     <tns:listOfResultRating>
-                        <tns:resultRating>
+                     <!--optional--><tns:listOfResultRating><!--from 0 to unbounded elements --><tns:resultRating>
                            <tns:isPrimary>false</tns:isPrimary>
                            <tns:name>string</tns:name>
                            <tns:value>10</tns:value>
-                           <tns:type>string</tns:type>
+                           <!--optional--><tns:type>string</tns:type>
                         </tns:resultRating>
                      </tns:listOfResultRating>
-                     <tns:listOfCalculatedFactor>
-                        <tns:calculatedFactor>
+                     <!--optional--><tns:listOfCalculatedFactor><!--from 0 to unbounded elements --><tns:calculatedFactor>
                            <tns:code>string</tns:code>
                            <tns:name>string</tns:name>
                            <tns:value>string</tns:value>
                         </tns:calculatedFactor>
                      </tns:listOfCalculatedFactor>
-                     <tns:listOfFixedFactor>
-                        <tns:fixedFactor>
+                     <!--optional--><tns:listOfFixedFactor><!--from 1 to unbounded elements --><tns:fixedFactor>
                            <tns:factor>string</tns:factor>
                            <tns:factorIntegrationId>string</tns:factorIntegrationId>
                            <tns:group>string</tns:group>
-                           <tns:value>string</tns:value>
-                           <tns:valueIntegrationId>string</tns:valueIntegrationId>
+                           <!--optional--><tns:value>string</tns:value>
+                           <!--optional--><tns:valueIntegrationId>string</tns:valueIntegrationId>
                         </tns:fixedFactor>
                      </tns:listOfFixedFactor>
-                     <tns:listOfRatingPeriod>
-                        <tns:ratingPeriod>
-                           <tns:reportDate>2015-01-15</tns:reportDate>
-                           <tns:period>string</tns:period>
-                           <tns:startDate>2015-01-15</tns:startDate>
-                           <tns:endDate>2015-01-15</tns:endDate>
-                           <tns:type>string</tns:type>
-                           <tns:comments>string</tns:comments>
-                           <tns:listOfCardinalFactor>
-                              <tns:cardinalFactor>
+                     <!--optional--><tns:listOfRatingPeriod><!--from 1 to unbounded elements --><tns:ratingPeriod><!--optional--><tns:reportDate>2015-01-15</tns:reportDate>
+                           <!--optional--><tns:period>string</tns:period>
+                           <!--optional--><tns:startDate>2015-01-15</tns:startDate>
+                           <!--optional--><tns:endDate>2015-01-15</tns:endDate>
+                           <!--optional--><tns:type>string</tns:type>
+                           <!--optional--><tns:comments>string</tns:comments>
+                           <tns:listOfCardinalFactor><!--from 1 to unbounded elements --><tns:cardinalFactor>
                                  <tns:factor>string</tns:factor>
                                  <tns:factorIntegrationId>string</tns:factorIntegrationId>
                                  <tns:group>string</tns:group>
-                                 <tns:numValue>10</tns:numValue>
+                                 <!--optional--><tns:numValue>10</tns:numValue>
                               </tns:cardinalFactor>
                            </tns:listOfCardinalFactor>
                         </tns:ratingPeriod>
                      </tns:listOfRatingPeriod>
-                     <tns:listOfRatingSupport>
-                        <tns:ratingSupport>
+                     <!--optional--><tns:listOfRatingSupport><!--from 0 to unbounded elements --><tns:ratingSupport>
                            <tns:name>string</tns:name>
                            <tns:integrationId>string</tns:integrationId>
-                           <tns:listOfSupportFactor>
-                              <tns:supportFactor>
+                           <tns:listOfSupportFactor><!--from 1 to unbounded elements --><tns:supportFactor>
                                  <tns:factor>string</tns:factor>
                                  <tns:factorIntegrationId>string</tns:factorIntegrationId>
                                  <tns:group>string</tns:group>
-                                 <tns:value>string</tns:value>
-                                 <tns:valueIntegrationId>string</tns:valueIntegrationId>
-                                 <tns:freeValue>string</tns:freeValue>
+                                 <!--optional--><tns:value>string</tns:value>
+                                 <!--optional--><tns:valueIntegrationId>string</tns:valueIntegrationId>
+                                 <!--optional--><tns:freeValue>string</tns:freeValue>
                               </tns:supportFactor>
                            </tns:listOfSupportFactor>
                         </tns:ratingSupport>
