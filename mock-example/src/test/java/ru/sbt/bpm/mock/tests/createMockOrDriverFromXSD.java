@@ -33,7 +33,9 @@ public class createMockOrDriverFromXSD {
     @Test
     public void testXSLTtoDataCRMForceSignal() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath() + "\\..\\..\\src\\main\\webapp\\WEB-INF";
-        mockTestCycle(dir, "CRM", "ForceSignal", "Request");
+        Map<String, String> params = new HashMap<String, String>(1);
+        params.put("rootElementName", "forceSignalRq");
+        mockTestCycle(dir, "CRM", "ForceSignal", "Request", params);
     }
     @Test
     public void testXSLTtoDataCRMGetParticipants() throws Exception {
@@ -57,7 +59,9 @@ public class createMockOrDriverFromXSD {
     @Test
     public void testXSLTtoDataCRMUpdateDeal() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath() + "\\..\\..\\src\\main\\webapp\\WEB-INF";
-        mockTestCycle(dir, "CRM", "UpdateDeal", "Request");
+        Map<String, String> params = new HashMap<String, String>(1);
+        params.put("rootElementName", "updateDealRq");
+        mockTestCycle(dir, "CRM", "UpdateDeal", "Request",params);
     }
     @Test
     public void testXSLTtoDataCRMUpdateRef() throws Exception {

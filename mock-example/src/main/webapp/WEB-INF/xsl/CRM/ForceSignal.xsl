@@ -35,7 +35,7 @@
             </xsl:with-param>
             <xsl:with-param name="timestamp" select="$timestamp"/>
             <xsl:with-param name="id" select="$id"/>
-            <xsl:with-param name="operation-name" select="string('ForceSignalRq')"/>
+            <xsl:with-param name="operation-name" select="string('forceSignalRq')"/>
             <xsl:with-param name="correlation-id" select="$correlation-id"/>
             <xsl:with-param name="eis-name" select="$eis-name"/>
             <xsl:with-param name="system-id" select="$system-id"/>
@@ -62,7 +62,7 @@
    <xsl:template name="ForceSignalRq">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="CRM:ForceSignalRq">
+      <xsl:element name="CRM:forceSignalRq">
          <tns:contractID>
             <xsl:value-of select="$data/rsd:request[@name=$response]/rsd:contractID"/>
          </tns:contractID>

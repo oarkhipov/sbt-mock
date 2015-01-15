@@ -310,8 +310,13 @@ public class importXSD {
         params = new HashMap<String, String>();
 
 
-        driverCycle("CRM", "ForceSignal", null);
-        driverCycle("CRM", "UpdateDeal", null);
+        params.clear();
+        params.put("rootElementName", "forceSignalRq");
+        driverCycle("CRM", "ForceSignal", params);
+
+        params.clear();
+        params.put("rootElementName", "updateDealRq");
+        driverCycle("CRM", "UpdateDeal", params);
 
         params.clear();
         params.put("entryPointName", "CreateTaskRs");

@@ -2,10 +2,10 @@
    <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>UpdateDealRq</soap-env:operation-name>
+      <soap-env:operation-name>updateDealRq</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <CRM:UpdateDealRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+      <CRM:updateDealRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                         xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/">
          <tns:deal>
             <tns:dealID>string</tns:dealID>
@@ -135,6 +135,6 @@
                <tns:currencyDate>2015-01-15</tns:currencyDate>
             </tns:exchangeRates>
          </tns:deal>
-      </CRM:UpdateDealRq>
+      </CRM:updateDealRq>
    </soap-env:Body>
 </soap-env:Envelope>

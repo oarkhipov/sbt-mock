@@ -10,6 +10,8 @@
     <!-- Этот параметр нужен когда имя главного элемента запроса не соответвует тому что мы взяли из неймспейса. Тогда его можно указать параметром -->
     <!-- TODO выбрать этот параметр более надежным способом -->
     <xsl:param name="entryPointName" select="replace(xsd:schema/@targetNamespace,'^.+/(\w+)(/[0-9\.]+)?/$','$1')"/>
+    <!--Имя тэга элемента. Скорее всего будет отличаться от $entryPointName, но брать его из другого файла-->
+    <xsl:param name="rootElementName" select="$entryPointName"/>
     <!--схема рут-элемента транзакции-->
     <xsl:param name="parrentNS" select="'http://sbrf.ru/NCP/CRM/'"/>
     <!--система-->
@@ -37,7 +39,7 @@
     <!--список всех типов, которые объявленны в схеме-->
     <xsl:param name="typesList" select="//xsd:complexType/@name"/>
     <!--имя операции-->
-    <xsl:param name="operation-name" select="$entryPointName"/>
+    <xsl:param name="operation-name" select="$rootElementName"/>
 
     <xsl:variable name="CommonTypesNSAlias" select="local-name(xsd:schema/namespace::*[contains(.,'CommonTypes')])"/> <!-- алиас для xsd библиотеки типов CommonTypes. нужен потому что отличается от файла к файлу -->
 
@@ -54,7 +56,7 @@
     </xsl:template>
 
     <xsl:template match="xsd:complexType" mode="rootBodyElement">
-        <xsl:element name="{concat($systemName,':',./@name)}" namespace="{$parrentNS}">
+        <xsl:element name="{concat($systemName,':',$rootElementName)}" namespace="{$parrentNS}">
             <xsl:namespace name="{$systemName}" select="$parrentNS"/>
             <xsl:namespace name="{$targetNSAlias}" select="$targetNS"/>
             <xsl:apply-templates select="./xsd:sequence/xsd:element" mode="subelement"/>

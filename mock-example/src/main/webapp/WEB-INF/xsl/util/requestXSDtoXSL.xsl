@@ -11,6 +11,8 @@
     <xsl:param name="parrentNS" select="'http://sbrf.ru/NCP/CRM/'"/>
     <xsl:param name="systemName" select="'CRM'"/>
     <xsl:param name="soapEnvNS" select="'http://sbrf.ru/NCP/esb/envelope/'"/>
+    <!--Имя тэга элемента. Скорее всего будет отличаться от $entryPointName, но брать его из другого файла-->
+    <xsl:param name="rootElementName" select="$entryPointName"/>
 
     <xsl:template match="xsd:schema">
         <xsl:element name="xsl:stylesheet">
@@ -128,7 +130,7 @@
                     </xsl:element>
                     <xsl:element name="xsl:with-param">
                         <xsl:attribute name="name">operation-name</xsl:attribute>
-                        <xsl:attribute name="select">string('<xsl:value-of select="$entryPointName"/>')</xsl:attribute>
+                        <xsl:attribute name="select">string('<xsl:value-of select="$rootElementName"/>')</xsl:attribute>
                     </xsl:element>
                     <xsl:element name="xsl:with-param">
                         <xsl:attribute name="name">correlation-id</xsl:attribute>
@@ -207,7 +209,7 @@
                 <xsl:attribute name="name">data</xsl:attribute>
             </xsl:element>
                 <xsl:element name="xsl:element">
-                    <xsl:attribute name="name"><xsl:value-of select="$systemName"/>:<xsl:value-of select="$entryPointName"/></xsl:attribute>
+                    <xsl:attribute name="name"><xsl:value-of select="$systemName"/>:<xsl:value-of select="$rootElementName"/></xsl:attribute>
                     <xsl:apply-templates select=".//xsd:element" mode="base"/>
                 </xsl:element>
         </xsl:element>
