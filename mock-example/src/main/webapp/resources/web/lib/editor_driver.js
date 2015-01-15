@@ -31,6 +31,7 @@ function autoFormatResponse() {
 $("#send").click(function(){
     showInfo("Sending...");
     sendDisable(true);
+    showResponse();
     $.ajax({
         url: QueryString["ip"]+ "/send/",
         type: "POST",
