@@ -5,7 +5,7 @@
       <soap-env:operation-name>UpdateRefRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <crm:UpdateRefRs xmlns:crm="http://sbrf.ru/NCP/CRM/"
+      <CRM:UpdateRefRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                        xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/">
          <tns:referenceItem>
             <tns:referenceid>string</tns:referenceid>
@@ -17,6 +17,6 @@
          </tns:referenceItem>
          <tns:errorCode>string</tns:errorCode>
          <tns:errorMessage>string</tns:errorMessage>
-      </crm:UpdateRefRs>
+      </CRM:UpdateRefRs>
    </soap-env:Body>
 </soap-env:Envelope>

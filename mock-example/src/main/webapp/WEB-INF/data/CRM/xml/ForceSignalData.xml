@@ -7,22 +7,21 @@
             <message-id>5f4e83ab38514920b55f3eaa1dc378ad</message-id>
             <request-time>2014-12-16T17:55:06.410</request-time>
         </SoapHeader>
-        <contractID>string1</contractID>
-        <contractBPMID>string2</contractBPMID>
-        <status>string3</status>
-        <comment>string4</comment>
-        <requestType>string5</requestType>
-        <responsiblePersonID>string6</responsiblePersonID>
-
+        <contractID>string</contractID>
+        <contractBPMID>string</contractBPMID>
+        <status>string</status>
+        <comment>string</comment>
+        <requestType>string</requestType>
+        <responsiblePersonID>string</responsiblePersonID>
     </request>
 
     <request name="test1">
-        <contractID>string1</contractID>
-        <contractBPMID>string2</contractBPMID>
-        <status>string3</status>
-        <comment>string4</comment>
-        <requestType>string5</requestType>
-        <responsiblePersonID>string6</responsiblePersonID>
+        <contractID>string</contractID>
+        <contractBPMID>string</contractBPMID>
+        <status>string</status>
+        <comment>string</comment>
+        <requestType>string</requestType>
+        <responsiblePersonID>string</responsiblePersonID>
     </request>
 </data>
 

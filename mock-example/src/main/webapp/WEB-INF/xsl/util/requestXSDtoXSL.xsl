@@ -9,7 +9,7 @@
     <xsl:param name="entryPointName" select="replace(xsd:schema/@targetNamespace,'^.+/(\w+)(/[0-9\.]+)?/$','$1')"/>
     <xsl:param name="targetNS" select="xsd:schema/@targetNamespace"/>
     <xsl:param name="parrentNS" select="'http://sbrf.ru/NCP/CRM/'"/>
-    <xsl:param name="systemName" select="'crm'"/>
+    <xsl:param name="systemName" select="'CRM'"/>
     <xsl:param name="soapEnvNS" select="'http://sbrf.ru/NCP/esb/envelope/'"/>
 
     <xsl:template match="xsd:schema">

@@ -5,11 +5,11 @@
       <soap-env:operation-name>PrtspRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <crm:PrtspRq xmlns:crm="http://sbrf.ru/NCP/CRM/"
+      <CRM:PrtspRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                    xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.03/">
          <tns:id>string</tns:id>
          <tns:requestType>string</tns:requestType>
          <tns:performer>string</tns:performer>
-      </crm:PrtspRq>
+      </CRM:PrtspRq>
    </soap-env:Body>
 </soap-env:Envelope>

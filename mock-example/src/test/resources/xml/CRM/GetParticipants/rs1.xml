@@ -5,7 +5,7 @@
       <soap-env:operation-name>PrtspRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <crm:PrtspRs xmlns:crm="http://sbrf.ru/NCP/CRM/"
+      <CRM:PrtspRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                    xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/">
          <tns:id>string</tns:id>
          <tns:requestType>string</tns:requestType>
@@ -41,10 +41,10 @@
                   <tns:ratingValue>123</tns:ratingValue>
                   <tns:ratingType>string</tns:ratingType>
                   <tns:ratingModel>string</tns:ratingModel>
-                  <tns:ratingCalculatedDate>2015-01-14</tns:ratingCalculatedDate>
+                  <tns:ratingCalculatedDate>2015-01-15</tns:ratingCalculatedDate>
                   <tns:ratingCalculatedRole>string</tns:ratingCalculatedRole>
                   <tns:ratingCalculatedBy>string</tns:ratingCalculatedBy>
-                  <tns:ratingApprovalDate>2015-01-14</tns:ratingApprovalDate>
+                  <tns:ratingApprovalDate>2015-01-15</tns:ratingApprovalDate>
                   <tns:ratingApprovedBy>string</tns:ratingApprovedBy>
                </tns:rating>
                <tns:roleInConsolidatedGroup>string</tns:roleInConsolidatedGroup>
@@ -54,17 +54,17 @@
                <tns:id>string</tns:id>
                <tns:label>string</tns:label>
                <tns:status>string</tns:status>
-               <tns:updateDate>2015-01-14</tns:updateDate>
-               <tns:approvalDate>2015-01-14</tns:approvalDate>
+               <tns:updateDate>2015-01-15</tns:updateDate>
+               <tns:approvalDate>2015-01-15</tns:approvalDate>
                <tns:ratings>
                   <tns:ratingID>string</tns:ratingID>
                   <tns:ratingValue>123</tns:ratingValue>
                   <tns:ratingType>string</tns:ratingType>
                   <tns:ratingModel>string</tns:ratingModel>
-                  <tns:ratingCalculatedDate>2015-01-14</tns:ratingCalculatedDate>
+                  <tns:ratingCalculatedDate>2015-01-15</tns:ratingCalculatedDate>
                   <tns:ratingCalculatedRole>string</tns:ratingCalculatedRole>
                   <tns:ratingCalculatedBy>string</tns:ratingCalculatedBy>
-                  <tns:ratingApprovalDate>2015-01-14</tns:ratingApprovalDate>
+                  <tns:ratingApprovalDate>2015-01-15</tns:ratingApprovalDate>
                   <tns:ratingApprovedBy>string</tns:ratingApprovedBy>
                </tns:ratings>
                <tns:topLevelGroupName>string</tns:topLevelGroupName>
@@ -74,6 +74,6 @@
             <tns:errorCode>string</tns:errorCode>
             <tns:errorMessage>string</tns:errorMessage>
          </tns:operationStatus>
-      </crm:PrtspRs>
+      </CRM:PrtspRs>
    </soap-env:Body>
 </soap-env:Envelope>

@@ -4,180 +4,132 @@
     <request name="default">
         <deal>
             <dealID>string</dealID>
-            <!--Optional:-->
             <contractID>string</contractID>
-            <dealCreationDate>2008-09-29T05:49:45</dealCreationDate>
+            <dealCreationDate>2015-01-15T12:00:00</dealCreationDate>
             <dealEssense>string</dealEssense>
             <requestPurpose>string</requestPurpose>
             <dealType>string</dealType>
             <dealStatus>string</dealStatus>
-            <requestDate>2014-09-19</requestDate>
+            <requestDate>2015-01-15</requestDate>
             <origOrgUnit>string</origOrgUnit>
             <origOrgDivision>st</origOrgDivision>
             <clientFileID>string</clientFileID>
             <dealFileID>string</dealFileID>
-            <!--Optional:-->
             <comment>string</comment>
             <supLMID>string</supLMID>
-            <collateralProvided>true</collateralProvided>
+            <collateralProvided>false</collateralProvided>
             <limitKM>string</limitKM>
-            <!--1 or more repetitio-->
             <dealTeamMembers>
                 <memberId>string</memberId>
                 <memberName>string</memberName>
                 <mamberEmail>string</mamberEmail>
                 <mamberRole>string</mamberRole>
             </dealTeamMembers>
-            <!--Zero or more repetitio-->
             <products>
-                <productID>100</productID>
+                <productID>1234567890</productID>
                 <productName>string</productName>
                 <category>string</category>
-                <!--1 or more repetitio-->
                 <productInfo>
                     <productVersion>string</productVersion>
                     <purpose>string</purpose>
                     <creditMode>string</creditMode>
                     <selectionSchedule>string</selectionSchedule>
                     <changesSchedule>string</changesSchedule>
-                    <!--Optional:-->
                     <selectionSchedulePeriod>string</selectionSchedulePeriod>
-                    <!--Optional:-->
                     <changesSchedulePeriod>string</changesSchedulePeriod>
                     <interestPaymentOrder>string</interestPaymentOrder>
                     <refinancing>false</refinancing>
-                    <!--Optional:-->
                     <suspensiveCondition>string</suspensiveCondition>
-                    <!--Optional:-->
-                    <principalBaseCurrency>1</principalBaseCurrency>
-                    <!--1 or more repetitio-->
+                    <principalBaseCurrency>1234567890.12345</principalBaseCurrency>
                     <financingInfo>
                         <currencyOfFunding>str</currencyOfFunding>
-                        <principal>1</principal>
+                        <principal>1234567890.12345</principal>
                     </financingInfo>
-                    <!--1 or more repetitio-->
                     <interestRateInfo>
-                        <interestRate>1</interestRate>
+                        <interestRate>1234567890.12345</interestRate>
                         <interestRateType>string</interestRateType>
                         <interestRateOrder>string</interestRateOrder>
-                        <minRate>1</minRate>
+                        <minRate>1234567890.12345</minRate>
                     </interestRateInfo>
-                    <!--Optional:-->
-                    <startDate>2008-11-15</startDate>
-                    <creditTerm>100</creditTerm>
-                    <period>100</period>
-                    <!--Optional:-->
-                    <gracePeriod>100</gracePeriod>
-                    <!--Optional:-->
+                    <startDate>2015-01-15</startDate>
+                    <creditTerm>12345</creditTerm>
+                    <period>12345</period>
+                    <gracePeriod>12345</gracePeriod>
                     <repaymentSchedule>string</repaymentSchedule>
-                    <turnover>100</turnover>
+                    <turnover>12345</turnover>
                     <covenants>string</covenants>
                     <proposedCollateral>string</proposedCollateral>
-                    <!--Optional:-->
                     <debtLimit>string</debtLimit>
-                    <!--Optional:-->
                     <pledgeInsurance>string</pledgeInsurance>
-                    <!--Optional:-->
                     <customerProspects>string</customerProspects>
-                    <financingTerm>100</financingTerm>
-                    <!--Optional:-->
+                    <financingTerm>123</financingTerm>
                     <firstCountry>string</firstCountry>
-                    <!--Optional:-->
                     <lastCountry>string</lastCountry>
-                    <!--Zero or more repetitio-->
                     <fee>
                         <feeName>string</feeName>
-                        <!--Optional:-->
                         <anotherFeeName>string</anotherFeeName>
-                        <!--Optional:-->
                         <calculationBase>string</calculationBase>
-                        <!--Optional:-->
                         <paymentOrder>string</paymentOrder>
                     </fee>
-                    <!--Zero or more repetitio-->
                     <repaymentScheduleDetails>
-                        <sheduleDate>2017-05-15</sheduleDate>
-                        <sheduleAmount>1</sheduleAmount>
+                        <sheduleDate>2015-01-15</sheduleDate>
+                        <sheduleAmount>1234567890.12345</sheduleAmount>
                     </repaymentScheduleDetails>
-                    <!--Zero or more repetitio-->
                     <selectionScheduleDetails>
-                        <sheduleDate>2013-12-21</sheduleDate>
-                        <sheduleAmount>1</sheduleAmount>
+                        <sheduleDate>2015-01-15</sheduleDate>
+                        <sheduleAmount>1234567890.12345</sheduleAmount>
                     </selectionScheduleDetails>
-                    <!--Zero or more repetitio-->
                     <changesScheduleDetails>
-                        <sheduleDate>2016-01-01</sheduleDate>
-                        <sheduleAmount>1</sheduleAmount>
+                        <sheduleDate>2015-01-15</sheduleDate>
+                        <sheduleAmount>1234567890.12345</sheduleAmount>
                     </changesScheduleDetails>
                 </productInfo>
-                <!--Zero or more repetitio-->
                 <collateral>
                     <collateralType>string</collateralType>
                     <ownerID>string</ownerID>
-                    <estimatedValue>1</estimatedValue>
-                    <discountRate>1</discountRate>
-                    <estimatedValueCorrected>1</estimatedValueCorrected>
+                    <estimatedValue>1234567890.12345</estimatedValue>
+                    <discountRate>1234567890.12345</discountRate>
+                    <estimatedValueCorrected>1234567890.12345</estimatedValueCorrected>
                     <qualityCategory>string</qualityCategory>
-                    <daysForCalculation>100</daysForCalculation>
-                    <estimatedValueCorrectedToEAD>1</estimatedValueCorrectedToEAD>
-                    <securityShare>100</securityShare>
+                    <daysForCalculation>123</daysForCalculation>
+                    <estimatedValueCorrectedToEAD>1234567890.12345</estimatedValueCorrectedToEAD>
+                    <securityShare>123</securityShare>
                     <EstimatedValueSource>string</EstimatedValueSource>
-                    <estimationDate>2012-01-07</estimationDate>
+                    <estimationDate>2015-01-15</estimationDate>
                     <businessMeaning>string</businessMeaning>
                     <qualityAndLiquidityEstimation>string</qualityAndLiquidityEstimation>
                     <currency>string</currency>
                     <estimatedValueType>string</estimatedValueType>
                     <guarantorRating>string</guarantorRating>
                 </collateral>
-                <!--Optional:-->
                 <losses>
-                    <!--Optional:-->
-                    <percentLGD>1</percentLGD>
-                    <!--Optional:-->
-                    <countEAD>1</countEAD>
+                    <percentLGD>1234567890.12345</percentLGD>
+                    <countEAD>1234567890.12345</countEAD>
                     <currency>string</currency>
-                    <!--Optional:-->
-                    <reportDateAmount>1</reportDateAmount>
-                    <!--Optional:-->
-                    <lossELpercent>1</lossELpercent>
-                    <!--Optional:-->
-                    <lossELcount>1</lossELcount>
-                    <!--Optional:-->
+                    <reportDateAmount>1234567890.12345</reportDateAmount>
+                    <lossELpercent>1234567890.12345</lossELpercent>
+                    <lossELcount>1234567890.12345</lossELcount>
                     <typeLGD>string</typeLGD>
-                    <!--Optional:-->
                     <statusLGD>string</statusLGD>
-                    <!--Optional:-->
-                    <dateLGDcalculated>2014-10-27</dateLGDcalculated>
-                    <!--Optional:-->
-                    <finalizationDate>2013-06-17</finalizationDate>
-                    <!--Optional:-->
+                    <dateLGDcalculated>2015-01-15</dateLGDcalculated>
+                    <finalizationDate>2015-01-15</finalizationDate>
                     <comment>string</comment>
                 </losses>
             </products>
-            <!--Optional:-->
             <project>
-                <!--Optional:-->
                 <projectName>string</projectName>
-                <!--Optional:-->
                 <indicatorsOfConstruction>string</indicatorsOfConstruction>
-                <!--Optional:-->
                 <parcel>string</parcel>
-                <!--Optional:-->
                 <documentsPresence>string</documentsPresence>
-                <!--Optional:-->
                 <equityVolume>string</equityVolume>
-                <!--Optional:-->
                 <repaymentSpring>string</repaymentSpring>
-                <!--Optional:-->
                 <fundingDirection>string</fundingDirection>
-                <!--Optional:-->
                 <sameIndustryAsBorrower>false</sameIndustryAsBorrower>
             </project>
-            <!--Zero or more repetitio-->
             <exchangeRates>
                 <currencyName>string</currencyName>
-                <currencyValue>1</currencyValue>
-                <currencyDate>2014-06-10</currencyDate>
+                <currencyValue>1234567890.12345</currencyValue>
+                <currencyDate>2015-01-15</currencyDate>
             </exchangeRates>
         </deal>
     </request>

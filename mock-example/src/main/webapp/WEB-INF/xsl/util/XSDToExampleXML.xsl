@@ -11,7 +11,7 @@
 
     <xsl:param name="xsdNsAlias" select="local-name(xsd:schema/namespace::*[.='http://www.w3.org/2001/XMLSchema'])"/>
     <xsl:param name="parrentNS" select="'http://sbrf.ru/NCP/CRM/'"/>
-    <xsl:param name="systemName" select="'crm'"/>
+    <xsl:param name="systemName" select="'CRM'"/>
     <xsl:param name="targetNS" select="xsd:schema/@targetNamespace"/>
     <xsl:param name="targetNSAlias" select="'tns'"/>
     <xsl:param name="localTargetNSAlias" select="local-name(xsd:schema/namespace::*[.=$targetNS][string-length(local-name(.))>0])"/>

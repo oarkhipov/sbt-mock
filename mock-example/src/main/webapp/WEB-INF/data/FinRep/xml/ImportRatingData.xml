@@ -8,9 +8,9 @@
             <!--optional--><ajustedRatingValue>10</ajustedRatingValue>
             <!--optional--><pd>10</pd>
             <status>string</status>
-            <!--optional--><approvalDate>2015-01-14T12:00:00</approvalDate>
-            <!--optional--><calculationDate>2015-01-14T12:00:00</calculationDate>
-            <!--optional--><ajustmentDate>2015-01-14T12:00:00</ajustmentDate>
+            <!--optional--><approvalDate>2015-01-15T12:00:00</approvalDate>
+            <!--optional--><calculationDate>2015-01-15T12:00:00</calculationDate>
+            <!--optional--><ajustmentDate>2015-01-15T12:00:00</ajustmentDate>
             <modelName>string</modelName>
             <modelIntegrationId>string</modelIntegrationId>
             <ratingName>string</ratingName>
@@ -29,10 +29,10 @@
                 <ratingCalcId>string</ratingCalcId>
                 <modelName>string</modelName>
                 <modelIntegrationId>string</modelIntegrationId>
-                <!--optional--><dateCalc>2015-01-14T12:00:00</dateCalc>
+                <!--optional--><dateCalc>2015-01-15T12:00:00</dateCalc>
                 <!--optional--><calcValue>10</calcValue>
                 <!--optional--><listOfRatingAjustment><!--from 0 to unbounded elements --><ratingAjustment>
-                <ajustmentDate>2015-01-14T12:00:00</ajustmentDate>
+                <ajustmentDate>2015-01-15T12:00:00</ajustmentDate>
                 <ajustedValue>10</ajustedValue>
                 <ajustmetReason>string</ajustmetReason>
                 <!--optional--><comments>string</comments>
@@ -80,10 +80,10 @@
                 <!--optional--><valueIntegrationId>string</valueIntegrationId>
             </fixedFactor>
             </listOfFixedFactor>
-                <!--optional--><listOfRatingPeriod><!--from 1 to unbounded elements --><ratingPeriod><!--optional--><reportDate>2015-01-14</reportDate>
+                <!--optional--><listOfRatingPeriod><!--from 1 to unbounded elements --><ratingPeriod><!--optional--><reportDate>2015-01-15</reportDate>
                 <!--optional--><period>string</period>
-                <!--optional--><startDate>2015-01-14</startDate>
-                <!--optional--><endDate>2015-01-14</endDate>
+                <!--optional--><startDate>2015-01-15</startDate>
+                <!--optional--><endDate>2015-01-15</endDate>
                 <!--optional--><type>string</type>
                 <!--optional--><comments>string</comments>
                 <listOfCardinalFactor><!--from 1 to unbounded elements --><cardinalFactor>

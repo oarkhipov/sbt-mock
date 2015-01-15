@@ -114,13 +114,30 @@ public class importXSD {
      * создает XSL из XSD ля mock сервиса
      * @param system имя подпапки
      * @param name имя сервиса(имя файла)
-     * @param type тип (Response/Request)
      * @param Params параметры xsl
      * @throws Exception
      */
     private void createMockXSL(String system, String name, Map<String, String> Params) throws Exception{
         String xsltXml = useXSLT(getWebInfPath() + "\\xsl\\util\\responceXSDtoXSL.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + name + "Response.xsd",
+                Params);
+        //validateXML(exampleRq1);
+        //TODO тщательно проверить выход
+
+        //TODO backup
+        SaveFile.getInstance(getPath()).writeStringToFile(new File(getWebInfPath() + "\\xsl\\" + system + "\\" + name + ".xsl"), xsltXml);
+    }
+
+    /**
+     * создает XSL из XSD ля mock драйвера
+     * @param system имя подпапки
+     * @param name имя сервиса(имя файла)
+     * @param Params параметры xsl
+     * @throws Exception
+     */
+    private void createDriverXSL(String system, String name, Map<String, String> Params) throws Exception{
+        String xsltXml = useXSLT(getWebInfPath() + "\\xsl\\util\\requestXSDtoXSL.xsl",
+                getWebInfPath() + "\\xsd\\" + system + "\\" + name + "Request.xsd",
                 Params);
         //validateXML(exampleRq1);
         //TODO тщательно проверить выход
@@ -169,6 +186,24 @@ public class importXSD {
     }
 
     /**
+     * полный цикл создания драйвера
+     * @param system имя подпапки
+     * @param name имя сервиса(имя файла)
+     * @param Params параметры xsl
+     */
+    public void driverCycle(String system, String name, Map<String, String> Params) {
+        try
+        {
+            createRqExample(system, name, Params);
+            createDataXSD(system, name, "Request", Params);
+            createDriverXSL(system, name, Params);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    /**
      * точка входа для запуска вне сервиса
      * @throws Exception
      */
@@ -181,17 +216,31 @@ public class importXSD {
 
     public void renewData() {
         Map<String, String> params = null;
-        mockCycle("CRM", "CreateTask", null);
-
         params = new HashMap<String, String>();
+
+
+        driverCycle("CRM", "ForceSignal", null);
+        driverCycle("CRM", "UpdateDeal", null);
+
+        params.clear();
+        params.put("entryPointName", "CreateTaskRs");
+        params.put("RqEntryPointName","CreateTaskRq");
+        mockCycle("CRM", "CreateTask", params);
+
         params.put("entryPointName","PrtspRs");
         params.put("RqEntryPointName","PrtspRq");
         params.put("dataFileName","GetParticipantsData.xml");
         mockCycle("CRM", "GetParticipants", params);
 
-        mockCycle("CRM", "SaveDeal", null);
+        params.clear();
+        params.put("entryPointName", "SaveDealRs");
+        params.put("RqEntryPointName","SaveDealRq");
+        mockCycle("CRM", "SaveDeal", params);
 
-        mockCycle("CRM", "UpdateRef", null);
+        params.clear();
+        params.put("entryPointName", "UpdateRefRs");
+        params.put("RqEntryPointName","UpdateRefRq");
+        mockCycle("CRM", "UpdateRef", params);
 
         params.clear();
         params.put("entryPointName","DebtCapacityCalculationResponse");
@@ -226,7 +275,7 @@ public class importXSD {
         mockCycle("AMRLiRT", "CorrectRating", params);
 
         params.clear();
-        params.put("entryPointName","LgdFinalizationResponse");
+        params.put("entryPointName", "LgdFinalizationResponse");
         params.put("RqEntryPointName","LgdFinalizationRequest");
         params.put("systemName","AMRLiRT");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");

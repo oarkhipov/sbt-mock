@@ -15,9 +15,9 @@
                <tns:ajustedRatingValue>10</tns:ajustedRatingValue>
                <tns:pd>10</tns:pd>
                <tns:status>string</tns:status>
-               <tns:approvalDate>2015-01-14T12:00:00</tns:approvalDate>
-               <tns:calculationDate>2015-01-14T12:00:00</tns:calculationDate>
-               <tns:ajustmentDate>2015-01-14T12:00:00</tns:ajustmentDate>
+               <tns:approvalDate>2015-01-15T12:00:00</tns:approvalDate>
+               <tns:calculationDate>2015-01-15T12:00:00</tns:calculationDate>
+               <tns:ajustmentDate>2015-01-15T12:00:00</tns:ajustmentDate>
                <tns:modelName>string</tns:modelName>
                <tns:modelIntegrationId>string</tns:modelIntegrationId>
                <tns:ratingName>string</tns:ratingName>
@@ -37,11 +37,11 @@
                      <tns:ratingCalcId>string</tns:ratingCalcId>
                      <tns:modelName>string</tns:modelName>
                      <tns:modelIntegrationId>string</tns:modelIntegrationId>
-                     <tns:dateCalc>2015-01-14T12:00:00</tns:dateCalc>
+                     <tns:dateCalc>2015-01-15T12:00:00</tns:dateCalc>
                      <tns:calcValue>10</tns:calcValue>
                      <tns:listOfRatingAjustment>
                         <tns:ratingAjustment>
-                           <tns:ajustmentDate>2015-01-14T12:00:00</tns:ajustmentDate>
+                           <tns:ajustmentDate>2015-01-15T12:00:00</tns:ajustmentDate>
                            <tns:ajustedValue>10</tns:ajustedValue>
                            <tns:ajustmetReason>string</tns:ajustmetReason>
                            <tns:comments>string</tns:comments>
@@ -94,10 +94,10 @@
                      </tns:listOfFixedFactor>
                      <tns:listOfRatingPeriod>
                         <tns:ratingPeriod>
-                           <tns:reportDate>2015-01-14</tns:reportDate>
+                           <tns:reportDate>2015-01-15</tns:reportDate>
                            <tns:period>string</tns:period>
-                           <tns:startDate>2015-01-14</tns:startDate>
-                           <tns:endDate>2015-01-14</tns:endDate>
+                           <tns:startDate>2015-01-15</tns:startDate>
+                           <tns:endDate>2015-01-15</tns:endDate>
                            <tns:type>string</tns:type>
                            <tns:comments>string</tns:comments>
                            <tns:listOfCardinalFactor>

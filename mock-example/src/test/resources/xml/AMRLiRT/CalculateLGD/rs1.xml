@@ -11,7 +11,7 @@
          <tns:errorMessage>string</tns:errorMessage>
          <tns:crmId>string</tns:crmId>
          <tns:lgdType>string</tns:lgdType>
-         <tns:lgdDate>2015-01-14</tns:lgdDate>
+         <tns:lgdDate>2015-01-15</tns:lgdDate>
          <tns:pd>10</tns:pd>
          <tns:lgd>10</tns:lgd>
          <tns:ead>10</tns:ead>

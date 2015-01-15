@@ -5,7 +5,7 @@
       <soap-env:operation-name>CreateTaskRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <crm:CreateTaskRs xmlns:crm="http://sbrf.ru/NCP/CRM/"
+      <CRM:CreateTaskRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                         xmlns:tns="http://sbrf.ru/NCP/CRM/CreateTaskRs/1.02/">
          <tns:contractID>string</tns:contractID>
          <tns:contractBPMID>string</tns:contractBPMID>
@@ -14,6 +14,6 @@
          <tns:responsiblePersonID>string</tns:responsiblePersonID>
          <tns:errorCode>string</tns:errorCode>
          <tns:errorMessage>string</tns:errorMessage>
-      </crm:CreateTaskRs>
+      </CRM:CreateTaskRs>
    </soap-env:Body>
 </soap-env:Envelope>

@@ -3,7 +3,7 @@
                 xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/"
                 xmlns:rsd="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/Data/"
                 xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
-                xmlns:crm="http://sbrf.ru/NCP/CRM/"
+                xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
    <xsl:import href="../util/NCPSoapRqHeaderXSLTTemplate.xsl"/>
@@ -521,7 +521,7 @@
    <xsl:template name="UpdateDealRq">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="crm:UpdateDealRq">
+      <xsl:element name="CRM:UpdateDealRq">
          <xsl:apply-templates select="$data/rsd:request[@name=$response]/rsd:deal"/>
       </xsl:element>
    </xsl:template>

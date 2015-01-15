@@ -102,14 +102,14 @@
 					</xsd:documentation>
 				        </xsd:annotation>
 			      </xsd:element>
-         <xsd:element name="contractBPMID" type="crmct:string255" minOccurs="0">
+         <xsd:element name="contractBPMID" minOccurs="0" type="crmct:string255">
 				        <xsd:annotation>
 					          <xsd:documentation>
 						ID сделки в PRPC
 					</xsd:documentation>
 				        </xsd:annotation>
 			      </xsd:element>
-         <xsd:element name="status" type="crmct:string15" minOccurs="0">
+         <xsd:element name="status" minOccurs="0" type="crmct:string15">
 				        <xsd:annotation>
 					          <xsd:documentation>
 						Статус

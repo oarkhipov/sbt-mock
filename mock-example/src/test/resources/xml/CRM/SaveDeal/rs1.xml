@@ -5,13 +5,13 @@
       <soap-env:operation-name>SaveDealRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <crm:SaveDealRs xmlns:crm="http://sbrf.ru/NCP/CRM/"
+      <CRM:SaveDealRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                       xmlns:tns="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/">
          <tns:operationStatus>
             <tns:errorCode>string</tns:errorCode>
             <tns:errorMessage>string</tns:errorMessage>
          </tns:operationStatus>
          <tns:dealID>string</tns:dealID>
-      </crm:SaveDealRs>
+      </CRM:SaveDealRs>
    </soap-env:Body>
 </soap-env:Envelope>

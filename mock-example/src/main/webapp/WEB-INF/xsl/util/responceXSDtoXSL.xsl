@@ -8,6 +8,7 @@
 
     <xsl:param name="targetNS" select="xsd:schema/@targetNamespace"/>
     <xsl:param name="entryPointName" select="replace($targetNS,'^.+/(\w+)(/[0-9\.]+)?/$','$1')"/>
+    <xsl:param name="RqEntryPointName" select="replace(replace($entryPointName,'Rs','Rq'),'Response','Request')"/>
     <xsl:param name="dataFileName" select="concat(replace(replace($entryPointName,'Rs',''),'Response',''),'Data.xml')"/>
     <xsl:param name="parrentNS" select="'http://sbrf.ru/NCP/CRM/'"/>
     <xsl:param name="systemName" select="'CRM'"/>

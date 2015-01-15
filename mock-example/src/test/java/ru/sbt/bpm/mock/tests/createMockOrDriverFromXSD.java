@@ -24,7 +24,10 @@ public class createMockOrDriverFromXSD {
     @Test
     public void testXSLTtoDataCRMCreateTask() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath() + "\\..\\..\\src\\main\\webapp\\WEB-INF";
-        mockTestCycle(dir, "CRM", "CreateTask", "Response");
+        Map<String, String> params = new HashMap<String, String>(1);
+        params.put("entryPointName","CreateTaskRs");
+        params.put("RqEntryPointName","CreateTaskRq");
+        mockTestCycle(dir, "CRM", "CreateTask", "Response", params);
     }
     @Test
     public void testXSLTtoDataCRMForceSignal() throws Exception {
@@ -43,7 +46,10 @@ public class createMockOrDriverFromXSD {
     @Test
     public void testXSLTtoDataCRMSaveDeal() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath() + "\\..\\..\\src\\main\\webapp\\WEB-INF";
-        mockTestCycle(dir, "CRM", "SaveDeal", "Response");
+        Map<String, String> params = new HashMap<String, String>(1);
+        params.put("entryPointName","SaveDealRs");
+        params.put("RqEntryPointName","SaveDealRq");
+        mockTestCycle(dir, "CRM", "SaveDeal", "Response", params);
     }
     @Test
     public void testXSLTtoDataCRMUpdateDeal() throws Exception {
@@ -53,7 +59,10 @@ public class createMockOrDriverFromXSD {
     @Test
     public void testXSLTtoDataCRMUpdateRef() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath() + "\\..\\..\\src\\main\\webapp\\WEB-INF";
-        mockTestCycle(dir, "CRM", "UpdateRef", "Response");
+        Map<String, String> params = new HashMap<String, String>(1);
+        params.put("entryPointName","UpdateRefRs");
+        params.put("RqEntryPointName","UpdateRefRq");
+        mockTestCycle(dir, "CRM", "UpdateRef", "Response", params);
     }
     @Test
     public void testXSLTtoDataAMRLiRTCalculateDebtCapacity() throws Exception {
@@ -196,7 +205,9 @@ public class createMockOrDriverFromXSD {
                 if (params.containsKey("entryPointName")) {
                     altParams.put("operation-name", params.get("entryPointName"));
                 }
-                altParams.put("entryPointName", params.get("RqEntryPointName"));
+                if (params.containsKey("RqEntryPointName")) {
+                    altParams.put("entryPointName", params.get("RqEntryPointName"));
+                }
             } else {
                 altParams = new HashMap<String, String>(1);
             }

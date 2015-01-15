@@ -14,9 +14,9 @@
             <!--optional--><tns:ajustedRatingValue>10</tns:ajustedRatingValue>
             <!--optional--><tns:pd>10</tns:pd>
             <tns:status>string</tns:status>
-            <!--optional--><tns:approvalDate>2015-01-14T12:00:00</tns:approvalDate>
-            <!--optional--><tns:calculationDate>2015-01-14T12:00:00</tns:calculationDate>
-            <!--optional--><tns:ajustmentDate>2015-01-14T12:00:00</tns:ajustmentDate>
+            <!--optional--><tns:approvalDate>2015-01-15T12:00:00</tns:approvalDate>
+            <!--optional--><tns:calculationDate>2015-01-15T12:00:00</tns:calculationDate>
+            <!--optional--><tns:ajustmentDate>2015-01-15T12:00:00</tns:ajustmentDate>
             <tns:modelName>string</tns:modelName>
             <tns:modelIntegrationId>string</tns:modelIntegrationId>
             <tns:ratingName>string</tns:ratingName>
@@ -35,10 +35,10 @@
                   <tns:ratingCalcId>string</tns:ratingCalcId>
                   <tns:modelName>string</tns:modelName>
                   <tns:modelIntegrationId>string</tns:modelIntegrationId>
-                  <!--optional--><tns:dateCalc>2015-01-14T12:00:00</tns:dateCalc>
+                  <!--optional--><tns:dateCalc>2015-01-15T12:00:00</tns:dateCalc>
                   <!--optional--><tns:calcValue>10</tns:calcValue>
                   <!--optional--><tns:listOfRatingAjustment><!--from 0 to unbounded elements --><tns:ratingAjustment>
-                        <tns:ajustmentDate>2015-01-14T12:00:00</tns:ajustmentDate>
+                        <tns:ajustmentDate>2015-01-15T12:00:00</tns:ajustmentDate>
                         <tns:ajustedValue>10</tns:ajustedValue>
                         <tns:ajustmetReason>string</tns:ajustmetReason>
                         <!--optional--><tns:comments>string</tns:comments>
