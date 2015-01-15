@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="mock-example-new:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/mock_example_new_war_exploded</output-path>
+  <artifact type="exploded-war" name="mock-tomcat:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/mock_tomcat_war_exploded</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -39,7 +39,8 @@
           <element id="library" level="project" name="Maven: net.sf.saxon:Saxon-HE:9.4" />
         </element>
       </element>
-      <element id="javaee-facet-resources" facet="mock-example/web/Web" />
+      <element id="library" level="project" name="Maven: org.testng:testng:6.3.1" />
+      <element id="javaee-facet-resources" facet="mock-example/web/WebTest" />
     </root>
   </artifact>
 </component>
