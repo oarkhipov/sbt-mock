@@ -44,8 +44,7 @@ public class Xsl20Transformer {
          * Отличается от остальных типов трансформа, что получает пути к файлам.
          * @param xsltFile путь к файлу xslt
          * @param xmlFile путь к файлу xml
-         * @param paramName параметр
-         * @param ParamValue значение параметр
+         * @param params параметр
          * @return трансформированный xml
          * @throws TransformerException
          */

@@ -1,7 +1,6 @@
 package ru.sbt.bpm.mock.tests;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import ru.sbt.bpm.mock.utils.SaveFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,7 +21,7 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration({"/mockapp-servlet-test.xml"})
+@ContextConfiguration({"/env/mockapp-test-servlet.xml"})
 public class SaveFileTest {
     @Autowired
     public ChannelService service;
