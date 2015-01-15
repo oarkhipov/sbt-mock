@@ -7,7 +7,7 @@
    <soap-env:Body>
       <FinRep:FinAnalysisImportRequest xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
                                        xmlns:tns="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRq/">
-         <tns:dealId>string</tns:dealId>
+         <tns:dealId>test1</tns:dealId>
       </FinRep:FinAnalysisImportRequest>
    </soap-env:Body>
 </soap-env:Envelope>

@@ -20,6 +20,11 @@
     <!-- при false все опциональные тэги будут пропущенны -->
     <xsl:param name="showOptionalTags" select="'true'"/>
 
+    <!--Вставка значения для linkedTag. По умолчанию не используется (useLinkedTagValue=false). Иначе надо задать все 3 параметра -->
+    <xsl:param name="useLinkedTagValue" select="'false'"/>
+    <xsl:param name="tagNameToTakeLinkedTag"/>
+    <xsl:param name="linkedTagValue" select="'test1'"/>
+
     <!--То, что задавать не нужно-->
     <!--алиас xsd схемы-->
     <xsl:param name="xsdNsAlias" select="local-name(xsd:schema/namespace::*[.='http://www.w3.org/2001/XMLSchema'])"/>
@@ -63,11 +68,13 @@
 
     <!-- матчи элементов по колличеству - после определения вызываем новый матч в режиме определения типа -->
 
-    <xsl:template match="xsd:element[not(@minOccurs) and not(@maxOccurs)]" mode="subelement">
+    <xsl:template match="xsd:element[not(@minOccurs) and not(@maxOccurs)]" mode="subelement"
+                  priority="3">
         <xsl:apply-templates select="self::*" mode="type"/>
     </xsl:template>
 
-    <xsl:template match="xsd:element[@minOccurs=0 and not(@maxOccurs)]" mode="subelement">
+    <xsl:template match="xsd:element[@minOccurs=0 and not(@maxOccurs)]" mode="subelement"
+                  priority="2">
         <xsl:if test="$showOptionalTags='true'">
             <xsl:if test="$omitComments">
                 <xsl:comment>optional</xsl:comment>
@@ -76,7 +83,8 @@
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="xsd:element" mode="subelement">
+    <xsl:template match="xsd:element" mode="subelement"
+            priority="1">
         <xsl:variable name="min" select="if(@minOccurs) then @minOccurs else 1"/>
         <xsl:variable name="max" select="if(@maxOccurs) then @maxOccurs else $min"/>
         <xsl:if test="$showOptionalTags='true' or $min>0">
@@ -87,7 +95,11 @@
         </xsl:if>
     </xsl:template>
 
-
+    <!--заполняем значение линкедТага, но только если попросят-->
+    <xsl:template match="xsd:element[$useLinkedTagValue='true' and $tagNameToTakeLinkedTag!='null' and @name = $tagNameToTakeLinkedTag]" mode="subelement"
+            priority="4">
+        <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}"><xsl:value-of select="$linkedTagValue"/></xsl:element>
+    </xsl:template>
 
     <!-- матчи элеметнов по типу-->
 

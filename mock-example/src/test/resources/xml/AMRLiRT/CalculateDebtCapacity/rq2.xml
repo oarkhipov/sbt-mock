@@ -10,7 +10,7 @@
          <tns:crmId>string</tns:crmId>
          <tns:rating>10</tns:rating>
          <tns:finReportType>string</tns:finReportType>
-         <tns:model>string</tns:model>
+         <tns:model>test1</tns:model>
          <tns:rmkType>string</tns:rmkType>
          <tns:currencyCode>string</tns:currencyCode>
          <tns:currencyCodeForFinReport>string</tns:currencyCodeForFinReport>

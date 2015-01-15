@@ -74,6 +74,9 @@ public class importXSD {
 
         if (Params == null) Params = new HashMap<String, String>(2);
         Params.put("showOptionalTags", "false");
+        if (Params.containsKey("tagNameToTakeLinkedTag")) {
+            Params.put("useLinkedTagValue","true");
+        }
         String exampleRq2 = useXSLT(getWebInfPath() + "\\xsl\\util\\XSDToExampleXML.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + name + "Request.xsd",
                 Params);
@@ -313,31 +316,35 @@ public class importXSD {
         params.clear();
         params.put("entryPointName", "CreateTaskRs");
         params.put("RqEntryPointName","CreateTaskRq");
-        params.put("tagToTakeLinkedTag","*[local-name()='comment']");
+        params.put("tagNameToTakeLinkedTag","comment");
         mockCycle("CRM", "CreateTask", params);
 
         params.clear();
-        params.put("entryPointName","PrtspRs");
+        params.put("entryPointName", "PrtspRs");
         params.put("RqEntryPointName","PrtspRq");
         params.put("dataFileName","GetParticipantsData.xml");
+        params.put("tagNameToTakeLinkedTag","performer");
         mockCycle("CRM", "GetParticipants", params);
 
         params.clear();
         params.put("entryPointName", "SaveDealRs");
         params.put("RqEntryPointName","SaveDealRq");
+        params.put("tagNameToTakeLinkedTag","dealType");
         mockCycle("CRM", "SaveDeal", params);
 
         params.clear();
         params.put("entryPointName", "UpdateRefRs");
         params.put("RqEntryPointName","UpdateRefRq");
+        params.put("tagNameToTakeLinkedTag","referenceItem");
         mockCycle("CRM", "UpdateRef", params);
 
         params.clear();
-        params.put("entryPointName","DebtCapacityCalculationResponse");
+        params.put("entryPointName", "DebtCapacityCalculationResponse");
         params.put("RqEntryPointName","DebtCapacityCalculationRequest");
         params.put("systemName","AMRLiRT");
         params.put("parrentNS", "http://sbrf.ru/NCP/ASFO/");
         params.put("dataFileName", "CalculateDebtCapacityData.xml");
+        params.put("tagNameToTakeLinkedTag","model");
         mockCycle("AMRLiRT", "CalculateDebtCapacity", params);
 
         params.clear();
@@ -346,6 +353,7 @@ public class importXSD {
         params.put("systemName","AMRLiRT");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("dataFileName","CalculateRatingData.xml");
+        params.put("tagNameToTakeLinkedTag","model");
         mockCycle("AMRLiRT", "CalculateRating", params);
 
         params.clear();
@@ -354,6 +362,7 @@ public class importXSD {
         params.put("systemName","AMRLiRT");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("dataFileName","ConfirmRatingData.xml");
+        params.put("tagNameToTakeLinkedTag","siebelMessage");
         mockCycle("AMRLiRT", "ConfirmRating", params);
 
         params.clear();
@@ -362,6 +371,7 @@ public class importXSD {
         params.put("systemName","AMRLiRT");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("dataFileName","CorrectRatingData.xml");
+        params.put("tagNameToTakeLinkedTag","siebelMessage");
         mockCycle("AMRLiRT", "CorrectRating", params);
 
         params.clear();
@@ -370,42 +380,48 @@ public class importXSD {
         params.put("systemName","AMRLiRT");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("dataFileName","FinalizeLGDData.xml");
+        params.put("tagNameToTakeLinkedTag","type");
         mockCycle("AMRLiRT", "FinalizeLGD", params);
 
         params.clear();
-        params.put("entryPointName","LgdCalculationResponse");
+        params.put("entryPointName", "LgdCalculationResponse");
         params.put("RqEntryPointName","LgdCalculationRequest");
         params.put("systemName","AMRLiRT");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("dataFileName","CalculateLGDData.xml");
+        params.put("tagNameToTakeLinkedTag","comment");
         mockCycle("AMRLiRT", "CalculateLGD", params);
 
         params.clear();
-        params.put("entryPointName","FinAnalysisImportResponse");
+        params.put("entryPointName", "FinAnalysisImportResponse");
         params.put("RqEntryPointName","FinAnalysisImportRequest");
         params.put("systemName","FinRep");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("tagNameToTakeLinkedTag","dealId");
         mockCycle("FinRep", "FinAnalysisImport", params);
 
         params.clear();
-        params.put("entryPointName","FinReportImportResponse");
+        params.put("entryPointName", "FinReportImportResponse");
         params.put("RqEntryPointName","FinReportImportRequest");
         params.put("systemName","FinRep");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("tagNameToTakeLinkedTag","finReportType");
         mockCycle("FinRep", "FinReportImport", params);
 
         params.clear();
-        params.put("entryPointName","ImportRatingResponse");
+        params.put("entryPointName", "ImportRatingResponse");
         params.put("RqEntryPointName","ImportRatingRequest");
         params.put("systemName","FinRep");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("tagNameToTakeLinkedTag","entityType");
         mockCycle("FinRep", "ImportRating", params);
 
         params.clear();
-        params.put("entryPointName","UpdateRatingResponse");
+        params.put("entryPointName", "UpdateRatingResponse");
         params.put("RqEntryPointName","UpdateRatingRequest");
         params.put("systemName","FinRep");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("tagNameToTakeLinkedTag","status");
         mockCycle("FinRep", "UpdateRating", params);
     }
 

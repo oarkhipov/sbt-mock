@@ -8,7 +8,7 @@
       <FinRep:ImportRatingRequest xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
                                   xmlns:tns="http://sbrf.ru/NCP/ASFO/GetRatingsAndFactorsRq/">
          <tns:dealId>string</tns:dealId>
-         <tns:entityType>string</tns:entityType>
+         <tns:entityType>test1</tns:entityType>
          <tns:entityId>string</tns:entityId>
       </FinRep:ImportRatingRequest>
    </soap-env:Body>

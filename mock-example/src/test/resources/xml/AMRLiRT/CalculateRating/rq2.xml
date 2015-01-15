@@ -9,7 +9,7 @@
                                  xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/">
          <tns:arg0>
             <tns:ratingId>string</tns:ratingId>
-            <tns:model>string</tns:model>
+            <tns:model>test1</tns:model>
             <tns:modelIntagrationId>string</tns:modelIntagrationId>
             <tns:requestor>
                <tns:login>string</tns:login>

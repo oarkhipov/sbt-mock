@@ -9,7 +9,7 @@
                                   xmlns:tns="http://sbrf.ru/NCP/ASFO/UpdateRatingRq/">
          <tns:rating>
             <tns:ratingId>string</tns:ratingId>
-            <tns:status>string</tns:status>
+            <tns:status>test1</tns:status>
             <tns:modelName>string</tns:modelName>
             <tns:modelIntegrationId>string</tns:modelIntegrationId>
             <tns:ratingName>string</tns:ratingName>

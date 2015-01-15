@@ -6,6 +6,8 @@
    </soap-env:Header>
    <soap-env:Body>
       <CRM:UpdateRefRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
-                       xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateRefRq/1.01/"/>
+                       xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateRefRq/1.01/">
+         <tns:referenceItem>test1</tns:referenceItem>
+      </CRM:UpdateRefRq>
    </soap-env:Body>
 </soap-env:Envelope>

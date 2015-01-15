@@ -13,6 +13,7 @@
          <tns:agrDate>2015-01-15</tns:agrDate>
          <tns:lgdType>string</tns:lgdType>
          <tns:crmId>string</tns:crmId>
+         <tns:comment>test1</tns:comment>
          <tns:model>string</tns:model>
          <tns:user>
             <tns:fio>string</tns:fio>

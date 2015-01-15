@@ -10,7 +10,7 @@
          <tns:fio>string</tns:fio>
          <tns:position>string</tns:position>
          <tns:crmId>string</tns:crmId>
-         <tns:type>string</tns:type>
+         <tns:type>test1</tns:type>
       </AMRLiRT:LgdFinalizationRequest>
    </soap-env:Body>
 </soap-env:Envelope>

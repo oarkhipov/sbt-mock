@@ -9,7 +9,8 @@
    <xsl:import href="../util/NCPSoapRqHeaderXSLTTemplate.xsl"/>
    <!--опускаем строку 'xml version="1.0" encoding="UTF-8"'. С ней не работает MQ очередь-->
 <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
-   <xsl:param name="name" select="//soap-env:Body/*/*[local-name()='comment']/text()"/>
+   <xsl:param name="name"
+              select="//soap-env:Body/*//*[local-name()='comment'][1]/text()"/>
    <xsl:param name="dataFileName" select="'../../data/CRM/xml/CreateTaskData.xml'"/>
    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
    <xsl:param name="id" select="null"/>

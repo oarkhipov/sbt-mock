@@ -13,8 +13,10 @@
     <xsl:param name="parrentNS" select="'http://sbrf.ru/NCP/CRM/'"/>
     <xsl:param name="systemName" select="'CRM'"/>
     <xsl:param name="soapEnvNS" select="'http://sbrf.ru/NCP/esb/envelope/'"/>
-    <!--xpath, по которому будет взят LinkedTag-->
-    <xsl:param name="tagToTakeLinkedTag" select="'*[1]'"/>
+    <!--тэг, по которому будет взят LinkedTag-->
+    <xsl:param name="tagNameToTakeLinkedTag" select="'*'"/>
+    <!--xpath, по которому будет взят LinkedTag. Можно не использовать, если определен $tagNameToTakeLinkedTag-->
+    <xsl:param name="tagQuerryToTakeLinkedTag" select="if($tagNameToTakeLinkedTag='*') then '*[1]' else concat('*[local-name()=''',$tagNameToTakeLinkedTag,''']')"/>
 
     <xsl:template match="xsd:schema">
         <xsl:element name="xsl:stylesheet">
@@ -55,7 +57,7 @@
 
         <xsl:element name="xsl:param">
             <xsl:attribute name="name">name</xsl:attribute>
-            <xsl:attribute name="select">//soap-env:Body/*/<xsl:value-of select="$tagToTakeLinkedTag"/>/text()</xsl:attribute>
+            <xsl:attribute name="select">//soap-env:Body/*//<xsl:value-of select="$tagQuerryToTakeLinkedTag"/>[1]/text()</xsl:attribute>
         </xsl:element>
         <xsl:element name="xsl:param">
             <xsl:attribute name="name">dataFileName</xsl:attribute>

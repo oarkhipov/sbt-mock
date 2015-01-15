@@ -12,7 +12,7 @@
             <tns:dealCreationDate>2015-01-15T12:00:00</tns:dealCreationDate>
             <tns:dealEssense>string</tns:dealEssense>
             <tns:requestPurpose>string</tns:requestPurpose>
-            <tns:dealType>string</tns:dealType>
+            <tns:dealType>test1</tns:dealType>
             <tns:dealStatus>string</tns:dealStatus>
             <tns:requestDate>2015-01-15</tns:requestDate>
             <tns:origOrgUnit>string</tns:origOrgUnit>

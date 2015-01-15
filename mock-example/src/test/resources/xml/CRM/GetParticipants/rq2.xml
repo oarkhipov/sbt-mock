@@ -9,7 +9,7 @@
                    xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.03/">
          <tns:id>string</tns:id>
          <tns:requestType>string</tns:requestType>
-         <tns:performer>string</tns:performer>
+         <tns:performer>test1</tns:performer>
       </CRM:PrtspRq>
    </soap-env:Body>
 </soap-env:Envelope>

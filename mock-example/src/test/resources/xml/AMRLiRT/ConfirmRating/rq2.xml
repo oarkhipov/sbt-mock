@@ -20,6 +20,7 @@
                <tns:divisionCode>string</tns:divisionCode>
             </tns:requestor>
          </tns:arg0>
+         <tns:siebelMessage>test1</tns:siebelMessage>
       </AMRLiRT:ConfirmRequest>
    </soap-env:Body>
 </soap-env:Envelope>

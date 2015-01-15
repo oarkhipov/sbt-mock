@@ -9,7 +9,7 @@
                         xmlns:tns="http://sbrf.ru/NCP/CRM/CreateTaskRq/1.02/">
          <tns:contractID>string</tns:contractID>
          <tns:contractBPMID>string</tns:contractBPMID>
-         <tns:comment>string</tns:comment>
+         <tns:comment>test1</tns:comment>
          <tns:requestType>string</tns:requestType>
          <tns:responsiblePersonID>string</tns:responsiblePersonID>
       </CRM:CreateTaskRq>

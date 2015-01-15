@@ -27,7 +27,7 @@ public class createMockOrDriverFromXSD {
         Map<String, String> params = new HashMap<String, String>(1);
         params.put("entryPointName","CreateTaskRs");
         params.put("RqEntryPointName","CreateTaskRq");
-        params.put("tagToTakeLinkedTag","*[local-name()='comment']");
+        params.put("tagNameToTakeLinkedTag","comment");
         mockTestCycle(dir, "CRM", "CreateTask", "Response", params);
     }
     @Test
@@ -42,6 +42,7 @@ public class createMockOrDriverFromXSD {
         params.put("entryPointName","PrtspRs");
         params.put("RqEntryPointName","PrtspRq");
         params.put("dataFileName","GetParticipantsData.xml");
+        params.put("tagNameToTakeLinkedTag","performer");
         mockTestCycle(dir, "CRM", "GetParticipants", "Response", params);
     }
     @Test
@@ -50,6 +51,7 @@ public class createMockOrDriverFromXSD {
         Map<String, String> params = new HashMap<String, String>(1);
         params.put("entryPointName","SaveDealRs");
         params.put("RqEntryPointName","SaveDealRq");
+        params.put("tagNameToTakeLinkedTag","dealType");
         mockTestCycle(dir, "CRM", "SaveDeal", "Response", params);
     }
     @Test
@@ -63,6 +65,7 @@ public class createMockOrDriverFromXSD {
         Map<String, String> params = new HashMap<String, String>(1);
         params.put("entryPointName","UpdateRefRs");
         params.put("RqEntryPointName","UpdateRefRq");
+        params.put("tagNameToTakeLinkedTag","referenceItem");
         mockTestCycle(dir, "CRM", "UpdateRef", "Response", params);
     }
     @Test
@@ -74,6 +77,7 @@ public class createMockOrDriverFromXSD {
         params.put("systemName","AMRLiRT");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("dataFileName","CalculateDebtCapacityData.xml");
+        params.put("tagNameToTakeLinkedTag","model");
         mockTestCycle(dir, "AMRLiRT", "CalculateDebtCapacity", "Response", params);
     }
     @Test
@@ -85,6 +89,7 @@ public class createMockOrDriverFromXSD {
         params.put("systemName","AMRLiRT");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("dataFileName","CalculateRatingData.xml");
+        params.put("tagNameToTakeLinkedTag","model");
         mockTestCycle(dir, "AMRLiRT", "CalculateRating", "Response", params);
     }
     @Test
@@ -96,6 +101,7 @@ public class createMockOrDriverFromXSD {
         params.put("systemName","AMRLiRT");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("dataFileName","ConfirmRatingData.xml");
+        params.put("tagNameToTakeLinkedTag","siebelMessage");
         mockTestCycle(dir, "AMRLiRT", "ConfirmRating", "Response", params);
     }
     @Test
@@ -107,6 +113,7 @@ public class createMockOrDriverFromXSD {
         params.put("systemName","AMRLiRT");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("dataFileName","CorrectRatingData.xml");
+        params.put("tagNameToTakeLinkedTag","siebelMessage");
         mockTestCycle(dir, "AMRLiRT", "CorrectRating", "Response", params);
     }
     @Test
@@ -118,6 +125,7 @@ public class createMockOrDriverFromXSD {
         params.put("systemName","AMRLiRT");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("dataFileName","FinalizeLGDData.xml");
+        params.put("tagNameToTakeLinkedTag","type");
         mockTestCycle(dir, "AMRLiRT", "FinalizeLGD", "Response", params);
     }
     @Test
@@ -129,6 +137,7 @@ public class createMockOrDriverFromXSD {
         params.put("systemName","AMRLiRT");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("dataFileName","CalculateLGDData.xml");
+        params.put("tagNameToTakeLinkedTag","comment");
         mockTestCycle(dir, "AMRLiRT", "CalculateLGD", "Response", params);
     }
     @Test
@@ -139,6 +148,7 @@ public class createMockOrDriverFromXSD {
         params.put("RqEntryPointName","FinAnalysisImportRequest");
         params.put("systemName","FinRep");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("tagNameToTakeLinkedTag","dealId");
         mockTestCycle(dir, "FinRep", "FinAnalysisImport", "Response", params);
     }
     @Test
@@ -149,6 +159,7 @@ public class createMockOrDriverFromXSD {
         params.put("RqEntryPointName","FinReportImportRequest");
         params.put("systemName","FinRep");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("tagNameToTakeLinkedTag","finReportType");
         mockTestCycle(dir, "FinRep", "FinReportImport", "Response", params);
     }
     @Test
@@ -159,6 +170,7 @@ public class createMockOrDriverFromXSD {
         params.put("RqEntryPointName","ImportRatingRequest");
         params.put("systemName","FinRep");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("tagNameToTakeLinkedTag","entityType");
         mockTestCycle(dir, "FinRep", "ImportRating", "Response", params);
     }
     @Test
@@ -169,6 +181,7 @@ public class createMockOrDriverFromXSD {
         params.put("RqEntryPointName","UpdateRatingRequest");
         params.put("systemName","FinRep");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("tagNameToTakeLinkedTag","status");
         mockTestCycle(dir, "FinRep", "UpdateRating", "Response", params);
     }
 
@@ -223,6 +236,10 @@ public class createMockOrDriverFromXSD {
                     webinf + "\\xsd\\" + system + "\\" + name + "Request.xsd",
                     "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml", altParams);
 
+            if (altParams.containsKey("tagNameToTakeLinkedTag")) {
+                altParams.put("useLinkedTagValue","true");
+            }
+
             System.out.println("create rq example 2");
             altParams.put("showOptionalTags", "false");
             String exampleRq2 = checkXSLT(webinf + "\\xsl\\util\\XSDToExampleXML.xsl",
@@ -236,6 +253,7 @@ public class createMockOrDriverFromXSD {
             String exampleRs1 = checkXSLT(webinf + "\\xsl\\util\\XSDToExampleXML.xsl",
                     webinf + "\\xsd\\" + system + "\\" + name + type + ".xsd",
                     "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs1.xml", params);
+
 
             System.out.println("create rs example 2");
             altParams2.put("showOptionalTags","false");
@@ -260,10 +278,10 @@ public class createMockOrDriverFromXSD {
                     dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml",
                     "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs1.xml");
 
-//            System.out.println("check example ");
-//            checkXSLT(webinf + "\\xsl\\" + system + "\\" + name + ".xsl",
-//                    dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq2.xml",
-//                    "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs2.xml");
+            System.out.println("check example 2");
+            checkXSLT(webinf + "\\xsl\\" + system + "\\" + name + ".xsl",
+                    dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq2.xml",
+                    "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs2.xml");
         } else if (type.equals("Request")) {
             System.out.println("xsl");
             String xsl = checkXSLT(webinf + "\\xsl\\util\\requestXSDtoXSL.xsl",
