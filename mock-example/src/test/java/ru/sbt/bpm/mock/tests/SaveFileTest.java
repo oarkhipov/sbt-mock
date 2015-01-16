@@ -60,14 +60,18 @@ public class SaveFileTest {
     public void checkBackUp() throws Exception {
         checkBackUpChangedFile("\\backup\\AMRLiRT\\xml", "AMRLiRT\\xml\\CalculateDebtCapacityData.xml");
         checkBackUpChangedFile("\\backup\\CRM\\xml", "CRM\\xml\\ForceSignalData.xml");
-        checkBackUpChangedFile("\\backup\\FinRep\\xml", "FinRep\\xml\\SrvGetFinAnalysisData.xml");
+        checkBackUpChangedFile("\\backup\\FinRep\\xml", "FinRep\\xml\\FinAnalysisImportData.xml");
     }
 
     private File checkBackUpChangedFile(String backSupFolder, String fileToBackUp) throws Exception  {
         File f = checkBackUp(backSupFolder, fileToBackUp);
+        long cheksumB = FileUtils.checksumCRC32(f);
+        System.out.println(cheksumB);
         String str = saveFile.getFileString(f);
         String strstr=str.replace("string","string1");
         FileUtils.writeStringToFile(f, strstr);
+        long cheksum2 = FileUtils.checksumCRC32(f);
+        System.out.println(cheksum2);
         File f2 = checkBackUp(backSupFolder, fileToBackUp);
 
         assert f.getAbsolutePath().equals(f2.getAbsolutePath())
@@ -75,12 +79,15 @@ public class SaveFileTest {
 
         String strstr2=str.replace("string","string2");
         FileUtils.writeStringToFile(f, strstr2);
+        long cheksum3 = FileUtils.checksumCRC32(f);
+        System.out.println(cheksum3);
         File f3 = checkBackUp(backSupFolder, fileToBackUp);
 
         assert f.getAbsolutePath().equals(f3.getAbsolutePath())
                 : "Different files; ["+f.getAbsolutePath()+"] and ["+f3.getAbsolutePath()+"]";
 
         File f4 = restorBackUp(backSupFolder, fileToBackUp);
+        long cheksumA = FileUtils.checksumCRC32(f4);
 
         saveFile = SaveFile.getInstance(appContext);
         File file = saveFile.getNextBackUpedDataFile(fileToBackUp);
@@ -95,8 +102,8 @@ public class SaveFileTest {
         assert !file.getAbsolutePath().equals(file2.getAbsolutePath());
         assert !file2.getAbsolutePath().equals(file3.getAbsolutePath());
         assert !file3.getAbsolutePath().equals(file4.getAbsolutePath());
-        assert file4.getAbsolutePath().equals(file.getAbsolutePath())
-                : "В папке были бэкапы до запуска теста - это не ошибка";
+
+        assert cheksumA == cheksumB;
 
         return f;
     }

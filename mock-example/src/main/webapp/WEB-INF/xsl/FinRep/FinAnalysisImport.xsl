@@ -44,7 +44,7 @@
                   </xsl:with-param>
                   <xsl:with-param name="timestamp" select="$timestamp"/>
                   <xsl:with-param name="id" select="$id"/>
-                  <xsl:with-param name="operation-name" select="string('FinAnalysisImportResponse')"/>
+                  <xsl:with-param name="operation-name" select="string('getFinAnalysisRs')"/>
                   <xsl:with-param name="correlation-id" select="$correlation-id"/>
                   <xsl:with-param name="eis-name" select="$eis-name"/>
                   <xsl:with-param name="system-id" select="$system-id"/>
@@ -269,7 +269,7 @@
    <xsl:template name="FinAnalysisImportResponse">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="FinRep:FinAnalysisImportResponse">
+      <xsl:element name="FinRep:getFinAnalysisRs">
          <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:actualRequirements"/>
          <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:actualRequirementsInTotal"/>
          <xsl:if test="$data/rsd:response[@name=$response]/rsd:finIndexChangesReasonNFRS">

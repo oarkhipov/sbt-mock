@@ -2,10 +2,10 @@
    <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>CorrectResponse</soap-env:operation-name>
+      <soap-env:operation-name>correctRatingRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <AMRLiRT:CorrectResponse xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
+      <AMRLiRT:correctRatingRs xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
                                xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/">
          <tns:return>
             <tns:errorCode>string</tns:errorCode>
@@ -17,6 +17,6 @@
                </tns:addParameter>
             </tns:listOfAddParameter>
          </tns:return>
-      </AMRLiRT:CorrectResponse>
+      </AMRLiRT:correctRatingRs>
    </soap-env:Body>
 </soap-env:Envelope>

@@ -35,10 +35,10 @@
                <ratingValue>123</ratingValue>
                <ratingType>string</ratingType>
                <ratingModel>string</ratingModel>
-               <ratingCalculatedDate>2015-01-15</ratingCalculatedDate>
+               <ratingCalculatedDate>2015-01-16</ratingCalculatedDate>
                <ratingCalculatedRole>string</ratingCalculatedRole>
                <ratingCalculatedBy>string</ratingCalculatedBy>
-               <ratingApprovalDate>2015-01-15</ratingApprovalDate>
+               <ratingApprovalDate>2015-01-16</ratingApprovalDate>
                <ratingApprovedBy>string</ratingApprovedBy>
             </rating>
             <roleInConsolidatedGroup>string</roleInConsolidatedGroup>
@@ -48,17 +48,17 @@
             <id>string</id>
             <label>string</label>
             <status>string</status>
-            <updateDate>2015-01-15</updateDate>
-            <approvalDate>2015-01-15</approvalDate>
+            <updateDate>2015-01-16</updateDate>
+            <approvalDate>2015-01-16</approvalDate>
             <ratings>
                <ratingID>string</ratingID>
                <ratingValue>123</ratingValue>
                <ratingType>string</ratingType>
                <ratingModel>string</ratingModel>
-               <ratingCalculatedDate>2015-01-15</ratingCalculatedDate>
+               <ratingCalculatedDate>2015-01-16</ratingCalculatedDate>
                <ratingCalculatedRole>string</ratingCalculatedRole>
                <ratingCalculatedBy>string</ratingCalculatedBy>
-               <ratingApprovalDate>2015-01-15</ratingApprovalDate>
+               <ratingApprovalDate>2015-01-16</ratingApprovalDate>
                <ratingApprovedBy>string</ratingApprovedBy>
             </ratings>
             <topLevelGroupName>string</topLevelGroupName>

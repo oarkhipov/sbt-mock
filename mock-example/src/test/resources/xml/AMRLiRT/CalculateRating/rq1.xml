@@ -2,11 +2,11 @@
    <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>CalcRatingResponse</soap-env:operation-name>
+      <soap-env:operation-name>correctRatingRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <AMRLiRT:CalcRatingRequest xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
-                                 xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/">
+      <AMRLiRT:correctRatingRs xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
+                               xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/">
          <tns:arg0>
             <tns:ratingId>string</tns:ratingId>
             <tns:model>string</tns:model>
@@ -40,10 +40,10 @@
                   <!--optional--><tns:valueIntegrationId>string</tns:valueIntegrationId>
                </tns:fixedFactor>
             </tns:listOfFixedFactor>
-            <tns:listOfRatingPeriod><!--from 1 to unbounded elements --><tns:ratingPeriod><!--optional--><tns:reportDate>2015-01-15</tns:reportDate>
+            <tns:listOfRatingPeriod><!--from 1 to unbounded elements --><tns:ratingPeriod><!--optional--><tns:reportDate>2015-01-16</tns:reportDate>
                   <!--optional--><tns:period>string</tns:period>
-                  <!--optional--><tns:startDate>2015-01-15</tns:startDate>
-                  <!--optional--><tns:endDate>2015-01-15</tns:endDate>
+                  <!--optional--><tns:startDate>2015-01-16</tns:startDate>
+                  <!--optional--><tns:endDate>2015-01-16</tns:endDate>
                   <!--optional--><tns:type>string</tns:type>
                   <!--optional--><tns:comments>string</tns:comments>
                   <tns:listOfCardinalFactor><!--from 1 to unbounded elements --><tns:cardinalFactor>
@@ -71,6 +71,6 @@
             </tns:listOfRatingSupport>
          </tns:arg0>
          <!--optional--><tns:siebelMessage>string</tns:siebelMessage>
-      </AMRLiRT:CalcRatingRequest>
+      </AMRLiRT:correctRatingRs>
    </soap-env:Body>
 </soap-env:Envelope>

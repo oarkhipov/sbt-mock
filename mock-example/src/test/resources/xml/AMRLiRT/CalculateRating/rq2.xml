@@ -2,11 +2,11 @@
    <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>CalcRatingResponse</soap-env:operation-name>
+      <soap-env:operation-name>correctRatingRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <AMRLiRT:CalcRatingRequest xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
-                                 xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/">
+      <AMRLiRT:correctRatingRs xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
+                               xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/">
          <tns:arg0>
             <tns:ratingId>string</tns:ratingId>
             <tns:model>test1</tns:model>
@@ -35,6 +35,6 @@
                </tns:ratingPeriod>
             </tns:listOfRatingPeriod>
          </tns:arg0>
-      </AMRLiRT:CalcRatingRequest>
+      </AMRLiRT:correctRatingRs>
    </soap-env:Body>
 </soap-env:Envelope>

@@ -28,6 +28,8 @@ public class createMockOrDriverFromXSD {
         params.put("entryPointName","CreateTaskRs");
         params.put("RqEntryPointName","CreateTaskRq");
         params.put("tagNameToTakeLinkedTag","comment");
+        params.put("rootElementName", "createTaskRs");
+        params.put("RqRootElementName", "createTaskRq");
         mockTestCycle(dir, "CRM", "CreateTask", "Response", params);
     }
     @Test
@@ -45,6 +47,8 @@ public class createMockOrDriverFromXSD {
         params.put("RqEntryPointName","PrtspRq");
         params.put("dataFileName","GetParticipantsData.xml");
         params.put("tagNameToTakeLinkedTag","performer");
+        params.put("rootElementName", "prtspRs");
+        params.put("RqRootElementName", "prtspRq");
         mockTestCycle(dir, "CRM", "GetParticipants", "Response", params);
     }
     @Test
@@ -54,6 +58,8 @@ public class createMockOrDriverFromXSD {
         params.put("entryPointName","SaveDealRs");
         params.put("RqEntryPointName","SaveDealRq");
         params.put("tagNameToTakeLinkedTag","dealType");
+        params.put("rootElementName", "saveDealRs");
+        params.put("RqRootElementName", "saveDealRq");
         mockTestCycle(dir, "CRM", "SaveDeal", "Response", params);
     }
     @Test
@@ -70,6 +76,8 @@ public class createMockOrDriverFromXSD {
         params.put("entryPointName","UpdateRefRs");
         params.put("RqEntryPointName","UpdateRefRq");
         params.put("tagNameToTakeLinkedTag","referenceItem");
+        params.put("rootElementName", "updateRefRs");
+        params.put("RqRootElementName", "updateRefRq");
         mockTestCycle(dir, "CRM", "UpdateRef", "Response", params);
     }
     @Test
@@ -82,6 +90,8 @@ public class createMockOrDriverFromXSD {
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("dataFileName","CalculateDebtCapacityData.xml");
         params.put("tagNameToTakeLinkedTag","model");
+        params.put("rootElementName", "calculateDCRs");
+        params.put("RqRootElementName", "calculateDCRq");
         mockTestCycle(dir, "AMRLiRT", "CalculateDebtCapacity", "Response", params);
     }
     @Test
@@ -94,6 +104,8 @@ public class createMockOrDriverFromXSD {
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("dataFileName","CalculateRatingData.xml");
         params.put("tagNameToTakeLinkedTag","model");
+        params.put("rootElementName", "correctRatingRs");
+        params.put("RqRootElementName", "correctRatingRq");
         mockTestCycle(dir, "AMRLiRT", "CalculateRating", "Response", params);
     }
     @Test
@@ -106,6 +118,8 @@ public class createMockOrDriverFromXSD {
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("dataFileName","ConfirmRatingData.xml");
         params.put("tagNameToTakeLinkedTag","siebelMessage");
+        params.put("rootElementName", "confirmRatingRs");
+        params.put("RqRootElementName", "confirmRatingRq");
         mockTestCycle(dir, "AMRLiRT", "ConfirmRating", "Response", params);
     }
     @Test
@@ -118,6 +132,8 @@ public class createMockOrDriverFromXSD {
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("dataFileName","CorrectRatingData.xml");
         params.put("tagNameToTakeLinkedTag","siebelMessage");
+        params.put("rootElementName", "correctRatingRs");
+        params.put("RqRootElementName", "correctRatingRq");
         mockTestCycle(dir, "AMRLiRT", "CorrectRating", "Response", params);
     }
     @Test
@@ -130,6 +146,8 @@ public class createMockOrDriverFromXSD {
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("dataFileName","FinalizeLGDData.xml");
         params.put("tagNameToTakeLinkedTag","type");
+        params.put("rootElementName", "finalizeLGDRs");
+        params.put("RqRootElementName", "finalizeLGDRq");
         mockTestCycle(dir, "AMRLiRT", "FinalizeLGD", "Response", params);
     }
     @Test
@@ -142,6 +160,8 @@ public class createMockOrDriverFromXSD {
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("dataFileName","CalculateLGDData.xml");
         params.put("tagNameToTakeLinkedTag","comment");
+        params.put("rootElementName", "calculateLGDRs");
+        params.put("RqRootElementName", "calculateLGDRq");
         mockTestCycle(dir, "AMRLiRT", "CalculateLGD", "Response", params);
     }
     @Test
@@ -153,6 +173,8 @@ public class createMockOrDriverFromXSD {
         params.put("systemName","FinRep");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("tagNameToTakeLinkedTag","dealId");
+        params.put("rootElementName", "getFinAnalysisRs");
+        params.put("RqRootElementName", "getFinAnalysisRq");
         mockTestCycle(dir, "FinRep", "FinAnalysisImport", "Response", params);
     }
     @Test
@@ -164,6 +186,8 @@ public class createMockOrDriverFromXSD {
         params.put("systemName","FinRep");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("tagNameToTakeLinkedTag","finReportType");
+        params.put("rootElementName", "getFinReportRs");
+        params.put("RqRootElementName", "getFinReportRq");
         mockTestCycle(dir, "FinRep", "FinReportImport", "Response", params);
     }
     @Test
@@ -175,6 +199,8 @@ public class createMockOrDriverFromXSD {
         params.put("systemName","FinRep");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("tagNameToTakeLinkedTag","entityType");
+        params.put("rootElementName", "getRatingsAndFactorsRs");
+        params.put("RqRootElementName", "getRatingsAndFactorsRq");
         mockTestCycle(dir, "FinRep", "ImportRating", "Response", params);
     }
     @Test
@@ -186,6 +212,8 @@ public class createMockOrDriverFromXSD {
         params.put("systemName","FinRep");
         params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
         params.put("tagNameToTakeLinkedTag","status");
+        params.put("rootElementName", "updateRatingRs");
+        params.put("RqRootElementName", "updateRatingRq");
         mockTestCycle(dir, "FinRep", "UpdateRating", "Response", params);
     }
 
@@ -228,6 +256,9 @@ public class createMockOrDriverFromXSD {
                 if (params.containsKey("RqEntryPointName")) {
                     altParams.put("entryPointName", params.get("RqEntryPointName"));
                 }
+//                if (params.containsKey("RqRootElementName")) {
+//                    altParams.put("rootElementName", params.get("RqRootElementName"));
+//                }
             } else {
                 altParams = new HashMap<String, String>(1);
                 altParams2 = new HashMap<String, String>(1);

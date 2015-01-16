@@ -2,12 +2,12 @@
    <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>UpdateRatingResponse</soap-env:operation-name>
+      <soap-env:operation-name>updateRatingRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <FinRep:UpdateRatingResponse xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
-                                   xmlns:tns="http://sbrf.ru/NCP/ASFO/UpdateRatingRs/">
+      <FinRep:updateRatingRs xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
+                             xmlns:tns="http://sbrf.ru/NCP/ASFO/UpdateRatingRs/">
          <tns:errorCode>string</tns:errorCode>
-      </FinRep:UpdateRatingResponse>
+      </FinRep:updateRatingRs>
    </soap-env:Body>
 </soap-env:Envelope>

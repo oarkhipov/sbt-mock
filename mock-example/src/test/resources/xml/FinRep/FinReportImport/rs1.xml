@@ -2,11 +2,11 @@
    <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>FinReportImportResponse</soap-env:operation-name>
+      <soap-env:operation-name>getFinReportRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <FinRep:FinReportImportResponse xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
-                                      xmlns:tns="http://sbrf.ru/NCP/ASFO/GetFinReportRs/"><!--optional--><tns:nonCurrentAssetsNFRS>10</tns:nonCurrentAssetsNFRS>
+      <FinRep:getFinReportRs xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
+                             xmlns:tns="http://sbrf.ru/NCP/ASFO/GetFinReportRs/"><!--optional--><tns:nonCurrentAssetsNFRS>10</tns:nonCurrentAssetsNFRS>
          <!--optional--><tns:currentAssetsNFRS>10</tns:currentAssetsNFRS>
          <!--optional--><tns:nonCurrentAssetsIFRS>10</tns:nonCurrentAssetsIFRS>
          <!--optional--><tns:currentAssetsIFRS>10</tns:currentAssetsIFRS>
@@ -34,6 +34,6 @@
          <!--optional--><tns:incomeNextYear>10</tns:incomeNextYear>
          <!--optional--><tns:plannedCredit>10</tns:plannedCredit>
          <!--optional--><tns:plannedCreditNextYear>10</tns:plannedCreditNextYear>
-      </FinRep:FinReportImportResponse>
+      </FinRep:getFinReportRs>
    </soap-env:Body>
 </soap-env:Envelope>

@@ -2,11 +2,11 @@
    <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>UpdateRefRs</soap-env:operation-name>
+      <soap-env:operation-name>updateRefRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <CRM:UpdateRefRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+      <CRM:updateRefRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                        xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateRefRq/1.01/"><!--from 0 to unbounded elements --><tns:referenceItem>string</tns:referenceItem>
-      </CRM:UpdateRefRq>
+      </CRM:updateRefRs>
    </soap-env:Body>
 </soap-env:Envelope>

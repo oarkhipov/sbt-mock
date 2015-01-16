@@ -2,11 +2,11 @@
    <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>ImportRatingResponse</soap-env:operation-name>
+      <soap-env:operation-name>getRatingsAndFactorsRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <FinRep:ImportRatingResponse xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
-                                   xmlns:tns="http://sbrf.ru/NCP/ASFO/GetRatingsAndFactorsRs/">
+      <FinRep:getRatingsAndFactorsRs xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
+                                     xmlns:tns="http://sbrf.ru/NCP/ASFO/GetRatingsAndFactorsRs/">
          <tns:listOfRating><!--from 1 to unbounded elements --><tns:rating>
                <tns:ratingId>string</tns:ratingId>
                <tns:status>string</tns:status>
@@ -30,6 +30,6 @@
                </tns:listOfRatingCalc>
             </tns:rating>
          </tns:listOfRating>
-      </FinRep:ImportRatingResponse>
+      </FinRep:getRatingsAndFactorsRs>
    </soap-env:Body>
 </soap-env:Envelope>

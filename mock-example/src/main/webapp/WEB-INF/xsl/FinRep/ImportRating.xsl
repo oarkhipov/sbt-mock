@@ -44,7 +44,7 @@
                   </xsl:with-param>
                   <xsl:with-param name="timestamp" select="$timestamp"/>
                   <xsl:with-param name="id" select="$id"/>
-                  <xsl:with-param name="operation-name" select="string('ImportRatingResponse')"/>
+                  <xsl:with-param name="operation-name" select="string('getRatingsAndFactorsRs')"/>
                   <xsl:with-param name="correlation-id" select="$correlation-id"/>
                   <xsl:with-param name="eis-name" select="$eis-name"/>
                   <xsl:with-param name="system-id" select="$system-id"/>
@@ -513,7 +513,7 @@
    <xsl:template name="ImportRatingResponse">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="FinRep:ImportRatingResponse">
+      <xsl:element name="FinRep:getRatingsAndFactorsRs">
          <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:listOfRating"/>
       </xsl:element>
    </xsl:template>
