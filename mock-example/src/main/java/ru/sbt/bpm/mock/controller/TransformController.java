@@ -19,10 +19,10 @@ import ru.sbt.bpm.mock.service.TransformService;
  *
  * @author sbt-barinov-sv
  */
-@Controller
+//@Controller
 public class TransformController {
     public static final String PARAM_NAME="object";
-    @Autowired
+//    @Autowired
     private TransformService transformService;
     
     @RequestMapping(value="/transform/")

@@ -11,28 +11,30 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <%--<script src="../lib/jquery-1.9.1.min.js"></script>--%>
-  <%--<link rel="stylesheet" href="../css/codemirror/codemirror.css">--%>
-  <%--<script src="../lib/codemirror/codemirror.js"></script>--%>
-  <%--<script src="../lib/codemirror/show-hint.js"></script>--%>
-  <%--<link rel="stylesheet" href="../css/codemirror/show-hint.css">--%>
-  <%--<script src="../lib/codemirror/closetag.js"></script>--%>
-  <%--<script src="../lib/codemirror/xml-hint.js"></script>--%>
-  <%--<script src="../lib/codemirror/xml.js"></script>--%>
-  <%--&lt;%&ndash;Folding&ndash;%&gt;--%>
-  <%--<link rel="stylesheet" href="../css/codemirror/foldgutter.css">--%>
-  <%--<script src="../lib/codemirror/brace-fold.js"></script>--%>
-  <%--<script src="../lib/codemirror/comment-fold.js"></script>--%>
-  <%--<script src="../lib/codemirror/foldcode.js"></script>--%>
-  <%--<script src="../lib/codemirror/foldgutter.js"></script>--%>
-  <%--<script src="../lib/codemirror/markdown-fold.js"></script>--%>
-  <%--<script src="../lib/codemirror/xml-fold.js"></script>--%>
-  <%--<script src="../lib/codemirror/formatting.js"></script>--%>
-
-  <%--<link rel="stylesheet" href="../css/docs.css">--%>
   <style type="text/css">.CodeMirror {border: 1px solid #eee;} .CodeMirror-scroll { height: 100% }</style>
 </head>
 <body>
+<!--[if IE]>
+<style type="text/css">
+  #info {
+    background: transparent;
+    zoom: 1;
+    /*rgba(121, 255, 120, .7)*/
+    /* IE8 */
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#B379FF78,endColorstr=#B379FF78);
+    /*-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";*/
+    /* IE 5-7 */
+    /*filter: alpha(opacity=0)*/
+  }
+
+  #error {
+    background: transparent;
+    zoom: 1;
+    /*rgba(256, 182, 193, .7)*/
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#B3FFB6C1,endColorstr=#B3FFB6C1);
+  }
+</style>
+<![endif]-->
 <b>Integration point:</b> <i><c:out value="${name}"/></i>
 
 <form>
@@ -40,23 +42,22 @@
     <div id="info">&nbsp;</div>
     <div id="error"></div>
     <textarea id="code" name="code"><c:out value="${object}" escapeXml="true"/></textarea>
-    <div style="text-align: right; width: 900px; padding-top: 7px">
-      <input id="reset" type="button" value="Reset to default" style="display: inline"/>
-      &nbsp;&nbsp;&nbsp;
+    <div style="text-align: right; width: 700px; padding-top: 7px">
+      <input id="reset" type="button" value="Reset to def" style="display: inline"/>
       <input id="undo" type="button" value="Undo" style="display: inline"/>
       <input id="redo" type="button" value="Redo" style="display: inline"/>
-      &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;
       <input id="validate" type="button" value="Validate" style="display: inline"/>
       <input id="save" type="button" value="Save" style="display: inline"/>
       <c:if test="${link=='driver'}">
-        &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;
         <select id="reqList" name="request" style="width: 120px">
           <c:forEach var="entry" items="${list}">
             <option value="${entry}">${entry}</option>
           </c:forEach>
         </select>
         <input id="listRefresh" type="button" value="Refresh List" style="display: inline"/>
-        &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;
         <input id="send" type="button" value="Send" style="display: inline"/>
       </c:if>
 
@@ -76,8 +77,11 @@
   <script src="../lib/editor_driver.js"></script>
 </c:if>
 <script>
+  $().ready(function(){
+    $("#info").fadeTo(0, 0);
+  });
   var editor = CodeMirror.fromTextArea(document.getElementById("code"), editorSettings);
-  editor.setSize("900","400");
+  editor.setSize("700","400");
   <c:if test="${link=='driver'}">
     var resEditor = CodeMirror.fromTextArea(document.getElementById("resCode"), editorSettings);
     resEditor.setSize("600","400");

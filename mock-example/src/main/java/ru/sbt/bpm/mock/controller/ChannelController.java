@@ -23,10 +23,10 @@ import ru.sbt.bpm.mock.service.ChannelService;
  *
  * @author sbt-barinov-sv
  */
-@Controller
+//@Controller
 public class ChannelController {
     public static final String PARAM_NAME="object";
-    @Autowired
+//    @Autowired
     private ChannelService service;    
     
     @RequestMapping("/channel/")
