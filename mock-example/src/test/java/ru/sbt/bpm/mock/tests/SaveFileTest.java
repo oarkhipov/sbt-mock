@@ -70,6 +70,7 @@ public class SaveFileTest {
         String str = saveFile.getFileString(f);
         String strstr=str.replace("string","string1");
         FileUtils.writeStringToFile(f, strstr);
+        sleep(1000);
         long cheksum2 = FileUtils.checksumCRC32(f);
         System.out.println(cheksum2);
         File f2 = checkBackUp(backSupFolder, fileToBackUp);
@@ -79,14 +80,17 @@ public class SaveFileTest {
 
         String strstr2=str.replace("string","string2");
         FileUtils.writeStringToFile(f, strstr2);
+        sleep(1000);
         long cheksum3 = FileUtils.checksumCRC32(f);
         System.out.println(cheksum3);
         File f3 = checkBackUp(backSupFolder, fileToBackUp);
+        sleep(1000);
 
         assert f.getAbsolutePath().equals(f3.getAbsolutePath())
                 : "Different files; ["+f.getAbsolutePath()+"] and ["+f3.getAbsolutePath()+"]";
 
         File f4 = restorBackUp(backSupFolder, fileToBackUp);
+        sleep(1000);
         long cheksumA = FileUtils.checksumCRC32(f4);
 
         saveFile = SaveFile.getInstance(appContext);
@@ -198,5 +202,14 @@ public class SaveFileTest {
         return file;
     }
 
+
+    private void sleep(long milis) {
+        try {
+            Thread.sleep(milis);
+        } catch (InterruptedException e)
+        {
+
+        }
+    }
 
 }

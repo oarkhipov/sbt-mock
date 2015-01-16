@@ -103,7 +103,7 @@ public class SaveFile {
      * @return Java.io.File
      */
     public File getBackUpedDataFile(String path) throws IOException{
-        assert !path.contains(".."+slash) : "other directories are blocked";
+        if (path.contains(".."+slash)) throw new FileNotFoundException("other directories are blocked");
         File f = getDataFile(path);
         File back = isFileNeedBackUp(path, f);
         if (back != null) {
@@ -279,7 +279,6 @@ public class SaveFile {
                 }
             }
             if (noBackUpFile) throw new Exception();//такой бэкап уже есть
-
 
             return null;
 
