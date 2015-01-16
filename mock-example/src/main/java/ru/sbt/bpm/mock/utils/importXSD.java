@@ -8,14 +8,14 @@ import org.custommonkey.xmlunit.XMLUnit;
 import org.springframework.core.io.Resource;
 
 import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.StringReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,8 +66,7 @@ public class importXSD {
         String exampleRq1 = useXSLT(getWebInfPath() + "\\xsl\\util\\XSDToExampleXML.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + name + "Request.xsd",
                 Params);
-        //validateXML(exampleRq1);
-        //TODO тщательно проверить выход
+        validateXML(exampleRq1);
 
         //TODO backup
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getExamplesPath() + "\\" +  system + "\\" + name + "\\rq1.xml"), exampleRq1);
@@ -80,8 +79,7 @@ public class importXSD {
         String exampleRq2 = useXSLT(getWebInfPath() + "\\xsl\\util\\XSDToExampleXML.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + name + "Request.xsd",
                 Params);
-        //validateXML(exampleRq1);
-        //TODO тщательно проверить выход
+        validateXML(exampleRq2);
 
         //TODO backup
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getExamplesPath() + "\\" +  system + "\\" + name + "\\rq2.xml"), exampleRq2);
@@ -98,8 +96,7 @@ public class importXSD {
         String exampleRs1 = useXSLT(getWebInfPath() + "\\xsl\\util\\XSDToExampleXML.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + name + "Response.xsd",
                 Params);
-        //validateXML(exampleRq1);
-        //TODO тщательно проверить выход
+        validateXML(exampleRs1);
 
         //TODO backup
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getExamplesPath() + "\\" +  system + "\\" + name + "\\rs1.xml"), exampleRs1);
@@ -109,11 +106,10 @@ public class importXSD {
         String exampleRs2 = useXSLT(getWebInfPath() + "\\xsl\\util\\XSDToExampleXML.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + name + "Response.xsd",
                 Params);
-        //validateXML(exampleRq1);
-        //TODO тщательно проверить выход
+        validateXML(exampleRs2);
 
         //TODO backup
-        SaveFile.getInstance(getPath()).writeStringToFile(new File(getExamplesPath() + "\\" +  system + "\\" + name + "\\rs2.xml"), exampleRs2);
+        SaveFile.getInstance(getPath()).writeStringToFile(new File(getExamplesPath() + "\\" + system + "\\" + name + "\\rs2.xml"), exampleRs2);
     }
 
     /**
@@ -128,8 +124,7 @@ public class importXSD {
         String xsdXml = useXSLT(getWebInfPath() + "\\xsl\\util\\xsdToDataXsd.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + name + type +".xsd",
                 Params);
-        //validateXML(exampleRq1);
-        //TODO тщательно проверить выход
+        validateXML(xsdXml);
 
         //TODO backup
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getWebInfPath() + "\\data\\" + system + "\\xsd\\" + name + type +"Data.xsd"), xsdXml);
@@ -146,8 +141,7 @@ public class importXSD {
         String xsltXml = useXSLT(getWebInfPath() + "\\xsl\\util\\responceXSDtoXSL.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + name + "Response.xsd",
                 Params);
-        //validateXML(exampleRq1);
-        //TODO тщательно проверить выход
+        validateXML(xsltXml);
 
         //TODO backup
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getWebInfPath() + "\\xsl\\" + system + "\\" + name + ".xsl"), xsltXml);
@@ -164,8 +158,7 @@ public class importXSD {
         String xsltXml = useXSLT(getWebInfPath() + "\\xsl\\util\\requestXSDtoXSL.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + name + "Request.xsd",
                 Params);
-        //validateXML(exampleRq1);
-        //TODO тщательно проверить выход
+        validateXML(xsltXml);
 
         //TODO backup
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getWebInfPath() + "\\xsl\\" + system + "\\" + name + ".xsl"), xsltXml);
@@ -185,7 +178,7 @@ public class importXSD {
         String dataXML = useXSLT(getWebInfPath() + "\\xsl\\util\\AddExampleToData.xsl",
                 getExamplesPath() + "\\" +  system + "\\" + name + "\\rs1.xml",
                 Params);
-        //TODO тщательно проверить выход
+        validateXML(dataXML);
         //TODO backup
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
 
@@ -194,8 +187,7 @@ public class importXSD {
         dataXML = useXSLT(getWebInfPath() + "\\xsl\\util\\AddExampleToData.xsl",
                 getExamplesPath() + "\\" +  system + "\\" + name + "\\rs2.xml",
                 Params);
-        //validateXML(exampleRq1);
-        //TODO тщательно проверить выход
+        validateXML(dataXML);
 
         //TODO backup
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
@@ -216,10 +208,9 @@ public class importXSD {
         String dataXML = useXSLT(getWebInfPath() + "\\xsl\\util\\AddExampleToData.xsl",
                 getExamplesPath() + "\\" +  system + "\\" + name + "\\rq1.xml",
                 Params);
-        //validateXML(exampleRq1);
-        //TODO тщательно проверить выход
-
+        validateXML(dataXML);
         //TODO backup
+
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
 
         Params.put("replace","false");
@@ -228,8 +219,7 @@ public class importXSD {
         dataXML = useXSLT(getWebInfPath() + "\\xsl\\util\\AddExampleToData.xsl",
                 getExamplesPath() + "\\" +  system + "\\" + name + "\\rq2.xml",
                 Params);
-        //validateXML(exampleRq1);
-        //TODO тщательно проверить выход
+        validateXML(dataXML);
 
         //TODO backup
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
@@ -535,9 +525,15 @@ public class importXSD {
 
 
     public boolean validateXML(String xml) throws Exception {
-        if (validator == null) throw new NullPointerException();
-        Source xmlReader = new StreamSource(new StringReader(xml));
-        validator.validate(xmlReader);
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        InputStream stream = new ByteArrayInputStream(xml.getBytes());
+        builder.parse(stream);
+
+        //TODO Эта валидация гораздо круче, но она не пашет. Надо разобратьтся почему.
+//        if (validator == null) throw new NullPointerException();
+//        Source xmlReader = new StreamSource(new StringReader(xml));
+//        validator.validate(xmlReader);
         return true;
     }
 }
