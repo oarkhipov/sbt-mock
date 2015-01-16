@@ -25,6 +25,7 @@
   <script src="../lib/jquery.cookie-1.3.1.js"></script>
   <script src="../lib/jquery.steps.min.js"></script>
   <script src="../lib/jquery.history.js"></script>
+  <script src="../lib/attrs.js"></script>
 
   <%-- editor pre-load to fix editor display bug, when first time loaded--%>
   <link rel="stylesheet" href="../css/codemirror/codemirror.css">
@@ -78,6 +79,7 @@
         enablePagination: false
       });
 
+      var QueryString = getQueryString();
       //if integration point was chosen
       if(QueryString["ip"]!=undefined) {
         int_point=QueryString["ip"];
@@ -92,7 +94,6 @@
       selectIp();
     }
 
-    //there is no bug, because of pre-loading of src
     function selectIp() {
       wizard.steps("remove",1);
       wizard.steps("insert",1 ,{
@@ -103,29 +104,6 @@
       History.pushState({ip:int_point}, int_point, "?ip="+int_point);
       wizard.steps("next");
     }
-
-    var QueryString = function () {
-      // This function is anonymous, is executed immediately and
-      // the return value is assigned to QueryString!
-      var query_string = {};
-      var query = window.location.search.substring(1);
-      var vars = query.split("&");
-      for (var i=0;i<vars.length;i++) {
-        var pair = vars[i].split("=");
-        // If first entry with this name
-        if (typeof query_string[pair[0]] === "undefined") {
-          query_string[pair[0]] = pair[1];
-          // If second entry with this name
-        } else if (typeof query_string[pair[0]] === "string") {
-          query_string[pair[0]] = [query_string[pair[0]], pair[1]];
-          // If third or later entry with this name
-        } else {
-          query_string[pair[0]].push(pair[1]);
-        }
-      }
-      return query_string;
-    } ();
-
   </script>
 
   <div id="mock">

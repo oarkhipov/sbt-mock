@@ -120,7 +120,7 @@ textarea {
 }
 
 #error {
-    width: 890px;
+    width: 690px;
     background-color: rgba(256, 182, 193, .7);
     font-weight: bold;
     display: none;
@@ -131,7 +131,7 @@ textarea {
 }
 
 #info {
-    width: 890px;
+    width: 690px;
     background-color: rgba(121, 255, 120, .7);
     font-weight: bold;
     display: block;
