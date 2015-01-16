@@ -42,7 +42,7 @@
                   </xsl:with-param>
                   <xsl:with-param name="timestamp" select="$timestamp"/>
                   <xsl:with-param name="id" select="$id"/>
-                  <xsl:with-param name="operation-name" select="string('UpdateRefRs')"/>
+                  <xsl:with-param name="operation-name" select="string('updateRefRs')"/>
                   <xsl:with-param name="correlation-id" select="$correlation-id"/>
                   <xsl:with-param name="eis-name" select="$eis-name"/>
                   <xsl:with-param name="system-id" select="$system-id"/>
@@ -96,7 +96,7 @@
    <xsl:template name="UpdateRefRs">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="CRM:UpdateRefRs">
+      <xsl:element name="CRM:updateRefRs">
          <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:referenceItem"/>
          <tns:errorCode>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>

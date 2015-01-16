@@ -59,7 +59,7 @@ public class XslTransformTest {
         System.out.println(dir);
         checkXMLDataRowToXMLDataListByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\DataRowToDataList.xsl",
                 dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\UpdateDealData.xml",
-                "default\r\nERROR\r\n");
+                "default\r\ntest1\r\n");
 
 
         checkXMLDataRowToXMLDataListByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\DataRowToDataList.xsl",
@@ -79,7 +79,7 @@ public class XslTransformTest {
         System.out.println(dir);
 
         String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\DataRowToDataList.xsl";
-        String XMLFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\FinRep\\xml\\SrvGetFinReportData.xml";
+        String XMLFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\FinRep\\xml\\FinReportImportData.xml";
         String validateString = "<response xmlns=\"http://sbrf.ru/NCP/ASFO/GetFinReport/Data\" name=\"testError\">\r\n" +
                 "        <errorCode>e</errorCode>\r\n" +
                 "        <!--Optional:-->\r\n" +
@@ -102,23 +102,12 @@ public class XslTransformTest {
 
         String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\DataRowToDataList.xsl";
         String XMLFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\ForceSignalData.xml";
-        String validateString = "<request xmlns=\"http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/\" name=\"test1\">\r\n" +
-                "        <contractID>string1-2</contractID>\r\n" +
-                "        <contractBPMID>string2-2</contractBPMID>\r\n" +
-                "        <status>string3-2</status>\r\n" +
-                "        <comment>string4-2</comment>\r\n" +
-                "        <requestType>string5-2</requestType>\r\n" +
-                "        <fullNameOfResponsiblePerson>string6-2</fullNameOfResponsiblePerson>\r\n" +
-                "        <!--Zero or more repetitions:-->\r\n" +
-                "        <participantsGroup>\r\n" +
-                "            <id>string1-2</id>\r\n" +
-                "            <label>string2-2</label>\r\n" +
-                "            <status>string3-2</status>\r\n" +
-                "            <updateDate>2008-09-04</updateDate>\r\n" +
-                "            <approvalDate>2014-09-05</approvalDate>\r\n" +
-                "            <topLevelGroupName>string6-2</topLevelGroupName>\r\n" +
-                "        </participantsGroup>\r\n" +
-                "    </request>";
+        String validateString = "<request xmlns=\"http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/\" name=\"test1\">\n" +
+                "      <contractID>string2</contractID>\n" +
+                "      <comment>string2</comment>\n" +
+                "      <requestType>string2</requestType>\n" +
+                "      <responsiblePersonID>string2</responsiblePersonID>\n" +
+                "   </request>";
 
         String result = XslTransformer.transform(XSLTFile, XMLFile, "name", "test1");
 
@@ -171,7 +160,7 @@ public class XslTransformTest {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
         System.out.println(dir);
 
-        String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\ApplyRowToDataList.xsl";
+        String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\ApplyRowToDataList.xsl";
         String XMLFile = dir + "\\..\\..\\src\\test\\resources\\xmlAssertion\\dataSingleNode.xml";
         String validateString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><data>\r\n" +
                 "<request xmlns=\"http://sbrf.ru/NCP/CRM/ForceSignalRq/Data/\" name=\"default\">\r\n" +
@@ -241,7 +230,7 @@ public class XslTransformTest {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
         System.out.println(dir);
 
-        String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\ApplyRowToDataList.xsl";
+        String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\ApplyRowToDataList.xsl";
         String XMLFile = dir + "\\..\\..\\src\\test\\resources\\xmlAssertion\\dataSingleNode.xml";
         String validateString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><data>\r\n" +
                 "<response xmlns=\"http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/Data\" name=\"default\">\r\n" +

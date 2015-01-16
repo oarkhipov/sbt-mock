@@ -2,15 +2,15 @@
    <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>LgdCalculationResponse</soap-env:operation-name>
+      <soap-env:operation-name>calculateLGDRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <AMRLiRT:LgdCalculationRequest xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
-                                     xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/">
+      <AMRLiRT:calculateLGDRs xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
+                              xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/">
          <tns:productType>string</tns:productType>
          <tns:product>string</tns:product>
          <tns:agrNum>string</tns:agrNum>
-         <tns:agrDate>2015-01-15</tns:agrDate>
+         <tns:agrDate>2015-01-16</tns:agrDate>
          <tns:lgdType>string</tns:lgdType>
          <tns:crmId>string</tns:crmId>
          <tns:comment>test1</tns:comment>
@@ -21,6 +21,6 @@
             <tns:tDivision>string</tns:tDivision>
             <tns:fDivision>string</tns:fDivision>
          </tns:user>
-      </AMRLiRT:LgdCalculationRequest>
+      </AMRLiRT:calculateLGDRs>
    </soap-env:Body>
 </soap-env:Envelope>

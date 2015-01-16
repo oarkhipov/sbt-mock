@@ -2,14 +2,14 @@
    <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>FinReportImportResponse</soap-env:operation-name>
+      <soap-env:operation-name>getFinReportRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <FinRep:FinReportImportRequest xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
-                                     xmlns:tns="http://sbrf.ru/NCP/ASFO/GetFinReportRq/">
+      <FinRep:getFinReportRs xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
+                             xmlns:tns="http://sbrf.ru/NCP/ASFO/GetFinReportRq/">
          <tns:finReportType>test1</tns:finReportType>
          <tns:entityType>string</tns:entityType>
          <tns:entityId>string</tns:entityId>
-      </FinRep:FinReportImportRequest>
+      </FinRep:getFinReportRs>
    </soap-env:Body>
 </soap-env:Envelope>

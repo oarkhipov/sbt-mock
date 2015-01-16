@@ -2,15 +2,15 @@
    <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>LgdFinalizationResponse</soap-env:operation-name>
+      <soap-env:operation-name>finalizeLGDRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <AMRLiRT:LgdFinalizationRequest xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
-                                      xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRq/">
+      <AMRLiRT:finalizeLGDRs xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
+                             xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRq/">
          <tns:fio>string</tns:fio>
          <tns:position>string</tns:position>
          <tns:crmId>string</tns:crmId>
          <tns:type>test1</tns:type>
-      </AMRLiRT:LgdFinalizationRequest>
+      </AMRLiRT:finalizeLGDRs>
    </soap-env:Body>
 </soap-env:Envelope>

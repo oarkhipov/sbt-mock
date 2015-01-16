@@ -2,12 +2,12 @@
    <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>FinAnalysisImportResponse</soap-env:operation-name>
+      <soap-env:operation-name>getFinAnalysisRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <FinRep:FinAnalysisImportRequest xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
-                                       xmlns:tns="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRq/">
+      <FinRep:getFinAnalysisRs xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
+                               xmlns:tns="http://sbrf.ru/NCP/ASFO/GetFinAnalysisRq/">
          <tns:dealId>test1</tns:dealId>
-      </FinRep:FinAnalysisImportRequest>
+      </FinRep:getFinAnalysisRs>
    </soap-env:Body>
 </soap-env:Envelope>

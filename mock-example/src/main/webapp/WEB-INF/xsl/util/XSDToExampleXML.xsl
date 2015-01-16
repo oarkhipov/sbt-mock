@@ -47,7 +47,7 @@
         <xsl:element name="soap-env:Envelope">
             <!--<xsl:comment><xsl:value-of select="$CommonTypesNSAlias"/></xsl:comment>-->
             <xsl:call-template name="NCPHeaderExample">
-                <xsl:with-param name="operation-name" select="$operation-name"/>
+                <xsl:with-param name="operation-name" select="$rootElementName"/>
             </xsl:call-template>
             <xsl:element name="soap-env:Body">
                 <xsl:apply-templates select="./xsd:complexType[@name=$entryPointName]" mode="rootBodyElement"/>

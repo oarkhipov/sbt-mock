@@ -43,7 +43,7 @@
                   </xsl:with-param>
                   <xsl:with-param name="timestamp" select="$timestamp"/>
                   <xsl:with-param name="id" select="$id"/>
-                  <xsl:with-param name="operation-name" select="string('CalcRatingResponse')"/>
+                  <xsl:with-param name="operation-name" select="string('correctRatingRs')"/>
                   <xsl:with-param name="correlation-id" select="$correlation-id"/>
                   <xsl:with-param name="eis-name" select="$eis-name"/>
                   <xsl:with-param name="system-id" select="$system-id"/>
@@ -153,7 +153,7 @@
    <xsl:template name="CalcRatingResponse">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="AMRLiRT:CalcRatingResponse">
+      <xsl:element name="AMRLiRT:correctRatingRs">
          <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:return"/>
       </xsl:element>
    </xsl:template>

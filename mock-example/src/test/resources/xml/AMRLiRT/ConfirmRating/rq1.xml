@@ -2,11 +2,11 @@
    <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>ConfirmResponse</soap-env:operation-name>
+      <soap-env:operation-name>confirmRatingRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <AMRLiRT:ConfirmRequest xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
-                              xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRq/">
+      <AMRLiRT:confirmRatingRs xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
+                               xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRq/">
          <tns:arg0>
             <tns:ratingValue>10</tns:ratingValue>
             <tns:ratingId>string</tns:ratingId>
@@ -24,6 +24,6 @@
             </tns:requestor>
          </tns:arg0>
          <!--optional--><tns:siebelMessage>string</tns:siebelMessage>
-      </AMRLiRT:ConfirmRequest>
+      </AMRLiRT:confirmRatingRs>
    </soap-env:Body>
 </soap-env:Envelope>

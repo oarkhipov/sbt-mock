@@ -2,10 +2,10 @@
    <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>PrtspRs</soap-env:operation-name>
+      <soap-env:operation-name>prtspRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <CRM:PrtspRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+      <CRM:prtspRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                    xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/">
          <tns:id>string</tns:id>
          <tns:requestType>string</tns:requestType>
@@ -15,6 +15,6 @@
          <tns:operationStatus>
             <tns:errorCode>string</tns:errorCode>
          </tns:operationStatus>
-      </CRM:PrtspRs>
+      </CRM:prtspRs>
    </soap-env:Body>
 </soap-env:Envelope>

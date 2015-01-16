@@ -2,16 +2,16 @@
    <soap-env:Header>
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>LgdCalculationResponse</soap-env:operation-name>
+      <soap-env:operation-name>calculateLGDRs</soap-env:operation-name>
    </soap-env:Header>
    <soap-env:Body>
-      <AMRLiRT:LgdCalculationResponse xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
-                                      xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/">
+      <AMRLiRT:calculateLGDRs xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
+                              xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/">
          <tns:errorCode>string</tns:errorCode>
          <!--optional--><tns:errorMessage>string</tns:errorMessage>
          <tns:crmId>string</tns:crmId>
          <tns:lgdType>string</tns:lgdType>
-         <tns:lgdDate>2015-01-15</tns:lgdDate>
+         <tns:lgdDate>2015-01-16</tns:lgdDate>
          <!--optional--><tns:pd>10</tns:pd>
          <tns:lgd>10</tns:lgd>
          <tns:ead>10</tns:ead>
@@ -30,6 +30,6 @@
                <tns:collValueLgd>10</tns:collValueLgd>
             </tns:collateral>
          </tns:listOfCollateral>
-      </AMRLiRT:LgdCalculationResponse>
+      </AMRLiRT:calculateLGDRs>
    </soap-env:Body>
 </soap-env:Envelope>

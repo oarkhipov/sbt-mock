@@ -43,7 +43,7 @@
                   </xsl:with-param>
                   <xsl:with-param name="timestamp" select="$timestamp"/>
                   <xsl:with-param name="id" select="$id"/>
-                  <xsl:with-param name="operation-name" select="string('LgdCalculationResponse')"/>
+                  <xsl:with-param name="operation-name" select="string('calculateLGDRs')"/>
                   <xsl:with-param name="correlation-id" select="$correlation-id"/>
                   <xsl:with-param name="eis-name" select="$eis-name"/>
                   <xsl:with-param name="system-id" select="$system-id"/>
@@ -101,7 +101,7 @@
    <xsl:template name="LgdCalculationResponse">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="AMRLiRT:LgdCalculationResponse">
+      <xsl:element name="AMRLiRT:calculateLGDRs">
          <tns:errorCode>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
          </tns:errorCode>

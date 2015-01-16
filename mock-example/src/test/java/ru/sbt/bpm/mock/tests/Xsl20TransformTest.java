@@ -98,6 +98,7 @@ public class Xsl20TransformTest {
                 "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\UpdateDeal.xsl");
     }
 
+    /*Тест устарел
     @Test
     public void testXSDtoXSLCreateTask() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
@@ -105,8 +106,9 @@ public class Xsl20TransformTest {
         checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\responceXSDtoXSL.xsl",
                 dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsd\\CRM\\CreateTaskResponse.xsd",
                 "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\CreateTask.xsl");
-    }
+    }*/
 
+    /*Тест устарел
     @Test
     public void testXSDtoXSLGetParticipants() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
@@ -119,7 +121,7 @@ public class Xsl20TransformTest {
         checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\responceXSDtoXSL.xsl",
                 dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsd\\CRM\\GetParticipantsResponse.xsd",
                 "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\GetParticipants.xsl", params);
-    }
+    }*/
 
     protected void checkXSLT (String XSLTFile, String XMLFile, String validateFile ) throws Exception {
         checkXSLT (XSLTFile, XMLFile, validateFile, null);
