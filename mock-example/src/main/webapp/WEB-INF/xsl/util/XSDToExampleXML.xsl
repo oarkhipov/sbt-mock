@@ -7,13 +7,18 @@
     <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
 
     <!--То что можно/нужно задать-->
+
+    <!--путь к верхней xsd с объявлением рут-элементов-->
+    <xsl:param name="parrentXSDPath" select="'../../xsd/CRM/CRM.xsd'"/>
+    <xsl:param name="rootXSD" select="document($parrentXSDPath)/xsd:schema"/>
+
     <!-- Этот параметр нужен когда имя главного элемента запроса не соответвует тому что мы взяли из неймспейса. Тогда его можно указать параметром -->
     <!-- TODO выбрать этот параметр более надежным способом -->
     <xsl:param name="entryPointName" select="replace(xsd:schema/@targetNamespace,'^.+/(\w+)(/[0-9\.]+)?/$','$1')"/>
     <!--Имя тэга элемента. Скорее всего будет отличаться от $entryPointName, но брать его из другого файла-->
     <xsl:param name="rootElementName" select="$entryPointName"/>
     <!--схема рут-элемента транзакции-->
-    <xsl:param name="parrentNS" select="'http://sbrf.ru/NCP/CRM/'"/>
+    <xsl:param name="parrentNS" select="$rootXSD/@targetNamespace"/>
     <!--система-->
     <xsl:param name="systemName" select="'CRM'"/>
 

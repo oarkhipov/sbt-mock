@@ -3,7 +3,7 @@
                 xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/"
                 xmlns:rsd="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/Data/"
                 xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
-                xmlns:AMRLiRT="http://sbrf.ru/NCP/ASFO/"
+                xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
    <xsl:import href="../util/NCPSoapRqHeaderXSLTTemplate.xsl"/>

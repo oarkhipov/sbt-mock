@@ -348,7 +348,7 @@ public class importXSD {
         params.put("entryPointName", "DebtCapacityCalculationResponse");
         params.put("RqEntryPointName","DebtCapacityCalculationRequest");
         params.put("systemName","AMRLiRT");
-        params.put("parrentNS", "http://sbrf.ru/NCP/ASFO/");
+        params.put("parrentXSDPath","../../xsd/AMRLiRT/AMRLIRT.xsd");
         params.put("dataFileName", "CalculateDebtCapacityData.xml");
         params.put("tagNameToTakeLinkedTag","model");
         params.put("rootElementName", "calculateDCRs");
@@ -359,7 +359,7 @@ public class importXSD {
         params.put("entryPointName", "CalcRatingResponse");
         params.put("RqEntryPointName","CalcRatingRequest");
         params.put("systemName","AMRLiRT");
-        params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("parrentXSDPath","../../xsd/AMRLiRT/AMRLIRT.xsd");
         params.put("dataFileName","CalculateRatingData.xml");
         params.put("tagNameToTakeLinkedTag","model");
         params.put("rootElementName", "correctRatingRs");
@@ -370,7 +370,7 @@ public class importXSD {
         params.put("entryPointName", "ConfirmResponse");
         params.put("RqEntryPointName","ConfirmRequest");
         params.put("systemName","AMRLiRT");
-        params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("parrentXSDPath","../../xsd/AMRLiRT/AMRLIRT.xsd");
         params.put("dataFileName","ConfirmRatingData.xml");
         params.put("tagNameToTakeLinkedTag","siebelMessage");
         params.put("rootElementName", "confirmRatingRs");
@@ -381,7 +381,7 @@ public class importXSD {
         params.put("entryPointName", "CorrectResponse");
         params.put("RqEntryPointName","CorrectRequest");
         params.put("systemName","AMRLiRT");
-        params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("parrentXSDPath","../../xsd/AMRLiRT/AMRLIRT.xsd");
         params.put("dataFileName","CorrectRatingData.xml");
         params.put("tagNameToTakeLinkedTag","siebelMessage");
         params.put("rootElementName", "correctRatingRs");
@@ -392,7 +392,7 @@ public class importXSD {
         params.put("entryPointName", "LgdFinalizationResponse");
         params.put("RqEntryPointName","LgdFinalizationRequest");
         params.put("systemName","AMRLiRT");
-        params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("parrentXSDPath","../../xsd/AMRLiRT/AMRLIRT.xsd");
         params.put("dataFileName","FinalizeLGDData.xml");
         params.put("tagNameToTakeLinkedTag","type");
         params.put("rootElementName", "finalizeLGDRs");
@@ -403,7 +403,7 @@ public class importXSD {
         params.put("entryPointName", "LgdCalculationResponse");
         params.put("RqEntryPointName","LgdCalculationRequest");
         params.put("systemName","AMRLiRT");
-        params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("parrentXSDPath","../../xsd/AMRLiRT/AMRLIRT.xsd");
         params.put("dataFileName","CalculateLGDData.xml");
         params.put("tagNameToTakeLinkedTag","comment");
         params.put("rootElementName", "calculateLGDRs");
@@ -414,7 +414,7 @@ public class importXSD {
         params.put("entryPointName", "FinAnalysisImportResponse");
         params.put("RqEntryPointName","FinAnalysisImportRequest");
         params.put("systemName","FinRep");
-        params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("parrentXSDPath","../../xsd/FinRep/ASFO.xsd");
         params.put("tagNameToTakeLinkedTag","dealId");
         params.put("rootElementName", "getFinAnalysisRs");
         params.put("RqRootElementName", "getFinAnalysisRq");
@@ -424,7 +424,7 @@ public class importXSD {
         params.put("entryPointName", "FinReportImportResponse");
         params.put("RqEntryPointName","FinReportImportRequest");
         params.put("systemName","FinRep");
-        params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("parrentXSDPath","../../xsd/FinRep/ASFO.xsd");
         params.put("tagNameToTakeLinkedTag","finReportType");
         params.put("rootElementName", "getFinReportRs");
         params.put("RqRootElementName", "getFinReportRq");
@@ -434,7 +434,7 @@ public class importXSD {
         params.put("entryPointName", "ImportRatingResponse");
         params.put("RqEntryPointName","ImportRatingRequest");
         params.put("systemName","FinRep");
-        params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("parrentXSDPath","../../xsd/FinRep/ASFO.xsd");
         params.put("tagNameToTakeLinkedTag","entityType");
         params.put("rootElementName", "getRatingsAndFactorsRs");
         params.put("RqRootElementName", "getRatingsAndFactorsRq");
@@ -444,7 +444,7 @@ public class importXSD {
         params.put("entryPointName", "UpdateRatingResponse");
         params.put("RqEntryPointName","UpdateRatingRequest");
         params.put("systemName","FinRep");
-        params.put("parrentNS","http://sbrf.ru/NCP/ASFO/");
+        params.put("parrentXSDPath","../../xsd/FinRep/ASFO.xsd");
         params.put("tagNameToTakeLinkedTag","status");
         params.put("rootElementName", "updateRatingRs");
         params.put("RqRootElementName", "updateRatingRq");

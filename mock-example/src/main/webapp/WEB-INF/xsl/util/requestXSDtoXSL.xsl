@@ -7,8 +7,12 @@
     <xsl:namespace-alias stylesheet-prefix="out" result-prefix="xsl"/>
 
     <xsl:param name="entryPointName" select="replace(xsd:schema/@targetNamespace,'^.+/(\w+)(/[0-9\.]+)?/$','$1')"/>
+    <!--путь к верхней xsd с объявлением рут-элементов-->
+    <xsl:param name="parrentXSDPath" select="'../../xsd/CRM/CRM.xsd'"/>
+    <xsl:param name="rootXSD" select="document($parrentXSDPath)/xsd:schema"/>
+
     <xsl:param name="targetNS" select="xsd:schema/@targetNamespace"/>
-    <xsl:param name="parrentNS" select="'http://sbrf.ru/NCP/CRM/'"/>
+    <xsl:param name="parrentNS" select="$rootXSD/@targetNamespace"/>
     <xsl:param name="systemName" select="'CRM'"/>
     <xsl:param name="soapEnvNS" select="'http://sbrf.ru/NCP/esb/envelope/'"/>
     <!--Имя тэга элемента. Скорее всего будет отличаться от $entryPointName, но брать его из другого файла-->
@@ -35,6 +39,7 @@
         </xsl:element>
     </xsl:template>
 
+    <!--Объявления заголовка - шапка, входные параметры-->
     <xsl:template name="headerDeclaration">
         <xsl:text>&#xA;</xsl:text>
         <xsl:element name="xsl:import">
@@ -92,6 +97,7 @@
         </xsl:element>
         <xsl:text>&#xA;</xsl:text>
     </xsl:template>
+
 
     <xsl:template name="bodyDeclaration">
         <xsl:element name="xsl:template">
