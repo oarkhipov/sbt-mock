@@ -302,6 +302,7 @@ public class importXSD {
         Map<String, String> params = null;
         params = new HashMap<String, String>();
 
+//TODO засунуть все в xml конфиг
 
         params.clear();
         params.put("rootElementName", "forceSignalRq");
