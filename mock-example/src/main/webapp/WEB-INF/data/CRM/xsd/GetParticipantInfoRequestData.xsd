@@ -5,7 +5,7 @@
             targetNamespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/resp/10/Data"
             elementFormDefault="qualified">
 
-    <xsd:import namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10" schemaLocation="../../../xsd/CRM/kkmb-crm-commontypes.xsd"/>
+    <xsd:import namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10" schemaLocation="../../../xsd/CRM/CommonTypes.xsd"/>
 
     <xsd:element name="ContractInfo" type="ContractInfoExp"/>
 

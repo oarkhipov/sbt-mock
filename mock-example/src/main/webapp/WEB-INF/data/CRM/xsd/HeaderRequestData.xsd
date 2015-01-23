@@ -12,13 +12,13 @@
 		<!--xmlns:pg="http://sbrf.ru/prpc/kkmb/crm/ProblemGroup/req/10"-->
 
 		
-	<import schemaLocation="../../../xsd/CRM/kkmb-crm-commontypes.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"/>
-	<!--<import schemaLocation="./kkmb-crm-exportcontract-req.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10"/>-->
-	<!--<import schemaLocation="./kkmb-crm-getparticipant-req.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/GetParticipant/req/10"/>-->
-	<!--<import schemaLocation="./kkmb-crm-updatecontract-req.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10"/>-->
-	<!--<import schemaLocation="./kkmb-crm-closecontract-req.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ContractClose/req/10"/>-->
-	<!--<import schemaLocation="./kkmb-crm-referencedata-req.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ReferenceData/req/10"/>-->
-	<!--<import schemaLocation="./kkmb-crm-problemgroup-req.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ProblemGroup/req/10"/>-->
+	<import schemaLocation="../../../xsd/CRM/CommonTypes.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"/>
+	<!--<import schemaLocation="./ExprotContractInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10"/>-->
+	<!--<import schemaLocation="./GetParticipantInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/GetParticipant/req/10"/>-->
+	<!--<import schemaLocation="./UpdateContractInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10"/>-->
+	<!--<import schemaLocation="./CloseContractInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ContractClose/req/10"/>-->
+	<!--<import schemaLocation="./UpdateReferenceDataRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ReferenceData/req/10"/>-->
+	<!--<import schemaLocation="./ProblemGroupRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ProblemGroup/req/10"/>-->
 	
 	<element name="Message">
 		<complexType>

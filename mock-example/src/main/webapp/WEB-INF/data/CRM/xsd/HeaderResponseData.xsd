@@ -6,8 +6,8 @@
 			targetNamespace="http://sbrf.ru/prpc/kkmb/crm/Header/resp/10/Data"
 			elementFormDefault="qualified">
 
-	<xsd:import namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10" schemaLocation="../../../xsd/CRM/kkmb-crm-commontypes.xsd"/>
-	<xsd:import namespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/resp/10/Data" schemaLocation="kkmb-crm-exportcontract-resp-data.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10" schemaLocation="../../../xsd/CRM/CommonTypes.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/resp/10/Data" schemaLocation="GetParticipantInfoRequestData.xsd"/>
 
 	<xsd:element name="data" type="dataValue"/>
 
