@@ -4,16 +4,16 @@
 		xmlns:tns="http://sbrf.ru/prpc/kkmb/crm/Header/resp/10" 
 		xmlns:ct="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"
 		xmlns:xc="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/resp/10"
+		xmlns:gp="http://sbrf.ru/prpc/kkmb/crm/GetParticipant/resp/10" 
+		xmlns:uc="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/resp/10"
+		xmlns:cc="http://sbrf.ru/prpc/kkmb/crm/ContractClose/resp/10"
 		elementFormDefault="qualified">
-		<!--xmlns:gp="http://sbrf.ru/prpc/kkmb/crm/GetParticipant/resp/10" -->
-		<!--xmlns:uc="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/resp/10"-->
-		<!--xmlns:cc="http://sbrf.ru/prpc/kkmb/crm/ContractClose/resp/10"-->
-
+		
 	<import schemaLocation="./kkmb-crm-commontypes.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"/>
 	<import schemaLocation="./kkmb-crm-exportcontract-resp.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/resp/10"/>
-	<!--<import schemaLocation="./kkmb-crm-getparticipant-resp.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/GetParticipant/resp/10"/>-->
-	<!--<import schemaLocation="./kkmb-crm-updatecontract-resp.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/resp/10"/>-->
-	<!--<import schemaLocation="./kkmb-crm-closecontract-resp.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ContractClose/resp/10"/>-->
+	<import schemaLocation="./kkmb-crm-getparticipant-resp.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/GetParticipant/resp/10"/>
+	<import schemaLocation="./kkmb-crm-updatecontract-resp.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/resp/10"/>
+	<import schemaLocation="./kkmb-crm-closecontract-resp.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ContractClose/resp/10"/>
 	
 	<element name="Message">
 		<complexType>
@@ -25,9 +25,9 @@
 				<element name="OperationName" type="ct:String255" minOccurs="1" maxOccurs="1"/>
 				<choice>
 					<element ref="xc:ContractInfo" minOccurs="0" maxOccurs="1"/>
-					<!--<element ref="gp:ParticipantInfo" minOccurs="0" maxOccurs="1"/>-->
-					<!--<element ref="uc:UpdateContractInfo" minOccurs="0" maxOccurs="1"/>-->
-					<!--<element ref="cc:ContractClose" minOccurs="0" maxOccurs="1"/>-->
+					<element ref="gp:ParticipantInfo" minOccurs="0" maxOccurs="1"/>
+					<element ref="uc:UpdateContractInfo" minOccurs="0" maxOccurs="1"/>
+					<element ref="cc:ContractClose" minOccurs="0" maxOccurs="1"/>
 				</choice>
 				<element name="ErrorCode" type="ct:String10" minOccurs="0" maxOccurs="1"/>
 				<element name="ErrorMessage" type="ct:String2000" minOccurs="0" maxOccurs="1"/>
