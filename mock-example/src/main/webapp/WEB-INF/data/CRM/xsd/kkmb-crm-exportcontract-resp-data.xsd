@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/resp/10/Data"
+            xmlns:crmct="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/resp/10/Data"
+            elementFormDefault="qualified">
+
+    <xsd:import namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10" schemaLocation="../../../xsd/CRM/kkmb-crm-commontypes.xsd"/>
+
+    <xsd:element name="ContractInfo" type="ContractInfoExp"/>
+
+    <xsd:complexType name="ContractInfoExp">
+        <xsd:sequence>
+            <xsd:element name="ContractID" type="crmct:String15" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ListOfError" type="crmct:ListOfError" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>

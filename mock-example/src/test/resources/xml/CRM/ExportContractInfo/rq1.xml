@@ -1,0 +1,579 @@
+﻿<ns1:Message xmlns:ns1="http://sbrf.ru/prpc/kkmb/crm/Header/req/10"
+             xmlns:ns2="http://sbrf.ru/prpc/kkmb/crm/GetParticipant/req/10"
+             xmlns:ns3="http://sbrf.ru/prpc/kkmb/crm/ContractClose/req/10"
+             xmlns:ns4="http://sbrf.ru/prpc/kkmb/crm/ReferenceData/req/10"
+             xmlns:ns5="http://sbrf.ru/prpc/kkmb/crm/ProblemGroup/req/10"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ns1:RqUID>CRMTODO_UID</ns1:RqUID>
+  <ns1:RqTm>2014-02-20T08:23:55.457Z</ns1:RqTm>
+  <ns1:SPName>CRMTODO_SPNAME</ns1:SPName>
+  <ns1:SystemId>CRMTODO_SystemId</ns1:SystemId>
+  <ns1:OperationName>ExportContractInfo</ns1:OperationName>
+  <ns1:ContractInfo xmlns:ns1="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10"
+                    xmlns:ns6="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10">
+    <ns1:ContractID>OKITESTDEAL77</ns1:ContractID>
+    <ns1:ContractDate>2014-02-20T00:00:00.000Z</ns1:ContractDate>
+    <ns1:OrgUnit>55862901681</ns1:OrgUnit>
+    <ns1:MotiveOfContract>Кредитная сделка</ns1:MotiveOfContract>
+    <ns1:MethodOfSale>Кредитный конвейер</ns1:MethodOfSale>
+    <ns1:Utilization/>
+    <ns1:ContractStatus/>
+    <ns1:RequestDate>2014-02-20T00:00:00.000Z</ns1:RequestDate>
+    <ns1:DivisionCode>55862901681</ns1:DivisionCode>
+    <ns1:ClientFileId>ECM-123456</ns1:ClientFileId>
+    <ns1:ContractFileId>ECM-654321</ns1:ContractFileId>
+    <ns1:ListOfTermOfProduct>
+      <ns6:TermOfProduct>
+        <ns6:ProductIntID>123456</ns6:ProductIntID>
+        <ns6:CreditMode>Credit Contract</ns6:CreditMode>
+        <ns6:CreditInstrument>Credit</ns6:CreditInstrument>
+        <ns6:ProductLimitID>PRODLIMITID-123456</ns6:ProductLimitID>
+        <ns6:TypeOfTermOfProduct>Запрошенные клиентом</ns6:TypeOfTermOfProduct>
+        <ns6:ProductCategory>SPECIALIZED_UNIFIED</ns6:ProductCategory>
+        <ns6:Product>1-115HI36</ns6:Product>
+        <ns6:CreditAvailabilityPeriod>6</ns6:CreditAvailabilityPeriod>
+        <ns6:StartDate>2014-01-27</ns6:StartDate>
+        <ns6:EndDate>2019-01-27</ns6:EndDate>
+        <ns6:WarrantyPaymentTerm/>
+        <ns6:PrincipalRepaymentDeferment>2</ns6:PrincipalRepaymentDeferment>
+        <ns6:RepaymentSchedule>Annuity Payments</ns6:RepaymentSchedule>
+        <ns6:SumInCurrency>500000</ns6:SumInCurrency>
+        <ns6:Currency>USD</ns6:Currency>
+        <ns6:SumInRub>16000000</ns6:SumInRub>
+        <ns6:CollateralFullySatisfiesDebt>true</ns6:CollateralFullySatisfiesDebt>
+        <ns6:Purpose>Current Assets Replenishment</ns6:Purpose>
+        <ns6:PurposeElaboration>Приобретение транcпортного средства для доставки продукции
+        </ns6:PurposeElaboration>
+        <ns6:CreditDuration>36</ns6:CreditDuration>
+        <ns6:Rate>12</ns6:Rate>
+        <ns6:RateType>Fixed</ns6:RateType>
+        <ns6:InterestPaymentProcess>Monthly</ns6:InterestPaymentProcess>
+        <ns6:VariableInterestRatePeriod>???</ns6:VariableInterestRatePeriod>
+        <ns6:VariableInterestRateCalcPeriod>???</ns6:VariableInterestRateCalcPeriod>
+        <ns6:VariableInterestRatePercentPeriod>???</ns6:VariableInterestRatePercentPeriod>
+        <ns6:ListOfComission>
+          <ns6:Comission>
+            <ns6:NameComission>1</ns6:NameComission>
+            <ns6:NameComissionOther/>
+            <ns6:ComissionBase>??? у нас раздельные поля - тип базы и размер</ns6:ComissionBase>
+            <ns6:PaymentRegulation>Ежемесячно</ns6:PaymentRegulation>
+            <ns6:PaymentDate>2014-02-10</ns6:PaymentDate>
+          </ns6:Comission>
+        </ns6:ListOfComission>
+        <ns6:ListOfAdvancedRepaymentFee></ns6:ListOfAdvancedRepaymentFee>
+      </ns6:TermOfProduct>
+    </ns1:ListOfTermOfProduct>
+    <ns1:ListOfTerm>
+      <ns6:Term>
+        <ns6:Type>Supplementary</ns6:Type>
+        <ns6:DescriptionOfTerm>Предоставить разрешение на строительство объекта недвижимости
+        </ns6:DescriptionOfTerm>
+        <ns6:ResponsibleEmployee>Иванов П.И.</ns6:ResponsibleEmployee>
+      </ns6:Term>
+      <ns6:Term>
+        <ns6:Type>Supplementary</ns6:Type>
+        <ns6:DescriptionOfTerm>Предоставить доверенность на распоряжение имуществом</ns6:DescriptionOfTerm>
+        <ns6:ResponsibleEmployee>Петров Л.И.</ns6:ResponsibleEmployee>
+      </ns6:Term>
+      <ns6:Term>
+        <ns6:Type>Suspensive</ns6:Type>
+        <ns6:DescriptionOfTerm>Предоставить доверенность на распоряжение имуществом</ns6:DescriptionOfTerm>
+        <ns6:ResponsibleEmployee>Сидоров В.А.</ns6:ResponsibleEmployee>
+      </ns6:Term>
+    </ns1:ListOfTerm>
+    <ns6:Participant>
+      <ns6:ListOfParticipantFL>
+        <ns6:ParticipantFL>
+          <ns6:ClientID>CRM123000044</ns6:ClientID>
+          <ns6:ListOfStatusFL>
+            <ns6:StatusFL>Поручитель</ns6:StatusFL>
+          </ns6:ListOfStatusFL>
+          <ns6:RoleFL>Участник КГ</ns6:RoleFL>
+        </ns6:ParticipantFL>
+      </ns6:ListOfParticipantFL>
+      <ns6:ListOfParticipantUL>
+        <ns6:ParticipantUL>
+          <ns6:ClientID>CRM123000011</ns6:ClientID>
+          <ns6:ListOfStatusUL>
+            <ns6:StatusUL>Собственник</ns6:StatusUL>
+          </ns6:ListOfStatusUL>
+          <ns6:RoleUL>Заемщик</ns6:RoleUL>
+        </ns6:ParticipantUL>
+        <ns6:ParticipantUL>
+          <ns6:ClientID>CRM123000022</ns6:ClientID>
+          <ns6:ListOfStatusUL>
+            <ns6:StatusUL>Залогодатель</ns6:StatusUL>
+            <ns6:StatusUL>Гарант</ns6:StatusUL>
+          </ns6:ListOfStatusUL>
+          <ns6:RoleUL>Участник ГСЛ</ns6:RoleUL>
+        </ns6:ParticipantUL>
+        <ns6:ParticipantUL>
+          <ns6:ClientID>CRM123000033</ns6:ClientID>
+          <ns6:ListOfStatusUL>
+            <ns6:StatusUL>Поручитель</ns6:StatusUL>
+            <ns6:StatusUL>Залогодатель</ns6:StatusUL>
+          </ns6:ListOfStatusUL>
+          <ns6:RoleUL>Участник КГ</ns6:RoleUL>
+        </ns6:ParticipantUL>
+      </ns6:ListOfParticipantUL>
+    </ns6:Participant>
+    <ns6:GSL>
+      <ns6:ListOfPartGSLFL>
+        <ns6:PartGSLFL>
+          <ns6:ClientID>CRM123000044</ns6:ClientID>
+          <ns6:ListOfStatusFL></ns6:ListOfStatusFL>
+          <ns6:RoleFL/>
+          <ns6:CommentOnInclusion>Связаны по цепочке поставок</ns6:CommentOnInclusion>
+          <ns6:Stake>10</ns6:Stake>
+        </ns6:PartGSLFL>
+        <ns6:PartGSLFL>
+          <ns6:ClientID>CRM123000044</ns6:ClientID>
+          <ns6:ListOfStatusFL></ns6:ListOfStatusFL>
+          <ns6:RoleFL/>
+          <ns6:CommentOnInclusion/>
+          <ns6:Stake>10</ns6:Stake>
+        </ns6:PartGSLFL>
+      </ns6:ListOfPartGSLFL>
+      <ns6:ListOfPartGSLUL>
+        <ns6:PartGSLUL>
+          <ns6:ClientID>CRM123000011</ns6:ClientID>
+          <ns6:ListOfStatusUL></ns6:ListOfStatusUL>
+          <ns6:RoleUL/>
+          <ns6:CommentOnInclusion>Связаны по цепочке поставок</ns6:CommentOnInclusion>
+          <ns6:Stake>50</ns6:Stake>
+        </ns6:PartGSLUL>
+        <ns6:PartGSLUL>
+          <ns6:ClientID>CRM123000022</ns6:ClientID>
+          <ns6:ListOfStatusUL></ns6:ListOfStatusUL>
+          <ns6:RoleUL/>
+          <ns6:CommentOnInclusion>Связаны по цепочке поставок</ns6:CommentOnInclusion>
+          <ns6:Stake>20</ns6:Stake>
+        </ns6:PartGSLUL>
+        <ns6:PartGSLUL>
+          <ns6:ClientID>CRM123000033</ns6:ClientID>
+          <ns6:ListOfStatusUL></ns6:ListOfStatusUL>
+          <ns6:RoleUL/>
+          <ns6:CommentOnInclusion>Связаны по цепочке поставок</ns6:CommentOnInclusion>
+          <ns6:Stake>20</ns6:Stake>
+        </ns6:PartGSLUL>
+        <ns6:PartGSLUL>
+          <ns6:ClientID>CRM123000011</ns6:ClientID>
+          <ns6:ListOfStatusUL></ns6:ListOfStatusUL>
+          <ns6:RoleUL/>
+          <ns6:CommentOnInclusion/>
+          <ns6:Stake>30</ns6:Stake>
+        </ns6:PartGSLUL>
+      </ns6:ListOfPartGSLUL>
+    </ns6:GSL>
+    <ns1:ListOfLimit>
+
+    </ns1:ListOfLimit>
+    <ns1:ListOfRating>
+      <ns1:Rating>
+        <ns1:RatingID>R-0001</ns1:RatingID>
+        <ns1:ClientID>CRM123000011</ns1:ClientID>
+        <ns1:KG_ID/>
+        <ns1:Type>Rating</ns1:Type>
+        <ns1:Value>7</ns1:Value>
+        <ns1:Name>Рейтинг заемщика</ns1:Name>
+        <ns1:CalculatedDate>2001-01-30T21:00:00.000Z</ns1:CalculatedDate>
+        <ns1:ApprovalDate>2001-01-30T21:00:00.000Z</ns1:ApprovalDate>
+        <ns1:EndDate>2001-03-31</ns1:EndDate>
+        <ns1:Status>Актуальный</ns1:Status>
+        <ns1:IsProjectRating>false</ns1:IsProjectRating>
+      </ns1:Rating>
+      <ns1:Rating>
+        <ns1:RatingID>R-0002</ns1:RatingID>
+        <ns1:ClientID/>
+        <ns1:KG_ID>KG-00001</ns1:KG_ID>
+        <ns1:Type>Rating</ns1:Type>
+        <ns1:Value>7</ns1:Value>
+        <ns1:Name>Рейтинг КГ</ns1:Name>
+        <ns1:CalculatedDate>2001-01-30T21:00:00.000Z</ns1:CalculatedDate>
+        <ns1:ApprovalDate>2001-01-30T21:00:00.000Z</ns1:ApprovalDate>
+        <ns1:EndDate>2001-03-31</ns1:EndDate>
+        <ns1:Status>Актуальный</ns1:Status>
+        <ns1:IsProjectRating>false</ns1:IsProjectRating>
+      </ns1:Rating>
+      <ns1:Rating>
+        <ns1:RatingID>R-0003</ns1:RatingID>
+        <ns1:ClientID></ns1:ClientID>
+        <ns1:KG_ID/>
+        <ns1:Type>Rating</ns1:Type>
+        <ns1:Value>7</ns1:Value>
+        <ns1:Name>Рейтинг проекта</ns1:Name>
+        <ns1:CalculatedDate>2001-01-30T21:00:00.000Z</ns1:CalculatedDate>
+        <ns1:ApprovalDate>2001-01-30T21:00:00.000Z</ns1:ApprovalDate>
+        <ns1:EndDate>2001-03-31</ns1:EndDate>
+        <ns1:Status>Актуальный</ns1:Status>
+        <ns1:IsProjectRating>true</ns1:IsProjectRating>
+      </ns1:Rating>
+    </ns1:ListOfRating>
+    <ns1:ListOfLoanSecurityInformation>
+      <ns6:LoanSecurityInformation>
+        <ns6:ClientID>CRM123000011</ns6:ClientID>
+        <ns6:IsLegalPerson>true</ns6:IsLegalPerson>
+        <ns6:SecurityType>KMFVehicles</ns6:SecurityType>
+        <ns6:PropertyName>Автомобиль</ns6:PropertyName>
+        <ns6:IdentifyingFeatures>Mazda-6, белый, г/н н234дд199</ns6:IdentifyingFeatures>
+        <ns6:PropertyLocationAddress>г.Москва, ул. Парковая 19/123</ns6:PropertyLocationAddress>
+        <ns6:ExpectedValueEstimationProcess/>
+        <ns6:MarketValue>600000</ns6:MarketValue>
+        <ns6:CorrectionFactor>0.78</ns6:CorrectionFactor>
+        <ns6:PledgeValue>0</ns6:PledgeValue>
+        <ns6:Insurance>Not required</ns6:Insurance>
+        <ns6:InsuranceCompany/>
+        <ns6:InsuranceAmount>0</ns6:InsuranceAmount>
+        <ns6:Beneficiary>Банк</ns6:Beneficiary>
+        <ns6:DecisionOnContract>true</ns6:DecisionOnContract>
+        <ns6:ExpectedValueType>Balance</ns6:ExpectedValueType>
+        <ns6:ExpectedValueSource>Int_Appraiser</ns6:ExpectedValueSource>
+        <ns6:BusinessValue>Prof_Key</ns6:BusinessValue>
+        <ns6:QualityAndLiquidityExpertEstimation>High</ns6:QualityAndLiquidityExpertEstimation>
+        <ns6:ListOfDefermentTermsOfPledger>
+          <ns6:DefermentTermsOfPledger>Не продавать до полнолуния</ns6:DefermentTermsOfPledger>
+        </ns6:ListOfDefermentTermsOfPledger>
+        <ns6:EstimationDate>2014-01-31</ns6:EstimationDate>
+        <ns6:TermsOfExtrajudicialPropertyClaims>По договоренности</ns6:TermsOfExtrajudicialPropertyClaims>
+        <ns6:IncludeTerms>false</ns6:IncludeTerms>
+        <ns6:SecurityCategory>Движимое имущество</ns6:SecurityCategory>
+      </ns6:LoanSecurityInformation>
+      <ns6:LoanSecurityInformation>
+        <ns6:ClientID>CRM123000011</ns6:ClientID>
+        <ns6:IsLegalPerson>true</ns6:IsLegalPerson>
+        <ns6:SecurityType>KMFVehicles</ns6:SecurityType>
+        <ns6:PropertyName>Жилое помещение</ns6:PropertyName>
+        <ns6:IdentifyingFeatures>Квартира, 3к, Адрес: г. Москва, ул. Генерала Дорохова 20/145
+        </ns6:IdentifyingFeatures>
+        <ns6:PropertyLocationAddress>Квартира, 3к, Адрес: г. Москва, ул. Генерала Дорохова 20/145
+        </ns6:PropertyLocationAddress>
+        <ns6:ExpectedValueEstimationProcess/>
+        <ns6:MarketValue>12000000</ns6:MarketValue>
+        <ns6:CorrectionFactor>0.81</ns6:CorrectionFactor>
+        <ns6:PledgeValue>0</ns6:PledgeValue>
+        <ns6:Insurance>Not required</ns6:Insurance>
+        <ns6:InsuranceCompany/>
+        <ns6:InsuranceAmount>9720000</ns6:InsuranceAmount>
+        <ns6:Beneficiary>Банк</ns6:Beneficiary>
+        <ns6:DecisionOnContract>true</ns6:DecisionOnContract>
+        <ns6:ExpectedValueType>Balance</ns6:ExpectedValueType>
+        <ns6:ExpectedValueSource>Int_Appraiser</ns6:ExpectedValueSource>
+        <ns6:BusinessValue>Prof_Key</ns6:BusinessValue>
+        <ns6:QualityAndLiquidityExpertEstimation>High</ns6:QualityAndLiquidityExpertEstimation>
+        <ns6:ListOfDefermentTermsOfPledger>
+          <ns6:DefermentTermsOfPledger>Не продавать до летнего солнцестояния</ns6:DefermentTermsOfPledger>
+        </ns6:ListOfDefermentTermsOfPledger>
+        <ns6:EstimationDate>2014-01-31</ns6:EstimationDate>
+        <ns6:TermsOfExtrajudicialPropertyClaims>По договоренности</ns6:TermsOfExtrajudicialPropertyClaims>
+        <ns6:IncludeTerms>false</ns6:IncludeTerms>
+        <ns6:SecurityCategory>Недвижимое имущество</ns6:SecurityCategory>
+      </ns6:LoanSecurityInformation>
+      <ns6:LoanSecurityInformation>
+        <ns6:ClientID>CRM123000011</ns6:ClientID>
+        <ns6:IsLegalPerson>true</ns6:IsLegalPerson>
+        <ns6:SecurityType>KMFVehicles</ns6:SecurityType>
+        <ns6:PropertyName>Автомобиль</ns6:PropertyName>
+        <ns6:IdentifyingFeatures>Mazda-6, белый, г/н н234дд199</ns6:IdentifyingFeatures>
+        <ns6:PropertyLocationAddress>г.Москва, ул. Парковая 19/123</ns6:PropertyLocationAddress>
+        <ns6:ExpectedValueEstimationProcess/>
+        <ns6:MarketValue>600000</ns6:MarketValue>
+        <ns6:CorrectionFactor>0.78</ns6:CorrectionFactor>
+        <ns6:PledgeValue>0</ns6:PledgeValue>
+        <ns6:Insurance>Not required</ns6:Insurance>
+        <ns6:InsuranceCompany/>
+        <ns6:InsuranceAmount>0</ns6:InsuranceAmount>
+        <ns6:Beneficiary>Банк</ns6:Beneficiary>
+        <ns6:DecisionOnContract>true</ns6:DecisionOnContract>
+        <ns6:ExpectedValueType>Balance</ns6:ExpectedValueType>
+        <ns6:ExpectedValueSource>Int_Appraiser</ns6:ExpectedValueSource>
+        <ns6:BusinessValue>Prof_Key</ns6:BusinessValue>
+        <ns6:QualityAndLiquidityExpertEstimation>High</ns6:QualityAndLiquidityExpertEstimation>
+        <ns6:ListOfDefermentTermsOfPledger>
+          <ns6:DefermentTermsOfPledger>Не продавать до полнолуния</ns6:DefermentTermsOfPledger>
+        </ns6:ListOfDefermentTermsOfPledger>
+        <ns6:EstimationDate>2014-01-31</ns6:EstimationDate>
+        <ns6:TermsOfExtrajudicialPropertyClaims>По договоренности</ns6:TermsOfExtrajudicialPropertyClaims>
+        <ns6:IncludeTerms>false</ns6:IncludeTerms>
+        <ns6:SecurityCategory>Движимое имущество</ns6:SecurityCategory>
+      </ns6:LoanSecurityInformation>
+      <ns6:LoanSecurityInformation>
+        <ns6:ClientID>CRM123000011</ns6:ClientID>
+        <ns6:IsLegalPerson>true</ns6:IsLegalPerson>
+        <ns6:SecurityType>KMFVehicles</ns6:SecurityType>
+        <ns6:PropertyName>Жилое помещение</ns6:PropertyName>
+        <ns6:IdentifyingFeatures>Квартира, 3к, Адрес: г. Москва, ул. Генерала Дорохова 20/145
+        </ns6:IdentifyingFeatures>
+        <ns6:PropertyLocationAddress>Квартира, 3к, Адрес: г. Москва, ул. Генерала Дорохова 20/145
+        </ns6:PropertyLocationAddress>
+        <ns6:ExpectedValueEstimationProcess/>
+        <ns6:MarketValue>12000000</ns6:MarketValue>
+        <ns6:CorrectionFactor>0.81</ns6:CorrectionFactor>
+        <ns6:PledgeValue>0</ns6:PledgeValue>
+        <ns6:Insurance>Not required</ns6:Insurance>
+        <ns6:InsuranceCompany/>
+        <ns6:InsuranceAmount>9720000</ns6:InsuranceAmount>
+        <ns6:Beneficiary>Банк</ns6:Beneficiary>
+        <ns6:DecisionOnContract>true</ns6:DecisionOnContract>
+        <ns6:ExpectedValueType>Balance</ns6:ExpectedValueType>
+        <ns6:ExpectedValueSource>Int_Appraiser</ns6:ExpectedValueSource>
+        <ns6:BusinessValue>Prof_Key</ns6:BusinessValue>
+        <ns6:QualityAndLiquidityExpertEstimation>High</ns6:QualityAndLiquidityExpertEstimation>
+        <ns6:ListOfDefermentTermsOfPledger>
+          <ns6:DefermentTermsOfPledger>Не продавать до летнего солнцестояния</ns6:DefermentTermsOfPledger>
+        </ns6:ListOfDefermentTermsOfPledger>
+        <ns6:EstimationDate>2014-01-31</ns6:EstimationDate>
+        <ns6:TermsOfExtrajudicialPropertyClaims>По договоренности</ns6:TermsOfExtrajudicialPropertyClaims>
+        <ns6:IncludeTerms>false</ns6:IncludeTerms>
+        <ns6:SecurityCategory>Недвижимое имущество</ns6:SecurityCategory>
+      </ns6:LoanSecurityInformation>
+    </ns1:ListOfLoanSecurityInformation>
+    <ns1:ListOfGuarantor>
+      <ns6:Guarantor>
+        <ns6:ClientID>CRM123000033</ns6:ClientID>
+        <ns6:IsLegalPerson>true</ns6:IsLegalPerson>
+        <ns6:Guarantor>Поручитель</ns6:Guarantor>
+        <ns6:DecisionOnContract>Не требуется</ns6:DecisionOnContract>
+        <ns6:GuaranteeAmount>200000</ns6:GuaranteeAmount>
+        <ns6:GeneralConclusionOnLiquidityAndSufficiencyOfSecurity>Сводн. вывод о ликвидн. и достаточн. обесп.
+        </ns6:GeneralConclusionOnLiquidityAndSufficiencyOfSecurity>
+        <ns6:Comment>Комментарий</ns6:Comment>
+        <ns6:ListOfDefermentTermsOfGuarantor>
+          <ns6:DefermentTermsOfGuarantor>Условие на поручительство</ns6:DefermentTermsOfGuarantor>
+        </ns6:ListOfDefermentTermsOfGuarantor>
+      </ns6:Guarantor>
+      <ns6:Guarantor>
+        <ns6:ClientID>CRM123000022</ns6:ClientID>
+        <ns6:IsLegalPerson>true</ns6:IsLegalPerson>
+        <ns6:Guarantor>Гарант</ns6:Guarantor>
+        <ns6:DecisionOnContract>Не требуется</ns6:DecisionOnContract>
+        <ns6:GuaranteeAmount>200000</ns6:GuaranteeAmount>
+        <ns6:GeneralConclusionOnLiquidityAndSufficiencyOfSecurity>Сводн. вывод о ликвидн. и достаточн. обесп.
+        </ns6:GeneralConclusionOnLiquidityAndSufficiencyOfSecurity>
+        <ns6:Comment>Комментарий</ns6:Comment>
+        <ns6:ListOfDefermentTermsOfGuarantor>
+          <ns6:DefermentTermsOfGuarantor>Условие на гарантию</ns6:DefermentTermsOfGuarantor>
+        </ns6:ListOfDefermentTermsOfGuarantor>
+      </ns6:Guarantor>
+    </ns1:ListOfGuarantor>
+    <ns1:ListOfGSZ>
+      <ns6:GSZ>
+        <ns6:GSZ_ID>ГСЗ-0001</ns6:GSZ_ID>
+        <ns6:NameGSZ>Группа связанных заемщиков</ns6:NameGSZ>
+        <ns6:ListOfMemberGSZFL></ns6:ListOfMemberGSZFL>
+        <ns6:ListOfMemberGSZUL>
+          <ns6:ClientID>CRM123000022</ns6:ClientID>
+        </ns6:ListOfMemberGSZUL>
+      </ns6:GSZ>
+    </ns1:ListOfGSZ>
+    <ns1:ListOfKG>
+      <ns6:KG>
+        <ns6:KG_ID>KG-00001</ns6:KG_ID>
+        <ns6:NameKG>YL_KG</ns6:NameKG>
+        <ns6:ListOfMemberKGFL/>
+        <ns6:ListOfMemberKGUL>
+          <ns6:ClientID>CRM123000044</ns6:ClientID>
+          <ns6:ClientID>CRM123000033</ns6:ClientID>
+        </ns6:ListOfMemberKGUL>
+      </ns6:KG>
+    </ns1:ListOfKG>
+    <ns1:ListOfLegalPerson>
+      <ns6:LegalPerson>
+        <ns6:LegalPersonID>CRM123000011</ns6:LegalPersonID>
+        <ns6:NaturalPersonID/>
+        <ns6:SubDivision>Московский банк</ns6:SubDivision>
+        <ns6:StoppingList>false</ns6:StoppingList>
+        <ns6:OPF>OOO</ns6:OPF>
+        <ns6:OrganizationName>КВАЗАР-ТЕХНО</ns6:OrganizationName>
+        <ns6:INN>7802309406</ns6:INN>
+        <ns6:KPP>111222333</ns6:KPP>
+        <ns6:OGRN>1047855126990</ns6:OGRN>
+        <ns6:Industry>Food and Tobacco</ns6:Industry>
+        <ns6:ProblemGroup>Green Zone</ns6:ProblemGroup>
+        <ns6:Phone>+79201234567</ns6:Phone>
+        <ns6:ListOfAddressInfoUL>
+          <ns6:AddressInfoUL>
+            <ns6:AddressTypeUL>Фактический</ns6:AddressTypeUL>
+            <ns6:City>125000, Москва</ns6:City>
+            <ns6:Street>ул. Академика Королева</ns6:Street>
+            <ns6:House>20</ns6:House>
+            <ns6:Index>127427</ns6:Index>
+            <ns6:RegionCode>77</ns6:RegionCode>
+          </ns6:AddressInfoUL>
+          <ns6:AddressInfoUL>
+            <ns6:AddressTypeUL>Почтовый</ns6:AddressTypeUL>
+            <ns6:City>125000, Москва</ns6:City>
+            <ns6:Street>ул. Академика Королева</ns6:Street>
+            <ns6:House>20</ns6:House>
+            <ns6:Index>127427</ns6:Index>
+            <ns6:RegionCode>77</ns6:RegionCode>
+          </ns6:AddressInfoUL>
+          <ns6:AddressInfoUL>
+            <ns6:AddressTypeUL>Регистрации</ns6:AddressTypeUL>
+            <ns6:City>125000, Москва</ns6:City>
+            <ns6:Street>ул. Академика Королева</ns6:Street>
+            <ns6:House>20</ns6:House>
+            <ns6:Index>127427</ns6:Index>
+            <ns6:RegionCode>77</ns6:RegionCode>
+          </ns6:AddressInfoUL>
+        </ns6:ListOfAddressInfoUL>
+        <ns6:ListOfRegistrationInfo>
+          <ns6:RegistrationInfo>
+            <ns6:RegistrationDate>2011-08-25</ns6:RegistrationDate>
+            <ns6:RegistrationAuthority>ГНИ No 276 Октябрьского р-на по г. Москве</ns6:RegistrationAuthority>
+            <ns6:RegistrationSertificateSeries>0087 765123</ns6:RegistrationSertificateSeries>
+            <ns6:RegistrationSertificateDate>2011-09-04</ns6:RegistrationSertificateDate>
+          </ns6:RegistrationInfo>
+        </ns6:ListOfRegistrationInfo>
+      </ns6:LegalPerson>
+      <ns6:LegalPerson>
+        <ns6:LegalPersonID>CRM123000033</ns6:LegalPersonID>
+        <ns6:NaturalPersonID/>
+        <ns6:SubDivision>Московский банк</ns6:SubDivision>
+        <ns6:StoppingList>false</ns6:StoppingList>
+        <ns6:OPF>ZAO</ns6:OPF>
+        <ns6:OrganizationName>ОРИОН</ns6:OrganizationName>
+        <ns6:INN>7805301412</ns6:INN>
+        <ns6:KPP>111222333</ns6:KPP>
+        <ns6:OGRN>1047808026870</ns6:OGRN>
+        <ns6:Industry>Food and Tobacco</ns6:Industry>
+        <ns6:ProblemGroup>Green Zone</ns6:ProblemGroup>
+        <ns6:Phone>+79201234568</ns6:Phone>
+        <ns6:ListOfAddressInfoUL>
+          <ns6:AddressInfoUL>
+            <ns6:AddressTypeUL>Фактический</ns6:AddressTypeUL>
+            <ns6:City>125000, Москва</ns6:City>
+            <ns6:Street>ул. Академика Королева</ns6:Street>
+            <ns6:House>20</ns6:House>
+            <ns6:Index>127427</ns6:Index>
+            <ns6:RegionCode>77</ns6:RegionCode>
+          </ns6:AddressInfoUL>
+          <ns6:AddressInfoUL>
+            <ns6:AddressTypeUL>Почтовый</ns6:AddressTypeUL>
+            <ns6:City>125000, Москва</ns6:City>
+            <ns6:Street>ул. Академика Королева</ns6:Street>
+            <ns6:House>20</ns6:House>
+            <ns6:Index>127427</ns6:Index>
+            <ns6:RegionCode>77</ns6:RegionCode>
+          </ns6:AddressInfoUL>
+          <ns6:AddressInfoUL>
+            <ns6:AddressTypeUL>Регистрации</ns6:AddressTypeUL>
+            <ns6:City>125000, Москва</ns6:City>
+            <ns6:Street>ул. Академика Королева</ns6:Street>
+            <ns6:House>20</ns6:House>
+            <ns6:Index>127427</ns6:Index>
+            <ns6:RegionCode>77</ns6:RegionCode>
+          </ns6:AddressInfoUL>
+        </ns6:ListOfAddressInfoUL>
+        <ns6:ListOfRegistrationInfo>
+          <ns6:RegistrationInfo>
+            <ns6:RegistrationDate>2011-08-25</ns6:RegistrationDate>
+            <ns6:RegistrationAuthority>ГНИ No 276 Октябрьского р-на по г. Москве</ns6:RegistrationAuthority>
+            <ns6:RegistrationSertificateSeries>0087 765123</ns6:RegistrationSertificateSeries>
+            <ns6:RegistrationSertificateDate>2011-09-04</ns6:RegistrationSertificateDate>
+          </ns6:RegistrationInfo>
+        </ns6:ListOfRegistrationInfo>
+      </ns6:LegalPerson>
+      <ns6:LegalPerson>
+        <ns6:LegalPersonID>CRM123000022</ns6:LegalPersonID>
+        <ns6:NaturalPersonID/>
+        <ns6:SubDivision>Московский банк</ns6:SubDivision>
+        <ns6:StoppingList>false</ns6:StoppingList>
+        <ns6:OPF>OAO</ns6:OPF>
+        <ns6:OrganizationName>АМУРСКИЙ МЕТАЛЛИСТ</ns6:OrganizationName>
+        <ns6:INN>2801100829</ns6:INN>
+        <ns6:KPP>111222333</ns6:KPP>
+        <ns6:OGRN>1052800010229</ns6:OGRN>
+        <ns6:Industry>Food and Tobacco</ns6:Industry>
+        <ns6:ProblemGroup>Green Zone</ns6:ProblemGroup>
+        <ns6:Phone>+79201234569</ns6:Phone>
+        <ns6:ListOfAddressInfoUL>
+          <ns6:AddressInfoUL>
+            <ns6:AddressTypeUL>Фактический</ns6:AddressTypeUL>
+            <ns6:City>Москва</ns6:City>
+            <ns6:Street>ул. Академика Королева</ns6:Street>
+            <ns6:House>20</ns6:House>
+            <ns6:Index>127427</ns6:Index>
+            <ns6:RegionCode>77</ns6:RegionCode>
+          </ns6:AddressInfoUL>
+          <ns6:AddressInfoUL>
+            <ns6:AddressTypeUL>Почтовый</ns6:AddressTypeUL>
+            <ns6:City>Москва</ns6:City>
+            <ns6:Street>ул. Академика Королева</ns6:Street>
+            <ns6:House>20</ns6:House>
+            <ns6:Index>127427</ns6:Index>
+            <ns6:RegionCode>77</ns6:RegionCode>
+          </ns6:AddressInfoUL>
+          <ns6:AddressInfoUL>
+            <ns6:AddressTypeUL>Регистрации</ns6:AddressTypeUL>
+            <ns6:City>Москва</ns6:City>
+            <ns6:Street>ул. Академика Королева</ns6:Street>
+            <ns6:House>20</ns6:House>
+            <ns6:Index>127427</ns6:Index>
+            <ns6:RegionCode>77</ns6:RegionCode>
+          </ns6:AddressInfoUL>
+        </ns6:ListOfAddressInfoUL>
+        <ns6:ListOfRegistrationInfo>
+          <ns6:RegistrationInfo>
+            <ns6:RegistrationDate>2011-08-25</ns6:RegistrationDate>
+            <ns6:RegistrationAuthority>ГНИ No 276 Октябрьского р-на по г. Москве</ns6:RegistrationAuthority>
+            <ns6:RegistrationSertificateSeries>0087 765123</ns6:RegistrationSertificateSeries>
+            <ns6:RegistrationSertificateDate>2011-09-04</ns6:RegistrationSertificateDate>
+          </ns6:RegistrationInfo>
+        </ns6:ListOfRegistrationInfo>
+      </ns6:LegalPerson>
+    </ns1:ListOfLegalPerson>
+    <ns1:ListOfNaturalPerson>
+      <ns6:NaturalPerson>
+        <ns6:NaturalPersonID>CRM123000044</ns6:NaturalPersonID>
+        <ns6:SubDivision>Московский банк</ns6:SubDivision>
+        <ns6:LastName>БЕЛЯНИН</ns6:LastName>
+        <ns6:FirstName>ЕВГЕНИЙ</ns6:FirstName>
+        <ns6:MiddleName>ВИТАЛЬЕВИЧ</ns6:MiddleName>
+        <ns6:DateOfBirth>1972-01-01</ns6:DateOfBirth>
+        <ns6:PlaceOfBirth>г. Новосибирск Кемеровской обл.</ns6:PlaceOfBirth>
+        <ns6:Gender>F</ns6:Gender>
+        <ns6:ListOfDocument>
+          <ns6:Document>
+            <ns6:DocumentTypeCode>1</ns6:DocumentTypeCode>
+            <ns6:DocumentType>Паспорт гражданина РФ</ns6:DocumentType>
+            <ns6:DocumentSeries>9204</ns6:DocumentSeries>
+            <ns6:DocumentName>488600</ns6:DocumentName>
+            <ns6:IssueDate>2001-08-09</ns6:IssueDate>
+            <ns6:IssueAuthorityCode>025-124</ns6:IssueAuthorityCode>
+            <ns6:IssueAuthority>ОВД Дегунино</ns6:IssueAuthority>
+            <ns6:IssueLocation>г. Москва</ns6:IssueLocation>
+            <ns6:Primary>true</ns6:Primary>
+          </ns6:Document>
+        </ns6:ListOfDocument>
+        <ns6:ListOfAddressInfoFL>
+          <ns6:AddressInfoFL>
+            <ns6:AddressTypeFL>Фактический</ns6:AddressTypeFL>
+            <ns6:City>Москва</ns6:City>
+            <ns6:Street>ул. Академика Королева</ns6:Street>
+            <ns6:House>20</ns6:House>
+          </ns6:AddressInfoFL>
+          <ns6:AddressInfoFL>
+            <ns6:AddressTypeFL>Почтовый</ns6:AddressTypeFL>
+            <ns6:City>Москва</ns6:City>
+            <ns6:Street>ул. Академика Королева</ns6:Street>
+            <ns6:House>20</ns6:House>
+          </ns6:AddressInfoFL>
+          <ns6:AddressInfoFL>
+            <ns6:AddressTypeFL>Регистрации</ns6:AddressTypeFL>
+            <ns6:City>Москва</ns6:City>
+            <ns6:Street>ул. Академика Королева</ns6:Street>
+            <ns6:House>20</ns6:House>
+          </ns6:AddressInfoFL>
+        </ns6:ListOfAddressInfoFL>
+      </ns6:NaturalPerson>
+    </ns1:ListOfNaturalPerson>
+    <ns1:ListOfExpectedCurrencyRate>
+      <ns1:ExpectedCurrencyRate>
+        <ns1:Currency1>USD</ns1:Currency1>
+        <ns1:Currency2>RUR</ns1:Currency2>
+        <ns1:RateDate>2014-02-20</ns1:RateDate>
+        <ns1:Rate>32</ns1:Rate>
+      </ns1:ExpectedCurrencyRate>
+    </ns1:ListOfExpectedCurrencyRate>
+  </ns1:ContractInfo>
+</ns1:Message>
