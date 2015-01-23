@@ -39,7 +39,6 @@
           <element id="library" level="project" name="Maven: net.sf.saxon:Saxon-HE:9.4" />
         </element>
       </element>
-      <element id="library" level="project" name="Maven: org.testng:testng:6.3.1" />
       <element id="javaee-facet-resources" facet="mock-example/web/Web" />
     </root>
   </artifact>

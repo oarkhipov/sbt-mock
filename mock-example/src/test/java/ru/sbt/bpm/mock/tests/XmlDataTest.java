@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration({"/env/mockapp-test-servlet.xml"})
+@ContextConfiguration({"/env/mockapp-servlet.xml"})
 public class XmlDataTest {
     @Autowired
     XmlDataService xmlDataService;

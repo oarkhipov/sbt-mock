@@ -4,7 +4,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3.xsd"
 >
-  <display-name>ncpdb-interactive</display-name>
+  <display-name>akkmb-interactive</display-name>
   
    <filter>
         <filter-name>encoding-filter</filter-name>
@@ -27,13 +27,13 @@
     </filter-mapping>
     
   <servlet>
-      <servlet-name>mockapp-test</servlet-name>
+      <servlet-name>mockapp</servlet-name>
       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
       <load-on-startup>1</load-on-startup>
   </servlet>
   
   <servlet-mapping>
-      <servlet-name>mockapp-test</servlet-name>
+      <servlet-name>mockapp</servlet-name>
       <url-pattern>/</url-pattern>
   </servlet-mapping>
 </web-app>

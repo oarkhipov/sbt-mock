@@ -21,7 +21,7 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration({"/env/mockapp-test-servlet.xml"})
+@ContextConfiguration({"/env/mockapp-servlet.xml"})
 public class SaveFileTest {
     @Autowired
     public ChannelService service;
