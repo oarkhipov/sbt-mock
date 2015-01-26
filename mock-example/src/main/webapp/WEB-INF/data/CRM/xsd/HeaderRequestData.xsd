@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Unused file for Data xml -->
 <schema xmlns="http://www.w3.org/2001/XMLSchema" 
 		targetNamespace="http://sbrf.ru/prpc/kkmb/crm/Header/req/10" 
 		xmlns:tns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10" 
@@ -13,10 +14,10 @@
 
 		
 	<import schemaLocation="../../../xsd/CRM/CommonTypes.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"/>
-	<!--<import schemaLocation="./ExportContractInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10"/>-->
+	<!--<import schemaLocation="./ExportContractInfoResponse.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10"/>-->
 	<!--<import schemaLocation="./GetParticipantInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/GetParticipant/req/10"/>-->
 	<!--<import schemaLocation="./UpdateContractInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10"/>-->
-	<!--<import schemaLocation="./CloseContractInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ContractClose/req/10"/>-->
+	<!--<import schemaLocation="./CloseContractInfoResponse.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ContractClose/req/10"/>-->
 	<!--<import schemaLocation="./UpdateReferenceDataRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ReferenceData/req/10"/>-->
 	<!--<import schemaLocation="./ProblemGroupRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ProblemGroup/req/10"/>-->
 	

@@ -269,7 +269,7 @@ public class createMockOrDriverFromXSD {
             System.out.println("create rq example 1");
             String exampleRq1 = checkXSLT(webinf + "\\xsl\\util\\XSDToExampleXML.xsl",
                     webinf + "\\xsd\\" + system + "\\" + name + "Request.xsd",
-                    "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml", altParams);
+                    "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs1.xml", altParams);
 
             if (altParams.containsKey("tagNameToTakeLinkedTag")) {
                 altParams.put("useLinkedTagValue","true");
@@ -287,7 +287,7 @@ public class createMockOrDriverFromXSD {
             System.out.println("create rs example 1");
             String exampleRs1 = checkXSLT(webinf + "\\xsl\\util\\XSDToExampleXML.xsl",
                     webinf + "\\xsd\\" + system + "\\" + name + type + ".xsd",
-                    "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml", params);
+                    "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs1.xml", params);
 
 
             System.out.println("create rs example 2");
@@ -305,13 +305,13 @@ public class createMockOrDriverFromXSD {
 //            dataParams.put("dataFileName","../../data/" +  system + "/xml/" + name + "Data.xml");
 //            dataParams.put("replace","true");
 //            checkXSLT(webinf + "\\xsl\\util\\AddExampleToData.xsl",
-//                    dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml",
+//                    dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs1.xml",
 //                    "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\"+system+"\\xml\\"+name+"Data.xml", dataParams);
 
             System.out.println("check example 1");
             checkXSLT(webinf + "\\xsl\\" + system + "\\" + name + ".xsl",
-                    dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml",
-                    "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml");
+                    dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs1.xml",
+                    "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs1.xml");
 
             System.out.println("check example 2");
             checkXSLT(webinf + "\\xsl\\" + system + "\\" + name + ".xsl",
@@ -330,13 +330,13 @@ public class createMockOrDriverFromXSD {
 //            dataParams.put("replace","true");
 //            dataParams.put("type","request");
 //            checkXSLT(webinf + "\\xsl\\util\\AddExampleToData.xsl",
-//                    dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml",
+//                    dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs1.xml",
 //                    "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\"+system+"\\xml\\"+name+"Data.xml", dataParams);
 
             System.out.println("example 1");
             checkXSLT(webinf + "\\xsl\\" + system + "\\" + name + ".xsl",
                     webinf + "\\data\\" + system + "\\xml\\" + name + "Data.xml",
-                    "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml", params);
+                    "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs1.xml", params);
 
             if (params==null) {
                 params = new HashMap<String, String>(1);

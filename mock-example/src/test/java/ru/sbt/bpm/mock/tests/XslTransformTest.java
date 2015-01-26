@@ -30,7 +30,7 @@ public class XslTransformTest {
     public void firstTest() throws TransformerException {
         System.out.println(
                 XslTransformer.transform("C:\\work\\IdeaProjects\\GitProjects\\Mock\\mock-example\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\ForceSignal.xsl",
-                        "C:\\work\\IdeaProjects\\GitProjects\\Mock\\mock-example\\src\\test\\resources\\xml\\CRM\\ForceSignal\\rq1.xml")
+                        "C:\\work\\IdeaProjects\\GitProjects\\Mock\\mock-example\\src\\test\\resources\\xml\\CRM\\ForceSignal\\rs1.xml")
         );
     }*/
 
@@ -40,7 +40,7 @@ public class XslTransformTest {
         System.out.println(dir);
         checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\ForceSignal.xsl",
                 dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\ForceSignalData.xml",
-                "xml/CRM/ForceSignal/rq1.xml");
+                "xml/CRM/ForceSignal/rs1.xml");
     }
 
     @Test
@@ -49,7 +49,7 @@ public class XslTransformTest {
         System.out.println(dir);
         checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\UpdateDeal.xsl",
                 dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\UpdateDealData.xml",
-                 "xml/CRM/UpdateDeal/rq1.xml");
+                 "xml/CRM/UpdateDeal/rs1.xml");
     }
 
 
@@ -123,7 +123,7 @@ public class XslTransformTest {
 //        System.out.println(dir);
 //        checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\ExportContractInfo.xsl",
 //                  dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\xml\\ExportContractInfoData.xml",
-//                  "xml/CRM/ExportContractInfo/rq1.xml");
+//                  "xml/CRM/ExportContractInfo/rs1.xml");
 //    }
 
     protected void checkXSLT (String XSLTFile, String XMLFile, String validateFile ) throws Exception {

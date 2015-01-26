@@ -35,7 +35,7 @@ public class ChannelTest {
 //    CRM testing
     @Test
     public void createTaskTest1() throws Exception {
-        testXSLT("CreateTask", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/CreateTask/rq1.xml", "xml/CRM/CreateTask/rq1.xml");
+        testXSLT("CreateTask", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/CreateTask/rs1.xml", "xml/CRM/CreateTask/rs1.xml");
     }
 
     @Test
@@ -45,7 +45,7 @@ public class ChannelTest {
 
     @Test
     public void getParticipantsTest1() throws Exception {
-        testXSLT("GetParticipants", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/GetParticipants/rq1.xml", "xml/CRM/GetParticipants/rq1.xml");
+        testXSLT("GetParticipants", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/GetParticipants/rs1.xml", "xml/CRM/GetParticipants/rs1.xml");
     }
 
     @Test
@@ -55,7 +55,7 @@ public class ChannelTest {
 
     @Test
     public void saveDealTest1() throws Exception {
-        testXSLT("SaveDeal", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/SaveDeal/rq1.xml", "xml/CRM/SaveDeal/rq1.xml");
+        testXSLT("SaveDeal", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/SaveDeal/rs1.xml", "xml/CRM/SaveDeal/rs1.xml");
     }
 
     @Test
@@ -65,7 +65,7 @@ public class ChannelTest {
 
     @Test
     public void updateRefTest1() throws Exception {
-        testXSLT("UpdateRef", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/UpdateRef/rq1.xml", "xml/CRM/UpdateRef/rq1.xml");
+        testXSLT("UpdateRef", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/UpdateRef/rs1.xml", "xml/CRM/UpdateRef/rs1.xml");
     }
 
     @Test

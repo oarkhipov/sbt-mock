@@ -24,7 +24,9 @@ public class XslTransformTestKKMB {
     public void testExportContract() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
         System.out.println(dir);
-//        checkXSLT();
+        checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\ExportContractInfo.xsl",
+                  dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\ExportContractInfoData.xml",
+                  "xml/CRM/ExportContractInfo/rs1.xml");
     }
 
     protected void checkXSLT (String XSLTFile, String XMLFile, String validateFile) throws Exception{

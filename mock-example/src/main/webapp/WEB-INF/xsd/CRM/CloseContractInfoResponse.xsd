@@ -5,7 +5,7 @@
 		xmlns:ct="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10" 
 		elementFormDefault="qualified">
 		
-	<import schemaLocation="kkmb-crm-commontypes.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"/>
+	<import schemaLocation="CommonTypes.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"/>
 	
 	<element name="ContractClose" type="tns:ContractCloseClsResp"/>
 	
