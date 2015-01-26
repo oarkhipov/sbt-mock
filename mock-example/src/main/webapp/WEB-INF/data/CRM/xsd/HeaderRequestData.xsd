@@ -13,7 +13,7 @@
 
 		
 	<import schemaLocation="../../../xsd/CRM/CommonTypes.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"/>
-	<!--<import schemaLocation="./ExprotContractInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10"/>-->
+	<!--<import schemaLocation="./ExportContractInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10"/>-->
 	<!--<import schemaLocation="./GetParticipantInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/GetParticipant/req/10"/>-->
 	<!--<import schemaLocation="./UpdateContractInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10"/>-->
 	<!--<import schemaLocation="./CloseContractInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ContractClose/req/10"/>-->

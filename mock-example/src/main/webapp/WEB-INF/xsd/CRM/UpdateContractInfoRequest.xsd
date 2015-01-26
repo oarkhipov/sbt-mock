@@ -5,7 +5,7 @@
 		xmlns:ct="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10" 
 		elementFormDefault="qualified">
 		
-	<import schemaLocation="CommonTypes.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"/>
+	<import schemaLocation="kkmb-crm-commontypes.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"/>
 	
 	<element name="UpdateContractInfo" type="tns:ContractInfoUpd" />
 	
@@ -252,7 +252,6 @@
 				<element name="Role" type="ct:String30" minOccurs="1" maxOccurs="1"/>
 				<element name="Factor" type="ct:String255" minOccurs="1" maxOccurs="1"/>
 				<element name="FactorID" type="ct:String255" minOccurs="1" maxOccurs="1"/>
-				<element name="FactorValueID" type="ct:String15" minOccurs="1" maxOccurs="1"/>
 				<element name="Value" type="ct:String255" minOccurs="1" maxOccurs="1"/>
 			</sequence>
 		</complexType>
