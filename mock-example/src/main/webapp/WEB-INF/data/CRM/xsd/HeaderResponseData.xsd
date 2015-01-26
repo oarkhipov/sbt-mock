@@ -8,7 +8,7 @@
 			elementFormDefault="qualified">
 
 	<xsd:import namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10" schemaLocation="../../../xsd/CRM/CommonTypes.xsd"/>
-	<xsd:import namespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/resp/10/Data" schemaLocation="ExportContractInfoResponseData.xsd"/>
+	<xsd:import namespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/resp/10/Data" schemaLocation="ExportContractInfoRequestData.xsd"/>
 
 	<xsd:element name="data" type="dataValue"/>
 

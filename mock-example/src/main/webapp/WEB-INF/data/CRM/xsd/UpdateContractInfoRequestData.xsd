@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10/Data"
+        xmlns:tns="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10/Data"
+        xmlns:ct="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"
+        elementFormDefault="qualified">
+
+    <xsd:import schemaLocation="../../../xsd/CRM/CommonTypes.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"/>
+
+    <!--<xsd:element name="UpdateContractInfo" type="tns:ContractInfoUpd"/>-->
+
+    <xsd:complexType name="ListOfLimitUpd">
+        <xsd:sequence>
+            <xsd:element name="Limit" type="tns:LimitUpd" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="LimitUpd">
+        <xsd:sequence>
+            <xsd:element name="ParentLimitID" type="ct:String60" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ClientID" type="ct:String15" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="GSZ_ID" type="ct:String15" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="KG_ID" type="ct:String15" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="LimitType" type="ct:String50" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="TypeOfBusinessPartner" type="ct:String50" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="LimitStatus" type="ct:String50" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="TypicalLoanTerm" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="LimitID" type="ct:String60" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ApprovalDate" type="xsd:date" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="LimitValue" type="ct:Decimal20_5" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="Utilization" type="ct:Decimal20_5" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="OwnerLimit" type="ct:String30" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="DocApprovalNum" type="ct:String30" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="CreditPurpose" type="ct:String30" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="KindOfLimit" type="ct:String30" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="MaximumLGD" type="ct:Decimal4_2" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="Currency" type="ct:String30" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="FreeLimitBalance" type="ct:Decimal22_5" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="MaximumRatingOfBorrower" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="MaximumRatingOfGroup" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="AssuranceFramework" type="ct:String2000" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="OtherConditions" type="ct:String2000" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ProductName" type="ct:String50" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="CalculatedSum" type="ct:Decimal20_5" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="AvailabilityPeriod" type="xsd:date" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ContractInfoUpd">
+        <xsd:sequence>
+            <xsd:element name="ContractID" type="ct:String15" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ContractStatus" type="ct:String30" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="CauseClosed" type="ct:String50" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="LGD" type="ct:Decimal2_2" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="EL" type="ct:Decimal17_2" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="RatingIntID" type="ct:String15" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="MarketsValue" type="ct:Decimal17_2" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="GuaranteesAmount" type="ct:Decimal17_2" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="SecurityAmount" type="ct:Decimal17_2" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="AdditionalInfo" type="ct:String1000" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="MethodOfSale" type="ct:String50" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ListOfTermOfProduct" type="ct:ListOfTermOfProduct" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ListOfTerm" type="ct:ListOfTerm" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ListOfLoanSecurityInformation" type="ct:ListOfLoanSecurityInformation" minOccurs="1"
+                     maxOccurs="1"/>
+            <xsd:element name="ListOfGuarantor" type="ct:ListOfGuarantor" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ListOfRisk" type="tns:ListOfRiskUpd" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ListOfDispute" type="tns:ListOfDisputeUpd" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ListOfConclusionInfo" type="tns:ListOfConclusionInfoUpd" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="UPRInfo" type="tns:UPRInfoUpd" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ListOfLimit" type="tns:ListOfLimitUpd" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ListOfEmployeeInfo" type="tns:ListOfEmployeeInfoUpd" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ListOfRatingInfo" type="tns:ListOfRatingInfoUpd" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfRiskUpd">
+        <xsd:sequence>
+            <xsd:element name="Risk" type="tns:RiskUpd" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfDisputeUpd">
+        <xsd:sequence>
+            <xsd:element name="Dispute" type="tns:DisputeUpd" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfConclusionInfoUpd">
+        <xsd:sequence>
+            <xsd:element name="ConclusionInfo" type="tns:ConclusionInfoUpd" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfEmployeeInfoUpd">
+        <xsd:sequence>
+            <xsd:element name="EmployeeInfo" type="tns:EmployeeInfoUpd" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfRatingInfoUpd">
+        <xsd:sequence>
+            <xsd:element name="RatingInfo" type="tns:RatingInfoUpd" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="RiskUpd">
+        <xsd:sequence>
+            <xsd:element name="Initiator" type="ct:String1024" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="Name" type="ct:String250" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="DescriptionOfRisk" type="ct:String300" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="CommentKP" type="ct:String1000" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="EvaluationKP" type="ct:String250" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="CommentAR" type="ct:String300" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="EvaluationAR" type="ct:String250" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="DisputeUpd">
+        <xsd:sequence>
+            <xsd:element name="Dispute" type="ct:String1000" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="DisputeSettlementActivities" type="ct:String1000" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ConclusionInfoUpd">
+        <xsd:sequence>
+            <xsd:element name="Conclusion" type="ct:String1000" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="KI" type="ct:String1000" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="AR" type="ct:String1000" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="UPRInfoUpd">
+        <xsd:sequence>
+            <xsd:element name="UPR" type="ct:String100" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="FormatUPR" type="ct:String30" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="Risk" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="CategoryAR" type="ct:Decimal22_7" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="EmployeeInfoUpd">
+        <xsd:sequence>
+            <xsd:element name="Login" type="ct:String50" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="Role" type="ct:String30" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfRatingCalculatedValueUpd">
+        <xsd:sequence>
+            <xsd:element name="RatingCalculatedValue" type="tns:RatingCalculatedValueUpd" minOccurs="0"
+                     maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfRatingDetailsUpd">
+        <xsd:sequence>
+            <xsd:element name="RatingDetailsValue" type="tns:RatingDetailsValueUpd" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfRatingCorrectionDetailsUpd">
+        <xsd:sequence>
+            <xsd:element name="RatingCorrectionValue" type="tns:RatingCorrectionValueUpd" minOccurs="0"
+                     maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfRatingFactorListUpd">
+        <xsd:sequence>
+            <xsd:element name="RatingFactor" type="tns:RatingFactorUpd" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="RatingInfoUpd">
+        <xsd:sequence>
+            <xsd:element name="RatingInegrationID" type="ct:String30" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="PD" type="ct:Decimal22_7" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="TypeRating" type="ct:String30" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ValueRating" type="ct:Decimal22_7" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="EndDateRating" type="xsd:date" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ModelID" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="IsProjectRating" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="OrganizationID" type="ct:String15" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ConsGroupID" type="ct:String15" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ProjectName" type="ct:String255" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="CalculatedID" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="StatusRating" type="ct:String30" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ListOfAddInfoParam" type="tns:ListOfAddInfoParamUpd" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ListOfRatingPeriod" type="tns:ListOfRatingPeriodUpd" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ListOfFixedFactor" type="tns:ListOfFixedFactorUpd" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ListOfRatingSupport" type="tns:ListOfRatingSupportUpd" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ListOfTeamUsers" type="tns:ListOfTeamUsersUpd" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ListOfRatings" type="tns:ListOfRatingsUpd" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfAddInfoParamUpd">
+        <xsd:sequence>
+            <xsd:element name="AddInfoParam" type="tns:AddInfoParamUpd" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="AddInfoParamUpd">
+        <xsd:sequence>
+            <xsd:element name="Number" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="Name" type="ct:String255" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="Value" type="ct:String255" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfRatingPeriodUpd">
+        <xsd:sequence>
+            <xsd:element name="RatingPeriod" type="tns:RatingPeriodUpd" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="RatingPeriodUpd">
+        <xsd:sequence>
+            <xsd:element name="PeriodFO" type="ct:String255" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="PeriodDescription" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="PeriodName" type="ct:String255" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="StartDate" type="xsd:date" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="EndDate" type="xsd:date" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="PeriodType" type="ct:String255" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="Comments" type="ct:String255" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ListOfCardinalFactor" type="tns:ListOfCardinalFactorUpd" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfCardinalFactorUpd">
+        <xsd:sequence>
+            <xsd:element name="CardinalFactor" type="tns:CardinalFactorUpd" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="CardinalFactorUpd">
+        <xsd:sequence>
+            <xsd:element name="Role" type="ct:String30" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="Factor" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="FactorID" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="NumValue" type="xsd:decimal" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfFixedFactorUpd">
+        <xsd:sequence>
+            <xsd:element name="FixedFactor" type="tns:FixedFactorUpd" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="FixedFactorUpd">
+        <xsd:sequence>
+            <xsd:element name="Role" type="ct:String30" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="Factor" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="FactorID" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="Value" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfRatingSupportUpd">
+        <xsd:sequence>
+            <xsd:element name="RatingSupport" type="tns:RatingSupportUpd" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="RatingSupportUpd">
+        <xsd:sequence>
+            <xsd:element name="SubjectName" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="FreeValue" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="FactorID" type="ct:String15" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ListOfGroupSupportFactors" type="tns:ListOfGroupSupportFactorsUpd" minOccurs="1"
+                     maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfGroupSupportFactorsUpd">
+        <xsd:sequence>
+            <xsd:element name="GroupSupportFactors" type="tns:GroupSupportFactorsUpd" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="GroupSupportFactorsUpd">
+        <xsd:sequence>
+            <xsd:element name="Role" type="ct:String30" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="Name" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="FactorID" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="Value" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="FactorValueID" type="ct:String15" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="FreeValue" type="ct:String255" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfTeamUsersUpd">
+        <xsd:sequence>
+            <xsd:element name="TeamUsers" type="tns:TeamUsersUpd" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="TeamUsersUpd">
+        <xsd:sequence>
+            <xsd:element name="TeamUsers" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="UserLogin" type="ct:String50" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfRatingsUpd">
+        <xsd:sequence>
+            <xsd:element name="Rating" type="tns:RatingUpd" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="RatingUpd">
+        <xsd:sequence>
+            <xsd:element name="TeamRole" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="UserLogin" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="TypeOfRating" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="RatingCorrection" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="Date" type="xsd:date" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ReasonForCorrection" type="ct:String255" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ReasonedJudgment" type="ct:String255" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ListOfRatingCalculatedValue" type="tns:ListOfRatingCalculatedValueUpd" minOccurs="1"
+                     maxOccurs="1"/>
+            <xsd:element name="ListOfRatingDetails" type="tns:ListOfRatingDetailsUpd" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ListOfRatingCorrectionDetails" type="tns:ListOfRatingCorrectionDetailsUpd" minOccurs="1"
+                     maxOccurs="1"/>
+            <xsd:element name="ListOfRatingFactorList" type="tns:ListOfRatingFactorListUpd" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <xsd:complexType name="RatingCalculatedValueUpd">
+        <xsd:sequence>
+            <xsd:element name="MajorValue" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="Name" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="Value" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="RatingDetailsValueUpd">
+        <xsd:sequence>
+            <xsd:element name="Number" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="Name" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="Value" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="RatingCorrectionValueUpd">
+        <xsd:sequence>
+            <xsd:element name="Number" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="Name" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="Value" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="RatingFactorUpd">
+        <xsd:sequence>
+            <xsd:element name="Name" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="Value" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="data" type="tns:dataValue"/>
+
+    <xsd:complexType name="dataValue">
+        <xsd:sequence>
+            <xsd:element name="request" type="tns:requestBody" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>Тело сообщения</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="requestBody">
+        <xsd:sequence>
+            <xsd:element name="RqUID" type="ct:String36" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation> Уникальный идентификатор сообщения </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="RqTm" type="xsd:dateTime" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation> Дата и время передачи сообщений </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="SPName" type="ct:String50" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation> Идентификатор системы, которая сформировала сообщение </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="SystemId" type="ct:String50" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation> Идентификатор системы, которой адресовано сообщение </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="OperationName" type="ct:String255" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation> Наименование операции </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="ContractInfo" type="tns:ContractInfoUpd" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+        <xsd:attribute name="name"/>
+    </xsd:complexType>
+
+</xsd:schema>

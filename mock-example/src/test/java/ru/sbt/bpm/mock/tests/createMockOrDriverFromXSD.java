@@ -336,7 +336,7 @@ public class createMockOrDriverFromXSD {
             System.out.println("example 1");
             checkXSLT(webinf + "\\xsl\\" + system + "\\" + name + ".xsl",
                     webinf + "\\data\\" + system + "\\xml\\" + name + "Data.xml",
-                    "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs1.xml", params);
+                    "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml", params);
 
             if (params==null) {
                 params = new HashMap<String, String>(1);

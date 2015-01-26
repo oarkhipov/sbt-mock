@@ -35,12 +35,12 @@ public class ChannelTest {
 //    CRM testing
     @Test
     public void createTaskTest1() throws Exception {
-        testXSLT("CreateTask", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/CreateTask/rs1.xml", "xml/CRM/CreateTask/rs1.xml");
+        testXSLT("ExportContractInfo", "Q.KKMB.FROM.CRMORG.SYNCRESP", "xml/CRM/ExportContractInfo/rq1.xml", "xml/CRM/ExportContractInfo/rs1.xml");
     }
 
     @Test
     public void createTaskTest2() throws Exception {
-        testXSLT("CreateTask", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/CreateTask/rq2.xml", "xml/CRM/CreateTask/rs2.xml");
+        testXSLT("ExportContractInfo", "Q.KKMB.FROM.CRMORG.SYNCRESP", "xml/CRM/ExportContractInfo/rq2.xml", "xml/CRM/ExportContractInfo/rs2.xml");
     }
 
     @Test
