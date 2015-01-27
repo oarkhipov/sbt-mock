@@ -1,159 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10/Data">
-    <request name="default">
+<data xmlns="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/resp/10/Data">
+    <response name="default">
         <RqUID>string</RqUID>
         <RqTm>2014-12-16T17:55:06.410+04:00</RqTm>
         <SPName>string</SPName>
         <SystemId>string</SystemId>
         <OperationName>string</OperationName>
-        <ns1:ContractInfo xmlns:ns1="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10/Data"
-                      xmlns:ns2="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10">
-            <ns1:ContractID>string</ns1:ContractID>
-            <ns1:ContractStatus>string</ns1:ContractStatus>
-            <ns1:MethodOfSale>string</ns1:MethodOfSale>
-            <ns1:ListOfTermOfProduct>
-                <ns2:TermOfProduct>
-                    <ns2:ProductIntID>123456</ns2:ProductIntID>
-                    <ns2:CreditMode>Credit Contract</ns2:CreditMode>
-                    <ns2:CreditInstrument>Credit</ns2:CreditInstrument>
-                    <ns2:ProductLimitID>PRODLIMITID-123456</ns2:ProductLimitID>
-                    <ns2:TypeOfTermOfProduct>Запрошенные клиентом</ns2:TypeOfTermOfProduct>
-                    <ns2:ProductCategory>SPECIALIZED_UNIFIED</ns2:ProductCategory>
-                    <ns2:Product>1-115HI36</ns2:Product>
-                    <ns2:CreditAvailabilityPeriod>6</ns2:CreditAvailabilityPeriod>
-                    <ns2:StartDate>2014-01-27</ns2:StartDate>
-                    <ns2:EndDate>2019-01-27</ns2:EndDate>
-                    <ns2:WarrantyPaymentTerm/>
-                    <ns2:PrincipalRepaymentDeferment>2</ns2:PrincipalRepaymentDeferment>
-                    <ns2:RepaymentSchedule>Annuity Payments</ns2:RepaymentSchedule>
-                    <ns2:SumInCurrency>500000</ns2:SumInCurrency>
-                    <ns2:Currency>USD</ns2:Currency>
-                    <ns2:SumInRub>16000000</ns2:SumInRub>
-                    <ns2:CollateralFullySatisfiesDebt>true</ns2:CollateralFullySatisfiesDebt>
-                    <ns2:Purpose>Current Assets Replenishment</ns2:Purpose>
-                    <ns2:PurposeElaboration>Приобретение транcпортного средства для доставки продукции</ns2:PurposeElaboration>
-                    <ns2:CreditDuration>36</ns2:CreditDuration>
-                    <ns2:Rate>12</ns2:Rate>
-                    <ns2:RateType>Fixed</ns2:RateType>
-                    <ns2:InterestPaymentProcess>Monthly</ns2:InterestPaymentProcess>
-                    <ns2:VariableInterestRatePeriod>???</ns2:VariableInterestRatePeriod>
-                    <ns2:VariableInterestRateCalcPeriod>???</ns2:VariableInterestRateCalcPeriod>
-                    <ns2:VariableInterestRatePercentPeriod>???</ns2:VariableInterestRatePercentPeriod>
-                    <ns2:ListOfComission>
-                        <ns2:Comission>
-                            <ns2:NameComission>1</ns2:NameComission>
-                            <ns2:NameComissionOther/>
-                            <ns2:ComissionBase>??? у нас раздельные поля - тип базы и размер</ns2:ComissionBase>
-                            <ns2:PaymentRegulation>Ежемесячно</ns2:PaymentRegulation>
-                            <ns2:PaymentDate>2014-02-10</ns2:PaymentDate>
-                        </ns2:Comission>
-                    </ns2:ListOfComission>
-                    <ns2:ListOfAdvancedRepaymentFee> </ns2:ListOfAdvancedRepaymentFee>
-                </ns2:TermOfProduct>
-            </ns1:ListOfTermOfProduct>
-            <ns1:ListOfTerm>
-                <ns2:Term>
-                    <ns2:Type>Supplementary</ns2:Type>
-                    <ns2:DescriptionOfTerm>Предоставить разрешение на строительство объекта недвижимости</ns2:DescriptionOfTerm>
-                    <ns2:ResponsibleEmployee>Иванов П.И.</ns2:ResponsibleEmployee>
-                </ns2:Term>
-                <ns2:Term>
-                    <ns2:Type>Supplementary</ns2:Type>
-                    <ns2:DescriptionOfTerm>Предоставить доверенность на распоряжение имуществом</ns2:DescriptionOfTerm>
-                    <ns2:ResponsibleEmployee>Петров Л.И.</ns2:ResponsibleEmployee>
-                </ns2:Term>
-                <ns2:Term>
-                    <ns2:Type>Suspensive</ns2:Type>
-                    <ns2:DescriptionOfTerm>Предоставить доверенность на распоряжение имуществом</ns2:DescriptionOfTerm>
-                    <ns2:ResponsibleEmployee>Сидоров В.А.</ns2:ResponsibleEmployee>
-                </ns2:Term>
-            </ns1:ListOfTerm>
-            <ns1:ListOfLoanSecurityInformation></ns1:ListOfLoanSecurityInformation>
-            <ns1:ListOfGuarantor></ns1:ListOfGuarantor>
-            <ns1:ListOfRisk></ns1:ListOfRisk>
-            <ns1:ListOfDispute></ns1:ListOfDispute>
-            <ns1:ListOfConclusionInfo></ns1:ListOfConclusionInfo>
-            <ns1:ListOfLimit></ns1:ListOfLimit>
-            <ns1:ListOfEmployeeInfo></ns1:ListOfEmployeeInfo>
-            <ns1:ListOfRatingInfo></ns1:ListOfRatingInfo>
-        </ns1:ContractInfo>
-    </request>
-    <request name="test1">
-        <RqUID>string</RqUID>
+        <UpdateContractInfo>
+            <ContractID>string</ContractID>
+        </UpdateContractInfo>
+    </response>
+    <response name="response1">
+        <RqUID>string2</RqUID>
         <RqTm>2014-12-16T17:55:06.410+04:00</RqTm>
         <SPName>string</SPName>
         <SystemId>string</SystemId>
         <OperationName>string</OperationName>
-        <ns1:ContractInfo xmlns:ns1="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10/Data"
-                          xmlns:ns2="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10">
-            <ns1:ContractID>string</ns1:ContractID>
-            <ns1:ContractStatus>string</ns1:ContractStatus>
-            <ns1:MethodOfSale>string</ns1:MethodOfSale>
-            <ns1:ListOfTermOfProduct>
-                <ns2:TermOfProduct>
-                    <ns2:ProductIntID>123456</ns2:ProductIntID>
-                    <ns2:CreditMode>Credit Contract</ns2:CreditMode>
-                    <ns2:CreditInstrument>Credit</ns2:CreditInstrument>
-                    <ns2:ProductLimitID>PRODLIMITID-123456</ns2:ProductLimitID>
-                    <ns2:TypeOfTermOfProduct>Запрошенные клиентом</ns2:TypeOfTermOfProduct>
-                    <ns2:ProductCategory>SPECIALIZED_UNIFIED</ns2:ProductCategory>
-                    <ns2:Product>1-115HI36</ns2:Product>
-                    <ns2:CreditAvailabilityPeriod>6</ns2:CreditAvailabilityPeriod>
-                    <ns2:StartDate>2014-01-27</ns2:StartDate>
-                    <ns2:EndDate>2019-01-27</ns2:EndDate>
-                    <ns2:WarrantyPaymentTerm/>
-                    <ns2:PrincipalRepaymentDeferment>2</ns2:PrincipalRepaymentDeferment>
-                    <ns2:RepaymentSchedule>Annuity Payments</ns2:RepaymentSchedule>
-                    <ns2:SumInCurrency>500000</ns2:SumInCurrency>
-                    <ns2:Currency>USD</ns2:Currency>
-                    <ns2:SumInRub>16000000</ns2:SumInRub>
-                    <ns2:CollateralFullySatisfiesDebt>true</ns2:CollateralFullySatisfiesDebt>
-                    <ns2:Purpose>Current Assets Replenishment</ns2:Purpose>
-                    <ns2:PurposeElaboration>Приобретение транcпортного средства для доставки продукции</ns2:PurposeElaboration>
-                    <ns2:CreditDuration>36</ns2:CreditDuration>
-                    <ns2:Rate>12</ns2:Rate>
-                    <ns2:RateType>Fixed</ns2:RateType>
-                    <ns2:InterestPaymentProcess>Monthly</ns2:InterestPaymentProcess>
-                    <ns2:VariableInterestRatePeriod>???</ns2:VariableInterestRatePeriod>
-                    <ns2:VariableInterestRateCalcPeriod>???</ns2:VariableInterestRateCalcPeriod>
-                    <ns2:VariableInterestRatePercentPeriod>???</ns2:VariableInterestRatePercentPeriod>
-                    <ns2:ListOfComission>
-                        <ns2:Comission>
-                            <ns2:NameComission>1</ns2:NameComission>
-                            <ns2:NameComissionOther/>
-                            <ns2:ComissionBase>??? у нас раздельные поля - тип базы и размер</ns2:ComissionBase>
-                            <ns2:PaymentRegulation>Ежемесячно</ns2:PaymentRegulation>
-                            <ns2:PaymentDate>2014-02-10</ns2:PaymentDate>
-                        </ns2:Comission>
-                    </ns2:ListOfComission>
-                    <ns2:ListOfAdvancedRepaymentFee> </ns2:ListOfAdvancedRepaymentFee>
-                </ns2:TermOfProduct>
-            </ns1:ListOfTermOfProduct>
-            <ns1:ListOfTerm>
-                <ns2:Term>
-                    <ns2:Type>Supplementary</ns2:Type>
-                    <ns2:DescriptionOfTerm>Предоставить разрешение на строительство объекта недвижимости</ns2:DescriptionOfTerm>
-                    <ns2:ResponsibleEmployee>Иванов П.И.</ns2:ResponsibleEmployee>
-                </ns2:Term>
-                <ns2:Term>
-                    <ns2:Type>Supplementary</ns2:Type>
-                    <ns2:DescriptionOfTerm>Предоставить доверенность на распоряжение имуществом</ns2:DescriptionOfTerm>
-                    <ns2:ResponsibleEmployee>Петров Л.И.</ns2:ResponsibleEmployee>
-                </ns2:Term>
-                <ns2:Term>
-                    <ns2:Type>Suspensive</ns2:Type>
-                    <ns2:DescriptionOfTerm>Предоставить доверенность на распоряжение имуществом</ns2:DescriptionOfTerm>
-                    <ns2:ResponsibleEmployee>Сидоров В.А.</ns2:ResponsibleEmployee>
-                </ns2:Term>
-            </ns1:ListOfTerm>
-            <ns1:ListOfLoanSecurityInformation></ns1:ListOfLoanSecurityInformation>
-            <ns1:ListOfGuarantor></ns1:ListOfGuarantor>
-            <ns1:ListOfRisk></ns1:ListOfRisk>
-            <ns1:ListOfDispute></ns1:ListOfDispute>
-            <ns1:ListOfConclusionInfo></ns1:ListOfConclusionInfo>
-            <ns1:ListOfLimit></ns1:ListOfLimit>
-            <ns1:ListOfEmployeeInfo></ns1:ListOfEmployeeInfo>
-            <ns1:ListOfRatingInfo></ns1:ListOfRatingInfo>
-        </ns1:ContractInfo>
-    </request>
+        <UpdateContractInfo>
+            <ContractID>string</ContractID>
+        </UpdateContractInfo>
+        <ErrorCode>string</ErrorCode>
+        <ErrorMessage>string</ErrorMessage>
+        <ErrorDetails>string</ErrorDetails>
+    </response>
 </data>
