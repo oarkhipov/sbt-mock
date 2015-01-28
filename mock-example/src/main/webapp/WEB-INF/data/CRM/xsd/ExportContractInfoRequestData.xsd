@@ -148,11 +148,11 @@
         <xsd:attribute name="name"/>
     </xsd:complexType>
 
-    <xsd:element name="data" type="dataValue"/>
+    <xsd:element name="data" type="tns:dataValue"/>
 
     <xsd:complexType name="dataValue">
         <xsd:sequence>
-            <xsd:element name="request" type="requestBody" maxOccurs="unbounded">
+            <xsd:element name="request" type="tns:requestBody" maxOccurs="unbounded">
                 <xsd:annotation>
                     <xsd:documentation> Тело ответа на сообщение </xsd:documentation>
                 </xsd:annotation>

@@ -43,6 +43,11 @@ public class ChannelTest {
         testXSLT("UpdateContractInfo", "Q.KKMB.FROM.CRMORG.SYNCRESP", "xml/CRM/UpdateContractInfo/rq2.xml", "xml/CRM/UpdateContractInfo/rs2.xml");
     }
 
+    @Test
+    public void testGetPartisipantInfo1() throws Exception {
+        testXSLT("GetParticipants", "Q.KKMB.FROM.CRMORG.SYNCRESP", "xml/CRM/GetParticipantInfo/rq1.xml", "xml/CRM/GetParticipantInfo/rs1.xml");
+    }
+
 //    @Test
 //    public void createTaskTest1() throws Exception {
 //        testXSLT("CreateTask", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/CreateTask/rs1.xml", "xml/CRM/CreateTask/rs1.xml");

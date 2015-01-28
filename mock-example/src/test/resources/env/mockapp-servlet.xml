@@ -110,6 +110,8 @@
     <channel id="ESBSynCallForNCPDB"/>
 
     <channel id="UpdateContractInfo"/>
+    <channel id="GetParticipants"/>
+
     <!--<channel id="CreateTask"/>-->
     <!--<channel id="GetParticipants"/>-->
     <!--<channel id="SaveDeal"/>-->
@@ -130,6 +132,7 @@
         <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="ESBSynCallForNCPDB"/>
 
         <ix:mapping value="UpdateContractInfo" channel="UpdateContractInfo"/>
+        <ix:mapping value="GetParticipants" channel="GetParticipants"/>
 
         <!--<ix:mapping value="CreateTask" channel="CreateTask"/>-->
         <!--<ix:mapping value="GetParticipants" channel="GetParticipants"/>-->
@@ -153,6 +156,10 @@
     <beans:bean id="CRM_UpdateContractInfo" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/CRM/UpdateContractInfo.xsl"/>
     </beans:bean>
+    <beans:bean id="CRM_GetParticipants" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/CRM/GetParticipantInfo.xsl"/>
+    </beans:bean>
+
     <!--<beans:bean id="CRM_GetParticipants" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
     <!--<beans:property name="xslPath" value="/WEB-INF/xsl/CRM/GetParticipants.xsl"/>-->
     <!--</beans:bean>-->
@@ -162,7 +169,7 @@
     <!--<beans:bean id="CRM_UpdateRef" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
     <!--<beans:property name="xslPath" value="/WEB-INF/xsl/CRM/UpdateRef.xsl"/>-->
     <!--</beans:bean>-->
-    <!--&lt;!&ndash; AMRLiRT &ndash;&gt;-->
+    <!-- AMRLiRT -->
     <!--<beans:bean id="AMRLiRT_CalculateRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
     <!--<beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateRating.xsl"/>-->
     <!--</beans:bean>-->
@@ -181,7 +188,7 @@
     <!--<beans:bean id="AMRLiRT_CalculateDebtCapacity" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
     <!--<beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateDebtCapacity.xsl"/>-->
     <!--</beans:bean>-->
-    <!--&lt;!&ndash; FinRep &ndash;&gt;-->
+    <!-- FinRep -->
     <!--<beans:bean id="FinRep_FinReportImport" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
     <!--<beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/FinReportImport.xsl"/>-->
     <!--</beans:bean>-->
@@ -198,6 +205,8 @@
     <!--маппинг трасформеров на каналы-->
 
     <transformer input-channel="UpdateContractInfo" output-channel="Q.KKMB.FROM.CRMORG.SYNCRESP" method="transform" ref="CRM_UpdateContractInfo"/>
+    <transformer input-channel="GetParticipants" output-channel="Q.KKMB.FROM.CRMORG.SYNCRESP" method="transform" ref="CRM_GetParticipants"/>
+
     <!--<transformer input-channel="GetParticipants" output-channel="Q.KKMB.TO.CRMORG.SYNCRESP" method="transform" ref="CRM_GetParticipants"/>-->
     <!--<transformer input-channel="SaveDeal" output-channel="Q.KKMB.TO.CRMORG.SYNCRESP" method="transform" ref="CRM_SaveDeal"/>-->
     <!--<transformer input-channel="UpdateRef" output-channel="Q.KKMB.TO.CRMORG.SYNCRESP" method="transform" ref="CRM_UpdateRef"/>-->

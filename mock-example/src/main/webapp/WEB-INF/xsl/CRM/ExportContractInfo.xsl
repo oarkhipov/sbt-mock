@@ -2,7 +2,7 @@
                 xmlns:rsd="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10/Data"
                 xmlns:ns2="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                version="1.0" xmlns:ns3="http://www.w3.org/1999/XSL/Transform">
+                version="1.0">
     <!--xmlns:ns3="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10"-->
 
     <!--опускаем строку 'xml version="1.0" encoding="UTF-8"'. С ней не работает MQ очередь-->
@@ -227,22 +227,20 @@
     </xsl:template>
 
     <xsl:template match="ns2:ParticipantFL">
-        <xsl:element name="ns2:ParticipantFL">
-            <xsl:element name="ns2:ClientID">
-                <xsl:value-of select="./ns2:ClientID"/>
-            </xsl:element>
-            <xsl:element name="ns2:ListOfStatusFL">
-                <xsl:if test="./ns2:ListOfStatusFL/ns2:StatusFL">
-                    <xsl:element name="ns2:StatusFL">
-                        <xsl:value-of select="./ns2:ListOfStatusFL/ns2:StatusFL"/>
-                    </xsl:element>
-                </xsl:if>
-            </xsl:element>
-            <xsl:element name="ns2:RoleFL">
-                <xsl:value-of select="./ns2:RoleFL"/>
-            </xsl:element>
+    <xsl:element name="ns2:ParticipantFL">
+        <xsl:element name="ns2:ClientID">
+            <xsl:value-of select="./ns2:ClientID"/>
         </xsl:element>
-    </xsl:template>
+        <xsl:element name="ns2:ListOfStatusFL">
+            <xsl:if test="./ns2:ListOfStatusFL/ns2:StatusFL">
+                <xsl:apply-templates select="./ns2:ListOfStatusFL/ns2:StatusFL"/>
+            </xsl:if>
+        </xsl:element>
+        <xsl:element name="ns2:RoleFL">
+            <xsl:value-of select="./ns2:RoleFL"/>
+        </xsl:element>
+    </xsl:element>
+</xsl:template>
 
     <xsl:template match="ns2:StatusUL">
         <xsl:element name="ns2:StatusUL">
