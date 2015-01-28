@@ -1,14 +1,14 @@
-﻿<ns1:Message xmlns:ns1="http://sbrf.ru/prpc/kkmb/crm/Header/req/10" xmlns:ns2="http://sbrf.ru/prpc/kkmb/crm/GetParticipant/req/10" xmlns:ns3="http://sbrf.ru/prpc/kkmb/crm/ContractClose/req/10" xmlns:ns4="http://sbrf.ru/prpc/kkmb/crm/ReferenceData/req/10" xmlns:ns5="http://sbrf.ru/prpc/kkmb/crm/ProblemGroup/req/10"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://sbrf.ru/prpc/kkmb/crm/Header/req/10 kkmb-crm-header-req.xsd">
+﻿<ns1:Message xmlns:ns1="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">
   <ns1:RqUID>CRMTODO_UID</ns1:RqUID>
   <ns1:RqTm>2014-02-20T08:23:55.457Z</ns1:RqTm>
   <ns1:SPName>CRMTODO_SPNAME</ns1:SPName>
   <ns1:SystemId>CRMTODO_SystemId</ns1:SystemId>
   <ns1:OperationName>ExportContractInfo</ns1:OperationName>
-  <ns1:ContractInfo xmlns:ns1="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10" xmlns:ns2="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10">
+  <ns1:ContractInfo xmlns:ns1="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10"
+                    xmlns:ns2="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10">
     <ns1:ContractID>OKITESTDEAL</ns1:ContractID>
     <ns1:ContractDate>2014-02-20T00:00:00.000Z</ns1:ContractDate>
-    <ns1:OrgUnit>55862901681</ns1:OrgUnit>
+    <ns1:OrgUnit>55862601221</ns1:OrgUnit>
     <ns1:MotiveOfContract>Кредитная сделка</ns1:MotiveOfContract>
     <ns1:MethodOfSale>Кредитный конвейер</ns1:MethodOfSale>
     <ns1:Utilization/>
@@ -21,7 +21,7 @@
       <ns2:TermOfProduct>
         <ns2:ProductIntID>123456</ns2:ProductIntID>
         <ns2:CreditMode>Credit Contract</ns2:CreditMode>
-        <ns2:CreditInstrument>Credit</ns2:CreditInstrument>
+        <ns2:CreditInstrument>Credit Contract</ns2:CreditInstrument>
         <ns2:ProductLimitID>PRODLIMITID-123456</ns2:ProductLimitID>
         <ns2:TypeOfTermOfProduct>Запрошенные клиентом</ns2:TypeOfTermOfProduct>
         <ns2:ProductCategory>SPECIALIZED_UNIFIED</ns2:ProductCategory>
@@ -159,7 +159,147 @@
       </ns2:ListOfPartGSLUL>
     </ns2:GSL>
     <ns1:ListOfLimit>
-
+      <ns1:Limit>
+        <ns1:ParentLimitID/>
+        <ns1:ClientID>CRM123000011</ns1:ClientID>
+        <ns1:GSZ_ID/>
+        <ns1:KG_ID/>
+        <ns1:LimitType>Total Limit</ns1:LimitType>
+        <ns1:LimitStatus>2</ns1:LimitStatus>
+        <ns1:LimitID>L-00001</ns1:LimitID>
+        <ns1:ApplicationID>A-00001</ns1:ApplicationID>
+        <ns1:ApprovalDate>2014-01-15</ns1:ApprovalDate>
+        <ns1:LimitValue>4000000</ns1:LimitValue>
+        <ns1:TypeOfBusinessPartner>CP</ns1:TypeOfBusinessPartner>
+        <ns1:FreeLimitBalance>3000000</ns1:FreeLimitBalance>
+        <ns1:Utilization>1000000</ns1:Utilization>
+      </ns1:Limit>
+      <ns1:Limit>
+        <ns1:ParentLimitID>L-00001</ns1:ParentLimitID>
+        <ns1:ClientID>CRM123000011</ns1:ClientID>
+        <ns1:GSZ_ID/>
+        <ns1:KG_ID/>
+        <ns1:LimitType>Total Unified</ns1:LimitType>
+        <ns1:LimitStatus>2</ns1:LimitStatus>
+        <ns1:LimitID>L-00002</ns1:LimitID>
+        <ns1:ApplicationID>A-00001</ns1:ApplicationID>
+        <ns1:ApprovalDate>2014-01-15</ns1:ApprovalDate>
+        <ns1:LimitValue>4000000</ns1:LimitValue>
+        <ns1:TypeOfBusinessPartner>CP</ns1:TypeOfBusinessPartner>
+        <ns1:FreeLimitBalance>3000000</ns1:FreeLimitBalance>
+        <ns1:Utilization>1000000</ns1:Utilization>
+      </ns1:Limit>
+      <ns1:Limit>
+        <ns1:ParentLimitID>L-00002</ns1:ParentLimitID>
+        <ns1:ClientID>CRM123000011</ns1:ClientID>
+        <ns1:GSZ_ID/>
+        <ns1:KG_ID/>
+        <ns1:LimitType>Unified Special</ns1:LimitType>
+        <ns1:LimitStatus>2</ns1:LimitStatus>
+        <ns1:LimitID>L-00003</ns1:LimitID>
+        <ns1:ApplicationID>A-00001</ns1:ApplicationID>
+        <ns1:ApprovalDate>2014-01-15</ns1:ApprovalDate>
+        <ns1:LimitValue>3000000</ns1:LimitValue>
+        <ns1:TypicalLoanTerm>12</ns1:TypicalLoanTerm>
+        <ns1:CreditPurpose>Current Assets Replenishment</ns1:CreditPurpose>
+        <ns1:DocApprovalNum>123-123</ns1:DocApprovalNum>
+        <ns1:TypeOfBusinessPartner>CP</ns1:TypeOfBusinessPartner>
+        <ns1:FreeLimitBalance>2500000</ns1:FreeLimitBalance>
+        <ns1:MaximumRatingOfBorrower>7</ns1:MaximumRatingOfBorrower>
+        <ns1:MaximumRatingOfGroup>7</ns1:MaximumRatingOfGroup>
+        <ns1:MaximumLGD>11</ns1:MaximumLGD>
+        <ns1:AssuranceFramework>Структура обеспечения</ns1:AssuranceFramework>
+        <ns1:OtherConditions>Прочие условия</ns1:OtherConditions>
+        <ns1:Utilization>500000</ns1:Utilization>
+        <ns1:ProductName>Pod_1</ns1:ProductName>
+      </ns1:Limit>
+      <ns1:Limit>
+        <ns1:ParentLimitID>L-00002</ns1:ParentLimitID>
+        <ns1:ClientID>CRM123000011</ns1:ClientID>
+        <ns1:GSZ_ID/>
+        <ns1:KG_ID/>
+        <ns1:LimitType>Unified Special</ns1:LimitType>
+        <ns1:LimitStatus>2</ns1:LimitStatus>
+        <ns1:LimitID>L-00004</ns1:LimitID>
+        <ns1:ApplicationID>A-00001</ns1:ApplicationID>
+        <ns1:ApprovalDate>2014-01-15</ns1:ApprovalDate>
+        <ns1:LimitValue>1000000</ns1:LimitValue>
+        <ns1:TypicalLoanTerm>12</ns1:TypicalLoanTerm>
+        <ns1:CreditPurpose>Current Assets Replenishment</ns1:CreditPurpose>
+        <ns1:DocApprovalNum>123-123</ns1:DocApprovalNum>
+        <ns1:TypeOfBusinessPartner>CP</ns1:TypeOfBusinessPartner>
+        <ns1:FreeLimitBalance>500000</ns1:FreeLimitBalance>
+        <ns1:MaximumRatingOfBorrower>7</ns1:MaximumRatingOfBorrower>
+        <ns1:MaximumRatingOfGroup>7</ns1:MaximumRatingOfGroup>
+        <ns1:MaximumLGD>11</ns1:MaximumLGD>
+        <ns1:AssuranceFramework>Структура обеспечения</ns1:AssuranceFramework>
+        <ns1:OtherConditions>Прочие условия</ns1:OtherConditions>
+        <ns1:Utilization>500000</ns1:Utilization>
+        <ns1:ProductName>Pod_2</ns1:ProductName>
+      </ns1:Limit>
+      <ns1:Limit>
+        <ns1:ParentLimitID>L-00001</ns1:ParentLimitID>
+        <ns1:ClientID>CRM123000011</ns1:ClientID>
+        <ns1:GSZ_ID/>
+        <ns1:KG_ID/>
+        <ns1:LimitType>Total Unified</ns1:LimitType>
+        <ns1:LimitStatus>2</ns1:LimitStatus>
+        <ns1:LimitID>L-00005</ns1:LimitID>
+        <ns1:ApplicationID>A-00001</ns1:ApplicationID>
+        <ns1:ApprovalDate>2014-01-15</ns1:ApprovalDate>
+        <ns1:LimitValue>4000000</ns1:LimitValue>
+        <ns1:TypeOfBusinessPartner>CP</ns1:TypeOfBusinessPartner>
+        <ns1:FreeLimitBalance>3000000</ns1:FreeLimitBalance>
+        <ns1:Utilization>1000000</ns1:Utilization>
+      </ns1:Limit>
+      <ns1:Limit>
+        <ns1:ParentLimitID>L-00005</ns1:ParentLimitID>
+        <ns1:ClientID>CRM123000011</ns1:ClientID>
+        <ns1:GSZ_ID/>
+        <ns1:KG_ID/>
+        <ns1:LimitType>Unified Special</ns1:LimitType>
+        <ns1:LimitStatus>2</ns1:LimitStatus>
+        <ns1:LimitID>L-00006</ns1:LimitID>
+        <ns1:ApplicationID>A-00001</ns1:ApplicationID>
+        <ns1:ApprovalDate>2014-01-15</ns1:ApprovalDate>
+        <ns1:LimitValue>3000000</ns1:LimitValue>
+        <ns1:TypicalLoanTerm>12</ns1:TypicalLoanTerm>
+        <ns1:CreditPurpose>Current Assets Replenishment</ns1:CreditPurpose>
+        <ns1:DocApprovalNum>123-123</ns1:DocApprovalNum>
+        <ns1:TypeOfBusinessPartner>CP</ns1:TypeOfBusinessPartner>
+        <ns1:FreeLimitBalance>2500000</ns1:FreeLimitBalance>
+        <ns1:MaximumRatingOfBorrower>7</ns1:MaximumRatingOfBorrower>
+        <ns1:MaximumRatingOfGroup>7</ns1:MaximumRatingOfGroup>
+        <ns1:MaximumLGD>11</ns1:MaximumLGD>
+        <ns1:AssuranceFramework>Структура обеспечения</ns1:AssuranceFramework>
+        <ns1:OtherConditions>Прочие условия</ns1:OtherConditions>
+        <ns1:Utilization>500000</ns1:Utilization>
+        <ns1:ProductName>Pod_1</ns1:ProductName>
+      </ns1:Limit>
+      <ns1:Limit>
+        <ns1:ParentLimitID>L-00005</ns1:ParentLimitID>
+        <ns1:ClientID>CRM123000011</ns1:ClientID>
+        <ns1:GSZ_ID/>
+        <ns1:KG_ID/>
+        <ns1:LimitType>Unified Special</ns1:LimitType>
+        <ns1:LimitStatus>2</ns1:LimitStatus>
+        <ns1:LimitID>L-00007</ns1:LimitID>
+        <ns1:ApplicationID>A-00001</ns1:ApplicationID>
+        <ns1:ApprovalDate>2014-01-15</ns1:ApprovalDate>
+        <ns1:LimitValue>1000000</ns1:LimitValue>
+        <ns1:TypicalLoanTerm>12</ns1:TypicalLoanTerm>
+        <ns1:CreditPurpose>Current Assets Replenishment</ns1:CreditPurpose>
+        <ns1:DocApprovalNum>123-123</ns1:DocApprovalNum>
+        <ns1:TypeOfBusinessPartner>CP</ns1:TypeOfBusinessPartner>
+        <ns1:FreeLimitBalance>500000</ns1:FreeLimitBalance>
+        <ns1:MaximumRatingOfBorrower>7</ns1:MaximumRatingOfBorrower>
+        <ns1:MaximumRatingOfGroup>7</ns1:MaximumRatingOfGroup>
+        <ns1:MaximumLGD>11</ns1:MaximumLGD>
+        <ns1:AssuranceFramework>Структура обеспечения</ns1:AssuranceFramework>
+        <ns1:OtherConditions>Прочие условия</ns1:OtherConditions>
+        <ns1:Utilization>500000</ns1:Utilization>
+        <ns1:ProductName>Pod_2</ns1:ProductName>
+      </ns1:Limit>
     </ns1:ListOfLimit>
     <ns1:ListOfRating>
       <ns1:Rating>
@@ -352,17 +492,17 @@
         </ns2:ListOfMemberGSZUL>
       </ns2:GSZ>
     </ns1:ListOfGSZ>
-    <ns1:ListOfKG> 
-	<ns2:KG>
-		<ns2:KG_ID>KG-00001</ns2:KG_ID>
-		<ns2:NameKG>YL_KG</ns2:NameKG>
-		<ns2:ListOfMemberKGFL/>
-		<ns2:ListOfMemberKGUL>
-			<ns2:ClientID>CRM123000044</ns2:ClientID>
-			<ns2:ClientID>CRM123000033</ns2:ClientID>
-		</ns2:ListOfMemberKGUL>
-	</ns2:KG>
-</ns1:ListOfKG>
+    <ns1:ListOfKG>
+      <ns2:KG>
+        <ns2:KG_ID>KG-00001</ns2:KG_ID>
+        <ns2:NameKG>YL_KG</ns2:NameKG>
+        <ns2:ListOfMemberKGFL/>
+        <ns2:ListOfMemberKGUL>
+          <ns2:ClientID>CRM123000044</ns2:ClientID>
+          <ns2:ClientID>CRM123000033</ns2:ClientID>
+        </ns2:ListOfMemberKGUL>
+      </ns2:KG>
+    </ns1:ListOfKG>
     <ns1:ListOfLegalPerson>
       <ns2:LegalPerson>
         <ns2:LegalPersonID>CRM123000011</ns2:LegalPersonID>

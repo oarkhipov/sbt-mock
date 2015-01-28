@@ -37,6 +37,15 @@ public class XslTransformTest {
                   "xml/CRM/UpdateContractInfo/rs1.xml");
     }
 
+    @Test
+    public void testExportContractInfo() throws Exception {
+        final String dir = this.getClass().getClassLoader().getResource("").getPath();
+        System.out.println(dir);
+        checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\ExportContractInfo.xsl",
+                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\ExportContractInfoData.xml",
+                "xml/CRM/ExportContractInfo/rq1.xml");
+    }
+
 //    @Test
 //    public void testForceSignalXSLT() throws Exception {
 //        final String dir = this.getClass().getClassLoader().getResource("").getPath();
