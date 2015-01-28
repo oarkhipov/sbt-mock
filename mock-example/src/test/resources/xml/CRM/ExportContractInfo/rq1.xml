@@ -516,31 +516,24 @@
         <ns2:OGRN>1047855126990</ns2:OGRN>
         <ns2:Industry>Food and Tobacco</ns2:Industry>
         <ns2:ProblemGroup>Green Zone</ns2:ProblemGroup>
-        <ns2:Phone>+79201234567</ns2:Phone>
         <ns2:ListOfAddressInfoUL>
           <ns2:AddressInfoUL>
             <ns2:AddressTypeUL>Фактический</ns2:AddressTypeUL>
             <ns2:City>125000, Москва</ns2:City>
             <ns2:Street>ул. Академика Королева</ns2:Street>
             <ns2:House>20</ns2:House>
-            <ns2:Index>127427</ns2:Index>
-            <ns2:RegionCode>77</ns2:RegionCode>
           </ns2:AddressInfoUL>
           <ns2:AddressInfoUL>
             <ns2:AddressTypeUL>Почтовый</ns2:AddressTypeUL>
             <ns2:City>125000, Москва</ns2:City>
             <ns2:Street>ул. Академика Королева</ns2:Street>
             <ns2:House>20</ns2:House>
-            <ns2:Index>127427</ns2:Index>
-            <ns2:RegionCode>77</ns2:RegionCode>
           </ns2:AddressInfoUL>
           <ns2:AddressInfoUL>
             <ns2:AddressTypeUL>Регистрации</ns2:AddressTypeUL>
             <ns2:City>125000, Москва</ns2:City>
             <ns2:Street>ул. Академика Королева</ns2:Street>
             <ns2:House>20</ns2:House>
-            <ns2:Index>127427</ns2:Index>
-            <ns2:RegionCode>77</ns2:RegionCode>
           </ns2:AddressInfoUL>
         </ns2:ListOfAddressInfoUL>
         <ns2:ListOfRegistrationInfo>
@@ -564,31 +557,24 @@
         <ns2:OGRN>1047808026870</ns2:OGRN>
         <ns2:Industry>Food and Tobacco</ns2:Industry>
         <ns2:ProblemGroup>Green Zone</ns2:ProblemGroup>
-        <ns2:Phone>+79201234568</ns2:Phone>
         <ns2:ListOfAddressInfoUL>
           <ns2:AddressInfoUL>
             <ns2:AddressTypeUL>Фактический</ns2:AddressTypeUL>
             <ns2:City>125000, Москва</ns2:City>
             <ns2:Street>ул. Академика Королева</ns2:Street>
             <ns2:House>20</ns2:House>
-            <ns2:Index>127427</ns2:Index>
-            <ns2:RegionCode>77</ns2:RegionCode>
           </ns2:AddressInfoUL>
           <ns2:AddressInfoUL>
             <ns2:AddressTypeUL>Почтовый</ns2:AddressTypeUL>
             <ns2:City>125000, Москва</ns2:City>
             <ns2:Street>ул. Академика Королева</ns2:Street>
             <ns2:House>20</ns2:House>
-            <ns2:Index>127427</ns2:Index>
-            <ns2:RegionCode>77</ns2:RegionCode>
           </ns2:AddressInfoUL>
           <ns2:AddressInfoUL>
             <ns2:AddressTypeUL>Регистрации</ns2:AddressTypeUL>
             <ns2:City>125000, Москва</ns2:City>
             <ns2:Street>ул. Академика Королева</ns2:Street>
             <ns2:House>20</ns2:House>
-            <ns2:Index>127427</ns2:Index>
-            <ns2:RegionCode>77</ns2:RegionCode>
           </ns2:AddressInfoUL>
         </ns2:ListOfAddressInfoUL>
         <ns2:ListOfRegistrationInfo>
@@ -612,31 +598,24 @@
         <ns2:OGRN>1052800010229</ns2:OGRN>
         <ns2:Industry>Food and Tobacco</ns2:Industry>
         <ns2:ProblemGroup>Green Zone</ns2:ProblemGroup>
-        <ns2:Phone>+79201234569</ns2:Phone>
         <ns2:ListOfAddressInfoUL>
           <ns2:AddressInfoUL>
             <ns2:AddressTypeUL>Фактический</ns2:AddressTypeUL>
             <ns2:City>Москва</ns2:City>
             <ns2:Street>ул. Академика Королева</ns2:Street>
             <ns2:House>20</ns2:House>
-            <ns2:Index>127427</ns2:Index>
-            <ns2:RegionCode>77</ns2:RegionCode>
           </ns2:AddressInfoUL>
           <ns2:AddressInfoUL>
             <ns2:AddressTypeUL>Почтовый</ns2:AddressTypeUL>
             <ns2:City>Москва</ns2:City>
             <ns2:Street>ул. Академика Королева</ns2:Street>
             <ns2:House>20</ns2:House>
-            <ns2:Index>127427</ns2:Index>
-            <ns2:RegionCode>77</ns2:RegionCode>
           </ns2:AddressInfoUL>
           <ns2:AddressInfoUL>
             <ns2:AddressTypeUL>Регистрации</ns2:AddressTypeUL>
             <ns2:City>Москва</ns2:City>
             <ns2:Street>ул. Академика Королева</ns2:Street>
             <ns2:House>20</ns2:House>
-            <ns2:Index>127427</ns2:Index>
-            <ns2:RegionCode>77</ns2:RegionCode>
           </ns2:AddressInfoUL>
         </ns2:ListOfAddressInfoUL>
         <ns2:ListOfRegistrationInfo>
@@ -668,7 +647,6 @@
             <ns2:IssueDate>2001-08-09</ns2:IssueDate>
             <ns2:IssueAuthorityCode>025-124</ns2:IssueAuthorityCode>
             <ns2:IssueAuthority>ОВД Дегунино</ns2:IssueAuthority>
-            <ns2:IssueLocation>г. Москва</ns2:IssueLocation>
             <ns2:Primary>true</ns2:Primary>
           </ns2:Document>
         </ns2:ListOfDocument>

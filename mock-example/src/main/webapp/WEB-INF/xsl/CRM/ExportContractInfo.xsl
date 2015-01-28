@@ -244,6 +244,12 @@
         </xsl:element>
     </xsl:template>
 
+    <xsl:template match="ns2:StatusUL">
+        <xsl:element name="ns2:StatusUL">
+            <xsl:value-of select="."/>
+        </xsl:element>
+    </xsl:template>
+
     <xsl:template match="ns2:ParticipantUL">
         <xsl:element name="ns2:ParticipantUL">
             <xsl:element name="ns2:ClientID">
@@ -251,14 +257,18 @@
             </xsl:element>
             <xsl:element name="ns2:ListOfStatusUL">
                 <xsl:if test="./ns2:ListOfStatusUL/ns2:StatusUL">
-                    <xsl:element name="ns2:StatusUL">
-                        <xsl:value-of select="./ns2:ListOfStatusUL/ns2:StatusUL"/>
-                    </xsl:element>
+                    <xsl:apply-templates select="./ns2:ListOfStatusUL/ns2:StatusUL"/>
                 </xsl:if>
             </xsl:element>
             <xsl:element name="ns2:RoleUL">
                 <xsl:value-of select="./ns2:RoleUL"/>
             </xsl:element>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template match="ns2:StatusFL">
+        <xsl:element name="ns2:StatusFL">
+            <xsl:value-of select="."/>
         </xsl:element>
     </xsl:template>
 
@@ -269,9 +279,7 @@
             </xsl:element>
             <xsl:element name="ns2:ListOfStatusFL">
                 <xsl:if test="./ns2:ListOfStatusFL/ns2:StatusFL">
-                    <xsl:element name="ns2:StatusFL">
-                        <xsl:value-of select="./ns2:ListOfStatusFL/ns2:StatusFL"/>
-                    </xsl:element>
+                    <xsl:apply-templates select="./ns2:ListOfStatusFL/ns2:StatusFL"/>
                 </xsl:if>
             </xsl:element>
             <xsl:element name="ns2:RoleFL">
@@ -613,11 +621,15 @@
             </xsl:if>
             <xsl:element name="ns2:ListOfDefermentTermsOfGuarantor">
                 <xsl:if test="./ns2:ListOfDefermentTermsOfGuarantor/ns2:DefermentTermsOfGuarantor">
-                    <xsl:element name="ns2:DefermentTermsOfGuarantor">
-                        <xsl:value-of select="./ns2:DefermentTermsOfGuarantor"/>
-                    </xsl:element>
+                    <xsl:apply-templates select="./ns2:ListOfDefermentTermsOfGuarantor/ns2:DefermentTermsOfGuarantor"/>
                 </xsl:if>
             </xsl:element>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template match="ns2:DefermentTermsOfGuarantor">
+        <xsl:element name="ns2:DefermentTermsOfGuarantor">
+            <xsl:value-of select="."/>
         </xsl:element>
     </xsl:template>
 
@@ -631,16 +643,12 @@
             </xsl:element>
             <xsl:element name="ns2:ListOfMemberGSZFL">
                 <xsl:if test="./ns2:ListOfMemberGSZFL/ns2:ClientID">
-                    <xsl:element name="ns2:ClientID">
-                        <xsl:value-of select="./ns2:ListOfMemberGSZFL/ns2:ClientID"/>
-                    </xsl:element>
+                    <xsl:apply-templates select="./ns2:ListOfMemberGSZFL/ns2:ClientID"/>
                 </xsl:if>
             </xsl:element>
             <xsl:element name="ns2:ListOfMemberGSZUL">
                 <xsl:if test="./ns2:ListOfMemberGSZUL/ns2:ClientID">
-                    <xsl:element name="ns2:ClientID">
-                        <xsl:value-of select="./ns2:ListOfMemberGSZUL/ns2:ClientID"/>
-                    </xsl:element>
+                    <xsl:apply-templates select="./ns2:ListOfMemberGSZUL/ns2:ClientID"/>
                 </xsl:if>
             </xsl:element>
         </xsl:element>
@@ -656,18 +664,20 @@
             </xsl:element>
             <xsl:element name="ns2:ListOfMemberKGFL">
                 <xsl:if test="./ns2:ListOfMemberKGFL/ns2:ClientID">
-                    <xsl:element name="ns2:ClientID">
-                        <xsl:value-of select="./ns2:ListOfMemberKGFL/ns2:ClientID"/>
-                    </xsl:element>
+                    <xsl:apply-templates select="./ns2:ListOfMemberKGFL/ns2:ClientID"/>
                 </xsl:if>
             </xsl:element>
             <xsl:element name="ns2:ListOfMemberKGUL">
                 <xsl:if test="./ns2:ListOfMemberKGUL/ns2:ClientID">
-                    <xsl:element name="ns2:ClientID">
-                        <xsl:value-of select="./ns2:ListOfMemberKGUL/ns2:ClientID"/>
-                    </xsl:element>
+                    <xsl:apply-templates select="./ns2:ListOfMemberKGUL/ns2:ClientID"/>
                 </xsl:if>
             </xsl:element>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template match="ns2:ClientID">
+        <xsl:element name="ns2:ClientID">
+            <xsl:value-of select="."/>
         </xsl:element>
     </xsl:template>
 
@@ -717,22 +727,7 @@
                     <xsl:value-of select="./ns2:OKPO"/>
                 </xsl:element>
             </xsl:if>
-            <xsl:element name="ns2:ListOfAddressInfoUL">
-                <xsl:element name="ns2:AddressInfoUL">
-                    <xsl:element name="ns2:AddressTypeUL">
-                        <xsl:value-of select="./ns2:ListOfAddressInfoUL/ns2:AddressInfoUL/ns2:AddressTypeUL"/>
-                    </xsl:element>
-                    <xsl:element name="ns2:City">
-                        <xsl:value-of select="./ns2:ListOfAddressInfoUL/ns2:AddressInfoUL/ns2:City"/>
-                    </xsl:element>
-                    <xsl:element name="ns2:Street">
-                        <xsl:value-of select="./ns2:ListOfAddressInfoUL/ns2:AddressInfoUL/ns2:Street"/>
-                    </xsl:element>
-                    <xsl:element name="ns2:House">
-                        <xsl:value-of select="./ns2:ListOfAddressInfoUL/ns2:AddressInfoUL/ns2:House"/>
-                    </xsl:element>
-                </xsl:element>
-            </xsl:element>
+            <xsl:apply-templates select="./ns2:ListOfAddressInfoUL"/>
             <xsl:element name="ns2:ListOfRegistrationInfo">
                 <xsl:if test="./ns2:ListOfRegistrationInfo/ns2:RegistrationInfo">
                     <xsl:element name="ns2:RegistrationInfo">
@@ -754,6 +749,27 @@
         </xsl:element>
     </xsl:template>
 
+    <xsl:template match="ns2:ListOfAddressInfoUL">
+        <xsl:element name="ns2:ListOfAddressInfoUL">
+            <xsl:for-each select="./ns2:AddressInfoUL">
+                <xsl:element name="ns2:AddressInfoUL">
+                    <xsl:element name="ns2:AddressTypeUL">
+                        <xsl:value-of select="./ns2:AddressTypeUL"/>
+                    </xsl:element>
+                    <xsl:element name="ns2:City">
+                        <xsl:value-of select="./ns2:City"/>
+                    </xsl:element>
+                    <xsl:element name="ns2:Street">
+                        <xsl:value-of select="./ns2:Street"/>
+                    </xsl:element>
+                    <xsl:element name="ns2:House">
+                        <xsl:value-of select="./ns2:House"/>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:for-each>
+        </xsl:element>
+    </xsl:template>
+
     <xsl:template match="ns2:NaturalPerson">
         <xsl:element name="ns2:NaturalPerson">
             <xsl:element name="ns2:NaturalPersonID">
@@ -763,12 +779,12 @@
                 <xsl:element name="ns2:SubDivision">
                     <xsl:value-of select="./ns2:SubDivision"/>
                 </xsl:element>
-            <xsl:element name="ns2:LastName">
-                <xsl:value-of select="./ns2:LastName"/>
-            </xsl:element>
-            <xsl:element name="ns2:FirstName">
-                <xsl:value-of select="./ns2:FirstName"/>
-            </xsl:element>
+                <xsl:element name="ns2:LastName">
+                    <xsl:value-of select="./ns2:LastName"/>
+                </xsl:element>
+                <xsl:element name="ns2:FirstName">
+                    <xsl:value-of select="./ns2:FirstName"/>
+                </xsl:element>
             </xsl:if>
             <xsl:if test="./ns2:MiddleName">
                 <xsl:element name="ns2:MiddleName">
@@ -820,28 +836,34 @@
                     </xsl:element>
                 </xsl:if>
             </xsl:element>
-            <xsl:element name="ns2:ListOfAddressInfoFL">
-                <xsl:element name="ns2:AddressInfoFL">
-                    <xsl:element name="ns2:AddressTypeFL">
-                        <xsl:value-of select="./ns2:ListOfAddressInfoFL/ns2:AddressInfoFL/ns2:AddressTypeFL"/>
-                    </xsl:element>
-                    <xsl:if test="./ns2:ListOfAddressInfoFL/ns2:AddressInfoFL/ns2:City">
-                        <xsl:element name="ns2:City">
-                            <xsl:value-of select="./ns2:ListOfAddressInfoFL/ns2:AddressInfoFL/ns2:City"/>
-                        </xsl:element>
-                    </xsl:if>
-                    <xsl:if test="./ns2:ListOfAddressInfoFL/ns2:AddressInfoFL/ns2:Street">
-                        <xsl:element name="ns2:Street">
-                            <xsl:value-of select="./ns2:ListOfAddressInfoFL/ns2:AddressInfoFL/ns2:Street"/>
-                        </xsl:element>
-                    </xsl:if>
-                    <xsl:if test="./ns2:ListOfAddressInfoFL/ns2:AddressInfoFL/ns2:House">
-                        <xsl:element name="ns2:House">
-                            <xsl:value-of select="./ns2:ListOfAddressInfoFL/ns2:AddressInfoFL/ns2:House"/>
-                        </xsl:element>
-                    </xsl:if>
+            <xsl:apply-templates select="./ns2:ListOfAddressInfoFL"/>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template match="ns2:ListOfAddressInfoFL">
+        <xsl:element name="ns2:ListOfAddressInfoFL">
+            <xsl:for-each select="./ns2:AddressInfoFL">
+            <xsl:element name="ns2:AddressInfoFL">
+                <xsl:element name="ns2:AddressTypeFL">
+                    <xsl:value-of select="./ns2:AddressTypeFL"/>
                 </xsl:element>
+                <xsl:if test="./ns2:City">
+                    <xsl:element name="ns2:City">
+                        <xsl:value-of select="./ns2:City"/>
+                    </xsl:element>
+                </xsl:if>
+                <xsl:if test="./ns2:Street">
+                    <xsl:element name="ns2:Street">
+                        <xsl:value-of select="./ns2:Street"/>
+                    </xsl:element>
+                </xsl:if>
+                <xsl:if test="./ns2:House">
+                    <xsl:element name="ns2:House">
+                        <xsl:value-of select="./ns2:House"/>
+                    </xsl:element>
+                </xsl:if>
             </xsl:element>
+            </xsl:for-each>
         </xsl:element>
     </xsl:template>
 
@@ -860,7 +882,7 @@
             <ns1:DivisionCode><xsl:value-of select="./rsd:DivisionCode"/></ns1:DivisionCode>
             <ns1:ClientFileId><xsl:value-of select="./rsd:ClientFileId"/></ns1:ClientFileId>
             <ns1:ContractFileId><xsl:value-of select="./rsd:ContractFileId"/></ns1:ContractFileId>
-            <ns1:ListOfTermOfProduct>
+            <ns1:ListOfTermOfProduct xmlns:ns1="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10">
                 <xsl:if test="./rsd:ListOfTermOfProduct/ns2:TermOfProduct">
                     <xsl:apply-templates select="./rsd:ListOfTermOfProduct/ns2:TermOfProduct"/>
                 </xsl:if>
