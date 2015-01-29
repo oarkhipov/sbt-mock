@@ -36,7 +36,7 @@ public class importXSD {
      */
     private String getPath() {
         //TODO это не совсем правильный способ получения пути.
-        return this.getClass().getClassLoader().getResource("").getPath() + "\\..\\..";
+        return System.getProperty("user.dir");
     }
 
     /**
@@ -63,22 +63,30 @@ public class importXSD {
      * @throws Exception
      */
     private void createRqExample(String system, String name, Map<String, String> Params) throws Exception{
-        String exampleRq1 = useXSLT(getWebInfPath() + "\\xsl\\util\\XSDToExampleXML.xsl",
-                getWebInfPath() + "\\xsd\\" + system + "\\" + name + "Request.xsd",
-                Params);
+        Map <String,String> altParams = new HashMap<String, String>();
+        altParams.put("rootElementName", Params.get("RqRootElementName"));
+        altParams.put("operationsXSD", "../../xsd/"+system+"/"+name+"Request.xsd");
+        altParams.put("systemName", Params.get("systemName"));
+        altParams.put("operation-name", Params.get("rootElementName"));
+        String rootXSD = system;
+        if (system.equals("FinRep")) rootXSD = "ASFO";
+
+        String exampleRq1 = useXSLT(getWebInfPath() + "\\xsl\\util\\NCPSoapMSG.xsl",
+                getWebInfPath() + "\\xsd\\" + system + "\\" + rootXSD + ".xsd",
+                altParams);
         validateXML(exampleRq1);
 
         //TODO backup
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getExamplesPath() + "\\" +  system + "\\" + name + "\\rq1.xml"), exampleRq1);
 
-        if (Params == null) Params = new HashMap<String, String>(2);
-        Params.put("showOptionalTags", "false");
+        altParams.put("showOptionalTags", "false");
         if (Params.containsKey("tagNameToTakeLinkedTag")) {
-            Params.put("useLinkedTagValue","true");
+            altParams.put("useLinkedTagValue","true");
+            altParams.put("tagNameToTakeLinkedTag", Params.get("tagNameToTakeLinkedTag"));
         }
-        String exampleRq2 = useXSLT(getWebInfPath() + "\\xsl\\util\\XSDToExampleXML.xsl",
-                getWebInfPath() + "\\xsd\\" + system + "\\" + name + "Request.xsd",
-                Params);
+        String exampleRq2 = useXSLT(getWebInfPath() + "\\xsl\\util\\NCPSoapMSG.xsl",
+                getWebInfPath() + "\\xsd\\" + system + "\\" + rootXSD + ".xsd",
+                altParams);
         validateXML(exampleRq2);
 
         //TODO backup
@@ -93,19 +101,28 @@ public class importXSD {
      * @throws Exception
      */
     private void createRsExample(String system, String name, Map<String, String> Params) throws Exception{
-        String exampleRs1 = useXSLT(getWebInfPath() + "\\xsl\\util\\XSDToExampleXML.xsl",
-                getWebInfPath() + "\\xsd\\" + system + "\\" + name + "Response.xsd",
-                Params);
+
+        Map <String,String> altParams = new HashMap<String, String>();
+        altParams.put("rootElementName", Params.get("rootElementName"));
+        altParams.put("operationsXSD", "../../xsd/"+system+"/"+name+"Response.xsd");
+        altParams.put("systemName", Params.get("systemName"));
+        altParams.put("operation-name", Params.get("rootElementName"));
+        String rootXSD = system;
+        if (system.equals("FinRep")) rootXSD = "ASFO";
+
+        String exampleRs1 = useXSLT(getWebInfPath() + "\\xsl\\util\\NCPSoapMSG.xsl",
+                getWebInfPath() + "\\xsd\\" + system + "\\" + rootXSD + ".xsd",
+                altParams);
         validateXML(exampleRs1);
 
         //TODO backup
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getExamplesPath() + "\\" +  system + "\\" + name + "\\rs1.xml"), exampleRs1);
 
         if (Params == null) Params = new HashMap<String, String>(2);
-        Params.put("showOptionalTags", "false");
-        String exampleRs2 = useXSLT(getWebInfPath() + "\\xsl\\util\\XSDToExampleXML.xsl",
-                getWebInfPath() + "\\xsd\\" + system + "\\" + name + "Response.xsd",
-                Params);
+        altParams.put("showOptionalTags", "false");
+        String exampleRs2 = useXSLT(getWebInfPath() + "\\xsl\\util\\NCPSoapMSG.xsl",
+                getWebInfPath() + "\\xsd\\" + system + "\\" + rootXSD + ".xsd",
+                altParams);
         validateXML(exampleRs2);
 
         //TODO backup
@@ -121,9 +138,16 @@ public class importXSD {
      * @throws Exception
      */
     private void createDataXSD(String system, String name, String type, Map<String, String> Params) throws Exception{
+        Map<String, String> altParams = new HashMap<String, String>();
+        String rootXSD = system;
+        if (system.equals("FinRep")) rootXSD = "ASFO";
+        altParams.put("operationsXSD", "../../xsd/"+system+"/"+name+type+".xsd");
+        altParams.put("rootElementName", Params.get("rootElementName"));
+        altParams.put("systemName", Params.get("systemName"));
+
         String xsdXml = useXSLT(getWebInfPath() + "\\xsl\\util\\xsdToDataXsd.xsl",
-                getWebInfPath() + "\\xsd\\" + system + "\\" + name + type +".xsd",
-                Params);
+                getWebInfPath() + "\\xsd\\" + system + "\\" + rootXSD +".xsd",
+                altParams);
         validateXML(xsdXml);
 
         //TODO backup
@@ -240,11 +264,11 @@ public class importXSD {
                 //Также возможен случай, когда это значения надо задавать как и для запроса так и для ответа
                 //в этом случае задается параметр RqEntryPointName - для создания ответа его значение передается как entryPointName
                 altParams = new HashMap<String, String>(Params);
-                if (Params.containsKey("entryPointName")) {
-                    altParams.put("operation-name", Params.get("entryPointName"));
+                if (Params.containsKey("rqRootElementName")) {
+                    altParams.put("operation-name", Params.get("rootElementName"));
                 }
                 if (Params.containsKey("RqEntryPointName")) {
-                    altParams.put("entryPointName", Params.get("RqEntryPointName"));
+//                    altParams.put("entryPointName", Params.get("RqEntryPointName"));
                 }
 //                if (Params.containsKey("RqRootElementName")) {
 //                    altParams.put("rootElementName", Params.get("RqRootElementName"));
@@ -277,6 +301,8 @@ public class importXSD {
     public void driverCycle(String system, String name, Map<String, String> Params) {
         try
         {
+            Params.put("RqRootElementName", Params.get("rootElementName"));
+
             createRqExample(system, name, Params);
             createDataXSD(system, name, "Request", Params);
             createDriverXSL(system, name, Params);
@@ -295,10 +321,11 @@ public class importXSD {
         importXSD instance = new importXSD();
         instance.initValidator(new File(instance.getWebInfPath() + "\\xsd"));
 
-        instance.renewData();
+        instance.renewDataBPM();
+//        instance.renewDataBBMO();
     }
 
-    public void renewData() {
+    public void renewDataBPM() {
         Map<String, String> params = null;
         params = new HashMap<String, String>();
 
@@ -363,8 +390,8 @@ public class importXSD {
         params.put("parrentXSDPath","../../xsd/AMRLiRT/AMRLIRT.xsd");
         params.put("dataFileName","CalculateRatingData.xml");
         params.put("tagNameToTakeLinkedTag","model");
-        params.put("rootElementName", "correctRatingRs");
-        params.put("RqRootElementName", "correctRatingRq");
+        params.put("rootElementName", "calculateRatingRs");
+        params.put("RqRootElementName", "calculateRatingRq");
         mockCycle("AMRLiRT", "CalculateRating", params);
 
         params.clear();
@@ -450,6 +477,26 @@ public class importXSD {
         params.put("rootElementName", "updateRatingRs");
         params.put("RqRootElementName", "updateRatingRq");
         mockCycle("FinRep", "UpdateRating", params);
+    }
+
+    public void renewDataBBMO() {
+
+        Map<String, String> params = null;
+        params = new HashMap<String, String>();
+
+        /*params.clear();
+        params.put("rootElementName", "forceSignalRq");
+        params.put("systemName","CKPIT");
+        params.put("parrentXSDPath","../../xsd/CKPIT/ckpit_integration.xsd");
+        params.put("dataFileName","ConfirmRatingData.xml");
+        params.put("tagNameToTakeLinkedTag","siebelMessage");
+        params.put("rootElementName", "confirmRatingRs");
+        params.put("RqRootElementName", "confirmRatingRq");
+        driverCycle("CKPIT", "CKPITProductsDepositsNSOReq", params);
+
+
+        params.clear();
+        driverCycle("CKPIT", "CKPITProductsLoansReq", params);*/
     }
 
     /**

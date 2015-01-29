@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns="http://sbrf.ru/NCP/ASFO/UpdateRatingRs/Data/"
-            xmlns:st="http://sbrf.ru/commonTypes/simpleTypes/"
-            xmlns:dt="http://sbrf.ru/commonTypes/dataTypes/"
+<!--test http://www.w3.org/2001/XMLSchema http://www.w3.org/XML/1998/namespace--><!--test xsd xml--><xsd:schema xmlns="http://sbrf.ru/NCP/ASFO/UpdateRatingRs/Data/"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             targetNamespace="http://sbrf.ru/NCP/ASFO/UpdateRatingRs/Data/"
             elementFormDefault="qualified">
@@ -93,19 +91,19 @@
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
          <xsd:element name="errorCode">
-				        <xsd:simpleType>
-					          <xsd:restriction base="xsd:string">
-						            <xsd:maxLength value="30"/>
-					          </xsd:restriction>
-				        </xsd:simpleType>
-			      </xsd:element>
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="30"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
          <xsd:element name="errorMessage" minOccurs="0">
-				        <xsd:simpleType>
-					          <xsd:restriction base="xsd:string">
-						            <xsd:maxLength value="2000"/>
-					          </xsd:restriction>
-				        </xsd:simpleType>
-			      </xsd:element>
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="2000"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
       </xsd:sequence>
       <xsd:attribute name="name"/>
    </xsd:complexType>

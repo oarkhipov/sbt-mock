@@ -1,6 +1,6 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:out="http://www.w3.org/1999/XSL/Transform"
-                xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
+                xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
 
     <xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>
@@ -27,7 +27,7 @@
             </xsl:for-each>
             <xsl:namespace name="tns" select="$targetNS"/>
             <xsl:namespace name="rsd" select="concat($targetNS,'Data/')"/>
-            <xsl:namespace name="soap-env" select="$soapEnvNS"/>
+            <xsl:namespace name="soap" select="$soapEnvNS"/>
             <xsl:namespace name="{$systemName}" select="$parrentNS"/>
             <xsl:attribute name="version">1.0</xsl:attribute>
             <xsl:call-template name="headerDeclaration"/>
@@ -111,7 +111,7 @@
                 <xsl:attribute name="select">$name</xsl:attribute>
             </xsl:element>
             <xsl:element name="xsl:element">
-                <xsl:attribute name="name">soap-env:Envelope</xsl:attribute>
+                <xsl:attribute name="name">soap:Envelope</xsl:attribute>
                 <xsl:element name="xsl:call-template">
                     <xsl:attribute name="name">NCPHeader</xsl:attribute>
                     <xsl:element name="xsl:with-param">
@@ -163,7 +163,7 @@
                         <xsl:attribute name="select">$user-name</xsl:attribute>
                     </xsl:element>
                 </xsl:element>
-                <xsl:element name="soap-env:Body">
+                <xsl:element name="soap:Body">
                     <xsl:element name="xsl:call-template">
                         <xsl:attribute name="name"><xsl:value-of select="$entryPointName"/></xsl:attribute>
                         <xsl:element name="xsl:with-param">

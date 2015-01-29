@@ -1,6 +1,6 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:out="http://www.w3.org/1999/XSL/Transform"
-                xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
+                xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
 
     <xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>
@@ -34,7 +34,7 @@
             </xsl:for-each>
             <xsl:namespace name="tns" select="$targetNS"/>
             <xsl:namespace name="rsd" select="concat($targetNS,'Data/')"/>
-            <xsl:namespace name="soap-env" select="$soapEnvNS"/>
+            <xsl:namespace name="soap" select="$soapEnvNS"/>
             <xsl:namespace name="{$systemName}" select="$parrentNS"/>
             <xsl:attribute name="version">1.0</xsl:attribute>
             <xsl:call-template name="headerDeclaration"/>
@@ -64,7 +64,7 @@
 
         <xsl:element name="xsl:param">
             <xsl:attribute name="name">name</xsl:attribute>
-            <xsl:attribute name="select">//soap-env:Body/*//<xsl:value-of select="$tagQuerryToTakeLinkedTag"/>[1]/text()</xsl:attribute>
+            <xsl:attribute name="select">//soap:Body/*//<xsl:value-of select="$tagQuerryToTakeLinkedTag"/>[1]/text()</xsl:attribute>
         </xsl:element>
         <xsl:element name="xsl:param">
             <xsl:attribute name="name">dataFileName</xsl:attribute>
@@ -110,7 +110,7 @@
 
     <xsl:template name="bodyDeclaration">
         <xsl:element name="xsl:template">
-            <xsl:attribute name="match">soap-env:Envelope</xsl:attribute>
+            <xsl:attribute name="match">soap:Envelope</xsl:attribute>
             <xsl:element name="xsl:variable">
                 <xsl:attribute name="name">data</xsl:attribute>
                 <xsl:attribute name="select">document($dataFileName)/rsd:data</xsl:attribute>
@@ -120,12 +120,12 @@
                 <xsl:attribute name="select">$name</xsl:attribute>
             </xsl:element>
             <xsl:element name="xsl:element">
-                <xsl:attribute name="name">soap-env:Envelope</xsl:attribute>
+                <xsl:attribute name="name">soap:Envelope</xsl:attribute>
                 <xsl:element name="xsl:choose">
                     <xsl:element name="xsl:when">
-                        <xsl:attribute name="test">soap-env:Header</xsl:attribute>
+                        <xsl:attribute name="test">soap:Header</xsl:attribute>
                         <xsl:element name="xsl:copy-of">
-                            <xsl:attribute name="select">soap-env:Header</xsl:attribute>
+                            <xsl:attribute name="select">soap:Header</xsl:attribute>
                         </xsl:element>
                     </xsl:element>
                     <xsl:element name="xsl:otherwise">
@@ -182,7 +182,7 @@
                         </xsl:element>
                     </xsl:element>
                 </xsl:element>
-                <xsl:element name="soap-env:Body">
+                <xsl:element name="soap:Body">
                     <xsl:element name="xsl:call-template">
                         <xsl:attribute name="name"><xsl:value-of select="$entryPointName"/></xsl:attribute>
                         <xsl:element name="xsl:with-param">

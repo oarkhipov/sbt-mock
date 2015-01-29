@@ -1,11 +1,11 @@
-<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
-   <soap-env:Header>
+<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
+   <soap-env:Header xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
       <soap-env:operation-name>correctRatingRs</soap-env:operation-name>
    </soap-env:Header>
-   <soap-env:Body>
-      <AMRLiRT:correctRatingRs xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
+   <soap:Body>
+      <AMRLiRT:correctRatingRq xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
                                xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRq/">
          <tns:arg0>
             <tns:ratingId>string</tns:ratingId>
@@ -26,7 +26,7 @@
                <!--optional--><tns:role>string</tns:role>
             </tns:requestor>
          </tns:arg0>
-         <!--optional--><tns:siebelMessage>string</tns:siebelMessage>
-      </AMRLiRT:correctRatingRs>
-   </soap-env:Body>
-</soap-env:Envelope>
+         <!--optional--><tns:siebelMessage>anyString</tns:siebelMessage>
+      </AMRLiRT:correctRatingRq>
+   </soap:Body>
+</soap:Envelope>

@@ -2,7 +2,7 @@
 <xsl:stylesheet xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/"
                 xmlns:tns="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/"
                 xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/"
-                xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
+                xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
@@ -23,7 +23,7 @@
    <xsl:template match="/">
       <xsl:variable name="data" select="//rsd:data"/>
       <xsl:variable name="linkedTag" select="$name"/>
-      <xsl:element name="soap-env:Envelope">
+      <xsl:element name="soap:Envelope">
          <xsl:call-template name="NCPHeader">
             <xsl:with-param name="response">
                <xsl:choose>
@@ -43,7 +43,7 @@
             <xsl:with-param name="user-id" select="$user-id"/>
             <xsl:with-param name="user-name" select="$user-name"/>
          </xsl:call-template>
-         <soap-env:Body>
+         <soap:Body>
             <xsl:call-template name="ForceSignalRq">
                <xsl:with-param name="data" select="$data"/>
                <xsl:with-param name="response">
@@ -55,7 +55,7 @@
                   </xsl:choose>
                </xsl:with-param>
             </xsl:call-template>
-         </soap-env:Body>
+         </soap:Body>
       </xsl:element>
    </xsl:template>
 

@@ -17,7 +17,7 @@
             <value>string</value>
          </addParameter>
       </listOfAddParameter>
-      <amMessage>string</amMessage>
+      <amMessage>anyString</amMessage>
    </response>
    <response name="test1">
       <errorCode>s</errorCode>

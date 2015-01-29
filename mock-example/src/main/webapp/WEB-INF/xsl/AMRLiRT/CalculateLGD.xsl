@@ -2,15 +2,14 @@
 <xsl:stylesheet xmlns:amrct="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/"
                 xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"
                 xmlns:rsd="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/Data/"
-                xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
+                xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
    <xsl:import href="../util/NCPSoapRqHeaderXSLTTemplate.xsl"/>
    <!--опускаем строку 'xml version="1.0" encoding="UTF-8"'. С ней не работает MQ очередь-->
 <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
-   <xsl:param name="name"
-              select="//soap-env:Body/*//*[local-name()='comment'][1]/text()"/>
+   <xsl:param name="name" select="//soap:Body/*//*[local-name()='comment'][1]/text()"/>
    <xsl:param name="dataFileName"
               select="'../../data/AMRLiRT/xml/CalculateLGDData.xml'"/>
    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
@@ -23,13 +22,13 @@
    <xsl:param name="user-id" select="null"/>
    <xsl:param name="user-name" select="null"/>
 
-   <xsl:template match="soap-env:Envelope">
+   <xsl:template match="soap:Envelope">
       <xsl:variable name="data" select="document($dataFileName)/rsd:data"/>
       <xsl:variable name="linkedTag" select="$name"/>
-      <xsl:element name="soap-env:Envelope">
+      <xsl:element name="soap:Envelope">
          <xsl:choose>
-            <xsl:when test="soap-env:Header">
-               <xsl:copy-of select="soap-env:Header"/>
+            <xsl:when test="soap:Header">
+               <xsl:copy-of select="soap:Header"/>
             </xsl:when>
             <xsl:otherwise>
                <xsl:call-template name="NCPHeader">
@@ -53,7 +52,7 @@
                </xsl:call-template>
             </xsl:otherwise>
          </xsl:choose>
-         <soap-env:Body>
+         <soap:Body>
             <xsl:call-template name="LgdCalculationResponse">
                <xsl:with-param name="data" select="$data"/>
                <xsl:with-param name="response">
@@ -65,7 +64,7 @@
                   </xsl:choose>
                </xsl:with-param>
             </xsl:call-template>
-         </soap-env:Body>
+         </soap:Body>
       </xsl:element>
    </xsl:template>
 

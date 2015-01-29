@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited by Chuvilin S.A. SBT -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10" xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10" xmlns:tns="http://sbrf.ru/prpc/bbmo/10" xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10" targetNamespace="http://sbrf.ru/prpc/bbmo/10" elementFormDefault="qualified">
+	<import namespace="http://sbrf.ru/prpc/bbmo/dataTypes/10" schemaLocation="../commonTypes/dataTypes.xsd"/>
+	<import namespace="http://sbrf.ru/prpc/bbmo/simpleTypes/10" schemaLocation="../commonTypes/simpleTypes.xsd"/>
+	<import namespace="http://sbrf.ru/prpc/bbmo/commonTypes/10" schemaLocation="../commonTypes/commonTypes.xsd"/>
+	<include schemaLocation="./CommonStructureTypes.xsd"/>
+	
+	<element name="DocumentsInfo" >
+		<annotation>
+			<documentation>Информация по каталогу документов</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="tns:DocumentLinks" minOccurs="0" maxOccurs="unbounded">
+					<annotation>
+						<documentation>Каталоги документов</documentation>
+					</annotation>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="DocumentLinks">
+		<annotation>
+			<documentation>Каталоги документов</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element name="DocumentLink" type="dt:String" minOccurs="0">
+					<annotation>
+						<documentation>Ссылка на документ</documentation>
+					</annotation>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+	
+</schema>

@@ -1,10 +1,10 @@
-<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
-   <soap-env:Header>
+<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
+   <soap-env:Header xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
       <soap-env:operation-name>prtspRs</soap-env:operation-name>
    </soap-env:Header>
-   <soap-env:Body>
+   <soap:Body>
       <CRM:prtspRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                    xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/">
          <tns:id>string</tns:id>
@@ -28,7 +28,7 @@
                </tns:address>
                <!--from 0 to unbounded elements --><tns:share>
                   <tns:ownershipID>string</tns:ownershipID>
-                  <!--optional--><tns:share>1234567890.12</tns:share>
+                  <!--optional--><tns:share>1234567890</tns:share>
                   <!--optional--><tns:periodOfOwnerhip>string</tns:periodOfOwnerhip>
                </tns:share>
                <!--optional--><tns:consolidatedGroupID>string</tns:consolidatedGroupID>
@@ -37,13 +37,13 @@
                <tns:inn>string</tns:inn>
                <!--from 0 to unbounded elements --><tns:rating>
                   <tns:ratingID>string</tns:ratingID>
-                  <tns:ratingValue>123</tns:ratingValue>
+                  <tns:ratingValue>999</tns:ratingValue>
                   <tns:ratingType>string</tns:ratingType>
                   <tns:ratingModel>string</tns:ratingModel>
-                  <tns:ratingCalculatedDate>2015-01-16</tns:ratingCalculatedDate>
+                  <tns:ratingCalculatedDate>2015-01-29</tns:ratingCalculatedDate>
                   <tns:ratingCalculatedRole>string</tns:ratingCalculatedRole>
                   <tns:ratingCalculatedBy>string</tns:ratingCalculatedBy>
-                  <tns:ratingApprovalDate>2015-01-16</tns:ratingApprovalDate>
+                  <tns:ratingApprovalDate>2015-01-29</tns:ratingApprovalDate>
                   <tns:ratingApprovedBy>string</tns:ratingApprovedBy>
                </tns:rating>
                <!--optional--><tns:roleInConsolidatedGroup>string</tns:roleInConsolidatedGroup>
@@ -53,17 +53,17 @@
                <tns:id>string</tns:id>
                <tns:label>string</tns:label>
                <tns:status>string</tns:status>
-               <tns:updateDate>2015-01-16</tns:updateDate>
-               <!--optional--><tns:approvalDate>2015-01-16</tns:approvalDate>
+               <tns:updateDate>2015-01-29</tns:updateDate>
+               <!--optional--><tns:approvalDate>2015-01-29</tns:approvalDate>
                <!--from 0 to unbounded elements --><tns:ratings>
                   <tns:ratingID>string</tns:ratingID>
-                  <tns:ratingValue>123</tns:ratingValue>
+                  <tns:ratingValue>999</tns:ratingValue>
                   <tns:ratingType>string</tns:ratingType>
                   <tns:ratingModel>string</tns:ratingModel>
-                  <tns:ratingCalculatedDate>2015-01-16</tns:ratingCalculatedDate>
+                  <tns:ratingCalculatedDate>2015-01-29</tns:ratingCalculatedDate>
                   <tns:ratingCalculatedRole>string</tns:ratingCalculatedRole>
                   <tns:ratingCalculatedBy>string</tns:ratingCalculatedBy>
-                  <tns:ratingApprovalDate>2015-01-16</tns:ratingApprovalDate>
+                  <tns:ratingApprovalDate>2015-01-29</tns:ratingApprovalDate>
                   <tns:ratingApprovedBy>string</tns:ratingApprovedBy>
                </tns:ratings>
                <!--optional--><tns:topLevelGroupName>string</tns:topLevelGroupName>
@@ -74,5 +74,5 @@
             <!--optional--><tns:errorMessage>string</tns:errorMessage>
          </tns:operationStatus>
       </CRM:prtspRs>
-   </soap-env:Body>
-</soap-env:Envelope>
+   </soap:Body>
+</soap:Envelope>

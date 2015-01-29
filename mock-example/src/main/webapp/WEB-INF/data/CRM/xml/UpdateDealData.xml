@@ -4,12 +4,12 @@
       <deal>
          <dealID>string</dealID>
          <contractID>string</contractID>
-         <dealCreationDate>2015-01-16T12:00:00</dealCreationDate>
+         <dealCreationDate>2015-01-29T12:00:00</dealCreationDate>
          <dealEssense>string</dealEssense>
          <requestPurpose>string</requestPurpose>
          <dealType>string</dealType>
          <dealStatus>string</dealStatus>
-         <requestDate>2015-01-16</requestDate>
+         <requestDate>2015-01-29</requestDate>
          <origOrgUnit>string</origOrgUnit>
          <origOrgDivision>st</origOrgDivision>
          <clientFileID>string</clientFileID>
@@ -25,7 +25,7 @@
             <mamberRole>string</mamberRole>
          </dealTeamMembers>
          <products>
-            <productID>1234567890</productID>
+            <productID>9999999999</productID>
             <productName>string</productName>
             <category>string</category>
             <productInfo>
@@ -39,29 +39,29 @@
                <interestPaymentOrder>string</interestPaymentOrder>
                <refinancing>false</refinancing>
                <suspensiveCondition>string</suspensiveCondition>
-               <principalBaseCurrency>1234567890.12345</principalBaseCurrency>
+               <principalBaseCurrency>1234567890</principalBaseCurrency>
                <financingInfo>
                   <currencyOfFunding>str</currencyOfFunding>
-                  <principal>1234567890.12345</principal>
+                  <principal>1234567890</principal>
                </financingInfo>
                <interestRateInfo>
-                  <interestRate>1234567890.12345</interestRate>
+                  <interestRate>1234567890</interestRate>
                   <interestRateType>string</interestRateType>
                   <interestRateOrder>string</interestRateOrder>
-                  <minRate>1234567890.12345</minRate>
+                  <minRate>1234567890</minRate>
                </interestRateInfo>
-               <startDate>2015-01-16</startDate>
-               <creditTerm>12345</creditTerm>
-               <period>12345</period>
-               <gracePeriod>12345</gracePeriod>
+               <startDate>2015-01-29</startDate>
+               <creditTerm>99999</creditTerm>
+               <period>99999</period>
+               <gracePeriod>99999</gracePeriod>
                <repaymentSchedule>string</repaymentSchedule>
-               <turnover>12345</turnover>
+               <turnover>99999</turnover>
                <covenants>string</covenants>
                <proposedCollateral>string</proposedCollateral>
                <debtLimit>string</debtLimit>
                <pledgeInsurance>string</pledgeInsurance>
                <customerProspects>string</customerProspects>
-               <financingTerm>123</financingTerm>
+               <financingTerm>999</financingTerm>
                <firstCountry>string</firstCountry>
                <lastCountry>string</lastCountry>
                <fee>
@@ -71,30 +71,30 @@
                   <paymentOrder>string</paymentOrder>
                </fee>
                <repaymentScheduleDetails>
-                  <sheduleDate>2015-01-16</sheduleDate>
-                  <sheduleAmount>1234567890.12345</sheduleAmount>
+                  <sheduleDate>2015-01-29</sheduleDate>
+                  <sheduleAmount>1234567890</sheduleAmount>
                </repaymentScheduleDetails>
                <selectionScheduleDetails>
-                  <sheduleDate>2015-01-16</sheduleDate>
-                  <sheduleAmount>1234567890.12345</sheduleAmount>
+                  <sheduleDate>2015-01-29</sheduleDate>
+                  <sheduleAmount>1234567890</sheduleAmount>
                </selectionScheduleDetails>
                <changesScheduleDetails>
-                  <sheduleDate>2015-01-16</sheduleDate>
-                  <sheduleAmount>1234567890.12345</sheduleAmount>
+                  <sheduleDate>2015-01-29</sheduleDate>
+                  <sheduleAmount>1234567890</sheduleAmount>
                </changesScheduleDetails>
             </productInfo>
             <collateral>
                <collateralType>string</collateralType>
                <ownerID>string</ownerID>
-               <estimatedValue>1234567890.12345</estimatedValue>
-               <discountRate>1234567890.12345</discountRate>
-               <estimatedValueCorrected>1234567890.12345</estimatedValueCorrected>
+               <estimatedValue>1234567890</estimatedValue>
+               <discountRate>1234567890</discountRate>
+               <estimatedValueCorrected>1234567890</estimatedValueCorrected>
                <qualityCategory>string</qualityCategory>
-               <daysForCalculation>123</daysForCalculation>
-               <estimatedValueCorrectedToEAD>1234567890.12345</estimatedValueCorrectedToEAD>
-               <securityShare>123</securityShare>
+               <daysForCalculation>999</daysForCalculation>
+               <estimatedValueCorrectedToEAD>1234567890</estimatedValueCorrectedToEAD>
+               <securityShare>999</securityShare>
                <EstimatedValueSource>string</EstimatedValueSource>
-               <estimationDate>2015-01-16</estimationDate>
+               <estimationDate>2015-01-29</estimationDate>
                <businessMeaning>string</businessMeaning>
                <qualityAndLiquidityEstimation>string</qualityAndLiquidityEstimation>
                <currency>string</currency>
@@ -102,16 +102,16 @@
                <guarantorRating>string</guarantorRating>
             </collateral>
             <losses>
-               <percentLGD>1234567890.12345</percentLGD>
-               <countEAD>1234567890.12345</countEAD>
+               <percentLGD>1234567890</percentLGD>
+               <countEAD>1234567890</countEAD>
                <currency>string</currency>
-               <reportDateAmount>1234567890.12345</reportDateAmount>
-               <lossELpercent>1234567890.12345</lossELpercent>
-               <lossELcount>1234567890.12345</lossELcount>
+               <reportDateAmount>1234567890</reportDateAmount>
+               <lossELpercent>1234567890</lossELpercent>
+               <lossELcount>1234567890</lossELcount>
                <typeLGD>string</typeLGD>
                <statusLGD>string</statusLGD>
-               <dateLGDcalculated>2015-01-16</dateLGDcalculated>
-               <finalizationDate>2015-01-16</finalizationDate>
+               <dateLGDcalculated>2015-01-29</dateLGDcalculated>
+               <finalizationDate>2015-01-29</finalizationDate>
                <comment>string</comment>
             </losses>
          </products>
@@ -127,20 +127,20 @@
          </project>
          <exchangeRates>
             <currencyName>string</currencyName>
-            <currencyValue>1234567890.12345</currencyValue>
-            <currencyDate>2015-01-16</currencyDate>
+            <currencyValue>1234567890</currencyValue>
+            <currencyDate>2015-01-29</currencyDate>
          </exchangeRates>
       </deal>
    </request>
    <request name="test1">
       <deal>
          <dealID>string</dealID>
-         <dealCreationDate>2015-01-16T12:00:00</dealCreationDate>
+         <dealCreationDate>2015-01-29T12:00:00</dealCreationDate>
          <dealEssense>string</dealEssense>
          <requestPurpose>string</requestPurpose>
          <dealType>string</dealType>
          <dealStatus>string</dealStatus>
-         <requestDate>2015-01-16</requestDate>
+         <requestDate>2015-01-29</requestDate>
          <origOrgUnit>string</origOrgUnit>
          <origOrgDivision>st</origOrgDivision>
          <clientFileID>string</clientFileID>

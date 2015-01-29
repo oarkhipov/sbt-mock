@@ -23,7 +23,7 @@
             </address>
             <share>
                <ownershipID>string</ownershipID>
-               <share>1234567890.12</share>
+               <share>1234567890</share>
                <periodOfOwnerhip>string</periodOfOwnerhip>
             </share>
             <consolidatedGroupID>string</consolidatedGroupID>
@@ -32,13 +32,13 @@
             <inn>string</inn>
             <rating>
                <ratingID>string</ratingID>
-               <ratingValue>123</ratingValue>
+               <ratingValue>999</ratingValue>
                <ratingType>string</ratingType>
                <ratingModel>string</ratingModel>
-               <ratingCalculatedDate>2015-01-16</ratingCalculatedDate>
+               <ratingCalculatedDate>2015-01-29</ratingCalculatedDate>
                <ratingCalculatedRole>string</ratingCalculatedRole>
                <ratingCalculatedBy>string</ratingCalculatedBy>
-               <ratingApprovalDate>2015-01-16</ratingApprovalDate>
+               <ratingApprovalDate>2015-01-29</ratingApprovalDate>
                <ratingApprovedBy>string</ratingApprovedBy>
             </rating>
             <roleInConsolidatedGroup>string</roleInConsolidatedGroup>
@@ -48,17 +48,17 @@
             <id>string</id>
             <label>string</label>
             <status>string</status>
-            <updateDate>2015-01-16</updateDate>
-            <approvalDate>2015-01-16</approvalDate>
+            <updateDate>2015-01-29</updateDate>
+            <approvalDate>2015-01-29</approvalDate>
             <ratings>
                <ratingID>string</ratingID>
-               <ratingValue>123</ratingValue>
+               <ratingValue>999</ratingValue>
                <ratingType>string</ratingType>
                <ratingModel>string</ratingModel>
-               <ratingCalculatedDate>2015-01-16</ratingCalculatedDate>
+               <ratingCalculatedDate>2015-01-29</ratingCalculatedDate>
                <ratingCalculatedRole>string</ratingCalculatedRole>
                <ratingCalculatedBy>string</ratingCalculatedBy>
-               <ratingApprovalDate>2015-01-16</ratingApprovalDate>
+               <ratingApprovalDate>2015-01-29</ratingApprovalDate>
                <ratingApprovedBy>string</ratingApprovedBy>
             </ratings>
             <topLevelGroupName>string</topLevelGroupName>

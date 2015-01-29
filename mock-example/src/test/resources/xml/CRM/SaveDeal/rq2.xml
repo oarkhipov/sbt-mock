@@ -1,20 +1,20 @@
-<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
-   <soap-env:Header>
+<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
+   <soap-env:Header xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
       <soap-env:operation-name>saveDealRs</soap-env:operation-name>
    </soap-env:Header>
-   <soap-env:Body>
-      <CRM:saveDealRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+   <soap:Body>
+      <CRM:saveDealRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                       xmlns:tns="http://sbrf.ru/NCP/CRM/SaveDealRq/1.07/">
          <tns:deal>
             <tns:dealID>string</tns:dealID>
-            <tns:dealCreationDate>2015-01-16T12:00:00</tns:dealCreationDate>
+            <tns:dealCreationDate>2015-01-29T12:00:00</tns:dealCreationDate>
             <tns:dealEssense>string</tns:dealEssense>
             <tns:requestPurpose>string</tns:requestPurpose>
             <tns:dealType>test1</tns:dealType>
             <tns:dealStatus>string</tns:dealStatus>
-            <tns:requestDate>2015-01-16</tns:requestDate>
+            <tns:requestDate>2015-01-29</tns:requestDate>
             <tns:origOrgUnit>string</tns:origOrgUnit>
             <tns:origOrgDivision>st</tns:origOrgDivision>
             <tns:clientFileID>string</tns:clientFileID>
@@ -27,6 +27,6 @@
                <tns:mamberRole>string</tns:mamberRole>
             </tns:dealTeamMembers>
          </tns:deal>
-      </CRM:saveDealRs>
-   </soap-env:Body>
-</soap-env:Envelope>
+      </CRM:saveDealRq>
+   </soap:Body>
+</soap:Envelope>

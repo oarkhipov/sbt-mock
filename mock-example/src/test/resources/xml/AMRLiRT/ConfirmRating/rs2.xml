@@ -1,15 +1,15 @@
-<soap-env:Envelope xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
-   <soap-env:Header>
+<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
+   <soap-env:Header xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
       <soap-env:message-id>defaultId</soap-env:message-id>
       <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
       <soap-env:operation-name>confirmRatingRs</soap-env:operation-name>
    </soap-env:Header>
-   <soap-env:Body>
+   <soap:Body>
       <AMRLiRT:confirmRatingRs xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
                                xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRs/">
          <tns:return>
             <tns:errorCode>string</tns:errorCode>
          </tns:return>
       </AMRLiRT:confirmRatingRs>
-   </soap-env:Body>
-</soap-env:Envelope>
+   </soap:Body>
+</soap:Envelope>
