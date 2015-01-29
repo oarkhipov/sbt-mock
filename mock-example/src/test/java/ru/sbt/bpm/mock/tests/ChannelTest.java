@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration({"/env/mockapp-test-servlet.xml"})
+@ContextConfiguration({"/env/mockapp-servlet.xml"})
 public class ChannelTest {
     @Autowired
     ChannelService service;

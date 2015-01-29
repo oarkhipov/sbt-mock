@@ -1,12 +1,5 @@
 package ru.sbt.bpm.mock.utils;
 
-import org.apache.commons.io.FileUtils;
-import org.custommonkey.xmlunit.DetailedDiff;
-import org.custommonkey.xmlunit.Diff;
-import org.custommonkey.xmlunit.Difference;
-import org.custommonkey.xmlunit.XMLUnit;
-import org.springframework.core.io.Resource;
-
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -18,7 +11,6 @@ import javax.xml.validation.Validator;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,6 +53,7 @@ public class importXSD {
      * @param name имя сервиса(имя файла)
      * @param Params параметры xsl
      * @throws Exception
+     *
      */
     private void createRqExample(String system, String name, Map<String, String> Params) throws Exception{
         Map <String,String> altParams = new HashMap<String, String>();
