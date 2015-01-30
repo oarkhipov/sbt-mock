@@ -15,7 +15,15 @@ import java.util.List;
 public class LinkedTagSequence {
 
     @XStreamImplicit(itemFieldName = "linkedTag")
-    private List aListOfLinkedTags = new ArrayList();
+    private List<LinkedTag> aListOfLinkedTags = new ArrayList<LinkedTag>();
+
+    public List<LinkedTag> getaListOfLinkedTags() {
+        return aListOfLinkedTags;
+    }
+
+    public void setaListOfLinkedTags(List<LinkedTag> aListOfLinkedTags) {
+        this.aListOfLinkedTags = aListOfLinkedTags;
+    }
 
     @Override
     public String toString() {

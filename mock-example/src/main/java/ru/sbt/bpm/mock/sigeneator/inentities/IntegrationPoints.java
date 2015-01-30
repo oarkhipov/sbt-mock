@@ -16,13 +16,13 @@ import java.util.List;
 public class IntegrationPoints {
 
     @XStreamImplicit(itemFieldName = "integrationPoint")
-    private List aListOfIntegrationPoints = new ArrayList();
+    private List<IntegrationPoint> aListOfIntegrationPoints = new ArrayList<IntegrationPoint>();
 
-    public List getaListOfIntegrationPoints() {
+    public List<IntegrationPoint> getaListOfIntegrationPoints() {
         return aListOfIntegrationPoints;
     }
 
-    public void setaListOfIntegrationPoints(List aListOfIntegrationPoints) {
+    public void setaListOfIntegrationPoints(List<IntegrationPoint> aListOfIntegrationPoints) {
         this.aListOfIntegrationPoints = aListOfIntegrationPoints;
     }
 

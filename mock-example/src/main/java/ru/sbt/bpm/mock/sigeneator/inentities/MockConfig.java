@@ -25,6 +25,10 @@ public class MockConfig {
         this.aSystems = aSystems;
     }
 
+    public List<SystemTag> getListOfSystems() {
+        return aSystems.getaListOfSystems();
+    }
+
     @Override
     public String toString() {
         return "MockConfig{" +

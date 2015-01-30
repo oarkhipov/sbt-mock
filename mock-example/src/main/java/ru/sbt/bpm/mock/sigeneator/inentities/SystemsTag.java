@@ -15,13 +15,13 @@ import java.util.List;
 public class SystemsTag {
 
     @XStreamImplicit(itemFieldName = "system")
-    private List aListOfSystems = new ArrayList();
+    private List<SystemTag> aListOfSystems = new ArrayList<SystemTag>();
 
     public List getaListOfSystems() {
         return aListOfSystems;
     }
 
-    public void setaListOfSystems(List aListOfSystems) {
+    public void setaListOfSystems(List<SystemTag> aListOfSystems) {
         this.aListOfSystems = aListOfSystems;
     }
 

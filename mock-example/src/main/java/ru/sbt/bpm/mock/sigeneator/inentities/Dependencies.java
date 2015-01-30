@@ -16,13 +16,13 @@ import java.util.List;
 public class Dependencies {
 
     @XStreamImplicit(itemFieldName = "dependency")
-    private List aDependency = new ArrayList();
+    private List<Dependency> aDependency = new ArrayList<Dependency>();
 
-    public List getaDependency() {
+    public List<Dependency> getaDependency() {
         return aDependency;
     }
 
-    public void setaDependency(List aDependency) {
+    public void setaDependency(List<Dependency> aDependency) {
         this.aDependency = aDependency;
     }
 

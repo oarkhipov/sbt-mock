@@ -58,6 +58,10 @@ public class SystemTag {
         this.aIntegrationPoints = aIntegrationPoints;
     }
 
+    public List<IntegrationPoint> getListOfIntegrationPoints() {
+        return aIntegrationPoints.getaListOfIntegrationPoints();
+    }
+
     @Override
     public String toString() {
         return "SystemTag{" +

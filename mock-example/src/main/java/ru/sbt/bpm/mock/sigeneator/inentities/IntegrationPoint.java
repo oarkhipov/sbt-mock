@@ -113,6 +113,14 @@ public class IntegrationPoint {
         this.aPairOfChannels = aPairOfChannels;
     }
 
+    public List<Dependency> getListOfDependencies() {
+        return aDependencies.getaDependency();
+    }
+
+    public List<LinkedTag> getListOfLinkedTags() {
+        return aLinkedTagSequence.getaListOfLinkedTags();
+    }
+
     @Override
     public String toString() {
         return "IntegrationPoint{" +
