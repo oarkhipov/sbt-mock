@@ -1,7 +1,9 @@
 package ru.sbt.bpm.mock.tests;
 
 import org.junit.Test;
+import ru.sbt.bpm.mock.sigeneator.GatewayContextGenerator;
 import ru.sbt.bpm.mock.sigeneator.GenerateMockAppServlet;
+import ru.sbt.bpm.mock.sigeneator.Pair;
 
 import java.io.FileReader;
 
@@ -64,5 +66,23 @@ public class GeneratorTest {
         gen1.init();
 
         assertNotNull(gen1.getaMockConfig());
+    }
+
+    @Test
+    public void testGatewayContextGenerator() throws Exception {
+        final String expectedIN = "<inbound-gateway id=\"jmsinAMRLiRT\" request-channel=\"IN.AMRLiRT.1\" reply-channel=\"OUT.AMRLiRT.1\"/>/n/n<inbound-gateway id=\"jmsinCRM\" request-channel=\"IN2\" reply-channel=\"OUT2\"/>/n/n";
+        final String expectedOUT = "<outbound-gateway id=\"jmsoutAMRLiRT\" request-channel=\"IN.AMRLiRT.2\" reply-channel=\"OUT.AMRLiRT.2\"/>/n/n<outbound-gateway id=\"jmsoutCRM\" request-channel=\"IN1\" reply-channel=\"OUT1\"/>/n/n";
+
+        final String file = this.getClass().getClassLoader().getResource("").getPath() + "\\..\\..\\src\\main\\webapp\\WEB-INF\\MockConfigFiles\\MockConfig1.xml";
+        GenerateMockAppServlet gen1 = GenerateMockAppServlet.getInstance(file);
+        gen1.setaFilePath(file);
+        gen1.init();
+
+        GatewayContextGenerator gcg = new GatewayContextGenerator(gen1.getaMockConfig().getListOfSystems());
+        gcg.putChannelsToMap();
+        Pair<String, String> pair = gcg.getInboundAndOutboundGateway();
+
+        assertEquals(pair.getaFirst(), expectedIN);
+        assertEquals(pair.getaSecond(), expectedOUT);
     }
 }
