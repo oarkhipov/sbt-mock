@@ -3,30 +3,25 @@ package ru.sbt.bpm.mock.sigeneator.inentities;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
- * Created by sbt-hodakovskiy-da on 30.01.2015.
- * <p/>
- * Company: SBT - Saint-Petersburg
- */
+* Created by sbt-hodakovskiy-da on 30.01.2015.
+* <p/>
+* Company: SBT - Saint-Petersburg
+*/
 @XStreamAlias("linkedTag")
 public class LinkedTag {
 
     @XStreamAlias("namespace")
-    private String aNamespace;
+    private String aNameSpace;
 
     @XStreamAlias("tag")
     private String aTag;
 
-    public LinkedTag(String aNamespace, String aTag) {
-        this.aNamespace = aNamespace;
-        this.aTag = aTag;
+    public String getaNameSpace() {
+        return aNameSpace;
     }
 
-    public String getaNamespace() {
-        return aNamespace;
-    }
-
-    public void setaNamespace(String aNamespace) {
-        this.aNamespace = aNamespace;
+    public void setaNameSpace(String aNameSpace) {
+        this.aNameSpace = aNameSpace;
     }
 
     public String getaTag() {
@@ -40,7 +35,7 @@ public class LinkedTag {
     @Override
     public String toString() {
         return "LinkedTag{" +
-                "aNamespace='" + aNamespace + '\'' +
+                "aNameSpace='" + aNameSpace + '\'' +
                 ", aTag='" + aTag + '\'' +
                 '}';
     }

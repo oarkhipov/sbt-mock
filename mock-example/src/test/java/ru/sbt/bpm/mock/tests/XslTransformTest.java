@@ -22,7 +22,7 @@ public class XslTransformTest {
 
     /*@Test
     public void firstTest() throws TransformerException {
-        System.out.println(
+        SystemTag.out.println(
                 XslTransformer.transform("C:\\work\\IdeaProjects\\GitProjects\\Mock\\mock-example\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\ForceSignal.xsl",
                         "C:\\work\\IdeaProjects\\GitProjects\\Mock\\mock-example\\src\\test\\resources\\xml\\CRM\\ForceSignal\\rs1.xml")
         );
@@ -49,7 +49,7 @@ public class XslTransformTest {
 //    @Test
 //    public void testForceSignalXSLT() throws Exception {
 //        final String dir = this.getClass().getClassLoader().getResource("").getPath();
-//        System.out.println(dir);
+//        SystemTag.out.println(dir);
 //        checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\ForceSignal.xsl",
 //                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\ForceSignalData.xml",
 //                "xml/CRM/ForceSignal/rs1.xml");
@@ -58,7 +58,7 @@ public class XslTransformTest {
 //    @Test
 //    public void testUpdateDealXSLT() throws Exception {
 //        final String dir = this.getClass().getClassLoader().getResource("").getPath();
-//        System.out.println(dir);
+//        SystemTag.out.println(dir);
 //        checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\UpdateDeal.xsl",
 //                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\UpdateDealData.xml",
 //                 "xml/CRM/UpdateDeal/rs1.xml");
@@ -68,7 +68,7 @@ public class XslTransformTest {
 //    @Test
 //    public void testXMLDataRowToXMLDataList() throws Exception {
 //        final String dir = this.getClass().getClassLoader().getResource("").getPath();
-//        System.out.println(dir);
+//        SystemTag.out.println(dir);
 //        checkXMLDataRowToXMLDataListByString(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\DataRowToDataList.xsl",
 //                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\UpdateDealData.xml",
 //                "default\r\ntest1\r\n");
@@ -88,7 +88,7 @@ public class XslTransformTest {
 //    public void testXMLDataRowToXMLDataListWithParam () throws Exception {
 //
 //        final String dir = this.getClass().getClassLoader().getResource("").getPath();
-//        System.out.println(dir);
+//        SystemTag.out.println(dir);
 //
 //        String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\DataRowToDataList.xsl";
 //        String XMLFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\FinRep\\xml\\FinReportImportData.xml";
@@ -110,7 +110,7 @@ public class XslTransformTest {
 //    public void testXMLDataRowToXMLDataListWithParam2 () throws Exception {
 //
 //        final String dir = this.getClass().getClassLoader().getResource("").getPath();
-//        System.out.println(dir);
+//        SystemTag.out.println(dir);
 //
 //        String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\DataRowToDataList.xsl";
 //        String XMLFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\ForceSignalData.xml";
@@ -132,7 +132,7 @@ public class XslTransformTest {
 //    @Test
 //    public void exportContract() throws Exception{
 //        String dir = this.getClass().getClassLoader().getResource("").getPath();
-//        System.out.println(dir);
+//        SystemTag.out.println(dir);
 //        checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\UpdateContractInfo.xsl",
 //                  dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\xml\\UpdateContractInfoData.xml",
 //                  "xml/CRM/ExportContractInfo/rs1.xml");
@@ -178,7 +178,7 @@ public class XslTransformTest {
 //    public void testApplyRowToDataList () throws Exception {
 //
 //        final String dir = this.getClass().getClassLoader().getResource("").getPath();
-//        System.out.println(dir);
+//        SystemTag.out.println(dir);
 //
 //        String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\ApplyRowToDataList.xsl";
 //        String XMLFile = dir + "\\..\\..\\src\\test\\resources\\xmlAssertion\\dataSingleNode.xml";
@@ -248,7 +248,7 @@ public class XslTransformTest {
 //    public void testApplyRowToDataList2 () throws Exception {
 //
 //        final String dir = this.getClass().getClassLoader().getResource("").getPath();
-//        System.out.println(dir);
+//        SystemTag.out.println(dir);
 //
 //        String XSLTFile = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\ApplyRowToDataList.xsl";
 //        String XMLFile = dir + "\\..\\..\\src\\test\\resources\\xmlAssertion\\dataSingleNode.xml";

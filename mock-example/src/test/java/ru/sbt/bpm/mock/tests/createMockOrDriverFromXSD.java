@@ -300,7 +300,7 @@ public class createMockOrDriverFromXSD {
                     : "В примере xml заполены известны не все типы";
 
 
-//            System.out.println("check data xml file");
+//            SystemTag.out.println("check data xml file");
 //            Map<String, String> dataParams = new HashMap<String, String>(2);
 //            dataParams.put("dataFileName","../../data/" +  system + "/xml/" + name + "Data.xml");
 //            dataParams.put("replace","true");
@@ -324,7 +324,7 @@ public class createMockOrDriverFromXSD {
                     "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\" + system + "\\" + name + ".xsl", params);
 
 //
-//            System.out.println("check data xml file");
+//            SystemTag.out.println("check data xml file");
 //            Map<String, String> dataParams = new HashMap<String, String>(2);
 //            dataParams.put("dataFileName","../../data/" +  system + "/xml/" + name + "Data.xml");
 //            dataParams.put("replace","true");
@@ -368,7 +368,7 @@ public class createMockOrDriverFromXSD {
     protected String checkXSLT (String XSLTFile, String XMLFile, String validateFile, Map<String,String> params ) throws Exception {
 
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
-//        System.out.println(dir);
+//        SystemTag.out.println(dir);
         String result = Xsl20Transformer.transform(XSLTFile, XMLFile, params);
         String validateFileXML = FileUtils.readFileToString(new File(dir + validateFile));
 

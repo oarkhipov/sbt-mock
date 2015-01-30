@@ -1,26 +1,27 @@
 package ru.sbt.bpm.mock.sigeneator.inentities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import ru.sbt.bpm.mock.sigeneator.Pair;
 
 import java.util.List;
 
 /**
- * Created by sbt-hodakovskiy-da on 30.01.2015.
- * <p/>
- * Company: SBT - Saint-Petersburg
- */
+* Created by sbt-hodakovskiy-da on 30.01.2015.
+* <p/>
+* Company: SBT - Saint-Petersburg
+*/
 @XStreamAlias("integrationPoint")
 public class IntegrationPoint {
 
     @XStreamAlias("name")
-    private String aName;
+    private String aIntegrationPointName;
 
     @XStreamAlias("type")
-    private String aType;
+    private String aIntegrationPointType;
 
     @XStreamAlias("linkedTagSequence")
-    private List<LinkedTag> aListOfLinkedTags;
+    private LinkedTagSequence aLinkedTagSequence;
 
     @XStreamAlias("protocol")
     private String aProtocol;
@@ -38,51 +39,30 @@ public class IntegrationPoint {
     private String aXsdFile;
 
     @XStreamAlias("dependencies")
-    private List<Dependency> aListOfDependencies;
+    private Dependencies aDependencies;
 
-    public IntegrationPoint(String aName, String aType, List<LinkedTag> aListOfLinkedTags, String aProtocol, String aXsdFile, List<Dependency> aListOfDependencies) {
-        this.aName = aName;
-        this.aType = aType;
-        this.aListOfLinkedTags = aListOfLinkedTags;
-        this.aProtocol = aProtocol;
-        this.aXsdFile = aXsdFile;
-        this.aListOfDependencies = aListOfDependencies;
+    public String getaIntegrationPointName() {
+        return aIntegrationPointName;
     }
 
-    public IntegrationPoint(String aName, String aType, List<LinkedTag> aListOfLinkedTags, String aProtocol, String aIncomeQueue, String aOutcomeQueue, String aXsdFile, List<Dependency> aListOfDependencies) {
-        this.aName = aName;
-        this.aType = aType;
-        this.aListOfLinkedTags = aListOfLinkedTags;
-        this.aProtocol = aProtocol;
-        this.aIncomeQueue = aIncomeQueue;
-        this.aOutcomeQueue = aOutcomeQueue;
-        this.aXsdFile = aXsdFile;
-        this.aListOfDependencies = aListOfDependencies;
-        this.aPairOfChannels = new Pair<String, String>(aIncomeQueue, aOutcomeQueue);
+    public void setaIntegrationPointName(String aIntegrationPointName) {
+        this.aIntegrationPointName = aIntegrationPointName;
     }
 
-    public String getaName() {
-        return aName;
+    public String getaIntegrationPointType() {
+        return aIntegrationPointType;
     }
 
-    public void setaName(String aName) {
-        this.aName = aName;
+    public void setaIntegrationPointType(String aIntegrationPointType) {
+        this.aIntegrationPointType = aIntegrationPointType;
     }
 
-    public String getaType() {
-        return aType;
+    public LinkedTagSequence getaLinkedTagSequence() {
+        return aLinkedTagSequence;
     }
 
-    public void setaType(String aType) {
-        this.aType = aType;
-    }
-
-    public List<LinkedTag> getaListOfLinkedTags() {
-        return aListOfLinkedTags;
-    }
-
-    public void setaListOfLinkedTags(List<LinkedTag> aListOfLinkedTags) {
-        this.aListOfLinkedTags = aListOfLinkedTags;
+    public void setaLinkedTagSequence(LinkedTagSequence aLinkedTagSequence) {
+        this.aLinkedTagSequence = aLinkedTagSequence;
     }
 
     public String getaProtocol() {
@@ -117,12 +97,12 @@ public class IntegrationPoint {
         this.aXsdFile = aXsdFile;
     }
 
-    public List<Dependency> getaListOfDependencies() {
-        return aListOfDependencies;
+    public Dependencies getaDependencies() {
+        return aDependencies;
     }
 
-    public void setaListOfDependencies(List<Dependency> aListOfDependencies) {
-        this.aListOfDependencies = aListOfDependencies;
+    public void setaDependencies(Dependencies aDependencies) {
+        this.aDependencies = aDependencies;
     }
 
     public Pair<String, String> getaPairOfChannels() {
@@ -136,14 +116,15 @@ public class IntegrationPoint {
     @Override
     public String toString() {
         return "IntegrationPoint{" +
-                "aName='" + aName + '\'' +
-                ", aType='" + aType + '\'' +
-                ", aListOfLinkedTags=" + aListOfLinkedTags +
+                "aIntegrationPointName='" + aIntegrationPointName + '\'' +
+                ", aIntegrationPointType='" + aIntegrationPointType + '\'' +
+                ", aLinkedTagSequence=" + aLinkedTagSequence +
                 ", aProtocol='" + aProtocol + '\'' +
                 ", aIncomeQueue='" + aIncomeQueue + '\'' +
                 ", aOutcomeQueue='" + aOutcomeQueue + '\'' +
+                ", aPairOfChannels=" + aPairOfChannels +
                 ", aXsdFile='" + aXsdFile + '\'' +
-                ", aListOfDependencies=" + aListOfDependencies +
+                ", aDependencies=" + aDependencies +
                 '}';
     }
 }

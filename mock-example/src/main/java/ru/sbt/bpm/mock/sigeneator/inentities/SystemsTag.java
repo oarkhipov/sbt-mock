@@ -11,24 +11,24 @@ import java.util.List;
 * <p/>
 * Company: SBT - Saint-Petersburg
 */
-@XStreamAlias("MockConfig")
-public class MockConfig {
+@XStreamAlias("systems")
+public class SystemsTag {
 
-    @XStreamAlias("systems")
-    private SystemsTag aSystems;
+    @XStreamImplicit(itemFieldName = "system")
+    private List aListOfSystems = new ArrayList();
 
-    public SystemsTag getaSystems() {
-        return aSystems;
+    public List getaListOfSystems() {
+        return aListOfSystems;
     }
 
-    public void setaSystems(SystemsTag aSystems) {
-        this.aSystems = aSystems;
+    public void setaListOfSystems(List aListOfSystems) {
+        this.aListOfSystems = aListOfSystems;
     }
 
     @Override
     public String toString() {
-        return "MockConfig{" +
-                "aSystems=" + aSystems +
+        return "SystemsTag{" +
+                "aListOfSystems=" + aListOfSystems +
                 '}';
     }
 }
