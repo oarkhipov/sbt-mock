@@ -22,6 +22,14 @@ public class GenerateMockAppServlet {
         this.aFilePath = aFilePath;
     }
 
+    public void init() throws Exception{
+        if (this.aFilePath == null || this.aFilePath.equals(""))
+            throw new Exception();
+
+
+    }
+
+
     public static GenerateMockAppServlet getInstance() {
         if (INSTANCE == null)
             synchronized (GenerateMockAppServlet.class) {

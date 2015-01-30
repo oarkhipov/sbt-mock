@@ -1,6 +1,7 @@
 package ru.sbt.bpm.mock.sigeneator.inentities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import ru.sbt.bpm.mock.sigeneator.Pair;
 
 import java.util.List;
 
@@ -30,6 +31,9 @@ public class IntegrationPoint {
     @XStreamAlias("outcomeQueue")
     private String aOutcomeQueue;
 
+    // Так как маппинг идет по полям xml, для удобства доступа и сравнения создаем Pair<INCOME, OUTCOME>
+    private Pair<String, String> aPairOfChannels;
+
     @XStreamAlias("xsdFile")
     private String aXsdFile;
 
@@ -54,6 +58,7 @@ public class IntegrationPoint {
         this.aOutcomeQueue = aOutcomeQueue;
         this.aXsdFile = aXsdFile;
         this.aListOfDependencies = aListOfDependencies;
+        this.aPairOfChannels = new Pair<String, String>(aIncomeQueue, aOutcomeQueue);
     }
 
     public String getaName() {
@@ -118,6 +123,14 @@ public class IntegrationPoint {
 
     public void setaListOfDependencies(List<Dependency> aListOfDependencies) {
         this.aListOfDependencies = aListOfDependencies;
+    }
+
+    public Pair<String, String> getaPairOfChannels() {
+        return aPairOfChannels;
+    }
+
+    public void setaPairOfChannels(Pair<String, String> aPairOfChannels) {
+        this.aPairOfChannels = aPairOfChannels;
     }
 
     @Override
