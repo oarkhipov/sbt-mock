@@ -150,6 +150,13 @@
             <artifactId>Saxon-HE</artifactId>
             <version>9.4</version>
         </dependency>
+
+        <!-- XStream -->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.7</version>
+        </dependency>
     </dependencies>
     <distributionManagement>
         <repository>
