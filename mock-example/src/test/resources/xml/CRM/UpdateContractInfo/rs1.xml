@@ -4,8 +4,9 @@
     <ns1:SPName>string</ns1:SPName>
     <ns1:SystemId>string</ns1:SystemId>
     <ns1:OperationName>string</ns1:OperationName>
-    <ns2:UpdateContractInfo xmlns:ns2="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/resp/10">
-        <ns2:ContractID>string</ns2:ContractID>
-        <ns2:ListOfError></ns2:ListOfError>
-    </ns2:UpdateContractInfo>
+    <ns1:UpdateContractInfo xmlns:ns1="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/resp/10"
+                            xmlns:ns2="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10">
+        <ns1:ContractID>string</ns1:ContractID>
+        <ns1:ListOfError></ns1:ListOfError>
+    </ns1:UpdateContractInfo>
 </ns1:Message>

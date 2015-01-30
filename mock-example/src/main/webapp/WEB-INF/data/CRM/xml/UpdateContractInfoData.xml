@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/resp/10/Data">
+<data xmlns="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/resp/10/Data" xmlns:ct="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10">
     <response name="default">
         <RqUID>string</RqUID>
         <RqTm>2014-12-16T17:55:06.410+04:00</RqTm>
@@ -8,6 +8,12 @@
         <OperationName>string</OperationName>
         <UpdateContractInfo>
             <ContractID>string</ContractID>
+            <ListOfError>
+                <ct:Error>
+                    <ct:ErrorCode>123456789</ct:ErrorCode>
+                    <ct:ErrorMessage>string</ct:ErrorMessage>
+                </ct:Error>
+            </ListOfError>
         </UpdateContractInfo>
     </response>
     <response name="response1">

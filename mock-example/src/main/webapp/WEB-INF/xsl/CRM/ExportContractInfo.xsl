@@ -439,10 +439,12 @@
     </xsl:template>
 
     <xsl:template match="rsd:Rating">
-        <xsl:element name="ns1:Rating">
-            <xsl:element name="ns1:RatingID">
+        <xsl:element name="ns1:Rating" namespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10">
+            <!--<xsl:element name="ns1:RatingID">-->
+            <ns1:RatingID>
                 <xsl:value-of select="./rsd:RatingID"/>
-            </xsl:element>
+            </ns1:RatingID>
+            <!--</xsl:element>-->
             <xsl:element name="ns1:ClientID">
                 <xsl:value-of select="./rsd:ClientID"/>
             </xsl:element>

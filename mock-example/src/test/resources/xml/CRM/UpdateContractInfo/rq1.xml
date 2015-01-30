@@ -1,10 +1,9 @@
-﻿<ns1:Message xmlns:ns1="http://sbrf.ru/prpc/kkmb/crm/Header/req/10" xmlns:ns2="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://sbrf.ru/prpc/kkmb/crm/Header/req/10 kkmb-crm-header-req.xsd">
-  <ns1:RqUID>CRMTODO_UID</ns1:RqUID>
-  <ns1:RqTm>2014-02-20T08:23:55.457Z</ns1:RqTm>
-  <ns1:SPName>CRMTODO_SPNAME</ns1:SPName>
-  <ns1:SystemId>CRMTODO_SystemId</ns1:SystemId>
-  <ns1:OperationName>ExportContractInfo</ns1:OperationName>
+﻿<tns:Message xmlns:tns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">
+  <tns:RqUID>CRMTODO_UID</tns:RqUID>
+  <tns:RqTm>2014-02-20T08:23:55.457Z</tns:RqTm>
+  <tns:SPName>CRMTODO_SPNAME</tns:SPName>
+  <tns:SystemId>CRMTODO_SystemId</tns:SystemId>
+  <tns:OperationName>ExportContractInfo</tns:OperationName>
   <ns1:ContractInfo xmlns:ns1="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10" xmlns:ns2="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10">
     <ns1:ContractID>OKITESTDEAL</ns1:ContractID>
     <ns1:ContractDate>2014-02-20T00:00:00.000Z</ns1:ContractDate>
@@ -352,17 +351,17 @@
         </ns2:ListOfMemberGSZUL>
       </ns2:GSZ>
     </ns1:ListOfGSZ>
-    <ns1:ListOfKG> 
-	<ns2:KG>
-		<ns2:KG_ID>KG-00001</ns2:KG_ID>
-		<ns2:NameKG>YL_KG</ns2:NameKG>
-		<ns2:ListOfMemberKGFL/>
-		<ns2:ListOfMemberKGUL>
-			<ns2:ClientID>CRM123000044</ns2:ClientID>
-			<ns2:ClientID>CRM123000033</ns2:ClientID>
-		</ns2:ListOfMemberKGUL>
-	</ns2:KG>
-</ns1:ListOfKG>
+    <ns1:ListOfKG>
+      <ns2:KG>
+        <ns2:KG_ID>KG-00001</ns2:KG_ID>
+        <ns2:NameKG>YL_KG</ns2:NameKG>
+        <ns2:ListOfMemberKGFL/>
+        <ns2:ListOfMemberKGUL>
+          <ns2:ClientID>CRM123000044</ns2:ClientID>
+          <ns2:ClientID>CRM123000033</ns2:ClientID>
+        </ns2:ListOfMemberKGUL>
+      </ns2:KG>
+    </ns1:ListOfKG>
     <ns1:ListOfLegalPerson>
       <ns2:LegalPerson>
         <ns2:LegalPersonID>CRM123000011</ns2:LegalPersonID>
@@ -376,31 +375,24 @@
         <ns2:OGRN>1047855126990</ns2:OGRN>
         <ns2:Industry>Food and Tobacco</ns2:Industry>
         <ns2:ProblemGroup>Green Zone</ns2:ProblemGroup>
-        <ns2:Phone>+79201234567</ns2:Phone>
         <ns2:ListOfAddressInfoUL>
           <ns2:AddressInfoUL>
             <ns2:AddressTypeUL>Фактический</ns2:AddressTypeUL>
             <ns2:City>125000, Москва</ns2:City>
             <ns2:Street>ул. Академика Королева</ns2:Street>
             <ns2:House>20</ns2:House>
-            <ns2:Index>127427</ns2:Index>
-            <ns2:RegionCode>77</ns2:RegionCode>
           </ns2:AddressInfoUL>
           <ns2:AddressInfoUL>
             <ns2:AddressTypeUL>Почтовый</ns2:AddressTypeUL>
             <ns2:City>125000, Москва</ns2:City>
             <ns2:Street>ул. Академика Королева</ns2:Street>
             <ns2:House>20</ns2:House>
-            <ns2:Index>127427</ns2:Index>
-            <ns2:RegionCode>77</ns2:RegionCode>
           </ns2:AddressInfoUL>
           <ns2:AddressInfoUL>
             <ns2:AddressTypeUL>Регистрации</ns2:AddressTypeUL>
             <ns2:City>125000, Москва</ns2:City>
             <ns2:Street>ул. Академика Королева</ns2:Street>
             <ns2:House>20</ns2:House>
-            <ns2:Index>127427</ns2:Index>
-            <ns2:RegionCode>77</ns2:RegionCode>
           </ns2:AddressInfoUL>
         </ns2:ListOfAddressInfoUL>
         <ns2:ListOfRegistrationInfo>
@@ -424,31 +416,24 @@
         <ns2:OGRN>1047808026870</ns2:OGRN>
         <ns2:Industry>Food and Tobacco</ns2:Industry>
         <ns2:ProblemGroup>Green Zone</ns2:ProblemGroup>
-        <ns2:Phone>+79201234568</ns2:Phone>
         <ns2:ListOfAddressInfoUL>
           <ns2:AddressInfoUL>
             <ns2:AddressTypeUL>Фактический</ns2:AddressTypeUL>
             <ns2:City>125000, Москва</ns2:City>
             <ns2:Street>ул. Академика Королева</ns2:Street>
             <ns2:House>20</ns2:House>
-            <ns2:Index>127427</ns2:Index>
-            <ns2:RegionCode>77</ns2:RegionCode>
           </ns2:AddressInfoUL>
           <ns2:AddressInfoUL>
             <ns2:AddressTypeUL>Почтовый</ns2:AddressTypeUL>
             <ns2:City>125000, Москва</ns2:City>
             <ns2:Street>ул. Академика Королева</ns2:Street>
             <ns2:House>20</ns2:House>
-            <ns2:Index>127427</ns2:Index>
-            <ns2:RegionCode>77</ns2:RegionCode>
           </ns2:AddressInfoUL>
           <ns2:AddressInfoUL>
             <ns2:AddressTypeUL>Регистрации</ns2:AddressTypeUL>
             <ns2:City>125000, Москва</ns2:City>
             <ns2:Street>ул. Академика Королева</ns2:Street>
             <ns2:House>20</ns2:House>
-            <ns2:Index>127427</ns2:Index>
-            <ns2:RegionCode>77</ns2:RegionCode>
           </ns2:AddressInfoUL>
         </ns2:ListOfAddressInfoUL>
         <ns2:ListOfRegistrationInfo>
@@ -472,31 +457,24 @@
         <ns2:OGRN>1052800010229</ns2:OGRN>
         <ns2:Industry>Food and Tobacco</ns2:Industry>
         <ns2:ProblemGroup>Green Zone</ns2:ProblemGroup>
-        <ns2:Phone>+79201234569</ns2:Phone>
         <ns2:ListOfAddressInfoUL>
           <ns2:AddressInfoUL>
             <ns2:AddressTypeUL>Фактический</ns2:AddressTypeUL>
             <ns2:City>Москва</ns2:City>
             <ns2:Street>ул. Академика Королева</ns2:Street>
             <ns2:House>20</ns2:House>
-            <ns2:Index>127427</ns2:Index>
-            <ns2:RegionCode>77</ns2:RegionCode>
           </ns2:AddressInfoUL>
           <ns2:AddressInfoUL>
             <ns2:AddressTypeUL>Почтовый</ns2:AddressTypeUL>
             <ns2:City>Москва</ns2:City>
             <ns2:Street>ул. Академика Королева</ns2:Street>
             <ns2:House>20</ns2:House>
-            <ns2:Index>127427</ns2:Index>
-            <ns2:RegionCode>77</ns2:RegionCode>
           </ns2:AddressInfoUL>
           <ns2:AddressInfoUL>
             <ns2:AddressTypeUL>Регистрации</ns2:AddressTypeUL>
             <ns2:City>Москва</ns2:City>
             <ns2:Street>ул. Академика Королева</ns2:Street>
             <ns2:House>20</ns2:House>
-            <ns2:Index>127427</ns2:Index>
-            <ns2:RegionCode>77</ns2:RegionCode>
           </ns2:AddressInfoUL>
         </ns2:ListOfAddressInfoUL>
         <ns2:ListOfRegistrationInfo>
@@ -528,7 +506,6 @@
             <ns2:IssueDate>2001-08-09</ns2:IssueDate>
             <ns2:IssueAuthorityCode>025-124</ns2:IssueAuthorityCode>
             <ns2:IssueAuthority>ОВД Дегунино</ns2:IssueAuthority>
-            <ns2:IssueLocation>г. Москва</ns2:IssueLocation>
             <ns2:Primary>true</ns2:Primary>
           </ns2:Document>
         </ns2:ListOfDocument>
@@ -563,4 +540,4 @@
       </ns1:ExpectedCurrencyRate>
     </ns1:ListOfExpectedCurrencyRate>
   </ns1:ContractInfo>
-</ns1:Message>
+</tns:Message>
