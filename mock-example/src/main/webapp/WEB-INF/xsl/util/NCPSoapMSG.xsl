@@ -2,7 +2,7 @@
                 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:mock="http://sbrf.ru/mockService"><!--TODO заменить mock на namespace конфига -->
-    <xsl:import href="XSDToExampleXML2.xsl"/>
+    <xsl:import href="XSDToExampleXML.xsl"/>
     <xsl:include href="NCPSoapRqHeaderXSLTTemplate.xsl"/>
 
     <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>

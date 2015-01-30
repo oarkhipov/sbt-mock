@@ -338,8 +338,9 @@ public class createMockOrDriverFromXSD {
         } else if (type.equals("Request")) {
             System.out.println("xsl");
             String xsl = checkXSLT(webinf + "\\xsl\\util\\requestXSDtoXSL.xsl",
-                    webinf + "\\xsd\\" + system + "\\" + name + type + ".xsd",
-                    "\\src\\main\\webapp\\WEB-INF\\xsl\\" + system + "\\" + name + ".xsl", params);
+                    webinf + "\\xsd\\" + system + "\\" + rootXSD + ".xsd",
+//                    "\\src\\main\\webapp\\WEB-INF\\xsl\\" + system + "\\" + name + ".xsl", altParams4);
+                    null, altParams4);
 
 //
 //            System.out.println("check data xml file");
@@ -388,28 +389,29 @@ public class createMockOrDriverFromXSD {
         final String dir = System.getProperty("user.dir");
 //        System.out.println(dir);
         String result = Xsl20Transformer.transform(XSLTFile, XMLFile, params);
-        String validateFileXML = FileUtils.readFileToString(new File(dir + validateFile));
+        if (validateFile!=null) {
+            String validateFileXML = FileUtils.readFileToString(new File(dir + validateFile));
 
-        XMLUnit.setIgnoreWhitespace(true);
-        XMLUnit.setIgnoreComments(true);
+            XMLUnit.setIgnoreWhitespace(true);
+            XMLUnit.setIgnoreComments(true);
 
-        try {
-            Diff diff = new Diff(validateFileXML, result);
-            if (!diff.identical()) {
-                DetailedDiff detailedDiff = new DetailedDiff(diff);
-                List differences = detailedDiff.getAllDifferences();
-                for (Object difference : differences) {
-                    System.out.println("***********************");
-                    System.out.println(String.valueOf((Difference) difference));
+            try {
+                Diff diff = new Diff(validateFileXML, result);
+                if (!diff.identical()) {
+                    DetailedDiff detailedDiff = new DetailedDiff(diff);
+                    List differences = detailedDiff.getAllDifferences();
+                    for (Object difference : differences) {
+                        System.out.println("***********************");
+                        System.out.println(String.valueOf((Difference) difference));
+                    }
+
+                    assertEquals(validateFileXML, result);
                 }
-
+            } catch (Exception e) {
+                System.out.println(result);
+                e.printStackTrace();
                 assertEquals(validateFileXML, result);
             }
-        }
-        catch (Exception e) {
-            System.out.println(result);
-            e.printStackTrace();
-            assertEquals(validateFileXML, result);
         }
         return result;
     }

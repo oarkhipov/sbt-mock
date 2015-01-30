@@ -10,7 +10,7 @@
          <tns:productType>string</tns:productType>
          <tns:product>string</tns:product>
          <tns:agrNum>string</tns:agrNum>
-         <tns:agrDate>2015-01-29</tns:agrDate>
+         <tns:agrDate>2015-01-30</tns:agrDate>
          <tns:lgdType>string</tns:lgdType>
          <tns:crmId>string</tns:crmId>
          <!--optional--><tns:comment>string</tns:comment>
@@ -18,7 +18,7 @@
          <!--optional--><tns:rate>10</tns:rate>
          <!--optional--><tns:loanMode>string</tns:loanMode>
          <!--optional--><tns:loanSum>10</tns:loanSum>
-         <!--optional--><tns:agrEndDate>2015-01-29</tns:agrEndDate>
+         <!--optional--><tns:agrEndDate>2015-01-30</tns:agrEndDate>
          <!--optional--><tns:rating>10</tns:rating>
          <!--optional--><tns:limit>10</tns:limit>
          <tns:model>string</tns:model>
@@ -43,7 +43,7 @@
                <tns:businessValue>string</tns:businessValue>
                <tns:expertRate>string</tns:expertRate>
                <!--optional--><tns:portfSize>string</tns:portfSize>
-               <tns:assessmentDate>2015-01-29</tns:assessmentDate>
+               <tns:assessmentDate>2015-01-30</tns:assessmentDate>
                <!--optional--><tns:pdRate>10</tns:pdRate>
             </tns:collateral>
          </tns:listOfCollateral>

@@ -21,6 +21,10 @@
     <!-- TODO выбрать этот параметр автоматом -->
     <xsl:param name="systemName" select="'CRM'"/>
 
+    <!--В этой переменной идет выбор заголовка между разными системами. Сейчас выбор захорлкожен-->
+    <!--!!! этот выбор захардкожен !!!-->
+    <xsl:param name="headerType" select="if (/xsd:schema//xsd:element[@ref='kd4:KD4SoapHeaderV2']) then 'KD4' else 'NCP'"/>
+
     <!-- неймспейс, в котором будут содрежатся наши данные. Получается припиской к стандратному неймспейсу субпути /Data/ -->
     <xsl:variable name="targetNS" select="mock:addDataToNamespaceUrl($operationXsdSchema/@targetNamespace)"/>
 
@@ -49,12 +53,12 @@
     <xsl:variable name="nsAliasList" select="$operationXsdSchema/namespace::*[.!=$operationXsdSchema/@targetNamespace and string-length(local-name(.))>0]/local-name()"/>
 
     <!-- файл с темплейтом для soap header'а -->
-    <xsl:include href="NCPSoapRqHeaderXSLTTemplate.xsl"/>
+    <xsl:include href="headerTemplate.xsl"/>
     <xsl:include href="xsltFunctions.xsl"/>
 
     <xsl:template match="xsd:schema">
-        <xsl:comment>test <xsl:value-of select="$nsList"/></xsl:comment>
-        <xsl:comment>test <xsl:value-of select="$nsAliasList"/></xsl:comment>
+        <!--<xsl:comment>test <xsl:value-of select="$nsList"/></xsl:comment>-->
+        <!--<xsl:comment>test <xsl:value-of select="$nsAliasList"/></xsl:comment>-->
         <xsl:element name="xsd:schema">
             <xsl:namespace name="" select="$targetNS"/>
             <xsl:for-each select="$operationXsdSchema/namespace::*[.!=$operationXsdSchema/@targetNamespace and string-length(local-name(.))>0]">
@@ -71,7 +75,9 @@
             <xsl:apply-templates select="$operationXsdSchema/xsd:import" mode="imports"/>
 
             <!-- Заголовок из импортированного файла NCPSoapRqHeaderXSLTTemplate.xsl -->
-            <xsl:call-template name="NCPHeaderForXSD"/>
+            <xsl:call-template name="xsdHeader">
+                <xsl:with-param name="headerType" select="$headerType"/>
+            </xsl:call-template>
 
             <!-- корень данных -->
             <xsl:element name="xsd:element">
@@ -225,7 +231,7 @@
 
         <!--получаем все тэги, которые могут содержать типы, которые нам нужны и берем только те, что лежат в нашем неймспейсе-->
         <xsl:variable name="typesToImport" select=".//@*[name()=$atributesWithTypes]/mock:removeNamespaceAlias(.,$tnsAlias)[not(contains(.,':'))]"/>
-        <xsl:comment>test <xsl:value-of select="$typesToImport"/></xsl:comment>
+        <!--<xsl:comment>test <xsl:value-of select="$typesToImport"/></xsl:comment>-->
 
         <xsl:apply-templates select="$typesList[@name=$typesToImport]" mode="copyChildTypes"/>
     </xsl:template>

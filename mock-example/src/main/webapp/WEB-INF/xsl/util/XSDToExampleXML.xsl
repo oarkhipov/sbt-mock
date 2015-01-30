@@ -1,31 +1,19 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsk="http://www.w3.org/1999/XSL/Transform"
-        xmlns:mock="http://sbrf.ru/mockService"><!--TODO заменить mock на namespace конфига -->
-
-    <xsl:import href="NCPSoapRqHeaderXSLTTemplate.xsl"/>
-    <xsl:import href="KD4SoapMsg.xsl"/>
-    <xsl:include href="xsltFunctions.xsl"/>
+                xmlns:mock="http://sbrf.ru/mockService">
 
     <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
 
     <!--То что можно/нужно задать-->
 
-    <!--путь к верхней xsd с объявлением рут-элементов-->
-    <xsl:param name="parrentXSDPath" select="'../../xsd/CRM/CRM.xsd'"/>
-    <!--Если parrentXSDPath не задать, то нужно обязательно задать этот параметр-->
-    <xsl:param name="rootXSD" select="document($parrentXSDPath)/xsd:schema"/>
-
-    <!-- Тип заголовка -->
-    <xsl:param name="headerType" select="'NCP'"/>
+    <xsl:param name="rootXSD" select="/xsd:schema"/>
 
     <!-- Этот параметр нужен когда имя главного элемента запроса не соответвует тому что мы взяли из неймспейса. Тогда его можно указать параметром -->
     <!-- TODO выбрать этот параметр более надежным способом -->
     <xsl:param name="entryPointName" select="replace(xsd:schema/@targetNamespace,'^.+/(\w+)(/[0-9\.]+)?/$','$1')"/>
     <!--Имя тэга элемента. Скорее всего будет отличаться от $entryPointName, но брать его из другого файла-->
     <xsl:param name="rootElementName" select="$entryPointName"/>
-    <!--схема рут-элемента транзакции-->
-    <xsl:param name="parrentNS" select="$rootXSD/@targetNamespace"/>
     <!--система-->
     <xsl:param name="systemName" select="'CRM'"/>
 
@@ -71,45 +59,41 @@
     <xsl:variable name="dateTimeTypes" select="tokenize('dateTime xsd:dateTime','\s+')"/>
     <xsl:variable name="booleanTypes" select="tokenize('boolean xsd:boolean','\s+')"/>
 
+    <!--***********************************-->
+    <!--************Функции****************-->
+    <!--***********************************-->
 
-    <!-- алиас для xsd библиотеки типов CommonTypes. нужен потому что отличается от файла к файлу -->
-    <xsl:variable name="CommonTypesNSAlias" select="local-name(xsd:schema/namespace::*[contains(.,'CommonTypes')])"/>
+    <xsl:function name="mock:removeNamespaceAlias">
+        <!--Убрать из строки имя неймспейса. Например 'tns:ClientReferenceData' в 'ClientReferenceData'-->
+        <xsl:param name="string"/>
+        <xsl:value-of select="replace($string, '^([\w_]+:)?([\w_]+)$', '$2')"/>
+    </xsl:function>
 
+    <xsl:function name="mock:getNamespaceAlias">
+        <!--Убрать из строки имя неймспейса. Например 'tns:ClientReferenceData' в 'ClientReferenceData'-->
+        <xsl:param name="string"/>
+        <xsl:value-of select="replace($string, '^(([\w_]+):)?([\w_]+)$', '$2')"/>
+    </xsl:function>
 
     <!--***********************************-->
     <!--******входной темплейт*************-->
     <!--***********************************-->
 
-    <xsl:template match="xsd:schema">
-        <xsl:element name="soap-env:Envelope"><xsl:choose>
-                <xsl:when test="$headerType='NCP'">
-                    <xsl:call-template name="NCPHeaderExample">
-                        <xsl:with-param name="operation-name" select="$rootElementName"/>
-                    </xsl:call-template>
-                </xsl:when>
-                <xsl:when test="$headerType='KD4'">
-                    <xsl:call-template name="KD4SoapHeader">
-                        <!--<xsl:with-param name="operation-name" select="$rootElementName"/>-->
-                    </xsl:call-template>
-                </xsl:when>
-            </xsl:choose>
-            <xsl:element name="soap-env:Body">
-                <xsl:apply-templates select="./xsd:complexType[@name=$entryPointName] | ./xsd:element[@name=$entryPointName]" mode="rootBodyElement"/>
-            </xsl:element>
-        </xsl:element>
-    </xsl:template>
-
     <xsl:template match="xsd:complexType" mode="rootBodyElement">
-        <xsl:element name="{concat($systemName,':',$rootElementName)}" namespace="{$parrentNS}">
-            <xsl:namespace name="{$systemName}" select="$parrentNS"/>
+        <xsl:param name="parrentNS" select="/xsd:schema/@targetNamespace"/>
+        <xsl:variable name="parrentNSAlias" select="if ($parrentNS=/xsd:schema/@targetNamespace) then $targetNSAlias else $systemName"/>
+        <xsl:element name="{concat($parrentNSAlias,':',$rootElementName)}" namespace="{$parrentNS}">
+            <xsl:namespace name="{$parrentNSAlias}" select="$parrentNS"/>
             <xsl:namespace name="{$targetNSAlias}" select="$targetNS"/>
             <xsl:apply-templates select="./xsd:sequence/xsd:element" mode="subelement"/>
         </xsl:element>
     </xsl:template>
 
     <xsl:template match="xsd:element" mode="rootBodyElement">
-        <xsl:element name="{concat($systemName,':',$rootElementName)}" namespace="{$parrentNS}">
-            <xsl:namespace name="{$systemName}" select="$parrentNS"/>
+        <xsl:param name="parrentNS" select="/xsd:schema/@targetNamespace"/>
+        <xsl:variable name="parrentNSAlias" select="if ($parrentNS=/xsd:schema/@targetNamespace) then $targetNSAlias else $systemName"/>
+        <xsl:element name="{concat($parrentNSAlias,':',$rootElementName)}" namespace="{$parrentNS}">
+            <xsl:namespace name="{$parrentNSAlias}" select="$parrentNS"/>
             <xsl:namespace name="{$targetNSAlias}" select="$targetNS"/>
             <xsl:apply-templates select=".//xsd:sequence/xsd:element" mode="subelement"/>
         </xsl:element>
@@ -141,7 +125,7 @@
     </xsl:template>
 
     <xsl:template match="xsd:element" mode="subelement"
-            priority="1">
+                  priority="1">
         <xsl:variable name="min" select="if(@minOccurs) then @minOccurs else 1"/>
         <xsl:variable name="max" select="if(@maxOccurs) then @maxOccurs else $min"/>
         <xsl:if test="$showOptionalTags='true' or $min>0">
@@ -154,7 +138,7 @@
 
     <!--заполняем значение линкедТага, но только если попросят-->
     <xsl:template match="xsd:element[$useLinkedTagValue='true' and $tagNameToTakeLinkedTag!='null' and @name = $tagNameToTakeLinkedTag]" mode="subelement"
-            priority="4">
+                  priority="4">
         <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}"><xsl:value-of select="$linkedTagValue"/></xsl:element>
     </xsl:template>
 
@@ -207,35 +191,6 @@
             <xsl:value-of select="substring('string', 1, $maxlen)"/>
         </xsl:element>
     </xsl:template>
-
-    <!--строка с ограничением из CommonTypes-->
-    <!--<xsl:template match="xsd:element[string-length($CommonTypesNSAlias)>0 and contains(@type, concat($CommonTypesNSAlias,':string'))]" mode="type">-->
-        <!--&lt;!&ndash;<xsl:comment>testCT</xsl:comment>&ndash;&gt;-->
-        <!--<xsl:variable name="maxlen" select="number(replace(./@type, concat($CommonTypesNSAlias,':string'), ''))"/>-->
-        <!--<xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}">-->
-            <!--<xsl:value-of select="substring('string', 1, $maxlen)"/>-->
-        <!--</xsl:element>-->
-    <!--</xsl:template>-->
-
-    <!--число с ограничением из CommonTypes-->
-    <!--<xsl:template match="xsd:element[string-length($CommonTypesNSAlias)>0 and contains(@type, concat($CommonTypesNSAlias,':integer'))]" mode="type">-->
-        <!--&lt;!&ndash;<xsl:comment>testCT</xsl:comment>&ndash;&gt;-->
-        <!--<xsl:variable name="maxlen" select="number(replace(./@type, concat($CommonTypesNSAlias,':integer'), ''))"/>-->
-        <!--<xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}">-->
-            <!--<xsl:value-of select="substring('1234567890', 1, $maxlen)"/>-->
-        <!--</xsl:element>-->
-    <!--</xsl:template>-->
-
-    <!--число с плавающей точкой-->
-    <!--<xsl:template match="xsd:element[string-length($CommonTypesNSAlias)>0 and contains(@type, concat($CommonTypesNSAlias,':double'))]" mode="type">-->
-        <!--&lt;!&ndash;<xsl:comment>testCT</xsl:comment>&ndash;&gt;-->
-        <!--<xsl:variable name="maxlen" select="replace(./@type, concat($CommonTypesNSAlias,':double'), '')"/>-->
-        <!--<xsl:variable name="num" select="number(replace($maxlen, '(\d+)_(\d+)', '$1'))"/>-->
-        <!--<xsl:variable name="dotnum" select="number(replace($maxlen, '(\d+)_(\d+)', '$2'))"/>-->
-        <!--<xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}">-->
-            <!--<xsl:value-of select="substring('1234567890', 1, $num)"/>.<xsl:value-of select="substring('1234567890', 1, $dotnum)"/>-->
-        <!--</xsl:element>-->
-    <!--</xsl:template>-->
 
     <!--элемент с типом, определенным в импротах-->
     <xsl:template match="xsd:element[mock:getNamespaceAlias(./@type)=$importFilesNsAlias]" mode="type">

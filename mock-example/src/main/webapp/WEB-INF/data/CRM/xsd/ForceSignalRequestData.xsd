@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--test http://sbrf.ru/NCP/CRM/CommonTypes/ http://www.w3.org/2001/XMLSchema http://www.w3.org/XML/1998/namespace--><!--test crmct xsd xml--><xsd:schema xmlns="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/"
+<xsd:schema xmlns="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/"
             xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             targetNamespace="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/"
@@ -10,7 +10,9 @@
                schemaLocation="../../../xsd/CRM/commonTypes/dataTypes.xsd"/>
    <xsd:import namespace="http://sbrf.ru/commonTypes/simpleTypes/"
                schemaLocation="../../../xsd/CRM/commonTypes/simpleTypes.xsd"/>
-   <xsd:complexType name="Header">
+   <xsd:complexType xmlns:st="http://sbrf.ru/commonTypes/simpleTypes/"
+                    xmlns:dt="http://sbrf.ru/commonTypes/dataTypes/"
+                    name="Header">
       <xsd:annotation>
          <xsd:documentation>Заголовок сообщения</xsd:documentation>
       </xsd:annotation>

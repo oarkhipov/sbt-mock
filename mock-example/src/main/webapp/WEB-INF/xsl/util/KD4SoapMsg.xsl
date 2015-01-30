@@ -4,7 +4,8 @@
         xmlns:kd4="http://www.ibm.com/KD4Soa"
         xmlns:mq="http://sbrf.ru/prpc/mq/headers"
         xmlns:mock="http://sbrf.ru/mockService" > <!--TODO заменить mock на namespace конфига -->
-    <xsl:import href="XSDToExampleXML2.xsl"/>
+    <xsl:import href="XSDToExampleXML.xsl"/>
+    <xsl:import href="KD4SoapHeaderTemplate.xsl"/>
 
     <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
 
@@ -89,49 +90,6 @@
                 <xsl:with-param name="proc-inst-tb" select="$proc-inst-tb"/>
             </xsl:call-template>
             <xsl:call-template name="KD4SoapBody"/>
-        </xsl:element>
-    </xsl:template>
-
-    <xsl:template name="KD4SoapHeader">
-        <xsl:param name="kd4header" select="'kd4Header'"/>
-        <xsl:param name="message-id" select="'message-id'"/>
-        <xsl:param name="request-time" select="'2014-12-16T17:55:06.410+04:00'"/>
-        <xsl:param name="correlation-id" select="''"/>
-        <xsl:param name="eis-name" select="''"/>
-        <xsl:param name="system-id" select="''"/>
-        <xsl:param name="operation-name" select="'operation-name'"/>
-        <xsl:param name="operation-version" select="''"/>
-        <xsl:param name="user-id" select="''"/>
-        <xsl:param name="user-name" select="''"/>
-        <xsl:param name="proc-inst-tb" select="''"/>
-        <xsl:element name="soap:Header">
-            <xsl:element name="kd4:KD4SoapHeaderV2"><xsl:value-of select="$kd4header"/></xsl:element>
-            <xsl:element name="mq:AsyncHeader">
-                <xsl:element name="mq:message-id"><xsl:value-of select="$message-id"/></xsl:element>
-                <xsl:element name="mq:request-time"><xsl:value-of select="$request-time"/></xsl:element>
-                <xsl:if test="$correlation-id!=''">
-                    <xsl:element name="mq:correlation-id"><xsl:value-of select="$correlation-id"/></xsl:element>
-                </xsl:if>
-                <xsl:if test="$eis-name!=''">
-                    <xsl:element name="mq:eis-name"><xsl:value-of select="$eis-name"/></xsl:element>
-                </xsl:if>
-                <xsl:if test="$system-id!=''">
-                    <xsl:element name="mq:system-id"><xsl:value-of select="$system-id"/></xsl:element>
-                </xsl:if>
-                <xsl:element name="mq:operation-name"><xsl:value-of select="$operation-name"/></xsl:element>
-                <xsl:if test="$operation-version!=''">
-                    <xsl:element name="mq:operation-version"><xsl:value-of select="$operation-version"/></xsl:element>
-                </xsl:if>
-                <xsl:if test="$user-id!=''">
-                    <xsl:element name="mq:user-id"><xsl:value-of select="$user-id"/></xsl:element>
-                </xsl:if>
-                <xsl:if test="$user-name!=''">
-                    <xsl:element name="mq:user-name"><xsl:value-of select="$user-name"/></xsl:element>
-                </xsl:if>
-                <xsl:if test="$proc-inst-tb!=''">
-                    <xsl:element name="mq:proc-inst-tb"><xsl:value-of select="$proc-inst-tb"/></xsl:element>
-                </xsl:if>
-            </xsl:element>
         </xsl:element>
     </xsl:template>
 
