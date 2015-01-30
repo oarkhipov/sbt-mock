@@ -1,7 +1,7 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
 
-
+    <!--заголовок из дата-файла-->
     <xsl:template name="NCPHeader" xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
         <xsl:param name="response"/>
         <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
@@ -222,10 +222,9 @@
         </xsl:element>
     </xsl:template>
 
-    <!--часть создания XSL - добавляет фрагмент кода, который будет делать необходимый заголовок-->
-    <xsl:template name="NCPxslTeplateDeclaration"
+    <!--часть создания XSL - добавляет фрагмент кода, который будет делать список параметров, необходимых для заголовка-->
+    <xsl:template name="NCPxslTeplateHeaderDeclaration"
                   xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
-        <xsl:param name="operationName"/>
         <xsl:element name="xsl:param">
             <xsl:attribute name="name">timestamp</xsl:attribute>
             <xsl:attribute name="select">string('2014-12-16T17:55:06.410+04:00')</xsl:attribute>
@@ -261,19 +260,15 @@
             <xsl:attribute name="name">user-name</xsl:attribute>
             <xsl:attribute name="select">null</xsl:attribute>
         </xsl:element>
-        <xsl:text>&#xA;</xsl:text>
+    </xsl:template>
 
-        <xsl:element name="xsl:template">
-            <xsl:attribute name="match">/</xsl:attribute>
-            <xsl:element name="xsl:variable">
-                <xsl:attribute name="name">data</xsl:attribute>
-                <xsl:attribute name="select">//rsd:data</xsl:attribute>
-            </xsl:element>
-            <xsl:element name="xsl:variable">
-                <xsl:attribute name="name">linkedTag</xsl:attribute>
-                <xsl:attribute name="select">$name</xsl:attribute>
-            </xsl:element>
+    <!--часть создания XSL - добавляет фрагмент кода, который будет делать необходимый заголовок-->
+    <xsl:template name="NCPxslTeplateDeclaration"
+                  xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
+        <xsl:param name="operationName"/>
+
             <xsl:element name="xsl:element">
+                <xsl:namespace name="soap" select="'http://sbrf.ru/NCP/esb/envelope/'"/>
                 <xsl:attribute name="name">soap:Envelope</xsl:attribute>
                 <xsl:element name="xsl:call-template">
                     <xsl:attribute name="name">NCPHeader</xsl:attribute>
@@ -348,7 +343,6 @@
                     </xsl:element>
                 </xsl:element>
             </xsl:element>
-        </xsl:element>
     </xsl:template>
 
 </xsl:stylesheet>

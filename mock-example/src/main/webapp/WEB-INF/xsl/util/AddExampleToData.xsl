@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
+                xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
+                xmlns:mock="http://sbrf.ru/mockService"><!--TODO заменить mock на namespace конфига -->
 
     <xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>
+    <xsl:include href="xsltFunctions.xsl"/>
 
     <xsl:param name="name"
                select="'default'"/>
@@ -16,12 +18,14 @@
                select="'false'"/>
     <xsl:param name="type"
                select="'response'"/>
+    <xsl:param name="dataNsUrl"
+               select="mock:addDataToNamespaceUrl(/*[local-name()='Envelope']/*[local-name()='Body']/descendant-or-self::*[last()]/namespace-uri())"/>
 
     <!--Prepare data and section of data XML-->
     <xsl:template match="/">
         <xsl:variable name="fileparh" select="string(concat('../data/',$dataFile))"/>
         <xsl:variable name="data" select="document($dataFileName)/*[local-name()='data']"/>
-        <xsl:variable name="dataNS" select="namespace-uri($data)"/>
+        <xsl:variable name="dataNS" select="$dataNsUrl"/>
         <xsl:element name="data" namespace="{$dataNS}">
             <xsl:if test="$createEmptyData='false'">
                 <xsl:if test="$replace='false'">

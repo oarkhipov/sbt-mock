@@ -1,4 +1,7 @@
-package ru.sbt.bpm.mock.utils;
+package ru.sbt.bpm.mock.config.generator.util;
+
+import ru.sbt.bpm.mock.utils.SaveFile;
+import ru.sbt.bpm.mock.utils.Xsl20Transformer;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -51,35 +54,26 @@ public class importXSD {
      * создает примеры xml запросов
      * @param system имя подпапки
      * @param name имя сервиса(имя файла)
-     * @param Params параметры xsl
+     * @param params параметры xsl
      * @throws Exception
      *
      */
-    private void createRqExample(String system, String name, Map<String, String> Params) throws Exception{
-        Map <String,String> altParams = new HashMap<String, String>();
-        altParams.put("rootElementName", Params.get("RqRootElementName"));
-        altParams.put("operationsXSD", "../../xsd/"+system+"/"+name+"Request.xsd");
-        altParams.put("systemName", Params.get("systemName"));
-        altParams.put("operation-name", Params.get("rootElementName"));
-        String rootXSD = system;
-        if (system.equals("FinRep")) rootXSD = "ASFO";
-
-        String exampleRq1 = useXSLT(getWebInfPath() + "\\xsl\\util\\NCPSoapMSG.xsl",
-                getWebInfPath() + "\\xsd\\" + system + "\\" + rootXSD + ".xsd",
-                altParams);
+    private void createRqExample(String system, String name, Map<String, String> params) throws Exception{
+        String exampleRq1 = useXSLT(getWebInfPath() + "\\xsl\\util\\NCPSoapMSG.xsl", //TODO выбор другого KD4SoapMsg.xsl
+                getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+                params);
         validateXML(exampleRq1);
 
         //TODO backup
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getExamplesPath() + "\\" +  system + "\\" + name + "\\rq1.xml"), exampleRq1);
 
-        altParams.put("showOptionalTags", "false");
-        if (Params.containsKey("tagNameToTakeLinkedTag")) {
-            altParams.put("useLinkedTagValue","true");
-            altParams.put("tagNameToTakeLinkedTag", Params.get("tagNameToTakeLinkedTag"));
+        params.put("showOptionalTags", "false");
+        if (params.containsKey("tagNameToTakeLinkedTag")) {
+            params.put("useLinkedTagValue","true");
         }
         String exampleRq2 = useXSLT(getWebInfPath() + "\\xsl\\util\\NCPSoapMSG.xsl",
-                getWebInfPath() + "\\xsd\\" + system + "\\" + rootXSD + ".xsd",
-                altParams);
+                getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+                params);
         validateXML(exampleRq2);
 
         //TODO backup
@@ -127,20 +121,13 @@ public class importXSD {
      * @param system имя подпапки
      * @param name имя сервиса(имя файла)
      * @param type тип (Response/Request)
-     * @param Params параметры xsl
+     * @param params параметры xsl
      * @throws Exception
      */
-    private void createDataXSD(String system, String name, String type, Map<String, String> Params) throws Exception{
-        Map<String, String> altParams = new HashMap<String, String>();
-        String rootXSD = system;
-        if (system.equals("FinRep")) rootXSD = "ASFO";
-        altParams.put("operationsXSD", "../../xsd/"+system+"/"+name+type+".xsd");
-        altParams.put("rootElementName", Params.get("rootElementName"));
-        altParams.put("systemName", Params.get("systemName"));
-
+    private void createDataXSD(String system, String name, String type, Map<String, String> params) throws Exception{
         String xsdXml = useXSLT(getWebInfPath() + "\\xsl\\util\\xsdToDataXsd.xsl",
-                getWebInfPath() + "\\xsd\\" + system + "\\" + rootXSD +".xsd",
-                altParams);
+                getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+                params);
         validateXML(xsdXml);
 
         //TODO backup
@@ -168,13 +155,13 @@ public class importXSD {
      * создает XSL из XSD ля mock драйвера
      * @param system имя подпапки
      * @param name имя сервиса(имя файла)
-     * @param Params параметры xsl
+     * @param params параметры xsl
      * @throws Exception
      */
-    private void createDriverXSL(String system, String name, Map<String, String> Params) throws Exception{
+    private void createDriverXSL(String system, String name, Map<String, String> params) throws Exception{
         String xsltXml = useXSLT(getWebInfPath() + "\\xsl\\util\\requestXSDtoXSL.xsl",
-                getWebInfPath() + "\\xsd\\" + system + "\\" + name + "Request.xsd",
-                Params);
+                getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+                params);
         validateXML(xsltXml);
 
         //TODO backup
@@ -249,60 +236,66 @@ public class importXSD {
      * @param Params параметры xsl
      */
     public void mockCycle(String system, String name, Map<String, String> Params) {
-        try
-        {
-            Map<String, String> altParams = null;
-            if (Params!=null) {
-                //иногда имя главного тэга не ясно, и надо задавать его как параметр entryPointName.
-                //Также возможен случай, когда это значения надо задавать как и для запроса так и для ответа
-                //в этом случае задается параметр RqEntryPointName - для создания ответа его значение передается как entryPointName
-                altParams = new HashMap<String, String>(Params);
-                if (Params.containsKey("rqRootElementName")) {
-                    altParams.put("operation-name", Params.get("rootElementName"));
-                }
-                if (Params.containsKey("RqEntryPointName")) {
-//                    altParams.put("entryPointName", Params.get("RqEntryPointName"));
-                }
-//                if (Params.containsKey("RqRootElementName")) {
-//                    altParams.put("rootElementName", Params.get("RqRootElementName"));
+//        try
+//        {
+//            Map<String, String> altParams = null;
+//            if (Params!=null) {
+//                //иногда имя главного тэга не ясно, и надо задавать его как параметр entryPointName.
+//                //Также возможен случай, когда это значения надо задавать как и для запроса так и для ответа
+//                //в этом случае задается параметр RqEntryPointName - для создания ответа его значение передается как entryPointName
+//                altParams = new HashMap<String, String>(Params);
+//                if (Params.containsKey("rqRootElementName")) {
+//                    altParams.put("operation-name", Params.get("rootElementName"));
 //                }
-            } else
-            {
-                altParams = new HashMap<String, String>(1);
-            }
-
-            //не вставляем в этветы комменты с обозначением сколько элементов доступно
-            altParams.put("omitComments", "true");
-
-            createRqExample(system, name, altParams);
-            createRsExample(system, name, Params);
-            createDataXSD(system, name, "Response", Params);
-            createMockXSL(system, name, Params);
-            createRsDataXml(system, name, Params);
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
+//                if (Params.containsKey("RqEntryPointName")) {
+////                    altParams.put("entryPointName", Params.get("RqEntryPointName"));
+//                }
+////                if (Params.containsKey("RqRootElementName")) {
+////                    altParams.put("rootElementName", Params.get("RqRootElementName"));
+////                }
+//            } else
+//            {
+//                altParams = new HashMap<String, String>(1);
+//            }
+//
+//            //не вставляем в этветы комменты с обозначением сколько элементов доступно
+//            altParams.put("omitComments", "true");
+//
+//            createRqExample(system, name, altParams);
+//            createRsExample(system, name, Params);
+//            createDataXSD(system, name, "Response", Params);
+//            createMockXSL(system, name, Params);
+//            createRsDataXml(system, name, Params);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//
+//        }
     }
 
     /**
      * полный цикл создания драйвера
      * @param system имя подпапки
      * @param name имя сервиса(имя файла)
-     * @param Params параметры xsl
+     * @param params параметры xsl
      */
-    public void driverCycle(String system, String name, Map<String, String> Params) {
+    public void driverCycle(String system, String name, Map<String, String> params) {
         try
         {
-            Params.put("RqRootElementName", Params.get("rootElementName"));
+            if (params==null) {
+                params = new HashMap<String, String>(1);
+            }
+            if (!params.containsKey("operationsXSD")) {
+                params.put("operationsXSD", "../../xsd/"+system+"/"+name+"Request.xsd");
+            }
 
-            createRqExample(system, name, Params);
-            createDataXSD(system, name, "Request", Params);
-            createDriverXSL(system, name, Params);
-            createRqDataXml(system, name, Params);
+            createRqExample(system, name, params);
+            createDataXSD(system, name, "Request", params);
+            createDriverXSL(system, name, params);
+            createRqDataXml(system, name, params);
+            System.out.println(system + " " + name + " driver Done");
         } catch (Exception e) {
+            System.out.println(system + " " + name + " driver Failed");
             e.printStackTrace();
-
         }
     }
 
@@ -315,7 +308,7 @@ public class importXSD {
         instance.initValidator(new File(instance.getWebInfPath() + "\\xsd"));
 
         instance.renewDataBPM();
-//        instance.renewDataBBMO();
+        instance.renewDataBBMO();
     }
 
     public void renewDataBPM() {
@@ -326,10 +319,12 @@ public class importXSD {
 
         params.clear();
         params.put("rootElementName", "forceSignalRq");
+        params.put("xsdBase","CRM.xsd");
         driverCycle("CRM", "ForceSignal", params);
 
         params.clear();
         params.put("rootElementName", "updateDealRq");
+        params.put("xsdBase","CRM.xsd");
         driverCycle("CRM", "UpdateDeal", params);
 
         params.clear();
@@ -477,19 +472,12 @@ public class importXSD {
         Map<String, String> params = null;
         params = new HashMap<String, String>();
 
-        /*params.clear();
-        params.put("rootElementName", "forceSignalRq");
-        params.put("systemName","CKPIT");
-        params.put("parrentXSDPath","../../xsd/CKPIT/ckpit_integration.xsd");
-        params.put("dataFileName","ConfirmRatingData.xml");
-        params.put("tagNameToTakeLinkedTag","siebelMessage");
-        params.put("rootElementName", "confirmRatingRs");
-        params.put("RqRootElementName", "confirmRatingRq");
-        driverCycle("CKPIT", "CKPITProductsDepositsNSOReq", params);
-
-
         params.clear();
-        driverCycle("CKPIT", "CKPITProductsLoansReq", params);*/
+        params.put("rootElementName", "SrvPutRemoteLegalAccOperAppRq");
+        params.put("operationsXSD", "../../xsd/CBBOL/BBMOOperationElements.xsd");
+        params.put("systemName","CBBOL");
+        params.put("xsdBase","BBMOMessageElements.xsd");
+        driverCycle("CBBOL", "SrvPutRemoteLegalAccOperAppRq", params);
     }
 
     /**

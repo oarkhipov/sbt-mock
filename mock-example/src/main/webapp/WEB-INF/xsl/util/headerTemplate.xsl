@@ -11,7 +11,7 @@
         <xsl:param name="operation-name"/>
         <xsl:choose>
             <xsl:when test="$headerType='NCP'">
-                <xsl:call-template name="NCPxslTeplateDeclaration">
+                <xsl:call-template name="NCPHeader">
                     <xsl:with-param name="operation-name" select="$operation-name"/>
                 </xsl:call-template>
             </xsl:when>
@@ -38,6 +38,21 @@
         </xsl:choose>
     </xsl:template>
 
+
+    <xsl:template name="xslTeplateHeaderDeclaration">
+        <xsl:param name="headerType"/>
+        <xsl:choose>
+            <xsl:when test="$headerType='NCP'">
+                <xsl:call-template name="NCPxslTeplateHeaderDeclaration">
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$headerType='KD4'">
+                <xsl:call-template name="KD4xslTeplateHeaderDeclaration">
+                </xsl:call-template>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+
     <xsl:template name="xslTeplateDeclaration">
         <xsl:param name="headerType"/>
         <xsl:param name="operationName"/>
@@ -48,7 +63,7 @@
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$headerType='KD4'">
-                <xsl:call-template name="NCPxslTeplateDeclaration">
+                <xsl:call-template name="KD4xslTeplateDeclaration">
                     <xsl:with-param name="operationName" select="$operationName"/>
                 </xsl:call-template>
             </xsl:when>

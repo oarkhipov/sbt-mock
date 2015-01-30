@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/"
-                xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/"
+<xsl:stylesheet xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/"
                 xmlns:rsd="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/Data/"
-                xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
-   <xsl:import href="../util/NCPSoapRqHeaderXSLTTemplate.xsl"/>
+   <xsl:import href="../util/headerTemplate.xsl"/>
    <!--опускаем строку 'xml version="1.0" encoding="UTF-8"'. С ней не работает MQ очередь-->
 <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
    <xsl:param name="name" select="all"/>
@@ -23,7 +21,7 @@
    <xsl:template match="/">
       <xsl:variable name="data" select="//rsd:data"/>
       <xsl:variable name="linkedTag" select="$name"/>
-      <xsl:element name="soap:Envelope">
+      <xsl:element xmlns:soap="http://sbrf.ru/NCP/esb/envelope/" name="soap:Envelope">
          <xsl:call-template name="NCPHeader">
             <xsl:with-param name="response">
                <xsl:choose>
@@ -44,7 +42,7 @@
             <xsl:with-param name="user-name" select="$user-name"/>
          </xsl:call-template>
          <soap:Body>
-            <xsl:call-template name="UpdateDealRq">
+            <xsl:call-template name="updateDealRq">
                <xsl:with-param name="data" select="$data"/>
                <xsl:with-param name="response">
                   <xsl:choose>
@@ -518,7 +516,7 @@
       </tns:deal>
    </xsl:template>
 
-   <xsl:template name="UpdateDealRq">
+   <xsl:template name="updateDealRq">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
       <xsl:element name="CRM:updateDealRq">

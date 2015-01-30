@@ -430,6 +430,13 @@ public class SaveFile {
     }
 
     public void writeStringToFile(File f, String data) throws Exception {
+        if (!f.exists()) {
+            File dir = f.getParentFile();
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            f.createNewFile();
+        }
         PrintWriter out = new PrintWriter(f);
         try {
             out.print(data);

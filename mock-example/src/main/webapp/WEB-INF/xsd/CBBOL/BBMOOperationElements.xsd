@@ -660,6 +660,11 @@
 						        <documentation>Признак дополнительного или основного счета</documentation>
 					        </annotation>
 				        </element>
+				        <element name="IsBankCardProcessing" type="dt:Boolean" minOccurs="0">
+					        <annotation>
+						        <documentation>Признак формирования банковской карточки клиента</documentation>
+					        </annotation>
+				        </element>
 						<element ref="tns:ClientReferenceData">
 							<annotation>
 								<documentation>Справочные данные клиента</documentation>
@@ -688,7 +693,15 @@
 		</annotation>
 		<complexType>
 			<complexContent>
-				<extension base="ct:DataProcessingResponse"/>
+				<extension base="ct:DataProcessingResponse">
+				   <sequence>
+						<element name="TaskId" type="dt:String" minOccurs="0">
+					        <annotation>
+						        <documentation>Номер задачи в ББМО</documentation>
+					        </annotation>
+				        </element>
+				   </sequence>
+				</extension>
 			</complexContent>
 		</complexType>
 	</element>

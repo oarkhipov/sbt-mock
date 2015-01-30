@@ -37,6 +37,7 @@ public class createMockOrDriverFromXSD {
         final String dir = System.getProperty("user.dir") + "\\src\\main\\webapp\\WEB-INF";
         Map<String, String> params = new HashMap<String, String>(1);
         params.put("rootElementName", "forceSignalRq");
+        params.put("xsdBase","CRM.xsd");
         mockTestCycle(dir, "CRM", "ForceSignal", "Request", params);
     }
     @Test
@@ -67,6 +68,7 @@ public class createMockOrDriverFromXSD {
         final String dir = System.getProperty("user.dir") + "\\src\\main\\webapp\\WEB-INF";
         Map<String, String> params = new HashMap<String, String>(1);
         params.put("rootElementName", "updateDealRq");
+        params.put("xsdBase","CRM.xsd");
         mockTestCycle(dir, "CRM", "UpdateDeal", "Request",params);
     }
     @Test
@@ -216,6 +218,16 @@ public class createMockOrDriverFromXSD {
         params.put("RqRootElementName", "updateRatingRq");
         mockTestCycle(dir, "FinRep", "UpdateRating", "Response", params);
     }
+    @Test
+    public void testXSLTtoDataCBBOLSrvPutRemoteLegalAccOperAppRq() throws Exception {
+        final String dir = System.getProperty("user.dir") + "\\src\\main\\webapp\\WEB-INF";
+        Map<String, String> params = new HashMap<String, String>(1);
+        params.put("rootElementName", "SrvPutRemoteLegalAccOperAppRq");
+        params.put("operationsXSD", "../../xsd/CBBOL/BBMOOperationElements.xsd");
+        params.put("systemName","CBBOL");
+        params.put("xsdBase","BBMOMessageElements.xsd");
+        mockTestCycle(dir, "CBBOL", "SrvPutRemoteLegalAccOperAppRq", "Request",params);
+    }
 
 
     protected void mockTestCycle(String webinf, String system, String name, String type) throws Exception {
@@ -226,6 +238,7 @@ public class createMockOrDriverFromXSD {
         final String dir = System.getProperty("user.dir");
         String rootXSD = system;
         if (system.equals("FinRep")) rootXSD = "ASFO";
+        if (type.equals("Response")) {
 
         Map<String, String> altParams4 = new HashMap<String, String>();
         altParams4.put("operationsXSD", "../../xsd/"+system+"/"+name+type+".xsd");
@@ -242,7 +255,6 @@ public class createMockOrDriverFromXSD {
         assert dataXsd.contains("<xsd:attribute name=\"name\"/>")
                 : "Data xsd не содержит строку c атрибутом имени";
 
-        if (type.equals("Response")) {
             System.out.println("xsl");
             String xsl = checkXSLT(webinf + "\\xsl\\util\\responceXSDtoXSL.xsl",
                     webinf + "\\xsd\\" + system + "\\" + name + type + ".xsd",
@@ -336,30 +348,29 @@ public class createMockOrDriverFromXSD {
                     dir + "\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq2.xml",
                     "\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs2.xml");
         } else if (type.equals("Request")) {
+            if (params==null) {
+                params = new HashMap<String, String>(1);
+            }
+            if (!params.containsKey("operationsXSD")) {
+                params.put("operationsXSD", "../../xsd/"+system+"/"+name+"Request.xsd");
+            }
+
+            System.out.println("xsd");
+            String dataXsd = generateDataXSD(webinf,
+                    "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+                    "\\src\\main\\webapp\\WEB-INF\\data\\"+system+"\\xsd\\"+name+type+"Data.xsd", params);
+
             System.out.println("xsl");
             String xsl = checkXSLT(webinf + "\\xsl\\util\\requestXSDtoXSL.xsl",
-                    webinf + "\\xsd\\" + system + "\\" + rootXSD + ".xsd",
-//                    "\\src\\main\\webapp\\WEB-INF\\xsl\\" + system + "\\" + name + ".xsl", altParams4);
-                    null, altParams4);
-
-//
-//            System.out.println("check data xml file");
-//            Map<String, String> dataParams = new HashMap<String, String>(2);
-//            dataParams.put("dataFileName","../../data/" +  system + "/xml/" + name + "Data.xml");
-//            dataParams.put("replace","true");
-//            dataParams.put("type","request");
-//            checkXSLT(webinf + "\\xsl\\util\\AddExampleToData.xsl",
-//                    dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml",
-//                    "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\"+system+"\\xml\\"+name+"Data.xml", dataParams);
+                    webinf + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+                    "\\src\\main\\webapp\\WEB-INF\\xsl\\" + system + "\\" + name + ".xsl", params);
+//                    null, params);
 
             System.out.println("example 1");
             checkXSLT(webinf + "\\xsl\\" + system + "\\" + name + ".xsl",
                     webinf + "\\data\\" + system + "\\xml\\" + name + "Data.xml",
                     "\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml", params);
 
-            if (params==null) {
-                params = new HashMap<String, String>(1);
-            }
             params.put("name","test1");
             System.out.println("example 2");
             checkXSLT(webinf + "\\xsl\\" + system + "\\" + name + ".xsl",

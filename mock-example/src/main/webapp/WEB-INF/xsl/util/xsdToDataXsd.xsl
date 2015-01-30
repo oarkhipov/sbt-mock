@@ -21,6 +21,9 @@
     <!-- TODO выбрать этот параметр автоматом -->
     <xsl:param name="systemName" select="'CRM'"/>
 
+    <!--Request/Response-->
+    <xsl:param name="msgType" select="if (contains($rootElementName,'Rq') or contains($operationXsdSchema/@targetNamespace,'Rq')) then 'request' else 'response'"/>
+
     <!--В этой переменной идет выбор заголовка между разными системами. Сейчас выбор захорлкожен-->
     <!--!!! этот выбор захардкожен !!!-->
     <xsl:param name="headerType" select="if (/xsd:schema//xsd:element[@ref='kd4:KD4SoapHeaderV2']) then 'KD4' else 'NCP'"/>
@@ -91,16 +94,7 @@
                 <xsl:element name="xsd:sequence">
                     <xsl:element name="xsd:element">
                         <xsl:attribute name="name">
-                            <xsl:choose>
-                                <!-- различаем запрос от ответа -->
-                                <!--TODO вполне может быть такое, что запрос отличается каким-нибудь другим суффиком, или не имеет его вовсе. Нужно сделать параметр, которые если задатиь напрямую говорит что это запрос, а не ответ -->
-                                <xsl:when test="contains($operationXsdSchema/@targetNamespace,'Rq')">
-                                    <xsl:text>request</xsl:text>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:text>response</xsl:text>
-                                </xsl:otherwise>
-                            </xsl:choose>
+                            <xsl:value-of select="$msgType"/>
                         </xsl:attribute>
                         <xsl:attribute name="type">
                             <xsl:value-of select="$newDataNodeTypeName"/>
