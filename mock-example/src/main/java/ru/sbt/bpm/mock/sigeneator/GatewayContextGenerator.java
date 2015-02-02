@@ -55,7 +55,7 @@ public class GatewayContextGenerator {
     public Map<String, Pair<String, String>> removeDuplicates() {
 
 
-        return new HashMap<>();
+        return new HashMap<String, Pair<String, String>>();
     }
 
     // Получение inbound & outbound gateway
