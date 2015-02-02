@@ -102,7 +102,7 @@ public class Xsl20TransformTest {
     @Test
     public void testXSDtoXSLCreateTask() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
-        System.out.println(dir);
+        SystemTag.out.println(dir);
         checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\responceXSDtoXSL.xsl",
                 dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsd\\CRM\\CreateTaskResponse.xsd",
                 "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\CreateTask.xsl");
@@ -117,7 +117,7 @@ public class Xsl20TransformTest {
         Map<String, String> params = new HashMap<String, String>(1);
         params.put("entryPointName","PrtspRs");
         params.put("dataFileName","GetParticipantsData.xml");
-        System.out.println(dir);
+        SystemTag.out.println(dir);
         checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\util\\responceXSDtoXSL.xsl",
                 dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsd\\CRM\\GetParticipantsResponse.xsd",
                 "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\GetParticipants.xsl", params);

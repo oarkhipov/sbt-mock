@@ -1,0 +1,10 @@
+<ns1:Message xmlns:ns1="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">
+    <ns1:RqUID>CRMTODO_UID</ns1:RqUID>
+    <ns1:RqTm>2014-02-20T08:23:55.457Z</ns1:RqTm>
+    <ns1:SPName>CRMTODO_SPNAME</ns1:SPName>
+    <ns1:SystemId>CRMTODO_SystemId</ns1:SystemId>
+    <ns1:OperationName>ExportContractInfo</ns1:OperationName>
+    <ParticipantInfo xmlns="http://sbrf.ru/prpc/kkmb/crm/GetParticipan/req/10">
+        <ContractID>OKITESTDEAL5456</ContractID>
+    </ParticipantInfo>
+</ns1:Message>
