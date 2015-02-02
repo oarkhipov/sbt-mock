@@ -74,7 +74,7 @@ public class SaveFile {
 
     /*public String getResourcesPath() {
         if (resourcesPath!=null) return resourcesPath;
-        resourcesPath = SystemTag.getProperty("user.dir") +slash+"src"+slash+"test"+slash+"resources";
+        resourcesPath = System.getProperty("user.dir") +slash+"src"+slash+"test"+slash+"resources";
         return resourcesPath;
     }*/
 

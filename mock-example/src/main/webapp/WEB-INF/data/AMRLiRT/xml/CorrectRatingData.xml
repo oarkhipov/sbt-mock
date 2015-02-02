@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/Data/">
+   <response name="default">
+      <return>
+         <errorCode>string</errorCode>
+         <errorMessage>string</errorMessage>
+         <listOfAddParameter>
+            <addParameter>
+               <order>10</order>
+               <name>string</name>
+               <value>string</value>
+            </addParameter>
+         </listOfAddParameter>
+      </return>
+   </response>
+   <response name="test1">
+      <return>
+         <errorCode>string</errorCode>
+      </return>
+   </response>
+</data>

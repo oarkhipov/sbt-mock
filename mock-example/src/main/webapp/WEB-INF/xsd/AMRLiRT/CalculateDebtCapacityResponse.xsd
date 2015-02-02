@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:amrct="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/" targetNamespace="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/" elementFormDefault="qualified">
+	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" schemaLocation="CommonTypes.xsd"/>	
+
+	<xsd:complexType name="AddParameter">
+		<xsd:sequence>
+			<xsd:element name="order" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="name">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="value">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfAddParameter">
+		<xsd:sequence>
+			<xsd:element name="addParameter" type="tns:AddParameter" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="DebtCapacityCalculationResponse">
+		<xsd:sequence>
+			<xsd:element name="errorCode">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="errorMessage" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="2000"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="crmId">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="15"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="rmk" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="debtCapacity" type="xsd:decimal"/>
+			<xsd:element name="rmkInDealCurrency" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="debtCapacityInDealCurrency" type="xsd:decimal"/>
+			<xsd:element name="rmkForNextYear" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="debtCapacityForNextYear" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="listOfAddParameter" type="tns:ListOfAddParameter"/>
+			<xsd:element name="amMessage" type="xsd:anyType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

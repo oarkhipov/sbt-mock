@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+targetNamespace="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/" 
+xmlns:tns="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/"
+elementFormDefault="qualified">
+
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="CommonTypes.xsd"/>
+	<xsd:complexType name="ForceSignalRq">
+		<xsd:sequence>
+			<xsd:element name="contractID" type="crmct:string15">
+				<xsd:annotation>
+					<xsd:documentation>
+						ID сделки в CRM
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="contractBPMID" type="crmct:string255" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						ID сделки в PRPC
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="status" type="crmct:string15" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						Статус
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="comment" type="crmct:string4500">
+				<xsd:annotation>
+					<xsd:documentation>
+						Примечание
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestType" type="crmct:string50">
+				<xsd:annotation>
+					<xsd:documentation>
+						Тип сообщения
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="responsiblePersonID" type="crmct:string255">
+				<xsd:annotation>
+					<xsd:documentation>
+						Идентификатор исполнителя
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

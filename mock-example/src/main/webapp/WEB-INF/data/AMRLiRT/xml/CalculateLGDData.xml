@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/Data/">
+   <response name="default">
+      <errorCode>string</errorCode>
+      <errorMessage>string</errorMessage>
+      <crmId>string</crmId>
+      <lgdType>string</lgdType>
+      <lgdDate>2015-02-02</lgdDate>
+      <pd>10</pd>
+      <lgd>10</lgd>
+      <ead>10</ead>
+      <sum>10</sum>
+      <elPercent>10</elPercent>
+      <el>10</el>
+      <totalValue>10</totalValue>
+      <totalColValueLgd>10</totalColValueLgd>
+      <totalColValueEad>10</totalColValueEad>
+      <listOfCollateral>
+         <collateral>
+            <crmId>string</crmId>
+            <collType>string</collType>
+            <returnRate>10</returnRate>
+            <discountRate>10</discountRate>
+            <collValueEad>10</collValueEad>
+            <collValueLgd>10</collValueLgd>
+         </collateral>
+      </listOfCollateral>
+   </response>
+   <response name="test1">
+      <errorCode>string</errorCode>
+      <crmId>string</crmId>
+      <lgdType>string</lgdType>
+      <lgdDate>2015-02-02</lgdDate>
+      <lgd>10</lgd>
+      <ead>10</ead>
+      <sum>10</sum>
+      <totalValue>10</totalValue>
+      <totalColValueLgd>10</totalColValueLgd>
+      <totalColValueEad>10</totalColValueEad>
+   </response>
+</data>

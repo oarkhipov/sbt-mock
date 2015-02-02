@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
+   <request name="default">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+         <operation-name>forceSignalRq</operation-name>
+      </SoapHeader>
+      <contractID>string</contractID>
+      <contractBPMID>string</contractBPMID>
+      <status>string</status>
+      <comment>string</comment>
+      <requestType>string</requestType>
+      <responsiblePersonID>string</responsiblePersonID>
+   </request>
+   <request name="test1">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+         <operation-name>forceSignalRq</operation-name>
+      </SoapHeader>
+      <contractID>string</contractID>
+      <comment>string</comment>
+      <requestType>string</requestType>
+      <responsiblePersonID>string</responsiblePersonID>
+   </request>
+</data>

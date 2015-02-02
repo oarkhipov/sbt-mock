@@ -1,0 +1,17 @@
+<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
+   <soap-env:Header xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
+      <soap-env:message-id>defaultId</soap-env:message-id>
+      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
+      <soap-env:operation-name>createTaskRs</soap-env:operation-name>
+   </soap-env:Header>
+   <soap:Body>
+      <CRM:createTaskRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+                        xmlns:tns="http://sbrf.ru/NCP/CRM/CreateTaskRq/1.02/">
+         <tns:contractID>string</tns:contractID>
+         <tns:contractBPMID>string</tns:contractBPMID>
+         <tns:comment>string</tns:comment>
+         <tns:requestType>string</tns:requestType>
+         <tns:responsiblePersonID>string</tns:responsiblePersonID>
+      </CRM:createTaskRq>
+   </soap:Body>
+</soap:Envelope>
