@@ -1,0 +1,35 @@
+<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
+   <soap:Header>
+      <soap:message-id>defaultId</soap:message-id>
+      <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
+      <soap:operation-name>getRatingsAndFactorsRs</soap:operation-name>
+   </soap:Header>
+   <soap:Body>
+      <FinRep:getRatingsAndFactorsRs xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
+                                     xmlns:tns="http://sbrf.ru/NCP/ASFO/GetRatingsAndFactorsRs/">
+         <tns:listOfRating><!--from 1 to unbounded elements --><tns:rating>
+               <tns:ratingId>string</tns:ratingId>
+               <tns:status>string</tns:status>
+               <tns:modelName>string</tns:modelName>
+               <tns:modelIntegrationId>string</tns:modelIntegrationId>
+               <tns:ratingName>string</tns:ratingName>
+               <tns:ratingType>string</tns:ratingType>
+               <tns:employeeForApprove>
+                  <tns:login>string</tns:login>
+                  <tns:lastName>string</tns:lastName>
+                  <tns:firstName>string</tns:firstName>
+                  <tns:division>string</tns:division>
+                  <tns:divisionCode>string</tns:divisionCode>
+                  <tns:role>string</tns:role>
+               </tns:employeeForApprove>
+               <tns:listOfRatingCalc><!--from 1 to unbounded elements --><tns:ratingCalc>
+                     <tns:ratingCalcId>string</tns:ratingCalcId>
+                     <tns:modelName>string</tns:modelName>
+                     <tns:modelIntegrationId>string</tns:modelIntegrationId>
+                  </tns:ratingCalc>
+               </tns:listOfRatingCalc>
+            </tns:rating>
+         </tns:listOfRating>
+      </FinRep:getRatingsAndFactorsRs>
+   </soap:Body>
+</soap:Envelope>
