@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:tns="http://sbrf.ru/prpc/bbmo/10"
                 xmlns:rsd="http://sbrf.ru/prpc/bbmo/10/Data/"
-                xmlns:CBBOL="http://schemas.xmlsoap.org/soap/envelope/"
+                xmlns:CBBOL="http://sbrf.ru/prpc/bbmo/10"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
    <xsl:import href="../util/headerTemplate.xsl"/>
    <!--опускаем строку 'xml version="1.0" encoding="UTF-8"'. С ней не работает MQ очередь-->
 <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
    <xsl:param name="name" select="all"/>
-   <xsl:param name="request-time" select="string('2014-12-16T17:55:06.410+04:00')"/>
-   <xsl:param name="kd4header" select="''"/>
-   <xsl:param name="message-id" select="''"/>
+   <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
+   <xsl:param name="id" select="null"/>
    <!--Optional params for optional header values-->
-<xsl:param name="correlation-id" select="''"/>
-   <xsl:param name="eis-name" select="''"/>
-   <xsl:param name="system-id" select="''"/>
-   <xsl:param name="operation-version" select="''"/>
-   <xsl:param name="user-id" select="''"/>
-   <xsl:param name="user-name" select="''"/>
-   <xsl:param name="proc-inst-tb" select="''"/>
+<xsl:param name="correlation-id" select="null"/>
+   <xsl:param name="eis-name" select="null"/>
+   <xsl:param name="system-id" select="null"/>
+   <xsl:param name="operation-version" select="null"/>
+   <xsl:param name="user-id" select="null"/>
+   <xsl:param name="user-name" select="null"/>
 
    <xsl:template match="/">
       <xsl:variable name="data" select="//rsd:data"/>
       <xsl:variable name="linkedTag" select="$name"/>
-      <xsl:element xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" name="soap:Envelope">
-         <xsl:call-template name="KD4Header">
+      <xsl:element xmlns:soap="http://sbrf.ru/NCP/esb/envelope/" name="soap:Envelope">
+         <xsl:call-template name="NCPHeader">
             <xsl:with-param name="response">
                <xsl:choose>
                   <xsl:when test="count(./rsd:request[@name=$linkedTag])=1">
@@ -33,8 +31,8 @@
                   <xsl:otherwise>default</xsl:otherwise>
                </xsl:choose>
             </xsl:with-param>
-            <xsl:with-param name="request-time" select="$request-time"/>
-            <xsl:with-param name="message-id" select="$message-id"/>
+            <xsl:with-param name="timestamp" select="$timestamp"/>
+            <xsl:with-param name="id" select="$id"/>
             <xsl:with-param name="operation-name" select="string('SrvPutRemoteLegalAccOperAppRq')"/>
             <xsl:with-param name="correlation-id" select="$correlation-id"/>
             <xsl:with-param name="eis-name" select="$eis-name"/>
@@ -42,8 +40,6 @@
             <xsl:with-param name="operation-version" select="$operation-version"/>
             <xsl:with-param name="user-id" select="$user-id"/>
             <xsl:with-param name="user-name" select="$user-name"/>
-            <xsl:with-param name="kd4header" select="$kd4header"/>
-            <xsl:with-param name="proc-inst-tb" select="$proc-inst-tb"/>
          </xsl:call-template>
          <soap:Body>
             <xsl:call-template name="SrvPutRemoteLegalAccOperAppRq">
@@ -245,7 +241,21 @@
          <xsl:apply-templates select="./rsd:ClientContact"/>
          <xsl:if test="./rsd:AuthorityBase">
             <tns:AuthorityBase>
-               <xsl:value-of select="./rsd:AuthorityBase"/>
+               <xsl:if test="./rsd:AuthorityBase/rsd:DocumentActAuthority">
+                  <tns:DocumentActAuthority>
+                     <xsl:value-of select="./rsd:AuthorityBase/rsd:DocumentActAuthority"/>
+                  </tns:DocumentActAuthority>
+               </xsl:if>
+               <xsl:if test="./rsd:AuthorityBase/rsd:DocumentSeriesNumber">
+                  <tns:DocumentSeriesNumber>
+                     <xsl:value-of select="./rsd:AuthorityBase/rsd:DocumentSeriesNumber"/>
+                  </tns:DocumentSeriesNumber>
+               </xsl:if>
+               <xsl:if test="./rsd:AuthorityBase/rsd:DocumentDate">
+                  <tns:DocumentDate>
+                     <xsl:value-of select="./rsd:AuthorityBase/rsd:DocumentDate"/>
+                  </tns:DocumentDate>
+               </xsl:if>
             </tns:AuthorityBase>
          </xsl:if>
          <xsl:if test="./rsd:DocumentActAuthority">
@@ -265,7 +275,41 @@
          </xsl:if>
          <xsl:if test="./rsd:OfficailInfo">
             <tns:OfficailInfo>
-               <xsl:value-of select="./rsd:OfficailInfo"/>
+               <xsl:if test="./rsd:OfficailInfo/rsd:BasedOnDocument">
+                  <tns:BasedOnDocument>
+                     <xsl:value-of select="./rsd:OfficailInfo/rsd:BasedOnDocument"/>
+                  </tns:BasedOnDocument>
+               </xsl:if>
+               <xsl:if test="./rsd:OfficailInfo/rsd:BasedOnDocumentSeries">
+                  <tns:BasedOnDocumentSeries>
+                     <xsl:value-of select="./rsd:OfficailInfo/rsd:BasedOnDocumentSeries"/>
+                  </tns:BasedOnDocumentSeries>
+               </xsl:if>
+               <xsl:if test="./rsd:OfficailInfo/rsd:BasedOnDocumentNumber">
+                  <tns:BasedOnDocumentNumber>
+                     <xsl:value-of select="./rsd:OfficailInfo/rsd:BasedOnDocumentNumber"/>
+                  </tns:BasedOnDocumentNumber>
+               </xsl:if>
+               <xsl:if test="./rsd:OfficailInfo/rsd:TrusteeSign">
+                  <tns:TrusteeSign>
+                     <xsl:value-of select="./rsd:OfficailInfo/rsd:TrusteeSign"/>
+                  </tns:TrusteeSign>
+               </xsl:if>
+               <xsl:if test="./rsd:OfficailInfo/rsd:OperationType">
+                  <tns:OperationType>
+                     <xsl:value-of select="./rsd:OfficailInfo/rsd:OperationType"/>
+                  </tns:OperationType>
+               </xsl:if>
+               <xsl:if test="./rsd:OfficailInfo/rsd:AccountNumber">
+                  <tns:AccountNumber>
+                     <xsl:value-of select="./rsd:OfficailInfo/rsd:AccountNumber"/>
+                  </tns:AccountNumber>
+               </xsl:if>
+               <xsl:if test="./rsd:OfficailInfo/rsd:Comment">
+                  <tns:Comment>
+                     <xsl:value-of select="./rsd:OfficailInfo/rsd:Comment"/>
+                  </tns:Comment>
+               </xsl:if>
             </tns:OfficailInfo>
          </xsl:if>
          <xsl:if test="./rsd:BasedOnDocument">
@@ -1119,10 +1163,10 @@
       </tns:DocumentLinks>
    </xsl:template>
 
-   <xsl:template name="SrvPutRemoteLegalAccOperAppRq">
+   <!--http://sbrf.ru/prpc/bbmo/10-http://sbrf.ru/prpc/bbmo/10--><xsl:template name="SrvPutRemoteLegalAccOperAppRq">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="CBBOL:SrvPutRemoteLegalAccOperAppRq">
+      <xsl:element name="tns:SrvPutRemoteLegalAccOperAppRq">
          <xsl:if test="$data/rsd:request[@name=$response]/rsd:RemoteClient">
             <tns:RemoteClient>
                <xsl:value-of select="$data/rsd:request[@name=$response]/rsd:RemoteClient"/>

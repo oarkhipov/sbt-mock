@@ -516,7 +516,7 @@
       </tns:deal>
    </xsl:template>
 
-   <xsl:template name="updateDealRq">
+   <!--http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/-http://sbrf.ru/NCP/CRM/--><xsl:template name="updateDealRq">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
       <xsl:element name="CRM:updateDealRq">

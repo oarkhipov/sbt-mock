@@ -57,7 +57,7 @@
       </xsl:element>
    </xsl:template>
 
-   <xsl:template name="forceSignalRq">
+   <!--http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/-http://sbrf.ru/NCP/CRM/--><xsl:template name="forceSignalRq">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
       <xsl:element name="CRM:forceSignalRq">

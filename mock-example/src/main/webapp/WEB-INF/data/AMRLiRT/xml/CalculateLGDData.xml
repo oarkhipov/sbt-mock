@@ -5,7 +5,7 @@
       <errorMessage>string</errorMessage>
       <crmId>string</crmId>
       <lgdType>string</lgdType>
-      <lgdDate>2015-01-30</lgdDate>
+      <lgdDate>2015-02-02</lgdDate>
       <pd>10</pd>
       <lgd>10</lgd>
       <ead>10</ead>
@@ -30,7 +30,7 @@
       <errorCode>string</errorCode>
       <crmId>string</crmId>
       <lgdType>string</lgdType>
-      <lgdDate>2015-01-30</lgdDate>
+      <lgdDate>2015-02-02</lgdDate>
       <lgd>10</lgd>
       <ead>10</ead>
       <sum>10</sum>

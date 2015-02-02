@@ -225,8 +225,8 @@ public class createMockOrDriverFromXSD {
         params.put("rootElementName", "SrvPutRemoteLegalAccOperAppRq");
         params.put("operationsXSD", "../../xsd/CBBOL/BBMOOperationElements.xsd");
         params.put("systemName","CBBOL");
-        params.put("xsdBase","BBMOMessageElements.xsd");
-        mockTestCycle(dir, "CBBOL", "SrvPutRemoteLegalAccOperAppRq", "Request",params);
+        params.put("xsdBase","BBMOOperationElements.xsd");
+        mockTestCycle(dir, "CBBOL", "SrvPutRemoteLegalAccOperAppRq", "Request", params);
     }
 
 
@@ -263,7 +263,7 @@ public class createMockOrDriverFromXSD {
             Map<String, String> altParams = null;
             Map<String, String> altParams2 = null;
             Map<String, String> altParams3 = null;
-            if (params!=null) {
+            if (params!=null){
                 altParams = new HashMap<String, String>(params);
                 altParams2 = new HashMap<String, String>(params);
                 altParams3 = new HashMap<String, String>();

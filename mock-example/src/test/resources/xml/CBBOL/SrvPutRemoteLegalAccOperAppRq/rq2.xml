@@ -1,12 +1,13 @@
-<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
-   <soap-env:Header xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
-      <soap-env:message-id>defaultId</soap-env:message-id>
-      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>SrvPutRemoteLegalAccOperAppRq</soap-env:operation-name>
-   </soap-env:Header>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Header>
+      <mq:AsyncHeader xmlns:mq="http://sbrf.ru/prpc/mq/headers">
+         <mq:message-id>message-id</mq:message-id>
+         <mq:request-time>2014-12-16T17:55:06.410+04:00</mq:request-time>
+         <mq:operation-name>SrvPutRemoteLegalAccOperAppRq</mq:operation-name>
+      </mq:AsyncHeader>
+   </soap:Header>
    <soap:Body>
-      <CBBOL:SrvPutRemoteLegalAccOperAppRq xmlns:CBBOL="http://schemas.xmlsoap.org/soap/envelope/"
-                                           xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
+      <tns:SrvPutRemoteLegalAccOperAppRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
          <tns:ClientReferenceData/>
          <tns:LegalPersonApplication>
             <tns:TaxId>string</tns:TaxId>
@@ -16,9 +17,9 @@
                <tns:OSB>string</tns:OSB>
                <tns:VSP>string</tns:VSP>
             </tns:BankSubdivision>
-            <tns:InitDate>2015-01-30</tns:InitDate>
+            <tns:InitDate>2015-02-02</tns:InitDate>
          </tns:LegalPersonApplication>
          <tns:DocumentsInfo/>
-      </CBBOL:SrvPutRemoteLegalAccOperAppRq>
+      </tns:SrvPutRemoteLegalAccOperAppRq>
    </soap:Body>
 </soap:Envelope>

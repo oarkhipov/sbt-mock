@@ -18,7 +18,7 @@
 
 
     <!-- параметры заголовка -->
-    <xsl:param name="kd4header" select="'kd4Header'"/>
+    <xsl:param name="kd4header" select="''"/>
     <xsl:param name="message-id" select="'message-id'"/>
     <xsl:param name="request-time" select="'2014-12-16T17:55:06.410+04:00'"/>
     <xsl:param name="correlation-id" select="''"/>

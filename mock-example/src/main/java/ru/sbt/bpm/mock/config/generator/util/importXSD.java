@@ -58,8 +58,8 @@ public class importXSD {
      * @throws Exception
      *
      */
-    private void createRqExample(String system, String name, Map<String, String> params) throws Exception{
-        String exampleRq1 = useXSLT(getWebInfPath() + "\\xsl\\util\\NCPSoapMSG.xsl", //TODO выбор другого KD4SoapMsg.xsl
+    private void createRqExample(String system, String name, String msgType, Map<String, String> params) throws Exception{
+        String exampleRq1 = useXSLT(getWebInfPath() + "\\xsl\\util\\"+msgType+"SoapMSG.xsl", //TODO выбор другого KD4SoapMsg.xsl
                 getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         validateXML(exampleRq1);
@@ -71,7 +71,7 @@ public class importXSD {
         if (params.containsKey("tagNameToTakeLinkedTag")) {
             params.put("useLinkedTagValue","true");
         }
-        String exampleRq2 = useXSLT(getWebInfPath() + "\\xsl\\util\\NCPSoapMSG.xsl",
+        String exampleRq2 = useXSLT(getWebInfPath() + "\\xsl\\util\\"+msgType+"SoapMSG.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         validateXML(exampleRq2);
@@ -278,7 +278,7 @@ public class importXSD {
      * @param name имя сервиса(имя файла)
      * @param params параметры xsl
      */
-    public void driverCycle(String system, String name, Map<String, String> params) {
+    public void driverCycle(String system, String name, String msgType, Map<String, String> params) {
         try
         {
             if (params==null) {
@@ -288,7 +288,7 @@ public class importXSD {
                 params.put("operationsXSD", "../../xsd/"+system+"/"+name+"Request.xsd");
             }
 
-            createRqExample(system, name, params);
+            createRqExample(system, name, msgType, params);
             createDataXSD(system, name, "Request", params);
             createDriverXSL(system, name, params);
             createRqDataXml(system, name, params);
@@ -320,12 +320,12 @@ public class importXSD {
         params.clear();
         params.put("rootElementName", "forceSignalRq");
         params.put("xsdBase","CRM.xsd");
-        driverCycle("CRM", "ForceSignal", params);
+        driverCycle("CRM", "ForceSignal", "NCP", params);
 
         params.clear();
         params.put("rootElementName", "updateDealRq");
         params.put("xsdBase","CRM.xsd");
-        driverCycle("CRM", "UpdateDeal", params);
+        driverCycle("CRM", "UpdateDeal", "NCP", params);
 
         params.clear();
         params.put("entryPointName", "CreateTaskRs");
@@ -476,8 +476,8 @@ public class importXSD {
         params.put("rootElementName", "SrvPutRemoteLegalAccOperAppRq");
         params.put("operationsXSD", "../../xsd/CBBOL/BBMOOperationElements.xsd");
         params.put("systemName","CBBOL");
-        params.put("xsdBase","BBMOMessageElements.xsd");
-        driverCycle("CBBOL", "SrvPutRemoteLegalAccOperAppRq", params);
+        params.put("xsdBase","BBMOOperationElements.xsd");
+        driverCycle("CBBOL", "SrvPutRemoteLegalAccOperAppRq", "KD4", params);
     }
 
     /**

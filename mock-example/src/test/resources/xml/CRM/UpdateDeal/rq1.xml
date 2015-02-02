@@ -1,21 +1,21 @@
 <soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
-   <soap-env:Header xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
-      <soap-env:message-id>defaultId</soap-env:message-id>
-      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>updateDealRq</soap-env:operation-name>
-   </soap-env:Header>
+   <soap:Header>
+      <soap:message-id>defaultId</soap:message-id>
+      <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
+      <soap:operation-name>updateDealRq</soap:operation-name>
+   </soap:Header>
    <soap:Body>
       <CRM:updateDealRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                         xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/">
          <tns:deal>
             <tns:dealID>string</tns:dealID>
             <!--optional--><tns:contractID>string</tns:contractID>
-            <tns:dealCreationDate>2015-01-30T12:00:00</tns:dealCreationDate>
+            <tns:dealCreationDate>2015-02-02T12:00:00</tns:dealCreationDate>
             <tns:dealEssense>string</tns:dealEssense>
             <tns:requestPurpose>string</tns:requestPurpose>
             <tns:dealType>string</tns:dealType>
             <tns:dealStatus>string</tns:dealStatus>
-            <tns:requestDate>2015-01-30</tns:requestDate>
+            <tns:requestDate>2015-02-02</tns:requestDate>
             <tns:origOrgUnit>string</tns:origOrgUnit>
             <tns:origOrgDivision>st</tns:origOrgDivision>
             <tns:clientFileID>string</tns:clientFileID>
@@ -56,7 +56,7 @@
                      <tns:interestRateOrder>string</tns:interestRateOrder>
                      <tns:minRate>1234567890</tns:minRate>
                   </tns:interestRateInfo>
-                  <!--optional--><tns:startDate>2015-01-30</tns:startDate>
+                  <!--optional--><tns:startDate>2015-02-02</tns:startDate>
                   <tns:creditTerm>99999</tns:creditTerm>
                   <tns:period>99999</tns:period>
                   <!--optional--><tns:gracePeriod>99999</tns:gracePeriod>
@@ -77,15 +77,15 @@
                      <!--optional--><tns:paymentOrder>string</tns:paymentOrder>
                   </tns:fee>
                   <!--from 0 to unbounded elements --><tns:repaymentScheduleDetails>
-                     <tns:sheduleDate>2015-01-30</tns:sheduleDate>
+                     <tns:sheduleDate>2015-02-02</tns:sheduleDate>
                      <tns:sheduleAmount>1234567890</tns:sheduleAmount>
                   </tns:repaymentScheduleDetails>
                   <!--from 0 to unbounded elements --><tns:selectionScheduleDetails>
-                     <tns:sheduleDate>2015-01-30</tns:sheduleDate>
+                     <tns:sheduleDate>2015-02-02</tns:sheduleDate>
                      <tns:sheduleAmount>1234567890</tns:sheduleAmount>
                   </tns:selectionScheduleDetails>
                   <!--from 0 to unbounded elements --><tns:changesScheduleDetails>
-                     <tns:sheduleDate>2015-01-30</tns:sheduleDate>
+                     <tns:sheduleDate>2015-02-02</tns:sheduleDate>
                      <tns:sheduleAmount>1234567890</tns:sheduleAmount>
                   </tns:changesScheduleDetails>
                </tns:productInfo>
@@ -100,7 +100,7 @@
                   <tns:estimatedValueCorrectedToEAD>1234567890</tns:estimatedValueCorrectedToEAD>
                   <tns:securityShare>999</tns:securityShare>
                   <tns:EstimatedValueSource>string</tns:EstimatedValueSource>
-                  <tns:estimationDate>2015-01-30</tns:estimationDate>
+                  <tns:estimationDate>2015-02-02</tns:estimationDate>
                   <tns:businessMeaning>string</tns:businessMeaning>
                   <tns:qualityAndLiquidityEstimation>string</tns:qualityAndLiquidityEstimation>
                   <tns:currency>string</tns:currency>
@@ -115,8 +115,8 @@
                   <!--optional--><tns:lossELcount>1234567890</tns:lossELcount>
                   <!--optional--><tns:typeLGD>string</tns:typeLGD>
                   <!--optional--><tns:statusLGD>string</tns:statusLGD>
-                  <!--optional--><tns:dateLGDcalculated>2015-01-30</tns:dateLGDcalculated>
-                  <!--optional--><tns:finalizationDate>2015-01-30</tns:finalizationDate>
+                  <!--optional--><tns:dateLGDcalculated>2015-02-02</tns:dateLGDcalculated>
+                  <!--optional--><tns:finalizationDate>2015-02-02</tns:finalizationDate>
                   <!--optional--><tns:comment>string</tns:comment>
                </tns:losses>
             </tns:products>
@@ -132,7 +132,7 @@
             <!--from 0 to unbounded elements --><tns:exchangeRates>
                <tns:currencyName>string</tns:currencyName>
                <tns:currencyValue>1234567890</tns:currencyValue>
-               <tns:currencyDate>2015-01-30</tns:currencyDate>
+               <tns:currencyDate>2015-02-02</tns:currencyDate>
             </tns:exchangeRates>
          </tns:deal>
       </CRM:updateDealRq>

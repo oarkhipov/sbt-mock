@@ -7,7 +7,7 @@
         <xsl:param name="response"/>
         <xsl:param name="request-time" select="'2014-12-16T17:55:06.410+04:00'"/>
         <xsl:param name="operation-name"/>
-        <xsl:param name="message-id" select="'message-id'"/>
+        <xsl:param name="message-id" select="''"/>
 
         <!-- Optional params for optional header values -->
         <xsl:param name="kd4header" select="''"/>
@@ -22,45 +22,45 @@
 
         <soap:Header>
             <xsl:if test="$kd4header!=''">
-                <kd4:KD4SoapHeaderV2><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:KD4SoapHeaderV2"/></kd4:KD4SoapHeaderV2>
+                <kd4:KD4SoapHeaderV2><xsl:value-of select="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='KD4SoapHeaderV2']"/></kd4:KD4SoapHeaderV2>
             </xsl:if>
             <mq:AsyncHeader>
-                <soap:message-id>
+                <mq:message-id>
                     <xsl:choose>
                         <xsl:when test="$message-id!=''"><xsl:value-of select="$message-id"/></xsl:when>
-                        <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:AsyncHeader/rsd:message-id"><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:AsyncHeader/rsd:message-id"/></xsl:when>
+                        <xsl:when test="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='message-id']"><xsl:value-of select="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='message-id']"/></xsl:when>
                         <xsl:otherwise><xsl:value-of select="$defaultId"/></xsl:otherwise>
                     </xsl:choose>
-                </soap:message-id>
-                <soap:request-time><xsl:value-of select="$request-time"/></soap:request-time>
+                </mq:message-id>
+                <mq:request-time><xsl:value-of select="$request-time"/></mq:request-time>
                 <xsl:choose>
-                    <xsl:when test="$correlation-id!=''"><soap:correlation-id><xsl:value-of select="$correlation-id"/></soap:correlation-id></xsl:when>
-                    <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:AsyncHeader/rsd:correlation-id"><soap:correlation-id><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:AsyncHeader/rsd:correlation-id"/></soap:correlation-id></xsl:when>
+                    <xsl:when test="$correlation-id!=''"><mq:correlation-id><xsl:value-of select="$correlation-id"/></mq:correlation-id></xsl:when>
+                    <xsl:when test="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='correlation-id']"><mq:correlation-id><xsl:value-of select="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='correlation-id']"/></mq:correlation-id></xsl:when>
                 </xsl:choose>
                 <xsl:choose>
-                    <xsl:when test="$eis-name!=''"><soap:eis-name><xsl:value-of select="$eis-name"/></soap:eis-name></xsl:when>
-                    <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:AsyncHeader/rsd:eis-name"><soap:eis-name><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:AsyncHeader/rsd:eis-name"/></soap:eis-name></xsl:when>
+                    <xsl:when test="$eis-name!=''"><mq:eis-name><xsl:value-of select="$eis-name"/></mq:eis-name></xsl:when>
+                    <xsl:when test="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='eis-name']"><mq:eis-name><xsl:value-of select="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='eis-name']"/></mq:eis-name></xsl:when>
                 </xsl:choose>
                 <xsl:choose>
-                    <xsl:when test="$system-id!=''"><soap:system-id><xsl:value-of select="$system-id"/></soap:system-id></xsl:when>
-                    <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:AsyncHeader/rsd:system-id"><soap:system-id><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:AsyncHeader/rsd:system-id"/></soap:system-id></xsl:when>
+                    <xsl:when test="$system-id!=''"><mq:system-id><xsl:value-of select="$system-id"/></mq:system-id></xsl:when>
+                    <xsl:when test="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='system-id']"><mq:system-id><xsl:value-of select="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='system-id']"/></mq:system-id></xsl:when>
                 </xsl:choose>
-                <soap:operation-name><xsl:value-of select="$operation-name"/></soap:operation-name>
+                <mq:operation-name><xsl:value-of select="$operation-name"/></mq:operation-name>
                 <xsl:choose>
-                    <xsl:when test="$operation-version!=''"><soap:operation-version><xsl:value-of select="$operation-version"/></soap:operation-version></xsl:when>
-                    <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:AsyncHeader/rsd:operation-version"><soap:operation-version><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:AsyncHeader/rsd:operation-version"/></soap:operation-version></xsl:when>
-                </xsl:choose>
-                <xsl:choose>
-                    <xsl:when test="$user-id!=''"><soap:user-id><xsl:value-of select="$user-id"/></soap:user-id></xsl:when>
-                    <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:AsyncHeader/rsd:user-id"><soap:user-id><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:AsyncHeader/rsd:user-id"/></soap:user-id></xsl:when>
+                    <xsl:when test="$operation-version!=''"><mq:operation-version><xsl:value-of select="$operation-version"/></mq:operation-version></xsl:when>
+                    <xsl:when test="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='operation-version']"><mq:operation-version><xsl:value-of select="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='operation-version']"/></mq:operation-version></xsl:when>
                 </xsl:choose>
                 <xsl:choose>
-                    <xsl:when test="$user-name!=''"><soap:user-name><xsl:value-of select="$user-name"/></soap:user-name></xsl:when>
-                    <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:AsyncHeader/rsd:user-id"><soap:user-name><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:AsyncHeader/rsd:user-id"/></soap:user-name></xsl:when>
+                    <xsl:when test="$user-id!=''"><mq:user-id><xsl:value-of select="$user-id"/></mq:user-id></xsl:when>
+                    <xsl:when test="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='user-id']"><mq:user-id><xsl:value-of select="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='user-id']"/></mq:user-id></xsl:when>
                 </xsl:choose>
                 <xsl:choose>
-                    <xsl:when test="$proc-inst-tb!=''"><soap:proc-inst-tb><xsl:value-of select="$proc-inst-tb"/></soap:proc-inst-tb></xsl:when>
-                    <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:AsyncHeader/rsd:proc-inst-tb"><soap:proc-inst-tb><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:AsyncHeader/rsd:proc-inst-tb"/></soap:proc-inst-tb></xsl:when>
+                    <xsl:when test="$user-name!=''"><mq:user-name><xsl:value-of select="$user-name"/></mq:user-name></xsl:when>
+                    <xsl:when test="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='user-id']"><mq:user-name><xsl:value-of select="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='user-id']"/></mq:user-name></xsl:when>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$proc-inst-tb!=''"><mq:proc-inst-tb><xsl:value-of select="$proc-inst-tb"/></mq:proc-inst-tb></xsl:when>
+                    <xsl:when test="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='proc-inst-tb']"><mq:proc-inst-tb><xsl:value-of select="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='proc-inst-tb']"/></mq:proc-inst-tb></xsl:when>
                 </xsl:choose>
             </mq:AsyncHeader>
         </soap:Header>
@@ -71,7 +71,7 @@
                   xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
                   xmlns:kd4="http://www.ibm.com/KD4Soa"
                   xmlns:mq="http://sbrf.ru/prpc/mq/headers">
-        <xsl:param name="kd4header" select="'kd4Header'"/>
+        <xsl:param name="kd4header" select="''"/>
         <xsl:param name="message-id" select="'message-id'"/>
         <xsl:param name="request-time" select="'2014-12-16T17:55:06.410+04:00'"/>
         <xsl:param name="correlation-id" select="''"/>
@@ -83,7 +83,9 @@
         <xsl:param name="user-name" select="''"/>
         <xsl:param name="proc-inst-tb" select="''"/>
         <xsl:element name="soap:Header">
-            <xsl:element name="kd4:KD4SoapHeaderV2"><xsl:value-of select="$kd4header"/></xsl:element>
+            <xsl:if test="$kd4header!=''">
+                <xsl:element name="kd4:KD4SoapHeaderV2"><xsl:value-of select="$kd4header"/></xsl:element>
+            </xsl:if>
             <xsl:element name="mq:AsyncHeader">
                 <xsl:element name="mq:message-id"><xsl:value-of select="$message-id"/></xsl:element>
                 <xsl:element name="mq:request-time"><xsl:value-of select="$request-time"/></xsl:element>

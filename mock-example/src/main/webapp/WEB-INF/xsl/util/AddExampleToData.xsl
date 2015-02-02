@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:mock="http://sbrf.ru/mockService"><!--TODO заменить mock на namespace конфига -->
 
     <xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>
@@ -31,17 +30,22 @@
                 <xsl:if test="$replace='false'">
                     <xsl:copy-of select="$data/*[(local-name()='request' or local-name()='response')][@name!=$name]"/>
                 </xsl:if>
-                <xsl:apply-templates select="//soap-env:Body" mode="add">
+                <xsl:apply-templates select="//*[local-name()='Body']" mode="add">
                     <xsl:with-param name="ns" select="$dataNS"/>
                 </xsl:apply-templates>
             </xsl:if>
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="soap-env:Body" mode="add">
+    <xsl:template match="*[local-name()='Body']" mode="add">
         <xsl:param name="ns"/>
         <xsl:element name="{$type}" namespace="{$ns}">
             <xsl:attribute name="name"><xsl:value-of select="$name"/></xsl:attribute>
+            <xsl:element name="SoapHeader" namespace="{$ns}">
+                <xsl:apply-templates select="//*[local-name()='Header']/*" mode="copyNopNS">
+                    <xsl:with-param name="ns" select="$ns"/>
+                </xsl:apply-templates>
+            </xsl:element>
             <xsl:apply-templates select="./*/*" mode="copyNopNS">
                 <xsl:with-param name="ns" select="$ns"/>
             </xsl:apply-templates>
