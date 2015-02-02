@@ -1,5 +1,8 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+
+    <xsl:template name="KD4SOAPNS">http://schemas.xmlsoap.org/soap/envelope//</xsl:template>
+
     <xsl:template name="KD4Header" xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/"
                   xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
                   xmlns:kd4="http://www.ibm.com/KD4Soa"
@@ -247,6 +250,7 @@
     <!--часть создания XSL - добавляет фрагмент кода, который будет делать необходимый заголовок-->
     <xsl:template name="KD4xslTeplateDeclaration"
                   xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+        <xsl:param name="type"/>
         <xsl:param name="operationName"/>
             <xsl:element name="xsl:element">
                 <xsl:namespace name="soap" select="'http://schemas.xmlsoap.org/soap/envelope/'"/>
@@ -257,7 +261,7 @@
                         <xsl:attribute name="name">response</xsl:attribute>
                         <xsl:element name="xsl:choose">
                             <xsl:element name="xsl:when">
-                                <xsl:attribute name="test">count(./rsd:request[@name=$linkedTag])=1</xsl:attribute>
+                                <xsl:attribute name="test">count(./rsd:<xsl:value-of select="$type"/>[@name=$linkedTag])=1</xsl:attribute>
                                 <xsl:element name="xsl:value-of">
                                     <xsl:attribute name="select">$linkedTag</xsl:attribute>
                                 </xsl:element>
@@ -318,10 +322,10 @@
                             <xsl:attribute name="select">$data</xsl:attribute>
                         </xsl:element>
                         <xsl:element name="xsl:with-param">
-                            <xsl:attribute name="name">response</xsl:attribute>
+                            <xsl:attribute name="name"><xsl:value-of select="$type"/></xsl:attribute>
                             <xsl:element name="xsl:choose">
                                 <xsl:element name="xsl:when">
-                                    <xsl:attribute name="test">count($data/rsd:request[@name=$linkedTag])=1</xsl:attribute>
+                                    <xsl:attribute name="test">count($data/rsd:<xsl:value-of select="$type"/>[@name=$linkedTag])=1</xsl:attribute>
                                     <xsl:element name="xsl:value-of">
                                         <xsl:attribute name="select">$linkedTag</xsl:attribute>
                                     </xsl:element>

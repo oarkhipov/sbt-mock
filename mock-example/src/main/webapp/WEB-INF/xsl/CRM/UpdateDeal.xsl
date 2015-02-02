@@ -44,7 +44,7 @@
          <soap:Body>
             <xsl:call-template name="updateDealRq">
                <xsl:with-param name="data" select="$data"/>
-               <xsl:with-param name="response">
+               <xsl:with-param name="request">
                   <xsl:choose>
                      <xsl:when test="count($data/rsd:request[@name=$linkedTag])=1">
                         <xsl:value-of select="$linkedTag"/>
@@ -516,11 +516,11 @@
       </tns:deal>
    </xsl:template>
 
-   <!--http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/-http://sbrf.ru/NCP/CRM/--><xsl:template name="updateDealRq">
-      <xsl:param name="response"/>
+   <xsl:template name="updateDealRq">
+      <xsl:param name="request"/>
       <xsl:param name="data"/>
       <xsl:element name="CRM:updateDealRq">
-         <xsl:apply-templates select="$data/rsd:request[@name=$response]/rsd:deal"/>
+         <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:deal"/>
       </xsl:element>
    </xsl:template>
 </xsl:stylesheet>

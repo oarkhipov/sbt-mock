@@ -30,6 +30,7 @@ public class createMockOrDriverFromXSD {
         params.put("tagNameToTakeLinkedTag","comment");
         params.put("rootElementName", "createTaskRs");
         params.put("RqRootElementName", "createTaskRq");
+        params.put("xsdBase","CRM.xsd");
         mockTestCycle(dir, "CRM", "CreateTask", "Response", params);
     }
     @Test
@@ -50,6 +51,7 @@ public class createMockOrDriverFromXSD {
         params.put("tagNameToTakeLinkedTag","performer");
         params.put("rootElementName", "prtspRs");
         params.put("RqRootElementName", "prtspRq");
+        params.put("xsdBase","CRM.xsd");
         mockTestCycle(dir, "CRM", "GetParticipants", "Response", params);
     }
     @Test
@@ -61,6 +63,7 @@ public class createMockOrDriverFromXSD {
         params.put("tagNameToTakeLinkedTag","dealType");
         params.put("rootElementName", "saveDealRs");
         params.put("RqRootElementName", "saveDealRq");
+        params.put("xsdBase","CRM.xsd");
         mockTestCycle(dir, "CRM", "SaveDeal", "Response", params);
     }
     @Test
@@ -80,6 +83,7 @@ public class createMockOrDriverFromXSD {
         params.put("tagNameToTakeLinkedTag","referenceItem");
         params.put("rootElementName", "updateRefRs");
         params.put("RqRootElementName", "updateRefRq");
+        params.put("xsdBase","CRM.xsd");
         mockTestCycle(dir, "CRM", "UpdateRef", "Response", params);
     }
     @Test
@@ -94,6 +98,7 @@ public class createMockOrDriverFromXSD {
         params.put("tagNameToTakeLinkedTag","model");
         params.put("rootElementName", "calculateDCRs");
         params.put("RqRootElementName", "calculateDCRq");
+        params.put("xsdBase","AMRLiRT.xsd");
         mockTestCycle(dir, "AMRLiRT", "CalculateDebtCapacity", "Response", params);
     }
     @Test
@@ -108,6 +113,7 @@ public class createMockOrDriverFromXSD {
         params.put("tagNameToTakeLinkedTag","model");
         params.put("rootElementName", "calculateRatingRs");
         params.put("RqRootElementName", "calculateRatingRq");
+        params.put("xsdBase","AMRLiRT.xsd");
         mockTestCycle(dir, "AMRLiRT", "CalculateRating", "Response", params);
     }
     @Test
@@ -122,6 +128,7 @@ public class createMockOrDriverFromXSD {
         params.put("tagNameToTakeLinkedTag","siebelMessage");
         params.put("rootElementName", "confirmRatingRs");
         params.put("RqRootElementName", "confirmRatingRq");
+        params.put("xsdBase","AMRLiRT.xsd");
         mockTestCycle(dir, "AMRLiRT", "ConfirmRating", "Response", params);
     }
     @Test
@@ -136,6 +143,7 @@ public class createMockOrDriverFromXSD {
         params.put("tagNameToTakeLinkedTag","siebelMessage");
         params.put("rootElementName", "correctRatingRs");
         params.put("RqRootElementName", "correctRatingRq");
+        params.put("xsdBase","AMRLiRT.xsd");
         mockTestCycle(dir, "AMRLiRT", "CorrectRating", "Response", params);
     }
     @Test
@@ -150,6 +158,7 @@ public class createMockOrDriverFromXSD {
         params.put("tagNameToTakeLinkedTag","type");
         params.put("rootElementName", "finalizeLGDRs");
         params.put("RqRootElementName", "finalizeLGDRq");
+        params.put("xsdBase","AMRLiRT.xsd");
         mockTestCycle(dir, "AMRLiRT", "FinalizeLGD", "Response", params);
     }
     @Test
@@ -164,6 +173,7 @@ public class createMockOrDriverFromXSD {
         params.put("tagNameToTakeLinkedTag","comment");
         params.put("rootElementName", "calculateLGDRs");
         params.put("RqRootElementName", "calculateLGDRq");
+        params.put("xsdBase","AMRLiRT.xsd");
         mockTestCycle(dir, "AMRLiRT", "CalculateLGD", "Response", params);
     }
     @Test
@@ -177,6 +187,7 @@ public class createMockOrDriverFromXSD {
         params.put("tagNameToTakeLinkedTag","dealId");
         params.put("rootElementName", "getFinAnalysisRs");
         params.put("RqRootElementName", "getFinAnalysisRq");
+        params.put("xsdBase","ASFO.xsd");
         mockTestCycle(dir, "FinRep", "FinAnalysisImport", "Response", params);
     }
     @Test
@@ -190,6 +201,7 @@ public class createMockOrDriverFromXSD {
         params.put("tagNameToTakeLinkedTag","finReportType");
         params.put("rootElementName", "getFinReportRs");
         params.put("RqRootElementName", "getFinReportRq");
+        params.put("xsdBase","ASFO.xsd");
         mockTestCycle(dir, "FinRep", "FinReportImport", "Response", params);
     }
     @Test
@@ -203,6 +215,7 @@ public class createMockOrDriverFromXSD {
         params.put("tagNameToTakeLinkedTag","entityType");
         params.put("rootElementName", "getRatingsAndFactorsRs");
         params.put("RqRootElementName", "getRatingsAndFactorsRq");
+        params.put("xsdBase","ASFO.xsd");
         mockTestCycle(dir, "FinRep", "ImportRating", "Response", params);
     }
     @Test
@@ -216,6 +229,7 @@ public class createMockOrDriverFromXSD {
         params.put("tagNameToTakeLinkedTag","status");
         params.put("rootElementName", "updateRatingRs");
         params.put("RqRootElementName", "updateRatingRq");
+        params.put("xsdBase","ASFO.xsd");
         mockTestCycle(dir, "FinRep", "UpdateRating", "Response", params);
     }
     @Test
@@ -236,107 +250,68 @@ public class createMockOrDriverFromXSD {
     protected void mockTestCycle(String webinf, String system, String name, String type, Map<String,String> params) throws Exception
     {
         final String dir = System.getProperty("user.dir");
-        String rootXSD = system;
-        if (system.equals("FinRep")) rootXSD = "ASFO";
+
         if (type.equals("Response")) {
 
-        Map<String, String> altParams4 = new HashMap<String, String>();
-        altParams4.put("operationsXSD", "../../xsd/"+system+"/"+name+type+".xsd");
-        altParams4.put("rootElementName", params.get("rootElementName"));
-        altParams4.put("systemName", params.get("systemName"));
+            if (params==null) {
+                params = new HashMap<String, String>(1);
+            }
+            if (!params.containsKey("operationsXSD")) {
+                params.put("operationsXSD", "../../xsd/"+system+"/"+name+"Response.xsd");
+            }
+            Map <String, String> altParams = new HashMap<String, String>(params);
+            altParams.put("rootElementName", params.get("RqRootElementName"));
+            altParams.put("operationsXSD", "../../xsd/"+system+"/"+name+"Request.xsd");
+            altParams.put("operation-name", params.get("rootElementName"));
 
-        System.out.println("xsd");
-        String dataXsd = generateDataXSD(webinf,
-                "\\xsd\\" + system + "\\" + rootXSD + ".xsd",
-                "\\src\\main\\webapp\\WEB-INF\\data\\"+system+"\\xsd\\"+name+type+"Data.xsd", altParams4);
+            System.out.println("xsd");
+            String dataXsd = generateDataXSD(webinf,
+                    "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+                    "\\src\\main\\webapp\\WEB-INF\\data\\"+system+"\\xsd\\"+name+type+"Data.xsd", params);
 
-        assert dataXsd.contains("<xsd:element name=\"SoapHeader\" type=\"Header\" minOccurs=\"0\"/>")
-                : "Data xsd не содержит строку с заголовком";
-        assert dataXsd.contains("<xsd:attribute name=\"name\"/>")
-                : "Data xsd не содержит строку c атрибутом имени";
+            assert dataXsd.contains("<xsd:element name=\"SoapHeader\" type=\"Header\" minOccurs=\"0\"/>")
+                    : "Data xsd не содержит строку с заголовком";
+            assert dataXsd.contains("<xsd:attribute name=\"name\"/>")
+                    : "Data xsd не содержит строку c атрибутом имени";
 
             System.out.println("xsl");
             String xsl = checkXSLT(webinf + "\\xsl\\util\\responceXSDtoXSL.xsl",
-                    webinf + "\\xsd\\" + system + "\\" + name + type + ".xsd",
-                    "\\src\\main\\webapp\\WEB-INF\\xsl\\" + system + "\\" + name + ".xsl", params);
-
-            Map<String, String> altParams = null;
-            Map<String, String> altParams2 = null;
-            Map<String, String> altParams3 = null;
-            if (params!=null){
-                altParams = new HashMap<String, String>(params);
-                altParams2 = new HashMap<String, String>(params);
-                altParams3 = new HashMap<String, String>();
-
-                if (params.containsKey("entryPointName")) {
-                    altParams.put("operation-name", params.get("entryPointName"));
-                }
-                if (params.containsKey("RqEntryPointName")) {
-                    altParams.put("entryPointName", params.get("RqEntryPointName"));
-                }
-//                if (params.containsKey("RqRootElementName")) {
-//                    altParams.put("rootElementName", params.get("RqRootElementName"));
-//                }
-            } else {
-                altParams = new HashMap<String, String>(1);
-                altParams2 = new HashMap<String, String>(1);
-                altParams3 = new HashMap<String, String>();
-            }
-            altParams.put("omitComments", "true");
-            altParams3.put("omitComments", "true");
-            altParams3.put("rootElementName", params.get("RqRootElementName"));
-            altParams3.put("operationsXSD", "../../xsd/"+system+"/"+name+"Request.xsd");
-            altParams3.put("systemName", params.get("systemName"));
-            altParams3.put("operation-name", params.get("rootElementName"));
-
-            altParams2.put("omitComments", "true");
-            altParams2.put("rootElementName", params.get("rootElementName"));
-            altParams2.put("operationsXSD", "../../xsd/"+system+"/"+name+"Response.xsd");
-            altParams2.put("systemName", params.get("systemName"));
-            altParams2.put("operation-name", params.get("rootElementName"));
+                    webinf + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+                    null, params);
 
             System.out.println("create rq example 1");
             String exampleRq1 = checkXSLT(webinf + "\\xsl\\util\\NCPSoapMSG.xsl",
-                    webinf + "\\xsd\\" + system + "\\" + rootXSD + ".xsd",
-                    "\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml", altParams3);
+                    webinf + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+                    "\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml", altParams);
 
             if (params.containsKey("tagNameToTakeLinkedTag")) {
-                altParams3.put("useLinkedTagValue","true");
-                altParams3.put("tagNameToTakeLinkedTag", params.get("tagNameToTakeLinkedTag"));
+                altParams.put("useLinkedTagValue","true");
+                altParams.put("tagNameToTakeLinkedTag", params.get("tagNameToTakeLinkedTag"));
             }
 
             System.out.println("create rq example 2");
-            altParams3.put("showOptionalTags", "false");
+            altParams.put("showOptionalTags", "false");
             String exampleRq2 = checkXSLT(webinf + "\\xsl\\util\\NCPSoapMSG.xsl",
-                    webinf + "\\xsd\\" + system + "\\" + rootXSD + ".xsd",
-                    "\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq2.xml", altParams3);
+                    webinf + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+                    "\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq2.xml", altParams);
 
             assert !exampleRq1.contains("<!--not known type-->")
                     : "В примере xml заполены известны не все типы";
 
             System.out.println("create rs example 1");
             String exampleRs1 = checkXSLT(webinf + "\\xsl\\util\\NCPSoapMSG.xsl",
-                    webinf + "\\xsd\\" + system + "\\" + rootXSD + ".xsd",
-                    "\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs1.xml", altParams2);
+                    webinf + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+                    "\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs1.xml", params);
 
 
             System.out.println("create rs example 2");
-            altParams2.put("showOptionalTags","false");
+            params.put("showOptionalTags","false");
             String exampleRs2 = checkXSLT(webinf + "\\xsl\\util\\NCPSoapMSG.xsl",
-                    webinf + "\\xsd\\" + system + "\\" + rootXSD + ".xsd",
-                    "\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs2.xml", altParams2);
+                    webinf + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+                    "\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs2.xml", params);
 
             assert !exampleRs1.contains("<!--not known type-->")
                     : "В примере xml заполены известны не все типы";
-
-
-//            System.out.println("check data xml file");
-//            Map<String, String> dataParams = new HashMap<String, String>(2);
-//            dataParams.put("dataFileName","../../data/" +  system + "/xml/" + name + "Data.xml");
-//            dataParams.put("replace","true");
-//            checkXSLT(webinf + "\\xsl\\util\\AddExampleToData.xsl",
-//                    dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rs1.xml",
-//                    "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\"+system+"\\xml\\"+name+"Data.xml", dataParams);
 
             System.out.println("check example 1");
             checkXSLT(webinf + "\\xsl\\" + system + "\\" + name + ".xsl",

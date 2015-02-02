@@ -84,7 +84,7 @@
     </xsl:template>
 
     <xsl:template name="operationBody">
-        <!--<xsl:comment>test <xsl:value-of select="$operationXsdSchema/*/@name"/>-<xsl:value-of select="$rootTypeName"/></xsl:comment>-->
+        <xsl:comment>test <xsl:value-of select="$operationXsdSchema/*/@name"/>-<xsl:value-of select="$rootTypeName"/></xsl:comment>
         <xsl:apply-templates select="$operationXsdSchema/xsd:element[@name=$rootElementName] | $operationXsdSchema/xsd:complexType[@name=$rootTypeName]" mode="rootBodyElement">
             <xsl:with-param name="parrentNS" select="/xsd:schema/@targetNamespace"/>
         </xsl:apply-templates>

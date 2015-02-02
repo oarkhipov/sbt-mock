@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data xmlns="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/Data/">
    <response name="default">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+         <operation-name>finalizeLGDRs</operation-name>
+      </SoapHeader>
       <errorCode>string</errorCode>
       <errorMessage>string</errorMessage>
       <crmId>string</crmId>
       <type>string</type>
    </response>
    <response name="test1">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+         <operation-name>finalizeLGDRs</operation-name>
+      </SoapHeader>
       <errorCode>string</errorCode>
       <crmId>string</crmId>
       <type>string</type>

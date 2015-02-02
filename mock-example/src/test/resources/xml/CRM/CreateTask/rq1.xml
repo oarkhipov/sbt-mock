@@ -4,5 +4,13 @@
       <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
       <soap:operation-name>createTaskRs</soap:operation-name>
    </soap:Header>
-   <soap:Body/>
+   <soap:Body><!--test CreateTaskRq-CreateTaskRq--><CRM:createTaskRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+                        xmlns:tns="http://sbrf.ru/NCP/CRM/CreateTaskRq/1.02/">
+         <tns:contractID>string</tns:contractID>
+         <tns:contractBPMID>string</tns:contractBPMID>
+         <tns:comment>string</tns:comment>
+         <tns:requestType>string</tns:requestType>
+         <tns:responsiblePersonID>string</tns:responsiblePersonID>
+      </CRM:createTaskRq>
+   </soap:Body>
 </soap:Envelope>

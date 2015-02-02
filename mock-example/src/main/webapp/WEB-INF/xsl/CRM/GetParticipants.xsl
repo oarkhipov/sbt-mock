@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/"
-                xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/"
+<xsl:stylesheet xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/"
                 xmlns:rsd="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/Data/"
                 xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
-   <xsl:import href="../util/NCPSoapRqHeaderXSLTTemplate.xsl"/>
+   <xsl:import href="../util/headerTemplate.xsl"/>
    <!--опускаем строку 'xml version="1.0" encoding="UTF-8"'. С ней не работает MQ очередь-->
 <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
    <xsl:param name="name"
@@ -27,34 +26,27 @@
       <xsl:variable name="data" select="document($dataFileName)/rsd:data"/>
       <xsl:variable name="linkedTag" select="$name"/>
       <xsl:element name="soap:Envelope">
-         <xsl:choose>
-            <xsl:when test="soap:Header">
-               <xsl:copy-of select="soap:Header"/>
-            </xsl:when>
-            <xsl:otherwise>
-               <xsl:call-template name="NCPHeader">
-                  <xsl:with-param name="response">
-                     <xsl:choose>
-                        <xsl:when test="count(./rsd:response[@name=$linkedTag])=1">
-                           <xsl:value-of select="$linkedTag"/>
-                        </xsl:when>
-                        <xsl:otherwise>default</xsl:otherwise>
-                     </xsl:choose>
-                  </xsl:with-param>
-                  <xsl:with-param name="timestamp" select="$timestamp"/>
-                  <xsl:with-param name="id" select="$id"/>
-                  <xsl:with-param name="operation-name" select="string('prtspRs')"/>
-                  <xsl:with-param name="correlation-id" select="$correlation-id"/>
-                  <xsl:with-param name="eis-name" select="$eis-name"/>
-                  <xsl:with-param name="system-id" select="$system-id"/>
-                  <xsl:with-param name="operation-version" select="$operation-version"/>
-                  <xsl:with-param name="user-id" select="$user-id"/>
-                  <xsl:with-param name="user-name" select="$user-name"/>
-               </xsl:call-template>
-            </xsl:otherwise>
-         </xsl:choose>
+         <xsl:call-template name="NCPHeader">
+            <xsl:with-param name="response">
+               <xsl:choose>
+                  <xsl:when test="count(./rsd:response[@name=$linkedTag])=1">
+                     <xsl:value-of select="$linkedTag"/>
+                  </xsl:when>
+                  <xsl:otherwise>default</xsl:otherwise>
+               </xsl:choose>
+            </xsl:with-param>
+            <xsl:with-param name="timestamp" select="$timestamp"/>
+            <xsl:with-param name="id" select="$id"/>
+            <xsl:with-param name="operation-name" select="string('prtspRs')"/>
+            <xsl:with-param name="correlation-id" select="$correlation-id"/>
+            <xsl:with-param name="eis-name" select="$eis-name"/>
+            <xsl:with-param name="system-id" select="$system-id"/>
+            <xsl:with-param name="operation-version" select="$operation-version"/>
+            <xsl:with-param name="user-id" select="$user-id"/>
+            <xsl:with-param name="user-name" select="$user-name"/>
+         </xsl:call-template>
          <soap:Body>
-            <xsl:call-template name="PrtspRs">
+            <xsl:call-template name="prtspRs">
                <xsl:with-param name="data" select="$data"/>
                <xsl:with-param name="response">
                   <xsl:choose>
@@ -80,77 +72,6 @@
             </tns:errorMessage>
          </xsl:if>
       </tns:operationStatus>
-   </xsl:template>
-
-   <xsl:template match="rsd:identities">
-      <tns:identities>
-         <tns:identityTypeCode>
-            <xsl:value-of select="./rsd:identityTypeCode"/>
-         </tns:identityTypeCode>
-         <tns:identityType>
-            <xsl:value-of select="./rsd:identityType"/>
-         </tns:identityType>
-         <tns:identitySeries>
-            <xsl:value-of select="./rsd:identitySeries"/>
-         </tns:identitySeries>
-         <tns:identityNumber>
-            <xsl:value-of select="./rsd:identityNumber"/>
-         </tns:identityNumber>
-         <tns:identityIssueDate>
-            <xsl:value-of select="./rsd:identityIssueDate"/>
-         </tns:identityIssueDate>
-         <tns:identityIssuer>
-            <xsl:value-of select="./rsd:identityIssuer"/>
-         </tns:identityIssuer>
-         <tns:identityIssuerCode>
-            <xsl:value-of select="./rsd:identityIssuerCode"/>
-         </tns:identityIssuerCode>
-         <xsl:if test="./rsd:identityIsPrimary">
-            <tns:identityIsPrimary>
-               <xsl:value-of select="./rsd:identityIsPrimary"/>
-            </tns:identityIsPrimary>
-         </xsl:if>
-      </tns:identities>
-   </xsl:template>
-
-   <xsl:template match="rsd:topManager">
-      <tns:topManager>
-         <xsl:if test="./rsd:managerID">
-            <tns:managerID>
-               <xsl:value-of select="./rsd:managerID"/>
-            </tns:managerID>
-         </xsl:if>
-         <xsl:if test="./rsd:fullName">
-            <tns:fullName>
-               <xsl:value-of select="./rsd:fullName"/>
-            </tns:fullName>
-         </xsl:if>
-         <xsl:if test="./rsd:position">
-            <tns:position>
-               <xsl:value-of select="./rsd:position"/>
-            </tns:position>
-         </xsl:if>
-         <xsl:if test="./rsd:age">
-            <tns:age>
-               <xsl:value-of select="./rsd:age"/>
-            </tns:age>
-         </xsl:if>
-         <xsl:if test="./rsd:experienceInPosition">
-            <tns:experienceInPosition>
-               <xsl:value-of select="./rsd:experienceInPosition"/>
-            </tns:experienceInPosition>
-         </xsl:if>
-         <xsl:if test="./rsd:experienceInSimilarPosition">
-            <tns:experienceInSimilarPosition>
-               <xsl:value-of select="./rsd:experienceInSimilarPosition"/>
-            </tns:experienceInSimilarPosition>
-         </xsl:if>
-         <xsl:if test="./rsd:education">
-            <tns:education>
-               <xsl:value-of select="./rsd:education"/>
-            </tns:education>
-         </xsl:if>
-      </tns:topManager>
    </xsl:template>
 
    <xsl:template match="rsd:ratings">
@@ -457,7 +378,7 @@
       </tns:beneficiar>
    </xsl:template>
 
-   <xsl:template name="PrtspRs">
+   <xsl:template name="prtspRs">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
       <xsl:element name="CRM:prtspRs">

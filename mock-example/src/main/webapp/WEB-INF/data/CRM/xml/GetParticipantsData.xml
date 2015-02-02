@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data xmlns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/Data/">
    <response name="default">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+         <operation-name>prtspRs</operation-name>
+      </SoapHeader>
       <id>string</id>
       <requestType>string</requestType>
       <participantsGroup>
@@ -70,6 +75,11 @@
       </operationStatus>
    </response>
    <response name="test1">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+         <operation-name>prtspRs</operation-name>
+      </SoapHeader>
       <id>string</id>
       <requestType>string</requestType>
       <participantsGroup>
