@@ -1,32 +1,8 @@
 <soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
-   <soap-env:Header xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
-      <soap-env:message-id>defaultId</soap-env:message-id>
-      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>saveDealRs</soap-env:operation-name>
-   </soap-env:Header>
-   <soap:Body>
-      <CRM:saveDealRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
-                      xmlns:tns="http://sbrf.ru/NCP/CRM/SaveDealRq/1.07/">
-         <tns:deal>
-            <tns:dealID>string</tns:dealID>
-            <tns:dealCreationDate>2015-02-02T12:00:00</tns:dealCreationDate>
-            <tns:dealEssense>string</tns:dealEssense>
-            <tns:requestPurpose>string</tns:requestPurpose>
-            <tns:dealType>test1</tns:dealType>
-            <tns:dealStatus>string</tns:dealStatus>
-            <tns:requestDate>2015-02-02</tns:requestDate>
-            <tns:origOrgUnit>string</tns:origOrgUnit>
-            <tns:origOrgDivision>st</tns:origOrgDivision>
-            <tns:clientFileID>string</tns:clientFileID>
-            <tns:dealFileID>string</tns:dealFileID>
-            <tns:supLMID>string</tns:supLMID>
-            <!--from 1 to unbounded elements --><tns:dealTeamMembers>
-               <tns:memberId>string</tns:memberId>
-               <tns:memberName>string</tns:memberName>
-               <tns:mamberEmail>string</tns:mamberEmail>
-               <tns:mamberRole>string</tns:mamberRole>
-            </tns:dealTeamMembers>
-         </tns:deal>
-      </CRM:saveDealRq>
-   </soap:Body>
+   <soap:Header>
+      <soap:message-id>defaultId</soap:message-id>
+      <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
+      <soap:operation-name>saveDealRs</soap:operation-name>
+   </soap:Header>
+   <soap:Body/>
 </soap:Envelope>
