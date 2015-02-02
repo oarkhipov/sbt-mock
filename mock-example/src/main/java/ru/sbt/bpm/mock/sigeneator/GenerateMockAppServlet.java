@@ -2,7 +2,6 @@ package ru.sbt.bpm.mock.sigeneator;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import com.thoughtworks.xstream.io.xml.XppDriver;
 import ru.sbt.bpm.mock.sigeneator.inentities.*;
 
 import java.io.FileReader;

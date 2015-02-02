@@ -1,7 +1,6 @@
 package ru.sbt.bpm.mock.sigeneator.inentities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import ru.sbt.bpm.mock.sigeneator.Pair;
 
 import java.util.List;

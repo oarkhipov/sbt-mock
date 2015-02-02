@@ -31,6 +31,7 @@ public class Pair<A, B> implements Serializable {
             return false;
 
         Pair<?, ?> that = (Pair<?, ?>) obj;
+        // Решение build для Java 1.7
         return Objects.equals(this.aFirst, that.aFirst) && Objects.equals(this.aSecond, that.aSecond);
     }
 
