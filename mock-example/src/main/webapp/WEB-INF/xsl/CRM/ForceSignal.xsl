@@ -44,7 +44,7 @@
          <soap:Body>
             <xsl:call-template name="forceSignalRq">
                <xsl:with-param name="data" select="$data"/>
-               <xsl:with-param name="response">
+               <xsl:with-param name="request">
                   <xsl:choose>
                      <xsl:when test="count($data/rsd:request[@name=$linkedTag])=1">
                         <xsl:value-of select="$linkedTag"/>
@@ -57,31 +57,31 @@
       </xsl:element>
    </xsl:template>
 
-   <!--http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/-http://sbrf.ru/NCP/CRM/--><xsl:template name="forceSignalRq">
-      <xsl:param name="response"/>
+   <xsl:template name="forceSignalRq">
+      <xsl:param name="request"/>
       <xsl:param name="data"/>
       <xsl:element name="CRM:forceSignalRq">
          <tns:contractID>
-            <xsl:value-of select="$data/rsd:request[@name=$response]/rsd:contractID"/>
+            <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:contractID"/>
          </tns:contractID>
-         <xsl:if test="$data/rsd:request[@name=$response]/rsd:contractBPMID">
+         <xsl:if test="$data/rsd:request[@name=$request]/rsd:contractBPMID">
             <tns:contractBPMID>
-               <xsl:value-of select="$data/rsd:request[@name=$response]/rsd:contractBPMID"/>
+               <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:contractBPMID"/>
             </tns:contractBPMID>
          </xsl:if>
-         <xsl:if test="$data/rsd:request[@name=$response]/rsd:status">
+         <xsl:if test="$data/rsd:request[@name=$request]/rsd:status">
             <tns:status>
-               <xsl:value-of select="$data/rsd:request[@name=$response]/rsd:status"/>
+               <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:status"/>
             </tns:status>
          </xsl:if>
          <tns:comment>
-            <xsl:value-of select="$data/rsd:request[@name=$response]/rsd:comment"/>
+            <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:comment"/>
          </tns:comment>
          <tns:requestType>
-            <xsl:value-of select="$data/rsd:request[@name=$response]/rsd:requestType"/>
+            <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:requestType"/>
          </tns:requestType>
          <tns:responsiblePersonID>
-            <xsl:value-of select="$data/rsd:request[@name=$response]/rsd:responsiblePersonID"/>
+            <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:responsiblePersonID"/>
          </tns:responsiblePersonID>
       </xsl:element>
    </xsl:template>

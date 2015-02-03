@@ -4,8 +4,7 @@
       <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
       <soap:operation-name>updateRefRs</soap:operation-name>
    </soap:Header>
-   <soap:Body>
-      <CRM:updateRefRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+   <soap:Body><!--test ListOfValue ReferenceItem UpdateRefRs-UpdateRefRs--><CRM:updateRefRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                        xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/"><!--from 0 to unbounded elements --><tns:referenceItem>
             <tns:referenceid>string</tns:referenceid>
             <!--from 0 to unbounded elements --><tns:listOfValue>

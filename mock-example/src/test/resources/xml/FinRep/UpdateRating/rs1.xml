@@ -4,8 +4,7 @@
       <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
       <soap:operation-name>updateRatingRs</soap:operation-name>
    </soap:Header>
-   <soap:Body>
-      <FinRep:updateRatingRs xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
+   <soap:Body><!--test UpdateRatingResponse-UpdateRatingResponse--><FinRep:updateRatingRs xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
                              xmlns:tns="http://sbrf.ru/NCP/ASFO/UpdateRatingRs/">
          <tns:errorCode>string</tns:errorCode>
          <!--optional--><tns:errorMessage>string</tns:errorMessage>

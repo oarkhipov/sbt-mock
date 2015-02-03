@@ -10,7 +10,11 @@
                select="'default'"/>
     <xsl:param name="dataFile" select="."/>
     <xsl:param name="dataFileName"
-               select="'../../data/AMRLiRT/xml/CalculateLGDData.xml'"/>
+               select="''"/>
+    <xsl:param name="system"
+               select="'CRM'"/>
+    <xsl:param name="dataFilePath"
+               select="concat('../../data/',$system,'/xml/',$dataFileName)"/>
     <xsl:param name="createEmptyData"
                select="'false'"/>
     <xsl:param name="replace"
@@ -23,8 +27,8 @@
     <!--Prepare data and section of data XML-->
     <xsl:template match="/">
         <xsl:variable name="fileparh" select="string(concat('../data/',$dataFile))"/>
-        <xsl:variable name="data" select="document($dataFileName)/*[local-name()='data']"/>
-        <xsl:variable name="dataNS" select="$dataNsUrl"/>
+        <xsl:variable name="data" select="document($dataFilePath)/*[local-name()='data']"/>
+        <xsl:variable name="dataNS" select="if ($replace='false') then $data/namespace-uri() else $dataNsUrl"/>
         <xsl:element name="data" namespace="{$dataNS}">
             <xsl:if test="$createEmptyData='false'">
                 <xsl:if test="$replace='false'">

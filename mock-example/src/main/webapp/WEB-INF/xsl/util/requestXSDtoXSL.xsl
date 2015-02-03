@@ -51,6 +51,7 @@
 
     <xsl:variable name="typesList" select="$operationXsdSchema/*[local-name()=$xsdTagsToImport] | $includeFilesDocs/*[local-name()=$xsdTagsToImport] | $importFilesDocs/*[local-name()=$xsdTagsToImport]"/>
 
+    <!--TODO пренести функции в xsltFunctions.xsl-->
     <xsl:function name="mock:typesToImport">
         <xsl:param name="baseElement"/>
         <xsl:variable name="importOnThislevel" select="mock:typesNeedingImport($baseElement)"/>
@@ -71,7 +72,6 @@
         <xsl:variable name="importOnThislevel" select="$baseElement//@*[name()=$atributesWithTypes]/mock:removeNamespaceAlias(.,$localTargetNSAlias)[not(contains(.,':'))]"/>
         <xsl:for-each select="$importOnThislevel"><xsl:value-of select="."/></xsl:for-each>
     </xsl:function>
-
 
     <xsl:template match="xsd:schema">
         <xsl:element name="xsl:stylesheet">
@@ -146,6 +146,7 @@
             <xsl:call-template name="xslTeplateDeclaration">
                 <xsl:with-param name="headerType" select="$headerType"/>
                 <xsl:with-param name="operationName" select="$rootElementName"/>
+                <xsl:with-param name="type" select="'request'"/>
             </xsl:call-template>
         </xsl:element>
     </xsl:template>
@@ -186,11 +187,11 @@
 
     <xsl:template match="*[local-name()=$xsdTagsToImport]" mode="base">
         <xsl:variable name="mainElementNSAlias" select="if ($targetNS=$parrentNS) then 'tns' else $systemName"/>
-        <xsl:comment><xsl:value-of select="concat($targetNS,'-',$parrentNS)"/></xsl:comment>
+        <!--<xsl:comment><xsl:value-of select="concat($targetNS,'-',$parrentNS)"/></xsl:comment>-->
         <xsl:element name="xsl:template">
             <xsl:attribute name="name"><xsl:value-of select="$rootElementName"/></xsl:attribute>
             <xsl:element name="xsl:param">
-                <xsl:attribute name="name">response</xsl:attribute>
+                <xsl:attribute name="name">request</xsl:attribute>
             </xsl:element>
             <xsl:element name="xsl:param">
                 <xsl:attribute name="name">data</xsl:attribute>
@@ -198,7 +199,7 @@
                 <xsl:element name="xsl:element">
                     <xsl:attribute name="name"><xsl:value-of select="$mainElementNSAlias"/>:<xsl:value-of select="$rootElementName"/></xsl:attribute>
                     <xsl:apply-templates select=".//xsd:element" mode="Inside">
-                        <xsl:with-param name="dataPath" select="'$data/rsd:request[@name=$response]/rsd:'"/>
+                        <xsl:with-param name="dataPath" select="'$data/rsd:request[@name=$request]/rsd:'"/>
                     </xsl:apply-templates>
                 </xsl:element>
         </xsl:element>

@@ -4,5 +4,11 @@
       <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
       <soap:operation-name>getRatingsAndFactorsRs</soap:operation-name>
    </soap:Header>
-   <soap:Body/>
+   <soap:Body><!--test ImportRatingRequest-ImportRatingRequest--><FinRep:getRatingsAndFactorsRq xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
+                                     xmlns:tns="http://sbrf.ru/NCP/ASFO/GetRatingsAndFactorsRq/">
+         <tns:dealId>string</tns:dealId>
+         <tns:entityType>string</tns:entityType>
+         <tns:entityId>string</tns:entityId>
+      </FinRep:getRatingsAndFactorsRq>
+   </soap:Body>
 </soap:Envelope>

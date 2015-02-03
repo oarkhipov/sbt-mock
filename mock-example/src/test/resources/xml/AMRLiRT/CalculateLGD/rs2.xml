@@ -4,8 +4,7 @@
       <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
       <soap:operation-name>calculateLGDRs</soap:operation-name>
    </soap:Header>
-   <soap:Body>
-      <AMRLiRT:calculateLGDRs xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
+   <soap:Body><!--test CollateralLGDResponse ListOfCollateral LgdCalculationResponse-LgdCalculationResponse--><AMRLiRT:calculateLGDRs xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
                               xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/">
          <tns:errorCode>string</tns:errorCode>
          <tns:crmId>string</tns:crmId>

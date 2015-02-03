@@ -4,8 +4,7 @@
       <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
       <soap:operation-name>prtspRs</soap:operation-name>
    </soap:Header>
-   <soap:Body>
-      <CRM:prtspRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+   <soap:Body><!--test OperationStatus Identity TopManager Rating ParticipantsGroup GroupInfo Address Ownership Participant NaturalPerson LegalPerson PrtspRs-PrtspRs--><CRM:prtspRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                    xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/">
          <tns:id>string</tns:id>
          <tns:requestType>string</tns:requestType>
