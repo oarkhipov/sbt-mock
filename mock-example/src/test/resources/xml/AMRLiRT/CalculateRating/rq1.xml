@@ -39,10 +39,10 @@
                   <!--optional--><tns:valueIntegrationId>string</tns:valueIntegrationId>
                </tns:fixedFactor>
             </tns:listOfFixedFactor>
-            <tns:listOfRatingPeriod><!--from 1 to unbounded elements --><tns:ratingPeriod><!--optional--><tns:reportDate>2015-02-02</tns:reportDate>
+            <tns:listOfRatingPeriod><!--from 1 to unbounded elements --><tns:ratingPeriod><!--optional--><tns:reportDate>2015-02-03</tns:reportDate>
                   <!--optional--><tns:period>string</tns:period>
-                  <!--optional--><tns:startDate>2015-02-02</tns:startDate>
-                  <!--optional--><tns:endDate>2015-02-02</tns:endDate>
+                  <!--optional--><tns:startDate>2015-02-03</tns:startDate>
+                  <!--optional--><tns:endDate>2015-02-03</tns:endDate>
                   <!--optional--><tns:type>string</tns:type>
                   <!--optional--><tns:comments>string</tns:comments>
                   <tns:listOfCardinalFactor><!--from 1 to unbounded elements --><tns:cardinalFactor>

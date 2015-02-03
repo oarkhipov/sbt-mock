@@ -456,6 +456,13 @@ public class importXSD {
         params.put("systemName","CBBOL");
         params.put("xsdBase","BBMOOperationElements.xsd");
         driverCycle("CBBOL", "SrvPutRemoteLegalAccOperAppRq", "KD4", params);
+
+        params.clear();
+        params.put("rootElementName", "SrvUpdateClientReferenceDataRq");
+        params.put("operationsXSD", "../../xsd/BBMO/BBMOOperationElements.xsd");
+        params.put("systemName","BBMO");
+        params.put("xsdBase","BBMOOperationElements.xsd");
+        driverCycle("BBMO", "SrvUpdateClientReferenceDataRq", "KD4", params);
     }
 
     /**

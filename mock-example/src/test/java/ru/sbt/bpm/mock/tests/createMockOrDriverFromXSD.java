@@ -242,6 +242,16 @@ public class createMockOrDriverFromXSD {
         params.put("xsdBase","BBMOOperationElements.xsd");
         mockTestCycle(dir, "CBBOL", "SrvPutRemoteLegalAccOperAppRq", "Request", params);
     }
+    @Test
+    public void testXSLTtoDataBBMOSrvUpdateClientReferenceDataRq() throws Exception {
+        final String dir = System.getProperty("user.dir") + "\\src\\main\\webapp\\WEB-INF";
+        Map<String, String> params = new HashMap<String, String>(1);
+        params.put("rootElementName", "SrvUpdateClientReferenceDataRq");
+        params.put("operationsXSD", "../../xsd/BBMO/BBMOOperationElements.xsd");
+        params.put("systemName","BBMO");
+        params.put("xsdBase","BBMOOperationElements.xsd");
+        mockTestCycle(dir, "BBMO", "SrvUpdateClientReferenceDataRq", "Request", params);
+    }
 
 
     protected void mockTestCycle(String webinf, String system, String name, String type) throws Exception {

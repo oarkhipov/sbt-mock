@@ -10,7 +10,7 @@
          <!--optional--><tns:errorMessage>string</tns:errorMessage>
          <tns:crmId>string</tns:crmId>
          <tns:lgdType>string</tns:lgdType>
-         <tns:lgdDate>2015-02-02</tns:lgdDate>
+         <tns:lgdDate>2015-02-03</tns:lgdDate>
          <!--optional--><tns:pd>10</tns:pd>
          <tns:lgd>10</tns:lgd>
          <tns:ead>10</tns:ead>

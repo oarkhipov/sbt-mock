@@ -3,14 +3,15 @@
       <mq:AsyncHeader xmlns:mq="http://sbrf.ru/prpc/mq/headers">
          <mq:message-id>message-id</mq:message-id>
          <mq:request-time>2014-12-16T17:55:06.410+04:00</mq:request-time>
-         <mq:operation-name>SrvPutRemoteLegalAccOperAppRq</mq:operation-name>
+         <mq:operation-name>SrvUpdateClientReferenceDataRq</mq:operation-name>
       </mq:AsyncHeader>
    </soap:Header>
    <soap:Body>
-      <tns:SrvPutRemoteLegalAccOperAppRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10"><!--optional--><tns:RemoteClient>0</tns:RemoteClient>
-         <!--optional--><tns:RemoteSystemId>string</tns:RemoteSystemId>
-         <!--optional--><tns:IsAdditionalAccount>0</tns:IsAdditionalAccount>
-         <!--optional--><tns:IsBankCardProcessing>0</tns:IsBankCardProcessing>
+      <tns:SrvUpdateClientReferenceDataRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
+         <tns:UpdateType>1</tns:UpdateType>
+         <tns:ChangeType>1</tns:ChangeType>
+         <!--optional--><tns:ChangeSubject>string</tns:ChangeSubject>
+         <!--optional--><tns:VSPCommissionPayment>0</tns:VSPCommissionPayment>
          <tns:ClientReferenceData><!--optional--><tns:ClientInformation>
                <tns:Identifiers>
                   <tns:ClientId>1234567890</tns:ClientId>
@@ -39,20 +40,6 @@
                      <!--optional--><tns:RegistrationSertificateNumber>string</tns:RegistrationSertificateNumber>
                      <!--optional--><tns:RegistrationSertificateIssueDate>2015-02-03</tns:RegistrationSertificateIssueDate>
                      <!--optional--><tns:RegistrationAuthority>1234567890</tns:RegistrationAuthority>
-                     <tns:OldShortName>anyString</tns:OldShortName>
-                     <tns:OldName>anyString</tns:OldName>
-                     <tns:OldShortNameInEnglish>anyString</tns:OldShortNameInEnglish>
-                     <tns:OldNameInEnglish>anyString</tns:OldNameInEnglish>
-                     <tns:TermFrom>anyString</tns:TermFrom>
-                     <tns:TermTill>anyString</tns:TermTill>
-                     <tns:DeclaredFound>anyString</tns:DeclaredFound>
-                     <tns:PayedFound>anyString</tns:PayedFound>
-                     <tns:Control>anyString</tns:Control>
-                     <tns:Amount>anyString</tns:Amount>
-                     <tns:YearROI>anyString</tns:YearROI>
-                     <tns:From>anyString</tns:From>
-                     <tns:Till>anyString</tns:Till>
-                     <tns:License>anyString</tns:License>
                   </tns:Registration>
                   <!--optional--><tns:TaxInspectorateInfo><!--optional--><tns:RegistrationSertificateNumber>string</tns:RegistrationSertificateNumber>
                      <!--optional--><tns:TaxId>string</tns:TaxId>
@@ -64,48 +51,12 @@
                   <!--optional--><tns:RosstatCodes><!--optional--><tns:OKATO>string</tns:OKATO>
                      <!--optional--><tns:OKPO>string</tns:OKPO>
                      <!--optional--><tns:OKFS>st</tns:OKFS>
-                     <!--optional--><tns:OKOGU>string</tns:OKOGU>
-                     <!--from 0 to unbounded elements --><tns:OKONH>string</tns:OKONH>
+                     <!--optional--><tns:OKOGU>strin</tns:OKOGU>
+                     <!--from 0 to unbounded elements --><tns:OKONH>strin</tns:OKONH>
                      <!--optional--><tns:OKOPF>st</tns:OKOPF>
-                     <!--from 0 to unbounded elements --><tns:OKVED>string</tns:OKVED>
+                     <!--from 0 to unbounded elements --><tns:OKVED>strin</tns:OKVED>
                   </tns:RosstatCodes>
                </tns:MainDetails>
-               <!--from 0 to unbounded elements --><tns:FounderLegalPerson><!--optional--><tns:ClientName>string</tns:ClientName>
-                  <!--optional--><tns:KPP>string</tns:KPP>
-                  <!--optional--><tns:TaxID>string</tns:TaxID>
-                  <!--optional--><tns:TaxRegistrationDate>2015-02-03</tns:TaxRegistrationDate>
-                  <!--optional--><tns:TaxCertificateSeries>string</tns:TaxCertificateSeries>
-                  <!--optional--><tns:TaxCertificateNumber>string</tns:TaxCertificateNumber>
-                  <!--optional--><tns:TaxAuthority>string</tns:TaxAuthority>
-                  <!--optional--><tns:OGRN>string</tns:OGRN>
-                  <!--optional--><tns:OGRNRegistrationDate>2015-02-03</tns:OGRNRegistrationDate>
-                  <!--optional--><tns:OGRNSeries>string</tns:OGRNSeries>
-                  <!--optional--><tns:OGRNNumber>string</tns:OGRNNumber>
-                  <!--optional--><tns:OGRNAuthority>string</tns:OGRNAuthority>
-                  <!--optional--><tns:ClientAddress>
-                     <tns:AddressType>1</tns:AddressType>
-                     <!--optional--><tns:UnnormalizedAddress>string</tns:UnnormalizedAddress>
-                     <!--optional--><tns:Country>str</tns:Country>
-                     <!--optional--><tns:PostalCode>string</tns:PostalCode>
-                     <!--optional--><tns:IdentificationCode>string</tns:IdentificationCode>
-                     <!--optional--><tns:OKATO>string</tns:OKATO>
-                     <!--optional--><tns:RegionType>string</tns:RegionType>
-                     <!--optional--><tns:Region>string</tns:Region>
-                     <!--optional--><tns:AreaType>string</tns:AreaType>
-                     <!--optional--><tns:Area>string</tns:Area>
-                     <!--optional--><tns:CityType>string</tns:CityType>
-                     <!--optional--><tns:City>string</tns:City>
-                     <!--optional--><tns:PlaceType>string</tns:PlaceType>
-                     <!--optional--><tns:Place>string</tns:Place>
-                     <!--optional--><tns:StreetType>string</tns:StreetType>
-                     <!--optional--><tns:Street>string</tns:Street>
-                     <!--optional--><tns:House>string</tns:House>
-                     <!--optional--><tns:Corpus>string</tns:Corpus>
-                     <!--optional--><tns:Building>string</tns:Building>
-                     <!--optional--><tns:FlatorOffice>string</tns:FlatorOffice>
-                  </tns:ClientAddress>
-                  <!--optional--><tns:LegalCapitalPercent>10</tns:LegalCapitalPercent>
-               </tns:FounderLegalPerson>
                <!--optional--><tns:BankSubdivision>
                   <tns:TB>str</tns:TB>
                   <tns:OSB>string</tns:OSB>
@@ -140,29 +91,28 @@
                   <tns:ContactData>string</tns:ContactData>
                </tns:ClientContact>
             </tns:ClientInformation>
-            <!--from 0 to unbounded elements --><tns:naturalPerson><!--optional--><tns:RKOCode>1234567890</tns:RKOCode>
-               <!--optional--><tns:SeqNumber>1234567890</tns:SeqNumber>
-               <tns:RelationToClient>anyString</tns:RelationToClient>
+            <!--from 0 to unbounded elements --><tns:NaturalPerson>
+               <tns:RKOCode>1234567890</tns:RKOCode>
+               <tns:RelationToClient>1</tns:RelationToClient>
                <tns:LastName>string</tns:LastName>
                <tns:FirstName>string</tns:FirstName>
                <!--optional--><tns:MiddleName>string</tns:MiddleName>
-               <!--optional--><tns:LastNameInGenitiveCase>string</tns:LastNameInGenitiveCase>
-               <!--optional--><tns:FirstNameInGenitiveCase>string</tns:FirstNameInGenitiveCase>
+               <tns:LastNameInGenitiveCase>string</tns:LastNameInGenitiveCase>
+               <tns:FirstNameInGenitiveCase>string</tns:FirstNameInGenitiveCase>
                <!--optional--><tns:MiddleNameInGenitiveCase>string</tns:MiddleNameInGenitiveCase>
-               <!--optional--><tns:LastNameInEnglish>string</tns:LastNameInEnglish>
-               <!--optional--><tns:FirstNameInEnglish>string</tns:FirstNameInEnglish>
+               <tns:LastNameInEnglish>string</tns:LastNameInEnglish>
+               <tns:FirstNameInEnglish>string</tns:FirstNameInEnglish>
                <!--optional--><tns:MiddleNameInEnglish>string</tns:MiddleNameInEnglish>
                <!--optional--><tns:Sex>1</tns:Sex>
                <!--optional--><tns:BirthDate>2015-02-03</tns:BirthDate>
                <!--optional--><tns:BirthPlace>string</tns:BirthPlace>
                <!--optional--><tns:Nationality>str</tns:Nationality>
-               <!--optional--><tns:Resident>0</tns:Resident>
+               <tns:Resident>0</tns:Resident>
                <!--optional--><tns:TaxResidentChangeDate>2015-02-03</tns:TaxResidentChangeDate>
                <!--optional--><tns:TaxId>string</tns:TaxId>
-               <!--optional--><tns:SocialStatusType>10</tns:SocialStatusType>
-               <!--from 0 to unbounded elements --><tns:IdentityDocument>
+               <!--from 1 to unbounded elements --><tns:IdentityDocument>
                   <tns:DocumentType>1234567890</tns:DocumentType>
-                  <tns:DocumentStatus>0</tns:DocumentStatus>
+                  <tns:DocumentStatus>1</tns:DocumentStatus>
                   <!--optional--><tns:DocumentSeries>string</tns:DocumentSeries>
                   <tns:DocumentNumber>string</tns:DocumentNumber>
                   <!--optional--><tns:IssueDate>2015-02-03</tns:IssueDate>
@@ -202,15 +152,7 @@
                   <!--optional--><tns:DocumentSeriesNumber>string</tns:DocumentSeriesNumber>
                   <!--optional--><tns:DocumentDate>2015-02-03</tns:DocumentDate>
                </tns:AuthorityBase>
-               <!--optional--><tns:OfficailInfo><!--optional--><tns:BasedOnDocument>string</tns:BasedOnDocument>
-                  <!--optional--><tns:BasedOnDocumentSeries>string</tns:BasedOnDocumentSeries>
-                  <!--optional--><tns:BasedOnDocumentNumber>string</tns:BasedOnDocumentNumber>
-                  <!--optional--><tns:TrusteeSign>anyString</tns:TrusteeSign>
-                  <!--optional--><tns:OperationType>string</tns:OperationType>
-                  <!--optional--><tns:AccountNumber>anyString</tns:AccountNumber>
-                  <!--optional--><tns:Comment>anyString</tns:Comment>
-               </tns:OfficailInfo>
-            </tns:naturalPerson>
+            </tns:NaturalPerson>
             <!--from 0 to unbounded elements --><tns:LegalPersonBankAccountAgreement>
                <tns:BankSubdivision>
                   <tns:TB>str</tns:TB>
@@ -227,86 +169,40 @@
                <tns:Operator>1234567890</tns:Operator>
                <tns:MainAccountNumber>string</tns:MainAccountNumber>
                <tns:AccountBalance>1234567890</tns:AccountBalance>
+               <!--optional--><tns:FilePresence1>0</tns:FilePresence1>
+               <!--optional--><tns:FilePresence2>0</tns:FilePresence2>
                <!--optional--><tns:ArrestByAccountPresence>1</tns:ArrestByAccountPresence>
-               <!--optional--><tns:RKOAgreementDetails><!--from 0 to unbounded elements --><tns:TariffPlan>
-                     <tns:TariffPlanCode>string</tns:TariffPlanCode>
-                     <!--optional--><tns:TariffPlanStartDate>2015-02-03</tns:TariffPlanStartDate>
-                     <!--optional--><tns:TariffPlanEndDate>2015-02-03</tns:TariffPlanEndDate>
-                  </tns:TariffPlan>
-                  <tns:DetermineTariffs>string</tns:DetermineTariffs>
-                  <!--optional--><tns:TariffGroup>string</tns:TariffGroup>
-                  <!--from 0 to unbounded elements --><tns:ClientAccount><!--optional--><tns:AccountNumber>anyString</tns:AccountNumber>
-                     <!--optional--><tns:ExternalAttribute>0</tns:ExternalAttribute>
-                     <!--optional--><tns:RecipientName>string</tns:RecipientName>
-                     <!--optional--><tns:TaxID>string</tns:TaxID>
-                     <!--optional--><tns:TaxRegReasonCode>string</tns:TaxRegReasonCode>
-                     <!--optional--><tns:BIK>string</tns:BIK>
-                     <!--optional--><tns:SWIFTCode>string</tns:SWIFTCode>
-                     <!--optional--><tns:ClearingCode>string</tns:ClearingCode>
-                     <!--optional--><tns:BankBeneficiarySWIFTCode>string</tns:BankBeneficiarySWIFTCode>
-                     <!--optional--><tns:DCode>string</tns:DCode>
-                     <!--optional--><tns:BeneficiaryIBANCode>string</tns:BeneficiaryIBANCode>
-                     <!--optional--><tns:ClientBeneficiarySWIFTCode>string</tns:ClientBeneficiarySWIFTCode>
-                     <!--optional--><tns:ClientBeneficiaryName>string</tns:ClientBeneficiaryName>
-                     <!--optional--><tns:ClientBeneficiaryTaxID>string</tns:ClientBeneficiaryTaxID>
-                     <!--optional--><tns:ClientBeneficaryAddress>string</tns:ClientBeneficaryAddress>
-                     <!--optional--><tns:ClientBeneficiaryCountry>string</tns:ClientBeneficiaryCountry>
-                     <!--optional--><tns:AccountPurpose>string</tns:AccountPurpose>
-                  </tns:ClientAccount>
-                  <!--optional--><tns:PercentCalculationAlgorithm>1234567890</tns:PercentCalculationAlgorithm>
-                  <!--optional--><tns:DeterminePercent>anyString</tns:DeterminePercent>
-                  <!--optional--><tns:PercentRateGroup>anyString</tns:PercentRateGroup>
-                  <!--optional--><tns:DateBeginPercentRate>2015-02-03</tns:DateBeginPercentRate>
-                  <!--optional--><tns:DateEndPercentRate>2015-02-03</tns:DateEndPercentRate>
+               <!--optional--><tns:ArrestedSum>1234567890</tns:ArrestedSum>
+               <!--optional--><tns:RKOAgreementDetails><!--optional--><tns:PercentCalculationAlgorithm>1234567890</tns:PercentCalculationAlgorithm>
                   <!--optional--><tns:PartialRatedPeriodCalculation>0</tns:PartialRatedPeriodCalculation>
                   <tns:CurrentRatedPeriodCalculation>0</tns:CurrentRatedPeriodCalculation>
                   <!--optional--><tns:OpeningReason>string</tns:OpeningReason>
+                  <!--optional--><tns:AccountUserType>string</tns:AccountUserType>
                   <!--optional--><tns:AgreementUserType>string</tns:AgreementUserType>
                </tns:RKOAgreementDetails>
             </tns:LegalPersonBankAccountAgreement>
-            <!--from 0 to unbounded elements --><tns:SignPatternCard><!--optional--><tns:ClientId>1234567890</tns:ClientId>
-               <!--optional--><tns:BankSubdivision>
+            <!--from 0 to unbounded elements --><tns:SignPatternCard>
+               <tns:ClientId>1234567890</tns:ClientId>
+               <tns:BankSubdivision>
                   <tns:TB>str</tns:TB>
                   <tns:OSB>string</tns:OSB>
                   <tns:VSP>string</tns:VSP>
                </tns:BankSubdivision>
-               <!--optional--><tns:AgreementNumber>string</tns:AgreementNumber>
-               <!--optional--><tns:AccountNumber>string</tns:AccountNumber>
-               <!--optional--><tns:CardType>1</tns:CardType>
-               <!--optional--><tns:RegistrationDate>2015-02-03</tns:RegistrationDate>
+               <tns:AgreementNumber>string</tns:AgreementNumber>
+               <tns:AccountNumber>string</tns:AccountNumber>
+               <tns:CardType>1</tns:CardType>
+               <tns:RegistrationDate>2015-02-03</tns:RegistrationDate>
                <!--optional--><tns:ActivationDate>2015-02-03</tns:ActivationDate>
                <!--optional--><tns:CloseDate>2015-02-03</tns:CloseDate>
-               <!--optional--><tns:CardRegistartionMethod>1</tns:CardRegistartionMethod>
+               <tns:CardRegistartionMethod>1</tns:CardRegistartionMethod>
                <!--from 1 to unbounded elements --><tns:Sign>
                   <tns:RKONaturalPersonCode>1234567890</tns:RKONaturalPersonCode>
-                  <!--optional--><tns:SeqNumber>1234567890</tns:SeqNumber>
                   <tns:SignType>1</tns:SignType>
                   <tns:Position>string</tns:Position>
-                  <!--optional--><tns:AuthorityStartDate>anyString</tns:AuthorityStartDate>
                   <!--optional--><tns:AuthorityEndDate>2015-02-03</tns:AuthorityEndDate>
                </tns:Sign>
             </tns:SignPatternCard>
          </tns:ClientReferenceData>
-         <tns:LegalPersonApplication><!--optional--><tns:ApplicationId>string</tns:ApplicationId>
-            <!--optional--><tns:OperationType>string</tns:OperationType>
-            <!--optional--><tns:ClientId>1234567890</tns:ClientId>
-            <tns:TaxId>string</tns:TaxId>
-            <tns:CustomerFullName>string</tns:CustomerFullName>
-            <tns:BankSubdivision>
-               <tns:TB>str</tns:TB>
-               <tns:OSB>string</tns:OSB>
-               <tns:VSP>string</tns:VSP>
-            </tns:BankSubdivision>
-            <tns:InitDate>2015-02-03</tns:InitDate>
-            <!--optional--><tns:AgreementIdentifier>string</tns:AgreementIdentifier>
-            <!--optional--><tns:AgreementNumber>string</tns:AgreementNumber>
-            <!--optional--><tns:MainAccountNumber>string</tns:MainAccountNumber>
-            <!--optional--><tns:TaxRegReasonCode>string</tns:TaxRegReasonCode>
-            <!--optional--><tns:BarCode>string</tns:BarCode>
-         </tns:LegalPersonApplication>
-         <tns:DocumentsInfo><!--from 0 to unbounded elements --><tns:DocumentLinks><!--optional--><tns:DocumentLink>string</tns:DocumentLink>
-            </tns:DocumentLinks>
-         </tns:DocumentsInfo>
-      </tns:SrvPutRemoteLegalAccOperAppRq>
+      </tns:SrvUpdateClientReferenceDataRq>
    </soap:Body>
 </soap:Envelope>
