@@ -4,7 +4,8 @@
       <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
       <soap:operation-name>updateDealRq</soap:operation-name>
    </soap:Header>
-   <soap:Body><!--test ExchangeRate DealTeamMember FinancingInfo InterestRateInfo Project Schedule Losses Collateral Fee Product ProductConditions Deal UpdateDealRq-UpdateDealRq--><CRM:updateDealRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+   <soap:Body>
+      <CRM:updateDealRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                         xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/">
          <tns:deal>
             <tns:dealID>string</tns:dealID>

@@ -66,7 +66,7 @@
     <xsl:variable name="importFilesDocs" select="document($importFilesList)/xsd:schema"/>
 
     <!--список всех типов, которые объявленны в схеме-->
-    <xsl:variable name="typesList" select="$operationXsdSchema//xsd:complexType/@name | $importFilesDocs/xsd:complexType/@name | $includeFilesDocs/xsd:complexType/@name"/>
+    <xsl:variable name="typesList" select="$operationXsdSchema//(xsd:complexType | xsd:simpleType)/@name | $importFilesDocs/(xsd:complexType | xsd:simpleType)/@name | $includeFilesDocs/(xsd:complexType | xsd:simpleType)/@name"/>
 
     <xsl:template match="xsd:schema">
         <xsl:element name="soap:Envelope">
@@ -84,10 +84,18 @@
     </xsl:template>
 
     <xsl:template name="operationBody">
-        <xsl:comment>test <xsl:value-of select="$operationXsdSchema/*/@name"/>-<xsl:value-of select="$rootTypeName"/></xsl:comment>
-        <xsl:apply-templates select="$operationXsdSchema/xsd:element[@name=$rootElementName] | $operationXsdSchema/xsd:complexType[@name=$rootTypeName]" mode="rootBodyElement">
-            <xsl:with-param name="parrentNS" select="/xsd:schema/@targetNamespace"/>
-        </xsl:apply-templates>
+        <xsl:choose>
+            <xsl:when test="$operationXsdSchema/xsd:element[@name=$rootElementName]">
+                <xsl:apply-templates select="$operationXsdSchema/xsd:element[@name=$rootElementName]" mode="rootBodyElement">
+                    <xsl:with-param name="parrentNS" select="/xsd:schema/@targetNamespace"/>
+                </xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="$operationXsdSchema/xsd:complexType[@name=$rootTypeName]" mode="rootBodyElement">
+                    <xsl:with-param name="parrentNS" select="/xsd:schema/@targetNamespace"/>
+                </xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
 </xsl:stylesheet>

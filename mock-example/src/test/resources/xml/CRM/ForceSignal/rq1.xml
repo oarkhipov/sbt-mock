@@ -4,7 +4,8 @@
       <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
       <soap:operation-name>forceSignalRq</soap:operation-name>
    </soap:Header>
-   <soap:Body><!--test ForceSignalRq-ForceSignalRq--><CRM:forceSignalRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+   <soap:Body>
+      <CRM:forceSignalRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                          xmlns:tns="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/">
          <tns:contractID>string</tns:contractID>
          <!--optional--><tns:contractBPMID>string</tns:contractBPMID>

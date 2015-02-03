@@ -58,97 +58,102 @@
    </xsl:template>
 
    <xsl:template match="rsd:exchangeRates">
-      <tns:exchangeRates><!--match="xsd:element[@name]"--><tns:currencyName>
+      <tns:exchangeRates>
+         <tns:currencyName>
             <xsl:value-of select="./rsd:currencyName"/>
          </tns:currencyName>
-         <!--match="xsd:element[@name]"--><tns:currencyValue>
+         <tns:currencyValue>
             <xsl:value-of select="./rsd:currencyValue"/>
          </tns:currencyValue>
-         <!--match="xsd:element[@name]"--><tns:currencyDate>
+         <tns:currencyDate>
             <xsl:value-of select="./rsd:currencyDate"/>
          </tns:currencyDate>
       </tns:exchangeRates>
    </xsl:template>
 
    <xsl:template match="rsd:dealTeamMembers">
-      <tns:dealTeamMembers><!--match="xsd:element[@name]"--><tns:memberId>
+      <tns:dealTeamMembers>
+         <tns:memberId>
             <xsl:value-of select="./rsd:memberId"/>
          </tns:memberId>
-         <!--match="xsd:element[@name]"--><tns:memberName>
+         <tns:memberName>
             <xsl:value-of select="./rsd:memberName"/>
          </tns:memberName>
-         <!--match="xsd:element[@name]"--><tns:mamberEmail>
+         <tns:mamberEmail>
             <xsl:value-of select="./rsd:mamberEmail"/>
          </tns:mamberEmail>
-         <!--match="xsd:element[@name]"--><tns:mamberRole>
+         <tns:mamberRole>
             <xsl:value-of select="./rsd:mamberRole"/>
          </tns:mamberRole>
       </tns:dealTeamMembers>
    </xsl:template>
 
    <xsl:template match="rsd:financingInfo">
-      <tns:financingInfo><!--match="xsd:element[@name]"--><tns:currencyOfFunding>
+      <tns:financingInfo>
+         <tns:currencyOfFunding>
             <xsl:value-of select="./rsd:currencyOfFunding"/>
          </tns:currencyOfFunding>
-         <!--match="xsd:element[@name]"--><tns:principal>
+         <tns:principal>
             <xsl:value-of select="./rsd:principal"/>
          </tns:principal>
       </tns:financingInfo>
    </xsl:template>
 
    <xsl:template match="rsd:interestRateInfo">
-      <tns:interestRateInfo><!--match="xsd:element[@name]"--><tns:interestRate>
+      <tns:interestRateInfo>
+         <tns:interestRate>
             <xsl:value-of select="./rsd:interestRate"/>
          </tns:interestRate>
-         <!--match="xsd:element[@name]"--><tns:interestRateType>
+         <tns:interestRateType>
             <xsl:value-of select="./rsd:interestRateType"/>
          </tns:interestRateType>
-         <!--match="xsd:element[@name]"--><tns:interestRateOrder>
+         <tns:interestRateOrder>
             <xsl:value-of select="./rsd:interestRateOrder"/>
          </tns:interestRateOrder>
-         <!--match="xsd:element[@name]"--><tns:minRate>
+         <tns:minRate>
             <xsl:value-of select="./rsd:minRate"/>
          </tns:minRate>
       </tns:interestRateInfo>
    </xsl:template>
 
    <xsl:template match="rsd:project">
-      <tns:project><!--match="xsd:element[@name]"--><xsl:if test="./rsd:projectName">
+      <tns:project>
+         <xsl:if test="./rsd:projectName">
             <tns:projectName>
                <xsl:value-of select="./rsd:projectName"/>
             </tns:projectName>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:indicatorsOfConstruction">
+         <xsl:if test="./rsd:indicatorsOfConstruction">
             <tns:indicatorsOfConstruction>
                <xsl:value-of select="./rsd:indicatorsOfConstruction"/>
             </tns:indicatorsOfConstruction>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:parcel">
+         <xsl:if test="./rsd:parcel">
             <tns:parcel>
                <xsl:value-of select="./rsd:parcel"/>
             </tns:parcel>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:documentsPresence">
+         <xsl:if test="./rsd:documentsPresence">
             <tns:documentsPresence>
                <xsl:value-of select="./rsd:documentsPresence"/>
             </tns:documentsPresence>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:equityVolume">
+         <xsl:if test="./rsd:equityVolume">
             <tns:equityVolume>
                <xsl:value-of select="./rsd:equityVolume"/>
             </tns:equityVolume>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:repaymentSpring">
+         <xsl:if test="./rsd:repaymentSpring">
             <tns:repaymentSpring>
                <xsl:value-of select="./rsd:repaymentSpring"/>
             </tns:repaymentSpring>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:fundingDirection">
+         <xsl:if test="./rsd:fundingDirection">
             <tns:fundingDirection>
                <xsl:value-of select="./rsd:fundingDirection"/>
             </tns:fundingDirection>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:sameIndustryAsBorrower">
+         <xsl:if test="./rsd:sameIndustryAsBorrower">
             <tns:sameIndustryAsBorrower>
                <xsl:value-of select="./rsd:sameIndustryAsBorrower"/>
             </tns:sameIndustryAsBorrower>
@@ -157,85 +162,89 @@
    </xsl:template>
 
    <xsl:template match="rsd:repaymentScheduleDetails">
-      <tns:repaymentScheduleDetails><!--match="xsd:element[@name]"--><tns:sheduleDate>
+      <tns:repaymentScheduleDetails>
+         <tns:sheduleDate>
             <xsl:value-of select="./rsd:sheduleDate"/>
          </tns:sheduleDate>
-         <!--match="xsd:element[@name]"--><tns:sheduleAmount>
+         <tns:sheduleAmount>
             <xsl:value-of select="./rsd:sheduleAmount"/>
          </tns:sheduleAmount>
       </tns:repaymentScheduleDetails>
    </xsl:template>
 
    <xsl:template match="rsd:selectionScheduleDetails">
-      <tns:selectionScheduleDetails><!--match="xsd:element[@name]"--><tns:sheduleDate>
+      <tns:selectionScheduleDetails>
+         <tns:sheduleDate>
             <xsl:value-of select="./rsd:sheduleDate"/>
          </tns:sheduleDate>
-         <!--match="xsd:element[@name]"--><tns:sheduleAmount>
+         <tns:sheduleAmount>
             <xsl:value-of select="./rsd:sheduleAmount"/>
          </tns:sheduleAmount>
       </tns:selectionScheduleDetails>
    </xsl:template>
 
    <xsl:template match="rsd:changesScheduleDetails">
-      <tns:changesScheduleDetails><!--match="xsd:element[@name]"--><tns:sheduleDate>
+      <tns:changesScheduleDetails>
+         <tns:sheduleDate>
             <xsl:value-of select="./rsd:sheduleDate"/>
          </tns:sheduleDate>
-         <!--match="xsd:element[@name]"--><tns:sheduleAmount>
+         <tns:sheduleAmount>
             <xsl:value-of select="./rsd:sheduleAmount"/>
          </tns:sheduleAmount>
       </tns:changesScheduleDetails>
    </xsl:template>
 
    <xsl:template match="rsd:losses">
-      <tns:losses><!--match="xsd:element[@name]"--><xsl:if test="./rsd:percentLGD">
+      <tns:losses>
+         <xsl:if test="./rsd:percentLGD">
             <tns:percentLGD>
                <xsl:value-of select="./rsd:percentLGD"/>
             </tns:percentLGD>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:countEAD">
+         <xsl:if test="./rsd:countEAD">
             <tns:countEAD>
                <xsl:value-of select="./rsd:countEAD"/>
             </tns:countEAD>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><tns:currency>
+         <tns:currency>
             <xsl:value-of select="./rsd:currency"/>
          </tns:currency>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:reportDateAmount">
+         <xsl:if test="./rsd:reportDateAmount">
             <tns:reportDateAmount>
                <xsl:value-of select="./rsd:reportDateAmount"/>
             </tns:reportDateAmount>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:lossELpercent">
+         <xsl:if test="./rsd:lossELpercent">
             <tns:lossELpercent>
                <xsl:value-of select="./rsd:lossELpercent"/>
             </tns:lossELpercent>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:lossELcount">
+         <xsl:if test="./rsd:lossELcount">
             <tns:lossELcount>
                <xsl:value-of select="./rsd:lossELcount"/>
             </tns:lossELcount>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:typeLGD">
+         <xsl:if test="./rsd:typeLGD">
             <tns:typeLGD>
                <xsl:value-of select="./rsd:typeLGD"/>
             </tns:typeLGD>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:statusLGD">
+         <xsl:if test="./rsd:statusLGD">
             <tns:statusLGD>
                <xsl:value-of select="./rsd:statusLGD"/>
             </tns:statusLGD>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:dateLGDcalculated">
+         <xsl:if test="./rsd:dateLGDcalculated">
             <tns:dateLGDcalculated>
                <xsl:value-of select="./rsd:dateLGDcalculated"/>
             </tns:dateLGDcalculated>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:finalizationDate">
+         <xsl:if test="./rsd:finalizationDate">
             <tns:finalizationDate>
                <xsl:value-of select="./rsd:finalizationDate"/>
             </tns:finalizationDate>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:comment">
+         <xsl:if test="./rsd:comment">
             <tns:comment>
                <xsl:value-of select="./rsd:comment"/>
             </tns:comment>
@@ -244,72 +253,74 @@
    </xsl:template>
 
    <xsl:template match="rsd:collateral">
-      <tns:collateral><!--match="xsd:element[@name]"--><tns:collateralType>
+      <tns:collateral>
+         <tns:collateralType>
             <xsl:value-of select="./rsd:collateralType"/>
          </tns:collateralType>
-         <!--match="xsd:element[@name]"--><tns:ownerID>
+         <tns:ownerID>
             <xsl:value-of select="./rsd:ownerID"/>
          </tns:ownerID>
-         <!--match="xsd:element[@name]"--><tns:estimatedValue>
+         <tns:estimatedValue>
             <xsl:value-of select="./rsd:estimatedValue"/>
          </tns:estimatedValue>
-         <!--match="xsd:element[@name]"--><tns:discountRate>
+         <tns:discountRate>
             <xsl:value-of select="./rsd:discountRate"/>
          </tns:discountRate>
-         <!--match="xsd:element[@name]"--><tns:estimatedValueCorrected>
+         <tns:estimatedValueCorrected>
             <xsl:value-of select="./rsd:estimatedValueCorrected"/>
          </tns:estimatedValueCorrected>
-         <!--match="xsd:element[@name]"--><tns:qualityCategory>
+         <tns:qualityCategory>
             <xsl:value-of select="./rsd:qualityCategory"/>
          </tns:qualityCategory>
-         <!--match="xsd:element[@name]"--><tns:daysForCalculation>
+         <tns:daysForCalculation>
             <xsl:value-of select="./rsd:daysForCalculation"/>
          </tns:daysForCalculation>
-         <!--match="xsd:element[@name]"--><tns:estimatedValueCorrectedToEAD>
+         <tns:estimatedValueCorrectedToEAD>
             <xsl:value-of select="./rsd:estimatedValueCorrectedToEAD"/>
          </tns:estimatedValueCorrectedToEAD>
-         <!--match="xsd:element[@name]"--><tns:securityShare>
+         <tns:securityShare>
             <xsl:value-of select="./rsd:securityShare"/>
          </tns:securityShare>
-         <!--match="xsd:element[@name]"--><tns:EstimatedValueSource>
+         <tns:EstimatedValueSource>
             <xsl:value-of select="./rsd:EstimatedValueSource"/>
          </tns:EstimatedValueSource>
-         <!--match="xsd:element[@name]"--><tns:estimationDate>
+         <tns:estimationDate>
             <xsl:value-of select="./rsd:estimationDate"/>
          </tns:estimationDate>
-         <!--match="xsd:element[@name]"--><tns:businessMeaning>
+         <tns:businessMeaning>
             <xsl:value-of select="./rsd:businessMeaning"/>
          </tns:businessMeaning>
-         <!--match="xsd:element[@name]"--><tns:qualityAndLiquidityEstimation>
+         <tns:qualityAndLiquidityEstimation>
             <xsl:value-of select="./rsd:qualityAndLiquidityEstimation"/>
          </tns:qualityAndLiquidityEstimation>
-         <!--match="xsd:element[@name]"--><tns:currency>
+         <tns:currency>
             <xsl:value-of select="./rsd:currency"/>
          </tns:currency>
-         <!--match="xsd:element[@name]"--><tns:estimatedValueType>
+         <tns:estimatedValueType>
             <xsl:value-of select="./rsd:estimatedValueType"/>
          </tns:estimatedValueType>
-         <!--match="xsd:element[@name]"--><tns:guarantorRating>
+         <tns:guarantorRating>
             <xsl:value-of select="./rsd:guarantorRating"/>
          </tns:guarantorRating>
       </tns:collateral>
    </xsl:template>
 
    <xsl:template match="rsd:fee">
-      <tns:fee><!--match="xsd:element[@name]"--><tns:feeName>
+      <tns:fee>
+         <tns:feeName>
             <xsl:value-of select="./rsd:feeName"/>
          </tns:feeName>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:anotherFeeName">
+         <xsl:if test="./rsd:anotherFeeName">
             <tns:anotherFeeName>
                <xsl:value-of select="./rsd:anotherFeeName"/>
             </tns:anotherFeeName>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:calculationBase">
+         <xsl:if test="./rsd:calculationBase">
             <tns:calculationBase>
                <xsl:value-of select="./rsd:calculationBase"/>
             </tns:calculationBase>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:paymentOrder">
+         <xsl:if test="./rsd:paymentOrder">
             <tns:paymentOrder>
                <xsl:value-of select="./rsd:paymentOrder"/>
             </tns:paymentOrder>
@@ -318,187 +329,190 @@
    </xsl:template>
 
    <xsl:template match="rsd:productInfo">
-      <tns:productInfo><!--match="xsd:element[@name]"--><tns:productVersion>
+      <tns:productInfo>
+         <tns:productVersion>
             <xsl:value-of select="./rsd:productVersion"/>
          </tns:productVersion>
-         <!--match="xsd:element[@name]"--><tns:purpose>
+         <tns:purpose>
             <xsl:value-of select="./rsd:purpose"/>
          </tns:purpose>
-         <!--match="xsd:element[@name]"--><tns:creditMode>
+         <tns:creditMode>
             <xsl:value-of select="./rsd:creditMode"/>
          </tns:creditMode>
-         <!--match="xsd:element[@name]"--><tns:selectionSchedule>
+         <tns:selectionSchedule>
             <xsl:value-of select="./rsd:selectionSchedule"/>
          </tns:selectionSchedule>
-         <!--match="xsd:element[@name]"--><tns:changesSchedule>
+         <tns:changesSchedule>
             <xsl:value-of select="./rsd:changesSchedule"/>
          </tns:changesSchedule>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:selectionSchedulePeriod">
+         <xsl:if test="./rsd:selectionSchedulePeriod">
             <tns:selectionSchedulePeriod>
                <xsl:value-of select="./rsd:selectionSchedulePeriod"/>
             </tns:selectionSchedulePeriod>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:changesSchedulePeriod">
+         <xsl:if test="./rsd:changesSchedulePeriod">
             <tns:changesSchedulePeriod>
                <xsl:value-of select="./rsd:changesSchedulePeriod"/>
             </tns:changesSchedulePeriod>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><tns:interestPaymentOrder>
+         <tns:interestPaymentOrder>
             <xsl:value-of select="./rsd:interestPaymentOrder"/>
          </tns:interestPaymentOrder>
-         <!--match="xsd:element[@name]"--><tns:refinancing>
+         <tns:refinancing>
             <xsl:value-of select="./rsd:refinancing"/>
          </tns:refinancing>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:suspensiveCondition">
+         <xsl:if test="./rsd:suspensiveCondition">
             <tns:suspensiveCondition>
                <xsl:value-of select="./rsd:suspensiveCondition"/>
             </tns:suspensiveCondition>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:principalBaseCurrency">
+         <xsl:if test="./rsd:principalBaseCurrency">
             <tns:principalBaseCurrency>
                <xsl:value-of select="./rsd:principalBaseCurrency"/>
             </tns:principalBaseCurrency>
          </xsl:if>
-         <!--xsd:element[@name and mock:removeNamespaceAlias(./@type, $localTargetNSAlias)=$typesList/@name]"--><xsl:apply-templates select="./rsd:financingInfo"/>
-         <!--xsd:element[@name and mock:removeNamespaceAlias(./@type, $localTargetNSAlias)=$typesList/@name]"--><xsl:apply-templates select="./rsd:interestRateInfo"/>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:startDate">
+         <xsl:apply-templates select="./rsd:financingInfo"/>
+         <xsl:apply-templates select="./rsd:interestRateInfo"/>
+         <xsl:if test="./rsd:startDate">
             <tns:startDate>
                <xsl:value-of select="./rsd:startDate"/>
             </tns:startDate>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><tns:creditTerm>
+         <tns:creditTerm>
             <xsl:value-of select="./rsd:creditTerm"/>
          </tns:creditTerm>
-         <!--match="xsd:element[@name]"--><tns:period>
+         <tns:period>
             <xsl:value-of select="./rsd:period"/>
          </tns:period>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:gracePeriod">
+         <xsl:if test="./rsd:gracePeriod">
             <tns:gracePeriod>
                <xsl:value-of select="./rsd:gracePeriod"/>
             </tns:gracePeriod>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:repaymentSchedule">
+         <xsl:if test="./rsd:repaymentSchedule">
             <tns:repaymentSchedule>
                <xsl:value-of select="./rsd:repaymentSchedule"/>
             </tns:repaymentSchedule>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><tns:turnover>
+         <tns:turnover>
             <xsl:value-of select="./rsd:turnover"/>
          </tns:turnover>
-         <!--match="xsd:element[@name]"--><tns:covenants>
+         <tns:covenants>
             <xsl:value-of select="./rsd:covenants"/>
          </tns:covenants>
-         <!--match="xsd:element[@name]"--><tns:proposedCollateral>
+         <tns:proposedCollateral>
             <xsl:value-of select="./rsd:proposedCollateral"/>
          </tns:proposedCollateral>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:debtLimit">
+         <xsl:if test="./rsd:debtLimit">
             <tns:debtLimit>
                <xsl:value-of select="./rsd:debtLimit"/>
             </tns:debtLimit>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:pledgeInsurance">
+         <xsl:if test="./rsd:pledgeInsurance">
             <tns:pledgeInsurance>
                <xsl:value-of select="./rsd:pledgeInsurance"/>
             </tns:pledgeInsurance>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:customerProspects">
+         <xsl:if test="./rsd:customerProspects">
             <tns:customerProspects>
                <xsl:value-of select="./rsd:customerProspects"/>
             </tns:customerProspects>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><tns:financingTerm>
+         <tns:financingTerm>
             <xsl:value-of select="./rsd:financingTerm"/>
          </tns:financingTerm>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:firstCountry">
+         <xsl:if test="./rsd:firstCountry">
             <tns:firstCountry>
                <xsl:value-of select="./rsd:firstCountry"/>
             </tns:firstCountry>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:lastCountry">
+         <xsl:if test="./rsd:lastCountry">
             <tns:lastCountry>
                <xsl:value-of select="./rsd:lastCountry"/>
             </tns:lastCountry>
          </xsl:if>
-         <!--xsd:element[@name and mock:removeNamespaceAlias(./@type, $localTargetNSAlias)=$typesList/@name]"--><xsl:apply-templates select="./rsd:fee"/>
-         <!--xsd:element[@name and mock:removeNamespaceAlias(./@type, $localTargetNSAlias)=$typesList/@name]"--><xsl:apply-templates select="./rsd:repaymentScheduleDetails"/>
-         <!--xsd:element[@name and mock:removeNamespaceAlias(./@type, $localTargetNSAlias)=$typesList/@name]"--><xsl:apply-templates select="./rsd:selectionScheduleDetails"/>
-         <!--xsd:element[@name and mock:removeNamespaceAlias(./@type, $localTargetNSAlias)=$typesList/@name]"--><xsl:apply-templates select="./rsd:changesScheduleDetails"/>
+         <xsl:apply-templates select="./rsd:fee"/>
+         <xsl:apply-templates select="./rsd:repaymentScheduleDetails"/>
+         <xsl:apply-templates select="./rsd:selectionScheduleDetails"/>
+         <xsl:apply-templates select="./rsd:changesScheduleDetails"/>
       </tns:productInfo>
    </xsl:template>
 
    <xsl:template match="rsd:products">
-      <tns:products><!--match="xsd:element[@name]"--><tns:productID>
+      <tns:products>
+         <tns:productID>
             <xsl:value-of select="./rsd:productID"/>
          </tns:productID>
-         <!--match="xsd:element[@name]"--><tns:productName>
+         <tns:productName>
             <xsl:value-of select="./rsd:productName"/>
          </tns:productName>
-         <!--match="xsd:element[@name]"--><tns:category>
+         <tns:category>
             <xsl:value-of select="./rsd:category"/>
          </tns:category>
-         <!--xsd:element[@name and mock:removeNamespaceAlias(./@type, $localTargetNSAlias)=$typesList/@name]"--><xsl:apply-templates select="./rsd:productInfo"/>
-         <!--xsd:element[@name and mock:removeNamespaceAlias(./@type, $localTargetNSAlias)=$typesList/@name]"--><xsl:apply-templates select="./rsd:collateral"/>
-         <!--xsd:element[@name and mock:removeNamespaceAlias(./@type, $localTargetNSAlias)=$typesList/@name]"--><xsl:apply-templates select="./rsd:losses"/>
+         <xsl:apply-templates select="./rsd:productInfo"/>
+         <xsl:apply-templates select="./rsd:collateral"/>
+         <xsl:apply-templates select="./rsd:losses"/>
       </tns:products>
    </xsl:template>
 
    <xsl:template match="rsd:deal">
-      <tns:deal><!--match="xsd:element[@name]"--><tns:dealID>
+      <tns:deal>
+         <tns:dealID>
             <xsl:value-of select="./rsd:dealID"/>
          </tns:dealID>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:contractID">
+         <xsl:if test="./rsd:contractID">
             <tns:contractID>
                <xsl:value-of select="./rsd:contractID"/>
             </tns:contractID>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><tns:dealCreationDate>
+         <tns:dealCreationDate>
             <xsl:value-of select="./rsd:dealCreationDate"/>
          </tns:dealCreationDate>
-         <!--match="xsd:element[@name]"--><tns:dealEssense>
+         <tns:dealEssense>
             <xsl:value-of select="./rsd:dealEssense"/>
          </tns:dealEssense>
-         <!--match="xsd:element[@name]"--><tns:requestPurpose>
+         <tns:requestPurpose>
             <xsl:value-of select="./rsd:requestPurpose"/>
          </tns:requestPurpose>
-         <!--match="xsd:element[@name]"--><tns:dealType>
+         <tns:dealType>
             <xsl:value-of select="./rsd:dealType"/>
          </tns:dealType>
-         <!--match="xsd:element[@name]"--><tns:dealStatus>
+         <tns:dealStatus>
             <xsl:value-of select="./rsd:dealStatus"/>
          </tns:dealStatus>
-         <!--match="xsd:element[@name]"--><tns:requestDate>
+         <tns:requestDate>
             <xsl:value-of select="./rsd:requestDate"/>
          </tns:requestDate>
-         <!--match="xsd:element[@name]"--><tns:origOrgUnit>
+         <tns:origOrgUnit>
             <xsl:value-of select="./rsd:origOrgUnit"/>
          </tns:origOrgUnit>
-         <!--match="xsd:element[@name]"--><tns:origOrgDivision>
+         <tns:origOrgDivision>
             <xsl:value-of select="./rsd:origOrgDivision"/>
          </tns:origOrgDivision>
-         <!--match="xsd:element[@name]"--><tns:clientFileID>
+         <tns:clientFileID>
             <xsl:value-of select="./rsd:clientFileID"/>
          </tns:clientFileID>
-         <!--match="xsd:element[@name]"--><tns:dealFileID>
+         <tns:dealFileID>
             <xsl:value-of select="./rsd:dealFileID"/>
          </tns:dealFileID>
-         <!--match="xsd:element[@name]"--><xsl:if test="./rsd:comment">
+         <xsl:if test="./rsd:comment">
             <tns:comment>
                <xsl:value-of select="./rsd:comment"/>
             </tns:comment>
          </xsl:if>
-         <!--match="xsd:element[@name]"--><tns:supLMID>
+         <tns:supLMID>
             <xsl:value-of select="./rsd:supLMID"/>
          </tns:supLMID>
-         <!--match="xsd:element[@name]"--><tns:collateralProvided>
+         <tns:collateralProvided>
             <xsl:value-of select="./rsd:collateralProvided"/>
          </tns:collateralProvided>
-         <!--match="xsd:element[@name]"--><tns:limitKM>
+         <tns:limitKM>
             <xsl:value-of select="./rsd:limitKM"/>
          </tns:limitKM>
-         <!--xsd:element[@name and mock:removeNamespaceAlias(./@type, $localTargetNSAlias)=$typesList/@name]"--><xsl:apply-templates select="./rsd:dealTeamMembers"/>
-         <!--xsd:element[@name and mock:removeNamespaceAlias(./@type, $localTargetNSAlias)=$typesList/@name]"--><xsl:apply-templates select="./rsd:products"/>
-         <!--xsd:element[@name and mock:removeNamespaceAlias(./@type, $localTargetNSAlias)=$typesList/@name]"--><xsl:apply-templates select="./rsd:project"/>
-         <!--xsd:element[@name and mock:removeNamespaceAlias(./@type, $localTargetNSAlias)=$typesList/@name]"--><xsl:apply-templates select="./rsd:exchangeRates"/>
+         <xsl:apply-templates select="./rsd:dealTeamMembers"/>
+         <xsl:apply-templates select="./rsd:products"/>
+         <xsl:apply-templates select="./rsd:project"/>
+         <xsl:apply-templates select="./rsd:exchangeRates"/>
       </tns:deal>
    </xsl:template>
 
@@ -506,7 +520,7 @@
       <xsl:param name="request"/>
       <xsl:param name="data"/>
       <xsl:element name="CRM:updateDealRq">
-			<!--xsd:element[@name and mock:removeNamespaceAlias(./@type, $localTargetNSAlias)=$typesList/@name]"--><xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:deal"/>
+			      <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:deal"/>
 		    </xsl:element>
    </xsl:template>
 </xsl:stylesheet>

@@ -1,0 +1,33 @@
+<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
+   <soap:Header>
+      <soap:message-id>defaultId</soap:message-id>
+      <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
+      <soap:operation-name>CKPITProductsDepositsNSOReq</soap:operation-name>
+   </soap:Header>
+   <soap:Body>
+      <CKPITProductsDepositsNSOReq>
+         <RqUID>string</RqUID>
+         <RqTm>string</RqTm>
+         <RqAction>string</RqAction>
+         <IDCKPIT>1234567890</IDCKPIT>
+         <Label>string</Label>
+         <Name>string</Name>
+         <ShortName>string</ShortName>
+         <InstrumentType>Deposit</InstrumentType>
+         <!--optional--><ValidityStartDate>2015-02-03</ValidityStartDate>
+         <!--optional--><ValidityEndDate>2015-02-03</ValidityEndDate>
+         <!--from 1 to unbounded elements --><Option>
+            <OptionID>string</OptionID>
+            <OptionName>string</OptionName>
+            <!--from 1 to unbounded elements --><OptionValue>string</OptionValue>
+         </Option>
+         <!--from 1 to unbounded elements --><Restriction>
+            <Currency>str</Currency>
+            <!--optional--><AmountMin>10</AmountMin>
+            <!--optional--><AmountMax>10</AmountMax>
+            <PeriodMin>10</PeriodMin>
+            <PeriodMax>10</PeriodMax>
+         </Restriction>
+      </CKPITProductsDepositsNSOReq>
+   </soap:Body>
+</soap:Envelope>

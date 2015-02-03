@@ -50,7 +50,7 @@
     <xsl:param name="importFilesDocs" select="document($importFilesList)/xsd:schema"/>
 
     <!--список всех типов, которые объявленны в схеме-->
-    <xsl:param name="typesList" select="//xsd:complexType/@name | $importFilesDocs/xsd:complexType/@name | $includeFilesDocs/xsd:complexType/@name"/>
+    <xsl:param name="typesList" select="(//(xsd:complexType | xsd:simpleType)/@name) | ($importFilesDocs/(xsd:complexType | xsd:simpleType)/@name) | ($includeFilesDocs/(xsd:complexType | xsd:simpleType)/@name)"/>
 
     <!-- список известных типов-->
     <xsl:variable name="stringTypes" select="tokenize('string xsd:string','\s+')"/>
@@ -82,9 +82,12 @@
     <xsl:template match="xsd:complexType" mode="rootBodyElement">
         <xsl:param name="parrentNS" select="/xsd:schema/@targetNamespace"/>
         <xsl:variable name="parrentNSAlias" select="if ($parrentNS=/xsd:schema/@targetNamespace) then $targetNSAlias else $systemName"/>
+        <!--<xsl:comment>complexType</xsl:comment>-->
         <xsl:element name="{concat($parrentNSAlias,':',$rootElementName)}" namespace="{$parrentNS}">
-            <xsl:namespace name="{$parrentNSAlias}" select="$parrentNS"/>
-            <xsl:namespace name="{$targetNSAlias}" select="$targetNS"/>
+            <xsl:if test="$parrentNS!=''">
+                <xsl:namespace name="{$parrentNSAlias}" select="$parrentNS"/>
+                <xsl:namespace name="{$targetNSAlias}" select="$targetNS"/>
+            </xsl:if>
             <xsl:apply-templates select="./xsd:sequence/xsd:element" mode="subelement"/>
         </xsl:element>
     </xsl:template>
@@ -92,17 +95,40 @@
     <xsl:template match="xsd:element" mode="rootBodyElement">
         <xsl:param name="parrentNS" select="/xsd:schema/@targetNamespace"/>
         <xsl:variable name="parrentNSAlias" select="if ($parrentNS=/xsd:schema/@targetNamespace) then $targetNSAlias else $systemName"/>
+        <!--<xsl:comment>element</xsl:comment>-->
         <xsl:element name="{concat($parrentNSAlias,':',$rootElementName)}" namespace="{$parrentNS}">
-            <xsl:namespace name="{$parrentNSAlias}" select="$parrentNS"/>
-            <xsl:namespace name="{$targetNSAlias}" select="$targetNS"/>
-            <xsl:apply-templates select=".//xsd:sequence/xsd:element" mode="subelement"/>
+            <xsl:if test="$parrentNS!=''">
+                <xsl:namespace name="{$parrentNSAlias}" select="$parrentNS"/>
+            </xsl:if>
+            <xsl:if test="$targetNS!=''">
+                <xsl:namespace name="{$targetNSAlias}" select="$targetNS"/>
+            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="@type">
+                    <xsl:variable name="typeLocalName" select="mock:removeNamespaceAlias(@type)"/>
+                    <!--<xsl:comment>test <xsl:value-of select="$typeLocalName"/></xsl:comment>-->
+                    <!--<xsl:comment>test <xsl:value-of select="//xsd:complexType[@name=$typeLocalName]/@name"/></xsl:comment>-->
+                    <xsl:apply-templates select="//xsd:complexType[@name=$typeLocalName] | $importFilesDocs[@name=$typeLocalName]" mode="subeseq"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select=".//xsd:sequence/xsd:element" mode="subelement"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:element>
     </xsl:template>
 
     <!--сложный тип, в котором содержатся еще элемениты-->
     <xsl:template match="xsd:complexType" mode="subeseq">
         <!--<xsl:comment>tSubSq</xsl:comment>-->
-        <xsl:apply-templates select="./xsd:sequence/xsd:element" mode="subelement"/>
+        <xsl:if test="./xsd:complexContent/xsd:extension">
+            <xsl:variable name="baseLocalName" select="mock:removeNamespaceAlias(./xsd:complexContent/xsd:extension/@base)"/>
+            <xsl:apply-templates select="//xsd:complexType[@name=$baseLocalName]" mode="subeseq"/>
+        </xsl:if>
+        <xsl:apply-templates select="
+        ./xsd:sequence/xsd:element
+        | ./xsd:complexContent/xsd:sequence/xsd:element
+        | ./xsd:complexContent/xsd:extension/xsd:sequence/xsd:element
+        " mode="subelement"/>
     </xsl:template>
 
     <!--***********************************-->
@@ -147,45 +173,45 @@
     <!--***********************************-->
 
     <!--обычные числа-->
-    <xsl:template match="xsd:element[@type=$digitTypes]" mode="type">
-        <!--<xsl:comment>testxsd</xsl:comment>-->
+    <xsl:template match="xsd:element[(@type=$digitTypes) or (./xsd:simpleType/xsd:restriction/@base=$digitTypes)]" mode="type" priority="15">
+        <!--<xsl:comment>testxsdDigit</xsl:comment>-->
         <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}">10</xsl:element>
     </xsl:template>
 
     <!--обычные строки без ограничений-->
-    <xsl:template match="xsd:element[@type=$stringTypes]" mode="type">
-        <!--<xsl:comment>testxsd</xsl:comment>-->
+    <xsl:template match="xsd:element[@type=$stringTypes]" mode="type" priority="14">
+        <!--<xsl:comment>testxsdString</xsl:comment>-->
         <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}">string</xsl:element>
     </xsl:template>
 
     <!--дата-->
-    <xsl:template match="xsd:element[@type=$dateTypes]" mode="type">
-        <!--<xsl:comment>testxsd</xsl:comment>-->
+    <xsl:template match="xsd:element[@type=$dateTypes]" mode="type" priority="13">
+        <!--<xsl:comment>testxsdDate</xsl:comment>-->
         <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}"><xsl:value-of select="format-date(current-date(),'[Y0001]-[M01]-[D01]')"/></xsl:element>
     </xsl:template>
 
     <!--дата-время-->
-    <xsl:template match="xsd:element[@type=$dateTimeTypes]" mode="type">
-        <!--<xsl:comment>testxsd</xsl:comment>-->
+    <xsl:template match="xsd:element[@type=$dateTimeTypes]" mode="type" priority="12">
+        <!--<xsl:comment>testxsdDateTime</xsl:comment>-->
         <!--<xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}"><xsl:value-of select="format-dateTime(current-dateTime(),'[D01].[M01].[Y0001]T[H01]:[m01]:[s01]')"/></xsl:element>-->
         <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}"><xsl:value-of select="format-dateTime(current-dateTime(),'[Y0001]-[M01]-[D01]T12:00:00')"/></xsl:element>
     </xsl:template>
 
     <!--буль-->
-    <xsl:template match="xsd:element[@type=$booleanTypes]" mode="type">
-        <!--<xsl:comment>testxsd</xsl:comment>-->
+    <xsl:template match="xsd:element[@type=$booleanTypes]" mode="type" priority="11">
+        <!--<xsl:comment>testxsdBool</xsl:comment>-->
         <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}">false</xsl:element>
     </xsl:template>
 
     <!--enumeration-->
-    <xsl:template match="xsd:element[./xsd:simpleType/xsd:restriction/xsd:enumeration]" mode="type">
-        <!--<xsl:comment>testxsd</xsl:comment>-->
+    <xsl:template match="xsd:element[./xsd:simpleType/xsd:restriction/xsd:enumeration]" mode="type" priority="10">
+        <!--<xsl:comment>testxsdEnum</xsl:comment>-->
         <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}"><xsl:value-of select=".//xsd:enumeration[1]/@value"/></xsl:element>
     </xsl:template>
 
     <!--простой тип унаследованнный от строки с рестриктом-->
-    <xsl:template match="xsd:element[./xsd:simpleType/*[@base=$stringTypes]/xsd:maxLength]" mode="type">
-        <!--<xsl:comment>testxsd</xsl:comment>-->
+    <xsl:template match="xsd:element[./xsd:simpleType/*[@base=$stringTypes]/xsd:maxLength]" mode="type" priority="1000">
+        <!--<xsl:comment>testxsdStrMax</xsl:comment>-->
         <xsl:variable name="maxlen" select="./xsd:simpleType/*[@base=$stringTypes]/xsd:maxLength/@value"/>
         <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}">
             <xsl:value-of select="substring('string', 1, $maxlen)"/>
@@ -193,7 +219,7 @@
     </xsl:template>
 
     <!--элемент с типом, определенным в импротах-->
-    <xsl:template match="xsd:element[mock:getNamespaceAlias(./@type)=$importFilesNsAlias]" mode="type">
+    <xsl:template match="xsd:element[mock:getNamespaceAlias(./@type)=$importFilesNsAlias]" mode="type" priority="99">
         <xsl:param name="typeName" select="mock:removeNamespaceAlias(./@type)"/>
         <xsl:param name="nsAlias" select="mock:getNamespaceAlias(./@type)"/>
         <!--<xsl:comment>testImport <xsl:value-of select="$typeName"/></xsl:comment>-->
@@ -204,7 +230,8 @@
     </xsl:template>
 
     <!--элемент с простым базовым классом, определенным в импротах. похож на темплейт выше-->
-    <xsl:template match="xsd:element[mock:getNamespaceAlias(./xsd:simpleType/xsd:restriction[not(./xsd:enumeration)]/@base)=$importFilesNsAlias]" mode="type">
+    <xsl:template match="xsd:element[mock:getNamespaceAlias(./xsd:simpleType/xsd:restriction[not(./xsd:enumeration)]/@base)=$importFilesNsAlias]"
+                  mode="type"   priority="103">
         <xsl:param name="baseName" select="mock:removeNamespaceAlias(./xsd:simpleType/xsd:restriction/@base)"/>
         <xsl:param name="nsAlias" select="mock:getNamespaceAlias(./xsd:simpleType/xsd:restriction/@base)"/>
         <!--<xsl:comment>testImportBase <xsl:value-of select="$baseName"/></xsl:comment>-->
@@ -215,23 +242,28 @@
     </xsl:template>
 
     <!--элемент с атрибутом @type, который есть в xsd-->
-    <xsl:template match="xsd:element[mock:removeNamespaceAlias(./@type)= $typesList]" mode="type">
-        <xsl:variable name="typeLocalName" select="replace(@type,concat($localTargetNSAlias,':'),'')"/>
-        <!--<xsl:comment>testXsd</xsl:comment>-->
+    <xsl:template match="xsd:element[mock:removeNamespaceAlias(./@type)= $typesList]" mode="type"  priority="102">
+        <xsl:variable name="typeLocalName" select="mock:removeNamespaceAlias(./@type)"/>
+        <!--<xsl:comment>testXsd import {<xsl:value-of select="$typeLocalName"/>}</xsl:comment>-->
+        <!--<xsl:comment>testXsd import {<xsl:value-of select="//(xsd:complexType | xsd:simpleType)[@name=$typeLocalName]/@name"/>}</xsl:comment>-->
+        <!--<xsl:comment>testXsd import {<xsl:value-of select="$typesList"/>}</xsl:comment>-->
         <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}">
-            <xsl:apply-templates select="//xsd:complexType[@name=$typeLocalName] | $importFilesDocs[@name=$typeLocalName]" mode="subeseq"/>
+            <!--TODO old value--><!--<xsl:apply-templates select="//xsd:complexType[@name=$typeLocalName] | $importFilesDocs[@name=$typeLocalName]" mode="subeseq"/>-->
+            <xsl:apply-templates select="(//(xsd:complexType | xsd:simpleType)[@name=$typeLocalName])
+                    | ($importFilesDocs/(xsd:complexType | xsd:simpleType)[@name=$typeLocalName])
+                    | ($includeFilesDocs/(xsd:complexType | xsd:simpleType)[@name=$typeLocalName])" mode="importedType"/>
         </xsl:element>
     </xsl:template>
 
     <!--элемент с атрибутом @ref. Берется из импортированных схем-->
-    <xsl:template match="xsd:element[@ref]" mode="type">
+    <xsl:template match="xsd:element[@ref]" mode="type"  priority="101">
         <xsl:param name="elementName" select="mock:removeNamespaceAlias(./@ref)"/>
         <!--<xsl:comment>testRef</xsl:comment>-->
         <xsl:apply-templates select="$includeFilesDocs/xsd:element[@name=$elementName]" mode="type"/>
     </xsl:template>
 
     <!--элемент с complexType-->
-    <xsl:template match="xsd:element[./xsd:complexType]" mode="type">
+    <xsl:template match="xsd:element[./xsd:complexType]" mode="type"  priority="100">
         <!--<xsl:comment>testcomplexType</xsl:comment>-->
         <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}">
             <xsl:apply-templates select="./xsd:complexType" mode="subeseq"/>
@@ -240,19 +272,25 @@
 
     <!--элемент у которого никаких требований-->
     <xsl:template match="xsd:element[@type='xsd:anyType'
-                            or (count(./*[local-name()!='annotation'])=0 and not(./@type) and not(./@ref))]" mode="type">
+                            or (count(./*[local-name()!='annotation'])=0 and not(./@type) and not(./@ref))]" mode="type"  priority="10">
         <!--<xsl:comment>testNoRestrictions</xsl:comment>-->
         <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}">anyString</xsl:element>
     </xsl:template>
 
     <!--***********************************-->
     <!-- если не нашли матч - пишем об этом комментарий -->
-    <xsl:template match="xsd:element" mode="type">
+    <xsl:template match="xsd:element" mode="type" priority="1">
         <xsl:if test="$omitComments">
-            <xsl:comment>not known elementType:</xsl:comment>
+            <xsl:comment>not known elementType:{<xsl:value-of select="@type"/>}</xsl:comment>
             <!--<xsl:comment><xsl:value-of select="mock:getNamespaceAlias(./@type)"/> (<xsl:value-of select="./@type"/>) from <xsl:value-of select="$importFilesNsAlias"/></xsl:comment>-->
-            <!--<xsl:comment>t1:<xsl:value-of select="$includeFilesList"/></xsl:comment>-->
+            <!--<xsl:comment>t1:-->
+                <!--<xsl:value-of select="$typesList"/></xsl:comment>-->
+            <!--<xsl:comment>t2:-->
+                <!--<xsl:value-of select="//(xsd:complexType | xsd:simpleType)/@name"/></xsl:comment>-->
+            <!--<xsl:comment>t3:-->
+                <!--<xsl:value-of select="//(xsd:complexType | xsd:simpleType)/@name | $importFilesDocs/(xsd:complexType | xsd:simpleType)/@name | $includeFilesDocs/(xsd:complexType | xsd:simpleType)/@name"/></xsl:comment>-->
             <!--<xsl:comment>t2:<xsl:value-of select="$includeFilesDocs/xsd:complexType/@name"/></xsl:comment>-->
+
         </xsl:if>
         <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}"/>
     </xsl:template>
@@ -261,10 +299,11 @@
     <!--***********************************-->
     <!-- разбор импортированных типов -->
     <!--***********************************-->
+
     <!--сложный тип-->
     <xsl:template match="xsd:complexType" mode="importedType">
         <!--<xsl:comment>testCT</xsl:comment>-->
-        <xsl:apply-templates select="./xsd:complexType" mode="subeseq"/>
+        <xsl:apply-templates select="." mode="subeseq"/>
     </xsl:template>
 
     <!--тип decimal-->

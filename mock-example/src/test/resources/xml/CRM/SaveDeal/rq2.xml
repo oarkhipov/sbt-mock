@@ -4,7 +4,8 @@
       <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
       <soap:operation-name>saveDealRs</soap:operation-name>
    </soap:Header>
-   <soap:Body><!--test Service ParticipantsComment LoanOfficerConclusion UnderwriterConclusion Vote CommitteeResult Project Schedule Losses Collateral Fee FinancingInfo InterestRateInfo Product ProductConditions DealTeamMember RiskInfo RiskAnalysis Deal SaveDealRq-SaveDealRq--><CRM:saveDealRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+   <soap:Body>
+      <CRM:saveDealRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                       xmlns:tns="http://sbrf.ru/NCP/CRM/SaveDealRq/1.07/">
          <tns:deal>
             <tns:dealID>string</tns:dealID>

@@ -4,7 +4,8 @@
       <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
       <soap:operation-name>getRatingsAndFactorsRs</soap:operation-name>
    </soap:Header>
-   <soap:Body><!--test Employee RatingAjustment ListOfRatingAjustment AddParameter ListOfAddParameter CalculatedFactor ListOfCalculatedFactor ResultRating ListOfResultRating CardinalFactor ListOfCardinalFactor RatingPeriod ListOfRatingPeriod SupportFactor ListOfSupportFactor RatingSupport ListOfRatingSupport FixedFactor ListOfFixedFactor RatingCalc ListOfRatingCalc Rating ListOfRating ImportRatingResponse-ImportRatingResponse--><FinRep:getRatingsAndFactorsRs xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
+   <soap:Body>
+      <FinRep:getRatingsAndFactorsRs xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
                                      xmlns:tns="http://sbrf.ru/NCP/ASFO/GetRatingsAndFactorsRs/">
          <tns:listOfRating><!--from 1 to unbounded elements --><tns:rating>
                <tns:ratingId>string</tns:ratingId>

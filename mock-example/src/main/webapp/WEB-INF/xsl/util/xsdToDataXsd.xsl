@@ -29,7 +29,7 @@
     <xsl:param name="headerType" select="if (/xsd:schema//xsd:element[@ref='kd4:KD4SoapHeaderV2']) then 'KD4' else 'NCP'"/>
 
     <!-- неймспейс, в котором будут содрежатся наши данные. Получается припиской к стандратному неймспейсу субпути /Data/ -->
-    <xsl:variable name="targetNS" select="mock:addDataToNamespaceUrl($operationXsdSchema/@targetNamespace)"/>
+    <xsl:variable name="targetNS" select="if ($operationXsdSchema/@targetNamespace) then mock:addDataToNamespaceUrl($operationXsdSchema/@targetNamespace) else concat('http://sbrf.ru/mockService/',$rootElementName,'/Data/')"/> <!--TODO заменить mock на namespace конфига -->
 
     <!-- неймспейс, которым обозначается tns в targetNamespace -->
     <xsl:variable name="tnsAlias" select="$operationXsdSchema/namespace::*[.=$operationXsdSchema/@targetNamespace and string-length(local-name(.))>0]/local-name()"/>

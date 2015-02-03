@@ -463,6 +463,20 @@ public class importXSD {
         params.put("systemName","BBMO");
         params.put("xsdBase","BBMOOperationElements.xsd");
         driverCycle("BBMO", "SrvUpdateClientReferenceDataRq", "KD4", params);
+
+        params.clear();
+        params.put("rootElementName", "CKPITProductsDepositsNSOReq");
+        params.put("operationsXSD", "../../xsd/CKPIT/ckpit_integration.xsd");
+        params.put("systemName","CKPIT");
+        params.put("xsdBase","ckpit_integration.xsd");
+        driverCycle("CKPIT", "CKPITProductsDepositsNSOReq", "NCP", params);
+
+        params.clear();
+        params.put("rootElementName", "CKPITProductsLoansReq");
+        params.put("operationsXSD", "../../xsd/CKPIT/ckpit_integration.xsd");
+        params.put("systemName","CKPIT");
+        params.put("xsdBase","ckpit_integration.xsd");
+        driverCycle("CKPIT", "CKPITProductsLoansReq", "NCP", params);
     }
 
     /**

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/mockService/CKPITProductsLoansReq/Data/">
+   <request name="default">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+         <operation-name>CKPITProductsLoansReq</operation-name>
+      </SoapHeader>
+      <RqUID>string</RqUID>
+      <RqTm>string</RqTm>
+      <RqAction>string</RqAction>
+      <IDCKPIT_MB>1234567890</IDCKPIT_MB>
+      <Loan>
+         <Label>string</Label>
+         <Title>string</Title>
+         <CodeEKS>string</CodeEKS>
+         <ValidityStartDate>2015-02-03</ValidityStartDate>
+         <ValidityEndDate>2015-02-03</ValidityEndDate>
+      </Loan>
+   </request>
+   <request name="test1">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+         <operation-name>CKPITProductsLoansReq</operation-name>
+      </SoapHeader>
+      <RqUID>string</RqUID>
+      <RqTm>string</RqTm>
+      <RqAction>string</RqAction>
+      <IDCKPIT_MB>1234567890</IDCKPIT_MB>
+      <Loan>
+         <Label>string</Label>
+         <Title>string</Title>
+         <CodeEKS>string</CodeEKS>
+      </Loan>
+   </request>
+</data>

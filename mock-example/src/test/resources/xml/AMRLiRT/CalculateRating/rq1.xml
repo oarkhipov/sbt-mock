@@ -4,7 +4,8 @@
       <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
       <soap:operation-name>calculateRatingRs</soap:operation-name>
    </soap:Header>
-   <soap:Body><!--test CardinalFactor ListOfCardinalFactor RatingPeriod ListOfRatingPeriod SupportFactor ListOfSupportFactor RatingSupport ListOfRatingSupport FixedFactor ListOfFixedFactor Requestor RatingRequest CalcRatingRequest-CalcRatingRequest--><AMRLiRT:calculateRatingRq xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
+   <soap:Body>
+      <AMRLiRT:calculateRatingRq xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
                                  xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/">
          <tns:arg0>
             <tns:ratingId>string</tns:ratingId>

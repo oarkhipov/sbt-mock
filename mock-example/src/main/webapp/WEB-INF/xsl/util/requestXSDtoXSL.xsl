@@ -29,9 +29,14 @@
     <!-- TODO выбрать этот параметр автоматом -->
     <xsl:param name="systemName" select="'CRM'"/>
 
+    <!--Этим параметром можно выбрать алиас, под которым будет отображаться target namespace. Лучше не менять. Сделанно для того, чтобы не делать алиаса когда он пустой-->
+    <xsl:param name="tNSAlias" select="if ($targetNS!='') then 'tns' else ''"/>
+    <xsl:variable name="tns_" select="if ($tNSAlias!='') then concat($tNSAlias, ':') else ''"/>
+    <xsl:variable name="dataNS" select="if ($targetNS!='') then mock:addDataToNamespaceUrl($targetNS) else concat('http://sbrf.ru/mockService/',$rootElementName,'/Data/')"/> <!--TODO заменить mock на namespace конфига -->
+
     <!--В этой переменной идет выбор заголовка между разными системами. Сейчас выбор захорлкожен-->
     <!--!!! этот выбор захардкожен !!!-->
-    <xsl:param name="headerType" select="if (contains($targetNS, 'bbmo')) then 'KD4' else 'NCP'"/>
+    <xsl:param name="headerType" select="if (contains($targetNS, 'bbmo') or $targetNS='') then 'KD4' else 'NCP'"/>
 
     <!--алиас неймспейса, который используется в исходной xsd-->
     <xsl:param name="localTargetNSAlias" select="local-name($operationXsdSchema/namespace::*[.=$targetNS][string-length(local-name(.))>0])"/>
@@ -77,16 +82,20 @@
 
     <xsl:template match="xsd:schema">
         <xsl:element name="xsl:stylesheet">
-            <xsl:namespace name="tns" select="$targetNS"/>
-            <xsl:namespace name="rsd" select="mock:addDataToNamespaceUrl($targetNS)"/>
-            <xsl:namespace name="{$systemName}" select="$parrentNS"/>
+            <xsl:if test="$targetNS!=''">
+                <xsl:namespace name="{$tNSAlias}" select="$targetNS"/>
+            </xsl:if>
+            <xsl:namespace name="rsd" select="$dataNS"/>
+            <xsl:if test="$parrentNS!=''">
+                <xsl:namespace name="{$systemName}" select="$parrentNS"/>
+            </xsl:if>
             <xsl:attribute name="version">1.0</xsl:attribute>
             <xsl:call-template name="headerDeclaration"/>
             <xsl:text>&#xA;</xsl:text>
             <xsl:call-template name="bodyDeclaration"/>
             <xsl:text>&#xA;&#xA;</xsl:text>
 
-            <xsl:variable name="baseContainer" select="$typesList[@name=$rootTypeName or @name=$rootElementName]"/>
+            <xsl:variable name="baseContainer" select="if (count($typesList[@name=$rootTypeName])=1) then $typesList[@name=$rootTypeName] else $typesList[@name=$rootElementName]"/>
 
             <!--получаем все тэги, которые могут содержать типы, которые нам нужны и берем только те, что лежат в нашем неймспейсе-->
             <xsl:variable name="typesToTemplate" select="$baseContainer//@*[name()=$atributesWithTypes]/mock:removeNamespaceAlias(.,$localTargetNSAlias)[not(contains(.,':'))]"/>
@@ -160,8 +169,10 @@
         <xsl:for-each select="$typesList//xsd:element[mock:removeNamespaceAlias(@type, $localTargetNSAlias) = $typeName]/@name">
             <xsl:element name="xsl:template">
                 <xsl:attribute name="match">rsd:<xsl:value-of select="."/></xsl:attribute>
-                <xsl:element name="tns:{.}"  namespace="{$targetNS}">
-                    <xsl:namespace name="tns" select="$targetNS"/>
+                <xsl:element name="{$tns_}{.}"  namespace="{$targetNS}">
+                    <xsl:if test="$targetNS!=''">
+                        <xsl:namespace name="{$tNSAlias}" select="$targetNS"/>
+                    </xsl:if>
                     <xsl:apply-templates select="$type//xsd:element" mode="Inside">
                         <xsl:with-param name="dataPath" select="'./rsd:'"/>
                     </xsl:apply-templates>
@@ -176,8 +187,10 @@
         <xsl:param name="typeName" select="mock:removeNamespaceAlias(./@name, $localTargetNSAlias)"/>
         <xsl:element name="xsl:template">
             <xsl:attribute name="match">rsd:<xsl:value-of select="$typeName"/></xsl:attribute>
-            <xsl:element name="tns:{$typeName}"  namespace="{$targetNS}">
-                <xsl:namespace name="tns" select="$targetNS"/>
+            <xsl:element name="{$tns_}{$typeName}"  namespace="{$targetNS}">
+                <xsl:if test="$targetNS!=''">
+                    <xsl:namespace name="{$tNSAlias}" select="$targetNS"/>
+                </xsl:if>
                 <xsl:apply-templates select="./xsd:complexType/xsd:sequence/xsd:element" mode="Inside">
                 <xsl:with-param name="dataPath" select="'./rsd:'"/>
             </xsl:apply-templates>
@@ -188,8 +201,10 @@
     </xsl:template>
 
     <xsl:template match="*[local-name()=$xsdTagsToImport]" mode="base">
-        <xsl:variable name="mainElementNSAlias" select="if ($targetNS=$parrentNS) then 'tns' else $systemName"/>
-        <!--<xsl:comment><xsl:value-of select="concat($targetNS,'-',$parrentNS)"/></xsl:comment>-->
+        <xsl:variable name="mainElementNSAlias" select="if ($parrentNS!='') then (
+                                                                                        if ($targetNS=$parrentNS) then $tns_ else concat($systemName,':')
+                                                                                    ) else ''"/>
+        <!--<xsl:comment>test <xsl:value-of select="local-name()"/> name={<xsl:value-of select="@name"/>}</xsl:comment>-->
         <xsl:element name="xsl:template">
             <xsl:attribute name="name"><xsl:value-of select="$rootElementName"/></xsl:attribute>
             <xsl:element name="xsl:param">
@@ -199,9 +214,21 @@
                 <xsl:attribute name="name">data</xsl:attribute>
             </xsl:element>
                 <xsl:element name="xsl:element">
-                    <xsl:attribute name="name"><xsl:value-of select="$mainElementNSAlias"/>:<xsl:value-of select="$rootElementName"/></xsl:attribute>
-                    <xsl:apply-templates select="./xsd:sequence |
-                                                ./xsd:complexType/(xsd:sequence/xsd:element
+                    <xsl:attribute name="name"><xsl:value-of select="$mainElementNSAlias"/><xsl:value-of select="$rootElementName"/></xsl:attribute>
+                    <xsl:if test="./xsd:complexContent/xsd:extension">
+                        <xsl:variable name="baseLocalName" select="mock:removeNamespaceAlias(./xsd:complexContent/xsd:extension/@base)"/>
+                        <xsl:variable name="baseType" select="$typesList[@name=$baseLocalName]"/>
+                        <xsl:apply-templates select="$baseType/xsd:sequence
+                                                | $baseType/xsd:complexContent/xsd:extension/xsd:sequence/xsd:element
+                                                | $baseType/xsd:complexType/(xsd:sequence/xsd:element
+                                                        | xsd:complexContent/(xsd:sequence/xsd:element
+                                                                            | xsd:extension/xsd:sequence/xsd:element))" mode="Inside">
+                            <xsl:with-param name="dataPath" select="'$data/rsd:request[@name=$request]/rsd:'"/>
+                        </xsl:apply-templates>
+                    </xsl:if>
+                    <xsl:apply-templates select="./xsd:sequence
+                                                | ./xsd:complexContent/xsd:extension/xsd:sequence/xsd:element
+                                                | ./xsd:complexType/(xsd:sequence/xsd:element
                                                         | xsd:complexContent/(xsd:sequence/xsd:element
                                                                             | xsd:extension/xsd:sequence/xsd:element))" mode="Inside">
                         <xsl:with-param name="dataPath" select="'$data/rsd:request[@name=$request]/rsd:'"/>
@@ -212,14 +239,16 @@
 
     <xsl:template match="xsd:element[@name]" mode="Inside" priority="1">
         <xsl:param name="dataPath"/> <!-- в данном параметре харниться путь из дата-xml, по которому будет получаться значение элемента -->
-        <xsl:comment>match="xsd:element[@name]"</xsl:comment>
+        <!--<xsl:comment>match="xsd:element[@name]"</xsl:comment>-->
         <xsl:choose>
             <!--TODO рассмоьтреть случай, когда есть @maxOccurs. тогда надо длеать еще темплейт -->
             <xsl:when test="@minOccurs=0">
                 <xsl:element name="xsl:if">
                     <xsl:attribute name="test"><xsl:value-of select="$dataPath"/><xsl:value-of select="@name"/></xsl:attribute>
-                    <xsl:element name="tns:{@name}" namespace="{$targetNS}">
-                        <xsl:namespace name="tns" select="$targetNS"/>
+                    <xsl:element name="{$tns_}{@name}" namespace="{$targetNS}">
+                        <xsl:if test="$targetNS!=''">
+                            <xsl:namespace name="{$tNSAlias}" select="$targetNS"/>
+                        </xsl:if>
                         <xsl:element name="xsl:value-of">
                             <xsl:attribute name="select"><xsl:value-of select="$dataPath"/><xsl:value-of select="@name"/></xsl:attribute>
                         </xsl:element>
@@ -227,8 +256,10 @@
                 </xsl:element>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:element name="tns:{@name}" namespace="{$targetNS}">
-                    <xsl:namespace name="tns" select="$targetNS"/>
+                <xsl:element name="{$tns_}{@name}" namespace="{$targetNS}">
+                    <xsl:if test="$targetNS!=''">
+                        <xsl:namespace name="{$tNSAlias}" select="$targetNS"/>
+                    </xsl:if>
                     <xsl:element name="xsl:value-of" >
                         <xsl:attribute name="select"><xsl:value-of select="$dataPath"/><xsl:value-of select="@name"/></xsl:attribute>
                     </xsl:element>
@@ -239,15 +270,15 @@
 
     <xsl:template match="xsd:element[./xsd:complexType/xsd:sequence]" mode="Inside" priority="2">
         <xsl:param name="dataPath"/> <!-- в данном параметре харниться путь из дата-xml, по которому будет получаться значение элемента -->
-        <xsl:comment>match="xsd:element[./xsd:complexType/xsd:sequence]"</xsl:comment>
+        <!--<xsl:comment>match="xsd:element[./xsd:complexType/xsd:sequence]"</xsl:comment>-->
         <xsl:variable name="elementName" select="@name"/>
         <xsl:choose>
             <!--TODO рассмотреть случай, когда есть @maxOccurs. тогда надо длеать еще темплейт -->
             <xsl:when test="@minOccurs=0">
                 <xsl:element name="xsl:if">
                     <xsl:attribute name="test"><xsl:value-of select="$dataPath"/><xsl:value-of select="$elementName"/></xsl:attribute>
-                    <xsl:element name="tns:{$elementName}" namespace="{$targetNS}">
-                        <xsl:namespace name="tns" select="$targetNS"/>
+                    <xsl:element name="{$tns_}{$elementName}" namespace="{$targetNS}">
+                        <xsl:namespace name="{$tNSAlias}" select="$targetNS"/>
                         <xsl:apply-templates select="./xsd:complexType/(xsd:sequence/xsd:element
                                                         | xsd:complexContent/(xsd:sequence/xsd:element
                                                                             | xsd:extension/xsd:sequence/xsd:element))" mode="Inside">
@@ -257,8 +288,8 @@
                 </xsl:element>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:element name="tns:{$elementName}" namespace="{$targetNS}">
-                    <xsl:namespace name="tns" select="$targetNS"/>
+                <xsl:element name="{$tns_}{$elementName}" namespace="{$targetNS}">
+                    <xsl:namespace name="{$tNSAlias}" select="$targetNS"/>
                     <xsl:apply-templates select="./xsd:complexType/xsd:sequence/xsd:element" mode="Inside">
                         <xsl:with-param name="dataPath" select="replace($dataPath, '^(.+?)/rsd:$', concat('$1/rsd:',$elementName,'/rsd:'))"/><!-- добавляем в конец пути этот элемент и ищем внутри -->
                     </xsl:apply-templates>
@@ -271,7 +302,7 @@
         <xsl:param name="dataPath"/> <!-- в данном параметре харниться путь из дата-xml, по которому будет получаться значение элемента -->
         <xsl:param name="typeName" select="mock:removeNamespaceAlias(./@type, $localTargetNSAlias)"/>
         <!--<xsl:comment> <xsl:value-of select="$typeName"/> </xsl:comment>-->
-        <xsl:comment>xsd:element[@name and mock:removeNamespaceAlias(./@type, $localTargetNSAlias)=$typesList/@name]"</xsl:comment>
+        <!--<xsl:comment>xsd:element[@name and mock:removeNamespaceAlias(./@type, $localTargetNSAlias)=$typesList/@name]"</xsl:comment>-->
         <xsl:element name="xsl:apply-templates">
             <xsl:attribute name="select"><xsl:value-of select="$dataPath"/><xsl:value-of select="@name"/></xsl:attribute>
         </xsl:element>
@@ -280,7 +311,7 @@
     <xsl:template match="xsd:element[@ref]" mode="Inside"  priority="4">
         <xsl:param name="dataPath"/> <!-- в данном параметре харниться путь из дата-xml, по которому будет получаться значение элемента -->
         <xsl:param name="refName" select="mock:removeNamespaceAlias(./@ref, $localTargetNSAlias)"/>
-        <xsl:comment>match="xsd:element[@ref]"</xsl:comment>
+        <!--<xsl:comment>match="xsd:element[@ref]"</xsl:comment>-->
         <!--<xsl:comment>ref <xsl:value-of select="''"/> </xsl:comment>-->
         <xsl:element name="xsl:apply-templates">
             <xsl:attribute name="select"><xsl:value-of select="$dataPath"/><xsl:value-of select="$refName"/></xsl:attribute>

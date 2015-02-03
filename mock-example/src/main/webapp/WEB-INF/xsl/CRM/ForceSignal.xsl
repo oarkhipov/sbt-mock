@@ -61,26 +61,26 @@
       <xsl:param name="request"/>
       <xsl:param name="data"/>
       <xsl:element name="CRM:forceSignalRq">
-			<!--match="xsd:element[@name]"--><tns:contractID>
+			      <tns:contractID>
             <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:contractID"/>
          </tns:contractID>
-			      <!--match="xsd:element[@name]"--><xsl:if test="$data/rsd:request[@name=$request]/rsd:contractBPMID">
+			      <xsl:if test="$data/rsd:request[@name=$request]/rsd:contractBPMID">
             <tns:contractBPMID>
                <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:contractBPMID"/>
             </tns:contractBPMID>
          </xsl:if>
-			      <!--match="xsd:element[@name]"--><xsl:if test="$data/rsd:request[@name=$request]/rsd:status">
+			      <xsl:if test="$data/rsd:request[@name=$request]/rsd:status">
             <tns:status>
                <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:status"/>
             </tns:status>
          </xsl:if>
-			      <!--match="xsd:element[@name]"--><tns:comment>
+			      <tns:comment>
             <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:comment"/>
          </tns:comment>
-			      <!--match="xsd:element[@name]"--><tns:requestType>
+			      <tns:requestType>
             <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:requestType"/>
          </tns:requestType>
-			      <!--match="xsd:element[@name]"--><tns:responsiblePersonID>
+			      <tns:responsiblePersonID>
             <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:responsiblePersonID"/>
          </tns:responsiblePersonID>
 		    </xsl:element>

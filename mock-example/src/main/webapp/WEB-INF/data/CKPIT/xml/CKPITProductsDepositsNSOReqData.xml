@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/mockService/CKPITProductsDepositsNSOReq/Data/">
+   <request name="default">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+         <operation-name>CKPITProductsDepositsNSOReq</operation-name>
+      </SoapHeader>
+      <RqUID>string</RqUID>
+      <RqTm>string</RqTm>
+      <RqAction>string</RqAction>
+      <IDCKPIT>1234567890</IDCKPIT>
+      <Label>string</Label>
+      <Name>string</Name>
+      <ShortName>string</ShortName>
+      <InstrumentType>Deposit</InstrumentType>
+      <ValidityStartDate>2015-02-03</ValidityStartDate>
+      <ValidityEndDate>2015-02-03</ValidityEndDate>
+      <Option>
+         <OptionID>string</OptionID>
+         <OptionName>string</OptionName>
+         <OptionValue>string</OptionValue>
+      </Option>
+      <Restriction>
+         <Currency>str</Currency>
+         <AmountMin>10</AmountMin>
+         <AmountMax>10</AmountMax>
+         <PeriodMin>10</PeriodMin>
+         <PeriodMax>10</PeriodMax>
+      </Restriction>
+   </request>
+   <request name="test1">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+         <operation-name>CKPITProductsDepositsNSOReq</operation-name>
+      </SoapHeader>
+      <RqUID>string</RqUID>
+      <RqTm>string</RqTm>
+      <RqAction>string</RqAction>
+      <IDCKPIT>1234567890</IDCKPIT>
+      <Label>string</Label>
+      <Name>string</Name>
+      <ShortName>string</ShortName>
+      <InstrumentType>Deposit</InstrumentType>
+      <Option>
+         <OptionID>string</OptionID>
+         <OptionName>string</OptionName>
+         <OptionValue>string</OptionValue>
+      </Option>
+      <Restriction>
+         <Currency>str</Currency>
+         <PeriodMin>10</PeriodMin>
+         <PeriodMax>10</PeriodMax>
+      </Restriction>
+   </request>
+</data>

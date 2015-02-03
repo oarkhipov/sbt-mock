@@ -4,7 +4,8 @@
       <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
       <soap:operation-name>getFinReportRs</soap:operation-name>
    </soap:Header>
-   <soap:Body><!--test FinReportImportRequest-FinReportImportRequest--><FinRep:getFinReportRq xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
+   <soap:Body>
+      <FinRep:getFinReportRq xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
                              xmlns:tns="http://sbrf.ru/NCP/ASFO/GetFinReportRq/">
          <tns:finReportType>test1</tns:finReportType>
          <tns:entityType>string</tns:entityType>

@@ -6,6 +6,9 @@
     <xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>
     <xsl:include href="xsltFunctions.xsl"/>
 
+    <!--Имя тэга элемента-->
+    <xsl:param name="rootElementName" select="''"/><!-- Todo ошибка если не задано -->
+
     <xsl:param name="name"
                select="'default'"/>
     <xsl:param name="dataFile" select="."/>
@@ -21,8 +24,10 @@
                select="'false'"/>
     <xsl:param name="type"
                select="'response'"/>
+    <xsl:variable name="dataNSFromFile"
+                  select="mock:addDataToNamespaceUrl(/*[local-name()='Envelope']/*[local-name()='Body']/descendant-or-self::*[last()]/namespace-uri())"/>
     <xsl:param name="dataNsUrl"
-               select="mock:addDataToNamespaceUrl(/*[local-name()='Envelope']/*[local-name()='Body']/descendant-or-self::*[last()]/namespace-uri())"/>
+               select="if ($dataNSFromFile!='') then $dataNSFromFile else concat('http://sbrf.ru/mockService/',$rootElementName,'/Data/')"/> <!--TODO заменить mock на namespace конфига -->
 
     <!--Prepare data and section of data XML-->
     <xsl:template match="/">

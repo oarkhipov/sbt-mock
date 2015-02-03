@@ -252,6 +252,27 @@ public class createMockOrDriverFromXSD {
         params.put("xsdBase","BBMOOperationElements.xsd");
         mockTestCycle(dir, "BBMO", "SrvUpdateClientReferenceDataRq", "Request", params);
     }
+    @Test
+    public void testXSLTtoDataCKPITProductsDepositsNSOReq() throws Exception {
+        final String dir = System.getProperty("user.dir") + "\\src\\main\\webapp\\WEB-INF";
+        Map<String, String> params = new HashMap<String, String>(1);
+        params.put("rootElementName", "CKPITProductsDepositsNSOReq");
+        params.put("operationsXSD", "../../xsd/CKPIT/ckpit_integration.xsd");
+        params.put("systemName","CKPIT");
+        params.put("xsdBase","ckpit_integration.xsd");
+        mockTestCycle(dir, "CKPIT", "CKPITProductsDepositsNSOReq", "Request", params);
+    }
+    @Test
+    public void testXSLTtoDataCKPITProductsLoansReq() throws Exception {
+        final String dir = System.getProperty("user.dir") + "\\src\\main\\webapp\\WEB-INF";
+        Map<String, String> params = new HashMap<String, String>(1);
+        params.put("rootElementName", "CKPITProductsLoansReq");
+        params.put("operationsXSD", "../../xsd/CKPIT/ckpit_integration.xsd");
+        params.put("systemName","CKPIT");
+        params.put("xsdBase","ckpit_integration.xsd");
+        mockTestCycle(dir, "CKPIT", "CKPITProductsLoansReq", "Request", params);
+    }
+
 
 
     protected void mockTestCycle(String webinf, String system, String name, String type) throws Exception {
@@ -287,6 +308,7 @@ public class createMockOrDriverFromXSD {
             System.out.println("xsl");
             String xsl = checkXSLT(webinf + "\\xsl\\util\\responceXSDtoXSL.xsl",
                     webinf + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+//                    "\\src\\main\\webapp\\WEB-INF\\xsl\\" + system + "\\" + name + ".xsl", params);
                     null, params);
 
             System.out.println("create rq example 1");
