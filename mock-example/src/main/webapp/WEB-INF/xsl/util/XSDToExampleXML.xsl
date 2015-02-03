@@ -9,11 +9,12 @@
 
     <xsl:param name="rootXSD" select="/xsd:schema"/>
 
-    <!-- Этот параметр нужен когда имя главного элемента запроса не соответвует тому что мы взяли из неймспейса. Тогда его можно указать параметром -->
-    <!-- TODO выбрать этот параметр более надежным способом -->
-    <xsl:param name="entryPointName" select="replace(xsd:schema/@targetNamespace,'^.+/(\w+)(/[0-9\.]+)?/$','$1')"/>
-    <!--Имя тэга элемента. Скорее всего будет отличаться от $entryPointName, но брать его из другого файла-->
-    <xsl:param name="rootElementName" select="$entryPointName"/>
+
+    <!--Имя тэга элемента-->
+    <xsl:param name="rootElementName" select="''"/>
+    <!--выкидываем ошибку, если нам не дали имя тэга элемента-->
+    <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/><!--TODO заменить mock на namespace конфига -->
+
     <!--система-->
     <xsl:param name="systemName" select="'CRM'"/>
 
@@ -224,7 +225,6 @@
         <xsl:param name="nsAlias" select="mock:getNamespaceAlias(./@type)"/>
         <!--<xsl:comment>testImport <xsl:value-of select="$typeName"/></xsl:comment>-->
         <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}">
-            <!--TODO добавить проверку неймспейса -->
             <xsl:apply-templates select="$importFilesDocs/xsd:*[@name=$typeName]" mode="importedType"/>
         </xsl:element>
     </xsl:template>
@@ -236,7 +236,6 @@
         <xsl:param name="nsAlias" select="mock:getNamespaceAlias(./xsd:simpleType/xsd:restriction/@base)"/>
         <!--<xsl:comment>testImportBase <xsl:value-of select="$baseName"/></xsl:comment>-->
         <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}">
-            <!--TODO добавить проверку неймспейса -->
             <xsl:apply-templates select="$importFilesDocs/xsd:*[@name=$baseName]" mode="importedType"/>
         </xsl:element>
     </xsl:template>
@@ -248,7 +247,6 @@
         <!--<xsl:comment>testXsd import {<xsl:value-of select="//(xsd:complexType | xsd:simpleType)[@name=$typeLocalName]/@name"/>}</xsl:comment>-->
         <!--<xsl:comment>testXsd import {<xsl:value-of select="$typesList"/>}</xsl:comment>-->
         <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}">
-            <!--TODO old value--><!--<xsl:apply-templates select="//xsd:complexType[@name=$typeLocalName] | $importFilesDocs[@name=$typeLocalName]" mode="subeseq"/>-->
             <xsl:apply-templates select="(//(xsd:complexType | xsd:simpleType)[@name=$typeLocalName])
                     | ($importFilesDocs/(xsd:complexType | xsd:simpleType)[@name=$typeLocalName])
                     | ($includeFilesDocs/(xsd:complexType | xsd:simpleType)[@name=$typeLocalName])" mode="importedType"/>

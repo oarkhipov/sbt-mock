@@ -10,7 +10,9 @@
     <xsl:variable name="operationXsdSchema" select="document($operationsXSD)/xsd:schema"/>
 
     <!--Имя тэга элемента-->
-    <xsl:param name="rootElementName" select="''"/><!-- Todo ошибка если не задано -->
+    <xsl:param name="rootElementName" select="''"/>
+    <!--выкидываем ошибку, если нам не дали имя тэга элемента-->
+    <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/><!--TODO заменить mock на namespace конфига -->
 
     <!-- Этот параметр нужен когда имя главного элемента запроса не соответвует тому что мы взяли из неймспейса. Тогда его можно указать параметром -->
     <xsl:param name="rootTypeName" select="mock:removeNamespaceAlias(/xsd:schema//xsd:element[@name=$rootElementName]/@type)"/>

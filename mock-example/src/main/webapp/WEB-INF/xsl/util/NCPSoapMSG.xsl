@@ -12,7 +12,8 @@
     <xsl:variable name="operationXsdSchema" select="document($operationsXSD)/xsd:schema"/>
 
     <!--Имя тэга элемента-->
-    <xsl:param name="rootElementName" select="''"/><!-- Todo ошибка если не задано -->
+    <xsl:param name="rootElementName" select="''"/>
+    <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/><!--TODO заменить mock на namespace конфига -->
 
     <!-- параметры заголовка -->
     <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
