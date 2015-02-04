@@ -14,8 +14,8 @@
          <Name>string</Name>
          <ShortName>string</ShortName>
          <InstrumentType>Deposit</InstrumentType>
-         <!--optional--><ValidityStartDate>2015-02-03</ValidityStartDate>
-         <!--optional--><ValidityEndDate>2015-02-03</ValidityEndDate>
+         <!--optional--><ValidityStartDate>2015-02-04</ValidityStartDate>
+         <!--optional--><ValidityEndDate>2015-02-04</ValidityEndDate>
          <!--from 1 to unbounded elements --><Option>
             <OptionID>string</OptionID>
             <OptionName>string</OptionName>

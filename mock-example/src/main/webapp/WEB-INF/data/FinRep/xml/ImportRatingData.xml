@@ -14,9 +14,9 @@
             <ajustedRatingValue>10</ajustedRatingValue>
             <pd>10</pd>
             <status>string</status>
-            <approvalDate>2015-02-03T12:00:00</approvalDate>
-            <calculationDate>2015-02-03T12:00:00</calculationDate>
-            <ajustmentDate>2015-02-03T12:00:00</ajustmentDate>
+            <approvalDate>2015-02-04T12:00:00</approvalDate>
+            <calculationDate>2015-02-04T12:00:00</calculationDate>
+            <ajustmentDate>2015-02-04T12:00:00</ajustmentDate>
             <modelName>string</modelName>
             <modelIntegrationId>string</modelIntegrationId>
             <ratingName>string</ratingName>
@@ -36,11 +36,11 @@
                   <ratingCalcId>string</ratingCalcId>
                   <modelName>string</modelName>
                   <modelIntegrationId>string</modelIntegrationId>
-                  <dateCalc>2015-02-03T12:00:00</dateCalc>
+                  <dateCalc>2015-02-04T12:00:00</dateCalc>
                   <calcValue>10</calcValue>
                   <listOfRatingAjustment>
                      <ratingAjustment>
-                        <ajustmentDate>2015-02-03T12:00:00</ajustmentDate>
+                        <ajustmentDate>2015-02-04T12:00:00</ajustmentDate>
                         <ajustedValue>10</ajustedValue>
                         <ajustmetReason>string</ajustmetReason>
                         <comments>string</comments>
@@ -93,10 +93,10 @@
                   </listOfFixedFactor>
                   <listOfRatingPeriod>
                      <ratingPeriod>
-                        <reportDate>2015-02-03</reportDate>
+                        <reportDate>2015-02-04</reportDate>
                         <period>string</period>
-                        <startDate>2015-02-03</startDate>
-                        <endDate>2015-02-03</endDate>
+                        <startDate>2015-02-04</startDate>
+                        <endDate>2015-02-04</endDate>
                         <type>string</type>
                         <comments>string</comments>
                         <listOfCardinalFactor>

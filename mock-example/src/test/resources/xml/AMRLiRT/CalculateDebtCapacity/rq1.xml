@@ -50,7 +50,7 @@
             <!--from 0 to unbounded elements --><tns:facilityNotSB><!--optional--><tns:name>string</tns:name>
                <tns:cd>10</tns:cd>
                <tns:cdt>10</tns:cdt>
-               <!--optional--><tns:date>2015-02-03</tns:date>
+               <!--optional--><tns:date>2015-02-04</tns:date>
                <tns:debtCurrencyRate>10</tns:debtCurrencyRate>
                <!--optional--><tns:debtCurrencyCode>string</tns:debtCurrencyCode>
             </tns:facilityNotSB>

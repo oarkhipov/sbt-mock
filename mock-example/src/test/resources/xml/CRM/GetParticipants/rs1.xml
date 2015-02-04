@@ -40,10 +40,10 @@
                   <tns:ratingValue>999</tns:ratingValue>
                   <tns:ratingType>string</tns:ratingType>
                   <tns:ratingModel>string</tns:ratingModel>
-                  <tns:ratingCalculatedDate>2015-02-03</tns:ratingCalculatedDate>
+                  <tns:ratingCalculatedDate>2015-02-04</tns:ratingCalculatedDate>
                   <tns:ratingCalculatedRole>string</tns:ratingCalculatedRole>
                   <tns:ratingCalculatedBy>string</tns:ratingCalculatedBy>
-                  <tns:ratingApprovalDate>2015-02-03</tns:ratingApprovalDate>
+                  <tns:ratingApprovalDate>2015-02-04</tns:ratingApprovalDate>
                   <tns:ratingApprovedBy>string</tns:ratingApprovedBy>
                </tns:rating>
                <!--optional--><tns:roleInConsolidatedGroup>string</tns:roleInConsolidatedGroup>
@@ -53,17 +53,17 @@
                <tns:id>string</tns:id>
                <tns:label>string</tns:label>
                <tns:status>string</tns:status>
-               <tns:updateDate>2015-02-03</tns:updateDate>
-               <!--optional--><tns:approvalDate>2015-02-03</tns:approvalDate>
+               <tns:updateDate>2015-02-04</tns:updateDate>
+               <!--optional--><tns:approvalDate>2015-02-04</tns:approvalDate>
                <!--from 0 to unbounded elements --><tns:ratings>
                   <tns:ratingID>string</tns:ratingID>
                   <tns:ratingValue>999</tns:ratingValue>
                   <tns:ratingType>string</tns:ratingType>
                   <tns:ratingModel>string</tns:ratingModel>
-                  <tns:ratingCalculatedDate>2015-02-03</tns:ratingCalculatedDate>
+                  <tns:ratingCalculatedDate>2015-02-04</tns:ratingCalculatedDate>
                   <tns:ratingCalculatedRole>string</tns:ratingCalculatedRole>
                   <tns:ratingCalculatedBy>string</tns:ratingCalculatedBy>
-                  <tns:ratingApprovalDate>2015-02-03</tns:ratingApprovalDate>
+                  <tns:ratingApprovalDate>2015-02-04</tns:ratingApprovalDate>
                   <tns:ratingApprovedBy>string</tns:ratingApprovedBy>
                </tns:ratings>
                <!--optional--><tns:topLevelGroupName>string</tns:topLevelGroupName>

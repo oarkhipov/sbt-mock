@@ -9,12 +9,12 @@
       <deal>
          <dealID>string</dealID>
          <contractID>string</contractID>
-         <dealCreationDate>2015-02-03T12:00:00</dealCreationDate>
+         <dealCreationDate>2015-02-04T12:00:00</dealCreationDate>
          <dealEssense>string</dealEssense>
          <requestPurpose>string</requestPurpose>
          <dealType>string</dealType>
          <dealStatus>string</dealStatus>
-         <requestDate>2015-02-03</requestDate>
+         <requestDate>2015-02-04</requestDate>
          <origOrgUnit>string</origOrgUnit>
          <origOrgDivision>st</origOrgDivision>
          <clientFileID>string</clientFileID>
@@ -55,7 +55,7 @@
                   <interestRateOrder>string</interestRateOrder>
                   <minRate>1234567890</minRate>
                </interestRateInfo>
-               <startDate>2015-02-03</startDate>
+               <startDate>2015-02-04</startDate>
                <creditTerm>99999</creditTerm>
                <period>99999</period>
                <gracePeriod>99999</gracePeriod>
@@ -76,15 +76,15 @@
                   <paymentOrder>string</paymentOrder>
                </fee>
                <repaymentScheduleDetails>
-                  <sheduleDate>2015-02-03</sheduleDate>
+                  <sheduleDate>2015-02-04</sheduleDate>
                   <sheduleAmount>1234567890</sheduleAmount>
                </repaymentScheduleDetails>
                <selectionScheduleDetails>
-                  <sheduleDate>2015-02-03</sheduleDate>
+                  <sheduleDate>2015-02-04</sheduleDate>
                   <sheduleAmount>1234567890</sheduleAmount>
                </selectionScheduleDetails>
                <changesScheduleDetails>
-                  <sheduleDate>2015-02-03</sheduleDate>
+                  <sheduleDate>2015-02-04</sheduleDate>
                   <sheduleAmount>1234567890</sheduleAmount>
                </changesScheduleDetails>
             </productInfo>
@@ -99,7 +99,7 @@
                <estimatedValueCorrectedToEAD>1234567890</estimatedValueCorrectedToEAD>
                <securityShare>999</securityShare>
                <EstimatedValueSource>string</EstimatedValueSource>
-               <estimationDate>2015-02-03</estimationDate>
+               <estimationDate>2015-02-04</estimationDate>
                <businessMeaning>string</businessMeaning>
                <qualityAndLiquidityEstimation>string</qualityAndLiquidityEstimation>
                <currency>string</currency>
@@ -115,8 +115,8 @@
                <lossELcount>1234567890</lossELcount>
                <typeLGD>string</typeLGD>
                <statusLGD>string</statusLGD>
-               <dateLGDcalculated>2015-02-03</dateLGDcalculated>
-               <finalizationDate>2015-02-03</finalizationDate>
+               <dateLGDcalculated>2015-02-04</dateLGDcalculated>
+               <finalizationDate>2015-02-04</finalizationDate>
                <comment>string</comment>
             </losses>
          </products>
@@ -133,7 +133,7 @@
          <exchangeRates>
             <currencyName>string</currencyName>
             <currencyValue>1234567890</currencyValue>
-            <currencyDate>2015-02-03</currencyDate>
+            <currencyDate>2015-02-04</currencyDate>
          </exchangeRates>
       </deal>
    </request>
@@ -145,12 +145,12 @@
       </SoapHeader>
       <deal>
          <dealID>string</dealID>
-         <dealCreationDate>2015-02-03T12:00:00</dealCreationDate>
+         <dealCreationDate>2015-02-04T12:00:00</dealCreationDate>
          <dealEssense>string</dealEssense>
          <requestPurpose>string</requestPurpose>
          <dealType>string</dealType>
          <dealStatus>string</dealStatus>
-         <requestDate>2015-02-03</requestDate>
+         <requestDate>2015-02-04</requestDate>
          <origOrgUnit>string</origOrgUnit>
          <origOrgDivision>st</origOrgDivision>
          <clientFileID>string</clientFileID>

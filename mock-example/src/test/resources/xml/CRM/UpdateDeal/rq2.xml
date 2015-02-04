@@ -9,12 +9,12 @@
                         xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/">
          <tns:deal>
             <tns:dealID>string</tns:dealID>
-            <tns:dealCreationDate>2015-02-03T12:00:00</tns:dealCreationDate>
+            <tns:dealCreationDate>2015-02-04T12:00:00</tns:dealCreationDate>
             <tns:dealEssense>string</tns:dealEssense>
             <tns:requestPurpose>string</tns:requestPurpose>
             <tns:dealType>string</tns:dealType>
             <tns:dealStatus>string</tns:dealStatus>
-            <tns:requestDate>2015-02-03</tns:requestDate>
+            <tns:requestDate>2015-02-04</tns:requestDate>
             <tns:origOrgUnit>string</tns:origOrgUnit>
             <tns:origOrgDivision>st</tns:origOrgDivision>
             <tns:clientFileID>string</tns:clientFileID>
