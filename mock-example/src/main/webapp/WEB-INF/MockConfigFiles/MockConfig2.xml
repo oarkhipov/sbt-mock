@@ -7,6 +7,8 @@
             <integrationPoints>
                 <integrationPoint>
                     <name>Export Contract info</name>
+                    <rsRootElementName>createTaskRs</rsRootElementName>
+                    <rqRootElementName>createTaskRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
                         <linkedTag>
@@ -40,6 +42,8 @@
                 </integrationPoint>
                 <integrationPoint>
                     <name>Update Contract Info</name>
+                    <rsRootElementName>updateDealRs</rsRootElementName>
+                    <rqRootElementName>updateDealRq</rqRootElementName>
                     <type>Driver</type>
                     <linkedTagSequence>
                         <linkedTag>

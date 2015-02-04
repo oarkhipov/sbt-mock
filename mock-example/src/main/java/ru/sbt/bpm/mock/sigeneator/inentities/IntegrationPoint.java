@@ -16,6 +16,12 @@ public class IntegrationPoint {
     @XStreamAlias("name")
     private String aIntegrationPointName;
 
+    @XStreamAlias("rsRootElementName")
+    private String aRsRootElementName;
+
+    @XStreamAlias("rqRootElementName")
+    private String aRqRootElementName;
+
     @XStreamAlias("type")
     private String aIntegrationPointType;
 
@@ -46,6 +52,22 @@ public class IntegrationPoint {
 
     public void setaIntegrationPointName(String aIntegrationPointName) {
         this.aIntegrationPointName = aIntegrationPointName;
+    }
+
+    public String getaRsRootElementName() {
+        return aRsRootElementName;
+    }
+
+    public void setaRsRootElementName(String aRsRootElementName) {
+        this.aRsRootElementName = aRsRootElementName;
+    }
+
+    public String getaRqRootElementName() {
+        return aRqRootElementName;
+    }
+
+    public void setaRqRootElementName(String aRqRootElementName) {
+        this.aRqRootElementName = aRqRootElementName;
     }
 
     public String getaIntegrationPointType() {
@@ -124,6 +146,8 @@ public class IntegrationPoint {
     public String toString() {
         return "IntegrationPoint{" +
                 "aIntegrationPointName='" + aIntegrationPointName + '\'' +
+                ", aRsRootElementName='" + aRsRootElementName + '\'' +
+                ", aRqRootElementName='" + aRqRootElementName + '\'' +
                 ", aIntegrationPointType='" + aIntegrationPointType + '\'' +
                 ", aLinkedTagSequence=" + aLinkedTagSequence +
                 ", aProtocol='" + aProtocol + '\'' +

@@ -7,6 +7,8 @@
             <integrationPoints>
                 <integrationPoint>
                     <name>Create Task</name>
+                    <rsRootElementName>createTaskRs</rsRootElementName>
+                    <rqRootElementName>createTaskRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
                         <linkedTag>
@@ -40,6 +42,8 @@
                 </integrationPoint>
                 <integrationPoint>
                     <name>Update Task</name>
+                    <rsRootElementName>updateDealRs</rsRootElementName>
+                    <rqRootElementName>updateDealRq</rqRootElementName>
                     <type>Driver</type>
                     <linkedTagSequence>
                         <linkedTag>
@@ -80,6 +84,8 @@
             <integrationPoints>
                 <integrationPoint>
                     <name>Close</name>
+                    <rsRootElementName>finalizeLGDRs</rsRootElementName>
+                    <rqRootElementName>finalizeLGDRq</rqRootElementName>
                     <type>Driver</type>
                     <linkedTagSequence>
                         <linkedTag>
@@ -113,6 +119,8 @@
                 </integrationPoint>
                 <integrationPoint>
                     <name>Update Task</name>
+                    <rsRootElementName>correctRatingRs</rsRootElementName>
+                    <rqRootElementName>correctRatingRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
                         <linkedTag>
