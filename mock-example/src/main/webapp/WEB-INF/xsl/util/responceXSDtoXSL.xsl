@@ -9,10 +9,12 @@
 
     <!-- файл с темплейтом для soap header'а -->
     <xsl:include href="headerTemplate.xsl"/>
+    <!--вспомогательные функции-->
     <xsl:include href="xsltFunctions.xsl"/>
 
     <!--параметры, в которых указывается откуда и какой элемент брать как само тело сообщения-->
-    <xsl:param name="operationsXSD" select="''"/>
+    <xsl:param name="operationsXSD" select="''"/> <!--FunFact - этот параметр выглядит как обяазтельный, и везде в остальных местах мы делаем вид, что он обязательный, но на самом деле он не обязателен. Если его не задать, то в переменную operationXsdSchema мы загрузим входной файл - то есть самое логичное место, где нужно искать нужный нам элемент -->
+    <!--переменная с той схемой которую мы и превратим в xsl-->
     <xsl:variable name="operationXsdSchema" select="document($operationsXSD)/xsd:schema"/>
 
     <!--Имя тэга элемента-->
@@ -23,13 +25,9 @@
     <!-- Этот параметр нужен когда имя главного элемента запроса не соответвует тому что мы взяли из неймспейса. Тогда его можно указать параметром -->
     <xsl:param name="rootTypeName" select="mock:removeNamespaceAlias(/xsd:schema//xsd:element[@name=$rootElementName]/@type)"/>
 
-    <!--путь к верхней xsd с объявлением рут-элементов-->
-    <xsl:param name="parrentXSDPath" select="'../../xsd/CRM/CRM.xsd'"/>
-    <xsl:param name="rootXSD" select="document($parrentXSDPath)/xsd:schema"/>
-
     <xsl:param name="targetNS" select="$operationXsdSchema/@targetNamespace"/>
     <xsl:param name="parrentNS" select="/xsd:schema/@targetNamespace"/>
-    <!-- TODO выбрать этот параметр автоматом -->
+    <!-- TODO выбрать этот параметр автоматом. Проблема в том, что задать его можно только захардкодив -->
     <xsl:param name="systemName" select="'CRM'"/>
 
     <!--В этой переменной идет выбор заголовка между разными системами. Сейчас выбор захорлкожен-->
@@ -48,16 +46,24 @@
     <xsl:variable name="importFilesNs" select="$operationXsdSchema/xsd:import/@namespace"/>
     <xsl:variable name="importFilesNsAlias" select="$operationXsdSchema/namespace::*[.=$importFilesNs]/local-name()"/>
     <xsl:variable name="importFilesDocs" select="document($importFilesList)/xsd:schema"/>
+    <!--TODO по идее импорты и инклюды сверху теряют одну большую возможность - инклюды и импорты внутри инклюдов и импортов. Пока в этом нет нужды - в текущих реализованахз xsd таких извращений нет. Но вообще надо бы срефакторить эти пременные в функцию с рекурсией. Так заодно можно будет убрать повторяющийся код из requestXSDtoXSL.xsl-->
 
+    <!--Для упрощения кода нам нужны несколько списоков констант-->
+    <!--типы элементов, которым нам интересны - в них может содержатся описание элементов-->
     <xsl:variable name="xsdTagsToImport" select="tokenize('element complexType',' ')"/>
+    <!--имена атрибутов, которые нам интересны - в них может содержатся ссылки на другие элементы-->
     <xsl:variable name="atributesWithTypes" select="tokenize('ref base type',' ')"/>
 
+    <!--Большой список типов - все типы что есть в исходном файле, инклюдах и импортах-->
     <xsl:variable name="typesList" select="$operationXsdSchema/*[local-name()=$xsdTagsToImport] | $includeFilesDocs/*[local-name()=$xsdTagsToImport] | $importFilesDocs/*[local-name()=$xsdTagsToImport]"/>
 
+    <!--Имя дата-файла-->
+    <!--TODO надо бы засунуть это в функцию. Вместе с аналогом из requestXSDtoXSL.xsl-->
     <xsl:param name="dataFileName" select="concat(replace(replace($rootElementName,'Rs',''),'Response',''),'Data.xml')"/>
 
+    <!--Имя тэга, который будет использоваться как LinkedTag. Если не задать - возьмет первый-->
     <xsl:param name="tagNameToTakeLinkedTag" select="'*'"/>
-    <!--xpath, по которому будет взят LinkedTag. Можно не использовать, если определен $tagNameToTakeLinkedTag-->
+    <!--xpath, по которому будет взят LinkedTag. Можно не переопределять, если определен $tagNameToTakeLinkedTag-->
     <xsl:param name="tagQuerryToTakeLinkedTag" select="if($tagNameToTakeLinkedTag='*') then '*[1]' else concat('*[local-name()=''',$tagNameToTakeLinkedTag,''']')"/>
 
     <!--TODO пренести функции в xsltFunctions.xsl-->
@@ -84,6 +90,7 @@
 
     <xsl:template match="xsd:schema">
         <xsl:element name="xsl:stylesheet">
+            <!--TODO поставить if условия на неймспейсы, как в requestXSDtoXSL.xsl-->
             <xsl:namespace name="tns" select="$targetNS"/>
             <xsl:namespace name="rsd" select="concat($targetNS,'Data/')"/>
             <xsl:namespace name="soap" select="mock:SOAPNS($headerType)"/>
@@ -153,23 +160,6 @@
                 <xsl:with-param name="type" select="'response'"/>
             </xsl:call-template>
         </xsl:element>
-    </xsl:template>
-
-    <xsl:template match="xsd:complexType" mode="template">
-        <xsl:param name="typeName" select="concat('tns:',self::*/@name)"/>
-        <xsl:param name="tagName" select="//xsd:element[@type = $typeName]/@name"/>
-        <xsl:param name="typeNameNoNs" select="self::*/@name"/>
-        <xsl:param name="type" select="self::*"/>
-        <xsl:for-each select="//xsd:element[@type = $typeName or @type=$typeNameNoNs]/@name">
-            <xsl:element name="xsl:template">
-                <xsl:attribute name="match">rsd:<xsl:value-of select="."/></xsl:attribute>
-                <xsl:element name="tns:{.}"  namespace="{$targetNS}">
-                    <xsl:namespace name="tns" select="$targetNS"/>
-                    <xsl:apply-templates select="$type//xsd:element" mode="template"/>
-                </xsl:element>
-            </xsl:element>
-            <xsl:text>&#xA;&#xA;</xsl:text>
-        </xsl:for-each>
     </xsl:template>
 
     <xsl:template match="xsd:complexType" mode="template" priority="2">

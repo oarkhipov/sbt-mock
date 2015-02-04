@@ -90,7 +90,7 @@ public class importXSD {
      * создает примеры xml ответов
      * @param system имя подпапки
      * @param name имя сервиса(имя файла)
-     * @param Params параметры xsl
+     * @param params параметры xsl
      * @throws Exception
      */
     private void createRsExample(String system, String name, Map<String, String> params) throws Exception{
