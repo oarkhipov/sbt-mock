@@ -240,6 +240,7 @@ public class createMockOrDriverFromXSD {
         params.put("operationsXSD", "../../xsd/CBBOL/BBMOOperationElements.xsd");
         params.put("systemName","CBBOL");
         params.put("xsdBase","BBMOOperationElements.xsd");
+        params.put("headerType", "KD4");
         mockTestCycle(dir, "CBBOL", "SrvPutRemoteLegalAccOperAppRq", "Request", params);
     }
     @Test
@@ -250,6 +251,7 @@ public class createMockOrDriverFromXSD {
         params.put("operationsXSD", "../../xsd/BBMO/BBMOOperationElements.xsd");
         params.put("systemName","BBMO");
         params.put("xsdBase","BBMOOperationElements.xsd");
+        params.put("headerType", "KD4");
         mockTestCycle(dir, "BBMO", "SrvUpdateClientReferenceDataRq", "Request", params);
     }
     @Test
@@ -260,6 +262,7 @@ public class createMockOrDriverFromXSD {
         params.put("operationsXSD", "../../xsd/CKPIT/ckpit_integration.xsd");
         params.put("systemName","CKPIT");
         params.put("xsdBase","ckpit_integration.xsd");
+        params.put("headerType", "KD4");
         mockTestCycle(dir, "CKPIT", "CKPITProductsDepositsNSOReq", "Request", params);
     }
     @Test
@@ -270,6 +273,7 @@ public class createMockOrDriverFromXSD {
         params.put("operationsXSD", "../../xsd/CKPIT/ckpit_integration.xsd");
         params.put("systemName","CKPIT");
         params.put("xsdBase","ckpit_integration.xsd");
+        params.put("headerType", "KD4");
         mockTestCycle(dir, "CKPIT", "CKPITProductsLoansReq", "Request", params);
     }
 

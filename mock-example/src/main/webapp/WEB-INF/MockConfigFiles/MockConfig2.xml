@@ -4,6 +4,7 @@
             <name>KKMB</name>
             <pathToXSD>/res/xsd</pathToXSD>
             <rootXsd>Header.xsd</rootXsd>
+            <headerNamespace>http://sbrf.ru/NCP/esb/envelope/</headerNamespace>
             <integrationPoints>
                 <integrationPoint>
                     <name>Export Contract info</name>
