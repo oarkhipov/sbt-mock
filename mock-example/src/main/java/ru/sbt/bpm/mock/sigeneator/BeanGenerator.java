@@ -14,11 +14,15 @@ import java.util.Set;
  */
 
 // Генератор bean
+// TODO создать писок классов которые могут указываться в аттрибуте CLASS тега BEAN, а так же продумать способ их выбора для генерации тегов.
+// TODO Нужна возможность определения namespace alias для тега.
 public class BeanGenerator {
 
+    @Deprecated
     private static final String SPRING_FACTORY_CLASS = "org.springframework.jndi.JndiObjectFactoryBean";
 
     // Генерация beans
+    @Deprecated
     private String generationJMSBean(String beanId, String propertyValue) {
         return "<bean id=\"" + beanId + "\" class=\"" + SPRING_FACTORY_CLASS + "\">\n"
                 + "<property name=\"jndiName\" value=\"jms/" + propertyValue + "\"/>\n</bean>\n";
@@ -92,5 +96,33 @@ public class BeanGenerator {
         for (Pair<String, String> property : properties)
             sb.append("<property name=\"" + property.getaFirst() + "\" value=\"" + property.getaSecond() + "\"/>\n");
         return sb.toString();
+    }
+
+    /** Список классов для генерации bean */
+    static class ListOfClasses {
+
+        /** Spring factory */
+        public static final String SPRING_FACTORY_BEAN_CLASS = "org.springframework.jndi.JndiObjectFactoryBean";
+
+        /** JMS Spring Header Mapper */
+        public static final String JMS_SPRING_HEADER_MAPPER_BEAN_CLASS = "org.springframework.integration.jms.DefaultJmsHeaderMapper";
+
+        /** Refreshable transformer */
+        public static final String REFRESHABLE_TRANSFORMER_BEAN_CLASS = "ru.sbt.bpm.mock.bean.RefreshableXSLTransformer";
+
+        /** JSP Resolver */
+        public static final String JSP_RESOLVER_BEAN_CLASS = "org.springframework.web.servlet.view.InternalResourceViewResolver";
+
+        /** Channel service */
+        public static final String CHANNEL_SERVICE_BEAN_CLASS = "ru.sbt.bpm.mock.service.ChannelService";
+
+        /** Transform service */
+        public static final String TRANSFORM_SERVICE_BEAN_CLASS = "ru.sbt.bpm.mock.service.TransformService";
+
+        /** XML Data Service */
+        public static final String XML_DATA_SERVICE_BEAN_CLASS = "ru.sbt.bpm.mock.service.XmlDataService";
+
+        /** Client service */
+        public static final String CLIENT_SERVICE_BEAN_CLASS = "ru.sbt.bpm.mock.gateway.ClientService";
     }
 }
