@@ -1,6 +1,4 @@
-package ru.sbt.bpm.mock.sigeneator.outentities;
-
-import ru.sbt.bpm.mock.sigeneator.Pair;
+package ru.sbt.bpm.mock.sigeneator;
 
 /**
  * Created by sbt-hodakovskiy-da on 04.02.2015.
@@ -42,6 +40,7 @@ public class ContextHeader {
     private boolean context;
     private boolean mvc;
 
+    // Добавляет все элементы в заголок по умолчанию
     public ContextHeader() {
         this.beans = true;
         this.integration = true;
@@ -62,10 +61,66 @@ public class ContextHeader {
         this.mvc = mvc;
     }
 
-    // Генерация заголовка spring context
-    private void generateContextHeader() {
+    /**
+     * Генерация заголовка spring context
+     */
+    public void generateContextHeader() {
+        StringBuilder sb = new StringBuilder("<" + BEANS_ALIAS + ":" + BEANS_ALIAS);
+        sb.append(XMLNS + ":" + XSI_ALIAS + "=\"" + XSI_NAMESPACE + "\"\n");
 
+        StringBuilder sbSchemaLocation = new StringBuilder(XSI_ALIAS + ":" + "schemaLocation=\"");
+
+        generateTagContext(sb, sbSchemaLocation, beans, BEANS_ALIAS, BEANS_NAMESPACE);
+
+        generateTagContext(sb, sbSchemaLocation, integration, INT_ALIAS, INT_NAMESPACE);
+
+        generateTagContext(sb, sbSchemaLocation, jms, JMS_ALIAS, JMS_NAMESPACE);
+
+        generateTagContext(sb, sbSchemaLocation, ix, IX_ALIAS, IX_NAMESPACE);
+
+        generateTagContext(sb, sbSchemaLocation, util, UTIL_ALIAS, UTIL_NAMESPACE);
+
+        generateTagContext(sb, sbSchemaLocation, context, CONTEXT_ALIAS, CONTEXT_NAMESPACE);
+
+        generateTagContext(sb, sbSchemaLocation, mvc, MVC_ALIAS, MVC_NAMESPACE);
+
+        sbSchemaLocation.append("\"\n");
+        sb.append(sbSchemaLocation);
+        sb.append(">\n\n");
     }
+
+    private void generateTagContext(StringBuilder sb, StringBuilder sbSchemaLocation, boolean param, String alias, Pair<String, String> component) {
+        if (param) {
+            sb.append(generateAliasesForNamespaces(alias, component));
+            sbSchemaLocation.append(generateSchemaLocationParams(component));
+        }
+    }
+
+    /**
+     * Генерация алиасов для namespaces
+     * @return
+     */
+    private String generateAliasesForNamespaces(String alias, Pair<String, String> component) {
+        return XMLNS + ":" + alias + "=\"" + component.getaFirst() + "\"\n";
+    }
+
+    /**
+     *
+     * @param component
+     * @return
+     */
+    private String generateSchemaLocationParams(Pair<String, String> component) {
+        return component.getaFirst() + "\t" + component.getaSecond();
+    }
+
+    /**
+     * Генерация аттрибута
+     * @return
+     */
+    private String generateTagAttribute(String ns, String alias) {
+        return ns + ":" + alias;
+    }
+
 
     public boolean isBeans() {
         return beans;
