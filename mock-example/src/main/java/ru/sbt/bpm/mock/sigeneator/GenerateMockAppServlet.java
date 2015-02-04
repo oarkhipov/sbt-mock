@@ -20,6 +20,7 @@ public class GenerateMockAppServlet {
 
     private MockConfig aMockConfig;
 
+    @Deprecated
     private GenerateMockAppServlet() {
         this.aFilePath = "";
     }
@@ -50,10 +51,11 @@ public class GenerateMockAppServlet {
 
         // Дальше пишем куски для каждого блока SI context
 
-        System.out.println("End");
     }
 
-
+    // Не требуется создавать инстанс без параметров.
+    // нужно указывать путь к конфиг файлу
+    @Deprecated
     public static GenerateMockAppServlet getInstance() {
         if (INSTANCE == null)
             synchronized (GenerateMockAppServlet.class) {
@@ -70,6 +72,23 @@ public class GenerateMockAppServlet {
                     INSTANCE = new GenerateMockAppServlet(aFilePath);
             }
         return INSTANCE;
+    }
+
+    /**
+     * Путь к корню
+     * @return
+     */
+    private String getPath() {
+        // TODO Это не правильный способ
+        return System.getProperty("user.dir");
+    }
+
+    /**
+     * Получение пути к файлам xml
+     * @return
+     */
+    private String getMockConfigPath() {
+        return getPath() + "\\src\\webapp\\web-inf\\mockconfigfiles\\";
     }
 
     public String getaFilePath() {
