@@ -29,8 +29,6 @@ public class BeanGenerator {
     @Deprecated
     private Set<Pair<String, String>> aSetOfQueue;
 
-
-
     public BeanGenerator(List<SystemTag> systems) {
         this.aSystems = systems;
         this.aSetOfQueue = new HashSet<Pair<String, String>>();
@@ -80,7 +78,7 @@ public class BeanGenerator {
             sb.append("/>\n");
         else {
             sb.append(">\n");
-                sb.append(generateProperty(properties));
+            sb.append(generateProperty(properties));
             sb.append("</bean>\n");
         }
     }
