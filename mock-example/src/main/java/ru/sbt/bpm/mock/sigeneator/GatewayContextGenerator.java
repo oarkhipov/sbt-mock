@@ -10,6 +10,8 @@ import java.util.*;
  * <p/>
  * Company: SBT - Saint-Petersburg
  */
+
+// Генератор Inbound and Outbound gateway
 public class GatewayContextGenerator {
 
     // Тип точки интеграции Driver
@@ -101,10 +103,10 @@ public class GatewayContextGenerator {
         StringBuilder sbCommon = new StringBuilder();
 
         for (Pair<String, String> mock : mapOfInOutChannelsWithoutDuplicates.get(MOCK_CONST))
-            sbCommon.append(getGatewayDescription("inbound", "jmsin_" + Math.random(), mock.getaFirst(), mock.getaSecond()));
+            sbCommon.append(generateGatewayDescription("inbound", "jmsin_" + Double.valueOf(Math.random() * 10000).longValue(), mock.getaFirst(), mock.getaSecond()));
 
         for (Pair<String, String> driver : mapOfInOutChannelsWithoutDuplicates.get(MOCK_CONST))
-            sbCommon.append(getGatewayDescription("outbound", "jmsout_" + Math.random(), driver.getaFirst(), driver.getaSecond()));
+            sbCommon.append(generateGatewayDescription("outbound", "jmsout_" + Double.valueOf(Math.random() * 10000).longValue(), driver.getaFirst(), driver.getaSecond()));
 
         sbCommon.append(sbIN);
         sbCommon.append(sbOUT);
@@ -112,9 +114,9 @@ public class GatewayContextGenerator {
     }
 
     // Собирание строки для gateway
-    private String getGatewayDescription(String typeGateway, String id, String request, String reply) {
+    private String generateGatewayDescription(String typeGateway, String id, String request, String reply) {
         return "<" + typeGateway + "-gateway id=\"" + id + "\" request-channel=\"" + request + "\" " +
-                "reply-channel=\"" + reply + "\"/>/n/n";
+                "reply-channel=\"" + reply + "\"/>\n\n";
     }
 
 
