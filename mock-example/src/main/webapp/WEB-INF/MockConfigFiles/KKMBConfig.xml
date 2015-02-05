@@ -137,9 +137,9 @@
                     </linkedTagSequence>
                     <protocol>MQ</protocol>
                     <!--OPTIONAL-->
-                    <incomeQueue>ESB.FED.KKMB.IN</incomeQueue>
+                    <incomeQueue>ESB.CF.KKMB.IN</incomeQueue>
                     <!--OPTIONAL-->
-                    <outcomeQueue>ESB.FED.KKMB.OUT</outcomeQueue>
+                    <outcomeQueue>ESB.CF.KKMB.OUT</outcomeQueue>
                     <xsdFile>scoring.xsd</xsdFile>
                 </integrationPoint>
             </integrationPoints>
