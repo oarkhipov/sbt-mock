@@ -17,8 +17,8 @@
             <Identifiers>
                <ClientId>1234567890</ClientId>
                <State>1</State>
-               <CreateDate>2015-02-03</CreateDate>
-               <CloseDate>2015-02-03</CloseDate>
+               <CreateDate>2015-02-05</CreateDate>
+               <CloseDate>2015-02-05</CloseDate>
             </Identifiers>
             <SpecialData>
                <ClientType>1</ClientType>
@@ -33,14 +33,14 @@
             <MainDetails>
                <Registration>
                   <OGRN>string</OGRN>
-                  <OGRNAssignDate>2015-02-03</OGRNAssignDate>
-                  <OGRNIssueDate>2015-02-03</OGRNIssueDate>
+                  <OGRNAssignDate>2015-02-05</OGRNAssignDate>
+                  <OGRNIssueDate>2015-02-05</OGRNIssueDate>
                   <ShortName>string</ShortName>
                   <FullName>string</FullName>
                   <ShortNameInEnglish>string</ShortNameInEnglish>
                   <FullNameInEnglish>string</FullNameInEnglish>
                   <RegistrationSertificateNumber>string</RegistrationSertificateNumber>
-                  <RegistrationSertificateIssueDate>2015-02-03</RegistrationSertificateIssueDate>
+                  <RegistrationSertificateIssueDate>2015-02-05</RegistrationSertificateIssueDate>
                   <RegistrationAuthority>1234567890</RegistrationAuthority>
                   <OldShortName>anyString</OldShortName>
                   <OldName>anyString</OldName>
@@ -63,7 +63,7 @@
                   <TaxRegReasonCode>string</TaxRegReasonCode>
                   <KIO>string</KIO>
                   <TaxInspectorate>1234567890</TaxInspectorate>
-                  <RegistrationDate>2015-02-03</RegistrationDate>
+                  <RegistrationDate>2015-02-05</RegistrationDate>
                </TaxInspectorateInfo>
                <RosstatCodes>
                   <OKATO>string</OKATO>
@@ -79,12 +79,12 @@
                <ClientName>string</ClientName>
                <KPP>string</KPP>
                <TaxID>string</TaxID>
-               <TaxRegistrationDate>2015-02-03</TaxRegistrationDate>
+               <TaxRegistrationDate>2015-02-05</TaxRegistrationDate>
                <TaxCertificateSeries>string</TaxCertificateSeries>
                <TaxCertificateNumber>string</TaxCertificateNumber>
                <TaxAuthority>string</TaxAuthority>
                <OGRN>string</OGRN>
-               <OGRNRegistrationDate>2015-02-03</OGRNRegistrationDate>
+               <OGRNRegistrationDate>2015-02-05</OGRNRegistrationDate>
                <OGRNSeries>string</OGRNSeries>
                <OGRNNumber>string</OGRNNumber>
                <OGRNAuthority>string</OGRNAuthority>
@@ -160,11 +160,11 @@
             <FirstNameInEnglish>string</FirstNameInEnglish>
             <MiddleNameInEnglish>string</MiddleNameInEnglish>
             <Sex>1</Sex>
-            <BirthDate>2015-02-03</BirthDate>
+            <BirthDate>2015-02-05</BirthDate>
             <BirthPlace>string</BirthPlace>
             <Nationality>str</Nationality>
             <Resident>0</Resident>
-            <TaxResidentChangeDate>2015-02-03</TaxResidentChangeDate>
+            <TaxResidentChangeDate>2015-02-05</TaxResidentChangeDate>
             <TaxId>string</TaxId>
             <SocialStatusType>10</SocialStatusType>
             <IdentityDocument>
@@ -172,10 +172,10 @@
                <DocumentStatus>0</DocumentStatus>
                <DocumentSeries>string</DocumentSeries>
                <DocumentNumber>string</DocumentNumber>
-               <IssueDate>2015-02-03</IssueDate>
+               <IssueDate>2015-02-05</IssueDate>
                <IssueAuthority>string</IssueAuthority>
                <IssueAuthorityCode>string</IssueAuthorityCode>
-               <ExpirationDate>2015-02-03</ExpirationDate>
+               <ExpirationDate>2015-02-05</ExpirationDate>
             </IdentityDocument>
             <ClientAddress>
                <AddressType>1</AddressType>
@@ -208,7 +208,7 @@
             <AuthorityBase>
                <DocumentActAuthority>string</DocumentActAuthority>
                <DocumentSeriesNumber>string</DocumentSeriesNumber>
-               <DocumentDate>2015-02-03</DocumentDate>
+               <DocumentDate>2015-02-05</DocumentDate>
             </AuthorityBase>
             <OfficailInfo>
                <BasedOnDocument>string</BasedOnDocument>
@@ -231,8 +231,8 @@
             <AgreementNumber>string</AgreementNumber>
             <AgreementType>1234567890</AgreementType>
             <AgreementStatus>1</AgreementStatus>
-            <AgreementIssueDate>2015-02-03</AgreementIssueDate>
-            <AgreementCancelDate>2015-02-03</AgreementCancelDate>
+            <AgreementIssueDate>2015-02-05</AgreementIssueDate>
+            <AgreementCancelDate>2015-02-05</AgreementCancelDate>
             <Operator>1234567890</Operator>
             <MainAccountNumber>string</MainAccountNumber>
             <AccountBalance>1234567890</AccountBalance>
@@ -240,8 +240,8 @@
             <RKOAgreementDetails>
                <TariffPlan>
                   <TariffPlanCode>string</TariffPlanCode>
-                  <TariffPlanStartDate>2015-02-03</TariffPlanStartDate>
-                  <TariffPlanEndDate>2015-02-03</TariffPlanEndDate>
+                  <TariffPlanStartDate>2015-02-05</TariffPlanStartDate>
+                  <TariffPlanEndDate>2015-02-05</TariffPlanEndDate>
                </TariffPlan>
                <DetermineTariffs>string</DetermineTariffs>
                <TariffGroup>string</TariffGroup>
@@ -267,8 +267,8 @@
                <PercentCalculationAlgorithm>1234567890</PercentCalculationAlgorithm>
                <DeterminePercent>anyString</DeterminePercent>
                <PercentRateGroup>anyString</PercentRateGroup>
-               <DateBeginPercentRate>2015-02-03</DateBeginPercentRate>
-               <DateEndPercentRate>2015-02-03</DateEndPercentRate>
+               <DateBeginPercentRate>2015-02-05</DateBeginPercentRate>
+               <DateEndPercentRate>2015-02-05</DateEndPercentRate>
                <PartialRatedPeriodCalculation>0</PartialRatedPeriodCalculation>
                <CurrentRatedPeriodCalculation>0</CurrentRatedPeriodCalculation>
                <OpeningReason>string</OpeningReason>
@@ -285,9 +285,9 @@
             <AgreementNumber>string</AgreementNumber>
             <AccountNumber>string</AccountNumber>
             <CardType>1</CardType>
-            <RegistrationDate>2015-02-03</RegistrationDate>
-            <ActivationDate>2015-02-03</ActivationDate>
-            <CloseDate>2015-02-03</CloseDate>
+            <RegistrationDate>2015-02-05</RegistrationDate>
+            <ActivationDate>2015-02-05</ActivationDate>
+            <CloseDate>2015-02-05</CloseDate>
             <CardRegistartionMethod>1</CardRegistartionMethod>
             <Sign>
                <RKONaturalPersonCode>1234567890</RKONaturalPersonCode>
@@ -295,7 +295,7 @@
                <SignType>1</SignType>
                <Position>string</Position>
                <AuthorityStartDate>anyString</AuthorityStartDate>
-               <AuthorityEndDate>2015-02-03</AuthorityEndDate>
+               <AuthorityEndDate>2015-02-05</AuthorityEndDate>
             </Sign>
          </SignPatternCard>
       </ClientReferenceData>
@@ -310,7 +310,7 @@
             <OSB>string</OSB>
             <VSP>string</VSP>
          </BankSubdivision>
-         <InitDate>2015-02-03</InitDate>
+         <InitDate>2015-02-05</InitDate>
          <AgreementIdentifier>string</AgreementIdentifier>
          <AgreementNumber>string</AgreementNumber>
          <MainAccountNumber>string</MainAccountNumber>
@@ -340,7 +340,7 @@
             <OSB>string</OSB>
             <VSP>string</VSP>
          </BankSubdivision>
-         <InitDate>2015-02-03</InitDate>
+         <InitDate>2015-02-05</InitDate>
       </LegalPersonApplication>
       <DocumentsInfo/>
    </request>

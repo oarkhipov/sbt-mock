@@ -52,6 +52,14 @@ public class SystemTag {
         this.aRootXSD = aRootXSD;
     }
 
+    public String getaHeaderNamespace() {
+        return aHeaderNamespace;
+    }
+
+    public void setaHeaderNamespace(String aHeaderNamespace) {
+        this.aHeaderNamespace = aHeaderNamespace;
+    }
+
     public IntegrationPoints getaIntegrationPoints() {
         return aIntegrationPoints;
     }

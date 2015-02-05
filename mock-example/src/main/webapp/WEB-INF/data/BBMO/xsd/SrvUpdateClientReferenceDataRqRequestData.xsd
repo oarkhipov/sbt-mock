@@ -12,80 +12,86 @@
                schemaLocation="../../../xsd/BBMO/./commonTypes/simpleTypes.xsd"/>
    <xsd:import namespace="http://sbrf.ru/prpc/bbmo/commonTypes/10"
                schemaLocation="../../../xsd/BBMO/./commonTypes/commonTypes.xsd"/>
-   <xsd:import namespace="http://sbrf.ru/commonTypes/dataTypes/"
-               schemaLocation="../../../xsd/CRM/commonTypes/dataTypes.xsd"/>
-   <xsd:import namespace="http://sbrf.ru/commonTypes/simpleTypes/"
-               schemaLocation="../../../xsd/CRM/commonTypes/simpleTypes.xsd"/>
-   <xsd:complexType xmlns:st="http://sbrf.ru/commonTypes/simpleTypes/"
-                    xmlns:dt="http://sbrf.ru/commonTypes/dataTypes/"
-                    name="Header">
+   <xsd:complexType name="Header">
       <xsd:annotation>
          <xsd:documentation>Заголовок сообщения</xsd:documentation>
       </xsd:annotation>
-      <xsd:sequence>
-         <xsd:element name="message-id" type="xsd:string" minOccurs="0">
+      <xsd:sequence xmlns="">
+         <xsd:element name="KD4SoapHeaderV2" type="dt:String">
             <xsd:annotation>
-               <xsd:documentation>Уникальный идентификатор сообщения</xsd:documentation>
+               <xsd:documentation>Заголовок SOAP-сообщения</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="request-time" type="dt:DateTime" minOccurs="0">
+         <xsd:element name="AsyncHeader">
             <xsd:annotation>
-               <xsd:documentation>Системное время при отправке сообщения
-                            АС-отправителем с учетом временной зоны</xsd:documentation>
+               <xsd:documentation>Заголовок SOAP-сообщения</xsd:documentation>
             </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="message-id" type="st:UUID">
+                     <xsd:annotation>
+                        <xsd:documentation>Уникальный идентификатор сообщения, передаваемого в рамках SOAP-пакета</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="request-time" type="dt:DateTime">
+                     <xsd:annotation>
+                        <xsd:documentation>Системное время при отправке сообщения АС-отправителем с учетом временной зоны</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="correlation-id" type="st:UUID" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Идентификатор корреляции</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="eis-name" type="st:SystemName_Type" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Идентификатор системы инициатора запроса/ответа</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="system-id"
+                               type="st:SystemName_Type"
+                               minOccurs="0"
+                               maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation>Идентификатор системы получателя запроса</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="operation-name" type="st:OperationName_Type">
+                     <xsd:annotation>
+                        <xsd:documentation>Название операции вызываемого сервиса</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="operation-version" type="dt:DefString" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Версия операции</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="user-id" type="dt:DefString" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Идентификатор пользователя в системе инициаторе запроса/ответа</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="user-name" type="dt:DefString" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Полное ФИО пользователя в системе инициаторе запроса/ответа</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="proc-inst-tb" type="st:TB_Type" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Код ТБ</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:any namespace="##other"
+                           processContents="lax"
+                           minOccurs="0"
+                           maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation>Точка расширения заголовка (не используется, добавлено на персективу)</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:any>
+               </xsd:sequence>
+            </xsd:complexType>
          </xsd:element>
-         <xsd:element name="correlation-id" type="st:UUID" minOccurs="0">
-            <xsd:annotation>
-               <xsd:documentation>Идентификатор корреляции</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="eis-name" type="st:SystemName_Type" minOccurs="0">
-            <xsd:annotation>
-               <xsd:documentation>Идентификатор системы инициатора запроса/ответа
-                        </xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="system-id"
-                      type="st:SystemName_Type"
-                      minOccurs="0"
-                      maxOccurs="unbounded">
-            <xsd:annotation>
-               <xsd:documentation>Идентификатор системы получателя запроса
-                        </xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="operation-name" type="st:OperationName_Type" minOccurs="0">
-            <xsd:annotation>
-               <xsd:documentation>Название операции вызываемого сервиса
-                        </xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="operation-version" type="dt:DefString" minOccurs="0">
-            <xsd:annotation>
-               <xsd:documentation>Версия операции</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="user-id" type="dt:DefString" minOccurs="0">
-            <xsd:annotation>
-               <xsd:documentation>Идентификатор пользователя в системе инициаторе
-                            запроса/ответа</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="user-name" type="dt:DefString" minOccurs="0">
-            <xsd:annotation>
-               <xsd:documentation>Полное ФИО пользователя в системе инициаторе
-                            запроса/ответа</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:any namespace="##other"
-                  processContents="lax"
-                  minOccurs="0"
-                  maxOccurs="unbounded">
-            <xsd:annotation>
-               <xsd:documentation>Точка расширения заголовка (не используется,
-                            добавлено на перспективу)</xsd:documentation>
-            </xsd:annotation>
-         </xsd:any>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:element name="data" type="dataValue"/>

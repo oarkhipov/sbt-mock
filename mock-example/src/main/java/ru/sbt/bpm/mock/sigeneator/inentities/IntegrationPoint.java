@@ -3,6 +3,7 @@ package ru.sbt.bpm.mock.sigeneator.inentities;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import ru.sbt.bpm.mock.sigeneator.Pair;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -119,6 +120,11 @@ public class IntegrationPoint {
     }
 
     public Dependencies getaDependencies() {
+        if (aDependencies == null) {
+            Dependencies aDependencies = new Dependencies();
+            aDependencies.setaDependency(new ArrayList<Dependency>(0));
+            setaDependencies(aDependencies);
+        }
         return aDependencies;
     }
 
