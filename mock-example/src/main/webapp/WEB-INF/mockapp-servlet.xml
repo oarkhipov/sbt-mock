@@ -7,6 +7,8 @@
 	xmlns:util="http://www.springframework.org/schema/util"
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
+    xmlns:ws="http://www.springframework.org/schema/web-services"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/integration	http://www.springframework.org/schema/integration/spring-integration.xsd
@@ -15,6 +17,8 @@
 		http://www.springframework.org/schema/util		http://www.springframework.org/schema/util/spring-util.xsd
 		http://www.springframework.org/schema/context       http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/mvc   http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/integration/ws    http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd
+		http://www.springframework.org/schema/web-services      http://www.springframework.org/schema/web-services/web-services.xsd
 	">
 
     <mvc:resources mapping="/**" location="/resources/web/" />
@@ -22,27 +26,27 @@
 
      <!--Настройки подключения к MQ-->
     <beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.CF"/>
+            <beans:property name="jndiName" value="jms/KKMB.DEV.CF"/>
     </beans:bean>
     <beans:bean id="requestQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.IN.MOCK"/>
+            <beans:property name="jndiName" value="jms/Q.KKMB.TO.CRMORG"/>
     </beans:bean>
     <beans:bean id="replyQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.OUT.MOCK"/>
+            <beans:property name="jndiName" value="jms/Q.KKMB.TO.CRMORG.SYNCRESP"/>
     </beans:bean>
 
      <beans:bean id="requestQueueCRM" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.REQUEST"/>
+            <beans:property name="jndiName" value="jms/Q.KKMB.FROM.CRMORG"/>
     </beans:bean>
     <beans:bean id="replyQueueCRM" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.RESPONSE"/>
+            <beans:property name="jndiName" value="jms/Q.KKMB.FROM.CRMORG.SYNCRESP"/>
     </beans:bean>
 
     <jms:inbound-gateway
             id="jmsin"
             request-destination="requestQueue"
-            request-channel="ESB.BPM.NCP.IN.MOCK"
-            reply-channel="ESB.BPM.NCP.OUT.MOCK"
+            request-channel="Q.KKMB.TO.CRMORG"
+            reply-channel="Q.KKMB.TO.CRMORG.SYNCRESP"
             default-reply-destination="replyQueue"
             header-mapper="defHeaderMapper"
             connection-factory="jndiConnectionFactory"
@@ -52,39 +56,59 @@
             id="jmsout"
             request-destination="requestQueueCRM"
             reply-destination="replyQueueCRM"
-            request-channel="ESB.BPM.NCP.REQUEST"
-            reply-channel="ESB.BPM.NCP.RESPONSE"
+            request-channel="Q.KKMB.FROM.CRMORG"
+            reply-channel="Q.KKMB.FROM.CRMORG.SYNCRESP"
             header-mapper="defHeaderMapper"
             connection-factory="jndiConnectionFactory"
             reply-timeout="30000"
             receive-timeout="30000"
     />
 
+    <!-- Sprint Integration gateway -->
+    <int-ws:inbound-gateway id="wsin"
+                            reply-channel="FIN.REPORT.KKMB.OUT"
+                            request-channel="FIN.REPORT.KKMB.OUT"
+                            reply-timeout="30000"
+    />
+
     <!-- Входной и выходной каналы -->	
-    <channel id="ESB.BPM.NCP.IN.MOCK">
+    <channel id="Q.KKMB.TO.CRMORG">
         <interceptors>
             <wire-tap channel="fromGateLogger"/>
         </interceptors>
     </channel>
     
-    <channel id="ESB.BPM.NCP.OUT.MOCK">
+    <channel id="Q.KKMB.TO.CRMORG.SYNCRESP">
         <interceptors>
             <wire-tap channel="toGateLogger"/>
         </interceptors>
     </channel>
     
       <!-- Входной и выходной каналы1 -->	
-    <channel id="ESB.BPM.NCP.RESPONSE">
+    <channel id="Q.KKMB.FROM.CRMORG.SYNCRESP">
         <interceptors>
             <wire-tap channel="fromGateLoggerCRM"/>
         </interceptors>
     </channel>
     
-    <channel id="ESB.BPM.NCP.REQUEST">
+    <channel id="Q.KKMB.FROM.CRMORG">
         <interceptors>
             <wire-tap channel="toGateLoggerCRM"/>
         </interceptors>
-    </channel>  
+    </channel>
+
+    <!-- Входной и выходной каналы для ws -->
+    <channel id="FIN.REPORT.KKMB.IN">
+        <interceptors>
+            <wire-tap channel="toGateLoggerFinReport"/>
+        </interceptors>
+    </channel>
+
+    <channel id="FIN.REPORT.KKMB.OUT">
+        <interceptors>
+            <wire-tap channel="fromGateLoggerFinReport"/>
+        </interceptors>
+    </channel>
     
     <!--настройка логгеров -->   
     <logging-channel-adapter id="fromGateLogger" logger-name="fromGateLogger"/>
@@ -93,6 +117,10 @@
     <!--настройка логгеров1 -->   
     <logging-channel-adapter id="fromGateLoggerCRM" logger-name="fromGateLoggerCRM"/>
     <logging-channel-adapter id="toGateLoggerCRM" logger-name="toGateLoggerCRM"/>
+
+    <!-- настройка логгеров2 -->
+    <logging-channel-adapter id="fromGateLoggerFinReport" logger-name="fromGateLoggerFinReport"/>
+    <logging-channel-adapter id="toGateLoggerFinReport" logger-name="toGateLoggerFinReport"/>
     
     <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
      
@@ -103,106 +131,116 @@
     
     <channel id="defaultChannel"/>
     <channel id="ESBSynCallForNCPDB"/>
-    
-    <channel id="CreateTask"/>
-    <channel id="GetParticipants"/>
-    <channel id="SaveDeal"/>
-    <channel id="UpdateRef"/>
-    <channel id="CalcRating"/>
-    <channel id="UpdateRating"/>
-    <channel id="ConfirmRating"/>
-    <channel id="CalcLGD"/>
-    <channel id="FinalizeLGD"/>
-    <channel id="CalcDebtCapacity"/>
-    <channel id="GetFinReport"/>
-    <channel id="GetFinAnalysis"/>
-    <channel id="ImportRating"/>
 
-    <ix:xpath-router id="operationRouter" input-channel="ESB.BPM.NCP.IN.MOCK" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
+    <channel id="UpdateContractInfo"/>
+    <channel id="GetParticipants"/>
+
+    <!--<channel id="CreateTask"/>-->
+    <!--<channel id="GetParticipants"/>-->
+    <!--<channel id="SaveDeal"/>-->
+    <!--<channel id="UpdateRef"/>-->
+    <!--<channel id="CalcRating"/>-->
+    <!--<channel id="UpdateRating"/>-->
+    <!--<channel id="ConfirmRating"/>-->
+    <!--<channel id="CalcLGD"/>-->
+    <!--<channel id="FinalizeLGD"/>-->
+    <!--<channel id="CalcDebtCapacity"/>-->
+    <!--<channel id="GetFinReport"/>-->
+    <!--<channel id="GetFinAnalysis"/>-->
+    <!--<channel id="ImportRating"/>-->
+
+    <!-- FinReports Channels -->
+    <channel id="GetParticipantFactors"/>
+    <channel id="GetGCFactors"/>
+    <channel id="GetProjectFactors"/>
+
+    <ix:xpath-router id="operationRouter" input-channel="Q.KKMB.TO.CRMORG" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
         <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
         
         <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="ESBSynCallForNCPDB"/>
-        
-        <ix:mapping value="CreateTask" channel="CreateTask"/>
+
+        <ix:mapping value="UpdateContractInfo" channel="UpdateContractInfo"/>
         <ix:mapping value="GetParticipants" channel="GetParticipants"/>
-        <ix:mapping value="SaveDeal" channel="SaveDeal"/>
-        <ix:mapping value="UpdateRef" channel="UpdateRef"/>
-        <ix:mapping value="CalcRating" channel="CalcRating"/>
-        <ix:mapping value="CorrectRating" channel="CorrectRating"/>
-        <ix:mapping value="ConfirmRating" channel="ConfirmRating"/>
-        <ix:mapping value="CalcLGD" channel="CalcLGD"/>
-        <ix:mapping value="FinalizeLGD" channel="FinalizeLGD"/>
-        <ix:mapping value="CalcDebtCapacity" channel="CalcDebtCapacity"/>
-        <ix:mapping value="GetFinReport" channel="GetFinReport"/>
-        <ix:mapping value="GetFinAnalysis" channel="GetFinAnalysis"/>
-        <ix:mapping value="ImportRating" channel="ImportRating"/>
-        <ix:mapping value="UpdateRating" channel="UpdateRating"/>
+
+        <!--<ix:mapping value="CreateTask" channel="CreateTask"/>-->
+        <!--<ix:mapping value="GetParticipants" channel="GetParticipants"/>-->
+        <!--<ix:mapping value="SaveDeal" channel="SaveDeal"/>-->
+        <!--<ix:mapping value="UpdateRef" channel="UpdateRef"/>-->
+        <!--<ix:mapping value="CalcRating" channel="CalcRating"/>-->
+        <!--<ix:mapping value="CorrectRating" channel="CorrectRating"/>-->
+        <!--<ix:mapping value="ConfirmRating" channel="ConfirmRating"/>-->
+        <!--<ix:mapping value="CalcLGD" channel="CalcLGD"/>-->
+        <!--<ix:mapping value="FinalizeLGD" channel="FinalizeLGD"/>-->
+        <!--<ix:mapping value="CalcDebtCapacity" channel="CalcDebtCapacity"/>-->
+        <!--<ix:mapping value="GetFinReport" channel="GetFinReport"/>-->
+        <!--<ix:mapping value="GetFinAnalysis" channel="GetFinAnalysis"/>-->
+        <!--<ix:mapping value="ImportRating" channel="ImportRating"/>-->
+        <!--<ix:mapping value="UpdateRating" channel="UpdateRating"/>-->
     </ix:xpath-router>
 
     <!-- здесь уже реализация -->
 
     <!-- CRM -->
-    <beans:bean id="CRM_CreateTask" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/CRM/CreateTask.xsl"/>
+    <beans:bean id="CRM_UpdateContractInfo" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/CRM/UpdateContractInfo.xsl"/>
     </beans:bean>
     <beans:bean id="CRM_GetParticipants" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/CRM/GetParticipants.xsl"/>
+        <beans:property name="xslPath" value="/WEB-INF/xsl/CRM/GetParticipantInfo.xsl"/>
     </beans:bean>
-    <beans:bean id="CRM_SaveDeal" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/CRM/SaveDeal.xsl"/>
-    </beans:bean>
-    <beans:bean id="CRM_UpdateRef" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/CRM/UpdateRef.xsl"/>
-    </beans:bean>
+    <!--<beans:bean id="CRM_SaveDeal" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
+        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/CRM/SaveDeal.xsl"/>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="CRM_UpdateRef" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
+        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/CRM/UpdateRef.xsl"/>-->
+    <!--</beans:bean>-->
     <!-- AMRLiRT -->
-    <beans:bean id="AMRLiRT_CalculateRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateRating.xsl"/>
-    </beans:bean>
-    <beans:bean id="AMRLiRT_CorrectRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CorrectRating.xsl"/>
-    </beans:bean>
-    <beans:bean id="AMRLiRT_ConfirmRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/ConfirmRating.xsl"/>
-    </beans:bean>
-    <beans:bean id="AMRLiRT_CalculateLGD" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateLGD.xsl"/>
-    </beans:bean>
-    <beans:bean id="AMRLiRT_FinalizeLGD" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/FinalizeLGD.xsl"/>
-    </beans:bean>
-    <beans:bean id="AMRLiRT_CalculateDebtCapacity" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateDebtCapacity.xsl"/>
-    </beans:bean>
+    <!--<beans:bean id="AMRLiRT_CalculateRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
+        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateRating.xsl"/>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="AMRLiRT_CorrectRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
+        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CorrectRating.xsl"/>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="AMRLiRT_ConfirmRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
+        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/ConfirmRating.xsl"/>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="AMRLiRT_CalculateLGD" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
+        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateLGD.xsl"/>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="AMRLiRT_FinalizeLGD" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
+        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/FinalizeLGD.xsl"/>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="AMRLiRT_CalculateDebtCapacity" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
+        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateDebtCapacity.xsl"/>-->
+    <!--</beans:bean>-->
     <!-- FinRep -->
-    <beans:bean id="FinRep_FinReportImport" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/FinReportImport.xsl"/>
+    <beans:bean id="FinRep_GetParticipantFactors" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+
     </beans:bean>
-    <beans:bean id="FinRep_FinAnalysisImport" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/FinAnalysisImport.xsl"/>
+    <beans:bean id="FinRep_GetGCFactors" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+
     </beans:bean>
-    <beans:bean id="FinRep_UpdateRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/UpdateRating.xsl"/>
-    </beans:bean>
-    <beans:bean id="FinRep_ImportRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/ImportRating.xsl"/>
+    <beans:bean id="FinRep_GetProjectFactors" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+
     </beans:bean>
 
  <!--маппинг трасформеров на каналы-->
 
-    <transformer input-channel="CreateTask" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CRM_CreateTask"/>     
-    <transformer input-channel="GetParticipants" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CRM_GetParticipants"/>   
-    <transformer input-channel="SaveDeal" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CRM_SaveDeal"/> 
-    <transformer input-channel="UpdateRef" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CRM_UpdateRef"/>     
-    <transformer input-channel="CalculateRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_CalculateRating"/>
-    <transformer input-channel="CorrectRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_CorrectRating"/>
-    <transformer input-channel="ConfirmRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_ConfirmRating"/>
-    <transformer input-channel="CalculateLGD" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_CalculateLGD"/>
-    <transformer input-channel="FinalizeLGD" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_FinalizeLGD"/>
-    <transformer input-channel="CalculateDebtCapacity" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_CalculateDebtCapacity"/>
-    <transformer input-channel="FinReportImport" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_FinReportImport"/>
-    <transformer input-channel="FinAnalysisImport" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_FinAnalysisImport"/>
-   	<transformer input-channel="ImportRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_ImportRating"/>
-    <transformer input-channel="UpdateRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_UpdateRating"/>
+    <transformer input-channel="UpdateContractInfo" output-channel="Q.KKMB.FROM.CRMORG.SYNCRESP" method="transform" ref="CRM_UpdateContractInfo"/>
+    <transformer input-channel="GetParticipants" output-channel="Q.KKMB.FROM.CRMORG.SYNCRESP" method="transform" ref="CRM_GetParticipants"/>
+
+    <!--<transformer input-channel="GetParticipants" output-channel="Q.KKMB.TO.CRMORG.SYNCRESP" method="transform" ref="CRM_GetParticipants"/>-->
+    <!--<transformer input-channel="SaveDeal" output-channel="Q.KKMB.TO.CRMORG.SYNCRESP" method="transform" ref="CRM_SaveDeal"/>-->
+    <!--<transformer input-channel="UpdateRef" output-channel="Q.KKMB.TO.CRMORG.SYNCRESP" method="transform" ref="CRM_UpdateRef"/>-->
+    <!--<transformer input-channel="CalculateRating" output-channel="Q.KKMB.TO.CRMORG.SYNCRESP" method="transform" ref="AMRLiRT_CalculateRating"/>-->
+    <!--<transformer input-channel="CorrectRating" output-channel="Q.KKMB.TO.CRMORG.SYNCRESP" method="transform" ref="AMRLiRT_CorrectRating"/>-->
+    <!--<transformer input-channel="ConfirmRating" output-channel="Q.KKMB.TO.CRMORG.SYNCRESP" method="transform" ref="AMRLiRT_ConfirmRating"/>-->
+    <!--<transformer input-channel="CalculateLGD" output-channel="Q.KKMB.TO.CRMORG.SYNCRESP" method="transform" ref="AMRLiRT_CalculateLGD"/>-->
+    <!--<transformer input-channel="FinalizeLGD" output-channel="Q.KKMB.TO.CRMORG.SYNCRESP" method="transform" ref="AMRLiRT_FinalizeLGD"/>-->
+    <!--<transformer input-channel="CalculateDebtCapacity" output-channel="Q.KKMB.TO.CRMORG.SYNCRESP" method="transform" ref="AMRLiRT_CalculateDebtCapacity"/>-->
+    <!--<transformer input-channel="FinReportImport" output-channel="Q.KKMB.TO.CRMORG.SYNCRESP" method="transform" ref="FinRep_FinReportImport"/>-->
+    <!--<transformer input-channel="FinAnalysisImport" output-channel="Q.KKMB.TO.CRMORG.SYNCRESP" method="transform" ref="FinRep_FinAnalysisImport"/>-->
+   	<!--<transformer input-channel="ImportRating" output-channel="Q.KKMB.TO.CRMORG.SYNCRESP" method="transform" ref="FinRep_ImportRating"/>-->
+    <!--<transformer input-channel="UpdateRating" output-channel="Q.KKMB.TO.CRMORG.SYNCRESP" method="transform" ref="FinRep_UpdateRating"/>-->
     
     <context:component-scan base-package="ru.sbt.bpm.mock.controller"/>
     
@@ -214,7 +252,7 @@
     <beans:bean id="channelService" class="ru.sbt.bpm.mock.service.ChannelService">
    		 <beans:property name="subscribeChannels">
    		 	<util:list>
-   		 		<beans:ref bean="ESB.BPM.NCP.RESPONSE"/>
+   		 		<beans:ref bean="Q.KKMB.FROM.CRMORG.SYNCRESP"/>
    		 	</util:list>
    		 </beans:property> 
     </beans:bean>
@@ -224,7 +262,7 @@
 
     <!--<channel id="test"/>-->
     <!-- Mock gateway to send requests to outbound -->
-    <gateway id="systemEntry" default-request-channel="ESB.BPM.NCP.REQUEST" default-reply-channel="ESB.BPM.NCP.RESPONSE"
+    <gateway id="systemEntry" default-request-channel="Q.KKMB.FROM.CRMORG" default-reply-channel="Q.KKMB.FROM.CRMORG.SYNCRESP"
                  service-interface="ru.sbt.bpm.mock.gateway.ClientService" />
     <!--<gateway id="systemEntry" default-request-channel="test" default-reply-channel="test"-->
                  <!--service-interface="ru.sbt.bpm.mock.gateway.ClientService" />-->
