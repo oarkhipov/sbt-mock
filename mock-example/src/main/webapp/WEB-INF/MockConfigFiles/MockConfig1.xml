@@ -4,7 +4,7 @@
             <name>CRM</name>
             <pathToXSD>/res/xsd</pathToXSD>
             <rootXsd>CRM.xsd</rootXsd>
-            <headerNamespace>http://sbrf.ru/NCP/esb/envelope/</headerNamespace>
+            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
             <integrationPoints>
                 <integrationPoint>
                     <name>Create Task</name>
@@ -82,7 +82,6 @@
             <name>AMRLiRT</name>
             <pathToXSD>/res/xsd</pathToXSD>
             <rootXsd>AMRLiRT.xsd</rootXsd>
-            <headerNamespace>http://sbrf.ru/NCP/esb/envelope/</headerNamespace>
             <integrationPoints>
                 <integrationPoint>
                     <name>Close</name>

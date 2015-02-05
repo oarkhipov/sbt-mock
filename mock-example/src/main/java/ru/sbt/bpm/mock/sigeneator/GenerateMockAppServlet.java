@@ -12,6 +12,7 @@ import java.io.FileReader;
  * Company: SBT - Saint-Petersburg
  */
 // Singleton
+// TODO Нужно решить проблему с путем к файлу кофигурации. Все файлы могут лежать в одном месте => путь статическиий и не изменнрый, задается только имя файла. Файл конфигурации может находится, где угодно => путь до этого файла задается полностью пользователем
 public class GenerateMockAppServlet {
 
     private static GenerateMockAppServlet INSTANCE = null;
@@ -19,6 +20,14 @@ public class GenerateMockAppServlet {
     private String aFilePath;
 
     private MockConfig aMockConfig;
+
+    // Классы для spring integration context
+    // Заголок и основоное тело
+    private ContextHeader contextHeader;
+    // генерация тегов bean
+    private BeanGenerator beanGenerator;
+    // генерация inbound & outbound gateway
+    private GatewayContextGenerator gatewayContextGenerator;
 
     @Deprecated
     private GenerateMockAppServlet() {

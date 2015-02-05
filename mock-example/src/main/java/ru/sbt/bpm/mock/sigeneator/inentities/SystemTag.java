@@ -72,6 +72,14 @@ public class SystemTag {
         return aIntegrationPoints.getaListOfIntegrationPoints();
     }
 
+    public String getaHeaderNamespace() {
+        return aHeaderNamespace;
+    }
+
+    public void setaHeaderNamespace(String aHeaderNamespace) {
+        this.aHeaderNamespace = aHeaderNamespace;
+    }
+
     @Override
     public String toString() {
         return "SystemTag{" +

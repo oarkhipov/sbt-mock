@@ -32,7 +32,7 @@ public class ContextHeader {
     private static final String MVC_ALIAS = "mvc";
 
     // Флаги для переменных
-    private boolean beans;
+//    private boolean beans;
     private boolean integration;
     private boolean jms;
     private boolean ix;
@@ -42,7 +42,7 @@ public class ContextHeader {
 
     // Добавляет все элементы в заголок по умолчанию
     public ContextHeader() {
-        this.beans = true;
+//        this.beans = true;
         this.integration = true;
         this.jms = true;
         this.ix = true;
@@ -51,8 +51,8 @@ public class ContextHeader {
         this.mvc = true;
     }
 
-    public ContextHeader(boolean beans, boolean integration, boolean jms, boolean ix, boolean util, boolean context, boolean mvc) {
-        this.beans = beans;
+    public ContextHeader(boolean integration, boolean jms, boolean ix, boolean util, boolean context, boolean mvc) {
+//        this.beans = beans;
         this.integration = integration;
         this.jms = jms;
         this.ix = ix;
@@ -70,23 +70,25 @@ public class ContextHeader {
 
         StringBuilder sbSchemaLocation = new StringBuilder(XSI_ALIAS + ":" + "schemaLocation=\"");
 
-        generateTagContext(sb, sbSchemaLocation, beans, BEANS_ALIAS, BEANS_NAMESPACE);
+        // Компонент beans постаянный, так как его alias ведет к основным её элементам
+        sb.append(generateAliasesForNamespaces(BEANS_ALIAS, BEANS_NAMESPACE));
+        sbSchemaLocation.append(generateSchemaLocationParams(BEANS_NAMESPACE));
 
+//        generateTagContext(sb, sbSchemaLocation, beans, BEANS_ALIAS, BEANS_NAMESPACE);
         generateTagContext(sb, sbSchemaLocation, integration, INT_ALIAS, INT_NAMESPACE);
-
         generateTagContext(sb, sbSchemaLocation, jms, JMS_ALIAS, JMS_NAMESPACE);
-
         generateTagContext(sb, sbSchemaLocation, ix, IX_ALIAS, IX_NAMESPACE);
-
         generateTagContext(sb, sbSchemaLocation, util, UTIL_ALIAS, UTIL_NAMESPACE);
-
         generateTagContext(sb, sbSchemaLocation, context, CONTEXT_ALIAS, CONTEXT_NAMESPACE);
-
         generateTagContext(sb, sbSchemaLocation, mvc, MVC_ALIAS, MVC_NAMESPACE);
 
         sbSchemaLocation.append("\"\n");
         sb.append(sbSchemaLocation);
         sb.append(">\n\n");
+    }
+
+    public String generateEndTag() {
+        return "</" + BEANS_ALIAS + ":" + BEANS_ALIAS + ">\n";
     }
 
     private void generateTagContext(StringBuilder sb, StringBuilder sbSchemaLocation, boolean param, String alias, Pair<String, String> component) {
@@ -118,17 +120,16 @@ public class ContextHeader {
      * @return
      */
     private String generateTagAttribute(String ns, String alias) {
-        return ns + ":" + alias;
+        return ns + ":" + alias + "\n";
     }
 
-
-    public boolean isBeans() {
-        return beans;
-    }
-
-    public void setBeans(boolean beans) {
-        this.beans = beans;
-    }
+//    public boolean isBeans() {
+//        return beans;
+//    }
+//
+//    public void setBeans(boolean beans) {
+//        this.beans = beans;
+//    }
 
     public boolean isIntegration() {
         return integration;
