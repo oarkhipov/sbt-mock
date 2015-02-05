@@ -7,8 +7,6 @@
 	xmlns:util="http://www.springframework.org/schema/util"
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:mvc="http://www.springframework.org/schema/mvc"
-    xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
-    xmlns:ws="http://www.springframework.org/schema/web-services"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/integration	http://www.springframework.org/schema/integration/spring-integration.xsd
@@ -17,9 +15,9 @@
 		http://www.springframework.org/schema/util		http://www.springframework.org/schema/util/spring-util.xsd
 		http://www.springframework.org/schema/context       http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/mvc   http://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/integration/ws    http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd
-		http://www.springframework.org/schema/web-services      http://www.springframework.org/schema/web-services/web-services.xsd
 	">
+
+    <beans:import resource="mockapp-soap-servlet.xml" />
 
     <mvc:resources mapping="/**" location="/resources/web/" />
     <mvc:annotation-driven/>
@@ -64,14 +62,7 @@
             receive-timeout="30000"
     />
 
-    <!-- Sprint Integration gateway -->
-    <int-ws:inbound-gateway id="wsin"
-                            reply-channel="FIN.REPORT.KKMB.OUT"
-                            request-channel="FIN.REPORT.KKMB.OUT"
-                            reply-timeout="30000"
-    />
-
-    <!-- Входной и выходной каналы -->	
+    <!-- Входной и выходной каналы -->
     <channel id="Q.KKMB.TO.CRMORG">
         <interceptors>
             <wire-tap channel="fromGateLogger"/>
@@ -97,20 +88,7 @@
         </interceptors>
     </channel>
 
-    <!-- Входной и выходной каналы для ws -->
-    <channel id="FIN.REPORT.KKMB.IN">
-        <interceptors>
-            <wire-tap channel="toGateLoggerFinReport"/>
-        </interceptors>
-    </channel>
-
-    <channel id="FIN.REPORT.KKMB.OUT">
-        <interceptors>
-            <wire-tap channel="fromGateLoggerFinReport"/>
-        </interceptors>
-    </channel>
-    
-    <!--настройка логгеров -->   
+    <!--настройка логгеров -->
     <logging-channel-adapter id="fromGateLogger" logger-name="fromGateLogger"/>
     <logging-channel-adapter id="toGateLogger" logger-name="toGateLogger"/>
     
@@ -118,10 +96,6 @@
     <logging-channel-adapter id="fromGateLoggerCRM" logger-name="fromGateLoggerCRM"/>
     <logging-channel-adapter id="toGateLoggerCRM" logger-name="toGateLoggerCRM"/>
 
-    <!-- настройка логгеров2 -->
-    <logging-channel-adapter id="fromGateLoggerFinReport" logger-name="fromGateLoggerFinReport"/>
-    <logging-channel-adapter id="toGateLoggerFinReport" logger-name="toGateLoggerFinReport"/>
-    
     <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
      
     <!-- Роутер-->
@@ -213,15 +187,6 @@
         <!--<beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateDebtCapacity.xsl"/>-->
     <!--</beans:bean>-->
     <!-- FinRep -->
-    <beans:bean id="FinRep_GetParticipantFactors" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-
-    </beans:bean>
-    <beans:bean id="FinRep_GetGCFactors" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-
-    </beans:bean>
-    <beans:bean id="FinRep_GetProjectFactors" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-
-    </beans:bean>
 
  <!--маппинг трасформеров на каналы-->
 
