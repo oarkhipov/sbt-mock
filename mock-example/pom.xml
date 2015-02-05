@@ -3,7 +3,7 @@
     <groupId>ru.sbt.bpm.mock</groupId>
     <artifactId>ncpdb-interactive_by</artifactId>
     <packaging>war</packaging>
-    <version>0.2.7.2</version>
+    <version>0.2.7.3</version>
     <name>ncpdb-interactive</name>
     <url>http://maven.apache.org</url>
     <distributionManagement>
