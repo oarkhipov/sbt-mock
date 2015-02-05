@@ -1,0 +1,64 @@
+﻿############# 28.11.2014 #############
+
+CommonTypes 
+- добавлен тип string4000
+- убрали типы UUID, SystemName_Type, OperationName_Type, GroupType
+
+UpdateDealRequest
+-	Убрали элемент liquidityConclusions из типа Project
+-	Убрали элементы unselectedLimitFromSystem, unselectedLimitCorrected из типа Losses
+-	ExchangeRates вынесли из CurrencyInfo в сделку. CurrencyInfo убрали (лишняя вложенность была)
+-	Добавлен тип Fee для вознаграждений. Элемент типа входит в условия продукта Product.
+-	productID, productName и category вытянуты на уровень выше из Product в ProductCondition
+
+SaveDealRequest
+-	В типах Service, ParticipantsComment, LoanOfficerConclusion, UnderwriterConclusion, Vote, CommitteeResult некоторые поля стали string4000
+-	Добавлен тип ParticipantsComment, элемент типа входит в LoanOfficerConclusion и содержит комментарии об участниках сделки
+-	Добавлен тип Fee для вознаграждений. Элемент типа входит в условия продукта Product.
+-	productID, productName и category вытянуты на уровень выше из Product в ProductCondition
+-	В тип LoanOfficerConclusion добавлены новые поля с комментариями по топ-менеджменту, собственникам и участникам
+-	Убрали элемент projectRating, liquidityConclusions из типа Project
+-	Убрали элементы unselectedLimitFromSystem, unselectedLimitCorrected из типа Losses
+-	Убрали типы Rating, TopManager, Ownership, Identity, ParticipantsGroup, Participant, NaturalPerson, LegalPerson, Address, GroupInfo, ExchangeRates
+
+GetParticipantResponse
+- 	dealId переименован в id, т.к. это может быть id сделки или id группы
+-	Убарли элемент feedback в типe TopManager
+-	Убарли элемент comment в типe Ownership
+-	Изменились элементы в типе Rating
+-	В тип Participant добавлен boolean-элемент isBorrower для определения Заёмщика
+
+GetParticipantRequest
+- 	dealId переименован в id, т.к. это может быть id сделки или id группы
+-	Убрали элемент dealBPMID
+- 	Изменен тип элемента groupType на string15
+
+#######################################
+
+SaveDeal, UpdateDeal:
+-исправлена ошибка – два элемента с name=period в типе Product – один из них переименован в creditTerm
+-в тип Deal добавлен элемент: contractID – ID договора
+-в типе Deal переименованы элементы contractStatus и  contractlFileID в dealStatus и в dealFileID соответственно
+-В тип Participant добавлен элемент resident – Резидент/Не резидент
+
+SaveDealRequest:
+-В тип Participant добавлен элемент resident – Резидент/Не резидент
+
+GetParticipant:
+-groupInfo minOccurs=0
+
+UpdateDeal:
+- updateDealRequest: убран элемент Colleteral из Deal, изменено кол-во элементов losess, убрано productID в Losses и Colleteral
+
+SaveDeal:
+- убран элемент Colleteral из Deal, изменено кол-во элементов losses, убрано productID в Losses и Colleteral,
+- добавлен элемент comment в тип Vote
+- изменено представление групп аналогично с запрос GetParticipant
+- изменена кратность groupInfo на 0..1
+- добавлен restriction для groupType
+
+СreateTas:
+- убран элемент status
+
+CommonType:
+- добавлен новый тип

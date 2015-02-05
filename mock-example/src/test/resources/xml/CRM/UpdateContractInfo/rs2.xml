@@ -1,12 +1,11 @@
-﻿<tns:Message xmlns:tns="http://sbrf.ru/prpc/kkmb/crm/Header/resp/10">
-    <tns:RqUID>string</tns:RqUID>
-    <tns:RqTm>2014-12-16T17:55:06.410+04:00</tns:RqTm>
-    <tns:SPName>string</tns:SPName>
-    <tns:SystemId>string</tns:SystemId>
-    <tns:OperationName>string</tns:OperationName>
-    <ns1:UpdateContractInfo xmlns:ns1="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/resp/10"
-                            xmlns:ns2="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10">
-        <ns1:ContractID>string</ns1:ContractID>
-        <ns1:ListOfError></ns1:ListOfError>
-    </ns1:UpdateContractInfo>
-</tns:Message>
+﻿<ns1:Message xmlns:ns1="http://sbrf.ru/prpc/kkmb/crm/Header/resp/10">
+    <ns1:RqUID>string</ns1:RqUID>
+    <ns1:RqTm>2014-12-16T17:55:06.410+04:00</ns1:RqTm>
+    <ns1:SPName>string</ns1:SPName>
+    <ns1:SystemId>string</ns1:SystemId>
+    <ns1:OperationName>string</ns1:OperationName>
+    <ns2:UpdateContractInfo xmlns:ns2="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/resp/10">
+        <ns2:ContractID>string</ns2:ContractID>
+        <ns2:ListOfError></ns2:ListOfError>
+    </ns2:UpdateContractInfo>
+</ns1:Message>

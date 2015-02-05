@@ -74,7 +74,7 @@ public class SaveFile {
 
     /*public String getResourcesPath() {
         if (resourcesPath!=null) return resourcesPath;
-        resourcesPath = SystemTag.getProperty("user.dir") +slash+"src"+slash+"test"+slash+"resources";
+        resourcesPath = System.getProperty("user.dir") +slash+"src"+slash+"test"+slash+"resources";
         return resourcesPath;
     }*/
 
@@ -430,6 +430,13 @@ public class SaveFile {
     }
 
     public void writeStringToFile(File f, String data) throws Exception {
+        if (!f.exists()) {
+            File dir = f.getParentFile();
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            f.createNewFile();
+        }
         PrintWriter out = new PrintWriter(f);
         try {
             out.print(data);

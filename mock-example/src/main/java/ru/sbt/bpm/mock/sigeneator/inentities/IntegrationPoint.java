@@ -1,9 +1,9 @@
 package ru.sbt.bpm.mock.sigeneator.inentities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import ru.sbt.bpm.mock.sigeneator.Pair;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,6 +16,12 @@ public class IntegrationPoint {
 
     @XStreamAlias("name")
     private String aIntegrationPointName;
+
+    @XStreamAlias("rsRootElementName")
+    private String aRsRootElementName;
+
+    @XStreamAlias("rqRootElementName")
+    private String aRqRootElementName;
 
     @XStreamAlias("type")
     private String aIntegrationPointType;
@@ -47,6 +53,22 @@ public class IntegrationPoint {
 
     public void setaIntegrationPointName(String aIntegrationPointName) {
         this.aIntegrationPointName = aIntegrationPointName;
+    }
+
+    public String getaRsRootElementName() {
+        return aRsRootElementName;
+    }
+
+    public void setaRsRootElementName(String aRsRootElementName) {
+        this.aRsRootElementName = aRsRootElementName;
+    }
+
+    public String getaRqRootElementName() {
+        return aRqRootElementName;
+    }
+
+    public void setaRqRootElementName(String aRqRootElementName) {
+        this.aRqRootElementName = aRqRootElementName;
     }
 
     public String getaIntegrationPointType() {
@@ -98,6 +120,11 @@ public class IntegrationPoint {
     }
 
     public Dependencies getaDependencies() {
+        if (aDependencies == null) {
+            Dependencies aDependencies = new Dependencies();
+            aDependencies.setaDependency(new ArrayList<Dependency>(0));
+            setaDependencies(aDependencies);
+        }
         return aDependencies;
     }
 
@@ -125,6 +152,8 @@ public class IntegrationPoint {
     public String toString() {
         return "IntegrationPoint{" +
                 "aIntegrationPointName='" + aIntegrationPointName + '\'' +
+                ", aRsRootElementName='" + aRsRootElementName + '\'' +
+                ", aRqRootElementName='" + aRqRootElementName + '\'' +
                 ", aIntegrationPointType='" + aIntegrationPointType + '\'' +
                 ", aLinkedTagSequence=" + aLinkedTagSequence +
                 ", aProtocol='" + aProtocol + '\'' +
