@@ -54,11 +54,11 @@
     <xsl:param name="typesList" select="(//(xsd:complexType | xsd:simpleType)/@name) | ($importFilesDocs/(xsd:complexType | xsd:simpleType)/@name) | ($includeFilesDocs/(xsd:complexType | xsd:simpleType)/@name)"/>
 
     <!-- список известных типов-->
-    <xsl:variable name="stringTypes" select="tokenize('string xsd:string','\s+')"/>
-    <xsl:variable name="digitTypes" select="tokenize('int xsd:int integer xsd:integer long xsd:long double xsd:double float xsd:float decimal xsd:decimal','\s+')"/>
-    <xsl:variable name="dateTypes" select="tokenize('date xsd:date','\s+')"/>
-    <xsl:variable name="dateTimeTypes" select="tokenize('dateTime xsd:dateTime','\s+')"/>
-    <xsl:variable name="booleanTypes" select="tokenize('boolean xsd:boolean','\s+')"/>
+    <xsl:variable name="stringTypes" select="tokenize(concat('string ',$xsdNsAlias,':string xsd:string'),'\s+')"/>
+    <xsl:variable name="digitTypes" select="tokenize(concat('int xsd:int integer ',$xsdNsAlias,':integer xsd:integer long ',$xsdNsAlias,':long xsd:long double xsd:double float ',$xsdNsAlias,':float xsd:float decimal ',$xsdNsAlias,':decimal xsd:decimal'),'\s+')"/>
+    <xsl:variable name="dateTypes" select="tokenize(concat('date ',$xsdNsAlias,':date xsd:date'),'\s+')"/>
+    <xsl:variable name="dateTimeTypes" select="tokenize(concat('dateTime ',$xsdNsAlias,':dateTime xsd:dateTime'),'\s+')"/>
+    <xsl:variable name="booleanTypes" select="tokenize(concat('boolean ',$xsdNsAlias,':boolean xsd:boolean'),'\s+')"/>
 
     <!--***********************************-->
     <!--************Функции****************-->
@@ -269,7 +269,7 @@
     </xsl:template>
 
     <!--элемент у которого никаких требований-->
-    <xsl:template match="xsd:element[@type='xsd:anyType'
+    <xsl:template match="xsd:element[@type='xsd:anyType' or @type= concat($xsdNsAlias, ':anyType')
                             or (count(./*[local-name()!='annotation'])=0 and not(./@type) and not(./@ref))]" mode="type"  priority="10">
         <!--<xsl:comment>testNoRestrictions</xsl:comment>-->
         <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}">anyString</xsl:element>
