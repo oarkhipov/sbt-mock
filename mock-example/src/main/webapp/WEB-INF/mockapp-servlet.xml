@@ -150,9 +150,9 @@
     <!--<channel id="ImportRating"/>-->
 
     <!-- FinReports Channels -->
-    <channel id="ExportIndicatorsOfContragent"/>
-    <channel id="ExportIndicatorsOfKG"/>
-    <channel id="ExportIndicatorsOfProject"/>
+    <channel id="GetParticipantFactors"/>
+    <channel id="GetGCFactors"/>
+    <channel id="GetProjectFactors"/>
 
     <ix:xpath-router id="operationRouter" input-channel="Q.KKMB.TO.CRMORG" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
         <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
@@ -213,13 +213,13 @@
         <!--<beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateDebtCapacity.xsl"/>-->
     <!--</beans:bean>-->
     <!-- FinRep -->
-    <beans:bean id="FinRep_ExportIndicatorsOfContragent" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+    <beans:bean id="FinRep_GetParticipantFactors" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
 
     </beans:bean>
-    <beans:bean id="FinRep_ExportIndicatorsOfKG" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+    <beans:bean id="FinRep_GetGCFactors" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
 
     </beans:bean>
-    <beans:bean id="FinRep_ExportIndicatorsOfProject" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+    <beans:bean id="FinRep_GetProjectFactors" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
 
     </beans:bean>
 
