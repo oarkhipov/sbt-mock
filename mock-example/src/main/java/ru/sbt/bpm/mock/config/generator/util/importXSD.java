@@ -257,7 +257,12 @@ public class importXSD {
 
             Map <String, String> altParams = new HashMap<String, String>(params);
             altParams.put("rootElementName", params.get("RqRootElementName"));
-            altParams.put("operationsXSD", "../../xsd/"+system+"/"+name+"Request.xsd");
+            if( params.containsKey("rqOperationsXSD") )
+            {
+                altParams.put("operationsXSD",  params.get("rqOperationsXSD"));
+            } else {
+                altParams.put("operationsXSD",  params.get("operationsXSD").replace("Response", "Request")); //TODo вставить нормальную замену регуляркой
+            }
             altParams.put("operation-name", params.get("rootElementName"));
 
             //не вставляем в этветы комменты с обозначением сколько элементов доступно

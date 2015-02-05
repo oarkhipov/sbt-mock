@@ -1,0 +1,17 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Header>
+      <mq:AsyncHeader xmlns:mq="http://sbrf.ru/prpc/mq/headers">
+         <mq:message-id>message-id</mq:message-id>
+         <mq:request-time>2014-12-16T17:55:06.410+04:00</mq:request-time>
+         <mq:operation-name>finalizationResponse</mq:operation-name>
+      </mq:AsyncHeader>
+   </soap:Header>
+   <soap:Body>
+      <tns:finalizationRequest xmlns:tns="http://service.lgd.sberbank.luxoft.com/">
+         <tns:FIO>string</tns:FIO>
+         <tns:Position>string</tns:Position>
+         <tns:CRMId>string</tns:CRMId>
+         <tns:Type>test1</tns:Type>
+      </tns:finalizationRequest>
+   </soap:Body>
+</soap:Envelope>

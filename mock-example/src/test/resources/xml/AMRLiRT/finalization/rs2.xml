@@ -1,0 +1,14 @@
+<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
+   <soap:Header>
+      <soap:message-id>defaultId</soap:message-id>
+      <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
+      <soap:operation-name>finalizationResponse</soap:operation-name>
+   </soap:Header>
+   <soap:Body>
+      <tns:finalizationResponse xmlns:tns="http://service.lgd.sberbank.luxoft.com/">
+         <tns:ErrorCode>s</tns:ErrorCode>
+         <tns:CRMId>string</tns:CRMId>
+         <tns:Type>string</tns:Type>
+      </tns:finalizationResponse>
+   </soap:Body>
+</soap:Envelope>

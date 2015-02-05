@@ -1,7 +1,7 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 
-    <xsl:template name="KD4SOAPNS">http://schemas.xmlsoap.org/soap/envelope//</xsl:template>
+    <xsl:template name="KD4SOAPNS">http://schemas.xmlsoap.org/soap/envelope/</xsl:template>
 
     <xsl:template name="KD4Header" xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/"
                   xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
