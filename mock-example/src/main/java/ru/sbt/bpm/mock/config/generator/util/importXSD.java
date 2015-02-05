@@ -1,6 +1,8 @@
 package ru.sbt.bpm.mock.config.generator.util;
 
+import org.apache.commons.io.FileUtils;
 import ru.sbt.bpm.mock.sigeneator.GenerateMockAppServlet;
+import ru.sbt.bpm.mock.sigeneator.inentities.Dependency;
 import ru.sbt.bpm.mock.sigeneator.inentities.IntegrationPoint;
 import ru.sbt.bpm.mock.sigeneator.inentities.LinkedTag;
 import ru.sbt.bpm.mock.sigeneator.inentities.SystemTag;
@@ -17,6 +19,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.*;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -341,9 +344,11 @@ public class importXSD {
 
     /***
      * создание точки интеграции
-     * @param point результат прасинга конфига
+     * @param system результат парсинга конфига
+     * @param point результат парсинга конфига
      */
     public void importIntegrationPoint(SystemTag system, IntegrationPoint point) throws Exception {
+        copyXSDFiles(system, point);
         if (point.getaIntegrationPointType().equals("Mock")) {
             importIntegrationPointMock(system, point);
         } else if (point.getaIntegrationPointType().equals("Driver")) {
@@ -351,6 +356,84 @@ public class importXSD {
         } else {
             throw new IllegalArgumentException("Integration point type {"+point.getaIntegrationPointType()+"} not implemented");
         }
+    }
+
+    /**
+     * копирует входящие xsd-файлы с зависимостями
+     * @param system результат парсинга конфига
+     * @param point результат парсинга конфига
+     * @throws Exception
+     */
+    public void copyXSDFiles(SystemTag system, IntegrationPoint point) throws Exception {
+        File baseDir = findFolder(system);
+        System.out.println("Используется дирректория {"+baseDir.getAbsolutePath()+"}" );
+        importFile(baseDir.getAbsolutePath() + File.separator + system.getaRootXSD(), system.getaSystemName());
+        importFile(baseDir.getAbsolutePath() + File.separator + point.getaXsdFile(), system.getaSystemName());
+        for (Dependency dependency : point.getaDependencies().getaDependency()) {
+            String subfolder = system.getaSystemName();
+            if (dependency.getaXsdFile().contains("\\") || dependency.getaXsdFile().contains("/") ) { //TODO тот код надо вынести в функцию и применить и к point.getaXsdFile()
+                int i = dependency.getaXsdFile().lastIndexOf("/");
+                int j = dependency.getaXsdFile().lastIndexOf("\\");
+                int k = i>j?i:j;
+                subfolder += File.separator + dependency.getaXsdFile().substring(0, k);
+            }
+            importFile(baseDir.getAbsolutePath() + File.separator + dependency.getaXsdFile(), subfolder);
+        }
+    }
+
+
+
+    /**
+     * Получает путь к папке и проверяет разные возможные пути, чтобы найти нужную нам папку
+     * @param system результат парсинга конфига
+     * @throws Exception
+     */
+    private File findFolder(SystemTag system) throws FileNotFoundException {
+        List<String> possiblePaths = new ArrayList<String>(); // записываем в список всякие разные пути, по которым можна найти папку
+        possiblePaths.add(getPath()); //основной путь
+        possiblePaths.add(getWebInfPath()); //WebInf папку
+        possiblePaths.add(getExamplesPath()); //папку с примерами
+        possiblePaths.add(""); //корень для абсолютных путей и рабочей дирректории
+        for (String subPath : possiblePaths ) { //и по очереди проверям эти пути
+            try {
+                File baseDir = new File(subPath + system.getaPathToXSD());
+                if (!baseDir.exists()) throw new FileNotFoundException(); //папка есть?
+                if (!baseDir.isDirectory()) throw new FileNotFoundException(); //это папка?
+                File baseXSD = new File(subPath + system.getaPathToXSD() + File.separator + system.getaRootXSD() ); //также проверим что в этой папке есть xsd
+                if (!baseXSD.exists()) throw new FileNotFoundException(); //xsd есть?
+                if (baseXSD.isDirectory()) throw new FileNotFoundException(); //xsd это не папка?
+                if (baseXSD.getTotalSpace() == 0) throw new FileNotFoundException(); //xsd не пустой?
+                return baseDir; //нашли нужный нам файл
+            } catch (Exception e) {
+                //не нашли по этому пути, посмотрим в следующем
+            }
+        }
+        throw new FileNotFoundException(system.getaPathToXSD() + "\\" + system.getaRootXSD());
+    }
+
+    /**
+     * копирование одного конкретного xsd-файла в дирректроию WEB-INF\xsd\{subFolder}
+     * Проверяет хэш файла, и если такой уже есть, то не копирует
+     * @param filePathToImport файл, который надо скопировать
+     * @param subFolder подпапка в WEB-INF\xsd куда будет помешен файл
+     */
+    private void importFile(String filePathToImport, String subFolder) throws Exception {
+        File fileToImport = new File(filePathToImport);
+        File copyTo = new File(getWebInfPath()+ File.separator + "xsd" + File.separator + subFolder + File.separator + fileToImport.getName());
+        if (copyTo.exists()) {
+            long cheksumFrom = FileUtils.checksumCRC32(fileToImport);
+            long cheksumTo = FileUtils.checksumCRC32(copyTo);
+            if (cheksumTo == cheksumFrom) {
+                System.out.println("Файл {"+fileToImport.getName()+"} не нуждается в обновлении");
+                return; //файлы одинаковые, копировать не нужно
+            }
+            FileUtils.copyFile(fileToImport, copyTo);
+            System.out.println("Файл {" + fileToImport.getName() + "} обновлен");
+            return;
+        }
+        FileUtils.copyFile(fileToImport, copyTo);
+        System.out.println("Файл {" + fileToImport.getName() + "} скопирован");
+        return;
     }
 
     private void importIntegrationPointDriver(SystemTag system, IntegrationPoint point) {
