@@ -16,8 +16,8 @@
          <Label>string</Label>
          <Title>string</Title>
          <CodeEKS>string</CodeEKS>
-         <ValidityStartDate>2015-02-04</ValidityStartDate>
-         <ValidityEndDate>2015-02-04</ValidityEndDate>
+         <ValidityStartDate>2015-02-05</ValidityStartDate>
+         <ValidityEndDate>2015-02-05</ValidityEndDate>
       </Loan>
    </request>
    <request name="test1">

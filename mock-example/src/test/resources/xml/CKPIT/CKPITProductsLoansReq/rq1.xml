@@ -16,8 +16,8 @@
             <Label>string</Label>
             <Title>string</Title>
             <CodeEKS>string</CodeEKS>
-            <!--optional--><ValidityStartDate>2015-02-04</ValidityStartDate>
-            <!--optional--><ValidityEndDate>2015-02-04</ValidityEndDate>
+            <!--optional--><ValidityStartDate>2015-02-05</ValidityStartDate>
+            <!--optional--><ValidityEndDate>2015-02-05</ValidityEndDate>
          </Loan>
       </CKPITProductsLoansReq>
    </soap:Body>
