@@ -1,0 +1,121 @@
+<data:data xmlns:data="http://sbrf.ru/prpc/finrep/GetProjectFactorsRs/10/Data">
+  <!--1 or more repetitions:-->
+  <response name="anySimpleType">
+    <!--Optional:-->
+    <SoapHeader>
+      <!--Optional:-->
+      <message-id>string</message-id>
+      <!--Optional:-->
+      <request-time>2008-09-29T05:49:45</request-time>
+      <!--Optional:-->
+      <correlation-id>string</correlation-id>
+      <!--Optional:-->
+      <eis-name>string</eis-name>
+      <!--Zero or more repetitions:-->
+      <system-id>string</system-id>
+      <!--Optional:-->
+      <operation-name>string</operation-name>
+      <!--Optional:-->
+      <operation-version>string</operation-version>
+      <!--Optional:-->
+      <user-id>string</user-id>
+      <!--Optional:-->
+      <user-name>string</user-name>
+      <!--You may enter ANY elements at this point-->
+    </SoapHeader>
+    <ListOfSystemErrors>
+      <!--Zero or more repetitions:-->
+      <SystemError>
+        <ErrorCode>string</ErrorCode>
+        <ErrorMessage>string</ErrorMessage>
+      </SystemError>
+    </ListOfSystemErrors>
+    <Project>
+      <!--Optional:-->
+      <CRMId>string</CRMId>
+      <ListOfErrors>
+        <!--Zero or more repetitions:-->
+        <Error>
+          <ErrorCode>string</ErrorCode>
+          <ErrorMessage>string</ErrorMessage>
+        </Error>
+      </ListOfErrors>
+      <ListOfDocuments>
+        <!--1 or more repetitions:-->
+        <Document>
+          <DocumentId>10</DocumentId>
+          <ApprovalDate>2014-09-19</ApprovalDate>
+          <ApprovalPerson>string</ApprovalPerson>
+        </Document>
+      </ListOfDocuments>
+      <ListOfFixedFactor>
+        <!--Zero or more repetitions:-->
+        <FixedFactor>
+          <Factor>string</Factor>
+          <FactorIntegrationId>string</FactorIntegrationId>
+          <Group>string</Group>
+          <Value>string</Value>
+          <ValueIntegrationId>string</ValueIntegrationId>
+          <ListOfDocuments>
+            <!--1 or more repetitions:-->
+            <Document>
+              <DocumentId>10</DocumentId>
+            </Document>
+          </ListOfDocuments>
+        </FixedFactor>
+      </ListOfFixedFactor>
+      <ListOfRatingPeriod>
+        <!--Zero or more repetitions:-->
+        <RatingPeriod>
+          <ReportDate>2006-08-19+04:00</ReportDate>
+          <Period>string</Period>
+          <StartDate>2009-05-16</StartDate>
+          <EndDate>2003-08-09+04:00</EndDate>
+          <PeriodType>string</PeriodType>
+          <!--Optional:-->
+          <Comments>string</Comments>
+          <ListOfCardinalFactor>
+            <!--1 or more repetitions:-->
+            <CardinalFactor>
+              <Factor>string</Factor>
+              <FactorIntegrationId>string</FactorIntegrationId>
+              <Group>string</Group>
+              <NumValue>1.051732E7</NumValue>
+              <ListOfDocuments>
+                <!--1 or more repetitions:-->
+                <Document>
+                  <DocumentId>10</DocumentId>
+                </Document>
+              </ListOfDocuments>
+            </CardinalFactor>
+          </ListOfCardinalFactor>
+        </RatingPeriod>
+      </ListOfRatingPeriod>
+      <ListOfRatingSupport>
+        <!--Zero or more repetitions:-->
+        <RatingSupport>
+          <Name>string</Name>
+          <IntegrationId>string</IntegrationId>
+          <ListOfSupportFactor>
+            <!--1 or more repetitions:-->
+            <SupportFactor>
+              <Factor>string</Factor>
+              <FactorIntegrationId>string</FactorIntegrationId>
+              <Group>string</Group>
+              <Value>string</Value>
+              <ValueIntegrationId>string</ValueIntegrationId>
+              <!--Optional:-->
+              <FreeValue>string</FreeValue>
+              <ListOfDocuments>
+                <!--1 or more repetitions:-->
+                <Document>
+                  <DocumentId>10</DocumentId>
+                </Document>
+              </ListOfDocuments>
+            </SupportFactor>
+          </ListOfSupportFactor>
+        </RatingSupport>
+      </ListOfRatingSupport>
+    </Project>
+  </response>
+</data:data>
