@@ -11,7 +11,7 @@
             <!--optional--><tns:ListOfResultRating><!--from 0 to unbounded elements --><tns:ResultRating>
                   <tns:IsPrimary>string</tns:IsPrimary>
                   <tns:Name>string</tns:Name>
-                  <!--not known elementType:{xs:int}--><tns:Value/>
+                  <tns:Value>10</tns:Value>
                   <tns:Type>string</tns:Type>
                </tns:ResultRating>
             </tns:ListOfResultRating>

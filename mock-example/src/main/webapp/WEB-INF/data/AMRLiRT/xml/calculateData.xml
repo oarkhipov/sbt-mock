@@ -13,7 +13,7 @@
             <ResultRating>
                <IsPrimary>string</IsPrimary>
                <Name>string</Name>
-               <Value/>
+               <Value>10</Value>
                <Type>string</Type>
             </ResultRating>
          </ListOfResultRating>

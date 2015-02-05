@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.sbrf.ru/CreditHistoryScoring/Data/"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.sbrf.ru/CreditHistoryScoring/Data/"
+            elementFormDefault="qualified">
+   <xsd:complexType xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
+                    xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
+                    name="Header">
+      <xsd:annotation>
+         <xsd:documentation>Заголовок сообщения</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence xmlns="">
+         <xsd:element name="KD4SoapHeaderV2" type="dt:String">
+            <xsd:annotation>
+               <xsd:documentation>Заголовок SOAP-сообщения</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="AsyncHeader">
+            <xsd:annotation>
+               <xsd:documentation>Заголовок SOAP-сообщения</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="message-id" type="st:UUID">
+                     <xsd:annotation>
+                        <xsd:documentation>Уникальный идентификатор сообщения, передаваемого в рамках SOAP-пакета</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="request-time" type="dt:DateTime">
+                     <xsd:annotation>
+                        <xsd:documentation>Системное время при отправке сообщения АС-отправителем с учетом временной зоны</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="correlation-id" type="st:UUID" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Идентификатор корреляции</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="eis-name" type="st:SystemName_Type" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Идентификатор системы инициатора запроса/ответа</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="system-id"
+                               type="st:SystemName_Type"
+                               minOccurs="0"
+                               maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation>Идентификатор системы получателя запроса</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="operation-name" type="st:OperationName_Type">
+                     <xsd:annotation>
+                        <xsd:documentation>Название операции вызываемого сервиса</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="operation-version" type="dt:DefString" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Версия операции</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="user-id" type="dt:DefString" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Идентификатор пользователя в системе инициаторе запроса/ответа</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="user-name" type="dt:DefString" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Полное ФИО пользователя в системе инициаторе запроса/ответа</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="proc-inst-tb" type="st:TB_Type" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Код ТБ</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:any namespace="##other"
+                           processContents="lax"
+                           minOccurs="0"
+                           maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation>Точка расширения заголовка (не используется, добавлено на персективу)</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:any>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="data" type="dataValue"/>
+   <xsd:complexType name="dataValue">
+      <xsd:sequence>
+         <xsd:element name="response" type="ResponseType" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>Ответ на запрос</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="ResponseType">
+      <xsd:annotation>
+         <xsd:documentation>Ответ АС ОКИ</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
+         <xsd:element minOccurs="1"
+                      maxOccurs="1"
+                      name="dealResult"
+                      type="DealResultType"/>
+         <xsd:element minOccurs="0"
+                      maxOccurs="1"
+                      name="participantResults"
+                      type="ParticipantResultsType"/>
+      </xsd:sequence>
+      <xsd:attribute name="name"/>
+   </xsd:complexType>
+   <xsd:complexType name="DealResultType">
+      <xsd:annotation>
+         <xsd:documentation>Результат оценки по сделке</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element minOccurs="0"
+                      maxOccurs="1"
+                      name="systemErrors"
+                      type="SystemErrorsType"/>
+         <xsd:element minOccurs="0"
+                      maxOccurs="unbounded"
+                      name="dealScoringResult"
+                      type="DealScoringResultType"/>
+         <xsd:element minOccurs="1"
+                      maxOccurs="1"
+                      nillable="false"
+                      name="status"
+                      type="ScoringStatusDictType">
+            <xsd:annotation>
+               <xsd:documentation>Статус оценки по сделке</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="strategyCodes" maxOccurs="1" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>Вектор с кодами ошибок, возвращаемых из стратегии</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="xs:string">
+                  <xsd:maxLength value="100"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="comments" maxOccurs="1" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>Комментарий</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="xs:string">
+                  <xsd:maxLength value="250"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="DealScoringResultType">
+      <xsd:annotation>
+         <xsd:documentation>Оценка КИ по сделке</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="sid" type="xs:string">
+            <xsd:annotation>
+               <xsd:documentation>СИД типа оценки КИ</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="name" type="xs:string">
+            <xsd:annotation>
+               <xsd:documentation>Наименование типа оценки КИ</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="value" type="xs:string">
+            <xsd:annotation>
+               <xsd:documentation>Результат оценки по типу оценки КИ</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="SystemErrorsType">
+      <xsd:annotation>
+         <xsd:documentation>Список ошибок обработки</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="error"
+                      maxOccurs="unbounded"
+                      minOccurs="0"
+                      type="SystemErrorType"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="SystemErrorType">
+      <xsd:annotation>
+         <xsd:documentation>Ошибка обработки в системе АС ОКИ, список ошибок:
+                SYSTEM-OKI-001  Неизвестная ошибка в системе
+                SYSTEM-OKI-002  Время вызова БКИ превысило заданное
+                SYSTEM-OKI-003  Ошибка вызова БД
+                SYSTEM-OKI-004  Количество участников сделки превышает допустимое значение
+                SYSTEM-OKI-005  Сделка не найдена
+                SYSTEM-OKI-006  Сделка находится в неверном статусе, невозможно отправить на оценку
+                SYSTEM-OKI-007  Ошибка трансформации в XML или из XML
+                SYSTEM-OKI-008  Лимит сообщений в день превышен
+                SYSTEM-OKI-009  Ошибка БКИ
+                SYSTEM-OKI-010  Ошибка стратегии
+            </xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="code" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>Код ошибки</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="xs:string">
+                  <xsd:maxLength value="50"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="message" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>Описание ошибки</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="xs:string">
+                  <xsd:maxLength value="500"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="cause" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>Причина ошибки</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="xs:string">
+                  <xsd:maxLength value="500"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="participantIndex"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="xs:int">
+            <xsd:annotation>
+               <xsd:documentation>Индекс участника сделки для которого произошла ошибка, если не заполнено то ошибка произошла на уровне сделки. Соответствует индексу переданому в запросе.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="ParticipantResultsType">
+      <xsd:annotation>
+         <xsd:documentation>Список результатов оценки по участникам сделки</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="participantResult"
+                      minOccurs="0"
+                      maxOccurs="unbounded"
+                      type="ParticipantResultType"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="ParticipantResultType">
+      <xsd:annotation>
+         <xsd:documentation>Список результатов оценки по участнику сделки</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element minOccurs="1"
+                      maxOccurs="1"
+                      nillable="false"
+                      name="participantIndex"
+                      type="xs:int">
+            <xsd:annotation>
+               <xsd:documentation>Уникальный индекс участника в сделке</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element minOccurs="1"
+                      maxOccurs="1"
+                      nillable="false"
+                      name="status"
+                      type="ScoringStatusDictType">
+            <xsd:annotation>
+               <xsd:documentation>Статус результата оценки для участника сделки</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element minOccurs="0"
+                      maxOccurs="1"
+                      name="participantScoringResult"
+                      type="ParticipantScoringResultType"/>
+         <xsd:element minOccurs="0"
+                      maxOccurs="1"
+                      name="histories"
+                      type="ParticipantCreditHistoriesType"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="ParticipantCreditHistoriesType">
+      <xsd:annotation>
+         <xsd:documentation>Список КИ участника сделки</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="creditHistory"
+                      minOccurs="0"
+                      maxOccurs="unbounded"
+                      type="CreditHistoryType"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="CreditHistoryType">
+      <xsd:annotation>
+         <xsd:documentation>КИ участника сделки</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="sourceCB" type="CreditBureauDictType">
+            <xsd:annotation>
+               <xsd:documentation>Код БKИ</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="BankSign">
+            <xsd:annotation>
+               <xsd:documentation>Наименование кредитора</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="xs:string">
+                  <xsd:maxLength value="50"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="nRelationshipDuration" type="xs:int">
+            <xsd:annotation>
+               <xsd:documentation>Длительность взаимоотношений с банком (дней)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="lastRecordUpdate" type="xs:date">
+            <xsd:annotation>
+               <xsd:documentation>Дата последнего обновления записи</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="liabilityStatus">
+            <xsd:annotation>
+               <xsd:documentation>Статус обязательства</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="xs:int">
+                  <xsd:enumeration value="1">
+                     <xsd:annotation>
+                        <xsd:documentation>Не действующее</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:enumeration>
+                  <xsd:enumeration value="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Действующее</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:enumeration>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="liabilityType" type="LiabilityTypeDictType">
+            <xsd:annotation>
+               <xsd:documentation>Вид обязательства</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="baseLiabilityType"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="BaseLiabilityTypeDictType">
+            <xsd:annotation>
+               <xsd:documentation>Вид основного обязательства</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="relationshipCode"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="RelationshipCodeDictType">
+            <xsd:annotation>
+               <xsd:documentation>Отношение к счёту</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="amountInitial"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="xs:decimal">
+            <xsd:annotation>
+               <xsd:documentation>Начальная сумма обязательств</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="interestRate"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="xs:decimal">
+            <xsd:annotation>
+               <xsd:documentation>Процентная ставка</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="residualDebt"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="xs:decimal">
+            <xsd:annotation>
+               <xsd:documentation>Общий остаток задолжности по основному долгу</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="liabilityCurrency" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>Валюта, в которой указана сумма, в формате ISO, т.е. USD, EUR и т.д.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="xs:string">
+                  <xsd:maxLength value="3"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="liabilityNo" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>Номер кредитного договора / банковской карты</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="xs:string">
+                  <xsd:maxLength value="100"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="dateStart" type="xs:date">
+            <xsd:annotation>
+               <xsd:documentation>Дата открытия кредитного договора</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="dateRedemptionScheduled" type="xs:date">
+            <xsd:annotation>
+               <xsd:documentation>Плановая дата окончания срока действия обязательства</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="dateRedemptionActual"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="xs:date">
+            <xsd:annotation>
+               <xsd:documentation>Фактическая дата погашения обязательства</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="repaymentMethod" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>Метод погашения задолжности</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="xs:int">
+                  <xsd:enumeration value="2">
+                     <xsd:annotation>
+                        <xsd:documentation>Аннуитетный</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:enumeration>
+                  <xsd:enumeration value="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Дифференцированный</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:enumeration>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="currentArrearAmount"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="xs:decimal">
+            <xsd:annotation>
+               <xsd:documentation>Сумма текущей просроченной задолжности</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="isRestructured" type="xs:int">
+            <xsd:annotation>
+               <xsd:documentation>Наличие реструктуризации условий кредитования</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="cred_sum_limit"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="xs:decimal">
+            <xsd:annotation>
+               <xsd:documentation>Неиспользованный кредитный лимит</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="cred_prolong" minOccurs="0" maxOccurs="1" type="xs:int">
+            <xsd:annotation>
+               <xsd:documentation>Количество пролонгаций</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="credMaxOverdue"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="xs:decimal">
+            <xsd:annotation>
+               <xsd:documentation>Максимальная сумма просроченной задолженности</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="kodTb" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>Код тербанка</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="xs:string">
+                  <xsd:maxLength value="3"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="nameTb" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>Наименование тербанка</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="xs:string">
+                  <xsd:maxLength value="80"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="liabilityArrearsBlockCount" type="xs:int">
+            <xsd:annotation>
+               <xsd:documentation>Количество блоков с информацией о просрочках (за год)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="blockDataASSD"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="BlockDataASSDType">
+            <xsd:annotation>
+               <xsd:documentation>Блок данных из АС СД</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="liabilityArrearsBlock"
+                      minOccurs="0"
+                      maxOccurs="unbounded"
+                      type="LiabilityArrearsBlockType">
+            <xsd:annotation>
+               <xsd:documentation>Блок информации о просрочненных задолженностях по Договору, в разрезе каждого анализируемого года</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="BlockDataASSDType">
+      <xsd:sequence>
+         <xsd:element name="_dcas_ResidualDebtAndArrear"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="xs:decimal">
+            <xsd:annotation>
+               <xsd:documentation>АС СД: общий остаток ссудной задолжности (сумма срочной и просроченной задолженности по основному долгу)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="productType">
+            <xsd:annotation>
+               <xsd:documentation>Код типа продукта</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="xs:string">
+                  <xsd:maxLength value="10"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="productCode">
+            <xsd:annotation>
+               <xsd:documentation>Код продукта</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="xs:string">
+                  <xsd:maxLength value="10"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="subProductCode">
+            <xsd:annotation>
+               <xsd:documentation>Код субпродукта</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="xs:string">
+                  <xsd:maxLength value="10"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="LiabilityArrearsBlockType">
+      <xsd:sequence>
+         <xsd:element name="yearNumber" type="xs:string">
+            <xsd:annotation>
+               <xsd:documentation>Номер анализируемого года</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="DtYearBegin" type="xs:date">
+            <xsd:annotation>
+               <xsd:documentation>Дата начала годового интервала</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="DtYearEnd" type="xs:date">
+            <xsd:annotation>
+               <xsd:documentation>Дата окончания периода годового интеравала</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="arrearsCount_1_5"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="xs:decimal">
+            <xsd:annotation>
+               <xsd:documentation>Количество случаев возникновения просроченной задолжности в период 1-5</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="arrearsCount_6_30"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="xs:decimal">
+            <xsd:annotation>
+               <xsd:documentation>Количество случаев возникновения просроченной задолжности в период 6-30</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="arrearsCount_1_30"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="xs:decimal">
+            <xsd:annotation>
+               <xsd:documentation>Количество случаев возникновения просроченной задолжности в период 1-30</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="arrearsCount_31_60"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="xs:decimal">
+            <xsd:annotation>
+               <xsd:documentation>Количество случаев возникновения просроченной задолжности в перио 31-60</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="arrearsCount_61_90"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="xs:decimal">
+            <xsd:annotation>
+               <xsd:documentation>Количество случаев возникновения просроченной задолжности в период 61-90</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="arrearsCount_91_120"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="xs:decimal">
+            <xsd:annotation>
+               <xsd:documentation>Количество случаев возникновения просроченной задолжности в период 91-120</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="arrearsCount_121_150"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="xs:decimal">
+            <xsd:annotation>
+               <xsd:documentation>Количество случаев возникновения просроченной задолжности в период 121-150</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="arrearsCount_151_180"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="xs:decimal">
+            <xsd:annotation>
+               <xsd:documentation>Количество случаев возникновения просроченной задолжности в период 151-180</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="arrearsCount_180"
+                      minOccurs="0"
+                      maxOccurs="1"
+                      type="xs:decimal">
+            <xsd:annotation>
+               <xsd:documentation>Количество случаев возникновения просроченной задолжности в период свыше 180</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="nMaxDelayPayments" type="xs:int">
+            <xsd:annotation>
+               <xsd:documentation>Количество случаев возникновения просроченной задолженности в годовом интервале</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="arrearsCount_PerYear" type="xs:int">
+            <xsd:annotation>
+               <xsd:documentation>Максимальная продолжительность задержки платежей (дней) в анализируемом интервале</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="ParticipantScoringResultType">
+      <xsd:annotation>
+         <xsd:documentation>Результат оценки по участнику сделки</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="internalScoringGrade"
+                      maxOccurs="1"
+                      minOccurs="0"
+                      type="xs:string">
+            <xsd:annotation>
+               <xsd:documentation>Внутренняя оценка</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="externalScoringGrade"
+                      maxOccurs="1"
+                      minOccurs="0"
+                      type="xs:string">
+            <xsd:annotation>
+               <xsd:documentation>Внешняя оценка</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="unifiedScoringGrade"
+                      maxOccurs="1"
+                      minOccurs="0"
+                      type="xs:string">
+            <xsd:annotation>
+               <xsd:documentation>Совокупная оценка</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="strategyCodes" maxOccurs="1" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>Коды ошибок</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="xs:string">
+                  <xsd:maxLength value="100"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="comments" maxOccurs="1" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>Комментарий</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="xs:string">
+                  <xsd:maxLength value="250"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+</xsd:schema>

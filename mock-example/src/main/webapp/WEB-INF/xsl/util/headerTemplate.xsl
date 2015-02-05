@@ -15,7 +15,6 @@
 
     <xsl:include href="NCPSoapRqHeaderXSLTTemplate.xsl"/>
     <xsl:include href="KD4SoapHeaderTemplate.xsl"/>
-    <xsl:include href="KD4SoapHeaderTemplate.xsl"/>
 
     <!--ID сообщения, которое будет использоваться по умолчанию, если не задано параметром или в дата-файле-->
     <xsl:param name="defaultId" select="string('defaultId')"/>

@@ -326,7 +326,7 @@ public class importXSD {
      */
     public static void main(String [] args) throws Exception {
         importXSD instance = new importXSD();
-        instance.initValidator(new File(instance.getWebInfPath() + "\\xsd"));
+        //instance.initValidator(new File(instance.getWebInfPath() + "\\xsd"));
 
         //instance.loadConfig("NCPConfig.xml");
         //instance.loadConfig("BBMOConfig.xml");

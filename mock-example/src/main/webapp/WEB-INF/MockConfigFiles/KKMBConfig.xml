@@ -106,5 +106,43 @@
                 </integrationPoint>
             </integrationPoints>
         </system>
+        <system>
+            <name>ECH</name>
+            <pathToXSD>/in/KKMB/ECH/ECH</pathToXSD>
+            <rootXsd>ECHOperationElements.xsd</rootXsd>
+            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
+            <integrationPoints>
+                <integrationPoint>
+                    <name>getCreditHistoryScoring</name>
+                    <rsRootElementName>SrvGetCreditHistoryScoringRs</rsRootElementName>
+                    <rqRootElementName>SrvGetCreditHistoryScoringRq</rqRootElementName>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/prpc/kkmb/simpleTypes/10</namespace>
+                            <tag>Envelope</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/prpc/kkmb/simpleTypes/10</namespace>
+                            <tag>Body</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/prpc/ech/10</namespace>
+                            <tag>SrvGetCreditHistoryScoringRq</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://www.sbrf.ru/CreditHistoryScoring</namespace>
+                            <tag>checkInternal</tag>
+                        </linkedTag>
+                    </linkedTagSequence>
+                    <protocol>MQ</protocol>
+                    <!--OPTIONAL-->
+                    <incomeQueue>ESB.FED.KKMB.IN</incomeQueue>
+                    <!--OPTIONAL-->
+                    <outcomeQueue>ESB.FED.KKMB.OUT</outcomeQueue>
+                    <xsdFile>scoring.xsd</xsdFile>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
     </systems>
 </MockConfig>
