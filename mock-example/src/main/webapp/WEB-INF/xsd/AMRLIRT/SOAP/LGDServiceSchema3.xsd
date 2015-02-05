@@ -1,0 +1,199 @@
+<xs:schema targetNamespace="http://struct.sberbank.luxoft.com/" 
+		xmlns="http://struct.sberbank.luxoft.com/" 
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		elementFormDefault="qualified"
+		attributeFormDefault="unqualified">
+		
+	<xs:element name="StructRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="SBRFAMTemplate">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SBRFAMTemplate">
+								<xs:sequence>
+									<xs:element name="ListOfSBRFAMComponent">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element maxOccurs="unbounded" minOccurs="0" name="SBRFAMComponent">
+													<xs:complexType>
+														<xs:complexContent>
+															<xs:extension base="SBRFAMComponent">
+																<xs:sequence>
+																	<xs:element name="ListOfSBRFAMParameter">
+																		<xs:complexType>
+																			<xs:sequence>
+																				<xs:element maxOccurs="unbounded" minOccurs="0" name="SBRFAMParameter" type="SBRFAMParameter"/>
+																			</xs:sequence>
+																		</xs:complexType>
+																	</xs:element>
+																</xs:sequence>
+															</xs:extension>
+														</xs:complexContent>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="MessageId" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SBRFAMTemplate">
+		<xs:annotation>
+			<xs:documentation>Шаблон сообщения универсальной интеграции</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="TemplateId" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="15"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="Name" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="100"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="IntegrationType" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="50"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="ModelIntegrationId" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="30"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="Model" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="100"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="Version" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="30"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="SBRFAMComponent">
+		<xs:annotation>
+			<xs:documentation>Сущность универсальной интеграции</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="Name" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="75"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="DisplayName" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="250"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="TagName" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="75"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="ParentName" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="75"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="SBRFAMParameter">
+		<xs:annotation>
+			<xs:documentation>Параметр сущности универсальной интеграции</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="Name" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="75"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="DisplayName" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="250"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="TagName" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="75"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="Required" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="1"/>
+					<xs:enumeration value="Y"/>
+					<xs:enumeration value="N"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="Type" type="ParameterType" use="required"/>
+		<xs:attribute name="Length" type="xs:int" use="optional"/>
+	</xs:complexType>
+	<xs:simpleType name="ParameterType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="30"/>
+			<xs:enumeration value="DTYPE_BOOL"/>
+			<xs:enumeration value="DTYPE_DATE"/>
+			<xs:enumeration value="DTYPE_DATETIME"/>
+			<xs:enumeration value="DTYPE_TEXT"/>
+			<xs:enumeration value="DTYPE_NUMBER"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="StructResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ErrorCode" type="String30"/>
+				<xs:element minOccurs="0" name="ErrorMessage" type="String2000"/>
+				<xs:element minOccurs="0" name="ExtErrorMessage" type="String2000"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="String30">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String2000">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2000"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

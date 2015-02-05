@@ -7,6 +7,8 @@
 	xmlns:util="http://www.springframework.org/schema/util"
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
+    xmlns:ws="http://www.springframework.org/schema/web-services"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/integration	http://www.springframework.org/schema/integration/spring-integration.xsd
@@ -15,6 +17,8 @@
 		http://www.springframework.org/schema/util		http://www.springframework.org/schema/util/spring-util.xsd
 		http://www.springframework.org/schema/context       http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/mvc   http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/integration/ws    http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd
+		http://www.springframework.org/schema/web-services      http://www.springframework.org/schema/web-services/web-services.xsd
 	">
 
     <mvc:resources mapping="/**" location="/resources/web/" />
@@ -42,7 +46,7 @@
             id="jmsin"
             request-destination="requestQueue"
             request-channel="Q.KKMB.TO.CRMORG"
-            reply-channel="ESB.BPM.NCP.OUT.MOCK"
+            reply-channel="Q.KKMB.TO.CRMORG.SYNCRESP"
             default-reply-destination="replyQueue"
             header-mapper="defHeaderMapper"
             connection-factory="jndiConnectionFactory"
@@ -58,6 +62,13 @@
             connection-factory="jndiConnectionFactory"
             reply-timeout="30000"
             receive-timeout="30000"
+    />
+
+    <!-- Sprint Integration gateway -->
+    <int-ws:inbound-gateway id="wsin"
+                            reply-channel="FIN.REPORT.KKMB.OUT"
+                            request-channel="FIN.REPORT.KKMB.OUT"
+                            reply-timeout="30000"
     />
 
     <!-- Входной и выходной каналы -->	
@@ -84,7 +95,20 @@
         <interceptors>
             <wire-tap channel="toGateLoggerCRM"/>
         </interceptors>
-    </channel>  
+    </channel>
+
+    <!-- Входной и выходной каналы для ws -->
+    <channel id="FIN.REPORT.KKMB.IN">
+        <interceptors>
+            <wire-tap channel="toGateLoggerFinReport"/>
+        </interceptors>
+    </channel>
+
+    <channel id="FIN.REPORT.KKMB.OUT">
+        <interceptors>
+            <wire-tap channel="fromGateLoggerFinReport"/>
+        </interceptors>
+    </channel>
     
     <!--настройка логгеров -->   
     <logging-channel-adapter id="fromGateLogger" logger-name="fromGateLogger"/>
@@ -93,6 +117,10 @@
     <!--настройка логгеров1 -->   
     <logging-channel-adapter id="fromGateLoggerCRM" logger-name="fromGateLoggerCRM"/>
     <logging-channel-adapter id="toGateLoggerCRM" logger-name="toGateLoggerCRM"/>
+
+    <!-- настройка логгеров2 -->
+    <logging-channel-adapter id="fromGateLoggerFinReport" logger-name="fromGateLoggerFinReport"/>
+    <logging-channel-adapter id="toGateLoggerFinReport" logger-name="toGateLoggerFinReport"/>
     
     <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
      
@@ -120,6 +148,11 @@
     <!--<channel id="GetFinReport"/>-->
     <!--<channel id="GetFinAnalysis"/>-->
     <!--<channel id="ImportRating"/>-->
+
+    <!-- FinReports Channels -->
+    <channel id="ExportIndicatorsOfContragent"/>
+    <channel id="ExportIndicatorsOfKG"/>
+    <channel id="ExportIndicatorsOfProject"/>
 
     <ix:xpath-router id="operationRouter" input-channel="Q.KKMB.TO.CRMORG" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
         <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
@@ -180,18 +213,15 @@
         <!--<beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateDebtCapacity.xsl"/>-->
     <!--</beans:bean>-->
     <!-- FinRep -->
-    <!--<beans:bean id="FinRep_FinReportImport" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
-        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/FinReportImport.xsl"/>-->
-    <!--</beans:bean>-->
-    <!--<beans:bean id="FinRep_FinAnalysisImport" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
-        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/FinAnalysisImport.xsl"/>-->
-    <!--</beans:bean>-->
-    <!--<beans:bean id="FinRep_UpdateRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
-        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/UpdateRating.xsl"/>-->
-    <!--</beans:bean>-->
-    <!--<beans:bean id="FinRep_ImportRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
-        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/ImportRating.xsl"/>-->
-    <!--</beans:bean>-->
+    <beans:bean id="FinRep_ExportIndicatorsOfContragent" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+
+    </beans:bean>
+    <beans:bean id="FinRep_ExportIndicatorsOfKG" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+
+    </beans:bean>
+    <beans:bean id="FinRep_ExportIndicatorsOfProject" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+
+    </beans:bean>
 
  <!--маппинг трасформеров на каналы-->
 

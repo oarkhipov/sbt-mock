@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.sbt.bpm.mock</groupId>
-    <artifactId>ncpdb-interactive</artifactId>
+    <artifactId>kkmb-interactive</artifactId>
     <packaging>war</packaging>
     <version>0.3</version>
-    <name>ncpdb-interactive</name>
+    <name>kkmb-interactive</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
@@ -97,6 +97,11 @@
             <type>jar</type>
         </dependency>
         <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws</artifactId>
+            <version>2.0.3.RELEASE</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-all</artifactId>
             <version>5.10.0</version>
@@ -182,6 +187,6 @@
         </snapshotRepository>
     </distributionManagement>
     <build>
-        <finalName>ncpdb-interactive</finalName>
+        <finalName>kkmb-interactive</finalName>
     </build>
 </project>
