@@ -22,6 +22,9 @@ public class SystemTag {
     @XStreamAlias("rootXsd")
     private String aRootXSD;
 
+    @XStreamAlias("headerNamespace")
+    private String aHeaderNamespace;
+
     @XStreamAlias("integrationPoints")
     private IntegrationPoints aIntegrationPoints;
 
@@ -59,6 +62,14 @@ public class SystemTag {
 
     public List<IntegrationPoint> getListOfIntegrationPoints() {
         return aIntegrationPoints.getaListOfIntegrationPoints();
+    }
+
+    public String getaHeaderNamespace() {
+        return aHeaderNamespace;
+    }
+
+    public void setaHeaderNamespace(String aHeaderNamespace) {
+        this.aHeaderNamespace = aHeaderNamespace;
     }
 
     @Override
