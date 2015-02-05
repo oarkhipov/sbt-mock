@@ -7,11 +7,11 @@
             targetNamespace="http://sbrf.ru/prpc/bbmo/10/Data/"
             elementFormDefault="qualified">
    <xsd:import namespace="http://sbrf.ru/prpc/bbmo/dataTypes/10"
-               schemaLocation="../../../xsd/CBBOL/./commonTypes/dataTypes.xsd"/>
+               schemaLocation="../../../xsd/CBBOL/commonTypes/dataTypes.xsd"/>
    <xsd:import namespace="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
-               schemaLocation="../../../xsd/CBBOL/./commonTypes/simpleTypes.xsd"/>
+               schemaLocation="../../../xsd/CBBOL/commonTypes/simpleTypes.xsd"/>
    <xsd:import namespace="http://sbrf.ru/prpc/bbmo/commonTypes/10"
-               schemaLocation="../../../xsd/CBBOL/./commonTypes/commonTypes.xsd"/>
+               schemaLocation="../../../xsd/CBBOL/commonTypes/commonTypes.xsd"/>
    <xsd:complexType name="Header">
       <xsd:annotation>
          <xsd:documentation>Заголовок сообщения</xsd:documentation>

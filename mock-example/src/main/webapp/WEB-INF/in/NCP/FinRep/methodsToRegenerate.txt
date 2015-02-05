@@ -1,0 +1,13 @@
+GetFinReport:
+-first genarate
+
+GetFinAnalysis:
+-first generate
+
+GetRatingsAndFactors:
+-first generate
+
+
+UpdateRating:
+-first generate
+

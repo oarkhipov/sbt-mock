@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRs/1.01/" 
+targetNamespace="http://sbrf.ru/NCP/CRM/UpdateDealRs/1.01/" 
+elementFormDefault="qualified">
+
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="CommonTypes.xsd"/>
+	<xsd:complexType name="OperationStatus">
+		<xsd:annotation>
+			<xsd:documentation>
+				Статус операции
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="errorCode" type="crmct:string50">
+				<xsd:annotation>
+					<xsd:documentation>
+						Код ошибки
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="errorMessage" minOccurs="0" type="crmct:string2000" >
+				<xsd:annotation>
+					<xsd:documentation>
+						Текст ошибки
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="UpdateDealRs">
+		<xsd:annotation>
+			<xsd:documentation>
+				Элемент верхнего уровня
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="operationStatus" type="tns:OperationStatus">
+				<xsd:annotation>
+					<xsd:documentation>
+						Статус операции
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="dealID" type="crmct:string15">
+				<xsd:annotation>
+					<xsd:documentation>
+						ID Сделки
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

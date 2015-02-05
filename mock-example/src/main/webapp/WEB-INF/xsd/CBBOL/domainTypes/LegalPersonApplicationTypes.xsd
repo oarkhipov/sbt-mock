@@ -4,7 +4,7 @@
 	<import namespace="http://sbrf.ru/prpc/bbmo/dataTypes/10" schemaLocation="../commonTypes/dataTypes.xsd"/>
 	<import namespace="http://sbrf.ru/prpc/bbmo/simpleTypes/10" schemaLocation="../commonTypes/simpleTypes.xsd"/>
 	<import namespace="http://sbrf.ru/prpc/bbmo/commonTypes/10" schemaLocation="../commonTypes/commonTypes.xsd"/>
-	<include schemaLocation="./CommonStructureTypes.xsd"/>
+	<include schemaLocation="CommonStructureTypes.xsd"/>
 	<element name="LegalPersonApplication">
 		<annotation>
 			<documentation>Заявление юридического лица</documentation>
