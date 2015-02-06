@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:int="http://www.springframework.org/schema/integration"
+             xmlns:ix= "http://www.springframework.org/schema/integration/xml"
+             xmlns:util="http://www.springframework.org/schema/util"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
+             xmlns:ws="http://www.springframework.org/schema/web-services"
+             xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/integration	http://www.springframework.org/schema/integration/spring-integration.xsd
+       http://www.springframework.org/schema/integration/xml	http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
+       http://www.springframework.org/schema/util		http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/context       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/integration/ws    http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd
+       http://www.springframework.org/schema/web-services      http://www.springframework.org/schema/web-services/web-services.xsd
+   ">
+
+    <!-- Sprint Integration gateway МФО "Запрос на экспорт показателей консалидированной группы" -->
+    <int-ws:inbound-gateway id="WS-FinRepGetGCFactors"
+                            reply-channel="FIN.REPORT.KKMB.GET.GC.FACTORS.RESPONSE"
+                            request-channel="FIN.REPORT.KKMB.GET.GC.FACTORS.REQUEST"
+                            reply-timeout="30000"
+    />
+
+    <!-- Входной и выходной каналы для ws "Запрос на экспорт показателей консалидированной группы" -->
+    <int:channel id="FIN.REPORT.KKMB.GET.GC.FACTORS.REQUEST">
+        <int:interceptors>
+            <int:wire-tap channel="toGateLoggerFinReportGetGCFactors"/>
+        </int:interceptors>
+    </int:channel>
+
+    <int:channel id="FIN.REPORT.KKMB.GET.GC.FACTORS.RESPONSE">
+        <int:interceptors>
+            <int:wire-tap channel="fromGateLoggerFinReportGetGCFactors"/>
+        </int:interceptors>
+    </int:channel>
+
+    <!-- настройка логгеров3 -->
+    <int:logging-channel-adapter id="fromGateLoggerFinReportGetGCFactors" logger-name="fromGateLoggerFinReportGetGCFactors"/>
+    <int:logging-channel-adapter id="toGateLoggerFinReportGetGCFactors" logger-name="toGateLoggerFinReportGetGCFactors"/>
+
+    <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
+
+    <beans:bean id="FinRep_GetGCFactors" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/GetGCFactors.xsl"/>
+    </beans:bean>
+
+    <int:transformer input-channel="FIN.REPORT.KKMB.GET.GC.FACTORS.REQUEST" output-channel="FIN.REPORT.KKMB.GET.GC.FACTORS.RESPONSE" method="transform" ref="FinRep_GetGCFactors"/>
+
+</beans:beans>

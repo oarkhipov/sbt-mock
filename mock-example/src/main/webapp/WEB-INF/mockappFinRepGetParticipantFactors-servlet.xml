@@ -24,27 +24,6 @@
                            reply-timeout="30000"
    />
 
-   <!-- Sprint Integration gateway МФО "Запрос на экспорт показателей консалидированной группы" -->
-   <int-ws:inbound-gateway id="WS-FinRepGetGCFactors"
-                           reply-channel="FIN.REPORT.KKMB.GET.GC.FACTORS.RESPONSE"
-                           request-channel="FIN.REPORT.KKMB.GET.GC.FACTORS.REQUEST"
-                           reply-timeout="30000"
-   />
-
-   <!-- Sprint Integration gateway МФО "Запрос на экспорт показателей проектов" -->
-   <int-ws:inbound-gateway id="WS-FinRepGetProjectFactors"
-                           reply-channel="FIN.REPORT.KKMB.GET.PROJECT.FACTORS.RESPONSE"
-                           request-channel="FIN.REPORT.KKMB.GET.PROJECT.FACTORS.REQUEST"
-                           reply-timeout="30000"
-   />
-
-    <!-- Sprint Integration gateway АМРЛиРТ "Расчет лимитов" -->
-    <int-ws:inbound-gateway id="WS-AMRLiRTCalculateLimits"
-                            reply-channel="AMRLIRT.KKMB.CALCULATE.LIMITS.RESPONSE"
-                            request-channel="AMRLIRT.KKMB.CALCULATE.LIMITS.REQUEST"
-                            reply-timeout="30000"
-    />
-
    <!-- Входной и выходной каналы для ws "Запрос на экспорт показателей контрагента" -->
    <int:channel id="FIN.REPORT.KKMB.GET.PARTICIPANT.FACTORS.REQUEST">
        <int:interceptors>
@@ -58,71 +37,14 @@
        </int:interceptors>
    </int:channel>
 
-   <!-- Входной и выходной каналы для ws "Запрос на экспорт показателей консалидированной группы" -->
-   <int:channel id="FIN.REPORT.KKMB.GET.GC.FACTORS.REQUEST">
-       <int:interceptors>
-              <int:wire-tap channel="toGateLoggerFinReportGetGCFactors"/>
-       </int:interceptors>
-   </int:channel>
-
-   <int:channel id="FIN.REPORT.KKMB.GET.GC.FACTORS.RESPONSE">
-       <int:interceptors>
-              <int:wire-tap channel="fromGateLoggerFinReportGetGCFactors"/>
-       </int:interceptors>
-   </int:channel>
-
-   <!-- Входной и выходной каналы для ws "Запрос на экспорт показателей проектов" -->
-   <int:channel id="FIN.REPORT.KKMB.GET.PROJECT.FACTORS.REQUEST">
-       <int:interceptors>
-              <int:wire-tap channel="toGateLoggerFinReportGetProjectFactors"/>
-       </int:interceptors>
-   </int:channel>
-
-   <int:channel id="FIN.REPORT.KKMB.GET.PROJECT.FACTORS.RESPONSE">
-       <int:interceptors>
-              <int:wire-tap channel="fromGateLoggerFinReportGetProjectFactors"/>
-       </int:interceptors>
-   </int:channel>
-
-    <!-- Входной и выходной каналы для ws АМРЛиРТ "Расчет лимитов" -->
-   <int:channel id="AMRLIRT.KKMB.CALCULATE.LIMITS.REQUEST">
-       <int:interceptors>
-              <int:wire-tap channel="toGateLoggerFinReportGetProjectFactors"/>
-       </int:interceptors>
-   </int:channel>
-
-   <int:channel id="AMRLIRT.KKMB.CALCULATE.LIMITS.RESPONSE">
-       <int:interceptors>
-              <int:wire-tap channel="fromGateLoggerFinReportGetProjectFactors"/>
-       </int:interceptors>
-   </int:channel>
-
    <!-- настройка логгеров2 -->
    <int:logging-channel-adapter id="fromGateLoggerFinReportGetParticipantFactors" logger-name="fromGateLoggerFinReportGetParticipantFactors"/>
    <int:logging-channel-adapter id="toGateLoggerFinReportGetParticipantFactors" logger-name="toGateLoggerFinReportGetParticipantFactors"/>
 
-   <!-- настройка логгеров3 -->
-   <int:logging-channel-adapter id="fromGateLoggerFinReportGetGCFactors" logger-name="fromGateLoggerFinReportGetGCFactors"/>
-   <int:logging-channel-adapter id="toGateLoggerFinReportGetGCFactors" logger-name="toGateLoggerFinReportGetGCFactors"/>
-
-   <!-- настройка логгеров4 -->
-   <int:logging-channel-adapter id="fromGateLoggerFinReportGetProjectFactors" logger-name="fromGateLoggerFinReportGetProjectFactors"/>
-   <int:logging-channel-adapter id="toGateLoggerFinReportGetProjectFactors" logger-name="toGateLoggerFinReportGetProjectFactors"/>
-
-   <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
-
    <beans:bean id="FinRep_GetParticipantFactors" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/GetParticipantFactors.xsl"/>
    </beans:bean>
-   <beans:bean id="FinRep_GetGCFactors" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-       <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/GetGCFactors.xsl"/>
-   </beans:bean>
-   <beans:bean id="FinRep_GetProjectFactors" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-       <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/GetProjectFactors.xsl"/>
-   </beans:bean>
 
     <int:transformer input-channel="FIN.REPORT.KKMB.GET.PARTICIPANT.FACTORS.REQUEST" output-channel="FIN.REPORT.KKMB.GET.PARTICIPANT.FACTORS.RESPONSE" method="transform" ref="FinRep_GetParticipantFactors"/>
-    <int:transformer input-channel="FIN.REPORT.KKMB.GET.GC.FACTORS.REQUEST" output-channel="FIN.REPORT.KKMB.GET.GC.FACTORS.RESPONSE" method="transform" ref="FinRep_GetGCFactors"/>
-    <int:transformer input-channel="FIN.REPORT.KKMB.GET.PROJECT.FACTORS.REQUEST" output-channel="FIN.REPORT.KKMB.GET.PROJECT.FACTORS.RESPONSE" method="transform" ref="FinRep_GetProjectFactors"/>
 
 </beans:beans>
