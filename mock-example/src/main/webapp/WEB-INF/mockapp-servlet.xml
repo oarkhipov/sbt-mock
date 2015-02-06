@@ -18,10 +18,6 @@
 	">
 
     <beans:import resource="mockappFinRepGetParticipantFactors-servlet.xml" />
-    <beans:import resource="mockappFinRepGetGCFactors-servlet.xml"/>
-    <beans:import resource="mockappFinRepGetProjectFactors-servlet.xml"/>
-    <beans:import resource="mockappAMRLiRTCalculateLimits-servlet.xml"/>
-    <beans:import resource="mockappAMRLiRTUtilizationLimits-servlet.xml"/>
 
     <mvc:resources mapping="/**" location="/resources/web/" />
     <mvc:annotation-driven/>
