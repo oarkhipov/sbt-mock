@@ -9,11 +9,11 @@
 		xmlns:cc="http://sbrf.ru/prpc/kkmb/crm/ContractClose/resp/10"
 		elementFormDefault="qualified">
 		
-	<import schemaLocation="./CommonTypes.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"/>
-	<import schemaLocation="./ExportContractInfoResponse.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/resp/10"/>
-	<import schemaLocation="./GetParticipantInfoResponse.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/GetParticipant/resp/10"/>
+	<import schemaLocation="CommonTypes.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"/>
+	<import schemaLocation="ExportContractInfoResponse.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/resp/10"/>
+	<import schemaLocation="GetParticipantInfoResponse.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/GetParticipant/resp/10"/>
 	<import schemaLocation="UpdateContractInfoResponse.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/resp/10"/>
-	<import schemaLocation="./CloseContractInfoResponse.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ContractClose/resp/10"/>
+	<import schemaLocation="CloseContractInfoResponse.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ContractClose/resp/10"/>
 	
 	<element name="Message">
 		<complexType>

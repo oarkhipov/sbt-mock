@@ -22,7 +22,7 @@
                             reply-channel="AMRLIRT.KKMB.UTILIZATION.LIMITS.RESPONSE"
                             request-channel="AMRLIRT.KKMB.UTILIZATION.LIMITS.REQUEST"
                             reply-timeout="30000"
-            />
+    />
 
     <!-- Входной и выходной каналы для ws АМРЛиРТ "Расчет лимитов" -->
     <int:channel id="AMRLIRT.KKMB.UTILIZATION.LIMITS.REQUEST">

@@ -37,7 +37,7 @@
 		<complexType name="ListTypeRef">
 			<sequence>
 				<element name="ListID" type="ct:String50" minOccurs="1" maxOccurs="1"/>
-				<element name="ParentValueID" type="ct:String50" minOccurs="0" maxOccurs="1"/>
+				<element name="ParentListID" type="ct:String50" minOccurs="0" maxOccurs="1"/>
 				<element name="ListOfValue" type="tns:ListOfValueRef" minOccurs="1" maxOccurs="1"/>
 			</sequence>
 		</complexType>

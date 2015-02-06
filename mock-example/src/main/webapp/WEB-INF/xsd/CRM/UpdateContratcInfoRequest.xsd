@@ -252,6 +252,7 @@
 				<element name="Role" type="ct:String30" minOccurs="1" maxOccurs="1"/>
 				<element name="Factor" type="ct:String255" minOccurs="1" maxOccurs="1"/>
 				<element name="FactorID" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+				<element name="FactorValueID" type="ct:String15" minOccurs="1" maxOccurs="1"/>
 				<element name="Value" type="ct:String255" minOccurs="1" maxOccurs="1"/>
 			</sequence>
 		</complexType>

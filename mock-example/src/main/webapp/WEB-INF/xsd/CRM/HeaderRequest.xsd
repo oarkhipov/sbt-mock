@@ -11,13 +11,13 @@
 		xmlns:pg="http://sbrf.ru/prpc/kkmb/crm/ProblemGroup/req/10"
 		elementFormDefault="qualified">
 		
-	<import schemaLocation="./CommonTypes.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"/>
-	<import schemaLocation="./ExportContractInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10"/>
-	<import schemaLocation="./GetParticipantInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/GetParticipant/req/10"/>
-	<import schemaLocation="UpdateContractInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10"/>
-	<import schemaLocation="./CloseContractInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ContractClose/req/10"/>
-	<import schemaLocation="UpdateReferenceDataRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ReferenceData/req/10"/>
-	<import schemaLocation="ProblemGroupRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ProblemGroup/req/10"/>
+	<import schemaLocation="CommonTypes.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"/>
+	<import schemaLocation="ExportContractInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10"/>
+	<import schemaLocation="GetParticipantInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/GetParticipant/req/10"/>
+	<import schemaLocation="UpdateContratcInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10"/>
+	<import schemaLocation="CloseContractInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ContractClose/req/10"/>
+	<import schemaLocation="ReferenceDataInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ReferenceData/req/10"/>
+	<import schemaLocation="ProblemGroupInfoRequest.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ProblemGroup/req/10"/>
 	
 	<element name="Message">
 		<complexType>
