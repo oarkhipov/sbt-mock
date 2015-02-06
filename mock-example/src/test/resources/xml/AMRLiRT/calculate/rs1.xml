@@ -1,0 +1,34 @@
+<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
+   <soap:Header>
+      <soap:message-id>defaultId</soap:message-id>
+      <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
+      <soap:operation-name>calculateResponse</soap:operation-name>
+   </soap:Header>
+   <soap:Body>
+      <tns:calculateResponse xmlns:tns="http://service.scoring.sberbank.luxoft.com/"><!--optional--><tns:return>
+            <tns:ErrorCode>string</tns:ErrorCode>
+            <!--optional--><tns:ErrorMessage>string</tns:ErrorMessage>
+            <!--optional--><tns:ListOfResultRating><!--from 0 to unbounded elements --><tns:ResultRating>
+                  <tns:IsPrimary>string</tns:IsPrimary>
+                  <tns:Name>string</tns:Name>
+                  <tns:Value>10</tns:Value>
+                  <tns:Type>string</tns:Type>
+               </tns:ResultRating>
+            </tns:ListOfResultRating>
+            <!--optional--><tns:ListOfCalculatedFactor><!--from 0 to unbounded elements --><tns:CalculatedFactor>
+                  <tns:Code>string</tns:Code>
+                  <tns:Name>string</tns:Name>
+                  <tns:Value>string</tns:Value>
+               </tns:CalculatedFactor>
+            </tns:ListOfCalculatedFactor>
+            <!--optional--><tns:ListOfAddParameter><!--from 0 to unbounded elements --><tns:AddParameter>
+                  <tns:Order>string</tns:Order>
+                  <tns:Name>string</tns:Name>
+                  <tns:Value>string</tns:Value>
+               </tns:AddParameter>
+            </tns:ListOfAddParameter>
+            <!--optional--><tns:AMMessage>anyString</tns:AMMessage>
+         </tns:return>
+      </tns:calculateResponse>
+   </soap:Body>
+</soap:Envelope>

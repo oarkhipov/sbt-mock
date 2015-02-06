@@ -44,6 +44,9 @@ public class IntegrationPoint {
     @XStreamAlias("xsdFile")
     private String aXsdFile;
 
+    @XStreamAlias("xsdRqFile")
+    private String aXsdRqFile;
+
     @XStreamAlias("dependencies")
     private Dependencies aDependencies;
 
@@ -117,6 +120,14 @@ public class IntegrationPoint {
 
     public void setaXsdFile(String aXsdFile) {
         this.aXsdFile = aXsdFile;
+    }
+
+    public String getaXsdRqFile() {
+        return aXsdRqFile;
+    }
+
+    public void setaXsdRqFile(String aXsdRqFile) {
+        this.aXsdRqFile = aXsdRqFile;
     }
 
     public Dependencies getaDependencies() {

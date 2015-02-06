@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://service.scoring.sberbank.luxoft.com/Data/">
+   <response name="default">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+         <operation-name>calculateResponse</operation-name>
+      </SoapHeader>
+      <return>
+         <ErrorCode>string</ErrorCode>
+         <ErrorMessage>string</ErrorMessage>
+         <ListOfResultRating>
+            <ResultRating>
+               <IsPrimary>string</IsPrimary>
+               <Name>string</Name>
+               <Value>10</Value>
+               <Type>string</Type>
+            </ResultRating>
+         </ListOfResultRating>
+         <ListOfCalculatedFactor>
+            <CalculatedFactor>
+               <Code>string</Code>
+               <Name>string</Name>
+               <Value>string</Value>
+            </CalculatedFactor>
+         </ListOfCalculatedFactor>
+         <ListOfAddParameter>
+            <AddParameter>
+               <Order>string</Order>
+               <Name>string</Name>
+               <Value>string</Value>
+            </AddParameter>
+         </ListOfAddParameter>
+         <AMMessage>anyString</AMMessage>
+      </return>
+   </response>
+   <response name="test1">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+         <operation-name>calculateResponse</operation-name>
+      </SoapHeader>
+   </response>
+</data>

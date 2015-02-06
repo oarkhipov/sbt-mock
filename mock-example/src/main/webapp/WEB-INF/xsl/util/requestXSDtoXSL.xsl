@@ -22,10 +22,6 @@
     <!-- Этот параметр нужен когда имя главного элемента запроса не соответвует тому что мы взяли из неймспейса. Тогда его можно указать параметром -->
     <xsl:param name="rootTypeName" select="mock:removeNamespaceAlias(/xsd:schema//xsd:element[@name=$rootElementName]/@type)"/>
 
-    <!--путь к верхней xsd с объявлением рут-элементов-->
-    <xsl:param name="parrentXSDPath" select="'../../xsd/CRM/CRM.xsd'"/>
-    <xsl:param name="rootXSD" select="document($parrentXSDPath)/xsd:schema"/>
-
     <xsl:param name="targetNS" select="$operationXsdSchema/@targetNamespace"/>
     <xsl:param name="parrentNS" select="/xsd:schema/@targetNamespace"/>
     <!-- TODO выбрать этот параметр автоматом -->
@@ -52,10 +48,15 @@
     <xsl:variable name="importFilesNs" select="$operationXsdSchema/xsd:import/@namespace"/>
     <xsl:variable name="importFilesNsAlias" select="$operationXsdSchema/namespace::*[.=$importFilesNs]/local-name()"/>
     <xsl:variable name="importFilesDocs" select="document($importFilesList)/xsd:schema"/>
+    <!--TODO по идее импорты и инклюды сверху теряют одну большую возможность - инклюды и импорты внутри инклюдов и импортов. Пока в этом нет нужды - в текущих реализованахз xsd таких извращений нет. Но вообще надо бы срефакторить эти пременные в функцию с рекурсией. Так заодно можно будет убрать повторяющийся код из requestXSDtoXSL.xsl-->
 
+    <!--Для упрощения кода нам нужны несколько списоков констант-->
+    <!--типы элементов, которым нам интересны - в них может содержатся описание элементов-->
     <xsl:variable name="xsdTagsToImport" select="tokenize('element complexType',' ')"/>
+    <!--имена атрибутов, которые нам интересны - в них может содержатся ссылки на другие элементы-->
     <xsl:variable name="atributesWithTypes" select="tokenize('ref base type',' ')"/>
 
+    <!--Большой список типов - все типы что есть в исходном файле, инклюдах и импортах-->
     <xsl:variable name="typesList" select="$operationXsdSchema/*[local-name()=$xsdTagsToImport] | $includeFilesDocs/*[local-name()=$xsdTagsToImport] | $importFilesDocs/*[local-name()=$xsdTagsToImport]"/>
 
     <!--TODO пренести функции в xsltFunctions.xsl-->

@@ -1,0 +1,76 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Header>
+      <mq:AsyncHeader xmlns:mq="http://sbrf.ru/prpc/mq/headers">
+         <mq:message-id>message-id</mq:message-id>
+         <mq:request-time>2014-12-16T17:55:06.410+04:00</mq:request-time>
+         <mq:operation-name>calculateResponse</mq:operation-name>
+      </mq:AsyncHeader>
+   </soap:Header>
+   <soap:Body>
+      <tns:calculate xmlns:tns="http://service.scoring.sberbank.luxoft.com/"><!--optional--><tns:arg0>
+            <tns:RatingId>string</tns:RatingId>
+            <tns:Model>string</tns:Model>
+            <tns:ModelIntegrationId>string</tns:ModelIntegrationId>
+            <!--optional--><tns:AccountId>string</tns:AccountId>
+            <!--optional--><tns:UID>string</tns:UID>
+            <!--optional--><tns:Account>string</tns:Account>
+            <!--optional--><tns:INN>string</tns:INN>
+            <!--optional--><tns:KPP>string</tns:KPP>
+            <!--optional--><tns:GSZId>string</tns:GSZId>
+            <!--optional--><tns:GSZ>string</tns:GSZ>
+            <!--optional--><tns:SubjectId>string</tns:SubjectId>
+            <!--optional--><tns:Subject>string</tns:Subject>
+            <!--optional--><tns:SubjectOKATO>string</tns:SubjectOKATO>
+            <!--optional--><tns:Project>string</tns:Project>
+            <tns:Requestor>
+               <tns:Login>string</tns:Login>
+               <tns:LastName>string</tns:LastName>
+               <tns:FirstName>string</tns:FirstName>
+               <!--optional--><tns:MiddleName>string</tns:MiddleName>
+               <tns:Division>string</tns:Division>
+               <tns:DivisionCode>string</tns:DivisionCode>
+               <!--optional--><tns:JobTitle>string</tns:JobTitle>
+               <!--optional--><tns:Role>string</tns:Role>
+            </tns:Requestor>
+            <!--optional--><tns:ListOfFixedFactor><!--from 0 to unbounded elements --><tns:FixedFactor>
+                  <tns:Factor>string</tns:Factor>
+                  <tns:FactorIntegrationId>string</tns:FactorIntegrationId>
+                  <tns:Group>string</tns:Group>
+                  <!--optional--><tns:Value>string</tns:Value>
+                  <!--optional--><tns:ValueIntegrationId>string</tns:ValueIntegrationId>
+               </tns:FixedFactor>
+            </tns:ListOfFixedFactor>
+            <!--optional--><tns:ListOfRatingPeriod><!--from 0 to unbounded elements --><tns:RatingPeriod><!--optional--><tns:ReportDate>string</tns:ReportDate>
+                  <!--optional--><tns:Period>string</tns:Period>
+                  <!--optional--><tns:StartDate>string</tns:StartDate>
+                  <!--optional--><tns:EndDate>string</tns:EndDate>
+                  <!--optional--><tns:PeriodType>string</tns:PeriodType>
+                  <tns:Comments>string</tns:Comments>
+                  <!--optional--><tns:ListOfCardinalFactor><!--from 0 to unbounded elements --><tns:CardinalFactor>
+                        <tns:Factor>string</tns:Factor>
+                        <tns:FactorIntegrationId>string</tns:FactorIntegrationId>
+                        <tns:Group>string</tns:Group>
+                        <!--optional--><tns:NumValue>string</tns:NumValue>
+                     </tns:CardinalFactor>
+                  </tns:ListOfCardinalFactor>
+               </tns:RatingPeriod>
+            </tns:ListOfRatingPeriod>
+            <!--optional--><tns:ListOfRatingSupport><!--from 0 to unbounded elements --><tns:RatingSupport>
+                  <tns:Name>string</tns:Name>
+                  <tns:IntegrationId>string</tns:IntegrationId>
+                  <!--optional--><tns:ListOfSupportFactor><!--from 0 to unbounded elements --><tns:SupportFactor>
+                        <tns:Factor>string</tns:Factor>
+                        <tns:FactorIntegrationId>string</tns:FactorIntegrationId>
+                        <tns:Group>string</tns:Group>
+                        <!--optional--><tns:Value>string</tns:Value>
+                        <!--optional--><tns:ValueIntegrationId>string</tns:ValueIntegrationId>
+                        <!--optional--><tns:FreeValue>string</tns:FreeValue>
+                     </tns:SupportFactor>
+                  </tns:ListOfSupportFactor>
+               </tns:RatingSupport>
+            </tns:ListOfRatingSupport>
+            <!--optional--><tns:SiebelMessage>anyString</tns:SiebelMessage>
+         </tns:arg0>
+      </tns:calculate>
+   </soap:Body>
+</soap:Envelope>
