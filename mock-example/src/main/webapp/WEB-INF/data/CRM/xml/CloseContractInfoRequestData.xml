@@ -1,0 +1,40 @@
+<data xmlns="http://sbrf.ru/prpc/kkmb/crm/ContractClose/req/10/Data">
+    <request name="default">
+        <RqUID></RqUID>
+        <RqTm>2014-02-20T08:23:55.457Z</RqTm>
+        <SPName></SPName>
+        <SystemId></SystemId>
+        <OperationName></OperationName>
+        <ContractClose>
+            <ContractID></ContractID>
+            <ContractStatus></ContractStatus>
+            <CauseClosed></CauseClosed>
+            <ListOfAgrGroup>
+                <AgrGroup>
+                    <ProductIntID></ProductIntID>
+                    <AgrNum></AgrNum>
+                    <AgrDate>2014-02-20</AgrDate>
+                </AgrGroup>
+            </ListOfAgrGroup>
+        </ContractClose>
+    </request>
+    <request name="test1">
+        <RqUID></RqUID>
+        <RqTm>2014-02-20T08:23:55.457Z</RqTm>
+        <SPName></SPName>
+        <SystemId></SystemId>
+        <OperationName></OperationName>
+        <ContractClose>
+            <ContractID></ContractID>
+            <ContractStatus></ContractStatus>
+            <CauseClosed></CauseClosed>
+            <ListOfAgrGroup>
+                <AgrGroup>
+                    <ProductIntID></ProductIntID>
+                    <AgrNum></AgrNum>
+                    <AgrDate>2014-02-20</AgrDate>
+                </AgrGroup>
+            </ListOfAgrGroup>
+        </ContractClose>
+    </request>
+</data>

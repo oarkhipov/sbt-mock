@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://sbrf.ru/prpc/kkmb/crm/ReferenceData/req/10/Data"
+        xmlns:tns="http://sbrf.ru/prpc/kkmb/crm/ReferenceData/req/10/Data"
+        xmlns:ct="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"
+        elementFormDefault="qualified">
+
+    <xsd:import schemaLocation="../../../xsd/CRM/CommonTypes.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"/>
+
+    <xsd:complexType name="ListOfListTypeRef">
+        <xsd:sequence>
+            <xsd:element name="ListType" type="tns:ListTypeRef" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfLimitMBRef">
+        <xsd:sequence>
+            <xsd:element name="LimitMB" type="tns:LimitMBRef" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ReferenceDataRef">
+        <xsd:sequence>
+            <xsd:element name="ListOfListType" type="tns:ListOfListTypeRef" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ListOfLimitMB" type="tns:ListOfLimitMBRef" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListOfValueRef">
+        <xsd:sequence>
+            <xsd:element name="Value" type="tns:ValueRef" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListTypeRef">
+        <xsd:sequence>
+            <xsd:element name="ListID" type="ct:String50" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ParentListID" type="ct:String50" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ListOfValue" type="tns:ListOfValueRef" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ValueRef">
+        <xsd:sequence>
+            <xsd:element name="Value" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ValueID" type="ct:String50" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ParentValueID" type="ct:String50" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="LimitMBRef">
+        <xsd:sequence>
+            <xsd:element name="ProductId" type="ct:String50" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="CreditPurposeID" type="ct:String50" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="requestBody">
+        <xsd:annotation>
+            <xsd:documentation> ответ на сообщение из CRM </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="RqUID" type="ct:String36" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation> Уникальный идентификатор сообщения </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="RqTm" type="xsd:dateTime" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation> Дата и время передачи сообщений </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="SPName" type="ct:String50" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation> Идентификатор системы, которая сформировала сообщение </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="SystemId" type="ct:String50" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation> Идентификатор системы, которой адресовано сообщение </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="OperationName" type="ct:String255" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation> Наименование операции </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <xsd:element name="ReferenceData" type="tns:ReferenceDataRef" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation> Тело сообщения </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+        <xsd:attribute name="name"/>
+    </xsd:complexType>
+
+    <xsd:element name="data" type="tns:dataValue"/>
+
+    <xsd:complexType name="dataValue">
+        <xsd:sequence>
+            <xsd:element name="request" type="tns:requestBody" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation> Тело ответа на сообщение </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
