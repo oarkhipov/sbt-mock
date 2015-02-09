@@ -108,6 +108,7 @@
 
     <channel id="UpdateContractInfo"/>
     <channel id="GetParticipants"/>
+    <channel id="CloseContract"/>
 
     <!--<channel id="CreateTask"/>-->
     <!--<channel id="GetParticipants"/>-->

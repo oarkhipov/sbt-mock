@@ -8,7 +8,7 @@
         <ContractClose>
             <ContractID></ContractID>
             <ContractStatus></ContractStatus>
-            <CauseClosed></CauseClosed>
+            <CauseClosed>sss</CauseClosed>
             <ListOfAgrGroup>
                 <AgrGroup>
                     <ProductIntID></ProductIntID>
@@ -27,7 +27,7 @@
         <ContractClose>
             <ContractID></ContractID>
             <ContractStatus></ContractStatus>
-            <CauseClosed></CauseClosed>
+            <CauseClosed>sss</CauseClosed>
             <ListOfAgrGroup>
                 <AgrGroup>
                     <ProductIntID></ProductIntID>
