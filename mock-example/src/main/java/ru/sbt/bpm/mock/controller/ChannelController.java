@@ -57,7 +57,7 @@ public class ChannelController {
     @RequestMapping(value="/channel/{name}/clear/") 
     public String clearMessages(@PathVariable("name") String name, Model model) {
         service.clearMessages(name);
-        return "redirect:../";
+        return "redirect:/channel/" + name + "/";
     }
     @RequestMapping(value="/channel/{name}/{index}/") 
     public String getPayload(
