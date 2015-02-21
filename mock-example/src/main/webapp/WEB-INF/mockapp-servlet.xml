@@ -41,6 +41,8 @@
             default-reply-destination="replyQueue"
             header-mapper="defHeaderMapper"
             connection-factory="jndiConnectionFactory"
+            reply-timeout="25000"
+            receive-timeout="25000"
     />
     
     <jms:outbound-gateway 
@@ -51,6 +53,8 @@
             reply-channel="ESB.BYBPM.NCP.RESPONSE"
             header-mapper="defHeaderMapper"
             connection-factory="jndiConnectionFactory"
+            reply-timeout="25000"
+            receive-timeout="25000"
     />
 
     <!-- Входной и выходной каналы -->	
