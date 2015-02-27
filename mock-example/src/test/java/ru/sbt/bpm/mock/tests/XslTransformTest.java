@@ -36,6 +36,15 @@ public class XslTransformTest {
     }
 
     @Test
+    public void testSrvPermitAccountChargeOperation() throws Exception {
+        final String dir = this.getClass().getClassLoader().getResource("").getPath();
+        System.out.println(dir);
+        checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\BBMO\\SrvPermitAccountChargeOperation.xsl",
+                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\BBMO\\xml\\SrvPermitAccountChargeOperationData.xml",
+                "xml/BBMO/SrvPermitAccountChargeOperation/rq1.xml");
+    }
+
+    @Test
     public void testSrvPutRemoteLegalAccOperAppRq() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
         System.out.println(dir);
@@ -191,7 +200,7 @@ public class XslTransformTest {
     }
 
 
-    @Test
+    /*@Test
     public void testApplyRowToDataList () throws Exception {
 
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
@@ -333,7 +342,7 @@ public class XslTransformTest {
         XMLUnit.setIgnoreComments(true);
 
         assertEquals(validateString, result);
-    }
+    }*/
 
 
 }
