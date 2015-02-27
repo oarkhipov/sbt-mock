@@ -1085,6 +1085,7 @@
          <xsd:documentation>Учредитель (Юр.лицо)</xsd:documentation>
       </xsd:annotation>
       <xsd:sequence>
+          <!--TODO @Max Vostrikov с типами всё в порядке?-->
          <xsd:element name="ClientName" minOccurs="0" type="string">
             <xsd:annotation>
                <xsd:documentation>Полное наименование</xsd:documentation>

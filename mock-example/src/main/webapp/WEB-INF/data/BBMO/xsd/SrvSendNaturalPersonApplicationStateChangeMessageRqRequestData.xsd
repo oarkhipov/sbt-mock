@@ -130,6 +130,7 @@
             </xsd:sequence>
          </xsd:extension>
       </xsd:complexContent>
+      <!--TODO @Max Vostrikov почему ошибка тут?-->
       <xsd:attribute name="name"/>
    </xsd:complexType>
    <xsd:complexType name="NaturalPersonApplicationState">

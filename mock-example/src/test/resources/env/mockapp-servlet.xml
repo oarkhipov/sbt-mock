@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-        <!--                 -->
-        <!--                 -->
-        <!--     THIS IS COPY OF mockapp-servlet.xml            -->
-        <!--                 -->
-        <!--                 -->
 <beans:beans xmlns="http://www.springframework.org/schema/integration"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:jms="http://www.springframework.org/schema/integration/jms"
 	xmlns:ix= "http://www.springframework.org/schema/integration/xml"
 	xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:context="http://www.springframework.org/schema/context"
     xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans		http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -25,25 +20,23 @@
     <mvc:resources mapping="/**" location="/resources/web/" />
     <mvc:annotation-driven/>
 
-    <!-- Настройки подключения к MQ -->
+     <!--Настройки подключения к MQ-->
     <!--<beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">-->
             <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.CF"/>-->
     <!--</beans:bean>-->
-
     <!--<beans:bean id="requestQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
             <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.IN.MOCK"/>-->
     <!--</beans:bean>-->
     <!--<beans:bean id="replyQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
             <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.OUT.MOCK"/>-->
     <!--</beans:bean>-->
-    <!---->
+
      <!--<beans:bean id="requestQueueCRM" class="org.springframework.jndi.JndiObjectFactoryBean">-->
             <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.REQUEST"/>-->
     <!--</beans:bean>-->
     <!--<beans:bean id="replyQueueCRM" class="org.springframework.jndi.JndiObjectFactoryBean">-->
             <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.RESPONSE"/>-->
     <!--</beans:bean>-->
-    <!---->
 
     <!--<jms:inbound-gateway-->
             <!--id="jmsin"-->
@@ -63,6 +56,8 @@
             <!--reply-channel="ESB.BPM.NCP.RESPONSE"-->
             <!--header-mapper="defHeaderMapper"-->
             <!--connection-factory="jndiConnectionFactory"-->
+            <!--reply-timeout="30000"-->
+            <!--receive-timeout="30000"-->
     <!--/>-->
 
     <!-- Входной и выходной каналы -->	
@@ -109,134 +104,70 @@
     <channel id="defaultChannel"/>
     <channel id="ESBSynCallForNCPDB"/>
     
-    <channel id="CreateTask"/>
-    <channel id="GetParticipants"/>
-    <channel id="SaveDeal"/>
-    <channel id="UpdateRef"/>
-    <channel id="CalcRating"/>
-    <channel id="UpdateRating"/>    
-    <channel id="ConfirmRating"/>
-    <channel id="CalcLGD"/>
-    <channel id="FinalizeLGD"/>
-    <channel id="CalcDebtCapacity"/>
-    <channel id="GetFinReport"/>
-    <channel id="GetFinAnalysis"/>
-    <channel id="ImportRating"/>
+    <channel id="SrvUpdateClientReferenceData"/>
+    <channel id="SrvPutRemoteLegalAccOperApp"/>
+    <channel id="UpdateDepositNSO"/>
+    <channel id="UpdateLoan"/>
 
     <ix:xpath-router id="operationRouter" input-channel="ESB.BPM.NCP.IN.MOCK" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
         <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
         
-
-        <ix:mapping value="CreateTask" channel="CreateTask"/>
-        <ix:mapping value="GetParticipants" channel="GetParticipants"/>
-        <ix:mapping value="SaveDeal" channel="SaveDeal"/>
-        <ix:mapping value="UpdateRef" channel="UpdateRef"/>
-        <ix:mapping value="CalcRating" channel="CalcRating"/>
-        <ix:mapping value="CorrectRating" channel="CorrectRating"/>
-        <ix:mapping value="ConfirmRating" channel="ConfirmRating"/>
-        <ix:mapping value="CalcLGD" channel="CalcLGD"/>
-        <ix:mapping value="FinalizeLGD" channel="FinalizeLGD"/>
-        <ix:mapping value="CalcDebtCapacity" channel="CalcDebtCapacity"/>
-        <ix:mapping value="GetFinReport" channel="GetFinReport"/>
-        <ix:mapping value="GetFinAnalysis" channel="GetFinAnalysis"/>
-        <ix:mapping value="ImportRating" channel="ImportRating"/>
-        <ix:mapping value="UpdateRating" channel="UpdateRating"/>
+        <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="ESBSynCallForNCPDB"/>
+        
+        <ix:mapping value="SrvUpdateClientReferenceDataRq" channel="SrvUpdateClientReferenceData"/>
+        <ix:mapping value="SrvPutRemoteLegalAccOperAppRq" channel="SrvPutRemoteLegalAccOperApp"/>
+        <ix:mapping value="SrvCKPITUpdateDepositNSORq" channel="UpdateDepositNSO"/>
+        <ix:mapping value="SrvCKPITUpdateLoanRq" channel="UpdateLoan"/>
     </ix:xpath-router>
 
     <!-- здесь уже реализация -->
 
-    <!--old one-->
-    <!--<beans:bean id="ESBSynCallNCPDB" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">-->
-        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/ESBSynCallForNCPDB.xsl"/>-->
-    <!--</beans:bean>-->
-    
-    <!-- CRM -->
-    <beans:bean id="CRM_CreateTask" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/CRM/CreateTask.xsl"/>
+    <!-- BBMO -->
+    <beans:bean id="BBMO_SrvUpdateClientReferenceDataRq" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvUpdateClientReferenceDataRq.xsl"/>
     </beans:bean>
-    <beans:bean id="CRM_GetParticipants" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/CRM/GetParticipants.xsl"/>
+    <!-- CBBOL -->
+    <beans:bean id="CBBOL_SrvPutRemoteLegalAccOperAppRq" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/CBBOL/SrvPutRemoteLegalAccOperAppRq.xsl"/>
     </beans:bean>
-    <beans:bean id="CRM_SaveDeal" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/CRM/SaveDeal.xsl"/>
+    <!-- CKPIT -->
+    <beans:bean id="CKPIT_UpdateDepositNSO" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/CKPIT/UpdateDepositNSO.xsl"/>
     </beans:bean>
-    <beans:bean id="CRM_UpdateRef" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/CRM/UpdateRef.xsl"/>
-    </beans:bean>
-    <!-- AMRLiRT -->
-    <beans:bean id="AMRLiRT_CalculateRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateRating.xsl"/>
-    </beans:bean>
-    <beans:bean id="AMRLiRT_CorrectRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CorrectRating.xsl"/>
-    </beans:bean>
-    <beans:bean id="AMRLiRT_ConfirmRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/ConfirmRating.xsl"/>
-    </beans:bean>
-    <beans:bean id="AMRLiRT_CalculateLGD" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateLGD.xsl"/>
-    </beans:bean>
-    <beans:bean id="AMRLiRT_FinalizeLGD" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/FinalizeLGD.xsl"/>
-    </beans:bean>
-    <beans:bean id="AMRLiRT_CalculateDebtCapacity" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/AMRLiRT/CalculateDebtCapacity.xsl"/>
-    </beans:bean>
-    <!-- FinRep -->
-    <beans:bean id="FinRep_FinReportImport" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/FinReportImport.xsl"/>
-    </beans:bean>
-    <beans:bean id="FinRep_FinAnalysisImport" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/FinAnalysisImport.xsl"/>
-    </beans:bean>
-    <beans:bean id="FinRep_UpdateRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/UpdateRating.xsl"/>
-    </beans:bean>
-    <beans:bean id="FinRep_ImportRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/ImportRating.xsl"/>
+    <beans:bean id="CKPIT_UpdateLoan" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/CKPIT/UpdateLoan.xsl"/>
     </beans:bean>
 
-    
  <!--маппинг трасформеров на каналы-->
 
-    <transformer input-channel="CreateTask" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CRM_CreateTask"/>     
-    <transformer input-channel="GetParticipants" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CRM_GetParticipants"/>   
-    <transformer input-channel="SaveDeal" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CRM_SaveDeal"/> 
-    <transformer input-channel="UpdateRef" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CRM_UpdateRef"/>     
-    <transformer input-channel="CalculateRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_CalculateRating"/>
-    <transformer input-channel="CorrectRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_CorrectRating"/>
-    <transformer input-channel="ConfirmRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_ConfirmRating"/>     
-    <transformer input-channel="CalculateLGD" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_CalculateLGD"/>
-    <transformer input-channel="FinalizeLGD" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_FinalizeLGD"/> 
-    <transformer input-channel="CalculateDebtCapacity" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_CalculateDebtCapacity"/>
-    <transformer input-channel="FinReportImport" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_FinReportImport"/>
-    <transformer input-channel="FinAnalysisImport" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_FinAnalysisImport"/>
-   	<transformer input-channel="ImportRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_ImportRating"/>
-    <transformer input-channel="UpdateRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_UpdateRating"/>
-
+    <transformer input-channel="SrvUpdateClientReferenceData" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="BBMO_SrvUpdateClientReferenceDataRq"/>
+    <transformer input-channel="SrvPutRemoteLegalAccOperApp" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CBBOL_SrvPutRemoteLegalAccOperAppRq"/>
+    <transformer input-channel="UpdateDepositNSO" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CKPIT_UpdateDepositNSO"/>
+    <transformer input-channel="UpdateLoan" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CKPIT_UpdateLoan"/>
+    
     <context:component-scan base-package="ru.sbt.bpm.mock.controller"/>
     
     <beans:bean id="jspResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="prefix" value="/WEB-INF/jsp/"/>
         <beans:property name="suffix" value=".jsp"/>
     </beans:bean>
-
-    <!--MODIFIED FOR TESTING-->
+    
     <beans:bean id="channelService" class="ru.sbt.bpm.mock.service.ChannelService">
    		 <beans:property name="subscribeChannels">
    		 	<util:list>
    		 		<beans:ref bean="ESB.BPM.NCP.RESPONSE"/>
-   		 		<beans:ref bean="ESB.BPM.NCP.OUT.MOCK"/>
    		 	</util:list>
    		 </beans:property> 
     </beans:bean>
     
     <beans:bean name="transformService" class="ru.sbt.bpm.mock.service.TransformService"/>
     <beans:bean name="xmlDataService" class="ru.sbt.bpm.mock.service.XmlDataService"/>
-    <channel id="test"/>
+
+    <!--<channel id="test"/>-->
     <!-- Mock gateway to send requests to outbound -->
-    <!--<gateway id="systemEntry" default-request-channel="ESB.BPM.NCP.REQUEST" default-reply-channel="ESB.BPM.NCP.RESPONSE"-->
-    <!--service-interface="ru.sbt.bpm.mock.gateway.ClientService" />-->
-    <gateway id="systemEntry" default-request-channel="test" default-reply-channel="test"
-             service-interface="ru.sbt.bpm.mock.gateway.ClientService" />
+    <gateway id="systemEntry" default-request-channel="ESB.BPM.NCP.REQUEST" default-reply-channel="ESB.BPM.NCP.RESPONSE"
+                 service-interface="ru.sbt.bpm.mock.gateway.ClientService" />
+    <!--<gateway id="systemEntry" default-request-channel="test" default-reply-channel="test"-->
+                 <!--service-interface="ru.sbt.bpm.mock.gateway.ClientService" />-->
+
 </beans:beans>
