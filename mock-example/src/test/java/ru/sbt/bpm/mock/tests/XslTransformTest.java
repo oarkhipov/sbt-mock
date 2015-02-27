@@ -26,6 +26,43 @@ import static org.junit.Assert.assertEquals;
  */
 public class XslTransformTest {
 
+    @Test
+    public void testSrvUpdateClientReferenceDataRq() throws Exception {
+        final String dir = this.getClass().getClassLoader().getResource("").getPath();
+        System.out.println(dir);
+        checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\BBMO\\SrvUpdateClientReferenceDataRq.xsl",
+                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\BBMO\\xml\\SrvUpdateClientReferenceDataRqData.xml",
+                "xml/BBMO/SrvUpdateClientReferenceDataRq/rq1.xml");
+    }
+
+    @Test
+    public void testSrvPutRemoteLegalAccOperAppRq() throws Exception {
+        final String dir = this.getClass().getClassLoader().getResource("").getPath();
+        System.out.println(dir);
+        checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CBBOL\\SrvPutRemoteLegalAccOperAppRq.xsl",
+                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CBBOL\\xml\\SrvPutRemoteLegalAccOperAppRqData.xml",
+                "xml/CBBOL/SrvPutRemoteLegalAccOperAppRq/rq1.xml");
+    }
+
+    @Test
+    public void testUpdateDepositNSO() throws Exception {
+        final String dir = this.getClass().getClassLoader().getResource("").getPath();
+        System.out.println(dir);
+        checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CKPIT\\UpdateDepositNSO.xsl",
+                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CKPIT\\xml\\UpdateDepositNSOData.xml",
+                "xml/CKPIT/UpdateDepositNSO/rq1.xml");
+    }
+
+    @Test
+    public void testUpdateLoan() throws Exception {
+        final String dir = this.getClass().getClassLoader().getResource("").getPath();
+        System.out.println(dir);
+        checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CKPIT\\UpdateLoan.xsl",
+                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CKPIT\\xml\\UpdateLoanData.xml",
+                "xml/CKPIT/UpdateLoan/rq1.xml");
+    }
+
+
     /*@Test
     public void firstTest() throws TransformerException {
         System.out.println(
@@ -34,7 +71,7 @@ public class XslTransformTest {
         );
     }*/
 
-    @Test
+    /*@Test
     public void testForceSignalXSLT() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
         System.out.println(dir);
@@ -116,7 +153,7 @@ public class XslTransformTest {
 
         assertEquals(validateString, result);
     }
-
+*/
 
     protected void checkXSLT (String XSLTFile, String XMLFile, String validateFile ) throws Exception {
 
