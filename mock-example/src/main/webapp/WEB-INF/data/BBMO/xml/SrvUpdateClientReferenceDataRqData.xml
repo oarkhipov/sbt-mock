@@ -42,6 +42,20 @@
                   <RegistrationSertificateNumber>string</RegistrationSertificateNumber>
                   <RegistrationSertificateIssueDate>2015-02-27</RegistrationSertificateIssueDate>
                   <RegistrationAuthority>1234567890</RegistrationAuthority>
+                  <OldShortName>anyString</OldShortName>
+                  <OldName>anyString</OldName>
+                  <OldShortNameInEnglish>anyString</OldShortNameInEnglish>
+                  <OldNameInEnglish>anyString</OldNameInEnglish>
+                  <TermFrom>anyString</TermFrom>
+                  <TermTill>anyString</TermTill>
+                  <DeclaredFound>anyString</DeclaredFound>
+                  <PayedFound>anyString</PayedFound>
+                  <Control>anyString</Control>
+                  <Amount>anyString</Amount>
+                  <YearROI>anyString</YearROI>
+                  <From>anyString</From>
+                  <Till>anyString</Till>
+                  <License>anyString</License>
                </Registration>
                <TaxInspectorateInfo>
                   <RegistrationSertificateNumber>string</RegistrationSertificateNumber>
@@ -55,12 +69,49 @@
                   <OKATO>string</OKATO>
                   <OKPO>string</OKPO>
                   <OKFS>st</OKFS>
-                  <OKOGU>strin</OKOGU>
-                  <OKONH>strin</OKONH>
+                  <OKOGU>string</OKOGU>
+                  <OKONH>string</OKONH>
                   <OKOPF>st</OKOPF>
-                  <OKVED>strin</OKVED>
+                  <OKVED>string</OKVED>
                </RosstatCodes>
             </MainDetails>
+            <FounderLegalPerson>
+               <ClientName>string</ClientName>
+               <KPP>string</KPP>
+               <TaxID>string</TaxID>
+               <TaxRegistrationDate>2015-02-27</TaxRegistrationDate>
+               <TaxCertificateSeries>string</TaxCertificateSeries>
+               <TaxCertificateNumber>string</TaxCertificateNumber>
+               <TaxAuthority>string</TaxAuthority>
+               <OGRN>string</OGRN>
+               <OGRNRegistrationDate>2015-02-27</OGRNRegistrationDate>
+               <OGRNSeries>string</OGRNSeries>
+               <OGRNNumber>string</OGRNNumber>
+               <OGRNAuthority>string</OGRNAuthority>
+               <ClientAddress>
+                  <AddressType>1</AddressType>
+                  <UnnormalizedAddress>string</UnnormalizedAddress>
+                  <Country>str</Country>
+                  <PostalCode>string</PostalCode>
+                  <IdentificationCode>string</IdentificationCode>
+                  <OKATO>string</OKATO>
+                  <RegionType>string</RegionType>
+                  <Region>string</Region>
+                  <AreaType>string</AreaType>
+                  <Area>string</Area>
+                  <CityType>string</CityType>
+                  <City>string</City>
+                  <PlaceType>string</PlaceType>
+                  <Place>string</Place>
+                  <StreetType>string</StreetType>
+                  <Street>string</Street>
+                  <House>string</House>
+                  <Corpus>string</Corpus>
+                  <Building>string</Building>
+                  <FlatorOffice>string</FlatorOffice>
+               </ClientAddress>
+               <LegalCapitalPercent>10</LegalCapitalPercent>
+            </FounderLegalPerson>
             <BankSubdivision>
                <TB>str</TB>
                <OSB>string</OSB>
@@ -95,9 +146,10 @@
                <ContactData>string</ContactData>
             </ClientContact>
          </ClientInformation>
-         <NaturalPerson>
+         <naturalPerson>
             <RKOCode>1234567890</RKOCode>
-            <RelationToClient>1</RelationToClient>
+            <SeqNumber>1234567890</SeqNumber>
+            <RelationToClient>anyString</RelationToClient>
             <LastName>string</LastName>
             <FirstName>string</FirstName>
             <MiddleName>string</MiddleName>
@@ -114,9 +166,10 @@
             <Resident>0</Resident>
             <TaxResidentChangeDate>2015-02-27</TaxResidentChangeDate>
             <TaxId>string</TaxId>
+            <SocialStatusType>10</SocialStatusType>
             <IdentityDocument>
                <DocumentType>1234567890</DocumentType>
-               <DocumentStatus>1</DocumentStatus>
+               <DocumentStatus>0</DocumentStatus>
                <DocumentSeries>string</DocumentSeries>
                <DocumentNumber>string</DocumentNumber>
                <IssueDate>2015-02-27</IssueDate>
@@ -157,7 +210,16 @@
                <DocumentSeriesNumber>string</DocumentSeriesNumber>
                <DocumentDate>2015-02-27</DocumentDate>
             </AuthorityBase>
-         </NaturalPerson>
+            <OfficailInfo>
+               <BasedOnDocument>string</BasedOnDocument>
+               <BasedOnDocumentSeries>string</BasedOnDocumentSeries>
+               <BasedOnDocumentNumber>string</BasedOnDocumentNumber>
+               <TrusteeSign>anyString</TrusteeSign>
+               <OperationType>string</OperationType>
+               <AccountNumber>anyString</AccountNumber>
+               <Comment>anyString</Comment>
+            </OfficailInfo>
+         </naturalPerson>
          <LegalPersonBankAccountAgreement>
             <BankSubdivision>
                <TB>str</TB>
@@ -174,16 +236,42 @@
             <Operator>1234567890</Operator>
             <MainAccountNumber>string</MainAccountNumber>
             <AccountBalance>1234567890</AccountBalance>
-            <FilePresence1>0</FilePresence1>
-            <FilePresence2>0</FilePresence2>
             <ArrestByAccountPresence>1</ArrestByAccountPresence>
-            <ArrestedSum>1234567890</ArrestedSum>
             <RKOAgreementDetails>
+               <TariffPlan>
+                  <TariffPlanCode>string</TariffPlanCode>
+                  <TariffPlanStartDate>2015-02-27</TariffPlanStartDate>
+                  <TariffPlanEndDate>2015-02-27</TariffPlanEndDate>
+               </TariffPlan>
+               <DetermineTariffs>string</DetermineTariffs>
+               <TariffGroup>string</TariffGroup>
+               <ClientAccount>
+                  <AccountNumber>anyString</AccountNumber>
+                  <ExternalAttribute>0</ExternalAttribute>
+                  <RecipientName>string</RecipientName>
+                  <TaxID>string</TaxID>
+                  <TaxRegReasonCode>string</TaxRegReasonCode>
+                  <BIK>string</BIK>
+                  <SWIFTCode>string</SWIFTCode>
+                  <ClearingCode>string</ClearingCode>
+                  <BankBeneficiarySWIFTCode>string</BankBeneficiarySWIFTCode>
+                  <DCode>string</DCode>
+                  <BeneficiaryIBANCode>string</BeneficiaryIBANCode>
+                  <ClientBeneficiarySWIFTCode>string</ClientBeneficiarySWIFTCode>
+                  <ClientBeneficiaryName>string</ClientBeneficiaryName>
+                  <ClientBeneficiaryTaxID>string</ClientBeneficiaryTaxID>
+                  <ClientBeneficaryAddress>string</ClientBeneficaryAddress>
+                  <ClientBeneficiaryCountry>string</ClientBeneficiaryCountry>
+                  <AccountPurpose>string</AccountPurpose>
+               </ClientAccount>
                <PercentCalculationAlgorithm>1234567890</PercentCalculationAlgorithm>
+               <DeterminePercent>anyString</DeterminePercent>
+               <PercentRateGroup>anyString</PercentRateGroup>
+               <DateBeginPercentRate>2015-02-27</DateBeginPercentRate>
+               <DateEndPercentRate>2015-02-27</DateEndPercentRate>
                <PartialRatedPeriodCalculation>0</PartialRatedPeriodCalculation>
                <CurrentRatedPeriodCalculation>0</CurrentRatedPeriodCalculation>
                <OpeningReason>string</OpeningReason>
-               <AccountUserType>string</AccountUserType>
                <AgreementUserType>string</AgreementUserType>
             </RKOAgreementDetails>
          </LegalPersonBankAccountAgreement>
@@ -203,8 +291,10 @@
             <CardRegistartionMethod>1</CardRegistartionMethod>
             <Sign>
                <RKONaturalPersonCode>1234567890</RKONaturalPersonCode>
+               <SeqNumber>1234567890</SeqNumber>
                <SignType>1</SignType>
                <Position>string</Position>
+               <AuthorityStartDate>anyString</AuthorityStartDate>
                <AuthorityEndDate>2015-02-27</AuthorityEndDate>
             </Sign>
          </SignPatternCard>

@@ -4,7 +4,7 @@
 	<import namespace="http://sbrf.ru/prpc/bbmo/dataTypes/10" schemaLocation="../commonTypes/dataTypes.xsd"/>
 	<import namespace="http://sbrf.ru/prpc/bbmo/simpleTypes/10" schemaLocation="../commonTypes/simpleTypes.xsd"/>
 	<import namespace="http://sbrf.ru/prpc/bbmo/commonTypes/10" schemaLocation="../commonTypes/commonTypes.xsd"/>
-	<include schemaLocation="CommonStructureTypes.xsd"/>
+	<include schemaLocation="./CommonStructureTypes.xsd"/>
 	<element name="TransactionPassportAttrs">
 		<annotation>
 			<documentation>Атрибуты оформленного (переоформленного) паспорта сделки</documentation>
@@ -145,7 +145,7 @@
 						</restriction>
 					</simpleType>
 				</element>
-				<element name="ContractSignDate" type="dt:Date" minOccurs="0">
+				<element name="ContractSignDate" type="dt:Date" minOccurs="1">
 					<annotation>
 						<documentation>Дата подписания контракта</documentation>
 					</annotation>
@@ -190,7 +190,7 @@
 				</element>
 				<element name="Conditions_RedemptionByExchangeRevenue" type="dt:PosFloat" minOccurs="0">
 					<annotation>
-						<documentation>Особые условия / погашение за счет валютной выручки</documentation>
+						<documentation>Особые условия / погашение за счет валютной выручки</documentation> 
 					</annotation>
 				</element>
 				<element name="Conditions_ExchangeClauseFlag" minOccurs="0">

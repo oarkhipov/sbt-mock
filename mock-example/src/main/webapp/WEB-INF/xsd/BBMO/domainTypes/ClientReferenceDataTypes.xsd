@@ -1,10 +1,263 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by Nesterenko (EMBRACE) -->
+<!-- edited with XMLSpy v2008 rel. 2 sp2 (http://www.altova.com) by SHOCK (SHOCK) -->
 <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sbrf.ru/prpc/bbmo/10" xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10" xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10" xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10" targetNamespace="http://sbrf.ru/prpc/bbmo/10" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<import namespace="http://sbrf.ru/prpc/bbmo/dataTypes/10" schemaLocation="../commonTypes/dataTypes.xsd"/>
 	<import namespace="http://sbrf.ru/prpc/bbmo/simpleTypes/10" schemaLocation="../commonTypes/simpleTypes.xsd"/>
 	<import namespace="http://sbrf.ru/prpc/bbmo/commonTypes/10" schemaLocation="../commonTypes/commonTypes.xsd"/>
-	<include schemaLocation="CommonStructureTypes.xsd"/>
+	<include schemaLocation="./CommonStructureTypes.xsd"/>
+	<complexType name="NaturalPersonWithAuthority">
+		<annotation>
+			<documentation>Физическое, должностное лицо и учредитель</documentation>
+		</annotation>
+		<sequence>
+			<element name="RKOCode" type="dt:DefInteger" minOccurs="0">
+				<annotation>
+					<documentation>Код физического лица в РКО</documentation>
+				</annotation>
+			</element>
+			<element name="SeqNumber" type="dt:DefInteger" minOccurs="0">
+				<annotation>
+					<documentation>Последовательный номер физ.лица</documentation>
+				</annotation>
+			</element>
+			<element name="RelationToClient">
+				<annotation>
+					<documentation>Отношение к клиенту
+Принимает значения:
+1 – Руководитель; 
+2 – Гл.Бухгалтер; 
+3 – ИП;
+4 – выгодоприобретатель;
+5 – прочее.
+</documentation>
+				</annotation>
+			</element>
+			<element name="LastName">
+				<annotation>
+					<documentation>Фамилия</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="dt:String">
+						<maxLength value="160"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="FirstName">
+				<annotation>
+					<documentation>Имя</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="dt:String">
+						<maxLength value="160"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="MiddleName" minOccurs="0">
+				<annotation>
+					<documentation>Отчество</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="dt:String">
+						<maxLength value="160"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="LastNameInGenitiveCase" minOccurs="0">
+				<annotation>
+					<documentation>Фамилия в родительном падеже</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="dt:String">
+						<maxLength value="160"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="FirstNameInGenitiveCase" minOccurs="0">
+				<annotation>
+					<documentation>Имя в родительном падеже</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="dt:String">
+						<maxLength value="160"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="MiddleNameInGenitiveCase" minOccurs="0">
+				<annotation>
+					<documentation>Отчество в родительном падеже</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="dt:String">
+						<maxLength value="160"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="LastNameInEnglish" minOccurs="0">
+				<annotation>
+					<documentation>Фамилия на английском</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="dt:String">
+						<maxLength value="160"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="FirstNameInEnglish" minOccurs="0">
+				<annotation>
+					<documentation>Имя на английском</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="dt:String">
+						<maxLength value="160"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="MiddleNameInEnglish" minOccurs="0">
+				<annotation>
+					<documentation>Отчество на английском</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="dt:String">
+						<maxLength value="160"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Sex" minOccurs="0">
+				<annotation>
+					<documentation>Пол
+                            1 - мужской
+                            2 - женский
+                            3 - не указан
+                        </documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="dt:DefPosInteger">
+						<enumeration value="1"/>
+						<enumeration value="2"/>
+						<enumeration value="3"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="BirthDate" type="dt:Date" minOccurs="0">
+				<annotation>
+					<documentation>Дата рождения</documentation>
+				</annotation>
+			</element>
+			<element name="BirthPlace" type="dt:DefString" minOccurs="0">
+				<annotation>
+					<documentation>Место рождения</documentation>
+				</annotation>
+			</element>
+			<element name="Nationality" type="st:SSM_Type" minOccurs="0">
+				<annotation>
+					<documentation>Гражданство</documentation>
+				</annotation>
+			</element>
+			<element name="Resident" type="dt:Boolean" minOccurs="0">
+				<annotation>
+					<documentation>Признак резидента
+                            Принимает значения:
+                            1 – резидент
+                            0 – нерезидент
+                        </documentation>
+				</annotation>
+			</element>
+			<element name="TaxResidentChangeDate" type="dt:Date" minOccurs="0">
+				<annotation>
+					<documentation>Дата изменения налоговой резидентности</documentation>
+				</annotation>
+			</element>
+			<element name="TaxId" type="st:TaxId_Type" minOccurs="0">
+				<annotation>
+					<documentation>ИНН</documentation>
+				</annotation>
+			</element>
+			<element name="SocialStatusType" type="int" minOccurs="0">
+				<annotation>
+					<documentation>Вид социального статуса</documentation>
+				</annotation>
+			</element>
+			<element ref="tns:IdentityDocument" minOccurs="0" maxOccurs="unbounded"/>
+			<element ref="tns:ClientAddress" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>Адреса клиента</documentation>
+				</annotation>
+			</element>
+			<element ref="tns:ClientContact" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>Контакты клиента</documentation>
+				</annotation>
+			</element>
+			<element name="AuthorityBase" minOccurs="0">
+				<annotation>
+					<documentation>Основание полномочий</documentation>
+				</annotation>
+				<complexType>
+					<sequence>
+						<element name="DocumentActAuthority" type="dt:DefString" minOccurs="0">
+							<annotation>
+								<documentation>Действует на основании</documentation>
+							</annotation>
+						</element>
+						<element name="DocumentSeriesNumber" type="dt:DefString" minOccurs="0">
+							<annotation>
+								<documentation>Серия и номер документа</documentation>
+							</annotation>
+						</element>
+						<element name="DocumentDate" type="dt:Date" minOccurs="0">
+							<annotation>
+								<documentation>Дата документа</documentation>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="OfficailInfo" minOccurs="0">
+				<annotation>
+					<documentation>Информация о должности</documentation>
+				</annotation>
+				<complexType>
+					<sequence>
+						<element name="BasedOnDocument" type="string" minOccurs="0">
+							<annotation>
+								<documentation>Действует на основании документа</documentation>
+							</annotation>
+						</element>
+						<element name="BasedOnDocumentSeries" type="string" minOccurs="0">
+							<annotation>
+								<documentation>Серия документа-основания полномочий</documentation>
+							</annotation>
+						</element>
+						<element name="BasedOnDocumentNumber" type="string" minOccurs="0">
+							<annotation>
+								<documentation>Номер документа-основания полномочий</documentation>
+							</annotation>
+						</element>
+						<element name="TrusteeSign" minOccurs="0">
+							<annotation>
+								<documentation>Признак доверенного лица</documentation>
+							</annotation>
+						</element>
+						<element name="OperationType" type="string" minOccurs="0">
+							<annotation>
+								<documentation>Вид операций</documentation>
+							</annotation>
+						</element>
+						<element name="AccountNumber" minOccurs="0">
+							<annotation>
+								<documentation>Номер счета</documentation>
+							</annotation>
+						</element>
+						<element name="Comment" minOccurs="0">
+							<annotation>
+								<documentation>Комментарий</documentation>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
 	<element name="ClientReferenceData">
 		<annotation>
 			<documentation>Справочные данные клиента</documentation>
@@ -16,7 +269,7 @@
 						<documentation>Информация о клиенте</documentation>
 					</annotation>
 				</element>
-				<element ref="tns:NaturalPerson" minOccurs="0" maxOccurs="unbounded">
+				<element name="naturalPerson" type="tns:NaturalPersonWithAuthority" minOccurs="0" maxOccurs="unbounded">
 					<annotation>
 						<documentation>Физическое лицо</documentation>
 					</annotation>
@@ -55,6 +308,7 @@
 						<documentation>Основные реквизиты</documentation>
 					</annotation>
 				</element>
+				<element ref="tns:FounderLegalPerson" minOccurs="0" maxOccurs="unbounded"/>
 				<element ref="tns:BankSubdivision" minOccurs="0">
 					<annotation>
 						<documentation>Подразделение
@@ -127,7 +381,86 @@
 						<documentation>ОКОПФ</documentation>
 					</annotation>
 				</element>
-				<element name="OKVED" type="st:OKVED_Type" minOccurs="0" maxOccurs="unbounded"/>
+				<element name="OKVED" type="st:OKVED_Type" minOccurs="0" maxOccurs="unbounded">
+					<annotation>
+						<documentation>ОКВЭД</documentation>
+					</annotation>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="FounderLegalPerson">
+		<annotation>
+			<documentation>Учредитель (Юр.лицо)</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element name="ClientName" type="string" minOccurs="0">
+					<annotation>
+						<documentation>Полное наименование</documentation>
+					</annotation>
+				</element>
+				<element name="KPP" type="string" minOccurs="0">
+					<annotation>
+						<documentation>КПП</documentation>
+					</annotation>
+				</element>
+				<element name="TaxID" type="string" minOccurs="0">
+					<annotation>
+						<documentation>ИНН</documentation>
+					</annotation>
+				</element>
+				<element name="TaxRegistrationDate" type="date" minOccurs="0">
+					<annotation>
+						<documentation>дата регистрации</documentation>
+					</annotation>
+				</element>
+				<element name="TaxCertificateSeries" type="string" minOccurs="0">
+					<annotation>
+						<documentation>серия свид-ва</documentation>
+					</annotation>
+				</element>
+				<element name="TaxCertificateNumber" type="string" minOccurs="0">
+					<annotation>
+						<documentation>№ свид-ва</documentation>
+					</annotation>
+				</element>
+				<element name="TaxAuthority" type="string" minOccurs="0">
+					<annotation>
+						<documentation>налоговый орган</documentation>
+					</annotation>
+				</element>
+				<element name="OGRN" type="string" minOccurs="0">
+					<annotation>
+						<documentation>ОГРН</documentation>
+					</annotation>
+				</element>
+				<element name="OGRNRegistrationDate" type="date" minOccurs="0">
+					<annotation>
+						<documentation>дата регистрации</documentation>
+					</annotation>
+				</element>
+				<element name="OGRNSeries" type="string" minOccurs="0">
+					<annotation>
+						<documentation>серия свид-ва</documentation>
+					</annotation>
+				</element>
+				<element name="OGRNNumber" type="string" minOccurs="0">
+					<annotation>
+						<documentation>№ свид-ва</documentation>
+					</annotation>
+				</element>
+				<element name="OGRNAuthority" type="string" minOccurs="0">
+					<annotation>
+						<documentation>регистрирующий орган</documentation>
+					</annotation>
+				</element>
+				<element ref="tns:ClientAddress" minOccurs="0"/>
+				<element name="LegalCapitalPercent" type="decimal" minOccurs="0">
+					<annotation>
+						<documentation>Процент уставного фонда</documentation>
+					</annotation>
+				</element>
 			</sequence>
 		</complexType>
 	</element>
@@ -204,14 +537,19 @@
 					</annotation>
 					<simpleType>
 						<restriction base="dt:String">
-							<maxLength value="150"/>
+							<maxLength value="160"/>
 						</restriction>
 					</simpleType>
 				</element>
-				<element name="FullName" type="dt:DefString">
+				<element name="FullName">
 					<annotation>
 						<documentation>Полное наименование</documentation>
 					</annotation>
+					<simpleType>
+						<restriction base="dt:String">
+							<maxLength value="300"/>
+						</restriction>
+					</simpleType>
 				</element>
 				<element name="ShortNameInEnglish" minOccurs="0">
 					<annotation>
@@ -219,7 +557,7 @@
 					</annotation>
 					<simpleType>
 						<restriction base="dt:String">
-							<maxLength value="150"/>
+							<maxLength value="80"/>
 						</restriction>
 					</simpleType>
 				</element>
@@ -248,6 +586,76 @@
 						<documentation>Регистрирующий орган
                             Справочник «Регистрирующие органы»
                         </documentation>
+					</annotation>
+				</element>
+				<element name="OldShortName">
+					<annotation>
+						<documentation>Старое краткое наименование</documentation>
+					</annotation>
+				</element>
+				<element name="OldName">
+					<annotation>
+						<documentation>Старое наименование</documentation>
+					</annotation>
+				</element>
+				<element name="OldShortNameInEnglish">
+					<annotation>
+						<documentation>Старое краткое наименование (англ.)</documentation>
+					</annotation>
+				</element>
+				<element name="OldNameInEnglish">
+					<annotation>
+						<documentation>Старое полное наименование (англ.)</documentation>
+					</annotation>
+				</element>
+				<element name="TermFrom">
+					<annotation>
+						<documentation>Срок действия старого поля с</documentation>
+					</annotation>
+				</element>
+				<element name="TermTill">
+					<annotation>
+						<documentation>Срок действия старого поля по</documentation>
+					</annotation>
+				</element>
+				<element name="DeclaredFound">
+					<annotation>
+						<documentation>Объявленный уставной фонд</documentation>
+					</annotation>
+				</element>
+				<element name="PayedFound">
+					<annotation>
+						<documentation>Оплаченный уставной фонд</documentation>
+					</annotation>
+				</element>
+				<element name="Control">
+					<annotation>
+						<documentation>Органы управления</documentation>
+					</annotation>
+				</element>
+				<element name="Amount">
+					<annotation>
+						<documentation>Численность</documentation>
+					</annotation>
+				</element>
+				<element name="YearROI">
+					<annotation>
+						<documentation>Годовая выручка</documentation>
+					</annotation>
+				</element>
+				<element name="From">
+					<annotation>
+						<documentation>С</documentation>
+					</annotation>
+				</element>
+				<element name="Till">
+					<annotation>
+						<documentation>По</documentation>
+					</annotation>
+				</element>
+				<element name="License">
+					<annotation>
+						<documentation>Лицензия</documentation>
 					</annotation>
 				</element>
 			</sequence>
@@ -369,14 +777,14 @@
 			<sequence>
 				<element name="AddressType">
 					<annotation>
-						<documentation>Тип адрес
-                            1 - Прописка
-                            2 - Место жительства
-                            5 - Почтовый
-                            6 - Юридический
-                            7 - Фактический
-                            8 - ЕГРЮЛ
-                        </documentation>
+						<documentation>Принимает значения:
+1- Прописка; 
+2 – Место жительства; 
+5- Почтовый; 
+6- Юридический; 
+7- Фактический;
+8 – ЕГРЮЛ;
+9 - Почтовый адрес представительства.</documentation>
 					</annotation>
 					<simpleType>
 						<restriction base="dt:DefPosInteger">
@@ -386,6 +794,7 @@
 							<enumeration value="6"/>
 							<enumeration value="7"/>
 							<enumeration value="8"/>
+							<enumeration value="9"/>
 						</restriction>
 					</simpleType>
 				</element>
@@ -405,7 +814,7 @@
 					</annotation>
 					<simpleType>
 						<restriction base="dt:String">
-							<maxLength value="20"/>
+							<maxLength value="50"/>
 						</restriction>
 					</simpleType>
 				</element>
@@ -470,7 +879,7 @@
 					</annotation>
 					<simpleType>
 						<restriction base="dt:String">
-							<maxLength value="60"/>
+							<maxLength value="100"/>
 						</restriction>
 					</simpleType>
 				</element>
@@ -616,276 +1025,6 @@
 			</sequence>
 		</complexType>
 	</element>
-	<element name="NaturalPerson">
-		<annotation>
-			<documentation>Физическое лицо</documentation>
-		</annotation>
-		<complexType>
-			<sequence>
-				<element name="RKOCode" type="dt:DefInteger">
-					<annotation>
-						<documentation>Код физического лица в РКО</documentation>
-					</annotation>
-				</element>
-				<element name="RelationToClient">
-					<annotation>
-						<documentation>Отношение к клиенту
-                            1 – Руководитель
-                            2 – Гл.бухгалтер
-                            3 – ИП
-                            4 – выгодоприобретатель
-                            5 – прочее
-                        </documentation>
-					</annotation>
-					<simpleType>
-						<restriction base="dt:DefPosInteger">
-							<enumeration value="1"/>
-							<enumeration value="2"/>
-							<enumeration value="3"/>
-							<enumeration value="4"/>
-							<enumeration value="5"/>
-						</restriction>
-					</simpleType>
-				</element>
-				<element name="LastName">
-					<annotation>
-						<documentation>Фамилия</documentation>
-					</annotation>
-					<simpleType>
-						<restriction base="dt:String">
-							<maxLength value="160"/>
-						</restriction>
-					</simpleType>
-				</element>
-				<element name="FirstName">
-					<annotation>
-						<documentation>Имя</documentation>
-					</annotation>
-					<simpleType>
-						<restriction base="dt:String">
-							<maxLength value="160"/>
-						</restriction>
-					</simpleType>
-				</element>
-				<element name="MiddleName" minOccurs="0">
-					<annotation>
-						<documentation>Отчество</documentation>
-					</annotation>
-					<simpleType>
-						<restriction base="dt:String">
-							<maxLength value="160"/>
-						</restriction>
-					</simpleType>
-				</element>
-				<element name="LastNameInGenitiveCase">
-					<annotation>
-						<documentation>Фамилия в родительном падеже</documentation>
-					</annotation>
-					<simpleType>
-						<restriction base="dt:String">
-							<maxLength value="160"/>
-						</restriction>
-					</simpleType>
-				</element>
-				<element name="FirstNameInGenitiveCase">
-					<annotation>
-						<documentation>Имя в родительном падеже</documentation>
-					</annotation>
-					<simpleType>
-						<restriction base="dt:String">
-							<maxLength value="160"/>
-						</restriction>
-					</simpleType>
-				</element>
-				<element name="MiddleNameInGenitiveCase" minOccurs="0">
-					<annotation>
-						<documentation>Отчество в родительном падеже</documentation>
-					</annotation>
-					<simpleType>
-						<restriction base="dt:String">
-							<maxLength value="160"/>
-						</restriction>
-					</simpleType>
-				</element>
-				<element name="LastNameInEnglish">
-					<annotation>
-						<documentation>Фамилия на английском</documentation>
-					</annotation>
-					<simpleType>
-						<restriction base="dt:String">
-							<maxLength value="160"/>
-						</restriction>
-					</simpleType>
-				</element>
-				<element name="FirstNameInEnglish">
-					<annotation>
-						<documentation>Имя на английском</documentation>
-					</annotation>
-					<simpleType>
-						<restriction base="dt:String">
-							<maxLength value="160"/>
-						</restriction>
-					</simpleType>
-				</element>
-				<element name="MiddleNameInEnglish" minOccurs="0">
-					<annotation>
-						<documentation>Отчество на английском</documentation>
-					</annotation>
-					<simpleType>
-						<restriction base="dt:String">
-							<maxLength value="160"/>
-						</restriction>
-					</simpleType>
-				</element>
-				<element name="Sex" minOccurs="0">
-					<annotation>
-						<documentation>Пол
-                            1 - мужской
-                            2 - женский
-                            3 - не указан
-                        </documentation>
-					</annotation>
-					<simpleType>
-						<restriction base="dt:DefPosInteger">
-							<enumeration value="1"/>
-							<enumeration value="2"/>
-							<enumeration value="3"/>
-						</restriction>
-					</simpleType>
-				</element>
-				<element name="BirthDate" type="dt:Date" minOccurs="0">
-					<annotation>
-						<documentation>Дата рождения</documentation>
-					</annotation>
-				</element>
-				<element name="BirthPlace" type="dt:DefString" minOccurs="0">
-					<annotation>
-						<documentation>Место рождения</documentation>
-					</annotation>
-				</element>
-				<element name="Nationality" type="st:SSM_Type" minOccurs="0">
-					<annotation>
-						<documentation>Гражданство</documentation>
-					</annotation>
-				</element>
-				<element name="Resident" type="dt:Boolean">
-					<annotation>
-						<documentation>Признак резидента
-                            Принимает значения:
-                            1 – резидент
-                            0 – нерезидент
-                        </documentation>
-					</annotation>
-				</element>
-				<element name="TaxResidentChangeDate" type="dt:Date" minOccurs="0">
-					<annotation>
-						<documentation>Дата изменения налоговой резидентности</documentation>
-					</annotation>
-				</element>
-				<element name="TaxId" type="st:TaxId_Type" minOccurs="0">
-					<annotation>
-						<documentation>ИНН</documentation>
-					</annotation>
-				</element>
-				<element name="IdentityDocument" maxOccurs="unbounded">
-					<annotation>
-						<documentation>ДУЛ</documentation>
-					</annotation>
-					<complexType>
-						<sequence>
-							<element name="DocumentType" type="dt:DefPosInteger">
-								<annotation>
-									<documentation>Тип документа
-                                        ЦАС НСИ «pb_document»
-                                    </documentation>
-								</annotation>
-							</element>
-							<element name="DocumentStatus">
-								<annotation>
-									<documentation>Статус документа
-                                        1 - активный
-                                        2 - неактивный
-                                        3 - с истекшей датой действия
-                                    </documentation>
-								</annotation>
-								<simpleType>
-									<restriction base="dt:DefPosInteger">
-										<enumeration value="1"/>
-										<enumeration value="2"/>
-										<enumeration value="3"/>
-									</restriction>
-								</simpleType>
-							</element>
-							<element name="DocumentSeries" type="dt:DefString" minOccurs="0">
-								<annotation>
-									<documentation>Серия ДУЛ</documentation>
-								</annotation>
-							</element>
-							<element name="DocumentNumber" type="dt:DefString">
-								<annotation>
-									<documentation>Номер документа</documentation>
-								</annotation>
-							</element>
-							<element name="IssueDate" type="dt:Date" minOccurs="0">
-								<annotation>
-									<documentation>Дата выдачи</documentation>
-								</annotation>
-							</element>
-							<element name="IssueAuthority" type="dt:DefString" minOccurs="0">
-								<annotation>
-									<documentation>Кем выдан документ</documentation>
-								</annotation>
-							</element>
-							<element name="IssueAuthorityCode" type="dt:DefString" minOccurs="0">
-								<annotation>
-									<documentation>Код подразделения, выдавшего документ</documentation>
-								</annotation>
-							</element>
-							<element name="ExpirationDate" type="dt:Date" minOccurs="0">
-								<annotation>
-									<documentation>Планируемая дата окончания срока действия</documentation>
-								</annotation>
-							</element>
-						</sequence>
-					</complexType>
-				</element>
-				<element ref="tns:ClientAddress" minOccurs="0" maxOccurs="unbounded">
-					<annotation>
-						<documentation>Адреса клиента</documentation>
-					</annotation>
-				</element>
-				<element ref="tns:ClientContact" minOccurs="0" maxOccurs="unbounded">
-					<annotation>
-						<documentation>Контакты клиента</documentation>
-					</annotation>
-				</element>
-				<element name="AuthorityBase" minOccurs="0">
-					<annotation>
-						<documentation>Основание полномочий</documentation>
-					</annotation>
-					<complexType>
-						<sequence>
-							<element name="DocumentActAuthority" type="dt:DefString" minOccurs="0">
-								<annotation>
-									<documentation>Действует на основании</documentation>
-								</annotation>
-							</element>
-							<element name="DocumentSeriesNumber" type="dt:DefString" minOccurs="0">
-								<annotation>
-									<documentation>Серия и номер документа</documentation>
-								</annotation>
-							</element>
-							<element name="DocumentDate" type="dt:Date" minOccurs="0">
-								<annotation>
-									<documentation>Дата документа</documentation>
-								</annotation>
-							</element>
-						</sequence>
-					</complexType>
-				</element>
-			</sequence>
-		</complexType>
-	</element>
 	<element name="LegalPersonBankAccountAgreement">
 		<annotation>
 			<documentation>Договор банковского счета юридического лица</documentation>
@@ -960,17 +1099,6 @@
 						<documentation>Остаток по счету</documentation>
 					</annotation>
 				</element>
-				<element name="FilePresence1" type="dt:Boolean" minOccurs="0">
-					<annotation>
-						<documentation>Наличие картотеки 1 (для договора РКО в рублях)</documentation>
-					</annotation>
-				</element>
-				<element name="FilePresence2" type="dt:Boolean" minOccurs="0">
-					<annotation>
-						<documentation>Наличие картотеки 2 (для договора РКО в рублях)
-                        </documentation>
-					</annotation>
-				</element>
 				<element name="ArrestByAccountPresence" minOccurs="0">
 					<annotation>
 						<documentation>Наличие ареста по счету (для договора РКО)
@@ -987,11 +1115,6 @@
 						</restriction>
 					</simpleType>
 				</element>
-				<element name="ArrestedSum" type="dt:PosFloat" minOccurs="0">
-					<annotation>
-						<documentation>Арестованные суммы (для договора РКО)</documentation>
-					</annotation>
-				</element>
 				<element ref="tns:RKOAgreementDetails" minOccurs="0">
 					<annotation>
 						<documentation>Параметры договора РКО</documentation>
@@ -1006,6 +1129,18 @@
 		</annotation>
 		<complexType>
 			<sequence>
+				<element ref="tns:TariffPlan" minOccurs="0" maxOccurs="unbounded"/>
+				<element name="DetermineTariffs" type="string">
+					<annotation>
+						<documentation>Определить тарифы</documentation>
+					</annotation>
+				</element>
+				<element name="TariffGroup" type="string" minOccurs="0">
+					<annotation>
+						<documentation>Группа тарифов</documentation>
+					</annotation>
+				</element>
+				<element ref="tns:ClientAccount" minOccurs="0" maxOccurs="unbounded"/>
 				<element name="PercentCalculationAlgorithm" minOccurs="0">
 					<annotation>
 						<documentation>Алгоритм начисления %
@@ -1017,6 +1152,26 @@
 							<maxLength value="10"/>
 						</restriction>
 					</simpleType>
+				</element>
+				<element name="DeterminePercent" minOccurs="0">
+					<annotation>
+						<documentation>Опредилить %</documentation>
+					</annotation>
+				</element>
+				<element name="PercentRateGroup" minOccurs="0">
+					<annotation>
+						<documentation>Группа % ставок</documentation>
+					</annotation>
+				</element>
+				<element name="DateBeginPercentRate" type="dt:Date" minOccurs="0">
+					<annotation>
+						<documentation>Дата начала действия</documentation>
+					</annotation>
+				</element>
+				<element name="DateEndPercentRate" type="dt:Date" minOccurs="0">
+					<annotation>
+						<documentation>Дата окончания действия</documentation>
+					</annotation>
 				</element>
 				<element name="PartialRatedPeriodCalculation" type="dt:Boolean" minOccurs="0">
 					<annotation>
@@ -1031,13 +1186,6 @@
 				<element name="OpeningReason" type="dt:DefString" minOccurs="0">
 					<annotation>
 						<documentation>Основание открытия</documentation>
-					</annotation>
-				</element>
-				<element name="AccountUserType" type="dt:DefString" minOccurs="0">
-					<annotation>
-						<documentation>Пользовательский тип счета
-                            Каждый символ контролируется по справочнику
-                        </documentation>
 					</annotation>
 				</element>
 				<element name="AgreementUserType" type="dt:DefString" minOccurs="0">
@@ -1056,27 +1204,27 @@
 		</annotation>
 		<complexType>
 			<sequence>
-				<element name="ClientId" type="dt:PosInteger">
+				<element name="ClientId" type="dt:PosInteger" minOccurs="0">
 					<annotation>
 						<documentation>ID клиента в РКО</documentation>
 					</annotation>
 				</element>
-				<element ref="tns:BankSubdivision">
+				<element ref="tns:BankSubdivision" minOccurs="0">
 					<annotation>
 						<documentation>Подразделение банка</documentation>
 					</annotation>
 				</element>
-				<element name="AgreementNumber" type="dt:DefString">
+				<element name="AgreementNumber" type="dt:DefString" minOccurs="0">
 					<annotation>
 						<documentation>Номер договора</documentation>
 					</annotation>
 				</element>
-				<element name="AccountNumber" type="st:AccountNumber_Type">
+				<element name="AccountNumber" type="st:AccountNumber_Type" minOccurs="0">
 					<annotation>
 						<documentation>Номер счета</documentation>
 					</annotation>
 				</element>
-				<element name="CardType">
+				<element name="CardType" nillable="true" minOccurs="0">
 					<annotation>
 						<documentation>Тип карточки
                             1 – Постоянная
@@ -1090,7 +1238,7 @@
 						</restriction>
 					</simpleType>
 				</element>
-				<element name="RegistrationDate" type="dt:Date">
+				<element name="RegistrationDate" type="dt:Date" minOccurs="0">
 					<annotation>
 						<documentation>Дата регистрации</documentation>
 					</annotation>
@@ -1105,7 +1253,7 @@
 						<documentation>Дата закрытия</documentation>
 					</annotation>
 				</element>
-				<element name="CardRegistartionMethod">
+				<element name="CardRegistartionMethod" nillable="true" minOccurs="0">
 					<annotation>
 						<documentation>Способ оформления карточки
                             1 – Нотариально
@@ -1139,6 +1287,11 @@
 						<documentation>Код физического лица в РКО</documentation>
 					</annotation>
 				</element>
+				<element name="SeqNumber" type="dt:DefInteger" minOccurs="0">
+					<annotation>
+						<documentation>Последовательный номер физ.лица</documentation>
+					</annotation>
+				</element>
 				<element name="SignType">
 					<annotation>
 						<documentation>Тип подписи
@@ -1158,9 +1311,205 @@
 						<documentation>Должность</documentation>
 					</annotation>
 				</element>
+				<element name="AuthorityStartDate" minOccurs="0">
+					<annotation>
+						<documentation>Дата начала полномочий</documentation>
+					</annotation>
+				</element>
 				<element name="AuthorityEndDate" type="dt:Date" minOccurs="0">
 					<annotation>
 						<documentation>Дата окончания полномочий</documentation>
+					</annotation>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="ClientAccount">
+		<annotation>
+			<documentation>Счет клиента для удержания комиссии</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element name="AccountNumber" minOccurs="0">
+					<annotation>
+						<documentation>Номер счета</documentation>
+					</annotation>
+				</element>
+				<element name="ExternalAttribute" type="dt:Boolean" minOccurs="0">
+					<annotation>
+						<documentation>Признак внешнего счета.
+
+Принимает значения:
+1 – внешний;
+0 – внутренний.</documentation>
+					</annotation>
+				</element>
+				<element name="RecipientName" type="dt:String" minOccurs="0">
+					<annotation>
+						<documentation>Наименование получателя</documentation>
+					</annotation>
+				</element>
+				<element name="TaxID" type="dt:String" minOccurs="0">
+					<annotation>
+						<documentation>ИНН</documentation>
+					</annotation>
+				</element>
+				<element name="TaxRegReasonCode" type="dt:String" minOccurs="0">
+					<annotation>
+						<documentation>КПП</documentation>
+					</annotation>
+				</element>
+				<element name="BIK" type="dt:String" minOccurs="0">
+					<annotation>
+						<documentation>БИК банка получателя</documentation>
+					</annotation>
+				</element>
+				<element name="SWIFTCode" type="dt:String" minOccurs="0">
+					<annotation>
+						<documentation>SWIFT код банка посредника</documentation>
+					</annotation>
+				</element>
+				<element name="ClearingCode" type="dt:String" minOccurs="0">
+					<annotation>
+						<documentation>Код клиринга банка посредника</documentation>
+					</annotation>
+				</element>
+				<element name="BankBeneficiarySWIFTCode" type="dt:String" minOccurs="0">
+					<annotation>
+						<documentation>SWIFT код банка бенефициара</documentation>
+					</annotation>
+				</element>
+				<element name="DCode" type="dt:String" minOccurs="0">
+					<annotation>
+						<documentation>57D банка бенефициара</documentation>
+					</annotation>
+				</element>
+				<element name="BeneficiaryIBANCode" type="dt:String" minOccurs="0">
+					<annotation>
+						<documentation>IBAN клиента бенефициара</documentation>
+					</annotation>
+				</element>
+				<element name="ClientBeneficiarySWIFTCode" type="dt:String" minOccurs="0">
+					<annotation>
+						<documentation>SWIFT код клиента бенефициара</documentation>
+					</annotation>
+				</element>
+				<element name="ClientBeneficiaryName" type="dt:String" minOccurs="0">
+					<annotation>
+						<documentation>Наименование клиента бенефициара</documentation>
+					</annotation>
+				</element>
+				<element name="ClientBeneficiaryTaxID" type="dt:String" minOccurs="0">
+					<annotation>
+						<documentation>ИНН клиента бенефициара</documentation>
+					</annotation>
+				</element>
+				<element name="ClientBeneficaryAddress" type="dt:String" minOccurs="0">
+					<annotation>
+						<documentation>Адрес клиента бенефициара</documentation>
+					</annotation>
+				</element>
+				<element name="ClientBeneficiaryCountry" type="dt:String" minOccurs="0">
+					<annotation>
+						<documentation>Город, страна клиента бенефициара</documentation>
+					</annotation>
+				</element>
+				<element name="AccountPurpose" type="dt:String" minOccurs="0">
+					<annotation>
+						<documentation>Назначение счета (Справочник «Назначение счета»)</documentation>
+					</annotation>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="IdentityDocument">
+		<annotation>
+			<documentation>ДУЛ</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element name="DocumentType" type="dt:DefPosInteger">
+					<annotation>
+						<documentation>Тип документа
+                                        ЦАС НСИ «pb_document»
+                                    </documentation>
+					</annotation>
+				</element>
+				<element name="DocumentStatus">
+					<annotation>
+						<documentation>Статус документа
+                                        0 - не задано
+                                        1 - активный
+                                        2 - неактивный
+                                        3 - с истекшей датой действия
+                                    </documentation>
+					</annotation>
+					<simpleType>
+						<restriction base="dt:DefPosInteger">
+							<enumeration value="0"/>
+							<enumeration value="1"/>
+							<enumeration value="2"/>
+							<enumeration value="3"/>
+						</restriction>
+					</simpleType>
+				</element>
+				<element name="DocumentSeries" type="dt:DefString" minOccurs="0">
+					<annotation>
+						<documentation>Серия ДУЛ</documentation>
+					</annotation>
+				</element>
+				<element name="DocumentNumber" type="dt:DefString">
+					<annotation>
+						<documentation>Номер документа</documentation>
+					</annotation>
+				</element>
+				<element name="IssueDate" type="dt:Date" minOccurs="0">
+					<annotation>
+						<documentation>Дата выдачи</documentation>
+					</annotation>
+				</element>
+				<element name="IssueAuthority" type="dt:DefString" minOccurs="0">
+					<annotation>
+						<documentation>Кем выдан документ</documentation>
+					</annotation>
+				</element>
+				<element name="IssueAuthorityCode" type="dt:DefString" minOccurs="0">
+					<annotation>
+						<documentation>Код подразделения, выдавшего документ</documentation>
+					</annotation>
+				</element>
+				<element name="ExpirationDate" type="dt:Date" minOccurs="0">
+					<annotation>
+						<documentation>Планируемая дата окончания срока действия</documentation>
+					</annotation>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="TariffPlan">
+		<annotation>
+			<documentation>Тарифный план</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element name="TariffPlanCode">
+					<annotation>
+						<documentation>Тарифный план</documentation>
+					</annotation>
+					<simpleType>
+						<restriction base="dt:String">
+							<maxLength value="255"/>
+						</restriction>
+					</simpleType>
+				</element>
+				<element name="TariffPlanStartDate" type="dt:Date" minOccurs="0">
+					<annotation>
+						<documentation>Дата начала </documentation>
+					</annotation>
+				</element>
+				<element name="TariffPlanEndDate" type="dt:Date" minOccurs="0">
+					<annotation>
+						<documentation>Дата окончания</documentation>
 					</annotation>
 				</element>
 			</sequence>

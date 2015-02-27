@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by Nesterenko (EMBRACE) -->
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by Виктор Стариков (SBT) -->
 <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bbmo="http://sbrf.ru/prpc/bbmo/10" xmlns:tns="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hdr="http://sbrf.ru/prpc/mq/headers" xmlns:kd4="http://www.ibm.com/KD4Soap" targetNamespace="http://schemas.xmlsoap.org/soap/envelope/">
-	<import namespace="http://sbrf.ru/prpc/bbmo/10" schemaLocation="BBMOOperationElements.xsd"/>
+	<import namespace="http://sbrf.ru/prpc/bbmo/10" schemaLocation="./BBMOOperationElements.xsd"/>
 	<import namespace="http://sbrf.ru/prpc/mq/headers" schemaLocation="./BBMOHeaderElements.xsd"/>
 	<import namespace="http://www.ibm.com/KD4Soap" schemaLocation="./BBMOHeaderKD4Elements.xsd"/>
 	<element name="Header">
@@ -23,12 +23,6 @@
 			<choice>
 				<element ref="bbmo:SrvRegisterLegalPersonApplicationRq"/>
 				<element ref="bbmo:SrvRegisterLegalPersonApplicationRs"/>
-				<element ref="bbmo:SrvRegisterTransactionPassportRq"/>
-				<element ref="bbmo:SrvRegisterTransactionPassportRs"/>
-				<element ref="bbmo:SrvGetExchangeControlDocumentInformationRq"/>
-				<element ref="bbmo:SrvGetExchangeControlDocumentInformationRs"/>
-				<element ref="bbmo:SrvAddExchangeControlDocumentRq"/>
-				<element ref="bbmo:SrvAddExchangeControlDocumentRs"/>
 				<element ref="bbmo:SrvGetClientReferenceDataRq"/>
 				<element ref="bbmo:SrvGetClientReferenceDataRs"/>
 				<element ref="bbmo:SrvUpdateClientReferenceDataRq"/>
@@ -45,6 +39,13 @@
 				<element ref="bbmo:SrvSendNaturalPersonApplicationCreationByOriginMessageRq"/>
 				<element ref="bbmo:SrvSendNaturalPersonApplicationStateChangeMessageRq"/>
 				<element ref="bbmo:SrvSendNaturalPersonApplicationStateChangeMessageRs"/>
+				<element ref="bbmo:SrvPutRemoteLegalAccOperAppRq"/>
+				<element ref="bbmo:SrvPutRemoteLegalAccOperAppRs"/>
+				
+				<element ref="bbmo:SrvCKPITUpdateDepositNSORq"/>
+				<element ref="bbmo:SrvCKPITUpdateDepositNSORs"/>
+				<element ref="bbmo:SrvCKPITUpdateLoanRq"/>
+				<element ref="bbmo:SrvCKPITUpdateLoanRs"/>
 			</choice>
 		</complexType>
 	</element>

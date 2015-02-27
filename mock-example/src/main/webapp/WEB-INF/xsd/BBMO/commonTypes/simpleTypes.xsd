@@ -103,7 +103,7 @@
 			<documentation>Общероссийский классификатор объектов административно-территориального деления (ОКАТО)</documentation>
 		</annotation>
 		<restriction base="dt:String">
-			<maxLength value="11"/>
+			<maxLength value="16"/>
 		</restriction>
 	</simpleType>
 	<simpleType name="OKPO_Type">
@@ -111,7 +111,7 @@
 			<documentation>Общероссийский классификатор предприятий и организаций (ОКПО)</documentation>
 		</annotation>
 		<restriction base="dt:String">
-			<maxLength value="8"/>
+			<maxLength value="16"/>
 		</restriction>
 	</simpleType>
 	<simpleType name="OKFS_Type">
@@ -127,7 +127,7 @@
 			<documentation>Общероссийский классификатор органов государственной власти и управления (ОКОГУ)</documentation>
 		</annotation>
 		<restriction base="dt:String">
-			<maxLength value="5"/>
+			<maxLength value="7"/>
 		</restriction>
 	</simpleType>
 	<simpleType name="OKONH_Type">
@@ -135,7 +135,7 @@
 			<documentation>Отрасли народного хозяйства (ОКОНХ)</documentation>
 		</annotation>
 		<restriction base="dt:String">
-			<maxLength value="5"/>
+			<maxLength value="10"/>
 		</restriction>
 	</simpleType>
 	<simpleType name="OKVED_Type">
@@ -143,7 +143,7 @@
 			<documentation>Общероссийский классификатор видов экономической деятельности (ОКВЭД)</documentation>
 		</annotation>
 		<restriction base="dt:String">
-			<maxLength value="5"/>
+			<maxLength value="10"/>
 		</restriction>
 	</simpleType>
 	<simpleType name="SSM_Type">
@@ -480,6 +480,26 @@
 					<documentation>Создание нового заявления физического лица на основе первоисточника</documentation>
 				</annotation>
 			</enumeration>
+			<enumeration value="SrvPutRemoteLegalAccOperApp">
+                <annotation>
+                    <documentation>Операция создания задачи на открытие счета по запросу СББОЛ</documentation>
+                </annotation>
+            </enumeration>
+			
+			<!--
+				CKPIT INTEGRATION
+			-->
+			<enumeration value="SrvCKPITUpdateDepositNSO">
+				<annotation>
+					<documentation>Запрос от ЦКПИТ на создание или обновление продукта типа "Депозиты и НСО" (ЮЛ12)</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SrvCKPITUpdateLoan">
+				<annotation>
+					<documentation>Запрос от ЦКПИТ на создание или обновление продукта типа "Кредиты малого бизнеса" (АК06)</documentation>
+				</annotation>
+			</enumeration>
+			
 		</restriction>
 	</simpleType>
 	<simpleType name="URL_Type">

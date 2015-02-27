@@ -4,7 +4,7 @@
 	<import namespace="http://sbrf.ru/prpc/bbmo/dataTypes/10" schemaLocation="../commonTypes/dataTypes.xsd"/>
 	<import namespace="http://sbrf.ru/prpc/bbmo/simpleTypes/10" schemaLocation="../commonTypes/simpleTypes.xsd"/>
 	<import namespace="http://sbrf.ru/prpc/bbmo/commonTypes/10" schemaLocation="../commonTypes/commonTypes.xsd"/>
-	<include schemaLocation="CommonStructureTypes.xsd"/>
+	<include schemaLocation="./CommonStructureTypes.xsd"/>
 	<element name="ExchangeControlDocumentInformation">
 		<annotation>
 			<documentation>Информация по документам валютного контроля</documentation>
@@ -305,10 +305,15 @@
 						</restriction>
 					</simpleType>
 				</element>
-				<element name="PaymentAmmount" type="dt:PosFloat" minOccurs="0">
+				<element name="PaymentAmmount" minOccurs="0">
 					<annotation>
 						<documentation>Сумма платежа</documentation>
 					</annotation>
+					<simpleType>
+						<restriction base="dt:String">
+							<maxLength value="255"/>
+						</restriction>
+					</simpleType>
 				</element>
 				<element name="BankCountryCode" type="st:CountryCode_Type" minOccurs="0">
 					<annotation>

@@ -65,10 +65,220 @@
       <tns:SrvUpdateClientReferenceDataRq/>
    </xsl:template>
 
+   <xsl:template match="rsd:naturalPerson">
+      <tns:naturalPerson>
+         <xsl:if test="./rsd:RKOCode">
+            <tns:RKOCode>
+               <xsl:value-of select="./rsd:RKOCode"/>
+            </tns:RKOCode>
+         </xsl:if>
+         <xsl:if test="./rsd:SeqNumber">
+            <tns:SeqNumber>
+               <xsl:value-of select="./rsd:SeqNumber"/>
+            </tns:SeqNumber>
+         </xsl:if>
+         <tns:RelationToClient>
+            <xsl:value-of select="./rsd:RelationToClient"/>
+         </tns:RelationToClient>
+         <tns:LastName>
+            <xsl:value-of select="./rsd:LastName"/>
+         </tns:LastName>
+         <tns:FirstName>
+            <xsl:value-of select="./rsd:FirstName"/>
+         </tns:FirstName>
+         <xsl:if test="./rsd:MiddleName">
+            <tns:MiddleName>
+               <xsl:value-of select="./rsd:MiddleName"/>
+            </tns:MiddleName>
+         </xsl:if>
+         <xsl:if test="./rsd:LastNameInGenitiveCase">
+            <tns:LastNameInGenitiveCase>
+               <xsl:value-of select="./rsd:LastNameInGenitiveCase"/>
+            </tns:LastNameInGenitiveCase>
+         </xsl:if>
+         <xsl:if test="./rsd:FirstNameInGenitiveCase">
+            <tns:FirstNameInGenitiveCase>
+               <xsl:value-of select="./rsd:FirstNameInGenitiveCase"/>
+            </tns:FirstNameInGenitiveCase>
+         </xsl:if>
+         <xsl:if test="./rsd:MiddleNameInGenitiveCase">
+            <tns:MiddleNameInGenitiveCase>
+               <xsl:value-of select="./rsd:MiddleNameInGenitiveCase"/>
+            </tns:MiddleNameInGenitiveCase>
+         </xsl:if>
+         <xsl:if test="./rsd:LastNameInEnglish">
+            <tns:LastNameInEnglish>
+               <xsl:value-of select="./rsd:LastNameInEnglish"/>
+            </tns:LastNameInEnglish>
+         </xsl:if>
+         <xsl:if test="./rsd:FirstNameInEnglish">
+            <tns:FirstNameInEnglish>
+               <xsl:value-of select="./rsd:FirstNameInEnglish"/>
+            </tns:FirstNameInEnglish>
+         </xsl:if>
+         <xsl:if test="./rsd:MiddleNameInEnglish">
+            <tns:MiddleNameInEnglish>
+               <xsl:value-of select="./rsd:MiddleNameInEnglish"/>
+            </tns:MiddleNameInEnglish>
+         </xsl:if>
+         <xsl:if test="./rsd:Sex">
+            <tns:Sex>
+               <xsl:value-of select="./rsd:Sex"/>
+            </tns:Sex>
+         </xsl:if>
+         <xsl:if test="./rsd:BirthDate">
+            <tns:BirthDate>
+               <xsl:value-of select="./rsd:BirthDate"/>
+            </tns:BirthDate>
+         </xsl:if>
+         <xsl:if test="./rsd:BirthPlace">
+            <tns:BirthPlace>
+               <xsl:value-of select="./rsd:BirthPlace"/>
+            </tns:BirthPlace>
+         </xsl:if>
+         <xsl:if test="./rsd:Nationality">
+            <tns:Nationality>
+               <xsl:value-of select="./rsd:Nationality"/>
+            </tns:Nationality>
+         </xsl:if>
+         <xsl:if test="./rsd:Resident">
+            <tns:Resident>
+               <xsl:value-of select="./rsd:Resident"/>
+            </tns:Resident>
+         </xsl:if>
+         <xsl:if test="./rsd:TaxResidentChangeDate">
+            <tns:TaxResidentChangeDate>
+               <xsl:value-of select="./rsd:TaxResidentChangeDate"/>
+            </tns:TaxResidentChangeDate>
+         </xsl:if>
+         <xsl:if test="./rsd:TaxId">
+            <tns:TaxId>
+               <xsl:value-of select="./rsd:TaxId"/>
+            </tns:TaxId>
+         </xsl:if>
+         <xsl:if test="./rsd:SocialStatusType">
+            <tns:SocialStatusType>
+               <xsl:value-of select="./rsd:SocialStatusType"/>
+            </tns:SocialStatusType>
+         </xsl:if>
+         <xsl:apply-templates select="./rsd:IdentityDocument"/>
+         <xsl:apply-templates select="./rsd:ClientAddress"/>
+         <xsl:apply-templates select="./rsd:ClientContact"/>
+         <xsl:if test="./rsd:AuthorityBase">
+            <tns:AuthorityBase>
+               <xsl:if test="./rsd:AuthorityBase/rsd:DocumentActAuthority">
+                  <tns:DocumentActAuthority>
+                     <xsl:value-of select="./rsd:AuthorityBase/rsd:DocumentActAuthority"/>
+                  </tns:DocumentActAuthority>
+               </xsl:if>
+               <xsl:if test="./rsd:AuthorityBase/rsd:DocumentSeriesNumber">
+                  <tns:DocumentSeriesNumber>
+                     <xsl:value-of select="./rsd:AuthorityBase/rsd:DocumentSeriesNumber"/>
+                  </tns:DocumentSeriesNumber>
+               </xsl:if>
+               <xsl:if test="./rsd:AuthorityBase/rsd:DocumentDate">
+                  <tns:DocumentDate>
+                     <xsl:value-of select="./rsd:AuthorityBase/rsd:DocumentDate"/>
+                  </tns:DocumentDate>
+               </xsl:if>
+            </tns:AuthorityBase>
+         </xsl:if>
+         <xsl:if test="./rsd:DocumentActAuthority">
+            <tns:DocumentActAuthority>
+               <xsl:value-of select="./rsd:DocumentActAuthority"/>
+            </tns:DocumentActAuthority>
+         </xsl:if>
+         <xsl:if test="./rsd:DocumentSeriesNumber">
+            <tns:DocumentSeriesNumber>
+               <xsl:value-of select="./rsd:DocumentSeriesNumber"/>
+            </tns:DocumentSeriesNumber>
+         </xsl:if>
+         <xsl:if test="./rsd:DocumentDate">
+            <tns:DocumentDate>
+               <xsl:value-of select="./rsd:DocumentDate"/>
+            </tns:DocumentDate>
+         </xsl:if>
+         <xsl:if test="./rsd:OfficailInfo">
+            <tns:OfficailInfo>
+               <xsl:if test="./rsd:OfficailInfo/rsd:BasedOnDocument">
+                  <tns:BasedOnDocument>
+                     <xsl:value-of select="./rsd:OfficailInfo/rsd:BasedOnDocument"/>
+                  </tns:BasedOnDocument>
+               </xsl:if>
+               <xsl:if test="./rsd:OfficailInfo/rsd:BasedOnDocumentSeries">
+                  <tns:BasedOnDocumentSeries>
+                     <xsl:value-of select="./rsd:OfficailInfo/rsd:BasedOnDocumentSeries"/>
+                  </tns:BasedOnDocumentSeries>
+               </xsl:if>
+               <xsl:if test="./rsd:OfficailInfo/rsd:BasedOnDocumentNumber">
+                  <tns:BasedOnDocumentNumber>
+                     <xsl:value-of select="./rsd:OfficailInfo/rsd:BasedOnDocumentNumber"/>
+                  </tns:BasedOnDocumentNumber>
+               </xsl:if>
+               <xsl:if test="./rsd:OfficailInfo/rsd:TrusteeSign">
+                  <tns:TrusteeSign>
+                     <xsl:value-of select="./rsd:OfficailInfo/rsd:TrusteeSign"/>
+                  </tns:TrusteeSign>
+               </xsl:if>
+               <xsl:if test="./rsd:OfficailInfo/rsd:OperationType">
+                  <tns:OperationType>
+                     <xsl:value-of select="./rsd:OfficailInfo/rsd:OperationType"/>
+                  </tns:OperationType>
+               </xsl:if>
+               <xsl:if test="./rsd:OfficailInfo/rsd:AccountNumber">
+                  <tns:AccountNumber>
+                     <xsl:value-of select="./rsd:OfficailInfo/rsd:AccountNumber"/>
+                  </tns:AccountNumber>
+               </xsl:if>
+               <xsl:if test="./rsd:OfficailInfo/rsd:Comment">
+                  <tns:Comment>
+                     <xsl:value-of select="./rsd:OfficailInfo/rsd:Comment"/>
+                  </tns:Comment>
+               </xsl:if>
+            </tns:OfficailInfo>
+         </xsl:if>
+         <xsl:if test="./rsd:BasedOnDocument">
+            <tns:BasedOnDocument>
+               <xsl:value-of select="./rsd:BasedOnDocument"/>
+            </tns:BasedOnDocument>
+         </xsl:if>
+         <xsl:if test="./rsd:BasedOnDocumentSeries">
+            <tns:BasedOnDocumentSeries>
+               <xsl:value-of select="./rsd:BasedOnDocumentSeries"/>
+            </tns:BasedOnDocumentSeries>
+         </xsl:if>
+         <xsl:if test="./rsd:BasedOnDocumentNumber">
+            <tns:BasedOnDocumentNumber>
+               <xsl:value-of select="./rsd:BasedOnDocumentNumber"/>
+            </tns:BasedOnDocumentNumber>
+         </xsl:if>
+         <xsl:if test="./rsd:TrusteeSign">
+            <tns:TrusteeSign>
+               <xsl:value-of select="./rsd:TrusteeSign"/>
+            </tns:TrusteeSign>
+         </xsl:if>
+         <xsl:if test="./rsd:OperationType">
+            <tns:OperationType>
+               <xsl:value-of select="./rsd:OperationType"/>
+            </tns:OperationType>
+         </xsl:if>
+         <xsl:if test="./rsd:AccountNumber">
+            <tns:AccountNumber>
+               <xsl:value-of select="./rsd:AccountNumber"/>
+            </tns:AccountNumber>
+         </xsl:if>
+         <xsl:if test="./rsd:Comment">
+            <tns:Comment>
+               <xsl:value-of select="./rsd:Comment"/>
+            </tns:Comment>
+         </xsl:if>
+      </tns:naturalPerson>
+   </xsl:template>
+
    <xsl:template match="rsd:ClientReferenceData">
       <tns:ClientReferenceData>
          <xsl:apply-templates select="./rsd:ClientInformation"/>
-         <xsl:apply-templates select="./rsd:NaturalPerson"/>
+         <xsl:apply-templates select="./rsd:naturalPerson"/>
          <xsl:apply-templates select="./rsd:LegalPersonBankAccountAgreement"/>
          <xsl:apply-templates select="./rsd:SignPatternCard"/>
       </tns:ClientReferenceData>
@@ -79,6 +289,7 @@
          <xsl:apply-templates select="./rsd:Identifiers"/>
          <xsl:apply-templates select="./rsd:SpecialData"/>
          <xsl:apply-templates select="./rsd:MainDetails"/>
+         <xsl:apply-templates select="./rsd:FounderLegalPerson"/>
          <xsl:apply-templates select="./rsd:BankSubdivision"/>
          <xsl:apply-templates select="./rsd:ClientAddress"/>
          <xsl:apply-templates select="./rsd:ClientContact"/>
@@ -131,6 +342,77 @@
             </tns:OKVED>
          </xsl:if>
       </tns:RosstatCodes>
+   </xsl:template>
+
+   <xsl:template match="rsd:FounderLegalPerson">
+      <tns:FounderLegalPerson>
+         <xsl:if test="./rsd:ClientName">
+            <tns:ClientName>
+               <xsl:value-of select="./rsd:ClientName"/>
+            </tns:ClientName>
+         </xsl:if>
+         <xsl:if test="./rsd:KPP">
+            <tns:KPP>
+               <xsl:value-of select="./rsd:KPP"/>
+            </tns:KPP>
+         </xsl:if>
+         <xsl:if test="./rsd:TaxID">
+            <tns:TaxID>
+               <xsl:value-of select="./rsd:TaxID"/>
+            </tns:TaxID>
+         </xsl:if>
+         <xsl:if test="./rsd:TaxRegistrationDate">
+            <tns:TaxRegistrationDate>
+               <xsl:value-of select="./rsd:TaxRegistrationDate"/>
+            </tns:TaxRegistrationDate>
+         </xsl:if>
+         <xsl:if test="./rsd:TaxCertificateSeries">
+            <tns:TaxCertificateSeries>
+               <xsl:value-of select="./rsd:TaxCertificateSeries"/>
+            </tns:TaxCertificateSeries>
+         </xsl:if>
+         <xsl:if test="./rsd:TaxCertificateNumber">
+            <tns:TaxCertificateNumber>
+               <xsl:value-of select="./rsd:TaxCertificateNumber"/>
+            </tns:TaxCertificateNumber>
+         </xsl:if>
+         <xsl:if test="./rsd:TaxAuthority">
+            <tns:TaxAuthority>
+               <xsl:value-of select="./rsd:TaxAuthority"/>
+            </tns:TaxAuthority>
+         </xsl:if>
+         <xsl:if test="./rsd:OGRN">
+            <tns:OGRN>
+               <xsl:value-of select="./rsd:OGRN"/>
+            </tns:OGRN>
+         </xsl:if>
+         <xsl:if test="./rsd:OGRNRegistrationDate">
+            <tns:OGRNRegistrationDate>
+               <xsl:value-of select="./rsd:OGRNRegistrationDate"/>
+            </tns:OGRNRegistrationDate>
+         </xsl:if>
+         <xsl:if test="./rsd:OGRNSeries">
+            <tns:OGRNSeries>
+               <xsl:value-of select="./rsd:OGRNSeries"/>
+            </tns:OGRNSeries>
+         </xsl:if>
+         <xsl:if test="./rsd:OGRNNumber">
+            <tns:OGRNNumber>
+               <xsl:value-of select="./rsd:OGRNNumber"/>
+            </tns:OGRNNumber>
+         </xsl:if>
+         <xsl:if test="./rsd:OGRNAuthority">
+            <tns:OGRNAuthority>
+               <xsl:value-of select="./rsd:OGRNAuthority"/>
+            </tns:OGRNAuthority>
+         </xsl:if>
+         <xsl:apply-templates select="./rsd:ClientAddress"/>
+         <xsl:if test="./rsd:LegalCapitalPercent">
+            <tns:LegalCapitalPercent>
+               <xsl:value-of select="./rsd:LegalCapitalPercent"/>
+            </tns:LegalCapitalPercent>
+         </xsl:if>
+      </tns:FounderLegalPerson>
    </xsl:template>
 
    <xsl:template match="rsd:TaxInspectorateInfo">
@@ -216,6 +498,48 @@
                <xsl:value-of select="./rsd:RegistrationAuthority"/>
             </tns:RegistrationAuthority>
          </xsl:if>
+         <tns:OldShortName>
+            <xsl:value-of select="./rsd:OldShortName"/>
+         </tns:OldShortName>
+         <tns:OldName>
+            <xsl:value-of select="./rsd:OldName"/>
+         </tns:OldName>
+         <tns:OldShortNameInEnglish>
+            <xsl:value-of select="./rsd:OldShortNameInEnglish"/>
+         </tns:OldShortNameInEnglish>
+         <tns:OldNameInEnglish>
+            <xsl:value-of select="./rsd:OldNameInEnglish"/>
+         </tns:OldNameInEnglish>
+         <tns:TermFrom>
+            <xsl:value-of select="./rsd:TermFrom"/>
+         </tns:TermFrom>
+         <tns:TermTill>
+            <xsl:value-of select="./rsd:TermTill"/>
+         </tns:TermTill>
+         <tns:DeclaredFound>
+            <xsl:value-of select="./rsd:DeclaredFound"/>
+         </tns:DeclaredFound>
+         <tns:PayedFound>
+            <xsl:value-of select="./rsd:PayedFound"/>
+         </tns:PayedFound>
+         <tns:Control>
+            <xsl:value-of select="./rsd:Control"/>
+         </tns:Control>
+         <tns:Amount>
+            <xsl:value-of select="./rsd:Amount"/>
+         </tns:Amount>
+         <tns:YearROI>
+            <xsl:value-of select="./rsd:YearROI"/>
+         </tns:YearROI>
+         <tns:From>
+            <xsl:value-of select="./rsd:From"/>
+         </tns:From>
+         <tns:Till>
+            <xsl:value-of select="./rsd:Till"/>
+         </tns:Till>
+         <tns:License>
+            <xsl:value-of select="./rsd:License"/>
+         </tns:License>
       </tns:Registration>
    </xsl:template>
 
@@ -405,140 +729,6 @@
       </tns:ClientContact>
    </xsl:template>
 
-   <xsl:template match="rsd:NaturalPerson">
-      <tns:NaturalPerson>
-         <tns:RKOCode>
-            <xsl:value-of select="./rsd:RKOCode"/>
-         </tns:RKOCode>
-         <tns:RelationToClient>
-            <xsl:value-of select="./rsd:RelationToClient"/>
-         </tns:RelationToClient>
-         <tns:LastName>
-            <xsl:value-of select="./rsd:LastName"/>
-         </tns:LastName>
-         <tns:FirstName>
-            <xsl:value-of select="./rsd:FirstName"/>
-         </tns:FirstName>
-         <xsl:if test="./rsd:MiddleName">
-            <tns:MiddleName>
-               <xsl:value-of select="./rsd:MiddleName"/>
-            </tns:MiddleName>
-         </xsl:if>
-         <tns:LastNameInGenitiveCase>
-            <xsl:value-of select="./rsd:LastNameInGenitiveCase"/>
-         </tns:LastNameInGenitiveCase>
-         <tns:FirstNameInGenitiveCase>
-            <xsl:value-of select="./rsd:FirstNameInGenitiveCase"/>
-         </tns:FirstNameInGenitiveCase>
-         <xsl:if test="./rsd:MiddleNameInGenitiveCase">
-            <tns:MiddleNameInGenitiveCase>
-               <xsl:value-of select="./rsd:MiddleNameInGenitiveCase"/>
-            </tns:MiddleNameInGenitiveCase>
-         </xsl:if>
-         <tns:LastNameInEnglish>
-            <xsl:value-of select="./rsd:LastNameInEnglish"/>
-         </tns:LastNameInEnglish>
-         <tns:FirstNameInEnglish>
-            <xsl:value-of select="./rsd:FirstNameInEnglish"/>
-         </tns:FirstNameInEnglish>
-         <xsl:if test="./rsd:MiddleNameInEnglish">
-            <tns:MiddleNameInEnglish>
-               <xsl:value-of select="./rsd:MiddleNameInEnglish"/>
-            </tns:MiddleNameInEnglish>
-         </xsl:if>
-         <xsl:if test="./rsd:Sex">
-            <tns:Sex>
-               <xsl:value-of select="./rsd:Sex"/>
-            </tns:Sex>
-         </xsl:if>
-         <xsl:if test="./rsd:BirthDate">
-            <tns:BirthDate>
-               <xsl:value-of select="./rsd:BirthDate"/>
-            </tns:BirthDate>
-         </xsl:if>
-         <xsl:if test="./rsd:BirthPlace">
-            <tns:BirthPlace>
-               <xsl:value-of select="./rsd:BirthPlace"/>
-            </tns:BirthPlace>
-         </xsl:if>
-         <xsl:if test="./rsd:Nationality">
-            <tns:Nationality>
-               <xsl:value-of select="./rsd:Nationality"/>
-            </tns:Nationality>
-         </xsl:if>
-         <tns:Resident>
-            <xsl:value-of select="./rsd:Resident"/>
-         </tns:Resident>
-         <xsl:if test="./rsd:TaxResidentChangeDate">
-            <tns:TaxResidentChangeDate>
-               <xsl:value-of select="./rsd:TaxResidentChangeDate"/>
-            </tns:TaxResidentChangeDate>
-         </xsl:if>
-         <xsl:if test="./rsd:TaxId">
-            <tns:TaxId>
-               <xsl:value-of select="./rsd:TaxId"/>
-            </tns:TaxId>
-         </xsl:if>
-         <tns:IdentityDocument>
-            <tns:DocumentType>
-               <xsl:value-of select="./rsd:IdentityDocument/rsd:DocumentType"/>
-            </tns:DocumentType>
-            <tns:DocumentStatus>
-               <xsl:value-of select="./rsd:IdentityDocument/rsd:DocumentStatus"/>
-            </tns:DocumentStatus>
-            <xsl:if test="./rsd:IdentityDocument/rsd:DocumentSeries">
-               <tns:DocumentSeries>
-                  <xsl:value-of select="./rsd:IdentityDocument/rsd:DocumentSeries"/>
-               </tns:DocumentSeries>
-            </xsl:if>
-            <tns:DocumentNumber>
-               <xsl:value-of select="./rsd:IdentityDocument/rsd:DocumentNumber"/>
-            </tns:DocumentNumber>
-            <xsl:if test="./rsd:IdentityDocument/rsd:IssueDate">
-               <tns:IssueDate>
-                  <xsl:value-of select="./rsd:IdentityDocument/rsd:IssueDate"/>
-               </tns:IssueDate>
-            </xsl:if>
-            <xsl:if test="./rsd:IdentityDocument/rsd:IssueAuthority">
-               <tns:IssueAuthority>
-                  <xsl:value-of select="./rsd:IdentityDocument/rsd:IssueAuthority"/>
-               </tns:IssueAuthority>
-            </xsl:if>
-            <xsl:if test="./rsd:IdentityDocument/rsd:IssueAuthorityCode">
-               <tns:IssueAuthorityCode>
-                  <xsl:value-of select="./rsd:IdentityDocument/rsd:IssueAuthorityCode"/>
-               </tns:IssueAuthorityCode>
-            </xsl:if>
-            <xsl:if test="./rsd:IdentityDocument/rsd:ExpirationDate">
-               <tns:ExpirationDate>
-                  <xsl:value-of select="./rsd:IdentityDocument/rsd:ExpirationDate"/>
-               </tns:ExpirationDate>
-            </xsl:if>
-         </tns:IdentityDocument>
-         <xsl:apply-templates select="./rsd:ClientAddress"/>
-         <xsl:apply-templates select="./rsd:ClientContact"/>
-         <xsl:if test="./rsd:AuthorityBase">
-            <tns:AuthorityBase>
-               <xsl:if test="./rsd:AuthorityBase/rsd:DocumentActAuthority">
-                  <tns:DocumentActAuthority>
-                     <xsl:value-of select="./rsd:AuthorityBase/rsd:DocumentActAuthority"/>
-                  </tns:DocumentActAuthority>
-               </xsl:if>
-               <xsl:if test="./rsd:AuthorityBase/rsd:DocumentSeriesNumber">
-                  <tns:DocumentSeriesNumber>
-                     <xsl:value-of select="./rsd:AuthorityBase/rsd:DocumentSeriesNumber"/>
-                  </tns:DocumentSeriesNumber>
-               </xsl:if>
-               <xsl:if test="./rsd:AuthorityBase/rsd:DocumentDate">
-                  <tns:DocumentDate>
-                     <xsl:value-of select="./rsd:AuthorityBase/rsd:DocumentDate"/>
-                  </tns:DocumentDate>
-               </xsl:if>
-            </tns:AuthorityBase>
-         </xsl:if>
-      </tns:NaturalPerson>
-   </xsl:template>
-
    <xsl:template match="rsd:LegalPersonBankAccountAgreement">
       <tns:LegalPersonBankAccountAgreement>
          <xsl:apply-templates select="./rsd:BankSubdivision"/>
@@ -578,25 +768,10 @@
          <tns:AccountBalance>
             <xsl:value-of select="./rsd:AccountBalance"/>
          </tns:AccountBalance>
-         <xsl:if test="./rsd:FilePresence1">
-            <tns:FilePresence1>
-               <xsl:value-of select="./rsd:FilePresence1"/>
-            </tns:FilePresence1>
-         </xsl:if>
-         <xsl:if test="./rsd:FilePresence2">
-            <tns:FilePresence2>
-               <xsl:value-of select="./rsd:FilePresence2"/>
-            </tns:FilePresence2>
-         </xsl:if>
          <xsl:if test="./rsd:ArrestByAccountPresence">
             <tns:ArrestByAccountPresence>
                <xsl:value-of select="./rsd:ArrestByAccountPresence"/>
             </tns:ArrestByAccountPresence>
-         </xsl:if>
-         <xsl:if test="./rsd:ArrestedSum">
-            <tns:ArrestedSum>
-               <xsl:value-of select="./rsd:ArrestedSum"/>
-            </tns:ArrestedSum>
          </xsl:if>
          <xsl:apply-templates select="./rsd:RKOAgreementDetails"/>
       </tns:LegalPersonBankAccountAgreement>
@@ -604,10 +779,40 @@
 
    <xsl:template match="rsd:RKOAgreementDetails">
       <tns:RKOAgreementDetails>
+         <xsl:apply-templates select="./rsd:TariffPlan"/>
+         <tns:DetermineTariffs>
+            <xsl:value-of select="./rsd:DetermineTariffs"/>
+         </tns:DetermineTariffs>
+         <xsl:if test="./rsd:TariffGroup">
+            <tns:TariffGroup>
+               <xsl:value-of select="./rsd:TariffGroup"/>
+            </tns:TariffGroup>
+         </xsl:if>
+         <xsl:apply-templates select="./rsd:ClientAccount"/>
          <xsl:if test="./rsd:PercentCalculationAlgorithm">
             <tns:PercentCalculationAlgorithm>
                <xsl:value-of select="./rsd:PercentCalculationAlgorithm"/>
             </tns:PercentCalculationAlgorithm>
+         </xsl:if>
+         <xsl:if test="./rsd:DeterminePercent">
+            <tns:DeterminePercent>
+               <xsl:value-of select="./rsd:DeterminePercent"/>
+            </tns:DeterminePercent>
+         </xsl:if>
+         <xsl:if test="./rsd:PercentRateGroup">
+            <tns:PercentRateGroup>
+               <xsl:value-of select="./rsd:PercentRateGroup"/>
+            </tns:PercentRateGroup>
+         </xsl:if>
+         <xsl:if test="./rsd:DateBeginPercentRate">
+            <tns:DateBeginPercentRate>
+               <xsl:value-of select="./rsd:DateBeginPercentRate"/>
+            </tns:DateBeginPercentRate>
+         </xsl:if>
+         <xsl:if test="./rsd:DateEndPercentRate">
+            <tns:DateEndPercentRate>
+               <xsl:value-of select="./rsd:DateEndPercentRate"/>
+            </tns:DateEndPercentRate>
          </xsl:if>
          <xsl:if test="./rsd:PartialRatedPeriodCalculation">
             <tns:PartialRatedPeriodCalculation>
@@ -622,11 +827,6 @@
                <xsl:value-of select="./rsd:OpeningReason"/>
             </tns:OpeningReason>
          </xsl:if>
-         <xsl:if test="./rsd:AccountUserType">
-            <tns:AccountUserType>
-               <xsl:value-of select="./rsd:AccountUserType"/>
-            </tns:AccountUserType>
-         </xsl:if>
          <xsl:if test="./rsd:AgreementUserType">
             <tns:AgreementUserType>
                <xsl:value-of select="./rsd:AgreementUserType"/>
@@ -637,22 +837,32 @@
 
    <xsl:template match="rsd:SignPatternCard">
       <tns:SignPatternCard>
-         <tns:ClientId>
-            <xsl:value-of select="./rsd:ClientId"/>
-         </tns:ClientId>
+         <xsl:if test="./rsd:ClientId">
+            <tns:ClientId>
+               <xsl:value-of select="./rsd:ClientId"/>
+            </tns:ClientId>
+         </xsl:if>
          <xsl:apply-templates select="./rsd:BankSubdivision"/>
-         <tns:AgreementNumber>
-            <xsl:value-of select="./rsd:AgreementNumber"/>
-         </tns:AgreementNumber>
-         <tns:AccountNumber>
-            <xsl:value-of select="./rsd:AccountNumber"/>
-         </tns:AccountNumber>
-         <tns:CardType>
-            <xsl:value-of select="./rsd:CardType"/>
-         </tns:CardType>
-         <tns:RegistrationDate>
-            <xsl:value-of select="./rsd:RegistrationDate"/>
-         </tns:RegistrationDate>
+         <xsl:if test="./rsd:AgreementNumber">
+            <tns:AgreementNumber>
+               <xsl:value-of select="./rsd:AgreementNumber"/>
+            </tns:AgreementNumber>
+         </xsl:if>
+         <xsl:if test="./rsd:AccountNumber">
+            <tns:AccountNumber>
+               <xsl:value-of select="./rsd:AccountNumber"/>
+            </tns:AccountNumber>
+         </xsl:if>
+         <xsl:if test="./rsd:CardType">
+            <tns:CardType>
+               <xsl:value-of select="./rsd:CardType"/>
+            </tns:CardType>
+         </xsl:if>
+         <xsl:if test="./rsd:RegistrationDate">
+            <tns:RegistrationDate>
+               <xsl:value-of select="./rsd:RegistrationDate"/>
+            </tns:RegistrationDate>
+         </xsl:if>
          <xsl:if test="./rsd:ActivationDate">
             <tns:ActivationDate>
                <xsl:value-of select="./rsd:ActivationDate"/>
@@ -663,9 +873,11 @@
                <xsl:value-of select="./rsd:CloseDate"/>
             </tns:CloseDate>
          </xsl:if>
-         <tns:CardRegistartionMethod>
-            <xsl:value-of select="./rsd:CardRegistartionMethod"/>
-         </tns:CardRegistartionMethod>
+         <xsl:if test="./rsd:CardRegistartionMethod">
+            <tns:CardRegistartionMethod>
+               <xsl:value-of select="./rsd:CardRegistartionMethod"/>
+            </tns:CardRegistartionMethod>
+         </xsl:if>
          <xsl:apply-templates select="./rsd:Sign"/>
       </tns:SignPatternCard>
    </xsl:template>
@@ -675,18 +887,175 @@
          <tns:RKONaturalPersonCode>
             <xsl:value-of select="./rsd:RKONaturalPersonCode"/>
          </tns:RKONaturalPersonCode>
+         <xsl:if test="./rsd:SeqNumber">
+            <tns:SeqNumber>
+               <xsl:value-of select="./rsd:SeqNumber"/>
+            </tns:SeqNumber>
+         </xsl:if>
          <tns:SignType>
             <xsl:value-of select="./rsd:SignType"/>
          </tns:SignType>
          <tns:Position>
             <xsl:value-of select="./rsd:Position"/>
          </tns:Position>
+         <xsl:if test="./rsd:AuthorityStartDate">
+            <tns:AuthorityStartDate>
+               <xsl:value-of select="./rsd:AuthorityStartDate"/>
+            </tns:AuthorityStartDate>
+         </xsl:if>
          <xsl:if test="./rsd:AuthorityEndDate">
             <tns:AuthorityEndDate>
                <xsl:value-of select="./rsd:AuthorityEndDate"/>
             </tns:AuthorityEndDate>
          </xsl:if>
       </tns:Sign>
+   </xsl:template>
+
+   <xsl:template match="rsd:ClientAccount">
+      <tns:ClientAccount>
+         <xsl:if test="./rsd:AccountNumber">
+            <tns:AccountNumber>
+               <xsl:value-of select="./rsd:AccountNumber"/>
+            </tns:AccountNumber>
+         </xsl:if>
+         <xsl:if test="./rsd:ExternalAttribute">
+            <tns:ExternalAttribute>
+               <xsl:value-of select="./rsd:ExternalAttribute"/>
+            </tns:ExternalAttribute>
+         </xsl:if>
+         <xsl:if test="./rsd:RecipientName">
+            <tns:RecipientName>
+               <xsl:value-of select="./rsd:RecipientName"/>
+            </tns:RecipientName>
+         </xsl:if>
+         <xsl:if test="./rsd:TaxID">
+            <tns:TaxID>
+               <xsl:value-of select="./rsd:TaxID"/>
+            </tns:TaxID>
+         </xsl:if>
+         <xsl:if test="./rsd:TaxRegReasonCode">
+            <tns:TaxRegReasonCode>
+               <xsl:value-of select="./rsd:TaxRegReasonCode"/>
+            </tns:TaxRegReasonCode>
+         </xsl:if>
+         <xsl:if test="./rsd:BIK">
+            <tns:BIK>
+               <xsl:value-of select="./rsd:BIK"/>
+            </tns:BIK>
+         </xsl:if>
+         <xsl:if test="./rsd:SWIFTCode">
+            <tns:SWIFTCode>
+               <xsl:value-of select="./rsd:SWIFTCode"/>
+            </tns:SWIFTCode>
+         </xsl:if>
+         <xsl:if test="./rsd:ClearingCode">
+            <tns:ClearingCode>
+               <xsl:value-of select="./rsd:ClearingCode"/>
+            </tns:ClearingCode>
+         </xsl:if>
+         <xsl:if test="./rsd:BankBeneficiarySWIFTCode">
+            <tns:BankBeneficiarySWIFTCode>
+               <xsl:value-of select="./rsd:BankBeneficiarySWIFTCode"/>
+            </tns:BankBeneficiarySWIFTCode>
+         </xsl:if>
+         <xsl:if test="./rsd:DCode">
+            <tns:DCode>
+               <xsl:value-of select="./rsd:DCode"/>
+            </tns:DCode>
+         </xsl:if>
+         <xsl:if test="./rsd:BeneficiaryIBANCode">
+            <tns:BeneficiaryIBANCode>
+               <xsl:value-of select="./rsd:BeneficiaryIBANCode"/>
+            </tns:BeneficiaryIBANCode>
+         </xsl:if>
+         <xsl:if test="./rsd:ClientBeneficiarySWIFTCode">
+            <tns:ClientBeneficiarySWIFTCode>
+               <xsl:value-of select="./rsd:ClientBeneficiarySWIFTCode"/>
+            </tns:ClientBeneficiarySWIFTCode>
+         </xsl:if>
+         <xsl:if test="./rsd:ClientBeneficiaryName">
+            <tns:ClientBeneficiaryName>
+               <xsl:value-of select="./rsd:ClientBeneficiaryName"/>
+            </tns:ClientBeneficiaryName>
+         </xsl:if>
+         <xsl:if test="./rsd:ClientBeneficiaryTaxID">
+            <tns:ClientBeneficiaryTaxID>
+               <xsl:value-of select="./rsd:ClientBeneficiaryTaxID"/>
+            </tns:ClientBeneficiaryTaxID>
+         </xsl:if>
+         <xsl:if test="./rsd:ClientBeneficaryAddress">
+            <tns:ClientBeneficaryAddress>
+               <xsl:value-of select="./rsd:ClientBeneficaryAddress"/>
+            </tns:ClientBeneficaryAddress>
+         </xsl:if>
+         <xsl:if test="./rsd:ClientBeneficiaryCountry">
+            <tns:ClientBeneficiaryCountry>
+               <xsl:value-of select="./rsd:ClientBeneficiaryCountry"/>
+            </tns:ClientBeneficiaryCountry>
+         </xsl:if>
+         <xsl:if test="./rsd:AccountPurpose">
+            <tns:AccountPurpose>
+               <xsl:value-of select="./rsd:AccountPurpose"/>
+            </tns:AccountPurpose>
+         </xsl:if>
+      </tns:ClientAccount>
+   </xsl:template>
+
+   <xsl:template match="rsd:IdentityDocument">
+      <tns:IdentityDocument>
+         <tns:DocumentType>
+            <xsl:value-of select="./rsd:DocumentType"/>
+         </tns:DocumentType>
+         <tns:DocumentStatus>
+            <xsl:value-of select="./rsd:DocumentStatus"/>
+         </tns:DocumentStatus>
+         <xsl:if test="./rsd:DocumentSeries">
+            <tns:DocumentSeries>
+               <xsl:value-of select="./rsd:DocumentSeries"/>
+            </tns:DocumentSeries>
+         </xsl:if>
+         <tns:DocumentNumber>
+            <xsl:value-of select="./rsd:DocumentNumber"/>
+         </tns:DocumentNumber>
+         <xsl:if test="./rsd:IssueDate">
+            <tns:IssueDate>
+               <xsl:value-of select="./rsd:IssueDate"/>
+            </tns:IssueDate>
+         </xsl:if>
+         <xsl:if test="./rsd:IssueAuthority">
+            <tns:IssueAuthority>
+               <xsl:value-of select="./rsd:IssueAuthority"/>
+            </tns:IssueAuthority>
+         </xsl:if>
+         <xsl:if test="./rsd:IssueAuthorityCode">
+            <tns:IssueAuthorityCode>
+               <xsl:value-of select="./rsd:IssueAuthorityCode"/>
+            </tns:IssueAuthorityCode>
+         </xsl:if>
+         <xsl:if test="./rsd:ExpirationDate">
+            <tns:ExpirationDate>
+               <xsl:value-of select="./rsd:ExpirationDate"/>
+            </tns:ExpirationDate>
+         </xsl:if>
+      </tns:IdentityDocument>
+   </xsl:template>
+
+   <xsl:template match="rsd:TariffPlan">
+      <tns:TariffPlan>
+         <tns:TariffPlanCode>
+            <xsl:value-of select="./rsd:TariffPlanCode"/>
+         </tns:TariffPlanCode>
+         <xsl:if test="./rsd:TariffPlanStartDate">
+            <tns:TariffPlanStartDate>
+               <xsl:value-of select="./rsd:TariffPlanStartDate"/>
+            </tns:TariffPlanStartDate>
+         </xsl:if>
+         <xsl:if test="./rsd:TariffPlanEndDate">
+            <tns:TariffPlanEndDate>
+               <xsl:value-of select="./rsd:TariffPlanEndDate"/>
+            </tns:TariffPlanEndDate>
+         </xsl:if>
+      </tns:TariffPlan>
    </xsl:template>
 
    <xsl:template match="rsd:BankSubdivision">

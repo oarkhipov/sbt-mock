@@ -45,6 +45,12 @@
                         <dependency>
                             <xsdFile>domainTypes/CommonStructureTypes.xsd</xsdFile>
                         </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/DocumentsInfo.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/CKPITProductTypes.xsd</xsdFile>
+                        </dependency>
                     </dependencies>
                 </integrationPoint>
             </integrationPoints>
