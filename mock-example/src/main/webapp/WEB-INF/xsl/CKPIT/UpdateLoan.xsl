@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:rsd="http://sbrf.ru/mockService/CKPITProductsLoansReq/Data/"
+<xsl:stylesheet xmlns:tns="http://sbrf.ru/prpc/bbmo/10"
+                xmlns:rsd="http://sbrf.ru/prpc/bbmo/10/Data/"
+                xmlns:CKPIT="http://sbrf.ru/prpc/bbmo/10"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
    <xsl:import href="../util/headerTemplate.xsl"/>
@@ -33,7 +35,7 @@
             </xsl:with-param>
             <xsl:with-param name="request-time" select="$request-time"/>
             <xsl:with-param name="message-id" select="$message-id"/>
-            <xsl:with-param name="operation-name" select="string('CKPITProductsLoansReq')"/>
+            <xsl:with-param name="operation-name" select="string('SrvCKPITUpdateLoanRq')"/>
             <xsl:with-param name="correlation-id" select="$correlation-id"/>
             <xsl:with-param name="eis-name" select="$eis-name"/>
             <xsl:with-param name="system-id" select="$system-id"/>
@@ -44,7 +46,7 @@
             <xsl:with-param name="proc-inst-tb" select="$proc-inst-tb"/>
          </xsl:call-template>
          <soap:Body>
-            <xsl:call-template name="CKPITProductsLoansReq">
+            <xsl:call-template name="SrvCKPITUpdateLoanRq">
                <xsl:with-param name="data" select="$data"/>
                <xsl:with-param name="request">
                   <xsl:choose>
@@ -59,46 +61,34 @@
       </xsl:element>
    </xsl:template>
 
-   <xsl:template match="rsd:Loan">
-      <Loan>
-         <Label>
-            <xsl:value-of select="./rsd:Label"/>
-         </Label>
-         <Title>
-            <xsl:value-of select="./rsd:Title"/>
-         </Title>
-         <CodeEKS>
-            <xsl:value-of select="./rsd:CodeEKS"/>
-         </CodeEKS>
-         <xsl:if test="./rsd:ValidityStartDate">
-            <ValidityStartDate>
-               <xsl:value-of select="./rsd:ValidityStartDate"/>
-            </ValidityStartDate>
-         </xsl:if>
-         <xsl:if test="./rsd:ValidityEndDate">
-            <ValidityEndDate>
-               <xsl:value-of select="./rsd:ValidityEndDate"/>
-            </ValidityEndDate>
-         </xsl:if>
-      </Loan>
+   <xsl:template match="rsd:SrvCKPITUpdateLoanRq">
+      <tns:SrvCKPITUpdateLoanRq/>
    </xsl:template>
 
-   <xsl:template name="CKPITProductsLoansReq">
+   <xsl:template match="rsd:Loan">
+      <tns:Loan>
+         <tns:Label>
+            <xsl:value-of select="./rsd:Label"/>
+         </tns:Label>
+         <tns:Title>
+            <xsl:value-of select="./rsd:Title"/>
+         </tns:Title>
+         <tns:CodeEKS>
+            <xsl:value-of select="./rsd:CodeEKS"/>
+         </tns:CodeEKS>
+         <tns:Status>
+            <xsl:value-of select="./rsd:Status"/>
+         </tns:Status>
+      </tns:Loan>
+   </xsl:template>
+
+   <xsl:template name="SrvCKPITUpdateLoanRq">
       <xsl:param name="request"/>
       <xsl:param name="data"/>
-      <xsl:element name="CKPITProductsLoansReq">
-            <RqUID>
-            <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:RqUID"/>
-         </RqUID>  
-            <RqTm>
-            <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:RqTm"/>
-         </RqTm>   
-            <RqAction>
-            <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:RqAction"/>
-         </RqAction>   
-        <IDCKPIT_MB>
+      <xsl:element name="tns:SrvCKPITUpdateLoanRq">
+         <tns:IDCKPIT_MB>
             <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:IDCKPIT_MB"/>
-         </IDCKPIT_MB>
+         </tns:IDCKPIT_MB>
          <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:Loan"/>
       </xsl:element>
    </xsl:template>

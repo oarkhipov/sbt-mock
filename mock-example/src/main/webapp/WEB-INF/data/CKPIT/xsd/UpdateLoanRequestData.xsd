@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns="http://sbrf.ru/mockService/CKPITProductsLoansReq/Data/"
+<xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/Data/"
+            xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
+            xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"
+            xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="http://sbrf.ru/mockService/CKPITProductsLoansReq/Data/"
+            targetNamespace="http://sbrf.ru/prpc/bbmo/10/Data/"
             elementFormDefault="qualified">
-   <xsd:complexType xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
-                    xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
-                    name="Header">
+   <xsd:import namespace="http://sbrf.ru/prpc/bbmo/dataTypes/10"
+               schemaLocation="../../../xsd/CKPIT/./commonTypes/dataTypes.xsd"/>
+   <xsd:import namespace="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
+               schemaLocation="../../../xsd/CKPIT/./commonTypes/simpleTypes.xsd"/>
+   <xsd:import namespace="http://sbrf.ru/prpc/bbmo/commonTypes/10"
+               schemaLocation="../../../xsd/CKPIT/./commonTypes/commonTypes.xsd"/>
+   <xsd:complexType name="Header">
       <xsd:annotation>
          <xsd:documentation>Заголовок сообщения</xsd:documentation>
       </xsd:annotation>
@@ -90,48 +97,69 @@
    <xsd:element name="data" type="dataValue"/>
    <xsd:complexType name="dataValue">
       <xsd:sequence>
-         <xsd:element name="response" type="ProductLoansReqType" maxOccurs="unbounded">
+         <xsd:element name="request" type="SrvCKPITUpdateLoanRq" maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>Ответ на запрос</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <xsd:complexType name="ProductLoansReqType">
+   <xsd:complexType name="SrvCKPITUpdateLoanRq">
       <xsd:complexContent>
-         <xsd:extension base="CKPITBasicReqType">
+         <xsd:extension base="ct:DataProcessingRequest">
             <xsd:sequence>
                <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
-               <xsd:element name="IDCKPIT_MB" type="IDCKPITType"/>
+               <xsd:element name="IDCKPIT_MB" type="IDCKPITType">
+                  <xsd:annotation>
+                     <xsd:documentation>ID кредита в ЦКПИТ</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
                <xsd:element name="Loan"
                             minOccurs="1"
                             maxOccurs="unbounded"
-                            type="LoanReqType"/>
+                            type="LoanReqType">
+                  <xsd:annotation>
+                     <xsd:documentation>Информация о кредите</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
             </xsd:sequence>
          </xsd:extension>
       </xsd:complexContent>
       <xsd:attribute name="name"/>
    </xsd:complexType>
-   <xsd:complexType name="CKPITBasicReqType">
-      <xsd:sequence>
-         <xsd:element name="RqUID" type="xsd:string"/>
-         <xsd:element name="RqTm" type="xsd:string"/>
-         <xsd:element name="RqAction" type="xsd:string"/>
-      </xsd:sequence>
-   </xsd:complexType>
    <xsd:complexType name="LoanReqType">
       <xsd:sequence>
-         <xsd:element name="Label" type="LoanLabelType"/>
+         <xsd:element name="Label" type="LoanLabelType">
+            <xsd:annotation>
+               <xsd:documentation>Уникальный идентификатор кредита в ЕКС</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
          <xsd:element name="Title">
+            <xsd:annotation>
+               <xsd:documentation>Название кредита</xsd:documentation>
+            </xsd:annotation>
             <xsd:simpleType>
-               <xsd:restriction base="xsd:string">
+               <xsd:restriction base="dt:String">
                   <xsd:maxLength value="1000"/>
                </xsd:restriction>
             </xsd:simpleType>
          </xsd:element>
-         <xsd:element name="CodeEKS" type="CodeEKSType"/>
-         <xsd:element name="ValidityStartDate" minOccurs="0" type="xsd:date"/>
-         <xsd:element name="ValidityEndDate" minOccurs="0" type="xsd:date"/>
+         <xsd:element name="CodeEKS" type="CodeEKSType">
+            <xsd:annotation>
+               <xsd:documentation>Код экземпляра ЕКС</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="Status">
+            <xsd:annotation>
+               <xsd:documentation>Статус действия в ЕКС</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="dt:String">
+                  <xsd:enumeration value="Active"/>
+                  <xsd:enumeration value="Removed"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
 </xsd:schema>

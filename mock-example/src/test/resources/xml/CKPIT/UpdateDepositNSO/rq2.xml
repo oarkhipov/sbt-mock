@@ -1,0 +1,28 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Header>
+      <mq:AsyncHeader xmlns:mq="http://sbrf.ru/prpc/mq/headers">
+         <mq:message-id>message-id</mq:message-id>
+         <mq:request-time>2014-12-16T17:55:06.410+04:00</mq:request-time>
+         <mq:operation-name>SrvCKPITUpdateDepositNSORq</mq:operation-name>
+      </mq:AsyncHeader>
+   </soap:Header>
+   <soap:Body>
+      <tns:SrvCKPITUpdateDepositNSORq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
+         <tns:IDCKPIT>1234567890</tns:IDCKPIT>
+         <tns:Label>string</tns:Label>
+         <tns:Name>string</tns:Name>
+         <tns:ShortName>string</tns:ShortName>
+         <tns:InstrumentType>Deposit</tns:InstrumentType>
+         <!--from 1 to unbounded elements --><tns:Option>
+            <tns:OptionID>string</tns:OptionID>
+            <tns:OptionName>string</tns:OptionName>
+            <!--from 1 to unbounded elements --><tns:OptionValue>string</tns:OptionValue>
+         </tns:Option>
+         <!--from 1 to unbounded elements --><tns:Restriction>
+            <tns:Currency>string</tns:Currency>
+            <tns:PeriodMin>10</tns:PeriodMin>
+            <tns:PeriodMax>10</tns:PeriodMax>
+         </tns:Restriction>
+      </tns:SrvCKPITUpdateDepositNSORq>
+   </soap:Body>
+</soap:Envelope>

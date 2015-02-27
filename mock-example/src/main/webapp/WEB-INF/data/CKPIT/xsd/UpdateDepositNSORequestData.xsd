@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns="http://sbrf.ru/mockService/CKPITProductsDepositsNSOReq/Data/"
+<xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/Data/"
+            xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
+            xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"
+            xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="http://sbrf.ru/mockService/CKPITProductsDepositsNSOReq/Data/"
+            targetNamespace="http://sbrf.ru/prpc/bbmo/10/Data/"
             elementFormDefault="qualified">
-   <xsd:complexType xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
-                    xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
-                    name="Header">
+   <xsd:import namespace="http://sbrf.ru/prpc/bbmo/dataTypes/10"
+               schemaLocation="../../../xsd/CKPIT/./commonTypes/dataTypes.xsd"/>
+   <xsd:import namespace="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
+               schemaLocation="../../../xsd/CKPIT/./commonTypes/simpleTypes.xsd"/>
+   <xsd:import namespace="http://sbrf.ru/prpc/bbmo/commonTypes/10"
+               schemaLocation="../../../xsd/CKPIT/./commonTypes/commonTypes.xsd"/>
+   <xsd:complexType name="Header">
       <xsd:annotation>
          <xsd:documentation>Заголовок сообщения</xsd:documentation>
       </xsd:annotation>
@@ -90,8 +97,8 @@
    <xsd:element name="data" type="dataValue"/>
    <xsd:complexType name="dataValue">
       <xsd:sequence>
-         <xsd:element name="response"
-                      type="ProductDepositsNSOReqType"
+         <xsd:element name="request"
+                      type="SrvCKPITUpdateDepositNSORq"
                       maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>Ответ на запрос</xsd:documentation>
@@ -99,43 +106,55 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <xsd:complexType name="ProductDepositsNSOReqType">
+   <xsd:complexType name="SrvCKPITUpdateDepositNSORq">
       <xsd:complexContent>
-         <xsd:extension base="CKPITBasicReqType">
+         <xsd:extension base="ct:DataProcessingRequest">
             <xsd:sequence>
                <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
-               <xsd:element name="IDCKPIT" type="IDCKPITType"/>
+               <xsd:element name="IDCKPIT" type="IDCKPITType">
+                  <xsd:annotation>
+                     <xsd:documentation>ID продукта в ЦКПИТ</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
                <xsd:element name="Label">
                   <xsd:simpleType>
-                     <xsd:restriction base="xsd:string">
+                     <xsd:restriction base="dt:String">
                         <xsd:maxLength value="255"/>
                      </xsd:restriction>
                   </xsd:simpleType>
                </xsd:element>
                <xsd:element name="Name">
                   <xsd:simpleType>
-                     <xsd:restriction base="xsd:string">
+                     <xsd:restriction base="dt:String">
                         <xsd:maxLength value="250"/>
                      </xsd:restriction>
                   </xsd:simpleType>
                </xsd:element>
                <xsd:element name="ShortName">
                   <xsd:simpleType>
-                     <xsd:restriction base="xsd:string">
+                     <xsd:restriction base="dt:String">
                         <xsd:maxLength value="255"/>
                      </xsd:restriction>
                   </xsd:simpleType>
                </xsd:element>
                <xsd:element name="InstrumentType">
                   <xsd:simpleType>
-                     <xsd:restriction base="xsd:string">
+                     <xsd:restriction base="dt:String">
                         <xsd:enumeration value="Deposit"/>
                         <xsd:enumeration value="NSO"/>
                      </xsd:restriction>
                   </xsd:simpleType>
                </xsd:element>
-               <xsd:element name="ValidityStartDate" minOccurs="0" type="xsd:date"/>
-               <xsd:element name="ValidityEndDate" minOccurs="0" type="xsd:date"/>
+               <xsd:element name="ValidityStartDate" minOccurs="0" type="date">
+                  <xsd:annotation>
+                     <xsd:documentation>Дата ввода продукта в действие</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ValidityEndDate" minOccurs="0" type="date">
+                  <xsd:annotation>
+                     <xsd:documentation>Фактическая дата окончания обслуживания</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
                <xsd:element name="Option"
                             minOccurs="1"
                             maxOccurs="unbounded"
@@ -149,32 +168,37 @@
       </xsd:complexContent>
       <xsd:attribute name="name"/>
    </xsd:complexType>
-   <xsd:complexType name="CKPITBasicReqType">
-      <xsd:sequence>
-         <xsd:element name="RqUID" type="xsd:string"/>
-         <xsd:element name="RqTm" type="xsd:string"/>
-         <xsd:element name="RqAction" type="xsd:string"/>
-      </xsd:sequence>
-   </xsd:complexType>
    <xsd:complexType name="ProductOptionType">
+      <xsd:annotation>
+         <xsd:documentation>Опция вклада или НСО</xsd:documentation>
+      </xsd:annotation>
       <xsd:sequence>
          <xsd:element name="OptionID">
+            <xsd:annotation>
+               <xsd:documentation>Код опции</xsd:documentation>
+            </xsd:annotation>
             <xsd:simpleType>
-               <xsd:restriction base="xsd:string">
+               <xsd:restriction base="dt:String">
                   <xsd:maxLength value="64"/>
                </xsd:restriction>
             </xsd:simpleType>
          </xsd:element>
          <xsd:element name="OptionName">
+            <xsd:annotation>
+               <xsd:documentation>Наименование опции</xsd:documentation>
+            </xsd:annotation>
             <xsd:simpleType>
-               <xsd:restriction base="xsd:string">
+               <xsd:restriction base="dt:String">
                   <xsd:maxLength value="127"/>
                </xsd:restriction>
             </xsd:simpleType>
          </xsd:element>
          <xsd:element name="OptionValue" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>Значение опции</xsd:documentation>
+            </xsd:annotation>
             <xsd:simpleType>
-               <xsd:restriction base="xsd:string">
+               <xsd:restriction base="dt:String">
                   <xsd:maxLength value="127"/>
                </xsd:restriction>
             </xsd:simpleType>
@@ -182,39 +206,57 @@
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="ProductRestrictionType">
+      <xsd:annotation>
+         <xsd:documentation>Условие вклада или НСО</xsd:documentation>
+      </xsd:annotation>
       <xsd:sequence>
          <xsd:element name="Currency">
+            <xsd:annotation>
+               <xsd:documentation>Код валюты</xsd:documentation>
+            </xsd:annotation>
             <xsd:simpleType>
-               <xsd:restriction base="xsd:string">
+               <xsd:restriction base="dt:String">
                   <xsd:maxLength value="3"/>
                </xsd:restriction>
             </xsd:simpleType>
          </xsd:element>
          <xsd:element name="AmountMin" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>Минимальная сумма</xsd:documentation>
+            </xsd:annotation>
             <xsd:simpleType>
-               <xsd:restriction base="xsd:integer">
-                  <xsd:pattern value="^\d{1,10}$"/>
+               <xsd:restriction base="integer">
+                  <xsd:totalDigits value="10"/>
                </xsd:restriction>
             </xsd:simpleType>
          </xsd:element>
          <xsd:element name="AmountMax" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>Максимальная сумма</xsd:documentation>
+            </xsd:annotation>
             <xsd:simpleType>
-               <xsd:restriction base="xsd:integer">
-                  <xsd:pattern value="^\d{1,10}$"/>
+               <xsd:restriction base="integer">
+                  <xsd:totalDigits value="10"/>
                </xsd:restriction>
             </xsd:simpleType>
          </xsd:element>
          <xsd:element name="PeriodMin">
+            <xsd:annotation>
+               <xsd:documentation>Минимальный период (месяцы)</xsd:documentation>
+            </xsd:annotation>
             <xsd:simpleType>
-               <xsd:restriction base="xsd:integer">
-                  <xsd:pattern value="^\d{1,10}$"/>
+               <xsd:restriction base="integer">
+                  <xsd:totalDigits value="10"/>
                </xsd:restriction>
             </xsd:simpleType>
          </xsd:element>
          <xsd:element name="PeriodMax">
+            <xsd:annotation>
+               <xsd:documentation>Максимальный период (месяцы)</xsd:documentation>
+            </xsd:annotation>
             <xsd:simpleType>
-               <xsd:restriction base="xsd:integer">
-                  <xsd:pattern value="^\d{1,10}$"/>
+               <xsd:restriction base="integer">
+                  <xsd:totalDigits value="10"/>
                </xsd:restriction>
             </xsd:simpleType>
          </xsd:element>

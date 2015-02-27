@@ -17,7 +17,7 @@
                <tns:OSB>string</tns:OSB>
                <tns:VSP>string</tns:VSP>
             </tns:BankSubdivision>
-            <tns:InitDate>2015-02-05</tns:InitDate>
+            <tns:InitDate>2015-02-27</tns:InitDate>
          </tns:LegalPersonApplication>
          <tns:DocumentsInfo/>
       </tns:SrvPutRemoteLegalAccOperAppRq>
