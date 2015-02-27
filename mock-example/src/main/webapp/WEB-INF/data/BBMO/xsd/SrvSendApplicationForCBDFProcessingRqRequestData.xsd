@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/Data/"
+            xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
+            xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"
+            xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://sbrf.ru/prpc/bbmo/10/Data/"
+            elementFormDefault="qualified">
+   <xsd:import namespace="http://sbrf.ru/prpc/bbmo/dataTypes/10"
+               schemaLocation="../../../xsd/BBMO/./commonTypes/dataTypes.xsd"/>
+   <xsd:import namespace="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
+               schemaLocation="../../../xsd/BBMO/./commonTypes/simpleTypes.xsd"/>
+   <xsd:import namespace="http://sbrf.ru/prpc/bbmo/commonTypes/10"
+               schemaLocation="../../../xsd/BBMO/./commonTypes/commonTypes.xsd"/>
+   <xsd:complexType name="Header">
+      <xsd:annotation>
+         <xsd:documentation>Заголовок сообщения</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence xmlns="">
+         <xsd:element name="KD4SoapHeaderV2" type="dt:String">
+            <xsd:annotation>
+               <xsd:documentation>Заголовок SOAP-сообщения</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="AsyncHeader">
+            <xsd:annotation>
+               <xsd:documentation>Заголовок SOAP-сообщения</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="message-id" type="st:UUID">
+                     <xsd:annotation>
+                        <xsd:documentation>Уникальный идентификатор сообщения, передаваемого в рамках SOAP-пакета</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="request-time" type="dt:DateTime">
+                     <xsd:annotation>
+                        <xsd:documentation>Системное время при отправке сообщения АС-отправителем с учетом временной зоны</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="correlation-id" type="st:UUID" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Идентификатор корреляции</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="eis-name" type="st:SystemName_Type" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Идентификатор системы инициатора запроса/ответа</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="system-id"
+                               type="st:SystemName_Type"
+                               minOccurs="0"
+                               maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation>Идентификатор системы получателя запроса</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="operation-name" type="st:OperationName_Type">
+                     <xsd:annotation>
+                        <xsd:documentation>Название операции вызываемого сервиса</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="operation-version" type="dt:DefString" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Версия операции</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="user-id" type="dt:DefString" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Идентификатор пользователя в системе инициаторе запроса/ответа</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="user-name" type="dt:DefString" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Полное ФИО пользователя в системе инициаторе запроса/ответа</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="proc-inst-tb" type="st:TB_Type" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>Код ТБ</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:any namespace="##other"
+                           processContents="lax"
+                           minOccurs="0"
+                           maxOccurs="unbounded">
+                     <xsd:annotation>
+                        <xsd:documentation>Точка расширения заголовка (не используется, добавлено на персективу)</xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:any>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="data" type="dataValue"/>
+   <xsd:complexType name="dataValue">
+      <xsd:sequence>
+         <xsd:element name="request"
+                      type="SrvSendApplicationForCBDFProcessingRq"
+                      maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation>Ответ на запрос</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="SrvSendApplicationForCBDFProcessingRq">
+      <xsd:complexContent>
+         <xsd:extension base="ct:DataProcessingRequest">
+            <xsd:sequence>
+               <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
+               <xsd:element name="NaturalPersonCompesationApplication"
+                            type="NaturalPersonCompesationApplication">
+                  <xsd:annotation>
+                     <xsd:documentation>Заявление физического лица на компенсацию</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+      <xsd:attribute name="name"/>
+   </xsd:complexType>
+   <xsd:complexType name="NaturalPersonCompesationApplication">
+      <xsd:annotation>
+         <xsd:documentation>Заявление физического лица на компенсацию</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="ApplicationId" type="st:ApplicationId_Type">
+            <xsd:annotation>
+               <xsd:documentation>ID заявления</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="DocumentPackageType">
+            <xsd:annotation>
+               <xsd:documentation>Тип пакета документов
+1 – «Выплата компенсации вкладчику»
+2 – «Выплата компенсации наследнику»
+3 – «Выплата компенсации наследнику, включая ритуальные услуги»</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="dt:DefPosInteger">
+                  <xsd:enumeration value="1"/>
+                  <xsd:enumeration value="2"/>
+                  <xsd:enumeration value="3"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="LastName">
+            <xsd:annotation>
+               <xsd:documentation>Фамилия</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="dt:String">
+                  <xsd:maxLength value="160"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="FirstName">
+            <xsd:annotation>
+               <xsd:documentation>Имя</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="dt:String">
+                  <xsd:maxLength value="160"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="MiddleName" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>Отчество</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="dt:String">
+                  <xsd:maxLength value="160"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="IdentificationDocumentType"
+                      minOccurs="0"
+                      type="st:IdentificationDocumentType_Type">
+            <xsd:annotation>
+               <xsd:documentation>Вид ДУЛ</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="IdentificationDocumentSeries" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>Серия ДУЛ</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="dt:String">
+                  <xsd:maxLength value="20"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="IdentificationDocumentNumber" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation>Номер ДУЛ</xsd:documentation>
+            </xsd:annotation>
+            <xsd:simpleType>
+               <xsd:restriction base="dt:String">
+                  <xsd:maxLength value="20"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="BirthDate" type="dt:Date">
+            <xsd:annotation>
+               <xsd:documentation>Дата рождения</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="BankSubdivision" type="BankSubdivision">
+            <xsd:annotation>
+               <xsd:documentation>Подразделение
+Справочник подразделений Банка</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="IssueDate" type="dt:Date">
+            <xsd:annotation>
+               <xsd:documentation>Дата заявления</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="PackageId" minOccurs="0" type="st:PackageId_Type">
+            <xsd:annotation>
+               <xsd:documentation>ID пакета</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="BarCode" minOccurs="0" type="dt:DefString">
+            <xsd:annotation>
+               <xsd:documentation>Штрих-код</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="BankSubdivision">
+      <xsd:annotation>
+         <xsd:documentation>Подразделение банка</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="TB" type="st:TB_Type">
+            <xsd:annotation>
+               <xsd:documentation>Номер ТБ</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="OSB" type="st:OSB_Type">
+            <xsd:annotation>
+               <xsd:documentation>Номер ОСБ</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="VSP" type="st:VSP_Type">
+            <xsd:annotation>
+               <xsd:documentation>Номер ВСП</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/prpc/bbmo/10/Data/">
+   <request name="default">
+      <SoapHeader>
+         <AsyncHeader>
+            <message-id>message-id</message-id>
+            <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+            <operation-name>SrvSendApplicationForCBDFProcessingRq</operation-name>
+         </AsyncHeader>
+      </SoapHeader>
+      <NaturalPersonCompesationApplication>
+         <ApplicationId>1234567890</ApplicationId>
+         <DocumentPackageType>1</DocumentPackageType>
+         <LastName>string</LastName>
+         <FirstName>string</FirstName>
+         <MiddleName>string</MiddleName>
+         <IdentificationDocumentType>1234567890</IdentificationDocumentType>
+         <IdentificationDocumentSeries>string</IdentificationDocumentSeries>
+         <IdentificationDocumentNumber>string</IdentificationDocumentNumber>
+         <BirthDate>2015-02-27</BirthDate>
+         <BankSubdivision>
+            <TB>str</TB>
+            <OSB>string</OSB>
+            <VSP>string</VSP>
+         </BankSubdivision>
+         <IssueDate>2015-02-27</IssueDate>
+         <PackageId>string</PackageId>
+         <BarCode>string</BarCode>
+      </NaturalPersonCompesationApplication>
+   </request>
+   <request name="test1">
+      <SoapHeader>
+         <AsyncHeader>
+            <message-id>message-id</message-id>
+            <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+            <operation-name>SrvSendApplicationForCBDFProcessingRq</operation-name>
+         </AsyncHeader>
+      </SoapHeader>
+      <NaturalPersonCompesationApplication>
+         <ApplicationId>1234567890</ApplicationId>
+         <DocumentPackageType>1</DocumentPackageType>
+         <LastName>string</LastName>
+         <FirstName>string</FirstName>
+         <BirthDate>2015-02-27</BirthDate>
+         <BankSubdivision>
+            <TB>str</TB>
+            <OSB>string</OSB>
+            <VSP>string</VSP>
+         </BankSubdivision>
+         <IssueDate>2015-02-27</IssueDate>
+      </NaturalPersonCompesationApplication>
+   </request>
+</data>

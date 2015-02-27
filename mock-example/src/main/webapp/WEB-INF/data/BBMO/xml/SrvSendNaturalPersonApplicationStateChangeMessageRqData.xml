@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/prpc/bbmo/10/Data/">
+   <request name="default">
+      <SoapHeader>
+         <AsyncHeader>
+            <message-id>message-id</message-id>
+            <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+            <operation-name>SrvSendNaturalPersonApplicationStateChangeMessageRq</operation-name>
+         </AsyncHeader>
+      </SoapHeader>
+      <NaturalPersonApplicationState>
+         <ApplicationId>1234567890</ApplicationId>
+         <ApplicationStatus>1234567890</ApplicationStatus>
+         <Comment>string</Comment>
+      </NaturalPersonApplicationState>
+      <PackageId>string</PackageId>
+      <TB>str</TB>
+   </request>
+   <request name="test1">
+      <SoapHeader>
+         <AsyncHeader>
+            <message-id>message-id</message-id>
+            <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+            <operation-name>SrvSendNaturalPersonApplicationStateChangeMessageRq</operation-name>
+         </AsyncHeader>
+      </SoapHeader>
+      <NaturalPersonApplicationState>
+         <ApplicationId>1234567890</ApplicationId>
+         <ApplicationStatus>1234567890</ApplicationStatus>
+      </NaturalPersonApplicationState>
+   </request>
+</data>
