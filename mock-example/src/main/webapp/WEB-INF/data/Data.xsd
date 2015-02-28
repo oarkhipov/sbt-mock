@@ -6,7 +6,6 @@
         xmlns:st="http://sbrf.ru/data/simpleTypes/"
         xmlns:dt="http://sbrf.ru/data/dataTypes/"
         elementFormDefault="qualified">
-<!--TODO @Max Vostrikov fix imports-->
     <xsd:import namespace="http://sbrf.ru/data/dataTypes/" schemaLocation="dataTypes.xsd" />
     <xsd:import namespace="http://sbrf.ru/data/simpleTypes/" schemaLocation="simpleTypes.xsd" />
 
