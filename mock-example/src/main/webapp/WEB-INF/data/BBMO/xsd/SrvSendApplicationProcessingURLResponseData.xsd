@@ -117,8 +117,9 @@
                   </xsd:annotation>
                </xsd:element>
             </xsd:sequence>
+            <xsd:attribute name="name"/>
          </xsd:extension>
       </xsd:complexContent>
-      <xsd:attribute name="name"/>
+
    </xsd:complexType>
 </xsd:schema>

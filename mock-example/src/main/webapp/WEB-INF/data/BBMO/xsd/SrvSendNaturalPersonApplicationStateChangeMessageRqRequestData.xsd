@@ -128,10 +128,11 @@
                   </xsd:annotation>
                </xsd:element>
             </xsd:sequence>
+            <xsd:attribute name="name"/>
          </xsd:extension>
       </xsd:complexContent>
       <!--TODO @Max Vostrikov почему ошибка тут?-->
-      <xsd:attribute name="name"/>
+
    </xsd:complexType>
    <xsd:complexType name="NaturalPersonApplicationState">
       <xsd:annotation>
