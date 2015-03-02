@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/SrvSendApplicationProcessingURLRs/Data/"
+            xmlns:tns="http://sbrf.ru/prpc/bbmo/10/SrvSendApplicationProcessingURLRs/Data/"
             xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
             xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"
             xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
@@ -98,7 +99,7 @@
    <xsd:complexType name="dataValue">
       <xsd:sequence>
          <xsd:element name="response"
-                      type="SrvSendApplicationProcessingURLRs"
+                      type="tns:SrvSendApplicationProcessingURLRs"
                       maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>Ответ на запрос</xsd:documentation>
@@ -110,7 +111,7 @@
       <xsd:complexContent>
          <xsd:extension base="ct:DataProcessingResponse">
             <xsd:sequence>
-               <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
+               <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
                <xsd:element name="URL" minOccurs="0" type="st:URL_Type">
                   <xsd:annotation>
                      <xsd:documentation>URL</xsd:documentation>

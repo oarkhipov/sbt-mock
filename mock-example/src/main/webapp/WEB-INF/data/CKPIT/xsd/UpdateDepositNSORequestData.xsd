@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/SrvCKPITUpdateDepositNSORq/Data/"
+            xmlns:tns="http://sbrf.ru/prpc/bbmo/10/SrvCKPITUpdateDepositNSORq/Data/"
             xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
             xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"
             xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
@@ -98,7 +99,7 @@
    <xsd:complexType name="dataValue">
       <xsd:sequence>
          <xsd:element name="request"
-                      type="SrvCKPITUpdateDepositNSORq"
+                      type="tns:SrvCKPITUpdateDepositNSORq"
                       maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>Ответ на запрос</xsd:documentation>
@@ -110,8 +111,8 @@
       <xsd:complexContent>
          <xsd:extension base="ct:DataProcessingRequest">
             <xsd:sequence>
-               <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
-               <xsd:element name="IDCKPIT" type="IDCKPITType">
+               <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
+               <xsd:element name="IDCKPIT" type="tns:IDCKPITType">
                   <xsd:annotation>
                      <xsd:documentation>ID продукта в ЦКПИТ</xsd:documentation>
                   </xsd:annotation>
@@ -145,12 +146,12 @@
                      </xsd:restriction>
                   </xsd:simpleType>
                </xsd:element>
-               <xsd:element name="ValidityStartDate" minOccurs="0" type="date">
+               <xsd:element name="ValidityStartDate" minOccurs="0" type="xsd:date">
                   <xsd:annotation>
                      <xsd:documentation>Дата ввода продукта в действие</xsd:documentation>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="ValidityEndDate" minOccurs="0" type="date">
+               <xsd:element name="ValidityEndDate" minOccurs="0" type="xsd:date">
                   <xsd:annotation>
                      <xsd:documentation>Фактическая дата окончания обслуживания</xsd:documentation>
                   </xsd:annotation>
@@ -158,16 +159,21 @@
                <xsd:element name="Option"
                             minOccurs="1"
                             maxOccurs="unbounded"
-                            type="ProductOptionType"/>
+                            type="tns:ProductOptionType"/>
                <xsd:element name="Restriction"
                             minOccurs="1"
                             maxOccurs="unbounded"
-                            type="ProductRestrictionType"/>
+                            type="tns:ProductRestrictionType"/>
             </xsd:sequence>
             <xsd:attribute name="name"/>
          </xsd:extension>
       </xsd:complexContent>
    </xsd:complexType>
+   <xsd:simpleType name="IDCKPITType">
+      <xsd:restriction base="xsd:integer">
+         <xsd:totalDigits value="10"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:complexType name="ProductOptionType">
       <xsd:annotation>
          <xsd:documentation>Опция вклада или НСО</xsd:documentation>
@@ -225,7 +231,7 @@
                <xsd:documentation>Минимальная сумма</xsd:documentation>
             </xsd:annotation>
             <xsd:simpleType>
-               <xsd:restriction base="integer">
+               <xsd:restriction base="xsd:integer">
                   <xsd:totalDigits value="10"/>
                </xsd:restriction>
             </xsd:simpleType>
@@ -235,7 +241,7 @@
                <xsd:documentation>Максимальная сумма</xsd:documentation>
             </xsd:annotation>
             <xsd:simpleType>
-               <xsd:restriction base="integer">
+               <xsd:restriction base="xsd:integer">
                   <xsd:totalDigits value="10"/>
                </xsd:restriction>
             </xsd:simpleType>
@@ -245,7 +251,7 @@
                <xsd:documentation>Минимальный период (месяцы)</xsd:documentation>
             </xsd:annotation>
             <xsd:simpleType>
-               <xsd:restriction base="integer">
+               <xsd:restriction base="xsd:integer">
                   <xsd:totalDigits value="10"/>
                </xsd:restriction>
             </xsd:simpleType>
@@ -255,7 +261,7 @@
                <xsd:documentation>Максимальный период (месяцы)</xsd:documentation>
             </xsd:annotation>
             <xsd:simpleType>
-               <xsd:restriction base="integer">
+               <xsd:restriction base="xsd:integer">
                   <xsd:totalDigits value="10"/>
                </xsd:restriction>
             </xsd:simpleType>

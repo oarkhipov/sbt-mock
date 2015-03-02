@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/SrvPutRemoteLegalAccOperAppRq/Data/"
+            xmlns:tns="http://sbrf.ru/prpc/bbmo/10/SrvPutRemoteLegalAccOperAppRq/Data/"
             xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
             xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"
             xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
@@ -98,7 +99,7 @@
    <xsd:complexType name="dataValue">
       <xsd:sequence>
          <xsd:element name="request"
-                      type="SrvPutRemoteLegalAccOperAppRq"
+                      type="tns:SrvPutRemoteLegalAccOperAppRq"
                       maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>Ответ на запрос</xsd:documentation>
@@ -110,7 +111,7 @@
       <xsd:complexContent>
          <xsd:extension base="ct:DataProcessingRequest">
             <xsd:sequence>
-               <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
+               <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
                <xsd:element name="RemoteClient" minOccurs="0" type="dt:Boolean">
                   <xsd:annotation>
                      <xsd:documentation>Признак удалённого создания клиента</xsd:documentation>
@@ -131,17 +132,17 @@
                      <xsd:documentation>Признак формирования банковской карточки клиента</xsd:documentation>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="ClientReferenceData" type="ClientReferenceData">
+               <xsd:element name="ClientReferenceData" type="tns:ClientReferenceData">
                   <xsd:annotation>
                      <xsd:documentation>Справочные данные клиента</xsd:documentation>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="LegalPersonApplication" type="LegalPersonApplication">
+               <xsd:element name="LegalPersonApplication" type="tns:LegalPersonApplication">
                   <xsd:annotation>
                      <xsd:documentation>Заявление юридического лица</xsd:documentation>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="DocumentsInfo" type="DocumentsInfo">
+               <xsd:element name="DocumentsInfo" type="tns:DocumentsInfo">
                   <xsd:annotation>
                      <xsd:documentation>Информация по каталогу документов</xsd:documentation>
                   </xsd:annotation>
@@ -181,7 +182,7 @@
                <xsd:documentation>Полное наименование клиента</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="BankSubdivision" type="BankSubdivision">
+         <xsd:element name="BankSubdivision" type="tns:BankSubdivision">
             <xsd:annotation>
                <xsd:documentation>Подразделение
 Справочник подразделений Банка</xsd:documentation>
@@ -396,11 +397,11 @@
          <xsd:element name="IdentityDocument"
                       minOccurs="0"
                       maxOccurs="unbounded"
-                      type="IdentityDocument"/>
+                      type="tns:IdentityDocument"/>
          <xsd:element name="ClientAddress"
                       minOccurs="0"
                       maxOccurs="unbounded"
-                      type="ClientAddress">
+                      type="tns:ClientAddress">
             <xsd:annotation>
                <xsd:documentation>Адреса клиента</xsd:documentation>
             </xsd:annotation>
@@ -408,7 +409,7 @@
          <xsd:element name="ClientContact"
                       minOccurs="0"
                       maxOccurs="unbounded"
-                      type="ClientContact">
+                      type="tns:ClientContact">
             <xsd:annotation>
                <xsd:documentation>Контакты клиента</xsd:documentation>
             </xsd:annotation>
@@ -488,7 +489,7 @@
          <xsd:documentation>Справочные данные клиента</xsd:documentation>
       </xsd:annotation>
       <xsd:sequence>
-         <xsd:element name="ClientInformation" minOccurs="0" type="ClientInformation">
+         <xsd:element name="ClientInformation" minOccurs="0" type="tns:ClientInformation">
             <xsd:annotation>
                <xsd:documentation>Информация о клиенте</xsd:documentation>
             </xsd:annotation>
@@ -496,7 +497,7 @@
          <xsd:element name="naturalPerson"
                       minOccurs="0"
                       maxOccurs="unbounded"
-                      type="NaturalPersonWithAuthority">
+                      type="tns:NaturalPersonWithAuthority">
             <xsd:annotation>
                <xsd:documentation>Физическое лицо</xsd:documentation>
             </xsd:annotation>
@@ -504,7 +505,7 @@
          <xsd:element name="LegalPersonBankAccountAgreement"
                       minOccurs="0"
                       maxOccurs="unbounded"
-                      type="LegalPersonBankAccountAgreement">
+                      type="tns:LegalPersonBankAccountAgreement">
             <xsd:annotation>
                <xsd:documentation>Договор банковского счета юридического лица</xsd:documentation>
             </xsd:annotation>
@@ -512,7 +513,7 @@
          <xsd:element name="SignPatternCard"
                       minOccurs="0"
                       maxOccurs="unbounded"
-                      type="SignPatternCard">
+                      type="tns:SignPatternCard">
             <xsd:annotation>
                <xsd:documentation>Карточка с образцами подписей</xsd:documentation>
             </xsd:annotation>
@@ -524,17 +525,17 @@
          <xsd:documentation>Информация о клиенте</xsd:documentation>
       </xsd:annotation>
       <xsd:sequence>
-         <xsd:element name="Identifiers" type="Identifiers">
+         <xsd:element name="Identifiers" type="tns:Identifiers">
             <xsd:annotation>
                <xsd:documentation>Идентификаторы</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="SpecialData" type="SpecialData">
+         <xsd:element name="SpecialData" type="tns:SpecialData">
             <xsd:annotation>
                <xsd:documentation>Спец. данные</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="MainDetails" type="MainDetails">
+         <xsd:element name="MainDetails" type="tns:MainDetails">
             <xsd:annotation>
                <xsd:documentation>Основные реквизиты</xsd:documentation>
             </xsd:annotation>
@@ -542,8 +543,8 @@
          <xsd:element name="FounderLegalPerson"
                       minOccurs="0"
                       maxOccurs="unbounded"
-                      type="FounderLegalPerson"/>
-         <xsd:element name="BankSubdivision" minOccurs="0" type="BankSubdivision">
+                      type="tns:FounderLegalPerson"/>
+         <xsd:element name="BankSubdivision" minOccurs="0" type="tns:BankSubdivision">
             <xsd:annotation>
                <xsd:documentation>Подразделение
                             Справочник подразделений Банка
@@ -553,11 +554,11 @@
          <xsd:element name="ClientAddress"
                       minOccurs="0"
                       maxOccurs="unbounded"
-                      type="ClientAddress"/>
+                      type="tns:ClientAddress"/>
          <xsd:element name="ClientContact"
                       minOccurs="0"
                       maxOccurs="unbounded"
-                      type="ClientContact"/>
+                      type="tns:ClientContact"/>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="MainDetails">
@@ -565,17 +566,19 @@
          <xsd:documentation>Основные реквизиты</xsd:documentation>
       </xsd:annotation>
       <xsd:sequence>
-         <xsd:element name="Registration" type="Registration">
+         <xsd:element name="Registration" type="tns:Registration">
             <xsd:annotation>
                <xsd:documentation>Регистрация</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="TaxInspectorateInfo" minOccurs="0" type="TaxInspectorateInfo">
+         <xsd:element name="TaxInspectorateInfo"
+                      minOccurs="0"
+                      type="tns:TaxInspectorateInfo">
             <xsd:annotation>
                <xsd:documentation>Налоговая инспекция</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="RosstatCodes" minOccurs="0" type="RosstatCodes">
+         <xsd:element name="RosstatCodes" minOccurs="0" type="tns:RosstatCodes">
             <xsd:annotation>
                <xsd:documentation>Коды Росстата</xsd:documentation>
             </xsd:annotation>
@@ -695,7 +698,7 @@
                <xsd:documentation>регистрирующий орган</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="ClientAddress" minOccurs="0" type="ClientAddress"/>
+         <xsd:element name="ClientAddress" minOccurs="0" type="tns:ClientAddress"/>
          <xsd:element name="LegalCapitalPercent" minOccurs="0" type="xsd:decimal">
             <xsd:annotation>
                <xsd:documentation>Процент уставного фонда</xsd:documentation>
@@ -1261,7 +1264,7 @@
          <xsd:documentation>Договор банковского счета юридического лица</xsd:documentation>
       </xsd:annotation>
       <xsd:sequence>
-         <xsd:element name="BankSubdivision" type="BankSubdivision">
+         <xsd:element name="BankSubdivision" type="tns:BankSubdivision">
             <xsd:annotation>
                <xsd:documentation>Подразделение
                             Справочник подразделений Банка
@@ -1345,7 +1348,9 @@
                </xsd:restriction>
             </xsd:simpleType>
          </xsd:element>
-         <xsd:element name="RKOAgreementDetails" minOccurs="0" type="RKOAgreementDetails">
+         <xsd:element name="RKOAgreementDetails"
+                      minOccurs="0"
+                      type="tns:RKOAgreementDetails">
             <xsd:annotation>
                <xsd:documentation>Параметры договора РКО</xsd:documentation>
             </xsd:annotation>
@@ -1360,7 +1365,7 @@
          <xsd:element name="TariffPlan"
                       minOccurs="0"
                       maxOccurs="unbounded"
-                      type="TariffPlan"/>
+                      type="tns:TariffPlan"/>
          <xsd:element name="DetermineTariffs" type="xsd:string">
             <xsd:annotation>
                <xsd:documentation>Определить тарифы</xsd:documentation>
@@ -1374,7 +1379,7 @@
          <xsd:element name="ClientAccount"
                       minOccurs="0"
                       maxOccurs="unbounded"
-                      type="ClientAccount"/>
+                      type="tns:ClientAccount"/>
          <xsd:element name="PercentCalculationAlgorithm" minOccurs="0">
             <xsd:annotation>
                <xsd:documentation>Алгоритм начисления %
@@ -1443,7 +1448,7 @@
                <xsd:documentation>ID клиента в РКО</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="BankSubdivision" minOccurs="0" type="BankSubdivision">
+         <xsd:element name="BankSubdivision" minOccurs="0" type="tns:BankSubdivision">
             <xsd:annotation>
                <xsd:documentation>Подразделение банка</xsd:documentation>
             </xsd:annotation>
@@ -1502,7 +1507,7 @@
                </xsd:restriction>
             </xsd:simpleType>
          </xsd:element>
-         <xsd:element name="Sign" maxOccurs="unbounded" type="Sign">
+         <xsd:element name="Sign" maxOccurs="unbounded" type="tns:Sign">
             <xsd:annotation>
                <xsd:documentation>Подпись</xsd:documentation>
             </xsd:annotation>
@@ -1770,7 +1775,7 @@
          <xsd:element name="DocumentLinks"
                       minOccurs="0"
                       maxOccurs="unbounded"
-                      type="DocumentLinks">
+                      type="tns:DocumentLinks">
             <xsd:annotation>
                <xsd:documentation>Каталоги документов</xsd:documentation>
             </xsd:annotation>

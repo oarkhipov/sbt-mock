@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/SrvCKPITUpdateLoanRq/Data/"
+            xmlns:tns="http://sbrf.ru/prpc/bbmo/10/SrvCKPITUpdateLoanRq/Data/"
             xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
             xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"
             xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
@@ -97,7 +98,9 @@
    <xsd:element name="data" type="dataValue"/>
    <xsd:complexType name="dataValue">
       <xsd:sequence>
-         <xsd:element name="request" type="SrvCKPITUpdateLoanRq" maxOccurs="unbounded">
+         <xsd:element name="request"
+                      type="tns:SrvCKPITUpdateLoanRq"
+                      maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>Ответ на запрос</xsd:documentation>
             </xsd:annotation>
@@ -108,8 +111,8 @@
       <xsd:complexContent>
          <xsd:extension base="ct:DataProcessingRequest">
             <xsd:sequence>
-               <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
-               <xsd:element name="IDCKPIT_MB" type="IDCKPITType">
+               <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
+               <xsd:element name="IDCKPIT_MB" type="tns:IDCKPITType">
                   <xsd:annotation>
                      <xsd:documentation>ID кредита в ЦКПИТ</xsd:documentation>
                   </xsd:annotation>
@@ -117,7 +120,7 @@
                <xsd:element name="Loan"
                             minOccurs="1"
                             maxOccurs="unbounded"
-                            type="LoanReqType">
+                            type="tns:LoanReqType">
                   <xsd:annotation>
                      <xsd:documentation>Информация о кредите</xsd:documentation>
                   </xsd:annotation>
@@ -127,9 +130,24 @@
          </xsd:extension>
       </xsd:complexContent>
    </xsd:complexType>
+   <xsd:simpleType name="IDCKPITType">
+      <xsd:restriction base="xsd:integer">
+         <xsd:totalDigits value="10"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="CodeEKSType">
+      <xsd:restriction base="dt:String">
+         <xsd:maxLength value="1000"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="LoanLabelType">
+      <xsd:restriction base="dt:String">
+         <xsd:maxLength value="64"/>
+      </xsd:restriction>
+   </xsd:simpleType>
    <xsd:complexType name="LoanReqType">
       <xsd:sequence>
-         <xsd:element name="Label" type="LoanLabelType">
+         <xsd:element name="Label" type="tns:LoanLabelType">
             <xsd:annotation>
                <xsd:documentation>Уникальный идентификатор кредита в ЕКС</xsd:documentation>
             </xsd:annotation>
@@ -144,7 +162,7 @@
                </xsd:restriction>
             </xsd:simpleType>
          </xsd:element>
-         <xsd:element name="CodeEKS" type="CodeEKSType">
+         <xsd:element name="CodeEKS" type="tns:CodeEKSType">
             <xsd:annotation>
                <xsd:documentation>Код экземпляра ЕКС</xsd:documentation>
             </xsd:annotation>

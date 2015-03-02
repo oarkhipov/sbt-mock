@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/SrvSendNaturalPersonApplicationStateChangeMessageRq/Data/"
+            xmlns:tns="http://sbrf.ru/prpc/bbmo/10/SrvSendNaturalPersonApplicationStateChangeMessageRq/Data/"
             xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
             xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"
             xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
@@ -98,7 +99,7 @@
    <xsd:complexType name="dataValue">
       <xsd:sequence>
          <xsd:element name="request"
-                      type="SrvSendNaturalPersonApplicationStateChangeMessageRq"
+                      type="tns:SrvSendNaturalPersonApplicationStateChangeMessageRq"
                       maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>Ответ на запрос</xsd:documentation>
@@ -110,9 +111,9 @@
       <xsd:complexContent>
          <xsd:extension base="ct:DataProcessingRequest">
             <xsd:sequence>
-               <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
+               <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
                <xsd:element name="NaturalPersonApplicationState"
-                            type="NaturalPersonApplicationState">
+                            type="tns:NaturalPersonApplicationState">
                   <xsd:annotation>
                      <xsd:documentation>Состояние заявления</xsd:documentation>
                   </xsd:annotation>

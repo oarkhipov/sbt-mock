@@ -37,5 +37,16 @@
         </xsl:choose>
     </xsl:function>
 
+    <!-- определяем алиас урла. Пока не могу придумать, что еще может пригодиться, кроме xsd -->
+    <xsl:function name="mock:addAliasToName">
+        <xsl:param name="alias"/>
+        <xsl:param name="name"/>
+        <xsl:choose>
+            <xsl:when test="contains($name,':')"><xsl:value-of select="$name"/></xsl:when>
+            <xsl:when test="string-length($alias)>0"><xsl:value-of select="concat($alias,$name)"/></xsl:when>
+            <xsl:otherwise><xsl:value-of select="concat('tns:',$name)"/></xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+
 
 </xsl:stylesheet>

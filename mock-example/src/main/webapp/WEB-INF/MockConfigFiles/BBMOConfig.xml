@@ -378,6 +378,41 @@
                     <outcomeQueue>OUT.KKMB2</outcomeQueue>
                     <xsdFile>BBMOOperationElements.xsd</xsdFile>
                     <!--OPTIONAL-->
+                    <dependencies>
+                        <dependency>
+                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/TransactionPassportTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/NaturalPersonApplicationTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/LegalPersonApplicationTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/ExchangeControlTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/ClientReferenceDataTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/CommonStructureTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/DocumentsInfo.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/CKPITProductTypes.xsd</xsdFile>
+                        </dependency>
+                    </dependencies>
                 </integrationPoint>
                 <integrationPoint>
                     <name>UpdateLoan</name>
@@ -390,6 +425,41 @@
                     <outcomeQueue>OUT.KKMB2</outcomeQueue>
                     <xsdFile>BBMOOperationElements.xsd</xsdFile>
                     <!--OPTIONAL-->
+                    <dependencies>
+                        <dependency>
+                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/TransactionPassportTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/NaturalPersonApplicationTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/LegalPersonApplicationTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/ExchangeControlTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/ClientReferenceDataTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/CommonStructureTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/DocumentsInfo.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/CKPITProductTypes.xsd</xsdFile>
+                        </dependency>
+                    </dependencies>
                 </integrationPoint>
             </integrationPoints>
         </system>

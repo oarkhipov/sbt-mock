@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/SrvSendApplicationForCBDFProcessingRq/Data/"
+            xmlns:tns="http://sbrf.ru/prpc/bbmo/10/SrvSendApplicationForCBDFProcessingRq/Data/"
             xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
             xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"
             xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
@@ -98,7 +99,7 @@
    <xsd:complexType name="dataValue">
       <xsd:sequence>
          <xsd:element name="request"
-                      type="SrvSendApplicationForCBDFProcessingRq"
+                      type="tns:SrvSendApplicationForCBDFProcessingRq"
                       maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>Ответ на запрос</xsd:documentation>
@@ -110,9 +111,9 @@
       <xsd:complexContent>
          <xsd:extension base="ct:DataProcessingRequest">
             <xsd:sequence>
-               <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
+               <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
                <xsd:element name="NaturalPersonCompesationApplication"
-                            type="NaturalPersonCompesationApplication">
+                            type="tns:NaturalPersonCompesationApplication">
                   <xsd:annotation>
                      <xsd:documentation>Заявление физического лица на компенсацию</xsd:documentation>
                   </xsd:annotation>
@@ -209,7 +210,7 @@
                <xsd:documentation>Дата рождения</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="BankSubdivision" type="BankSubdivision">
+         <xsd:element name="BankSubdivision" type="tns:BankSubdivision">
             <xsd:annotation>
                <xsd:documentation>Подразделение
 Справочник подразделений Банка</xsd:documentation>

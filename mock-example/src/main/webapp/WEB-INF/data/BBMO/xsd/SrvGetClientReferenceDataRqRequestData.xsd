@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/SrvGetClientReferenceDataRq/Data/"
+            xmlns:tns="http://sbrf.ru/prpc/bbmo/10/SrvGetClientReferenceDataRq/Data/"
             xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
             xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"
             xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
@@ -98,7 +99,7 @@
    <xsd:complexType name="dataValue">
       <xsd:sequence>
          <xsd:element name="request"
-                      type="SrvGetClientReferenceDataRq"
+                      type="tns:SrvGetClientReferenceDataRq"
                       maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>Ответ на запрос</xsd:documentation>
@@ -110,13 +111,13 @@
       <xsd:complexContent>
          <xsd:extension base="ct:DataProcessingRequest">
             <xsd:sequence>
-               <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
+               <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
                <xsd:element name="ClientId" minOccurs="0" type="dt:PosInteger">
                   <xsd:annotation>
                      <xsd:documentation>ID клиента (Передается в случае отсутствия информации о ИНН и КПП)</xsd:documentation>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="BankSubdivision" minOccurs="0" type="BankSubdivision">
+               <xsd:element name="BankSubdivision" minOccurs="0" type="tns:BankSubdivision">
                   <xsd:annotation>
                      <xsd:documentation>Подразделение банка (Передается в случае отсутствия информации о ИНН и КПП)</xsd:documentation>
                   </xsd:annotation>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/SrvPermitAccountChargeOperationRq/Data/"
+            xmlns:tns="http://sbrf.ru/prpc/bbmo/10/SrvPermitAccountChargeOperationRq/Data/"
             xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
             xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"
             xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
@@ -98,7 +99,7 @@
    <xsd:complexType name="dataValue">
       <xsd:sequence>
          <xsd:element name="request"
-                      type="SrvPermitAccountChargeOperationRq"
+                      type="tns:SrvPermitAccountChargeOperationRq"
                       maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>Ответ на запрос</xsd:documentation>
@@ -110,8 +111,8 @@
       <xsd:complexContent>
          <xsd:extension base="ct:DataProcessingRequest">
             <xsd:sequence>
-               <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
-               <xsd:element name="BankSubdivision" type="BankSubdivision">
+               <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
+               <xsd:element name="BankSubdivision" type="tns:BankSubdivision">
                   <xsd:annotation>
                      <xsd:documentation>Подразделение
 Справочник подразделений Банка</xsd:documentation>
