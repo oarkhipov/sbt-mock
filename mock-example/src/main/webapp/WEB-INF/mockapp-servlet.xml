@@ -104,46 +104,26 @@
     <channel id="defaultChannel"/>
     <channel id="ESBSynCallForNCPDB"/>
     
-    <channel id="SrvUpdateClientReferenceData"/>
-    <channel id="SrvPutRemoteLegalAccOperApp"/>
-    <channel id="UpdateDepositNSO"/>
-    <channel id="UpdateLoan"/>
+    <channel id="SrvSendApplicationProcessingURL"/>
 
     <ix:xpath-router id="operationRouter" input-channel="ESB.BPM.NCP.IN.MOCK" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
         <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
         
         <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="ESBSynCallForNCPDB"/>
         
-        <ix:mapping value="SrvUpdateClientReferenceDataRq" channel="SrvUpdateClientReferenceData"/>
-        <ix:mapping value="SrvPutRemoteLegalAccOperAppRq" channel="SrvPutRemoteLegalAccOperApp"/>
-        <ix:mapping value="SrvCKPITUpdateDepositNSORq" channel="UpdateDepositNSO"/>
-        <ix:mapping value="SrvCKPITUpdateLoanRq" channel="UpdateLoan"/>
+        <ix:mapping value="SrvSendApplicationProcessingURLRq" channel="SrvSendApplicationProcessingURL"/>
     </ix:xpath-router>
 
     <!-- здесь уже реализация -->
 
     <!-- BBMO -->
-    <beans:bean id="BBMO_SrvUpdateClientReferenceDataRq" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvUpdateClientReferenceDataRq.xsl"/>
-    </beans:bean>
-    <!-- CBBOL -->
-    <beans:bean id="CBBOL_SrvPutRemoteLegalAccOperAppRq" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/CBBOL/CalculateRating.xsl"/>
-    </beans:bean>
-    <!-- CKPIT -->
-    <beans:bean id="CKPIT_UpdateDepositNSO" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/CKPIT/UpdateDepositNSO.xsl"/>
-    </beans:bean>
-    <beans:bean id="CKPIT_UpdateLoan" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/CKPIT/UpdateLoan.xsl"/>
+    <beans:bean id="BBMO_SrvSendApplicationProcessingURL" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvSendApplicationProcessingURL.xsl"/>
     </beans:bean>
 
  <!--маппинг трасформеров на каналы-->
 
-    <transformer input-channel="SrvUpdateClientReferenceData" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="BBMO_SrvUpdateClientReferenceDataRq"/>
-    <transformer input-channel="SrvPutRemoteLegalAccOperApp" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CBBOL_SrvPutRemoteLegalAccOperAppRq"/>
-    <transformer input-channel="UpdateDepositNSO" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CKPIT_UpdateDepositNSO"/>
-    <transformer input-channel="UpdateLoan" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CKPIT_UpdateLoan"/>
+    <transformer input-channel="SrvSendApplicationProcessingURL" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="BBMO_SrvSendApplicationProcessingURL"/>
     
     <context:component-scan base-package="ru.sbt.bpm.mock.controller"/>
     
