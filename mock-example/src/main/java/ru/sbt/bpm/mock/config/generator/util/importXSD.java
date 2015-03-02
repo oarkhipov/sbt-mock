@@ -8,7 +8,6 @@ import ru.sbt.bpm.mock.sigeneator.inentities.LinkedTag;
 import ru.sbt.bpm.mock.sigeneator.inentities.SystemTag;
 import ru.sbt.bpm.mock.utils.SaveFile;
 import ru.sbt.bpm.mock.utils.Xsl20Transformer;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -19,7 +18,6 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.*;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
