@@ -1,7 +1,6 @@
 package ru.sbt.bpm.mock.sigeneator;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * Created by sbt-hodakovskiy-da on 30.01.2015.
@@ -31,8 +30,8 @@ public class Pair<A, B> implements Serializable {
             return false;
 
         Pair<?, ?> that = (Pair<?, ?>) obj;
-        // Решение build для Java 1.7
-        return Objects.equals(this.aFirst, that.aFirst) && Objects.equals(this.aSecond, that.aSecond);
+        // Решение build для Java 1.6!!!
+        return this.aFirst.equals(that.aFirst) && this.aSecond.equals(that.aSecond);
     }
 
 
