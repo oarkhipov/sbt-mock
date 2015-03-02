@@ -205,7 +205,7 @@
     </xsl:template>
 
     <!--enumeration-->
-    <xsl:template match="xsd:element[./xsd:simpleType/xsd:restriction/xsd:enumeration]" mode="type" priority="10">
+    <xsl:template match="xsd:element[./xsd:simpleType/xsd:restriction/xsd:enumeration]" mode="type" priority="1001">
         <!--<xsl:comment>testxsdEnum</xsl:comment>-->
         <xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}"><xsl:value-of select=".//xsd:enumeration[1]/@value"/></xsl:element>
     </xsl:template>
@@ -299,13 +299,13 @@
     <!--***********************************-->
 
     <!--сложный тип-->
-    <xsl:template match="xsd:complexType" mode="importedType">
+    <xsl:template match="xsd:complexType" mode="importedType"  priority="2">
         <!--<xsl:comment>testCT</xsl:comment>-->
         <xsl:apply-templates select="." mode="subeseq"/>
     </xsl:template>
 
     <!--тип decimal-->
-    <xsl:template match="xsd:simpleType[./xsd:restriction/@base=$digitTypes]" mode="importedType">
+    <xsl:template match="xsd:simpleType[./xsd:restriction/@base=$digitTypes]" mode="importedType"  priority="13">
         <xsl:param name="params" select="./xsd:restriction/*"/>
         <!--<xsl:comment>test6</xsl:comment>-->
         <xsl:variable name="insideParams" select="($params | ./xsd:restriction/*[not(./name()=$params/name())])"/>
@@ -316,7 +316,7 @@
     </xsl:template>
 
     <!--строка-->
-    <xsl:template match="xsd:simpleType[./xsd:restriction/@base=$stringTypes]" mode="importedType">
+    <xsl:template match="xsd:simpleType[./xsd:restriction/@base=$stringTypes]" mode="importedType"  priority="12">
         <xsl:param name="params" select="./xsd:restriction/*"/>
         <xsl:variable name="insideParams" select="($params | ./xsd:restriction/*[not(./name()=$params/name())])"/>
         <xsl:variable name="maxLength" select="if ($insideParams[./local-name()='maxLength']) then number($insideParams[./local-name()='maxLength']/@value) else number('9999')"/>
@@ -327,19 +327,19 @@
     </xsl:template>
 
     <!--date-->
-    <xsl:template match="xsd:simpleType[./xsd:restriction/@base=$dateTypes]" mode="importedType">
+    <xsl:template match="xsd:simpleType[./xsd:restriction/@base=$dateTypes]" mode="importedType" priority="11">
         <!--<xsl:comment>test7</xsl:comment>-->
         <xsl:value-of select="format-date(current-date(),'[Y0001]-[M01]-[D01]')"/>
     </xsl:template>
 
     <!--dateTime-->
-    <xsl:template match="xsd:simpleType[./xsd:restriction/@base=$dateTimeTypes]" mode="importedType">
+    <xsl:template match="xsd:simpleType[./xsd:restriction/@base=$dateTimeTypes]" mode="importedType" priority="10">
         <!--<xsl:comment>test7</xsl:comment>-->
         <xsl:value-of select="format-dateTime(current-dateTime(),'[Y0001]-[M01]-[D01]T12:00:00')"/>
     </xsl:template>
 
     <!--enumeration-->
-    <xsl:template match="xsd:simpleType[./xsd:restriction/xsd:enumeration]" mode="importedType">
+    <xsl:template match="xsd:simpleType[./xsd:restriction/xsd:enumeration]" mode="importedType"  priority="1000">
         <xsl:param name="params" select="./xsd:restriction/*"/>
         <xsl:variable name="insideParams" select="($params | ./xsd:restriction/*[not(./name()=$params/name())])"/>
         <!--<xsl:comment>testEnumeration <xsl:value-of select="$insideParams/name()"/></xsl:comment>-->
@@ -349,7 +349,7 @@
     <!--ссылка на другой тип с дополнительными рестриктами-->
     <xsl:template match="xsd:simpleType[mock:getNamespaceAlias(./xsd:restriction/@base)=parent::*/namespace::*/local-name()
                                 and (mock:removeNamespaceAlias(./xsd:restriction/@base)=$importFilesDocs/xsd:*/@name)
-                                ] " mode="importedType">
+                                ] " mode="importedType" priority="100">
         <xsl:param name="params" select="./xsd:restriction/*"/>
         <xsl:variable name="insideParams" select="($params | ./xsd:restriction/*[not(./name()=$params/name())])"/>
         <xsl:variable name="typeName" select="mock:removeNamespaceAlias(./xsd:restriction/@base)"/>
@@ -361,7 +361,7 @@
 
     <!--***********************************-->
     <!-- если не нашли матч - пишем об этом комментарий -->
-    <xsl:template match="*" mode="importedType">
+    <xsl:template match="*" mode="importedType" priority="1">
         <xsl:if test="$omitComments">
             <xsl:comment>not known type <xsl:value-of select="./xsd:restriction/@base"/></xsl:comment>
             <!--<xsl:comment>test <xsl:value-of select="parent::*/namespace::*/local-name()"/></xsl:comment>-->

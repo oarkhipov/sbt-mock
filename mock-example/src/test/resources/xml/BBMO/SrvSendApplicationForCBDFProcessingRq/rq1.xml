@@ -14,16 +14,16 @@
             <tns:LastName>string</tns:LastName>
             <tns:FirstName>string</tns:FirstName>
             <!--optional--><tns:MiddleName>string</tns:MiddleName>
-            <!--optional--><tns:IdentificationDocumentType>1234567890</tns:IdentificationDocumentType>
+            <!--optional--><tns:IdentificationDocumentType>0</tns:IdentificationDocumentType>
             <!--optional--><tns:IdentificationDocumentSeries>string</tns:IdentificationDocumentSeries>
             <!--optional--><tns:IdentificationDocumentNumber>string</tns:IdentificationDocumentNumber>
-            <tns:BirthDate>2015-02-27</tns:BirthDate>
+            <tns:BirthDate>2015-03-02</tns:BirthDate>
             <tns:BankSubdivision>
                <tns:TB>str</tns:TB>
                <tns:OSB>string</tns:OSB>
                <tns:VSP>string</tns:VSP>
             </tns:BankSubdivision>
-            <tns:IssueDate>2015-02-27</tns:IssueDate>
+            <tns:IssueDate>2015-03-02</tns:IssueDate>
             <!--optional--><tns:PackageId>string</tns:PackageId>
             <!--optional--><tns:BarCode>string</tns:BarCode>
          </tns:NaturalPersonCompesationApplication>

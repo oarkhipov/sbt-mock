@@ -48,7 +48,7 @@
                select="concat('../../data/',$system,'/xml/',$dataFileName)"/>
     <!--Неймспейс примера сообщения. Пробует взять самый гулбокий элемпент тела сообщения. Если что-то нашел - добавляет к нему сзади "/Data/"-->
     <xsl:variable name="dataNSFromFile"
-                  select="mock:addDataToNamespaceUrl(/*[local-name()='Envelope']/*[local-name()='Body']/descendant-or-self::*[last()]/namespace-uri())"/>
+                  select="mock:addDataToNamespaceUrl(/*[local-name()='Envelope']/*[local-name()='Body']/descendant-or-self::*[last()]/namespace-uri(), $rootElementName)"/>
     <!--Неймспейс дата-файла. Если в dataNSFromFile(неймспейс того файла, которого мы ему сокрмили) нет ничего - берет некий стандарьтный дефолтный неймспейс-->
     <xsl:param name="dataNsUrl"
                select="if ($dataNSFromFile!='') then $dataNSFromFile else concat('http://sbrf.ru/mockService/',$rootElementName,'/Data/')"/> <!--TODO заменить mock на namespace конфига -->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:tns="http://sbrf.ru/prpc/bbmo/10"
-                xmlns:rsd="http://sbrf.ru/prpc/bbmo/10/Data/"
+                xmlns:rsd="http://sbrf.ru/prpc/bbmo/10/SrvGetClientReferenceDataRq/Data/"
                 xmlns:BBMO="http://sbrf.ru/prpc/bbmo/10"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">

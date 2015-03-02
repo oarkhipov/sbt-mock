@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/Data/"
+<xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/SrvCKPITUpdateDepositNSORq/Data/"
             xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
             xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"
             xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="http://sbrf.ru/prpc/bbmo/10/Data/"
+            targetNamespace="http://sbrf.ru/prpc/bbmo/10/SrvCKPITUpdateDepositNSORq/Data/"
             elementFormDefault="qualified">
    <xsd:import namespace="http://sbrf.ru/prpc/bbmo/dataTypes/10"
                schemaLocation="../../../xsd/CKPIT/./commonTypes/dataTypes.xsd"/>
@@ -164,9 +164,9 @@
                             maxOccurs="unbounded"
                             type="ProductRestrictionType"/>
             </xsd:sequence>
+            <xsd:attribute name="name"/>
          </xsd:extension>
       </xsd:complexContent>
-      <xsd:attribute name="name"/>
    </xsd:complexType>
    <xsd:complexType name="ProductOptionType">
       <xsd:annotation>

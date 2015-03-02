@@ -1,8 +1,10 @@
-<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
    <soap:Header>
-      <soap:message-id>defaultId</soap:message-id>
-      <soap:request-time>2014-12-16T17:55:06.410+04:00</soap:request-time>
-      <soap:operation-name>SrvSendApplicationProcessingURLRs</soap:operation-name>
+      <mq:AsyncHeader xmlns:mq="http://sbrf.ru/prpc/mq/headers">
+         <mq:message-id>message-id</mq:message-id>
+         <mq:request-time>2014-12-16T17:55:06.410+04:00</mq:request-time>
+         <mq:operation-name>SrvSendApplicationProcessingURLRs</mq:operation-name>
+      </mq:AsyncHeader>
    </soap:Header>
    <soap:Body>
       <tns:SrvSendApplicationProcessingURLRs xmlns:tns="http://sbrf.ru/prpc/bbmo/10"/>

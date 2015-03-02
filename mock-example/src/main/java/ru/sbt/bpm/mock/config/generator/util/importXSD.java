@@ -96,8 +96,8 @@ public class importXSD {
      * @param params параметры xsl
      * @throws Exception
      */
-    private void createRsExample(String system, String name, Map<String, String> params) throws Exception{
-        String exampleRs1 = useXSLT(getWebInfPath() + "\\xsl\\util\\NCPSoapMSG.xsl",
+    private void createRsExample(String system, String name, String msgType,  Map<String, String> params) throws Exception{
+        String exampleRs1 = useXSLT(getWebInfPath() + "\\xsl\\util\\"+msgType+"SoapMSG.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         validateXML(exampleRs1);
@@ -107,7 +107,7 @@ public class importXSD {
 
         if (params == null) params = new HashMap<String, String>(1);
         params.put("showOptionalTags", "false");
-        String exampleRs2 = useXSLT(getWebInfPath() + "\\xsl\\util\\NCPSoapMSG.xsl",
+        String exampleRs2 = useXSLT(getWebInfPath() + "\\xsl\\util\\"+msgType+"SoapMSG.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         validateXML(exampleRs2);
@@ -239,9 +239,6 @@ public class importXSD {
             if (params==null) {
                 params = new HashMap<String, String>(1);
             }
-            if (!params.containsKey("operationsXSD")) {
-                params.put("operationsXSD", "../../xsd/"+system+"/"+name+"Response.xsd");
-            }
             if (!params.containsKey("dataFileName")) {
                 params.put("dataFileName", name + "Data.xml");
             }
@@ -257,14 +254,21 @@ public class importXSD {
 
             Map <String, String> altParams = new HashMap<String, String>(params);
             altParams.put("rootElementName", params.get("RqRootElementName"));
-            altParams.put("operationsXSD", "../../xsd/"+system+"/"+name+"Request.xsd");
+            if (!params.containsKey("operationsXSD")) {
+                params.put("operationsXSD", "../../xsd/"+system+"/"+name+"Response.xsd");
+                if (!params.containsKey("altOperationsXSD")) {
+                    altParams.put("operationsXSD", params.get("altOperationsXSD"));
+                } else {
+                    altParams.put("operationsXSD", "../../xsd/" + system + "/" + name + "Request.xsd");
+                }
+            }
             altParams.put("operation-name", params.get("rootElementName"));
 
             //не вставляем в этветы комменты с обозначением сколько элементов доступно
             params.put("omitComments", "true");
 
             createRqExample(system, name, msgType, altParams);
-            createRsExample(system, name, params);
+            createRsExample(system, name, msgType, params);
             createDataXSD(system, name, "Response", params);
             createMockXSL(system, name, params);
             createRsDataXml(system, name, params);

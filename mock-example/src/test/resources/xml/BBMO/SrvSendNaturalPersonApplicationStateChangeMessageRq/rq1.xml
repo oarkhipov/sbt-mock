@@ -10,7 +10,7 @@
       <tns:SrvSendNaturalPersonApplicationStateChangeMessageRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
          <tns:NaturalPersonApplicationState>
             <tns:ApplicationId>1234567890</tns:ApplicationId>
-            <tns:ApplicationStatus>1234567890</tns:ApplicationStatus>
+            <tns:ApplicationStatus>1</tns:ApplicationStatus>
             <!--optional--><tns:Comment>string</tns:Comment>
          </tns:NaturalPersonApplicationState>
          <!--optional--><tns:PackageId>string</tns:PackageId>

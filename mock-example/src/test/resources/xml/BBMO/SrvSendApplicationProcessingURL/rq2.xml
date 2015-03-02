@@ -6,5 +6,10 @@
          <mq:operation-name>SrvSendApplicationProcessingURLRs</mq:operation-name>
       </mq:AsyncHeader>
    </soap:Header>
-   <soap:Body/>
+   <soap:Body>
+      <tns:SrvSendApplicationProcessingURLRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
+         <tns:ApplicationId>test1</tns:ApplicationId>
+         <tns:URLType>1</tns:URLType>
+      </tns:SrvSendApplicationProcessingURLRq>
+   </soap:Body>
 </soap:Envelope>

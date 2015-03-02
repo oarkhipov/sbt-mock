@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/prpc/bbmo/10/Data/">
+<data xmlns="http://sbrf.ru/prpc/bbmo/10/SrvCKPITUpdateDepositNSORq/Data/">
    <request name="default">
       <SoapHeader>
          <AsyncHeader>
@@ -13,8 +13,8 @@
       <Name>string</Name>
       <ShortName>string</ShortName>
       <InstrumentType>Deposit</InstrumentType>
-      <ValidityStartDate>2015-02-27</ValidityStartDate>
-      <ValidityEndDate>2015-02-27</ValidityEndDate>
+      <ValidityStartDate>2015-03-02</ValidityStartDate>
+      <ValidityEndDate>2015-03-02</ValidityEndDate>
       <Option>
          <OptionID>string</OptionID>
          <OptionName>string</OptionName>

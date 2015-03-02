@@ -31,7 +31,7 @@
     <xsl:param name="headerType" select="if (/xsd:schema//xsd:element[@ref='kd4:KD4SoapHeaderV2']) then 'KD4' else 'NCP'"/>
 
     <!-- неймспейс, в котором будут содрежатся наши данные. Получается припиской к стандратному неймспейсу субпути /Data/ -->
-    <xsl:variable name="targetNS" select="if ($operationXsdSchema/@targetNamespace) then mock:addDataToNamespaceUrl($operationXsdSchema/@targetNamespace) else concat('http://sbrf.ru/mockService/',$rootElementName,'/Data/')"/> <!--TODO заменить mock на namespace конфига -->
+    <xsl:variable name="targetNS" select="if ($operationXsdSchema/@targetNamespace) then mock:addDataToNamespaceUrl($operationXsdSchema/@targetNamespace, $rootElementName) else concat('http://sbrf.ru/mockService/',$rootElementName,'/Data/')"/> <!--TODO заменить mock на namespace конфига -->
 
     <!-- неймспейс, которым обозначается tns в targetNamespace -->
     <xsl:variable name="tnsAlias" select="$operationXsdSchema/namespace::*[.=$operationXsdSchema/@targetNamespace and string-length(local-name(.))>0]/local-name()"/>
@@ -60,6 +60,28 @@
     <!-- файл с темплейтом для soap header'а -->
     <xsl:include href="headerTemplate.xsl"/>
     <xsl:include href="xsltFunctions.xsl"/>
+
+    <!--TODO пренести функции в xsltFunctions.xsl-->
+    <xsl:function name="mock:typesToImport">
+        <xsl:param name="baseElement"/>
+        <xsl:variable name="importOnThislevel" select="mock:typesNeedingImport($baseElement)"/>
+        <xsl:variable name="nextLevelElements" select="$baseElement | $typesList[@name=$importOnThislevel]"/>
+        <xsl:choose>
+            <xsl:when test="count($baseElement) &lt; count($nextLevelElements)">
+                <xsl:variable name="allInside" select="$nextLevelElements | $typesList[@name=mock:typesToImport($nextLevelElements)]"/>
+                <xsl:for-each select="$allInside/@name"><xsl:value-of select="."/></xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="$nextLevelElements/@name"><xsl:value-of select="."/></xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+
+    <xsl:function name="mock:typesNeedingImport">
+        <xsl:param name="baseElement"/>
+        <xsl:variable name="importOnThislevel" select="$baseElement//@*[name()=$atributesWithTypes]/mock:removeNamespaceAlias(.,$tnsAlias)[not(contains(.,':'))]"/>
+        <xsl:for-each select="$importOnThislevel"><xsl:value-of select="."/></xsl:for-each>
+    </xsl:function>
 
     <xsl:template match="xsd:schema">
         <!--<xsl:comment>test <xsl:value-of select="$nsList"/></xsl:comment>-->
@@ -136,21 +158,37 @@
                 <xsl:attribute name="name"><xsl:value-of select="parent::*/@name"/></xsl:attribute>
             </xsl:if>
             <xsl:apply-templates select="./*" mode="copyMainTypeContainer"/>
-            <xsl:element name="xsd:attribute">
-                <xsl:attribute name="name">name</xsl:attribute>
-            </xsl:element>
+            <xsl:if test="not(.//xsd:extension)">
+                <xsl:element name="xsd:attribute">
+                    <xsl:attribute name="name">name</xsl:attribute>
+                </xsl:element>
+            </xsl:if>
         </xsl:element>
 
         <!--получаем все тэги, которые могут содержать типы, которые нам нужны и берем только те, что лежат в нашем неймспейсе-->
-        <xsl:variable name="typesToImport" select=".//@*[name()=$atributesWithTypes]/mock:removeNamespaceAlias(.,$tnsAlias)[not(contains(.,':'))]"/>
-        <!--<xsl:comment>test <xsl:value-of select="$typesToImport"/></xsl:comment>-->
-        <!--<xsl:comment>test2 <xsl:value-of select="$typesList/local-name()"/></xsl:comment>-->
+        <!--<xsl:variable name="typesToImport" select=".//@*[name()=$atributesWithTypes]/mock:removeNamespaceAlias(.,$tnsAlias)[not(contains(.,':'))]"/>-->
+        <!--<xsl:comment>test <xsl:value-of select="$typesList"/></xsl:comment>-->
+        <xsl:variable name="typesToImport" select="mock:typesToImport(./*)"/>
+        <!--<xsl:comment>test2 <xsl:value-of select="$typesList[@name=$typesToImport]/@name"/></xsl:comment>-->
 
         <xsl:apply-templates select="$typesList[@name=$typesToImport]" mode="copyChildTypes"/>
 
     </xsl:template>
 
     <!-- перенос содержимого главного контейнера -->
+    <xsl:template match="xsd:extension" mode="copyMainTypeContainer">
+        <xsl:element name="xsd:{local-name(.)}">
+            <xsl:copy-of select="./@*"/>
+            <xsl:apply-templates select="./*" mode="copyMainTypeContainer"/>
+            <xsl:element name="xsd:attribute">
+                <xsl:attribute name="name">name</xsl:attribute>
+            </xsl:element>
+            <xsl:if test="count(child::*)=0">
+                <xsl:value-of select="."/>
+            </xsl:if>
+        </xsl:element>
+    </xsl:template>
+
     <xsl:template match="xsd:sequence" mode="copyMainTypeContainer">
         <xsl:element name="xsd:{local-name(.)}">
             <xsl:copy-of select="./@*"/>
@@ -226,10 +264,10 @@
         </xsl:element>
 
         <!--получаем все тэги, которые могут содержать типы, которые нам нужны и берем только те, что лежат в нашем неймспейсе-->
-        <xsl:variable name="typesToImport" select=".//@*[name()=$atributesWithTypes]/mock:removeNamespaceAlias(.,$tnsAlias)[not(contains(.,':'))]"/>
+        <!--<xsl:variable name="typesToImport" select=".//@*[name()=$atributesWithTypes]/mock:removeNamespaceAlias(.,$tnsAlias)[not(contains(.,':'))]"/>-->
         <!--<xsl:comment>test <xsl:value-of select="$typesToImport"/></xsl:comment>-->
 
-        <xsl:apply-templates select="$typesList[@name=$typesToImport]" mode="copyChildTypes"/>
+        <!--<xsl:apply-templates select="$typesList[@name=$typesToImport]" mode="copyChildTypes"/>-->
     </xsl:template>
 
 
@@ -243,16 +281,18 @@
         </xsl:element>
 
         <!--получаем все тэги, которые могут содержать типы, которые нам нужны и берем только те, что лежат в нашем неймспейсе-->
-        <xsl:variable name="typesToImport" select=".//@*[name()=$atributesWithTypes]/mock:removeNamespaceAlias(.,$tnsAlias)[not(contains(.,':'))]"/>
+        <!--<xsl:variable name="typesToImport" select=".//@*[name()=$atributesWithTypes]/mock:removeNamespaceAlias(.,$tnsAlias)[not(contains(.,':'))]"/>-->
         <!--<xsl:comment>test <xsl:value-of select="$typesToImport"/></xsl:comment>-->
 
-        <xsl:apply-templates select="$typesList[@name=$typesToImport]" mode="copyChildTypes"/>
+        <!--<xsl:apply-templates select="$typesList[@name=$typesToImport]" mode="copyChildTypes"/>-->
     </xsl:template>
 
     <!--копирование содержимого типов-->
 
     <xsl:template match="xsd:element[@ref]" mode="copyTypeContainer">
-        <xsl:variable name="refName" select="mock:removeNamespaceAlias(@ref, $tnsAlias)"/>
+        <xsl:variable name="refAlias" select="mock:getNamespaceAlias(@ref)"/>
+        <xsl:variable name="refNamespace" select="ancestor::xsd:schema/namespace::*[local-name(.)=$refAlias]"/>
+        <xsl:variable name="refName" select="concat(mock:getAliasOfUrl($refNamespace),mock:removeNamespaceAlias(@ref, $tnsAlias))"/>
         <xsl:element name="xsd:{local-name(.)}">
             <xsl:if test="not(./@name)">
                 <xsl:attribute name="name"><xsl:value-of select="$refName"/></xsl:attribute>
@@ -267,7 +307,9 @@
     </xsl:template>
 
     <xsl:template match="xsd:element[@base]" mode="copyTypeContainer">
-        <xsl:variable name="baseName" select="mock:removeNamespaceAlias(@base, $tnsAlias)"/>
+        <xsl:variable name="baseAlias" select="mock:getNamespaceAlias(@base)"/>
+        <xsl:variable name="baseNamespace" select="ancestor::xsd:schema/namespace::*[local-name(.)=$baseAlias]"/>
+        <xsl:variable name="baseName" select="concat(mock:getAliasOfUrl($baseNamespace),mock:removeNamespaceAlias(@base, $tnsAlias))"/>
         <xsl:element name="xsd:{local-name(.)}">
             <xsl:copy-of select="./@*[local-name(.)!='base']"/>
             <xsl:attribute name="base"><xsl:value-of select="$baseName"/></xsl:attribute>
@@ -279,7 +321,10 @@
     </xsl:template>
 
     <xsl:template match="xsd:element[@type]" mode="copyTypeContainer">
-        <xsl:variable name="typeName" select="mock:removeNamespaceAlias(@type, $tnsAlias)"/>
+        <xsl:variable name="typeAlias" select="mock:getNamespaceAlias(@type)"/>
+        <xsl:variable name="typeNamespace" select="ancestor::xsd:schema/namespace::*[local-name(.)=$typeAlias]"/>
+        <xsl:variable name="typeName" select="concat(mock:getAliasOfUrl($typeNamespace),mock:removeNamespaceAlias(@type, $tnsAlias))"/>
+        <!--<xsl:comment>test [<xsl:value-of select="$typeAlias"/>]:[<xsl:value-of select="$typeNamespace"/>]</xsl:comment>-->
         <xsl:element name="xsd:{local-name(.)}">
             <xsl:copy-of select="./@*[local-name(.)!='type']"/>
             <xsl:attribute name="type"><xsl:value-of select="$typeName"/></xsl:attribute>

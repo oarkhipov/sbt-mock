@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/prpc/bbmo/10/Data/">
+<data xmlns="http://sbrf.ru/prpc/bbmo/10/SrvSendApplicationProcessingURLRs/Data/">
    <response name="default">
       <SoapHeader>
-         <message-id>defaultId</message-id>
-         <request-time>2014-12-16T17:55:06.410+04:00</request-time>
-         <operation-name>SrvSendApplicationProcessingURLRs</operation-name>
+         <AsyncHeader>
+            <message-id>message-id</message-id>
+            <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+            <operation-name>SrvSendApplicationProcessingURLRs</operation-name>
+         </AsyncHeader>
       </SoapHeader>
       <URL>string</URL>
    </response>
    <response name="test1">
       <SoapHeader>
-         <message-id>defaultId</message-id>
-         <request-time>2014-12-16T17:55:06.410+04:00</request-time>
-         <operation-name>SrvSendApplicationProcessingURLRs</operation-name>
+         <AsyncHeader>
+            <message-id>message-id</message-id>
+            <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+            <operation-name>SrvSendApplicationProcessingURLRs</operation-name>
+         </AsyncHeader>
       </SoapHeader>
    </response>
 </data>

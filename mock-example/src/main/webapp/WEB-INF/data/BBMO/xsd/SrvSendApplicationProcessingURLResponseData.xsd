@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/Data/"
+<xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/SrvSendApplicationProcessingURLRs/Data/"
             xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
             xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"
             xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="http://sbrf.ru/prpc/bbmo/10/Data/"
+            targetNamespace="http://sbrf.ru/prpc/bbmo/10/SrvSendApplicationProcessingURLRs/Data/"
             elementFormDefault="qualified">
    <xsd:import namespace="http://sbrf.ru/prpc/bbmo/dataTypes/10"
                schemaLocation="../../../xsd/BBMO/./commonTypes/dataTypes.xsd"/>
@@ -120,6 +120,5 @@
             <xsd:attribute name="name"/>
          </xsd:extension>
       </xsd:complexContent>
-
    </xsd:complexType>
 </xsd:schema>

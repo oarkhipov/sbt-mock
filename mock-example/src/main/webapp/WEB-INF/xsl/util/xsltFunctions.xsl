@@ -25,7 +25,16 @@
     <xsl:function name="mock:addDataToNamespaceUrl">
         <!--Добавить в урл суффикс '/Data/'. Например 'http://www.w3.org/1999/XSL/Transform' в 'http://www.w3.org/1999/XSL/Transform/Data/'-->
         <xsl:param name="url"/>
-        <xsl:value-of select="replace($url, '^(.+[^/])(/)?$', '$1/Data/')"/>
+        <xsl:param name="operationName"/>
+        <xsl:value-of select="replace($url, concat('^(.+[^/])(/',$operationName,')?(/)?$'), concat('$1/',$operationName,'/Data/'))"/>
+    </xsl:function>
+
+    <!-- определяем алиас урла. Пока не могу придумать, что еще может пригодиться, кроме xsd -->
+    <xsl:function name="mock:getAliasOfUrl">
+        <xsl:param name="url"/>
+        <xsl:choose>
+            <xsl:when test="$url='http://www.w3.org/2001/XMLSchema'">xsd:</xsl:when>
+        </xsl:choose>
     </xsl:function>
 
 
