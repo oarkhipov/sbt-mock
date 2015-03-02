@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/integration"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:beans="http://www.springframework.org/schema/beans"
-	xmlns:jms="http://www.springframework.org/schema/integration/jms"
-	xmlns:ix= "http://www.springframework.org/schema/integration/xml"
-	xmlns:util="http://www.springframework.org/schema/util"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xsi:schemaLocation="
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:jms="http://www.springframework.org/schema/integration/jms"
+             xmlns:ix= "http://www.springframework.org/schema/integration/xml"
+             xmlns:util="http://www.springframework.org/schema/util"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xmlns:mvc="http://www.springframework.org/schema/mvc"
+             xsi:schemaLocation="
 		http://www.springframework.org/schema/beans		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/integration	http://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/integration/jms	http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
@@ -20,154 +20,135 @@
     <mvc:resources mapping="/**" location="/resources/web/" />
     <mvc:annotation-driven/>
 
-     <!--Настройки подключения к MQ-->
+    <!--Настройки подключения к MQ-->
     <!--<beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-            <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.CF"/>-->
+    <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.CF"/>-->
     <!--</beans:bean>-->
     <!--<beans:bean id="requestQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-            <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.IN.MOCK"/>-->
+    <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.IN.MOCK"/>-->
     <!--</beans:bean>-->
     <!--<beans:bean id="replyQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-            <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.OUT.MOCK"/>-->
+    <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.OUT.MOCK"/>-->
     <!--</beans:bean>-->
 
-     <!--<beans:bean id="requestQueueCRM" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-            <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.REQUEST"/>-->
+    <!--<beans:bean id="requestQueueCRM" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+    <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.REQUEST"/>-->
     <!--</beans:bean>-->
     <!--<beans:bean id="replyQueueCRM" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-            <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.RESPONSE"/>-->
+    <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.RESPONSE"/>-->
     <!--</beans:bean>-->
 
     <!--<jms:inbound-gateway-->
-            <!--id="jmsin"-->
-            <!--request-destination="requestQueue"-->
-            <!--request-channel="ESB.BPM.NCP.IN.MOCK"-->
-            <!--reply-channel="ESB.BPM.NCP.OUT.MOCK"-->
-            <!--default-reply-destination="replyQueue"-->
-            <!--header-mapper="defHeaderMapper"-->
-            <!--connection-factory="jndiConnectionFactory"-->
+    <!--id="jmsin"-->
+    <!--request-destination="requestQueue"-->
+    <!--request-channel="ESB.BPM.NCP.IN.MOCK"-->
+    <!--reply-channel="ESB.BPM.NCP.OUT.MOCK"-->
+    <!--default-reply-destination="replyQueue"-->
+    <!--header-mapper="defHeaderMapper"-->
+    <!--connection-factory="jndiConnectionFactory"-->
+
     <!--/>-->
 
     <!--<jms:outbound-gateway-->
-            <!--id="jmsout"-->
-            <!--request-destination="requestQueueCRM"-->
-            <!--reply-destination="replyQueueCRM"-->
-            <!--request-channel="ESB.BPM.NCP.REQUEST"-->
-            <!--reply-channel="ESB.BPM.NCP.RESPONSE"-->
-            <!--header-mapper="defHeaderMapper"-->
-            <!--connection-factory="jndiConnectionFactory"-->
-            <!--reply-timeout="30000"-->
-            <!--receive-timeout="30000"-->
+    <!--id="jmsout"-->
+    <!--request-destination="requestQueueCRM"-->
+    <!--reply-destination="replyQueueCRM"-->
+    <!--request-channel="ESB.BPM.NCP.REQUEST"-->
+    <!--reply-channel="ESB.BPM.NCP.RESPONSE"-->
+    <!--header-mapper="defHeaderMapper"-->
+    <!--connection-factory="jndiConnectionFactory"-->
+    <!--reply-timeout="30000"-->
+    <!--receive-timeout="30000"-->
+
     <!--/>-->
 
-    <!-- Входной и выходной каналы -->	
+    <!-- Входной и выходной каналы -->
     <channel id="ESB.BPM.NCP.IN.MOCK">
         <interceptors>
             <wire-tap channel="fromGateLogger"/>
         </interceptors>
     </channel>
-    
+
     <channel id="ESB.BPM.NCP.OUT.MOCK">
         <interceptors>
             <wire-tap channel="toGateLogger"/>
         </interceptors>
     </channel>
-    
-      <!-- Входной и выходной каналы1 -->	
+
+    <!-- Входной и выходной каналы1 -->
     <channel id="ESB.BPM.NCP.RESPONSE">
         <interceptors>
             <wire-tap channel="fromGateLoggerCRM"/>
         </interceptors>
     </channel>
-    
+
     <channel id="ESB.BPM.NCP.REQUEST">
         <interceptors>
             <wire-tap channel="toGateLoggerCRM"/>
         </interceptors>
-    </channel>  
-    
-    <!--настройка логгеров -->   
+    </channel>
+
+    <!--настройка логгеров -->
     <logging-channel-adapter id="fromGateLogger" logger-name="fromGateLogger"/>
     <logging-channel-adapter id="toGateLogger" logger-name="toGateLogger"/>
-    
-    <!--настройка логгеров1 -->   
+
+    <!--настройка логгеров1 -->
     <logging-channel-adapter id="fromGateLoggerCRM" logger-name="fromGateLoggerCRM"/>
     <logging-channel-adapter id="toGateLoggerCRM" logger-name="toGateLoggerCRM"/>
-    
+
     <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
-     
+
     <!-- Роутер-->
     <util:map id="sbrfNamespaceMap">
         <beans:entry key="env" value="http://sbrf.ru/NCP/esb/envelope/"/>
     </util:map>
-    
+
     <channel id="defaultChannel"/>
     <channel id="ESBSynCallForNCPDB"/>
-    
-    <channel id="SrvUpdateClientReferenceData"/>
-    <channel id="SrvPutRemoteLegalAccOperApp"/>
-    <channel id="UpdateDepositNSO"/>
-    <channel id="UpdateLoan"/>
+
+    <channel id="SrvSendApplicationProcessingURL"/>
 
     <ix:xpath-router id="operationRouter" input-channel="ESB.BPM.NCP.IN.MOCK" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
         <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
-        
+
         <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="ESBSynCallForNCPDB"/>
-        
-        <ix:mapping value="SrvUpdateClientReferenceDataRq" channel="SrvUpdateClientReferenceData"/>
-        <ix:mapping value="SrvPutRemoteLegalAccOperAppRq" channel="SrvPutRemoteLegalAccOperApp"/>
-        <ix:mapping value="SrvCKPITUpdateDepositNSORq" channel="UpdateDepositNSO"/>
-        <ix:mapping value="SrvCKPITUpdateLoanRq" channel="UpdateLoan"/>
+
+        <ix:mapping value="SrvSendApplicationProcessingURLRq" channel="SrvSendApplicationProcessingURL"/>
     </ix:xpath-router>
 
     <!-- здесь уже реализация -->
 
     <!-- BBMO -->
-    <beans:bean id="BBMO_SrvUpdateClientReferenceDataRq" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvUpdateClientReferenceDataRq.xsl"/>
+    <beans:bean id="BBMO_SrvSendApplicationProcessingURL" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvSendApplicationProcessingURL.xsl"/>
     </beans:bean>
-    <!-- CBBOL -->
-    <beans:bean id="CBBOL_SrvPutRemoteLegalAccOperAppRq" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/CBBOL/SrvPutRemoteLegalAccOperAppRq.xsl"/>
-    </beans:bean>
-    <!-- CKPIT -->
-    <beans:bean id="CKPIT_UpdateDepositNSO" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/CKPIT/UpdateDepositNSO.xsl"/>
-    </beans:bean>
-    <beans:bean id="CKPIT_UpdateLoan" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/CKPIT/UpdateLoan.xsl"/>
-    </beans:bean>
+    <!--маппинг трасформеров на каналы-->
 
- <!--маппинг трасформеров на каналы-->
+    <transformer input-channel="SrvSendApplicationProcessingURL" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="BBMO_SrvSendApplicationProcessingURL"/>
 
-    <transformer input-channel="SrvUpdateClientReferenceData" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="BBMO_SrvUpdateClientReferenceDataRq"/>
-    <transformer input-channel="SrvPutRemoteLegalAccOperApp" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CBBOL_SrvPutRemoteLegalAccOperAppRq"/>
-    <transformer input-channel="UpdateDepositNSO" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CKPIT_UpdateDepositNSO"/>
-    <transformer input-channel="UpdateLoan" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="CKPIT_UpdateLoan"/>
-    
     <context:component-scan base-package="ru.sbt.bpm.mock.controller"/>
-    
+
     <beans:bean id="jspResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="prefix" value="/WEB-INF/jsp/"/>
         <beans:property name="suffix" value=".jsp"/>
     </beans:bean>
-    
+
     <beans:bean id="channelService" class="ru.sbt.bpm.mock.service.ChannelService">
-   		 <beans:property name="subscribeChannels">
-   		 	<util:list>
-   		 		<beans:ref bean="ESB.BPM.NCP.RESPONSE"/>
-   		 	</util:list>
-   		 </beans:property> 
+        <beans:property name="subscribeChannels">
+            <util:list>
+                <beans:ref bean="ESB.BPM.NCP.RESPONSE"/>
+            </util:list>
+        </beans:property>
     </beans:bean>
-    
+
     <beans:bean name="transformService" class="ru.sbt.bpm.mock.service.TransformService"/>
     <beans:bean name="xmlDataService" class="ru.sbt.bpm.mock.service.XmlDataService"/>
 
     <!--<channel id="test"/>-->
     <!-- Mock gateway to send requests to outbound -->
     <gateway id="systemEntry" default-request-channel="ESB.BPM.NCP.REQUEST" default-reply-channel="ESB.BPM.NCP.RESPONSE"
-                 service-interface="ru.sbt.bpm.mock.gateway.ClientService" />
+             service-interface="ru.sbt.bpm.mock.gateway.ClientService" />
     <!--<gateway id="systemEntry" default-request-channel="test" default-reply-channel="test"-->
-                 <!--service-interface="ru.sbt.bpm.mock.gateway.ClientService" />-->
+    <!--service-interface="ru.sbt.bpm.mock.gateway.ClientService" />-->
 
 </beans:beans>
