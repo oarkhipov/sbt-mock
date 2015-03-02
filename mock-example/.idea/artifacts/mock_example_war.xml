@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="mock-example:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="ncpdb-interactive.war">
-      <element id="artifact" artifact-name="mock-example:war exploded" />
-    </root>
-  </artifact>
-</component>

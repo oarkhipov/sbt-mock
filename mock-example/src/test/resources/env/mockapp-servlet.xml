@@ -136,6 +136,7 @@
     <beans:bean id="channelService" class="ru.sbt.bpm.mock.service.ChannelService">
         <beans:property name="subscribeChannels">
             <util:list>
+                <!--<beans:ref bean="ESB.BPM.NCP.REQUEST"/>-->
                 <beans:ref bean="ESB.BPM.NCP.RESPONSE"/>
             </util:list>
         </beans:property>
@@ -144,11 +145,11 @@
     <beans:bean name="transformService" class="ru.sbt.bpm.mock.service.TransformService"/>
     <beans:bean name="xmlDataService" class="ru.sbt.bpm.mock.service.XmlDataService"/>
 
-    <!--<channel id="test"/>-->
+    <channel id="test"/>
     <!-- Mock gateway to send requests to outbound -->
-    <gateway id="systemEntry" default-request-channel="ESB.BPM.NCP.REQUEST" default-reply-channel="ESB.BPM.NCP.RESPONSE"
-             service-interface="ru.sbt.bpm.mock.gateway.ClientService" />
-    <!--<gateway id="systemEntry" default-request-channel="test" default-reply-channel="test"-->
-    <!--service-interface="ru.sbt.bpm.mock.gateway.ClientService" />-->
+    <!--<gateway id="systemEntry" default-request-channel="ESB.BPM.NCP.REQUEST" default-reply-channel="ESB.BPM.NCP.RESPONSE"-->
+             <!--service-interface="ru.sbt.bpm.mock.gateway.ClientService" />-->
+    <gateway id="systemEntry" default-request-channel="test" default-reply-channel="test"
+    service-interface="ru.sbt.bpm.mock.gateway.ClientService" />
 
 </beans:beans>
