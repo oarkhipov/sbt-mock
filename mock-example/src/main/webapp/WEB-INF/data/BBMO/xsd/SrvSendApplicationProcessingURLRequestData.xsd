@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/SrvSendNaturalPersonApplicationStateChangeMessageRq/Data/"
-            xmlns:tns="http://sbrf.ru/prpc/bbmo/10/SrvSendNaturalPersonApplicationStateChangeMessageRq/Data/"
+<xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/SrvSendApplicationProcessingURLRq/Data/"
+            xmlns:tns="http://sbrf.ru/prpc/bbmo/10/SrvSendApplicationProcessingURLRq/Data/"
             xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
             xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"
             xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="http://sbrf.ru/prpc/bbmo/10/SrvSendNaturalPersonApplicationStateChangeMessageRq/Data/"
+            targetNamespace="http://sbrf.ru/prpc/bbmo/10/SrvSendApplicationProcessingURLRq/Data/"
             elementFormDefault="qualified">
    <xsd:import namespace="http://sbrf.ru/prpc/bbmo/dataTypes/10"
                schemaLocation="../../../xsd/BBMO/./commonTypes/dataTypes.xsd"/>
@@ -99,7 +99,7 @@
    <xsd:complexType name="dataValue">
       <xsd:sequence>
          <xsd:element name="request"
-                      type="tns:SrvSendNaturalPersonApplicationStateChangeMessageRq"
+                      type="tns:SrvSendApplicationProcessingURLRq"
                       maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>Ответ на запрос</xsd:documentation>
@@ -107,57 +107,41 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <xsd:complexType name="SrvSendNaturalPersonApplicationStateChangeMessageRq">
+   <xsd:complexType name="SrvSendApplicationProcessingURLRq">
       <xsd:complexContent>
          <xsd:extension base="ct:DataProcessingRequest">
             <xsd:sequence>
                <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
-               <xsd:element name="NaturalPersonApplicationState"
-                            type="tns:NaturalPersonApplicationState">
+               <xsd:element name="ApplicationId" type="st:ApplicationId_Type">
                   <xsd:annotation>
-                     <xsd:documentation>Состояние заявления</xsd:documentation>
+                     <xsd:documentation>ID заявления</xsd:documentation>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="PackageId" minOccurs="0" type="st:PackageId_Type">
+               <xsd:element name="URLType">
                   <xsd:annotation>
-                     <xsd:documentation>ID пакета</xsd:documentation>
+                     <xsd:documentation>Тип URL
+1 – «Экран просмотра пакета документов»
+2 – «Экран просмотра истории обработки заявления»
+3 – «Экран просмотра списка задач»
+7 - «Направление в ВСП (на добор/пересканирование)»
+9 - «Инициация добора пакета»
+11 - «Направление на согласование»
+                                </xsd:documentation>
                   </xsd:annotation>
-               </xsd:element>
-               <xsd:element name="TB" minOccurs="0" type="st:TB_Type">
-                  <xsd:annotation>
-                     <xsd:documentation>Номер ТБ</xsd:documentation>
-                  </xsd:annotation>
+                  <xsd:simpleType>
+                     <xsd:restriction base="dt:DefPosInteger">
+                        <xsd:enumeration value="1"/>
+                        <xsd:enumeration value="2"/>
+                        <xsd:enumeration value="3"/>
+                        <xsd:enumeration value="7"/>
+                        <xsd:enumeration value="9"/>
+                        <xsd:enumeration value="11"/>
+                     </xsd:restriction>
+                  </xsd:simpleType>
                </xsd:element>
             </xsd:sequence>
             <xsd:attribute name="name"/>
          </xsd:extension>
       </xsd:complexContent>
-   </xsd:complexType>
-   <xsd:complexType name="NaturalPersonApplicationState">
-      <xsd:annotation>
-         <xsd:documentation>Состояние заявления физического лица</xsd:documentation>
-      </xsd:annotation>
-      <xsd:sequence>
-         <xsd:element name="ApplicationId" type="st:ApplicationId_Type">
-            <xsd:annotation>
-               <xsd:documentation>ID заявления</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="ApplicationStatus" type="st:ApplicationStatus_Type">
-            <xsd:annotation>
-               <xsd:documentation>Статус заявления</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="Comment" minOccurs="0">
-            <xsd:annotation>
-               <xsd:documentation>Комментарий</xsd:documentation>
-            </xsd:annotation>
-            <xsd:simpleType>
-               <xsd:restriction base="dt:String">
-                  <xsd:maxLength value="4000"/>
-               </xsd:restriction>
-            </xsd:simpleType>
-         </xsd:element>
-      </xsd:sequence>
    </xsd:complexType>
 </xsd:schema>

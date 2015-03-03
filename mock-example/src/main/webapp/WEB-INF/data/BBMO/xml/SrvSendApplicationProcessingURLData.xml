@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/prpc/bbmo/10/SrvSendApplicationProcessingURLRs/Data/">
-   <response name="default">
+<data xmlns="http://sbrf.ru/prpc/bbmo/10/SrvSendApplicationProcessingURLRq/Data/">
+   <request name="default">
       <SoapHeader>
          <AsyncHeader>
             <message-id>message-id</message-id>
@@ -8,9 +8,10 @@
             <operation-name>SrvSendApplicationProcessingURL</operation-name>
          </AsyncHeader>
       </SoapHeader>
-      <URL>string</URL>
-   </response>
-   <response name="test1">
+      <ApplicationId>1234567890</ApplicationId>
+      <URLType>1</URLType>
+   </request>
+   <request name="test1">
       <SoapHeader>
          <AsyncHeader>
             <message-id>message-id</message-id>
@@ -18,5 +19,7 @@
             <operation-name>SrvSendApplicationProcessingURL</operation-name>
          </AsyncHeader>
       </SoapHeader>
-   </response>
+      <ApplicationId>1234567890</ApplicationId>
+      <URLType>1</URLType>
+   </request>
 </data>

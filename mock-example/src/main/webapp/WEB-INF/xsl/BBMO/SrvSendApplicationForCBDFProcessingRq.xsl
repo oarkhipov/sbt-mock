@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:tns="http://sbrf.ru/prpc/bbmo/10"
-                xmlns:rsd="http://sbrf.ru/prpc/bbmo/10/SrvSendApplicationForCBDFProcessingRq/Data/"
+                xmlns:rsd="http://sbrf.ru/prpc/bbmo/10Data/"
+                xmlns:soap="http://schemas.xmlsoap.org/soap/envelope//"
                 xmlns:BBMO="http://sbrf.ru/prpc/bbmo/10"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
    <xsl:import href="../util/headerTemplate.xsl"/>
    <!--опускаем строку 'xml version="1.0" encoding="UTF-8"'. С ней не работает MQ очередь-->
 <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
-   <xsl:param name="name" select="all"/>
+   <xsl:param name="name"
+              select="//soap:Body/*//*[local-name()='ApplicationId'][1]/text()"/>
+   <xsl:param name="dataFileName"
+              select="'../../data/BBMO/xml/SrvSendApplicationForCBDFProcessingRqData.xml'"/>
    <xsl:param name="request-time" select="string('2014-12-16T17:55:06.410+04:00')"/>
    <xsl:param name="kd4header" select="''"/>
    <xsl:param name="message-id" select="''"/>
@@ -20,14 +24,14 @@
    <xsl:param name="user-name" select="''"/>
    <xsl:param name="proc-inst-tb" select="''"/>
 
-   <xsl:template match="/">
-      <xsl:variable name="data" select="//rsd:data"/>
+   <xsl:template match="soap:Envelope">
+      <xsl:variable name="data" select="document($dataFileName)/rsd:data"/>
       <xsl:variable name="linkedTag" select="$name"/>
       <xsl:element xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" name="soap:Envelope">
          <xsl:call-template name="KD4Header">
             <xsl:with-param name="response">
                <xsl:choose>
-                  <xsl:when test="count(./rsd:request[@name=$linkedTag])=1">
+                  <xsl:when test="count(./rsd:response[@name=$linkedTag])=1">
                      <xsl:value-of select="$linkedTag"/>
                   </xsl:when>
                   <xsl:otherwise>default</xsl:otherwise>
@@ -49,9 +53,9 @@
          <soap:Body>
             <xsl:call-template name="SrvSendApplicationForCBDFProcessing">
                <xsl:with-param name="data" select="$data"/>
-               <xsl:with-param name="request">
+               <xsl:with-param name="response">
                   <xsl:choose>
-                     <xsl:when test="count($data/rsd:request[@name=$linkedTag])=1">
+                     <xsl:when test="count($data/rsd:response[@name=$linkedTag])=1">
                         <xsl:value-of select="$linkedTag"/>
                      </xsl:when>
                      <xsl:otherwise>default</xsl:otherwise>
@@ -62,83 +66,25 @@
       </xsl:element>
    </xsl:template>
 
-   <xsl:template match="rsd:SrvSendApplicationForCBDFProcessingRq">
-      <tns:SrvSendApplicationForCBDFProcessingRq/>
-   </xsl:template>
-
-   <xsl:template match="rsd:NaturalPersonCompesationApplication">
-      <tns:NaturalPersonCompesationApplication>
-         <tns:ApplicationId>
-            <xsl:value-of select="./rsd:ApplicationId"/>
-         </tns:ApplicationId>
-         <tns:DocumentPackageType>
-            <xsl:value-of select="./rsd:DocumentPackageType"/>
-         </tns:DocumentPackageType>
-         <tns:LastName>
-            <xsl:value-of select="./rsd:LastName"/>
-         </tns:LastName>
-         <tns:FirstName>
-            <xsl:value-of select="./rsd:FirstName"/>
-         </tns:FirstName>
-         <xsl:if test="./rsd:MiddleName">
-            <tns:MiddleName>
-               <xsl:value-of select="./rsd:MiddleName"/>
-            </tns:MiddleName>
+   <xsl:template match="rsd:SrvSendApplicationForCBDFProcessingRs">
+      <tns:SrvSendApplicationForCBDFProcessingRs>
+         <xsl:if test="./rsd:ApplicationId">
+            <tns:ApplicationId>
+               <xsl:value-of select="./rsd:ApplicationId"/>
+            </tns:ApplicationId>
          </xsl:if>
-         <xsl:if test="./rsd:IdentificationDocumentType">
-            <tns:IdentificationDocumentType>
-               <xsl:value-of select="./rsd:IdentificationDocumentType"/>
-            </tns:IdentificationDocumentType>
-         </xsl:if>
-         <xsl:if test="./rsd:IdentificationDocumentSeries">
-            <tns:IdentificationDocumentSeries>
-               <xsl:value-of select="./rsd:IdentificationDocumentSeries"/>
-            </tns:IdentificationDocumentSeries>
-         </xsl:if>
-         <xsl:if test="./rsd:IdentificationDocumentNumber">
-            <tns:IdentificationDocumentNumber>
-               <xsl:value-of select="./rsd:IdentificationDocumentNumber"/>
-            </tns:IdentificationDocumentNumber>
-         </xsl:if>
-         <tns:BirthDate>
-            <xsl:value-of select="./rsd:BirthDate"/>
-         </tns:BirthDate>
-         <xsl:apply-templates select="./rsd:BankSubdivision"/>
-         <tns:IssueDate>
-            <xsl:value-of select="./rsd:IssueDate"/>
-         </tns:IssueDate>
-         <xsl:if test="./rsd:PackageId">
-            <tns:PackageId>
-               <xsl:value-of select="./rsd:PackageId"/>
-            </tns:PackageId>
-         </xsl:if>
-         <xsl:if test="./rsd:BarCode">
-            <tns:BarCode>
-               <xsl:value-of select="./rsd:BarCode"/>
-            </tns:BarCode>
-         </xsl:if>
-      </tns:NaturalPersonCompesationApplication>
-   </xsl:template>
-
-   <xsl:template match="rsd:BankSubdivision">
-      <tns:BankSubdivision>
-         <tns:TB>
-            <xsl:value-of select="./rsd:TB"/>
-         </tns:TB>
-         <tns:OSB>
-            <xsl:value-of select="./rsd:OSB"/>
-         </tns:OSB>
-         <tns:VSP>
-            <xsl:value-of select="./rsd:VSP"/>
-         </tns:VSP>
-      </tns:BankSubdivision>
+      </tns:SrvSendApplicationForCBDFProcessingRs>
    </xsl:template>
 
    <xsl:template name="SrvSendApplicationForCBDFProcessing">
-      <xsl:param name="request"/>
+      <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="tns:SrvSendApplicationForCBDFProcessingRq">
-         <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:NaturalPersonCompesationApplication"/>
+      <xsl:element name="tns:SrvSendApplicationForCBDFProcessingRs">
+         <xsl:if test="$data/rsd:response[@name=$response]/rsd:ApplicationId">
+            <tns:ApplicationId>
+               <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:ApplicationId"/>
+            </tns:ApplicationId>
+         </xsl:if>
       </xsl:element>
    </xsl:template>
 </xsl:stylesheet>

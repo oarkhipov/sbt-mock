@@ -9,7 +9,7 @@
    <soap:Body>
       <tns:SrvSendApplicationForCBDFProcessingRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
          <tns:NaturalPersonCompesationApplication>
-            <tns:ApplicationId>1234567890</tns:ApplicationId>
+            <tns:ApplicationId>test1</tns:ApplicationId>
             <tns:DocumentPackageType>1</tns:DocumentPackageType>
             <tns:LastName>string</tns:LastName>
             <tns:FirstName>string</tns:FirstName>

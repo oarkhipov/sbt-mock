@@ -7,6 +7,8 @@
       </mq:AsyncHeader>
    </soap:Header>
    <soap:Body>
-      <tns:SrvGetClientReferenceDataRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10"/>
+      <tns:SrvGetClientReferenceDataRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
+         <tns:ClientId>test1</tns:ClientId>
+      </tns:SrvGetClientReferenceDataRq>
    </soap:Body>
 </soap:Envelope>

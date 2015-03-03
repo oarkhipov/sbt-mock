@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/prpc/bbmo/10/SrvSendNaturalPersonApplicationStateChangeMessageRq/Data/">
-   <request name="default">
+<data xmlns="http://sbrf.ru/prpc/bbmo/10/SrvSendNaturalPersonApplicationStateChangeMessageRs/Data/">
+   <response name="default">
       <SoapHeader>
          <AsyncHeader>
             <message-id>message-id</message-id>
@@ -8,15 +8,9 @@
             <operation-name>SrvSendNaturalPersonApplicationProcessStageResult</operation-name>
          </AsyncHeader>
       </SoapHeader>
-      <NaturalPersonApplicationState>
-         <ApplicationId>1234567890</ApplicationId>
-         <ApplicationStatus>1</ApplicationStatus>
-         <Comment>string</Comment>
-      </NaturalPersonApplicationState>
-      <PackageId>string</PackageId>
-      <TB>str</TB>
-   </request>
-   <request name="test1">
+      <URL>string</URL>
+   </response>
+   <response name="test1">
       <SoapHeader>
          <AsyncHeader>
             <message-id>message-id</message-id>
@@ -24,9 +18,5 @@
             <operation-name>SrvSendNaturalPersonApplicationProcessStageResult</operation-name>
          </AsyncHeader>
       </SoapHeader>
-      <NaturalPersonApplicationState>
-         <ApplicationId>1234567890</ApplicationId>
-         <ApplicationStatus>1</ApplicationStatus>
-      </NaturalPersonApplicationState>
-   </request>
+   </response>
 </data>

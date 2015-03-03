@@ -13,7 +13,7 @@
             <tns:OSB>string</tns:OSB>
             <tns:VSP>string</tns:VSP>
          </tns:BankSubdivision>
-         <tns:AccountNumber>string</tns:AccountNumber>
+         <tns:AccountNumber>test1</tns:AccountNumber>
       </tns:SrvPermitAccountChargeOperationRq>
    </soap:Body>
 </soap:Envelope>

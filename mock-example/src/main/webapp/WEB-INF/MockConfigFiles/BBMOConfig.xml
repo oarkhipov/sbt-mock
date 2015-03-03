@@ -9,8 +9,27 @@
                 <integrationPoint>
                     <name>SrvUpdateClientReferenceDataRq</name>
                     <operationName>SrvUpdateClientReferenceData</operationName>
+                    <rsRootElementName>SrvUpdateClientReferenceDataRs</rsRootElementName>
                     <rqRootElementName>SrvUpdateClientReferenceDataRq</rqRootElementName>
-                    <type>Driver</type>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <linkedTag>
+                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
+                            <tag>Envelope</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
+                            <tag>Body</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
+                            <tag>SrvUpdateClientReferenceDataRq</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
+                            <tag>ChangeType</tag>
+                        </linkedTag>
+                    </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
                     <incomeQueue>IN.KKMB.2</incomeQueue>
@@ -57,8 +76,27 @@
                 <integrationPoint>
                     <name>SrvPermitAccountChargeOperation</name>
                     <operationName>SrvPermitAccountChargeOperation</operationName>
+                    <rsRootElementName>SrvPermitAccountChargeOperationRs</rsRootElementName>
                     <rqRootElementName>SrvPermitAccountChargeOperationRq</rqRootElementName>
-                    <type>Driver</type>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <linkedTag>
+                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
+                            <tag>Envelope</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
+                            <tag>Body</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
+                            <tag>SrvPermitAccountChargeOperationRq</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
+                            <tag>AccountNumber</tag>
+                        </linkedTag>
+                    </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
                     <incomeQueue>IN.KKMB.2</incomeQueue>
@@ -105,8 +143,27 @@
                 <integrationPoint>
                     <name>SrvGetClientReferenceDataRq</name>
                     <operationName>SrvGetClientReferenceData</operationName>
+                    <rsRootElementName>SrvGetClientReferenceDataRs</rsRootElementName>
                     <rqRootElementName>SrvGetClientReferenceDataRq</rqRootElementName>
-                    <type>Driver</type>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <linkedTag>
+                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
+                            <tag>Envelope</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
+                            <tag>Body</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
+                            <tag>SrvGetClientReferenceDataRq</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
+                            <tag>ClientId</tag>
+                        </linkedTag>
+                    </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
                     <incomeQueue>IN.KKMB.2</incomeQueue>
@@ -153,8 +210,27 @@
                 <integrationPoint>
                     <name>SrvSendApplicationForCBDFProcessingRq</name>
                     <operationName>SrvSendApplicationForCBDFProcessing</operationName>
+                    <rsRootElementName>SrvSendApplicationForCBDFProcessingRs</rsRootElementName>
                     <rqRootElementName>SrvSendApplicationForCBDFProcessingRq</rqRootElementName>
-                    <type>Driver</type>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <linkedTag>
+                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
+                            <tag>Envelope</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
+                            <tag>Body</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
+                            <tag>SrvSendApplicationForCBDFProcessingRq</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
+                            <tag>ApplicationId</tag>
+                        </linkedTag>
+                    </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
                     <incomeQueue>IN.KKMB.2</incomeQueue>
@@ -201,8 +277,27 @@
                 <integrationPoint>
                     <name>SrvSendNaturalPersonApplicationStateChangeMessageRq</name>
                     <operationName>SrvSendNaturalPersonApplicationProcessStageResult</operationName>
+                    <rsRootElementName>SrvSendNaturalPersonApplicationStateChangeMessageRs</rsRootElementName>
                     <rqRootElementName>SrvSendNaturalPersonApplicationStateChangeMessageRq</rqRootElementName>
-                    <type>Driver</type>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <linkedTag>
+                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
+                            <tag>Envelope</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
+                            <tag>Body</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
+                            <tag>SrvSendNaturalPersonApplicationStateChangeMessageRq</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
+                            <tag>ApplicationId</tag>
+                        </linkedTag>
+                    </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
                     <incomeQueue>IN.KKMB.2</incomeQueue>
@@ -316,32 +411,13 @@
                 <integrationPoint>
                     <name>SrvSendApplicationProcessingURL</name>
                     <operationName>SrvSendApplicationProcessingURL</operationName>
-                    <rsRootElementName>SrvSendApplicationProcessingURLRs</rsRootElementName>
                     <rqRootElementName>SrvSendApplicationProcessingURLRq</rqRootElementName>
-                    <type>Mock</type>
-                    <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>SrvSendApplicationProcessingURLRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>ApplicationId</tag>
-                        </linkedTag>
-                    </linkedTagSequence>
+                    <type>Driver</type>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
-                    <incomeQueue>IN.KKMB.2</incomeQueue>
+                    <incomeQueue>ESB.BPM.REQUEST</incomeQueue>
                     <!--OPTIONAL-->
-                    <outcomeQueue>OUT.KKMB2</outcomeQueue>
+                    <outcomeQueue>ESB.BPM.RESPONSE</outcomeQueue>
                     <xsdFile>BBMOOperationElements.xsd</xsdFile>
                     <!--OPTIONAL-->
                     <dependencies>
