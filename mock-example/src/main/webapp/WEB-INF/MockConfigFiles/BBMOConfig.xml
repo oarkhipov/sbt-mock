@@ -242,6 +242,72 @@
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint>
+                    <name>SrvRegisterLegalPersonAccountOperationApplication</name>
+                    <rsRootElementName>SrvRegisterLegalPersonApplicationRs</rsRootElementName>
+                    <rqRootElementName>SrvRegisterLegalPersonApplicationRq</rqRootElementName>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <linkedTag>
+                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
+                            <tag>Envelope</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
+                            <tag>Body</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
+                            <tag>SrvRegisterLegalPersonApplicationRq</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
+                            <tag>TaxId</tag>
+                        </linkedTag>
+                    </linkedTagSequence>
+                    <protocol>MQ/SOAP/HTTP</protocol>
+                    <!--OPTIONAL-->
+                    <incomeQueue>IN.KKMB.2</incomeQueue>
+                    <!--OPTIONAL-->
+                    <outcomeQueue>OUT.KKMB2</outcomeQueue>
+                    <xsdFile>BBMOOperationElements.xsd</xsdFile>
+                    <!--OPTIONAL-->
+                    <dependencies>
+                        <dependency>
+                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/TransactionPassportTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/NaturalPersonApplicationTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/LegalPersonApplicationTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/ExchangeControlTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/ClientReferenceDataTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/CommonStructureTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/DocumentsInfo.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>domainTypes/CKPITProductTypes.xsd</xsdFile>
+                        </dependency>
+                    </dependencies>
+                </integrationPoint>
+                <integrationPoint>
                     <name>SrvSendApplicationProcessingURL</name>
                     <rsRootElementName>SrvSendApplicationProcessingURLRs</rsRootElementName>
                     <rqRootElementName>SrvSendApplicationProcessingURLRq</rqRootElementName>

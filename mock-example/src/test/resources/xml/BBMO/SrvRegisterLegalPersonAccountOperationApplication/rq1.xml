@@ -1,0 +1,30 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Header>
+      <mq:AsyncHeader xmlns:mq="http://sbrf.ru/prpc/mq/headers">
+         <mq:message-id>message-id</mq:message-id>
+         <mq:request-time>2014-12-16T17:55:06.410+04:00</mq:request-time>
+         <mq:operation-name>SrvRegisterLegalPersonApplicationRs</mq:operation-name>
+      </mq:AsyncHeader>
+   </soap:Header>
+   <soap:Body>
+      <tns:SrvRegisterLegalPersonApplicationRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
+         <tns:LegalPersonApplication><!--optional--><tns:ApplicationId>string</tns:ApplicationId>
+            <!--optional--><tns:OperationType>string</tns:OperationType>
+            <!--optional--><tns:ClientId>1234567890</tns:ClientId>
+            <tns:TaxId>string</tns:TaxId>
+            <tns:CustomerFullName>string</tns:CustomerFullName>
+            <tns:BankSubdivision>
+               <tns:TB>str</tns:TB>
+               <tns:OSB>string</tns:OSB>
+               <tns:VSP>string</tns:VSP>
+            </tns:BankSubdivision>
+            <tns:InitDate>2015-03-03</tns:InitDate>
+            <!--optional--><tns:AgreementIdentifier>string</tns:AgreementIdentifier>
+            <!--optional--><tns:AgreementNumber>string</tns:AgreementNumber>
+            <!--optional--><tns:MainAccountNumber>string</tns:MainAccountNumber>
+            <!--optional--><tns:TaxRegReasonCode>string</tns:TaxRegReasonCode>
+            <!--optional--><tns:BarCode>string</tns:BarCode>
+         </tns:LegalPersonApplication>
+      </tns:SrvRegisterLegalPersonApplicationRq>
+   </soap:Body>
+</soap:Envelope>

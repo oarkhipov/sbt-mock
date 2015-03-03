@@ -17,13 +17,13 @@
             <!--optional--><tns:IdentificationDocumentType>0</tns:IdentificationDocumentType>
             <!--optional--><tns:IdentificationDocumentSeries>string</tns:IdentificationDocumentSeries>
             <!--optional--><tns:IdentificationDocumentNumber>string</tns:IdentificationDocumentNumber>
-            <tns:BirthDate>2015-03-02</tns:BirthDate>
+            <tns:BirthDate>2015-03-03</tns:BirthDate>
             <tns:BankSubdivision>
                <tns:TB>str</tns:TB>
                <tns:OSB>string</tns:OSB>
                <tns:VSP>string</tns:VSP>
             </tns:BankSubdivision>
-            <tns:IssueDate>2015-03-02</tns:IssueDate>
+            <tns:IssueDate>2015-03-03</tns:IssueDate>
             <!--optional--><tns:PackageId>string</tns:PackageId>
             <!--optional--><tns:BarCode>string</tns:BarCode>
          </tns:NaturalPersonCompesationApplication>

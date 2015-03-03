@@ -105,6 +105,7 @@
     <channel id="ESBSynCallForNCPDB"/>
     
     <channel id="SrvSendApplicationProcessingURL"/>
+    <channel id="SrvRegisterLegalPersonAccountOperationApplication"/>
 
     <ix:xpath-router id="operationRouter" input-channel="ESB.BPM.NCP.IN.MOCK" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
         <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
@@ -112,6 +113,7 @@
         <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="ESBSynCallForNCPDB"/>
         
         <ix:mapping value="SrvSendApplicationProcessingURLRq" channel="SrvSendApplicationProcessingURL"/>
+        <ix:mapping value="SrvRegisterLegalPersonAccountOperationApplication" channel="SrvRegisterLegalPersonAccountOperationApplication"/>
     </ix:xpath-router>
 
     <!-- здесь уже реализация -->
@@ -119,6 +121,9 @@
     <!-- BBMO -->
     <beans:bean id="BBMO_SrvSendApplicationProcessingURL" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvSendApplicationProcessingURL.xsl"/>
+    </beans:bean>
+    <beans:bean id="BBMO_SrvRegisterLegalPersonAccountOperationApplication" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvRegisterLegalPersonAccountOperationApplication.xsl"/>
     </beans:bean>
 
  <!--маппинг трасформеров на каналы-->

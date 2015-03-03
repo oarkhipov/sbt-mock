@@ -3,14 +3,13 @@
       <mq:AsyncHeader xmlns:mq="http://sbrf.ru/prpc/mq/headers">
          <mq:message-id>message-id</mq:message-id>
          <mq:request-time>2014-12-16T17:55:06.410+04:00</mq:request-time>
-         <mq:operation-name>SrvPutRemoteLegalAccOperAppRq</mq:operation-name>
+         <mq:operation-name>SrvRegisterLegalPersonApplicationRs</mq:operation-name>
       </mq:AsyncHeader>
    </soap:Header>
    <soap:Body>
-      <tns:SrvPutRemoteLegalAccOperAppRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
-         <tns:ClientReferenceData/>
+      <tns:SrvRegisterLegalPersonApplicationRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
          <tns:LegalPersonApplication>
-            <tns:TaxId>string</tns:TaxId>
+            <tns:TaxId>test1</tns:TaxId>
             <tns:CustomerFullName>string</tns:CustomerFullName>
             <tns:BankSubdivision>
                <tns:TB>str</tns:TB>
@@ -19,7 +18,6 @@
             </tns:BankSubdivision>
             <tns:InitDate>2015-03-03</tns:InitDate>
          </tns:LegalPersonApplication>
-         <tns:DocumentsInfo/>
-      </tns:SrvPutRemoteLegalAccOperAppRq>
+      </tns:SrvRegisterLegalPersonApplicationRq>
    </soap:Body>
 </soap:Envelope>

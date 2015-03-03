@@ -17,13 +17,13 @@
          <IdentificationDocumentType>0</IdentificationDocumentType>
          <IdentificationDocumentSeries>string</IdentificationDocumentSeries>
          <IdentificationDocumentNumber>string</IdentificationDocumentNumber>
-         <BirthDate>2015-03-02</BirthDate>
+         <BirthDate>2015-03-03</BirthDate>
          <BankSubdivision>
             <TB>str</TB>
             <OSB>string</OSB>
             <VSP>string</VSP>
          </BankSubdivision>
-         <IssueDate>2015-03-02</IssueDate>
+         <IssueDate>2015-03-03</IssueDate>
          <PackageId>string</PackageId>
          <BarCode>string</BarCode>
       </NaturalPersonCompesationApplication>
@@ -41,13 +41,13 @@
          <DocumentPackageType>1</DocumentPackageType>
          <LastName>string</LastName>
          <FirstName>string</FirstName>
-         <BirthDate>2015-03-02</BirthDate>
+         <BirthDate>2015-03-03</BirthDate>
          <BankSubdivision>
             <TB>str</TB>
             <OSB>string</OSB>
             <VSP>string</VSP>
          </BankSubdivision>
-         <IssueDate>2015-03-02</IssueDate>
+         <IssueDate>2015-03-03</IssueDate>
       </NaturalPersonCompesationApplication>
    </request>
 </data>
