@@ -106,25 +106,55 @@
     <channel id="defaultChannel"/>
     <channel id="ESBSynCallForNCPDB"/>
 
-    <channel id="SrvSendApplicationProcessingURL"/>
+    <channel id="SrvGetClientReferenceDataRq"/>
+    <channel id="SrvPermitAccountChargeOperation"/>
+    <channel id="SrvRegisterLegalPersonAccountOperationApplication"/>
+    <channel id="SrvSendApplicationForCBDFProcessingRq"/>
+    <channel id="SrvSendNaturalPersonApplicationStateChangeMessageRq"/>
+    <channel id="SrvUpdateClientReferenceDataRq"/>
 
     <ix:xpath-router id="operationRouter" input-channel="ESB.BPM.NCP.IN.MOCK" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
         <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
 
         <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="ESBSynCallForNCPDB"/>
 
-        <ix:mapping value="SrvSendApplicationProcessingURLRq" channel="SrvSendApplicationProcessingURL"/>
+        <ix:mapping value="SrvGetClientReferenceData" channel="SrvGetClientReferenceDataRq"/>
+        <ix:mapping value="SrvPermitAccountChargeOperation" channel="SrvPermitAccountChargeOperation"/>
+        <ix:mapping value="SrvRegisterLegalPersonAccountOperationApplication" channel="SrvRegisterLegalPersonAccountOperationApplication"/>
+        <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="SrvSendApplicationForCBDFProcessingRq"/>
+        <ix:mapping value="SrvSendNaturalPersonApplicationProcessStageResult" channel="SrvSendNaturalPersonApplicationStateChangeMessageRq"/>
+        <ix:mapping value="SrvUpdateClientReferenceData" channel="SrvUpdateClientReferenceDataRq"/>
     </ix:xpath-router>
 
     <!-- здесь уже реализация -->
 
     <!-- BBMO -->
-    <beans:bean id="BBMO_SrvSendApplicationProcessingURL" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvSendApplicationProcessingURL.xsl"/>
+    <beans:bean id="BBMO_SrvGetClientReferenceDataRq" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvGetClientReferenceDataRq.xsl"/>
+    </beans:bean>
+    <beans:bean id="BBMO_SrvPermitAccountChargeOperation" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvPermitAccountChargeOperation.xsl"/>
+    </beans:bean>
+    <beans:bean id="BBMO_SrvRegisterLegalPersonAccountOperationApplication" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvRegisterLegalPersonAccountOperationApplication.xsl"/>
+    </beans:bean>
+    <beans:bean id="BBMO_SrvSendApplicationForCBDFProcessingRq" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvSendApplicationForCBDFProcessingRq.xsl"/>
+    </beans:bean>
+    <beans:bean id="BBMO_SrvSendNaturalPersonApplicationStateChangeMessageRq" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvSendNaturalPersonApplicationStateChangeMessageRq.xsl"/>
+    </beans:bean>
+    <beans:bean id="BBMO_SrvUpdateClientReferenceDataRq" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvUpdateClientReferenceDataRq.xsl"/>
     </beans:bean>
     <!--маппинг трасформеров на каналы-->
 
-    <transformer input-channel="SrvSendApplicationProcessingURL" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="BBMO_SrvSendApplicationProcessingURL"/>
+    <transformer input-channel="SrvGetClientReferenceDataRq" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="BBMO_SrvGetClientReferenceDataRq"/>
+    <transformer input-channel="SrvPermitAccountChargeOperation" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="BBMO_SrvPermitAccountChargeOperation"/>
+    <transformer input-channel="SrvRegisterLegalPersonAccountOperationApplication" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="BBMO_SrvRegisterLegalPersonAccountOperationApplication"/>
+    <transformer input-channel="SrvSendApplicationForCBDFProcessingRq" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="BBMO_SrvSendApplicationForCBDFProcessingRq"/>
+    <transformer input-channel="SrvSendNaturalPersonApplicationStateChangeMessageRq" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="BBMO_SrvSendNaturalPersonApplicationStateChangeMessageRq"/>
+    <transformer input-channel="SrvUpdateClientReferenceDataRq" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="BBMO_SrvUpdateClientReferenceDataRq"/>
 
     <context:component-scan base-package="ru.sbt.bpm.mock.controller"/>
 
@@ -138,6 +168,7 @@
             <util:list>
                 <!--<beans:ref bean="ESB.BPM.NCP.REQUEST"/>-->
                 <beans:ref bean="ESB.BPM.NCP.RESPONSE"/>
+                <beans:ref bean="ESB.BPM.NCP.OUT.MOCK"/>
             </util:list>
         </beans:property>
     </beans:bean>

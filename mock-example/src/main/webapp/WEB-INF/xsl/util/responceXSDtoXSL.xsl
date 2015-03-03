@@ -33,6 +33,9 @@
     <!-- TODO выбрать этот параметр автоматом. Проблема в том, что задать его можно только захардкодив -->
     <xsl:param name="systemName" select="'CRM'"/>
 
+    <xsl:variable name="dataNS" select="if ($targetNS!='') then mock:addDataToNamespaceUrl($targetNS, $rootElementName) else concat('http://sbrf.ru/mockService/',$rootElementName,'/Data/')"/> <!--TODO заменить mock на namespace конфига -->
+
+
     <!--В этой переменной идет выбор заголовка между разными системами. Сейчас выбор захорлкожен-->
     <!--!!! этот выбор захардкожен !!!-->
     <xsl:param name="headerType" select="if (contains($targetNS, 'bbmo')) then 'KD4' else 'NCP'"/>
@@ -95,7 +98,7 @@
         <xsl:element name="xsl:stylesheet">
             <!--TODO поставить if условия на неймспейсы, как в requestXSDtoXSL.xsl-->
             <xsl:namespace name="tns" select="$targetNS"/>
-            <xsl:namespace name="rsd" select="concat($targetNS,'Data/')"/>
+            <xsl:namespace name="rsd" select="$dataNS"/>
             <xsl:namespace name="soap" select="mock:SOAPNS($headerType)"/>
             <xsl:namespace name="{$systemName}" select="$parrentNS"/>
             <xsl:attribute name="version">1.0</xsl:attribute>

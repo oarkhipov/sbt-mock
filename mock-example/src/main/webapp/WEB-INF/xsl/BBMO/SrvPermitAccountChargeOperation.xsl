@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:tns="http://sbrf.ru/prpc/bbmo/10"
-                xmlns:rsd="http://sbrf.ru/prpc/bbmo/10Data/"
-                xmlns:soap="http://schemas.xmlsoap.org/soap/envelope//"
+                xmlns:rsd="http://sbrf.ru/prpc/bbmo/10/SrvPermitAccountChargeOperationRs/Data/"
+                xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
                 xmlns:BBMO="http://sbrf.ru/prpc/bbmo/10"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
@@ -27,7 +27,7 @@
    <xsl:template match="soap:Envelope">
       <xsl:variable name="data" select="document($dataFileName)/rsd:data"/>
       <xsl:variable name="linkedTag" select="$name"/>
-      <xsl:element xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" name="soap:Envelope">
+      <xsl:element name="soap:Envelope">
          <xsl:call-template name="KD4Header">
             <xsl:with-param name="response">
                <xsl:choose>

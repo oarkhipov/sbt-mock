@@ -22,7 +22,8 @@
             <soap:message-id>
                 <xsl:choose>
                     <xsl:when test="$id!='null'"><xsl:value-of select="$id"/></xsl:when>
-                    <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:message-id"><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:message-id"/></xsl:when>
+                    <xsl:when test="//*[local-name()='request' or local-name()='response']/*[local-name()='SoapHeader']/*[local-name()='message-id']"><xsl:value-of select="//*[local-name()='request' or local-name()='response']/*[local-name()='SoapHeader']/*[local-name()='message-id']"/></xsl:when>
+                    <xsl:when test="/*[local-name()='Envelope']/*[local-name()='Header']/*[local-name()='message-id']"><xsl:value-of select="/*[local-name()='Envelope']/*[local-name()='Header']/*[local-name()='message-id']"/></xsl:when>
                     <xsl:otherwise><xsl:value-of select="$defaultId"/></xsl:otherwise>
                 </xsl:choose>
             </soap:message-id>
@@ -31,27 +32,27 @@
 
             <xsl:choose>
                 <xsl:when test="$correlation-id!='null'"><soap:correlation-id><xsl:value-of select="$correlation-id"/></soap:correlation-id></xsl:when>
-                <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:correlation-id"><soap:correlation-id><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:correlation-id"/></soap:correlation-id></xsl:when>
+                <xsl:when test="//*[local-name()='request' or local-name()='response']/*[local-name()='SoapHeader']/*[local-name()='correlation-id']"><soap:correlation-id><xsl:value-of select="//*[local-name()='request' or local-name()='response']/*[local-name()='SoapHeader']/*[local-name()='correlation-id']"/></soap:correlation-id></xsl:when>
             </xsl:choose>
             <xsl:choose>
                 <xsl:when test="$eis-name!='null'"><soap:eis-name><xsl:value-of select="$eis-name"/></soap:eis-name></xsl:when>
-                <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:eis-name"><soap:eis-name><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:eis-name"/></soap:eis-name></xsl:when>
+                <xsl:when test="//*[local-name()='request' or local-name()='response']/*[local-name()='SoapHeader']/*[local-name()='eis-name']"><soap:eis-name><xsl:value-of select="//*[local-name()='request' or local-name()='response']/*[local-name()='SoapHeader']/*[local-name()='eis-name']"/></soap:eis-name></xsl:when>
             </xsl:choose>
             <xsl:choose>
                 <xsl:when test="$system-id!='null'"><soap:system-id><xsl:value-of select="$system-id"/></soap:system-id></xsl:when>
-                <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:system-id"><soap:system-id><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:system-id"/></soap:system-id></xsl:when>
+                <xsl:when test="//*[local-name()='request' or local-name()='response']/*[local-name()='SoapHeader']/*[local-name()='system-id']"><soap:system-id><xsl:value-of select="//*[local-name()='request' or local-name()='response']/*[local-name()='SoapHeader']/*[local-name()='system-id']"/></soap:system-id></xsl:when>
             </xsl:choose>
             <xsl:choose>
                 <xsl:when test="$operation-version!='null'"><soap:operation-version><xsl:value-of select="$operation-version"/></soap:operation-version></xsl:when>
-                <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:operation-version"><soap:operation-version><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:operation-version"/></soap:operation-version></xsl:when>
+                <xsl:when test="//*[local-name()='request' or local-name()='response']/*[local-name()='SoapHeader']/*[local-name()='operation-version']"><soap:operation-version><xsl:value-of select="//*[local-name()='request' or local-name()='response']/*[local-name()='SoapHeader']/*[local-name()='operation-version']"/></soap:operation-version></xsl:when>
             </xsl:choose>
             <xsl:choose>
                 <xsl:when test="$user-id!='null'"><soap:user-id><xsl:value-of select="$user-id"/></soap:user-id></xsl:when>
-                <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:user-id"><soap:user-id><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:user-id"/></soap:user-id></xsl:when>
+                <xsl:when test="//*[local-name()='request' or local-name()='response']/*[local-name()='SoapHeader']/*[local-name()='user-id']"><soap:user-id><xsl:value-of select="//*[local-name()='request' or local-name()='response']/*[local-name()='SoapHeader']/*[local-name()='user-id']"/></soap:user-id></xsl:when>
             </xsl:choose>
             <xsl:choose>
                 <xsl:when test="$user-name!='null'"><soap:user-name><xsl:value-of select="$user-name"/></soap:user-name></xsl:when>
-                <xsl:when test="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:user-id"><soap:user-name><xsl:value-of select="./rsd:request[@name=$response]/rsd:SoapHeader/rsd:user-id"/></soap:user-name></xsl:when>
+                <xsl:when test="//*[local-name()='request' or local-name()='response']/*[local-name()='SoapHeader']/*[local-name()='user-id']"><soap:user-name><xsl:value-of select="//*[local-name()='request' or local-name()='response']/*[local-name()='SoapHeader']/*[local-name()='user-id']"/></soap:user-name></xsl:when>
             </xsl:choose>
         </soap:Header>
     </xsl:template>

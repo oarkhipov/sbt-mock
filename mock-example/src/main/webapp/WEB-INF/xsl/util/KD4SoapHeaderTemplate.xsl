@@ -1,7 +1,7 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 
-    <xsl:template name="KD4SOAPNS">http://schemas.xmlsoap.org/soap/envelope//</xsl:template>
+    <xsl:template name="KD4SOAPNS">http://schemas.xmlsoap.org/soap/envelope/</xsl:template>
 
     <xsl:template name="KD4Header" xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/"
                   xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
@@ -25,45 +25,46 @@
 
         <soap:Header>
             <xsl:if test="$kd4header!=''">
-                <kd4:KD4SoapHeaderV2><xsl:value-of select="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='KD4SoapHeaderV2']"/></kd4:KD4SoapHeaderV2>
+                <kd4:KD4SoapHeaderV2><xsl:value-of select="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='KD4SoapHeaderV2']"/></kd4:KD4SoapHeaderV2>
             </xsl:if>
             <mq:AsyncHeader>
                 <mq:message-id>
                     <xsl:choose>
                         <xsl:when test="$message-id!=''"><xsl:value-of select="$message-id"/></xsl:when>
-                        <xsl:when test="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='message-id']"><xsl:value-of select="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='message-id']"/></xsl:when>
+                        <xsl:when test="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='message-id']"><xsl:value-of select="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='message-id']"/></xsl:when>
+                        <xsl:when test="/*[local-name()='Envelope']/*[local-name()='Header']/*[local-name()='AsyncHeader']/*[local-name()='message-id']"><xsl:value-of select="/*[local-name()='Envelope']/*[local-name()='Header']/*[local-name()='AsyncHeader']/*[local-name()='message-id']"/></xsl:when>
                         <xsl:otherwise><xsl:value-of select="$defaultId"/></xsl:otherwise>
                     </xsl:choose>
                 </mq:message-id>
                 <mq:request-time><xsl:value-of select="$request-time"/></mq:request-time>
                 <xsl:choose>
                     <xsl:when test="$correlation-id!=''"><mq:correlation-id><xsl:value-of select="$correlation-id"/></mq:correlation-id></xsl:when>
-                    <xsl:when test="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='correlation-id']"><mq:correlation-id><xsl:value-of select="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='correlation-id']"/></mq:correlation-id></xsl:when>
+                    <xsl:when test="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='correlation-id']"><mq:correlation-id><xsl:value-of select="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='correlation-id']"/></mq:correlation-id></xsl:when>
                 </xsl:choose>
                 <xsl:choose>
                     <xsl:when test="$eis-name!=''"><mq:eis-name><xsl:value-of select="$eis-name"/></mq:eis-name></xsl:when>
-                    <xsl:when test="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='eis-name']"><mq:eis-name><xsl:value-of select="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='eis-name']"/></mq:eis-name></xsl:when>
+                    <xsl:when test="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='eis-name']"><mq:eis-name><xsl:value-of select="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='eis-name']"/></mq:eis-name></xsl:when>
                 </xsl:choose>
                 <xsl:choose>
                     <xsl:when test="$system-id!=''"><mq:system-id><xsl:value-of select="$system-id"/></mq:system-id></xsl:when>
-                    <xsl:when test="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='system-id']"><mq:system-id><xsl:value-of select="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='system-id']"/></mq:system-id></xsl:when>
+                    <xsl:when test="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='system-id']"><mq:system-id><xsl:value-of select="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='system-id']"/></mq:system-id></xsl:when>
                 </xsl:choose>
                 <mq:operation-name><xsl:value-of select="$operation-name"/></mq:operation-name>
                 <xsl:choose>
                     <xsl:when test="$operation-version!=''"><mq:operation-version><xsl:value-of select="$operation-version"/></mq:operation-version></xsl:when>
-                    <xsl:when test="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='operation-version']"><mq:operation-version><xsl:value-of select="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='operation-version']"/></mq:operation-version></xsl:when>
+                    <xsl:when test="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='operation-version']"><mq:operation-version><xsl:value-of select="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='operation-version']"/></mq:operation-version></xsl:when>
                 </xsl:choose>
                 <xsl:choose>
                     <xsl:when test="$user-id!=''"><mq:user-id><xsl:value-of select="$user-id"/></mq:user-id></xsl:when>
-                    <xsl:when test="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='user-id']"><mq:user-id><xsl:value-of select="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='user-id']"/></mq:user-id></xsl:when>
+                    <xsl:when test="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='user-id']"><mq:user-id><xsl:value-of select="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='user-id']"/></mq:user-id></xsl:when>
                 </xsl:choose>
                 <xsl:choose>
                     <xsl:when test="$user-name!=''"><mq:user-name><xsl:value-of select="$user-name"/></mq:user-name></xsl:when>
-                    <xsl:when test="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='user-id']"><mq:user-name><xsl:value-of select="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='user-id']"/></mq:user-name></xsl:when>
+                    <xsl:when test="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='user-id']"><mq:user-name><xsl:value-of select="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='user-id']"/></mq:user-name></xsl:when>
                 </xsl:choose>
                 <xsl:choose>
                     <xsl:when test="$proc-inst-tb!=''"><mq:proc-inst-tb><xsl:value-of select="$proc-inst-tb"/></mq:proc-inst-tb></xsl:when>
-                    <xsl:when test="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='proc-inst-tb']"><mq:proc-inst-tb><xsl:value-of select="//*[local-name()='request'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='proc-inst-tb']"/></mq:proc-inst-tb></xsl:when>
+                    <xsl:when test="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='proc-inst-tb']"><mq:proc-inst-tb><xsl:value-of select="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='AsyncHeader']/*[local-name()='proc-inst-tb']"/></mq:proc-inst-tb></xsl:when>
                 </xsl:choose>
             </mq:AsyncHeader>
         </soap:Header>
