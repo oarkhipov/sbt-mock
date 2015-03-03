@@ -449,6 +449,9 @@ public class importXSD {
         params.put("rootElementName", point.getaRqRootElementName());
         params.put("operationsXSD", "../../xsd/"+systemName+"/"+point.getaXsdFile() );
         params.put("xsdBase", system.getaRootXSD());
+        if (point.getaOperationName() != null & !point.getaOperationName().isEmpty()) {
+            params.put("operationName", point.getaOperationName());
+        }
         driverCycle(systemName, point.getaIntegrationPointName(), headerType, params);
     }
 
@@ -467,6 +470,9 @@ public class importXSD {
         params.put("operationsXSD", "../../xsd/"+systemName+"/"+point.getaXsdFile() );
         params.put("xsdBase", system.getaRootXSD());
         params.put("tagNameToTakeLinkedTag", linkedTag);
+        if (point.getaOperationName() != null & !point.getaOperationName().isEmpty()) {
+            params.put("operationName", point.getaOperationName());
+        }
         mockCycle(systemName, point.getaIntegrationPointName(), headerType, params);
     }
 

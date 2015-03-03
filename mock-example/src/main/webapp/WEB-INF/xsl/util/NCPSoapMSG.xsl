@@ -54,7 +54,7 @@
     <!--алиас неймспейса, который используется в исходной xsd-->
     <xsl:variable name="localTargetNSAlias" select="local-name($operationXsdSchema/namespace::*[.=$targetNS][string-length(local-name(.))>0])"/>
     <!--имя операции-->
-    <xsl:param name="operation-name" select="$rootElementName"/>
+    <xsl:param name="operationName" select="$rootElementName"/>
 
     <!-- инклюды схем -->
     <xsl:variable name="includeFilesList" select="$operationXsdSchema/xsd:include/@schemaLocation"/>
@@ -72,7 +72,7 @@
     <xsl:template match="xsd:schema">
         <xsl:element name="soap:Envelope">
             <xsl:call-template name="NCPHeaderExample">
-                <xsl:with-param name="operation-name" select="$operation-name"/>
+                <xsl:with-param name="operation-name" select="$operationName"/>
             </xsl:call-template>
             <xsl:call-template name="NCPSoapBody"/>
         </xsl:element>

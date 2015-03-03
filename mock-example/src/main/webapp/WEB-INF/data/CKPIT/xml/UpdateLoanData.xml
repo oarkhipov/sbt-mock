@@ -5,7 +5,7 @@
          <AsyncHeader>
             <message-id>message-id</message-id>
             <request-time>2014-12-16T17:55:06.410+04:00</request-time>
-            <operation-name>SrvCKPITUpdateLoanRq</operation-name>
+            <operation-name>UpdateLoan</operation-name>
          </AsyncHeader>
       </SoapHeader>
       <IDCKPIT_MB>1234567890</IDCKPIT_MB>
@@ -21,7 +21,7 @@
          <AsyncHeader>
             <message-id>message-id</message-id>
             <request-time>2014-12-16T17:55:06.410+04:00</request-time>
-            <operation-name>SrvCKPITUpdateLoanRq</operation-name>
+            <operation-name>UpdateLoan</operation-name>
          </AsyncHeader>
       </SoapHeader>
       <IDCKPIT_MB>1234567890</IDCKPIT_MB>

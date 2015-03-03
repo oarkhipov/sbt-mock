@@ -8,6 +8,7 @@
             <integrationPoints>
                 <integrationPoint>
                     <name>SrvUpdateClientReferenceDataRq</name>
+                    <operationName>SrvUpdateClientReferenceData</operationName>
                     <rqRootElementName>SrvUpdateClientReferenceDataRq</rqRootElementName>
                     <type>Driver</type>
                     <protocol>MQ/SOAP/HTTP</protocol>
@@ -55,6 +56,7 @@
                 </integrationPoint>
                 <integrationPoint>
                     <name>SrvPermitAccountChargeOperation</name>
+                    <operationName>SrvPermitAccountChargeOperation</operationName>
                     <rqRootElementName>SrvPermitAccountChargeOperationRq</rqRootElementName>
                     <type>Driver</type>
                     <protocol>MQ/SOAP/HTTP</protocol>
@@ -102,6 +104,7 @@
                 </integrationPoint>
                 <integrationPoint>
                     <name>SrvGetClientReferenceDataRq</name>
+                    <operationName>SrvGetClientReferenceData</operationName>
                     <rqRootElementName>SrvGetClientReferenceDataRq</rqRootElementName>
                     <type>Driver</type>
                     <protocol>MQ/SOAP/HTTP</protocol>
@@ -149,6 +152,7 @@
                 </integrationPoint>
                 <integrationPoint>
                     <name>SrvSendApplicationForCBDFProcessingRq</name>
+                    <operationName>SrvSendApplicationForCBDFProcessing</operationName>
                     <rqRootElementName>SrvSendApplicationForCBDFProcessingRq</rqRootElementName>
                     <type>Driver</type>
                     <protocol>MQ/SOAP/HTTP</protocol>
@@ -196,6 +200,7 @@
                 </integrationPoint>
                 <integrationPoint>
                     <name>SrvSendNaturalPersonApplicationStateChangeMessageRq</name>
+                    <operationName>SrvSendNaturalPersonApplicationProcessStageResult</operationName>
                     <rqRootElementName>SrvSendNaturalPersonApplicationStateChangeMessageRq</rqRootElementName>
                     <type>Driver</type>
                     <protocol>MQ/SOAP/HTTP</protocol>
@@ -243,6 +248,7 @@
                 </integrationPoint>
                 <integrationPoint>
                     <name>SrvRegisterLegalPersonAccountOperationApplication</name>
+                    <operationName>SrvRegisterLegalPersonAccountOperationApplication</operationName>
                     <rsRootElementName>SrvRegisterLegalPersonApplicationRs</rsRootElementName>
                     <rqRootElementName>SrvRegisterLegalPersonApplicationRq</rqRootElementName>
                     <type>Mock</type>
@@ -309,6 +315,7 @@
                 </integrationPoint>
                 <integrationPoint>
                     <name>SrvSendApplicationProcessingURL</name>
+                    <operationName>SrvSendApplicationProcessingURL</operationName>
                     <rsRootElementName>SrvSendApplicationProcessingURLRs</rsRootElementName>
                     <rqRootElementName>SrvSendApplicationProcessingURLRq</rqRootElementName>
                     <type>Mock</type>
@@ -383,6 +390,7 @@
             <integrationPoints>
                 <integrationPoint>
                     <name>SrvPutRemoteLegalAccOperAppRq</name>
+                    <operationName>SrvPutRemoteLegalAccOperApp</operationName>
                     <rqRootElementName>SrvPutRemoteLegalAccOperAppRq</rqRootElementName>
                     <type>Driver</type>
                     <protocol>MQ/SOAP/HTTP</protocol>
@@ -435,6 +443,7 @@
             <integrationPoints>
                 <integrationPoint>
                     <name>UpdateDepositNSO</name>
+                    <operationName>UpdateDepositNSO</operationName>
                     <rqRootElementName>SrvCKPITUpdateDepositNSORq</rqRootElementName>
                     <type>Driver</type>
                     <protocol>MQ/SOAP/HTTP</protocol>
@@ -482,6 +491,7 @@
                 </integrationPoint>
                 <integrationPoint>
                     <name>UpdateLoan</name>
+                    <operationName>UpdateLoan</operationName>
                     <rqRootElementName>SrvCKPITUpdateLoanRq</rqRootElementName>
                     <type>Driver</type>
                     <protocol>MQ/SOAP/HTTP</protocol>

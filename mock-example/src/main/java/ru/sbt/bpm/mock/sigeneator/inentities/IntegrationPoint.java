@@ -17,6 +17,9 @@ public class IntegrationPoint {
     @XStreamAlias("name")
     private String aIntegrationPointName;
 
+    @XStreamAlias("operationName")
+    private String aOperationName;
+
     @XStreamAlias("rsRootElementName")
     private String aRsRootElementName;
 
@@ -62,6 +65,15 @@ public class IntegrationPoint {
     public void setaRsRootElementName(String aRsRootElementName) {
         this.aRsRootElementName = aRsRootElementName;
     }
+
+    public String getaOperationName() {
+        return aOperationName;
+    }
+
+    public void setaOperationName(String aOperationName) {
+        this.aOperationName = aOperationName;
+    }
+
 
     public String getaRqRootElementName() {
         return aRqRootElementName;

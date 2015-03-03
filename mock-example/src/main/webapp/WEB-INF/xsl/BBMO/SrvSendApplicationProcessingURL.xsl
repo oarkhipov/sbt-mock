@@ -40,7 +40,7 @@
             <xsl:with-param name="request-time" select="$request-time"/>
             <xsl:with-param name="message-id" select="$message-id"/>
             <xsl:with-param name="operation-name"
-                            select="string('SrvSendApplicationProcessingURLRs')"/>
+                            select="string('SrvSendApplicationProcessingURL')"/>
             <xsl:with-param name="correlation-id" select="$correlation-id"/>
             <xsl:with-param name="eis-name" select="$eis-name"/>
             <xsl:with-param name="system-id" select="$system-id"/>
@@ -51,7 +51,7 @@
             <xsl:with-param name="proc-inst-tb" select="$proc-inst-tb"/>
          </xsl:call-template>
          <soap:Body>
-            <xsl:call-template name="SrvSendApplicationProcessingURLRs">
+            <xsl:call-template name="SrvSendApplicationProcessingURL">
                <xsl:with-param name="data" select="$data"/>
                <xsl:with-param name="response">
                   <xsl:choose>
@@ -76,7 +76,7 @@
       </tns:SrvSendApplicationProcessingURLRs>
    </xsl:template>
 
-   <xsl:template name="SrvSendApplicationProcessingURLRs">
+   <xsl:template name="SrvSendApplicationProcessingURL">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
       <xsl:element name="tns:SrvSendApplicationProcessingURLRs">

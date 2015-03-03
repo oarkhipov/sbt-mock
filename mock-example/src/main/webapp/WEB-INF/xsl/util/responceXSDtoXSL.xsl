@@ -22,6 +22,9 @@
     <!--выкидываем ошибку, если нам не дали имя тэга элемента-->
     <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/><!--TODO заменить mock на namespace конфига -->
 
+    <!-- Имя операции в заголвке -->
+    <xsl:param name="operationName" select="$rootElementName"/>
+
     <!-- Этот параметр нужен когда имя главного элемента запроса не соответвует тому что мы взяли из неймспейса. Тогда его можно указать параметром -->
     <xsl:param name="rootTypeName" select="mock:removeNamespaceAlias(/xsd:schema//xsd:element[@name=$rootElementName]/@type)"/>
 
@@ -156,7 +159,7 @@
             </xsl:element>
             <xsl:call-template name="xslTeplateDeclaration">
                 <xsl:with-param name="headerType" select="$headerType"/>
-                <xsl:with-param name="operationName" select="$rootElementName"/>
+                <xsl:with-param name="operationName" select="$operationName"/>
                 <xsl:with-param name="type" select="'response'"/>
             </xsl:call-template>
         </xsl:element>
@@ -200,7 +203,7 @@
         <xsl:variable name="mainElementNSAlias" select="if ($targetNS=$parrentNS) then 'tns' else $systemName"/>
         <!--<xsl:comment><xsl:value-of select="concat($targetNS,'-',$parrentNS)"/></xsl:comment>-->
         <xsl:element name="xsl:template">
-            <xsl:attribute name="name"><xsl:value-of select="$rootElementName"/></xsl:attribute>
+            <xsl:attribute name="name"><xsl:value-of select="$operationName"/></xsl:attribute>
             <xsl:element name="xsl:param">
                 <xsl:attribute name="name">response</xsl:attribute>
             </xsl:element>

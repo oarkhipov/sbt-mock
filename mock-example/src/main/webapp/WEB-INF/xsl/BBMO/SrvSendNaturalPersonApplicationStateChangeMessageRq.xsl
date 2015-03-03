@@ -36,7 +36,7 @@
             <xsl:with-param name="request-time" select="$request-time"/>
             <xsl:with-param name="message-id" select="$message-id"/>
             <xsl:with-param name="operation-name"
-                            select="string('SrvSendNaturalPersonApplicationStateChangeMessageRq')"/>
+                            select="string('SrvSendNaturalPersonApplicationProcessStageResult')"/>
             <xsl:with-param name="correlation-id" select="$correlation-id"/>
             <xsl:with-param name="eis-name" select="$eis-name"/>
             <xsl:with-param name="system-id" select="$system-id"/>
@@ -47,7 +47,7 @@
             <xsl:with-param name="proc-inst-tb" select="$proc-inst-tb"/>
          </xsl:call-template>
          <soap:Body>
-            <xsl:call-template name="SrvSendNaturalPersonApplicationStateChangeMessageRq">
+            <xsl:call-template name="SrvSendNaturalPersonApplicationProcessStageResult">
                <xsl:with-param name="data" select="$data"/>
                <xsl:with-param name="request">
                   <xsl:choose>
@@ -82,7 +82,7 @@
       </tns:NaturalPersonApplicationState>
    </xsl:template>
 
-   <xsl:template name="SrvSendNaturalPersonApplicationStateChangeMessageRq">
+   <xsl:template name="SrvSendNaturalPersonApplicationProcessStageResult">
       <xsl:param name="request"/>
       <xsl:param name="data"/>
       <xsl:element name="tns:SrvSendNaturalPersonApplicationStateChangeMessageRq">

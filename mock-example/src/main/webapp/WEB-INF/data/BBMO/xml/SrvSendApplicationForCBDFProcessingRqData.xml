@@ -5,7 +5,7 @@
          <AsyncHeader>
             <message-id>message-id</message-id>
             <request-time>2014-12-16T17:55:06.410+04:00</request-time>
-            <operation-name>SrvSendApplicationForCBDFProcessingRq</operation-name>
+            <operation-name>SrvSendApplicationForCBDFProcessing</operation-name>
          </AsyncHeader>
       </SoapHeader>
       <NaturalPersonCompesationApplication>
@@ -33,7 +33,7 @@
          <AsyncHeader>
             <message-id>message-id</message-id>
             <request-time>2014-12-16T17:55:06.410+04:00</request-time>
-            <operation-name>SrvSendApplicationForCBDFProcessingRq</operation-name>
+            <operation-name>SrvSendApplicationForCBDFProcessing</operation-name>
          </AsyncHeader>
       </SoapHeader>
       <NaturalPersonCompesationApplication>

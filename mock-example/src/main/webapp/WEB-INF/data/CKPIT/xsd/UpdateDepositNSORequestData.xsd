@@ -18,7 +18,7 @@
          <xsd:documentation>Заголовок сообщения</xsd:documentation>
       </xsd:annotation>
       <xsd:sequence xmlns="">
-         <xsd:element name="KD4SoapHeaderV2" type="dt:String">
+         <xsd:element name="KD4SoapHeaderV2" type="dt:String" minOccurs="0">
             <xsd:annotation>
                <xsd:documentation>Заголовок SOAP-сообщения</xsd:documentation>
             </xsd:annotation>
@@ -29,12 +29,12 @@
             </xsd:annotation>
             <xsd:complexType>
                <xsd:sequence>
-                  <xsd:element name="message-id" type="st:UUID">
+                  <xsd:element name="message-id" type="st:UUID" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation>Уникальный идентификатор сообщения, передаваемого в рамках SOAP-пакета</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="request-time" type="dt:DateTime">
+                  <xsd:element name="request-time" type="dt:DateTime" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation>Системное время при отправке сообщения АС-отправителем с учетом временной зоны</xsd:documentation>
                      </xsd:annotation>
@@ -57,7 +57,7 @@
                         <xsd:documentation>Идентификатор системы получателя запроса</xsd:documentation>
                      </xsd:annotation>
                   </xsd:element>
-                  <xsd:element name="operation-name" type="st:OperationName_Type">
+                  <xsd:element name="operation-name" type="st:OperationName_Type" minOccurs="0">
                      <xsd:annotation>
                         <xsd:documentation>Название операции вызываемого сервиса</xsd:documentation>
                      </xsd:annotation>

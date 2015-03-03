@@ -61,7 +61,7 @@
     <!--алиас неймспейса, который используется в исходной xsd-->
     <xsl:variable name="localTargetNSAlias" select="local-name($operationXsdSchema/namespace::*[.=$targetNS][string-length(local-name(.))>0])"/>
     <!--имя операции-->
-    <xsl:param name="operation-name" select="$rootElementName"/>
+    <xsl:param name="operationName" select="$rootElementName"/>
 
     <!-- инклюды схем -->
     <xsl:variable name="includeFilesList" select="$operationXsdSchema/xsd:include/@schemaLocation"/>
@@ -86,7 +86,7 @@
                 <xsl:with-param name="correlation-id" select="$correlation-id"/>
                 <xsl:with-param name="eis-name" select="$eis-name"/>
                 <xsl:with-param name="system-id" select="$system-id"/>
-                <xsl:with-param name="operation-name" select="$operation-name"/>
+                <xsl:with-param name="operation-name" select="$operationName"/>
                 <xsl:with-param name="operation-version" select="$operation-version"/>
                 <xsl:with-param name="user-id" select="$user-id"/>
                 <xsl:with-param name="user-name" select="$user-name"/>

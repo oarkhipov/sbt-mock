@@ -22,13 +22,13 @@
 
      <!--Настройки подключения к MQ-->
     <beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.CF"/>
+            <beans:property name="jndiName" value="jms/ESB.BPM.CF"/>
     </beans:bean>
     <beans:bean id="requestQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.IN"/>
+            <beans:property name="jndiName" value="jms/ESB.BPM.IN"/>
     </beans:bean>
     <beans:bean id="replyQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.OUT"/>
+            <beans:property name="jndiName" value="jms/ESB.BPM.OUT"/>
     </beans:bean>
 
      <beans:bean id="requestQueueCRM" class="org.springframework.jndi.JndiObjectFactoryBean">
@@ -41,8 +41,8 @@
     <jms:inbound-gateway
             id="jmsin"
             request-destination="requestQueue"
-            request-channel="ESB.BPM.NCP.IN"
-            reply-channel="ESB.BPM.NCP.OUT"
+            request-channel="ESB.BPM.IN.MOCK"
+            reply-channel="ESB.BPM.OUT.MOCK"
             default-reply-destination="replyQueue"
             header-mapper="defHeaderMapper"
             connection-factory="jndiConnectionFactory"
@@ -61,26 +61,26 @@
     />
 
     <!-- Входной и выходной каналы -->	
-    <channel id="ESB.BPM.NCP.IN.MOCK">
+    <channel id="ESB.BPM.IN.MOCK">
         <interceptors>
             <wire-tap channel="fromGateLogger"/>
         </interceptors>
     </channel>
     
-    <channel id="ESB.BPM.NCP.OUT.MOCK">
+    <channel id="ESB.BPM.OUT.MOCK">
         <interceptors>
             <wire-tap channel="toGateLogger"/>
         </interceptors>
     </channel>
     
       <!-- Входной и выходной каналы1 -->	
-    <channel id="ESB.BPM.NCP.RESPONSE">
+    <channel id="ESB.BPM.RESPONSE">
         <interceptors>
             <wire-tap channel="fromGateLoggerCRM"/>
         </interceptors>
     </channel>
     
-    <channel id="ESB.BPM.NCP.REQUEST">
+    <channel id="ESB.BPM.REQUEST">
         <interceptors>
             <wire-tap channel="toGateLoggerCRM"/>
         </interceptors>
@@ -107,7 +107,7 @@
     <channel id="SrvSendApplicationProcessingURL"/>
     <channel id="SrvRegisterLegalPersonAccountOperationApplication"/>
 
-    <ix:xpath-router id="operationRouter" input-channel="ESB.BPM.NCP.IN.MOCK" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
+    <ix:xpath-router id="operationRouter" input-channel="ESB.BPM.IN.MOCK" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
         <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
         
         <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="ESBSynCallForNCPDB"/>
@@ -128,7 +128,7 @@
 
  <!--маппинг трасформеров на каналы-->
 
-    <transformer input-channel="SrvSendApplicationProcessingURL" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="BBMO_SrvSendApplicationProcessingURL"/>
+    <transformer input-channel="SrvSendApplicationProcessingURL" output-channel="ESB.BPM.OUT.MOCK" method="transform" ref="BBMO_SrvSendApplicationProcessingURL"/>
     
     <context:component-scan base-package="ru.sbt.bpm.mock.controller"/>
     
@@ -140,7 +140,7 @@
     <beans:bean id="channelService" class="ru.sbt.bpm.mock.service.ChannelService">
    		 <beans:property name="subscribeChannels">
    		 	<util:list>
-   		 		<beans:ref bean="ESB.BPM.NCP.RESPONSE"/>
+   		 		<beans:ref bean="ESB.BPM.RESPONSE"/>
    		 	</util:list>
    		 </beans:property> 
     </beans:bean>
@@ -150,7 +150,7 @@
 
     <!--<channel id="test"/>-->
     <!-- Mock gateway to send requests to outbound -->
-    <gateway id="systemEntry" default-request-channel="ESB.BPM.NCP.REQUEST" default-reply-channel="ESB.BPM.NCP.RESPONSE"
+    <gateway id="systemEntry" default-request-channel="ESB.BPM.REQUEST" default-reply-channel="ESB.BPM.RESPONSE"
                  service-interface="ru.sbt.bpm.mock.gateway.ClientService" />
     <!--<gateway id="systemEntry" default-request-channel="test" default-reply-channel="test"-->
                  <!--service-interface="ru.sbt.bpm.mock.gateway.ClientService" />-->

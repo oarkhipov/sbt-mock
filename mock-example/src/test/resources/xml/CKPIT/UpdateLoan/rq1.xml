@@ -3,7 +3,7 @@
       <mq:AsyncHeader xmlns:mq="http://sbrf.ru/prpc/mq/headers">
          <mq:message-id>message-id</mq:message-id>
          <mq:request-time>2014-12-16T17:55:06.410+04:00</mq:request-time>
-         <mq:operation-name>SrvCKPITUpdateLoanRq</mq:operation-name>
+         <mq:operation-name>UpdateLoan</mq:operation-name>
       </mq:AsyncHeader>
    </soap:Header>
    <soap:Body>
