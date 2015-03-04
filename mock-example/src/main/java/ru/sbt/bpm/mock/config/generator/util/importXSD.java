@@ -462,18 +462,38 @@ public class importXSD {
         String systemName = system.getaSystemName();
         String headerType = getHeaderTypeByHeaderNamespace(system);
         List<LinkedTag> linkedTagList = point.getaLinkedTagSequence().getaListOfLinkedTags();
-        String linkedTag = linkedTagList.get(linkedTagList.size()-1).getaTag(); //TODo пока планируемый функционал реализован не полность. Сейчас проверяется только последний тэг из последовательности
-
+        String linkedTag = linkedTagList.get(linkedTagList.size()-1).getaTag(); //TODo пока планируемый функционал реализован не полностью в разрезе тестов. Сейчас в создании примеров сообщений учитывается только последний тэг последовательности. Это может вызвать проблемы с автотестами в глубоких или повтаряющихся линкедтагах. Это не должно повлиять на работосопособность самих заглушек - только на создание примеров и прохождение автотестов
+        String linkedTagQuerry = formLinkedTagSequenceQuerry(linkedTagList);
 
         params.put("rootElementName", point.getaRsRootElementName());
         params.put("RqRootElementName", point.getaRqRootElementName());
         params.put("operationsXSD", "../../xsd/"+systemName+"/"+point.getaXsdFile() );
         params.put("xsdBase", system.getaRootXSD());
         params.put("tagNameToTakeLinkedTag", linkedTag);
+        if (linkedTagQuerry!=null) {
+            params.put("tagQuerryToTakeLinkedTag", linkedTagQuerry);
+        }
         if (point.getaOperationName() != null & !point.getaOperationName().isEmpty()) {
             params.put("operationName", point.getaOperationName());
         }
         mockCycle(systemName, point.getaIntegrationPointName(), headerType, params);
+    }
+
+    private String formLinkedTagSequenceQuerry(List<LinkedTag> linkedTagList) {
+        String querry = "/";
+        if (linkedTagList== null || linkedTagList.isEmpty()) {
+            return null;
+        } else {
+            for (LinkedTag tag : linkedTagList) {
+                if (tag.getaNameSpace() != null && !tag.getaNameSpace().isEmpty()) {
+                    querry += "/*[local-name()='" + tag.getaTag() + "' and namespace-uri()='" + tag.getaNameSpace() + "']";
+                } else {
+                    querry += "/*[local-name()='" + tag.getaTag() + "']";
+                }
+            }
+            querry += "/text()";
+        }
+        return querry;
     }
 
 

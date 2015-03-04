@@ -70,7 +70,7 @@
     <!--Имя тэга, который будет использоваться как LinkedTag. Если не задать - возьмет первый-->
     <xsl:param name="tagNameToTakeLinkedTag" select="'*'"/>
     <!--xpath, по которому будет взят LinkedTag. Можно не переопределять, если определен $tagNameToTakeLinkedTag-->
-    <xsl:param name="tagQuerryToTakeLinkedTag" select="if($tagNameToTakeLinkedTag='*') then '*[1]' else concat('*[local-name()=''',$tagNameToTakeLinkedTag,''']')"/>
+    <xsl:param name="tagQuerryToTakeLinkedTag" select="if($tagNameToTakeLinkedTag='*') then '*[1]' else concat('//soap:Body/*//*[local-name()=''',$tagNameToTakeLinkedTag,'''][1]/text()')"/>
 
     <!--TODO пренести функции в xsltFunctions.xsl-->
     <xsl:function name="mock:typesToImport">
@@ -135,7 +135,7 @@
 
         <xsl:element name="xsl:param">
             <xsl:attribute name="name">name</xsl:attribute>
-            <xsl:attribute name="select">//soap:Body/*//<xsl:value-of select="$tagQuerryToTakeLinkedTag"/>[1]/text()</xsl:attribute>
+            <xsl:attribute name="select"><xsl:value-of select="$tagQuerryToTakeLinkedTag"/></xsl:attribute>
         </xsl:element>
         <xsl:element name="xsl:param">
             <xsl:attribute name="name">dataFileName</xsl:attribute>

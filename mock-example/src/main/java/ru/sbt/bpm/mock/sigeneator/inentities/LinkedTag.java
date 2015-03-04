@@ -17,7 +17,10 @@ public class LinkedTag {
     private String aTag;
 
     public String getaNameSpace() {
-        return aNameSpace;
+        if (aNameSpace!=null && !aNameSpace.isEmpty()) {
+            return aNameSpace;
+        }
+        return null;
     }
 
     public void setaNameSpace(String aNameSpace) {

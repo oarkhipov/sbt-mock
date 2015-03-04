@@ -9,7 +9,7 @@
    <!--опускаем строку 'xml version="1.0" encoding="UTF-8"'. С ней не работает MQ очередь-->
 <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
    <xsl:param name="name"
-              select="//soap:Body/*//*[local-name()='ClientId'][1]/text()"/>
+              select="//*[local-name()='Envelope' and namespace-uri()='http://schemas.xmlsoap.org/soap/envelope/']/*[local-name()='Body' and namespace-uri()='http://schemas.xmlsoap.org/soap/envelope/']/*[local-name()='SrvGetClientReferenceDataRq' and namespace-uri()='http://sbrf.ru/prpc/bbmo/10']/*[local-name()='ClientId' and namespace-uri()='http://sbrf.ru/prpc/bbmo/10']/text()"/>
    <xsl:param name="dataFileName"
               select="'../../data/BBMO/xml/SrvGetClientReferenceDataRqData.xml'"/>
    <xsl:param name="request-time" select="string('2014-12-16T17:55:06.410+04:00')"/>

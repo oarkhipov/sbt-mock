@@ -228,6 +228,10 @@
                         </linkedTag>
                         <linkedTag>
                             <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
+                            <tag>NaturalPersonCompesationApplication</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
                             <tag>ApplicationId</tag>
                         </linkedTag>
                     </linkedTagSequence>
@@ -292,6 +296,10 @@
                         <linkedTag>
                             <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
                             <tag>SrvSendNaturalPersonApplicationStateChangeMessageRq</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
+                            <tag>NaturalPersonApplicationState</tag>
                         </linkedTag>
                         <linkedTag>
                             <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
