@@ -154,7 +154,7 @@
 
     <xsl:template name="bodyDeclaration">
         <xsl:element name="xsl:template">
-            <xsl:attribute name="match">soap:Envelope</xsl:attribute><!--TODO исправить здесь -->
+            <xsl:attribute name="match">soap:Envelope</xsl:attribute><!--TODO исправить здесь; edit Забыл что именно нужно здесь исправить. Скорее всего как-то свзязано с неймспейсом soap. Но на эту строку уже заывязан автотест - по этой строке определяется, что xsl заглушка, а не драйвер. Поэтому без понимания на что менять лучше не менять -->
             <xsl:element name="xsl:variable">
                 <xsl:attribute name="name">data</xsl:attribute>
                 <xsl:attribute name="select">document($dataFileName)/rsd:data</xsl:attribute>
