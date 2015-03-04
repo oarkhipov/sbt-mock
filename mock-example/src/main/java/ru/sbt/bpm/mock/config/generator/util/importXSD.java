@@ -369,19 +369,29 @@ public class importXSD {
      */
     public void copyXSDFiles(SystemTag system, IntegrationPoint point) throws Exception {
         File baseDir = findFolder(system);
+        String systemName = system.getaSystemName();
         System.out.println("Используется дирректория {"+baseDir.getAbsolutePath()+"}" );
-        importFile(baseDir.getAbsolutePath() + File.separator + system.getaRootXSD(), system.getaSystemName());
-        importFile(baseDir.getAbsolutePath() + File.separator + point.getaXsdFile(), system.getaSystemName());
+        importFile(baseDir.getAbsolutePath() + File.separator + system.getaRootXSD(), formSubPath(system.getaRootXSD(), systemName));
+        importFile(baseDir.getAbsolutePath() + File.separator + point.getaXsdFile(), formSubPath(point.getaXsdFile(), systemName));
         for (Dependency dependency : point.getaDependencies().getaDependency()) {
-            String subfolder = system.getaSystemName();
-            if (dependency.getaXsdFile().contains("\\") || dependency.getaXsdFile().contains("/") ) { //TODO тот код надо вынести в функцию и применить и к point.getaXsdFile()
-                int i = dependency.getaXsdFile().lastIndexOf("/");
-                int j = dependency.getaXsdFile().lastIndexOf("\\");
-                int k = i>j?i:j;
-                subfolder += File.separator + dependency.getaXsdFile().substring(0, k);
-            }
-            importFile(baseDir.getAbsolutePath() + File.separator + dependency.getaXsdFile(), subfolder);
+            importFile(baseDir.getAbsolutePath() + File.separator + dependency.getaXsdFile(), formSubPath(dependency.getaXsdFile(), systemName));
         }
+    }
+
+    /**
+     * вырезаем подпуть к директории. Например, если у нас есть строка "commonTypes/commonTypes.xsd", то вернуть нам нужно только commonTypes/
+     * @param pathToAdd относительный путь файла
+     * @param subfolder то, куда надо приписать этот подпуть
+     * @return часть относительного пути без самого файла
+     */
+    private String formSubPath(String pathToAdd, String subfolder) {
+        if (pathToAdd.contains("\\") || pathToAdd.contains("/") ) {
+            int i = pathToAdd.lastIndexOf("/");
+            int j = pathToAdd.lastIndexOf("\\");
+            int k = i>j?i:j;
+            subfolder += File.separator + pathToAdd.substring(0, k);
+        }
+        return subfolder;
     }
 
 
