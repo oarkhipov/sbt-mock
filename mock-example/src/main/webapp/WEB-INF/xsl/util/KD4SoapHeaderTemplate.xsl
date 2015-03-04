@@ -28,6 +28,8 @@
                 <kd4:KD4SoapHeaderV2><xsl:value-of select="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='KD4SoapHeaderV2']"/></kd4:KD4SoapHeaderV2>
             </xsl:if>
             <mq:AsyncHeader>
+                <!--<xsl:comment>test <xsl:value-of select="//*[local-name()='request' or local-name()='response']/local-name()"/></xsl:comment>-->
+                <!--<xsl:comment>test <xsl:value-of select="$response"/></xsl:comment>-->
                 <mq:message-id>
                     <xsl:choose>
                         <xsl:when test="$message-id!=''"><xsl:value-of select="$message-id"/></xsl:when>
@@ -262,7 +264,7 @@
                         <xsl:attribute name="name">response</xsl:attribute>
                         <xsl:element name="xsl:choose">
                             <xsl:element name="xsl:when">
-                                <xsl:attribute name="test">count(./rsd:<xsl:value-of select="$type"/>[@name=$linkedTag])=1</xsl:attribute>
+                                <xsl:attribute name="test">count($data/rsd:<xsl:value-of select="$type"/>[@name=$linkedTag])=1</xsl:attribute>
                                 <xsl:element name="xsl:value-of">
                                     <xsl:attribute name="select">$linkedTag</xsl:attribute>
                                 </xsl:element>

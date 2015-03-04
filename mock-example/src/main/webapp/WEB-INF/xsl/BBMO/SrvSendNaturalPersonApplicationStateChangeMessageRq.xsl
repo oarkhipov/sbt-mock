@@ -31,7 +31,7 @@
          <xsl:call-template name="KD4Header">
             <xsl:with-param name="response">
                <xsl:choose>
-                  <xsl:when test="count(./rsd:response[@name=$linkedTag])=1">
+                  <xsl:when test="count($data/rsd:response[@name=$linkedTag])=1">
                      <xsl:value-of select="$linkedTag"/>
                   </xsl:when>
                   <xsl:otherwise>default</xsl:otherwise>
