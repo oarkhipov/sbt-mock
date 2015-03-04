@@ -96,11 +96,14 @@
 
     <xsl:template match="xsd:schema">
         <xsl:element name="xsl:stylesheet">
-            <!--TODO поставить if условия на неймспейсы, как в requestXSDtoXSL.xsl-->
-            <xsl:namespace name="tns" select="$targetNS"/>
+            <xsl:if test="$targetNS!=''">
+                <xsl:namespace name="tns" select="$targetNS"/>
+            </xsl:if>
             <xsl:namespace name="rsd" select="$dataNS"/>
             <xsl:namespace name="soap" select="mock:SOAPNS($headerType)"/>
-            <xsl:namespace name="{$systemName}" select="$parrentNS"/>
+            <xsl:if test="$parrentNS!=''">
+                <xsl:namespace name="{$systemName}" select="$parrentNS"/>
+            </xsl:if>
             <xsl:attribute name="version">1.0</xsl:attribute>
             <xsl:call-template name="headerDeclaration"/>
             <xsl:text>&#xA;</xsl:text>
