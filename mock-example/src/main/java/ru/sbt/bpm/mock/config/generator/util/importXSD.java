@@ -66,7 +66,7 @@ public class importXSD {
      *
      */
     private void createRqExample(String system, String name, String msgType, Map<String, String> params) throws Exception{
-        String exampleRq1 = useXSLT(getWebInfPath() + "\\xsl\\util\\"+msgType+"SoapMSG.xsl", //TODO выбор другого KD4SoapMsg.xsl
+        String exampleRq1 = useXSLT(getWebInfPath() + "\\xsl\\util\\"+msgType+"SoapMSG.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         validateXML(exampleRq1);
