@@ -6,5 +6,80 @@
         <annotation>
             <documentation>Конифг для генерации заглушек</documentation>
         </annotation>
+        <complexType>
+            <sequence>
+                <element name="systems" type="mock:Systems"/>
+            </sequence>
+        </complexType>
     </element>
+
+    <complexType name="Systems">
+        <sequence>
+            <element name="system" type="mock:System" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="System">
+        <sequence>
+            <element name="name" type="string"/>
+            <element name="pathToXSD" type="string"/>
+            <element name="rootXsd" type="string"/>
+            <element name="headerNamespace" type="anyURI"/>
+            <element name="integrationPoints" type="mock:IntegrationPoints"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="IntegrationPoints">
+        <sequence>
+            <element name="integrationPoint" type="mock:IntegrationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="IntegrationPoint">
+        <sequence>
+            <element name="name" type="string"/>
+            <element name="operationName" type="string" minOccurs="0"/>
+            <element name="rsRootElementName" type="string" minOccurs="0"/>
+            <element name="rqRootElementName" type="string"/>
+            <element name="type">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="Mock"/>
+                        <enumeration value="Driver"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="linkedTagSequence" type="mock:LinkedTagSequence" minOccurs="0"/>
+            <element name="protocol" type="string"/>
+            <element name="incomeQueue" type="string"  minOccurs="0"/>
+            <element name="outcomeQueue" type="string"  minOccurs="0"/>
+            <element name="xsdFile" type="string"/>
+            <element name="dependencies" type="mock:Dependencies" minOccurs="0"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="LinkedTagSequence">
+        <sequence>
+            <element name="linkedTag" type="mock:LinkedTag" minOccurs="1" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="Dependencies">
+        <sequence>
+            <element name="dependency" type="mock:Dependency" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="LinkedTag">
+        <sequence>
+            <element name="namespace" type="anyURI" minOccurs="0"/>
+            <element name="tag" type="string"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="Dependency">
+        <sequence>
+            <element name="xsdFile" type="string"/>
+        </sequence>
+    </complexType>
 </schema>

@@ -15,8 +15,8 @@
                <tns:Identifiers>
                   <tns:ClientId>1234567890</tns:ClientId>
                   <tns:State>1</tns:State>
-                  <tns:CreateDate>2015-03-03</tns:CreateDate>
-                  <!--optional--><tns:CloseDate>2015-03-03</tns:CloseDate>
+                  <tns:CreateDate>2015-03-04</tns:CreateDate>
+                  <!--optional--><tns:CloseDate>2015-03-04</tns:CloseDate>
                </tns:Identifiers>
                <tns:SpecialData>
                   <tns:ClientType>1</tns:ClientType>
@@ -30,14 +30,14 @@
                </tns:SpecialData>
                <tns:MainDetails>
                   <tns:Registration><!--optional--><tns:OGRN>string</tns:OGRN>
-                     <!--optional--><tns:OGRNAssignDate>2015-03-03</tns:OGRNAssignDate>
-                     <!--optional--><tns:OGRNIssueDate>2015-03-03</tns:OGRNIssueDate>
+                     <!--optional--><tns:OGRNAssignDate>2015-03-04</tns:OGRNAssignDate>
+                     <!--optional--><tns:OGRNIssueDate>2015-03-04</tns:OGRNIssueDate>
                      <tns:ShortName>string</tns:ShortName>
                      <tns:FullName>string</tns:FullName>
                      <!--optional--><tns:ShortNameInEnglish>string</tns:ShortNameInEnglish>
                      <!--optional--><tns:FullNameInEnglish>string</tns:FullNameInEnglish>
                      <!--optional--><tns:RegistrationSertificateNumber>string</tns:RegistrationSertificateNumber>
-                     <!--optional--><tns:RegistrationSertificateIssueDate>2015-03-03</tns:RegistrationSertificateIssueDate>
+                     <!--optional--><tns:RegistrationSertificateIssueDate>2015-03-04</tns:RegistrationSertificateIssueDate>
                      <!--optional--><tns:RegistrationAuthority>1234567890</tns:RegistrationAuthority>
                      <tns:OldShortName>anyString</tns:OldShortName>
                      <tns:OldName>anyString</tns:OldName>
@@ -59,7 +59,7 @@
                      <!--optional--><tns:TaxRegReasonCode>string</tns:TaxRegReasonCode>
                      <!--optional--><tns:KIO>string</tns:KIO>
                      <!--optional--><tns:TaxInspectorate>1234567890</tns:TaxInspectorate>
-                     <!--optional--><tns:RegistrationDate>2015-03-03</tns:RegistrationDate>
+                     <!--optional--><tns:RegistrationDate>2015-03-04</tns:RegistrationDate>
                   </tns:TaxInspectorateInfo>
                   <!--optional--><tns:RosstatCodes><!--optional--><tns:OKATO>string</tns:OKATO>
                      <!--optional--><tns:OKPO>string</tns:OKPO>
@@ -73,12 +73,12 @@
                <!--from 0 to unbounded elements --><tns:FounderLegalPerson><!--optional--><tns:ClientName>string</tns:ClientName>
                   <!--optional--><tns:KPP>string</tns:KPP>
                   <!--optional--><tns:TaxID>string</tns:TaxID>
-                  <!--optional--><tns:TaxRegistrationDate>2015-03-03</tns:TaxRegistrationDate>
+                  <!--optional--><tns:TaxRegistrationDate>2015-03-04</tns:TaxRegistrationDate>
                   <!--optional--><tns:TaxCertificateSeries>string</tns:TaxCertificateSeries>
                   <!--optional--><tns:TaxCertificateNumber>string</tns:TaxCertificateNumber>
                   <!--optional--><tns:TaxAuthority>string</tns:TaxAuthority>
                   <!--optional--><tns:OGRN>string</tns:OGRN>
-                  <!--optional--><tns:OGRNRegistrationDate>2015-03-03</tns:OGRNRegistrationDate>
+                  <!--optional--><tns:OGRNRegistrationDate>2015-03-04</tns:OGRNRegistrationDate>
                   <!--optional--><tns:OGRNSeries>string</tns:OGRNSeries>
                   <!--optional--><tns:OGRNNumber>string</tns:OGRNNumber>
                   <!--optional--><tns:OGRNAuthority>string</tns:OGRNAuthority>
@@ -153,11 +153,11 @@
                <!--optional--><tns:FirstNameInEnglish>string</tns:FirstNameInEnglish>
                <!--optional--><tns:MiddleNameInEnglish>string</tns:MiddleNameInEnglish>
                <!--optional--><tns:Sex>1</tns:Sex>
-               <!--optional--><tns:BirthDate>2015-03-03</tns:BirthDate>
+               <!--optional--><tns:BirthDate>2015-03-04</tns:BirthDate>
                <!--optional--><tns:BirthPlace>string</tns:BirthPlace>
                <!--optional--><tns:Nationality>str</tns:Nationality>
                <!--optional--><tns:Resident>0</tns:Resident>
-               <!--optional--><tns:TaxResidentChangeDate>2015-03-03</tns:TaxResidentChangeDate>
+               <!--optional--><tns:TaxResidentChangeDate>2015-03-04</tns:TaxResidentChangeDate>
                <!--optional--><tns:TaxId>string</tns:TaxId>
                <!--optional--><tns:SocialStatusType>10</tns:SocialStatusType>
                <!--from 0 to unbounded elements --><tns:IdentityDocument>
@@ -165,10 +165,10 @@
                   <tns:DocumentStatus>0</tns:DocumentStatus>
                   <!--optional--><tns:DocumentSeries>string</tns:DocumentSeries>
                   <tns:DocumentNumber>string</tns:DocumentNumber>
-                  <!--optional--><tns:IssueDate>2015-03-03</tns:IssueDate>
+                  <!--optional--><tns:IssueDate>2015-03-04</tns:IssueDate>
                   <!--optional--><tns:IssueAuthority>string</tns:IssueAuthority>
                   <!--optional--><tns:IssueAuthorityCode>string</tns:IssueAuthorityCode>
-                  <!--optional--><tns:ExpirationDate>2015-03-03</tns:ExpirationDate>
+                  <!--optional--><tns:ExpirationDate>2015-03-04</tns:ExpirationDate>
                </tns:IdentityDocument>
                <!--from 0 to unbounded elements --><tns:ClientAddress>
                   <tns:AddressType>1</tns:AddressType>
@@ -200,7 +200,7 @@
                </tns:ClientContact>
                <!--optional--><tns:AuthorityBase><!--optional--><tns:DocumentActAuthority>string</tns:DocumentActAuthority>
                   <!--optional--><tns:DocumentSeriesNumber>string</tns:DocumentSeriesNumber>
-                  <!--optional--><tns:DocumentDate>2015-03-03</tns:DocumentDate>
+                  <!--optional--><tns:DocumentDate>2015-03-04</tns:DocumentDate>
                </tns:AuthorityBase>
                <!--optional--><tns:OfficailInfo><!--optional--><tns:BasedOnDocument>string</tns:BasedOnDocument>
                   <!--optional--><tns:BasedOnDocumentSeries>string</tns:BasedOnDocumentSeries>
@@ -222,16 +222,16 @@
                <!--optional--><tns:AgreementNumber>string</tns:AgreementNumber>
                <tns:AgreementType>1234567890</tns:AgreementType>
                <tns:AgreementStatus>1</tns:AgreementStatus>
-               <tns:AgreementIssueDate>2015-03-03</tns:AgreementIssueDate>
-               <!--optional--><tns:AgreementCancelDate>2015-03-03</tns:AgreementCancelDate>
+               <tns:AgreementIssueDate>2015-03-04</tns:AgreementIssueDate>
+               <!--optional--><tns:AgreementCancelDate>2015-03-04</tns:AgreementCancelDate>
                <tns:Operator>1234567890</tns:Operator>
                <tns:MainAccountNumber>string</tns:MainAccountNumber>
                <tns:AccountBalance>1234567890</tns:AccountBalance>
                <!--optional--><tns:ArrestByAccountPresence>1</tns:ArrestByAccountPresence>
                <!--optional--><tns:RKOAgreementDetails><!--from 0 to unbounded elements --><tns:TariffPlan>
                      <tns:TariffPlanCode>string</tns:TariffPlanCode>
-                     <!--optional--><tns:TariffPlanStartDate>2015-03-03</tns:TariffPlanStartDate>
-                     <!--optional--><tns:TariffPlanEndDate>2015-03-03</tns:TariffPlanEndDate>
+                     <!--optional--><tns:TariffPlanStartDate>2015-03-04</tns:TariffPlanStartDate>
+                     <!--optional--><tns:TariffPlanEndDate>2015-03-04</tns:TariffPlanEndDate>
                   </tns:TariffPlan>
                   <tns:DetermineTariffs>string</tns:DetermineTariffs>
                   <!--optional--><tns:TariffGroup>string</tns:TariffGroup>
@@ -256,8 +256,8 @@
                   <!--optional--><tns:PercentCalculationAlgorithm>1234567890</tns:PercentCalculationAlgorithm>
                   <!--optional--><tns:DeterminePercent>anyString</tns:DeterminePercent>
                   <!--optional--><tns:PercentRateGroup>anyString</tns:PercentRateGroup>
-                  <!--optional--><tns:DateBeginPercentRate>2015-03-03</tns:DateBeginPercentRate>
-                  <!--optional--><tns:DateEndPercentRate>2015-03-03</tns:DateEndPercentRate>
+                  <!--optional--><tns:DateBeginPercentRate>2015-03-04</tns:DateBeginPercentRate>
+                  <!--optional--><tns:DateEndPercentRate>2015-03-04</tns:DateEndPercentRate>
                   <!--optional--><tns:PartialRatedPeriodCalculation>0</tns:PartialRatedPeriodCalculation>
                   <tns:CurrentRatedPeriodCalculation>0</tns:CurrentRatedPeriodCalculation>
                   <!--optional--><tns:OpeningReason>string</tns:OpeningReason>
@@ -273,9 +273,9 @@
                <!--optional--><tns:AgreementNumber>string</tns:AgreementNumber>
                <!--optional--><tns:AccountNumber>string</tns:AccountNumber>
                <!--optional--><tns:CardType>1</tns:CardType>
-               <!--optional--><tns:RegistrationDate>2015-03-03</tns:RegistrationDate>
-               <!--optional--><tns:ActivationDate>2015-03-03</tns:ActivationDate>
-               <!--optional--><tns:CloseDate>2015-03-03</tns:CloseDate>
+               <!--optional--><tns:RegistrationDate>2015-03-04</tns:RegistrationDate>
+               <!--optional--><tns:ActivationDate>2015-03-04</tns:ActivationDate>
+               <!--optional--><tns:CloseDate>2015-03-04</tns:CloseDate>
                <!--optional--><tns:CardRegistartionMethod>1</tns:CardRegistartionMethod>
                <!--from 1 to unbounded elements --><tns:Sign>
                   <tns:RKONaturalPersonCode>1234567890</tns:RKONaturalPersonCode>
@@ -283,7 +283,7 @@
                   <tns:SignType>1</tns:SignType>
                   <tns:Position>string</tns:Position>
                   <!--optional--><tns:AuthorityStartDate>anyString</tns:AuthorityStartDate>
-                  <!--optional--><tns:AuthorityEndDate>2015-03-03</tns:AuthorityEndDate>
+                  <!--optional--><tns:AuthorityEndDate>2015-03-04</tns:AuthorityEndDate>
                </tns:Sign>
             </tns:SignPatternCard>
          </tns:ClientReferenceData>
@@ -297,7 +297,7 @@
                <tns:OSB>string</tns:OSB>
                <tns:VSP>string</tns:VSP>
             </tns:BankSubdivision>
-            <tns:InitDate>2015-03-03</tns:InitDate>
+            <tns:InitDate>2015-03-04</tns:InitDate>
             <!--optional--><tns:AgreementIdentifier>string</tns:AgreementIdentifier>
             <!--optional--><tns:AgreementNumber>string</tns:AgreementNumber>
             <!--optional--><tns:MainAccountNumber>string</tns:MainAccountNumber>

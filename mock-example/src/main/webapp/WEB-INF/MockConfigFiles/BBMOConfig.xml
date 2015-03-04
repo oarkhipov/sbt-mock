@@ -1,4 +1,4 @@
-<MockConfig>
+<MockConfig xmlns="http://sbrf.ru/mockService">
     <systems>
         <system>
             <name>BBMO</name>
@@ -344,27 +344,8 @@
                 <integrationPoint>
                     <name>SrvRegisterLegalPersonAccountOperationApplication</name>
                     <operationName>SrvRegisterLegalPersonAccountOperationApplication</operationName>
-                    <rsRootElementName>SrvRegisterLegalPersonApplicationRs</rsRootElementName>
                     <rqRootElementName>SrvRegisterLegalPersonApplicationRq</rqRootElementName>
-                    <type>Mock</type>
-                    <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>SrvRegisterLegalPersonApplicationRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>TaxId</tag>
-                        </linkedTag>
-                    </linkedTagSequence>
+                    <type>Driver</type>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
                     <incomeQueue>IN.KKMB.2</incomeQueue>

@@ -9,14 +9,14 @@
    <soap:Body>
       <tns:SrvRegisterLegalPersonApplicationRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
          <tns:LegalPersonApplication>
-            <tns:TaxId>test1</tns:TaxId>
+            <tns:TaxId>string</tns:TaxId>
             <tns:CustomerFullName>string</tns:CustomerFullName>
             <tns:BankSubdivision>
                <tns:TB>str</tns:TB>
                <tns:OSB>string</tns:OSB>
                <tns:VSP>string</tns:VSP>
             </tns:BankSubdivision>
-            <tns:InitDate>2015-03-03</tns:InitDate>
+            <tns:InitDate>2015-03-04</tns:InitDate>
          </tns:LegalPersonApplication>
       </tns:SrvRegisterLegalPersonApplicationRq>
    </soap:Body>

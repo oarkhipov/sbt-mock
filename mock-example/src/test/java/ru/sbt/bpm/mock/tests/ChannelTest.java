@@ -14,7 +14,6 @@ import ru.sbt.bpm.mock.utils.XmlUtil;
 import ru.sbt.bpm.mock.utils.Xsl20Transformer;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -63,7 +62,7 @@ public class ChannelTest {
                         System.out.println(name + " part two Done!");
 
                         System.out.println();
-                        System.out.println(name + " Done!");
+                        System.out.println(name + " Mock Done!");
                         System.out.println();
                     } else {
 
@@ -80,7 +79,7 @@ public class ChannelTest {
                         System.out.println(name + " part two Done!");
 
                         System.out.println();
-                        System.out.println(name + " Done!");
+                        System.out.println(name + " Driver Done!");
                         System.out.println();
                     }
                 }
