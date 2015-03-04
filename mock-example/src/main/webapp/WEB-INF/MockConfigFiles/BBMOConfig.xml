@@ -508,7 +508,7 @@
             <integrationPoints>
                 <integrationPoint>
                     <name>UpdateDepositNSO</name>
-                    <operationName>UpdateDepositNSO</operationName>
+                    <operationName>SrvCKPITUpdateDepositNSO</operationName>
                     <rqRootElementName>SrvCKPITUpdateDepositNSORq</rqRootElementName>
                     <type>Driver</type>
                     <protocol>MQ/SOAP/HTTP</protocol>
@@ -556,7 +556,7 @@
                 </integrationPoint>
                 <integrationPoint>
                     <name>UpdateLoan</name>
-                    <operationName>UpdateLoan</operationName>
+                    <operationName>SrvCKPITUpdateLoan</operationName>
                     <rqRootElementName>SrvCKPITUpdateLoanRq</rqRootElementName>
                     <type>Driver</type>
                     <protocol>MQ/SOAP/HTTP</protocol>
