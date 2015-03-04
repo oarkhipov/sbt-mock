@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:mock="http://sbrf.ru/mockService"><!--TODO заменить mock на namespace конфига -->
+                xmlns:mock="http://sbrf.ru/mockService">
 
     <!--Файл для объединения примеров xml в Data файл. Не проверяет корректность, а просто копирует.
     Возмождный функционал:
@@ -17,7 +17,7 @@
     <!--Имя тэга элемента-->
     <xsl:param name="rootElementName" select="''"/>
     <!--Следующая строчка выкидывает ошибку, если нам не дали rootElementName-->
-    <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/><!--TODO заменить mock на namespace конфига -->
+    <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/>
 
     <!--Имя записи в Data-файле. Обозначает атрибут, которым будет обозначаться новый контейнер с данными -->
     <xsl:param name="name"
@@ -51,7 +51,7 @@
                   select="mock:addDataToNamespaceUrl(/*[local-name()='Envelope']/*[local-name()='Body']/descendant-or-self::*[last()]/namespace-uri(), $rootElementName)"/>
     <!--Неймспейс дата-файла. Если в dataNSFromFile(неймспейс того файла, которого мы ему сокрмили) нет ничего - берет некий стандарьтный дефолтный неймспейс-->
     <xsl:param name="dataNsUrl"
-               select="if ($dataNSFromFile!='') then $dataNSFromFile else concat('http://sbrf.ru/mockService/',$rootElementName,'/Data/')"/> <!--TODO заменить mock на namespace конфига -->
+               select="if ($dataNSFromFile!='') then $dataNSFromFile else concat('http://sbrf.ru/mockService/',$rootElementName,'/Data/')"/>
 
     <!--Prepare data and section of data XML-->
     <xsl:template match="/">

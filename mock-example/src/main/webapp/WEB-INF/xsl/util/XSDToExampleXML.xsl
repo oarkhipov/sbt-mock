@@ -13,7 +13,7 @@
     <!--Имя тэга элемента-->
     <xsl:param name="rootElementName" select="''"/>
     <!--выкидываем ошибку, если нам не дали имя тэга элемента-->
-    <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/><!--TODO заменить mock на namespace конфига -->
+    <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/>
 
     <!--система-->
     <xsl:param name="systemName" select="'CRM'"/>

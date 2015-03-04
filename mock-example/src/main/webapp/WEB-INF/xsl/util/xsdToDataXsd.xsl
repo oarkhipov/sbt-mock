@@ -1,6 +1,6 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                xmlns:mock="http://sbrf.ru/mockService"><!--TODO заменить mock на namespace конфига -->
+                xmlns:mock="http://sbrf.ru/mockService">
     <!-- xslt чтобы превратить xsd веб сервиса в data xsd - нашу xsd, которой должно соответствовать xml с данными.
      Представляет собой копипаст объявления с заменой неймспейсов-->
     <xsl:output method="xml" indent="yes" encoding="UTF-8" version="1.0"/>
@@ -12,7 +12,7 @@
     <!--Имя тэга элемента-->
     <xsl:param name="rootElementName" select="''"/>
     <!--выкидываем ошибку, если нам не дали имя тэга элемента-->
-    <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/><!--TODO заменить mock на namespace конфига -->
+    <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/>
 
     <!-- Этот параметр нужен когда имя главного элемента запроса не соответвует тому что мы взяли из неймспейса. Тогда его можно указать параметром -->
     <xsl:param name="rootTypeName" select="mock:removeNamespaceAlias(/xsd:schema//xsd:element[@name=$rootElementName]/@type)"/>
@@ -31,7 +31,7 @@
     <xsl:param name="headerType" select="if (/xsd:schema//xsd:element[@ref='kd4:KD4SoapHeaderV2']) then 'KD4' else 'NCP'"/>
 
     <!-- неймспейс, в котором будут содрежатся наши данные. Получается припиской к стандратному неймспейсу субпути /Data/ -->
-    <xsl:variable name="targetNS" select="if ($operationXsdSchema/@targetNamespace) then mock:addDataToNamespaceUrl($operationXsdSchema/@targetNamespace, $rootElementName) else concat('http://sbrf.ru/mockService/',$rootElementName,'/Data/')"/> <!--TODO заменить mock на namespace конфига -->
+    <xsl:variable name="targetNS" select="if ($operationXsdSchema/@targetNamespace) then mock:addDataToNamespaceUrl($operationXsdSchema/@targetNamespace, $rootElementName) else concat('http://sbrf.ru/mockService/',$rootElementName,'/Data/')"/>
 
     <!-- неймспейс, которым обозначается tns в targetNamespace -->
     <xsl:variable name="tnsAlias" select="$operationXsdSchema/namespace::*[.=$operationXsdSchema/@targetNamespace and string-length(local-name(.))>0]/local-name()"/>

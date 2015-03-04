@@ -20,7 +20,7 @@
     <!--Имя тэга элемента-->
     <xsl:param name="rootElementName" select="''"/>
     <!--выкидываем ошибку, если нам не дали имя тэга элемента-->
-    <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/><!--TODO заменить mock на namespace конфига -->
+    <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/>
 
     <!-- Имя операции в заголвке -->
     <xsl:param name="operationName" select="$rootElementName"/>
@@ -33,7 +33,7 @@
     <!-- TODO выбрать этот параметр автоматом. Проблема в том, что задать его можно только захардкодив -->
     <xsl:param name="systemName" select="'CRM'"/>
 
-    <xsl:variable name="dataNS" select="if ($targetNS!='') then mock:addDataToNamespaceUrl($targetNS, $rootElementName) else concat('http://sbrf.ru/mockService/',$rootElementName,'/Data/')"/> <!--TODO заменить mock на namespace конфига -->
+    <xsl:variable name="dataNS" select="if ($targetNS!='') then mock:addDataToNamespaceUrl($targetNS, $rootElementName) else concat('http://sbrf.ru/mockService/',$rootElementName,'/Data/')"/>
 
 
     <!--В этой переменной идет выбор заголовка между разными системами. Сейчас выбор захорлкожен-->

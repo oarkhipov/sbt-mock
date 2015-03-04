@@ -3,7 +3,7 @@
         xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
         xmlns:kd4="http://www.ibm.com/KD4Soa"
         xmlns:mq="http://sbrf.ru/prpc/mq/headers"
-        xmlns:mock="http://sbrf.ru/mockService" > <!--TODO заменить mock на namespace конфига -->
+        xmlns:mock="http://sbrf.ru/mockService" >
     <xsl:import href="XSDToExampleXML.xsl"/>
     <xsl:import href="KD4SoapHeaderTemplate.xsl"/>
 
@@ -16,7 +16,7 @@
     <!--Имя тэга элемента-->
     <xsl:param name="rootElementName" select="''"/>
     <!--выкидываем ошибку, если нам не дали имя тэга элемента-->
-    <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/><!--TODO заменить mock на namespace конфига -->
+    <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/>
 
 
     <!-- параметры заголовка -->

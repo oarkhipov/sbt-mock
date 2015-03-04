@@ -1,7 +1,7 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
-                xmlns:mock="http://sbrf.ru/mockService"><!--TODO заменить mock на namespace конфига -->
+                xmlns:mock="http://sbrf.ru/mockService">
     <xsl:import href="XSDToExampleXML.xsl"/>
     <xsl:include href="NCPSoapRqHeaderXSLTTemplate.xsl"/>
 
@@ -13,7 +13,7 @@
 
     <!--Имя тэга элемента-->
     <xsl:param name="rootElementName" select="''"/>
-    <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/><!--TODO заменить mock на namespace конфига -->
+    <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/>
 
     <!-- параметры заголовка -->
     <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
