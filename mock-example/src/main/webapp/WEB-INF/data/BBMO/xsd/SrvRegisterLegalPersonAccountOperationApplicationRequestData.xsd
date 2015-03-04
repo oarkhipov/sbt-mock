@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/SrvRegisterLegalPersonApplicationRs/Data/"
-            xmlns:tns="http://sbrf.ru/prpc/bbmo/10/SrvRegisterLegalPersonApplicationRs/Data/"
+<xsd:schema xmlns="http://sbrf.ru/prpc/bbmo/10/SrvRegisterLegalPersonApplicationRq/Data/"
+            xmlns:tns="http://sbrf.ru/prpc/bbmo/10/SrvRegisterLegalPersonApplicationRq/Data/"
             xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
             xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"
             xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="http://sbrf.ru/prpc/bbmo/10/SrvRegisterLegalPersonApplicationRs/Data/"
+            targetNamespace="http://sbrf.ru/prpc/bbmo/10/SrvRegisterLegalPersonApplicationRq/Data/"
             elementFormDefault="qualified">
    <xsd:import namespace="http://sbrf.ru/prpc/bbmo/dataTypes/10"
                schemaLocation="../../../xsd/BBMO/./commonTypes/dataTypes.xsd"/>
@@ -98,8 +98,8 @@
    <xsd:element name="data" type="dataValue"/>
    <xsd:complexType name="dataValue">
       <xsd:sequence>
-         <xsd:element name="response"
-                      type="tns:SrvRegisterLegalPersonApplicationRs"
+         <xsd:element name="request"
+                      type="tns:SrvRegisterLegalPersonApplicationRq"
                       maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>Ответ на запрос</xsd:documentation>
@@ -107,19 +107,111 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <xsd:complexType name="SrvRegisterLegalPersonApplicationRs">
+   <xsd:complexType name="SrvRegisterLegalPersonApplicationRq">
       <xsd:complexContent>
-         <xsd:extension base="ct:DataProcessingResponse">
+         <xsd:extension base="ct:DataProcessingRequest">
             <xsd:sequence>
                <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
-               <xsd:element name="URL" minOccurs="0" type="st:URL_Type">
+               <xsd:element name="LegalPersonApplication" type="tns:LegalPersonApplication">
                   <xsd:annotation>
-                     <xsd:documentation>URL портала BPM для выбора и инициализации конкретного процесса обработки заявления</xsd:documentation>
+                     <xsd:documentation>Заявление юридического лица</xsd:documentation>
                   </xsd:annotation>
                </xsd:element>
             </xsd:sequence>
             <xsd:attribute name="name"/>
          </xsd:extension>
       </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="LegalPersonApplication">
+      <xsd:annotation>
+         <xsd:documentation>Заявление юридического лица</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="ApplicationId" minOccurs="0" type="dt:DefString">
+            <xsd:annotation>
+               <xsd:documentation>ID заявления (не используется, добавлено на перспективу)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="OperationType" minOccurs="0" type="dt:DefString">
+            <xsd:annotation>
+               <xsd:documentation>Тип операции (не используется, добавлено на перспективу)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ClientId" minOccurs="0" type="dt:PosInteger">
+            <xsd:annotation>
+               <xsd:documentation>ID клиента</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="TaxId" type="st:TaxId_Type">
+            <xsd:annotation>
+               <xsd:documentation>ИНН Клиента</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="CustomerFullName" type="dt:DefString">
+            <xsd:annotation>
+               <xsd:documentation>Полное наименование клиента</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="BankSubdivision" type="tns:BankSubdivision">
+            <xsd:annotation>
+               <xsd:documentation>Подразделение
+Справочник подразделений Банка</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="InitDate" type="dt:Date">
+            <xsd:annotation>
+               <xsd:documentation>Дата инициации заявления</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="AgreementIdentifier" minOccurs="0" type="dt:DefString">
+            <xsd:annotation>
+               <xsd:documentation>Идентификатор договора</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="AgreementNumber" minOccurs="0" type="dt:DefString">
+            <xsd:annotation>
+               <xsd:documentation>Номер договора</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="MainAccountNumber" minOccurs="0" type="st:AccountNumber_Type">
+            <xsd:annotation>
+               <xsd:documentation>Номер основного счета</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="TaxRegReasonCode"
+                      minOccurs="0"
+                      type="st:TaxRegReasonCode_Type">
+            <xsd:annotation>
+               <xsd:documentation>КПП клиента</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="BarCode" minOccurs="0" type="dt:DefString">
+            <xsd:annotation>
+               <xsd:documentation>Штрих-код</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="BankSubdivision">
+      <xsd:annotation>
+         <xsd:documentation>Подразделение банка</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="TB" type="st:TB_Type">
+            <xsd:annotation>
+               <xsd:documentation>Номер ТБ</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="OSB" type="st:OSB_Type">
+            <xsd:annotation>
+               <xsd:documentation>Номер ОСБ</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="VSP" type="st:VSP_Type">
+            <xsd:annotation>
+               <xsd:documentation>Номер ВСП</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
    </xsd:complexType>
 </xsd:schema>
