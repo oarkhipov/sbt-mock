@@ -20,67 +20,73 @@
     <mvc:resources mapping="/**" location="/resources/web/" />
     <mvc:annotation-driven/>
 
+    <!-- - - - - - - - - - - - - - -->
+    <!--                           -->
+    <!-- ПРЕДВАРИТЕЛЬНАЯ НАСТРОЙКА -->
+    <!--                           -->
+    <!-- - - - - - - - - - - - - - -->
+
      <!--Настройки подключения к MQ-->
     <beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
             <beans:property name="jndiName" value="jms/ESB.BPM.CF"/>
     </beans:bean>
-    <beans:bean id="requestQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+    <beans:bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
             <beans:property name="jndiName" value="jms/ESB.BPM.IN"/>
     </beans:bean>
-    <beans:bean id="replyQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+    <beans:bean id="outboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
             <beans:property name="jndiName" value="jms/ESB.BPM.OUT"/>
     </beans:bean>
 
-     <beans:bean id="requestQueueCRM" class="org.springframework.jndi.JndiObjectFactoryBean">
+     <beans:bean id="requestDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
             <beans:property name="jndiName" value="jms/ESB.BPM.REQUEST"/>
     </beans:bean>
-    <beans:bean id="replyQueueCRM" class="org.springframework.jndi.JndiObjectFactoryBean">
+    <beans:bean id="responseDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
             <beans:property name="jndiName" value="jms/ESB.BPM.RESPONSE"/>
     </beans:bean>
 
     <jms:inbound-gateway
             id="jmsin"
-            request-destination="requestQueue"
-            request-channel="ESB.BPM.IN.MOCK"
-            reply-channel="ESB.BPM.OUT.MOCK"
-            default-reply-destination="replyQueue"
+            request-destination="inboundMockQueue"
+            request-channel="MockInboundRequest"
+            reply-channel="MockOutboundResponse"
+            default-reply-destination="outboundMockQueue"
             header-mapper="defHeaderMapper"
             connection-factory="jndiConnectionFactory"
     />
 
     <jms:outbound-gateway
             id="jmsout"
-            request-destination="requestQueueCRM"
-            reply-destination="replyQueueCRM"
-            request-channel="ESB.BPM.REQUEST"
-            reply-channel="ESB.BPM.RESPONSE"
+            request-destination="requestDriverQueue"
+            reply-destination="responseDriverQueue"
+            request-channel="DriverOutboundRequest"
+            reply-channel="DriverInboundResponse"
             header-mapper="defHeaderMapper"
             connection-factory="jndiConnectionFactory"
             reply-timeout="30000"
             receive-timeout="30000"
     />
 
-    <!-- Входной и выходной каналы -->	
-    <channel id="ESB.BPM.IN.MOCK">
+    <!-- Входной и выходной каналы Заглушки-->
+    <channel id="MockInboundRequest">
         <interceptors>
             <wire-tap channel="fromGateLogger"/>
         </interceptors>
     </channel>
     
-    <channel id="ESB.BPM.OUT.MOCK">
+    <channel id="MockOutboundResponse">
         <interceptors>
             <wire-tap channel="toGateLogger"/>
         </interceptors>
     </channel>
     
-      <!-- Входной и выходной каналы1 -->	
-    <channel id="ESB.BPM.RESPONSE">
+      <!-- Входной и выходной каналы Драйвера -->
+    <channel id="DriverInboundResponse">
         <interceptors>
             <wire-tap channel="fromGateLoggerCRM"/>
         </interceptors>
     </channel>
     
-    <channel id="ESB.BPM.REQUEST">
+    <channel id="DriverOutboundRequest">
         <interceptors>
             <wire-tap channel="toGateLoggerCRM"/>
         </interceptors>
@@ -95,7 +101,13 @@
     <logging-channel-adapter id="toGateLoggerCRM" logger-name="toGateLoggerCRM"/>
     
     <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
-     
+
+
+    <!-- - - - - - - - - - - - -->
+    <!--     МАРШРУТИЗАЦИЯ     -->
+    <!-- - - - - - - - - - - - -->
+
+
     <!-- Роутер-->
     <util:map id="sbrfNamespaceMap">
         <beans:entry key="env" value="http://sbrf.ru/NCP/esb/envelope/"/>
@@ -110,7 +122,7 @@
     <channel id="SrvSendNaturalPersonApplicationStateChangeMessageRq"/>
     <channel id="SrvUpdateClientReferenceDataRq"/>
 
-    <ix:xpath-router id="operationRouter" input-channel="ESB.BPM.IN.MOCK" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
+    <ix:xpath-router id="operationRouter" input-channel="MockInboundRequest" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
         <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
 
         <ix:mapping value="SrvGetClientReferenceData" channel="SrvGetClientReferenceDataRq"/>
@@ -141,11 +153,11 @@
 
  <!--маппинг трасформеров на каналы-->
 
-    <transformer input-channel="SrvGetClientReferenceDataRq" output-channel="ESB.BPM.RESPONSE" method="transform" ref="BBMO_SrvGetClientReferenceDataRq"/>
-    <transformer input-channel="SrvPermitAccountChargeOperation" output-channel="ESB.BPM.RESPONSE" method="transform" ref="BBMO_SrvPermitAccountChargeOperation"/>
-    <transformer input-channel="SrvSendApplicationForCBDFProcessingRq" output-channel="ESB.BPM.RESPONSE" method="transform" ref="BBMO_SrvSendApplicationForCBDFProcessingRq"/>
-    <transformer input-channel="SrvSendNaturalPersonApplicationStateChangeMessageRq" output-channel="ESB.BPM.RESPONSE" method="transform" ref="BBMO_SrvSendNaturalPersonApplicationStateChangeMessageRq"/>
-    <transformer input-channel="SrvUpdateClientReferenceDataRq" output-channel="ESB.BPM.RESPONSE" method="transform" ref="BBMO_SrvUpdateClientReferenceDataRq"/>
+    <transformer input-channel="SrvGetClientReferenceDataRq" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvGetClientReferenceDataRq"/>
+    <transformer input-channel="SrvPermitAccountChargeOperation" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvPermitAccountChargeOperation"/>
+    <transformer input-channel="SrvSendApplicationForCBDFProcessingRq" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvSendApplicationForCBDFProcessingRq"/>
+    <transformer input-channel="SrvSendNaturalPersonApplicationStateChangeMessageRq" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvSendNaturalPersonApplicationStateChangeMessageRq"/>
+    <transformer input-channel="SrvUpdateClientReferenceDataRq" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvUpdateClientReferenceDataRq"/>
 
     <context:component-scan base-package="ru.sbt.bpm.mock.controller"/>
     
@@ -157,7 +169,7 @@
     <beans:bean id="channelService" class="ru.sbt.bpm.mock.service.ChannelService">
    		 <beans:property name="subscribeChannels">
    		 	<util:list>
-   		 		<beans:ref bean="ESB.BPM.RESPONSE"/>
+   		 		<beans:ref bean="DriverInboundResponse"/>
    		 	</util:list>
    		 </beans:property> 
     </beans:bean>
@@ -167,9 +179,8 @@
 
     <!--<channel id="test"/>-->
     <!-- Mock gateway to send requests to outbound -->
-    <gateway id="systemEntry" default-request-channel="ESB.BPM.REQUEST" default-reply-channel="ESB.BPM.RESPONSE"
+    <gateway id="systemEntry" default-request-channel="DriverOutboundRequest" default-reply-channel="DriverInboundResponse"
                  service-interface="ru.sbt.bpm.mock.gateway.ClientService" />
     <!--<gateway id="systemEntry" default-request-channel="test" default-reply-channel="test"-->
                  <!--service-interface="ru.sbt.bpm.mock.gateway.ClientService" />-->
-
 </beans:beans>
