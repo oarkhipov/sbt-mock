@@ -114,7 +114,7 @@
     </util:map>
     
     <channel id="defaultChannel"/>
-    <channel id="ESBSynCallForNCPDB"/>
+    <channel id="DefaultOutputChannelIfNoOperationRouted"/>
 
     <channel id="SrvGetClientReferenceDataRq"/>
     <channel id="SrvPermitAccountChargeOperation"/>
@@ -122,7 +122,7 @@
     <channel id="SrvSendNaturalPersonApplicationStateChangeMessageRq"/>
     <channel id="SrvUpdateClientReferenceDataRq"/>
 
-    <ix:xpath-router id="operationRouter" input-channel="MockInboundRequest" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
+    <ix:xpath-router id="operationRouter" input-channel="MockInboundRequest" default-output-channel="DefaultOutputChannelIfNoOperationRouted" resolution-required="false">
         <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
 
         <ix:mapping value="SrvGetClientReferenceData" channel="SrvGetClientReferenceDataRq"/>
@@ -158,6 +158,9 @@
     <transformer input-channel="SrvSendApplicationForCBDFProcessingRq" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvSendApplicationForCBDFProcessingRq"/>
     <transformer input-channel="SrvSendNaturalPersonApplicationStateChangeMessageRq" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvSendNaturalPersonApplicationStateChangeMessageRq"/>
     <transformer input-channel="SrvUpdateClientReferenceDataRq" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvUpdateClientReferenceDataRq"/>
+
+    <!-- Если операция в роутере не определена, то она попадает в канал по умолчанию и мы её заворачиваем на выход //TODO нужно сформировать ответ, что всё плохо-->
+    <bridge input-channel="DefaultOutputChannelIfNoOperationRouted" output-channel="MockOutboundResponse"/>
 
     <context:component-scan base-package="ru.sbt.bpm.mock.controller"/>
     
