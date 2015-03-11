@@ -110,7 +110,7 @@
 
     <!-- Роутер-->
     <util:map id="sbrfNamespaceMap">
-        <beans:entry key="env" value="http://sbrf.ru/NCP/esb/envelope/"/>
+        <beans:entry key="env" value="http://schemas.xmlsoap.org/soap/envelope/"/>
     </util:map>
     
     <channel id="defaultChannel"/>
@@ -122,8 +122,9 @@
     <channel id="SrvSendNaturalPersonApplicationStateChangeMessageRq"/>
     <channel id="SrvUpdateClientReferenceDataRq"/>
 
+    <!-- TODO добавить Router test-->
     <ix:xpath-router id="operationRouter" input-channel="MockInboundRequest" default-output-channel="DefaultOutputChannelIfNoOperationRouted" resolution-required="false">
-        <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
+        <ix:xpath-expression expression="/env:Envelope/env:Header/env:AsyncHeader/env:operation-name" namespace-map="sbrfNamespaceMap" />
 
         <ix:mapping value="SrvGetClientReferenceData" channel="SrvGetClientReferenceDataRq"/>
         <ix:mapping value="SrvPermitAccountChargeOperation" channel="SrvPermitAccountChargeOperation"/>
