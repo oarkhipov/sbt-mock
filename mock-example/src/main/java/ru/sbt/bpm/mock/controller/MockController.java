@@ -1,7 +1,6 @@
 package ru.sbt.bpm.mock.controller;
 
 import com.google.gson.Gson;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -15,9 +14,7 @@ import ru.sbt.bpm.mock.utils.AjaxObject;
 import ru.sbt.bpm.mock.utils.SaveFile;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URLEncoder;
 
 /**
  * Created by sbt-bochev-as on 13.12.2014.
@@ -48,7 +45,7 @@ public class MockController {
         model.addAttribute("name", name);
         model.addAttribute("link", "mock");
         try {
-            model.addAttribute("object", xmlDataService.getXml(name + "_Data"));
+            model.addAttribute("object", xmlDataService.getDataXml(name + "_Data"));
         }
         catch (Exception e) {
             model.addAttribute("object", e.getMessage());
@@ -66,8 +63,6 @@ public class MockController {
             if (xmlDataService.validate(xml)) {
                 ajaxObject.setInfo("Valid!");
             }
-        } catch (SAXException e) {
-            ajaxObject.setError(e.getMessage());
         }
         catch (IOException e) {
             ajaxObject.setError(e.getMessage());

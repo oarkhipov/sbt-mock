@@ -28,10 +28,11 @@ public class XmlDataTest {
 
     @Test
     public void validateTest() throws IOException {
-        try {
-            assertTrue(xmlDataService.validate(xmlDataService.getXml("CRM_CreateTask")));
-        } catch (SAXException e) {
-            e.printStackTrace();
-        }
+        assertTrue(xmlDataService.validate(xmlDataService.getDataXml("CRM_CreateTask")));
+    }
+
+    @Test
+    public void customTest() throws IOException {
+        assertTrue(xmlDataService.validate(xmlDataService.getXml("../in/test.xml")));
     }
 }

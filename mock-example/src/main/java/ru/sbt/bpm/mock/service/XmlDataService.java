@@ -12,10 +12,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 
@@ -64,18 +61,35 @@ public class XmlDataService {
         return FileUtils.readFileToString(getXmlResource(name).getFile());
     }
 
-    public Resource getXmlResource(String name) throws IOException {
+    public String getDataXml(String name) throws IOException {
+        return FileUtils.readFileToString(getXmlDataResource(name).getFile());
+    }
+
+    public Resource getXmlDataResource(String name) throws IOException {
         String[] nameParts = name.split("_");
         return appContext.getResource(pathBase + nameParts[0] + File.separator + "xml" + File.separator + nameParts[1] + "Data.xml");
     }
+
+    public Resource getXmlResource(String name) throws IOException {
+        return appContext.getResource(pathBase + name);
+    }
+
     public Resource getXslResource(String name) throws IOException {
         String[] nameParts = name.split("_");
         return appContext.getResource(xslPathBase + nameParts[0] + File.separator + File.separator + nameParts[1] + ".xsl");
     }
 
-    public boolean validate(String xmlData) throws SAXException, IOException {
+    public boolean validate(String xmlData) throws UnsupportedEncodingException {
         InputStream stream = new ByteArrayInputStream(xmlData.getBytes("UTF-8"));
-//        validator.validate(new StreamSource(stream));
+        try {
+            validator.validate(new StreamSource(stream));
+        } catch (SAXException e) {
+            e.printStackTrace();
+            return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 

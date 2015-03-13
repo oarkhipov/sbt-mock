@@ -108,11 +108,13 @@
     <!-- - - - - - - - - - - - -->
 
 
-    <!-- Роутер-->
+    <!-- Карта неймспейсов-->
     <util:map id="sbrfNamespaceMap">
         <beans:entry key="env" value="http://schemas.xmlsoap.org/soap/envelope/"/>
+        <beans:entry key="ns1" value="http://sbrf.ru/prpc/mq/headers"/>
     </util:map>
-    
+
+    <!-- Каналы-->
     <channel id="defaultChannel"/>
     <channel id="DefaultOutputChannelIfNoOperationRouted"/>
 
@@ -123,8 +125,9 @@
     <channel id="SrvUpdateClientReferenceDataRq"/>
 
     <!-- TODO добавить Router test-->
+    <!-- Роутер-->
     <ix:xpath-router id="operationRouter" input-channel="MockInboundRequest" default-output-channel="DefaultOutputChannelIfNoOperationRouted" resolution-required="false">
-        <ix:xpath-expression expression="/env:Envelope/env:Header/env:AsyncHeader/env:operation-name" namespace-map="sbrfNamespaceMap" />
+        <ix:xpath-expression expression="/env:Envelope/env:Header/ns1:AsyncHeader/ns1:operation-name" namespace-map="sbrfNamespaceMap" />
 
         <ix:mapping value="SrvGetClientReferenceData" channel="SrvGetClientReferenceDataRq"/>
         <ix:mapping value="SrvPermitAccountChargeOperation" channel="SrvPermitAccountChargeOperation"/>
@@ -152,7 +155,7 @@
         <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvUpdateClientReferenceDataRq.xsl"/>
     </beans:bean>
 
- <!--маппинг трасформеров на каналы-->
+    <!--маппинг трасформеров на каналы-->
 
     <transformer input-channel="SrvGetClientReferenceDataRq" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvGetClientReferenceDataRq"/>
     <transformer input-channel="SrvPermitAccountChargeOperation" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvPermitAccountChargeOperation"/>
