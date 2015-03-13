@@ -7,7 +7,7 @@
       </mq:AsyncHeader>
    </soap:Header>
    <soap:Body>
-      <tns:SrvSendApplicationProcessingURLRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
+      <tns:SrvSendApplicationProcessingURLRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10"><!--optional--><ct:ExtensionData xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"/>
          <tns:ApplicationId>1234567890</tns:ApplicationId>
          <tns:URLType>1</tns:URLType>
       </tns:SrvSendApplicationProcessingURLRq>

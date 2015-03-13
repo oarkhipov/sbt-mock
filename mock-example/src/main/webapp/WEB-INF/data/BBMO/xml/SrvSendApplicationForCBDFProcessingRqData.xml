@@ -8,6 +8,15 @@
             <operation-name>SrvSendApplicationForCBDFProcessing</operation-name>
          </AsyncHeader>
       </SoapHeader>
+      <ResultCode>1234567890</ResultCode>
+      <ErrorDetails>
+         <ErrorMessage>string</ErrorMessage>
+         <FormatError>
+            <FieldName>string</FieldName>
+            <ErrorDescription>string</ErrorDescription>
+         </FormatError>
+      </ErrorDetails>
+      <ExtensionData/>
       <ApplicationId>1234567890</ApplicationId>
    </response>
    <response name="test1">
@@ -18,5 +27,6 @@
             <operation-name>SrvSendApplicationForCBDFProcessing</operation-name>
          </AsyncHeader>
       </SoapHeader>
+      <ResultCode>1234567890</ResultCode>
    </response>
 </data>

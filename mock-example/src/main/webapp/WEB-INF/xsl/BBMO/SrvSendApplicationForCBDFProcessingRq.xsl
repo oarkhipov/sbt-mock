@@ -76,10 +76,39 @@
       </tns:SrvSendApplicationForCBDFProcessingRs>
    </xsl:template>
 
+   <xsl:template match="rsd:ErrorDetails">
+      <ct:ErrorDetails xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10">
+         <ct:ErrorMessage>
+            <xsl:value-of select="./rsd:ErrorMessage"/>
+         </ct:ErrorMessage>
+         <xsl:apply-templates select="./rsd:FormatError"/>
+      </ct:ErrorDetails>
+   </xsl:template>
+
+   <xsl:template match="rsd:FormatError">
+      <ct:FormatError xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10">
+         <ct:FieldName>
+            <xsl:value-of select="./rsd:FieldName"/>
+         </ct:FieldName>
+         <ct:ErrorDescription>
+            <xsl:value-of select="./rsd:ErrorDescription"/>
+         </ct:ErrorDescription>
+      </ct:FormatError>
+   </xsl:template>
+
+   <xsl:template match="rsd:ExtensionData">
+      <ct:ExtensionData xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"/>
+   </xsl:template>
+
    <xsl:template name="SrvSendApplicationForCBDFProcessing">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
       <xsl:element name="tns:SrvSendApplicationForCBDFProcessingRs">
+         <ct:ResultCode xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10">
+            <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:ResultCode"/>
+         </ct:ResultCode>
+         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:ErrorDetails"/>
+         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:ExtensionData"/>
          <xsl:if test="$data/rsd:response[@name=$response]/rsd:ApplicationId">
             <tns:ApplicationId>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:ApplicationId"/>

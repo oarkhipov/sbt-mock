@@ -7,7 +7,7 @@
       </mq:AsyncHeader>
    </soap:Header>
    <soap:Body>
-      <tns:SrvSendApplicationForCBDFProcessingRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
+      <tns:SrvSendApplicationForCBDFProcessingRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10"><!--optional--><ct:ExtensionData xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"/>
          <tns:NaturalPersonCompesationApplication>
             <tns:ApplicationId>1234567890</tns:ApplicationId>
             <tns:DocumentPackageType>1</tns:DocumentPackageType>
@@ -17,13 +17,13 @@
             <!--optional--><tns:IdentificationDocumentType>0</tns:IdentificationDocumentType>
             <!--optional--><tns:IdentificationDocumentSeries>string</tns:IdentificationDocumentSeries>
             <!--optional--><tns:IdentificationDocumentNumber>string</tns:IdentificationDocumentNumber>
-            <tns:BirthDate>2015-03-04</tns:BirthDate>
+            <tns:BirthDate>2015-03-13</tns:BirthDate>
             <tns:BankSubdivision>
                <tns:TB>str</tns:TB>
                <tns:OSB>string</tns:OSB>
                <tns:VSP>string</tns:VSP>
             </tns:BankSubdivision>
-            <tns:IssueDate>2015-03-04</tns:IssueDate>
+            <tns:IssueDate>2015-03-13</tns:IssueDate>
             <!--optional--><tns:PackageId>string</tns:PackageId>
             <!--optional--><tns:BarCode>string</tns:BarCode>
          </tns:NaturalPersonCompesationApplication>

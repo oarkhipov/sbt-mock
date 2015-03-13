@@ -135,10 +135,15 @@
       </tns:BankSubdivision>
    </xsl:template>
 
+   <xsl:template match="rsd:ExtensionData">
+      <ct:ExtensionData xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"/>
+   </xsl:template>
+
    <xsl:template name="SrvRegisterLegalPersonAccountOperationApplication">
       <xsl:param name="request"/>
       <xsl:param name="data"/>
       <xsl:element name="tns:SrvRegisterLegalPersonApplicationRq">
+         <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:ExtensionData"/>
          <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:LegalPersonApplication"/>
       </xsl:element>
    </xsl:template>

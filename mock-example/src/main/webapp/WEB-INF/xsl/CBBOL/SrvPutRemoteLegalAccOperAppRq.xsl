@@ -1143,10 +1143,15 @@
       </tns:DocumentLinks>
    </xsl:template>
 
+   <xsl:template match="rsd:ExtensionData">
+      <ct:ExtensionData xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"/>
+   </xsl:template>
+
    <xsl:template name="SrvPutRemoteLegalAccOperApp">
       <xsl:param name="request"/>
       <xsl:param name="data"/>
       <xsl:element name="tns:SrvPutRemoteLegalAccOperAppRq">
+         <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:ExtensionData"/>
          <xsl:if test="$data/rsd:request[@name=$request]/rsd:RemoteClient">
             <tns:RemoteClient>
                <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:RemoteClient"/>

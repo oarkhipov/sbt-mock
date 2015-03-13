@@ -8,6 +8,7 @@
             <operation-name>SrvRegisterLegalPersonAccountOperationApplication</operation-name>
          </AsyncHeader>
       </SoapHeader>
+      <ExtensionData/>
       <LegalPersonApplication>
          <ApplicationId>string</ApplicationId>
          <OperationType>string</OperationType>
@@ -19,7 +20,7 @@
             <OSB>string</OSB>
             <VSP>string</VSP>
          </BankSubdivision>
-         <InitDate>2015-03-04</InitDate>
+         <InitDate>2015-03-13</InitDate>
          <AgreementIdentifier>string</AgreementIdentifier>
          <AgreementNumber>string</AgreementNumber>
          <MainAccountNumber>string</MainAccountNumber>
@@ -43,7 +44,7 @@
             <OSB>string</OSB>
             <VSP>string</VSP>
          </BankSubdivision>
-         <InitDate>2015-03-04</InitDate>
+         <InitDate>2015-03-13</InitDate>
       </LegalPersonApplication>
    </request>
 </data>

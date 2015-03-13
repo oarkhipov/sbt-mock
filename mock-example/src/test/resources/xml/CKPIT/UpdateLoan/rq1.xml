@@ -7,7 +7,7 @@
       </mq:AsyncHeader>
    </soap:Header>
    <soap:Body>
-      <tns:SrvCKPITUpdateLoanRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
+      <tns:SrvCKPITUpdateLoanRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10"><!--optional--><ct:ExtensionData xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"/>
          <tns:IDCKPIT_MB>1234567890</tns:IDCKPIT_MB>
          <!--from 1 to unbounded elements --><tns:Loan>
             <tns:Label>string</tns:Label>

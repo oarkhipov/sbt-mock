@@ -8,6 +8,7 @@
             <operation-name>SrvCKPITUpdateLoan</operation-name>
          </AsyncHeader>
       </SoapHeader>
+      <ExtensionData/>
       <IDCKPIT_MB>1234567890</IDCKPIT_MB>
       <Loan>
          <Label>string</Label>

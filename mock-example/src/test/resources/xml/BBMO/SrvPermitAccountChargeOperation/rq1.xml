@@ -7,7 +7,7 @@
       </mq:AsyncHeader>
    </soap:Header>
    <soap:Body>
-      <tns:SrvPermitAccountChargeOperationRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
+      <tns:SrvPermitAccountChargeOperationRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10"><!--optional--><ct:ExtensionData xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"/>
          <tns:BankSubdivision>
             <tns:TB>str</tns:TB>
             <tns:OSB>string</tns:OSB>

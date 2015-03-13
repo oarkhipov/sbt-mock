@@ -7,7 +7,17 @@
       </mq:AsyncHeader>
    </soap:Header>
    <soap:Body>
-      <tns:SrvSendApplicationForCBDFProcessingRs xmlns:tns="http://sbrf.ru/prpc/bbmo/10"><!--optional--><tns:ApplicationId>1234567890</tns:ApplicationId>
+      <tns:SrvSendApplicationForCBDFProcessingRs xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
+         <ct:ResultCode xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10">1234567890</ct:ResultCode>
+         <!--optional--><ct:ErrorDetails xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10">
+            <ct:ErrorMessage>string</ct:ErrorMessage>
+            <!--from 0 to unbounded elements --><ct:FormatError>
+               <ct:FieldName>string</ct:FieldName>
+               <ct:ErrorDescription>string</ct:ErrorDescription>
+            </ct:FormatError>
+         </ct:ErrorDetails>
+         <!--optional--><ct:ExtensionData xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"/>
+         <!--optional--><tns:ApplicationId>1234567890</tns:ApplicationId>
       </tns:SrvSendApplicationForCBDFProcessingRs>
    </soap:Body>
 </soap:Envelope>

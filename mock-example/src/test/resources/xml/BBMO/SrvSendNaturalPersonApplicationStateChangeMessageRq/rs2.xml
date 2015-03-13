@@ -7,6 +7,8 @@
       </mq:AsyncHeader>
    </soap:Header>
    <soap:Body>
-      <tns:SrvSendNaturalPersonApplicationStateChangeMessageRs xmlns:tns="http://sbrf.ru/prpc/bbmo/10"/>
+      <tns:SrvSendNaturalPersonApplicationStateChangeMessageRs xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
+         <ct:ResultCode xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10">1234567890</ct:ResultCode>
+      </tns:SrvSendNaturalPersonApplicationStateChangeMessageRs>
    </soap:Body>
 </soap:Envelope>

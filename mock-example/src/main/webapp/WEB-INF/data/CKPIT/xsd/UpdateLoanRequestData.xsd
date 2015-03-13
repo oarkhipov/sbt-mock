@@ -108,27 +108,24 @@
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="SrvCKPITUpdateLoanRq">
-      <xsd:complexContent>
-         <xsd:extension base="ct:DataProcessingRequest">
-            <xsd:sequence>
-               <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
-               <xsd:element name="IDCKPIT_MB" type="tns:IDCKPITType">
-                  <xsd:annotation>
-                     <xsd:documentation>ID кредита в ЦКПИТ</xsd:documentation>
-                  </xsd:annotation>
-               </xsd:element>
-               <xsd:element name="Loan"
-                            minOccurs="1"
-                            maxOccurs="unbounded"
-                            type="tns:LoanReqType">
-                  <xsd:annotation>
-                     <xsd:documentation>Информация о кредите</xsd:documentation>
-                  </xsd:annotation>
-               </xsd:element>
-            </xsd:sequence>
-            <xsd:attribute name="name"/>
-         </xsd:extension>
-      </xsd:complexContent>
+      <xsd:sequence>
+         <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
+         <xsd:element name="ExtensionData" minOccurs="0" type="tns:ExtensionData"/>
+         <xsd:element name="IDCKPIT_MB" type="tns:IDCKPITType">
+            <xsd:annotation>
+               <xsd:documentation>ID кредита в ЦКПИТ</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="Loan"
+                      minOccurs="1"
+                      maxOccurs="unbounded"
+                      type="tns:LoanReqType">
+            <xsd:annotation>
+               <xsd:documentation>Информация о кредите</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+      <xsd:attribute name="name"/>
    </xsd:complexType>
    <xsd:simpleType name="IDCKPITType">
       <xsd:restriction base="xsd:integer">
@@ -178,6 +175,17 @@
                </xsd:restriction>
             </xsd:simpleType>
          </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="ExtensionData">
+      <xsd:annotation>
+         <xsd:documentation>Точка расширения ответа (не используется, добавлено на перспективу)</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:any namespace="##any"
+                  processContents="lax"
+                  minOccurs="0"
+                  maxOccurs="unbounded"/>
       </xsd:sequence>
    </xsd:complexType>
 </xsd:schema>

@@ -108,49 +108,46 @@
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="SrvPutRemoteLegalAccOperAppRq">
-      <xsd:complexContent>
-         <xsd:extension base="ct:DataProcessingRequest">
-            <xsd:sequence>
-               <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
-               <xsd:element name="RemoteClient" minOccurs="0" type="dt:Boolean">
-                  <xsd:annotation>
-                     <xsd:documentation>Признак удалённого создания клиента</xsd:documentation>
-                  </xsd:annotation>
-               </xsd:element>
-               <xsd:element name="RemoteSystemId" minOccurs="0" type="dt:String">
-                  <xsd:annotation>
-                     <xsd:documentation>Система источник запрос в ЕКС</xsd:documentation>
-                  </xsd:annotation>
-               </xsd:element>
-               <xsd:element name="IsAdditionalAccount" minOccurs="0" type="dt:Boolean">
-                  <xsd:annotation>
-                     <xsd:documentation>Признак дополнительного или основного счета</xsd:documentation>
-                  </xsd:annotation>
-               </xsd:element>
-               <xsd:element name="IsBankCardProcessing" minOccurs="0" type="dt:Boolean">
-                  <xsd:annotation>
-                     <xsd:documentation>Признак формирования банковской карточки клиента</xsd:documentation>
-                  </xsd:annotation>
-               </xsd:element>
-               <xsd:element name="ClientReferenceData" type="tns:ClientReferenceData">
-                  <xsd:annotation>
-                     <xsd:documentation>Справочные данные клиента</xsd:documentation>
-                  </xsd:annotation>
-               </xsd:element>
-               <xsd:element name="LegalPersonApplication" type="tns:LegalPersonApplication">
-                  <xsd:annotation>
-                     <xsd:documentation>Заявление юридического лица</xsd:documentation>
-                  </xsd:annotation>
-               </xsd:element>
-               <xsd:element name="DocumentsInfo" type="tns:DocumentsInfo">
-                  <xsd:annotation>
-                     <xsd:documentation>Информация по каталогу документов</xsd:documentation>
-                  </xsd:annotation>
-               </xsd:element>
-            </xsd:sequence>
-            <xsd:attribute name="name"/>
-         </xsd:extension>
-      </xsd:complexContent>
+      <xsd:sequence>
+         <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
+         <xsd:element name="ExtensionData" minOccurs="0" type="tns:ExtensionData"/>
+         <xsd:element name="RemoteClient" minOccurs="0" type="dt:Boolean">
+            <xsd:annotation>
+               <xsd:documentation>Признак удалённого создания клиента</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="RemoteSystemId" minOccurs="0" type="dt:String">
+            <xsd:annotation>
+               <xsd:documentation>Система источник запрос в ЕКС</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="IsAdditionalAccount" minOccurs="0" type="dt:Boolean">
+            <xsd:annotation>
+               <xsd:documentation>Признак дополнительного или основного счета</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="IsBankCardProcessing" minOccurs="0" type="dt:Boolean">
+            <xsd:annotation>
+               <xsd:documentation>Признак формирования банковской карточки клиента</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ClientReferenceData" type="tns:ClientReferenceData">
+            <xsd:annotation>
+               <xsd:documentation>Справочные данные клиента</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="LegalPersonApplication" type="tns:LegalPersonApplication">
+            <xsd:annotation>
+               <xsd:documentation>Заявление юридического лица</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="DocumentsInfo" type="tns:DocumentsInfo">
+            <xsd:annotation>
+               <xsd:documentation>Информация по каталогу документов</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+      <xsd:attribute name="name"/>
    </xsd:complexType>
    <xsd:complexType name="LegalPersonApplication">
       <xsd:annotation>
@@ -1792,6 +1789,17 @@
                <xsd:documentation>Ссылка на документ</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="ExtensionData">
+      <xsd:annotation>
+         <xsd:documentation>Точка расширения ответа (не используется, добавлено на перспективу)</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:any namespace="##any"
+                  processContents="lax"
+                  minOccurs="0"
+                  maxOccurs="unbounded"/>
       </xsd:sequence>
    </xsd:complexType>
 </xsd:schema>
