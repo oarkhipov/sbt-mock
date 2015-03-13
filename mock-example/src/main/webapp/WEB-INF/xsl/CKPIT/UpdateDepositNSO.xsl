@@ -103,10 +103,15 @@
       </tns:Restriction>
    </xsl:template>
 
+   <xsl:template match="rsd:ExtensionData">
+      <ct:ExtensionData xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"/>
+   </xsl:template>
+
    <xsl:template name="SrvCKPITUpdateDepositNSO">
       <xsl:param name="request"/>
       <xsl:param name="data"/>
       <xsl:element name="tns:SrvCKPITUpdateDepositNSORq">
+         <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:ExtensionData"/>
          <tns:IDCKPIT>
             <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:IDCKPIT"/>
          </tns:IDCKPIT>

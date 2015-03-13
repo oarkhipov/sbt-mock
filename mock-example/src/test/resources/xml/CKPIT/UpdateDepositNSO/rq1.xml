@@ -7,14 +7,14 @@
       </mq:AsyncHeader>
    </soap:Header>
    <soap:Body>
-      <tns:SrvCKPITUpdateDepositNSORq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
+      <tns:SrvCKPITUpdateDepositNSORq xmlns:tns="http://sbrf.ru/prpc/bbmo/10"><!--optional--><ct:ExtensionData xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"/>
          <tns:IDCKPIT>1234567890</tns:IDCKPIT>
          <tns:Label>string</tns:Label>
          <tns:Name>string</tns:Name>
          <tns:ShortName>string</tns:ShortName>
          <tns:InstrumentType>Deposit</tns:InstrumentType>
-         <!--optional--><tns:ValidityStartDate>2015-03-04</tns:ValidityStartDate>
-         <!--optional--><tns:ValidityEndDate>2015-03-04</tns:ValidityEndDate>
+         <!--optional--><tns:ValidityStartDate>2015-03-13</tns:ValidityStartDate>
+         <!--optional--><tns:ValidityEndDate>2015-03-13</tns:ValidityEndDate>
          <!--from 1 to unbounded elements --><tns:Option>
             <tns:OptionID>string</tns:OptionID>
             <tns:OptionName>string</tns:OptionName>

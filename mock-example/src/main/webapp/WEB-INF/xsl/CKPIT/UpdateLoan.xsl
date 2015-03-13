@@ -82,10 +82,15 @@
       </tns:Loan>
    </xsl:template>
 
+   <xsl:template match="rsd:ExtensionData">
+      <ct:ExtensionData xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"/>
+   </xsl:template>
+
    <xsl:template name="SrvCKPITUpdateLoan">
       <xsl:param name="request"/>
       <xsl:param name="data"/>
       <xsl:element name="tns:SrvCKPITUpdateLoanRq">
+         <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:ExtensionData"/>
          <tns:IDCKPIT_MB>
             <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:IDCKPIT_MB"/>
          </tns:IDCKPIT_MB>

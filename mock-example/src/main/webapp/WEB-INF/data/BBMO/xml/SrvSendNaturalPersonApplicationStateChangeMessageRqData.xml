@@ -8,6 +8,15 @@
             <operation-name>SrvSendNaturalPersonApplicationProcessStageResult</operation-name>
          </AsyncHeader>
       </SoapHeader>
+      <ResultCode>1234567890</ResultCode>
+      <ErrorDetails>
+         <ErrorMessage>string</ErrorMessage>
+         <FormatError>
+            <FieldName>string</FieldName>
+            <ErrorDescription>string</ErrorDescription>
+         </FormatError>
+      </ErrorDetails>
+      <ExtensionData/>
       <URL>string</URL>
    </response>
    <response name="test1">
@@ -18,5 +27,6 @@
             <operation-name>SrvSendNaturalPersonApplicationProcessStageResult</operation-name>
          </AsyncHeader>
       </SoapHeader>
+      <ResultCode>1234567890</ResultCode>
    </response>
 </data>

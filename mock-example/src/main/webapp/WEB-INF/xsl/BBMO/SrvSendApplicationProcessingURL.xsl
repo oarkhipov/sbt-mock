@@ -66,10 +66,15 @@
       <tns:SrvSendApplicationProcessingURLRq/>
    </xsl:template>
 
+   <xsl:template match="rsd:ExtensionData">
+      <ct:ExtensionData xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"/>
+   </xsl:template>
+
    <xsl:template name="SrvSendApplicationProcessingURL">
       <xsl:param name="request"/>
       <xsl:param name="data"/>
       <xsl:element name="tns:SrvSendApplicationProcessingURLRq">
+         <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:ExtensionData"/>
          <tns:ApplicationId>
             <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:ApplicationId"/>
          </tns:ApplicationId>

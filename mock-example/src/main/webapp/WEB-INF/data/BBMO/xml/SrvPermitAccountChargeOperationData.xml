@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/prpc/bbmo/10/SrvPermitAccountChargeOperationRs/Data/">
+<data xmlns="http://sbrf.ru/prpc/bbmo/commonTypes/10/SrvPermitAccountChargeOperationRs/Data/">
    <response name="default">
       <SoapHeader>
          <AsyncHeader>
@@ -8,6 +8,15 @@
             <operation-name>SrvPermitAccountChargeOperation</operation-name>
          </AsyncHeader>
       </SoapHeader>
+      <ResultCode>1234567890</ResultCode>
+      <ErrorDetails>
+         <ErrorMessage>string</ErrorMessage>
+         <FormatError>
+            <FieldName>string</FieldName>
+            <ErrorDescription>string</ErrorDescription>
+         </FormatError>
+      </ErrorDetails>
+      <ExtensionData/>
    </response>
    <response name="test1">
       <SoapHeader>
@@ -17,5 +26,6 @@
             <operation-name>SrvPermitAccountChargeOperation</operation-name>
          </AsyncHeader>
       </SoapHeader>
+      <ResultCode>1234567890</ResultCode>
    </response>
 </data>

@@ -7,7 +7,7 @@
       </mq:AsyncHeader>
    </soap:Header>
    <soap:Body>
-      <tns:SrvRegisterLegalPersonApplicationRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
+      <tns:SrvRegisterLegalPersonApplicationRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10"><!--optional--><ct:ExtensionData xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"/>
          <tns:LegalPersonApplication><!--optional--><tns:ApplicationId>string</tns:ApplicationId>
             <!--optional--><tns:OperationType>string</tns:OperationType>
             <!--optional--><tns:ClientId>1234567890</tns:ClientId>
@@ -18,7 +18,7 @@
                <tns:OSB>string</tns:OSB>
                <tns:VSP>string</tns:VSP>
             </tns:BankSubdivision>
-            <tns:InitDate>2015-03-04</tns:InitDate>
+            <tns:InitDate>2015-03-13</tns:InitDate>
             <!--optional--><tns:AgreementIdentifier>string</tns:AgreementIdentifier>
             <!--optional--><tns:AgreementNumber>string</tns:AgreementNumber>
             <!--optional--><tns:MainAccountNumber>string</tns:MainAccountNumber>
