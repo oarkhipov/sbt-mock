@@ -56,29 +56,68 @@ public class XmlDataService {
     }
 
 
-
+    /**
+     * Возвращает xml по имени, относительно pathBase
+     *
+     * @param name путь до файла
+     * @return содержимое файла
+     * @throws IOException
+     */
     public String getXml(String name) throws IOException {
         return FileUtils.readFileToString(getXmlResource(name).getFile());
     }
 
+    /**
+     * Возвращает xml по спец имени, относительно pathBase
+     *
+     * @param name путь до файла
+     * @return содержимое файла
+     * @throws IOException
+     */
     public String getDataXml(String name) throws IOException {
         return FileUtils.readFileToString(getXmlDataResource(name).getFile());
     }
 
+    /**
+     * Возвращает ресурс, лежащий в pathBase
+     * @param name имя xmlData
+     * @return ресурс xml
+     * @throws IOException
+     */
     public Resource getXmlDataResource(String name) throws IOException {
         String[] nameParts = name.split("_");
         return appContext.getResource(pathBase + nameParts[0] + File.separator + "xml" + File.separator + nameParts[1] + "Data.xml");
     }
 
+    /**
+     * Возвращает ресурс, лежащий в pathBase
+     *
+     * @param name имя xml
+     * @return ресурс xml
+     * @throws IOException
+     */
     public Resource getXmlResource(String name) throws IOException {
         return appContext.getResource(pathBase + name);
     }
 
+    /**
+     * Возвращает ресурс, лежащий в xslPathBase
+     *
+     * @param name спец имя xsl
+     * @return ресурс xsl
+     * @throws IOException
+     */
     public Resource getXslResource(String name) throws IOException {
         String[] nameParts = name.split("_");
         return appContext.getResource(xslPathBase + nameParts[0] + File.separator + File.separator + nameParts[1] + ".xsl");
     }
 
+    /**
+     * Валидирует xmlData на соответствие схем
+     * @param xmlData спец имя xmlData
+     * @return признак валидности
+     * @throws UnsupportedEncodingException
+     */
     public boolean validate(String xmlData) throws UnsupportedEncodingException {
         InputStream stream = new ByteArrayInputStream(xmlData.getBytes("UTF-8"));
         try {
