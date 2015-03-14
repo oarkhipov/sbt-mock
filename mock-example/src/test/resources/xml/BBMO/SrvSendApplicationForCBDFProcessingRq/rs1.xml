@@ -17,7 +17,7 @@
             </ct:FormatError>
          </ct:ErrorDetails>
          <!--optional--><ct:ExtensionData xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"/>
-         <!--optional--><tns:ApplicationId>1234567890</tns:ApplicationId>
+         <!--optional--><tns:ApplicationId>stringstringstrings</tns:ApplicationId>
       </tns:SrvSendApplicationForCBDFProcessingRs>
    </soap:Body>
 </soap:Envelope>

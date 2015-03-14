@@ -3,6 +3,7 @@
                 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsk="http://www.w3.org/1999/XSL/Transform"
                 xmlns:mock="http://sbrf.ru/mockService">
 
+    <!-- создание примера сообщения из xsd-файла. В прямую не должно работать, вызывается как инклюд из KD4SoapMsg.xsl или NCPSoapMSG.xsl-->
     <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
 
     <!--То что можно/нужно задать-->
@@ -77,6 +78,13 @@
         <!--Убрать из строки имя неймспейса. Например 'tns:ClientReferenceData' в 'ClientReferenceData'-->
         <xsl:param name="string"/>
         <xsl:value-of select="replace($string, '^(([\w_]+):)?([\w_]+)$', '$2')"/>
+    </xsl:function>
+
+    <xsl:function name="mock:stringOfLenght">
+        <xsl:param name="lenght"/>
+        <xsl:variable name="pattern" select="'string'"/>
+        <xsl:value-of select="substring($pattern, 1, $lenght)"/>
+        <xsl:if test="number($lenght)-string-length($pattern)>0"><xsl:value-of select="mock:stringOfLenght(number($lenght)-string-length($pattern))"/></xsl:if>
     </xsl:function>
 
     <!--***********************************-->
@@ -435,7 +443,15 @@
         <!--TODO рассмотреть случай с minLengh -->
         <xsl:variable name="templateString" select="if($insideParams[./local-name()='pattern']) then '1234567890'  else 'string'"/>
         <!--<xsl:comment>test6 <xsl:value-of select="$maxLength"/></xsl:comment>-->
-        <xsl:value-of select="substring($templateString, 1, $maxLength)"/>
+        <xsl:choose>
+            <xsl:when test="$insideParams[./local-name()='length']">
+                <xsl:variable name="lenght" select="number($insideParams[./local-name()='length'][1]/@value)"/>
+                <xsl:value-of select="mock:stringOfLenght($lenght)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="substring($templateString, 1, $maxLength)"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <!--date-->

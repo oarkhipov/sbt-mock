@@ -56,9 +56,9 @@ public class ChannelTest {
                     if (checkFileIsMockOrDriver(fx)) {
                         String resultSubPath = "xml/" + f.getName() + "/" + name + "/";
 
-                        testXSLTmock(name, "ESB.BPM.NCP.OUT.MOCK", resultSubPath + "rq1.xml", resultSubPath + "rs1.xml");
+                        testXSLTmock(name, "MockOutboundResponse", resultSubPath + "rq1.xml", resultSubPath + "rs1.xml");
                         System.out.println(name + " part one Done!");
-                        testXSLTmock(name, "ESB.BPM.NCP.OUT.MOCK", resultSubPath + "rq2.xml", resultSubPath + "rs2.xml");
+                        testXSLTmock(name, "MockOutboundResponse", resultSubPath + "rq2.xml", resultSubPath + "rs2.xml");
                         System.out.println(name + " part two Done!");
 
                         System.out.println();
@@ -122,12 +122,12 @@ public class ChannelTest {
 //    BBMO testing
     @Test
     public void createSrvGetClientReferenceDataRq1() throws Exception {
-        testXSLTmock("SrvGetClientReferenceDataRq", "ESB.BPM.NCP.OUT.MOCK", "xml/BBMO/SrvGetClientReferenceDataRq/rq1.xml", "xml/BBMO/SrvGetClientReferenceDataRq/rs1.xml");
+        testXSLTmock("SrvGetClientReferenceDataRq", "MockOutboundResponse", "xml/BBMO/SrvGetClientReferenceDataRq/rq1.xml", "xml/BBMO/SrvGetClientReferenceDataRq/rs1.xml");
     }
 
     @Test
     public void createSrvGetClientReferenceDataRq2() throws Exception {
-        testXSLTmock("SrvGetClientReferenceDataRq", "ESB.BPM.NCP.OUT.MOCK", "xml/BBMO/SrvGetClientReferenceDataRq/rq2.xml", "xml/BBMO/SrvGetClientReferenceDataRq/rs2.xml");
+        testXSLTmock("SrvGetClientReferenceDataRq", "MockOutboundResponse", "xml/BBMO/SrvGetClientReferenceDataRq/rq2.xml", "xml/BBMO/SrvGetClientReferenceDataRq/rs2.xml");
     }
 
     //CKPIT

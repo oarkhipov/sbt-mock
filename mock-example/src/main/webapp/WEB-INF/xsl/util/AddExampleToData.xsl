@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:mock="http://sbrf.ru/mockService">
 
     <!--Файл для объединения примеров xml в Data файл. Не проверяет корректность, а просто копирует.
@@ -47,11 +48,14 @@
     <xsl:param name="dataFilePath"
                select="concat('../../data/',$system,'/xml/',$dataFileName)"/>
     <!--Неймспейс примера сообщения. Пробует взять самый гулбокий элемпент тела сообщения. Если что-то нашел - добавляет к нему сзади "/Data/"-->
-    <xsl:variable name="dataNSFromFile"
-                  select="mock:addDataToNamespaceUrl(/*[local-name()='Envelope']/*[local-name()='Body']/*/*[1], $rootElementName)"/>
+    <xsl:param name="operationsXSD" select="''"/>
+    <xsl:variable name="operationXsdSchema" select="document($operationsXSD)/xsd:schema"/>
+    <xsl:variable name="dataNSFromFile" select="$operationXsdSchema/@targetNamespace"/>
+    <!--<xsl:variable name="dataNSFromFile"-->
+                  <!--select="mock:addDataToNamespaceUrl(/*[local-name()='Envelope']/*[local-name()='Body']/*/*[last()]/namespace-uri(), $rootElementName)"/>-->
     <!--Неймспейс дата-файла. Если в dataNSFromFile(неймспейс того файла, которого мы ему сокрмили) нет ничего - берет некий стандарьтный дефолтный неймспейс-->
     <xsl:param name="dataNsUrl"
-               select="if ($dataNSFromFile!='') then $dataNSFromFile else concat('http://sbrf.ru/mockService/',$rootElementName,'/Data/')"/>
+               select="if ($dataNSFromFile!='') then mock:addDataToNamespaceUrl($dataNSFromFile, $rootElementName) else concat('http://sbrf.ru/mockService/',$rootElementName,'/Data/')"/>
 
     <!--Prepare data and section of data XML-->
     <xsl:template match="/">

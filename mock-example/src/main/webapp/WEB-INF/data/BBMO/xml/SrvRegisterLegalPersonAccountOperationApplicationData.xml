@@ -20,11 +20,11 @@
             <OSB>string</OSB>
             <VSP>string</VSP>
          </BankSubdivision>
-         <InitDate>2015-03-13</InitDate>
+         <InitDate>2015-03-14</InitDate>
          <AgreementIdentifier>string</AgreementIdentifier>
          <AgreementNumber>string</AgreementNumber>
-         <MainAccountNumber>string</MainAccountNumber>
-         <TaxRegReasonCode>string</TaxRegReasonCode>
+         <MainAccountNumber>stringstringstringst</MainAccountNumber>
+         <TaxRegReasonCode>stringstr</TaxRegReasonCode>
          <BarCode>string</BarCode>
       </LegalPersonApplication>
    </request>
@@ -44,7 +44,7 @@
             <OSB>string</OSB>
             <VSP>string</VSP>
          </BankSubdivision>
-         <InitDate>2015-03-13</InitDate>
+         <InitDate>2015-03-14</InitDate>
       </LegalPersonApplication>
    </request>
 </data>

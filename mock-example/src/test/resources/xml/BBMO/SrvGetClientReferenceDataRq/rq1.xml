@@ -15,7 +15,7 @@
             <tns:VSP>string</tns:VSP>
          </tns:BankSubdivision>
          <!--optional--><tns:TaxId>string</tns:TaxId>
-         <!--optional--><tns:TaxRegReasonCode>string</tns:TaxRegReasonCode>
+         <!--optional--><tns:TaxRegReasonCode>stringstr</tns:TaxRegReasonCode>
          <!--optional--><tns:AgreementIdentifier>string</tns:AgreementIdentifier>
       </tns:SrvGetClientReferenceDataRq>
    </soap:Body>

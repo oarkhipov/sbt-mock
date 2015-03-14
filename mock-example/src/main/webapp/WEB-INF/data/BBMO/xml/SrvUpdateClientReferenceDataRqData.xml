@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/prpc/bbmo/commonTypes/10/SrvUpdateClientReferenceDataRs/Data/">
+<data xmlns="http://sbrf.ru/prpc/bbmo/10/SrvUpdateClientReferenceDataRs/Data/">
    <response name="default">
       <SoapHeader>
          <AsyncHeader>

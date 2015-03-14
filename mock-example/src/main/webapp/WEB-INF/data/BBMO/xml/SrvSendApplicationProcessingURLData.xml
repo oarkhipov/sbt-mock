@@ -9,7 +9,7 @@
          </AsyncHeader>
       </SoapHeader>
       <ExtensionData/>
-      <ApplicationId>1234567890</ApplicationId>
+      <ApplicationId>stringstringstrings</ApplicationId>
       <URLType>1</URLType>
    </request>
    <request name="test1">
@@ -20,7 +20,7 @@
             <operation-name>SrvSendApplicationProcessingURL</operation-name>
          </AsyncHeader>
       </SoapHeader>
-      <ApplicationId>1234567890</ApplicationId>
+      <ApplicationId>stringstringstrings</ApplicationId>
       <URLType>1</URLType>
    </request>
 </data>

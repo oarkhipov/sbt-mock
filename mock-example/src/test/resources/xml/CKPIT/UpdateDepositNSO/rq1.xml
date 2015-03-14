@@ -13,8 +13,8 @@
          <tns:Name>string</tns:Name>
          <tns:ShortName>string</tns:ShortName>
          <tns:InstrumentType>Deposit</tns:InstrumentType>
-         <!--optional--><tns:ValidityStartDate>2015-03-13</tns:ValidityStartDate>
-         <!--optional--><tns:ValidityEndDate>2015-03-13</tns:ValidityEndDate>
+         <!--optional--><tns:ValidityStartDate>2015-03-14</tns:ValidityStartDate>
+         <!--optional--><tns:ValidityEndDate>2015-03-14</tns:ValidityEndDate>
          <!--from 1 to unbounded elements --><tns:Option>
             <tns:OptionID>string</tns:OptionID>
             <tns:OptionName>string</tns:OptionName>
