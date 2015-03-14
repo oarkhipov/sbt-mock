@@ -75,32 +75,6 @@
 
     <xsl:variable name="type" select="'response'"/>
 
-    <!--TODO пренести функции в xsltFunctions.xsl-->
-    <!--<xsl:function name="mock:typesToImport">-->
-        <!--<xsl:param name="baseElement"/>-->
-        <!--<xsl:variable name="importOnThislevel" select="mock:typesNeedingImport($baseElement)"/>-->
-        <!--<xsl:variable name="nextLevelElements" select="$baseElement | $typesList[@name=$importOnThislevel]"/>-->
-        <!--<xsl:choose>-->
-            <!--<xsl:when test="count($baseElement) &lt; count($nextLevelElements)">-->
-                <!--<xsl:variable name="allInside" select="$nextLevelElements | $typesList[@name=mock:typesToImport($nextLevelElements)]"/>-->
-                <!--<xsl:for-each select="$allInside/@name"><xsl:value-of select="."/></xsl:for-each>-->
-            <!--</xsl:when>-->
-            <!--<xsl:otherwise>-->
-                <!--<xsl:for-each select="$nextLevelElements/@name"><xsl:value-of select="."/></xsl:for-each>-->
-            <!--</xsl:otherwise>-->
-        <!--</xsl:choose>-->
-    <!--</xsl:function>-->
-
-    <!--<xsl:function name="mock:typesNeedingImport">-->
-        <!--<xsl:param name="baseElement"/>-->
-        <!--<xsl:variable name="extensionElementName" select="mock:removeNamespaceAlias($baseElement//xsd:extension/@base)"/>-->
-        <!--<xsl:variable name="nsAlias" select="mock:getNamespaceAlias($baseElement//xsd:extension/@base)"/>-->
-        <!--<xsl:variable name="ns" select="$baseElement/namespace::*[local-name()=$nsAlias]"/>-->
-        <!--<xsl:variable name="extensionElement" select="$typesList[@name=$extensionElementName and ./../@targetNamespace=$ns]"/>-->
-        <!--<xsl:variable name="importOnThislevel" select="($baseElement | $extensionElement)//@*[name()=$atributesWithTypes]/mock:removeNamespaceAlias(.,$localTargetNSAlias)[not(contains(.,':'))]"/>-->
-        <!--<xsl:for-each select="$importOnThislevel"><xsl:value-of select="."/></xsl:for-each>-->
-    <!--</xsl:function>-->
-
     <xsl:template match="xsd:schema">
         <xsl:element name="xsl:stylesheet">
             <xsl:if test="$targetNS!=''">
