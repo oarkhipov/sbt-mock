@@ -145,8 +145,8 @@
       <xsl:param name="request"/>
       <xsl:param name="data"/>
       <xsl:element name="tns:SrvRegisterLegalPersonApplicationRq">
-         <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:ExtensionData"/>
-         <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:LegalPersonApplication"/>
+			      <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:ExtensionData"/>
+		       <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:LegalPersonApplication"/>
       </xsl:element>
    </xsl:template>
 </xsl:stylesheet>

@@ -104,12 +104,12 @@
       <xsl:param name="response"/>
       <xsl:param name="data"/>
       <xsl:element name="tns:SrvSendNaturalPersonApplicationStateChangeMessageRs">
-         <ct:ResultCode xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10">
+			      <ct:ResultCode xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10">
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:ResultCode"/>
          </ct:ResultCode>
-         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:ErrorDetails"/>
-         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:ExtensionData"/>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:URL">
+			      <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:ErrorDetails"/>
+			      <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:ExtensionData"/>
+		       <xsl:if test="$data/rsd:response[@name=$response]/rsd:URL">
             <tns:URL>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:URL"/>
             </tns:URL>

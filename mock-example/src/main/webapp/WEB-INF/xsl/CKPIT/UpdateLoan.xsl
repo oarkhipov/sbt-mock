@@ -95,8 +95,8 @@
       <xsl:param name="request"/>
       <xsl:param name="data"/>
       <xsl:element name="tns:SrvCKPITUpdateLoanRq">
-         <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:ExtensionData"/>
-         <tns:IDCKPIT_MB>
+			      <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:ExtensionData"/>
+		       <tns:IDCKPIT_MB>
             <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:IDCKPIT_MB"/>
          </tns:IDCKPIT_MB>
          <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:Loan"/>

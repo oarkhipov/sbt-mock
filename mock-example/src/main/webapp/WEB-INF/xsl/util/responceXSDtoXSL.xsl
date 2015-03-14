@@ -73,31 +73,33 @@
     <!--xpath, по которому будет взят LinkedTag. Можно не переопределять, если определен $tagNameToTakeLinkedTag-->
     <xsl:param name="tagQuerryToTakeLinkedTag" select="if($tagNameToTakeLinkedTag='*') then '*[1]' else concat('//soap:Body/*//*[local-name()=''',$tagNameToTakeLinkedTag,'''][1]/text()')"/>
 
-    <!--TODO пренести функции в xsltFunctions.xsl-->
-    <xsl:function name="mock:typesToImport">
-        <xsl:param name="baseElement"/>
-        <xsl:variable name="importOnThislevel" select="mock:typesNeedingImport($baseElement)"/>
-        <xsl:variable name="nextLevelElements" select="$baseElement | $typesList[@name=$importOnThislevel]"/>
-        <xsl:choose>
-            <xsl:when test="count($baseElement) &lt; count($nextLevelElements)">
-                <xsl:variable name="allInside" select="$nextLevelElements | $typesList[@name=mock:typesToImport($nextLevelElements)]"/>
-                <xsl:for-each select="$allInside/@name"><xsl:value-of select="."/></xsl:for-each>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:for-each select="$nextLevelElements/@name"><xsl:value-of select="."/></xsl:for-each>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:function>
+    <xsl:variable name="type" select="'response'"/>
 
-    <xsl:function name="mock:typesNeedingImport">
-        <xsl:param name="baseElement"/>
-        <xsl:variable name="extensionElementName" select="mock:removeNamespaceAlias($baseElement//xsd:extension/@base)"/>
-        <xsl:variable name="nsAlias" select="mock:getNamespaceAlias($baseElement//xsd:extension/@base)"/>
-        <xsl:variable name="ns" select="$baseElement/namespace::*[local-name()=$nsAlias]"/>
-        <xsl:variable name="extensionElement" select="$typesList[@name=$extensionElementName and ./../@targetNamespace=$ns]"/>
-        <xsl:variable name="importOnThislevel" select="($baseElement | $extensionElement)//@*[name()=$atributesWithTypes]/mock:removeNamespaceAlias(.,$localTargetNSAlias)[not(contains(.,':'))]"/>
-        <xsl:for-each select="$importOnThislevel"><xsl:value-of select="."/></xsl:for-each>
-    </xsl:function>
+    <!--TODO пренести функции в xsltFunctions.xsl-->
+    <!--<xsl:function name="mock:typesToImport">-->
+        <!--<xsl:param name="baseElement"/>-->
+        <!--<xsl:variable name="importOnThislevel" select="mock:typesNeedingImport($baseElement)"/>-->
+        <!--<xsl:variable name="nextLevelElements" select="$baseElement | $typesList[@name=$importOnThislevel]"/>-->
+        <!--<xsl:choose>-->
+            <!--<xsl:when test="count($baseElement) &lt; count($nextLevelElements)">-->
+                <!--<xsl:variable name="allInside" select="$nextLevelElements | $typesList[@name=mock:typesToImport($nextLevelElements)]"/>-->
+                <!--<xsl:for-each select="$allInside/@name"><xsl:value-of select="."/></xsl:for-each>-->
+            <!--</xsl:when>-->
+            <!--<xsl:otherwise>-->
+                <!--<xsl:for-each select="$nextLevelElements/@name"><xsl:value-of select="."/></xsl:for-each>-->
+            <!--</xsl:otherwise>-->
+        <!--</xsl:choose>-->
+    <!--</xsl:function>-->
+
+    <!--<xsl:function name="mock:typesNeedingImport">-->
+        <!--<xsl:param name="baseElement"/>-->
+        <!--<xsl:variable name="extensionElementName" select="mock:removeNamespaceAlias($baseElement//xsd:extension/@base)"/>-->
+        <!--<xsl:variable name="nsAlias" select="mock:getNamespaceAlias($baseElement//xsd:extension/@base)"/>-->
+        <!--<xsl:variable name="ns" select="$baseElement/namespace::*[local-name()=$nsAlias]"/>-->
+        <!--<xsl:variable name="extensionElement" select="$typesList[@name=$extensionElementName and ./../@targetNamespace=$ns]"/>-->
+        <!--<xsl:variable name="importOnThislevel" select="($baseElement | $extensionElement)//@*[name()=$atributesWithTypes]/mock:removeNamespaceAlias(.,$localTargetNSAlias)[not(contains(.,':'))]"/>-->
+        <!--<xsl:for-each select="$importOnThislevel"><xsl:value-of select="."/></xsl:for-each>-->
+    <!--</xsl:function>-->
 
     <xsl:template match="xsd:schema">
         <xsl:element name="xsl:stylesheet">
@@ -173,81 +175,6 @@
                 <xsl:with-param name="operationName" select="$operationName"/>
                 <xsl:with-param name="type" select="'response'"/>
             </xsl:call-template>
-        </xsl:element>
-    </xsl:template>
-
-    <!--<xsl:template match="xsd:complexType" mode="template" priority="2">-->
-        <!--<xsl:param name="typeName" select="mock:removeNamespaceAlias(./@name, $localTargetNSAlias)"/>-->
-        <!--<xsl:param name="type" select="self::*"/>-->
-
-        <!--<xsl:variable name="ns" select="../@targetNamespace"/>-->
-        <!--<xsl:variable name="nsAliasFromFile" select="$operationXsdSchema/namespace::*[.=$ns][string-length()>0][1]/local-name()"/>-->
-        <!--<xsl:variable name="nsAlias" select="if ($ns = $targetNS) then 'tns' else-->
-                                        <!--if (string-length($nsAliasFromFile)>0) then $nsAliasFromFile else 'ns1'"/>-->
-
-        <!--&lt;!&ndash;<xsl:comment>test <xsl:value-of select="$typesList/@name"/></xsl:comment>&ndash;&gt;-->
-        <!--<xsl:for-each select="$typesList//xsd:element[mock:removeNamespaceAlias(@type, $localTargetNSAlias) = $typeName]/@name">-->
-            <!--<xsl:element name="xsl:template">-->
-                <!--<xsl:attribute name="match">rsd:<xsl:value-of select="."/></xsl:attribute>-->
-                <!--<xsl:element name="{$nsAlias}:{.}"  namespace="{$ns}">-->
-                    <!--<xsl:namespace name="{$nsAlias}" select="$ns"/>-->
-                    <!--<xsl:apply-templates select="$type//xsd:element" mode="Inside">-->
-                        <!--<xsl:with-param name="dataPath" select="'./rsd:'"/>-->
-                    <!--</xsl:apply-templates>-->
-                <!--</xsl:element>-->
-            <!--</xsl:element>-->
-            <!--<xsl:text>&#xA;&#xA;</xsl:text>-->
-        <!--</xsl:for-each>-->
-
-    <!--</xsl:template>-->
-
-    <!--<xsl:template match="xsd:element" mode="template" priority="1">-->
-        <!--<xsl:param name="typeName" select="mock:removeNamespaceAlias(./@name, $localTargetNSAlias)"/>-->
-        <!--<xsl:variable name="ns" select="../@targetNamespace"/>-->
-        <!--<xsl:variable name="nsAliasFromFile" select="$operationXsdSchema/namespace::*[.=$ns][string-length()>0][1]/local-name()"/>-->
-        <!--<xsl:variable name="nsAlias" select="if ($ns = $targetNS) then 'tns' else-->
-                                        <!--if (string-length($nsAliasFromFile)>0) then $nsAliasFromFile else 'ns1'"/>-->
-        <!--<xsl:element name="xsl:template">-->
-            <!--<xsl:attribute name="match">rsd:<xsl:value-of select="$typeName"/></xsl:attribute>-->
-            <!--<xsl:element name="{$nsAlias}:{$typeName}"  namespace="{$ns}">-->
-                <!--<xsl:namespace name="{$nsAlias}" select="$ns"/>-->
-                <!--<xsl:apply-templates select=".//xsd:element" mode="Inside">-->
-                    <!--<xsl:with-param name="dataPath" select="'./rsd:'"/>-->
-                    <!--<xsl:with-param name="ns" select="$ns"/>-->
-                    <!--<xsl:with-param name="nsAlias" select="$nsAlias"/>-->
-                <!--</xsl:apply-templates>-->
-            <!--</xsl:element>-->
-        <!--</xsl:element>-->
-        <!--<xsl:text>&#xA;&#xA;</xsl:text>-->
-
-    <!--</xsl:template>-->
-
-    <xsl:template match="*[local-name()=$xsdTagsToImport]" mode="base">
-        <xsl:variable name="mainElementNSAlias" select="if ($targetNS=$parrentNS) then 'tns' else $systemName"/>
-        <xsl:variable name="extensionElementName" select="mock:removeNamespaceAlias(.//xsd:extension/@base)"/>
-        <xsl:variable name="usedNsAlias" select="mock:getNamespaceAlias(.//xsd:extension/@base)"/>
-        <xsl:variable name="usedNs" select="./namespace::*[local-name()=$usedNsAlias]"/>
-        <xsl:variable name="extensionElement" select="$typesList[@name=$extensionElementName and ./../@targetNamespace=$usedNs]"/>
-        <!--<xsl:comment><xsl:value-of select="concat($targetNS,'-',$parrentNS)"/></xsl:comment>-->
-        <xsl:element name="xsl:template">
-            <xsl:attribute name="name"><xsl:value-of select="$operationName"/></xsl:attribute>
-            <xsl:element name="xsl:param">
-                <xsl:attribute name="name">response</xsl:attribute>
-            </xsl:element>
-            <xsl:element name="xsl:param">
-                <xsl:attribute name="name">data</xsl:attribute>
-            </xsl:element>
-            <xsl:element name="xsl:element">
-                <xsl:attribute name="name"><xsl:value-of select="$mainElementNSAlias"/>:<xsl:value-of select="$rootElementName"/></xsl:attribute>
-                <xsl:apply-templates select="$extensionElement//xsd:element" mode="Inside">
-                    <xsl:with-param name="dataPath" select="'$data/rsd:response[@name=$response]/rsd:'"/>
-                    <xsl:with-param name="ns" select="$usedNs"/>
-                    <xsl:with-param name="nsAlias" select="$usedNsAlias"/>
-                </xsl:apply-templates>
-                <xsl:apply-templates select=".//xsd:element" mode="Inside">
-                    <xsl:with-param name="dataPath" select="'$data/rsd:response[@name=$response]/rsd:'"/>
-                </xsl:apply-templates>
-            </xsl:element>
         </xsl:element>
     </xsl:template>
 

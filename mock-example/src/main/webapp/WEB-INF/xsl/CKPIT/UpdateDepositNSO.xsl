@@ -139,8 +139,8 @@
       <xsl:param name="request"/>
       <xsl:param name="data"/>
       <xsl:element name="tns:SrvCKPITUpdateDepositNSORq">
-         <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:ExtensionData"/>
-         <tns:IDCKPIT>
+			      <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:ExtensionData"/>
+		       <tns:IDCKPIT>
             <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:IDCKPIT"/>
          </tns:IDCKPIT>
          <tns:Label>

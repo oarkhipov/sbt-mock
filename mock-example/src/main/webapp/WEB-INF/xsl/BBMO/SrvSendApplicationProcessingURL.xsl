@@ -81,8 +81,8 @@
       <xsl:param name="request"/>
       <xsl:param name="data"/>
       <xsl:element name="tns:SrvSendApplicationProcessingURLRq">
-         <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:ExtensionData"/>
-         <tns:ApplicationId>
+			      <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:ExtensionData"/>
+		       <tns:ApplicationId>
             <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:ApplicationId"/>
          </tns:ApplicationId>
          <tns:URLType>

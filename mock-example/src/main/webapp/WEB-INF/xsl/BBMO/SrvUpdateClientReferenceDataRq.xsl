@@ -97,11 +97,11 @@
       <xsl:param name="response"/>
       <xsl:param name="data"/>
       <xsl:element name="tns:SrvUpdateClientReferenceDataRs">
-         <ct:ResultCode xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10">
+			      <ct:ResultCode xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10">
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:ResultCode"/>
          </ct:ResultCode>
-         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:ErrorDetails"/>
-         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:ExtensionData"/>
-      </xsl:element>
+			      <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:ErrorDetails"/>
+			      <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:ExtensionData"/>
+		    </xsl:element>
    </xsl:template>
 </xsl:stylesheet>
