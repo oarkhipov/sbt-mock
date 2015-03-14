@@ -62,7 +62,31 @@
    </xsl:template>
 
    <xsl:template match="rsd:SrvPutRemoteLegalAccOperAppRq">
-      <tns:SrvPutRemoteLegalAccOperAppRq/>
+      <tns:SrvPutRemoteLegalAccOperAppRq>
+         <xsl:if test="./rsd:RemoteClient">
+            <tns:RemoteClient>
+               <xsl:value-of select="./rsd:RemoteClient"/>
+            </tns:RemoteClient>
+         </xsl:if>
+         <xsl:if test="./rsd:RemoteSystemId">
+            <tns:RemoteSystemId>
+               <xsl:value-of select="./rsd:RemoteSystemId"/>
+            </tns:RemoteSystemId>
+         </xsl:if>
+         <xsl:if test="./rsd:IsAdditionalAccount">
+            <tns:IsAdditionalAccount>
+               <xsl:value-of select="./rsd:IsAdditionalAccount"/>
+            </tns:IsAdditionalAccount>
+         </xsl:if>
+         <xsl:if test="./rsd:IsBankCardProcessing">
+            <tns:IsBankCardProcessing>
+               <xsl:value-of select="./rsd:IsBankCardProcessing"/>
+            </tns:IsBankCardProcessing>
+         </xsl:if>
+         <xsl:apply-templates select="./rsd:ClientReferenceData"/>
+         <xsl:apply-templates select="./rsd:LegalPersonApplication"/>
+         <xsl:apply-templates select="./rsd:DocumentsInfo"/>
+      </tns:SrvPutRemoteLegalAccOperAppRq>
    </xsl:template>
 
    <xsl:template match="rsd:LegalPersonApplication">
@@ -238,21 +262,6 @@
                </xsl:if>
             </tns:AuthorityBase>
          </xsl:if>
-         <xsl:if test="./rsd:DocumentActAuthority">
-            <tns:DocumentActAuthority>
-               <xsl:value-of select="./rsd:DocumentActAuthority"/>
-            </tns:DocumentActAuthority>
-         </xsl:if>
-         <xsl:if test="./rsd:DocumentSeriesNumber">
-            <tns:DocumentSeriesNumber>
-               <xsl:value-of select="./rsd:DocumentSeriesNumber"/>
-            </tns:DocumentSeriesNumber>
-         </xsl:if>
-         <xsl:if test="./rsd:DocumentDate">
-            <tns:DocumentDate>
-               <xsl:value-of select="./rsd:DocumentDate"/>
-            </tns:DocumentDate>
-         </xsl:if>
          <xsl:if test="./rsd:OfficailInfo">
             <tns:OfficailInfo>
                <xsl:if test="./rsd:OfficailInfo/rsd:BasedOnDocument">
@@ -291,41 +300,6 @@
                   </tns:Comment>
                </xsl:if>
             </tns:OfficailInfo>
-         </xsl:if>
-         <xsl:if test="./rsd:BasedOnDocument">
-            <tns:BasedOnDocument>
-               <xsl:value-of select="./rsd:BasedOnDocument"/>
-            </tns:BasedOnDocument>
-         </xsl:if>
-         <xsl:if test="./rsd:BasedOnDocumentSeries">
-            <tns:BasedOnDocumentSeries>
-               <xsl:value-of select="./rsd:BasedOnDocumentSeries"/>
-            </tns:BasedOnDocumentSeries>
-         </xsl:if>
-         <xsl:if test="./rsd:BasedOnDocumentNumber">
-            <tns:BasedOnDocumentNumber>
-               <xsl:value-of select="./rsd:BasedOnDocumentNumber"/>
-            </tns:BasedOnDocumentNumber>
-         </xsl:if>
-         <xsl:if test="./rsd:TrusteeSign">
-            <tns:TrusteeSign>
-               <xsl:value-of select="./rsd:TrusteeSign"/>
-            </tns:TrusteeSign>
-         </xsl:if>
-         <xsl:if test="./rsd:OperationType">
-            <tns:OperationType>
-               <xsl:value-of select="./rsd:OperationType"/>
-            </tns:OperationType>
-         </xsl:if>
-         <xsl:if test="./rsd:AccountNumber">
-            <tns:AccountNumber>
-               <xsl:value-of select="./rsd:AccountNumber"/>
-            </tns:AccountNumber>
-         </xsl:if>
-         <xsl:if test="./rsd:Comment">
-            <tns:Comment>
-               <xsl:value-of select="./rsd:Comment"/>
-            </tns:Comment>
          </xsl:if>
       </tns:naturalPerson>
    </xsl:template>

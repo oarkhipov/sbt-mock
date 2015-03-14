@@ -63,7 +63,9 @@
    </xsl:template>
 
    <xsl:template match="rsd:SrvRegisterLegalPersonApplicationRq">
-      <tns:SrvRegisterLegalPersonApplicationRq/>
+      <tns:SrvRegisterLegalPersonApplicationRq>
+         <xsl:apply-templates select="./rsd:LegalPersonApplication"/>
+      </tns:SrvRegisterLegalPersonApplicationRq>
    </xsl:template>
 
    <xsl:template match="rsd:LegalPersonApplication">

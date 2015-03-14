@@ -62,7 +62,35 @@
    </xsl:template>
 
    <xsl:template match="rsd:SrvCKPITUpdateDepositNSORq">
-      <tns:SrvCKPITUpdateDepositNSORq/>
+      <tns:SrvCKPITUpdateDepositNSORq>
+         <tns:IDCKPIT>
+            <xsl:value-of select="./rsd:IDCKPIT"/>
+         </tns:IDCKPIT>
+         <tns:Label>
+            <xsl:value-of select="./rsd:Label"/>
+         </tns:Label>
+         <tns:Name>
+            <xsl:value-of select="./rsd:Name"/>
+         </tns:Name>
+         <tns:ShortName>
+            <xsl:value-of select="./rsd:ShortName"/>
+         </tns:ShortName>
+         <tns:InstrumentType>
+            <xsl:value-of select="./rsd:InstrumentType"/>
+         </tns:InstrumentType>
+         <xsl:if test="./rsd:ValidityStartDate">
+            <tns:ValidityStartDate>
+               <xsl:value-of select="./rsd:ValidityStartDate"/>
+            </tns:ValidityStartDate>
+         </xsl:if>
+         <xsl:if test="./rsd:ValidityEndDate">
+            <tns:ValidityEndDate>
+               <xsl:value-of select="./rsd:ValidityEndDate"/>
+            </tns:ValidityEndDate>
+         </xsl:if>
+         <xsl:apply-templates select="./rsd:Option"/>
+         <xsl:apply-templates select="./rsd:Restriction"/>
+      </tns:SrvCKPITUpdateDepositNSORq>
    </xsl:template>
 
    <xsl:template match="rsd:Option">

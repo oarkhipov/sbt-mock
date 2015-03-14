@@ -63,7 +63,14 @@
    </xsl:template>
 
    <xsl:template match="rsd:SrvSendApplicationProcessingURLRq">
-      <tns:SrvSendApplicationProcessingURLRq/>
+      <tns:SrvSendApplicationProcessingURLRq>
+         <tns:ApplicationId>
+            <xsl:value-of select="./rsd:ApplicationId"/>
+         </tns:ApplicationId>
+         <tns:URLType>
+            <xsl:value-of select="./rsd:URLType"/>
+         </tns:URLType>
+      </tns:SrvSendApplicationProcessingURLRq>
    </xsl:template>
 
    <xsl:template match="rsd:ExtensionData">

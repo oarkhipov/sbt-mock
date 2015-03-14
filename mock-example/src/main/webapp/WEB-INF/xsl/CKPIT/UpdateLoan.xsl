@@ -62,7 +62,12 @@
    </xsl:template>
 
    <xsl:template match="rsd:SrvCKPITUpdateLoanRq">
-      <tns:SrvCKPITUpdateLoanRq/>
+      <tns:SrvCKPITUpdateLoanRq>
+         <tns:IDCKPIT_MB>
+            <xsl:value-of select="./rsd:IDCKPIT_MB"/>
+         </tns:IDCKPIT_MB>
+         <xsl:apply-templates select="./rsd:Loan"/>
+      </tns:SrvCKPITUpdateLoanRq>
    </xsl:template>
 
    <xsl:template match="rsd:Loan">
