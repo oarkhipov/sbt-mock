@@ -380,12 +380,14 @@
          </xsl:if>
          <xsl:if test="./rsd:TaxId">
             <tns:TaxId>
-               <xsl:value-of select="./rsd:TaxId"/>
+               <!--<xsl:value-of select="./rsd:TaxId"/>-->
+               <xsl:value-of select="/soap:Envelope/soap:Body/tns:SrvGetClientReferenceDataRq/tns:TaxId/text()"/>
             </tns:TaxId>
          </xsl:if>
          <xsl:if test="./rsd:TaxRegReasonCode">
             <tns:TaxRegReasonCode>
-               <xsl:value-of select="./rsd:TaxRegReasonCode"/>
+               <!--<xsl:value-of select="./rsd:TaxRegReasonCode"/>-->
+               <xsl:value-of select="/soap:Envelope/soap:Body/tns:SrvGetClientReferenceDataRq/tns:TaxRegReasonCode/text()"/>
             </tns:TaxRegReasonCode>
          </xsl:if>
          <xsl:if test="./rsd:KIO">
@@ -395,7 +397,8 @@
          </xsl:if>
          <xsl:if test="./rsd:TaxInspectorate">
             <tns:TaxInspectorate>
-               <xsl:value-of select="./rsd:TaxInspectorate"/>
+               <!--<xsl:value-of select="./rsd:TaxInspectorate"/>-->
+               <xsl:value-of select="/soap:Envelope/soap:Body/tns:SrvGetClientReferenceDataRq/tns:TaxInspectorate"/>
             </tns:TaxInspectorate>
          </xsl:if>
          <xsl:if test="./rsd:RegistrationDate">
@@ -687,7 +690,8 @@
 
    <xsl:template match="rsd:LegalPersonBankAccountAgreement">
       <tns:LegalPersonBankAccountAgreement>
-         <xsl:apply-templates select="./rsd:BankSubdivision"/>
+         <!--<xsl:apply-templates select="./rsd:BankSubdivision"/>-->
+         <xsl:copy-of select="/soap:Envelope/soap:Body/tns:SrvGetClientReferenceDataRq/tns:BankSubdivision"/>
          <tns:ClientId>
             <xsl:value-of select="./rsd:ClientId"/>
          </tns:ClientId>
@@ -795,13 +799,16 @@
       <tns:SignPatternCard>
          <xsl:if test="./rsd:ClientId">
             <tns:ClientId>
-               <xsl:value-of select="./rsd:ClientId"/>
+               <!--<xsl:value-of select="./rsd:ClientId"/>-->
+               <xsl:value-of select="/soap:Envelope/soap:Body/tns:SrvGetClientReferenceDataRq/tns:ClientId/text()"/>
             </tns:ClientId>
          </xsl:if>
-         <xsl:apply-templates select="./rsd:BankSubdivision"/>
+         <!--<xsl:apply-templates select="./rsd:BankSubdivision"/>-->
+         <xsl:copy-of select="/soap:Envelope/soap:Body/tns:SrvGetClientReferenceDataRq/tns:BankSubdivision"/>
          <xsl:if test="./rsd:AgreementNumber">
             <tns:AgreementNumber>
-               <xsl:value-of select="./rsd:AgreementNumber"/>
+               <!--<xsl:value-of select="./rsd:AgreementNumber"/>-->
+               <xsl:value-of select="/soap:Envelope/soap:Body/tns:SrvGetClientReferenceDataRq/tns:AgreementIdentifier/text()"/>
             </tns:AgreementNumber>
          </xsl:if>
          <xsl:if test="./rsd:AccountNumber">

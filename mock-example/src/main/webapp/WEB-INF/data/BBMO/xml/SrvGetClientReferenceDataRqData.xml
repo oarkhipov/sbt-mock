@@ -3,227 +3,187 @@
    <response name="default">
       <SoapHeader>
          <AsyncHeader>
-            <message-id>message-id</message-id>
+            <message-id>12345678901234567890123456789012</message-id>
             <request-time>2014-12-16T17:55:06.410+04:00</request-time>
             <operation-name>SrvGetClientReferenceData</operation-name>
          </AsyncHeader>
       </SoapHeader>
-      <ResultCode>1234567890</ResultCode>
-      <ErrorDetails>
-         <ErrorMessage>string</ErrorMessage>
-         <FormatError>
-            <FieldName>string</FieldName>
-            <ErrorDescription>string</ErrorDescription>
-         </FormatError>
-      </ErrorDetails>
+      <ResultCode>0</ResultCode>
       <ExtensionData/>
       <ClientReferenceData>
          <ClientInformation>
             <Identifiers>
-               <ClientId>1234567890</ClientId>
+               <ClientId>11</ClientId>
                <State>1</State>
-               <CreateDate>2015-03-16</CreateDate>
-               <CloseDate>2015-03-16</CloseDate>
+               <CreateDate>1998-10-14</CreateDate>
             </Identifiers>
             <SpecialData>
                <ClientType>1</ClientType>
-               <Resident>0</Resident>
+               <Resident>1</Resident>
                <Risk>0</Risk>
-               <RiskExplanation>string</RiskExplanation>
-               <CountryOfRegistration>str</CountryOfRegistration>
-               <CountryOfAccreditation>str</CountryOfAccreditation>
-               <RepresentedInCountry>str</RepresentedInCountry>
-               <AuthorizedCapital>1234567890</AuthorizedCapital>
+               <RiskExplanation>Риск отсутствует</RiskExplanation>
+               <CountryOfRegistration>RU</CountryOfRegistration>
+               <AuthorizedCapital>0</AuthorizedCapital>
             </SpecialData>
             <MainDetails>
                <Registration>
-                  <OGRN>string</OGRN>
-                  <OGRNAssignDate>2015-03-16</OGRNAssignDate>
-                  <OGRNIssueDate>2015-03-16</OGRNIssueDate>
-                  <ShortName>string</ShortName>
-                  <FullName>string</FullName>
-                  <ShortNameInEnglish>string</ShortNameInEnglish>
-                  <FullNameInEnglish>string</FullNameInEnglish>
-                  <RegistrationSertificateNumber>string</RegistrationSertificateNumber>
-                  <RegistrationSertificateIssueDate>2015-03-16</RegistrationSertificateIssueDate>
-                  <RegistrationAuthority>1234567890</RegistrationAuthority>
-                  <OldShortName>anyString</OldShortName>
-                  <OldName>anyString</OldName>
-                  <OldShortNameInEnglish>anyString</OldShortNameInEnglish>
-                  <OldNameInEnglish>anyString</OldNameInEnglish>
-                  <TermFrom>anyString</TermFrom>
-                  <TermTill>anyString</TermTill>
-                  <DeclaredFound>anyString</DeclaredFound>
-                  <PayedFound>anyString</PayedFound>
+                  <OGRN>1037739586114</OGRN>
+                  <OGRNAssignDate>2003-02-12</OGRNAssignDate>
+                  <ShortName>ООО &quot;Дагерс ЛТД&quot;</ShortName>
+                  <FullName>Общество с ограниченной ответственностью &quot;Дагерс ЛТД&quot;</FullName>
+                  <ShortNameInEnglish>OOO DAGERS LTD</ShortNameInEnglish>
+                  <FullNameInEnglish>OOO DAGERS LTD</FullNameInEnglish>
+                  <RegistrationSertificateNumber>77007341448</RegistrationSertificateNumber>
+                  <RegistrationAuthority>758000</RegistrationAuthority>
+                  <OldShortName>>ООО &quot;Дагерс ЛТД&quot;</OldShortName>
+                  <OldName>Общество с ограниченной ответственностью &quot;Дагерс ЛТД&quot;</OldName>
+                  <OldShortNameInEnglish>OOO DAGERS LTD</OldShortNameInEnglish>
+                  <OldNameInEnglish>OOO DAGERS LTD</OldNameInEnglish>
+                  <TermFrom>2003-02-1</TermFrom>
+                  <TermTill>20023-02-1</TermTill>
+                  <DeclaredFound>2003-02-1</DeclaredFound>
+                  <PayedFound>2003-02-1</PayedFound>
                   <Control>anyString</Control>
-                  <Amount>anyString</Amount>
-                  <YearROI>anyString</YearROI>
-                  <From>anyString</From>
-                  <Till>anyString</Till>
-                  <License>anyString</License>
+                  <Amount>1</Amount>
+                  <YearROI>2012</YearROI>
+                  <From>2003</From>
+                  <Till>2023</Till>
+                  <License>1037739586114</License>
                </Registration>
                <TaxInspectorateInfo>
-                  <RegistrationSertificateNumber>string</RegistrationSertificateNumber>
+                  <RegistrationSertificateNumber>770627414</RegistrationSertificateNumber>
                   <TaxId>string</TaxId>
                   <TaxRegReasonCode>stringstr</TaxRegReasonCode>
-                  <KIO>strin</KIO>
                   <TaxInspectorate>1234567890</TaxInspectorate>
-                  <RegistrationDate>2015-03-16</RegistrationDate>
                </TaxInspectorateInfo>
                <RosstatCodes>
-                  <OKATO>string</OKATO>
-                  <OKPO>string</OKPO>
-                  <OKFS>st</OKFS>
-                  <OKOGU>string</OKOGU>
-                  <OKONH>string</OKONH>
-                  <OKOPF>st</OKOPF>
-                  <OKVED>string</OKVED>
+                  <OKATO>45280574000</OKATO>
+                  <OKPO>47282572</OKPO>
+                  <OKFS>16</OKFS>
+                  <OKOGU>07774</OKOGU>
+                  <OKONH>61124</OKONH>
+                  <OKOPF>65</OKOPF>
+                  <OKVED>31.20.9</OKVED>
                </RosstatCodes>
             </MainDetails>
-            <FounderLegalPerson>
-               <ClientName>string</ClientName>
-               <KPP>string</KPP>
-               <TaxID>string</TaxID>
-               <TaxRegistrationDate>2015-03-16</TaxRegistrationDate>
-               <TaxCertificateSeries>string</TaxCertificateSeries>
-               <TaxCertificateNumber>string</TaxCertificateNumber>
-               <TaxAuthority>string</TaxAuthority>
-               <OGRN>string</OGRN>
-               <OGRNRegistrationDate>2015-03-16</OGRNRegistrationDate>
-               <OGRNSeries>string</OGRNSeries>
-               <OGRNNumber>string</OGRNNumber>
-               <OGRNAuthority>string</OGRNAuthority>
-               <ClientAddress>
-                  <AddressType>1</AddressType>
-                  <UnnormalizedAddress>string</UnnormalizedAddress>
-                  <Country>str</Country>
-                  <PostalCode>string</PostalCode>
-                  <IdentificationCode>string</IdentificationCode>
-                  <OKATO>string</OKATO>
-                  <RegionType>string</RegionType>
-                  <Region>string</Region>
-                  <AreaType>string</AreaType>
-                  <Area>string</Area>
-                  <CityType>string</CityType>
-                  <City>string</City>
-                  <PlaceType>string</PlaceType>
-                  <Place>string</Place>
-                  <StreetType>string</StreetType>
-                  <Street>string</Street>
-                  <House>string</House>
-                  <Corpus>string</Corpus>
-                  <Building>string</Building>
-                  <FlatorOffice>string</FlatorOffice>
-               </ClientAddress>
-               <LegalCapitalPercent>10</LegalCapitalPercent>
-            </FounderLegalPerson>
+            <!--<FounderLegalPerson>-->
+               <!--<ClientName>string</ClientName>-->
+               <!--<KPP>string</KPP>-->
+               <!--<TaxID>string</TaxID>-->
+               <!--<TaxRegistrationDate>2015-03-16</TaxRegistrationDate>-->
+               <!--<TaxCertificateSeries>string</TaxCertificateSeries>-->
+               <!--<TaxCertificateNumber>string</TaxCertificateNumber>-->
+               <!--<TaxAuthority>string</TaxAuthority>-->
+               <!--<OGRN>string</OGRN>-->
+               <!--<OGRNRegistrationDate>2015-03-16</OGRNRegistrationDate>-->
+               <!--<OGRNSeries>string</OGRNSeries>-->
+               <!--<OGRNNumber>string</OGRNNumber>-->
+               <!--<OGRNAuthority>string</OGRNAuthority>-->
+               <!--<ClientAddress>-->
+                  <!--<AddressType>1</AddressType>-->
+                  <!--<UnnormalizedAddress>string</UnnormalizedAddress>-->
+                  <!--<Country>str</Country>-->
+                  <!--<PostalCode>string</PostalCode>-->
+                  <!--<IdentificationCode>string</IdentificationCode>-->
+                  <!--<OKATO>string</OKATO>-->
+                  <!--<RegionType>string</RegionType>-->
+                  <!--<Region>string</Region>-->
+                  <!--<AreaType>string</AreaType>-->
+                  <!--<Area>string</Area>-->
+                  <!--<CityType>string</CityType>-->
+                  <!--<City>string</City>-->
+                  <!--<PlaceType>string</PlaceType>-->
+                  <!--<Place>string</Place>-->
+                  <!--<StreetType>string</StreetType>-->
+                  <!--<Street>string</Street>-->
+                  <!--<House>string</House>-->
+                  <!--<Corpus>string</Corpus>-->
+                  <!--<Building>string</Building>-->
+                  <!--<FlatorOffice>string</FlatorOffice>-->
+               <!--</ClientAddress>-->
+               <!--<LegalCapitalPercent>10</LegalCapitalPercent>-->
+            <!--</FounderLegalPerson>-->
             <BankSubdivision>
                <TB>str</TB>
                <OSB>string</OSB>
                <VSP>string</VSP>
             </BankSubdivision>
             <ClientAddress>
-               <AddressType>1</AddressType>
-               <UnnormalizedAddress>string</UnnormalizedAddress>
-               <Country>str</Country>
-               <PostalCode>string</PostalCode>
-               <IdentificationCode>string</IdentificationCode>
-               <OKATO>string</OKATO>
-               <RegionType>string</RegionType>
-               <Region>string</Region>
-               <AreaType>string</AreaType>
-               <Area>string</Area>
-               <CityType>string</CityType>
-               <City>string</City>
-               <PlaceType>string</PlaceType>
-               <Place>string</Place>
-               <StreetType>string</StreetType>
-               <Street>string</Street>
-               <House>string</House>
-               <Corpus>string</Corpus>
-               <Building>string</Building>
-               <FlatorOffice>string</FlatorOffice>
+               <AddressType>5</AddressType>
+               <UnnormalizedAddress>РОССИЯ, 127410, Москва, улица алтуфьевское ш., дом 35, строение 1</UnnormalizedAddress>
+               <Country>RU</Country>
+               <PostalCode>127410</PostalCode>
+               <RegionType></RegionType>
+               <Region></Region>
+               <AreaType></AreaType>
+               <Area></Area>
+               <CityType></CityType>
+               <City>Москва</City>
+               <PlaceType></PlaceType>
+               <Place>2</Place>
+               <StreetType>улица</StreetType>
+               <Street>алтуфьевское ш.</Street>
+               <House>35</House>
+               <Corpus></Corpus>
+               <Building>1</Building>
+               <FlatorOffice></FlatorOffice>
             </ClientAddress>
             <ClientContact>
                <ContactCategory>1</ContactCategory>
                <ContactType>1</ContactType>
-               <ContactName>string</ContactName>
-               <ContactData>string</ContactData>
+               <ContactName>телефон 1</ContactName>
+               <ContactData>488-94-65</ContactData>
             </ClientContact>
          </ClientInformation>
          <naturalPerson>
-            <RKOCode>1234567890</RKOCode>
-            <SeqNumber>1234567890</SeqNumber>
-            <RelationToClient>anyString</RelationToClient>
-            <LastName>string</LastName>
-            <FirstName>string</FirstName>
-            <MiddleName>string</MiddleName>
-            <LastNameInGenitiveCase>string</LastNameInGenitiveCase>
-            <FirstNameInGenitiveCase>string</FirstNameInGenitiveCase>
-            <MiddleNameInGenitiveCase>string</MiddleNameInGenitiveCase>
-            <LastNameInEnglish>string</LastNameInEnglish>
-            <FirstNameInEnglish>string</FirstNameInEnglish>
-            <MiddleNameInEnglish>string</MiddleNameInEnglish>
-            <Sex>1</Sex>
-            <BirthDate>2015-03-16</BirthDate>
-            <BirthPlace>string</BirthPlace>
-            <Nationality>str</Nationality>
-            <Resident>0</Resident>
-            <TaxResidentChangeDate>2015-03-16</TaxResidentChangeDate>
-            <TaxId>string</TaxId>
-            <SocialStatusType>10</SocialStatusType>
+            <RKOCode>-1</RKOCode>
+            <RelationToClient>5</RelationToClient>
+            <LastName>ЧЕПРАСОВ</LastName>
+            <FirstName>АЛЕКСАНДР</FirstName>
+            <MiddleName>ИВАНОВИЧ</MiddleName>
+            <LastNameInGenitiveCase/>
+            <FirstNameInGenitiveCase/>
+            <MiddleNameInGenitiveCase/>
+            <LastNameInEnglish/>
+            <FirstNameInEnglish/>
+            <Nationality>RU</Nationality>
+            <Resident>1</Resident>
             <IdentityDocument>
-               <DocumentType>1234567890</DocumentType>
-               <DocumentStatus>0</DocumentStatus>
-               <DocumentSeries>string</DocumentSeries>
-               <DocumentNumber>string</DocumentNumber>
-               <IssueDate>2015-03-16</IssueDate>
-               <IssueAuthority>string</IssueAuthority>
-               <IssueAuthorityCode>string</IssueAuthorityCode>
-               <ExpirationDate>2015-03-16</ExpirationDate>
+               <DocumentType>1</DocumentType>
+               <DocumentStatus>1</DocumentStatus>
+               <DocumentSeries> </DocumentSeries>
+               <DocumentNumber> </DocumentNumber>
+               <IssueDate>2013-11-07</IssueDate>
+               <IssueAuthority> </IssueAuthority>
+               <IssueAuthorityCode> </IssueAuthorityCode>
             </IdentityDocument>
-            <ClientAddress>
-               <AddressType>1</AddressType>
-               <UnnormalizedAddress>string</UnnormalizedAddress>
-               <Country>str</Country>
-               <PostalCode>string</PostalCode>
-               <IdentificationCode>string</IdentificationCode>
-               <OKATO>string</OKATO>
-               <RegionType>string</RegionType>
-               <Region>string</Region>
-               <AreaType>string</AreaType>
-               <Area>string</Area>
-               <CityType>string</CityType>
-               <City>string</City>
-               <PlaceType>string</PlaceType>
-               <Place>string</Place>
-               <StreetType>string</StreetType>
-               <Street>string</Street>
-               <House>string</House>
-               <Corpus>string</Corpus>
-               <Building>string</Building>
-               <FlatorOffice>string</FlatorOffice>
-            </ClientAddress>
-            <ClientContact>
-               <ContactCategory>1</ContactCategory>
-               <ContactType>1</ContactType>
-               <ContactName>string</ContactName>
-               <ContactData>string</ContactData>
-            </ClientContact>
             <AuthorityBase>
-               <DocumentActAuthority>string</DocumentActAuthority>
-               <DocumentSeriesNumber>string</DocumentSeriesNumber>
-               <DocumentDate>2015-03-16</DocumentDate>
+               <DocumentActAuthority>УСТАВА</DocumentActAuthority>
+               <DocumentDate>1998-12-09</DocumentDate>
             </AuthorityBase>
-            <OfficailInfo>
-               <BasedOnDocument>string</BasedOnDocument>
-               <BasedOnDocumentSeries>string</BasedOnDocumentSeries>
-               <BasedOnDocumentNumber>string</BasedOnDocumentNumber>
-               <TrusteeSign>anyString</TrusteeSign>
-               <OperationType>string</OperationType>
-               <AccountNumber>anyString</AccountNumber>
-               <Comment>anyString</Comment>
-            </OfficailInfo>
+         </naturalPerson>
+         <naturalPerson>
+            <RKOCode>-2</RKOCode>
+            <RelationToClient>5</RelationToClient>
+            <LastName>ЧЕПРАСОВА</LastName>
+            <FirstName>ЛЮДМИЛА</FirstName>
+            <MiddleName>МИХАЙЛОВНА</MiddleName>
+            <LastNameInGenitiveCase/>
+            <FirstNameInGenitiveCase/>
+            <MiddleNameInGenitiveCase/>
+            <LastNameInEnglish/>
+            <FirstNameInEnglish/>
+            <Nationality>RU</Nationality>
+            <Resident>0</Resident>
+            <IdentityDocument>
+               <DocumentType>1</DocumentType>
+               <DocumentStatus>1</DocumentStatus>
+               <DocumentSeries> </DocumentSeries>
+               <DocumentNumber> </DocumentNumber>
+               <IssueDate>2013-11-07</IssueDate>
+               <IssueAuthority> </IssueAuthority>
+               <IssueAuthorityCode> </IssueAuthorityCode>
+            </IdentityDocument>
          </naturalPerson>
          <LegalPersonBankAccountAgreement>
             <BankSubdivision>
@@ -232,75 +192,69 @@
                <VSP>string</VSP>
             </BankSubdivision>
             <ClientId>1234567890</ClientId>
-            <AgreementIdentifier>string</AgreementIdentifier>
-            <AgreementNumber>string</AgreementNumber>
-            <AgreementType>1234567890</AgreementType>
+            <AgreementNumber>40702810138300103204</AgreementNumber>
+            <AgreementType>3</AgreementType>
             <AgreementStatus>1</AgreementStatus>
-            <AgreementIssueDate>2015-03-16</AgreementIssueDate>
-            <AgreementCancelDate>2015-03-16</AgreementCancelDate>
-            <Operator>1234567890</Operator>
-            <MainAccountNumber>stringstringstringst</MainAccountNumber>
-            <AccountBalance>1234567890</AccountBalance>
-            <ArrestByAccountPresence>1</ArrestByAccountPresence>
+            <AgreementIssueDate>1998-10-14</AgreementIssueDate>
+            <AgreementCancelDate>1111-11-11</AgreementCancelDate>
+            <Operator>1506</Operator>
+            <MainAccountNumber>40702810138300103204</MainAccountNumber>
+            <AccountBalance>547000.46</AccountBalance>
+            <ArrestByAccountPresence>3</ArrestByAccountPresence>
             <RKOAgreementDetails>
-               <TariffPlan>
-                  <TariffPlanCode>string</TariffPlanCode>
-                  <TariffPlanStartDate>2015-03-16</TariffPlanStartDate>
-                  <TariffPlanEndDate>2015-03-16</TariffPlanEndDate>
-               </TariffPlan>
-               <DetermineTariffs>string</DetermineTariffs>
-               <TariffGroup>string</TariffGroup>
-               <ClientAccount>
-                  <AccountNumber>anyString</AccountNumber>
-                  <ExternalAttribute>0</ExternalAttribute>
-                  <RecipientName>string</RecipientName>
-                  <TaxID>string</TaxID>
-                  <TaxRegReasonCode>string</TaxRegReasonCode>
-                  <BIK>string</BIK>
-                  <SWIFTCode>string</SWIFTCode>
-                  <ClearingCode>string</ClearingCode>
-                  <BankBeneficiarySWIFTCode>string</BankBeneficiarySWIFTCode>
-                  <DCode>string</DCode>
-                  <BeneficiaryIBANCode>string</BeneficiaryIBANCode>
-                  <ClientBeneficiarySWIFTCode>string</ClientBeneficiarySWIFTCode>
-                  <ClientBeneficiaryName>string</ClientBeneficiaryName>
-                  <ClientBeneficiaryTaxID>string</ClientBeneficiaryTaxID>
-                  <ClientBeneficaryAddress>string</ClientBeneficaryAddress>
-                  <ClientBeneficiaryCountry>string</ClientBeneficiaryCountry>
-                  <AccountPurpose>string</AccountPurpose>
-               </ClientAccount>
-               <PercentCalculationAlgorithm>1234567890</PercentCalculationAlgorithm>
-               <DeterminePercent>anyString</DeterminePercent>
-               <PercentRateGroup>anyString</PercentRateGroup>
-               <DateBeginPercentRate>2015-03-16</DateBeginPercentRate>
-               <DateEndPercentRate>2015-03-16</DateEndPercentRate>
-               <PartialRatedPeriodCalculation>0</PartialRatedPeriodCalculation>
+               <!--<TariffPlan>-->
+                  <!--<TariffPlanCode>string</TariffPlanCode>-->
+                  <!--<TariffPlanStartDate>2015-03-16</TariffPlanStartDate>-->
+                  <!--<TariffPlanEndDate>2015-03-16</TariffPlanEndDate>-->
+               <!--</TariffPlan>-->
+               <DetermineTariffs>1</DetermineTariffs>
+               <!--<TariffGroup>string</TariffGroup>-->
+               <!--<ClientAccount>-->
+                  <!--<AccountNumber>anyString</AccountNumber>-->
+                  <!--<ExternalAttribute>0</ExternalAttribute>-->
+                  <!--<RecipientName>string</RecipientName>-->
+                  <!--<TaxID>string</TaxID>-->
+                  <!--<TaxRegReasonCode>string</TaxRegReasonCode>-->
+                  <!--<BIK>string</BIK>-->
+                  <!--<SWIFTCode>string</SWIFTCode>-->
+                  <!--<ClearingCode>string</ClearingCode>-->
+                  <!--<BankBeneficiarySWIFTCode>string</BankBeneficiarySWIFTCode>-->
+                  <!--<DCode>string</DCode>-->
+                  <!--<BeneficiaryIBANCode>string</BeneficiaryIBANCode>-->
+                  <!--<ClientBeneficiarySWIFTCode>string</ClientBeneficiarySWIFTCode>-->
+                  <!--<ClientBeneficiaryName>string</ClientBeneficiaryName>-->
+                  <!--<ClientBeneficiaryTaxID>string</ClientBeneficiaryTaxID>-->
+                  <!--<ClientBeneficaryAddress>string</ClientBeneficaryAddress>-->
+                  <!--<ClientBeneficiaryCountry>string</ClientBeneficiaryCountry>-->
+                  <!--<AccountPurpose>string</AccountPurpose>-->
+               <!--</ClientAccount>-->
+               <PercentCalculationAlgorithm>1</PercentCalculationAlgorithm>
+               <PartialRatedPeriodCalculation>1</PartialRatedPeriodCalculation>
                <CurrentRatedPeriodCalculation>0</CurrentRatedPeriodCalculation>
-               <OpeningReason>string</OpeningReason>
-               <AgreementUserType>string</AgreementUserType>
+               <OpeningReason>Заявление клиента</OpeningReason>
+               <AgreementUserType>NО</AgreementUserType>
             </RKOAgreementDetails>
          </LegalPersonBankAccountAgreement>
          <SignPatternCard>
-            <ClientId>1234567890</ClientId>
+            <ClientId>11</ClientId>
             <BankSubdivision>
-               <TB>str</TB>
-               <OSB>string</OSB>
-               <VSP>string</VSP>
+               <TB>038</TB>
+               <OSB>7982</OSB>
+               <VSP>1742</VSP>
             </BankSubdivision>
-            <AgreementNumber>string</AgreementNumber>
-            <AccountNumber>stringstringstringst</AccountNumber>
-            <CardType>1</CardType>
-            <RegistrationDate>2015-03-16</RegistrationDate>
-            <ActivationDate>2015-03-16</ActivationDate>
-            <CloseDate>2015-03-16</CloseDate>
-            <CardRegistartionMethod>1</CardRegistartionMethod>
+            <AgreementNumber>30</AgreementNumber>
+            <AccountNumber>40702810138300103204</AccountNumber>
+            <RegistrationDate>1990-01-01</RegistrationDate>
+            <ActivationDate>1990-01-01</ActivationDate>
             <Sign>
-               <RKONaturalPersonCode>1234567890</RKONaturalPersonCode>
-               <SeqNumber>1234567890</SeqNumber>
+               <RKONaturalPersonCode>-2</RKONaturalPersonCode>
+               <SignType>2</SignType>
+               <Position>ГЛАВНЫЙ БУХГАЛТЕР</Position>
+            </Sign>
+            <Sign>
+               <RKONaturalPersonCode>-1</RKONaturalPersonCode>
                <SignType>1</SignType>
-               <Position>string</Position>
-               <AuthorityStartDate>anyString</AuthorityStartDate>
-               <AuthorityEndDate>2015-03-16</AuthorityEndDate>
+               <Position>ГЕНЕРАЛЬНЫЙ ДИРЕКТОР</Position>
             </Sign>
          </SignPatternCard>
       </ClientReferenceData>
@@ -308,7 +262,7 @@
    <response name="test1">
       <SoapHeader>
          <AsyncHeader>
-            <message-id>message-id</message-id>
+            <message-id>12345678901234567890123456789012</message-id>
             <request-time>2014-12-16T17:55:06.410+04:00</request-time>
             <operation-name>SrvGetClientReferenceData</operation-name>
          </AsyncHeader>
