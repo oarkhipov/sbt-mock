@@ -18,7 +18,7 @@
                <tns:OSB>string</tns:OSB>
                <tns:VSP>string</tns:VSP>
             </tns:BankSubdivision>
-            <tns:InitDate>2015-03-14</tns:InitDate>
+            <tns:InitDate>2015-03-16</tns:InitDate>
             <!--optional--><tns:AgreementIdentifier>string</tns:AgreementIdentifier>
             <!--optional--><tns:AgreementNumber>string</tns:AgreementNumber>
             <!--optional--><tns:MainAccountNumber>stringstringstringst</tns:MainAccountNumber>

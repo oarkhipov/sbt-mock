@@ -32,6 +32,9 @@ public class IntegrationPoint {
     @XStreamAlias("linkedTagSequence")
     private LinkedTagSequence aLinkedTagSequence;
 
+    @XStreamAlias("mappedTags")
+    private MappedTagSequence aMappedTagSequence;
+
     @XStreamAlias("protocol")
     private String aProtocol;
 
@@ -46,6 +49,9 @@ public class IntegrationPoint {
 
     @XStreamAlias("xsdFile")
     private String aXsdFile;
+
+    @XStreamAlias("dataxml")
+    private String aDataxml;
 
     @XStreamAlias("dependencies")
     private Dependencies aDependencies;
@@ -97,6 +103,10 @@ public class IntegrationPoint {
 
     public void setaLinkedTagSequence(LinkedTagSequence aLinkedTagSequence) {
         this.aLinkedTagSequence = aLinkedTagSequence;
+    }
+
+    public void setaMappedTagSequence(MappedTagSequence aMappedTagSequence) {
+        this.aMappedTagSequence = aMappedTagSequence;
     }
 
     public String getaProtocol() {
@@ -158,6 +168,14 @@ public class IntegrationPoint {
 
     public List<LinkedTag> getListOfLinkedTags() {
         return aLinkedTagSequence.getaListOfLinkedTags();
+    }
+
+    public MappedTagSequence getaMappedTags() {
+        return aMappedTagSequence;
+    }
+
+    public List<MappedTag> getListOfMappedTags() {
+        return aMappedTagSequence.getaListOfMappedTagTags();
     }
 
     @Override

@@ -3,6 +3,8 @@
                 xmlns:mock="http://sbrf.ru/mockService" >
 
 
+    <!--Общие вещи для создания xslt для моков и драйверов. Отдельно запускать этот файл нет смысла-->
+
     <xsl:function name="mock:typesToImport">
         <xsl:param name="baseElement"/>
         <xsl:variable name="importOnThislevel" select="mock:typesNeedingImport($baseElement)"/>
@@ -29,8 +31,6 @@
     </xsl:function>
 
 
-
-<!--Общие вещи для создания xslt для моков и драйверов. Отдельно запускать этот файл нет смысла-->
 
     <xsl:template match="*[local-name()=$xsdTagsToImport]" mode="base">
         <xsl:variable name="mainElementNSAlias" select="if ($targetNS=$parrentNS) then 'tns' else $systemName"/>

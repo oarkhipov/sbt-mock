@@ -13,13 +13,13 @@
             <tns:DocumentPackageType>1</tns:DocumentPackageType>
             <tns:LastName>string</tns:LastName>
             <tns:FirstName>string</tns:FirstName>
-            <tns:BirthDate>2015-03-14</tns:BirthDate>
+            <tns:BirthDate>2015-03-16</tns:BirthDate>
             <tns:BankSubdivision>
                <tns:TB>str</tns:TB>
                <tns:OSB>string</tns:OSB>
                <tns:VSP>string</tns:VSP>
             </tns:BankSubdivision>
-            <tns:IssueDate>2015-03-14</tns:IssueDate>
+            <tns:IssueDate>2015-03-16</tns:IssueDate>
          </tns:NaturalPersonCompesationApplication>
       </tns:SrvSendApplicationForCBDFProcessingRq>
    </soap:Body>

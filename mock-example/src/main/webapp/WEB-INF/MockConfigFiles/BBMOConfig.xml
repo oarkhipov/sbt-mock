@@ -72,6 +72,11 @@
                             <xsdFile>domainTypes/CKPITProductTypes.xsd</xsdFile>
                         </dependency>
                     </dependencies>
+                    <dataxml>
+                        <response>
+                            <ResultCode>0</ResultCode>
+                        </response>
+                    </dataxml>
                 </integrationPoint>
                 <integrationPoint>
                     <name>SrvPermitAccountChargeOperation</name>
@@ -139,6 +144,11 @@
                             <xsdFile>domainTypes/CKPITProductTypes.xsd</xsdFile>
                         </dependency>
                     </dependencies>
+                    <dataxml>
+                        <response>
+                            <ResultCode>0</ResultCode>
+                        </response>
+                    </dataxml>
                 </integrationPoint>
                 <integrationPoint>
                     <name>SrvGetClientReferenceDataRq</name>
@@ -164,6 +174,73 @@
                             <tag>ClientId</tag>
                         </linkedTag>
                     </linkedTagSequence>
+                    <mappedTags>
+                        <mappedTag>
+                            <mapFromRequest>
+                                <requestTagSequence>
+                                    <linkedTag>
+                                        <tag>TaxId</tag>
+                                    </linkedTag>
+                                </requestTagSequence>
+                                <responseTagSequence>
+                                    <linkedTag>
+                                        <tag>ClientReferenceData</tag>
+                                    </linkedTag>
+                                    <linkedTag>
+                                        <tag>MainDetails</tag>
+                                    </linkedTag>
+                                    <linkedTag>
+                                        <tag>TaxInspectorateInfo</tag>
+                                    </linkedTag>
+                                    <linkedTag>
+                                        <tag>TaxId</tag>
+                                    </linkedTag>
+                                </responseTagSequence>
+                            </mapFromRequest>
+                        </mappedTag>
+                        <mappedTag>
+                            <mapFromRequest>
+                                <requestTagSequence>
+                                    <linkedTag>
+                                        <tag>TaxRegReasonCode</tag>
+                                    </linkedTag>
+                                </requestTagSequence>
+                                <responseTagSequence>
+                                    <linkedTag>
+                                        <tag>ClientReferenceData</tag>
+                                    </linkedTag>
+                                    <linkedTag>
+                                        <tag>MainDetails</tag>
+                                    </linkedTag>
+                                    <linkedTag>
+                                        <tag>TaxInspectorateInfo</tag>
+                                    </linkedTag>
+                                    <linkedTag>
+                                        <tag>TaxRegReasonCode</tag>
+                                    </linkedTag>
+                                </responseTagSequence>
+                            </mapFromRequest>
+                        </mappedTag>
+                        <mappedTag>
+                            <xpathQuerry>
+                                <responseTagSequence>
+                                    <linkedTag>
+                                        <tag>ClientReferenceData</tag>
+                                    </linkedTag>
+                                    <linkedTag>
+                                        <tag>MainDetails</tag>
+                                    </linkedTag>
+                                    <linkedTag>
+                                        <tag>TaxInspectorateInfo</tag>
+                                    </linkedTag>
+                                    <linkedTag>
+                                        <tag>TaxInspectorate</tag>
+                                    </linkedTag>
+                                </responseTagSequence>
+                                <querry>/soap-env:Envelope/soap-env:Body/bbmo:SrvGetClientReferenceDataRq/bbmo:TaxInspectorate</querry>
+                            </xpathQuerry>
+                        </mappedTag>
+                    </mappedTags>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
                     <incomeQueue>IN.KKMB.2</incomeQueue>

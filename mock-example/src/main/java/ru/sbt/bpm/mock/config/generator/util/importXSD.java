@@ -1,11 +1,12 @@
 package ru.sbt.bpm.mock.config.generator.util;
 
+import net.sf.saxon.lib.NamespaceConstant;
+import net.sf.saxon.pull.NamespaceContextImpl;
 import org.apache.commons.io.FileUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import ru.sbt.bpm.mock.sigeneator.GenerateMockAppServlet;
-import ru.sbt.bpm.mock.sigeneator.inentities.Dependency;
-import ru.sbt.bpm.mock.sigeneator.inentities.IntegrationPoint;
-import ru.sbt.bpm.mock.sigeneator.inentities.LinkedTag;
-import ru.sbt.bpm.mock.sigeneator.inentities.SystemTag;
+import ru.sbt.bpm.mock.sigeneator.inentities.*;
 import ru.sbt.bpm.mock.utils.SaveFile;
 import ru.sbt.bpm.mock.utils.Xsl20Transformer;
 
@@ -17,6 +18,10 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -139,14 +144,16 @@ public class importXSD {
      * @param params параметры xsl
      * @throws Exception
      */
-    private void createMockXSL(String system, String name, Map<String, String> params) throws Exception{
+    private File createMockXSL(String system, String name, Map<String, String> params) throws Exception{
         String xsltXml = useXSLT(getWebInfPath() + "\\xsl\\util\\responceXSDtoXSL.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         validateXML(xsltXml);
 
+        File xslFile = new File(getWebInfPath() + "\\xsl\\" + system + "\\" + name + ".xsl");
         //TODO backup
-        SaveFile.getInstance(getPath()).writeStringToFile(new File(getWebInfPath() + "\\xsl\\" + system + "\\" + name + ".xsl"), xsltXml);
+        SaveFile.getInstance(getPath()).writeStringToFile(xslFile, xsltXml);
+        return xslFile;
     }
 
     /**
@@ -231,7 +238,7 @@ public class importXSD {
      * @param name имя сервиса(имя файла)
      * @param params параметры xsl
      */
-    public void mockCycle(String system, String name, String msgType, Map<String, String> params) {
+    public void mockCycle(String system, String name, String msgType, Map<String, String> params, MappedTagSequence mappedTags) {
         try
         {
             if (params==null) {
@@ -268,8 +275,11 @@ public class importXSD {
             createRqExample(system, name, msgType, altParams);
             createRsExample(system, name, msgType, params);
             createDataXSD(system, name, "Response", params);
-            createMockXSL(system, name, params);
+            File xslFile = createMockXSL(system, name, params);
             createRsDataXml(system, name, params);
+
+            //applyMappedTags(xslFile, mappedTags, params);
+
             System.out.println(system + " " + name + " mock Done");
         } catch (Exception e) {
             System.out.println(system + " " + name + " mock Failed");
@@ -486,7 +496,7 @@ public class importXSD {
         if (point.getaOperationName() != null & !point.getaOperationName().isEmpty()) {
             params.put("operationName", point.getaOperationName());
         }
-        mockCycle(systemName, point.getaIntegrationPointName(), headerType, params);
+        mockCycle(systemName, point.getaIntegrationPointName(), headerType, params, point.getaMappedTags());
     }
 
     private String formLinkedTagSequenceQuerry(List<LinkedTag> linkedTagList) {
@@ -591,6 +601,64 @@ public class importXSD {
                 files.add(file);
             }
         }
+    }
+
+    private void applyMappedTags(File xml, MappedTagSequence mappedTags, Map<String, String> params) throws Exception  {
+        if (mappedTags!=null && mappedTags.getaListOfMappedTagTags()!= null && mappedTags.getaListOfMappedTagTags().size()>0) {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            InputStream stream = new ByteArrayInputStream(FileUtils.readFileToByteArray(xml));
+            Document xmlDoc = builder.parse(stream);
+
+            XPathFactory xPathFactory = XPathFactory.newInstance();
+            XPath xpath = xPathFactory.newXPath();
+            String nameQuerry = "";
+            if (params.containsKey("operationName")) {
+                nameQuerry = " and @name='" + params.get("operationName") + "'";
+            }
+            XPathExpression findBaseElement = xpath.compile("//*[local-name()='template'][@name" + nameQuerry + "]/*[local-name()='element']");
+
+            Node rootElement = (Node) findBaseElement.evaluate(xmlDoc, XPathConstants.NODE);
+
+            for (MappedTag tagSq : mappedTags.getaListOfMappedTagTags()) {
+                if (tagSq.getaMappedFromRqTags() != null) {
+                    MappedFromRqTag tag = tagSq.getaMappedFromRqTags();
+                    Node element = findElementDescriptionInXSL(tag.getaResponseTagSequence().getaListOfLinkedTags(), rootElement);
+                    element.setNodeValue(formElementDescription(tag.getaRequestTagSequence().getaListOfLinkedTags()));
+                }
+                if (tagSq.getaXpathQuerrys() != null) {
+                    MappedByXpath tag = tagSq.getaXpathQuerrys();
+                    Node element = findElementDescriptionInXSL(tag.getaResponseTagSequence().getaListOfLinkedTags(), rootElement);
+                    element.setNodeValue(formElementDescription(tag.getaQuerry()));
+                }
+            }
+        }
+    }
+
+    private Node findElementDescriptionInXSL(List<LinkedTag> tags, Node rootElement) throws Exception {
+        System.setProperty("javax.xml.xpath.XPathFactory:"+ NamespaceConstant.OBJECT_MODEL_SAXON, "net.sf.saxon.xpath.XPathFactoryImpl");
+        XPathFactory xPathFactory = XPathFactory.newInstance(NamespaceConstant.OBJECT_MODEL_SAXON);
+
+        //XPathFactory xPathFactory = net.sf.saxon.xpath.XPathFactoryImpl.newInstance();
+        XPath xpath = xPathFactory.newXPath();
+
+        Node element = rootElement;
+        for (LinkedTag tag : tags) {
+            String xPathQuerry = "/*[local-name()='"+tag.getaTag() + "'] | " +
+                    "if (/*[local-name()='apply-templates'][contains(@select,"+tag.getaTag()+")]) then " +
+                    "(../*[local-name()='template'][contains(@match,"+tag.getaTag()+")])";
+            XPathExpression findElement = xpath.compile(xPathQuerry);
+            element = (Node) findElement.evaluate(element, XPathConstants.NODE);
+        }
+        return element;
+    }
+
+    private String formElementDescription(List<LinkedTag> tags) {
+        return "test";//TODO not implemented
+    }
+
+    private String formElementDescription(String querry) {
+        return "<xsl:value-of select=\""+querry+"\"/>";
     }
 
 

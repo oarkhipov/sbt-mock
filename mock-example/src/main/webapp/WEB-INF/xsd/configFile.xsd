@@ -49,18 +49,47 @@
                     </restriction>
                 </simpleType>
             </element>
-            <element name="linkedTagSequence" type="mock:LinkedTagSequence" minOccurs="0"/>
+            <element name="linkedTagSequence" type="mock:TagSequence" minOccurs="0"/>
+            <element name="mappedTags" type="mock:MappingSequence" minOccurs="0"/>
             <element name="protocol" type="string"/>
             <element name="incomeQueue" type="string"  minOccurs="0"/>
             <element name="outcomeQueue" type="string"  minOccurs="0"/>
             <element name="xsdFile" type="string"/>
             <element name="dependencies" type="mock:Dependencies" minOccurs="0"/>
+            <element name="dataxml" type="mock:DataFileEntry" minOccurs="0"/>
         </sequence>
     </complexType>
 
-    <complexType name="LinkedTagSequence">
+    <complexType name="MappingSequence">
         <sequence>
-            <element name="linkedTag" type="mock:LinkedTag" minOccurs="1" maxOccurs="unbounded"/>
+            <element name="mappedTag" type="mock:MappedTag" minOccurs="1" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="MappedTag">
+        <choice>
+            <element name="xpathQuerry" type="mock:XpathQuerry"/>
+            <element name="mapFromRequest" type="mock:MapFromRequest"/>
+        </choice>
+    </complexType>
+
+    <complexType name="XpathQuerry">
+        <sequence>
+            <element name="responseTagSequence" type="mock:TagSequence"/>
+            <element name="querry" type="string"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="MapFromRequest">
+        <sequence>
+            <element name="requestTagSequence" type="mock:TagSequence"/>
+            <element name="responseTagSequence" type="mock:TagSequence"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="TagSequence">
+        <sequence>
+            <element name="linkedTag" type="mock:Tag" minOccurs="1" maxOccurs="unbounded"/>
         </sequence>
     </complexType>
 
@@ -70,7 +99,7 @@
         </sequence>
     </complexType>
 
-    <complexType name="LinkedTag">
+    <complexType name="Tag">
         <sequence>
             <element name="namespace" type="anyURI" minOccurs="0"/>
             <element name="tag" type="string"/>
@@ -80,6 +109,13 @@
     <complexType name="Dependency">
         <sequence>
             <element name="xsdFile" type="string"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="DataFileEntry">
+        <sequence>
+            <element name="response" type="anyType" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="request" type="anyType" minOccurs="0" maxOccurs="unbounded"/>
         </sequence>
     </complexType>
 </schema>

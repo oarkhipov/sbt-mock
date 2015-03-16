@@ -20,7 +20,7 @@
             <OSB>string</OSB>
             <VSP>string</VSP>
          </BankSubdivision>
-         <InitDate>2015-03-14</InitDate>
+         <InitDate>2015-03-16</InitDate>
          <AgreementIdentifier>string</AgreementIdentifier>
          <AgreementNumber>string</AgreementNumber>
          <MainAccountNumber>stringstringstringst</MainAccountNumber>
@@ -44,7 +44,7 @@
             <OSB>string</OSB>
             <VSP>string</VSP>
          </BankSubdivision>
-         <InitDate>2015-03-14</InitDate>
+         <InitDate>2015-03-16</InitDate>
       </LegalPersonApplication>
    </request>
 </data>
