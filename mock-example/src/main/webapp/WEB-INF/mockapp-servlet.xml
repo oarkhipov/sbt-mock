@@ -123,6 +123,7 @@
     <channel id="SrvSendApplicationForCBDFProcessingRq"/>
     <channel id="SrvSendNaturalPersonApplicationStateChangeMessageRq"/>
     <channel id="SrvUpdateClientReferenceDataRq"/>
+    <channel id="SrvSendBasicDocumentInformation"/>
 
     <!-- TODO добавить Router test-->
     <!-- Роутер-->
@@ -134,6 +135,7 @@
         <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="SrvSendApplicationForCBDFProcessingRq"/>
         <ix:mapping value="SrvSendNaturalPersonApplicationProcessStageResult" channel="SrvSendNaturalPersonApplicationStateChangeMessageRq"/>
         <ix:mapping value="SrvUpdateClientReferenceData" channel="SrvUpdateClientReferenceDataRq"/>
+        <ix:mapping value="SrvSendBasicDocumentInformation" channel="SrvSendBasicDocumentInformationRq"/>
     </ix:xpath-router>
 
     <!-- здесь уже реализация -->
@@ -154,6 +156,9 @@
     <beans:bean id="BBMO_SrvUpdateClientReferenceDataRq" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvUpdateClientReferenceDataRq.xsl"/>
     </beans:bean>
+    <beans:bean id="VIVAT_SrvSendBasicDocumentInformationRq" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/VIVAT/SrvSendBasicDocumentInformation.xsl"/>
+    </beans:bean>
 
     <!--маппинг трасформеров на каналы-->
 
@@ -162,6 +167,7 @@
     <transformer input-channel="SrvSendApplicationForCBDFProcessingRq" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvSendApplicationForCBDFProcessingRq"/>
     <transformer input-channel="SrvSendNaturalPersonApplicationStateChangeMessageRq" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvSendNaturalPersonApplicationStateChangeMessageRq"/>
     <transformer input-channel="SrvUpdateClientReferenceDataRq" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvUpdateClientReferenceDataRq"/>
+    <transformer input-channel="SrvSendBasicDocumentInformationRq" output-channel="MockOutboundResponse" method="transform" ref="VIVAT_SrvSendBasicDocumentInformationRq"/>
 
     <!-- Если операция в роутере не определена, то она попадает в канал по умолчанию и мы её заворачиваем на выход //TODO нужно сформировать ответ, что всё плохо-->
     <bridge input-channel="DefaultOutputChannelIfNoOperationRouted" output-channel="MockOutboundResponse"/>

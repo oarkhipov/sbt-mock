@@ -336,7 +336,8 @@ public class importXSD {
         instance.initValidator(new File(instance.getWebInfPath() + "\\xsd"));
 
         //instance.loadConfig("NCPConfig.xml");
-        instance.loadConfig("BBMOConfig.xml");
+        //instance.loadConfig("BBMOConfig.xml");
+        instance.loadConfig("BBMOConfig2.xml");
         //instance.loadConfig("KKMBConfig.xml");
     }
 
