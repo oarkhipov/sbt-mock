@@ -26,7 +26,7 @@ public class XmlDataService {
     @Autowired
     private ApplicationContext appContext;
 
-    private String pathBase = "/WEB-INF/data/";
+    private String pathBase = "/WEB-INF/";
     private String xslPathBase = "/WEB-INF/xsl/";
 
     private Validator validator;
@@ -65,7 +65,7 @@ public class XmlDataService {
      * @throws IOException
      */
     public String getXml(String name) throws IOException {
-        return FileUtils.readFileToString(getXmlResource(name).getFile(), Charset.forName("UTF-8"));
+        return FileUtils.readFileToString(getResource(name).getFile(), Charset.forName("UTF-8"));
     }
 
     /**
@@ -88,17 +88,21 @@ public class XmlDataService {
      */
     public Resource getXmlDataResource(String name) throws IOException {
         String[] nameParts = name.split("_");
-        return appContext.getResource(pathBase + nameParts[0] + File.separator + "xml" + File.separator + nameParts[1] + "Data.xml");
+        return appContext.getResource(pathBase + File.separator +
+                                    "data" + File.separator +
+                                    nameParts[0] + File.separator +
+                                    "xml" + File.separator +
+                                    nameParts[1] + "Data.xml");
     }
 
     /**
      * Возвращает ресурс, лежащий в pathBase
      *
-     * @param name имя xml
-     * @return ресурс xml
+     * @param name имя файла, относительно WEB-INF
+     * @return ресурс
      * @throws IOException
      */
-    public Resource getXmlResource(String name) throws IOException {
+    public Resource getResource(String name) throws IOException {
         return appContext.getResource(pathBase + name);
     }
 

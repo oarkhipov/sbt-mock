@@ -33,6 +33,6 @@ public class XmlDataTest {
 
     @Test
     public void customTest() throws Exception {
-        assertTrue(xmlDataService.validate(xmlDataService.getXml("../in/test.xml")));
+        assertTrue(xmlDataService.validate(xmlDataService.getXml("in/test.xml")));
     }
 }
