@@ -79,7 +79,7 @@ public class DriverController {
                 ajaxObject.setInfo("Valid!");
             }
         }
-        catch (IOException e) {
+        catch (Exception e) {
             ajaxObject.setError(e.getMessage());
         }
         Gson gson = new Gson();
@@ -119,7 +119,7 @@ public class DriverController {
             }
 //            END Save
         }
-        catch (IOException e) {
+        catch (Exception e) {
             ajaxObject.setError(e.getMessage());
         }
         Gson gson = new Gson();
@@ -221,7 +221,7 @@ public class DriverController {
                 ajaxObject.setData(clientService.invoke(result));
             }
         }
-        catch (IOException e) {
+        catch (Exception e) {
             ajaxObject.setError(e.getMessage());
         }
 

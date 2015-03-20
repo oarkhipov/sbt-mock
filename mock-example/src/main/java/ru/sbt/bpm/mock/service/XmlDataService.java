@@ -57,10 +57,10 @@ public class XmlDataService {
 
 
     /**
-     * Возвращает xml по имени, относительно pathBase
+     * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ xml пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ pathBase
      *
-     * @param name путь до файла
-     * @return содержимое файла
+     * @param name пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+     * @return пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
      * @throws IOException
      */
     public String getXml(String name) throws IOException {
@@ -68,10 +68,10 @@ public class XmlDataService {
     }
 
     /**
-     * Возвращает xml по спец имени, относительно pathBase
+     * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ xml пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ pathBase
      *
-     * @param name путь до файла
-     * @return содержимое файла
+     * @param name пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+     * @return пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
      * @throws IOException
      */
     public String getDataXml(String name) throws IOException {
@@ -79,9 +79,9 @@ public class XmlDataService {
     }
 
     /**
-     * Возвращает ресурс, лежащий в pathBase
-     * @param name имя xmlData
-     * @return ресурс xml
+     * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ pathBase
+     * @param name пїЅпїЅпїЅ xmlData
+     * @return пїЅпїЅпїЅпїЅпїЅпїЅ xml
      * @throws IOException
      */
     public Resource getXmlDataResource(String name) throws IOException {
@@ -90,10 +90,10 @@ public class XmlDataService {
     }
 
     /**
-     * Возвращает ресурс, лежащий в pathBase
+     * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ pathBase
      *
-     * @param name имя xml
-     * @return ресурс xml
+     * @param name пїЅпїЅпїЅ xml
+     * @return пїЅпїЅпїЅпїЅпїЅпїЅ xml
      * @throws IOException
      */
     public Resource getXmlResource(String name) throws IOException {
@@ -101,10 +101,10 @@ public class XmlDataService {
     }
 
     /**
-     * Возвращает ресурс, лежащий в xslPathBase
+     * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ xslPathBase
      *
-     * @param name спец имя xsl
-     * @return ресурс xsl
+     * @param name пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ xsl
+     * @return пїЅпїЅпїЅпїЅпїЅпїЅ xsl
      * @throws IOException
      */
     public Resource getXslResource(String name) throws IOException {
@@ -113,21 +113,18 @@ public class XmlDataService {
     }
 
     /**
-     * Валидирует xmlData на соответствие схем
-     * @param xmlData спец имя xmlData
-     * @return признак валидности
+     * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ xmlData пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+     * @param xmlData пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ xmlData
+     * @return пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      * @throws UnsupportedEncodingException
      */
-    public boolean validate(String xmlData) throws UnsupportedEncodingException {
+    public boolean validate(String xmlData) throws Exception {
         InputStream stream = new ByteArrayInputStream(xmlData.getBytes("UTF-8"));
         try {
             validator.validate(new StreamSource(stream));
-        } catch (SAXException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+            throw e;
         }
         return true;
     }

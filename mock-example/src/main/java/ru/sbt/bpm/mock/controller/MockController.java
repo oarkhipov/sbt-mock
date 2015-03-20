@@ -64,7 +64,7 @@ public class MockController {
                 ajaxObject.setInfo("Valid!");
             }
         }
-        catch (IOException e) {
+        catch (Exception e) {
             ajaxObject.setError(e.getMessage());
         }
         Gson gson = new Gson();

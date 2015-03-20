@@ -37,7 +37,7 @@
              xmlns:mq="http://sbrf.ru/prpc/mq/headers">
     <mq:AsyncHeader>
         <mq:message-id>10CE48D176AE4CE2BEE6055178845D68</mq:message-id>
-        <mq:request-time>2014-12-16T17:55:06.410+04:00</mq:request-time>
+        <mq:request-time>2014-12-16T17:55:06.410</mq:request-time>
         <mq:operation-name>SrvGetClientReferenceData</mq:operation-name>
     </mq:AsyncHeader>
 </soap:Header>
