@@ -57,10 +57,10 @@ public class XmlDataService {
 
 
     /**
-     * Возвращает xml по имени, относительно pathBase
+     * Р’РѕР·РІСЂР°С‰Р°РµС‚ xml РїРѕ РёРјРµРЅРё, РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ pathBase
      *
-     * @param name путь до файла
-     * @return содержимое файла
+     * @param name РїСѓС‚СЊ РґРѕ С„Р°Р№Р»Р°
+     * @return СЃРѕРґРµСЂР¶РёРјРѕРµ С„Р°Р№Р»Р°
      * @throws IOException
      */
     public String getXml(String name) throws IOException {
@@ -68,10 +68,10 @@ public class XmlDataService {
     }
 
     /**
-     * Возвращает xml по спец имени, относительно pathBase
+     * Р’РѕР·РІСЂР°С‰Р°РµС‚ xml РїРѕ СЃРїРµС† РёРјРµРЅРё, РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ pathBase
      *
-     * @param name путь до файла
-     * @return содержимое файла
+     * @param name РїСѓС‚СЊ РґРѕ С„Р°Р№Р»Р°
+     * @return СЃРѕРґРµСЂР¶РёРјРѕРµ С„Р°Р№Р»Р°
      * @throws IOException
      */
     public String getDataXml(String name) throws IOException {
@@ -79,9 +79,9 @@ public class XmlDataService {
     }
 
     /**
-     * Возвращает ресурс, лежащий в pathBase
-     * @param name имя xmlData
-     * @return ресурс xml
+     * Р’РѕР·РІСЂР°С‰Р°РµС‚ СЂРµСЃСѓСЂСЃ, Р»РµР¶Р°С‰РёР№ РІ pathBase
+     * @param name РёРјСЏ xmlData
+     * @return СЂРµСЃСѓСЂСЃ xml
      * @throws IOException
      */
     public Resource getXmlDataResource(String name) throws IOException {
@@ -90,10 +90,10 @@ public class XmlDataService {
     }
 
     /**
-     * Возвращает ресурс, лежащий в pathBase
+     * Р’РѕР·РІСЂР°С‰Р°РµС‚ СЂРµСЃСѓСЂСЃ, Р»РµР¶Р°С‰РёР№ РІ pathBase
      *
-     * @param name имя xml
-     * @return ресурс xml
+     * @param name РёРјСЏ xml
+     * @return СЂРµСЃСѓСЂСЃ xml
      * @throws IOException
      */
     public Resource getXmlResource(String name) throws IOException {
@@ -101,10 +101,10 @@ public class XmlDataService {
     }
 
     /**
-     * Возвращает ресурс, лежащий в xslPathBase
+     * Р’РѕР·РІСЂР°С‰Р°РµС‚ СЂРµСЃСѓСЂСЃ, Р»РµР¶Р°С‰РёР№ РІ xslPathBase
      *
-     * @param name спец имя xsl
-     * @return ресурс xsl
+     * @param name СЃРїРµС† РёРјСЏ xsl
+     * @return СЂРµСЃСѓСЂСЃ xsl
      * @throws IOException
      */
     public Resource getXslResource(String name) throws IOException {
@@ -113,9 +113,9 @@ public class XmlDataService {
     }
 
     /**
-     * Валидирует xmlData на соответствие схем
-     * @param xmlData спец имя xmlData
-     * @return признак валидности
+     * Р’Р°Р»РёРґРёСЂСѓРµС‚ xmlData РЅР° СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµ СЃС…РµРј
+     * @param xmlData СЃРїРµС† РёРјСЏ xmlData
+     * @return РїСЂРёР·РЅР°Рє РІР°Р»РёРґРЅРѕСЃС‚Рё
      * @throws UnsupportedEncodingException
      */
     public boolean validate(String xmlData) throws UnsupportedEncodingException {
