@@ -5,6 +5,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.context.ApplicationContext;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -437,18 +438,15 @@ public class SaveFile {
             }
             f.createNewFile();
         }
-        PrintWriter out = new PrintWriter(f);
         try {
-            out.print(data);
+            FileUtils.writeStringToFile(f, data, Charset.forName("UTF-8"));
         } catch (Exception e) {
             throw e;
-        } finally {
-            out.close();
         }
     }
 
     public String getFileString(File file) throws IOException {
-        return FileUtils.readFileToString(file);
+        return FileUtils.readFileToString(file, Charset.forName("UTF-8"));
     }
 
 
