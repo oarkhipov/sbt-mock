@@ -115,7 +115,7 @@ $("#validate").click(function(){
     $.ajax({
         url: QueryString["ip"]+ "/validate/",
         type: "POST",
-        data: "xml="+editor.getValue(),
+        data: "xml="+encodeURIComponent(editor.getValue()),
         success: function(obj) {
             obj = htmlConvert(obj);
             obj = $.parseJSON(obj);
