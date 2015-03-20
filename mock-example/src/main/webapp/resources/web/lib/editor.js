@@ -133,7 +133,7 @@ $("#save").click(function(){
     $.ajax({
         url: QueryString["ip"]+ "/save/",
         type: "POST",
-        data: "xml="+editor.getValue(),
+        data: "xml="+encodeURIComponent(editor.getValue()),
         success: function(obj) {
             obj = htmlConvert(obj);
             obj = $.parseJSON(obj);

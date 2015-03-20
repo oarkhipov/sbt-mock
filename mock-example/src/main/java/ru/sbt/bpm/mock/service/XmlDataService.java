@@ -119,7 +119,7 @@ public class XmlDataService {
      * 
      * @param xmlData спец имя xmlData
      * @return признак валидности
-     * @throws UnsupportedEncodingException
+     * @throws Exception
      */
     public boolean validate(String xmlData) throws Exception {
         InputStream stream = new ByteArrayInputStream(xmlData.getBytes("UTF-8"));
@@ -132,6 +132,27 @@ public class XmlDataService {
         return true;
     }
 
+    /**
+     * Валидирует xmlData на соответствие схем, не бросает исключений
+     *
+     * @param xmlData спец имя xmlData
+     * @return признак валидности
+     */
+    public boolean assertableValidate(String xmlData) {
+        try {
+            return validate(xmlData);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Рекурсивный поиск файлов с определённым расширением
+     *
+     * @param rootDir корневая директория поиска
+     * @param files список файлов, который формуирует функция при поиске
+     * @param ext расширение файла
+     */
     private void searchFiles(File rootDir, ArrayList<File> files, String ext) {
         File[] listFiles = rootDir.listFiles();
         assert listFiles != null;
