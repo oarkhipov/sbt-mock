@@ -27,12 +27,12 @@ public class XmlDataTest {
     XmlDataService xmlDataService;
 
     @Test
-    public void validateTest() throws IOException {
+    public void validateTest() throws Exception {
         assertTrue(xmlDataService.validate(xmlDataService.getDataXml("CRM_CreateTask")));
     }
 
     @Test
-    public void customTest() throws IOException {
+    public void customTest() throws Exception {
         assertTrue(xmlDataService.validate(xmlDataService.getXml("../in/test.xml")));
     }
 }

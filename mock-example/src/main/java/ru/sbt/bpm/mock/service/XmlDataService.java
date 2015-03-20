@@ -13,6 +13,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 
@@ -64,7 +65,7 @@ public class XmlDataService {
      * @throws IOException
      */
     public String getXml(String name) throws IOException {
-        return FileUtils.readFileToString(getXmlResource(name).getFile());
+        return FileUtils.readFileToString(getXmlResource(name).getFile(), Charset.forName("UTF-8"));
     }
 
     /**
@@ -75,11 +76,12 @@ public class XmlDataService {
      * @throws IOException
      */
     public String getDataXml(String name) throws IOException {
-        return FileUtils.readFileToString(getXmlDataResource(name).getFile());
+        return FileUtils.readFileToString(getXmlDataResource(name).getFile(), Charset.forName("UTF-8"));
     }
 
     /**
      * Возвращает ресурс, лежащий в pathBase
+     * 
      * @param name имя xmlData
      * @return ресурс xml
      * @throws IOException
@@ -114,20 +116,18 @@ public class XmlDataService {
 
     /**
      * Валидирует xmlData на соответствие схем
+     * 
      * @param xmlData спец имя xmlData
      * @return признак валидности
      * @throws UnsupportedEncodingException
      */
-    public boolean validate(String xmlData) throws UnsupportedEncodingException {
+    public boolean validate(String xmlData) throws Exception {
         InputStream stream = new ByteArrayInputStream(xmlData.getBytes("UTF-8"));
         try {
             validator.validate(new StreamSource(stream));
-        } catch (SAXException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+            throw e;
         }
         return true;
     }

@@ -6,7 +6,7 @@
     <!--заголовок из дата-файла-->
     <xsl:template name="NCPHeader" xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
         <xsl:param name="response"/>
-        <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
+        <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410')"/>
         <xsl:param name="operation-name"/>
 
         <!-- Optional params for optional header values -->
@@ -59,9 +59,8 @@
 
     <!--пример заголовка так, чтобы он выглядел как в настоязем сообщении-->
     <xsl:template name="NCPHeaderExample">
-        <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
+        <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410')"/>
         <xsl:param name="operation-name"/>
-
         <!-- Optional params for optional header values -->
         <xsl:param name="id" select="null"/>
         <xsl:param name="correlation-id" select="null"/>

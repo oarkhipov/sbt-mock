@@ -4,7 +4,7 @@
       <SoapHeader>
          <AsyncHeader>
             <message-id>12345678901234567890123456789012</message-id>
-            <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+            <request-time>2014-12-16T17:55:06.410</request-time>
             <operation-name>SrvGetClientReferenceData</operation-name>
          </AsyncHeader>
       </SoapHeader>
@@ -66,43 +66,6 @@
                   <OKVED>31.20.9</OKVED>
                </RosstatCodes>
             </MainDetails>
-            <!--<FounderLegalPerson>-->
-               <!--<ClientName>string</ClientName>-->
-               <!--<KPP>string</KPP>-->
-               <!--<TaxID>string</TaxID>-->
-               <!--<TaxRegistrationDate>2015-03-16</TaxRegistrationDate>-->
-               <!--<TaxCertificateSeries>string</TaxCertificateSeries>-->
-               <!--<TaxCertificateNumber>string</TaxCertificateNumber>-->
-               <!--<TaxAuthority>string</TaxAuthority>-->
-               <!--<OGRN>string</OGRN>-->
-               <!--<OGRNRegistrationDate>2015-03-16</OGRNRegistrationDate>-->
-               <!--<OGRNSeries>string</OGRNSeries>-->
-               <!--<OGRNNumber>string</OGRNNumber>-->
-               <!--<OGRNAuthority>string</OGRNAuthority>-->
-               <!--<ClientAddress>-->
-                  <!--<AddressType>1</AddressType>-->
-                  <!--<UnnormalizedAddress>string</UnnormalizedAddress>-->
-                  <!--<Country>str</Country>-->
-                  <!--<PostalCode>string</PostalCode>-->
-                  <!--<IdentificationCode>string</IdentificationCode>-->
-                  <!--<OKATO>string</OKATO>-->
-                  <!--<RegionType>string</RegionType>-->
-                  <!--<Region>string</Region>-->
-                  <!--<AreaType>string</AreaType>-->
-                  <!--<Area>string</Area>-->
-                  <!--<CityType>string</CityType>-->
-                  <!--<City>string</City>-->
-                  <!--<PlaceType>string</PlaceType>-->
-                  <!--<Place>string</Place>-->
-                  <!--<StreetType>string</StreetType>-->
-                  <!--<Street>string</Street>-->
-                  <!--<House>string</House>-->
-                  <!--<Corpus>string</Corpus>-->
-                  <!--<Building>string</Building>-->
-                  <!--<FlatorOffice>string</FlatorOffice>-->
-               <!--</ClientAddress>-->
-               <!--<LegalCapitalPercent>10</LegalCapitalPercent>-->
-            <!--</FounderLegalPerson>-->
             <BankSubdivision>
                <TB>str</TB>
                <OSB>string</OSB>
@@ -263,7 +226,7 @@
       <SoapHeader>
          <AsyncHeader>
             <message-id>12345678901234567890123456789012</message-id>
-            <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+            <request-time>2014-12-16T17:55:06.410</request-time>
             <operation-name>SrvGetClientReferenceData</operation-name>
          </AsyncHeader>
       </SoapHeader>

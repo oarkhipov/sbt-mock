@@ -4,7 +4,7 @@
       <SoapHeader>
          <AsyncHeader>
             <message-id>message-id</message-id>
-            <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+            <request-time>2014-12-16T17:55:06.410</request-time>
             <operation-name>SrvCKPITUpdateDepositNSO</operation-name>
          </AsyncHeader>
       </SoapHeader>
@@ -33,7 +33,7 @@
       <SoapHeader>
          <AsyncHeader>
             <message-id>message-id</message-id>
-            <request-time>2014-12-16T17:55:06.410+04:00</request-time>
+            <request-time>2014-12-16T17:55:06.410</request-time>
             <operation-name>SrvCKPITUpdateDepositNSO</operation-name>
          </AsyncHeader>
       </SoapHeader>

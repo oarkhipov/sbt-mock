@@ -8,7 +8,7 @@
                   xmlns:kd4="http://www.ibm.com/KD4Soa"
                   xmlns:mq="http://sbrf.ru/prpc/mq/headers">
         <xsl:param name="response"/>
-        <xsl:param name="request-time" select="'2014-12-16T17:55:06.410+04:00'"/>
+        <xsl:param name="request-time" select="'2014-12-16T17:55:06.410'"/>
         <xsl:param name="operation-name"/>
         <xsl:param name="message-id" select="''"/>
 
@@ -79,7 +79,7 @@
                   xmlns:mq="http://sbrf.ru/prpc/mq/headers">
         <xsl:param name="kd4header" select="''"/>
         <xsl:param name="message-id" select="'message-id'"/>
-        <xsl:param name="request-time" select="'2014-12-16T17:55:06.410+04:00'"/>
+        <xsl:param name="request-time" select="'2014-12-16T17:55:06.410'"/>
         <xsl:param name="correlation-id" select="''"/>
         <xsl:param name="eis-name" select="''"/>
         <xsl:param name="system-id" select="''"/>
@@ -207,7 +207,7 @@
     <xsl:template name="KD4xslTeplateHeaderDeclaration">
         <xsl:element name="xsl:param">
             <xsl:attribute name="name">request-time</xsl:attribute>
-            <xsl:attribute name="select">string('2014-12-16T17:55:06.410+04:00')</xsl:attribute>
+            <xsl:attribute name="select">string('2014-12-16T17:55:06.410')</xsl:attribute>
         </xsl:element>
         <xsl:element name="xsl:param">
             <xsl:attribute name="name">kd4header</xsl:attribute>
