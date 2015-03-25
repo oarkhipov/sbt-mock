@@ -25,5 +25,8 @@
         <module name="mock-example" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mock-example" target="1.6" />
+    </bytecodeTargetLevel>
   </component>
 </project>
