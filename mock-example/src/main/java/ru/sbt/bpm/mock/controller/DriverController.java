@@ -63,7 +63,7 @@ public class DriverController {
     public String get(@PathVariable("name") String name, Model model) throws IOException, TransformerException {
         model.addAttribute("name", name);
         model.addAttribute("link", "driver");
-        model.addAttribute("object", xmlDataService.getXml(name));
+        model.addAttribute("object", xmlDataService.getDataXml(name));
         model.addAttribute("list", getRequestList(name));
         return "editor";
     }
@@ -78,10 +78,8 @@ public class DriverController {
             if (xmlDataService.validate(xml)) {
                 ajaxObject.setInfo("Valid!");
             }
-        } catch (SAXException e) {
-            ajaxObject.setError(e.getMessage());
         }
-        catch (IOException e) {
+        catch (Exception e) {
             ajaxObject.setError(e.getMessage());
         }
         Gson gson = new Gson();
@@ -120,10 +118,8 @@ public class DriverController {
                 }
             }
 //            END Save
-        } catch (SAXException e) {
-            ajaxObject.setError(e.getMessage());
         }
-        catch (IOException e) {
+        catch (Exception e) {
             ajaxObject.setError(e.getMessage());
         }
         Gson gson = new Gson();
@@ -214,7 +210,7 @@ public class DriverController {
 
                 ajaxObject.setInfo("DONE!");
                 Resource xslResource = xmlDataService.getXslResource(name);
-//                Resource xmlData = xmlDataService.getXmlResource(name);
+//                Resource xmlData = xmlDataService.getXmlDataResource(name);
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'+04:00'");//TODO перенести и причесать
                 Map<String, String> params = new HashMap<String, String>(2);
                 params.put("name", request);
@@ -224,10 +220,8 @@ public class DriverController {
 
                 ajaxObject.setData(clientService.invoke(result));
             }
-        } catch (SAXException e) {
-            ajaxObject.setError(e.getMessage());
         }
-        catch (IOException e) {
+        catch (Exception e) {
             ajaxObject.setError(e.getMessage());
         }
 
@@ -252,7 +246,7 @@ public class DriverController {
     }
 
     private String[] getRequestList(String name) throws IOException, TransformerException {
-        Resource xmlData = xmlDataService.getXmlResource(name);
+        Resource xmlData = xmlDataService.getXmlDataResource(name);
         return getRequestList(xmlData);
     }
 

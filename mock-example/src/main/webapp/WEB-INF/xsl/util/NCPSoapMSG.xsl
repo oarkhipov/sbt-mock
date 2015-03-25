@@ -1,7 +1,7 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
-                xmlns:mock="http://sbrf.ru/mockService"><!--TODO заменить mock на namespace конфига -->
+                xmlns:mock="http://sbrf.ru/mockService">
     <xsl:import href="XSDToExampleXML.xsl"/>
     <xsl:include href="NCPSoapRqHeaderXSLTTemplate.xsl"/>
 
@@ -12,10 +12,11 @@
     <xsl:variable name="operationXsdSchema" select="document($operationsXSD)/xsd:schema"/>
 
     <!--Имя тэга элемента-->
-    <xsl:param name="rootElementName" select="''"/><!-- Todo ошибка если не задано -->
+    <xsl:param name="rootElementName" select="''"/>
+    <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/>
 
     <!-- параметры заголовка -->
-    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
+    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410')"/>
     <!--задано ниже в зависимости от тэга <xsl:param name="operation-name" select="'operation-name'"/>-->
     <xsl:param name="id" select="null"/>
     <xsl:param name="correlation-id" select="null"/>
@@ -53,7 +54,7 @@
     <!--алиас неймспейса, который используется в исходной xsd-->
     <xsl:variable name="localTargetNSAlias" select="local-name($operationXsdSchema/namespace::*[.=$targetNS][string-length(local-name(.))>0])"/>
     <!--имя операции-->
-    <xsl:param name="operation-name" select="$rootElementName"/>
+    <xsl:param name="operationName" select="$rootElementName"/>
 
     <!-- инклюды схем -->
     <xsl:variable name="includeFilesList" select="$operationXsdSchema/xsd:include/@schemaLocation"/>
@@ -66,12 +67,12 @@
     <xsl:variable name="importFilesDocs" select="document($importFilesList)/xsd:schema"/>
 
     <!--список всех типов, которые объявленны в схеме-->
-    <xsl:variable name="typesList" select="$operationXsdSchema//xsd:complexType/@name | $importFilesDocs/xsd:complexType/@name | $includeFilesDocs/xsd:complexType/@name"/>
+    <xsl:variable name="typesList" select="$operationXsdSchema//(xsd:complexType | xsd:simpleType)/@name | $importFilesDocs/(xsd:complexType | xsd:simpleType)/@name | $includeFilesDocs/(xsd:complexType | xsd:simpleType)/@name"/>
 
     <xsl:template match="xsd:schema">
         <xsl:element name="soap:Envelope">
             <xsl:call-template name="NCPHeaderExample">
-                <xsl:with-param name="operation-name" select="$operation-name"/>
+                <xsl:with-param name="operation-name" select="$operationName"/>
             </xsl:call-template>
             <xsl:call-template name="NCPSoapBody"/>
         </xsl:element>
@@ -84,10 +85,18 @@
     </xsl:template>
 
     <xsl:template name="operationBody">
-        <!--<xsl:comment>test <xsl:value-of select="$operationXsdSchema/*/@name"/>-<xsl:value-of select="$rootTypeName"/></xsl:comment>-->
-        <xsl:apply-templates select="$operationXsdSchema/xsd:element[@name=$rootElementName] | $operationXsdSchema/xsd:complexType[@name=$rootTypeName]" mode="rootBodyElement">
-            <xsl:with-param name="parrentNS" select="/xsd:schema/@targetNamespace"/>
-        </xsl:apply-templates>
+        <xsl:choose>
+            <xsl:when test="$operationXsdSchema/xsd:element[@name=$rootElementName]">
+                <xsl:apply-templates select="$operationXsdSchema/xsd:element[@name=$rootElementName]" mode="rootBodyElement">
+                    <xsl:with-param name="parrentNS" select="/xsd:schema/@targetNamespace"/>
+                </xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="$operationXsdSchema/xsd:complexType[@name=$rootTypeName]" mode="rootBodyElement">
+                    <xsl:with-param name="parrentNS" select="/xsd:schema/@targetNamespace"/>
+                </xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
 </xsl:stylesheet>

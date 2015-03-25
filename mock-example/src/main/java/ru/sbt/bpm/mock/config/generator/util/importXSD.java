@@ -1,5 +1,12 @@
 package ru.sbt.bpm.mock.config.generator.util;
 
+import net.sf.saxon.lib.NamespaceConstant;
+import net.sf.saxon.pull.NamespaceContextImpl;
+import org.apache.commons.io.FileUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import ru.sbt.bpm.mock.sigeneator.GenerateMockAppServlet;
+import ru.sbt.bpm.mock.sigeneator.inentities.*;
 import ru.sbt.bpm.mock.utils.SaveFile;
 import ru.sbt.bpm.mock.utils.Xsl20Transformer;
 
@@ -11,9 +18,14 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -58,8 +70,8 @@ public class importXSD {
      * @throws Exception
      *
      */
-    private void createRqExample(String system, String name, Map<String, String> params) throws Exception{
-        String exampleRq1 = useXSLT(getWebInfPath() + "\\xsl\\util\\NCPSoapMSG.xsl", //TODO выбор другого KD4SoapMsg.xsl
+    private void createRqExample(String system, String name, String msgType, Map<String, String> params) throws Exception{
+        String exampleRq1 = useXSLT(getWebInfPath() + "\\xsl\\util\\"+msgType+"SoapMSG.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         validateXML(exampleRq1);
@@ -71,7 +83,7 @@ public class importXSD {
         if (params.containsKey("tagNameToTakeLinkedTag")) {
             params.put("useLinkedTagValue","true");
         }
-        String exampleRq2 = useXSLT(getWebInfPath() + "\\xsl\\util\\NCPSoapMSG.xsl",
+        String exampleRq2 = useXSLT(getWebInfPath() + "\\xsl\\util\\"+msgType+"SoapMSG.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         validateXML(exampleRq2);
@@ -84,32 +96,23 @@ public class importXSD {
      * создает примеры xml ответов
      * @param system имя подпапки
      * @param name имя сервиса(имя файла)
-     * @param Params параметры xsl
+     * @param params параметры xsl
      * @throws Exception
      */
-    private void createRsExample(String system, String name, Map<String, String> Params) throws Exception{
-
-        Map <String,String> altParams = new HashMap<String, String>();
-        altParams.put("rootElementName", Params.get("rootElementName"));
-        altParams.put("operationsXSD", "../../xsd/"+system+"/"+name+"Response.xsd");
-        altParams.put("systemName", Params.get("systemName"));
-        altParams.put("operation-name", Params.get("rootElementName"));
-        String rootXSD = system;
-        if (system.equals("FinRep")) rootXSD = "ASFO";
-
-        String exampleRs1 = useXSLT(getWebInfPath() + "\\xsl\\util\\NCPSoapMSG.xsl",
-                getWebInfPath() + "\\xsd\\" + system + "\\" + rootXSD + ".xsd",
-                altParams);
+    private void createRsExample(String system, String name, String msgType,  Map<String, String> params) throws Exception{
+        String exampleRs1 = useXSLT(getWebInfPath() + "\\xsl\\util\\"+msgType+"SoapMSG.xsl",
+                getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+                params);
         validateXML(exampleRs1);
 
         //TODO backup
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getExamplesPath() + "\\" +  system + "\\" + name + "\\rs1.xml"), exampleRs1);
 
-        if (Params == null) Params = new HashMap<String, String>(2);
-        altParams.put("showOptionalTags", "false");
-        String exampleRs2 = useXSLT(getWebInfPath() + "\\xsl\\util\\NCPSoapMSG.xsl",
-                getWebInfPath() + "\\xsd\\" + system + "\\" + rootXSD + ".xsd",
-                altParams);
+        if (params == null) params = new HashMap<String, String>(1);
+        params.put("showOptionalTags", "false");
+        String exampleRs2 = useXSLT(getWebInfPath() + "\\xsl\\util\\"+msgType+"SoapMSG.xsl",
+                getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+                params);
         validateXML(exampleRs2);
 
         //TODO backup
@@ -138,17 +141,19 @@ public class importXSD {
      * создает XSL из XSD ля mock сервиса
      * @param system имя подпапки
      * @param name имя сервиса(имя файла)
-     * @param Params параметры xsl
+     * @param params параметры xsl
      * @throws Exception
      */
-    private void createMockXSL(String system, String name, Map<String, String> Params) throws Exception{
+    private File createMockXSL(String system, String name, Map<String, String> params) throws Exception{
         String xsltXml = useXSLT(getWebInfPath() + "\\xsl\\util\\responceXSDtoXSL.xsl",
-                getWebInfPath() + "\\xsd\\" + system + "\\" + name + "Response.xsd",
-                Params);
+                getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+                params);
         validateXML(xsltXml);
 
+        File xslFile = new File(getWebInfPath() + "\\xsl\\" + system + "\\" + name + ".xsl");
         //TODO backup
-        SaveFile.getInstance(getPath()).writeStringToFile(new File(getWebInfPath() + "\\xsl\\" + system + "\\" + name + ".xsl"), xsltXml);
+        SaveFile.getInstance(getPath()).writeStringToFile(xslFile, xsltXml);
+        return xslFile;
     }
 
     /**
@@ -172,25 +177,24 @@ public class importXSD {
      * создает пример Дата xml из примера ответа и уже существующего файла с даными
      * @param system имя подпапки
      * @param name имя сервиса(имя файла)
-     * @param Params параметры xsl
+     * @param params параметры xsl
      * @throws Exception
      */
-    private void createRsDataXml(String system, String name, Map<String, String> Params) throws Exception{
-        if (Params == null) Params = new HashMap<String, String>(2);
-        Params.put("dataFileName","../../data/" +  system + "/xml/" + name + "Data.xml");
-        Params.put("replace","true");
+    private void createRsDataXml(String system, String name, Map<String, String> params) throws Exception{
+        if (params == null) params = new HashMap<String, String>(2);
+        params.put("replace","true");
         String dataXML = useXSLT(getWebInfPath() + "\\xsl\\util\\AddExampleToData.xsl",
                 getExamplesPath() + "\\" +  system + "\\" + name + "\\rs1.xml",
-                Params);
+                params);
         validateXML(dataXML);
         //TODO backup
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
 
-        Params.put("replace","false");
-        Params.put("name","test1");
+        params.put("replace","false");
+        params.put("name","test1");
         dataXML = useXSLT(getWebInfPath() + "\\xsl\\util\\AddExampleToData.xsl",
                 getExamplesPath() + "\\" +  system + "\\" + name + "\\rs2.xml",
-                Params);
+                params);
         validateXML(dataXML);
 
         //TODO backup
@@ -201,28 +205,27 @@ public class importXSD {
      * создает пример Дата xml из примера запроса и уже существующего файла с даными
      * @param system имя подпапки
      * @param name имя сервиса(имя файла)
-     * @param Params параметры xsl
+     * @param params параметры xsl
      * @throws Exception
      */
-    private void createRqDataXml(String system, String name, Map<String, String> Params) throws Exception{
-        if (Params == null) Params = new HashMap<String, String>(3);
-        Params.put("dataFileName","../../data/" +  system + "/xml/" + name + "Data.xml");
-        Params.put("replace","true");
-        Params.put("type","request");
+    private void createRqDataXml(String system, String name, Map<String, String> params) throws Exception{
+        if (params == null) params = new HashMap<String, String>(3);
+        params.put("replace","true");
+        params.put("type","request");
         String dataXML = useXSLT(getWebInfPath() + "\\xsl\\util\\AddExampleToData.xsl",
                 getExamplesPath() + "\\" +  system + "\\" + name + "\\rq1.xml",
-                Params);
+                params);
         validateXML(dataXML);
         //TODO backup
 
         SaveFile.getInstance(getPath()).writeStringToFile(new File(getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
 
-        Params.put("replace","false");
-        Params.put("name","test1");
-        Params.put("type","request");
+        params.put("replace","false");
+        params.put("name","test1");
+        params.put("type","request");
         dataXML = useXSLT(getWebInfPath() + "\\xsl\\util\\AddExampleToData.xsl",
                 getExamplesPath() + "\\" +  system + "\\" + name + "\\rq2.xml",
-                Params);
+                params);
         validateXML(dataXML);
 
         //TODO backup
@@ -233,43 +236,56 @@ public class importXSD {
      * полный цикл создания mock-сервиса
      * @param system имя подпапки
      * @param name имя сервиса(имя файла)
-     * @param Params параметры xsl
+     * @param params параметры xsl
      */
-    public void mockCycle(String system, String name, Map<String, String> Params) {
-//        try
-//        {
-//            Map<String, String> altParams = null;
-//            if (Params!=null) {
-//                //иногда имя главного тэга не ясно, и надо задавать его как параметр entryPointName.
-//                //Также возможен случай, когда это значения надо задавать как и для запроса так и для ответа
-//                //в этом случае задается параметр RqEntryPointName - для создания ответа его значение передается как entryPointName
-//                altParams = new HashMap<String, String>(Params);
-//                if (Params.containsKey("rqRootElementName")) {
-//                    altParams.put("operation-name", Params.get("rootElementName"));
-//                }
-//                if (Params.containsKey("RqEntryPointName")) {
-////                    altParams.put("entryPointName", Params.get("RqEntryPointName"));
-//                }
-////                if (Params.containsKey("RqRootElementName")) {
-////                    altParams.put("rootElementName", Params.get("RqRootElementName"));
-////                }
-//            } else
-//            {
-//                altParams = new HashMap<String, String>(1);
-//            }
-//
-//            //не вставляем в этветы комменты с обозначением сколько элементов доступно
-//            altParams.put("omitComments", "true");
-//
-//            createRqExample(system, name, altParams);
-//            createRsExample(system, name, Params);
-//            createDataXSD(system, name, "Response", Params);
-//            createMockXSL(system, name, Params);
-//            createRsDataXml(system, name, Params);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//
-//        }
+    public void mockCycle(String system, String name, String msgType, Map<String, String> params, MappedTagSequence mappedTags) {
+        try
+        {
+            if (params==null) {
+                params = new HashMap<String, String>(1);
+            }
+            if (!params.containsKey("dataFileName")) {
+                params.put("dataFileName", name + "Data.xml");
+            }
+            if (!params.containsKey("system")) {
+                params.put("system", system);
+            }
+            if (!params.containsKey("systemName")) {
+                params.put("systemName", system);
+            }
+            if (!params.containsKey("headerType")) {
+                params.put("headerType", msgType);
+            }
+
+            Map <String, String> altParams = new HashMap<String, String>(params);
+            altParams.put("rootElementName", params.get("RqRootElementName"));
+            if (!params.containsKey("operationsXSD")) {
+                params.put("operationsXSD", "../../xsd/"+system+"/"+name+"Response.xsd");
+                if (!params.containsKey("altOperationsXSD")) {
+                    altParams.put("operationsXSD", params.get("altOperationsXSD"));
+                } else {
+                    altParams.put("operationsXSD", "../../xsd/" + system + "/" + name + "Request.xsd");
+                }
+            }
+            altParams.put("operation-name", params.get("rootElementName"));
+
+            //не вставляем в этветы комменты с обозначением сколько элементов доступно
+            params.put("omitComments", "true");
+
+            createRqExample(system, name, msgType, altParams);
+            createRsExample(system, name, msgType, params);
+            createDataXSD(system, name, "Response", params);
+            File xslFile = createMockXSL(system, name, params);
+            createRsDataXml(system, name, params);
+
+            //applyMappedTags(xslFile, mappedTags, params);
+
+            System.out.println(system + " " + name + " mock Done");
+        } catch (Exception e) {
+            System.out.println(system + " " + name + " mock Failed");
+            e.printStackTrace();
+
+        }
     }
 
     /**
@@ -278,17 +294,29 @@ public class importXSD {
      * @param name имя сервиса(имя файла)
      * @param params параметры xsl
      */
-    public void driverCycle(String system, String name, Map<String, String> params) {
+    public void driverCycle(String system, String name, String msgType, Map<String, String> params) {
         try
         {
             if (params==null) {
                 params = new HashMap<String, String>(1);
             }
+            if (!params.containsKey("dataFileName")) {
+                params.put("dataFileName", name + "Data.xml");
+            }
             if (!params.containsKey("operationsXSD")) {
                 params.put("operationsXSD", "../../xsd/"+system+"/"+name+"Request.xsd");
             }
+            if (!params.containsKey("system")) {
+                params.put("system", system);
+            }
+            if (!params.containsKey("systemName")) {
+                params.put("systemName", system);
+            }
+            if (!params.containsKey("headerType")) {
+                params.put("headerType", msgType);
+            }
 
-            createRqExample(system, name, params);
+            createRqExample(system, name, msgType, params);
             createDataXSD(system, name, "Request", params);
             createDriverXSL(system, name, params);
             createRqDataXml(system, name, params);
@@ -307,177 +335,201 @@ public class importXSD {
         importXSD instance = new importXSD();
         instance.initValidator(new File(instance.getWebInfPath() + "\\xsd"));
 
-        instance.renewDataBPM();
-        instance.renewDataBBMO();
+        //instance.loadConfig("NCPConfig.xml");
+        //instance.loadConfig("BBMOConfig.xml");
+        instance.loadConfig("BBMOConfig2.xml");
+        //instance.loadConfig("KKMBConfig.xml");
     }
 
-    public void renewDataBPM() {
+    public void loadConfig(String configFilename) throws Exception {
+        final String file = this.getClass().getClassLoader().getResource("").getPath() + "\\..\\..\\src\\main\\webapp\\WEB-INF\\MockConfigFiles\\" + configFilename;
+        GenerateMockAppServlet gen1 = GenerateMockAppServlet.getInstance(file);
+        gen1.setaFilePath(file);
+        gen1.init();
+
+        for (SystemTag system : gen1.getaMockConfig().getListOfSystems())
+        {
+            for (IntegrationPoint point : system.getListOfIntegrationPoints()) {
+                importIntegrationPoint(system, point);
+            }
+        }
+    }
+
+
+    /***
+     * создание точки интеграции
+     * @param system результат парсинга конфига
+     * @param point результат парсинга конфига
+     */
+    public void importIntegrationPoint(SystemTag system, IntegrationPoint point) throws Exception {
+        copyXSDFiles(system, point);
+        if (point.getaIntegrationPointType().equals("Mock")) {
+            importIntegrationPointMock(system, point);
+        } else if (point.getaIntegrationPointType().equals("Driver")) {
+            importIntegrationPointDriver(system, point);
+        } else {
+            throw new IllegalArgumentException("Integration point type {"+point.getaIntegrationPointType()+"} not implemented");
+        }
+    }
+
+    /**
+     * копирует входящие xsd-файлы с зависимостями
+     * @param system результат парсинга конфига
+     * @param point результат парсинга конфига
+     * @throws Exception
+     */
+    public void copyXSDFiles(SystemTag system, IntegrationPoint point) throws Exception {
+        File baseDir = findFolder(system);
+        String systemName = system.getaSystemName();
+        System.out.println("Используется дирректория {"+baseDir.getAbsolutePath()+"}" );
+        importFile(baseDir.getAbsolutePath() + File.separator + system.getaRootXSD(), formSubPath(system.getaRootXSD(), systemName));
+        importFile(baseDir.getAbsolutePath() + File.separator + point.getaXsdFile(), formSubPath(point.getaXsdFile(), systemName));
+        for (Dependency dependency : point.getaDependencies().getaDependency()) {
+            importFile(baseDir.getAbsolutePath() + File.separator + dependency.getaXsdFile(), formSubPath(dependency.getaXsdFile(), systemName));
+        }
+    }
+
+    /**
+     * вырезаем подпуть к директории. Например, если у нас есть строка "commonTypes/commonTypes.xsd", то вернуть нам нужно только commonTypes/
+     * @param pathToAdd относительный путь файла
+     * @param subfolder то, куда надо приписать этот подпуть
+     * @return часть относительного пути без самого файла
+     */
+    private String formSubPath(String pathToAdd, String subfolder) {
+        if (pathToAdd.contains("\\") || pathToAdd.contains("/") ) {
+            int i = pathToAdd.lastIndexOf("/");
+            int j = pathToAdd.lastIndexOf("\\");
+            int k = i>j?i:j;
+            subfolder += File.separator + pathToAdd.substring(0, k);
+        }
+        return subfolder;
+    }
+
+
+
+    /**
+     * Получает путь к папке и проверяет разные возможные пути, чтобы найти нужную нам папку
+     * @param system результат парсинга конфига
+     * @throws Exception
+     */
+    private File findFolder(SystemTag system) throws FileNotFoundException {
+        List<String> possiblePaths = new ArrayList<String>(); // записываем в список всякие разные пути, по которым можна найти папку
+        possiblePaths.add(getPath()); //основной путь
+        possiblePaths.add(getWebInfPath()); //WebInf папку
+        possiblePaths.add(getExamplesPath()); //папку с примерами
+        possiblePaths.add(""); //корень для абсолютных путей и рабочей дирректории
+        for (String subPath : possiblePaths ) { //и по очереди проверям эти пути
+            try {
+                File baseDir = new File(subPath + system.getaPathToXSD());
+                if (!baseDir.exists()) throw new FileNotFoundException(); //папка есть?
+                if (!baseDir.isDirectory()) throw new FileNotFoundException(); //это папка?
+                File baseXSD = new File(subPath + system.getaPathToXSD() + File.separator + system.getaRootXSD() ); //также проверим что в этой папке есть xsd
+                if (!baseXSD.exists()) throw new FileNotFoundException(); //xsd есть?
+                if (baseXSD.isDirectory()) throw new FileNotFoundException(); //xsd это не папка?
+                if (baseXSD.getTotalSpace() == 0) throw new FileNotFoundException(); //xsd не пустой?
+                return baseDir; //нашли нужный нам файл
+            } catch (Exception e) {
+                //не нашли по этому пути, посмотрим в следующем
+            }
+        }
+        throw new FileNotFoundException(system.getaPathToXSD() + "\\" + system.getaRootXSD());
+    }
+
+    /**
+     * копирование одного конкретного xsd-файла в дирректроию WEB-INF\xsd\{subFolder}
+     * Проверяет хэш файла, и если такой уже есть, то не копирует
+     * @param filePathToImport файл, который надо скопировать
+     * @param subFolder подпапка в WEB-INF\xsd куда будет помешен файл
+     */
+    private void importFile(String filePathToImport, String subFolder) throws Exception {
+        File fileToImport = new File(filePathToImport);
+        File copyTo = new File(getWebInfPath()+ File.separator + "xsd" + File.separator + subFolder + File.separator + fileToImport.getName());
+        if (copyTo.exists()) {
+            long cheksumFrom = FileUtils.checksumCRC32(fileToImport);
+            long cheksumTo = FileUtils.checksumCRC32(copyTo);
+            if (cheksumTo == cheksumFrom) {
+                System.out.println("Файл {"+fileToImport.getName()+"} не нуждается в обновлении");
+                return; //файлы одинаковые, копировать не нужно
+            }
+            FileUtils.copyFile(fileToImport, copyTo);
+            System.out.println("Файл {" + fileToImport.getName() + "} обновлен");
+            return;
+        }
+        FileUtils.copyFile(fileToImport, copyTo);
+        System.out.println("Файл {" + fileToImport.getName() + "} скопирован");
+        return;
+    }
+
+    private void importIntegrationPointDriver(SystemTag system, IntegrationPoint point) {
         Map<String, String> params = null;
         params = new HashMap<String, String>();
 
-//TODO засунуть все в xml конфиг
+        String systemName = system.getaSystemName();
+        String headerType = getHeaderTypeByHeaderNamespace(system);
 
-        params.clear();
-        params.put("rootElementName", "forceSignalRq");
-        params.put("xsdBase","CRM.xsd");
-        driverCycle("CRM", "ForceSignal", params);
-
-        params.clear();
-        params.put("rootElementName", "updateDealRq");
-        params.put("xsdBase","CRM.xsd");
-        driverCycle("CRM", "UpdateDeal", params);
-
-        params.clear();
-        params.put("entryPointName", "CreateTaskRs");
-        params.put("RqEntryPointName","CreateTaskRq");
-        params.put("tagNameToTakeLinkedTag","comment");
-        params.put("rootElementName", "createTaskRs");
-        params.put("RqRootElementName", "createTaskRq");
-        mockCycle("CRM", "CreateTask", params);
-
-        params.clear();
-        params.put("entryPointName", "PrtspRs");
-        params.put("RqEntryPointName","PrtspRq");
-        params.put("dataFileName","GetParticipantsData.xml");
-        params.put("tagNameToTakeLinkedTag","performer");
-        params.put("rootElementName", "prtspRs");
-        params.put("RqRootElementName", "prtspRq");
-        mockCycle("CRM", "GetParticipants", params);
-
-        params.clear();
-        params.put("entryPointName", "SaveDealRs");
-        params.put("RqEntryPointName","SaveDealRq");
-        params.put("tagNameToTakeLinkedTag","dealType");
-        params.put("rootElementName", "saveDealRs");
-        params.put("RqRootElementName", "saveDealRq");
-        mockCycle("CRM", "SaveDeal", params);
-
-        params.clear();
-        params.put("entryPointName", "UpdateRefRs");
-        params.put("RqEntryPointName","UpdateRefRq");
-        params.put("tagNameToTakeLinkedTag","referenceItem");
-        params.put("rootElementName", "updateRefRs");
-        params.put("RqRootElementName", "updateRefRq");
-        mockCycle("CRM", "UpdateRef", params);
-
-        params.clear();
-        params.put("entryPointName", "DebtCapacityCalculationResponse");
-        params.put("RqEntryPointName","DebtCapacityCalculationRequest");
-        params.put("systemName","AMRLiRT");
-        params.put("parrentXSDPath","../../xsd/AMRLiRT/AMRLIRT.xsd");
-        params.put("dataFileName", "CalculateDebtCapacityData.xml");
-        params.put("tagNameToTakeLinkedTag","model");
-        params.put("rootElementName", "calculateDCRs");
-        params.put("RqRootElementName", "calculateDCRq");
-        mockCycle("AMRLiRT", "CalculateDebtCapacity", params);
-
-        params.clear();
-        params.put("entryPointName", "CalcRatingResponse");
-        params.put("RqEntryPointName","CalcRatingRequest");
-        params.put("systemName","AMRLiRT");
-        params.put("parrentXSDPath","../../xsd/AMRLiRT/AMRLIRT.xsd");
-        params.put("dataFileName","CalculateRatingData.xml");
-        params.put("tagNameToTakeLinkedTag","model");
-        params.put("rootElementName", "calculateRatingRs");
-        params.put("RqRootElementName", "calculateRatingRq");
-        mockCycle("AMRLiRT", "CalculateRating", params);
-
-        params.clear();
-        params.put("entryPointName", "ConfirmResponse");
-        params.put("RqEntryPointName","ConfirmRequest");
-        params.put("systemName","AMRLiRT");
-        params.put("parrentXSDPath","../../xsd/AMRLiRT/AMRLIRT.xsd");
-        params.put("dataFileName","ConfirmRatingData.xml");
-        params.put("tagNameToTakeLinkedTag","siebelMessage");
-        params.put("rootElementName", "confirmRatingRs");
-        params.put("RqRootElementName", "confirmRatingRq");
-        mockCycle("AMRLiRT", "ConfirmRating", params);
-
-        params.clear();
-        params.put("entryPointName", "CorrectResponse");
-        params.put("RqEntryPointName","CorrectRequest");
-        params.put("systemName","AMRLiRT");
-        params.put("parrentXSDPath","../../xsd/AMRLiRT/AMRLIRT.xsd");
-        params.put("dataFileName","CorrectRatingData.xml");
-        params.put("tagNameToTakeLinkedTag","siebelMessage");
-        params.put("rootElementName", "correctRatingRs");
-        params.put("RqRootElementName", "correctRatingRq");
-        mockCycle("AMRLiRT", "CorrectRating", params);
-
-        params.clear();
-        params.put("entryPointName", "LgdFinalizationResponse");
-        params.put("RqEntryPointName","LgdFinalizationRequest");
-        params.put("systemName","AMRLiRT");
-        params.put("parrentXSDPath","../../xsd/AMRLiRT/AMRLIRT.xsd");
-        params.put("dataFileName","FinalizeLGDData.xml");
-        params.put("tagNameToTakeLinkedTag","type");
-        params.put("rootElementName", "finalizeLGDRs");
-        params.put("RqRootElementName", "finalizeLGDRq");
-        mockCycle("AMRLiRT", "FinalizeLGD", params);
-
-        params.clear();
-        params.put("entryPointName", "LgdCalculationResponse");
-        params.put("RqEntryPointName","LgdCalculationRequest");
-        params.put("systemName","AMRLiRT");
-        params.put("parrentXSDPath","../../xsd/AMRLiRT/AMRLIRT.xsd");
-        params.put("dataFileName","CalculateLGDData.xml");
-        params.put("tagNameToTakeLinkedTag","comment");
-        params.put("rootElementName", "calculateLGDRs");
-        params.put("RqRootElementName", "calculateLGDRq");
-        mockCycle("AMRLiRT", "CalculateLGD", params);
-
-        params.clear();
-        params.put("entryPointName", "FinAnalysisImportResponse");
-        params.put("RqEntryPointName","FinAnalysisImportRequest");
-        params.put("systemName","FinRep");
-        params.put("parrentXSDPath","../../xsd/FinRep/ASFO.xsd");
-        params.put("tagNameToTakeLinkedTag","dealId");
-        params.put("rootElementName", "getFinAnalysisRs");
-        params.put("RqRootElementName", "getFinAnalysisRq");
-        mockCycle("FinRep", "FinAnalysisImport", params);
-
-        params.clear();
-        params.put("entryPointName", "FinReportImportResponse");
-        params.put("RqEntryPointName","FinReportImportRequest");
-        params.put("systemName","FinRep");
-        params.put("parrentXSDPath","../../xsd/FinRep/ASFO.xsd");
-        params.put("tagNameToTakeLinkedTag","finReportType");
-        params.put("rootElementName", "getFinReportRs");
-        params.put("RqRootElementName", "getFinReportRq");
-        mockCycle("FinRep", "FinReportImport", params);
-
-        params.clear();
-        params.put("entryPointName", "ImportRatingResponse");
-        params.put("RqEntryPointName","ImportRatingRequest");
-        params.put("systemName","FinRep");
-        params.put("parrentXSDPath","../../xsd/FinRep/ASFO.xsd");
-        params.put("tagNameToTakeLinkedTag","entityType");
-        params.put("rootElementName", "getRatingsAndFactorsRs");
-        params.put("RqRootElementName", "getRatingsAndFactorsRq");
-        mockCycle("FinRep", "ImportRating", params);
-
-        params.clear();
-        params.put("entryPointName", "UpdateRatingResponse");
-        params.put("RqEntryPointName","UpdateRatingRequest");
-        params.put("systemName","FinRep");
-        params.put("parrentXSDPath","../../xsd/FinRep/ASFO.xsd");
-        params.put("tagNameToTakeLinkedTag","status");
-        params.put("rootElementName", "updateRatingRs");
-        params.put("RqRootElementName", "updateRatingRq");
-        mockCycle("FinRep", "UpdateRating", params);
+        params.put("rootElementName", point.getaRqRootElementName());
+        params.put("operationsXSD", "../../xsd/"+systemName+"/"+point.getaXsdFile() );
+        params.put("xsdBase", system.getaRootXSD());
+        if (point.getaOperationName() != null & !point.getaOperationName().isEmpty()) {
+            params.put("operationName", point.getaOperationName());
+        }
+        driverCycle(systemName, point.getaIntegrationPointName(), headerType, params);
     }
 
-    public void renewDataBBMO() {
-
+    private void importIntegrationPointMock(SystemTag system, IntegrationPoint point) {
         Map<String, String> params = null;
         params = new HashMap<String, String>();
 
-        params.clear();
-        params.put("rootElementName", "SrvPutRemoteLegalAccOperAppRq");
-        params.put("operationsXSD", "../../xsd/CBBOL/BBMOOperationElements.xsd");
-        params.put("systemName","CBBOL");
-        params.put("xsdBase","BBMOMessageElements.xsd");
-        driverCycle("CBBOL", "SrvPutRemoteLegalAccOperAppRq", params);
+        String systemName = system.getaSystemName();
+        String headerType = getHeaderTypeByHeaderNamespace(system);
+        List<LinkedTag> linkedTagList = point.getaLinkedTagSequence().getaListOfLinkedTags();
+        String linkedTag = linkedTagList.get(linkedTagList.size()-1).getaTag(); //TODo пока планируемый функционал реализован не полностью в разрезе тестов. Сейчас в создании примеров сообщений учитывается только последний тэг последовательности. Это может вызвать проблемы с автотестами в глубоких или повтаряющихся линкедтагах. Это не должно повлиять на работосопособность самих заглушек - только на создание примеров и прохождение автотестов
+        String linkedTagQuerry = formLinkedTagSequenceQuerry(linkedTagList);
+
+        params.put("rootElementName", point.getaRsRootElementName());
+        params.put("RqRootElementName", point.getaRqRootElementName());
+        params.put("operationsXSD", "../../xsd/"+systemName+"/"+point.getaXsdFile() );
+        params.put("xsdBase", system.getaRootXSD());
+        params.put("tagNameToTakeLinkedTag", linkedTag);
+        if (linkedTagQuerry!=null) {
+            params.put("tagQuerryToTakeLinkedTag", linkedTagQuerry);
+        }
+        if (point.getaOperationName() != null & !point.getaOperationName().isEmpty()) {
+            params.put("operationName", point.getaOperationName());
+        }
+        mockCycle(systemName, point.getaIntegrationPointName(), headerType, params, point.getaMappedTags());
+    }
+
+    private String formLinkedTagSequenceQuerry(List<LinkedTag> linkedTagList) {
+        String querry = "/";
+        if (linkedTagList== null || linkedTagList.isEmpty()) {
+            return null;
+        } else {
+            for (LinkedTag tag : linkedTagList) {
+                if (tag.getaNameSpace() != null && !tag.getaNameSpace().isEmpty()) {
+                    querry += "/*[local-name()='" + tag.getaTag() + "' and namespace-uri()='" + tag.getaNameSpace() + "']";
+                } else {
+                    querry += "/*[local-name()='" + tag.getaTag() + "']";
+                }
+            }
+            querry += "/text()";
+        }
+        return querry;
+    }
+
+
+    /**
+     * определяет тип заголовка из параметра из конфига
+     * @param system результат парсинга конфига
+     * @return
+     */
+    public static String getHeaderTypeByHeaderNamespace(SystemTag system) {
+        if (system.getaHeaderNamespace().equals("http://sbrf.ru/prpc/mq/headers")) {
+            return "KD4";
+        } else if (system.getaHeaderNamespace().equals("http://sbrf.ru/NCP/esb/envelope/")) {
+            return "NCP";
+        }
+        throw new IllegalArgumentException("Header namespace {"+system.getaHeaderNamespace()+"} not implemented");
     }
 
     /**
@@ -550,6 +602,64 @@ public class importXSD {
                 files.add(file);
             }
         }
+    }
+
+    private void applyMappedTags(File xml, MappedTagSequence mappedTags, Map<String, String> params) throws Exception  {
+        if (mappedTags!=null && mappedTags.getaListOfMappedTagTags()!= null && mappedTags.getaListOfMappedTagTags().size()>0) {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            InputStream stream = new ByteArrayInputStream(FileUtils.readFileToByteArray(xml));
+            Document xmlDoc = builder.parse(stream);
+
+            XPathFactory xPathFactory = XPathFactory.newInstance();
+            XPath xpath = xPathFactory.newXPath();
+            String nameQuerry = "";
+            if (params.containsKey("operationName")) {
+                nameQuerry = " and @name='" + params.get("operationName") + "'";
+            }
+            XPathExpression findBaseElement = xpath.compile("//*[local-name()='template'][@name" + nameQuerry + "]/*[local-name()='element']");
+
+            Node rootElement = (Node) findBaseElement.evaluate(xmlDoc, XPathConstants.NODE);
+
+            for (MappedTag tagSq : mappedTags.getaListOfMappedTagTags()) {
+                if (tagSq.getaMappedFromRqTags() != null) {
+                    MappedFromRqTag tag = tagSq.getaMappedFromRqTags();
+                    Node element = findElementDescriptionInXSL(tag.getaResponseTagSequence().getaListOfLinkedTags(), rootElement);
+                    element.setNodeValue(formElementDescription(tag.getaRequestTagSequence().getaListOfLinkedTags()));
+                }
+                if (tagSq.getaXpathQuerrys() != null) {
+                    MappedByXpath tag = tagSq.getaXpathQuerrys();
+                    Node element = findElementDescriptionInXSL(tag.getaResponseTagSequence().getaListOfLinkedTags(), rootElement);
+                    element.setNodeValue(formElementDescription(tag.getaQuerry()));
+                }
+            }
+        }
+    }
+
+    private Node findElementDescriptionInXSL(List<LinkedTag> tags, Node rootElement) throws Exception {
+        System.setProperty("javax.xml.xpath.XPathFactory:"+ NamespaceConstant.OBJECT_MODEL_SAXON, "net.sf.saxon.xpath.XPathFactoryImpl");
+        XPathFactory xPathFactory = XPathFactory.newInstance(NamespaceConstant.OBJECT_MODEL_SAXON);
+
+        //XPathFactory xPathFactory = net.sf.saxon.xpath.XPathFactoryImpl.newInstance();
+        XPath xpath = xPathFactory.newXPath();
+
+        Node element = rootElement;
+        for (LinkedTag tag : tags) {
+            String xPathQuerry = "/*[local-name()='"+tag.getaTag() + "'] | " +
+                    "if (/*[local-name()='apply-templates'][contains(@select,"+tag.getaTag()+")]) then " +
+                    "(../*[local-name()='template'][contains(@match,"+tag.getaTag()+")])";
+            XPathExpression findElement = xpath.compile(xPathQuerry);
+            element = (Node) findElement.evaluate(element, XPathConstants.NODE);
+        }
+        return element;
+    }
+
+    private String formElementDescription(List<LinkedTag> tags) {
+        return "test";//TODO not implemented
+    }
+
+    private String formElementDescription(String querry) {
+        return "<xsl:value-of select=\""+querry+"\"/>";
     }
 
 

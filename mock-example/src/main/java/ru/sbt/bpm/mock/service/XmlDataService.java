@@ -12,10 +12,8 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 
@@ -28,7 +26,7 @@ public class XmlDataService {
     @Autowired
     private ApplicationContext appContext;
 
-    private String pathBase = "/WEB-INF/data/";
+    private String pathBase = "/WEB-INF/";
     private String xslPathBase = "/WEB-INF/xsl/";
 
     private Validator validator;
@@ -59,26 +57,106 @@ public class XmlDataService {
     }
 
 
-
+    /**
+     * Возвращает xml по имени, относительно pathBase
+     *
+     * @param name путь до файла
+     * @return содержимое файла
+     * @throws IOException
+     */
     public String getXml(String name) throws IOException {
-        return FileUtils.readFileToString(getXmlResource(name).getFile());
+        return FileUtils.readFileToString(getResource(name).getFile(), Charset.forName("UTF-8"));
     }
 
-    public Resource getXmlResource(String name) throws IOException {
-        String[] nameParts = name.split("_");
-        return appContext.getResource(pathBase + nameParts[0] + File.separator + "xml" + File.separator + nameParts[1] + "Data.xml");
+    /**
+     * Возвращает xml по спец имени, относительно pathBase
+     *
+     * @param name путь до файла
+     * @return содержимое файла
+     * @throws IOException
+     */
+    public String getDataXml(String name) throws IOException {
+        return FileUtils.readFileToString(getXmlDataResource(name).getFile(), Charset.forName("UTF-8"));
     }
+
+    /**
+     * Возвращает ресурс, лежащий в pathBase
+     * 
+     * @param name имя xmlData
+     * @return ресурс xml
+     * @throws IOException
+     */
+    public Resource getXmlDataResource(String name) throws IOException {
+        String[] nameParts = name.split("_");
+        return appContext.getResource(pathBase + File.separator +
+                                    "data" + File.separator +
+                                    nameParts[0] + File.separator +
+                                    "xml" + File.separator +
+                                    nameParts[1] + "Data.xml");
+    }
+
+    /**
+     * Возвращает ресурс, лежащий в pathBase
+     *
+     * @param name имя файла, относительно WEB-INF
+     * @return ресурс
+     * @throws IOException
+     */
+    public Resource getResource(String name) throws IOException {
+        return appContext.getResource(pathBase + name);
+    }
+
+    /**
+     * Возвращает ресурс, лежащий в xslPathBase
+     *
+     * @param name спец имя xsl
+     * @return ресурс xsl
+     * @throws IOException
+     */
     public Resource getXslResource(String name) throws IOException {
         String[] nameParts = name.split("_");
         return appContext.getResource(xslPathBase + nameParts[0] + File.separator + File.separator + nameParts[1] + ".xsl");
     }
 
-    public boolean validate(String xmlData) throws SAXException, IOException {
+    /**
+     * Валидирует xmlData на соответствие схем
+     * 
+     * @param xmlData спец имя xmlData
+     * @return признак валидности
+     * @throws Exception
+     */
+    public boolean validate(String xmlData) throws Exception {
         InputStream stream = new ByteArrayInputStream(xmlData.getBytes("UTF-8"));
-//        validator.validate(new StreamSource(stream));
+        try {
+            validator.validate(new StreamSource(stream));
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
         return true;
     }
 
+    /**
+     * Валидирует xmlData на соответствие схем, не бросает исключений
+     *
+     * @param xmlData спец имя xmlData
+     * @return признак валидности
+     */
+    public boolean assertableValidate(String xmlData) {
+        try {
+            return validate(xmlData);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Рекурсивный поиск файлов с определённым расширением
+     *
+     * @param rootDir корневая директория поиска
+     * @param files список файлов, который формуирует функция при поиске
+     * @param ext расширение файла
+     */
     private void searchFiles(File rootDir, ArrayList<File> files, String ext) {
         File[] listFiles = rootDir.listFiles();
         assert listFiles != null;

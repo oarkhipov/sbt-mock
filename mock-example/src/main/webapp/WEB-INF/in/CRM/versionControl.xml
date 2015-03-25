@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<versionControl>
+	<xsdFile name = "CommonTypes">
+		<versionChanges number="withoutNUmber">
+			Добавлены типы:
+			string2, string12, string9
+			Добавлены типы:
+			string4500, string10
+		</versionChanges>
+		<versionChanges number="1.5">
+			Добавлены типы:
+			integer2
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name = "UpdateDealRequest">
+		<versionChanges number="1.01">
+			- В Deal добавлен элемент dealTeamMembers
+			- В Project добавлен элемент fundingDirection
+		</versionChanges>
+		<versionChanges number="1.02">
+			- Тип double17_6 заменен на double17_5
+			- В тип Product (Условия продукта) добавлен элемент productVersion для определения типа условий: первоначальные, запрашиваемые, принятые на КО
+		</versionChanges>
+		<versionChanges number="1.03">
+			- Изменилось ограничение на длину поля origOrgDivision в типе Deal на string2
+		</versionChanges>
+		<versionChanges number="1.04">
+			- Изменилось ограничение на длину поля comment в типe Deal c string 255 на string4500 
+			- Изменилось ограничение на длину поля comment в типе Losses c string 2000 на string4500
+			- Изменилось ограничение на длину поля origOrgUnit в типe Deal c string 255 на string10 
+			- Переименован атрибут salesMethod в dealType в типе Deal
+			- В тип Deal добавлен элемент collateralProvided
+			- В тип Deal добавлен элемент limitKM
+			- В типе Project убран элемент projectVariant
+			- В типе Project убран элемент collateralProvided
+			- Убрана обязательность у следующих полей:
+			  comment, principalBaseCurrency, proposedCollateral, lastCountry, repaymentSchedule, pledgeInsurance,
+			  suspensiveСondition, selectionSchedulePeriod, firstCountry, 
+			  startDate, customerProspects, debtLimit, gracePeriod, changesSchedulePeriod, anotherFeeName, paymentOrder,
+			  calculationBase, finalizationDate, statusLGD, comment, reportDateAmount, percentLGD,
+			  lossELcount, dateLGDcalculated, typeLGD, lossELpercent, countEAD, documentsPresence,
+			  repaymentSpring, projectName, indicatorsOfConstruction, fundingDirection, parcel,
+			  sameIndustryAsBorrower, equityVolume, project
+		</versionChanges>
+		<versionChanges number="1.05">
+			- Исправлено название элемента suspensiveCondition в типе Product (NKP-834)
+			- В типе Product удален элемент providing
+			- В типе Product элемент proposedCollateral стал обязательным
+		</versionChanges>
+		<versionChanges number="1.06">
+			- Изменилось ограничение на длину поля proposedCollateral в типe Product c string 255 на string4500 
+			- Изменилось ограничение на длину поля covenants в типe Product c string 255 на string4500 
+			- Убран элемент projectRating и соответствующий тип Rating
+		</versionChanges>
+		<versionChanges number="1.07">
+			- Изменилось ограничение на длину поля origOrgUnit в типe Deal c string10 на string 255 (пока не будут получены коды подразделений)
+		</versionChanges>
+		<versionChanges number="1.08">
+			- Удален элемент baseCurrency (будет участвоваь во взаимодетйствии с АС ФО)
+			- Поля из interestRate перенесены в financingInfo (объединены структуры)
+			- Для guarantorRating установлен тип integer2
+			- Удалена структура exchangeRates
+		</versionChanges>
+		<versionChanges number="1.09">
+			- Убрана обязательность у полей financingTerm, turnover, changesSchedule в типе Product
+			- Удален элемент supLMID из типа Deal
+			- Добавлен элемент codeCBS в тип Deal
+			- NKP-966: Исправлены опечатки mamberEmail, mamberRole
+		</versionChanges>
+		<versionChanges number="1.10">
+			- Убрана обязательность поля minRate в типе FinancingInfo
+			- Убрана обязательность поля securityShare в типе Collateral
+			- Убрана обязательность полей collateralProvided, limitKM, covenants в типе Deal
+			- В тип Project добавлены элементы projectId, projectRating
+			- Добавлен тип Rating
+			- В тип Product добавлены поля projectID, unutilizedLimit, correctedUnutilizedLimit
+		</versionChanges>
+		<versionChanges number="1.11">		
+			- Удалено поле securityShare в типе Collateral
+			- Добавлены типы StopFactor, ProblemCriteria и соответствующие элементы в типе Deal
+		</versionChanges>
+		<versionChanges number="1.12">		
+			- В StopFactor добавлен StopFactorName, stopFactorCode переименован на stopFactorId
+			- В ProblemCriteria добавлен ProblemCriteriaName, problemProductName вместо problemProductCode, problemCriteriaCode переименован на problemCriteriaId
+		</versionChanges>
+		<versionChanges number="1.13">		
+			- В StopFactor stopFactorId переименован на stopFactorID
+			- В ProblemCriteria problemCriteriaId переименован на problemCriteriaID
+			- EstimatedValueSource переименован на estimatedValueSource
+		</versionChanges>
+		<versionChanges number="1.14">		
+			- contractID, ownerID, ratingID, stopFactorID, problemCriteriaID изменения ограничения длинны на 15
+			- comment в Deal, limitKM, proposedCollateral, stopFactorComment, stopFactorArgument, creditJustification изменения ограничения длинны на 2000
+			- purpose изменения ограничения длинны на 1000
+			- productID, projectID изменения типа на Строка(15)
+			- projectID перенесен из типа Product в тип ProductConditions 
+			- covenants, suspensiveСondition изменена кратность на 0..N
+			- daysForCalculation, estimatedValueCorrectedToEAD изменена кратность на 0..1
+			- collateralID добавлен в тип Сollateral
+			- isLegalPerson добавлен в тип Collateral
+			- anotherInterestRateOrder добавлен в тип FinancingInfo
+		</versionChanges>
+		<versionChanges number="1.15">		
+			- participantProductInfo добавлен в ProductCondition
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name = "UpdateDealResponse">
+		<versionChanges number="1.01">
+			Введена версионность XSD
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name = "SaveDealRequest">
+		<versionChanges number="1.01">
+			- В Deal добавлен элемент dealTeamMembers
+			- В Project добавлен элемент fundingDirection
+		</versionChanges>
+		<versionChanges number="1.02">
+			- Тип double17_6 заменен на double17_5
+			- В underwriterConclusion (Выводы АР) добавлено два элемента decision (Решение андеррайтера о целесообразности кредитования Заемщика), reasonForRejection (Причины отказа)
+			- В тип Product (Условия продукта) добавлен элемент productVersion для определения типа условий: первоначальные, запрашиваемые, принятые на КО
+		</versionChanges>
+		<versionChanges number="1.03">
+			- Изменилось ограничение на длину поля origOrgDivision в типе Deal на string2
+			- Изменилась кратность элемента committeeResult в типе Deal на 0..N
+			- Изменилась кратность элемента underwriterConclusion в типе Deal на 0..N 
+			- Изменилась кратность элемента disagreements в типе UnderwriterConclusion на 1..N 
+			- В тип LoanOfficerConclusion добавлен элемент levelOfRegularity
+		</versionChanges>
+		<versionChanges number="1.04">
+			- Изменилось ограничение на длину поля comment в типe Deal c string 255 на string4500 
+			- Изменилось ограничение на длину поля comment в типе Losses c string 2000 на string4500
+			- Изменилось ограничение на длину поля origOrgUnit в типe Deal c string 255 на string10 
+			- Переименован атрибут salesMethod в dealType в типе Deal
+			- В тип Deal добавлен элемент collateralProvided
+			- В тип Deal добавлен элемент limitKM
+			- В типе Project убран элемент projectVariant
+			- В типе Project убран элемент collateralProvided
+			- У всех элементов типа string4000 изменен тип на string4500. Список элементов: financialConclusion, influenceOnBorrowerConclusion, financialComment, liquidityConclusion, risksConclusion,	generalConclusion, ownershipComment, topManagementComment, participantConclusion, disagreements, conclusion, comment, decision
+			- Убрана обязательность у следующих полей:
+			  comment, principalBaseCurrency, proposedCollateral, lastCountry, repaymentSchedule, pledgeInsurance,
+			  suspensiveСondition, selectionSchedulePeriod, firstCountry, 
+			  startDate, customerProspects, debtLimit, gracePeriod, changesSchedulePeriod, anotherFeeName, paymentOrder,
+			  calculationBase, finalizationDate, statusLGD, comment, reportDateAmount, percentLGD,
+			  lossELcount, dateLGDcalculated, typeLGD, lossELpercent, countEAD, documentsPresence,
+			  repaymentSpring, projectName, indicatorsOfConstruction, fundingDirection, parcel,
+			  sameIndustryAsBorrower, equityVolume, project, 
+			  loanOfficerConclusion, liquidityConclusion, levelOfRegularity, risksConclusion,
+			  coordinatedWithPTF, coordinatedWithManager, ownershipComment, topManagementComment,
+			  participantConclusion, conclusion, decision.
+			- В типе UnderwriterConclusion изменилось кол-во элементов reasonForRejection - от 1 до 4
+			- В типе UnderwriterConclusion изменилось кол-во элементов disagreements - от 1 до N
+			- В тип Deal добавлен элемент riskAnalysis нового типа RiskAnalysis - даныне по рискам
+		</versionChanges>
+		<versionChanges number="1.05">
+			- Исправлено название элемента suspensiveCondition в типе Product (NKP-834)
+			- В типе Product удален элемент providing
+			- В типе Product элемент proposedCollateral стал обязательным
+		</versionChanges>
+		<versionChanges number="1.06">
+			- Изменилось ограничение на длину поля proposedCollateral в типe Product c string 255 на string4500 
+			- Изменилось ограничение на длину поля covenants в типe Product c string 255 на string4500 
+			- В типе InterestRateInfo элемент minRate стал не обязательным 
+		</versionChanges>
+		<versionChanges number="1.07">
+			- Изменилось ограничение на длину поля origOrgUnit в типe Deal c string10 на string 255 (пока не будут получены коды подразделений)
+			- Поля из interestRate перенесены в financingInfo (объединены структуры)
+			- Для guarantorRating установлен тип integer2
+			- Для disagreements максимальная кратность 6
+			- Для requestDate установлен тип dateTime
+		</versionChanges>
+		<versionChanges number="1.08">
+			- Убрана обязательность полей financingTerm, turnover, changesSchedule в типе Product
+			- Убрана обязательность полей collateralProvided, limitKM, covenants в типе Deal
+			- Удален элемент supLMID из типа Deal
+			- NKP-966: Исправлены опечатки mamberEmail, mamberRole
+		</versionChanges>
+		<versionChanges number="1.09">
+			- Убрана обязательность поля securityShare в типе Collateral
+			- В тип Project добавлены элементы projectId, projectRating
+			- Добавлен тип Rating
+			- В тип Product добавлены поля projectID, unutilizedLimit, correctedUnutilizedLimit
+		</versionChanges>
+		<versionChanges number="1.10">		
+			- Удалено поле securityShare в типе Collateral
+			- Добавлены типы StopFactor, ProblemCriteria и соответствующие элементы в типе Deal
+			- Удалены элементы coordinatedWithManager, coordinatedWithPTF, ownershipComment, topManagementComment, participantsComment (и соответствующий тип ParticipantsComment) из LoanOfficerConclusion
+		</versionChanges>
+		<versionChanges number="1.11">		
+			- В StopFactor добавлен StopFactorName, stopFactorCode переименован на stopFactorId
+			- В ProblemCriteria добавлен ProblemCriteriaName, problemProductName вместо problemProductCode, problemCriteriaCode переименован на problemCriteriaId
+		</versionChanges>
+		<versionChanges number="1.13">		
+			- В StopFactor stopFactorID переименован на stopFactorID
+			- В ProblemCriteria problemCriteriaCode переименован на problemCriteriaID, добавлен problemCriteriaName, problemProductCode переименован на problemProductName
+			- EstimatedValueSource переименован на estimatedValueSource
+		</versionChanges>
+		<versionChanges number="1.14">		
+			- servicesConclusionComment добавлен в LoanOfficerConclusion
+			- contractID, ownerID, ratingID, stopFactorID, problemCriteriaID изменения ограничения длинны на 15
+			- comment в Deal, comment в Services, limitKM, proposedCollateral, stopFactorComment, stopFactorArgument, creditJustification, disagreements, conclusion в UnderwriterConclusion, comment в votingResults, riskDescription, assumptionOfRisk, underwriterAssumptionOfRisk изменения ограничения длинны на 2000
+			- decision в CommitteeResult изменения ограничения длинны на 255
+			- purpose изменения ограничения длинны на 1000
+			- productID, projectID изменения типа на Строка(15)
+			- projectID перенесен из типа Product в тип ProductConditions 
+			- covenants, suspensiveCondition, riskAnalysis изменена кратность на 0..N
+			- daysForCalculation, estimatedValueCorrectedToEAD, underwriterConclusion изменена кратность на 0..1
+			- EstimatedValueSource переименован в estimatedValueSource
+			- collateralID добавлен в тип Сollateral
+			- isLegalPerson добавлен в тип Collateral
+			- anotherInterestRateOrder добавлен в тип FinancingInfo
+			- commentAboutVoting добавлен в тип LoanOfficerConclusion
+		</versionChanges>
+		<versionChanges number="1.15">		
+			- participantProductInfo добавлен в ProductCondition для отправки в CRM данных об участниках в разрезе продуктов
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name = "SaveDealResponse">
+		<versionChanges number="1.01">
+			Введена версионность XSD
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name = "GetParticipantsRequest">
+		<versionChanges number="1.01">
+			Введена версионность XSD
+		</versionChanges>
+		<versionChanges number="1.02">
+			- Изменилось ограничение на длину поля comment в типе PrtspRq на string4500
+		</versionChanges>
+		<versionChanges number="1.03">
+			- Убран элемент comment в типе PrtspRq
+		</versionChanges>
+		<versionChanges number="1.04">
+			- Добавлен requestType = getBorrower
+			- Для requestDate установлен тип dateTime
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name = "GetParticipantsResponse">
+		<versionChanges number="1.01">
+			Введена версионность XSD
+		</versionChanges>
+		<versionChanges number="1.02">
+			- В тип Address добавлен элемент zipCode
+		</versionChanges>
+		<versionChanges number="1.03">
+			- Элемент industry сделан обязательным
+			- В тип Participant добавлен элемент inn
+			- Убрана обязательность у следующих полей:
+			  topLevelGroupName, linkedBorrowersGroupID, roleInConsolidatedGroup, consolidatedGroupID, clientType, zipCode, block, email, phone, gender, dateOfBirth, placeOfBirth, identityIsPrimary,
+			  isProblemClient, problemGroup, problemCriteria, age, managerID, experienceInPosition, position, education, fullName, experienceInSimilarPosition
+		</versionChanges>
+		<versionChanges number="1.04">
+			- Элемент approvalDate в типе GroupInfo сделан не обязательным
+			- Элемент share в типе Ownership сделан не обязательным 
+			- Элемент periodOfOwnerhip в типе Ownership сделан не обязательным 			
+		</versionChanges>
+		<versionChanges number="1.05">
+			- Добавлен requestType = getBorrower
+			- ratingValue учстановлен тип integer2
+			- Для updateDate и approvalDate учстановлен тип dateTime
+		</versionChanges>
+		<versionChanges number="1.06">
+			- Переименован элемент Id в dealID в типе PrtspRs
+		</versionChanges>
+		<versionChanges number="1.07">
+			- Удален тип TopManager и соответствующий элемент topManager из типа LegalPerson
+			- Удалены элементы shareholder, beneficiar из типа LegalPerson
+			- Удален тип Address и соответствующий элемент address из типа Participant
+			- В тип LegalPerson добавлен элемент registrationName
+			- В тип Participant добавлен элемент reportingDate
+		</versionChanges>
+		<versionChanges number="1.08">
+			- Удалены элементы identities(и тип Identity), gender, placeOfBirth из типа NaturalPerson 
+			- В NaturalPerson пересены поля identityNumber, identitySeries
+			- Удалены элементы roleInConsolidatedGroup, inn из Participant 
+		</versionChanges>
+		<versionChanges number="1.09">
+			- Удален элемент problemCriteria
+		</versionChanges>
+		<versionChanges number="1.10">
+			- id, ratingID, linkedBorrowersGroupID, consolidatedGroupID, participantID изменения ограничения длинны на 15
+		</versionChanges>
+		<versionChanges number="1.15">		
+			- у части атрибутов LegalPerson убрана обязательность
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name = "CreateTaskRequest">
+		<versionChanges number="1.01">
+			- Элемент fullNameOfResponsiblePerson переименован в responsiblePersonID
+		</versionChanges>
+		<versionChanges number="1.02">
+			- Изменилось ограничение на длину поля comment в типе CreateTaskRq на string4500
+		</versionChanges>
+		<versionChanges number="1.03">
+			- comment изменения ограничения длинны на 255
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name = "CreateTaskResponse">
+		<versionChanges number="1.01">
+			- Элемент fullNameOfResponsiblePerson переименован в responsiblePersonID
+		</versionChanges>
+		<versionChanges number="1.02">
+			- Изменилось ограничение на длину поля comment в типе CreateTaskRs на string4500
+		</versionChanges>
+		<versionChanges number="1.03">
+			- comment изменения ограничения длинны на 255
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name = "ForceSignalRequest">
+		<versionChanges number="1.01">
+			- Элемент fullNameOfResponsiblePerson переименован в responsiblePersonID
+		</versionChanges>
+		<versionChanges number="1.02">
+			- Изменилось ограничение на длину поля comment в типе ForceSignalRq на string4500
+			- Элемент topLevelGroupName в типе ParticipantsGroup сделан необязательным 
+		</versionChanges>
+		<versionChanges number="1.03">
+			- Элемент contractBPMID в типе ForceSignalRq сделан необязательны
+			- Элемент status в типе ForceSignalRq сделан необязательны
+			- Убран элемент participantsGroup и соответствующий тип ParticipantsGroup
+		</versionChanges>
+		<versionChanges number="1.04">
+			- Элемент contractID  сделан необязательны
+		</versionChanges>
+		<versionChanges number="1.05">
+			- comment изменения ограничения длинны на 255
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name = "ForceSignalResponse">
+		<versionChanges number="1.01">
+			- Элемент fullNameOfResponsiblePerson переименован в responsiblePersonID
+		</versionChanges>
+		<versionChanges number="1.02">
+			- Изменилось ограничение на длину поля comment в типе ForceSignalRs на string4500
+		</versionChanges>
+		<versionChanges number="1.03">
+			- Элемент contractID и contractBPMID сделаны необязательными
+		</versionChanges>
+		<versionChanges number="1.04">
+			- comment изменения ограничения длинны на 255
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name = "UpdateRefRequest">
+		<versionChanges number="1.01">
+			Введена версионность XSD
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name = "UpdateRefResponse">
+		<versionChanges number="1.01">
+			Введена версионность XSD
+		</versionChanges>
+		<versionChanges number="1.02">
+			- Элемент parentValueId в типе ListOfValue сделан необязательным 
+		</versionChanges>
+	</xsdFile>
+</versionControl>
+
+
