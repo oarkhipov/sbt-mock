@@ -104,7 +104,7 @@
                         </linkedTag>
                         <linkedTag>
                             <namespace>http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.04/</namespace>
-                            <tag>performer</tag>
+                            <tag>requestType</tag>
                         </linkedTag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>

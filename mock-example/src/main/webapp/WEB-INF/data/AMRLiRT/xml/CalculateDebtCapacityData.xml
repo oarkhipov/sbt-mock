@@ -6,23 +6,22 @@
          <request-time>2014-12-16T17:55:06.410</request-time>
          <operation-name>calculateDCRs</operation-name>
       </SoapHeader>
-      <errorCode>s</errorCode>
-      <errorMessage>string</errorMessage>
-      <crmId>string</crmId>
-      <rmk>10</rmk>
-      <debtCapacity>10</debtCapacity>
-      <rmkInDealCurrency>10</rmkInDealCurrency>
-      <debtCapacityInDealCurrency>10</debtCapacityInDealCurrency>
-      <rmkForNextYear>10</rmkForNextYear>
-      <debtCapacityForNextYear>10</debtCapacityForNextYear>
+      <errorCode>0</errorCode>
+      <errorMessage>Succes</errorMessage>
+      <crmId>BR-1</crmId>
+      <rmk>2</rmk>
+      <debtCapacity>1</debtCapacity>
+      <rmkInDealCurrency>2</rmkInDealCurrency>
+      <debtCapacityInDealCurrency>3</debtCapacityInDealCurrency>
+      <rmkForNextYear>4</rmkForNextYear>
+      <debtCapacityForNextYear>1</debtCapacityForNextYear>
       <listOfAddParameter>
          <addParameter>
-            <order>10</order>
-            <name>string</name>
-            <value>string</value>
+            <order>3</order>
+            <name>String</name>
+            <value>String</value>
          </addParameter>
       </listOfAddParameter>
-      <amMessage>anyString</amMessage>
    </response>
    <response name="test1">
       <SoapHeader>

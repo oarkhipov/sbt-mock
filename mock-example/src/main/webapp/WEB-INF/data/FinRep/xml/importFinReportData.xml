@@ -6,52 +6,52 @@
          <request-time>2014-12-16T17:55:06.410</request-time>
          <operation-name>importFinReportRs</operation-name>
       </SoapHeader>
-      <finReportType>string</finReportType>
-      <entityType>string</entityType>
-      <entityId>string</entityId>
-      <errorCode>string</errorCode>
-      <errorMessage>string</errorMessage>
-      <nonCurrentAssetsNFRS>10</nonCurrentAssetsNFRS>
-      <currentAssetsNFRS>10</currentAssetsNFRS>
-      <nonCurrentAssetsIFRS>10</nonCurrentAssetsIFRS>
-      <currentAssetsIFRS>10</currentAssetsIFRS>
-      <longTermDebtNFRS>10</longTermDebtNFRS>
-      <shortTermDebtNFRS>10</shortTermDebtNFRS>
-      <longTermDebtIFRS>10</longTermDebtIFRS>
-      <shortTermDebtIFRS>10</shortTermDebtIFRS>
-      <ebitdaNFRS>10</ebitdaNFRS>
-      <numQuarterNFRS>10</numQuarterNFRS>
-      <ebitdaIFRS>10</ebitdaIFRS>
-      <numQuarterIFRS>10</numQuarterIFRS>
-      <currencyCodeForFR>string</currencyCodeForFR>
-      <currencyRate>10</currencyRate>
-      <futureCurrencyRate>10</futureCurrencyRate>
-      <purpose>string</purpose>
-      <currentYear>10</currentYear>
-      <govDebt>10</govDebt>
-      <creditGovDebt>10</creditGovDebt>
-      <credit>10</credit>
-      <liabilities>10</liabilities>
-      <liabilitiesNextYear>10</liabilitiesNextYear>
-      <income>10</income>
-      <incomeNextYear>10</incomeNextYear>
-      <plannedCredit>10</plannedCredit>
-      <plannedCreditNextYear>10</plannedCreditNextYear>
+      <finReportType>IFRS</finReportType>
+      <entityType>company</entityType>
+      <entityId>1-AGTFSGHD</entityId>
+      <errorCode>0</errorCode>
+      <errorMessage>Succes</errorMessage>
+      <nonCurrentAssetsNFRS>1234</nonCurrentAssetsNFRS>
+      <currentAssetsNFRS>4344</currentAssetsNFRS>
+      <nonCurrentAssetsIFRS>5466</nonCurrentAssetsIFRS>
+      <currentAssetsIFRS>23244</currentAssetsIFRS>
+      <longTermDebtNFRS>3322</longTermDebtNFRS>
+      <shortTermDebtNFRS>4234</shortTermDebtNFRS>
+      <longTermDebtIFRS>9089</longTermDebtIFRS>
+      <shortTermDebtIFRS>455</shortTermDebtIFRS>
+      <ebitdaNFRS>4234</ebitdaNFRS>
+      <numQuarterNFRS>2344</numQuarterNFRS>
+      <ebitdaIFRS>45645</ebitdaIFRS>
+      <numQuarterIFRS>4</numQuarterIFRS>
+      <currencyCodeForFR>BYR</currencyCodeForFR>
+      <currencyRate>1</currencyRate>
+      <futureCurrencyRate>1</futureCurrencyRate>
+      <purpose>""</purpose>
+      <currentYear>2015</currentYear>
+      <govDebt>6788</govDebt>
+      <creditGovDebt>56744</creditGovDebt>
+      <credit>6668</credit>
+      <liabilities>9853</liabilities>
+      <liabilitiesNextYear>126383</liabilitiesNextYear>
+      <income>33244234</income>
+      <incomeNextYear>77899878</incomeNextYear>
+      <plannedCredit>56677</plannedCredit>
+      <plannedCreditNextYear>56776576</plannedCreditNextYear>
       <facilitySB>
-         <sbName>string</sbName>
-         <sbcd>10</sbcd>
-         <agrNumber>string</agrNumber>
-         <sbcdt>10</sbcdt>
-         <sbDebtCurrencyRate>10</sbDebtCurrencyRate>
-         <sbDebtCurrencyCode>string</sbDebtCurrencyCode>
+         <sbName>Name</sbName>
+         <sbcd>1</sbcd>
+         <agrNumber>12345</agrNumber>
+         <sbcdt>1</sbcdt>
+         <sbDebtCurrencyRate>12</sbDebtCurrencyRate>
+         <sbDebtCurrencyCode>USD</sbDebtCurrencyCode>
       </facilitySB>
       <facilityNotSB>
-         <name>string</name>
-         <cd>10</cd>
-         <cdt>10</cdt>
-         <date>2015-03-26</date>
-         <debtCurrencyRate>10</debtCurrencyRate>
-         <debtCurrencyCode>string</debtCurrencyCode>
+         <name>Name</name>
+         <cd>1</cd>
+         <cdt>12345</cdt>
+         <date>2013-12-31+04:00</date>
+         <debtCurrencyRate>15</debtCurrencyRate>
+         <debtCurrencyCode>USD</debtCurrencyCode>
       </facilityNotSB>
    </response>
    <response name="test1">

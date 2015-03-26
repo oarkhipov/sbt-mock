@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.11/"
                 xmlns:rsd="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.11/prtspRs/Data/"
+                xmlns:rq="http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.04/"
                 xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -9,7 +10,7 @@
    <!--опускаем строку 'xml version="1.0" encoding="UTF-8"'. С ней не работает MQ очередь-->
 <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
    <xsl:param name="name"
-              select="//*[local-name()='Envelope' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='Body' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='prtspRq' and namespace-uri()='http://sbrf.ru/NCP/CRM/']/*[local-name()='performer' and namespace-uri()='http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.04/']/text()"/>
+              select="//*[local-name()='Envelope' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='Body' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='prtspRq' and namespace-uri()='http://sbrf.ru/NCP/CRM/']/*[local-name()='requestType' and namespace-uri()='http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.04/']/text()"/>
    <xsl:param name="dataFileName"
               select="'../../data/CRM/xml/GetParticipantsData.xml'"/>
    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
@@ -230,8 +231,7 @@
 			      <tns:dealID>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:dealID"/>
          </tns:dealID>
-			      <tns:requestType>
-            <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:requestType"/>
+			      <tns:requestType><xsl:value-of select="/soap:Envelope/soap:Body/CRM:prtspRq/rq:requestType"/>
          </tns:requestType>
 			      <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:participantsGroup"/>
 			      <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:operationStatus"/>
