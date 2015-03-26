@@ -96,11 +96,6 @@
    <xsd:complexType name="UpdateDealRq">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
-         <xsd:annotation>
-            <xsd:documentation>
-				Элемент верхнего уровня
-			</xsd:documentation>
-         </xsd:annotation>
          <xsd:element name="deal" type="tns:Deal">
             <xsd:annotation>
                <xsd:documentation>

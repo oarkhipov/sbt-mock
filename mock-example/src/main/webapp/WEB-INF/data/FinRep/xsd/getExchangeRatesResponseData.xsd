@@ -98,11 +98,6 @@
    <xsd:complexType name="GetExchangeRatesResponse">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
-         <xsd:annotation>
-            <xsd:documentation>
-				Корневой элемент
-			</xsd:documentation>
-         </xsd:annotation>
          <xsd:element name="dealID" type="frct:string15">
             <xsd:annotation>
                <xsd:documentation>

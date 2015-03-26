@@ -32,7 +32,13 @@
                     <xsl:otherwise><xsl:value-of select="$defaultId"/></xsl:otherwise>
                 </xsl:choose>
             </soap:message-id>
-            <soap:request-time><xsl:value-of select="$timestamp"/></soap:request-time>
+            <soap:request-time>
+                <xsl:choose>
+                    <xsl:when test="/*[local-name()='Envelope']/*[local-name()='Header']/*[local-name()='request-time']"><xsl:value-of select="/*[local-name()='Envelope']/*[local-name()='Header']/*[local-name()='request-time']"/></xsl:when>
+                    <xsl:when test="//*[local-name()='request' or local-name()='response']/*[local-name()='SoapHeader']/*[local-name()='request-time']"><xsl:value-of select="//*[local-name()='request' or local-name()='response']/*[local-name()='SoapHeader']/*[local-name()='request-time']"/></xsl:when>
+                    <xsl:otherwise><xsl:value-of select="$timestamp"/></xsl:otherwise>
+                </xsl:choose>
+            </soap:request-time>
             <soap:operation-name><xsl:value-of select="$operation-name"/></soap:operation-name>
 
             <xsl:choose>
