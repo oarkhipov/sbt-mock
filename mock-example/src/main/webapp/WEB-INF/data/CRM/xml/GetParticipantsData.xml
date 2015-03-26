@@ -8,8 +8,56 @@
       </SoapHeader>
       <dealID>string</dealID>
       <requestType>string</requestType>
-      <participantsGroup/>
-      <operationStatus/>
+      <participantsGroup>
+         <participants>
+            <participantID>string</participantID>
+            <type>string</type>
+            <isBorrower>false</isBorrower>
+            <clientType>string</clientType>
+            <name>string</name>
+            <resident>false</resident>
+            <consolidatedGroupID>string</consolidatedGroupID>
+            <linkedBorrowersGroupID>string</linkedBorrowersGroupID>
+            <industry>string</industry>
+            <inn>string</inn>
+            <reportingDate>2015-03-26</reportingDate>
+            <rating>
+               <ratingID>string</ratingID>
+               <ratingValue>99</ratingValue>
+               <ratingType>string</ratingType>
+               <ratingModel>string</ratingModel>
+               <ratingCalculatedDate>2015-03-26</ratingCalculatedDate>
+               <ratingCalculatedRole>string</ratingCalculatedRole>
+               <ratingCalculatedBy>string</ratingCalculatedBy>
+               <ratingApprovalDate>2015-03-26</ratingApprovalDate>
+               <ratingApprovedBy>string</ratingApprovedBy>
+            </rating>
+         </participants>
+         <groupType>string</groupType>
+         <groupInfo>
+            <id>string</id>
+            <label>string</label>
+            <status>string</status>
+            <updateDate>2015-03-26T12:00:00</updateDate>
+            <approvalDate>2015-03-26T12:00:00</approvalDate>
+            <ratings>
+               <ratingID>string</ratingID>
+               <ratingValue>99</ratingValue>
+               <ratingType>string</ratingType>
+               <ratingModel>string</ratingModel>
+               <ratingCalculatedDate>2015-03-26</ratingCalculatedDate>
+               <ratingCalculatedRole>string</ratingCalculatedRole>
+               <ratingCalculatedBy>string</ratingCalculatedBy>
+               <ratingApprovalDate>2015-03-26</ratingApprovalDate>
+               <ratingApprovedBy>string</ratingApprovedBy>
+            </ratings>
+            <topLevelGroupName>string</topLevelGroupName>
+         </groupInfo>
+      </participantsGroup>
+      <operationStatus>
+         <errorCode>string</errorCode>
+         <errorMessage>string</errorMessage>
+      </operationStatus>
    </response>
    <response name="test1">
       <SoapHeader>
@@ -19,7 +67,11 @@
       </SoapHeader>
       <dealID>string</dealID>
       <requestType>string</requestType>
-      <participantsGroup/>
-      <operationStatus/>
+      <participantsGroup>
+         <groupType>string</groupType>
+      </participantsGroup>
+      <operationStatus>
+         <errorCode>string</errorCode>
+      </operationStatus>
    </response>
 </data>

@@ -7,7 +7,9 @@
    <soap:Body>
       <AMRLiRT:correctRatingRs xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
                                xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/">
-         <tns:return/>
+         <tns:return>
+            <tns:errorCode>string</tns:errorCode>
+         </tns:return>
       </AMRLiRT:correctRatingRs>
    </soap:Body>
 </soap:Envelope>

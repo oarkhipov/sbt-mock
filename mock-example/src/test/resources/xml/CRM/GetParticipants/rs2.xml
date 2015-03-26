@@ -9,8 +9,12 @@
                    xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.11/">
          <tns:dealID>string</tns:dealID>
          <tns:requestType>string</tns:requestType>
-         <tns:participantsGroup/>
-         <tns:operationStatus/>
+         <tns:participantsGroup>
+            <tns:groupType>string</tns:groupType>
+         </tns:participantsGroup>
+         <tns:operationStatus>
+            <tns:errorCode>string</tns:errorCode>
+         </tns:operationStatus>
       </CRM:prtspRs>
    </soap:Body>
 </soap:Envelope>

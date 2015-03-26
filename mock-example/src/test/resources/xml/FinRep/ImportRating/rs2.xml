@@ -11,7 +11,17 @@
          <tns:entityType>string</tns:entityType>
          <tns:entityId>string</tns:entityId>
          <tns:errorCode>string</tns:errorCode>
-         <tns:listOfRating/>
+         <tns:listOfRating><!--from 1 to unbounded elements --><tns:rating>
+               <tns:ratingId>string</tns:ratingId>
+               <tns:status>string</tns:status>
+               <tns:listOfRatingCalc><!--from 1 to unbounded elements --><tns:ratingCalc>
+                     <tns:ratingCalcId>string</tns:ratingCalcId>
+                     <tns:modelName>string</tns:modelName>
+                     <tns:modelIntegrationId>string</tns:modelIntegrationId>
+                  </tns:ratingCalc>
+               </tns:listOfRatingCalc>
+            </tns:rating>
+         </tns:listOfRating>
       </FinRep:importRatingRs>
    </soap:Body>
 </soap:Envelope>

@@ -15,7 +15,13 @@
       <debtCapacityInDealCurrency>10</debtCapacityInDealCurrency>
       <rmkForNextYear>10</rmkForNextYear>
       <debtCapacityForNextYear>10</debtCapacityForNextYear>
-      <listOfAddParameter/>
+      <listOfAddParameter>
+         <addParameter>
+            <order>10</order>
+            <name>string</name>
+            <value>string</value>
+         </addParameter>
+      </listOfAddParameter>
       <amMessage>anyString</amMessage>
    </response>
    <response name="test1">

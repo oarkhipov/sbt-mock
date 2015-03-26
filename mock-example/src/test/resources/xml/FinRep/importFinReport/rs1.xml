@@ -38,8 +38,20 @@
          <!--optional--><tns:incomeNextYear>10</tns:incomeNextYear>
          <!--optional--><tns:plannedCredit>10</tns:plannedCredit>
          <!--optional--><tns:plannedCreditNextYear>10</tns:plannedCreditNextYear>
-         <!--from 0 to unbounded elements --><tns:facilitySB/>
-         <!--from 0 to unbounded elements --><tns:facilityNotSB/>
+         <!--from 0 to unbounded elements --><tns:facilitySB><!--optional--><tns:sbName>string</tns:sbName>
+            <tns:sbcd>10</tns:sbcd>
+            <!--optional--><tns:agrNumber>string</tns:agrNumber>
+            <tns:sbcdt>10</tns:sbcdt>
+            <tns:sbDebtCurrencyRate>10</tns:sbDebtCurrencyRate>
+            <!--optional--><tns:sbDebtCurrencyCode>string</tns:sbDebtCurrencyCode>
+         </tns:facilitySB>
+         <!--from 0 to unbounded elements --><tns:facilityNotSB><!--optional--><tns:name>string</tns:name>
+            <tns:cd>10</tns:cd>
+            <tns:cdt>10</tns:cdt>
+            <!--optional--><tns:date>2015-03-26</tns:date>
+            <tns:debtCurrencyRate>10</tns:debtCurrencyRate>
+            <!--optional--><tns:debtCurrencyCode>string</tns:debtCurrencyCode>
+         </tns:facilityNotSB>
       </FinRep:importFinReportRs>
    </soap:Body>
 </soap:Envelope>

@@ -20,7 +20,16 @@
       <totalValue>10</totalValue>
       <totalColValueLgd>10</totalColValueLgd>
       <totalColValueEad>10</totalColValueEad>
-      <listOfCollateral/>
+      <listOfCollateral>
+         <collateral>
+            <crmId>string</crmId>
+            <collType>string</collType>
+            <returnRate>10</returnRate>
+            <discountRate>10</discountRate>
+            <collValueEad>10</collValueEad>
+            <collValueLgd>10</collValueLgd>
+         </collateral>
+      </listOfCollateral>
    </response>
    <response name="test1">
       <SoapHeader>

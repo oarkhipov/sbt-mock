@@ -7,7 +7,10 @@
    <soap:Body>
       <AMRLiRT:calculateRatingRs xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
                                  xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/">
-         <tns:return/>
+         <tns:return>
+            <tns:errorCode>string</tns:errorCode>
+            <tns:listOfResultRating/>
+         </tns:return>
       </AMRLiRT:calculateRatingRs>
    </soap:Body>
 </soap:Envelope>

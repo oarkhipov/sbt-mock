@@ -7,7 +7,26 @@
    <soap:Body>
       <CRM:updateDealRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                         xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.15/">
-         <tns:deal/>
+         <tns:deal>
+            <tns:dealID>string</tns:dealID>
+            <tns:dealCreationDate>2015-03-26T12:00:00</tns:dealCreationDate>
+            <tns:dealEssense>string</tns:dealEssense>
+            <tns:requestPurpose>string</tns:requestPurpose>
+            <tns:dealType>string</tns:dealType>
+            <tns:dealStatus>string</tns:dealStatus>
+            <tns:requestDate>2015-03-26T12:00:00</tns:requestDate>
+            <tns:origOrgUnit>string</tns:origOrgUnit>
+            <tns:origOrgDivision>st</tns:origOrgDivision>
+            <tns:codeCBS>string</tns:codeCBS>
+            <tns:clientFileID>string</tns:clientFileID>
+            <tns:dealFileID>string</tns:dealFileID>
+            <!--from 1 to unbounded elements --><tns:dealTeamMembers>
+               <tns:memberId>string</tns:memberId>
+               <tns:memberName>string</tns:memberName>
+               <tns:memberEmail>string</tns:memberEmail>
+               <tns:memberRole>string</tns:memberRole>
+            </tns:dealTeamMembers>
+         </tns:deal>
       </CRM:updateDealRq>
    </soap:Body>
 </soap:Envelope>

@@ -9,7 +9,11 @@
       <dealID>string</dealID>
       <errorCode>string</errorCode>
       <errorMessage>string</errorMessage>
-      <exchangeRates/>
+      <exchangeRates>
+         <currencyCode>string</currencyCode>
+         <currencyRate>1234567890</currencyRate>
+         <currencyDate>2015-03-26</currencyDate>
+      </exchangeRates>
    </response>
    <response name="test1">
       <SoapHeader>
@@ -19,6 +23,10 @@
       </SoapHeader>
       <dealID>string</dealID>
       <errorCode>string</errorCode>
-      <exchangeRates/>
+      <exchangeRates>
+         <currencyCode>string</currencyCode>
+         <currencyRate>1234567890</currencyRate>
+         <currencyDate>2015-03-26</currencyDate>
+      </exchangeRates>
    </response>
 </data>

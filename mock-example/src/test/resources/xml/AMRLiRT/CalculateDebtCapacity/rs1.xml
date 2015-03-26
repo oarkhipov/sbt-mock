@@ -16,7 +16,11 @@
          <tns:debtCapacityInDealCurrency>10</tns:debtCapacityInDealCurrency>
          <!--optional--><tns:rmkForNextYear>10</tns:rmkForNextYear>
          <!--optional--><tns:debtCapacityForNextYear>10</tns:debtCapacityForNextYear>
-         <tns:listOfAddParameter/>
+         <tns:listOfAddParameter><!--from 0 to unbounded elements --><tns:addParameter><!--optional--><tns:order>10</tns:order>
+               <tns:name>string</tns:name>
+               <tns:value>string</tns:value>
+            </tns:addParameter>
+         </tns:listOfAddParameter>
          <!--optional--><tns:amMessage>anyString</tns:amMessage>
       </AMRLiRT:calculateDCRs>
    </soap:Body>

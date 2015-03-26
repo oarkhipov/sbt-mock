@@ -24,9 +24,29 @@
          <tns:model>string</tns:model>
          <!--optional--><tns:unutilizedLimit>10</tns:unutilizedLimit>
          <!--optional--><tns:agreementNum>string</tns:agreementNum>
-         <!--optional--><tns:account/>
-         <tns:user/>
-         <!--optional--><tns:listOfCollateral/>
+         <!--optional--><tns:account>
+            <tns:inn>string</tns:inn>
+            <tns:name>string</tns:name>
+         </tns:account>
+         <tns:user>
+            <tns:fio>string</tns:fio>
+            <tns:position>string</tns:position>
+            <tns:tDivision>string</tns:tDivision>
+            <tns:fDivision>string</tns:fDivision>
+         </tns:user>
+         <!--optional--><tns:listOfCollateral><!--from 0 to unbounded elements --><tns:collateral>
+               <tns:crmId>string</tns:crmId>
+               <tns:collType>string</tns:collType>
+               <tns:assessType>string</tns:assessType>
+               <!--optional--><tns:assessSource>string</tns:assessSource>
+               <tns:assessment>10</tns:assessment>
+               <tns:businessValue>string</tns:businessValue>
+               <tns:expertRate>string</tns:expertRate>
+               <!--optional--><tns:portfSize>string</tns:portfSize>
+               <tns:assessmentDate>2015-03-26</tns:assessmentDate>
+               <!--optional--><tns:pdRate>10</tns:pdRate>
+            </tns:collateral>
+         </tns:listOfCollateral>
       </AMRLiRT:calculateLGDRq>
    </soap:Body>
 </soap:Envelope>

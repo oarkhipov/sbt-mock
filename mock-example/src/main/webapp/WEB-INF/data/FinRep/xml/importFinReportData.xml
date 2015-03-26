@@ -37,8 +37,22 @@
       <incomeNextYear>10</incomeNextYear>
       <plannedCredit>10</plannedCredit>
       <plannedCreditNextYear>10</plannedCreditNextYear>
-      <facilitySB/>
-      <facilityNotSB/>
+      <facilitySB>
+         <sbName>string</sbName>
+         <sbcd>10</sbcd>
+         <agrNumber>string</agrNumber>
+         <sbcdt>10</sbcdt>
+         <sbDebtCurrencyRate>10</sbDebtCurrencyRate>
+         <sbDebtCurrencyCode>string</sbDebtCurrencyCode>
+      </facilitySB>
+      <facilityNotSB>
+         <name>string</name>
+         <cd>10</cd>
+         <cdt>10</cdt>
+         <date>2015-03-26</date>
+         <debtCurrencyRate>10</debtCurrencyRate>
+         <debtCurrencyCode>string</debtCurrencyCode>
+      </facilityNotSB>
    </response>
    <response name="test1">
       <SoapHeader>

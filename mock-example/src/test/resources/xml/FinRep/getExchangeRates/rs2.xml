@@ -9,7 +9,11 @@
                                  xmlns:tns="http://sbrf.ru/NCP/FinRep/GetExchangeRatesRs/1.02/">
          <tns:dealID>string</tns:dealID>
          <tns:errorCode>string</tns:errorCode>
-         <!--from 1 to unbounded elements --><tns:exchangeRates/>
+         <!--from 1 to unbounded elements --><tns:exchangeRates>
+            <tns:currencyCode>string</tns:currencyCode>
+            <tns:currencyRate>1234567890</tns:currencyRate>
+            <tns:currencyDate>2015-03-26</tns:currencyDate>
+         </tns:exchangeRates>
       </FinRep:getExchangeRatesRs>
    </soap:Body>
 </soap:Envelope>

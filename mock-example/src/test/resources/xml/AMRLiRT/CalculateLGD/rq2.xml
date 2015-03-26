@@ -15,7 +15,12 @@
          <tns:crmId>string</tns:crmId>
          <tns:comment>test1</tns:comment>
          <tns:model>string</tns:model>
-         <tns:user/>
+         <tns:user>
+            <tns:fio>string</tns:fio>
+            <tns:position>string</tns:position>
+            <tns:tDivision>string</tns:tDivision>
+            <tns:fDivision>string</tns:fDivision>
+         </tns:user>
       </AMRLiRT:calculateLGDRq>
    </soap:Body>
 </soap:Envelope>

@@ -17,7 +17,12 @@
          <tns:currencyRate>10</tns:currencyRate>
          <tns:futureCurrencyRate>10</tns:futureCurrencyRate>
          <tns:currentCurrencyRate>10</tns:currentCurrencyRate>
-         <tns:accountList/>
+         <tns:accountList>
+            <tns:inn>string</tns:inn>
+            <tns:name>string</tns:name>
+            <tns:sbrfPriority>string</tns:sbrfPriority>
+            <tns:sbrfIndustry>string</tns:sbrfIndustry>
+         </tns:accountList>
       </AMRLiRT:calculateDCRq>
    </soap:Body>
 </soap:Envelope>

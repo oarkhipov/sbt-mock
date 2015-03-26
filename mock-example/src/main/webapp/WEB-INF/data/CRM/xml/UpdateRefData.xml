@@ -6,7 +6,14 @@
          <request-time>2014-12-16T17:55:06.410</request-time>
          <operation-name>updateRefRs</operation-name>
       </SoapHeader>
-      <referenceItem/>
+      <referenceItem>
+         <referenceid>string</referenceid>
+         <listOfValue>
+            <value>string</value>
+            <valueId>string</valueId>
+            <parentValueId>string</parentValueId>
+         </listOfValue>
+      </referenceItem>
       <errorCode>string</errorCode>
       <errorMessage>string</errorMessage>
    </response>

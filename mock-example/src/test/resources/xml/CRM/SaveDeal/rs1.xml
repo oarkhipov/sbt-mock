@@ -7,7 +7,10 @@
    <soap:Body>
       <CRM:saveDealRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                       xmlns:tns="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/">
-         <tns:operationStatus/>
+         <tns:operationStatus>
+            <tns:errorCode>string</tns:errorCode>
+            <!--optional--><tns:errorMessage>string</tns:errorMessage>
+         </tns:operationStatus>
          <tns:dealID>string</tns:dealID>
       </CRM:saveDealRs>
    </soap:Body>

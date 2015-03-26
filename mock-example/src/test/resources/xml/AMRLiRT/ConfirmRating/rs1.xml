@@ -7,7 +7,16 @@
    <soap:Body>
       <AMRLiRT:confirmRatingRs xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
                                xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRs/">
-         <tns:return/>
+         <tns:return>
+            <tns:errorCode>string</tns:errorCode>
+            <!--optional--><tns:errorMessage>string</tns:errorMessage>
+            <!--optional--><tns:listOfAddParameter><!--from 0 to unbounded elements --><tns:addParameter>
+                  <tns:order>10</tns:order>
+                  <tns:name>string</tns:name>
+                  <tns:value>string</tns:value>
+               </tns:addParameter>
+            </tns:listOfAddParameter>
+         </tns:return>
       </AMRLiRT:confirmRatingRs>
    </soap:Body>
 </soap:Envelope>

@@ -6,7 +6,10 @@
          <request-time>2014-12-16T17:55:06.410</request-time>
          <operation-name>saveDealRs</operation-name>
       </SoapHeader>
-      <operationStatus/>
+      <operationStatus>
+         <errorCode>string</errorCode>
+         <errorMessage>string</errorMessage>
+      </operationStatus>
       <dealID>string</dealID>
    </response>
    <response name="test1">
@@ -15,7 +18,9 @@
          <request-time>2014-12-16T17:55:06.410</request-time>
          <operation-name>saveDealRs</operation-name>
       </SoapHeader>
-      <operationStatus/>
+      <operationStatus>
+         <errorCode>string</errorCode>
+      </operationStatus>
       <dealID>string</dealID>
    </response>
 </data>

@@ -6,7 +6,14 @@
    </soap:Header>
    <soap:Body>
       <CRM:updateRefRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
-                       xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/"><!--from 0 to unbounded elements --><tns:referenceItem/>
+                       xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/"><!--from 0 to unbounded elements --><tns:referenceItem>
+            <tns:referenceid>string</tns:referenceid>
+            <!--from 0 to unbounded elements --><tns:listOfValue>
+               <tns:value>string</tns:value>
+               <tns:valueId>string</tns:valueId>
+               <!--optional--><tns:parentValueId>string</tns:parentValueId>
+            </tns:listOfValue>
+         </tns:referenceItem>
          <tns:errorCode>string</tns:errorCode>
          <!--optional--><tns:errorMessage>string</tns:errorMessage>
       </CRM:updateRefRs>
