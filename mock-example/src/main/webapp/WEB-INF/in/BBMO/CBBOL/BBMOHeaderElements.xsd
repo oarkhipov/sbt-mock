@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by Виктор Стариков (SBT) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10" xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10" xmlns:tns="http://sbrf.ru/prpc/mq/headers" targetNamespace="http://sbrf.ru/prpc/mq/headers" elementFormDefault="qualified">
+	<import namespace="http://sbrf.ru/prpc/bbmo/dataTypes/10" schemaLocation="commonTypes/dataTypes.xsd"/>
+	<import namespace="http://sbrf.ru/prpc/bbmo/simpleTypes/10" schemaLocation="commonTypes/simpleTypes.xsd"/>
+	<element name="AsyncHeader">
+		<annotation>
+			<documentation>Заголовок SOAP-сообщения</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element name="message-id" type="st:UUID">
+					<annotation>
+						<documentation>Уникальный идентификатор сообщения, передаваемого в рамках SOAP-пакета</documentation>
+					</annotation>
+				</element>
+				<element name="request-time" type="dt:DateTime">
+					<annotation>
+						<documentation>Системное время при отправке сообщения АС-отправителем с учетом временной зоны</documentation>
+					</annotation>
+				</element>
+				<element name="correlation-id" type="st:UUID" minOccurs="0">
+					<annotation>
+						<documentation>Идентификатор корреляции</documentation>
+					</annotation>
+				</element>
+				<element name="eis-name" type="st:SystemName_Type" minOccurs="0">
+					<annotation>
+						<documentation>Идентификатор системы инициатора запроса/ответа</documentation>
+					</annotation>
+				</element>
+				<element name="system-id" type="st:SystemName_Type" minOccurs="0" maxOccurs="unbounded">
+					<annotation>
+						<documentation>Идентификатор системы получателя запроса</documentation>
+					</annotation>
+				</element>
+				<element name="operation-name" type="st:OperationName_Type">
+					<annotation>
+						<documentation>Название операции вызываемого сервиса</documentation>
+					</annotation>
+				</element>
+				<element name="operation-version" type="dt:DefString" minOccurs="0">
+					<annotation>
+						<documentation>Версия операции</documentation>
+					</annotation>
+				</element>
+				<element name="user-id" type="dt:DefString" minOccurs="0">
+					<annotation>
+						<documentation>Идентификатор пользователя в системе инициаторе запроса/ответа</documentation>
+					</annotation>
+				</element>
+				<element name="user-name" type="dt:DefString" minOccurs="0">
+					<annotation>
+						<documentation>Полное ФИО пользователя в системе инициаторе запроса/ответа</documentation>
+					</annotation>
+				</element>
+				<element name="proc-inst-tb" type="st:TB_Type" minOccurs="0">
+					<annotation>
+						<documentation>Код ТБ</documentation>
+					</annotation>
+				</element>
+				<any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded">
+					<annotation>
+						<documentation>Точка расширения заголовка (не используется, добавлено на персективу)</documentation>
+					</annotation>
+				</any>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

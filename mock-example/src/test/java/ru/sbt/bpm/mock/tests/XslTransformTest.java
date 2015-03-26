@@ -98,6 +98,33 @@ public class XslTransformTest {
                  "xml/CRM/UpdateDeal/rq1.xml");
     }
 
+    @Test
+    public void testCloseContract() throws Exception {
+        final String dir = this.getClass().getClassLoader().getResource("").getPath();
+        System.out.println(dir);
+        checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\CloseContractInfo.xsl",
+                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\CloseContractInfoRequestData.xml",
+                "xml/CRM/CloseContractInfo/rq1.xml");
+    }
+
+    @Test
+    public void testProblemGroupInfo() throws Exception {
+        final String dir = this.getClass().getClassLoader().getResource("").getPath();
+        System.out.println(dir);
+        checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\ProblemGroupInfo.xsl",
+                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\ProblemGroupInfoRequestData.xml",
+                "xml/CRM/ProblemGroupInfo/rq1.xml");
+    }
+
+    @Test
+    public void testReferenceDataInfo() throws Exception {
+        final String dir = this.getClass().getClassLoader().getResource("").getPath();
+        System.out.println(dir);
+        checkXSLT(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\ReferenceDataInfo.xsl",
+                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\ReferenceDataInfoRequestData.xml",
+                "xml/CRM/ReferenceDataInfo/rq1.xml");
+    }
+
 
     @Test
     public void testXMLDataRowToXMLDataList() throws Exception {

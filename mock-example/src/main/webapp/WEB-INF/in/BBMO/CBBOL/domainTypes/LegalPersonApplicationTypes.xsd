@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by Nesterenko (EMBRACE) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10" xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10" xmlns:tns="http://sbrf.ru/prpc/bbmo/10" xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10" targetNamespace="http://sbrf.ru/prpc/bbmo/10" elementFormDefault="qualified">
+	<import namespace="http://sbrf.ru/prpc/bbmo/dataTypes/10" schemaLocation="../commonTypes/dataTypes.xsd"/>
+	<import namespace="http://sbrf.ru/prpc/bbmo/simpleTypes/10" schemaLocation="../commonTypes/simpleTypes.xsd"/>
+	<import namespace="http://sbrf.ru/prpc/bbmo/commonTypes/10" schemaLocation="../commonTypes/commonTypes.xsd"/>
+	<include schemaLocation="CommonStructureTypes.xsd"/>
+	<element name="LegalPersonApplication">
+		<annotation>
+			<documentation>Заявление юридического лица</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element name="ApplicationId" type="dt:DefString" minOccurs="0">
+					<annotation>
+						<documentation>ID заявления (не используется, добавлено на перспективу)</documentation>
+					</annotation>
+				</element>
+				<element name="OperationType" type="dt:DefString" minOccurs="0">
+					<annotation>
+						<documentation>Тип операции (не используется, добавлено на перспективу)</documentation>
+					</annotation>
+				</element>
+				<element name="ClientId" type="dt:PosInteger" minOccurs="0">
+					<annotation>
+						<documentation>ID клиента</documentation>
+					</annotation>
+				</element>
+				<element name="TaxId" type="st:TaxId_Type">
+					<annotation>
+						<documentation>ИНН Клиента</documentation>
+					</annotation>
+				</element>
+				<element name="CustomerFullName" type="dt:DefString">
+					<annotation>
+						<documentation>Полное наименование клиента</documentation>
+					</annotation>
+				</element>
+				<element ref="tns:BankSubdivision">
+					<annotation>
+						<documentation>Подразделение
+Справочник подразделений Банка</documentation>
+					</annotation>
+				</element>
+				<element name="InitDate" type="dt:Date">
+					<annotation>
+						<documentation>Дата инициации заявления</documentation>
+					</annotation>
+				</element>
+				<element name="AgreementIdentifier" type="dt:DefString" minOccurs="0">
+					<annotation>
+						<documentation>Идентификатор договора</documentation>
+					</annotation>
+				</element>
+				<element name="AgreementNumber" type="dt:DefString" minOccurs="0">
+					<annotation>
+						<documentation>Номер договора</documentation>
+					</annotation>
+				</element>
+				<element name="MainAccountNumber" type="st:AccountNumber_Type" minOccurs="0">
+					<annotation>
+						<documentation>Номер основного счета</documentation>
+					</annotation>
+				</element>
+				<element name="TaxRegReasonCode" type="st:TaxRegReasonCode_Type" minOccurs="0">
+					<annotation>
+						<documentation>КПП клиента</documentation>
+					</annotation>
+				</element>
+				<element name="BarCode" type="dt:DefString" minOccurs="0">
+					<annotation>
+						<documentation>Штрих-код</documentation>
+					</annotation>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

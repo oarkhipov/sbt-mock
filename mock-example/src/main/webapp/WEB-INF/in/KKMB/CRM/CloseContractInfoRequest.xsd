@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		targetNamespace="http://sbrf.ru/prpc/kkmb/crm/ContractClose/req/10" 
+		xmlns:tns="http://sbrf.ru/prpc/kkmb/crm/ContractClose/req/10" 
+		xmlns:ct="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10" 
+		elementFormDefault="qualified">
+		
+	<import schemaLocation="CommonTypes.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"/>
+	
+	<element name="ContractClose" type="tns:ContractCloseCls" />
+	
+		<complexType name="ListOfAgrGroupCls">
+			<sequence>
+				<element name="AgrGroup" type="tns:AgrGroupCls" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	
+		<complexType name="ContractCloseCls">
+			<sequence>
+				<element name="ContractID" type="ct:String15" minOccurs="1" maxOccurs="1"/>
+				<element name="ContractStatus" type="ct:String30" minOccurs="1" maxOccurs="1"/>
+				<element name="CauseClosed" type="ct:String50" minOccurs="0" maxOccurs="1"/>
+				<element name="ListOfAgrGroup" type="tns:ListOfAgrGroupCls" minOccurs="1" maxOccurs="1"/>
+			</sequence>		
+		</complexType>
+	
+		<complexType name="AgrGroupCls">
+			<sequence>
+				<element name="ProductIntID" type="ct:String15" minOccurs="0" maxOccurs="1"/>
+				<element name="AgrNum" type="ct:String15" minOccurs="0" maxOccurs="1"/>
+				<element name="AgrDate" type="date" minOccurs="0" maxOccurs="1"/>
+			</sequence>
+		</complexType>
+</schema>

@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 public class createMockOrDriverFromXSD {
 
 
-    @Test
+    /*@Test
     public void testXSLTtoDataCRMCreateTask() throws Exception {
         final String dir = System.getProperty("user.dir") + "\\src\\main\\webapp\\WEB-INF";
         Map<String, String> params = new HashMap<String, String>(1);
@@ -275,6 +275,35 @@ public class createMockOrDriverFromXSD {
         params.put("xsdBase","ckpit_integration.xsd");
         params.put("headerType", "KD4");
         mockTestCycle(dir, "CKPIT", "CKPITProductsLoansReq", "Request", params);
+<<<<<<< HEAD
+    }*/
+    @Test
+    public void testXSLTtoDataAMRLiRTcalculationRequest() throws Exception {
+        final String dir = System.getProperty("user.dir") + "\\src\\main\\webapp\\WEB-INF";
+        Map<String, String> params = new HashMap<String, String>(1);
+        params.put("systemName","AMRLiRT");
+        params.put("tagNameToTakeLinkedTag","ProductType");
+        params.put("rootElementName", "calculationResponse");
+        params.put("RqRootElementName", "calculationRequest");
+        params.put("xsdBase","LGDServiceSchema1.xsd");
+        params.put("operationsXSD", "../../xsd/AMRLiRT/LGDServiceSchema1.xsd");
+        params.put("headerType", "KD4");
+        mockTestCycle(dir, "AMRLiRT", "calculation", "Response", params);
+    }
+    @Test
+    public void testXSLTtoDataAMRLiRTfinalizationRequest() throws Exception {
+        final String dir = System.getProperty("user.dir") + "\\src\\main\\webapp\\WEB-INF";
+        Map<String, String> params = new HashMap<String, String>(1);
+        params.put("systemName","AMRLiRT");
+        params.put("tagNameToTakeLinkedTag","Type");
+        params.put("rootElementName", "finalizationResponse");
+        params.put("RqRootElementName", "finalizationRequest");
+        params.put("xsdBase","LGDServiceSchema1.xsd");
+        params.put("operationsXSD", "../../xsd/AMRLiRT/LGDServiceSchema1.xsd");
+        params.put("headerType", "KD4");
+        mockTestCycle(dir, "AMRLiRT", "finalization", "Response", params);
+=======
+>>>>>>> origin/ncpdb_interactive_xml
     }
 
 
@@ -318,7 +347,12 @@ public class createMockOrDriverFromXSD {
             System.out.println("create rq example 1");
             String exampleRq1 = checkXSLT(webinf + "\\xsl\\util\\NCPSoapMSG.xsl",
                     webinf + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+<<<<<<< HEAD
+                    null, altParams);
+//                    "\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml", altParams);
+=======
                     "\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq1.xml", altParams);
+>>>>>>> origin/ncpdb_interactive_xml
 
             if (params.containsKey("tagNameToTakeLinkedTag")) {
                 altParams.put("useLinkedTagValue","true");
@@ -329,7 +363,12 @@ public class createMockOrDriverFromXSD {
             altParams.put("showOptionalTags", "false");
             String exampleRq2 = checkXSLT(webinf + "\\xsl\\util\\NCPSoapMSG.xsl",
                     webinf + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+<<<<<<< HEAD
+                    null, altParams);
+//                    "\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq2.xml", altParams);
+=======
                     "\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq2.xml", altParams);
+>>>>>>> origin/ncpdb_interactive_xml
 
             assert !exampleRq1.contains("<!--not known type-->")
                     : "В примере xml заполены известны не все типы";
