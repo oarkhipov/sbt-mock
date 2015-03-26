@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/Data/"
+<xsd:schema xmlns="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/correctRatingRs/Data/"
+            xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/correctRatingRs/Data/"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns:amrct="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/"
-            targetNamespace="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/Data/"
+            xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
+            xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
+            targetNamespace="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/correctRatingRs/Data/"
             elementFormDefault="qualified">
    <xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/"
                schemaLocation="../../../xsd/AMRLiRT/CommonTypes.xsd"/>
@@ -85,7 +88,7 @@
    <xsd:element name="data" type="dataValue"/>
    <xsd:complexType name="dataValue">
       <xsd:sequence>
-         <xsd:element name="response" type="CorrectResponse" maxOccurs="unbounded">
+         <xsd:element name="response" type="tns:CorrectResponse" maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>Ответ на запрос</xsd:documentation>
             </xsd:annotation>
@@ -94,37 +97,10 @@
    </xsd:complexType>
    <xsd:complexType name="CorrectResponse">
       <xsd:sequence>
-         <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
-         <xsd:element name="return" type="Return"/>
+         <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
+         <xsd:element name="return" type="tns:Return"/>
       </xsd:sequence>
       <xsd:attribute name="name"/>
-   </xsd:complexType>
-   <xsd:complexType name="Return">
-      <xsd:sequence>
-         <xsd:element name="errorCode">
-            <xsd:simpleType>
-               <xsd:restriction base="xsd:string">
-                  <xsd:maxLength value="30"/>
-               </xsd:restriction>
-            </xsd:simpleType>
-         </xsd:element>
-         <xsd:element name="errorMessage" minOccurs="0">
-            <xsd:simpleType>
-               <xsd:restriction base="xsd:string">
-                  <xsd:maxLength value="2000"/>
-               </xsd:restriction>
-            </xsd:simpleType>
-         </xsd:element>
-         <xsd:element name="listOfAddParameter" minOccurs="0" type="ListOfAddParameter"/>
-      </xsd:sequence>
-   </xsd:complexType>
-   <xsd:complexType name="ListOfAddParameter">
-      <xsd:sequence>
-         <xsd:element name="addParameter"
-                      minOccurs="0"
-                      maxOccurs="unbounded"
-                      type="AddParameter"/>
-      </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="AddParameter">
       <xsd:sequence>
@@ -143,6 +119,35 @@
                </xsd:restriction>
             </xsd:simpleType>
          </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="ListOfAddParameter">
+      <xsd:sequence>
+         <xsd:element name="addParameter"
+                      minOccurs="0"
+                      maxOccurs="unbounded"
+                      type="tns:AddParameter"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="Return">
+      <xsd:sequence>
+         <xsd:element name="errorCode">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="30"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="errorMessage" minOccurs="0">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="2000"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="listOfAddParameter"
+                      minOccurs="0"
+                      type="tns:ListOfAddParameter"/>
       </xsd:sequence>
    </xsd:complexType>
 </xsd:schema>

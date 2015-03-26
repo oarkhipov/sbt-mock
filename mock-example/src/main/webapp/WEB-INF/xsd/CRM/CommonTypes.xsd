@@ -17,6 +17,11 @@
 			<xsd:maxLength value="2000"/>
 		</xsd:restriction>
 	</xsd:simpleType>
+	<xsd:simpleType name="string1000">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="2000"/>
+		</xsd:restriction>
+	</xsd:simpleType>
 	<xsd:simpleType name="string255">
 		<xsd:restriction base="xsd:string">
 			<xsd:maxLength value="255"/>
@@ -78,6 +83,12 @@
 		<xsd:restriction base="xsd:integer">
 			<xsd:minInclusive value="-999"/>
 			<xsd:maxInclusive value="999"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="integer2">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="-99"/>
+			<xsd:maxInclusive value="99"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:simpleType name="double17_5">

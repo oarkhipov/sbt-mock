@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/Data/">
+<data xmlns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/calculateDCRs/Data/">
    <response name="default">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410</request-time>
+         <operation-name>calculateDCRs</operation-name>
+      </SoapHeader>
       <errorCode>s</errorCode>
       <errorMessage>string</errorMessage>
       <crmId>string</crmId>
@@ -10,16 +15,15 @@
       <debtCapacityInDealCurrency>10</debtCapacityInDealCurrency>
       <rmkForNextYear>10</rmkForNextYear>
       <debtCapacityForNextYear>10</debtCapacityForNextYear>
-      <listOfAddParameter>
-         <addParameter>
-            <order>10</order>
-            <name>string</name>
-            <value>string</value>
-         </addParameter>
-      </listOfAddParameter>
+      <listOfAddParameter/>
       <amMessage>anyString</amMessage>
    </response>
    <response name="test1">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410</request-time>
+         <operation-name>calculateDCRs</operation-name>
+      </SoapHeader>
       <errorCode>s</errorCode>
       <crmId>string</crmId>
       <debtCapacity>10</debtCapacity>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/" 
 xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.03/" 
-targetNamespace="http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.03/" 
+xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.04/" 
+targetNamespace="http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.04/" 
 elementFormDefault="qualified">
 
 	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="CommonTypes.xsd"/>

@@ -121,23 +121,23 @@ public class ChannelTest {
 
 //    BBMO testing
     @Test
-    public void createSrvGetClientReferenceDataRq1() throws Exception {
-        testXSLTmock("SrvGetClientReferenceDataRq", "MockOutboundResponse", "xml/BBMO/SrvGetClientReferenceDataRq/rq1.xml", "xml/BBMO/SrvGetClientReferenceDataRq/rs1.xml");
+    public void createSaveDealRq1() throws Exception {
+        testXSLTmock("SaveDeal.xsl", "ESB.BPM.NCP.IN.MOCK", "xml/CRM/SaveDeal/rq1.xml", "xml/CRM/SaveDeal/rs1.xml");
     }
 
     @Test
-    public void createSrvGetClientReferenceDataRq2() throws Exception {
-        testXSLTmock("SrvGetClientReferenceDataRq", "MockOutboundResponse", "xml/BBMO/SrvGetClientReferenceDataRq/rq2.xml", "xml/BBMO/SrvGetClientReferenceDataRq/rs2.xml");
+    public void createSaveDealRq2() throws Exception {
+        testXSLTmock("SaveDeal", "ESB.BPM.NCP.IN.MOCK", "xml/CRM/SaveDeal/rq2.xml", "xml/CRM/SaveDeal/rs2.xml");
     }
 
     //CKPIT
     @Test
-    public void testUpdateLoan() throws Exception {
+    public void testForceSignal() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
         System.out.println(dir);
-        checkXSLTdriver(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CKPIT\\UpdateLoan.xsl",
-                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CKPIT\\xml\\UpdateLoanData.xml",
-                "xml/CKPIT/UpdateLoan/rq1.xml");
+        checkXSLTdriver(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\ForceSignal.xsl",
+                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\ForceSignal.xml",
+                "xml/CRM/ForceSignal/rq1.xml");
     }
 
 

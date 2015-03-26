@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/Data/"
+<xsd:schema xmlns="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/finalizeLGDRs/Data/"
+            xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/finalizeLGDRs/Data/"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns:amrct="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/"
-            targetNamespace="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/Data/"
+            xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
+            xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
+            targetNamespace="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/finalizeLGDRs/Data/"
             elementFormDefault="qualified">
    <xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/"
                schemaLocation="../../../xsd/AMRLiRT/CommonTypes.xsd"/>
@@ -86,7 +89,7 @@
    <xsd:complexType name="dataValue">
       <xsd:sequence>
          <xsd:element name="response"
-                      type="LgdFinalizationResponse"
+                      type="tns:LgdFinalizationResponse"
                       maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>Ответ на запрос</xsd:documentation>
@@ -96,7 +99,7 @@
    </xsd:complexType>
    <xsd:complexType name="LgdFinalizationResponse">
       <xsd:sequence>
-         <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
+         <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
          <xsd:element name="errorCode" type="amrct:string255"/>
          <xsd:element name="errorMessage" minOccurs="0" type="amrct:string2000"/>
          <xsd:element name="crmId" type="amrct:string15"/>

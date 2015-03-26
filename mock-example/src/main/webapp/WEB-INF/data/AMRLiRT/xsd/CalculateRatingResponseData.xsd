@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/Data/"
+<xsd:schema xmlns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/calculateRatingRs/Data/"
+            xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/calculateRatingRs/Data/"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns:amrct="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/"
-            targetNamespace="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/Data/"
+            xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
+            xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
+            targetNamespace="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/calculateRatingRs/Data/"
             elementFormDefault="qualified">
    <xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/"
                schemaLocation="../../../xsd/AMRLiRT/CommonTypes.xsd"/>
@@ -85,7 +88,7 @@
    <xsd:element name="data" type="dataValue"/>
    <xsd:complexType name="dataValue">
       <xsd:sequence>
-         <xsd:element name="response" type="CalcRatingResponse" maxOccurs="unbounded">
+         <xsd:element name="response" type="tns:CalcRatingResponse" maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>Ответ на запрос</xsd:documentation>
             </xsd:annotation>
@@ -94,96 +97,10 @@
    </xsd:complexType>
    <xsd:complexType name="CalcRatingResponse">
       <xsd:sequence>
-         <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
-         <xsd:element name="return" type="Return"/>
+         <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
+         <xsd:element name="return" type="tns:Return"/>
       </xsd:sequence>
       <xsd:attribute name="name"/>
-   </xsd:complexType>
-   <xsd:complexType name="Return">
-      <xsd:sequence>
-         <xsd:element name="errorCode">
-            <xsd:simpleType>
-               <xsd:restriction base="xsd:string">
-                  <xsd:maxLength value="30"/>
-               </xsd:restriction>
-            </xsd:simpleType>
-         </xsd:element>
-         <xsd:element name="errorMessage" minOccurs="0">
-            <xsd:simpleType>
-               <xsd:restriction base="xsd:string">
-                  <xsd:maxLength value="2000"/>
-               </xsd:restriction>
-            </xsd:simpleType>
-         </xsd:element>
-         <xsd:element name="listOfResultRating" type="ListOfResultRating"/>
-         <xsd:element name="listOfCalculatedFactor"
-                      minOccurs="0"
-                      type="ListOfCalculatedFactor"/>
-         <xsd:element name="listOfAddParameter" minOccurs="0" type="ListOfAddParameter"/>
-      </xsd:sequence>
-   </xsd:complexType>
-   <xsd:complexType name="ListOfAddParameter">
-      <xsd:sequence>
-         <xsd:element name="addParameter"
-                      minOccurs="0"
-                      maxOccurs="unbounded"
-                      type="AddParameter"/>
-      </xsd:sequence>
-   </xsd:complexType>
-   <xsd:complexType name="AddParameter">
-      <xsd:sequence>
-         <xsd:element name="order" type="xsd:int"/>
-         <xsd:element name="name">
-            <xsd:simpleType>
-               <xsd:restriction base="xsd:string">
-                  <xsd:maxLength value="255"/>
-               </xsd:restriction>
-            </xsd:simpleType>
-         </xsd:element>
-         <xsd:element name="value">
-            <xsd:simpleType>
-               <xsd:restriction base="xsd:string">
-                  <xsd:maxLength value="255"/>
-               </xsd:restriction>
-            </xsd:simpleType>
-         </xsd:element>
-      </xsd:sequence>
-   </xsd:complexType>
-   <xsd:complexType name="ListOfResultRating">
-      <xsd:sequence>
-         <xsd:element name="resultRating"
-                      minOccurs="0"
-                      maxOccurs="unbounded"
-                      type="ResultRating"/>
-      </xsd:sequence>
-   </xsd:complexType>
-   <xsd:complexType name="ResultRating">
-      <xsd:sequence>
-         <xsd:element name="isPrimary" type="xsd:boolean"/>
-         <xsd:element name="name">
-            <xsd:simpleType>
-               <xsd:restriction base="xsd:string">
-                  <xsd:maxLength value="255"/>
-               </xsd:restriction>
-            </xsd:simpleType>
-         </xsd:element>
-         <xsd:element name="value" type="xsd:int"/>
-         <xsd:element name="type" minOccurs="0">
-            <xsd:simpleType>
-               <xsd:restriction base="xsd:string">
-                  <xsd:maxLength value="30"/>
-               </xsd:restriction>
-            </xsd:simpleType>
-         </xsd:element>
-      </xsd:sequence>
-   </xsd:complexType>
-   <xsd:complexType name="ListOfCalculatedFactor">
-      <xsd:sequence>
-         <xsd:element name="calculatedFactor"
-                      minOccurs="0"
-                      maxOccurs="unbounded"
-                      type="CalculatedFactor"/>
-      </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="CalculatedFactor">
       <xsd:sequence>
@@ -208,6 +125,94 @@
                </xsd:restriction>
             </xsd:simpleType>
          </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="ResultRating">
+      <xsd:sequence>
+         <xsd:element name="isPrimary" type="xsd:boolean"/>
+         <xsd:element name="name">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="255"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="value" type="xsd:int"/>
+         <xsd:element name="type" minOccurs="0">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="30"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="Return">
+      <xsd:sequence>
+         <xsd:element name="errorCode">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="30"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="errorMessage" minOccurs="0">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="2000"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="listOfResultRating" type="tns:ListOfResultRating"/>
+         <xsd:element name="listOfCalculatedFactor"
+                      minOccurs="0"
+                      type="tns:ListOfCalculatedFactor"/>
+         <xsd:element name="listOfAddParameter"
+                      minOccurs="0"
+                      type="tns:ListOfAddParameter"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="AddParameter">
+      <xsd:sequence>
+         <xsd:element name="order" type="xsd:int"/>
+         <xsd:element name="name">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="255"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="value">
+            <xsd:simpleType>
+               <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="255"/>
+               </xsd:restriction>
+            </xsd:simpleType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="ListOfAddParameter">
+      <xsd:sequence>
+         <xsd:element name="addParameter"
+                      minOccurs="0"
+                      maxOccurs="unbounded"
+                      type="tns:AddParameter"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="ListOfResultRating">
+      <xsd:sequence>
+         <xsd:element name="resultRating"
+                      minOccurs="0"
+                      maxOccurs="unbounded"
+                      type="tns:ResultRating"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="ListOfCalculatedFactor">
+      <xsd:sequence>
+         <xsd:element name="calculatedFactor"
+                      minOccurs="0"
+                      maxOccurs="unbounded"
+                      type="tns:CalculatedFactor"/>
       </xsd:sequence>
    </xsd:complexType>
 </xsd:schema>

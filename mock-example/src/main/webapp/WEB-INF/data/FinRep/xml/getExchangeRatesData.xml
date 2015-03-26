@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/saveDealRs/Data/">
+<data xmlns="http://sbrf.ru/NCP/FinRep/GetExchangeRatesRs/1.02/getExchangeRatesRs/Data/">
    <response name="default">
       <SoapHeader>
          <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>saveDealRs</operation-name>
+         <operation-name>getExchangeRatesRs</operation-name>
       </SoapHeader>
-      <operationStatus/>
       <dealID>string</dealID>
+      <errorCode>string</errorCode>
+      <errorMessage>string</errorMessage>
+      <exchangeRates/>
    </response>
    <response name="test1">
       <SoapHeader>
          <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>saveDealRs</operation-name>
+         <operation-name>getExchangeRatesRs</operation-name>
       </SoapHeader>
-      <operationStatus/>
       <dealID>string</dealID>
+      <errorCode>string</errorCode>
+      <exchangeRates/>
    </response>
 </data>

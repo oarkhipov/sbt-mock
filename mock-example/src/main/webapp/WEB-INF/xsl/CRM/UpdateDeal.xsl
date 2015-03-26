@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/"
-                xmlns:rsd="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.07/Data/"
+<xsl:stylesheet xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.15/"
+                xmlns:rsd="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.15/updateDealRq/Data/"
                 xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
@@ -44,7 +44,7 @@
          <soap:Body>
             <xsl:call-template name="updateDealRq">
                <xsl:with-param name="data" select="$data"/>
-               <xsl:with-param name="response">
+               <xsl:with-param name="request">
                   <xsl:choose>
                      <xsl:when test="count($data/rsd:request[@name=$linkedTag])=1">
                         <xsl:value-of select="$linkedTag"/>
@@ -57,20 +57,6 @@
       </xsl:element>
    </xsl:template>
 
-   <xsl:template match="rsd:exchangeRates">
-      <tns:exchangeRates>
-         <tns:currencyName>
-            <xsl:value-of select="./rsd:currencyName"/>
-         </tns:currencyName>
-         <tns:currencyValue>
-            <xsl:value-of select="./rsd:currencyValue"/>
-         </tns:currencyValue>
-         <tns:currencyDate>
-            <xsl:value-of select="./rsd:currencyDate"/>
-         </tns:currencyDate>
-      </tns:exchangeRates>
-   </xsl:template>
-
    <xsl:template match="rsd:dealTeamMembers">
       <tns:dealTeamMembers>
          <tns:memberId>
@@ -79,28 +65,17 @@
          <tns:memberName>
             <xsl:value-of select="./rsd:memberName"/>
          </tns:memberName>
-         <tns:mamberEmail>
-            <xsl:value-of select="./rsd:mamberEmail"/>
-         </tns:mamberEmail>
-         <tns:mamberRole>
-            <xsl:value-of select="./rsd:mamberRole"/>
-         </tns:mamberRole>
+         <tns:memberEmail>
+            <xsl:value-of select="./rsd:memberEmail"/>
+         </tns:memberEmail>
+         <tns:memberRole>
+            <xsl:value-of select="./rsd:memberRole"/>
+         </tns:memberRole>
       </tns:dealTeamMembers>
    </xsl:template>
 
    <xsl:template match="rsd:financingInfo">
       <tns:financingInfo>
-         <tns:currencyOfFunding>
-            <xsl:value-of select="./rsd:currencyOfFunding"/>
-         </tns:currencyOfFunding>
-         <tns:principal>
-            <xsl:value-of select="./rsd:principal"/>
-         </tns:principal>
-      </tns:financingInfo>
-   </xsl:template>
-
-   <xsl:template match="rsd:interestRateInfo">
-      <tns:interestRateInfo>
          <tns:interestRate>
             <xsl:value-of select="./rsd:interestRate"/>
          </tns:interestRate>
@@ -110,14 +85,62 @@
          <tns:interestRateOrder>
             <xsl:value-of select="./rsd:interestRateOrder"/>
          </tns:interestRateOrder>
-         <tns:minRate>
-            <xsl:value-of select="./rsd:minRate"/>
-         </tns:minRate>
-      </tns:interestRateInfo>
+         <xsl:if test="./rsd:anotherInterestRateOrder">
+            <tns:anotherInterestRateOrder>
+               <xsl:value-of select="./rsd:anotherInterestRateOrder"/>
+            </tns:anotherInterestRateOrder>
+         </xsl:if>
+         <xsl:if test="./rsd:minRate">
+            <tns:minRate>
+               <xsl:value-of select="./rsd:minRate"/>
+            </tns:minRate>
+         </xsl:if>
+         <tns:currencyOfFunding>
+            <xsl:value-of select="./rsd:currencyOfFunding"/>
+         </tns:currencyOfFunding>
+         <tns:principal>
+            <xsl:value-of select="./rsd:principal"/>
+         </tns:principal>
+      </tns:financingInfo>
+   </xsl:template>
+
+   <xsl:template match="rsd:projectRating">
+      <tns:projectRating>
+         <tns:ratingID>
+            <xsl:value-of select="./rsd:ratingID"/>
+         </tns:ratingID>
+         <tns:ratingValue>
+            <xsl:value-of select="./rsd:ratingValue"/>
+         </tns:ratingValue>
+         <tns:ratingType>
+            <xsl:value-of select="./rsd:ratingType"/>
+         </tns:ratingType>
+         <tns:ratingModel>
+            <xsl:value-of select="./rsd:ratingModel"/>
+         </tns:ratingModel>
+         <tns:ratingCalculatedDate>
+            <xsl:value-of select="./rsd:ratingCalculatedDate"/>
+         </tns:ratingCalculatedDate>
+         <tns:ratingCalculatedRole>
+            <xsl:value-of select="./rsd:ratingCalculatedRole"/>
+         </tns:ratingCalculatedRole>
+         <tns:ratingCalculatedBy>
+            <xsl:value-of select="./rsd:ratingCalculatedBy"/>
+         </tns:ratingCalculatedBy>
+         <tns:ratingApprovalDate>
+            <xsl:value-of select="./rsd:ratingApprovalDate"/>
+         </tns:ratingApprovalDate>
+         <tns:ratingApprovedBy>
+            <xsl:value-of select="./rsd:ratingApprovedBy"/>
+         </tns:ratingApprovedBy>
+      </tns:projectRating>
    </xsl:template>
 
    <xsl:template match="rsd:project">
       <tns:project>
+         <tns:projectID>
+            <xsl:value-of select="./rsd:projectID"/>
+         </tns:projectID>
          <xsl:if test="./rsd:projectName">
             <tns:projectName>
                <xsl:value-of select="./rsd:projectName"/>
@@ -158,6 +181,7 @@
                <xsl:value-of select="./rsd:sameIndustryAsBorrower"/>
             </tns:sameIndustryAsBorrower>
          </xsl:if>
+         <xsl:apply-templates select="./rsd:projectRating"/>
       </tns:project>
    </xsl:template>
 
@@ -254,12 +278,18 @@
 
    <xsl:template match="rsd:collateral">
       <tns:collateral>
+         <tns:collateralID>
+            <xsl:value-of select="./rsd:collateralID"/>
+         </tns:collateralID>
          <tns:collateralType>
             <xsl:value-of select="./rsd:collateralType"/>
          </tns:collateralType>
          <tns:ownerID>
             <xsl:value-of select="./rsd:ownerID"/>
          </tns:ownerID>
+         <tns:isLegalPerson>
+            <xsl:value-of select="./rsd:isLegalPerson"/>
+         </tns:isLegalPerson>
          <tns:estimatedValue>
             <xsl:value-of select="./rsd:estimatedValue"/>
          </tns:estimatedValue>
@@ -272,18 +302,19 @@
          <tns:qualityCategory>
             <xsl:value-of select="./rsd:qualityCategory"/>
          </tns:qualityCategory>
-         <tns:daysForCalculation>
-            <xsl:value-of select="./rsd:daysForCalculation"/>
-         </tns:daysForCalculation>
-         <tns:estimatedValueCorrectedToEAD>
-            <xsl:value-of select="./rsd:estimatedValueCorrectedToEAD"/>
-         </tns:estimatedValueCorrectedToEAD>
-         <tns:securityShare>
-            <xsl:value-of select="./rsd:securityShare"/>
-         </tns:securityShare>
-         <tns:EstimatedValueSource>
-            <xsl:value-of select="./rsd:EstimatedValueSource"/>
-         </tns:EstimatedValueSource>
+         <xsl:if test="./rsd:daysForCalculation">
+            <tns:daysForCalculation>
+               <xsl:value-of select="./rsd:daysForCalculation"/>
+            </tns:daysForCalculation>
+         </xsl:if>
+         <xsl:if test="./rsd:estimatedValueCorrectedToEAD">
+            <tns:estimatedValueCorrectedToEAD>
+               <xsl:value-of select="./rsd:estimatedValueCorrectedToEAD"/>
+            </tns:estimatedValueCorrectedToEAD>
+         </xsl:if>
+         <tns:estimatedValueSource>
+            <xsl:value-of select="./rsd:estimatedValueSource"/>
+         </tns:estimatedValueSource>
          <tns:estimationDate>
             <xsl:value-of select="./rsd:estimationDate"/>
          </tns:estimationDate>
@@ -328,6 +359,20 @@
       </tns:fee>
    </xsl:template>
 
+   <xsl:template match="rsd:participantProductInfo">
+      <tns:participantProductInfo>
+         <tns:participantID>
+            <xsl:value-of select="./rsd:participantID"/>
+         </tns:participantID>
+         <tns:personType>
+            <xsl:value-of select="./rsd:personType"/>
+         </tns:personType>
+         <tns:participantType>
+            <xsl:value-of select="./rsd:participantType"/>
+         </tns:participantType>
+      </tns:participantProductInfo>
+   </xsl:template>
+
    <xsl:template match="rsd:productInfo">
       <tns:productInfo>
          <tns:productVersion>
@@ -342,9 +387,11 @@
          <tns:selectionSchedule>
             <xsl:value-of select="./rsd:selectionSchedule"/>
          </tns:selectionSchedule>
-         <tns:changesSchedule>
-            <xsl:value-of select="./rsd:changesSchedule"/>
-         </tns:changesSchedule>
+         <xsl:if test="./rsd:changesSchedule">
+            <tns:changesSchedule>
+               <xsl:value-of select="./rsd:changesSchedule"/>
+            </tns:changesSchedule>
+         </xsl:if>
          <xsl:if test="./rsd:selectionSchedulePeriod">
             <tns:selectionSchedulePeriod>
                <xsl:value-of select="./rsd:selectionSchedulePeriod"/>
@@ -372,7 +419,6 @@
             </tns:principalBaseCurrency>
          </xsl:if>
          <xsl:apply-templates select="./rsd:financingInfo"/>
-         <xsl:apply-templates select="./rsd:interestRateInfo"/>
          <xsl:if test="./rsd:startDate">
             <tns:startDate>
                <xsl:value-of select="./rsd:startDate"/>
@@ -394,12 +440,16 @@
                <xsl:value-of select="./rsd:repaymentSchedule"/>
             </tns:repaymentSchedule>
          </xsl:if>
-         <tns:turnover>
-            <xsl:value-of select="./rsd:turnover"/>
-         </tns:turnover>
-         <tns:covenants>
-            <xsl:value-of select="./rsd:covenants"/>
-         </tns:covenants>
+         <xsl:if test="./rsd:turnover">
+            <tns:turnover>
+               <xsl:value-of select="./rsd:turnover"/>
+            </tns:turnover>
+         </xsl:if>
+         <xsl:if test="./rsd:covenants">
+            <tns:covenants>
+               <xsl:value-of select="./rsd:covenants"/>
+            </tns:covenants>
+         </xsl:if>
          <tns:proposedCollateral>
             <xsl:value-of select="./rsd:proposedCollateral"/>
          </tns:proposedCollateral>
@@ -418,9 +468,11 @@
                <xsl:value-of select="./rsd:customerProspects"/>
             </tns:customerProspects>
          </xsl:if>
-         <tns:financingTerm>
-            <xsl:value-of select="./rsd:financingTerm"/>
-         </tns:financingTerm>
+         <xsl:if test="./rsd:financingTerm">
+            <tns:financingTerm>
+               <xsl:value-of select="./rsd:financingTerm"/>
+            </tns:financingTerm>
+         </xsl:if>
          <xsl:if test="./rsd:firstCountry">
             <tns:firstCountry>
                <xsl:value-of select="./rsd:firstCountry"/>
@@ -435,6 +487,16 @@
          <xsl:apply-templates select="./rsd:repaymentScheduleDetails"/>
          <xsl:apply-templates select="./rsd:selectionScheduleDetails"/>
          <xsl:apply-templates select="./rsd:changesScheduleDetails"/>
+         <xsl:if test="./rsd:unutilizedLimit">
+            <tns:unutilizedLimit>
+               <xsl:value-of select="./rsd:unutilizedLimit"/>
+            </tns:unutilizedLimit>
+         </xsl:if>
+         <xsl:if test="./rsd:correctedUnutilizedLimit">
+            <tns:correctedUnutilizedLimit>
+               <xsl:value-of select="./rsd:correctedUnutilizedLimit"/>
+            </tns:correctedUnutilizedLimit>
+         </xsl:if>
       </tns:productInfo>
    </xsl:template>
 
@@ -443,16 +505,71 @@
          <tns:productID>
             <xsl:value-of select="./rsd:productID"/>
          </tns:productID>
+         <xsl:if test="./rsd:projectID">
+            <tns:projectID>
+               <xsl:value-of select="./rsd:projectID"/>
+            </tns:projectID>
+         </xsl:if>
          <tns:productName>
             <xsl:value-of select="./rsd:productName"/>
          </tns:productName>
          <tns:category>
             <xsl:value-of select="./rsd:category"/>
          </tns:category>
+         <xsl:apply-templates select="./rsd:participantProductInfo"/>
          <xsl:apply-templates select="./rsd:productInfo"/>
          <xsl:apply-templates select="./rsd:collateral"/>
          <xsl:apply-templates select="./rsd:losses"/>
       </tns:products>
+   </xsl:template>
+
+   <xsl:template match="rsd:stopFactors">
+      <tns:stopFactors>
+         <tns:stopFactorID>
+            <xsl:value-of select="./rsd:stopFactorID"/>
+         </tns:stopFactorID>
+         <tns:stopFactorName>
+            <xsl:value-of select="./rsd:stopFactorName"/>
+         </tns:stopFactorName>
+         <xsl:if test="./rsd:stopFactorComment">
+            <tns:stopFactorComment>
+               <xsl:value-of select="./rsd:stopFactorComment"/>
+            </tns:stopFactorComment>
+         </xsl:if>
+         <xsl:if test="./rsd:stopFactorArgument">
+            <tns:stopFactorArgument>
+               <xsl:value-of select="./rsd:stopFactorArgument"/>
+            </tns:stopFactorArgument>
+         </xsl:if>
+      </tns:stopFactors>
+   </xsl:template>
+
+   <xsl:template match="rsd:problemCriterias">
+      <tns:problemCriterias>
+         <tns:problemCriteriaID>
+            <xsl:value-of select="./rsd:problemCriteriaID"/>
+         </tns:problemCriteriaID>
+         <tns:problemCriteriaName>
+            <xsl:value-of select="./rsd:problemCriteriaName"/>
+         </tns:problemCriteriaName>
+         <xsl:if test="./rsd:creditJustification">
+            <tns:creditJustification>
+               <xsl:value-of select="./rsd:creditJustification"/>
+            </tns:creditJustification>
+         </xsl:if>
+         <tns:problemProductName>
+            <xsl:value-of select="./rsd:problemProductName"/>
+         </tns:problemProductName>
+         <tns:problemProductAmount>
+            <xsl:value-of select="./rsd:problemProductAmount"/>
+         </tns:problemProductAmount>
+         <tns:problemProductCurrency>
+            <xsl:value-of select="./rsd:problemProductCurrency"/>
+         </tns:problemProductCurrency>
+         <tns:problemProductTerm>
+            <xsl:value-of select="./rsd:problemProductTerm"/>
+         </tns:problemProductTerm>
+      </tns:problemCriterias>
    </xsl:template>
 
    <xsl:template match="rsd:deal">
@@ -489,6 +606,9 @@
          <tns:origOrgDivision>
             <xsl:value-of select="./rsd:origOrgDivision"/>
          </tns:origOrgDivision>
+         <tns:codeCBS>
+            <xsl:value-of select="./rsd:codeCBS"/>
+         </tns:codeCBS>
          <tns:clientFileID>
             <xsl:value-of select="./rsd:clientFileID"/>
          </tns:clientFileID>
@@ -500,27 +620,29 @@
                <xsl:value-of select="./rsd:comment"/>
             </tns:comment>
          </xsl:if>
-         <tns:supLMID>
-            <xsl:value-of select="./rsd:supLMID"/>
-         </tns:supLMID>
-         <tns:collateralProvided>
-            <xsl:value-of select="./rsd:collateralProvided"/>
-         </tns:collateralProvided>
-         <tns:limitKM>
-            <xsl:value-of select="./rsd:limitKM"/>
-         </tns:limitKM>
+         <xsl:if test="./rsd:collateralProvided">
+            <tns:collateralProvided>
+               <xsl:value-of select="./rsd:collateralProvided"/>
+            </tns:collateralProvided>
+         </xsl:if>
+         <xsl:if test="./rsd:limitKM">
+            <tns:limitKM>
+               <xsl:value-of select="./rsd:limitKM"/>
+            </tns:limitKM>
+         </xsl:if>
          <xsl:apply-templates select="./rsd:dealTeamMembers"/>
          <xsl:apply-templates select="./rsd:products"/>
          <xsl:apply-templates select="./rsd:project"/>
-         <xsl:apply-templates select="./rsd:exchangeRates"/>
+         <xsl:apply-templates select="./rsd:stopFactors"/>
+         <xsl:apply-templates select="./rsd:problemCriterias"/>
       </tns:deal>
    </xsl:template>
 
    <xsl:template name="updateDealRq">
-      <xsl:param name="response"/>
+      <xsl:param name="request"/>
       <xsl:param name="data"/>
       <xsl:element name="CRM:updateDealRq">
-         <xsl:apply-templates select="$data/rsd:request[@name=$response]/rsd:deal"/>
-      </xsl:element>
+			      <xsl:apply-templates select="$data/rsd:request[@name=$request]/rsd:deal"/>
+		    </xsl:element>
    </xsl:template>
 </xsl:stylesheet>

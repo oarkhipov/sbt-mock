@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/updateRefRs/Data/"
-            xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/updateRefRs/Data/"
-            xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/"
+<xsd:schema xmlns="http://sbrf.ru/NCP/FinRep/ImportFinReportRs/1.03/importFinReportRs/Data/"
+            xmlns:tns="http://sbrf.ru/NCP/FinRep/ImportFinReportRs/1.03/importFinReportRs/Data/"
+            xmlns:frct="http://sbrf.ru/NCP/FinRep/CommonTypes/"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
             xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
-            targetNamespace="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/updateRefRs/Data/"
+            targetNamespace="http://sbrf.ru/NCP/FinRep/ImportFinReportRs/1.03/importFinReportRs/Data/"
             elementFormDefault="qualified">
-   <xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/"
-               schemaLocation="../../../xsd/CRM/CommonTypes.xsd"/>
+   <xsd:import namespace="http://sbrf.ru/NCP/FinRep/CommonTypes/"
+               schemaLocation="../../../xsd/FinRep/CommonTypes.xsd"/>
    <xsd:import namespace="http://sbrf.ru/commonTypes/dataTypes/"
                schemaLocation="../../../xsd/CRM/commonTypes/dataTypes.xsd"/>
    <xsd:import namespace="http://sbrf.ru/commonTypes/simpleTypes/"
@@ -88,39 +88,78 @@
    <xsd:element name="data" type="dataValue"/>
    <xsd:complexType name="dataValue">
       <xsd:sequence>
-         <xsd:element name="response" type="tns:UpdateRefRs" maxOccurs="unbounded">
+         <xsd:element name="response"
+                      type="tns:FinReportImportResponse"
+                      maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>Ответ на запрос</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <xsd:complexType name="UpdateRefRs">
+   <xsd:complexType name="FinReportImportResponse">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
-         <xsd:element name="referenceItem"
+         <xsd:element name="finReportType" type="frct:string30"/>
+         <xsd:element name="entityType" type="frct:string30"/>
+         <xsd:element name="entityId" type="frct:string15"/>
+         <xsd:element name="errorCode" type="frct:string30"/>
+         <xsd:element name="errorMessage" minOccurs="0" type="frct:string2000"/>
+         <xsd:element name="nonCurrentAssetsNFRS" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="currentAssetsNFRS" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="nonCurrentAssetsIFRS" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="currentAssetsIFRS" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="longTermDebtNFRS" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="shortTermDebtNFRS" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="longTermDebtIFRS" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="shortTermDebtIFRS" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="ebitdaNFRS" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="numQuarterNFRS" minOccurs="0" type="xsd:int"/>
+         <xsd:element name="ebitdaIFRS" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="numQuarterIFRS" minOccurs="0" type="xsd:int"/>
+         <xsd:element name="currencyCodeForFR" type="frct:string30"/>
+         <xsd:element name="currencyRate" type="xsd:decimal"/>
+         <xsd:element name="futureCurrencyRate" type="xsd:decimal"/>
+         <xsd:element name="purpose" minOccurs="0" type="frct:string100"/>
+         <xsd:element name="currentYear" minOccurs="0" type="xsd:int"/>
+         <xsd:element name="govDebt" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="creditGovDebt" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="credit" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="liabilities" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="liabilitiesNextYear" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="income" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="incomeNextYear" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="plannedCredit" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="plannedCreditNextYear" minOccurs="0" type="xsd:decimal"/>
+         <xsd:element name="facilitySB"
                       minOccurs="0"
                       maxOccurs="unbounded"
-                      type="tns:ReferenceItem"/>
-         <xsd:element name="errorCode" type="crmct:string50"/>
-         <xsd:element name="errorMessage" minOccurs="0" type="crmct:string2000"/>
+                      type="tns:FacilitySB"/>
+         <xsd:element name="facilityNotSB"
+                      minOccurs="0"
+                      maxOccurs="unbounded"
+                      type="tns:Facility"/>
       </xsd:sequence>
       <xsd:attribute name="name"/>
    </xsd:complexType>
-   <xsd:complexType name="ListOfValue">
+   <xsd:complexType name="FacilitySB">
       <xsd:sequence>
-         <xsd:element name="value" type="crmct:string2000"/>
-         <xsd:element name="valueId" type="crmct:string50"/>
-         <xsd:element name="parentValueId" minOccurs="0" type="crmct:string50"/>
+         <xsd:element name="sbName" minOccurs="0" type="frct:string255"/>
+         <xsd:element name="sbcd" type="xsd:decimal"/>
+         <xsd:element name="agrNumber" minOccurs="0" type="frct:string50"/>
+         <xsd:element name="sbcdt" type="xsd:decimal"/>
+         <xsd:element name="sbDebtCurrencyRate" type="xsd:decimal"/>
+         <xsd:element name="sbDebtCurrencyCode" minOccurs="0" type="frct:string30"/>
       </xsd:sequence>
    </xsd:complexType>
-   <xsd:complexType name="ReferenceItem">
+   <xsd:complexType name="Facility">
       <xsd:sequence>
-         <xsd:element name="referenceid" type="crmct:string50"/>
-         <xsd:element name="listOfValue"
-                      minOccurs="0"
-                      maxOccurs="unbounded"
-                      type="tns:ListOfValue"/>
+         <xsd:element name="name" minOccurs="0" type="frct:string255"/>
+         <xsd:element name="cd" type="xsd:decimal"/>
+         <xsd:element name="cdt" type="xsd:decimal"/>
+         <xsd:element name="date" minOccurs="0" type="xsd:date"/>
+         <xsd:element name="debtCurrencyRate" type="xsd:decimal"/>
+         <xsd:element name="debtCurrencyCode" minOccurs="0" type="frct:string30"/>
       </xsd:sequence>
    </xsd:complexType>
 </xsd:schema>
