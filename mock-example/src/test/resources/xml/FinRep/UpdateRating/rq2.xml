@@ -9,7 +9,7 @@
                              xmlns:tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/">
          <tns:rating>
             <tns:ratingId>string</tns:ratingId>
-            <tns:status>string</tns:status>
+            <tns:status>test1</tns:status>
             <tns:listOfRatingCalc><!--from 1 to unbounded elements --><tns:ratingCalc>
                   <tns:ratingCalcId>string</tns:ratingCalcId>
                   <tns:modelName>string</tns:modelName>

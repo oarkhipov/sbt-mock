@@ -9,7 +9,7 @@
    <!--опускаем строку 'xml version="1.0" encoding="UTF-8"'. С ней не работает MQ очередь-->
 <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
    <xsl:param name="name"
-              select="//*[local-name()='Envelope' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='Body' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='calculateDCRq' and namespace-uri()='http://sbrf.ru/NCP/AMRLIRT/']/*[local-name()='siebelMessage' and namespace-uri()='http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRq/']/text()"/>
+              select="//*[local-name()='Envelope' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='Body' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='confirmRatingRq' and namespace-uri()='http://sbrf.ru/NCP/AMRLIRT/']/*[local-name()='siebelMessage' and namespace-uri()='http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRq/']/text()"/>
    <xsl:param name="dataFileName"
               select="'../../data/AMRLiRT/xml/ConfirmRatingData.xml'"/>
    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>

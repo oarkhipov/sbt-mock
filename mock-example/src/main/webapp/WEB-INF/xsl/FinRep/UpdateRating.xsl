@@ -9,7 +9,7 @@
    <!--опускаем строку 'xml version="1.0" encoding="UTF-8"'. С ней не работает MQ очередь-->
 <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
    <xsl:param name="name"
-              select="//*[local-name()='Envelope' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='Body' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='updateRatingRq' and namespace-uri()='http://sbrf.ru/NCP/FinRep/']/*[local-name()='entityType' and namespace-uri()='http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/']/text()"/>
+              select="//*[local-name()='Envelope' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='Body' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='updateRatingRq' and namespace-uri()='http://sbrf.ru/NCP/FinRep/']/*[local-name()='rating' and namespace-uri()='http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/']/*[local-name()='status' and namespace-uri()='http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/']/text()"/>
    <xsl:param name="dataFileName"
               select="'../../data/FinRep/xml/updateRatingData.xml'"/>
    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>

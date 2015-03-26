@@ -152,6 +152,10 @@
                         </linkedTag>
                         <linkedTag>
                             <namespace>http://sbrf.ru/NCP/CRM/SaveDealRq/1.15/</namespace>
+                            <tag>deal</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/NCP/CRM/SaveDealRq/1.15/</namespace>
                             <tag>dealType</tag>
                         </linkedTag>
                     </linkedTagSequence>
@@ -228,7 +232,7 @@
                             <tag>updateRefRq</tag>
                         </linkedTag>
                         <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/CRM/UpdateDealRq/1.15/</namespace>
+                            <namespace>http://sbrf.ru/NCP/CRM/UpdateRefRq/1.01/</namespace>
                             <tag>referenceItem</tag>
                         </linkedTag>
                     </linkedTagSequence>
@@ -277,15 +281,11 @@
                     </linkedTag>
                     <linkedTag>
                         <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                        <tag>Body</tag>
+                        <tag>Header</tag>
                     </linkedTag>
                     <linkedTag>
-                        <namespace>http://sbrf.ru/NCP/AMRLIRT/</namespace>
-                        <tag>calculateDCRq</tag>
-                    </linkedTag>
-                    <linkedTag>
-                        <namespace>http://sbrf.ru/NCP/CRM/CreateTaskRq/1.02/</namespace>
-                        <tag>model</tag>
+                        <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
+                        <tag>user-id</tag>
                     </linkedTag>
                 </linkedTagSequence>
                 <protocol>MQ/SOAP/HTTP</protocol>
@@ -379,15 +379,11 @@
                     </linkedTag>
                     <linkedTag>
                         <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                        <tag>Body</tag>
+                        <tag>Header</tag>
                     </linkedTag>
                     <linkedTag>
-                        <namespace>http://sbrf.ru/NCP/AMRLIRT/</namespace>
-                        <tag>calculateRatingRq</tag>
-                    </linkedTag>
-                    <linkedTag>
-                        <namespace>http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/</namespace>
-                        <tag>model</tag>
+                        <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
+                        <tag>user-id</tag>
                     </linkedTag>
                 </linkedTagSequence>
                 <protocol>MQ/SOAP/HTTP</protocol>
@@ -434,7 +430,7 @@
                     </linkedTag>
                     <linkedTag>
                         <namespace>http://sbrf.ru/NCP/AMRLIRT/</namespace>
-                        <tag>calculateDCRq</tag>
+                        <tag>confirmRatingRq</tag>
                     </linkedTag>
                     <linkedTag>
                         <namespace>http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRq/</namespace>
@@ -473,7 +469,7 @@
                     </linkedTag>
                     <linkedTag>
                         <namespace>http://sbrf.ru/NCP/AMRLIRT/</namespace>
-                        <tag>calculateDCRq</tag>
+                        <tag>correctRatingRq</tag>
                     </linkedTag>
                     <linkedTag>
                         <namespace>http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRq/</namespace>
@@ -638,7 +634,7 @@
                         </linkedTag>
                         <linkedTag>
                             <namespace>http://sbrf.ru/NCP/FinRep/ImportRatingRq/1.00/</namespace>
-                            <tag>finReportType</tag>
+                            <tag>entityType</tag>
                         </linkedTag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
@@ -689,7 +685,11 @@
                         </linkedTag>
                         <linkedTag>
                             <namespace>http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/</namespace>
-                            <tag>entityType</tag>
+                            <tag>rating</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/</namespace>
+                            <tag>status</tag>
                         </linkedTag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
@@ -740,7 +740,7 @@
                         </linkedTag>
                         <linkedTag>
                             <namespace>http://sbrf.ru/NCP/FinRep/GetExchangeRatesRq/1.00/</namespace>
-                            <tag>status</tag>
+                            <tag>currencyCode</tag>
                         </linkedTag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>

@@ -121,8 +121,8 @@
     <channel id="FinalizeLGD"/>
     <channel id="getExchangeRates"/>
     <channel id="importFinReport"/>
-    <channel id="importRating"/>
-    <channel id="updateRating"/>
+    <channel id="ImportRating"/>
+    <channel id="UpdateRating"/>
 
     <ix:xpath-router id="operationRouter" input-channel="ESB.BPM.NCP.IN.MOCK" default-output-channel="ESBSynCallForNCPDB" resolution-required="false">
         <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
@@ -140,8 +140,8 @@
         <ix:mapping value="FinalizeLGD" channel="FinalizeLGD"/>
         <ix:mapping value="getExchangeRates" channel="getExchangeRates"/>
         <ix:mapping value="importFinReport" channel="importFinReport"/>
-        <ix:mapping value="ImportRating" channel="importRating"/>
-        <ix:mapping value="UpdateRating" channel="updateRating"/>
+        <ix:mapping value="ImportRating" channel="ImportRating"/>
+        <ix:mapping value="UpdateRating" channel="UpdateRating"/>
     </ix:xpath-router>
 
     <!-- здесь уже реализация -->
@@ -190,11 +190,11 @@
     <beans:bean id="FinRep_importFinReport" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/importFinReport.xsl"/>
     </beans:bean>
-    <beans:bean id="FinRep_importRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/importRating.xsl"/>
+    <beans:bean id="FinRep_ImportRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/ImportRating.xsl"/>
     </beans:bean>
-    <beans:bean id="FinRep_updateRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/updateRating.xsl"/>
+    <beans:bean id="FinRep_UpdateRating" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/UpdateRating.xsl"/>
     </beans:bean>
     
  <!--маппинг трасформеров на каналы-->
@@ -211,8 +211,8 @@
     <transformer input-channel="FinalizeLGD" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="AMRLiRT_FinalizeLGD"/>
     <transformer input-channel="getExchangeRates" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_getExchangeRates"/>
     <transformer input-channel="importFinReport" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_importFinReport"/>
-    <transformer input-channel="importRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_importRating"/>
-    <transformer input-channel="updateRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_updateRating"/>
+    <transformer input-channel="ImportRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_ImportRating"/>
+    <transformer input-channel="UpdateRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_UpdateRating"/>
 
     <context:component-scan base-package="ru.sbt.bpm.mock.controller"/>
     
