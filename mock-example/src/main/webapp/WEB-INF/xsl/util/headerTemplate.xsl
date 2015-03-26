@@ -22,10 +22,10 @@
     <xsl:template name="headerNamespaces">
         <xsl:param name="headerType"/>
         <xsl:choose>
-            <xsl:when test="$headerType='NCP'">
+            <xsl:when test="$headerType='KD4'">
                 <xsl:call-template name="KD4namespaces"/>
             </xsl:when>
-            <xsl:when test="$headerType='KD4'">
+            <xsl:when test="$headerType='NCP'">
                 <xsl:call-template name="NCPnamespaces"/>
             </xsl:when>
         </xsl:choose>
