@@ -19,6 +19,17 @@
     <!--ID сообщения, которое будет использоваться по умолчанию, если не задано параметром или в дата-файле-->
     <xsl:param name="defaultId" select="string('defaultId')"/>
 
+    <xsl:template name="headerNamespaces">
+        <xsl:param name="headerType"/>
+        <xsl:choose>
+            <xsl:when test="$headerType='KD4'">
+                <xsl:call-template name="KD4namespaces"/>
+            </xsl:when>
+            <xsl:when test="$headerType='NCP'">
+                <xsl:call-template name="NCPnamespaces"/>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
 
     <!--Возвращает всего одну строку - неймспейс заголовка-->
     <xsl:function name="mock:SOAPNS">

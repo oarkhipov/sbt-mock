@@ -1,7 +1,7 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
-                xmlns:mock="http://sbrf.ru/mockService"><!--TODO заменить mock на namespace конфига -->
+                xmlns:mock="http://sbrf.ru/mockService">
     <xsl:import href="XSDToExampleXML.xsl"/>
     <xsl:include href="NCPSoapRqHeaderXSLTTemplate.xsl"/>
 
@@ -13,10 +13,10 @@
 
     <!--Имя тэга элемента-->
     <xsl:param name="rootElementName" select="''"/>
-    <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/><!--TODO заменить mock на namespace конфига -->
+    <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/>
 
     <!-- параметры заголовка -->
-    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
+    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410')"/>
     <!--задано ниже в зависимости от тэга <xsl:param name="operation-name" select="'operation-name'"/>-->
     <xsl:param name="id" select="null"/>
     <xsl:param name="correlation-id" select="null"/>
@@ -54,7 +54,7 @@
     <!--алиас неймспейса, который используется в исходной xsd-->
     <xsl:variable name="localTargetNSAlias" select="local-name($operationXsdSchema/namespace::*[.=$targetNS][string-length(local-name(.))>0])"/>
     <!--имя операции-->
-    <xsl:param name="operation-name" select="$rootElementName"/>
+    <xsl:param name="operationName" select="$rootElementName"/>
 
     <!-- инклюды схем -->
     <xsl:variable name="includeFilesList" select="$operationXsdSchema/xsd:include/@schemaLocation"/>
@@ -72,7 +72,7 @@
     <xsl:template match="xsd:schema">
         <xsl:element name="soap:Envelope">
             <xsl:call-template name="NCPHeaderExample">
-                <xsl:with-param name="operation-name" select="$operation-name"/>
+                <xsl:with-param name="operation-name" select="$operationName"/>
             </xsl:call-template>
             <xsl:call-template name="NCPSoapBody"/>
         </xsl:element>

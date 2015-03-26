@@ -17,6 +17,9 @@ public class IntegrationPoint {
     @XStreamAlias("name")
     private String aIntegrationPointName;
 
+    @XStreamAlias("operationName")
+    private String aOperationName;
+
     @XStreamAlias("rsRootElementName")
     private String aRsRootElementName;
 
@@ -28,6 +31,9 @@ public class IntegrationPoint {
 
     @XStreamAlias("linkedTagSequence")
     private LinkedTagSequence aLinkedTagSequence;
+
+    @XStreamAlias("mappedTags")
+    private MappedTagSequence aMappedTagSequence;
 
     @XStreamAlias("protocol")
     private String aProtocol;
@@ -44,8 +50,11 @@ public class IntegrationPoint {
     @XStreamAlias("xsdFile")
     private String aXsdFile;
 
-    @XStreamAlias("xsdRqFile")
-    private String aXsdRqFile;
+    @XStreamAlias("RqXsdFile")
+    private String aRqXsdFile;
+
+    @XStreamAlias("dataxml")
+    private String aDataxml;
 
     @XStreamAlias("dependencies")
     private Dependencies aDependencies;
@@ -65,6 +74,15 @@ public class IntegrationPoint {
     public void setaRsRootElementName(String aRsRootElementName) {
         this.aRsRootElementName = aRsRootElementName;
     }
+
+    public String getaOperationName() {
+        return aOperationName;
+    }
+
+    public void setaOperationName(String aOperationName) {
+        this.aOperationName = aOperationName;
+    }
+
 
     public String getaRqRootElementName() {
         return aRqRootElementName;
@@ -88,6 +106,10 @@ public class IntegrationPoint {
 
     public void setaLinkedTagSequence(LinkedTagSequence aLinkedTagSequence) {
         this.aLinkedTagSequence = aLinkedTagSequence;
+    }
+
+    public void setaMappedTagSequence(MappedTagSequence aMappedTagSequence) {
+        this.aMappedTagSequence = aMappedTagSequence;
     }
 
     public String getaProtocol() {
@@ -122,12 +144,12 @@ public class IntegrationPoint {
         this.aXsdFile = aXsdFile;
     }
 
-    public String getaXsdRqFile() {
-        return aXsdRqFile;
+    public String getaRqXsdFile() {
+        return aRqXsdFile;
     }
 
-    public void setaXsdRqFile(String aXsdRqFile) {
-        this.aXsdRqFile = aXsdRqFile;
+    public void setaRqXsdFile(String aRqXsdFile) {
+        this.aRqXsdFile = aRqXsdFile;
     }
 
     public Dependencies getaDependencies() {
@@ -157,6 +179,14 @@ public class IntegrationPoint {
 
     public List<LinkedTag> getListOfLinkedTags() {
         return aLinkedTagSequence.getaListOfLinkedTags();
+    }
+
+    public MappedTagSequence getaMappedTags() {
+        return aMappedTagSequence;
+    }
+
+    public List<MappedTag> getListOfMappedTags() {
+        return aMappedTagSequence.getaListOfMappedTagTags();
     }
 
     @Override
