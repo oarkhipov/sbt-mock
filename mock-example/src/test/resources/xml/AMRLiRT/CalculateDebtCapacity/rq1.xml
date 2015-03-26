@@ -1,9 +1,9 @@
 <soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
-   <soap-env:Header xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
-      <soap-env:message-id>defaultId</soap-env:message-id>
-      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>calculateDCRs</soap-env:operation-name>
-   </soap-env:Header>
+   <soap:Header>
+      <soap:message-id>defaultId</soap:message-id>
+      <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
+      <soap:operation-name>calculateDCRs</soap:operation-name>
+   </soap:Header>
    <soap:Body>
       <AMRLiRT:calculateDCRq xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
                              xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/">
@@ -29,32 +29,8 @@
          <tns:currencyRate>10</tns:currencyRate>
          <tns:futureCurrencyRate>10</tns:futureCurrencyRate>
          <tns:currentCurrencyRate>10</tns:currentCurrencyRate>
-         <!--optional--><tns:user>
-            <tns:fio>string</tns:fio>
-            <!--optional--><tns:position>string</tns:position>
-            <tns:tDivision>string</tns:tDivision>
-            <tns:fDivision>string</tns:fDivision>
-         </tns:user>
-         <tns:accountList>
-            <tns:inn>string</tns:inn>
-            <tns:name>string</tns:name>
-            <tns:sbrfPriority>string</tns:sbrfPriority>
-            <tns:sbrfIndustry>string</tns:sbrfIndustry>
-            <!--from 0 to unbounded elements --><tns:facilitySB><!--optional--><tns:sbName>string</tns:sbName>
-               <tns:sbcd>10</tns:sbcd>
-               <!--optional--><tns:agrNumber>string</tns:agrNumber>
-               <tns:sbcdt>10</tns:sbcdt>
-               <tns:sbDebtCurrencyRate>10</tns:sbDebtCurrencyRate>
-               <!--optional--><tns:sbDebtCurrencyCode>string</tns:sbDebtCurrencyCode>
-            </tns:facilitySB>
-            <!--from 0 to unbounded elements --><tns:facilityNotSB><!--optional--><tns:name>string</tns:name>
-               <tns:cd>10</tns:cd>
-               <tns:cdt>10</tns:cdt>
-               <!--optional--><tns:date>2015-01-30</tns:date>
-               <tns:debtCurrencyRate>10</tns:debtCurrencyRate>
-               <!--optional--><tns:debtCurrencyCode>string</tns:debtCurrencyCode>
-            </tns:facilityNotSB>
-         </tns:accountList>
+         <!--optional--><tns:user/>
+         <tns:accountList/>
       </AMRLiRT:calculateDCRq>
    </soap:Body>
 </soap:Envelope>

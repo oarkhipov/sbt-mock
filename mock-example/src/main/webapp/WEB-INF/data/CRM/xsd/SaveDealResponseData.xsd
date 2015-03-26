@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/Data/"
+<xsd:schema xmlns="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/saveDealRs/Data/"
+            xmlns:tns="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/saveDealRs/Data/"
             xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/Data/"
+            xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
+            xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
+            targetNamespace="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/saveDealRs/Data/"
             elementFormDefault="qualified">
    <xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/"
                schemaLocation="../../../xsd/CRM/CommonTypes.xsd"/>
@@ -85,7 +88,7 @@
    <xsd:element name="data" type="dataValue"/>
    <xsd:complexType name="dataValue">
       <xsd:sequence>
-         <xsd:element name="response" type="SaveDealRs" maxOccurs="unbounded">
+         <xsd:element name="response" type="tns:SaveDealRs" maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>Ответ на запрос</xsd:documentation>
             </xsd:annotation>
@@ -93,14 +96,14 @@
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="SaveDealRs">
-      <xsd:annotation>
-         <xsd:documentation>
+      <xsd:sequence>
+         <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
+         <xsd:annotation>
+            <xsd:documentation>
 				Элемент верхнего уровня
 			</xsd:documentation>
-      </xsd:annotation>
-      <xsd:sequence>
-         <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
-         <xsd:element name="operationStatus" type="OperationStatus">
+         </xsd:annotation>
+         <xsd:element name="operationStatus" type="tns:OperationStatus">
             <xsd:annotation>
                <xsd:documentation>
 						Статус операции

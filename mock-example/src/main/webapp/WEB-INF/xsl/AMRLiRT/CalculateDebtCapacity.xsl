@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:amrct="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/"
-                xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/"
-                xmlns:rsd="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/Data/"
+<xsl:stylesheet xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/"
+                xmlns:rsd="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/calculateDCRs/Data/"
                 xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
-   <xsl:import href="../util/NCPSoapRqHeaderXSLTTemplate.xsl"/>
+   <xsl:import href="../util/headerTemplate.xsl"/>
    <!--опускаем строку 'xml version="1.0" encoding="UTF-8"'. С ней не работает MQ очередь-->
 <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
-   <xsl:param name="name" select="//soap:Body/*//*[local-name()='model'][1]/text()"/>
+   <xsl:param name="name"
+              select="//*[local-name()='Envelope' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='Body' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='calculateDCRq' and namespace-uri()='http://sbrf.ru/NCP/AMRLIRT/']/*[local-name()='model' and namespace-uri()='http://sbrf.ru/NCP/CRM/CreateTaskRq/1.02/']/text()"/>
    <xsl:param name="dataFileName"
               select="'../../data/AMRLiRT/xml/CalculateDebtCapacityData.xml'"/>
    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
@@ -26,34 +26,27 @@
       <xsl:variable name="data" select="document($dataFileName)/rsd:data"/>
       <xsl:variable name="linkedTag" select="$name"/>
       <xsl:element name="soap:Envelope">
-         <xsl:choose>
-            <xsl:when test="soap:Header">
-               <xsl:copy-of select="soap:Header"/>
-            </xsl:when>
-            <xsl:otherwise>
-               <xsl:call-template name="NCPHeader">
-                  <xsl:with-param name="response">
-                     <xsl:choose>
-                        <xsl:when test="count(./rsd:response[@name=$linkedTag])=1">
-                           <xsl:value-of select="$linkedTag"/>
-                        </xsl:when>
-                        <xsl:otherwise>default</xsl:otherwise>
-                     </xsl:choose>
-                  </xsl:with-param>
-                  <xsl:with-param name="timestamp" select="$timestamp"/>
-                  <xsl:with-param name="id" select="$id"/>
-                  <xsl:with-param name="operation-name" select="string('calculateDCRs')"/>
-                  <xsl:with-param name="correlation-id" select="$correlation-id"/>
-                  <xsl:with-param name="eis-name" select="$eis-name"/>
-                  <xsl:with-param name="system-id" select="$system-id"/>
-                  <xsl:with-param name="operation-version" select="$operation-version"/>
-                  <xsl:with-param name="user-id" select="$user-id"/>
-                  <xsl:with-param name="user-name" select="$user-name"/>
-               </xsl:call-template>
-            </xsl:otherwise>
-         </xsl:choose>
+         <xsl:call-template name="NCPHeader">
+            <xsl:with-param name="response">
+               <xsl:choose>
+                  <xsl:when test="count(./rsd:response[@name=$linkedTag])=1">
+                     <xsl:value-of select="$linkedTag"/>
+                  </xsl:when>
+                  <xsl:otherwise>default</xsl:otherwise>
+               </xsl:choose>
+            </xsl:with-param>
+            <xsl:with-param name="timestamp" select="$timestamp"/>
+            <xsl:with-param name="id" select="$id"/>
+            <xsl:with-param name="operation-name" select="string('calculateDCRs')"/>
+            <xsl:with-param name="correlation-id" select="$correlation-id"/>
+            <xsl:with-param name="eis-name" select="$eis-name"/>
+            <xsl:with-param name="system-id" select="$system-id"/>
+            <xsl:with-param name="operation-version" select="$operation-version"/>
+            <xsl:with-param name="user-id" select="$user-id"/>
+            <xsl:with-param name="user-name" select="$user-name"/>
+         </xsl:call-template>
          <soap:Body>
-            <xsl:call-template name="DebtCapacityCalculationResponse">
+            <xsl:call-template name="calculateDCRs">
                <xsl:with-param name="data" select="$data"/>
                <xsl:with-param name="response">
                   <xsl:choose>
@@ -90,53 +83,54 @@
       </tns:listOfAddParameter>
    </xsl:template>
 
-   <xsl:template name="DebtCapacityCalculationResponse">
+   <xsl:template name="calculateDCRs">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
       <xsl:element name="AMRLiRT:calculateDCRs">
-         <tns:errorCode>
+			      <tns:errorCode>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
          </tns:errorCode>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+			      <xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
             <tns:errorMessage>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
             </tns:errorMessage>
          </xsl:if>
-         <tns:crmId>
+
+			      <tns:crmId>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:crmId"/>
          </tns:crmId>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:rmk">
+			      <xsl:if test="$data/rsd:response[@name=$response]/rsd:rmk">
             <tns:rmk>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:rmk"/>
             </tns:rmk>
          </xsl:if>
-         <tns:debtCapacity>
+			      <tns:debtCapacity>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:debtCapacity"/>
          </tns:debtCapacity>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:rmkInDealCurrency">
+			      <xsl:if test="$data/rsd:response[@name=$response]/rsd:rmkInDealCurrency">
             <tns:rmkInDealCurrency>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:rmkInDealCurrency"/>
             </tns:rmkInDealCurrency>
          </xsl:if>
-         <tns:debtCapacityInDealCurrency>
+			      <tns:debtCapacityInDealCurrency>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:debtCapacityInDealCurrency"/>
          </tns:debtCapacityInDealCurrency>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:rmkForNextYear">
+			      <xsl:if test="$data/rsd:response[@name=$response]/rsd:rmkForNextYear">
             <tns:rmkForNextYear>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:rmkForNextYear"/>
             </tns:rmkForNextYear>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:debtCapacityForNextYear">
+			      <xsl:if test="$data/rsd:response[@name=$response]/rsd:debtCapacityForNextYear">
             <tns:debtCapacityForNextYear>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:debtCapacityForNextYear"/>
             </tns:debtCapacityForNextYear>
          </xsl:if>
-         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:listOfAddParameter"/>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:amMessage">
+			      <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:listOfAddParameter"/>
+			      <xsl:if test="$data/rsd:response[@name=$response]/rsd:amMessage">
             <tns:amMessage>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:amMessage"/>
             </tns:amMessage>
          </xsl:if>
-      </xsl:element>
+		    </xsl:element>
    </xsl:template>
 </xsl:stylesheet>

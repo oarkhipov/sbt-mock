@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns="http://sbrf.ru/NCP/ASFO/UpdateRatingRs/Data/"
+<xsd:schema xmlns="http://sbrf.ru/NCP/FinRep/UpdateRatingRs/1.00/updateRatingRs/Data/"
+            xmlns:tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRs/1.00/updateRatingRs/Data/"
+            xmlns:frct="http://sbrf.ru/NCP/FinRep/CommonTypes/"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="http://sbrf.ru/NCP/ASFO/UpdateRatingRs/Data/"
+            xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10"
+            xmlns:st="http://sbrf.ru/prpc/bbmo/simpleTypes/10"
+            targetNamespace="http://sbrf.ru/NCP/FinRep/UpdateRatingRs/1.00/updateRatingRs/Data/"
             elementFormDefault="qualified">
+   <xsd:import namespace="http://sbrf.ru/NCP/FinRep/CommonTypes/"
+               schemaLocation="../../../xsd/FinRep/CommonTypes.xsd"/>
    <xsd:import namespace="http://sbrf.ru/commonTypes/dataTypes/"
                schemaLocation="../../../xsd/CRM/commonTypes/dataTypes.xsd"/>
    <xsd:import namespace="http://sbrf.ru/commonTypes/simpleTypes/"
@@ -82,7 +88,9 @@
    <xsd:element name="data" type="dataValue"/>
    <xsd:complexType name="dataValue">
       <xsd:sequence>
-         <xsd:element name="response" type="UpdateRatingResponse" maxOccurs="unbounded">
+         <xsd:element name="response"
+                      type="tns:UpdateRatingResponse"
+                      maxOccurs="unbounded">
             <xsd:annotation>
                <xsd:documentation>Ответ на запрос</xsd:documentation>
             </xsd:annotation>
@@ -91,21 +99,10 @@
    </xsd:complexType>
    <xsd:complexType name="UpdateRatingResponse">
       <xsd:sequence>
-         <xsd:element name="SoapHeader" type="Header" minOccurs="0"/>
-         <xsd:element name="errorCode">
-            <xsd:simpleType>
-               <xsd:restriction base="xsd:string">
-                  <xsd:maxLength value="30"/>
-               </xsd:restriction>
-            </xsd:simpleType>
-         </xsd:element>
-         <xsd:element name="errorMessage" minOccurs="0">
-            <xsd:simpleType>
-               <xsd:restriction base="xsd:string">
-                  <xsd:maxLength value="2000"/>
-               </xsd:restriction>
-            </xsd:simpleType>
-         </xsd:element>
+         <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
+         <xsd:element name="ratingId" type="frct:string15"/>
+         <xsd:element name="errorCode" type="frct:string30"/>
+         <xsd:element name="errorMessage" minOccurs="0" type="frct:string2000"/>
       </xsd:sequence>
       <xsd:attribute name="name"/>
    </xsd:complexType>

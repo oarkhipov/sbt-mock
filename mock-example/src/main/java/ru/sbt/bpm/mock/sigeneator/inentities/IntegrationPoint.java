@@ -50,6 +50,9 @@ public class IntegrationPoint {
     @XStreamAlias("xsdFile")
     private String aXsdFile;
 
+    @XStreamAlias("RqXsdFile")
+    private String aRqXsdFile;
+
     @XStreamAlias("dataxml")
     private String aDataxml;
 
@@ -139,6 +142,14 @@ public class IntegrationPoint {
 
     public void setaXsdFile(String aXsdFile) {
         this.aXsdFile = aXsdFile;
+    }
+
+    public String getaRqXsdFile() {
+        return aRqXsdFile;
+    }
+
+    public void setaRqXsdFile(String aRqXsdFile) {
+        this.aRqXsdFile = aRqXsdFile;
     }
 
     public Dependencies getaDependencies() {

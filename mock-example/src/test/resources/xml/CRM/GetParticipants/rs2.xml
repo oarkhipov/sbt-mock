@@ -1,20 +1,16 @@
 <soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
-   <soap-env:Header xmlns:soap-env="http://sbrf.ru/NCP/esb/envelope/">
-      <soap-env:message-id>defaultId</soap-env:message-id>
-      <soap-env:request-time>2014-12-16T17:55:06.410+04:00</soap-env:request-time>
-      <soap-env:operation-name>prtspRs</soap-env:operation-name>
-   </soap-env:Header>
+   <soap:Header>
+      <soap:message-id>defaultId</soap:message-id>
+      <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
+      <soap:operation-name>prtspRs</soap:operation-name>
+   </soap:Header>
    <soap:Body>
       <CRM:prtspRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
-                   xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/">
-         <tns:id>string</tns:id>
+                   xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.11/">
+         <tns:dealID>string</tns:dealID>
          <tns:requestType>string</tns:requestType>
-         <tns:participantsGroup>
-            <tns:groupType>string</tns:groupType>
-         </tns:participantsGroup>
-         <tns:operationStatus>
-            <tns:errorCode>string</tns:errorCode>
-         </tns:operationStatus>
+         <tns:participantsGroup/>
+         <tns:operationStatus/>
       </CRM:prtspRs>
    </soap:Body>
 </soap:Envelope>

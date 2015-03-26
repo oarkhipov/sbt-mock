@@ -8,6 +8,7 @@
             <integrationPoints>
                 <integrationPoint>
                     <name>CreateTask</name>
+                    <operationName>createTaskRs</operationName>
                     <rsRootElementName>createTaskRs</rsRootElementName>
                     <rqRootElementName>createTaskRq</rqRootElementName>
                     <type>Mock</type>
@@ -25,7 +26,7 @@
                             <tag>createTaskRq</tag>
                         </linkedTag>
                         <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/CRM/CreateTaskRq/1.02/</namespace>
+                            <namespace>http://sbrf.ru/NCP/CRM/CreateTaskRq/1.03/</namespace>
                             <tag>comment</tag>
                         </linkedTag>
                     </linkedTagSequence>
@@ -36,14 +37,26 @@
                     <outcomeQueue>OUT.KKMB2</outcomeQueue>
                     <xsdFile>CreateTaskResponse.xsd</xsdFile>
                     <!--OPTIONAL-->
+                    <RqXsdFile>CreateTaskRequest.xsd</RqXsdFile>
+                    <!--OPTIONAL-->
                     <dependencies>
                         <dependency>
                             <xsdFile>CommonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/CommonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
                         </dependency>
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint>
                     <name>ForceSignal</name>
+                    <operationName>forceSignalRq</operationName>
                     <rqRootElementName>forceSignalRq</rqRootElementName>
                     <type>Driver</type>
                     <protocol>MQ/SOAP/HTTP</protocol>
@@ -53,14 +66,26 @@
                     <outcomeQueue>OUT.KKMB2</outcomeQueue>
                     <xsdFile>ForceSignalRequest.xsd</xsdFile>
                     <!--OPTIONAL-->
+                    <RqXsdFile>ForceSignalResponse.xsd</RqXsdFile>
+                    <!--OPTIONAL-->
                     <dependencies>
                         <dependency>
                             <xsdFile>CommonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/CommonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
                         </dependency>
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint>
                     <name>GetParticipants</name>
+                    <operationName>prtspRs</operationName>
                     <rsRootElementName>prtspRs</rsRootElementName>
                     <rqRootElementName>prtspRq</rqRootElementName>
                     <type>Mock</type>
@@ -78,7 +103,7 @@
                             <tag>prtspRq</tag>
                         </linkedTag>
                         <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/CRM/CreateTaskRq/1.02/</namespace>
+                            <namespace>http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.04/</namespace>
                             <tag>performer</tag>
                         </linkedTag>
                     </linkedTagSequence>
@@ -89,14 +114,26 @@
                     <outcomeQueue>OUT.KKMB2</outcomeQueue>
                     <xsdFile>GetParticipantsResponse.xsd</xsdFile>
                     <!--OPTIONAL-->
+                    <RqXsdFile>GetParticipantsRequest.xsd</RqXsdFile>
+                    <!--OPTIONAL-->
                     <dependencies>
                         <dependency>
                             <xsdFile>CommonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/CommonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
                         </dependency>
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint>
                     <name>SaveDeal</name>
+                    <operationName>saveDealRs</operationName>
                     <rsRootElementName>saveDealRs</rsRootElementName>
                     <rqRootElementName>saveDealRq</rqRootElementName>
                     <type>Mock</type>
@@ -114,7 +151,7 @@
                             <tag>saveDealRq</tag>
                         </linkedTag>
                         <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/CRM/CreateTaskRq/1.02/</namespace>
+                            <namespace>http://sbrf.ru/NCP/CRM/SaveDealRq/1.15/</namespace>
                             <tag>dealType</tag>
                         </linkedTag>
                     </linkedTagSequence>
@@ -125,14 +162,26 @@
                     <outcomeQueue>OUT.KKMB2</outcomeQueue>
                     <xsdFile>SaveDealResponse.xsd</xsdFile>
                     <!--OPTIONAL-->
+                    <RqXsdFile>SaveDealRequest.xsd</RqXsdFile>
+                    <!--OPTIONAL-->
                     <dependencies>
                         <dependency>
                             <xsdFile>CommonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/CommonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
                         </dependency>
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint>
                     <name>UpdateDeal</name>
+                    <operationName>updateDealRq</operationName>
                     <rqRootElementName>updateDealRq</rqRootElementName>
                     <type>Driver</type>
                     <protocol>MQ/SOAP/HTTP</protocol>
@@ -142,14 +191,26 @@
                     <outcomeQueue>OUT.KKMB2</outcomeQueue>
                     <xsdFile>UpdateDealRequest.xsd</xsdFile>
                     <!--OPTIONAL-->
+                    <RqXsdFile>UpdateDealResponse.xsd</RqXsdFile>
+                    <!--OPTIONAL-->
                     <dependencies>
                         <dependency>
                             <xsdFile>CommonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/CommonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
                         </dependency>
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint>
                     <name>UpdateRef</name>
+                    <operationName>updateRefRs</operationName>
                     <rsRootElementName>updateRefRs</rsRootElementName>
                     <rqRootElementName>updateRefRq</rqRootElementName>
                     <type>Mock</type>
@@ -167,7 +228,7 @@
                             <tag>updateRefRq</tag>
                         </linkedTag>
                         <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/CRM/CreateTaskRq/1.02/</namespace>
+                            <namespace>http://sbrf.ru/NCP/CRM/UpdateDealRq/1.15/</namespace>
                             <tag>referenceItem</tag>
                         </linkedTag>
                     </linkedTagSequence>
@@ -178,9 +239,20 @@
                     <outcomeQueue>OUT.KKMB2</outcomeQueue>
                     <xsdFile>UpdateRefResponse.xsd</xsdFile>
                     <!--OPTIONAL-->
+                    <RqXsdFile>UpdateRefRequest.xsd</RqXsdFile>
+                    <!--OPTIONAL-->
                     <dependencies>
                         <dependency>
                             <xsdFile>CommonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/CommonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
                         </dependency>
                     </dependencies>
                 </integrationPoint>
@@ -194,6 +266,7 @@
         <integrationPoints>
             <integrationPoint>
                 <name>CalculateDebtCapacity</name>
+                <operationName>calculateDCRs</operationName>
                 <rsRootElementName>calculateDCRs</rsRootElementName>
                 <rqRootElementName>calculateDCRq</rqRootElementName>
                 <type>Mock</type>
@@ -222,14 +295,29 @@
                 <outcomeQueue>OUT.KKMB2</outcomeQueue>
                 <xsdFile>CalculateDebtCapacityResponse.xsd</xsdFile>
                 <!--OPTIONAL-->
+                <RqXsdFile>CalculateDebtCapacityRequest.xsd</RqXsdFile>
+                <!--OPTIONAL-->
                 <dependencies>
                     <dependency>
                         <xsdFile>CommonTypes.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>NCPESBEnvelope.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
                     </dependency>
                 </dependencies>
             </integrationPoint>
             <integrationPoint>
                 <name>CalculateLGD</name>
+                <operationName>calculateLGDRs</operationName>
                 <rsRootElementName>calculateLGDRs</rsRootElementName>
                 <rqRootElementName>calculateLGDRq</rqRootElementName>
                 <type>Mock</type>
@@ -258,14 +346,29 @@
                 <outcomeQueue>OUT.KKMB2</outcomeQueue>
                 <xsdFile>CalculateLGDResponse.xsd</xsdFile>
                 <!--OPTIONAL-->
+                <RqXsdFile>CalculateLGDRequest.xsd</RqXsdFile>
+                <!--OPTIONAL-->
                 <dependencies>
                     <dependency>
                         <xsdFile>CommonTypes.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>NCPESBEnvelope.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
                     </dependency>
                 </dependencies>
             </integrationPoint>
             <integrationPoint>
                 <name>CalculateRating</name>
+                <operationName>calculateRatingRs</operationName>
                 <rsRootElementName>calculateRatingRs</rsRootElementName>
                 <rqRootElementName>calculateRatingRq</rqRootElementName>
                 <type>Mock</type>
@@ -294,14 +397,29 @@
                 <outcomeQueue>OUT.KKMB2</outcomeQueue>
                 <xsdFile>CalculateRatingResponse.xsd</xsdFile>
                 <!--OPTIONAL-->
+                <RqXsdFile>CorrectRatingRequest.xsd</RqXsdFile>
+                <!--OPTIONAL-->
                 <dependencies>
                     <dependency>
                         <xsdFile>CommonTypes.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>NCPESBEnvelope.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
                     </dependency>
                 </dependencies>
             </integrationPoint>
             <integrationPoint>
                 <name>ConfirmRating</name>
+                <operationName>confirmRatingRs</operationName>
                 <rsRootElementName>confirmRatingRs</rsRootElementName>
                 <rqRootElementName>confirmRatingRq</rqRootElementName>
                 <type>Mock</type>
@@ -330,6 +448,8 @@
                 <outcomeQueue>OUT.KKMB2</outcomeQueue>
                 <xsdFile>ConfirmRatingResponse.xsd</xsdFile>
                 <!--OPTIONAL-->
+                <RqXsdFile>ConfirmRatingRequest.xsd</RqXsdFile>
+                <!--OPTIONAL-->
                 <dependencies>
                     <dependency>
                         <xsdFile>CommonTypes.xsd</xsdFile>
@@ -338,6 +458,7 @@
             </integrationPoint>
             <integrationPoint>
                 <name>CorrectRating</name>
+                <operationName>correctRatingRs</operationName>
                 <rsRootElementName>correctRatingRs</rsRootElementName>
                 <rqRootElementName>correctRatingRq</rqRootElementName>
                 <type>Mock</type>
@@ -366,14 +487,29 @@
                 <outcomeQueue>OUT.KKMB2</outcomeQueue>
                 <xsdFile>CorrectRatingResponse.xsd</xsdFile>
                 <!--OPTIONAL-->
+                <RqXsdFile>CorrectRatingRequest.xsd</RqXsdFile>
+                <!--OPTIONAL-->
                 <dependencies>
                     <dependency>
                         <xsdFile>CommonTypes.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>NCPESBEnvelope.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
                     </dependency>
                 </dependencies>
             </integrationPoint>
             <integrationPoint>
                 <name>FinalizeLGD</name>
+                <operationName>finalizeLGDRs</operationName>
                 <rsRootElementName>finalizeLGDRs</rsRootElementName>
                 <rqRootElementName>finalizeLGDRq</rqRootElementName>
                 <type>Mock</type>
@@ -402,9 +538,23 @@
                 <outcomeQueue>OUT.KKMB2</outcomeQueue>
                 <xsdFile>FinalizeLGDResponse.xsd</xsdFile>
                 <!--OPTIONAL-->
+                <RqXsdFile>FinalizeLGDRequest.xsd</RqXsdFile>
+                <!--OPTIONAL-->
                 <dependencies>
                     <dependency>
                         <xsdFile>CommonTypes.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>NCPESBEnvelope.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                    </dependency>
+                    <dependency>
+                        <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
                     </dependency>
                 </dependencies>
             </integrationPoint>
@@ -413,13 +563,14 @@
         <system>
             <name>FinRep</name>
             <pathToXSD>/in/NCP/FinRep</pathToXSD>
-            <rootXsd>ASFO.xsd</rootXsd>
+            <rootXsd>FinRep.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/NCP/esb/envelope/</headerNamespace>
             <integrationPoints>
                 <integrationPoint>
-                    <name>FinAnalysisImport</name>
-                    <rsRootElementName>getFinAnalysisRs</rsRootElementName>
-                    <rqRootElementName>getFinAnalysisRq</rqRootElementName>
+                    <name>importFinReport</name>
+                    <operationName>importFinReportRs</operationName>
+                    <rsRootElementName>importFinReportRs</rsRootElementName>
+                    <rqRootElementName>importFinReportRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
                         <linkedTag>
@@ -431,11 +582,11 @@
                             <tag>Body</tag>
                         </linkedTag>
                         <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/ASFO/</namespace>
-                            <tag>getFinAnalysisRq</tag>
+                            <namespace>http://sbrf.ru/NCP/FinRep/</namespace>
+                            <tag>importFinReportRq</tag>
                         </linkedTag>
                         <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/ASFO/GetFinAnalysisRq/</namespace>
+                            <namespace>http://sbrf.ru/NCP/FinRep/ImportFinReportRq/1.00/</namespace>
                             <tag>dealId</tag>
                         </linkedTag>
                     </linkedTagSequence>
@@ -444,18 +595,33 @@
                     <incomeQueue>IN.KKMB.2</incomeQueue>
                     <!--OPTIONAL-->
                     <outcomeQueue>OUT.KKMB2</outcomeQueue>
-                    <xsdFile>FinAnalysisImportResponse.xsd</xsdFile>
+                    <xsdFile>ImportFinReportResponse.xsd</xsdFile>
+                    <!--OPTIONAL-->
+                    <RqXsdFile>ImportFinReportRequest.xsd</RqXsdFile>
                     <!--OPTIONAL-->
                     <dependencies>
                         <dependency>
                             <xsdFile>CommonTypes.xsd</xsdFile>
                         </dependency>
+                        <dependency>
+                            <xsdFile>NCPESBEnvelope.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
+                        </dependency>
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint>
-                    <name>FinReportImport</name>
-                    <rsRootElementName>getFinReportRs</rsRootElementName>
-                    <rqRootElementName>getFinReportRq</rqRootElementName>
+                    <name>importRating</name>
+                    <operationName>importRatingRs</operationName>
+                    <rsRootElementName>importRatingRs</rsRootElementName>
+                    <rqRootElementName>importRatingRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
                         <linkedTag>
@@ -467,48 +633,12 @@
                             <tag>Body</tag>
                         </linkedTag>
                         <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/ASFO/</namespace>
-                            <tag>getFinReportRq</tag>
+                            <namespace>http://sbrf.ru/NCP/FinRep/</namespace>
+                            <tag>importRatingRq</tag>
                         </linkedTag>
                         <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/ASFO/GetFinReportRq/</namespace>
+                            <namespace>http://sbrf.ru/NCP/FinRep/ImportRatingRq/1.00/</namespace>
                             <tag>finReportType</tag>
-                        </linkedTag>
-                    </linkedTagSequence>
-                    <protocol>MQ/SOAP/HTTP</protocol>
-                    <!--OPTIONAL-->
-                    <incomeQueue>IN.KKMB.2</incomeQueue>
-                    <!--OPTIONAL-->
-                    <outcomeQueue>OUT.KKMB2</outcomeQueue>
-                    <xsdFile>FinReportImportResponse.xsd</xsdFile>
-                    <!--OPTIONAL-->
-                    <dependencies>
-                        <dependency>
-                            <xsdFile>CommonTypes.xsd</xsdFile>
-                        </dependency>
-                    </dependencies>
-                </integrationPoint>
-                <integrationPoint>
-                    <name>ImportRating</name>
-                    <rsRootElementName>getRatingsAndFactorsRs</rsRootElementName>
-                    <rqRootElementName>getRatingsAndFactorsRq</rqRootElementName>
-                    <type>Mock</type>
-                    <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/ASFO/</namespace>
-                            <tag>getRatingsAndFactorsRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/ASFO/GetRatingsAndFactorsRq/</namespace>
-                            <tag>entityType</tag>
                         </linkedTag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
@@ -518,14 +648,29 @@
                     <outcomeQueue>OUT.KKMB2</outcomeQueue>
                     <xsdFile>ImportRatingResponse.xsd</xsdFile>
                     <!--OPTIONAL-->
+                    <RqXsdFile>ImportRatingRequest.xsd</RqXsdFile>
+                    <!--OPTIONAL-->
                     <dependencies>
                         <dependency>
                             <xsdFile>CommonTypes.xsd</xsdFile>
                         </dependency>
+                        <dependency>
+                            <xsdFile>NCPESBEnvelope.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
+                        </dependency>
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint>
-                    <name>UpdateRating</name>
+                    <name>updateRating</name>
+                    <operationName>updateRatingRs</operationName>
                     <rsRootElementName>updateRatingRs</rsRootElementName>
                     <rqRootElementName>updateRatingRq</rqRootElementName>
                     <type>Mock</type>
@@ -539,12 +684,12 @@
                             <tag>Body</tag>
                         </linkedTag>
                         <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/ASFO/</namespace>
+                            <namespace>http://sbrf.ru/NCP/FinRep/</namespace>
                             <tag>updateRatingRq</tag>
                         </linkedTag>
                         <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/ASFO/UpdateRatingRq/</namespace>
-                            <tag>status</tag>
+                            <namespace>http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/</namespace>
+                            <tag>entityType</tag>
                         </linkedTag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
@@ -554,9 +699,74 @@
                     <outcomeQueue>OUT.KKMB2</outcomeQueue>
                     <xsdFile>UpdateRatingResponse.xsd</xsdFile>
                     <!--OPTIONAL-->
+                    <RqXsdFile>UpdateRatingRequest.xsd</RqXsdFile>
+                    <!--OPTIONAL-->
                     <dependencies>
                         <dependency>
                             <xsdFile>CommonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>NCPESBEnvelope.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
+                        </dependency>
+                    </dependencies>
+                </integrationPoint>
+                <integrationPoint>
+                    <name>getExchangeRates</name>
+                    <operationName>getExchangeRatesRs</operationName>
+                    <rsRootElementName>getExchangeRatesRs</rsRootElementName>
+                    <rqRootElementName>getExchangeRatesRq</rqRootElementName>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
+                            <tag>Envelope</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
+                            <tag>Body</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/NCP/FinRep/</namespace>
+                            <tag>getExchangeRatesRq</tag>
+                        </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/NCP/FinRep/GetExchangeRatesRq/1.00/</namespace>
+                            <tag>status</tag>
+                        </linkedTag>
+                    </linkedTagSequence>
+                    <protocol>MQ/SOAP/HTTP</protocol>
+                    <!--OPTIONAL-->
+                    <incomeQueue>IN.KKMB.2</incomeQueue>
+                    <!--OPTIONAL-->
+                    <outcomeQueue>OUT.KKMB2</outcomeQueue>
+                    <xsdFile>GetExchangeRatesResponse.xsd</xsdFile>
+                    <!--OPTIONAL-->
+                    <RqXsdFile>GetExchangeRatesRequest.xsd</RqXsdFile>
+                    <!--OPTIONAL-->
+                    <dependencies>
+                        <dependency>
+                            <xsdFile>CommonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>NCPESBEnvelope.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
                         </dependency>
                     </dependencies>
                 </integrationPoint>

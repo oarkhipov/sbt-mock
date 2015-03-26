@@ -3,6 +3,11 @@
 
     <xsl:template name="NCPSOAPNS">http://sbrf.ru/NCP/esb/envelope/</xsl:template>
 
+    <xsl:template name="NCPnamespaces">
+        <xsl:namespace name="st" select="'http://sbrf.ru/commonTypes/simpleTypes/'"/>
+        <xsl:namespace name="dt" select="'http://sbrf.ru/commonTypes/dataTypes/'"/>
+    </xsl:template>
+
     <!--заголовок из дата-файла-->
     <xsl:template name="NCPHeader" xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
         <xsl:param name="response"/>

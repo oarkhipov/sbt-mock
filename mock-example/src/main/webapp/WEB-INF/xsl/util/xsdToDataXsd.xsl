@@ -96,6 +96,9 @@
             <xsl:for-each select="$operationXsdSchema/namespace::*[.!=$operationXsdSchema/@targetNamespace and string-length(local-name(.))>0]">
                 <xsl:namespace name="{local-name(.)}" select="."/>
             </xsl:for-each>
+            <xsl:call-template name="headerNamespaces">
+                <xsl:with-param name="headerType" select="$headerType"/>
+            </xsl:call-template>
             <xsl:attribute name="targetNamespace">
                 <xsl:value-of select="$targetNS"/>
             </xsl:attribute>

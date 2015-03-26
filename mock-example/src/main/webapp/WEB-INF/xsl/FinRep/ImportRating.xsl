@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:tns="http://sbrf.ru/NCP/ASFO/GetRatingsAndFactorsRs/"
-                xmlns="http://sbrf.ru/NCP/ASFO/GetRatingsAndFactorsRs/"
-                xmlns:amrct="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/"
-                xmlns:rsd="http://sbrf.ru/NCP/ASFO/GetRatingsAndFactorsRs/Data/"
+<xsl:stylesheet xmlns:tns="http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/"
+                xmlns:rsd="http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/importRatingRs/Data/"
                 xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
-                xmlns:FinRep="http://sbrf.ru/NCP/ASFO/"
+                xmlns:FinRep="http://sbrf.ru/NCP/FinRep/"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
-   <xsl:import href="../util/NCPSoapRqHeaderXSLTTemplate.xsl"/>
+   <xsl:import href="../util/headerTemplate.xsl"/>
    <!--опускаем строку 'xml version="1.0" encoding="UTF-8"'. С ней не работает MQ очередь-->
 <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
    <xsl:param name="name"
-              select="//soap:Body/*//*[local-name()='entityType'][1]/text()"/>
+              select="//*[local-name()='Envelope' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='Body' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='importRatingRq' and namespace-uri()='http://sbrf.ru/NCP/FinRep/']/*[local-name()='finReportType' and namespace-uri()='http://sbrf.ru/NCP/FinRep/ImportRatingRq/1.00/']/text()"/>
    <xsl:param name="dataFileName"
-              select="'../../data/FinRep/xml/ImportRatingData.xml'"/>
+              select="'../../data/FinRep/xml/importRatingData.xml'"/>
    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
    <xsl:param name="id" select="null"/>
    <!--Optional params for optional header values-->
@@ -28,34 +26,27 @@
       <xsl:variable name="data" select="document($dataFileName)/rsd:data"/>
       <xsl:variable name="linkedTag" select="$name"/>
       <xsl:element name="soap:Envelope">
-         <xsl:choose>
-            <xsl:when test="soap:Header">
-               <xsl:copy-of select="soap:Header"/>
-            </xsl:when>
-            <xsl:otherwise>
-               <xsl:call-template name="NCPHeader">
-                  <xsl:with-param name="response">
-                     <xsl:choose>
-                        <xsl:when test="count(./rsd:response[@name=$linkedTag])=1">
-                           <xsl:value-of select="$linkedTag"/>
-                        </xsl:when>
-                        <xsl:otherwise>default</xsl:otherwise>
-                     </xsl:choose>
-                  </xsl:with-param>
-                  <xsl:with-param name="timestamp" select="$timestamp"/>
-                  <xsl:with-param name="id" select="$id"/>
-                  <xsl:with-param name="operation-name" select="string('getRatingsAndFactorsRs')"/>
-                  <xsl:with-param name="correlation-id" select="$correlation-id"/>
-                  <xsl:with-param name="eis-name" select="$eis-name"/>
-                  <xsl:with-param name="system-id" select="$system-id"/>
-                  <xsl:with-param name="operation-version" select="$operation-version"/>
-                  <xsl:with-param name="user-id" select="$user-id"/>
-                  <xsl:with-param name="user-name" select="$user-name"/>
-               </xsl:call-template>
-            </xsl:otherwise>
-         </xsl:choose>
+         <xsl:call-template name="NCPHeader">
+            <xsl:with-param name="response">
+               <xsl:choose>
+                  <xsl:when test="count(./rsd:response[@name=$linkedTag])=1">
+                     <xsl:value-of select="$linkedTag"/>
+                  </xsl:when>
+                  <xsl:otherwise>default</xsl:otherwise>
+               </xsl:choose>
+            </xsl:with-param>
+            <xsl:with-param name="timestamp" select="$timestamp"/>
+            <xsl:with-param name="id" select="$id"/>
+            <xsl:with-param name="operation-name" select="string('importRatingRs')"/>
+            <xsl:with-param name="correlation-id" select="$correlation-id"/>
+            <xsl:with-param name="eis-name" select="$eis-name"/>
+            <xsl:with-param name="system-id" select="$system-id"/>
+            <xsl:with-param name="operation-version" select="$operation-version"/>
+            <xsl:with-param name="user-id" select="$user-id"/>
+            <xsl:with-param name="user-name" select="$user-name"/>
+         </xsl:call-template>
          <soap:Body>
-            <xsl:call-template name="ImportRatingResponse">
+            <xsl:call-template name="importRatingRs">
                <xsl:with-param name="data" select="$data"/>
                <xsl:with-param name="response">
                   <xsl:choose>
@@ -210,6 +201,12 @@
             <xsl:value-of select="./rsd:value"/>
          </tns:value>
       </tns:addParameter>
+   </xsl:template>
+
+   <xsl:template match="rsd:listOfAddParameter">
+      <tns:listOfAddParameter>
+         <xsl:apply-templates select="./rsd:addParameter"/>
+      </tns:listOfAddParameter>
    </xsl:template>
 
    <xsl:template match="rsd:calculatedFactor">
@@ -432,6 +429,7 @@
          <xsl:apply-templates select="./rsd:employeeForCalc"/>
          <xsl:apply-templates select="./rsd:listOfResultRating"/>
          <xsl:apply-templates select="./rsd:listOfCalculatedFactor"/>
+         <xsl:apply-templates select="./rsd:listOfAddParameter"/>
          <xsl:apply-templates select="./rsd:listOfFixedFactor"/>
          <xsl:apply-templates select="./rsd:listOfRatingPeriod"/>
          <xsl:apply-templates select="./rsd:listOfRatingSupport"/>
@@ -487,18 +485,26 @@
                <xsl:value-of select="./rsd:ajustmentDate"/>
             </tns:ajustmentDate>
          </xsl:if>
-         <tns:modelName>
-            <xsl:value-of select="./rsd:modelName"/>
-         </tns:modelName>
-         <tns:modelIntegrationId>
-            <xsl:value-of select="./rsd:modelIntegrationId"/>
-         </tns:modelIntegrationId>
-         <tns:ratingName>
-            <xsl:value-of select="./rsd:ratingName"/>
-         </tns:ratingName>
-         <tns:ratingType>
-            <xsl:value-of select="./rsd:ratingType"/>
-         </tns:ratingType>
+         <xsl:if test="./rsd:modelName">
+            <tns:modelName>
+               <xsl:value-of select="./rsd:modelName"/>
+            </tns:modelName>
+         </xsl:if>
+         <xsl:if test="./rsd:modelIntegrationId">
+            <tns:modelIntegrationId>
+               <xsl:value-of select="./rsd:modelIntegrationId"/>
+            </tns:modelIntegrationId>
+         </xsl:if>
+         <xsl:if test="./rsd:ratingName">
+            <tns:ratingName>
+               <xsl:value-of select="./rsd:ratingName"/>
+            </tns:ratingName>
+         </xsl:if>
+         <xsl:if test="./rsd:ratingType">
+            <tns:ratingType>
+               <xsl:value-of select="./rsd:ratingType"/>
+            </tns:ratingType>
+         </xsl:if>
          <xsl:apply-templates select="./rsd:employeeForApprove"/>
          <xsl:apply-templates select="./rsd:listOfRatingCalc"/>
       </tns:rating>
@@ -510,11 +516,28 @@
       </tns:listOfRating>
    </xsl:template>
 
-   <xsl:template name="ImportRatingResponse">
+   <xsl:template name="importRatingRs">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="FinRep:getRatingsAndFactorsRs">
-         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:listOfRating"/>
-      </xsl:element>
+      <xsl:element name="FinRep:importRatingRs">
+            <tns:dealId>
+            <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:dealId"/>
+         </tns:dealId>
+            <tns:entityType>
+            <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:entityType"/>
+         </tns:entityType>
+            <tns:entityId>
+            <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:entityId"/>
+         </tns:entityId>
+            <tns:errorCode>
+            <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
+         </tns:errorCode>
+            <xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+            <tns:errorMessage>
+               <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
+            </tns:errorMessage>
+         </xsl:if>
+            <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:listOfRating"/>
+        </xsl:element>
    </xsl:template>
 </xsl:stylesheet>
