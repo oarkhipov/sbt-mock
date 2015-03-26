@@ -1,0 +1,22 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Header>
+      <mq:AsyncHeader xmlns:mq="http://sbrf.ru/prpc/mq/headers">
+         <mq:message-id>message-id</mq:message-id>
+         <mq:request-time>2014-12-16T17:55:06.410+04:00</mq:request-time>
+         <mq:operation-name>CKPITProductsLoansReq</mq:operation-name>
+      </mq:AsyncHeader>
+   </soap:Header>
+   <soap:Body>
+      <CKPITProductsLoansReq>
+         <RqUID>string</RqUID>
+         <RqTm>string</RqTm>
+         <RqAction>string</RqAction>
+         <IDCKPIT_MB>1234567890</IDCKPIT_MB>
+         <!--from 1 to unbounded elements --><Loan>
+            <Label>string</Label>
+            <Title>string</Title>
+            <CodeEKS>string</CodeEKS>
+         </Loan>
+      </CKPITProductsLoansReq>
+   </soap:Body>
+</soap:Envelope>
