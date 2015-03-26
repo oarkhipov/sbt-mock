@@ -19,9 +19,9 @@
             <ajustedRatingValue>17</ajustedRatingValue>
             <pd>1</pd>
             <status>CALC_REQUIRED</status>
-            <approvalDate>2015-01-12T18:53:06.205+04:00</approvalDate>
-            <calculationDate>2015-01-10T18:53:06.205+04:00</calculationDate>
-            <ajustmentDate>2015-01-11T18:53:06.205+04:00</ajustmentDate>
+            <approvalDate>2015-01-12T18:53:06.205</approvalDate>
+            <calculationDate>2015-01-10T18:53:06.205</calculationDate>
+            <ajustmentDate>2015-01-11T18:53:06.205</ajustmentDate>
             <modelName>Корпоративные клиенты/Беларусь</modelName>
             <modelIntegrationId>B_CC</modelIntegrationId>
             <ratingName>PD</ratingName>
@@ -41,7 +41,7 @@
                   <ratingCalcId>ratingCalcId_0</ratingCalcId>
                   <modelName>Model Name</modelName>
                   <modelIntegrationId>Model Integration Id</modelIntegrationId>
-                  <dateCalc>2015-01-09T18:53:06.145+04:00</dateCalc>
+                  <dateCalc>2015-01-09T18:53:06.145</dateCalc>
                   <calcValue>2</calcValue>
                   <employeeForCalc>
                      <login>Login</login>
@@ -562,10 +562,10 @@
                   </listOfFixedFactor>
                   <listOfRatingPeriod>
                      <ratingPeriod>
-                        <reportDate>2013-07-01+04:00</reportDate>
+                        <reportDate>2013-07-01</reportDate>
                         <period>За 2 квартал 2013года.</period>
-                        <startDate>2013-04-01+04:00</startDate>
-                        <endDate>2013-06-30+04:00</endDate>
+                        <startDate>2013-04-01</startDate>
+                        <endDate>2013-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -652,10 +652,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-01-01+04:00</reportDate>
+                        <reportDate>2014-01-01</reportDate>
                         <period>За 2013 год.</period>
-                        <startDate>2013-01-01+04:00</startDate>
-                        <endDate>2013-12-31+04:00</endDate>
+                        <startDate>2013-01-01</startDate>
+                        <endDate>2013-12-31</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -713,10 +713,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-07-01+04:00</reportDate>
+                        <reportDate>2014-07-01</reportDate>
                         <period>За 2 квартал 2014года.</period>
-                        <startDate>2014-04-01+04:00</startDate>
-                        <endDate>2014-06-30+04:00</endDate>
+                        <startDate>2014-04-01</startDate>
+                        <endDate>2014-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -1304,7 +1304,7 @@
                   <ratingCalcId>ratingCalcId_1</ratingCalcId>
                   <modelName>Model Name</modelName>
                   <modelIntegrationId>Model Integration Id</modelIntegrationId>
-                  <dateCalc>2015-01-09T18:53:06.167+04:00</dateCalc>
+                  <dateCalc>2015-01-09T18:53:06.167</dateCalc>
                   <calcValue>5</calcValue>
                   <employeeForCalc>
                      <login>Login</login>
@@ -1825,10 +1825,10 @@
                   </listOfFixedFactor>
                   <listOfRatingPeriod>
                      <ratingPeriod>
-                        <reportDate>2013-07-01+04:00</reportDate>
+                        <reportDate>2013-07-01</reportDate>
                         <period>За 2 квартал 2013года.</period>
-                        <startDate>2013-04-01+04:00</startDate>
-                        <endDate>2013-06-30+04:00</endDate>
+                        <startDate>2013-04-01</startDate>
+                        <endDate>2013-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -1915,10 +1915,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-01-01+04:00</reportDate>
+                        <reportDate>2014-01-01</reportDate>
                         <period>За 2013 год.</period>
-                        <startDate>2013-01-01+04:00</startDate>
-                        <endDate>2013-12-31+04:00</endDate>
+                        <startDate>2013-01-01</startDate>
+                        <endDate>2013-12-31</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -1976,10 +1976,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-07-01+04:00</reportDate>
+                        <reportDate>2014-07-01</reportDate>
                         <period>За 2 квартал 2014года.</period>
-                        <startDate>2014-04-01+04:00</startDate>
-                        <endDate>2014-06-30+04:00</endDate>
+                        <startDate>2014-04-01</startDate>
+                        <endDate>2014-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -2567,7 +2567,7 @@
                   <ratingCalcId>ratingCalcId_2</ratingCalcId>
                   <modelName>Model Name</modelName>
                   <modelIntegrationId>Model Integration Id</modelIntegrationId>
-                  <dateCalc>2015-01-09T18:53:06.184+04:00</dateCalc>
+                  <dateCalc>2015-01-09T18:53:06.184</dateCalc>
                   <calcValue>6</calcValue>
                   <employeeForCalc>
                      <login>Login</login>
@@ -3088,10 +3088,10 @@
                   </listOfFixedFactor>
                   <listOfRatingPeriod>
                      <ratingPeriod>
-                        <reportDate>2013-07-01+04:00</reportDate>
+                        <reportDate>2013-07-01</reportDate>
                         <period>За 2 квартал 2013года.</period>
-                        <startDate>2013-04-01+04:00</startDate>
-                        <endDate>2013-06-30+04:00</endDate>
+                        <startDate>2013-04-01</startDate>
+                        <endDate>2013-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -3178,10 +3178,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-01-01+04:00</reportDate>
+                        <reportDate>2014-01-01</reportDate>
                         <period>За 2013 год.</period>
-                        <startDate>2013-01-01+04:00</startDate>
-                        <endDate>2013-12-31+04:00</endDate>
+                        <startDate>2013-01-01</startDate>
+                        <endDate>2013-12-31</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -3239,10 +3239,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-07-01+04:00</reportDate>
+                        <reportDate>2014-07-01</reportDate>
                         <period>За 2 квартал 2014года.</period>
-                        <startDate>2014-04-01+04:00</startDate>
-                        <endDate>2014-06-30+04:00</endDate>
+                        <startDate>2014-04-01</startDate>
+                        <endDate>2014-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -4339,10 +4339,10 @@
                   </listOfFixedFactor>
                   <listOfRatingPeriod>
                      <ratingPeriod>
-                        <reportDate>2013-07-01+04:00</reportDate>
+                        <reportDate>2013-07-01</reportDate>
                         <period>За 2 квартал 2013года.</period>
-                        <startDate>2013-04-01+04:00</startDate>
-                        <endDate>2013-06-30+04:00</endDate>
+                        <startDate>2013-04-01</startDate>
+                        <endDate>2013-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -4429,10 +4429,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-01-01+04:00</reportDate>
+                        <reportDate>2014-01-01</reportDate>
                         <period>За 2013 год.</period>
-                        <startDate>2013-01-01+04:00</startDate>
-                        <endDate>2013-12-31+04:00</endDate>
+                        <startDate>2013-01-01</startDate>
+                        <endDate>2013-12-31</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -4490,10 +4490,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-07-01+04:00</reportDate>
+                        <reportDate>2014-07-01</reportDate>
                         <period>За 2 квартал 2014года.</period>
-                        <startDate>2014-04-01+04:00</startDate>
-                        <endDate>2014-06-30+04:00</endDate>
+                        <startDate>2014-04-01</startDate>
+                        <endDate>2014-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -5086,9 +5086,9 @@
             <ajustedRatingValue>18</ajustedRatingValue>
             <pd>1</pd>
             <status>CALC_REQUIRED</status>
-            <approvalDate>2015-01-12T18:53:06.265+04:00</approvalDate>
-            <calculationDate>2015-01-10T18:53:06.265+04:00</calculationDate>
-            <ajustmentDate>2015-01-11T18:53:06.265+04:00</ajustmentDate>
+            <approvalDate>2015-01-12T18:53:06.265</approvalDate>
+            <calculationDate>2015-01-10T18:53:06.265</calculationDate>
+            <ajustmentDate>2015-01-11T18:53:06.265</ajustmentDate>
             <modelName>Корпоративные клиенты/Беларусь</modelName>
             <modelIntegrationId>B_CC</modelIntegrationId>
             <ratingName>PD</ratingName>
@@ -5108,7 +5108,7 @@
                   <ratingCalcId>ratingCalcId_0</ratingCalcId>
                   <modelName>Model Name</modelName>
                   <modelIntegrationId>Model Integration Id</modelIntegrationId>
-                  <dateCalc>2015-01-09T18:53:06.221+04:00</dateCalc>
+                  <dateCalc>2015-01-09T18:53:06.221</dateCalc>
                   <calcValue>25</calcValue>
                   <employeeForCalc>
                      <login>Login</login>
@@ -5629,10 +5629,10 @@
                   </listOfFixedFactor>
                   <listOfRatingPeriod>
                      <ratingPeriod>
-                        <reportDate>2013-07-01+04:00</reportDate>
+                        <reportDate>2013-07-01</reportDate>
                         <period>За 2 квартал 2013года.</period>
-                        <startDate>2013-04-01+04:00</startDate>
-                        <endDate>2013-06-30+04:00</endDate>
+                        <startDate>2013-04-01</startDate>
+                        <endDate>2013-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -5719,10 +5719,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-01-01+04:00</reportDate>
+                        <reportDate>2014-01-01</reportDate>
                         <period>За 2013 год.</period>
-                        <startDate>2013-01-01+04:00</startDate>
-                        <endDate>2013-12-31+04:00</endDate>
+                        <startDate>2013-01-01</startDate>
+                        <endDate>2013-12-31</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -5780,10 +5780,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-07-01+04:00</reportDate>
+                        <reportDate>2014-07-01</reportDate>
                         <period>За 2 квартал 2014года.</period>
-                        <startDate>2014-04-01+04:00</startDate>
-                        <endDate>2014-06-30+04:00</endDate>
+                        <startDate>2014-04-01</startDate>
+                        <endDate>2014-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -6371,7 +6371,7 @@
                   <ratingCalcId>ratingCalcId_1</ratingCalcId>
                   <modelName>Model Name</modelName>
                   <modelIntegrationId>Model Integration Id</modelIntegrationId>
-                  <dateCalc>2015-01-09T18:53:06.237+04:00</dateCalc>
+                  <dateCalc>2015-01-09T18:53:06.237</dateCalc>
                   <calcValue>10</calcValue>
                   <employeeForCalc>
                      <login>Login</login>
@@ -6892,10 +6892,10 @@
                   </listOfFixedFactor>
                   <listOfRatingPeriod>
                      <ratingPeriod>
-                        <reportDate>2013-07-01+04:00</reportDate>
+                        <reportDate>2013-07-01</reportDate>
                         <period>За 2 квартал 2013года.</period>
-                        <startDate>2013-04-01+04:00</startDate>
-                        <endDate>2013-06-30+04:00</endDate>
+                        <startDate>2013-04-01</startDate>
+                        <endDate>2013-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -6982,10 +6982,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-01-01+04:00</reportDate>
+                        <reportDate>2014-01-01</reportDate>
                         <period>За 2013 год.</period>
-                        <startDate>2013-01-01+04:00</startDate>
-                        <endDate>2013-12-31+04:00</endDate>
+                        <startDate>2013-01-01</startDate>
+                        <endDate>2013-12-31</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -7043,10 +7043,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-07-01+04:00</reportDate>
+                        <reportDate>2014-07-01</reportDate>
                         <period>За 2 квартал 2014года.</period>
-                        <startDate>2014-04-01+04:00</startDate>
-                        <endDate>2014-06-30+04:00</endDate>
+                        <startDate>2014-04-01</startDate>
+                        <endDate>2014-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -7634,7 +7634,7 @@
                   <ratingCalcId>ratingCalcId_2</ratingCalcId>
                   <modelName>Model Name</modelName>
                   <modelIntegrationId>Model Integration Id</modelIntegrationId>
-                  <dateCalc>2015-01-09T18:53:06.253+04:00</dateCalc>
+                  <dateCalc>2015-01-09T18:53:06.253</dateCalc>
                   <calcValue>8</calcValue>
                   <employeeForCalc>
                      <login>Login</login>
@@ -8155,10 +8155,10 @@
                   </listOfFixedFactor>
                   <listOfRatingPeriod>
                      <ratingPeriod>
-                        <reportDate>2013-07-01+04:00</reportDate>
+                        <reportDate>2013-07-01</reportDate>
                         <period>За 2 квартал 2013года.</period>
-                        <startDate>2013-04-01+04:00</startDate>
-                        <endDate>2013-06-30+04:00</endDate>
+                        <startDate>2013-04-01</startDate>
+                        <endDate>2013-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -8245,10 +8245,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-01-01+04:00</reportDate>
+                        <reportDate>2014-01-01</reportDate>
                         <period>За 2013 год.</period>
-                        <startDate>2013-01-01+04:00</startDate>
-                        <endDate>2013-12-31+04:00</endDate>
+                        <startDate>2013-01-01</startDate>
+                        <endDate>2013-12-31</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -8306,10 +8306,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-07-01+04:00</reportDate>
+                        <reportDate>2014-07-01</reportDate>
                         <period>За 2 квартал 2014года.</period>
-                        <startDate>2014-04-01+04:00</startDate>
-                        <endDate>2014-06-30+04:00</endDate>
+                        <startDate>2014-04-01</startDate>
+                        <endDate>2014-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -9406,10 +9406,10 @@
                   </listOfFixedFactor>
                   <listOfRatingPeriod>
                      <ratingPeriod>
-                        <reportDate>2013-07-01+04:00</reportDate>
+                        <reportDate>2013-07-01</reportDate>
                         <period>За 2 квартал 2013года.</period>
-                        <startDate>2013-04-01+04:00</startDate>
-                        <endDate>2013-06-30+04:00</endDate>
+                        <startDate>2013-04-01</startDate>
+                        <endDate>2013-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -9496,10 +9496,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-01-01+04:00</reportDate>
+                        <reportDate>2014-01-01</reportDate>
                         <period>За 2013 год.</period>
-                        <startDate>2013-01-01+04:00</startDate>
-                        <endDate>2013-12-31+04:00</endDate>
+                        <startDate>2013-01-01</startDate>
+                        <endDate>2013-12-31</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -9557,10 +9557,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-07-01+04:00</reportDate>
+                        <reportDate>2014-07-01</reportDate>
                         <period>За 2 квартал 2014года.</period>
-                        <startDate>2014-04-01+04:00</startDate>
-                        <endDate>2014-06-30+04:00</endDate>
+                        <startDate>2014-04-01</startDate>
+                        <endDate>2014-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -10153,9 +10153,9 @@
             <ajustedRatingValue>16</ajustedRatingValue>
             <pd>1</pd>
             <status>CALC_REQUIRED</status>
-            <approvalDate>2015-01-12T18:53:06.302+04:00</approvalDate>
-            <calculationDate>2015-01-10T18:53:06.302+04:00</calculationDate>
-            <ajustmentDate>2015-01-11T18:53:06.302+04:00</ajustmentDate>
+            <approvalDate>2015-01-12T18:53:06.302</approvalDate>
+            <calculationDate>2015-01-10T18:53:06.302</calculationDate>
+            <ajustmentDate>2015-01-11T18:53:06.302</ajustmentDate>
             <modelName>Корпоративные клиенты/Беларусь</modelName>
             <modelIntegrationId>B_CC</modelIntegrationId>
             <ratingName>PD</ratingName>
@@ -10175,7 +10175,7 @@
                   <ratingCalcId>ratingCalcId_0</ratingCalcId>
                   <modelName>Model Name</modelName>
                   <modelIntegrationId>Model Integration Id</modelIntegrationId>
-                  <dateCalc>2015-01-09T18:53:06.275+04:00</dateCalc>
+                  <dateCalc>2015-01-09T18:53:06.275</dateCalc>
                   <calcValue>19</calcValue>
                   <employeeForCalc>
                      <login>Login</login>
@@ -10696,10 +10696,10 @@
                   </listOfFixedFactor>
                   <listOfRatingPeriod>
                      <ratingPeriod>
-                        <reportDate>2013-07-01+04:00</reportDate>
+                        <reportDate>2013-07-01</reportDate>
                         <period>За 2 квартал 2013года.</period>
-                        <startDate>2013-04-01+04:00</startDate>
-                        <endDate>2013-06-30+04:00</endDate>
+                        <startDate>2013-04-01</startDate>
+                        <endDate>2013-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -10786,10 +10786,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-01-01+04:00</reportDate>
+                        <reportDate>2014-01-01</reportDate>
                         <period>За 2013 год.</period>
-                        <startDate>2013-01-01+04:00</startDate>
-                        <endDate>2013-12-31+04:00</endDate>
+                        <startDate>2013-01-01</startDate>
+                        <endDate>2013-12-31</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -10847,10 +10847,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-07-01+04:00</reportDate>
+                        <reportDate>2014-07-01</reportDate>
                         <period>За 2 квартал 2014года.</period>
-                        <startDate>2014-04-01+04:00</startDate>
-                        <endDate>2014-06-30+04:00</endDate>
+                        <startDate>2014-04-01</startDate>
+                        <endDate>2014-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -11438,7 +11438,7 @@
                   <ratingCalcId>ratingCalcId_1</ratingCalcId>
                   <modelName>Model Name</modelName>
                   <modelIntegrationId>Model Integration Id</modelIntegrationId>
-                  <dateCalc>2015-01-09T18:53:06.285+04:00</dateCalc>
+                  <dateCalc>2015-01-09T18:53:06.285</dateCalc>
                   <calcValue>6</calcValue>
                   <employeeForCalc>
                      <login>Login</login>
@@ -11959,10 +11959,10 @@
                   </listOfFixedFactor>
                   <listOfRatingPeriod>
                      <ratingPeriod>
-                        <reportDate>2013-07-01+04:00</reportDate>
+                        <reportDate>2013-07-01</reportDate>
                         <period>За 2 квартал 2013года.</period>
-                        <startDate>2013-04-01+04:00</startDate>
-                        <endDate>2013-06-30+04:00</endDate>
+                        <startDate>2013-04-01</startDate>
+                        <endDate>2013-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -12049,10 +12049,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-01-01+04:00</reportDate>
+                        <reportDate>2014-01-01</reportDate>
                         <period>За 2013 год.</period>
-                        <startDate>2013-01-01+04:00</startDate>
-                        <endDate>2013-12-31+04:00</endDate>
+                        <startDate>2013-01-01</startDate>
+                        <endDate>2013-12-31</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -12110,10 +12110,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-07-01+04:00</reportDate>
+                        <reportDate>2014-07-01</reportDate>
                         <period>За 2 квартал 2014года.</period>
-                        <startDate>2014-04-01+04:00</startDate>
-                        <endDate>2014-06-30+04:00</endDate>
+                        <startDate>2014-04-01</startDate>
+                        <endDate>2014-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -12701,7 +12701,7 @@
                   <ratingCalcId>ratingCalcId_2</ratingCalcId>
                   <modelName>Model Name</modelName>
                   <modelIntegrationId>Model Integration Id</modelIntegrationId>
-                  <dateCalc>2015-01-09T18:53:06.294+04:00</dateCalc>
+                  <dateCalc>2015-01-09T18:53:06.294</dateCalc>
                   <calcValue>6</calcValue>
                   <employeeForCalc>
                      <login>Login</login>
@@ -13222,10 +13222,10 @@
                   </listOfFixedFactor>
                   <listOfRatingPeriod>
                      <ratingPeriod>
-                        <reportDate>2013-07-01+04:00</reportDate>
+                        <reportDate>2013-07-01</reportDate>
                         <period>За 2 квартал 2013года.</period>
-                        <startDate>2013-04-01+04:00</startDate>
-                        <endDate>2013-06-30+04:00</endDate>
+                        <startDate>2013-04-01</startDate>
+                        <endDate>2013-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -13312,10 +13312,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-01-01+04:00</reportDate>
+                        <reportDate>2014-01-01</reportDate>
                         <period>За 2013 год.</period>
-                        <startDate>2013-01-01+04:00</startDate>
-                        <endDate>2013-12-31+04:00</endDate>
+                        <startDate>2013-01-01</startDate>
+                        <endDate>2013-12-31</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -13373,10 +13373,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-07-01+04:00</reportDate>
+                        <reportDate>2014-07-01</reportDate>
                         <period>За 2 квартал 2014года.</period>
-                        <startDate>2014-04-01+04:00</startDate>
-                        <endDate>2014-06-30+04:00</endDate>
+                        <startDate>2014-04-01</startDate>
+                        <endDate>2014-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -14473,10 +14473,10 @@
                   </listOfFixedFactor>
                   <listOfRatingPeriod>
                      <ratingPeriod>
-                        <reportDate>2013-07-01+04:00</reportDate>
+                        <reportDate>2013-07-01</reportDate>
                         <period>За 2 квартал 2013года.</period>
-                        <startDate>2013-04-01+04:00</startDate>
-                        <endDate>2013-06-30+04:00</endDate>
+                        <startDate>2013-04-01</startDate>
+                        <endDate>2013-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -14563,10 +14563,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-01-01+04:00</reportDate>
+                        <reportDate>2014-01-01</reportDate>
                         <period>За 2013 год.</period>
-                        <startDate>2013-01-01+04:00</startDate>
-                        <endDate>2013-12-31+04:00</endDate>
+                        <startDate>2013-01-01</startDate>
+                        <endDate>2013-12-31</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>
@@ -14624,10 +14624,10 @@
                         </listOfCardinalFactor>
                      </ratingPeriod>
                      <ratingPeriod>
-                        <reportDate>2014-07-01+04:00</reportDate>
+                        <reportDate>2014-07-01</reportDate>
                         <period>За 2 квартал 2014года.</period>
-                        <startDate>2014-04-01+04:00</startDate>
-                        <endDate>2014-06-30+04:00</endDate>
+                        <startDate>2014-04-01</startDate>
+                        <endDate>2014-06-30</endDate>
                         <type/>
                         <comments>Comments</comments>
                         <listOfCardinalFactor>

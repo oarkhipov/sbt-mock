@@ -49,7 +49,7 @@
          <name>Name</name>
          <cd>1</cd>
          <cdt>12345</cdt>
-         <date>2013-12-31+04:00</date>
+         <date>2013-12-31</date>
          <debtCurrencyRate>15</debtCurrencyRate>
          <debtCurrencyCode>USD</debtCurrencyCode>
       </facilityNotSB>

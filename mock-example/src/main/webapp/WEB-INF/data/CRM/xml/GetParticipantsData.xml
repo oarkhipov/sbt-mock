@@ -25,10 +25,10 @@
                <ratingValue>8</ratingValue>
                <ratingType>2</ratingType>
                <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-19+04:00</ratingCalculatedDate>
+               <ratingCalculatedDate>2013-02-19</ratingCalculatedDate>
                <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
                <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-09-19+04:00</ratingApprovalDate>
+               <ratingApprovalDate>2013-09-19</ratingApprovalDate>
                <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
             </rating>
             <rating>
@@ -36,10 +36,10 @@
                <ratingValue>10</ratingValue>
                <ratingType>2</ratingType>
                <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-19+04:00</ratingCalculatedDate>
+               <ratingCalculatedDate>2013-02-19</ratingCalculatedDate>
                <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
                <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-09-19+04:00</ratingApprovalDate>
+               <ratingApprovalDate>2013-09-19</ratingApprovalDate>
                <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
             </rating>
          </participants>
@@ -48,17 +48,17 @@
             <id>GRI-1</id>
             <label>Some group info</label>
             <status>agreed</status>
-            <updateDate>2013-12-19T17:50:34.980+04:00</updateDate>
-            <approvalDate>2014-07-19T17:50:34.968+04:00</approvalDate>
+            <updateDate>2013-12-19T17:50:34.980</updateDate>
+            <approvalDate>2014-07-19T17:50:34.968</approvalDate>
             <ratings>
                <ratingID>RatingID</ratingID>
                <ratingValue>21</ratingValue>
                <ratingType>2</ratingType>
                <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-19+04:00</ratingCalculatedDate>
+               <ratingCalculatedDate>2013-02-19</ratingCalculatedDate>
                <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
                <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-05-19+04:00</ratingApprovalDate>
+               <ratingApprovalDate>2013-05-19</ratingApprovalDate>
                <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
             </ratings>
             <topLevelGroupName>Some top level group name</topLevelGroupName>
@@ -94,10 +94,10 @@
                <ratingValue>8</ratingValue>
                <ratingType>2</ratingType>
                <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-19+04:00</ratingCalculatedDate>
+               <ratingCalculatedDate>2013-02-19</ratingCalculatedDate>
                <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
                <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-09-19+04:00</ratingApprovalDate>
+               <ratingApprovalDate>2013-09-19</ratingApprovalDate>
                <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
             </rating>
             <rating>
@@ -105,10 +105,10 @@
                <ratingValue>10</ratingValue>
                <ratingType>2</ratingType>
                <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-19+04:00</ratingCalculatedDate>
+               <ratingCalculatedDate>2013-02-19</ratingCalculatedDate>
                <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
                <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-09-19+04:00</ratingApprovalDate>
+               <ratingApprovalDate>2013-09-19</ratingApprovalDate>
                <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
             </rating>
          </participants>
@@ -117,17 +117,17 @@
             <id>GRI-1</id>
             <label>Some group info</label>
             <status>agreed</status>
-            <updateDate>2013-12-19T17:50:34.980+04:00</updateDate>
-            <approvalDate>2014-07-19T17:50:34.968+04:00</approvalDate>
+            <updateDate>2013-12-19T17:50:34.980</updateDate>
+            <approvalDate>2014-07-19T17:50:34.968</approvalDate>
             <ratings>
                <ratingID>RatingID</ratingID>
                <ratingValue>21</ratingValue>
                <ratingType>2</ratingType>
                <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-19+04:00</ratingCalculatedDate>
+               <ratingCalculatedDate>2013-02-19</ratingCalculatedDate>
                <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
                <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-05-19+04:00</ratingApprovalDate>
+               <ratingApprovalDate>2013-05-19</ratingApprovalDate>
                <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
             </ratings>
             <topLevelGroupName>Some top level group name</topLevelGroupName>
@@ -163,10 +163,10 @@
                      <ratingValue>9</ratingValue>
                      <ratingType>2</ratingType>
                      <ratingModel>B_CC</ratingModel>
-                     <ratingCalculatedDate>2013-02-26+04:00</ratingCalculatedDate>
+                     <ratingCalculatedDate>2013-02-26</ratingCalculatedDate>
                      <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
                      <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-                     <ratingApprovalDate>2013-09-26+04:00</ratingApprovalDate>
+                     <ratingApprovalDate>2013-09-26</ratingApprovalDate>
                      <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
                   </rating>
                   <rating>
@@ -174,10 +174,10 @@
                      <ratingValue>8</ratingValue>
                      <ratingType>2</ratingType>
                      <ratingModel>B_CC</ratingModel>
-                     <ratingCalculatedDate>2013-02-26+04:00</ratingCalculatedDate>
+                     <ratingCalculatedDate>2013-02-26</ratingCalculatedDate>
                      <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
                      <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-                     <ratingApprovalDate>2013-12-26+04:00</ratingApprovalDate>
+                     <ratingApprovalDate>2013-12-26</ratingApprovalDate>
                      <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
                   </rating>
                </participants>
@@ -197,10 +197,10 @@
                      <ratingValue>5</ratingValue>
                      <ratingType>2</ratingType>
                      <ratingModel>B_CC</ratingModel>
-                     <ratingCalculatedDate>2013-02-26+04:00</ratingCalculatedDate>
+                     <ratingCalculatedDate>2013-02-26</ratingCalculatedDate>
                      <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
                      <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-                     <ratingApprovalDate>2013-03-26+04:00</ratingApprovalDate>
+                     <ratingApprovalDate>2013-03-26</ratingApprovalDate>
                      <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
                   </rating>
                   <rating>
@@ -208,10 +208,10 @@
                      <ratingValue>16</ratingValue>
                      <ratingType>2</ratingType>
                      <ratingModel>B_CC</ratingModel>
-                     <ratingCalculatedDate>2013-02-26+04:00</ratingCalculatedDate>
+                     <ratingCalculatedDate>2013-02-26</ratingCalculatedDate>
                      <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
                      <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-                     <ratingApprovalDate>2013-11-26+04:00</ratingApprovalDate>
+                     <ratingApprovalDate>2013-11-26</ratingApprovalDate>
                      <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
                   </rating>
                </participants>
@@ -231,10 +231,10 @@
                      <ratingValue>1</ratingValue>
                      <ratingType>2</ratingType>
                      <ratingModel>B_CC</ratingModel>
-                     <ratingCalculatedDate>2013-02-26+04:00</ratingCalculatedDate>
+                     <ratingCalculatedDate>2013-02-26</ratingCalculatedDate>
                      <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
                      <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-                     <ratingApprovalDate>2013-03-26+04:00</ratingApprovalDate>
+                     <ratingApprovalDate>2013-03-26</ratingApprovalDate>
                      <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
                   </rating>
                   <rating>
@@ -242,10 +242,10 @@
                      <ratingValue>14</ratingValue>
                      <ratingType>2</ratingType>
                      <ratingModel>B_CC</ratingModel>
-                     <ratingCalculatedDate>2013-02-26+04:00</ratingCalculatedDate>
+                     <ratingCalculatedDate>2013-02-26</ratingCalculatedDate>
                      <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
                      <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-                     <ratingApprovalDate>2013-03-26+04:00</ratingApprovalDate>
+                     <ratingApprovalDate>2013-03-26</ratingApprovalDate>
                      <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
                   </rating>
                </participants>
@@ -265,10 +265,10 @@
                      <ratingValue>13</ratingValue>
                      <ratingType>2</ratingType>
                      <ratingModel>B_CC</ratingModel>
-                     <ratingCalculatedDate>2013-02-26+04:00</ratingCalculatedDate>
+                     <ratingCalculatedDate>2013-02-26</ratingCalculatedDate>
                      <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
                      <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-                     <ratingApprovalDate>2013-03-26+04:00</ratingApprovalDate>
+                     <ratingApprovalDate>2013-03-26</ratingApprovalDate>
                      <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
                   </rating>
                   <rating>
@@ -276,10 +276,10 @@
                      <ratingValue>19</ratingValue>
                      <ratingType>2</ratingType>
                      <ratingModel>B_CC</ratingModel>
-                     <ratingCalculatedDate>2013-02-26+04:00</ratingCalculatedDate>
+                     <ratingCalculatedDate>2013-02-26</ratingCalculatedDate>
                      <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
                      <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-                     <ratingApprovalDate>2013-11-26+04:00</ratingApprovalDate>
+                     <ratingApprovalDate>2013-11-26</ratingApprovalDate>
                      <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
                   </rating>
                </participants>
@@ -288,17 +288,17 @@
                   <id>GRI-1</id>
                   <label>Some group info</label>
                   <status>agreed</status>
-                  <updateDate>2013-12-26T14:42:15.346+04:00</updateDate>
-                  <approvalDate>2015-01-26T14:42:15.337+04:00</approvalDate>
+                  <updateDate>2013-12-26T14:42:15.346</updateDate>
+                  <approvalDate>2015-01-26T14:42:15.337</approvalDate>
                   <ratings>
                      <ratingID>RatingID</ratingID>
                      <ratingValue>23</ratingValue>
                      <ratingType>2</ratingType>
                      <ratingModel>B_CC</ratingModel>
-                     <ratingCalculatedDate>2013-02-26+04:00</ratingCalculatedDate>
+                     <ratingCalculatedDate>2013-02-26</ratingCalculatedDate>
                      <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
                      <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-                     <ratingApprovalDate>2013-06-26+04:00</ratingApprovalDate>
+                     <ratingApprovalDate>2013-06-26</ratingApprovalDate>
                      <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
                   </ratings>
                   <topLevelGroupName>Some top level group name</topLevelGroupName>
@@ -323,17 +323,17 @@
                   <id>GRI-1</id>
                   <label>Some group info</label>
                   <status>agreed</status>
-                  <updateDate>2014-11-20T14:50:32.008+04:00</updateDate>
-                  <approvalDate>2014-01-20T14:50:32.007+04:00</approvalDate>
+                  <updateDate>2014-11-20T14:50:32.008</updateDate>
+                  <approvalDate>2014-01-20T14:50:32.007</approvalDate>
                   <ratings>
                      <ratingID>RatingID</ratingID>
                      <ratingValue>20</ratingValue>
                      <ratingType>2</ratingType>
                      <ratingModel>B_CC</ratingModel>
-                     <ratingCalculatedDate>2013-02-20+04:00</ratingCalculatedDate>
+                     <ratingCalculatedDate>2013-02-20</ratingCalculatedDate>
                      <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
                      <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-                     <ratingApprovalDate>2013-08-20+04:00</ratingApprovalDate>
+                     <ratingApprovalDate>2013-08-20</ratingApprovalDate>
                      <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
                   </ratings>
                   <topLevelGroupName>Some top level group name</topLevelGroupName>
@@ -358,17 +358,17 @@
                   <id>GRI-1</id>
                   <label>Some group info</label>
                   <status>agreed</status>
-                  <updateDate>2013-11-20T14:50:32.017+04:00</updateDate>
-                  <approvalDate>2014-03-20T14:50:32.016+04:00</approvalDate>
+                  <updateDate>2013-11-20T14:50:32.017</updateDate>
+                  <approvalDate>2014-03-20T14:50:32.016</approvalDate>
                   <ratings>
                      <ratingID>RatingID</ratingID>
                      <ratingValue>25</ratingValue>
                      <ratingType>2</ratingType>
                      <ratingModel>B_CC</ratingModel>
-                     <ratingCalculatedDate>2013-02-20+04:00</ratingCalculatedDate>
+                     <ratingCalculatedDate>2013-02-20</ratingCalculatedDate>
                      <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
                      <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-                     <ratingApprovalDate>2013-08-20+04:00</ratingApprovalDate>
+                     <ratingApprovalDate>2013-08-20</ratingApprovalDate>
                      <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
                   </ratings>
                   <topLevelGroupName>Some top level group name</topLevelGroupName>
