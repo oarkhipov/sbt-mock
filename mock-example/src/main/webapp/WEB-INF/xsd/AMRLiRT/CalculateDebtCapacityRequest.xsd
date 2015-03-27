@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/" targetNamespace="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/" xmlns:amrct="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" elementFormDefault="qualified">
+	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" schemaLocation="CommonTypes.xsd"/>	
+
+	<xsd:complexType name="DebtCapacityCalculationRequest">
+		<xsd:sequence>
+			<xsd:element name="crmId">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="15"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="rating" type="xsd:int"/>
+			<xsd:element name="finReportType">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="model">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="rmkType">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+
+			<xsd:element name="nonCurrentAssetsNFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="currentAssetsNFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="nonCurrentAssetsIFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="currentAssetsIFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="longTermDebtNFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="shortTermDebtNFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="longTermDebtIFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="shortTermDebtIFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ebitdaNFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="quarterNumNFRS" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="ebitdaIFRS" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="quarterNumIFRS" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="currencyCode">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="currencyCodeForFinReport">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="currencyRate" type="xsd:decimal"/>
+			<xsd:element name="futureCurrencyRate" type="xsd:decimal"/>
+			<xsd:element name="currentCurrencyRate" type="xsd:decimal"/>
+			<xsd:element name="user" type="tns:User" minOccurs="0"/>
+			<xsd:element name="accountList" type="tns:Account"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="Account">
+		<xsd:sequence>
+			<xsd:element name="inn">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="name">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="100"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="sbrfPriority">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="sbrfIndustry">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="facilitySB" type="tns:FacilitySB" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="facilityNotSB" type="tns:Facility" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+
+	<xsd:complexType name="FacilitySB">
+		<xsd:sequence>
+			<xsd:element name="sbName" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="sbcd" type="xsd:decimal"/>
+			<xsd:element name="agrNumber" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="sbcdt" type="xsd:decimal"/>
+			<xsd:element name="sbDebtCurrencyRate" type="xsd:decimal"/>
+			<xsd:element name="sbDebtCurrencyCode" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="Facility">
+		<xsd:sequence>
+			<xsd:element name="name" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="cd" type="xsd:decimal"/>
+			<xsd:element name="cdt" type="xsd:decimal"/>
+			<xsd:element name="date" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="debtCurrencyRate" type="xsd:decimal"/>
+			<xsd:element name="debtCurrencyCode" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+
+	<xsd:complexType name="User">
+		<xsd:sequence>
+			<xsd:element name="fio">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="150"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="position" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="300"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="tDivision">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="fDivision">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="150"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

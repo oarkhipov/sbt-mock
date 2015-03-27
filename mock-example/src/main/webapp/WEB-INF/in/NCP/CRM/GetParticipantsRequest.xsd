@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.04/" 
+targetNamespace="http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.04/" 
+elementFormDefault="qualified">
+
+	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="CommonTypes.xsd"/>
+	<xsd:complexType name="PrtspRq">
+		<xsd:annotation>
+			<xsd:documentation>
+				Элемент верхнего уровня
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="id" type="crmct:string15">
+				<xsd:annotation>
+					<xsd:documentation>
+						ID сделки для requestType=getDealParticipats или requestType=getBorrower, ID группы для requestType=CG или requestType=LBG
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="requestType" type="crmct:string50">
+				<xsd:annotation>
+					<xsd:documentation>
+						Тип сообщения (getDealParticipats, getCG, getLBG, getBorrower)
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="performer" type="crmct:string50">
+				<xsd:annotation>
+					<xsd:documentation>
+						ФИО Исполнителя
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

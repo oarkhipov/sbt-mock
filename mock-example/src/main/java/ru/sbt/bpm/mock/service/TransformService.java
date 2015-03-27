@@ -9,6 +9,7 @@ package ru.sbt.bpm.mock.service;
 import java.util.Arrays;
 import java.util.Collection;
 import javax.xml.transform.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import ru.sbt.bpm.mock.bean.RefreshableXSLTransformer;
@@ -32,7 +33,7 @@ public class TransformService {
     public void putXSL(String name, String value) {
         appContext.getBean(name, RefreshableXSLTransformer.class).setXSL(value);
     }
-    
+
     public Collection<String> getTransformers() {
         return Arrays.asList(appContext.getBeanNamesForType(RefreshableXSLTransformer.class));
     }

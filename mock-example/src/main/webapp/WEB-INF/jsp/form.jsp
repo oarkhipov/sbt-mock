@@ -30,7 +30,7 @@
         </style>
     </head>
     <body>
-        <h1>Back: <a href="../"/>UP</a></h1>
+        <h1>Back: <a href="../">UP</a></h1>
         <div class="parent">
             <div class="links">
                 <ul>
@@ -46,6 +46,7 @@
                             <textarea class="objarea" name="object">
 <c:out value="${object}" escapeXml="true"/>
                             </textarea>
+
                         </div>
                         <div><input type="submit" value="OK"></div>
                     </form>

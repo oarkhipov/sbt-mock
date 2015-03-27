@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/finalizeLGDRs/Data/">
+   <response name="default">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410</request-time>
+         <operation-name>finalizeLGDRs</operation-name>
+      </SoapHeader>
+      <errorCode>0</errorCode>
+      <errorMessage>Success</errorMessage>
+      <crmId>***</crmId>
+      <type>***</type>
+   </response>
+</data>

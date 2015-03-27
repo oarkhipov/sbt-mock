@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sbrf.ru/NCP/CRM/CommonTypes/" targetNamespace="http://sbrf.ru/NCP/CRM/CommonTypes/" elementFormDefault="qualified">
+
+
+	<xsd:simpleType name="string4500">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="4500"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="string4000">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="4000"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="string2000">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="2000"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="string1000">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="2000"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="string255">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="string50">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="50"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="string20">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="20"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="string15">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="15"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="string10">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="string12">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="12"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="string9">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="9"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="string3">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="string2">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="2"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="integer5">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="-99999"/>
+			<xsd:maxInclusive value="99999"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="integer10">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="-9999999999"/>
+			<xsd:maxInclusive value="9999999999"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="integer3">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="-999"/>
+			<xsd:maxInclusive value="999"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="integer2">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="-99"/>
+			<xsd:maxInclusive value="99"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="double17_5">
+		<xsd:restriction base="xsd:double">
+			<xsd:pattern value="-?\d{1,17}([/.,/,]\d{1,5}){0,1}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="double17_6">
+		<xsd:restriction base="xsd:double">
+			<xsd:pattern value="-?\d{1,17}([/.,/,]\d{1,6}){0,1}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="double17_2">
+		<xsd:restriction base="xsd:double">
+			<xsd:pattern value="-?\d{1,17}([/.,/,]\d{1,2}){0,1}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="registrationNumberType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{13}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

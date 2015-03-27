@@ -19,16 +19,15 @@ import ru.sbt.bpm.mock.service.TransformService;
  *
  * @author sbt-barinov-sv
  */
-@Controller
+//@Controller
 public class TransformController {
     public static final String PARAM_NAME="object";
-    @Autowired
+//    @Autowired
     private TransformService transformService;
     
     @RequestMapping(value="/transform/")
     public String list(Model model) {
         model.addAttribute("list", transformService.getTransformers());
-        model.addAttribute("name", "blablabla");
         for(String entry:transformService.getTransformers())
             System.out.println(entry);
         return "form";

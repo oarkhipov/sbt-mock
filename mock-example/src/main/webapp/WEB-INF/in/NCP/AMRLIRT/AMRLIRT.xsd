@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+
+xmlns:clrq="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"
+xmlns:clrs="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"
+xmlns:crrq="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/"
+xmlns:crrs="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/"
+xmlns:corrq="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRq/"
+xmlns:corrs="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/"
+xmlns:conrq="http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRq/"
+xmlns:conrs="http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRs/"
+xmlns:flrq="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRq/"
+xmlns:flrs="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/"
+xmlns:cdcrq="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/"
+xmlns:cdcrs="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/"
+
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+targetNamespace="http://sbrf.ru/NCP/AMRLIRT/" 
+xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/"  elementFormDefault="qualified">
+
+	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/" schemaLocation="CalculateLGDRequest.xsd" />
+	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/" schemaLocation="CalculateLGDResponse.xsd" />
+	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/" schemaLocation="CalculateRatingRequest.xsd" />
+	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/" schemaLocation="CalculateRatingResponse.xsd" />
+	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRq/" schemaLocation="CorrectRatingRequest.xsd" />
+	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/" schemaLocation="CorrectRatingResponse.xsd" />
+	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRq/" schemaLocation="ConfirmRatingRequest.xsd" />
+	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRs/" schemaLocation="ConfirmRatingResponse.xsd" />
+	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRq/" schemaLocation="FinalizeLGDRequest.xsd" />
+	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/" schemaLocation="FinalizeLGDResponse.xsd" />
+	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/" schemaLocation="CalculateDebtCapacityRequest.xsd" />
+	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/" schemaLocation="CalculateDebtCapacityResponse.xsd" />
+	
+	<xsd:element name="calculateLGDRq" type="clrq:LgdCalculationRequest"/>
+	<xsd:element name="calculateLGDRs" type="clrs:LgdCalculationResponse"/>
+	<xsd:element name="calculateRatingRq" type="crrq:CalcRatingRequest"/>
+	<xsd:element name="calculateRatingRs" type="crrs:CalcRatingResponse"/>
+	<xsd:element name="correctRatingRq" type="corrq:CorrectRequest"/>
+	<xsd:element name="correctRatingRs" type="corrs:CorrectResponse"/>
+	<xsd:element name="confirmRatingRq" type="conrq:ConfirmRequest"/>
+	<xsd:element name="confirmRatingRs" type="conrs:ConfirmResponse"/>
+	<xsd:element name="finalizeLGDRq" type="flrq:LgdFinalizationRequest"/>
+	<xsd:element name="finalizeLGDRs" type="flrs:LgdFinalizationResponse"/>					
+	<xsd:element name="calculateDCRq" type="cdcrq:DebtCapacityCalculationRequest"/>
+	<xsd:element name="calculateDCRs" type="cdcrs:DebtCapacityCalculationResponse"/>
+</xsd:schema>
