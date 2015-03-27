@@ -22,20 +22,20 @@
 
      <!--Настройки подключения к MQ-->
     <beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.CF"/>
+            <beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.CF"/>
     </beans:bean>
     <beans:bean id="requestQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.IN.MOCK"/>
+            <beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.IN.MOCK"/>
     </beans:bean>
     <beans:bean id="replyQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.OUT.MOCK"/>
+            <beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.OUT.MOCK"/>
     </beans:bean>
 
      <beans:bean id="requestQueueCRM" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.REQUEST"/>
+            <beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.REQUEST"/>
     </beans:bean>
     <beans:bean id="replyQueueCRM" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.RESPONSE"/>
+            <beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.RESPONSE"/>
     </beans:bean>
 
     <jms:inbound-gateway
