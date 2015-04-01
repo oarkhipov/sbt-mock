@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.xml.sax.SAXException;
-import ru.sbt.bpm.mock.service.XmlDataService;
-
-import java.io.IOException;
+import ru.sbt.bpm.mock.spring.integration.service.XmlDataService;
 
 import static org.junit.Assert.*;
 

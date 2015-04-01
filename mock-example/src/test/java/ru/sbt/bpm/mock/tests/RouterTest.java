@@ -1,19 +1,13 @@
 package ru.sbt.bpm.mock.tests;
 
-import org.custommonkey.xmlunit.DetailedDiff;
-import org.custommonkey.xmlunit.Diff;
-import org.custommonkey.xmlunit.Difference;
-import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import ru.sbt.bpm.mock.service.ChannelService;
-import ru.sbt.bpm.mock.utils.XmlUtil;
-
-import java.util.List;
+import ru.sbt.bpm.mock.spring.integration.service.ChannelService;
+import ru.sbt.bpm.mock.spring.utils.XmlUtil;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

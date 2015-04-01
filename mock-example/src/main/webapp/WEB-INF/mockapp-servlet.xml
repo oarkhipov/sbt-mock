@@ -141,22 +141,22 @@
     <!-- здесь уже реализация -->
 
     <!-- BBMO -->
-    <beans:bean id="BBMO_SrvGetClientReferenceDataRq" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+    <beans:bean id="BBMO_SrvGetClientReferenceDataRq" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvGetClientReferenceDataRq.xsl"/>
     </beans:bean>
-    <beans:bean id="BBMO_SrvPermitAccountChargeOperation" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+    <beans:bean id="BBMO_SrvPermitAccountChargeOperation" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvPermitAccountChargeOperation.xsl"/>
     </beans:bean>
-    <beans:bean id="BBMO_SrvSendApplicationForCBDFProcessingRq" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+    <beans:bean id="BBMO_SrvSendApplicationForCBDFProcessingRq" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvSendApplicationForCBDFProcessingRq.xsl"/>
     </beans:bean>
-    <beans:bean id="BBMO_SrvSendNaturalPersonApplicationStateChangeMessageRq" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+    <beans:bean id="BBMO_SrvSendNaturalPersonApplicationStateChangeMessageRq" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvSendNaturalPersonApplicationStateChangeMessageRq.xsl"/>
     </beans:bean>
-    <beans:bean id="BBMO_SrvUpdateClientReferenceDataRq" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+    <beans:bean id="BBMO_SrvUpdateClientReferenceDataRq" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvUpdateClientReferenceDataRq.xsl"/>
     </beans:bean>
-    <beans:bean id="VIVAT_SrvSendBasicDocumentInformationRq" class="ru.sbt.bpm.mock.bean.RefreshableXSLTransformer">
+    <beans:bean id="VIVAT_SrvSendBasicDocumentInformationRq" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/VIVAT/SrvSendBasicDocumentInformation.xsl"/>
     </beans:bean>
 
@@ -172,14 +172,14 @@
     <!-- Если операция в роутере не определена, то она попадает в канал по умолчанию и мы её заворачиваем на выход //TODO нужно сформировать ответ, что всё плохо-->
     <bridge input-channel="DefaultOutputChannelIfNoOperationRouted" output-channel="MockOutboundResponse"/>
 
-    <context:component-scan base-package="ru.sbt.bpm.mock.controller"/>
+    <context:component-scan base-package="ru.sbt.bpm.mock.spring.controller"/>
     
     <beans:bean id="jspResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="prefix" value="/WEB-INF/jsp/"/>
         <beans:property name="suffix" value=".jsp"/>
     </beans:bean>
     
-    <beans:bean id="channelService" class="ru.sbt.bpm.mock.service.ChannelService">
+    <beans:bean id="channelService" class="ru.sbt.bpm.mock.spring.integration.service.ChannelService">
    		 <beans:property name="subscribeChannels">
    		 	<util:list>
    		 		<beans:ref bean="DriverInboundResponse"/>
@@ -187,13 +187,13 @@
    		 </beans:property> 
     </beans:bean>
     
-    <beans:bean name="transformService" class="ru.sbt.bpm.mock.service.TransformService"/>
-    <beans:bean name="xmlDataService" class="ru.sbt.bpm.mock.service.XmlDataService"/>
+    <beans:bean name="transformService" class="ru.sbt.bpm.mock.spring.integration.service.TransformService"/>
+    <beans:bean name="xmlDataService" class="ru.sbt.bpm.mock.spring.integration.service.XmlDataService"/>
 
     <!--<channel id="test"/>-->
     <!-- Mock gateway to send requests to outbound -->
     <gateway id="systemEntry" default-request-channel="DriverOutboundRequest" default-reply-channel="DriverInboundResponse"
-                 service-interface="ru.sbt.bpm.mock.gateway.ClientService" />
+                 service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService" />
     <!--<gateway id="systemEntry" default-request-channel="test" default-reply-channel="test"-->
-                 <!--service-interface="ru.sbt.bpm.mock.gateway.ClientService" />-->
+                 <!--service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService" />-->
 </beans:beans>

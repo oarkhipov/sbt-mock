@@ -1,20 +1,14 @@
 package ru.sbt.bpm.mock.tests;
 
 
-import org.apache.commons.io.IOUtils;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Test;
-import ru.sbt.bpm.mock.utils.XmlUtil;
-import ru.sbt.bpm.mock.utils.XslTransformer;
+import ru.sbt.bpm.mock.spring.utils.XmlUtil;
+import ru.sbt.bpm.mock.spring.utils.XslTransformer;
 
-import javax.xml.transform.*;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-import java.io.File;
-import java.io.StringWriter;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;

@@ -6,8 +6,7 @@ import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Test;
-import ru.sbt.bpm.mock.utils.XmlUtil;
-import ru.sbt.bpm.mock.utils.Xsl20Transformer;
+import ru.sbt.bpm.mock.spring.utils.Xsl20Transformer;
 
 import java.io.File;
 import java.util.HashMap;

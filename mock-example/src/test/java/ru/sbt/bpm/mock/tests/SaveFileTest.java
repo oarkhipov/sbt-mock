@@ -8,8 +8,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import ru.sbt.bpm.mock.service.ChannelService;
-import ru.sbt.bpm.mock.utils.SaveFile;
+import ru.sbt.bpm.mock.spring.integration.service.ChannelService;
+import ru.sbt.bpm.mock.spring.utils.SaveFile;
 
 import java.io.File;
 import java.io.IOException;

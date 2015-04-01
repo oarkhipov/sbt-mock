@@ -1,11 +1,8 @@
 package ru.sbt.bpm.mock.tests;
 
 import org.junit.Test;
-import ru.sbt.bpm.mock.sigeneator.GatewayContextGenerator;
-import ru.sbt.bpm.mock.sigeneator.GenerateMockAppServlet;
-import ru.sbt.bpm.mock.sigeneator.Pair;
-
-import java.io.FileReader;
+import ru.sbt.bpm.mock.generator.spring.integration.GatewayContextGenerator;
+import ru.sbt.bpm.mock.generator.spring.integration.GenerateMockAppServlet;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

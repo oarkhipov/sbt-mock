@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import ru.sbt.bpm.mock.service.ChannelService;
-import ru.sbt.bpm.mock.utils.XmlUtil;
-import ru.sbt.bpm.mock.utils.Xsl20Transformer;
+import ru.sbt.bpm.mock.spring.integration.service.ChannelService;
+import ru.sbt.bpm.mock.spring.utils.XmlUtil;
+import ru.sbt.bpm.mock.spring.utils.Xsl20Transformer;
 
 import java.io.File;
 import java.util.*;
