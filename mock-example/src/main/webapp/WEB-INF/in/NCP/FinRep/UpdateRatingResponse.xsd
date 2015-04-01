@@ -1,25 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema targetNamespace="http://sbrf.ru/NCP/ASFO/UpdateRatingRs/"
-			xmlns="http://sbrf.ru/NCP/ASFO/UpdateRatingRs/"
-			xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xsd:schema xmlns:frct="http://sbrf.ru/NCP/FinRep/CommonTypes/" elementFormDefault="qualified"
+    targetNamespace="http://sbrf.ru/NCP/FinRep/UpdateRatingRs/1.00/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRs/1.00/">
 
-	<xsd:complexType name="UpdateRatingResponse">
-		<xsd:sequence>
-			<xsd:element name="errorCode">
-				<xsd:simpleType>
-					<xsd:restriction base="xsd:string">
-						<xsd:maxLength value="30"/>
-					</xsd:restriction>
-				</xsd:simpleType>
-			</xsd:element>
-			<xsd:element name="errorMessage" minOccurs="0">
-				<xsd:simpleType>
-					<xsd:restriction base="xsd:string">
-						<xsd:maxLength value="2000"/>
-					</xsd:restriction>
-				</xsd:simpleType>
-			</xsd:element>
-		</xsd:sequence>
-	</xsd:complexType>
+    <xsd:import namespace="http://sbrf.ru/NCP/FinRep/CommonTypes/" schemaLocation="CommonTypes.xsd" />
+    <xsd:complexType name="UpdateRatingResponse">
+        <xsd:sequence>
+            <xsd:element name="ratingId" type="frct:string15" />
+            <xsd:element name="errorCode" type="frct:string30" />
+            <xsd:element name="errorMessage" minOccurs="0" type="frct:string2000" />
+        </xsd:sequence>
+    </xsd:complexType>
 
 </xsd:schema>

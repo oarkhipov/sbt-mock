@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:crmct="http://sbrf.ru/NCP/CRM/CommonTypes/" 
 xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/" 
-targetNamespace="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.04/" 
+xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.11/" 
+targetNamespace="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.11/" 
 elementFormDefault="qualified">
 
 	<xsd:import namespace="http://sbrf.ru/NCP/CRM/CommonTypes/" schemaLocation="CommonTypes.xsd"/>
@@ -29,129 +29,6 @@ elementFormDefault="qualified">
 			</xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
-	<xsd:complexType name="Identity">
-		<xsd:annotation>
-			<xsd:documentation>
-				Данные о ДУЛ
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:sequence>
-			<xsd:element name="identityTypeCode" type="crmct:string255">
-				<xsd:annotation>
-					<xsd:documentation>
-						Код типа ДУЛ
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="identityType" type="crmct:string255">
-				<xsd:annotation>
-					<xsd:documentation>
-						Тип ДУЛ
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="identitySeries" type="crmct:string255">
-				<xsd:annotation>
-					<xsd:documentation>
-						Серия
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="identityNumber" type="crmct:string255">
-				<xsd:annotation>
-					<xsd:documentation>
-						Номер
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="identityIssueDate" type="xsd:date">
-				<xsd:annotation>
-					<xsd:documentation>
-						Дата выдачи
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="identityIssuer" type="crmct:string255">
-				<xsd:annotation>
-					<xsd:documentation>
-						Код подразделения выдавшего ДУЛ
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="identityIssuerCode" type="crmct:string255">
-				<xsd:annotation>
-					<xsd:documentation>
-						Наименование органа, выдавшего ДУЛ
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="identityIsPrimary" type="xsd:boolean" minOccurs="0">
-				<xsd:annotation>
-					<xsd:documentation>
-						Признак основного документа
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-		</xsd:sequence>
-	</xsd:complexType>
-	<xsd:complexType name="TopManager">
-		<xsd:annotation>
-			<xsd:documentation>
-				Информация о топ-менеджменте
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:sequence>
-			<xsd:element name="managerID" type="crmct:string255" minOccurs="0">
-				<xsd:annotation>
-					<xsd:documentation>
-						ID Менеджера
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="fullName" type="crmct:string255" minOccurs="0">
-				<xsd:annotation>
-					<xsd:documentation>
-						ФИО
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="position" type="crmct:string255" minOccurs="0">
-				<xsd:annotation>
-					<xsd:documentation>
-						Должность
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="age" type="crmct:integer3" minOccurs="0">
-				<xsd:annotation>
-					<xsd:documentation>
-						Возраст
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="experienceInPosition" type="crmct:string255" minOccurs="0">
-				<xsd:annotation>
-					<xsd:documentation>
-						Срок работы в должности
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="experienceInSimilarPosition" type="crmct:string255" minOccurs="0">
-				<xsd:annotation>
-					<xsd:documentation>
-						Срок работы в аналогичной должности
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="education" type="crmct:string255" minOccurs="0">
-				<xsd:annotation>
-					<xsd:documentation>
-						Образование
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-		</xsd:sequence>
-	</xsd:complexType>
 	<xsd:complexType name="Rating">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -159,14 +36,14 @@ elementFormDefault="qualified">
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element name="ratingID" type="crmct:string255">
+			<xsd:element name="ratingID" type="crmct:string15">
 				<xsd:annotation>
 					<xsd:documentation>
 						ID Рейтинга
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="ratingValue" type="crmct:integer3">
+			<xsd:element name="ratingValue" type="crmct:integer2">
 				<xsd:annotation>
 					<xsd:documentation>
 						Значение рейтинга
@@ -262,10 +139,10 @@ elementFormDefault="qualified">
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element name="id" type="crmct:string255">
+			<xsd:element name="id" type="crmct:string15">
 				<xsd:annotation>
 					<xsd:documentation>
-						ID группы
+						ID группы для requestType=CG или requestType=LBG
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
@@ -283,14 +160,14 @@ elementFormDefault="qualified">
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="updateDate" type="xsd:date">
+			<xsd:element name="updateDate" type="xsd:dateTime">
 				<xsd:annotation>
 					<xsd:documentation>
 						Дата обновления группы
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="approvalDate" type="xsd:date" minOccurs="0">
+			<xsd:element name="approvalDate" type="xsd:dateTime" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						Дата утверждения группы
@@ -313,101 +190,6 @@ elementFormDefault="qualified">
 			</xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
-	<xsd:complexType name="Address">
-		<xsd:annotation>
-			<xsd:documentation>
-				Адрес
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:sequence>
-			<xsd:element name="type" type="crmct:string255">
-				<xsd:annotation>
-					<xsd:documentation>
-						Тип адреса
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="zipCode" type="crmct:string9" minOccurs="0">
-				<xsd:annotation>
-					<xsd:documentation>
-						Почтовый индекс
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="city" type="crmct:string255">
-				<xsd:annotation>
-					<xsd:documentation>
-						Город
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="street" type="crmct:string255">
-				<xsd:annotation>
-					<xsd:documentation>
-						Улица
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="building" type="crmct:string255">
-				<xsd:annotation>
-					<xsd:documentation>
-						Дом или владение
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="block" type="crmct:string255"  minOccurs="0">
-				<xsd:annotation>
-					<xsd:documentation>
-						Корпус
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="phone" type="crmct:string255" minOccurs="0">
-				<xsd:annotation>
-					<xsd:documentation>
-						Телефон
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="email" type="crmct:string255" minOccurs="0">
-				<xsd:annotation>
-					<xsd:documentation>
-						E-mail
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-		</xsd:sequence>
-	</xsd:complexType>
-	<xsd:complexType name="Ownership">
-		<xsd:annotation>
-			<xsd:documentation>
-				Данные о владении участником или заемщиком
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:sequence>
-			<xsd:element name="ownershipID" type="crmct:string255">
-				<xsd:annotation>
-					<xsd:documentation>
-						ID ЮЛ, которым владеет
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="share" type="crmct:double17_2" minOccurs="0">
-				<xsd:annotation>
-					<xsd:documentation>
-						Доля в уставном капитале\Доля в общем количестве голосующих акций
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="periodOfOwnerhip" type="crmct:string255" minOccurs="0">
-				<xsd:annotation>
-					<xsd:documentation>
-						Период владения
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-		</xsd:sequence>
-	</xsd:complexType>
 	<xsd:complexType name="Participant">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -415,7 +197,7 @@ elementFormDefault="qualified">
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element name="participantID" type="crmct:string255">
+			<xsd:element name="participantID" type="crmct:string15">
 				<xsd:annotation>
 					<xsd:documentation>
 						ID Участника
@@ -457,28 +239,14 @@ elementFormDefault="qualified">
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="address" type="tns:Address" minOccurs="0" maxOccurs="unbounded">
-				<xsd:annotation>
-					<xsd:documentation>
-						Адрес участника
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="share" type="tns:Ownership" minOccurs="0" maxOccurs="unbounded">
-				<xsd:annotation>
-					<xsd:documentation>
-						Участники Заемщика
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="consolidatedGroupID" type="crmct:string255" minOccurs="0">
+			<xsd:element name="consolidatedGroupID" type="crmct:string15" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						ID КГ
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
-			<xsd:element name="linkedBorrowersGroupID" type="crmct:string255" minOccurs="0">
+			<xsd:element name="linkedBorrowersGroupID" type="crmct:string15" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>
 						ID ГСЗ
@@ -499,17 +267,17 @@ elementFormDefault="qualified">
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
+			<xsd:element name="reportingDate" type="xsd:date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						Отчетная дата
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
 			<xsd:element name="rating" type="tns:Rating" minOccurs="0" maxOccurs="unbounded">
 				<xsd:annotation>
 					<xsd:documentation>
 						Данные о рейтинге
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:element>
-			<xsd:element name="roleInConsolidatedGroup" type="crmct:string255" minOccurs="0">
-				<xsd:annotation>
-					<xsd:documentation>
-						Функция компании в КГ
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
@@ -552,24 +320,17 @@ elementFormDefault="qualified">
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element> 
-					<xsd:element name="placeOfBirth" type="crmct:string255" minOccurs="0">
+					<xsd:element name="identitySeries" type="crmct:string255">
 						<xsd:annotation>
 							<xsd:documentation>
-								Место рождения
+								Серия
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element name="gender" type="crmct:string255" minOccurs="0">
+					<xsd:element name="identityNumber" type="crmct:string255">
 						<xsd:annotation>
 							<xsd:documentation>
-								Пол
-							</xsd:documentation>
-						</xsd:annotation>
-					</xsd:element>
-					<xsd:element name="identities" type="tns:Identity" minOccurs="0" maxOccurs="unbounded">
-						<xsd:annotation>
-							<xsd:documentation>
-								Данные о ДУЛ
+								Номер
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
@@ -593,49 +354,35 @@ elementFormDefault="qualified">
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element name="taxAgencyNumber" type="crmct:string20">
+					<xsd:element name="taxAgencyNumber" type="crmct:string20" minOccurs="0">
 						<xsd:annotation>
 							<xsd:documentation>
 								Номер налогового органа
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element name="topManager" type="tns:TopManager" minOccurs="0" maxOccurs="unbounded">
-						<xsd:annotation>
-							<xsd:documentation>
-								Данные о топ-менеджменте
-							</xsd:documentation>
-						</xsd:annotation>
-					</xsd:element>
-					<xsd:element name="shareholder" type="tns:Participant" minOccurs="0" maxOccurs="unbounded">
-						<xsd:annotation>
-							<xsd:documentation>
-								Данные об акционерах
-							</xsd:documentation>
-						</xsd:annotation>
-					</xsd:element>
-					<xsd:element name="beneficiar" type="tns:Participant" minOccurs="0" maxOccurs="unbounded">
-						<xsd:annotation>
-							<xsd:documentation>
-								Данные о бенефициарах
-							</xsd:documentation>
-						</xsd:annotation>
-					</xsd:element>
-					<xsd:element name="registrationDate" type="xsd:date">
+					<xsd:element name="registrationDate" type="xsd:date" minOccurs="0">
 						<xsd:annotation>
 							<xsd:documentation>
 								Дата выдачи гос. регистрации
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element name="registrationNumber" type="crmct:registrationNumberType">
+					<xsd:element name="registrationName" type="crmct:string255" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								Наименование регистрирующего органа
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="registrationNumber" type="crmct:registrationNumberType" minOccurs="0">
 						<xsd:annotation>
 							<xsd:documentation>
 								Регистрационный номер
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element name="segment" type="crmct:string255">
+					<xsd:element name="segment" type="crmct:string255" minOccurs="0">
 						<xsd:annotation>
 							<xsd:documentation>
 								Сегмент бизнеса
@@ -656,14 +403,7 @@ elementFormDefault="qualified">
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element name="problemCriteria" type="crmct:string255" minOccurs="0">
-						<xsd:annotation>
-							<xsd:documentation>
-								Критерий проблемности
-							</xsd:documentation>
-						</xsd:annotation>
-					</xsd:element>	
-					<xsd:element name="mainActivity" type="crmct:string255">
+					<xsd:element name="mainActivity" type="crmct:string255" minOccurs="0">
 						<xsd:annotation>
 							<xsd:documentation>
 								Основная деятельность Заемщика
@@ -681,10 +421,10 @@ elementFormDefault="qualified">
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element name="id" type="crmct:string15">
+			<xsd:element name="dealID" type="crmct:string15">
 				<xsd:annotation>
 					<xsd:documentation>
-						ID сделки для requestType=DealParticipats или requestType=getBorrower, ID группы для requestType=CL или requestType=LBG
+						ID сделки
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>

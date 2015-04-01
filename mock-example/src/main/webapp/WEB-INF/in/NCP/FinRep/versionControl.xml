@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<versionControl>
+	<xsdFile name="CommonTypes">
+		<versionChanges number="withoutNuzmber">
+			- Добавлен тип double17_5 для курсов валют в GetExchangeRates
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name="ImportFinAnalysisRequest">
+		<versionChanges number="1.00">
+            - Добавлены:
+            - Тип объекта, по которому запрашивается ФО entityType
+            - ID объекта из локальной учётной системы entityId
+		</versionChanges>
+		<versionChanges number="1.01">
+            - Удалены:
+            - Лишний экземпляр ID сделки dealId
+		</versionChanges>
+		<versionChanges number="1.01">
+            - XSD удалена
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name="ImportFinAnalysisResponse">
+		<versionChanges number="1.00">
+            - Введена версионность
+            - Добавлены:
+            - Тип объекта, по которому запрашивается ФО entityType
+            - ID сделки из локальной учётной системы (из запроса) dealId
+            - ID объекта из локальной учётной системы entityId
+            - Тип фин отчётности finReportType
+            - Summary и вложенные элементы - резюме фин. анализа
+            - Удалены:
+            - actualRequirements и вложенные элементы - Фактические требования на дату заполнения
+            - actualRequirementsInTotal и вложенные элементы - Фактические требования в полном объёме
+            - finIndexChangesReasonIFRS - Обоснование изменений финансовых показателей по МСФО (как в положительную, так и в
+            отрицательную сторону)
+            - finPerformanceCommentIFRS - Комментарий о финансовом состоянии Заёмщика по МСФО
+		</versionChanges>
+		<versionChanges number="1.01">
+            - Добавлены элементы errorCode и errorMessage
+		</versionChanges>
+		<versionChanges number="1.01">
+            - XSD удалена
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name="ImportFinReportRequest">
+		<versionChanges number="1.00">
+            - Введена версионность
+            - Удалены:
+            - Тип фин отчётности finReportType
+		</versionChanges>
+		<versionChanges number="1.01">
+            - Добавлен:
+            - ID сделки
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name="ImportFinReportResponse">
+		<versionChanges number="1.00">
+            - Введена версионность
+            - Добавлены:
+            - Тип фин отчётности finReportType
+            - Тип объекта, по которому запрашивается ФО entityType
+            - ID объекта из локальной учётной системы (из запроса) entityId
+		</versionChanges>
+		<versionChanges number="1.01">
+            - Добавлены элементы errorCode и errorMessage
+		</versionChanges>																																											
+		<versionChanges number="1.02">
+            - Добавлены элементы facilitySB и facilityNotSB
+		</versionChanges>	
+		<versionChanges number="1.03">
+            - В типы данных FacilitySB и FacilityNotSB добавлены элементы - курсы валют sbDebtCurrencyRate и debtCurrencyRate соотв.
+		</versionChanges>	
+	</xsdFile>
+	<xsdFile name="ImportRatingRequest">
+		<versionChanges number="1.00">
+            - Введена версионность
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name="ImportRatingResponse">
+		<versionChanges number="1.00">
+            - Введена версионность
+            - Добавлены:
+            - dealId - ID сделки из локальной учётной системы
+            - entityType - Тип объекта расчёта
+            - entityId - ID объекта расчёта из локальной учётной системы (из запроса)
+		</versionChanges>
+		<versionChanges number="1.01">
+            - Удалены не используемые типы AddParameter, ListOfAddParameter
+			- Следующие атрибуты сделаны необязательными: employeeForAjustment, modelName, modelIntegrationId, ratingName, ratingType, employeeForApprove
+		</versionChanges>
+		<versionChanges number="1.02">
+			- Добавлены элементы errorCode и errorMessage
+            		- Возвращены типы AddParameter, ListOfAddParameter
+			- Добавлен элемент listOfAddParameter
+		</versionChanges>
+		<versionChanges number="1.03">
+			- Размерность элементов factor в типах CardinalFactor, SupportFactor и FixedFactor возвращена со string1024 на string255
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name="UpdateRatingRequest">
+		<versionChanges number="1.00">
+            		- Введена версионность
+		</versionChanges>
+		<versionChanges number="1.01">
+            		- Удалены не используемые типы AddParameter, ListOfAddParameter
+			- Следующие атрибуты сделаны необязательными: employeeForAjustment, modelName, modelIntegrationId, ratingName, ratingType, employeeForApprove
+		</versionChanges>
+		<versionChanges number="1.02">
+            		- Возвращены типы AddParameter, ListOfAddParameter
+			- Добавлен элемент listOfAddParameter
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name="UpdateRatingResponse">
+		<versionChanges number="1.00">
+            - Введена версионность
+            - Добавлены:
+            - ratingId - ID карточки рейтинга из локальной учётной системы (из запроса)
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name="GetExchangeRatesRequest">
+		<versionChanges number="1.00">
+			- Новая точка интеграции
+		</versionChanges>
+	</xsdFile>
+	<xsdFile name="GetExchangeRatesResponse">
+		<versionChanges number="1.00">
+            - Новая точка интеграции
+		</versionChanges>
+		<versionChanges number="1.01">
+            - Добавлены элементы errorCode и errorMessage
+		</versionChanges>
+		<versionChanges number="1.02">
+            - Название элемента currencyValue заменено на currencyRate
+		</versionChanges>
+	</xsdFile>
+</versionControl>
+
+
