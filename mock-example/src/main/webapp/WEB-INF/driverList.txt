@@ -1,2 +1,5 @@
-CRM_ForceSignal
-CRM_UpdateDeal
+BBMO_SrvRegisterLegalPersonAccountOperationApplication
+BBMO_SrvSendApplicationProcessingURL
+CBBOL_SrvPutRemoteLegalAccOperAppRq
+CKPIT_UpdateDepositNSO
+CKPIT_UpdateLoan

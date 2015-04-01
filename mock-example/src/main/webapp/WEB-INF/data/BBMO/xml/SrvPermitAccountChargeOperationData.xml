@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/prpc/bbmo/10/SrvPermitAccountChargeOperationRs/Data/">
+   <response name="default">
+      <SoapHeader>
+         <AsyncHeader>
+            <message-id>12345678901234567890123456789012</message-id>
+            <request-time>2014-12-16T17:55:06.410</request-time>
+            <operation-name>SrvPermitAccountChargeOperation</operation-name>
+         </AsyncHeader>
+      </SoapHeader>
+      <ResultCode>0</ResultCode>
+   </response>
+   <response name="test1">
+      <SoapHeader>
+         <AsyncHeader>
+            <message-id>12345678901234567890123456789012</message-id>
+            <request-time>2014-12-16T17:55:06.410</request-time>
+            <operation-name>SrvPermitAccountChargeOperation</operation-name>
+         </AsyncHeader>
+      </SoapHeader>
+      <ResultCode>1234567890</ResultCode>
+   </response>
+</data>

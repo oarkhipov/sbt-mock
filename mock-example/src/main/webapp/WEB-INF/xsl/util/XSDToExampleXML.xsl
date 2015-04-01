@@ -54,7 +54,8 @@
     <!--список всех типов, которые объявленны в схеме-->
     <xsl:param name="typesList" select="(//(xsd:complexType | xsd:simpleType)/@name) | ($importFilesDocs/(xsd:complexType | xsd:simpleType)/@name) | ($includeFilesDocs/(xsd:complexType | xsd:simpleType)/@name)"/>
 
-    <xsl:param name="typesDefinition" select="(//(xsd:complexType | xsd:simpleType)) | ($operationXsdSchema//(xsd:complexType | xsd:simpleType)) | ($importFilesDocs/(xsd:complexType | xsd:simpleType)) | ($includeFilesDocs/(xsd:complexType | xsd:simpleType))"/>
+    <xsl:param name="typesDefinition" select="(//(xsd:complexType | xsd:simpleType)) | ($importFilesDocs/(xsd:complexType | xsd:simpleType)) | ($includeFilesDocs/(xsd:complexType | xsd:simpleType))"/>
+
 
     <!-- список известных типов-->
     <xsl:variable name="stringTypes" select="tokenize('string xsd:string','\s+')"/>
@@ -338,7 +339,6 @@
         <!--<xsl:comment>testXsd import {<xsl:value-of select="$typeLocalName"/>}</xsl:comment>-->
         <!--<xsl:comment>testXsd import {<xsl:value-of select="//(xsd:complexType | xsd:simpleType)[@name=$typeLocalName]/@name"/>}</xsl:comment>-->
         <!--<xsl:comment>testXsd import {<xsl:value-of select="$typesList"/>}</xsl:comment>-->
-        <!--<xsl:comment>testXsd import {<xsl:value-of select="$typesDefinition/@name"/>}</xsl:comment>-->
         <xsl:element name="{concat($nsAlias,':',./@name)}" namespace="{$ns}">
             <xsl:apply-templates select="$typesDefinition[@name=$typeLocalName]" mode="importedType">
                 <xsl:with-param name="ns" select="$usedNs"/>

@@ -13,7 +13,7 @@
         <maven.compiler.testTarget>1.7</maven.compiler.testTarget>
         <maven.compiler.testSource>1.7</maven.compiler.testSource>
     </properties>
-	
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -191,7 +191,7 @@
     </distributionManagement>
     <build>
         <finalName>ncpdb-interactive</finalName>
-<plugins>
+        <plugins>
             <!-- PROM version-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/prpc/bbmo/10/SrvCKPITUpdateLoanRq/Data/">
+   <request name="default">
+      <SoapHeader>
+         <AsyncHeader>
+            <message-id>message-id</message-id>
+            <request-time>2014-12-16T17:55:06.410</request-time>
+            <operation-name>SrvCKPITUpdateLoan</operation-name>
+         </AsyncHeader>
+      </SoapHeader>
+      <ExtensionData/>
+      <IDCKPIT_MB>1234567890</IDCKPIT_MB>
+      <Loan>
+         <Label>string</Label>
+         <Title>string</Title>
+         <CodeEKS>string</CodeEKS>
+         <Status>Active</Status>
+      </Loan>
+   </request>
+   <request name="test1">
+      <SoapHeader>
+         <AsyncHeader>
+            <message-id>message-id</message-id>
+            <request-time>2014-12-16T17:55:06.410</request-time>
+            <operation-name>SrvCKPITUpdateLoan</operation-name>
+         </AsyncHeader>
+      </SoapHeader>
+      <IDCKPIT_MB>1234567890</IDCKPIT_MB>
+      <Loan>
+         <Label>string</Label>
+         <Title>string</Title>
+         <CodeEKS>string</CodeEKS>
+         <Status>Active</Status>
+      </Loan>
+   </request>
+</data>

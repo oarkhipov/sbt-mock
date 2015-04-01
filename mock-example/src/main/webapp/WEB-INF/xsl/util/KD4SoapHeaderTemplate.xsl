@@ -3,12 +3,6 @@
 
     <xsl:template name="KD4SOAPNS">http://schemas.xmlsoap.org/soap/envelope/</xsl:template>
 
-    <xsl:template name="KD4namespaces">
-        <xsl:namespace name="dt" select="'http://sbrf.ru/prpc/bbmo/dataTypes/10'"/>
-        <xsl:namespace name="st" select="'http://sbrf.ru/prpc/bbmo/simpleTypes/10'"/>
-    </xsl:template>
-
-
     <xsl:template name="KD4Header" xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/"
                   xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
                   xmlns:kd4="http://www.ibm.com/KD4Soa"

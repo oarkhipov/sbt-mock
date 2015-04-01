@@ -1,7 +1,5 @@
 package ru.sbt.bpm.mock.tests;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.custommonkey.xmlunit.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +34,7 @@ public class ChannelTest {
     private static String IN = "in";
     private static String OUT = "out";
 
+//    CRM testing
     @Test
     public void testAllMockxsl() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
@@ -56,9 +55,9 @@ public class ChannelTest {
                     if (checkFileIsMockOrDriver(fx)) {
                         String resultSubPath = "xml/" + f.getName() + "/" + name + "/";
 
-                        testXSLTmock(name, "ESB.BPM.NCP.OUT.MOCK", resultSubPath + "rq1.xml", resultSubPath + "rs1.xml");
+                        testXSLTmock(name, "MockOutboundResponse", resultSubPath + "rq1.xml", resultSubPath + "rs1.xml");
                         System.out.println(name + " part one Done!");
-                        testXSLTmock(name, "ESB.BPM.NCP.OUT.MOCK", resultSubPath + "rq2.xml", resultSubPath + "rs2.xml");
+                        testXSLTmock(name, "MockOutboundResponse", resultSubPath + "rq2.xml", resultSubPath + "rs2.xml");
                         System.out.println(name + " part two Done!");
 
                         System.out.println();
@@ -100,6 +99,10 @@ public class ChannelTest {
         }
         throw new IllegalArgumentException("file is nor driver nor mock");
     }
+    @Test
+    public void createTaskTestAMRLiRT_CalculateDebtCapacity2() throws Exception {
+        testXSLT("CalculateDebtCapacity", "ESB.BPM.NCP.OUT.MOCK", "xml/AMRLiRT/CalculateDebtCapacity/rq2.xml", "xml/AMRLiRT/CalculateDebtCapacity/rs2.xml");
+    }
 
     /**
      * забираем из папки все xsl
@@ -117,27 +120,26 @@ public class ChannelTest {
             }
         }
     }
-
-
+    
 //    BBMO testing
     @Test
-    public void createSaveDealRq1() throws Exception {
-        testXSLTmock("SaveDeal", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/SaveDeal/rq1.xml", "xml/CRM/SaveDeal/rs1.xml");
+    public void createSrvGetClientReferenceDataRq1() throws Exception {
+        testXSLTmock("SrvGetClientReferenceDataRq", "MockOutboundResponse", "xml/BBMO/SrvGetClientReferenceDataRq/rq1.xml", "xml/BBMO/SrvGetClientReferenceDataRq/rs1.xml");
     }
 
     @Test
-    public void createSaveDealRq2() throws Exception {
-        testXSLTmock("SaveDeal", "ESB.BPM.NCP.OUT.MOCK", "xml/CRM/SaveDeal/rq2.xml", "xml/CRM/SaveDeal/rs2.xml");
+    public void createSrvGetClientReferenceDataRq2() throws Exception {
+        testXSLTmock("SrvGetClientReferenceDataRq", "MockOutboundResponse", "xml/BBMO/SrvGetClientReferenceDataRq/rq2.xml", "xml/BBMO/SrvGetClientReferenceDataRq/rs2.xml");
     }
 
     //CKPIT
     @Test
-    public void testForceSignal() throws Exception {
+    public void testUpdateLoan() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
         System.out.println(dir);
-        checkXSLTdriver(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CRM\\ForceSignal.xsl",
-                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CRM\\xml\\ForceSignalData.xml",
-                "xml/CRM/ForceSignal/rq1.xml");
+        checkXSLTdriver(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\CKPIT\\UpdateLoan.xsl",
+                dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\data\\CKPIT\\xml\\UpdateLoanData.xml",
+                "xml/CKPIT/UpdateLoan/rq1.xml");
     }
 
 

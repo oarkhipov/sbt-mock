@@ -1,0 +1,20 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Header>
+      <mq:AsyncHeader xmlns:mq="http://sbrf.ru/prpc/mq/headers">
+         <mq:message-id>message-id</mq:message-id>
+         <mq:request-time>2014-12-16T17:55:06.410</mq:request-time>
+         <mq:operation-name>SrvCKPITUpdateLoan</mq:operation-name>
+      </mq:AsyncHeader>
+   </soap:Header>
+   <soap:Body>
+      <tns:SrvCKPITUpdateLoanRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
+         <tns:IDCKPIT_MB>1234567890</tns:IDCKPIT_MB>
+         <!--from 1 to unbounded elements --><tns:Loan>
+            <tns:Label>string</tns:Label>
+            <tns:Title>string</tns:Title>
+            <tns:CodeEKS>string</tns:CodeEKS>
+            <tns:Status>Active</tns:Status>
+         </tns:Loan>
+      </tns:SrvCKPITUpdateLoanRq>
+   </soap:Body>
+</soap:Envelope>

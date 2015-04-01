@@ -1,0 +1,22 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Header>
+      <mq:AsyncHeader xmlns:mq="http://sbrf.ru/prpc/mq/headers">
+         <mq:message-id>message-id</mq:message-id>
+         <mq:request-time>2014-12-16T17:55:06.410</mq:request-time>
+         <mq:operation-name>SrvUpdateClientReferenceData</mq:operation-name>
+      </mq:AsyncHeader>
+   </soap:Header>
+   <soap:Body>
+      <tns:SrvUpdateClientReferenceDataRs xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
+         <ct:ResultCode xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10">1234567890</ct:ResultCode>
+         <!--optional--><ct:ErrorDetails xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10">
+            <ct:ErrorMessage>string</ct:ErrorMessage>
+            <!--from 0 to unbounded elements --><ct:FormatError>
+               <ct:FieldName>string</ct:FieldName>
+               <ct:ErrorDescription>string</ct:ErrorDescription>
+            </ct:FormatError>
+         </ct:ErrorDetails>
+         <!--optional--><ct:ExtensionData xmlns:ct="http://sbrf.ru/prpc/bbmo/commonTypes/10"/>
+      </tns:SrvUpdateClientReferenceDataRs>
+   </soap:Body>
+</soap:Envelope>

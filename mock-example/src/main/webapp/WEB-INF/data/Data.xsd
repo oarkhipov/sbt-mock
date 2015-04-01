@@ -3,12 +3,11 @@
         targetNamespace="http://sbrf.ru/NCP/Data"
         xmlns="http://sbrf.ru/NCP/Data"
         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns:st="http://sbrf.ru/commonTypes/simpleTypes/"
-        xmlns:dt="http://sbrf.ru/commonTypes/dataTypes/"
+        xmlns:st="http://sbrf.ru/data/simpleTypes/"
+        xmlns:dt="http://sbrf.ru/data/dataTypes/"
         elementFormDefault="qualified">
-
-    <xsd:import namespace="http://sbrf.ru/commonTypes/dataTypes/" schemaLocation="../xsd/CRM/commonTypes/dataTypes.xsd" />
-    <xsd:import namespace="http://sbrf.ru/commonTypes/simpleTypes/" schemaLocation="../xsd/CRM/commonTypes/simpleTypes.xsd" />
+    <xsd:import namespace="http://sbrf.ru/data/dataTypes/" schemaLocation="dataTypes.xsd" />
+    <xsd:import namespace="http://sbrf.ru/data/simpleTypes/" schemaLocation="simpleTypes.xsd" />
 
     <xsd:element name="data" type="dataValue"/>
 

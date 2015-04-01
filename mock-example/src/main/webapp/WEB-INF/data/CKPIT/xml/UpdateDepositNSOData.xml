@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/prpc/bbmo/10/SrvCKPITUpdateDepositNSORq/Data/">
+   <request name="default">
+      <SoapHeader>
+         <AsyncHeader>
+            <message-id>message-id</message-id>
+            <request-time>2014-12-16T17:55:06.410</request-time>
+            <operation-name>SrvCKPITUpdateDepositNSO</operation-name>
+         </AsyncHeader>
+      </SoapHeader>
+      <ExtensionData/>
+      <IDCKPIT>1234567890</IDCKPIT>
+      <Label>string</Label>
+      <Name>string</Name>
+      <ShortName>string</ShortName>
+      <InstrumentType>Deposit</InstrumentType>
+      <ValidityStartDate>2015-03-16</ValidityStartDate>
+      <ValidityEndDate>2015-03-16</ValidityEndDate>
+      <Option>
+         <OptionID>string</OptionID>
+         <OptionName>string</OptionName>
+         <OptionValue>string</OptionValue>
+      </Option>
+      <Restriction>
+         <Currency>string</Currency>
+         <AmountMin>10</AmountMin>
+         <AmountMax>10</AmountMax>
+         <PeriodMin>10</PeriodMin>
+         <PeriodMax>10</PeriodMax>
+      </Restriction>
+   </request>
+   <request name="test1">
+      <SoapHeader>
+         <AsyncHeader>
+            <message-id>message-id</message-id>
+            <request-time>2014-12-16T17:55:06.410</request-time>
+            <operation-name>SrvCKPITUpdateDepositNSO</operation-name>
+         </AsyncHeader>
+      </SoapHeader>
+      <IDCKPIT>1234567890</IDCKPIT>
+      <Label>string</Label>
+      <Name>string</Name>
+      <ShortName>string</ShortName>
+      <InstrumentType>Deposit</InstrumentType>
+      <Option>
+         <OptionID>string</OptionID>
+         <OptionName>string</OptionName>
+         <OptionValue>string</OptionValue>
+      </Option>
+      <Restriction>
+         <Currency>string</Currency>
+         <PeriodMin>10</PeriodMin>
+         <PeriodMax>10</PeriodMax>
+      </Restriction>
+   </request>
+</data>

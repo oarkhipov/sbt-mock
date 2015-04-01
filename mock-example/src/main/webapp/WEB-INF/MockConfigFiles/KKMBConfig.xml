@@ -1,4 +1,4 @@
-<MockConfig>
+<MockConfig xmlns="http://sbrf.ru/mockService">
     <systems>
         <system>
             <name>AMRLiRT</name>

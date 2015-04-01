@@ -1,0 +1,14 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Header>
+      <mq:AsyncHeader xmlns:mq="http://sbrf.ru/prpc/mq/headers">
+         <mq:message-id>message-id</mq:message-id>
+         <mq:request-time>2014-12-16T17:55:06.410</mq:request-time>
+         <mq:operation-name>SrvGetClientReferenceData</mq:operation-name>
+      </mq:AsyncHeader>
+   </soap:Header>
+   <soap:Body>
+      <tns:SrvGetClientReferenceDataRq xmlns:tns="http://sbrf.ru/prpc/bbmo/10">
+         <tns:ClientId>test1</tns:ClientId>
+      </tns:SrvGetClientReferenceDataRq>
+   </soap:Body>
+</soap:Envelope>

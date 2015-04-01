@@ -261,14 +261,12 @@ public class importXSD {
             altParams.put("rootElementName", params.get("RqRootElementName"));
             if (!params.containsKey("operationsXSD")) {
                 params.put("operationsXSD", "../../xsd/"+system+"/"+name+"Response.xsd");
+                if (!params.containsKey("altOperationsXSD")) {
+                    altParams.put("operationsXSD", params.get("altOperationsXSD"));
+                } else {
+                    altParams.put("operationsXSD", "../../xsd/" + system + "/" + name + "Request.xsd");
+                }
             }
-
-            if (params.containsKey("altOperationsXSD")) {
-                altParams.put("operationsXSD", params.get("altOperationsXSD"));
-            } else {
-                altParams.put("operationsXSD", params.get("operationsXSD"));
-            }
-
             altParams.put("operation-name", params.get("rootElementName"));
 
             //не вставляем в этветы комменты с обозначением сколько элементов доступно
@@ -337,9 +335,9 @@ public class importXSD {
         importXSD instance = new importXSD();
         instance.initValidator(new File(instance.getWebInfPath() + "\\xsd"));
 
-        instance.loadConfig("NCPConfig.xml");
+        //instance.loadConfig("NCPConfig.xml");
         //instance.loadConfig("BBMOConfig.xml");
-//        instance.loadConfig("BBMOConfig2.xml");
+        instance.loadConfig("BBMOConfig2.xml");
         //instance.loadConfig("KKMBConfig.xml");
     }
 
@@ -386,9 +384,6 @@ public class importXSD {
         System.out.println("Используется дирректория {"+baseDir.getAbsolutePath()+"}" );
         importFile(baseDir.getAbsolutePath() + File.separator + system.getaRootXSD(), formSubPath(system.getaRootXSD(), systemName));
         importFile(baseDir.getAbsolutePath() + File.separator + point.getaXsdFile(), formSubPath(point.getaXsdFile(), systemName));
-        if(point.getaRqXsdFile() != null && !point.getaRqXsdFile().isEmpty()) {
-            importFile(baseDir.getAbsolutePath() + File.separator + point.getaRqXsdFile(), formSubPath(point.getaRqXsdFile(), systemName));
-        }
         for (Dependency dependency : point.getaDependencies().getaDependency()) {
             importFile(baseDir.getAbsolutePath() + File.separator + dependency.getaXsdFile(), formSubPath(dependency.getaXsdFile(), systemName));
         }
@@ -502,9 +497,6 @@ public class importXSD {
         if (point.getaOperationName() != null & !point.getaOperationName().isEmpty()) {
             params.put("operationName", point.getaOperationName());
         }
-        if (point.getaRqXsdFile() != null & !point.getaRqXsdFile().isEmpty()) {
-            params.put("altOperationsXSD", "../../xsd/"+systemName+"/"+point.getaRqXsdFile() );
-        }
         mockCycle(systemName, point.getaIntegrationPointName(), headerType, params, point.getaMappedTags());
     }
 
@@ -583,13 +575,12 @@ public class importXSD {
 
         SchemaFactory factory =
                 SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        //StreamSource sources[] = new StreamSource[xsdFiles.size()];
-        StreamSource sources[] = new StreamSource[0];
+        StreamSource sources[] = new StreamSource[xsdFiles.size()];
 
 //            Add Xsd files to source
-        /*for (int i = 0; i < xsdFiles.size(); i++) {
+        for (int i = 0; i < xsdFiles.size(); i++) {
             sources[i] = new StreamSource(xsdFiles.get(i));
-        }*/
+        }
         Schema schema = factory.newSchema(sources);
         validator = schema.newValidator();
     }
