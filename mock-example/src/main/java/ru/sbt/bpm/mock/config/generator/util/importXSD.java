@@ -23,10 +23,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Класс для импорта новой xsd и замены его на старые
@@ -335,10 +332,10 @@ public class importXSD {
         importXSD instance = new importXSD();
         instance.initValidator(new File(instance.getWebInfPath() + "\\xsd"));
 
-        //instance.loadConfig("NCPConfig.xml");
+//        instance.loadConfig("NCPConfig.xml");
         //instance.loadConfig("BBMOConfig.xml");
-        instance.loadConfig("BBMOConfig2.xml");
-        //instance.loadConfig("KKMBConfig.xml");
+//        instance.loadConfig("BBMOConfig2.xml");
+        instance.loadConfig("KKMBConfig.xml");
     }
 
     public void loadConfig(String configFilename) throws Exception {
@@ -575,12 +572,13 @@ public class importXSD {
 
         SchemaFactory factory =
                 SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        StreamSource sources[] = new StreamSource[xsdFiles.size()];
+        //StreamSource sources[] = new StreamSource[xsdFiles.size()];
+        StreamSource sources[] = new StreamSource[0];
 
 //            Add Xsd files to source
-        for (int i = 0; i < xsdFiles.size(); i++) {
+        /*for (int i = 0; i < xsdFiles.size(); i++) {
             sources[i] = new StreamSource(xsdFiles.get(i));
-        }
+        }*/
         Schema schema = factory.newSchema(sources);
         validator = schema.newValidator();
     }

@@ -1,5 +1,7 @@
 package ru.sbt.bpm.mock.tests;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.custommonkey.xmlunit.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -101,7 +103,7 @@ public class ChannelTest {
     }
     @Test
     public void createTaskTestAMRLiRT_CalculateDebtCapacity2() throws Exception {
-        testXSLT("CalculateDebtCapacity", "ESB.BPM.NCP.OUT.MOCK", "xml/AMRLiRT/CalculateDebtCapacity/rq2.xml", "xml/AMRLiRT/CalculateDebtCapacity/rs2.xml");
+        testXSLTmock("CalculateDebtCapacity", "ESB.BPM.NCP.OUT.MOCK", "xml/AMRLiRT/CalculateDebtCapacity/rq2.xml", "xml/AMRLiRT/CalculateDebtCapacity/rs2.xml");
     }
 
     /**
@@ -193,7 +195,7 @@ public class ChannelTest {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
         System.out.println(dir);
         String result = Xsl20Transformer.transform(XSLTFile, XMLFile, params);
-        String validateFileXML = FileUtils.readFileToString(new File(dir+validateFile));
+        String validateFileXML = FileUtils.readFileToString(new File(dir + validateFile));
 
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreComments(true);

@@ -16,7 +16,7 @@
     <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/>
 
     <!-- параметры заголовка -->
-    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410')"/>
+    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
     <!--задано ниже в зависимости от тэга <xsl:param name="operation-name" select="'operation-name'"/>-->
     <xsl:param name="id" select="null"/>
     <xsl:param name="correlation-id" select="null"/>
