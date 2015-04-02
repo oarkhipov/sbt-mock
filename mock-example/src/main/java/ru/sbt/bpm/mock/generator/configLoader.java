@@ -33,12 +33,12 @@ public class configLoader {
     public void loadConfig(String configFilename) throws Exception {
         final String file = localPaths.getWebInfPath() + "\\MockConfigFiles\\" + configFilename;
         GenerateMockAppServlet gen1 = GenerateMockAppServlet.getInstance(file);
-        gen1.setaFilePath(file);
+        gen1.setFilePath(file);
         gen1.init();
 
-        for (SystemTag system : gen1.getaMockConfig().getListOfSystems())
+        for (SystemTag system : gen1.getMockConfig().getListOfSystems())
         {
-            for (IntegrationPoint point : system.getListOfIntegrationPoints()) {
+            for (IntegrationPoint point : system.getListIntegrationPoint()) {
                 importIntegrationPoint(system, point);
             }
         }
@@ -52,12 +52,12 @@ public class configLoader {
     public void importIntegrationPoint(SystemTag system, IntegrationPoint point) throws Exception {
         importXSD instance = importXSD.getInstance();
         instance.copyXSDFiles(system, point);
-        if (point.getaIntegrationPointType().equals("Mock")) {
+        if (point.getIntegrationPointType().equals("Mock")) {
             importIntegrationPointMock(system, point);
-        } else if (point.getaIntegrationPointType().equals("Driver")) {
+        } else if (point.getIntegrationPointType().equals("Driver")) {
             importIntegrationPointDriver(system, point);
         } else {
-            throw new IllegalArgumentException("Integration point type {"+point.getaIntegrationPointType()+"} not implemented");
+            throw new IllegalArgumentException("Integration point type {"+point.getIntegrationPointType()+"} not implemented");
         }
     }
 
@@ -66,24 +66,24 @@ public class configLoader {
         Map<String, String> params = null;
         params = new HashMap<String, String>();
 
-        String systemName = system.getaSystemName();
+        String systemName = system.getSystemName();
         String headerType = getHeaderTypeByHeaderNamespace(system);
-        List<LinkedTag> linkedTagList = point.getaLinkedTagSequence().getaListOfLinkedTags();
-        String linkedTag = linkedTagList.get(linkedTagList.size()-1).getaTag(); //TODo пока планируемый функционал реализован не полностью в разрезе тестов. Сейчас в создании примеров сообщений учитывается только последний тэг последовательности. Это может вызвать проблемы с автотестами в глубоких или повтаряющихся линкедтагах. Это не должно повлиять на работосопособность самих заглушек - только на создание примеров и прохождение автотестов
+        List<LinkedTag> linkedTagList = point.getLinkedTagSequence().getListOfLinkedTags();
+        String linkedTag = linkedTagList.get(linkedTagList.size()-1).getTag(); //TODo пока планируемый функционал реализован не полностью в разрезе тестов. Сейчас в создании примеров сообщений учитывается только последний тэг последовательности. Это может вызвать проблемы с автотестами в глубоких или повтаряющихся линкедтагах. Это не должно повлиять на работосопособность самих заглушек - только на создание примеров и прохождение автотестов
         String linkedTagQuerry = formLinkedTagSequenceQuerry(linkedTagList);
 
-        params.put("rootElementName", point.getaRsRootElementName()); //имя html-тэга операции
-        params.put("RqRootElementName", point.getaRqRootElementName()); //имя html-тэга запроса операции
-        params.put("operationsXSD",  getUriFilename(localPaths.getWebInfPath() + "/xsd/" + systemName + "/" + point.getaXsdFile())); //путь к xsd
-        params.put("xsdBase", system.getaRootXSD()); //родительский xsd - xsd общий для всех ТИ системы
+        params.put("rootElementName", point.getRsRootElementName()); //имя html-тэга операции
+        params.put("RqRootElementName", point.getRqRootElementName()); //имя html-тэга запроса операции
+        params.put("operationsXSD",  getUriFilename(localPaths.getWebInfPath() + "/xsd/" + systemName + "/" + point.getXsdFile())); //путь к xsd
+        params.put("xsdBase", system.getRootXSD()); //родительский xsd - xsd общий для всех ТИ системы
         params.put("tagNameToTakeLinkedTag", linkedTag); //linkedTag
         if (linkedTagQuerry!=null) {
             params.put("tagQuerryToTakeLinkedTag", linkedTagQuerry); //запрос на нахождение linkedTag в запросе
         }
-        if (point.getaOperationName() != null & !point.getaOperationName().isEmpty()) {
-            params.put("operationName", point.getaOperationName()); //имя операции. Если не задано - возьмет html-тэг ответа
+        if (point.getOperationName() != null & !point.getOperationName().isEmpty()) {
+            params.put("operationName", point.getOperationName()); //имя операции. Если не задано - возьмет html-тэг ответа
         }
-        mockCycle(systemName, point.getaIntegrationPointName(), headerType, params, point.getaMappedTags());
+        mockCycle(systemName, point.getIntegrationPointName(), headerType, params, point.getMappedTagSequence());
     }
 
     private void importIntegrationPointDriver(SystemTag system, IntegrationPoint point) {
@@ -91,16 +91,16 @@ public class configLoader {
         Map<String, String> params = null;
         params = new HashMap<String, String>();
 
-        String systemName = system.getaSystemName();
+        String systemName = system.getSystemName();
         String headerType = getHeaderTypeByHeaderNamespace(system);
 
-        params.put("rootElementName", point.getaRqRootElementName());
-        params.put("operationsXSD", getUriFilename(localPaths.getWebInfPath() + "/xsd/" + systemName + "/" + point.getaXsdFile()));
-        params.put("xsdBase", system.getaRootXSD());
-        if (point.getaOperationName() != null & !point.getaOperationName().isEmpty()) {
-            params.put("operationName", point.getaOperationName());
+        params.put("rootElementName", point.getRqRootElementName());
+        params.put("operationsXSD", getUriFilename(localPaths.getWebInfPath() + "/xsd/" + systemName + "/" + point.getXsdFile()));
+        params.put("xsdBase", system.getRootXSD());
+        if (point.getOperationName() != null & !point.getOperationName().isEmpty()) {
+            params.put("operationName", point.getOperationName());
         }
-        driverCycle(systemName, point.getaIntegrationPointName(), headerType, params);
+        driverCycle(systemName, point.getIntegrationPointName(), headerType, params);
     }
 
     /**
@@ -109,12 +109,12 @@ public class configLoader {
      * @return
      */
     public static String getHeaderTypeByHeaderNamespace(SystemTag system) {
-        if (system.getaHeaderNamespace().equals("http://sbrf.ru/prpc/mq/headers")) {
+        if (system.getHeaderNamespace().equals("http://sbrf.ru/prpc/mq/headers")) {
             return "KD4";
-        } else if (system.getaHeaderNamespace().equals("http://sbrf.ru/NCP/esb/envelope/")) {
+        } else if (system.getHeaderNamespace().equals("http://sbrf.ru/NCP/esb/envelope/")) {
             return "NCP";
         }
-        throw new IllegalArgumentException("Header namespace {"+system.getaHeaderNamespace()+"} not implemented");
+        throw new IllegalArgumentException("Header namespace {"+system.getHeaderNamespace()+"} not implemented");
     }
 
     /**
@@ -128,10 +128,10 @@ public class configLoader {
             return null;
         } else {
             for (LinkedTag tag : linkedTagList) {
-                if (tag.getaNameSpace() != null && !tag.getaNameSpace().isEmpty()) {
-                    querry += "/*[local-name()='" + tag.getaTag() + "' and namespace-uri()='" + tag.getaNameSpace() + "']";
+                if (tag.getNameSpace() != null && !tag.getNameSpace().isEmpty()) {
+                    querry += "/*[local-name()='" + tag.getTag() + "' and namespace-uri()='" + tag.getNameSpace() + "']";
                 } else {
-                    querry += "/*[local-name()='" + tag.getaTag() + "']";
+                    querry += "/*[local-name()='" + tag.getTag() + "']";
                 }
             }
             querry += "/text()";

@@ -54,8 +54,8 @@ public class applyMappings {
                     Node element = findElementDescriptionInXSL(tag.getResponseTagSequence().getListOfLinkedTags(), rootElement);
                     element.setNodeValue(formElementDescription(tag.getRequestTagSequence().getListOfLinkedTags()));
                 }
-                if (tagSq.getXpathQuerrys() != null) {
-                    MappedByXpath tag = tagSq.getXpathQuerrys();
+                if (tagSq.getXPathQuerries() != null) {
+                    MappedByXpath tag = tagSq.getXPathQuerries();
                     Node element = findElementDescriptionInXSL(tag.getResponseTagSequence().getListOfLinkedTags(), rootElement);
                     element.setNodeValue(formElementDescription(tag.getQuerry()));
                 }
