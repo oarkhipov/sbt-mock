@@ -2,7 +2,7 @@
     <systems>
         <system>
             <name>BBMO</name>
-            <pathToXSD>/in/BBMO/BBMO</pathToXSD>
+            <pathToXSD>/BBMO/BBMO</pathToXSD>
             <rootXsd>BBMOOperationElements.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
             <integrationPoints>
@@ -526,7 +526,7 @@
         </system>
         <system>
             <name>CBBOL</name>
-            <pathToXSD>/in/BBMO/CBBOL</pathToXSD>
+            <pathToXSD>/BBMO/CBBOL</pathToXSD>
             <rootXsd>BBMOOperationElements.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
             <integrationPoints>
@@ -579,7 +579,7 @@
         </system>
         <system>
             <name>CKPIT</name>
-            <pathToXSD>/in/BBMO/CKPIT</pathToXSD>
+            <pathToXSD>/BBMO/CKPIT</pathToXSD>
             <rootXsd>BBMOOperationElements.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
             <integrationPoints>
@@ -683,7 +683,7 @@
         </system>
         <system>
             <name>VIVAT</name>
-            <pathToXSD>/in/BBMO/VIVAT/SrvSendBasicDocumentInformation</pathToXSD>
+            <pathToXSD>/BBMO/VIVAT/SrvSendBasicDocumentInformation</pathToXSD>
             <rootXsd>SendBasicDocInfoOperationElements.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
             <integrationPoints>
