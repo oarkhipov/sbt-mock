@@ -18,6 +18,7 @@ import ru.sbt.bpm.mock.spring.integration.service.TransformService;
  * @author sbt-barinov-sv
  */
 //@Controller
+    @Deprecated
 public class TransformController {
     public static final String PARAM_NAME="object";
 //    @Autowired

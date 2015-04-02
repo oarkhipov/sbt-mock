@@ -22,6 +22,7 @@ import ru.sbt.bpm.mock.spring.integration.service.ChannelService;
  * @author sbt-barinov-sv
  */
 //@Controller
+    @Deprecated
 public class ChannelController {
     public static final String PARAM_NAME="object";
 //    @Autowired

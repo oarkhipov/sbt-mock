@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 // Генерция контекста каналов
-// TODO Подумать над переачей alias namespace как перфикса для тега
+// TODO Подумать над переачей alias namespace как префикса для тега
 public class ChannelContext {
 
     private static final String CHANNEL_TAG = "channel";
