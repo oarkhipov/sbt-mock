@@ -2,7 +2,7 @@ package ru.sbt.bpm.mock.generator.xsddata;
 
 import ru.sbt.bpm.mock.generator.LocalPaths;
 import ru.sbt.bpm.mock.spring.utils.SaveFile;
-import ru.sbt.bpm.mock.spring.utils.Validator;
+import ru.sbt.bpm.mock.generator.util.SimpleValidator;
 import ru.sbt.bpm.mock.spring.utils.Xsl20Transformer;
 
 import java.io.File;
@@ -33,7 +33,7 @@ public class GenerateDataXsd {
         String xsdXml = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + "\\xsdToDataXsd.xsl",
                 LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
-        Validator.getInstance().validateXML(xsdXml);
+        SimpleValidator.getInstance().validateXML(xsdXml);
 
         SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getWebInfPath() + "\\data\\" + system + "\\xsd\\" + name + type +"Data.xsd"), xsdXml);
     }

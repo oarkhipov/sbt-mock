@@ -2,7 +2,7 @@ package ru.sbt.bpm.mock.generator.xsl;
 
 import ru.sbt.bpm.mock.generator.LocalPaths;
 import ru.sbt.bpm.mock.spring.utils.SaveFile;
-import ru.sbt.bpm.mock.spring.utils.Validator;
+import ru.sbt.bpm.mock.generator.util.SimpleValidator;
 import ru.sbt.bpm.mock.spring.utils.Xsl20Transformer;
 
 import java.io.File;
@@ -33,7 +33,7 @@ public class GenerateXsl {
         String xsltXml = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + "\\responceXSDtoXSL.xsl",
                 LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
-        Validator.getInstance().validateXML(xsltXml);
+        SimpleValidator.getInstance().validateXML(xsltXml);
 
         File xslFile = new File(LocalPaths.getWebInfPath() + "\\xsl\\" + system + "\\" + name + ".xsl");
 
@@ -54,7 +54,7 @@ public class GenerateXsl {
         String xsltXml = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + "\\requestXSDtoXSL.xsl",
                 LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
-        Validator.getInstance().validateXML(xsltXml);
+        SimpleValidator.getInstance().validateXML(xsltXml);
 
         SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getWebInfPath() + "\\xsl\\" + system + "\\" + name + ".xsl"), xsltXml);
     }

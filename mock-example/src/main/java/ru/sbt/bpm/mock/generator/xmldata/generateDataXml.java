@@ -2,7 +2,7 @@ package ru.sbt.bpm.mock.generator.xmldata;
 
 import ru.sbt.bpm.mock.generator.LocalPaths;
 import ru.sbt.bpm.mock.spring.utils.SaveFile;
-import ru.sbt.bpm.mock.spring.utils.Validator;
+import ru.sbt.bpm.mock.generator.util.SimpleValidator;
 import ru.sbt.bpm.mock.spring.utils.Xsl20Transformer;
 
 import java.io.File;
@@ -35,7 +35,7 @@ public class GenerateDataXml {
         String dataXML = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + "\\AddExampleToData.xsl",
                 LocalPaths.getExamplesPath() + "\\" + system + "\\" + name + "\\rs1.xml",
                 params);
-        Validator.getInstance().validateXML(dataXML);
+        SimpleValidator.getInstance().validateXML(dataXML);
 
         SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
 
@@ -44,7 +44,7 @@ public class GenerateDataXml {
         dataXML = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + "\\AddExampleToData.xsl",
                 LocalPaths.getExamplesPath() + "\\" + system + "\\" + name + "\\rs2.xml",
                 params);
-        Validator.getInstance().validateXML(dataXML);
+        SimpleValidator.getInstance().validateXML(dataXML);
 
         SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
     }
@@ -65,7 +65,7 @@ public class GenerateDataXml {
         String dataXML = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + "\\AddExampleToData.xsl",
                 LocalPaths.getExamplesPath() + "\\" + system + "\\" + name + "\\rq1.xml",
                 params);
-        Validator.getInstance().validateXML(dataXML);
+        SimpleValidator.getInstance().validateXML(dataXML);
 
         SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
 
@@ -75,7 +75,7 @@ public class GenerateDataXml {
         dataXML = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + "\\AddExampleToData.xsl",
                 LocalPaths.getExamplesPath() + "\\" + system + "\\" + name + "\\rq2.xml",
                 params);
-        Validator.getInstance().validateXML(dataXML);
+        SimpleValidator.getInstance().validateXML(dataXML);
 
         SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
     }

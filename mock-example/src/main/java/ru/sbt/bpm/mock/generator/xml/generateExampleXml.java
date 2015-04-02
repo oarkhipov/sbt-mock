@@ -2,7 +2,7 @@ package ru.sbt.bpm.mock.generator.xml;
 
 import ru.sbt.bpm.mock.generator.LocalPaths;
 import ru.sbt.bpm.mock.spring.utils.SaveFile;
-import ru.sbt.bpm.mock.spring.utils.Validator;
+import ru.sbt.bpm.mock.generator.util.SimpleValidator;
 import ru.sbt.bpm.mock.spring.utils.Xsl20Transformer;
 
 import java.io.File;
@@ -34,7 +34,7 @@ public class GenerateExampleXml {
         String exampleRq1 = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + File.separator + msgType + "SoapMSG.xsl",
                 LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
-        Validator.getInstance().validateXML(exampleRq1);
+        SimpleValidator.getInstance().validateXML(exampleRq1);
 
         SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getExamplesPath() + "\\" +  system + "\\" + name + "\\rq1.xml"), exampleRq1);
 
@@ -45,7 +45,7 @@ public class GenerateExampleXml {
         String exampleRq2 = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + File.separator + msgType + "SoapMSG.xsl",
                 LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
-        Validator.getInstance().validateXML(exampleRq2);
+        SimpleValidator.getInstance().validateXML(exampleRq2);
 
         SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getExamplesPath() + "\\" +  system + "\\" + name + "\\rq2.xml"), exampleRq2);
     }
@@ -62,7 +62,7 @@ public class GenerateExampleXml {
         String exampleRs1 = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + File.separator + msgType + "SoapMSG.xsl",
                 LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
-        Validator.getInstance().validateXML(exampleRs1);
+        SimpleValidator.getInstance().validateXML(exampleRs1);
 
         SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getExamplesPath() + "\\" +  system + "\\" + name + "\\rs1.xml"), exampleRs1);
 
@@ -71,7 +71,7 @@ public class GenerateExampleXml {
         String exampleRs2 = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + File.separator + msgType + "SoapMSG.xsl",
                 LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
-        Validator.getInstance().validateXML(exampleRs2);
+        SimpleValidator.getInstance().validateXML(exampleRs2);
 
         SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getExamplesPath() + "\\" + system + "\\" + name + "\\rs2.xml"), exampleRs2);
     }
