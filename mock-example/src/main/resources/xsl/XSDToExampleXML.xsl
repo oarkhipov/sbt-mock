@@ -40,6 +40,8 @@
     <xsl:param name="localTargetNSAlias" select="local-name(xsd:schema/namespace::*[.=$targetNS][string-length(local-name(.))>0])"/>
     <!--имя операции-->
     <xsl:param name="operation-name" select="$rootElementName"/>
+    <!--показать дебаг сообщения -з нужно только для отладки -->
+    <xsl:param name="debug" select="false()"/>
 
     <!-- инклюды схем -->
     <xsl:param name="includeFilesList" select="xsd:schema/xsd:include/@schemaLocation"/>
@@ -55,6 +57,7 @@
     <xsl:param name="typesList" select="(//(xsd:complexType | xsd:simpleType)/@name) | ($importFilesDocs/(xsd:complexType | xsd:simpleType)/@name) | ($includeFilesDocs/(xsd:complexType | xsd:simpleType)/@name)"/>
 
     <xsl:param name="typesDefinition" select="(//(xsd:complexType | xsd:simpleType)) | ($operationXsdSchema//(xsd:complexType | xsd:simpleType)) | ($importFilesDocs/(xsd:complexType | xsd:simpleType)) | ($includeFilesDocs/(xsd:complexType | xsd:simpleType))"/>
+    <xsl:param name="elementsDefinition" select="(//(xsd:element)) | ($operationXsdSchema//(xsd:element)) | ($importFilesDocs/(xsd:element)) | ($includeFilesDocs/(xsd:element))"/>
 
     <!-- список известных типов-->
     <xsl:variable name="stringTypes" select="tokenize('string xsd:string','\s+')"/>
@@ -93,7 +96,9 @@
     <xsl:template match="xsd:complexType" mode="rootBodyElement">
         <xsl:param name="parrentNS" select="/xsd:schema/@targetNamespace"/>
         <xsl:variable name="parrentNSAlias" select="if ($parrentNS=/xsd:schema/@targetNamespace) then $targetNSAlias else $systemName"/>
-        <!--<xsl:comment>complexType</xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>complexType</xsl:comment>
+        </xsl:if>
         <xsl:element name="{concat($parrentNSAlias,':',$rootElementName)}" namespace="{$parrentNS}">
             <xsl:if test="$parrentNS!=''">
                 <xsl:namespace name="{$parrentNSAlias}" select="$parrentNS"/>
@@ -106,7 +111,9 @@
     <xsl:template match="xsd:element" mode="rootBodyElement">
         <xsl:param name="parrentNS" select="/xsd:schema/@targetNamespace"/>
         <xsl:variable name="parrentNSAlias" select="if ($parrentNS=/xsd:schema/@targetNamespace) then $targetNSAlias else $systemName"/>
-        <!--<xsl:comment>element</xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>element</xsl:comment>
+        </xsl:if>
         <xsl:element name="{concat($parrentNSAlias,':',$rootElementName)}" namespace="{$parrentNS}">
             <xsl:if test="$parrentNS!=''">
                 <xsl:namespace name="{$parrentNSAlias}" select="$parrentNS"/>
@@ -144,7 +151,9 @@
     <xsl:template match="xsd:complexType" mode="subeseq">
         <xsl:param name="ns" select="$targetNS"/>
         <xsl:param name="nsAlias" select="$targetNSAlias"/>
-        <!--<xsl:comment>tSubSq (<xsl:value-of select="$nsAlias"/>="<xsl:value-of select="$ns"/>")</xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>tSubSq (<xsl:value-of select="$nsAlias"/>="<xsl:value-of select="$ns"/>")</xsl:comment>
+        </xsl:if>
         <xsl:if test="./xsd:complexContent/xsd:extension">
             <xsl:variable name="baseLocalName" select="mock:removeNamespaceAlias(./xsd:complexContent/xsd:extension/@base)"/>
             <xsl:variable name="baseNsAlias" select="mock:getNamespaceAlias(./xsd:complexContent/xsd:extension/@base)"/>
@@ -227,7 +236,9 @@
     <xsl:template match="xsd:element[(@type=$digitTypes) or (./xsd:simpleType/xsd:restriction/@base=$digitTypes)]" mode="type" priority="15">
         <xsl:param name="ns" select="$targetNS"/>
         <xsl:param name="nsAlias" select="$targetNSAlias"/>
-        <!--<xsl:comment>testxsdDigit <xsl:value-of select="$nsAlias"/>="<xsl:value-of select="$ns"/>"</xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>testxsdDigit <xsl:value-of select="$nsAlias"/>="<xsl:value-of select="$ns"/>"</xsl:comment>
+        </xsl:if>
         <xsl:element name="{concat($nsAlias,':',./@name)}" namespace="{$ns}">10</xsl:element>
     </xsl:template>
 
@@ -235,7 +246,9 @@
     <xsl:template match="xsd:element[@type=$stringTypes]" mode="type" priority="14">
         <xsl:param name="ns" select="$targetNS"/>
         <xsl:param name="nsAlias" select="$targetNSAlias"/>
-        <!--<xsl:comment>testxsdString</xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>testxsdString</xsl:comment>
+        </xsl:if>
         <xsl:element name="{concat($nsAlias,':',./@name)}" namespace="{$ns}">string</xsl:element>
     </xsl:template>
 
@@ -243,7 +256,9 @@
     <xsl:template match="xsd:element[@type=$dateTypes]" mode="type" priority="13">
         <xsl:param name="ns" select="$targetNS"/>
         <xsl:param name="nsAlias" select="$targetNSAlias"/>
-        <!--<xsl:comment>testxsdDate</xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>testxsdDate</xsl:comment>
+        </xsl:if>
         <xsl:element name="{concat($nsAlias,':',./@name)}" namespace="{$ns}"><xsl:value-of select="format-date(current-date(),'[Y0001]-[M01]-[D01]')"/></xsl:element>
     </xsl:template>
 
@@ -251,7 +266,9 @@
     <xsl:template match="xsd:element[@type=$dateTimeTypes]" mode="type" priority="12">
         <xsl:param name="ns" select="$targetNS"/>
         <xsl:param name="nsAlias" select="$targetNSAlias"/>
-        <!--<xsl:comment>testxsdDateTime</xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>testxsdDateTime</xsl:comment>
+        </xsl:if>
         <!--<xsl:element name="{concat($targetNSAlias,':',./@name)}" namespace="{$targetNS}"><xsl:value-of select="format-dateTime(current-dateTime(),'[D01].[M01].[Y0001]T[H01]:[m01]:[s01]')"/></xsl:element>-->
         <xsl:element name="{concat($nsAlias,':',./@name)}" namespace="{$ns}"><xsl:value-of select="format-dateTime(current-dateTime(),'[Y0001]-[M01]-[D01]T12:00:00')"/></xsl:element>
     </xsl:template>
@@ -260,7 +277,9 @@
     <xsl:template match="xsd:element[@type=$booleanTypes]" mode="type" priority="11">
         <xsl:param name="ns" select="$targetNS"/>
         <xsl:param name="nsAlias" select="$targetNSAlias"/>
-        <!--<xsl:comment>testxsdBool</xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>testxsdBool</xsl:comment>
+        </xsl:if>
         <xsl:element name="{concat($nsAlias,':',./@name)}" namespace="{$ns}">false</xsl:element>
     </xsl:template>
 
@@ -268,7 +287,9 @@
     <xsl:template match="xsd:element[./xsd:simpleType/xsd:restriction/xsd:enumeration]" mode="type" priority="1001">
         <xsl:param name="ns" select="$targetNS"/>
         <xsl:param name="nsAlias" select="$targetNSAlias"/>
-        <!--<xsl:comment>testxsdEnum</xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>testxsdEnum</xsl:comment>
+        </xsl:if>
         <xsl:element name="{concat($nsAlias,':',./@name)}" namespace="{$ns}"><xsl:value-of select=".//xsd:enumeration[1]/@value"/></xsl:element>
     </xsl:template>
 
@@ -276,7 +297,9 @@
     <xsl:template match="xsd:element[./xsd:simpleType/*[@base=$stringTypes]/xsd:maxLength]" mode="type" priority="1000">
         <xsl:param name="ns" select="$targetNS"/>
         <xsl:param name="nsAlias" select="$targetNSAlias"/>
-        <!--<xsl:comment>testxsdStrMax</xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>testxsdStrMax</xsl:comment>
+        </xsl:if>
         <xsl:variable name="maxlen" select="./xsd:simpleType/*[@base=$stringTypes]/xsd:maxLength/@value"/>
         <xsl:element name="{concat($nsAlias,':',./@name)}" namespace="{$ns}">
             <xsl:value-of select="substring('string', 1, $maxlen)"/>
@@ -294,7 +317,9 @@
                                             if ($baseNs=$ns) then $nsAlias else
                                                 if(string-length($baseNsAlias)>0) then $baseNsAlias else $nsAlias"/>
         <xsl:variable name="usedNs" select="$baseNs"/>
-        <!--<xsl:comment>testImport <xsl:value-of select="$typeName"/></xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>testImport <xsl:value-of select="$typeName"/></xsl:comment>
+        </xsl:if>
         <xsl:element name="{concat($nsAlias,':',./@name)}" namespace="{$ns}">
             <xsl:apply-templates select="$typesDefinition[@name=$typeName]" mode="importedType">
                 <xsl:with-param name="ns" select="$usedNs"/>
@@ -315,7 +340,9 @@
                                             if ($baseNs=$ns) then $nsAlias else
                                                 if(string-length($baseNsAlias)>0) then $baseNsAlias else $nsAlias"/>
         <xsl:variable name="usedNs" select="$baseNs"/>
-        <!--<xsl:comment>testImportBase <xsl:value-of select="$baseName"/>(<xsl:value-of select="$nsAlias"/>="<xsl:value-of select="$ns"/>)</xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>testImportBase <xsl:value-of select="$baseName"/>(<xsl:value-of select="$nsAlias"/>="<xsl:value-of select="$ns"/>)</xsl:comment>
+        </xsl:if>
         <xsl:element name="{concat($nsAlias,':',./@name)}" namespace="{$ns}">
             <xsl:apply-templates select="$typesDefinition[@name=$baseName]" mode="importedType">
                 <xsl:with-param name="ns" select="$usedNs"/>
@@ -335,7 +362,9 @@
                                             if ($baseNs=$ns) then $nsAlias else
                                                 if(string-length($baseNsAlias)>0) then $baseNsAlias else $nsAlias"/>
         <xsl:variable name="usedNs" select="$baseNs"/>
-        <!--<xsl:comment>testXsd import {<xsl:value-of select="$typeLocalName"/>}</xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>testXsd import {<xsl:value-of select="$typeLocalName"/>}</xsl:comment>
+        </xsl:if>
         <!--<xsl:comment>testXsd import {<xsl:value-of select="//(xsd:complexType | xsd:simpleType)[@name=$typeLocalName]/@name"/>}</xsl:comment>-->
         <!--<xsl:comment>testXsd import {<xsl:value-of select="$typesList"/>}</xsl:comment>-->
         <!--<xsl:comment>testXsd import {<xsl:value-of select="$typesDefinition/@name"/>}</xsl:comment>-->
@@ -358,9 +387,11 @@
                                             if ($baseNs=$ns) then $nsAlias else
                                                 if(string-length($baseNsAlias)>0) then $baseNsAlias else $nsAlias"/>
         <xsl:variable name="usedNs" select="$baseNs"/>
-        <!--<xsl:comment>testRef base(<xsl:value-of select="$baseNsAlias"/>="<xsl:value-of select="$baseNs"/>)</xsl:comment>-->
-        <!--<xsl:comment>testRef (<xsl:value-of select="$usedNsAlias"/>="<xsl:value-of select="$usedNs"/>)</xsl:comment>-->
-        <xsl:apply-templates select="$includeFilesDocs/xsd:element[@name=$elementName] | $importFilesDocs/xsd:element[@name=$elementName]" mode="type">
+        <xsl:if test="$debug">
+            <xsl:comment>testRef "<xsl:value-of select="$elementName"/>" base(<xsl:value-of select="$baseNsAlias"/>="<xsl:value-of select="$baseNs"/>)</xsl:comment>
+            <xsl:comment>testRef <xsl:value-of select="$elementsDefinition/@name"/></xsl:comment>
+        </xsl:if>
+        <xsl:apply-templates select="$elementsDefinition[@name=$elementName]" mode="type">
             <xsl:with-param name="ns" select="$usedNs"/>
             <xsl:with-param name="nsAlias" select="$usedNsAlias"/>
         </xsl:apply-templates>
@@ -370,7 +401,9 @@
     <xsl:template match="xsd:element[./xsd:complexType]" mode="type"  priority="100">
         <xsl:param name="ns" select="$targetNS"/>
         <xsl:param name="nsAlias" select="$targetNSAlias"/>
-        <!--<xsl:comment>testcomplexType</xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>testcomplexType</xsl:comment>
+        </xsl:if>
         <xsl:element name="{concat($nsAlias,':',./@name)}" namespace="{$ns}">
             <xsl:apply-templates select="./xsd:complexType" mode="subeseq">
                 <xsl:with-param name="ns" select="$ns"/>
@@ -384,7 +417,9 @@
                             or (count(./*[local-name()!='annotation'])=0 and not(./@type) and not(./@ref))]" mode="type"  priority="10">
         <xsl:param name="ns" select="$targetNS"/>
         <xsl:param name="nsAlias" select="$targetNSAlias"/>
-        <!--<xsl:comment>testNoRestrictions</xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>testNoRestrictions</xsl:comment>
+        </xsl:if>
         <xsl:element name="{concat($nsAlias,':',./@name)}" namespace="{$ns}">anyString</xsl:element>
     </xsl:template>
 
@@ -397,11 +432,11 @@
             <xsl:comment>not known elementType:{<xsl:value-of select="@type"/>}</xsl:comment>
             <!--<xsl:comment><xsl:value-of select="mock:getNamespaceAlias(./@type)"/> (<xsl:value-of select="./@type"/>) from <xsl:value-of select="$importFilesNsAlias"/></xsl:comment>-->
             <!--<xsl:comment>t1:-->
-                <!--<xsl:value-of select="$typesList"/></xsl:comment>-->
+            <!--<xsl:value-of select="$typesList"/></xsl:comment>-->
             <!--<xsl:comment>t2:-->
-                <!--<xsl:value-of select="//(xsd:complexType | xsd:simpleType)/@name"/></xsl:comment>-->
+            <!--<xsl:value-of select="//(xsd:complexType | xsd:simpleType)/@name"/></xsl:comment>-->
             <!--<xsl:comment>t3:-->
-                <!--<xsl:value-of select="//(xsd:complexType | xsd:simpleType)/@name | $importFilesDocs/(xsd:complexType | xsd:simpleType)/@name | $includeFilesDocs/(xsd:complexType | xsd:simpleType)/@name"/></xsl:comment>-->
+            <!--<xsl:value-of select="//(xsd:complexType | xsd:simpleType)/@name | $importFilesDocs/(xsd:complexType | xsd:simpleType)/@name | $includeFilesDocs/(xsd:complexType | xsd:simpleType)/@name"/></xsl:comment>-->
             <!--<xsl:comment>t2:<xsl:value-of select="$includeFilesDocs/xsd:complexType/@name"/></xsl:comment>-->
 
         </xsl:if>
@@ -417,7 +452,9 @@
     <xsl:template match="xsd:complexType" mode="importedType"  priority="2">
         <xsl:param name="ns" select="$targetNS"/>
         <xsl:param name="nsAlias" select="$targetNSAlias"/>
-        <!--<xsl:comment>testCT</xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>testCT</xsl:comment>
+        </xsl:if>
         <xsl:apply-templates select="." mode="subeseq">
             <xsl:with-param name="ns" select="$ns"/>
             <xsl:with-param name="nsAlias" select="$nsAlias"/>
@@ -427,7 +464,9 @@
     <!--тип decimal-->
     <xsl:template match="xsd:simpleType[./xsd:restriction/@base=$digitTypes]" mode="importedType"  priority="13">
         <xsl:param name="params" select="./xsd:restriction/*"/>
-        <!--<xsl:comment>test6</xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>test6</xsl:comment>
+        </xsl:if>
         <xsl:variable name="insideParams" select="($params | ./xsd:restriction/*[not(./name()=$params/name())])"/>
         <xsl:variable name="totalDigits" select="if ($insideParams[./local-name()='totalDigits']) then number($insideParams[./local-name()='totalDigits']/@value) else number('9999')"/>
         <!--TODO рассмотреть случай с minLengh -->
@@ -442,7 +481,9 @@
         <xsl:variable name="maxLength" select="if ($insideParams[./local-name()='maxLength']) then number($insideParams[./local-name()='maxLength']/@value) else number('9999')"/>
         <!--TODO рассмотреть случай с minLengh -->
         <xsl:variable name="templateString" select="if($insideParams[./local-name()='pattern']) then '1234567890'  else 'string'"/>
-        <!--<xsl:comment>test6 <xsl:value-of select="$maxLength"/></xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>test6 <xsl:value-of select="$maxLength"/></xsl:comment>
+        </xsl:if>
         <xsl:choose>
             <xsl:when test="$insideParams[./local-name()='length']">
                 <xsl:variable name="lenght" select="number($insideParams[./local-name()='length'][1]/@value)"/>
@@ -456,13 +497,17 @@
 
     <!--date-->
     <xsl:template match="xsd:simpleType[./xsd:restriction/@base=$dateTypes]" mode="importedType" priority="11">
-        <!--<xsl:comment>test7</xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>test7</xsl:comment>
+        </xsl:if>
         <xsl:value-of select="format-date(current-date(),'[Y0001]-[M01]-[D01]')"/>
     </xsl:template>
 
     <!--dateTime-->
     <xsl:template match="xsd:simpleType[./xsd:restriction/@base=$dateTimeTypes]" mode="importedType" priority="10">
-        <!--<xsl:comment>test7</xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>test7</xsl:comment>
+        </xsl:if>
         <xsl:value-of select="format-dateTime(current-dateTime(),'[Y0001]-[M01]-[D01]T12:00:00')"/>
     </xsl:template>
 
@@ -470,7 +515,9 @@
     <xsl:template match="xsd:simpleType[./xsd:restriction/xsd:enumeration]" mode="importedType"  priority="1000">
         <xsl:param name="params" select="./xsd:restriction/*"/>
         <xsl:variable name="insideParams" select="($params | ./xsd:restriction/*[not(./name()=$params/name())])"/>
-        <!--<xsl:comment>testEnumeration <xsl:value-of select="$insideParams/name()"/></xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>testEnumeration <xsl:value-of select="$insideParams/name()"/></xsl:comment>
+        </xsl:if>
         <xsl:value-of select="$insideParams[./local-name()='enumeration'][1]/@value"/>
     </xsl:template>
 
@@ -483,7 +530,9 @@
         <xsl:param name="params" select="./xsd:restriction/*"/>
         <xsl:variable name="insideParams" select="($params | ./xsd:restriction/*[not(./name()=$params/name())])"/>
         <xsl:variable name="typeName" select="mock:removeNamespaceAlias(./xsd:restriction/@base)"/>
-        <!--<xsl:comment>test9 <xsl:value-of select="$typeName"/></xsl:comment>-->
+        <xsl:if test="$debug">
+            <xsl:comment>test9 <xsl:value-of select="$typeName"/></xsl:comment>
+        </xsl:if>
         <xsl:apply-templates select="$typesDefinition[@name=$typeName]" mode="importedType">
             <xsl:with-param name="params" select="$insideParams"/>
             <xsl:with-param name="ns" select="$ns"/>
@@ -496,7 +545,9 @@
     <xsl:template match="*" mode="importedType" priority="1">
         <xsl:if test="$omitComments">
             <xsl:comment>not known type <xsl:value-of select="./xsd:restriction/@base"/></xsl:comment>
-            <!--<xsl:comment>test <xsl:value-of select="parent::*/namespace::*/local-name()"/></xsl:comment>-->
+            <xsl:if test="$debug">
+                <xsl:comment>test <xsl:value-of select="parent::*/namespace::*/local-name()"/></xsl:comment>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
 
