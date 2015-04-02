@@ -710,6 +710,10 @@
                             <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
                             <tag>BasicDocumentInformation</tag>
                         </linkedTag>
+                        <linkedTag>
+                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
+                            <tag>BasicDocumentID</tag>
+                        </linkedTag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
