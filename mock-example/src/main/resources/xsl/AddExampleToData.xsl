@@ -45,8 +45,7 @@
     <!--То, что чаще всего задавть не нужно, но теоритически возможен вариант что придется задать, если -->
 
     <!-- путь к папке с дата-файлами -->
-    <xsl:param name="dataFolderPath"
-               select="'../../webapp/WEB-INF/data'"/>
+    <xsl:param name="dataFolderPath"/>
     <!--полный путь к дата-файлу-->
     <xsl:param name="dataFilePath"
                select="concat($dataFolderPath,'/',$system,'/xml/',$dataFileName)"/>

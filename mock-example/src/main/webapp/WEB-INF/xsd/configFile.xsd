@@ -55,6 +55,7 @@
             <element name="incomeQueue" type="string"  minOccurs="0"/>
             <element name="outcomeQueue" type="string"  minOccurs="0"/>
             <element name="xsdFile" type="string"/>
+            <element name="RqXsdFile" type="string"  minOccurs="0"/>
             <element name="dependencies" type="mock:Dependencies" minOccurs="0"/>
             <element name="dataxml" type="mock:DataFileEntry" minOccurs="0"/>
         </sequence>

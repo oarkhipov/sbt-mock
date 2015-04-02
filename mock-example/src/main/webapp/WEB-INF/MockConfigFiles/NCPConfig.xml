@@ -2,7 +2,7 @@
     <systems>
         <system>
             <name>CRM</name>
-            <pathToXSD>/in/NCP/CRM</pathToXSD>
+            <pathToXSD>/NCP/CRM</pathToXSD>
             <rootXsd>CRM.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/NCP/esb/envelope/</headerNamespace>
             <integrationPoints>
@@ -264,7 +264,7 @@
         </system>
         <system>
             <name>AMRLiRT</name>
-            <pathToXSD>/in/NCP/AMRLiRT</pathToXSD>
+            <pathToXSD>/NCP/AMRLiRT</pathToXSD>
             <rootXsd>AMRLIRT.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/NCP/esb/envelope/</headerNamespace>
             <integrationPoints>
@@ -558,7 +558,7 @@
         </system>
         <system>
             <name>FinRep</name>
-            <pathToXSD>/in/NCP/FinRep</pathToXSD>
+            <pathToXSD>/NCP/FinRep</pathToXSD>
             <rootXsd>FinRep.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/NCP/esb/envelope/</headerNamespace>
             <integrationPoints>
