@@ -2,6 +2,9 @@ package ru.sbt.bpm.mock.config.entities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,23 +15,11 @@ import java.util.List;
 * Company: SBT - Saint-Petersburg
 */
 @XStreamAlias("systems")
+@ToString
 public class SystemsTag {
 
     @XStreamImplicit(itemFieldName = "system")
-    private List<SystemTag> aListOfSystems = new ArrayList<SystemTag>();
-
-    public List getaListOfSystems() {
-        return aListOfSystems;
-    }
-
-    public void setaListOfSystems(List<SystemTag> aListOfSystems) {
-        this.aListOfSystems = aListOfSystems;
-    }
-
-    @Override
-    public String toString() {
-        return "SystemsTag{" +
-                "aListOfSystems=" + aListOfSystems +
-                '}';
-    }
+    @Getter
+    @Setter
+    private List<SystemTag> listOfSystems = new ArrayList<SystemTag>();
 }

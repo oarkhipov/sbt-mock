@@ -1,6 +1,9 @@
 package ru.sbt.bpm.mock.config;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import ru.sbt.bpm.mock.config.entities.SystemTag;
 import ru.sbt.bpm.mock.config.entities.SystemsTag;
 
@@ -12,27 +15,15 @@ import java.util.List;
 * Company: SBT - Saint-Petersburg
 */
 @XStreamAlias("MockConfig")
+@ToString
 public class MockConfig {
 
     @XStreamAlias("systems")
-    private SystemsTag aSystems;
-
-    public SystemsTag getaSystems() {
-        return aSystems;
-    }
-
-    public void setaSystems(SystemsTag aSystems) {
-        this.aSystems = aSystems;
-    }
+    @Getter
+    @Setter
+    private SystemsTag systems;
 
     public List<SystemTag> getListOfSystems() {
-        return aSystems.getaListOfSystems();
-    }
-
-    @Override
-    public String toString() {
-        return "MockConfig{" +
-                "aSystems=" + aSystems +
-                '}';
+        return systems.getListOfSystems();
     }
 }

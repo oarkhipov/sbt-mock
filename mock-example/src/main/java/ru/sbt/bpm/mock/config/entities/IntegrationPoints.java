@@ -2,6 +2,9 @@ package ru.sbt.bpm.mock.config.entities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,23 +16,11 @@ import java.util.List;
  */
 
 @XStreamAlias("integrationPoints")
+@ToString
 public class IntegrationPoints {
 
     @XStreamImplicit(itemFieldName = "integrationPoint")
-    private List<IntegrationPoint> aListOfIntegrationPoints = new ArrayList<IntegrationPoint>();
-
-    public List<IntegrationPoint> getaListOfIntegrationPoints() {
-        return aListOfIntegrationPoints;
-    }
-
-    public void setaListOfIntegrationPoints(List<IntegrationPoint> aListOfIntegrationPoints) {
-        this.aListOfIntegrationPoints = aListOfIntegrationPoints;
-    }
-
-    @Override
-    public String toString() {
-        return "IntegrationPoints{" +
-                "aListOfIntegrationPoints=" + aListOfIntegrationPoints +
-                '}';
-    }
+    @Getter
+    @Setter
+    private List<IntegrationPoint> listOfIntegrationPoints = new ArrayList<IntegrationPoint>();
 }
