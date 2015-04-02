@@ -51,6 +51,14 @@ public class importXSD {
     }
 
     /**
+     * путь к папке WEB-INF
+     * @return
+     */
+    private String getSrcResorcesPath() {
+        return getPath() + "\\src\\main\\resources";
+    }
+
+    /**
      * путь к папке с примерами xml для тестов
      * @return
      */
@@ -67,7 +75,7 @@ public class importXSD {
      *
      */
     private void createRqExample(String system, String name, String msgType, Map<String, String> params) throws Exception{
-        String exampleRq1 = useXSLT(getWebInfPath() + "\\xsl\\util\\"+msgType+"SoapMSG.xsl",
+        String exampleRq1 = useXSLT(getSrcResorcesPath() + "\\xsl\\"+msgType+"SoapMSG.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         validateXML(exampleRq1);
@@ -79,7 +87,7 @@ public class importXSD {
         if (params.containsKey("tagNameToTakeLinkedTag")) {
             params.put("useLinkedTagValue","true");
         }
-        String exampleRq2 = useXSLT(getWebInfPath() + "\\xsl\\util\\"+msgType+"SoapMSG.xsl",
+        String exampleRq2 = useXSLT(getSrcResorcesPath() + "\\xsl\\"+msgType+"SoapMSG.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         validateXML(exampleRq2);
@@ -96,7 +104,7 @@ public class importXSD {
      * @throws Exception
      */
     private void createRsExample(String system, String name, String msgType,  Map<String, String> params) throws Exception{
-        String exampleRs1 = useXSLT(getWebInfPath() + "\\xsl\\util\\"+msgType+"SoapMSG.xsl",
+        String exampleRs1 = useXSLT(getSrcResorcesPath() + "\\xsl\\"+msgType+"SoapMSG.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         validateXML(exampleRs1);
@@ -106,7 +114,7 @@ public class importXSD {
 
         if (params == null) params = new HashMap<String, String>(1);
         params.put("showOptionalTags", "false");
-        String exampleRs2 = useXSLT(getWebInfPath() + "\\xsl\\util\\"+msgType+"SoapMSG.xsl",
+        String exampleRs2 = useXSLT(getSrcResorcesPath() + "\\xsl\\"+msgType+"SoapMSG.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         validateXML(exampleRs2);
@@ -124,7 +132,7 @@ public class importXSD {
      * @throws Exception
      */
     private void createDataXSD(String system, String name, String type, Map<String, String> params) throws Exception{
-        String xsdXml = useXSLT(getWebInfPath() + "\\xsl\\util\\xsdToDataXsd.xsl",
+        String xsdXml = useXSLT(getSrcResorcesPath() + "\\xsl\\xsdToDataXsd.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         validateXML(xsdXml);
@@ -141,7 +149,7 @@ public class importXSD {
      * @throws Exception
      */
     private File createMockXSL(String system, String name, Map<String, String> params) throws Exception{
-        String xsltXml = useXSLT(getWebInfPath() + "\\xsl\\util\\responceXSDtoXSL.xsl",
+        String xsltXml = useXSLT(getSrcResorcesPath() + "\\xsl\\responceXSDtoXSL.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         validateXML(xsltXml);
@@ -160,7 +168,7 @@ public class importXSD {
      * @throws Exception
      */
     private void createDriverXSL(String system, String name, Map<String, String> params) throws Exception{
-        String xsltXml = useXSLT(getWebInfPath() + "\\xsl\\util\\requestXSDtoXSL.xsl",
+        String xsltXml = useXSLT(getSrcResorcesPath() + "\\xsl\\requestXSDtoXSL.xsl",
                 getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         validateXML(xsltXml);
@@ -179,7 +187,7 @@ public class importXSD {
     private void createRsDataXml(String system, String name, Map<String, String> params) throws Exception{
         if (params == null) params = new HashMap<String, String>(2);
         params.put("replace","true");
-        String dataXML = useXSLT(getWebInfPath() + "\\xsl\\util\\AddExampleToData.xsl",
+        String dataXML = useXSLT(getSrcResorcesPath() + "\\xsl\\AddExampleToData.xsl",
                 getExamplesPath() + "\\" +  system + "\\" + name + "\\rs1.xml",
                 params);
         validateXML(dataXML);
@@ -188,7 +196,7 @@ public class importXSD {
 
         params.put("replace","false");
         params.put("name","test1");
-        dataXML = useXSLT(getWebInfPath() + "\\xsl\\util\\AddExampleToData.xsl",
+        dataXML = useXSLT(getSrcResorcesPath() + "\\xsl\\AddExampleToData.xsl",
                 getExamplesPath() + "\\" +  system + "\\" + name + "\\rs2.xml",
                 params);
         validateXML(dataXML);
@@ -208,7 +216,7 @@ public class importXSD {
         if (params == null) params = new HashMap<String, String>(3);
         params.put("replace","true");
         params.put("type","request");
-        String dataXML = useXSLT(getWebInfPath() + "\\xsl\\util\\AddExampleToData.xsl",
+        String dataXML = useXSLT(getSrcResorcesPath() + "\\xsl\\AddExampleToData.xsl",
                 getExamplesPath() + "\\" +  system + "\\" + name + "\\rq1.xml",
                 params);
         validateXML(dataXML);
@@ -219,7 +227,7 @@ public class importXSD {
         params.put("replace","false");
         params.put("name","test1");
         params.put("type","request");
-        dataXML = useXSLT(getWebInfPath() + "\\xsl\\util\\AddExampleToData.xsl",
+        dataXML = useXSLT(getSrcResorcesPath() + "\\xsl\\AddExampleToData.xsl",
                 getExamplesPath() + "\\" +  system + "\\" + name + "\\rq2.xml",
                 params);
         validateXML(dataXML);
@@ -256,11 +264,12 @@ public class importXSD {
             Map <String, String> altParams = new HashMap<String, String>(params);
             altParams.put("rootElementName", params.get("RqRootElementName"));
             if (!params.containsKey("operationsXSD")) {
-                params.put("operationsXSD", "../../xsd/"+system+"/"+name+"Response.xsd");
+                params.put("operationsXSD", new File(getWebInfPath() + "/xsd/"+system+"/"+name+"Response.xsd").toURI().toString());
+
                 if (!params.containsKey("altOperationsXSD")) {
                     altParams.put("operationsXSD", params.get("altOperationsXSD"));
                 } else {
-                    altParams.put("operationsXSD", "../../xsd/" + system + "/" + name + "Request.xsd");
+                    altParams.put("operationsXSD", new File(getWebInfPath() + "/xsd/"+system+"/"+name+"Request.xsd").toURI().toString());
                 }
             }
             altParams.put("operation-name", params.get("rootElementName"));
@@ -300,7 +309,7 @@ public class importXSD {
                 params.put("dataFileName", name + "Data.xml");
             }
             if (!params.containsKey("operationsXSD")) {
-                params.put("operationsXSD", "../../xsd/"+system+"/"+name+"Request.xsd");
+                params.put("operationsXSD", getWebInfPath() + "/xsd/"+system+"/"+name+"Request.xsd");
             }
             if (!params.containsKey("system")) {
                 params.put("system", system);
@@ -463,7 +472,7 @@ public class importXSD {
         String headerType = getHeaderTypeByHeaderNamespace(system);
 
         params.put("rootElementName", point.getaRqRootElementName());
-        params.put("operationsXSD", "../../xsd/"+systemName+"/"+point.getaXsdFile() );
+        params.put("operationsXSD", new File(getWebInfPath() + "/xsd/"+systemName+"/"+point.getaXsdFile()).toURI().toString() );
         params.put("xsdBase", system.getaRootXSD());
         if (point.getaOperationName() != null & !point.getaOperationName().isEmpty()) {
             params.put("operationName", point.getaOperationName());
@@ -483,7 +492,7 @@ public class importXSD {
 
         params.put("rootElementName", point.getaRsRootElementName());
         params.put("RqRootElementName", point.getaRqRootElementName());
-        params.put("operationsXSD", "../../xsd/"+systemName+"/"+point.getaXsdFile() );
+        params.put("operationsXSD",  new File(getWebInfPath() + "/xsd/"+systemName+"/"+point.getaXsdFile()).toURI().toString() );
         params.put("xsdBase", system.getaRootXSD());
         params.put("tagNameToTakeLinkedTag", linkedTag);
         if (linkedTagQuerry!=null) {

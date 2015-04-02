@@ -8,10 +8,13 @@
         <xsl:namespace name="st" select="'http://sbrf.ru/prpc/bbmo/simpleTypes/10'"/>
     </xsl:template>
 
+    <!--относительный путь к файлу с шаблоном заголовка (к этому файлу), чтобы втсавить в xsl-->
+    <xsl:template name="KD4TemplatePath">../util/KD4SoapHeaderTemplate.xsl</xsl:template>
+
 
     <xsl:template name="KD4Header" xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/"
                   xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
-                  xmlns:kd4="http://www.ibm.com/KD4Soa"
+                  xmlns:kd4="http://www.ibm.com/KD4Soap"
                   xmlns:mq="http://sbrf.ru/prpc/mq/headers">
         <xsl:param name="response"/>
         <xsl:param name="request-time" select="'2014-12-16T17:55:06.410'"/>

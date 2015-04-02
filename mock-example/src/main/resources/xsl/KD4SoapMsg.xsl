@@ -5,7 +5,7 @@
         xmlns:mq="http://sbrf.ru/prpc/mq/headers"
         xmlns:mock="http://sbrf.ru/mockService" >
     <xsl:import href="XSDToExampleXML.xsl"/>
-    <xsl:import href="KD4SoapHeaderTemplate.xsl"/>
+    <xsl:import href="../../webapp/WEB-INF/xsl/util/KD4SoapHeaderTemplate.xsl"/>
 
     <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
 
@@ -22,7 +22,7 @@
     <!-- параметры заголовка -->
     <xsl:param name="kd4header" select="''"/>
     <xsl:param name="message-id" select="'message-id'"/>
-    <xsl:param name="request-time" select="'2014-12-16T17:55:06.410+04:00'"/>
+    <xsl:param name="request-time" select="'2014-12-16T17:55:06.410'"/>
     <xsl:param name="correlation-id" select="''"/>
     <xsl:param name="eis-name" select="''"/>
     <xsl:param name="system-id" select="''"/>

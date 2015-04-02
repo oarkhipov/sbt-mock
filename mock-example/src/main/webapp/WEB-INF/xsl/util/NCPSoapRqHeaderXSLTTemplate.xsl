@@ -8,6 +8,9 @@
         <xsl:namespace name="dt" select="'http://sbrf.ru/commonTypes/dataTypes/'"/>
     </xsl:template>
 
+    <!--относительный путь к файлу с шаблоном заголовка (к этому файлу), чтобы втсавить в xsl-->
+    <xsl:template name="NCPTemplatePath">../util/NCPSoapRqHeaderXSLTTemplate.xsl</xsl:template>
+
     <!--заголовок из дата-файла-->
     <xsl:template name="NCPHeader" xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
         <xsl:param name="response" select="'default'"/>
