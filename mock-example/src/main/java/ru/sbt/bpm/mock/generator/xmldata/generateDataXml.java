@@ -1,6 +1,6 @@
 package ru.sbt.bpm.mock.generator.xmldata;
 
-import ru.sbt.bpm.mock.generator.localPaths;
+import ru.sbt.bpm.mock.generator.LocalPaths;
 import ru.sbt.bpm.mock.spring.utils.SaveFile;
 import ru.sbt.bpm.mock.spring.utils.Validator;
 import ru.sbt.bpm.mock.spring.utils.Xsl20Transformer;
@@ -32,22 +32,21 @@ public class generateDataXml {
     public void createRsDataXml(String system, String name, Map<String, String> params) throws Exception{
         if (params == null) params = new HashMap<String, String>(2);
         params.put("replace","true");
-        String dataXML = Xsl20Transformer.transform(localPaths.getSrcResorcesPath() + "\\xsl\\AddExampleToData.xsl",
-                localPaths.getExamplesPath() + "\\" + system + "\\" + name + "\\rs1.xml",
+        String dataXML = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + "\\AddExampleToData.xsl",
+                LocalPaths.getExamplesPath() + "\\" + system + "\\" + name + "\\rs1.xml",
                 params);
         Validator.getInstance().validateXML(dataXML);
-        //TODO backup
-        SaveFile.getInstance(localPaths.getPath()).writeStringToFile(new File(localPaths.getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
+
+        SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
 
         params.put("replace","false");
         params.put("name","test1");
-        dataXML = Xsl20Transformer.transform(localPaths.getSrcResorcesPath() + "\\xsl\\AddExampleToData.xsl",
-                localPaths.getExamplesPath() + "\\" + system + "\\" + name + "\\rs2.xml",
+        dataXML = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + "\\AddExampleToData.xsl",
+                LocalPaths.getExamplesPath() + "\\" + system + "\\" + name + "\\rs2.xml",
                 params);
         Validator.getInstance().validateXML(dataXML);
 
-        //TODO backup
-        SaveFile.getInstance(localPaths.getPath()).writeStringToFile(new File(localPaths.getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
+        SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
     }
 
 
@@ -63,24 +62,22 @@ public class generateDataXml {
         if (params == null) params = new HashMap<String, String>(3);
         params.put("replace","true");
         params.put("type","request");
-        String dataXML = Xsl20Transformer.transform(localPaths.getSrcResorcesPath() + "\\xsl\\AddExampleToData.xsl",
-                localPaths.getExamplesPath() + "\\" + system + "\\" + name + "\\rq1.xml",
+        String dataXML = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + "\\AddExampleToData.xsl",
+                LocalPaths.getExamplesPath() + "\\" + system + "\\" + name + "\\rq1.xml",
                 params);
         Validator.getInstance().validateXML(dataXML);
-        //TODO backup
 
-        SaveFile.getInstance(localPaths.getPath()).writeStringToFile(new File(localPaths.getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
+        SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
 
         params.put("replace","false");
         params.put("name","test1");
         params.put("type","request");
-        dataXML = Xsl20Transformer.transform(localPaths.getSrcResorcesPath() + "\\xsl\\AddExampleToData.xsl",
-                localPaths.getExamplesPath() + "\\" + system + "\\" + name + "\\rq2.xml",
+        dataXML = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + "\\AddExampleToData.xsl",
+                LocalPaths.getExamplesPath() + "\\" + system + "\\" + name + "\\rq2.xml",
                 params);
         Validator.getInstance().validateXML(dataXML);
 
-        //TODO backup
-        SaveFile.getInstance(localPaths.getPath()).writeStringToFile(new File(localPaths.getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
+        SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getWebInfPath() + "\\data\\" + system + "\\xml\\" + name + "Data.xml"), dataXML);
     }
 
 

@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * //TODO этот класс впринципе пока не работает. задел на будущее
  * Created by sbt-vostrikov-mi on 02.04.2015.
  */
 public class applyMappings {

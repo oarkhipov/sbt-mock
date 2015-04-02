@@ -1,26 +1,10 @@
 package ru.sbt.bpm.mock.generator.xsd;
 
-import net.sf.saxon.lib.NamespaceConstant;
 import org.apache.commons.io.FileUtils;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import ru.sbt.bpm.mock.generator.localPaths;
+import ru.sbt.bpm.mock.generator.LocalPaths;
 import ru.sbt.bpm.mock.config.entities.*;
-import ru.sbt.bpm.mock.spring.utils.SaveFile;
-import ru.sbt.bpm.mock.spring.utils.Xsl20Transformer;
 
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Source;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathFactory;
 import java.io.*;
 import java.util.*;
 
@@ -83,9 +67,9 @@ public class importXSD {
      */
     private File findFolder(SystemTag system) throws FileNotFoundException {
         List<String> possiblePaths = new ArrayList<String>(); // записываем в список всякие разные пути, по которым можна найти папку
-        possiblePaths.add(localPaths.getPath()); //основной путь
-        possiblePaths.add(localPaths.getWebInfPath()); //WebInf папку
-        possiblePaths.add(localPaths.getExamplesPath()); //папку с примерами
+        possiblePaths.add(LocalPaths.getPath()); //основной путь
+        possiblePaths.add(LocalPaths.getWebInfPath()); //WebInf папку
+        possiblePaths.add(LocalPaths.getExamplesPath()); //папку с примерами
         possiblePaths.add(""); //корень для абсолютных путей и рабочей дирректории
         for (String subPath : possiblePaths ) { //и по очереди проверям эти пути
             try {
@@ -112,7 +96,7 @@ public class importXSD {
      */
     private void importFile(String filePathToImport, String subFolder) throws Exception {
         File fileToImport = new File(filePathToImport);
-        File copyTo = new File(localPaths.getWebInfPath()+ File.separator + "xsd" + File.separator + subFolder + File.separator + fileToImport.getName());
+        File copyTo = new File(LocalPaths.getWebInfPath()+ File.separator + "xsd" + File.separator + subFolder + File.separator + fileToImport.getName());
         if (copyTo.exists()) {
             long cheksumFrom = FileUtils.checksumCRC32(fileToImport);
             long cheksumTo = FileUtils.checksumCRC32(copyTo);

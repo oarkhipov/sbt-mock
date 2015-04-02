@@ -1,6 +1,6 @@
 package ru.sbt.bpm.mock.generator.xml;
 
-import ru.sbt.bpm.mock.generator.localPaths;
+import ru.sbt.bpm.mock.generator.LocalPaths;
 import ru.sbt.bpm.mock.spring.utils.SaveFile;
 import ru.sbt.bpm.mock.spring.utils.Validator;
 import ru.sbt.bpm.mock.spring.utils.Xsl20Transformer;
@@ -31,25 +31,23 @@ public class generateExampleXml {
      * @throws Exception
      */
     public void createRqExample(String system, String name, String msgType, Map<String, String> params) throws Exception{
-        String exampleRq1 = Xsl20Transformer.transform(localPaths.getSrcResorcesPath() + "\\xsl\\" + msgType + "SoapMSG.xsl",
-                localPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+        String exampleRq1 = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + File.separator + msgType + "SoapMSG.xsl",
+                LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         Validator.getInstance().validateXML(exampleRq1);
 
-        //TODO backup
-        SaveFile.getInstance(localPaths.getPath()).writeStringToFile(new File(localPaths.getExamplesPath() + "\\" +  system + "\\" + name + "\\rq1.xml"), exampleRq1);
+        SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getExamplesPath() + "\\" +  system + "\\" + name + "\\rq1.xml"), exampleRq1);
 
         params.put("showOptionalTags", "false");
         if (params.containsKey("tagNameToTakeLinkedTag")) {
             params.put("useLinkedTagValue","true");
         }
-        String exampleRq2 = Xsl20Transformer.transform(localPaths.getSrcResorcesPath() + "\\xsl\\" + msgType + "SoapMSG.xsl",
-                localPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+        String exampleRq2 = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + File.separator + msgType + "SoapMSG.xsl",
+                LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         Validator.getInstance().validateXML(exampleRq2);
 
-        //TODO backup
-        SaveFile.getInstance(localPaths.getPath()).writeStringToFile(new File(localPaths.getExamplesPath() + "\\" +  system + "\\" + name + "\\rq2.xml"), exampleRq2);
+        SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getExamplesPath() + "\\" +  system + "\\" + name + "\\rq2.xml"), exampleRq2);
     }
 
 
@@ -61,22 +59,20 @@ public class generateExampleXml {
      * @throws Exception
      */
     public void createRsExample(String system, String name, String msgType,  Map<String, String> params) throws Exception{
-        String exampleRs1 = Xsl20Transformer.transform(localPaths.getSrcResorcesPath() + "\\xsl\\" + msgType + "SoapMSG.xsl",
-                localPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+        String exampleRs1 = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + File.separator + msgType + "SoapMSG.xsl",
+                LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         Validator.getInstance().validateXML(exampleRs1);
 
-        //TODO backup
-        SaveFile.getInstance(localPaths.getPath()).writeStringToFile(new File(localPaths.getExamplesPath() + "\\" +  system + "\\" + name + "\\rs1.xml"), exampleRs1);
+        SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getExamplesPath() + "\\" +  system + "\\" + name + "\\rs1.xml"), exampleRs1);
 
         if (params == null) params = new HashMap<String, String>(1);
         params.put("showOptionalTags", "false");
-        String exampleRs2 = Xsl20Transformer.transform(localPaths.getSrcResorcesPath() + "\\xsl\\" + msgType + "SoapMSG.xsl",
-                localPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+        String exampleRs2 = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + File.separator + msgType + "SoapMSG.xsl",
+                LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         Validator.getInstance().validateXML(exampleRs2);
 
-        //TODO backup
-        SaveFile.getInstance(localPaths.getPath()).writeStringToFile(new File(localPaths.getExamplesPath() + "\\" + system + "\\" + name + "\\rs2.xml"), exampleRs2);
+        SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getExamplesPath() + "\\" + system + "\\" + name + "\\rs2.xml"), exampleRs2);
     }
 }

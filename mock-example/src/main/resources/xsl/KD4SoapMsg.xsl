@@ -5,7 +5,7 @@
         xmlns:mq="http://sbrf.ru/prpc/mq/headers"
         xmlns:mock="http://sbrf.ru/mockService" >
     <xsl:import href="XSDToExampleXML.xsl"/>
-    <xsl:import href="../../webapp/WEB-INF/xsl/util/KD4SoapHeaderTemplate.xsl"/>
+    <xsl:import href="KD4SoapHeaderTemplate.xsl"/>
 
     <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
 

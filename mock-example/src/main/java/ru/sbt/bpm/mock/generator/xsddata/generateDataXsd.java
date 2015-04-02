@@ -1,6 +1,6 @@
 package ru.sbt.bpm.mock.generator.xsddata;
 
-import ru.sbt.bpm.mock.generator.localPaths;
+import ru.sbt.bpm.mock.generator.LocalPaths;
 import ru.sbt.bpm.mock.spring.utils.SaveFile;
 import ru.sbt.bpm.mock.spring.utils.Validator;
 import ru.sbt.bpm.mock.spring.utils.Xsl20Transformer;
@@ -30,12 +30,11 @@ public class generateDataXsd {
      * @throws Exception
      */
     public void createDataXSD(String system, String name, String type, Map<String, String> params) throws Exception{
-        String xsdXml = Xsl20Transformer.transform(localPaths.getSrcResorcesPath() + "\\xsl\\xsdToDataXsd.xsl",
-                localPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+        String xsdXml = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + "\\xsdToDataXsd.xsl",
+                LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         Validator.getInstance().validateXML(xsdXml);
 
-        //TODO backup
-        SaveFile.getInstance(localPaths.getPath()).writeStringToFile(new File(localPaths.getWebInfPath() + "\\data\\" + system + "\\xsd\\" + name + type +"Data.xsd"), xsdXml);
+        SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getWebInfPath() + "\\data\\" + system + "\\xsd\\" + name + type +"Data.xsd"), xsdXml);
     }
 }

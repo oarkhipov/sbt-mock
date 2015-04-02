@@ -1,6 +1,6 @@
 package ru.sbt.bpm.mock.generator.xsl;
 
-import ru.sbt.bpm.mock.generator.localPaths;
+import ru.sbt.bpm.mock.generator.LocalPaths;
 import ru.sbt.bpm.mock.spring.utils.SaveFile;
 import ru.sbt.bpm.mock.spring.utils.Validator;
 import ru.sbt.bpm.mock.spring.utils.Xsl20Transformer;
@@ -30,14 +30,14 @@ public class generateXsl {
      * @throws Exception
      */
     public File createMockXSL(String system, String name, Map<String, String> params) throws Exception{
-        String xsltXml = Xsl20Transformer.transform(localPaths.getSrcResorcesPath() + "\\xsl\\responceXSDtoXSL.xsl",
-                localPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+        String xsltXml = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + "\\responceXSDtoXSL.xsl",
+                LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         Validator.getInstance().validateXML(xsltXml);
 
-        File xslFile = new File(localPaths.getWebInfPath() + "\\xsl\\" + system + "\\" + name + ".xsl");
-        //TODO backup
-        SaveFile.getInstance(localPaths.getPath()).writeStringToFile(xslFile, xsltXml);
+        File xslFile = new File(LocalPaths.getWebInfPath() + "\\xsl\\" + system + "\\" + name + ".xsl");
+
+        SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(xslFile, xsltXml);
         return xslFile;
     }
 
@@ -51,13 +51,12 @@ public class generateXsl {
      * @throws Exception
      */
     public void createDriverXSL(String system, String name, Map<String, String> params) throws Exception{
-        String xsltXml = Xsl20Transformer.transform(localPaths.getSrcResorcesPath() + "\\xsl\\requestXSDtoXSL.xsl",
-                localPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
+        String xsltXml = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + "\\requestXSDtoXSL.xsl",
+                LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         Validator.getInstance().validateXML(xsltXml);
 
-        //TODO backup
-        SaveFile.getInstance(localPaths.getPath()).writeStringToFile(new File(localPaths.getWebInfPath() + "\\xsl\\" + system + "\\" + name + ".xsl"), xsltXml);
+        SaveFile.getInstance(LocalPaths.getPath()).writeStringToFile(new File(LocalPaths.getWebInfPath() + "\\xsl\\" + system + "\\" + name + ".xsl"), xsltXml);
     }
 
 

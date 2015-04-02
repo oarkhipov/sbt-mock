@@ -3,7 +3,7 @@
                 xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:mock="http://sbrf.ru/mockService">
     <xsl:import href="XSDToExampleXML.xsl"/>
-    <xsl:include href="../../webapp/WEB-INF/xsl/util/NCPSoapRqHeaderXSLTTemplate.xsl"/>
+    <xsl:include href="NCPSoapRqHeaderXSLTTemplate.xsl"/>
 
     <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
 

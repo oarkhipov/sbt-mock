@@ -10,7 +10,7 @@ import java.io.File;
  * //TODO возможно, есть более элегентный способ вызова генератора, не через main
  * Created by sbt-vostrikov-mi on 02.04.2015.
  */
-public class generatorEntryPoint {
+public class GeneratorEntryPoint {
 
     /**
      * точка входа для запуска вне сервиса
@@ -39,10 +39,10 @@ public class generatorEntryPoint {
      * нужно для очистки рабочих дирректорий
      */
     public static void clear() throws Exception {
-        File data = new File(localPaths.getWebInfPath() + File.separator + "data");
-        File xsd = new File(localPaths.getWebInfPath() + File.separator + "xsd");
-        File xsl = new File(localPaths.getWebInfPath() + File.separator + "xsl");
-        File testxml = new File(localPaths.getExamplesPath());
+        File data = new File(LocalPaths.getWebInfPath() + File.separator + "data");
+        File xsd = new File(LocalPaths.getWebInfPath() + File.separator + "xsd");
+        File xsl = new File(LocalPaths.getWebInfPath() + File.separator + "xsl");
+        File testxml = new File(LocalPaths.getExamplesPath());
 
         clearDir(data);
         clearDir(xsd);

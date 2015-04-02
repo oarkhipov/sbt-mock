@@ -31,7 +31,7 @@ public class configLoader {
     }
 
     public void loadConfig(String configFilename) throws Exception {
-        final String file = localPaths.getWebInfPath() + "\\MockConfigFiles\\" + configFilename;
+        final String file = LocalPaths.getWebInfPath() + "\\MockConfigFiles\\" + configFilename;
         GenerateMockAppServlet gen1 = GenerateMockAppServlet.getInstance(file);
         gen1.setFilePath(file);
         gen1.init();
@@ -74,7 +74,7 @@ public class configLoader {
 
         params.put("rootElementName", point.getRsRootElementName()); //имя html-тэга операции
         params.put("RqRootElementName", point.getRqRootElementName()); //имя html-тэга запроса операции
-        params.put("operationsXSD",  getUriFilename(localPaths.getWebInfPath() + "/xsd/" + systemName + "/" + point.getXsdFile())); //путь к xsd
+        params.put("operationsXSD",  getUriFilename(LocalPaths.getWebInfPath() + "/xsd/" + systemName + "/" + point.getXsdFile())); //путь к xsd
         params.put("xsdBase", system.getRootXSD()); //родительский xsd - xsd общий для всех ТИ системы
         params.put("tagNameToTakeLinkedTag", linkedTag); //linkedTag
         if (linkedTagQuerry!=null) {
@@ -83,6 +83,7 @@ public class configLoader {
         if (point.getOperationName() != null & !point.getOperationName().isEmpty()) {
             params.put("operationName", point.getOperationName()); //имя операции. Если не задано - возьмет html-тэг ответа
         }
+        params.put("dataFolderPath",getUriFilename(LocalPaths.getWebInfPath()+"\\data"));
         mockCycle(systemName, point.getIntegrationPointName(), headerType, params, point.getMappedTagSequence());
     }
 
@@ -95,11 +96,12 @@ public class configLoader {
         String headerType = getHeaderTypeByHeaderNamespace(system);
 
         params.put("rootElementName", point.getRqRootElementName());
-        params.put("operationsXSD", getUriFilename(localPaths.getWebInfPath() + "/xsd/" + systemName + "/" + point.getXsdFile()));
+        params.put("operationsXSD", getUriFilename(LocalPaths.getWebInfPath() + "/xsd/" + systemName + "/" + point.getXsdFile()));
         params.put("xsdBase", system.getRootXSD());
         if (point.getOperationName() != null & !point.getOperationName().isEmpty()) {
             params.put("operationName", point.getOperationName());
         }
+        params.put("dataFolderPath",getUriFilename(LocalPaths.getWebInfPath()+"\\data"));
         driverCycle(systemName, point.getIntegrationPointName(), headerType, params);
     }
 
@@ -169,10 +171,10 @@ public class configLoader {
             Map <String, String> altParams = new HashMap<String, String>(params);
             altParams.put("rootElementName", params.get("RqRootElementName"));
             if (!params.containsKey("operationsXSD")) {
-                params.put("operationsXSD", getUriFilename(localPaths.getWebInfPath() + "/xsd/" + system + "/" + name + "Response.xsd"));
+                params.put("operationsXSD", getUriFilename(LocalPaths.getWebInfPath() + "/xsd/" + system + "/" + name + "Response.xsd"));
 
                 if (!params.containsKey("altOperationsXSD")) {
-                    altParams.put("operationsXSD", getUriFilename(localPaths.getWebInfPath() + "/xsd/" + system + "/" + name + "Request.xsd"));
+                    altParams.put("operationsXSD", getUriFilename(LocalPaths.getWebInfPath() + "/xsd/" + system + "/" + name + "Request.xsd"));
                 }
             }
 
@@ -217,7 +219,7 @@ public class configLoader {
                 params.put("dataFileName", name + "Data.xml");
             }
             if (!params.containsKey("operationsXSD")) {
-                params.put("operationsXSD", new File(localPaths.getWebInfPath() + "/xsd/"+system+"/"+name+"Request.xsd").toURI().toString());
+                params.put("operationsXSD", new File(LocalPaths.getWebInfPath() + "/xsd/"+system+"/"+name+"Request.xsd").toURI().toString());
             }
             if (!params.containsKey("system")) {
                 params.put("system", system);

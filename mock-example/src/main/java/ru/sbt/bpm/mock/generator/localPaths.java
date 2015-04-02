@@ -4,7 +4,7 @@ package ru.sbt.bpm.mock.generator;
  * статичный класс для доступа к локальным путям в проекте во время генерации
  * Created by sbt-vostrikov-mi on 02.04.2015.
  */
-public class localPaths {
+public class LocalPaths {
     /**
      * @return путь к корню
      */
@@ -23,8 +23,9 @@ public class localPaths {
     /**
      * @return путь к папке \src\main\resources
      */
-    public static String getSrcResorcesPath() {
-        return getPath() + "\\src\\main\\resources";
+    public static String getSrcResorcesXSLPath() throws NullPointerException {
+        //LocalPaths.class.getClassLoader().getResource("xsl").getFile();
+        return LocalPaths.class.getClassLoader().getResource("xsl").getFile();
     }
 
     /**
