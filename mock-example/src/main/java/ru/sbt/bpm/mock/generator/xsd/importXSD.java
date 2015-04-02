@@ -67,7 +67,9 @@ public class ImportXSD {
      */
     private File findFolder(SystemTag system) throws FileNotFoundException {
         List<String> possiblePaths = new ArrayList<String>(); // записываем в список всякие разные пути, по которым можна найти папку
+        possiblePaths.add(LocalPaths.getSrcResorcesInPath()); //основной путь
         possiblePaths.add(LocalPaths.getPath()); //основной путь
+        possiblePaths.add(LocalPaths.getExamplesPath()); //папку с примерами
         possiblePaths.add(LocalPaths.getWebInfPath()); //WebInf папку
         possiblePaths.add(LocalPaths.getExamplesPath()); //папку с примерами
         possiblePaths.add(""); //корень для абсолютных путей и рабочей дирректории
