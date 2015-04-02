@@ -22,14 +22,14 @@ import java.util.Map;
  * //TODO этот класс впринципе пока не работает. задел на будущее
  * Created by sbt-vostrikov-mi on 02.04.2015.
  */
-public class applyMappings {
-    private static applyMappings ourInstance = new applyMappings();
+public class ApplyMappings {
+    private static ApplyMappings ourInstance = new ApplyMappings();
 
-    public static applyMappings getInstance() {
+    public static ApplyMappings getInstance() {
         return ourInstance;
     }
 
-    private applyMappings() {
+    private ApplyMappings() {
     }
 
     private void applyMappedTags(File xml, MappedTagSequence mappedTags, Map<String, String> params) throws Exception  {

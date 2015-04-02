@@ -11,14 +11,14 @@ import java.util.Map;
 /**
  * Created by sbt-vostrikov-mi on 02.04.2015.
  */
-public class generateXsl {
-    private static generateXsl ourInstance = new generateXsl();
+public class GenerateXsl {
+    private static GenerateXsl ourInstance = new GenerateXsl();
 
-    public static generateXsl getInstance() {
+    public static GenerateXsl getInstance() {
         return ourInstance;
     }
 
-    private generateXsl() {
+    private GenerateXsl() {
     }
 
 

@@ -12,15 +12,15 @@ import java.util.*;
  * Класс для импорта новой xsd и замены его на старые
  * Created by sbt-vostrikov-mi on 14.01.2015.
  */
-public class importXSD {
+public class ImportXSD {
 
-    private static importXSD ourInstance = new importXSD();
+    private static ImportXSD ourInstance = new ImportXSD();
 
-    public static importXSD getInstance() {
+    public static ImportXSD getInstance() {
         return ourInstance;
     }
 
-    private importXSD() {
+    private ImportXSD() {
     }
 
     private Validator validator;

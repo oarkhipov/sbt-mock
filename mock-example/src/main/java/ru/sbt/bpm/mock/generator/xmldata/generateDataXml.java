@@ -12,14 +12,14 @@ import java.util.Map;
 /**
  * Created by sbt-vostrikov-mi on 02.04.2015.
  */
-public class generateDataXml {
-    private static generateDataXml ourInstance = new generateDataXml();
+public class GenerateDataXml {
+    private static GenerateDataXml ourInstance = new GenerateDataXml();
 
-    public static generateDataXml getInstance() {
+    public static GenerateDataXml getInstance() {
         return ourInstance;
     }
 
-    private generateDataXml() {
+    private GenerateDataXml() {
     }
 
     /**

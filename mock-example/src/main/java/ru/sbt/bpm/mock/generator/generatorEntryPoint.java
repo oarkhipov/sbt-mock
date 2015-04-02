@@ -17,7 +17,7 @@ public class GeneratorEntryPoint {
      * @throws Exception
      */
     public static void main(String [] args) throws Exception {
-        configLoader instance = configLoader.getInstance();
+        ConfigLoader instance = ConfigLoader.getInstance();
 
         for (String arg : args) {
             if (arg.equals("NCP")) {

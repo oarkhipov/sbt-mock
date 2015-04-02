@@ -11,14 +11,14 @@ import java.util.Map;
 /**
  * Created by sbt-vostrikov-mi on 02.04.2015.
  */
-public class generateDataXsd {
-    private static generateDataXsd ourInstance = new generateDataXsd();
+public class GenerateDataXsd {
+    private static GenerateDataXsd ourInstance = new GenerateDataXsd();
 
-    public static generateDataXsd getInstance() {
+    public static GenerateDataXsd getInstance() {
         return ourInstance;
     }
 
-    private generateDataXsd() {
+    private GenerateDataXsd() {
     }
 
     /**

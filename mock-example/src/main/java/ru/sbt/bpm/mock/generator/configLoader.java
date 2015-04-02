@@ -4,12 +4,12 @@ import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.entities.LinkedTag;
 import ru.sbt.bpm.mock.config.entities.MappedTagSequence;
 import ru.sbt.bpm.mock.config.entities.SystemTag;
-import ru.sbt.bpm.mock.generator.xmldata.generateDataXml;
-import ru.sbt.bpm.mock.generator.xsd.importXSD;
+import ru.sbt.bpm.mock.generator.xmldata.GenerateDataXml;
+import ru.sbt.bpm.mock.generator.xsd.ImportXSD;
 import ru.sbt.bpm.mock.generator.spring.integration.GenerateMockAppServlet;
-import ru.sbt.bpm.mock.generator.xml.generateExampleXml;
-import ru.sbt.bpm.mock.generator.xsddata.generateDataXsd;
-import ru.sbt.bpm.mock.generator.xsl.generateXsl;
+import ru.sbt.bpm.mock.generator.xml.GenerateExampleXml;
+import ru.sbt.bpm.mock.generator.xsddata.GenerateDataXsd;
+import ru.sbt.bpm.mock.generator.xsl.GenerateXsl;
 
 import java.io.File;
 import java.util.HashMap;
@@ -20,14 +20,14 @@ import java.util.Map;
  * файл для запуска генерации заглушки по конфигу.
  * Created by sbt-vostrikov-mi on 02.04.2015.
  */
-public class configLoader {
-    private static configLoader ourInstance = new configLoader();
+public class ConfigLoader {
+    private static ConfigLoader ourInstance = new ConfigLoader();
 
-    public static configLoader getInstance() {
+    public static ConfigLoader getInstance() {
         return ourInstance;
     }
 
-    private configLoader() {
+    private ConfigLoader() {
     }
 
     public void loadConfig(String configFilename) throws Exception {
@@ -50,7 +50,7 @@ public class configLoader {
      * @param point результат парсинга конфига
      */
     public void importIntegrationPoint(SystemTag system, IntegrationPoint point) throws Exception {
-        importXSD instance = importXSD.getInstance();
+        ImportXSD instance = ImportXSD.getInstance();
         instance.copyXSDFiles(system, point);
         if (point.getIntegrationPointType().equals("Mock")) {
             importIntegrationPointMock(system, point);
@@ -62,7 +62,7 @@ public class configLoader {
     }
 
     private void importIntegrationPointMock(SystemTag system, IntegrationPoint point) {
-        importXSD instance = importXSD.getInstance();
+        ImportXSD instance = ImportXSD.getInstance();
         Map<String, String> params = null;
         params = new HashMap<String, String>();
 
@@ -88,7 +88,7 @@ public class configLoader {
     }
 
     private void importIntegrationPointDriver(SystemTag system, IntegrationPoint point) {
-        importXSD instance = importXSD.getInstance();
+        ImportXSD instance = ImportXSD.getInstance();
         Map<String, String> params = null;
         params = new HashMap<String, String>();
 
@@ -187,11 +187,11 @@ public class configLoader {
             //не вставляем в этветы комменты с обозначением сколько элементов доступно
             params.put("omitComments", "true");
 
-            generateExampleXml.getInstance().createRqExample(system, name, msgType, altParams);
-            generateExampleXml.getInstance().createRsExample(system, name, msgType, params);
-            generateDataXsd.getInstance().createDataXSD(system, name, "Response", params);
-            File xslFile = generateXsl.getInstance().createMockXSL(system, name, params);
-            generateDataXml.getInstance().createRsDataXml(system, name, params);
+            GenerateExampleXml.getInstance().createRqExample(system, name, msgType, altParams);
+            GenerateExampleXml.getInstance().createRsExample(system, name, msgType, params);
+            GenerateDataXsd.getInstance().createDataXSD(system, name, "Response", params);
+            File xslFile = GenerateXsl.getInstance().createMockXSL(system, name, params);
+            GenerateDataXml.getInstance().createRsDataXml(system, name, params);
 
             //applyMappedTags(xslFile, mappedTags, params);
 
@@ -231,10 +231,10 @@ public class configLoader {
                 params.put("headerType", msgType);
             }
 
-            generateExampleXml.getInstance().createRqExample(system, name, msgType, params);
-            generateDataXsd.getInstance().createDataXSD(system, name, "Request", params);
-            generateXsl.getInstance().createDriverXSL(system, name, params);
-            generateDataXml.getInstance().createRqDataXml(system, name, params);
+            GenerateExampleXml.getInstance().createRqExample(system, name, msgType, params);
+            GenerateDataXsd.getInstance().createDataXSD(system, name, "Request", params);
+            GenerateXsl.getInstance().createDriverXSL(system, name, params);
+            GenerateDataXml.getInstance().createRqDataXml(system, name, params);
             System.out.println(system + " " + name + " driver Done");
         } catch (Exception e) {
             System.out.println(system + " " + name + " driver Failed");
