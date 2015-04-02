@@ -1,5 +1,9 @@
 package ru.sbt.bpm.mock.generator.spring.integration;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.io.Serializable;
 
 /**
@@ -7,18 +11,24 @@ import java.io.Serializable;
  * <p/>
  * Company: SBT - Saint-Petersburg
  */
+@ToString
 public class Pair<A, B> implements Serializable {
 
-    private A aFirst;
-    private B aSecond;
+    @Getter
+    @Setter
+    private A first;
+
+    @Getter
+    @Setter
+    private B second;
 
     public Pair() {
 
     }
 
     public Pair(A aFirst, B aSecond) {
-        this.aFirst = aFirst;
-        this.aSecond = aSecond;
+        this.first = aFirst;
+        this.second = aSecond;
     }
 
     @Override
@@ -31,28 +41,6 @@ public class Pair<A, B> implements Serializable {
 
         Pair<?, ?> that = (Pair<?, ?>) obj;
         // Решение build для Java 1.6!!!
-        return this.aFirst.equals(that.aFirst) && this.aSecond.equals(that.aSecond);
-    }
-
-
-    public A getaFirst() {
-        return aFirst;
-    }
-
-    public void setaFirst(A aFirst) {
-        this.aFirst = aFirst;
-    }
-
-    public B getaSecond() {
-        return aSecond;
-    }
-
-    public void setaSecond(B aSecond) {
-        this.aSecond = aSecond;
-    }
-
-    @Override
-    public String toString() {
-        return "Pair { aFirst = " + aFirst +  ", aSecond = " + aSecond + '}';
+        return this.first.equals(that.first) && this.second.equals(that.second);
     }
 }

@@ -33,9 +33,9 @@ public class ChannelContext {
      */
     public void putChannelsIntoList() {
         for (SystemTag system : aSystems)
-            for (IntegrationPoint intPoint : system.getListOfIntegrationPoints())
-                if (intPoint.getaIntegrationPointType().equals("Mock"))
-                    this.mockIntPointsChannels.add(intPoint.getaIntegrationPointName());
+            for (IntegrationPoint intPoint : system.getListIntegrationPoint())
+                if (intPoint.getIntegrationPointType().equals("Mock"))
+                    this.mockIntPointsChannels.add(intPoint.getIntegrationPointName());
     }
 
     /**

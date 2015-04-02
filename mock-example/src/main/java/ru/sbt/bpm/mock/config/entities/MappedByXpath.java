@@ -1,44 +1,24 @@
 package ru.sbt.bpm.mock.config.entities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Created by sbt-vostrikov-mi on 14.03.2015.
  */
 @XStreamAlias("mapFromRequest")
+@ToString
 public class MappedByXpath {
 
     @XStreamAlias("querry")
-    private String aQuerry;
+    @Getter
+    @Setter
+    private String querry;
 
     @XStreamAlias("responseTagSequence")
-    private ResponseTagSequence aResponseTagSequence;
-
-    public void setaQuerry(String aQuerry) {
-        this.aQuerry = aQuerry;
-    }
-
-
-    public String getaQuerry() {
-        return aQuerry;
-    }
-
-    public ResponseTagSequence getaResponseTagSequence() {
-        if (aResponseTagSequence!=null) {
-            return aResponseTagSequence;
-        }
-        return null;
-    }
-
-    public void setaResponseTagSequence(ResponseTagSequence aResponseTagSequence) {
-        this.aResponseTagSequence = aResponseTagSequence;
-    }
-
-    @Override
-    public String toString() {
-        return "LinkedTag{" +
-                "aQuerry='" + aQuerry + '\'' +
-                ", aResponseTagSequence='" + aResponseTagSequence + '\'' +
-                '}';
-    }
+    @Getter
+    @Setter
+    private ResponseTagSequence responseTagSequence;
 }

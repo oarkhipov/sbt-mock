@@ -2,6 +2,9 @@ package ru.sbt.bpm.mock.config.entities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,23 +16,11 @@ import java.util.List;
  */
 
 @XStreamAlias("dependencies")
+@ToString
 public class Dependencies {
 
     @XStreamImplicit(itemFieldName = "dependency")
-    private List<Dependency> aDependency = new ArrayList<Dependency>();
-
-    public List<Dependency> getaDependency() {
-        return aDependency;
-    }
-
-    public void setaDependency(List<Dependency> aDependency) {
-        this.aDependency = aDependency;
-    }
-
-    @Override
-    public String toString() {
-        return "Dependencies{" +
-                "aDependency=" + aDependency +
-                '}';
-    }
+    @Getter
+    @Setter
+    private List<Dependency> dependencies = new ArrayList<Dependency>();
 }

@@ -18,24 +18,10 @@ import java.util.Set;
 // TODO Нужна возможность определения namespace alias для тега.
 public class BeanGenerator {
 
-    @Deprecated
-    private static final String SPRING_FACTORY_CLASS = "org.springframework.jndi.JndiObjectFactoryBean";
-
-    // Генерация beans
-    @Deprecated
-    private String generationJMSBean(String beanId, String propertyValue) {
-        return "<bean id=\"" + beanId + "\" class=\"" + SPRING_FACTORY_CLASS + "\">\n"
-                + "<property name=\"jndiName\" value=\"jms/" + propertyValue + "\"/>\n</bean>\n";
-    }
-
     private List<SystemTag> aSystems;
-
-    @Deprecated
-    private Set<Pair<String, String>> aSetOfQueue;
 
     public BeanGenerator(List<SystemTag> systems) {
         this.aSystems = systems;
-        this.aSetOfQueue = new HashSet<Pair<String, String>>();
     }
 
     // получаем список очередей для передачи сообщений
@@ -43,27 +29,6 @@ public class BeanGenerator {
     public void putQueueIntoSet() {
         if (aSystems == null || aSystems.isEmpty())
             return;
-
-        for (SystemTag system : aSystems)
-            for (IntegrationPoint intPoint : system.getListOfIntegrationPoints())
-                aSetOfQueue.add(new Pair<String, String>(intPoint.getaIncomeQueue(), intPoint.getaOutcomeQueue()));
-    }
-
-    // Получаем стоку описания JSM bean
-    @Deprecated
-    public String createBeans() {
-        StringBuilder sb = new StringBuilder();
-
-        // Создание фабрики
-        sb.append(generationJMSBean("jndiConnectionFactory", "CF"));
-
-        // Создание bean для каждой из очередей
-        for (Pair<String, String> queue : aSetOfQueue) {
-            sb.append(generationJMSBean("requestQueue", queue.getaFirst()));
-            sb.append(generationJMSBean("replyQueue", queue.getaSecond()));
-        }
-
-        return sb.toString();
     }
 
     /**

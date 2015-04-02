@@ -348,12 +348,12 @@ public class importXSD {
     public void loadConfig(String configFilename) throws Exception {
         final String file = this.getClass().getClassLoader().getResource("").getPath() + "\\..\\..\\src\\main\\webapp\\WEB-INF\\MockConfigFiles\\" + configFilename;
         GenerateMockAppServlet gen1 = GenerateMockAppServlet.getInstance(file);
-        gen1.setaFilePath(file);
+        gen1.setFilePath(file);
         gen1.init();
 
-        for (SystemTag system : gen1.getaMockConfig().getListOfSystems())
+        for (SystemTag system : gen1.getMockConfig().getListOfSystems())
         {
-            for (IntegrationPoint point : system.getListOfIntegrationPoints()) {
+            for (IntegrationPoint point : system.getListIntegrationPoint()) {
                 importIntegrationPoint(system, point);
             }
         }
@@ -367,12 +367,12 @@ public class importXSD {
      */
     public void importIntegrationPoint(SystemTag system, IntegrationPoint point) throws Exception {
         copyXSDFiles(system, point);
-        if (point.getaIntegrationPointType().equals("Mock")) {
+        if (point.getIntegrationPointType().equals("Mock")) {
             importIntegrationPointMock(system, point);
-        } else if (point.getaIntegrationPointType().equals("Driver")) {
+        } else if (point.getIntegrationPointType().equals("Driver")) {
             importIntegrationPointDriver(system, point);
         } else {
-            throw new IllegalArgumentException("Integration point type {"+point.getaIntegrationPointType()+"} not implemented");
+            throw new IllegalArgumentException("Integration point type {"+point.getIntegrationPointType()+"} not implemented");
         }
     }
 
@@ -384,12 +384,12 @@ public class importXSD {
      */
     public void copyXSDFiles(SystemTag system, IntegrationPoint point) throws Exception {
         File baseDir = findFolder(system);
-        String systemName = system.getaSystemName();
+        String systemName = system.getSystemName();
         System.out.println("Используется дирректория {"+baseDir.getAbsolutePath()+"}" );
-        importFile(baseDir.getAbsolutePath() + File.separator + system.getaRootXSD(), formSubPath(system.getaRootXSD(), systemName));
-        importFile(baseDir.getAbsolutePath() + File.separator + point.getaXsdFile(), formSubPath(point.getaXsdFile(), systemName));
-        for (Dependency dependency : point.getaDependencies().getaDependency()) {
-            importFile(baseDir.getAbsolutePath() + File.separator + dependency.getaXsdFile(), formSubPath(dependency.getaXsdFile(), systemName));
+        importFile(baseDir.getAbsolutePath() + File.separator + system.getRootXSD(), formSubPath(system.getRootXSD(), systemName));
+        importFile(baseDir.getAbsolutePath() + File.separator + point.getXsdFile(), formSubPath(point.getXsdFile(), systemName));
+        for (Dependency dependency : point.getDependencies().getDependencies()) {
+            importFile(baseDir.getAbsolutePath() + File.separator + dependency.getXsdFile(), formSubPath(dependency.getXsdFile(), systemName));
         }
     }
 
@@ -424,10 +424,10 @@ public class importXSD {
         possiblePaths.add(""); //корень для абсолютных путей и рабочей дирректории
         for (String subPath : possiblePaths ) { //и по очереди проверям эти пути
             try {
-                File baseDir = new File(subPath + system.getaPathToXSD());
+                File baseDir = new File(subPath + system.getPathToXSD());
                 if (!baseDir.exists()) throw new FileNotFoundException(); //папка есть?
                 if (!baseDir.isDirectory()) throw new FileNotFoundException(); //это папка?
-                File baseXSD = new File(subPath + system.getaPathToXSD() + File.separator + system.getaRootXSD() ); //также проверим что в этой папке есть xsd
+                File baseXSD = new File(subPath + system.getPathToXSD() + File.separator + system.getRootXSD() ); //также проверим что в этой папке есть xsd
                 if (!baseXSD.exists()) throw new FileNotFoundException(); //xsd есть?
                 if (baseXSD.isDirectory()) throw new FileNotFoundException(); //xsd это не папка?
                 if (baseXSD.getTotalSpace() == 0) throw new FileNotFoundException(); //xsd не пустой?
@@ -436,7 +436,7 @@ public class importXSD {
                 //не нашли по этому пути, посмотрим в следующем
             }
         }
-        throw new FileNotFoundException(system.getaPathToXSD() + "\\" + system.getaRootXSD());
+        throw new FileNotFoundException(system.getPathToXSD() + "\\" + system.getRootXSD());
     }
 
     /**
@@ -468,40 +468,40 @@ public class importXSD {
         Map<String, String> params = null;
         params = new HashMap<String, String>();
 
-        String systemName = system.getaSystemName();
+        String systemName = system.getSystemName();
         String headerType = getHeaderTypeByHeaderNamespace(system);
 
-        params.put("rootElementName", point.getaRqRootElementName());
-        params.put("operationsXSD", new File(getWebInfPath() + "/xsd/"+systemName+"/"+point.getaXsdFile()).toURI().toString() );
-        params.put("xsdBase", system.getaRootXSD());
-        if (point.getaOperationName() != null & !point.getaOperationName().isEmpty()) {
-            params.put("operationName", point.getaOperationName());
+        params.put("rootElementName", point.getRqRootElementName());
+        params.put("operationsXSD", new File(getWebInfPath() + "/xsd/"+systemName+"/"+point.getXsdFile()).toURI().toString() );
+        params.put("xsdBase", system.getRootXSD());
+        if (point.getOperationName() != null & !point.getOperationName().isEmpty()) {
+            params.put("operationName", point.getOperationName());
         }
-        driverCycle(systemName, point.getaIntegrationPointName(), headerType, params);
+        driverCycle(systemName, point.getIntegrationPointName(), headerType, params);
     }
 
     private void importIntegrationPointMock(SystemTag system, IntegrationPoint point) {
         Map<String, String> params = null;
         params = new HashMap<String, String>();
 
-        String systemName = system.getaSystemName();
+        String systemName = system.getSystemName();
         String headerType = getHeaderTypeByHeaderNamespace(system);
-        List<LinkedTag> linkedTagList = point.getaLinkedTagSequence().getaListOfLinkedTags();
-        String linkedTag = linkedTagList.get(linkedTagList.size()-1).getaTag(); //TODo пока планируемый функционал реализован не полностью в разрезе тестов. Сейчас в создании примеров сообщений учитывается только последний тэг последовательности. Это может вызвать проблемы с автотестами в глубоких или повтаряющихся линкедтагах. Это не должно повлиять на работосопособность самих заглушек - только на создание примеров и прохождение автотестов
+        List<LinkedTag> linkedTagList = point.getLinkedTagSequence().getListOfLinkedTags();
+        String linkedTag = linkedTagList.get(linkedTagList.size()-1).getTag(); //TODo пока планируемый функционал реализован не полностью в разрезе тестов. Сейчас в создании примеров сообщений учитывается только последний тэг последовательности. Это может вызвать проблемы с автотестами в глубоких или повтаряющихся линкедтагах. Это не должно повлиять на работосопособность самих заглушек - только на создание примеров и прохождение автотестов
         String linkedTagQuerry = formLinkedTagSequenceQuerry(linkedTagList);
 
-        params.put("rootElementName", point.getaRsRootElementName());
-        params.put("RqRootElementName", point.getaRqRootElementName());
-        params.put("operationsXSD",  new File(getWebInfPath() + "/xsd/"+systemName+"/"+point.getaXsdFile()).toURI().toString() );
-        params.put("xsdBase", system.getaRootXSD());
+        params.put("rootElementName", point.getRsRootElementName());
+        params.put("RqRootElementName", point.getRqRootElementName());
+        params.put("operationsXSD",  new File(getWebInfPath() + "/xsd/"+systemName+"/"+point.getXsdFile()).toURI().toString() );
+        params.put("xsdBase", system.getRootXSD());
         params.put("tagNameToTakeLinkedTag", linkedTag);
         if (linkedTagQuerry!=null) {
             params.put("tagQuerryToTakeLinkedTag", linkedTagQuerry);
         }
-        if (point.getaOperationName() != null & !point.getaOperationName().isEmpty()) {
-            params.put("operationName", point.getaOperationName());
+        if (point.getOperationName() != null & !point.getOperationName().isEmpty()) {
+            params.put("operationName", point.getOperationName());
         }
-        mockCycle(systemName, point.getaIntegrationPointName(), headerType, params, point.getaMappedTags());
+        mockCycle(systemName, point.getIntegrationPointName(), headerType, params, point.getMappedTagSequence());
     }
 
     private String formLinkedTagSequenceQuerry(List<LinkedTag> linkedTagList) {
@@ -510,10 +510,10 @@ public class importXSD {
             return null;
         } else {
             for (LinkedTag tag : linkedTagList) {
-                if (tag.getaNameSpace() != null && !tag.getaNameSpace().isEmpty()) {
-                    querry += "/*[local-name()='" + tag.getaTag() + "' and namespace-uri()='" + tag.getaNameSpace() + "']";
+                if (tag.getNameSpace() != null && !tag.getNameSpace().isEmpty()) {
+                    querry += "/*[local-name()='" + tag.getTag() + "' and namespace-uri()='" + tag.getNameSpace() + "']";
                 } else {
-                    querry += "/*[local-name()='" + tag.getaTag() + "']";
+                    querry += "/*[local-name()='" + tag.getTag() + "']";
                 }
             }
             querry += "/text()";
@@ -528,12 +528,12 @@ public class importXSD {
      * @return
      */
     public static String getHeaderTypeByHeaderNamespace(SystemTag system) {
-        if (system.getaHeaderNamespace().equals("http://sbrf.ru/prpc/mq/headers")) {
+        if (system.getHeaderNamespace().equals("http://sbrf.ru/prpc/mq/headers")) {
             return "KD4";
-        } else if (system.getaHeaderNamespace().equals("http://sbrf.ru/NCP/esb/envelope/")) {
+        } else if (system.getHeaderNamespace().equals("http://sbrf.ru/NCP/esb/envelope/")) {
             return "NCP";
         }
-        throw new IllegalArgumentException("Header namespace {"+system.getaHeaderNamespace()+"} not implemented");
+        throw new IllegalArgumentException("Header namespace {"+system.getHeaderNamespace()+"} not implemented");
     }
 
     /**
@@ -610,7 +610,7 @@ public class importXSD {
     }
 
     private void applyMappedTags(File xml, MappedTagSequence mappedTags, Map<String, String> params) throws Exception  {
-        if (mappedTags!=null && mappedTags.getaListOfMappedTagTags()!= null && mappedTags.getaListOfMappedTagTags().size()>0) {
+        if (mappedTags!=null && mappedTags.getListOfMappedTagTags()!= null && mappedTags.getListOfMappedTagTags().size()>0) {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             InputStream stream = new ByteArrayInputStream(FileUtils.readFileToByteArray(xml));
@@ -626,16 +626,16 @@ public class importXSD {
 
             Node rootElement = (Node) findBaseElement.evaluate(xmlDoc, XPathConstants.NODE);
 
-            for (MappedTag tagSq : mappedTags.getaListOfMappedTagTags()) {
-                if (tagSq.getaMappedFromRqTags() != null) {
-                    MappedFromRqTag tag = tagSq.getaMappedFromRqTags();
-                    Node element = findElementDescriptionInXSL(tag.getaResponseTagSequence().getaListOfLinkedTags(), rootElement);
-                    element.setNodeValue(formElementDescription(tag.getaRequestTagSequence().getaListOfLinkedTags()));
+            for (MappedTag tagSq : mappedTags.getListOfMappedTagTags()) {
+                if (tagSq.getMappedFromRqTags() != null) {
+                    MappedFromRqTag tag = tagSq.getMappedFromRqTags();
+                    Node element = findElementDescriptionInXSL(tag.getResponseTagSequence().getListOfLinkedTags(), rootElement);
+                    element.setNodeValue(formElementDescription(tag.getRequestTagSequence().getListOfLinkedTags()));
                 }
-                if (tagSq.getaXpathQuerrys() != null) {
-                    MappedByXpath tag = tagSq.getaXpathQuerrys();
-                    Node element = findElementDescriptionInXSL(tag.getaResponseTagSequence().getaListOfLinkedTags(), rootElement);
-                    element.setNodeValue(formElementDescription(tag.getaQuerry()));
+                if (tagSq.getXPathQuerries() != null) {
+                    MappedByXpath tag = tagSq.getXPathQuerries();
+                    Node element = findElementDescriptionInXSL(tag.getResponseTagSequence().getListOfLinkedTags(), rootElement);
+                    element.setNodeValue(formElementDescription(tag.getQuerry()));
                 }
             }
         }
@@ -650,9 +650,9 @@ public class importXSD {
 
         Node element = rootElement;
         for (LinkedTag tag : tags) {
-            String xPathQuerry = "/*[local-name()='"+tag.getaTag() + "'] | " +
-                    "if (/*[local-name()='apply-templates'][contains(@select,"+tag.getaTag()+")]) then " +
-                    "(../*[local-name()='template'][contains(@match,"+tag.getaTag()+")])";
+            String xPathQuerry = "/*[local-name()='"+tag.getTag() + "'] | " +
+                    "if (/*[local-name()='apply-templates'][contains(@select,"+tag.getTag()+")]) then " +
+                    "(../*[local-name()='template'][contains(@match,"+tag.getTag()+")])";
             XPathExpression findElement = xpath.compile(xPathQuerry);
             element = (Node) findElement.evaluate(element, XPathConstants.NODE);
         }

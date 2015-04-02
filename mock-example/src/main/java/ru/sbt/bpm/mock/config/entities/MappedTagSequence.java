@@ -2,6 +2,9 @@ package ru.sbt.bpm.mock.config.entities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,23 +13,11 @@ import java.util.List;
  * Created by sbt-vostrikov-mi on 14.03.2015.
  */
 @XStreamAlias("mappedTags")
+@ToString
 public class MappedTagSequence {
 
     @XStreamImplicit(itemFieldName = "mappedTag")
-    private List<MappedTag> aListOfMappedTagTags = new ArrayList<MappedTag>();
-
-    public List<MappedTag> getaListOfMappedTagTags() {
-        return aListOfMappedTagTags;
-    }
-
-    public void setaListOfMappedTagTags(List<MappedTag> aListOfMappedTagTags) {
-        this.aListOfMappedTagTags = aListOfMappedTagTags;
-    }
-
-    @Override
-    public String toString() {
-        return "MappedTagTagSequence{" +
-                "aListOfMappedTagTags=" + aListOfMappedTagTags +
-                '}';
-    }
+    @Getter
+    @Setter
+    private List<MappedTag> listOfMappedTagTags = new ArrayList<MappedTag>();
 }

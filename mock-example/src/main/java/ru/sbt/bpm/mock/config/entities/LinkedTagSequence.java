@@ -2,6 +2,9 @@ package ru.sbt.bpm.mock.config.entities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,23 +15,11 @@ import java.util.List;
  * Company: SBT - Saint-Petersburg
  */
 @XStreamAlias("linkedTagSequence")
+@ToString
 public class LinkedTagSequence {
 
     @XStreamImplicit(itemFieldName = "linkedTag")
-    private List<LinkedTag> aListOfLinkedTags = new ArrayList<LinkedTag>();
-
-    public List<LinkedTag> getaListOfLinkedTags() {
-        return aListOfLinkedTags;
-    }
-
-    public void setaListOfLinkedTags(List<LinkedTag> aListOfLinkedTags) {
-        this.aListOfLinkedTags = aListOfLinkedTags;
-    }
-
-    @Override
-    public String toString() {
-        return "LinkedTagSequence{" +
-                "aListOfLinkedTags=" + aListOfLinkedTags +
-                '}';
-    }
+    @Getter
+    @Setter
+    private List<LinkedTag> listOfLinkedTags = new ArrayList<LinkedTag>();
 }
