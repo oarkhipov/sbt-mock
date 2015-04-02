@@ -73,10 +73,10 @@ public class GatewayContextGenerator {
         StringBuilder sbCommon = new StringBuilder();
 
         for (Pair<String, String> mock : mapOfInOutChannelsWithoutDuplicates.get(MOCK_CONST))
-            sbCommon.append(generateGatewayDescription("inbound", "jmsin_" + Double.valueOf(Math.random() * 10000).longValue(), mock.getaFirst(), mock.getaSecond()));
+            sbCommon.append(generateGatewayDescription("inbound", "jmsin_" + Double.valueOf(Math.random() * 10000).longValue(), mock.getFirst(), mock.getSecond()));
 
         for (Pair<String, String> driver : mapOfInOutChannelsWithoutDuplicates.get(MOCK_CONST))
-            sbCommon.append(generateGatewayDescription("outbound", "jmsout_" + Double.valueOf(Math.random() * 10000).longValue(), driver.getaFirst(), driver.getaSecond()));
+            sbCommon.append(generateGatewayDescription("outbound", "jmsout_" + Double.valueOf(Math.random() * 10000).longValue(), driver.getFirst(), driver.getSecond()));
 
         sbCommon.append(sbIN);
         sbCommon.append(sbOUT);

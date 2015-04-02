@@ -103,7 +103,7 @@ public class ContextHeader {
      * @return
      */
     private String generateAliasesForNamespaces(String alias, Pair<String, String> component) {
-        return XMLNS + ":" + alias + "=\"" + component.getaFirst() + "\"\n";
+        return XMLNS + ":" + alias + "=\"" + component.getFirst() + "\"\n";
     }
 
     /**
@@ -112,7 +112,7 @@ public class ContextHeader {
      * @return
      */
     private String generateSchemaLocationParams(Pair<String, String> component) {
-        return component.getaFirst() + "\t" + component.getaSecond();
+        return component.getFirst() + "\t" + component.getSecond();
     }
 
     /**
