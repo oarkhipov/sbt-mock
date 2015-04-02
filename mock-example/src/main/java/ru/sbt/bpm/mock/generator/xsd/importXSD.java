@@ -49,12 +49,12 @@ public class importXSD {
      */
     public void copyXSDFiles(SystemTag system, IntegrationPoint point) throws Exception {
         File baseDir = findFolder(system);
-        String systemName = system.getaSystemName();
+        String systemName = system.getSystemName();
         System.out.println("Используется дирректория {"+baseDir.getAbsolutePath()+"}" );
-        importFile(baseDir.getAbsolutePath() + File.separator + system.getaRootXSD(), formSubPath(system.getaRootXSD(), systemName));
-        importFile(baseDir.getAbsolutePath() + File.separator + point.getaXsdFile(), formSubPath(point.getaXsdFile(), systemName));
-        for (Dependency dependency : point.getaDependencies().getaDependency()) {
-            importFile(baseDir.getAbsolutePath() + File.separator + dependency.getaXsdFile(), formSubPath(dependency.getaXsdFile(), systemName));
+        importFile(baseDir.getAbsolutePath() + File.separator + system.getRootXSD(), formSubPath(system.getRootXSD(), systemName));
+        importFile(baseDir.getAbsolutePath() + File.separator + point.getXsdFile(), formSubPath(point.getXsdFile(), systemName));
+        for (Dependency dependency : point.getDependencies().getDependencies()) {
+            importFile(baseDir.getAbsolutePath() + File.separator + dependency.getXsdFile(), formSubPath(dependency.getXsdFile(), systemName));
         }
     }
 
@@ -89,10 +89,10 @@ public class importXSD {
         possiblePaths.add(""); //корень для абсолютных путей и рабочей дирректории
         for (String subPath : possiblePaths ) { //и по очереди проверям эти пути
             try {
-                File baseDir = new File(subPath + system.getaPathToXSD());
+                File baseDir = new File(subPath + system.getPathToXSD());
                 if (!baseDir.exists()) throw new FileNotFoundException(); //папка есть?
                 if (!baseDir.isDirectory()) throw new FileNotFoundException(); //это папка?
-                File baseXSD = new File(subPath + system.getaPathToXSD() + File.separator + system.getaRootXSD() ); //также проверим что в этой папке есть xsd
+                File baseXSD = new File(subPath + system.getPathToXSD() + File.separator + system.getRootXSD() ); //также проверим что в этой папке есть xsd
                 if (!baseXSD.exists()) throw new FileNotFoundException(); //xsd есть?
                 if (baseXSD.isDirectory()) throw new FileNotFoundException(); //xsd это не папка?
                 if (baseXSD.getTotalSpace() == 0) throw new FileNotFoundException(); //xsd не пустой?
@@ -101,7 +101,7 @@ public class importXSD {
                 //не нашли по этому пути, посмотрим в следующем
             }
         }
-        throw new FileNotFoundException(system.getaPathToXSD() + "\\" + system.getaRootXSD());
+        throw new FileNotFoundException(system.getPathToXSD() + "\\" + system.getRootXSD());
     }
 
     /**

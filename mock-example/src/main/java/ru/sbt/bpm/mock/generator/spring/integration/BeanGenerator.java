@@ -59,7 +59,7 @@ public class BeanGenerator {
     private String generateProperty(List<Pair<String, String>> properties) {
         StringBuilder sb = new StringBuilder();
         for (Pair<String, String> property : properties)
-            sb.append("<property name=\"" + property.getaFirst() + "\" value=\"" + property.getaSecond() + "\"/>\n");
+            sb.append("<property name=\"" + property.getFirst() + "\" value=\"" + property.getSecond() + "\"/>\n");
         return sb.toString();
     }
 

@@ -32,7 +32,7 @@ public class applyMappings {
     }
 
     private void applyMappedTags(File xml, MappedTagSequence mappedTags, Map<String, String> params) throws Exception  {
-        if (mappedTags!=null && mappedTags.getaListOfMappedTagTags()!= null && mappedTags.getaListOfMappedTagTags().size()>0) {
+        if (mappedTags!=null && mappedTags.getListOfMappedTagTags()!= null && mappedTags.getListOfMappedTagTags().size()>0) {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             InputStream stream = new ByteArrayInputStream(FileUtils.readFileToByteArray(xml));
@@ -48,16 +48,16 @@ public class applyMappings {
 
             Node rootElement = (Node) findBaseElement.evaluate(xmlDoc, XPathConstants.NODE);
 
-            for (MappedTag tagSq : mappedTags.getaListOfMappedTagTags()) {
-                if (tagSq.getaMappedFromRqTags() != null) {
-                    MappedFromRqTag tag = tagSq.getaMappedFromRqTags();
-                    Node element = findElementDescriptionInXSL(tag.getaResponseTagSequence().getaListOfLinkedTags(), rootElement);
-                    element.setNodeValue(formElementDescription(tag.getaRequestTagSequence().getaListOfLinkedTags()));
+            for (MappedTag tagSq : mappedTags.getListOfMappedTagTags()) {
+                if (tagSq.getMappedFromRqTags() != null) {
+                    MappedFromRqTag tag = tagSq.getMappedFromRqTags();
+                    Node element = findElementDescriptionInXSL(tag.getResponseTagSequence().getListOfLinkedTags(), rootElement);
+                    element.setNodeValue(formElementDescription(tag.getRequestTagSequence().getListOfLinkedTags()));
                 }
-                if (tagSq.getaXpathQuerrys() != null) {
-                    MappedByXpath tag = tagSq.getaXpathQuerrys();
-                    Node element = findElementDescriptionInXSL(tag.getaResponseTagSequence().getaListOfLinkedTags(), rootElement);
-                    element.setNodeValue(formElementDescription(tag.getaQuerry()));
+                if (tagSq.getXpathQuerrys() != null) {
+                    MappedByXpath tag = tagSq.getXpathQuerrys();
+                    Node element = findElementDescriptionInXSL(tag.getResponseTagSequence().getListOfLinkedTags(), rootElement);
+                    element.setNodeValue(formElementDescription(tag.getQuerry()));
                 }
             }
         }
@@ -72,9 +72,9 @@ public class applyMappings {
 
         Node element = rootElement;
         for (LinkedTag tag : tags) {
-            String xPathQuerry = "/*[local-name()='"+tag.getaTag() + "'] | " +
-                    "if (/*[local-name()='apply-templates'][contains(@select,"+tag.getaTag()+")]) then " +
-                    "(../*[local-name()='template'][contains(@match,"+tag.getaTag()+")])";
+            String xPathQuerry = "/*[local-name()='"+tag.getTag() + "'] | " +
+                    "if (/*[local-name()='apply-templates'][contains(@select,"+tag.getTag()+")]) then " +
+                    "(../*[local-name()='template'][contains(@match,"+tag.getTag()+")])";
             XPathExpression findElement = xpath.compile(xPathQuerry);
             element = (Node) findElement.evaluate(element, XPathConstants.NODE);
         }
