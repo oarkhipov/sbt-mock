@@ -3,7 +3,7 @@
                 xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:mock="http://sbrf.ru/mockService">
     <xsl:import href="XSDToExampleXML.xsl"/>
-    <xsl:include href="NCPSoapRqHeaderXSLTTemplate.xsl"/>
+    <xsl:include href="../../webapp/WEB-INF/xsl/util/NCPSoapRqHeaderXSLTTemplate.xsl"/>
 
     <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
 
@@ -16,7 +16,7 @@
     <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/>
 
     <!-- параметры заголовка -->
-    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
+    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410')"/>
     <!--задано ниже в зависимости от тэга <xsl:param name="operation-name" select="'operation-name'"/>-->
     <xsl:param name="id" select="null"/>
     <xsl:param name="correlation-id" select="null"/>

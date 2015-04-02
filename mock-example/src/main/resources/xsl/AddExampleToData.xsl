@@ -44,9 +44,12 @@
 
     <!--То, что чаще всего задавть не нужно, но теоритически возможен вариант что придется задать, если -->
 
+    <!-- путь к папке с дата-файлами -->
+    <xsl:param name="dataFolderPath"
+               select="'../../webapp/WEB-INF/data'"/>
     <!--полный путь к дата-файлу-->
     <xsl:param name="dataFilePath"
-               select="concat('../../data/',$system,'/xml/',$dataFileName)"/>
+               select="concat($dataFolderPath,'/',$system,'/xml/',$dataFileName)"/>
     <!--Неймспейс примера сообщения. Пробует взять самый гулбокий элемпент тела сообщения. Если что-то нашел - добавляет к нему сзади "/Data/"-->
     <xsl:param name="operationsXSD" select="''"/>
     <xsl:variable name="operationXsdSchema" select="document($operationsXSD)/xsd:schema"/>

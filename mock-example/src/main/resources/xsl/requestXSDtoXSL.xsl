@@ -100,7 +100,9 @@
     <xsl:template name="headerDeclaration">
         <xsl:text>&#xA;</xsl:text>
         <xsl:element name="xsl:import">
-            <xsl:attribute name="href">../util/headerTemplate.xsl</xsl:attribute>
+            <xsl:attribute name="href"><xsl:call-template name="headerTemplatePath">
+                <xsl:with-param name="headerType" select="$headerType"/>
+            </xsl:call-template></xsl:attribute>
         </xsl:element>
 
         <xsl:comment>опускаем строку 'xml version="1.0" encoding="UTF-8"'. С ней не работает MQ очередь</xsl:comment>

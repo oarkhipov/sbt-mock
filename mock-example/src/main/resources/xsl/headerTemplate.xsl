@@ -13,8 +13,8 @@
      3) прописать выбор этого заголовка в функции getHeaderTypeByHeaderNamespace из класса getHeaderTypeByHeaderNamespace в зависисмости от какого-нибудь параметра из конфига. Лучше всего использовать параметр headerNamespace
      4) реализовать все темплейы, вызов которых идет в этом файле по аналогии-->
 
-    <xsl:include href="NCPSoapRqHeaderXSLTTemplate.xsl"/>
-    <xsl:include href="KD4SoapHeaderTemplate.xsl"/>
+    <xsl:include href="../../webapp/WEB-INF/xsl/util/NCPSoapRqHeaderXSLTTemplate.xsl"/>
+    <xsl:include href="../../webapp/WEB-INF/xsl/util/KD4SoapHeaderTemplate.xsl"/>
 
     <!--ID сообщения, которое будет использоваться по умолчанию, если не задано параметром или в дата-файле-->
     <xsl:param name="defaultId" select="string('defaultId')"/>
@@ -27,6 +27,18 @@
             </xsl:when>
             <xsl:when test="$headerType='NCP'">
                 <xsl:call-template name="NCPnamespaces"/>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="headerTemplatePath">
+        <xsl:param name="headerType"/>
+        <xsl:choose>
+            <xsl:when test="$headerType='KD4'">
+                <xsl:call-template name="KD4TemplatePath"/>
+            </xsl:when>
+            <xsl:when test="$headerType='NCP'">
+                <xsl:call-template name="NCPTemplatePath"/>
             </xsl:when>
         </xsl:choose>
     </xsl:template>
