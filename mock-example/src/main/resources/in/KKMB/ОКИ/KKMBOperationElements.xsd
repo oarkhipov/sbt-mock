@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		xmlns:ct="http://sbrf.ru/prpc/kkmb/commonTypes/10" 
+		xmlns:tns="http://sbrf.ru/prpc/esb/10" 
+		targetNamespace="http://sbrf.ru/prpc/esb/10" 
+		elementFormDefault="qualified">
+	<import namespace="http://sbrf.ru/prpc/kkmb/commonTypes/10" schemaLocation="commonTypes/commonTypes.xsd"/>
+	<!-- Main Elements -->
+	<element name="SrvSendSystemMessageRs">
+		<annotation>
+			<documentation>Результат передачи системного сообщения об ошибке</documentation>
+		</annotation>
+		<complexType>
+			<complexContent>
+				<extension base="ct:DataProcessingResponse"/>
+			</complexContent>
+		</complexType>
+	</element>
+	<!-- Complex data types -->
+</schema>

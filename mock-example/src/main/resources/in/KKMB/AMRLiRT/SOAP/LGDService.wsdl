@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://service.lgd.sberbank.luxoft.com/" 
+		xmlns:sch0="http://service.lgd.sberbank.luxoft.com/" xmlns:sch1="http://hd.lgd.sberbank.luxoft.com/" xmlns:sch2="http://struct.sberbank.luxoft.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://service.lgd.sberbank.luxoft.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import schemaLocation="http://izar9.cgs.sbrf.ru:9080/XSD/AMRLIRT/LGDServiceSchema1.xsd" namespace="http://service.lgd.sberbank.luxoft.com/"/>
+			<xsd:import schemaLocation="http://izar9.cgs.sbrf.ru:9080/XSD/AMRLIRT/LGDServiceSchema2.xsd" namespace="http://hd.lgd.sberbank.luxoft.com/"/>
+			<xsd:import schemaLocation="http://izar9.cgs.sbrf.ru:9080/XSD/AMRLIRT/LGDServiceSchema3.xsd" namespace="http://struct.sberbank.luxoft.com/"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="historicalDetailsResponse">
+		<wsdl:part element="sch1:historicalDetailsResponse" name="historicalDetailsResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="calculationFault">
+		<wsdl:part element="sch0:calculationFault" name="calculationFault">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="StructRequest">
+		<wsdl:part element="sch2:StructRequest" name="StructRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="calculationResponse">
+		<wsdl:part element="sch0:calculationResponse" name="calculationResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="finalizationResponse">
+		<wsdl:part element="sch0:finalizationResponse" name="finalizationResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="isAvailableResponse">
+		<wsdl:part element="sch0:isAvailableResponse" name="isAvailableResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="isAvailableRequest">
+		<wsdl:part element="sch0:isAvailableRequest" name="isAvailableRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="finalizationRequest">
+		<wsdl:part element="sch0:finalizationRequest" name="finalizationRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="finalizationFault">
+		<wsdl:part element="sch0:finalizationFault" name="finalizationFault">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="StructResponse">
+		<wsdl:part element="sch2:StructResponse" name="StructResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="calculationRequest">
+		<wsdl:part element="sch0:calculationRequest" name="calculationRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="historicalDetailsRequest">
+		<wsdl:part element="sch1:historicalDetailsRequest" name="historicalDetailsRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="LgdService">
+		<wsdl:operation name="historicalDetails">
+			<wsdl:input message="sch0:historicalDetailsRequest" name="historicalDetailsRequest">
+			</wsdl:input>
+			<wsdl:output message="sch0:historicalDetailsResponse" name="historicalDetailsResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="calculation">
+			<wsdl:input message="sch0:calculationRequest" name="calculationRequest">
+			</wsdl:input>
+			<wsdl:output message="sch0:calculationResponse" name="calculationResponse">
+			</wsdl:output>
+			<wsdl:fault message="sch0:calculationFault" name="ValidationError">
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="Struct">
+			<wsdl:input message="sch0:StructRequest" name="StructRequest">
+			</wsdl:input>
+			<wsdl:output message="sch0:StructResponse" name="StructResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="finalization">
+			<wsdl:input message="sch0:finalizationRequest" name="finalizationRequest">
+			</wsdl:input>
+			<wsdl:output message="sch0:finalizationResponse" name="finalizationResponse">
+			</wsdl:output>
+			<wsdl:fault message="sch0:finalizationFault" name="ValidationError">
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="isAvailable">
+			<wsdl:input message="sch0:isAvailableRequest" name="isAvailableRequest">
+			</wsdl:input>
+			<wsdl:output message="sch0:isAvailableResponse" name="isAvailableResponse">
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="LgdServiceSoap11" type="sch0:LgdService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="historicalDetails">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="historicalDetailsRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="historicalDetailsResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="calculation">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="calculationRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="calculationResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="ValidationError">
+				<soap:fault name="ValidationError" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="Struct">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="StructRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="StructResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="finalization">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="finalizationRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="finalizationResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="ValidationError">
+				<soap:fault name="ValidationError" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="isAvailable">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="isAvailableRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="isAvailableResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="LgdServiceService">
+		<wsdl:port binding="sch0:LgdServiceSoap11" name="LgdServiceSoap11">
+			<soap:address location="http://ammrklgd.ca.sbrf.ru:9080/sbrflgd/services/lgdService"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

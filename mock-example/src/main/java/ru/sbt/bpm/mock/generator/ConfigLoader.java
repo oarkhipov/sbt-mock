@@ -6,7 +6,7 @@ import ru.sbt.bpm.mock.config.entities.MappedTagSequence;
 import ru.sbt.bpm.mock.config.entities.SystemTag;
 import ru.sbt.bpm.mock.generator.xmldata.GenerateDataXml;
 import ru.sbt.bpm.mock.generator.xsd.ImportXSD;
-import ru.sbt.bpm.mock.generator.spring.integration.GenerateMockAppServlet;
+import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.generator.xml.GenerateExampleXml;
 import ru.sbt.bpm.mock.generator.xsddata.GenerateDataXsd;
 import ru.sbt.bpm.mock.generator.xsl.GenerateXsl;
@@ -32,11 +32,10 @@ public class ConfigLoader {
 
     public void loadConfig(String configFilename) throws Exception {
         final String file = LocalPaths.getWebInfPath() + "\\MockConfigFiles\\" + configFilename;
-        GenerateMockAppServlet gen1 = GenerateMockAppServlet.getInstance(file);
-        gen1.setFilePath(file);
+        MockConfigContainer gen1 = MockConfigContainer.getInstance(file);
         gen1.init();
 
-        for (SystemTag system : gen1.getMockConfig().getListOfSystems())
+        for (SystemTag system : gen1.getConfig().getListOfSystems())
         {
             for (IntegrationPoint point : system.getListIntegrationPoint()) {
                 importIntegrationPoint(system, point);
