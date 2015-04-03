@@ -43,14 +43,17 @@
     <div id="error"></div>
     <textarea id="code" name="code"><c:out value="${object}" escapeXml="true"/></textarea>
     <div id="actionButtonsDiv">
+      <input id="templateInfo" type="button"  title="TemplateInfo" class="actionButtons"/>
+      &nbsp;&nbsp;
       <input id="reset" type="button"  title="Load precompiled template" class="actionButtons"/>
       <input id="undo" type="button" title="Undo" class="actionButtons"/>
       <input id="redo" type="button" title="Redo" class="actionButtons"/>
       &nbsp;&nbsp;
       <input id="validate" type="button" title="Validate" class="actionButtons"/>
       <input id="save" type="button" title="Save" class="actionButtons"/>
+      &nbsp;&nbsp;
+      <input id="test" type="button" title="Test" class="actionButtons"/>
       <c:if test="${link=='driver'}">
-        &nbsp;&nbsp;
         <select id="reqList" name="request" style="width: 120px">
           <c:forEach var="entry" items="${list}">
             <option value="${entry}">${entry}</option>

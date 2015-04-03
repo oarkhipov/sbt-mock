@@ -29,7 +29,7 @@
 }
 
 #listRefresh {
-    background: url("../img/glyphicons-366-restart.png") no-repeat 2px 2px;
+    background: url("../img/glyphicons-82-refresh.png") no-repeat 2px 2px;
     width: 32px;
     height: 30px;
 }
@@ -44,7 +44,18 @@
     position: relative;
     top: -7px;
     height: 30px;
+}
 
+#test {
+    background: url("../img/glyphicons-534-lab.png") no-repeat 2px 2px;
+    width: 32px;
+    height: 30px;
+}
+
+#templateInfo {
+    background: url("../img/glyphicons-196-circle-info.png") no-repeat 2px 2px;
+    width: 32px;
+    height: 30px;
 }
 
 
