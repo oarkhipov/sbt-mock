@@ -43,15 +43,12 @@
     <div id="error"></div>
     <textarea id="code" name="code"><c:out value="${object}" escapeXml="true"/></textarea>
     <div id="actionButtonsDiv">
-      <div id="historyButtonsDiv">
-        <input id="undo" type="button" value="Undo" class="actionButtons"/>
-        <input id="redo" type="button" value="Redo" class="actionButtons"/>
-        <br/>
-        <input id="reset" type="button" value="Reset to def" class="actionButtons"/>
-      </div>
+      <input id="reset" type="button"  title="Load precompiled template" class="actionButtons"/>
+      <input id="undo" type="button" title="Undo" class="actionButtons"/>
+      <input id="redo" type="button" title="Redo" class="actionButtons"/>
       &nbsp;&nbsp;
-      <input id="validate" type="button" value="Validate" class="actionButtons"/>
-      <input id="save" type="button" value="Save" class="actionButtons"/>
+      <input id="validate" type="button" title="Validate" class="actionButtons"/>
+      <input id="save" type="button" title="Save" class="actionButtons"/>
       <c:if test="${link=='driver'}">
         &nbsp;&nbsp;
         <select id="reqList" name="request" style="width: 120px">
@@ -59,9 +56,9 @@
             <option value="${entry}">${entry}</option>
           </c:forEach>
         </select>
-        <input id="listRefresh" type="button" value="Refresh List" class="actionButtons"/>
+        <input id="listRefresh" type="button" title="Refresh List" class="actionButtons"/>
         &nbsp;&nbsp;
-        <input id="send" type="button" value="Send" class="actionButtons"/>
+        <input id="send" type="button" title="Send" class="actionButtons"/>
       </c:if>
 
     </div>
@@ -75,9 +72,9 @@
 </form>
 <div id="htmlConverter" style="display: none"></div>
 
-<script src="../lib/editor.js"></script>
+<script src="../js/editor.js"></script>
 <c:if test="${link=='driver'}">
-  <script src="../lib/editor_driver.js"></script>
+  <script src="../js/editor_driver.js"></script>
 </c:if>
 <script>
   $().ready(function(){

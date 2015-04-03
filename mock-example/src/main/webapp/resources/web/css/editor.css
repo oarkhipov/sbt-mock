@@ -1,0 +1,50 @@
+#undo {
+    background: url("../img/glyphicons-222-unshare.png") no-repeat 4px 4px;
+    width: 32px;
+    height: 30px;
+}
+
+#redo {
+    background: url("../img/glyphicons-223-share.png") no-repeat 4px 4px;
+    width: 32px;
+    height: 30px;
+}
+
+#save {
+    background: url("../img/glyphicons-447-floppy-save.png") no-repeat 4px 4px;
+    width: 32px;
+    height: 30px;
+}
+
+#reset {
+    background: url("../img/glyphicons-448-floppy-open.png") no-repeat 4px 4px;
+    width: 32px;
+    height: 30px;
+}
+
+#validate {
+    background: url("../img/glyphicons-199-ok.png") no-repeat 2px 2px;
+    width: 32px;
+    height: 30px;
+}
+
+#listRefresh {
+    background: url("../img/glyphicons-366-restart.png") no-repeat 2px 2px;
+    width: 32px;
+    height: 30px;
+}
+
+#send {
+    background: url("../img/glyphicons-422-send.png") no-repeat 2px 2px;
+    width: 32px;
+    height: 30px;
+}
+
+#reqList {
+    position: relative;
+    top: -7px;
+    height: 30px;
+
+}
+
+
