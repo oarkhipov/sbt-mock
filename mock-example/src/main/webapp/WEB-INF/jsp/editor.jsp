@@ -42,13 +42,16 @@
     <div id="info">&nbsp;</div>
     <div id="error"></div>
     <textarea id="code" name="code"><c:out value="${object}" escapeXml="true"/></textarea>
-    <div style="text-align: right; width: 700px; padding-top: 7px">
-      <input id="reset" type="button" value="Reset to def" style="display: inline"/>
-      <input id="undo" type="button" value="Undo" style="display: inline"/>
-      <input id="redo" type="button" value="Redo" style="display: inline"/>
+    <div id="actionButtonsDiv">
+      <div id="historyButtonsDiv">
+        <input id="undo" type="button" value="Undo" class="actionButtons"/>
+        <input id="redo" type="button" value="Redo" class="actionButtons"/>
+        <br/>
+        <input id="reset" type="button" value="Reset to def" class="actionButtons"/>
+      </div>
       &nbsp;&nbsp;
-      <input id="validate" type="button" value="Validate" style="display: inline"/>
-      <input id="save" type="button" value="Save" style="display: inline"/>
+      <input id="validate" type="button" value="Validate" class="actionButtons"/>
+      <input id="save" type="button" value="Save" class="actionButtons"/>
       <c:if test="${link=='driver'}">
         &nbsp;&nbsp;
         <select id="reqList" name="request" style="width: 120px">
@@ -56,9 +59,9 @@
             <option value="${entry}">${entry}</option>
           </c:forEach>
         </select>
-        <input id="listRefresh" type="button" value="Refresh List" style="display: inline"/>
+        <input id="listRefresh" type="button" value="Refresh List" class="actionButtons"/>
         &nbsp;&nbsp;
-        <input id="send" type="button" value="Send" style="display: inline"/>
+        <input id="send" type="button" value="Send" class="actionButtons"/>
       </c:if>
 
     </div>

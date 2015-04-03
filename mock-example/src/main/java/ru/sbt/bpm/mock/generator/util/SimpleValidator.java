@@ -53,7 +53,8 @@ public class SimpleValidator {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         InputStream stream = new ByteArrayInputStream(xml.getBytes());
-        builder.parse(stream);
+        //TODO @Max_Vostrikov валидация не работает
+//        builder.parse(stream);
 
         return true;
     }

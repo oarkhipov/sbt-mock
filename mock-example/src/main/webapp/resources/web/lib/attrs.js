@@ -6,7 +6,11 @@ function getQueryString() {
     // This function is anonymous, is executed immediately and
     // the return value is assigned to QueryString!
     var query_string = {};
-    var query = isIE()?window.location.hash.substring(2):window.location.search.substring(1);
+    //var query = isIE()?window.location.hash.substring(2):window.location.search.substring(1);
+    var query = window.location.search.substring(1);
+    if(window.location.hash.substring(2)) {
+        query = query.length > 0 ? (query + "&" + window.location.hash.substring(2)) : window.location.hash.substring(2);
+    }
     var vars = query.split("&");
     for (var i=0;i<vars.length;i++) {
         var pair = vars[i].split("=");
@@ -26,4 +30,14 @@ function getQueryString() {
 
 function isIE() {
     return window.navigator.userAgent.indexOf( "MSIE " ) > 0;
+}
+
+if(isIE()) {
+    urlSearch = location.search;
+    if(urlSearch.length>0) {
+        clearUrl = location.href.split("\?")[0];
+        location.href = clearUrl + "#?" + urlSearch;
+    }
+    //location.href
+
 }

@@ -17,8 +17,8 @@
   <title>Mock Service</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
-  <link rel="stylesheet" href="../css/normalize.css">
   <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/normalize.css">
   <link rel="stylesheet" href="../css/jquery.steps.css">
   <script src="../lib/modernizr-2.6.2.min.js"></script>
   <script src="../lib/jquery-1.9.1.min.js"></script>
@@ -45,7 +45,7 @@
   <script src="../lib/codemirror/xml-fold.js"></script>
   <script src="../lib/codemirror/formatting.js"></script>
 
-  <link rel="stylesheet" href="../css/docs.css">
+  <%--<link rel="stylesheet" href="../css/docs.css">--%>
 </head>
 <body>
 <!--[if lt IE 7]>
@@ -67,6 +67,7 @@
                 alert("Choose integration point!");
                 return false;
               }
+              History.pushState({}, "Integration points", "?ip=" + int_point);
             }
           }
           if(currentIndex == 1) {

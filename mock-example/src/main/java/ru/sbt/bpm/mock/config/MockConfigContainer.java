@@ -51,17 +51,18 @@ public class MockConfigContainer {
         XStream xStream = new XStream(new DomDriver());
 
         // Mapping данных из xml в классы
-//        xStream.processAnnotations(MockConfig.class);
-//        xStream.processAnnotations(SystemsTag.class);
-//        xStream.processAnnotations(SystemTag.class);
-//        xStream.processAnnotations(IntegrationPoints.class);
-//        xStream.processAnnotations(IntegrationPoint.class);
-//        xStream.processAnnotations(LinkedTagSequence.class);
-//        xStream.processAnnotations(LinkedTag.class);
-//        xStream.processAnnotations(Dependencies.class);
-//        xStream.processAnnotations(Dependency.class);
+        xStream.processAnnotations(MockConfig.class);
+        xStream.processAnnotations(SystemsTag.class);
+        xStream.processAnnotations(SystemTag.class);
+        xStream.processAnnotations(IntegrationPoints.class);
+        xStream.processAnnotations(IntegrationPoint.class);
+        xStream.processAnnotations(LinkedTagSequence.class);
+        xStream.processAnnotations(LinkedTag.class);
+        xStream.processAnnotations(Dependencies.class);
+        xStream.processAnnotations(Dependency.class);
         // parse
-        xStream.autodetectAnnotations(true);
+        //TODO Не работает, хотя должен
+//        xStream.autodetectAnnotations(true);
         this.config = (MockConfig) xStream.fromXML(fileReader);
     }
 
