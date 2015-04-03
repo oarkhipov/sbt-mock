@@ -1,4 +1,4 @@
-<MockConfig>
+<MockConfig xmlns="http://sbrf.ru/mockService">
     <!--OPTIONAL-->
     <namespace-aliases>
         <namespace name="soap">http://sbrf.ru/NCP/esb/envelope/</namespace>
@@ -20,18 +20,17 @@
                     <rsRootElementName>createTaskRs</rsRootElementName>
                     <rqRootElementName>createTaskRq</rqRootElementName>
                     <type>Driver/Mock</type>
+                    <namespace-aliases>
+                        <namespace name="ns2">http://ns2.ru/</namespace>
+                    </namespace-aliases>
                     <linkedTagSequence>
-                        <linkedTag>ns1:CRM</linkedTag>
-                        <linkedTag>ns1:createTaskRq</linkedTag>
-                        <linkedTag>
-                            <!--OPTIONAL-->
-                            <namespace>http://ns4.ru/</namespace>
-                            <tag>comment</tag>
-                        </linkedTag>
+                        <tag>ns1:CRM</tag>
+                        <tag>ns1:createTaskRq</tag>
+                        <tag ns="http://ns2.ru/">comment</tag>
                     </linkedTagSequence>
                     <!--OPTIONAL-->
-                    <mappings>
-                        <mapping>
+                    <mappedTagSequence>
+                        <mappedTag>
                             <requestMapping>
                                 <tag>ns1:CRM</tag>
                                 <tag>ns1:createTaskRq</tag>
@@ -42,16 +41,16 @@
                                 <tag>ns1:createTaskRq</tag>
                                 <tag>ns3:id</tag>
                             </responceMapping>
-                        </mapping>
-                        <mapping>
+                        </mappedTag>
+                        <mappedTag>
                             <requestQuerryValue>/*[name='taxId'][3]</requestQuerryValue>
                             <responceMapping>
                                 <tag>ns1:CRM</tag>
                                 <tag>ns1:createTaskRq</tag>
                                 <tag>ns3:id</tag>
                             </responceMapping>
-                        </mapping>
-                    </mappings>
+                        </mappedTag>
+                    </mappedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
                     <incomeQueue>IN</incomeQueue>
@@ -69,9 +68,6 @@
                             <xsdFile>CRM.xsd</xsdFile>
                         </dependency>
                     </dependencies>
-                    <namespace-aliases>
-                        <namespace name="ns2">http://ns2.ru/</namespace>
-                    </namespace-aliases>
                     <!--OPTIONAL-->
                     <dataXml>
                         <responce name="default">
