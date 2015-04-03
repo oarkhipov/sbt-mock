@@ -18,7 +18,7 @@ import java.util.List;
 @ToString
 public class LinkedTagSequence {
 
-    @XStreamImplicit(itemFieldName = "linkedTag")
+    @XStreamImplicit(itemFieldName = "tag")
     @Getter
     @Setter
     private List<LinkedTag> listOfLinkedTags = new ArrayList<LinkedTag>();

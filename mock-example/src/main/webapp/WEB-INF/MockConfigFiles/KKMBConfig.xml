@@ -1,33 +1,19 @@
 <MockConfig xmlns="http://sbrf.ru/mockService">
     <systems>
-        <system>
-            <name>AMRLiRT</name>
+        <system name="AMRLiRT">
             <pathToXSD>/KKMB/AMRLiRT/AMRLiRT</pathToXSD>
             <rootXsd>LGDServiceSchema1.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
             <integrationPoints>
-                <integrationPoint>
-                    <name>calculation</name>
+                <integrationPoint name="calculation">
                     <rsRootElementName>calculationResponse</rsRootElementName>
                     <rqRootElementName>calculationRequest</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/kkmb/simpleTypes/10</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/kkmb/simpleTypes/10</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://service.lgd.sberbank.luxoft.com/</namespace>
-                            <tag>calculationRequest</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://service.lgd.sberbank.luxoft.com/</namespace>
-                            <tag>ProductType</tag>
-                        </linkedTag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">calculationRequest</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">ProductType</tag>
                     </linkedTagSequence>
                     <protocol>MQ</protocol>
                     <!--OPTIONAL-->
@@ -36,28 +22,15 @@
                     <outcomeQueue>ESB.FED.KKMB.OUT</outcomeQueue>
                     <xsdFile>LGDServiceSchema1.xsd</xsdFile>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>finalization</name>
+                <integrationPoint name="finalization">
                     <rsRootElementName>finalizationResponse</rsRootElementName>
                     <rqRootElementName>finalizationRequest</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/kkmb/simpleTypes/10</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/kkmb/simpleTypes/10</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://service.lgd.sberbank.luxoft.com/</namespace>
-                            <tag>finalizationRequest</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://service.lgd.sberbank.luxoft.com/</namespace>
-                            <tag>Type</tag>
-                        </linkedTag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">finalizationRequest</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">Type</tag>
                     </linkedTagSequence>
                     <protocol>MQ</protocol>
                     <!--OPTIONAL-->
@@ -68,34 +41,20 @@
                 </integrationPoint>
             </integrationPoints>
         </system>
-        <system>
-            <name>AMRLiRT</name>
+        <system name="AMRLiRT">
             <pathToXSD>/KKMB/AMRLiRT2/Schemas/AMRLiRT</pathToXSD>
             <rootXsd>RatingServiceSchema2.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
             <integrationPoints>
-                <integrationPoint>
-                    <name>calculate</name>
+                <integrationPoint name="calculate">
                     <rsRootElementName>calculateResponse</rsRootElementName>
                     <rqRootElementName>calculate</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/kkmb/simpleTypes/10</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/kkmb/simpleTypes/10</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://service.lgd.sberbank.luxoft.com/</namespace>
-                            <tag>calculate</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://service.lgd.sberbank.luxoft.com/</namespace>
-                            <tag>Model</tag>
-                        </linkedTag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">calculate</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">Model</tag>
                     </linkedTagSequence>
                     <protocol>MQ</protocol>
                     <!--OPTIONAL-->
@@ -106,34 +65,20 @@
                 </integrationPoint>
             </integrationPoints>
         </system>
-        <system>
-            <name>ECH</name>
+        <system name="ECH">
             <pathToXSD>/KKMB/ECH/ECH</pathToXSD>
             <rootXsd>ECHOperationElements.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
             <integrationPoints>
-                <integrationPoint>
-                    <name>getCreditHistoryScoring</name>
+                <integrationPoint name="getCreditHistoryScoring">
                     <rsRootElementName>SrvGetCreditHistoryScoringRs</rsRootElementName>
                     <rqRootElementName>SrvGetCreditHistoryScoringRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/kkmb/simpleTypes/10</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/kkmb/simpleTypes/10</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/ech/10</namespace>
-                            <tag>SrvGetCreditHistoryScoringRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://www.sbrf.ru/CreditHistoryScoring</namespace>
-                            <tag>checkInternal</tag>
-                        </linkedTag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
+                        <tag ns="http://sbrf.ru/prpc/ech/10">SrvGetCreditHistoryScoringRq</tag>
+                        <tag ns="http://www.sbrf.ru/CreditHistoryScoring">checkInternal</tag>
                     </linkedTagSequence>
                     <protocol>MQ</protocol>
                     <!--OPTIONAL-->

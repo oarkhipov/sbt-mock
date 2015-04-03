@@ -1,6 +1,9 @@
 package ru.sbt.bpm.mock.config.entities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
+import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,16 +13,17 @@ import lombok.ToString;
 * <p/>
 * Company: SBT - Saint-Petersburg
 */
-@XStreamAlias("linkedTag")
+@XStreamAlias("tag")
+@XStreamConverter(value = ToAttributedValueConverter.class, strings = "tag")
 @ToString
 public class LinkedTag {
 
-    @XStreamAlias("namespace")
+    @XStreamAlias("ns")
+    @XStreamAsAttribute
     @Getter
     @Setter
     private String nameSpace;
 
-    @XStreamAlias("tag")
     @Getter
     @Setter
     private String tag;

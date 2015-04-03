@@ -33,35 +33,35 @@ public class ApplyMappings {
     }
 
     private void applyMappedTags(File xml, MappedTagSequence mappedTags, Map<String, String> params) throws Exception  {
-        if (mappedTags!=null && mappedTags.getListOfMappedTagTags()!= null && mappedTags.getListOfMappedTagTags().size()>0) {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            InputStream stream = new ByteArrayInputStream(FileUtils.readFileToByteArray(xml));
-            Document xmlDoc = builder.parse(stream);
-
-            XPathFactory xPathFactory = XPathFactory.newInstance();
-            XPath xpath = xPathFactory.newXPath();
-            String nameQuerry = "";
-            if (params.containsKey("operationName")) {
-                nameQuerry = " and @name='" + params.get("operationName") + "'";
-            }
-            XPathExpression findBaseElement = xpath.compile("//*[local-name()='template'][@name" + nameQuerry + "]/*[local-name()='element']");
-
-            Node rootElement = (Node) findBaseElement.evaluate(xmlDoc, XPathConstants.NODE);
-
-            for (MappedTag tagSq : mappedTags.getListOfMappedTagTags()) {
-                if (tagSq.getMappedFromRqTags() != null) {
-                    MappedFromRqTag tag = tagSq.getMappedFromRqTags();
-                    Node element = findElementDescriptionInXSL(tag.getResponseTagSequence().getListOfLinkedTags(), rootElement);
-                    element.setNodeValue(formElementDescription(tag.getRequestTagSequence().getListOfLinkedTags()));
-                }
-                if (tagSq.getXPathQuerries() != null) {
-                    MappedByXpath tag = tagSq.getXPathQuerries();
-                    Node element = findElementDescriptionInXSL(tag.getResponseTagSequence().getListOfLinkedTags(), rootElement);
-                    element.setNodeValue(formElementDescription(tag.getQuerry()));
-                }
-            }
-        }
+//        if (mappedTags!=null && mappedTags.getListOfMappedTagTags()!= null && mappedTags.getListOfMappedTagTags().size()>0) {
+//            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder builder = factory.newDocumentBuilder();
+//            InputStream stream = new ByteArrayInputStream(FileUtils.readFileToByteArray(xml));
+//            Document xmlDoc = builder.parse(stream);
+//
+//            XPathFactory xPathFactory = XPathFactory.newInstance();
+//            XPath xpath = xPathFactory.newXPath();
+//            String nameQuerry = "";
+//            if (params.containsKey("operationName")) {
+//                nameQuerry = " and @name='" + params.get("operationName") + "'";
+//            }
+//            XPathExpression findBaseElement = xpath.compile("//*[local-name()='template'][@name" + nameQuerry + "]/*[local-name()='element']");
+//
+//            Node rootElement = (Node) findBaseElement.evaluate(xmlDoc, XPathConstants.NODE);
+//
+//            for (MappedTag tagSq : mappedTags.getListOfMappedTagTags()) {
+//                if (tagSq.getMappedFromRqTags() != null) {
+//                    MappedFromRqTag tag = tagSq.getMappedFromRqTags();
+//                    Node element = findElementDescriptionInXSL(tag.getResponseTagSequence().getListOfLinkedTags(), rootElement);
+//                    element.setNodeValue(formElementDescription(tag.getRequestTagSequence().getListOfLinkedTags()));
+//                }
+//                if (tagSq.getXPathQuerries() != null) {
+//                    MappedByXpath tag = tagSq.getXPathQuerries();
+//                    Node element = findElementDescriptionInXSL(tag.getResponseTagSequence().getListOfLinkedTags(), rootElement);
+//                    element.setNodeValue(formElementDescription(tag.getQuerry()));
+//                }
+//            }
+//        }
     }
 
     private Node findElementDescriptionInXSL(List<LinkedTag> tags, Node rootElement) throws Exception {

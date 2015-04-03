@@ -1,34 +1,20 @@
 <MockConfig xmlns="http://sbrf.ru/mockService">
     <systems>
-        <system>
-            <name>BBMO</name>
+        <system name="BBMO">
             <pathToXSD>/BBMO/BBMO</pathToXSD>
             <rootXsd>BBMOOperationElements.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
             <integrationPoints>
-                <integrationPoint>
-                    <name>SrvUpdateClientReferenceDataRq</name>
+                <integrationPoint name="SrvUpdateClientReferenceDataRq">
                     <operationName>SrvUpdateClientReferenceData</operationName>
                     <rsRootElementName>SrvUpdateClientReferenceDataRs</rsRootElementName>
                     <rqRootElementName>SrvUpdateClientReferenceDataRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>SrvUpdateClientReferenceDataRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>ChangeType</tag>
-                        </linkedTag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/prpc/bbmo/10">SrvUpdateClientReferenceDataRq</tag>
+                        <tag ns="http://sbrf.ru/prpc/bbmo/10">ChangeType</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
@@ -72,35 +58,22 @@
                             <xsdFile>domainTypes/CKPITProductTypes.xsd</xsdFile>
                         </dependency>
                     </dependencies>
-                    <dataxml>
+                    <dataXml>
                         <response>
                             <ResultCode>0</ResultCode>
                         </response>
-                    </dataxml>
+                    </dataXml>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>SrvPermitAccountChargeOperation</name>
+                <integrationPoint name="SrvPermitAccountChargeOperation">
                     <operationName>SrvPermitAccountChargeOperation</operationName>
                     <rsRootElementName>SrvPermitAccountChargeOperationRs</rsRootElementName>
                     <rqRootElementName>SrvPermitAccountChargeOperationRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>SrvPermitAccountChargeOperationRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>AccountNumber</tag>
-                        </linkedTag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/prpc/bbmo/10">SrvPermitAccountChargeOperationRq</tag>
+                        <tag ns="http://sbrf.ru/prpc/bbmo/10">AccountNumber</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
@@ -144,103 +117,56 @@
                             <xsdFile>domainTypes/CKPITProductTypes.xsd</xsdFile>
                         </dependency>
                     </dependencies>
-                    <dataxml>
+                    <dataXml>
                         <response>
                             <ResultCode>0</ResultCode>
                         </response>
-                    </dataxml>
+                    </dataXml>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>SrvGetClientReferenceDataRq</name>
+                <integrationPoint name="SrvGetClientReferenceDataRq">
                     <operationName>SrvGetClientReferenceData</operationName>
                     <rsRootElementName>SrvGetClientReferenceDataRs</rsRootElementName>
                     <rqRootElementName>SrvGetClientReferenceDataRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>SrvGetClientReferenceDataRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>ClientId</tag>
-                        </linkedTag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/prpc/bbmo/10">SrvGetClientReferenceDataRq</tag>
+                        <tag ns="http://sbrf.ru/prpc/bbmo/10">ClientId</tag>
                     </linkedTagSequence>
-                    <mappedTags>
-                        <mappedTag>
-                            <mapFromRequest>
-                                <requestTagSequence>
-                                    <linkedTag>
-                                        <tag>TaxId</tag>
-                                    </linkedTag>
-                                </requestTagSequence>
-                                <responseTagSequence>
-                                    <linkedTag>
-                                        <tag>ClientReferenceData</tag>
-                                    </linkedTag>
-                                    <linkedTag>
-                                        <tag>MainDetails</tag>
-                                    </linkedTag>
-                                    <linkedTag>
-                                        <tag>TaxInspectorateInfo</tag>
-                                    </linkedTag>
-                                    <linkedTag>
-                                        <tag>TaxId</tag>
-                                    </linkedTag>
-                                </responseTagSequence>
-                            </mapFromRequest>
-                        </mappedTag>
-                        <mappedTag>
-                            <mapFromRequest>
-                                <requestTagSequence>
-                                    <linkedTag>
-                                        <tag>TaxRegReasonCode</tag>
-                                    </linkedTag>
-                                </requestTagSequence>
-                                <responseTagSequence>
-                                    <linkedTag>
-                                        <tag>ClientReferenceData</tag>
-                                    </linkedTag>
-                                    <linkedTag>
-                                        <tag>MainDetails</tag>
-                                    </linkedTag>
-                                    <linkedTag>
-                                        <tag>TaxInspectorateInfo</tag>
-                                    </linkedTag>
-                                    <linkedTag>
-                                        <tag>TaxRegReasonCode</tag>
-                                    </linkedTag>
-                                </responseTagSequence>
-                            </mapFromRequest>
-                        </mappedTag>
-                        <mappedTag>
-                            <xpathQuerry>
-                                <responseTagSequence>
-                                    <linkedTag>
-                                        <tag>ClientReferenceData</tag>
-                                    </linkedTag>
-                                    <linkedTag>
-                                        <tag>MainDetails</tag>
-                                    </linkedTag>
-                                    <linkedTag>
-                                        <tag>TaxInspectorateInfo</tag>
-                                    </linkedTag>
-                                    <linkedTag>
-                                        <tag>TaxInspectorate</tag>
-                                    </linkedTag>
-                                </responseTagSequence>
-                                <querry>/soap-env:Envelope/soap-env:Body/bbmo:SrvGetClientReferenceDataRq/bbmo:TaxInspectorate</querry>
-                            </xpathQuerry>
-                        </mappedTag>
-                    </mappedTags>
+                    <!--<mappedTagSequence>-->
+                        <!--<mappedTag>-->
+                            <!--<requestMapping>-->
+                                    <!--<tag>TaxId</tag>-->
+                            <!--</requestMapping>-->
+                            <!--<responceMapping>-->
+                                <!--<tag>ClientReferenceData</tag>-->
+                                    <!--<tag>MainDetails</tag>-->
+                                        <!--<tag>TaxInspectorateInfo</tag>-->
+                                        <!--<tag>TaxId</tag>-->
+                                <!--</responceMapping>-->
+                        <!--</mappedTag>-->
+                        <!--<mappedTag>-->
+                                <!--<requestMapping>-->
+                                        <!--<tag>TaxRegReasonCode</tag>-->
+                                <!--</requestMapping>-->
+                                <!--<responceMapping>-->
+                                        <!--<tag>ClientReferenceData</tag>-->
+                                        <!--<tag>MainDetails</tag>-->
+                                        <!--<tag>TaxInspectorateInfo</tag>-->
+                                        <!--<tag>TaxRegReasonCode</tag>-->
+                                <!--</responceMapping>-->
+                        <!--</mappedTag>-->
+                        <!--<mappedTag>-->
+                            <!--<requestQuerryValue>/soap-env:Envelope/soap-env:Body/bbmo:SrvGetClientReferenceDataRq/bbmo:TaxInspectorate</requestQuerryValue>-->
+                                <!--<responceMapping>-->
+                                        <!--<tag>ClientReferenceData</tag>-->
+                                        <!--<tag>MainDetails</tag>-->
+                                        <!--<tag>TaxInspectorateInfo</tag>-->
+                                        <!--<tag>TaxInspectorate</tag>-->
+                                <!--</responceMapping>-->
+                        <!--</mappedTag>-->
+                    <!--</mappedTagSequence>-->
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
                     <incomeQueue>IN.KKMB.2</incomeQueue>
@@ -284,33 +210,17 @@
                         </dependency>
                     </dependencies>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>SrvSendApplicationForCBDFProcessingRq</name>
+                <integrationPoint name="SrvSendApplicationForCBDFProcessingRq">
                     <operationName>SrvSendApplicationForCBDFProcessing</operationName>
                     <rsRootElementName>SrvSendApplicationForCBDFProcessingRs</rsRootElementName>
                     <rqRootElementName>SrvSendApplicationForCBDFProcessingRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>SrvSendApplicationForCBDFProcessingRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>NaturalPersonCompesationApplication</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>ApplicationId</tag>
-                        </linkedTag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/prpc/bbmo/10">SrvSendApplicationForCBDFProcessingRq</tag>
+                        <tag ns="http://sbrf.ru/prpc/bbmo/10">NaturalPersonCompesationApplication</tag>
+                        <tag ns="http://sbrf.ru/prpc/bbmo/10">ApplicationId</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
@@ -355,33 +265,17 @@
                         </dependency>
                     </dependencies>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>SrvSendNaturalPersonApplicationStateChangeMessageRq</name>
+                <integrationPoint name="SrvSendNaturalPersonApplicationStateChangeMessageRq">
                     <operationName>SrvSendNaturalPersonApplicationProcessStageResult</operationName>
                     <rsRootElementName>SrvSendNaturalPersonApplicationStateChangeMessageRs</rsRootElementName>
                     <rqRootElementName>SrvSendNaturalPersonApplicationStateChangeMessageRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>SrvSendNaturalPersonApplicationStateChangeMessageRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>NaturalPersonApplicationState</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>ApplicationId</tag>
-                        </linkedTag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/prpc/bbmo/10">SrvSendNaturalPersonApplicationStateChangeMessageRq</tag>
+                        <tag ns="http://sbrf.ru/prpc/bbmo/10">NaturalPersonApplicationState</tag>
+                        <tag ns="http://sbrf.ru/prpc/bbmo/10">ApplicationId</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
@@ -426,8 +320,7 @@
                         </dependency>
                     </dependencies>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>SrvRegisterLegalPersonAccountOperationApplication</name>
+                <integrationPoint name="SrvRegisterLegalPersonAccountOperationApplication">
                     <operationName>SrvRegisterLegalPersonAccountOperationApplication</operationName>
                     <rqRootElementName>SrvRegisterLegalPersonApplicationRq</rqRootElementName>
                     <type>Driver</type>
@@ -474,8 +367,7 @@
                         </dependency>
                     </dependencies>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>SrvSendApplicationProcessingURL</name>
+                <integrationPoint name="SrvSendApplicationProcessingURL">
                     <operationName>SrvSendApplicationProcessingURL</operationName>
                     <rqRootElementName>SrvSendApplicationProcessingURLRq</rqRootElementName>
                     <type>Driver</type>
@@ -524,14 +416,12 @@
                 </integrationPoint>
             </integrationPoints>
         </system>
-        <system>
-            <name>CBBOL</name>
+        <system name="CBBOL">
             <pathToXSD>/BBMO/CBBOL</pathToXSD>
             <rootXsd>BBMOOperationElements.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
             <integrationPoints>
-                <integrationPoint>
-                    <name>SrvPutRemoteLegalAccOperAppRq</name>
+                <integrationPoint name="SrvPutRemoteLegalAccOperAppRq">
                     <operationName>SrvPutRemoteLegalAccOperApp</operationName>
                     <rqRootElementName>SrvPutRemoteLegalAccOperAppRq</rqRootElementName>
                     <type>Driver</type>
@@ -577,14 +467,12 @@
                 </integrationPoint>
             </integrationPoints>
         </system>
-        <system>
-            <name>CKPIT</name>
+        <system name="CKPIT">
             <pathToXSD>/BBMO/CKPIT</pathToXSD>
             <rootXsd>BBMOOperationElements.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
             <integrationPoints>
-                <integrationPoint>
-                    <name>UpdateDepositNSO</name>
+                <integrationPoint name="UpdateDepositNSO">
                     <operationName>SrvCKPITUpdateDepositNSO</operationName>
                     <rqRootElementName>SrvCKPITUpdateDepositNSORq</rqRootElementName>
                     <type>Driver</type>
@@ -631,8 +519,7 @@
                         </dependency>
                     </dependencies>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>UpdateLoan</name>
+                <integrationPoint name="UpdateLoan">
                     <operationName>SrvCKPITUpdateLoan</operationName>
                     <rqRootElementName>SrvCKPITUpdateLoanRq</rqRootElementName>
                     <type>Driver</type>
@@ -681,39 +568,22 @@
                 </integrationPoint>
             </integrationPoints>
         </system>
-        <system>
-            <name>VIVAT</name>
+        <system name="VIVAT">
             <pathToXSD>/BBMO/VIVAT/SrvSendBasicDocumentInformation</pathToXSD>
             <rootXsd>SendBasicDocInfoOperationElements.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
             <integrationPoints>
-                <integrationPoint>
-                    <name>SrvSendBasicDocumentInformation</name>
+                <integrationPoint name="SrvSendBasicDocumentInformation">
                     <operationName>SrvSendBasicDocumentInformation</operationName>
                     <rsRootElementName>SrvSendBasicDocumentInformationRs</rsRootElementName>
                     <rqRootElementName>SrvSendBasicDocumentInformationRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://schemas.xmlsoap.org/soap/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>SrvSendBasicDocumentInformationRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>BasicDocumentInformation</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/prpc/bbmo/10</namespace>
-                            <tag>BasicDocumentID</tag>
-                        </linkedTag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/prpc/bbmo/10">SrvSendBasicDocumentInformationRq</tag>
+                        <tag ns="http://sbrf.ru/prpc/bbmo/10">BasicDocumentInformation</tag>
+                        <tag ns="http://sbrf.ru/prpc/bbmo/10">BasicDocumentID</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
@@ -739,11 +609,11 @@
                             <xsdFile>SendBasicDocInfoMessageElements.xsd</xsdFile>
                         </dependency>
                     </dependencies>
-                    <dataxml>
+                    <dataXml>
                         <response>
                             <ResultCode>0</ResultCode>
                         </response>
-                    </dataxml>
+                    </dataXml>
                 </integrationPoint>
             </integrationPoints>
         </system>

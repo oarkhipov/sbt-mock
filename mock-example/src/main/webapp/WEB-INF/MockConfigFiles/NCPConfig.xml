@@ -1,34 +1,20 @@
 <MockConfig xmlns="http://sbrf.ru/mockService">
     <systems>
-        <system>
-            <name>CRM</name>
+        <system name="CRM">
             <pathToXSD>/NCP/CRM</pathToXSD>
             <rootXsd>CRM.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/NCP/esb/envelope/</headerNamespace>
             <integrationPoints>
-                <integrationPoint>
-                    <name>CreateTask</name>
+                <integrationPoint name="CreateTask">
                     <operationName>createTaskRs</operationName>
                     <rsRootElementName>createTaskRs</rsRootElementName>
                     <rqRootElementName>createTaskRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/CRM/</namespace>
-                            <tag>createTaskRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/CRM/CreateTaskRq/1.03/</namespace>
-                            <tag>comment</tag>
-                        </linkedTag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCP/CRM/">createTaskRq</tag>
+                        <tag ns="http://sbrf.ru/NCP/CRM/CreateTaskRq/1.03/">comment</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
@@ -54,8 +40,7 @@
                         </dependency>
                     </dependencies>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>ForceSignal</name>
+                <integrationPoint name="ForceSignal">
                     <operationName>forceSignalRq</operationName>
                     <rqRootElementName>forceSignalRq</rqRootElementName>
                     <type>Driver</type>
@@ -83,29 +68,16 @@
                         </dependency>
                     </dependencies>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>GetParticipants</name>
+                <integrationPoint name="GetParticipants">
                     <operationName>prtspRs</operationName>
                     <rsRootElementName>prtspRs</rsRootElementName>
                     <rqRootElementName>prtspRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/CRM/</namespace>
-                            <tag>prtspRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.04/</namespace>
-                            <tag>requestType</tag>
-                        </linkedTag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCP/CRM/">prtspRq</tag>
+                        <tag ns="http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.04/">requestType</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
@@ -131,33 +103,17 @@
                         </dependency>
                     </dependencies>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>SaveDeal</name>
+                <integrationPoint name="SaveDeal">
                     <operationName>saveDealRs</operationName>
                     <rsRootElementName>saveDealRs</rsRootElementName>
                     <rqRootElementName>saveDealRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/CRM/</namespace>
-                            <tag>saveDealRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/CRM/SaveDealRq/1.15/</namespace>
-                            <tag>deal</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/CRM/SaveDealRq/1.15/</namespace>
-                            <tag>dealType</tag>
-                        </linkedTag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCP/CRM/">saveDealRq</tag>
+                        <tag ns="http://sbrf.ru/NCP/CRM/SaveDealRq/1.15/">deal</tag>
+                        <tag ns="http://sbrf.ru/NCP/CRM/SaveDealRq/1.15/">dealType</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
@@ -183,8 +139,7 @@
                         </dependency>
                     </dependencies>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>UpdateDeal</name>
+                <integrationPoint name="UpdateDeal">
                     <operationName>updateDealRq</operationName>
                     <rqRootElementName>updateDealRq</rqRootElementName>
                     <type>Driver</type>
@@ -212,29 +167,16 @@
                         </dependency>
                     </dependencies>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>UpdateRef</name>
+                <integrationPoint name="UpdateRef">
                     <operationName>updateRefRs</operationName>
                     <rsRootElementName>updateRefRs</rsRootElementName>
                     <rqRootElementName>updateRefRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/CRM/</namespace>
-                            <tag>updateRefRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/CRM/UpdateRefRq/1.01/</namespace>
-                            <tag>referenceItem</tag>
-                        </linkedTag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCP/CRM/">updateRefRq</tag>
+                        <tag ns="http://sbrf.ru/NCP/CRM/UpdateRefRq/1.01/">referenceItem</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
@@ -262,31 +204,20 @@
                 </integrationPoint>
             </integrationPoints>
         </system>
-        <system>
-            <name>AMRLiRT</name>
+        <system name="AMRLiRT">
             <pathToXSD>/NCP/AMRLiRT</pathToXSD>
             <rootXsd>AMRLIRT.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/NCP/esb/envelope/</headerNamespace>
             <integrationPoints>
-                <integrationPoint>
-                    <name>CalculateDebtCapacity</name>
+                <integrationPoint name="CalculateDebtCapacity">
                     <operationName>calculateDCRs</operationName>
                     <rsRootElementName>calculateDCRs</rsRootElementName>
                     <rqRootElementName>calculateDCRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Header</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>user-id</tag>
-                        </linkedTag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Header</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">user-id</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
@@ -315,29 +246,16 @@
                         </dependency>
                     </dependencies>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>CalculateLGD</name>
+                <integrationPoint name="CalculateLGD">
                     <operationName>calculateLGDRs</operationName>
                     <rsRootElementName>calculateLGDRs</rsRootElementName>
                     <rqRootElementName>calculateLGDRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/AMRLIRT/</namespace>
-                            <tag>calculateLGDRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/</namespace>
-                            <tag>comment</tag>
-                        </linkedTag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCP/AMRLIRT/">calculateLGDRq</tag>
+                        <tag ns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/">comment</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
@@ -366,25 +284,15 @@
                         </dependency>
                     </dependencies>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>CalculateRating</name>
+                <integrationPoint name="CalculateRating">
                     <operationName>calculateRatingRs</operationName>
                     <rsRootElementName>calculateRatingRs</rsRootElementName>
                     <rqRootElementName>calculateRatingRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Header</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>user-id</tag>
-                        </linkedTag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Header</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">user-id</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
@@ -413,29 +321,16 @@
                         </dependency>
                     </dependencies>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>ConfirmRating</name>
+                <integrationPoint name="ConfirmRating">
                     <operationName>confirmRatingRs</operationName>
                     <rsRootElementName>confirmRatingRs</rsRootElementName>
                     <rqRootElementName>confirmRatingRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/AMRLIRT/</namespace>
-                            <tag>confirmRatingRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRq/</namespace>
-                            <tag>siebelMessage</tag>
-                        </linkedTag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCP/AMRLIRT/">confirmRatingRq</tag>
+                        <tag ns="http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRq/">siebelMessage</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
@@ -452,29 +347,16 @@
                         </dependency>
                     </dependencies>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>CorrectRating</name>
+                <integrationPoint name="CorrectRating">
                     <operationName>correctRatingRs</operationName>
                     <rsRootElementName>correctRatingRs</rsRootElementName>
                     <rqRootElementName>correctRatingRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/AMRLIRT/</namespace>
-                            <tag>correctRatingRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRq/</namespace>
-                            <tag>siebelMessage</tag>
-                        </linkedTag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCP/AMRLIRT/">correctRatingRq</tag>
+                        <tag ns="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRq/">siebelMessage</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
@@ -503,29 +385,16 @@
                         </dependency>
                     </dependencies>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>FinalizeLGD</name>
+                <integrationPoint name="FinalizeLGD">
                     <operationName>finalizeLGDRs</operationName>
                     <rsRootElementName>finalizeLGDRs</rsRootElementName>
                     <rqRootElementName>finalizeLGDRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/AMRLIRT/</namespace>
-                            <tag>finalizeLGDRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRq/</namespace>
-                            <tag>type</tag>
-                        </linkedTag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCP/AMRLIRT/">finalizeLGDRq</tag>
+                        <tag ns="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRq/">type</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
@@ -556,35 +425,21 @@
                 </integrationPoint>
             </integrationPoints>
         </system>
-        <system>
-            <name>FinRep</name>
+        <system name="FinRep">
             <pathToXSD>/NCP/FinRep</pathToXSD>
             <rootXsd>FinRep.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/NCP/esb/envelope/</headerNamespace>
             <integrationPoints>
-                <integrationPoint>
-                    <name>importFinReport</name>
+                <integrationPoint name="importFinReport">
                     <operationName>importFinReportRs</operationName>
                     <rsRootElementName>importFinReportRs</rsRootElementName>
                     <rqRootElementName>importFinReportRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/FinRep/</namespace>
-                            <tag>importFinReportRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/FinRep/ImportFinReportRq/1.00/</namespace>
-                            <tag>dealId</tag>
-                        </linkedTag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCP/FinRep/">importFinReportRq</tag>
+                        <tag ns="http://sbrf.ru/NCP/FinRep/ImportFinReportRq/1.00/">dealId</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
@@ -613,29 +468,16 @@
                         </dependency>
                     </dependencies>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>importRating</name>
+                <integrationPoint name="importRating">
                     <operationName>importRatingRs</operationName>
                     <rsRootElementName>importRatingRs</rsRootElementName>
                     <rqRootElementName>importRatingRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/FinRep/</namespace>
-                            <tag>importRatingRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/FinRep/ImportRatingRq/1.00/</namespace>
-                            <tag>entityType</tag>
-                        </linkedTag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCP/FinRep/">importRatingRq</tag>
+                        <tag ns="http://sbrf.ru/NCP/FinRep/ImportRatingRq/1.00/">entityType</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
@@ -664,33 +506,17 @@
                         </dependency>
                     </dependencies>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>updateRating</name>
+                <integrationPoint name="updateRating">
                     <operationName>updateRatingRs</operationName>
                     <rsRootElementName>updateRatingRs</rsRootElementName>
                     <rqRootElementName>updateRatingRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/FinRep/</namespace>
-                            <tag>updateRatingRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/</namespace>
-                            <tag>rating</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/</namespace>
-                            <tag>status</tag>
-                        </linkedTag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCP/FinRep/">updateRatingRq</tag>
+                        <tag ns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/">rating</tag>
+                        <tag ns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/">status</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->
@@ -719,29 +545,16 @@
                         </dependency>
                     </dependencies>
                 </integrationPoint>
-                <integrationPoint>
-                    <name>getExchangeRates</name>
+                <integrationPoint name="getExchangeRates">
                     <operationName>getExchangeRatesRs</operationName>
                     <rsRootElementName>getExchangeRatesRs</rsRootElementName>
                     <rqRootElementName>getExchangeRatesRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Envelope</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/esb/envelope/</namespace>
-                            <tag>Body</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/FinRep/</namespace>
-                            <tag>getExchangeRatesRq</tag>
-                        </linkedTag>
-                        <linkedTag>
-                            <namespace>http://sbrf.ru/NCP/FinRep/GetExchangeRatesRq/1.00/</namespace>
-                            <tag>currencyCode</tag>
-                        </linkedTag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCP/FinRep/">getExchangeRatesRq</tag>
+                        <tag ns="http://sbrf.ru/NCP/FinRep/GetExchangeRatesRq/1.00/">currencyCode</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->

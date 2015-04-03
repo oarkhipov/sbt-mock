@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by sbt-vostrikov-mi on 14.03.2015.
  */
-@XStreamAlias("mappedTags")
+@XStreamAlias("mappedTagSequence")
 @ToString
 public class MappedTagSequence {
 

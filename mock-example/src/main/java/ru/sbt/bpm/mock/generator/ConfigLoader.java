@@ -83,7 +83,7 @@ public class ConfigLoader {
             params.put("operationName", point.getOperationName()); //имя операции. Если не задано - возьмет html-тэг ответа
         }
         params.put("dataFolderPath",getUriFilename(LocalPaths.getWebInfPath()+"\\data"));
-        mockCycle(systemName, point.getIntegrationPointName(), headerType, params, point.getMappedTagSequence());
+        mockCycle(systemName, point.getIntegrationPointName(), headerType, params, null); //point.getMappedTagSequence());
     }
 
     private void importIntegrationPointDriver(SystemTag system, IntegrationPoint point) {

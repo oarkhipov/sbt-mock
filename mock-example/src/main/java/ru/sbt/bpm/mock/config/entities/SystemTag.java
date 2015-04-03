@@ -1,6 +1,7 @@
 package ru.sbt.bpm.mock.config.entities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,6 +19,7 @@ import java.util.List;
 public class SystemTag {
 
     @XStreamAlias("name")
+    @XStreamAsAttribute
     @Getter
     @Setter
     private String systemName;

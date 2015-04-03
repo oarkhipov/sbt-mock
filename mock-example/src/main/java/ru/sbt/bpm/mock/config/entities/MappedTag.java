@@ -12,13 +12,18 @@ import lombok.ToString;
 @ToString
 public class MappedTag {
 
-    @XStreamAlias("mapFromRequest")
+    @XStreamAlias("requestMapping")
     @Getter
     @Setter
-    private MappedFromRqTag mappedFromRqTags;
+    private LinkedTag mappedFromRqTags;
 
-    @XStreamAlias("xpathQuerry")
+    @XStreamAlias("requestQuerryValue")
     @Getter
     @Setter
-    private MappedByXpath xPathQuerries;
+    private String requestQuerryValue;
+
+    @XStreamAlias("responceMapping")
+    @Getter
+    @Setter
+    private LinkedTag responceMapping;
 }

@@ -1,6 +1,7 @@
 package ru.sbt.bpm.mock.config.entities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -19,6 +20,7 @@ import java.util.List;
 public class IntegrationPoint {
 
     @XStreamAlias("name")
+    @XStreamAsAttribute
     @Getter
     @Setter
     private String integrationPointName;
@@ -48,10 +50,10 @@ public class IntegrationPoint {
     @Setter
     private LinkedTagSequence linkedTagSequence;
 
-    @XStreamAlias("mappedTags")
-    @Getter
-    @Setter
-    private MappedTagSequence mappedTagSequence;
+//    @XStreamAlias("mappedTagSequence")
+//    @Getter
+//    @Setter
+//    private MappedTagSequence mappedTagSequence;
 
     @XStreamAlias("protocol")
     @Getter
