@@ -1,6 +1,8 @@
 package ru.sbt.bpm.mock.spring.integration.service;
 
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
@@ -31,11 +33,13 @@ public class XmlDataService {
 
     private Validator validator;
 
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
     @PostConstruct
-    private void init() throws IOException, SAXException {
+    private void init() throws IOException {
         Resource resource = appContext.getResource("/WEB-INF/web.xml");
 
-        File dir = new File(resource.getFile().getParent());
+        File dir = new File(resource.getFile().getParent() + File.separator + "xsd");
 
         ArrayList<File> xsdFiles = new ArrayList<File>();
         searchFiles(dir, xsdFiles, ".xsd");
@@ -48,8 +52,29 @@ public class XmlDataService {
         for (int i = 0; i < xsdFiles.size(); i++) {
             sources[i] = new StreamSource(xsdFiles.get(i));
         }
-        Schema schema = factory.newSchema(sources);
-        validator = schema.newValidator();
+
+        try {
+            Schema schema = factory.newSchema(sources);
+            validator = schema.newValidator();
+        } catch (SAXException e) {
+            log.error("Error while validator initialization!", e);
+            log.error("Validator have " + xsdFiles.size() + " file(s) in it's database");
+            for (File xsdFile : xsdFiles) {
+                log.error("Xsd file [" + xsdFile.getName() + "] was added to Validator list");
+            }
+            String errorString = "\n" +
+                                 "=================================================================\n" +
+                                 "                                                                 \n" +
+                                 "                                                                 \n" +
+                                 "                                                                 \n" +
+                                 "                 INITIALIZATION   E R R O R                      \n" +
+                                 "                                                                 \n" +
+                                 "                                                                 \n" +
+                                 "                                                                 \n" +
+                                 "=================================================================";
+            log.error(errorString);
+        }
+
     }
 
     public void setPathBase(String pathBase) {
@@ -165,6 +190,7 @@ public class XmlDataService {
                 searchFiles(file, files, ext);
             }
             else if(file.getName().toLowerCase().endsWith(ext)){
+                log.debug("Added xsd [" + file.getName() + "] to Validator");
                 files.add(file);
             }
         }

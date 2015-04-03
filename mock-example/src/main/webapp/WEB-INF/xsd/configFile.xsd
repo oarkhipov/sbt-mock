@@ -69,7 +69,7 @@
             <element name="xsdFile" type="string"/>
             <element name="RqXsdFile" type="string"  minOccurs="0"/>
             <element name="dependencies" type="mock:Dependencies" minOccurs="0"/>
-            <element name="dataXml" type="mock:DataFileEntry" minOccurs="0"/>
+            <element name="dataXml" type="anyType" minOccurs="0"/>
         </sequence>
         <attribute name="name" type="token"/>
     </complexType>
@@ -118,18 +118,11 @@
 
     <complexType name="DataFileEntries">
         <choice>
-            <element name="response" type="mock:DataFileEntry" minOccurs="0" maxOccurs="unbounded"/>
-            <element name="request" type="mock:DataFileEntry" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="response" type="anyType" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="request" type="anyType" minOccurs="0" maxOccurs="unbounded"/>
         </choice>
     </complexType>
 
-    <complexType name="DataFileEntry">
-        <simpleContent>
-            <extension base="anyType">
-                <attribute name="name" type="token"/>
-            </extension>
-        </simpleContent>
-    </complexType>
 
     <complexType name="Namespace-alias">
         <annotation>

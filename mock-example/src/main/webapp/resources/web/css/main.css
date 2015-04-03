@@ -155,17 +155,15 @@ textarea {
 
 .actionButtons {
     display: inline !important;
+    margin-top: 5px;
 }
 
 #actionButtonsDiv {
     text-align: right;
     width: 700px;
-    padding-top: 7px;
+    padding-top: 5px;
     vertical-align: top;
-}
-
-#historyButtonsDiv {
-    display: inline;
+    vert-align: top;
 }
 
 
