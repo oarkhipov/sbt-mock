@@ -1,4 +1,7 @@
 <MockConfig xmlns="http://sbrf.ru/mockService">
+    <namespace-aliases>
+        <namespace name="soap">http://schemas.xmlsoap.org/soap/envelope/</namespace>
+    </namespace-aliases>
     <systems>
         <system name="BBMO">
             <pathToXSD>/BBMO/BBMO</pathToXSD>

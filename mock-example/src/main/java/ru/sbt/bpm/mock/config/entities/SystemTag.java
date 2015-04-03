@@ -39,6 +39,11 @@ public class SystemTag {
     @Setter
     private String headerNamespace;
 
+    @XStreamAlias("namespace-aliases")
+    @Getter
+    @Setter
+    private NamespaceAliases namespaceAliases;
+
     @XStreamAlias("integrationPoints")
     @Getter
     @Setter
@@ -46,5 +51,22 @@ public class SystemTag {
 
     public List<IntegrationPoint> getListIntegrationPoint() {
         return integrationPoints.getListOfIntegrationPoints();
+    }
+
+    /**
+     * наследование алиасов.  Получаем алиасы сверху и сохраняем себе. Потом передаем алиасы внутрь иерархии, чтобы они взяли их себе
+     */
+    public void inheritNamespaceAliases(NamespaceAliases ns) {
+        if (ns != null) {
+            for (NamespaceAliase nsToAdd : ns.getListOfNamespaces()) {
+                if (namespaceAliases == null) {
+                    setNamespaceAliases(new NamespaceAliases());
+                }
+                namespaceAliases.addNamespaces(nsToAdd);
+            }
+        }
+        for (IntegrationPoint ip : getListIntegrationPoint() ) {
+            ip.inheritNamespaceAliases(namespaceAliases);
+        }
     }
 }

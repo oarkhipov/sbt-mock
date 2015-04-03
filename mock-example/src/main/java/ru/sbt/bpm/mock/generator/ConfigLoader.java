@@ -12,6 +12,7 @@ import ru.sbt.bpm.mock.generator.xsddata.GenerateDataXsd;
 import ru.sbt.bpm.mock.generator.xsl.GenerateXsl;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

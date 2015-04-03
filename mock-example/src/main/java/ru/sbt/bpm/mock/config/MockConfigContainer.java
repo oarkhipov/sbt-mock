@@ -64,6 +64,8 @@ public class MockConfigContainer {
         //TODO Не работает, хотя должен
 //        xStream.autodetectAnnotations(true);
         this.config = (MockConfig) xStream.fromXML(fileReader);
+
+        config.inheritNamespaceAliases(); //наследуем алиасы вниз для всех точек интеграции
     }
 
     private static MockConfigContainer INSTANCE = null;

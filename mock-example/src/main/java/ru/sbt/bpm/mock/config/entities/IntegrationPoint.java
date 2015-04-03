@@ -45,6 +45,11 @@ public class IntegrationPoint {
     @Setter
     private String integrationPointType;
 
+    @XStreamAlias("namespace-aliases")
+    @Getter
+    @Setter
+    private NamespaceAliases namespaceAliases;
+
     @XStreamAlias("linkedTagSequence")
     @Getter
     @Setter
@@ -94,4 +99,18 @@ public class IntegrationPoint {
     @Getter
     @Setter
     private Dependencies dependencies;
+
+    /**
+     * наследование алиасов. Получаем алиасы сверху и сохраняем себе
+     */
+    public void inheritNamespaceAliases(NamespaceAliases ns) {
+        if (ns != null) {
+            for (NamespaceAliase nsToAdd : ns.getListOfNamespaces()) {
+                if (namespaceAliases == null) {
+                    setNamespaceAliases(new NamespaceAliases());
+                }
+                namespaceAliases.addNamespaces(nsToAdd);
+            }
+        }
+    }
 }
