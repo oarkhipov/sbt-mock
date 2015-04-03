@@ -1,0 +1,94 @@
+<MockConfig>
+    <!--OPTIONAL-->
+    <namespace-aliases>
+        <namespace name="soap">http://sbrf.ru/NCP/esb/envelope/</namespace>
+    </namespace-aliases>
+    <systems>
+        <system name="CRM">
+            <pathToXSD>/res/xsd</pathToXSD>
+            <rootXsd>CRM.xsd</rootXsd>
+            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
+            <!--OPTIONAL-->
+            <namespace-aliases>
+                <namespace name="ns1">http://ns1.ru/</namespace>
+            </namespace-aliases>
+            <integrationPoints>
+                <integrationPoint name="Create Task">
+                    <!--OPTIONAL-->
+                    <operationName>createTaskRs</operationName>
+                    <!--OPTIONAL-->
+                    <rsRootElementName>createTaskRs</rsRootElementName>
+                    <rqRootElementName>createTaskRq</rqRootElementName>
+                    <type>Driver/Mock</type>
+                    <linkedTagSequence>
+                        <linkedTag>ns1:CRM</linkedTag>
+                        <linkedTag>ns1:createTaskRq</linkedTag>
+                        <linkedTag>
+                            <!--OPTIONAL-->
+                            <namespace>http://ns4.ru/</namespace>
+                            <tag>comment</tag>
+                        </linkedTag>
+                    </linkedTagSequence>
+                    <!--OPTIONAL-->
+                    <mappings>
+                        <mapping>
+                            <requestMapping>
+                                <tag>ns1:CRM</tag>
+                                <tag>ns1:createTaskRq</tag>
+                                <tag>ns3:id</tag>
+                            </requestMapping>
+                            <responceMapping>
+                                <tag>ns1:CRM</tag>
+                                <tag>ns1:createTaskRq</tag>
+                                <tag>ns3:id</tag>
+                            </responceMapping>
+                        </mapping>
+                        <mapping>
+                            <requestQuerryValue>/*[name='taxId'][3]</requestQuerryValue>
+                            <responceMapping>
+                                <tag>ns1:CRM</tag>
+                                <tag>ns1:createTaskRq</tag>
+                                <tag>ns3:id</tag>
+                            </responceMapping>
+                        </mapping>
+                    </mappings>
+                    <protocol>MQ/SOAP/HTTP</protocol>
+                    <!--OPTIONAL-->
+                    <incomeQueue>IN</incomeQueue>
+                    <!--OPTIONAL-->
+                    <outcomeQueue>OUT</outcomeQueue>
+                    <xsdFile>create.xsd</xsdFile>
+                    <!--OPTIONAL-->
+                    <RqXsdFile>created.xsd</RqXsdFile>
+                    <!--OPTIONAL-->
+                    <dependencies>
+                        <dependency>
+                            <xsdFile>CommonTypes.xsd</xsdFile>
+                        </dependency>
+                        <dependency>
+                            <xsdFile>CRM.xsd</xsdFile>
+                        </dependency>
+                    </dependencies>
+                    <namespace-aliases>
+                        <namespace name="ns2">http://ns2.ru/</namespace>
+                    </namespace-aliases>
+                    <!--OPTIONAL-->
+                    <dataXml>
+                        <responce name="default">
+                            <anyData>anyData</anyData>
+                        </responce>
+                    </dataXml>
+                </integrationPoint>
+            </integrationPoints>
+            <!--OPTIONAL-->
+            <dependencies>
+                <dependency>
+                    <xsdFile>CommonTypes.xsd</xsdFile>
+                </dependency>
+                <dependency>
+                    <xsdFile>CRM.xsd</xsdFile>
+                </dependency>
+            </dependencies>
+        </system>
+    </systems>
+</MockConfig>
