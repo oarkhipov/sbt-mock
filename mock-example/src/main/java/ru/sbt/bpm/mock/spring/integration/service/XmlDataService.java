@@ -33,15 +33,17 @@ public class XmlDataService {
 
     private Validator validator;
 
+    private ArrayList<File> xsdFiles = null;
+
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @PostConstruct
-    private void init() throws IOException {
+    protected void init() throws IOException, SAXException {
         Resource resource = appContext.getResource("/WEB-INF/web.xml");
 
         File dir = new File(resource.getFile().getParent() + File.separator + "xsd");
 
-        ArrayList<File> xsdFiles = new ArrayList<File>();
+        xsdFiles = new ArrayList<File>();
         searchFiles(dir, xsdFiles, ".xsd");
 
         SchemaFactory factory =
@@ -53,28 +55,8 @@ public class XmlDataService {
             sources[i] = new StreamSource(xsdFiles.get(i));
         }
 
-        try {
             Schema schema = factory.newSchema(sources);
             validator = schema.newValidator();
-        } catch (SAXException e) {
-            log.error("Error while validator initialization!", e);
-            log.error("Validator have " + xsdFiles.size() + " file(s) in it's database");
-            for (File xsdFile : xsdFiles) {
-                log.error("Xsd file [" + xsdFile.getName() + "] was added to Validator list");
-            }
-            String errorString = "\n" +
-                                 "=================================================================\n" +
-                                 "                                                                 \n" +
-                                 "                                                                 \n" +
-                                 "                                                                 \n" +
-                                 "                 INITIALIZATION   E R R O R                      \n" +
-                                 "                                                                 \n" +
-                                 "                                                                 \n" +
-                                 "                                                                 \n" +
-                                 "=================================================================";
-            log.error(errorString);
-        }
-
     }
 
     public void setPathBase(String pathBase) {
@@ -114,10 +96,10 @@ public class XmlDataService {
     public Resource getXmlDataResource(String name) throws IOException {
         String[] nameParts = name.split("_");
         return appContext.getResource(pathBase + File.separator +
-                                    "data" + File.separator +
-                                    nameParts[0] + File.separator +
-                                    "xml" + File.separator +
-                                    nameParts[1] + "Data.xml");
+                "data" + File.separator +
+                nameParts[0] + File.separator +
+                "xml" + File.separator +
+                nameParts[1] + "Data.xml");
     }
 
     /**
@@ -193,6 +175,13 @@ public class XmlDataService {
                 log.debug("Added xsd [" + file.getName() + "] to Validator");
                 files.add(file);
             }
+        }
+    }
+
+    public void showConfig() {
+        log.info("Validator have " + xsdFiles.size() + " file(s) in it's database");
+        for (File xsdFile : xsdFiles) {
+            log.info("Xsd file [" + xsdFile.getName() + "] was added to Validator list");
         }
     }
 }
