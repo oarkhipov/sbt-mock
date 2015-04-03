@@ -20,6 +20,11 @@
     <mvc:resources mapping="/**" location="/resources/web/" />
     <mvc:annotation-driven/>
 
+    <!-- Настройка используемой конфигурации заглушки-->
+    <beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
+        <beans:constructor-arg value="/WEB-INF/MockConfigFiles/BBMOConfig.xml" />
+    </beans:bean>
+
     <!-- - - - - - - - - - - - - - -->
     <!--                           -->
     <!-- ПРЕДВАРИТЕЛЬНАЯ НАСТРОЙКА -->

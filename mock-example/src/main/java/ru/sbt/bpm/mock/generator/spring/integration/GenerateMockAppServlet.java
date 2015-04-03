@@ -20,12 +20,6 @@ import java.io.FileReader;
 @ToString
 public class GenerateMockAppServlet {
 
-    private static GenerateMockAppServlet INSTANCE = null;
-
-    @Getter
-    @Setter
-    private String filePath;
-
     @Getter
     private MockConfig mockConfig;
 
@@ -37,57 +31,4 @@ public class GenerateMockAppServlet {
     // генерация inbound & outbound gateway
     private GatewayContextGenerator gatewayContextGenerator;
 
-    private GenerateMockAppServlet(String aFilePath) {
-        this.filePath = aFilePath;
-    }
-
-    public void init() throws Exception{
-        if (this.filePath == null || this.filePath.equals(""))
-            throw new Exception();
-
-        FileReader fileReader = new FileReader(filePath);
-        XStream xStream = new XStream(new DomDriver());
-
-        // Mapping данных из xml в классы
-        xStream.processAnnotations(MockConfig.class);
-        xStream.processAnnotations(SystemsTag.class);
-        xStream.processAnnotations(SystemTag.class);
-        xStream.processAnnotations(IntegrationPoints.class);
-        xStream.processAnnotations(IntegrationPoint.class);
-        xStream.processAnnotations(LinkedTagSequence.class);
-        xStream.processAnnotations(LinkedTag.class);
-        xStream.processAnnotations(Dependencies.class);
-        xStream.processAnnotations(Dependency.class);
-        // parse
-        this.mockConfig = (MockConfig) xStream.fromXML(fileReader);
-
-        // Дальше пишем куски для каждого блока SI context
-
-    }
-
-    public static GenerateMockAppServlet getInstance(String aFilePath) {
-        if (INSTANCE == null)
-            synchronized (GenerateMockAppServlet.class) {
-                if(INSTANCE == null)
-                    INSTANCE = new GenerateMockAppServlet(aFilePath);
-            }
-        return INSTANCE;
-    }
-
-    /**
-     * Путь к корню
-     * @return
-     */
-    private String getPath() {
-        // TODO Это не правильный способ
-        return System.getProperty("user.dir");
-    }
-
-    /**
-     * Получение пути к файлам xml
-     * @return
-     */
-    private String getMockConfigPath() {
-        return getPath() + "\\src\\webapp\\web-inf\\mockconfigfiles\\";
-    }
 }

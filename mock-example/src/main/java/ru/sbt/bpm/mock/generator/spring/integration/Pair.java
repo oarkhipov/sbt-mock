@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * Created by sbt-hodakovskiy-da on 30.01.2015.
- * <p/>
+ *
  * Company: SBT - Saint-Petersburg
  */
 @ToString
