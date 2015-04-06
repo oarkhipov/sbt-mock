@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.xml.sax.SAXException;
+import ru.sbt.bpm.mock.spring.utils.ResourceResolver;
 
 import javax.annotation.PostConstruct;
 import javax.xml.XMLConstants;
@@ -48,6 +49,8 @@ public class XmlDataService {
 
         SchemaFactory factory =
                 SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+
+        factory.setResourceResolver(new ResourceResolver());
         StreamSource sources[] = new StreamSource[xsdFiles.size()];
 
 //            Add Xsd files to source
