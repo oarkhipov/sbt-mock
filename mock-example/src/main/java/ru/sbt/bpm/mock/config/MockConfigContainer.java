@@ -55,7 +55,7 @@ public class MockConfigContainer {
 
         File resourceFile;
         if(applicationContext == null) {
-            resourceFile = new File(localWebappPath + File.separator + "resources" + File.separator + filePath);
+            resourceFile = new File(filePath);
         }
         else {
             resourceFile = applicationContext.getResource(filePath).getFile();

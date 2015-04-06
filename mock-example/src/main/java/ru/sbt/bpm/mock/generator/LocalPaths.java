@@ -23,6 +23,13 @@ public class LocalPaths {
     }
 
     /**
+     * @return путь к папке resources в webapp
+     */
+    public static String getWebResPath() {
+        return getPath() + "\\src\\main\\webapp\\resources";
+    }
+
+    /**
      * @return путь к папке \src\main\resources
      */
     public static String getSrcResorcesXSLPath() throws NullPointerException {
