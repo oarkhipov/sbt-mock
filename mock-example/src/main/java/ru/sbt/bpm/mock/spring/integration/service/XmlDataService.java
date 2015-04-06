@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.spring.utils.ResourceResolver;
 
@@ -25,6 +26,7 @@ import java.util.ArrayList;
  * <p/>
  * Company: SBT - Moscow
  */
+@Service
 public class XmlDataService {
     @Autowired
     private ApplicationContext appContext;
@@ -42,14 +44,19 @@ public class XmlDataService {
     protected void init() throws IOException, SAXException {
         Resource resource = appContext.getResource("/WEB-INF/web.xml");
 
-        File dir = new File(resource.getFile().getParent() + File.separator + "xsd");
+        File xsdDir = new File(resource.getFile().getParent() + File.separator + "xsd");
+        File xsdDataDir = new File(resource.getFile().getParent() + File.separator + "data");
 
         xsdFiles = new ArrayList<File>();
-        searchFiles(dir, xsdFiles, ".xsd");
+        searchFiles(xsdDir, xsdFiles, ".xsd");
+        searchFiles(xsdDataDir, xsdFiles, ".xsd");
 
         SchemaFactory factory =
                 SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
+        /**
+         * ResourceResolver добавлен для корректной работы с XSD с одиннаковыми именами, но в разных директориях
+         */
         factory.setResourceResolver(new ResourceResolver());
         StreamSource sources[] = new StreamSource[xsdFiles.size()];
 

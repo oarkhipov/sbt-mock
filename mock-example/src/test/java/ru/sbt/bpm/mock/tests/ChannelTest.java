@@ -3,6 +3,7 @@ package ru.sbt.bpm.mock.tests;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.custommonkey.xmlunit.*;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class ChannelTest {
 
 //    CRM testing
     @Test
+    @Ignore
     public void testAllMockxsl() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
         String rootpath = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl";
@@ -101,7 +103,10 @@ public class ChannelTest {
         }
         throw new IllegalArgumentException("file is nor driver nor mock");
     }
+
     @Test
+    @Deprecated
+    @Ignore
     public void createTaskTestAMRLiRT_CalculateDebtCapacity2() throws Exception {
         testXSLTmock("CalculateDebtCapacity", "ESB.BPM.NCP.OUT.MOCK", "xml/AMRLiRT/CalculateDebtCapacity/rq2.xml", "xml/AMRLiRT/CalculateDebtCapacity/rs2.xml");
     }

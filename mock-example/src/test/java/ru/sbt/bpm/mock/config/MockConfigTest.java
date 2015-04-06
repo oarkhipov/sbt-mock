@@ -16,9 +16,9 @@ public class MockConfigTest {
 
     @Test
     public void testGeneratorSingletonWithFile() throws Exception {
-        final String fileExpected = "/xml/MockConfigFiles/MockConfig1.xml";
-        MockConfigContainer gen1 = MockConfigContainer.getInstance("/xml/MockConfigFiles/MockConfig1.xml");
-        MockConfigContainer gen2 = MockConfigContainer.getInstance("/xml/MockConfigFiles/MockConfig1.xml");
+        final String fileExpected = "xml/MockConfigFiles/MockConfig.xml";
+        MockConfigContainer gen1 = MockConfigContainer.getInstance("xml/MockConfigFiles/MockConfig.xml");
+        MockConfigContainer gen2 = MockConfigContainer.getInstance("xml/MockConfigFiles/MockConfig.xml");
         assertEquals(gen1, gen2);
 
         System.out.println(gen1.getFilePath() + " || " + gen2.getFilePath());
@@ -30,24 +30,18 @@ public class MockConfigTest {
 
     @Test
     public void testGeneratorSingletonWithDiffFiles() throws Exception {
-        final String fileExpected = "/xml/MockConfigFiles/MockConfig1.xml";
-        MockConfigContainer gen1 = MockConfigContainer.getInstance("/xml/MockConfigFiles/MockConfig1.xml");
+        final String fileExpected = "xml/MockConfigFiles/MockConfig.xml";
+        MockConfigContainer gen1 = MockConfigContainer.getInstance("xml/MockConfigFiles/MockConfig.xml");
 
         System.out.println(gen1.getFilePath());
 
         assertEquals(fileExpected, gen1.getFilePath());
-
-        MockConfigContainer configContainer = MockConfigContainer.getInstance("/xml/MockConfigFiles/MockConfig2.xml");
-
-        System.out.println(configContainer.getFilePath());
-        assertEquals(fileExpected, configContainer.getFilePath());
         System.out.println("================================");
     }
 
     @Test
     public void testGeneratorMockIsNotNull() throws Exception{
-        final String file = this.getClass().getClassLoader().getResource("").getPath() + "\\..\\..\\src\\main\\webapp\\WEB-INF\\MockConfigFiles\\MockConfig1.xml";
-        MockConfigContainer configContainer = MockConfigContainer.getInstance(file);
+        MockConfigContainer configContainer = MockConfigContainer.getInstance("xml/MockConfigFiles/MockConfig.xml");
         configContainer.init();
 
         assertNotNull(configContainer.getConfig());
@@ -58,8 +52,7 @@ public class MockConfigTest {
         final String expectedIN = "<inbound-gateway id=\"jmsinAMRLiRT\" request-channel=\"IN.AMRLiRT.1\" reply-channel=\"OUT.AMRLiRT.1\"/>/n/n<inbound-gateway id=\"jmsinCRM\" request-channel=\"IN2\" reply-channel=\"OUT2\"/>/n/n";
         final String expectedOUT = "<outbound-gateway id=\"jmsoutAMRLiRT\" request-channel=\"IN.AMRLiRT.2\" reply-channel=\"OUT.AMRLiRT.2\"/>/n/n<outbound-gateway id=\"jmsoutCRM\" request-channel=\"IN1\" reply-channel=\"OUT1\"/>/n/n";
 
-        final String file = this.getClass().getClassLoader().getResource("").getPath() + "\\..\\..\\src\\main\\webapp\\WEB-INF\\MockConfigFiles\\MockConfig1.xml";
-        MockConfigContainer configContainer = MockConfigContainer.getInstance(file);
+        MockConfigContainer configContainer = MockConfigContainer.getInstance("xml/MockConfigFiles/MockConfig.xml");
         configContainer.init();
 
         GatewayContextGenerator gcg = new GatewayContextGenerator(configContainer.getConfig().getListOfSystems());

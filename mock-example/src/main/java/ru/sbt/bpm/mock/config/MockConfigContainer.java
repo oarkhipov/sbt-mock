@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import ru.sbt.bpm.mock.config.entities.*;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -47,7 +48,11 @@ public class MockConfigContainer {
         if (this.filePath == null || this.filePath.equals(""))
             throw new IOException("no config file!");
 
-        FileReader fileReader = new FileReader(filePath);
+         File resourceFile = new File(this.getClass().getClassLoader().getResource(filePath).getFile());
+
+        assert resourceFile.exists();
+
+        FileReader fileReader = new FileReader(resourceFile);
         XStream xStream = new XStream(new DomDriver());
 
         // Mapping данных из xml в классы

@@ -110,7 +110,7 @@ public class Input implements LSInput {
     public Input(String publicId, String sysId, InputStream input) {
         this.publicId = publicId;
         this.systemId = sysId;
-        //this.byteStream = input; //до конца не понял принцип работы - надо гуглить. но если расокментить поля кроме inputStream, то работаеть не будет.
+        //this.byteStream = input; //TODO до конца не понял принцип работы - надо гуглить. но если расокментить поля кроме inputStream, то работаеть не будет.
         this.inputStream = new BufferedInputStream(input);
         certifiedText = false;
         //this.characterStream = new InputStreamReader(input);

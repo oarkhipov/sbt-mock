@@ -1,19 +1,12 @@
 <ns1:Envelope xmlns:ns1="http://schemas.xmlsoap.org/soap/envelope/">
-    <ns1:Header xmlns:ns1="http://schemas.xmlsoap.org/soap/envelope/">
-        <ns1:AsyncHeader xmlns:ns1="http://sbrf.ru/prpc/mq/headers">
-            <ns1:message-id>040E19734F554E699404F61FB401C9DC</ns1:message-id>
-            <ns1:request-time>2015-03-11T13:48:54.369Z</ns1:request-time>
-            <ns1:eis-name>urn:sbrfsystems:99-bbmo</ns1:eis-name>
-            <ns1:proc-inst-osb></ns1:proc-inst-osb>
-            <ns1:system-id>urn:sbrfsystems:16-ibso</ns1:system-id>
-            <ns1:operation-name>SrvGetClientReferenceData</ns1:operation-name>
-            <ns1:user-id>ul13mb-vspm1</ns1:user-id>
-            <ns1:user-name>Королев Ярослав Львович</ns1:user-name>
-            <ns1:operation-version>3</ns1:operation-version>
-        </ns1:AsyncHeader>
-        <KD4SoapHeaderV2></KD4SoapHeaderV2>
+    <ns1:Header>
+        <mq:AsyncHeader xmlns:mq="http://sbrf.ru/prpc/mq/headers">
+            <mq:message-id>message-id</mq:message-id>
+            <mq:request-time>2014-12-16T17:55:06.410</mq:request-time>
+            <mq:operation-name>SrvGetClientReferenceData</mq:operation-name>
+        </mq:AsyncHeader>
     </ns1:Header>
-    <ns1:Body xmlns:ns1="http://schemas.xmlsoap.org/soap/envelope/">
+    <ns1:Body>
         <ns1:SrvGetClientReferenceDataRq xmlns:ns1="http://sbrf.ru/prpc/bbmo/10">
             <ns1:ClientId>1188202956469</ns1:ClientId>
             <ns1:BankSubdivision xmlns:ns1="http://sbrf.ru/prpc/bbmo/10">

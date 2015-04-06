@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--                 -->
+<!--                 -->
+<!--     THIS IS COPY OF mockapp-servlet.xml            -->
+<!--                 -->
+<!--                 -->
 <beans:beans xmlns="http://www.springframework.org/schema/integration"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:beans="http://www.springframework.org/schema/beans"
@@ -28,43 +33,43 @@
 
     <!--Настройки подключения к MQ-->
     <!--<beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-        <!--<beans:property name="jndiName" value="jms/ESB.BPM.CF"/>-->
+    <!--<beans:property name="jndiName" value="jms/ESB.BPM.CF"/>-->
     <!--</beans:bean>-->
     <!--<beans:bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-        <!--<beans:property name="jndiName" value="jms/ESB.BPM.IN"/>-->
+    <!--<beans:property name="jndiName" value="jms/ESB.BPM.IN"/>-->
     <!--</beans:bean>-->
     <!--<beans:bean id="outboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-        <!--<beans:property name="jndiName" value="jms/ESB.BPM.OUT"/>-->
+    <!--<beans:property name="jndiName" value="jms/ESB.BPM.OUT"/>-->
     <!--</beans:bean>-->
 
     <!--<beans:bean id="requestDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-        <!--<beans:property name="jndiName" value="jms/ESB.BPM.REQUEST"/>-->
+    <!--<beans:property name="jndiName" value="jms/ESB.BPM.REQUEST"/>-->
     <!--</beans:bean>-->
     <!--<beans:bean id="responseDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-        <!--<beans:property name="jndiName" value="jms/ESB.BPM.RESPONSE"/>-->
+    <!--<beans:property name="jndiName" value="jms/ESB.BPM.RESPONSE"/>-->
     <!--</beans:bean>-->
 
     <!--<jms:inbound-gateway-->
-            <!--id="jmsin"-->
-            <!--request-destination="inboundMockQueue"-->
-            <!--request-channel="MockInboundRequest"-->
-            <!--reply-channel="MockOutboundResponse"-->
-            <!--default-reply-destination="outboundMockQueue"-->
-            <!--header-mapper="defHeaderMapper"-->
-            <!--connection-factory="jndiConnectionFactory"-->
-            <!--/>-->
+    <!--id="jmsin"-->
+    <!--request-destination="inboundMockQueue"-->
+    <!--request-channel="MockInboundRequest"-->
+    <!--reply-channel="MockOutboundResponse"-->
+    <!--default-reply-destination="outboundMockQueue"-->
+    <!--header-mapper="defHeaderMapper"-->
+    <!--connection-factory="jndiConnectionFactory"-->
+    <!--/>-->
 
     <!--<jms:outbound-gateway-->
-            <!--id="jmsout"-->
-            <!--request-destination="requestDriverQueue"-->
-            <!--reply-destination="responseDriverQueue"-->
-            <!--request-channel="DriverOutboundRequest"-->
-            <!--reply-channel="DriverInboundResponse"-->
-            <!--header-mapper="defHeaderMapper"-->
-            <!--connection-factory="jndiConnectionFactory"-->
-            <!--reply-timeout="30000"-->
-            <!--receive-timeout="30000"-->
-            <!--/>-->
+    <!--id="jmsout"-->
+    <!--request-destination="requestDriverQueue"-->
+    <!--reply-destination="responseDriverQueue"-->
+    <!--request-channel="DriverOutboundRequest"-->
+    <!--reply-channel="DriverInboundResponse"-->
+    <!--header-mapper="defHeaderMapper"-->
+    <!--connection-factory="jndiConnectionFactory"-->
+    <!--reply-timeout="30000"-->
+    <!--receive-timeout="30000"-->
+    <!--/>-->
 
     <!-- Входной и выходной каналы Заглушки-->
     <channel id="MockInboundRequest">
@@ -122,6 +127,8 @@
     <channel id="SrvSendApplicationForCBDFProcessingRq"/>
     <channel id="SrvSendNaturalPersonApplicationStateChangeMessageRq"/>
     <channel id="SrvUpdateClientReferenceDataRq"/>
+    <channel id="SrvSendBasicDocumentInformation"/>
+    <channel id="SrvSendBasicDocumentInformationRq"/>
 
     <!-- TODO добавить Router test-->
     <ix:xpath-router id="operationRouter" input-channel="MockInboundRequest" default-output-channel="DefaultOutputChannelIfNoOperationRouted" resolution-required="false">
@@ -132,11 +139,44 @@
         <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="SrvSendApplicationForCBDFProcessingRq"/>
         <ix:mapping value="SrvSendNaturalPersonApplicationProcessStageResult" channel="SrvSendNaturalPersonApplicationStateChangeMessageRq"/>
         <ix:mapping value="SrvUpdateClientReferenceData" channel="SrvUpdateClientReferenceDataRq"/>
+        <ix:mapping value="SrvSendBasicDocumentInformation" channel="SrvSendBasicDocumentInformationRq"/>
     </ix:xpath-router>
 
+    <!--&lt;!&ndash; здесь уже реализация &ndash;&gt;-->
 
+    <!--&lt;!&ndash; BBMO &ndash;&gt;-->
+    <!--<beans:bean id="BBMO_SrvGetClientReferenceDataRq" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">-->
+        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvGetClientReferenceDataRq.xsl"/>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="BBMO_SrvPermitAccountChargeOperation" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">-->
+        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvPermitAccountChargeOperation.xsl"/>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="BBMO_SrvSendApplicationForCBDFProcessingRq" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">-->
+        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvSendApplicationForCBDFProcessingRq.xsl"/>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="BBMO_SrvSendNaturalPersonApplicationStateChangeMessageRq" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">-->
+        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvSendNaturalPersonApplicationStateChangeMessageRq.xsl"/>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="BBMO_SrvUpdateClientReferenceDataRq" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">-->
+        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvUpdateClientReferenceDataRq.xsl"/>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="VIVAT_SrvSendBasicDocumentInformationRq" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">-->
+        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/VIVAT/SrvSendBasicDocumentInformation.xsl"/>-->
+    <!--</beans:bean>-->
 
-    <context:component-scan base-package="ru.sbt.bpm.mock.spring.controller"/>
+    <!--&lt;!&ndash;маппинг трасформеров на каналы&ndash;&gt;-->
+
+    <!--<transformer input-channel="SrvGetClientReferenceDataRq" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvGetClientReferenceDataRq"/>-->
+    <!--<transformer input-channel="SrvPermitAccountChargeOperation" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvPermitAccountChargeOperation"/>-->
+    <!--<transformer input-channel="SrvSendApplicationForCBDFProcessingRq" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvSendApplicationForCBDFProcessingRq"/>-->
+    <!--<transformer input-channel="SrvSendNaturalPersonApplicationStateChangeMessageRq" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvSendNaturalPersonApplicationStateChangeMessageRq"/>-->
+    <!--<transformer input-channel="SrvUpdateClientReferenceDataRq" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvUpdateClientReferenceDataRq"/>-->
+    <!--<transformer input-channel="SrvSendBasicDocumentInformationRq" output-channel="MockOutboundResponse" method="transform" ref="VIVAT_SrvSendBasicDocumentInformationRq"/>-->
+
+    <!--&lt;!&ndash; Если операция в роутере не определена, то она попадает в канал по умолчанию и мы её заворачиваем на выход //TODO нужно сформировать ответ, что всё плохо&ndash;&gt;-->
+    <!--<bridge input-channel="DefaultOutputChannelIfNoOperationRouted" output-channel="MockOutboundResponse"/>-->
+
+    <context:component-scan base-package="ru.sbt.bpm.mock.spring"/>
 
     <beans:bean id="jspResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="prefix" value="/WEB-INF/jsp/"/>
@@ -149,6 +189,7 @@
                 <beans:ref bean="DriverInboundResponse"/>
                 <beans:ref bean="MockOutboundResponse"/>
                 <beans:ref bean="DefaultOutputChannelIfNoOperationRouted"/>
+                <beans:ref bean="SrvGetClientReferenceDataRq"/>
             </util:list>
         </beans:property>
     </beans:bean>
@@ -159,7 +200,7 @@
     <channel id="test"/>
     <!-- Mock gateway to send requests to outbound -->
     <!--<gateway id="systemEntry" default-request-channel="DriverOutboundRequest" default-reply-channel="DriverInboundResponse"-->
-             <!--service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService" />-->
+    <!--service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService" />-->
     <gateway id="systemEntry" default-request-channel="test" default-reply-channel="test"
-    service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService" />
+             service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService" />
 </beans:beans>
