@@ -6,7 +6,10 @@
     <xsl:function name="mock:removeNamespaceAlias">
         <!--Убрать из строки имя неймспейса. Например 'tns:ClientReferenceData' в 'ClientReferenceData'-->
         <xsl:param name="string"/>
-        <xsl:value-of select="replace($string, '^([\w_]+:)?([\w_]+)$', '$2')"/>
+        <xsl:choose>
+            <xsl:when test="count($string)>1"><xsl:value-of select="replace($string[1], '^([\w_]+:)?([\w_]+)$', '$2')"/></xsl:when>
+            <xsl:otherwise><xsl:value-of select="replace($string, '^([\w_]+:)?([\w_]+)$', '$2')"/></xsl:otherwise>
+        </xsl:choose>
     </xsl:function>
 
     <xsl:function name="mock:getNamespaceAlias">

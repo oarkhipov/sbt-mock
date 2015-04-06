@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,6 +50,16 @@ public class SystemTag {
     @Setter
     private IntegrationPoints integrationPoints;
 
+    @XStreamAlias("dependencies")
+    @Setter
+    private Dependencies dependencies;
+
+    public List<Dependency> getDependencies() {
+        if (dependencies!=null) {
+            return dependencies.getDependencies();
+        }
+        return new ArrayList<Dependency>();
+    }
     public List<IntegrationPoint> getListIntegrationPoint() {
         return integrationPoints.getListOfIntegrationPoints();
     }
