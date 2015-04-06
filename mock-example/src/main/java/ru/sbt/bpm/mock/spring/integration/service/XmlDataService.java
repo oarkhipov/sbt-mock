@@ -62,6 +62,7 @@ public class XmlDataService {
 
 //            Add Xsd files to source
         for (int i = 0; i < xsdFiles.size(); i++) {
+//            System.out.println(xsdFiles.get(i).getAbsolutePath());
             sources[i] = new StreamSource(xsdFiles.get(i));
         }
 

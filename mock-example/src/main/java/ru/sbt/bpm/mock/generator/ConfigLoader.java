@@ -32,7 +32,7 @@ public class ConfigLoader {
     }
 
     public void loadConfig(String configFilename) throws Exception {
-        final String file = LocalPaths.getWebInfPath() + "\\MockConfigFiles\\" + configFilename;
+        final String file = LocalPaths.getWebResPath() + "\\MockConfigFiles\\" + configFilename;
         MockConfigContainer gen1 = MockConfigContainer.getInstance(file);
         gen1.init();
 
