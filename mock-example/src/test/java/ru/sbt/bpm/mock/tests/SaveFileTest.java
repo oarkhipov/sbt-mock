@@ -1,6 +1,7 @@
 package ru.sbt.bpm.mock.tests;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class SaveFileTest {
     public SaveFile saveFile;
 
     @Test
+    @Ignore
     public void testPaths() throws IOException {
         saveFile = SaveFile.getInstance(appContext);
         //проверка что в getWebInfPath содерждатся те папки, что мы и ожидаем
@@ -57,6 +59,7 @@ public class SaveFileTest {
      * Возвращает файл, укбедившись что у него есть бэкап.
      */
     @Test
+    @Ignore
     public void checkBackUp() throws Exception {
         checkBackUpChangedFile("\\backup\\AMRLiRT\\xml", "AMRLiRT\\xml\\CalculateDebtCapacityData.xml");
         checkBackUpChangedFile("\\backup\\CRM\\xml", "CRM\\xml\\ForceSignalData.xml");
