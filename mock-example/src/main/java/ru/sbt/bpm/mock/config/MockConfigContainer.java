@@ -30,6 +30,8 @@ public class MockConfigContainer {
     @Getter
     private String filePath = null;
 
+    private static String localWebappPath = System.getProperty("user.dir") + File.separator + "webapp";
+
 
     /**
      * Создание экземпляра объекта из метода getInstance (CoreJava) или из бина с вызовом конструктора (Java EE)
@@ -53,7 +55,7 @@ public class MockConfigContainer {
 
         File resourceFile;
         if(applicationContext == null) {
-            resourceFile = new File(this.getClass().getClassLoader().getResource(filePath).getFile());
+            resourceFile = new File(localWebappPath + File.separator + "resources" + File.separator + filePath);
         }
         else {
             resourceFile = applicationContext.getResource(filePath).getFile();
