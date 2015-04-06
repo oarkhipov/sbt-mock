@@ -21,6 +21,9 @@ import java.io.IOException;
 @Component
 public class MockConfigContainer {
 
+    @Autowired
+    ApplicationContext applicationContext;
+
     @Getter
     private MockConfig config;
 
@@ -33,7 +36,7 @@ public class MockConfigContainer {
      *
      * @param filePath путь до конфига
      */
-    private MockConfigContainer(String filePath) {
+    public MockConfigContainer(String filePath) {
         this.filePath = filePath;
         config = new MockConfig();
     }
@@ -48,7 +51,13 @@ public class MockConfigContainer {
         if (this.filePath == null || this.filePath.equals(""))
             throw new IOException("no config file!");
 
-         File resourceFile = new File(this.getClass().getClassLoader().getResource(filePath).getFile());
+        File resourceFile;
+        if(applicationContext == null) {
+            resourceFile = new File(this.getClass().getClassLoader().getResource(filePath).getFile());
+        }
+        else {
+            resourceFile = applicationContext.getResource(filePath).getFile();
+        }
 
         assert resourceFile.exists();
 
