@@ -74,7 +74,8 @@ public class DriverController {
             ModelMap model) {
         AjaxObject ajaxObject = new AjaxObject();
         try {
-            if (xmlDataService.validate(xml)) {
+            SaveFile saver = SaveFile.getInstance(appContext);
+            if (xmlDataService.validate(xml, saver.TranslateNameToSystem(name))) {
                 ajaxObject.setInfo("Valid!");
             }
         }
@@ -94,9 +95,9 @@ public class DriverController {
             ModelMap model) throws IOException {
         AjaxObject ajaxObject = new AjaxObject();
         try {
-            if (xmlDataService.validate(xml)) {
+            SaveFile saver = SaveFile.getInstance(appContext);
+            if (xmlDataService.validate(xml, saver.TranslateNameToSystem(name))) {
 //                IF Valid - then save
-                SaveFile saver = SaveFile.getInstance(appContext);
                 File dataFile = null;
                 try {
                     String path = saver.TranslateNameToPath(name);
@@ -205,7 +206,8 @@ public class DriverController {
 //        VALIDATE
         AjaxObject ajaxObject = new AjaxObject();
         try {
-            if (xmlDataService.validate(xml)) {
+            SaveFile saver = SaveFile.getInstance(appContext);
+            if (xmlDataService.validate(xml, saver.TranslateNameToSystem(name))) {
 
                 ajaxObject.setInfo("DONE!");
                 Resource xslResource = xmlDataService.getXslResource(name);

@@ -18,12 +18,12 @@
 			</complexContent>
 		</complexType>
 	</element>
-	<element name="SrvGetCreditHistoryScoringRq" type="chs:requestType">
+	<element name="SrvGetCreditHistoryScoringRq" type="chs:RequestType">
 		<annotation>
 			<documentation>Запрос в АС ОКИ: Оценка Кредитной Истории</documentation>
 		</annotation>
 	</element>
-	<element name="SrvGetCreditHistoryScoringRs" type="chs:responseType">
+	<element name="SrvGetCreditHistoryScoringRs" type="chs:ResponseType">
 		<annotation>
 			<documentation>Ответ АС ОКИ: Оценка кредитной истории</documentation>
 		</annotation>

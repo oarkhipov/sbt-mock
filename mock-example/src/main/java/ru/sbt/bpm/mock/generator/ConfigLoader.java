@@ -80,7 +80,7 @@ public class ConfigLoader {
         if (linkedTagQuerry!=null) {
             params.put("tagQuerryToTakeLinkedTag", linkedTagQuerry); //запрос на нахождение linkedTag в запросе
         }
-        if (point.getOperationName() != null & !point.getOperationName().isEmpty()) {
+        if (point.getOperationName() != null && !point.getOperationName().isEmpty()) {
             params.put("operationName", point.getOperationName()); //имя операции. Если не задано - возьмет html-тэг ответа
         }
         params.put("dataFolderPath",getUriFilename(LocalPaths.getWebInfPath()+"\\data"));
@@ -98,7 +98,7 @@ public class ConfigLoader {
         params.put("rootElementName", point.getRqRootElementName());
         params.put("operationsXSD", getUriFilename(LocalPaths.getWebInfPath() + "/xsd/" + systemName + "/" + point.getXsdFile()));
         params.put("xsdBase", system.getRootXSD());
-        if (point.getOperationName() != null & !point.getOperationName().isEmpty()) {
+        if (point.getOperationName() != null && !point.getOperationName().isEmpty()) {
             params.put("operationName", point.getOperationName());
         }
         params.put("dataFolderPath",getUriFilename(LocalPaths.getWebInfPath()+"\\data"));

@@ -27,4 +27,8 @@ public class LinkedTag {
     @Getter
     @Setter
     private String tag;
+
+    public LinkedTag() {
+        nameSpace = null;
+    }
 }

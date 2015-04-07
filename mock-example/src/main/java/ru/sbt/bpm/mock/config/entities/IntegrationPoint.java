@@ -55,11 +55,6 @@ public class IntegrationPoint {
     @Setter
     private LinkedTagSequence linkedTagSequence;
 
-//    @XStreamAlias("mappedTagSequence")
-//    @Getter
-//    @Setter
-//    private MappedTagSequence mappedTagSequence;
-
     @XStreamAlias("protocol")
     @Getter
     @Setter
@@ -96,9 +91,19 @@ public class IntegrationPoint {
     private String dataXml;
 
     @XStreamAlias("dependencies")
-    @Getter
     @Setter
     private Dependencies dependencies;
+
+    public List<Dependency> getDependencies() {
+        if (dependencies!=null) {
+            return dependencies.getDependencies();
+        }
+        return new ArrayList<Dependency>();
+    }
+
+    public IntegrationPoint() {
+        linkedTagSequence = null;
+    }
 
     /**
      * наследование алиасов. Получаем алиасы сверху и сохраняем себе

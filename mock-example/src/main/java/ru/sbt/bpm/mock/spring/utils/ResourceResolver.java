@@ -28,9 +28,13 @@ public class ResourceResolver implements LSResourceResolver {
         try {
             URI newUri = new URI(baseURI);
             String folder = FilenameUtils.getFullPath(newUri.getPath());
-            File f = new File(folder + systemId);
+            String fileSubPath = systemId;
+            if (systemId.startsWith("./")) {
+                fileSubPath=systemId.replace("./", "");
+            }
+            File f = new File(folder + fileSubPath);
             InputStream resourceAsStream = new FileInputStream(f);
-            return new Input(publicId, systemId, resourceAsStream);
+            return new Input(publicId, systemId, resourceAsStream, baseURI);
         } catch (Exception e) {
             e.printStackTrace();
         }

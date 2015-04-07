@@ -3,6 +3,7 @@ package ru.sbt.bpm.mock.spring.utils;
 import org.w3c.dom.ls.LSInput;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Created by sbt-vostrikov-mi on 06.04.2015.
@@ -36,7 +37,19 @@ public class Input implements LSInput {
     }
 
     public InputStream getByteStream() {
-        return byteStream;
+//        return byteStream;
+        synchronized (inputStream) {
+            try {
+                byte[] input = new byte[inputStream.available()];
+                inputStream.read(input);
+                String contents = new String(input);
+                return new ByteArrayInputStream(input);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Exception " + e);
+                return null;
+            }
+        }
     }
 
     public boolean getCertifiedText() {
@@ -110,10 +123,13 @@ public class Input implements LSInput {
     public Input(String publicId, String sysId, InputStream input) {
         this.publicId = publicId;
         this.systemId = sysId;
-//        this.byteStream = input; //TODO до конца не понял принцип работы - надо гуглить. но если расокментить поля кроме inputStream, то работаеть не будет.
+        this.encoding = "UTF-8";
+//        this.byteStream = new BufferedInputStream(input);
+//        this.byteStream = new BufferedInputStream(input); //TODO до конца не понял принцип работы - надо гуглить. но если расокментить поля кроме inputStream, то работаеть не будет.
         this.inputStream = new BufferedInputStream(input);
+//        this.byteStream = new BufferedInputStream(input);
         certifiedText = false;
-        //this.characterStream = new InputStreamReader(input);
+//        this.characterStream = new InputStreamReader(input);
     }
 
     public Input(String publicId, String sysId, InputStream input, String baseURI) {

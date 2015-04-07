@@ -430,6 +430,19 @@ public class SaveFile {
         throw new FileNotFoundException(path);
     }
 
+    public String TranslateNameToSystem(String name) throws FileNotFoundException, IOException{
+        String path;
+        if (!name.contains("_")) {
+            throw new IllegalArgumentException("Error: Illegal Argument \"name\":=\""+name+"\"");
+        }
+        String[] parts = name.split("_");
+        path = parts[0];
+        File file = new File(getWebInfPath()+slash+"data"+slash+path);
+        if (file.exists()) return parts[0];
+
+        throw new FileNotFoundException("Directory [" + parts[0] + "] not found");
+    }
+
     public void writeStringToFile(File f, String data) throws Exception {
         if (!f.exists()) {
             File dir = f.getParentFile();
