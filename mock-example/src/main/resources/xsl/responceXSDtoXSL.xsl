@@ -91,7 +91,7 @@
             <xsl:call-template name="bodyDeclaration"/>
             <xsl:text>&#xA;&#xA;</xsl:text>
 
-            <xsl:variable name="baseContainer" select="$typesList[@name=$rootTypeName or @name=$rootElementName]"/>
+            <xsl:variable name="baseContainer" select="if (count($typesList[@name=$rootTypeName])>0) then ($typesList[@name=$rootTypeName])[1] else ($typesList[@name=$rootElementName])[1]"/>
 
             <!--получаем все тэги, которые могут содержать типы, которые нам нужны и берем только те, что лежат в нашем неймспейсе-->
             <xsl:variable name="typesToTemplate" select="$baseContainer//@*[name()=$atributesWithTypes]/mock:removeNamespaceAlias(.,$localTargetNSAlias)[not(contains(.,':'))]"/>
