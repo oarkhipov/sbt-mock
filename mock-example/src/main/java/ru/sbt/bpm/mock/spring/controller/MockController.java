@@ -59,7 +59,8 @@ public class MockController {
             ModelMap model) {
         AjaxObject ajaxObject = new AjaxObject();
         try {
-            if (xmlDataService.validate(xml)) {
+            SaveFile saver = SaveFile.getInstance(appContext);
+            if (xmlDataService.validate(xml, saver.TranslateNameToSystem(name))) {
                 ajaxObject.setInfo("Valid!");
             }
         }

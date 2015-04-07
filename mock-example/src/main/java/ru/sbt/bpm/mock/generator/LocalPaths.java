@@ -37,6 +37,15 @@ public class LocalPaths {
         return LocalPaths.class.getClassLoader().getResource("xsl").getFile();
     }
 
+    /**
+     * @return путь к папке \src\main\webapp\resourcesMockConfigFiles
+     */
+    public static String getSrcResorcesMockConfigFilesPath() throws NullPointerException {
+        //LocalPaths.class.getClassLoader().getResource("xsl").getFile();
+        //return LocalPaths.class.getClassLoader().getResource("MockConfigFiles").getFile();
+        return getPath() + "\\src\\main\\webapp\\resources\\MockConfigFiles";
+    }
+
     public static String getSrcResorcesInPath() throws NullPointerException {
         File file = new File(LocalPaths.class.getClassLoader().getResource("in").getFile());
         return file.getAbsolutePath();
