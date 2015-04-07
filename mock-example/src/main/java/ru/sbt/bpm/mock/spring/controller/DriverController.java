@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.sbt.bpm.mock.spring.bean.DriverList;
 import ru.sbt.bpm.mock.spring.integration.gateway.ClientService;
 import ru.sbt.bpm.mock.spring.integration.service.XmlDataService;
 import ru.sbt.bpm.mock.spring.utils.AjaxObject;
@@ -25,6 +26,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,15 +48,19 @@ public class DriverController {
     @Autowired
     ClientService clientService;
 
+    @Autowired
+    DriverList driverList;
+
     @RequestMapping("/driver/")
     public String  getDriver(Model model) throws IOException {
         model.addAttribute("type", "Request");
 //        List of drivers
-        File drivers = appContext.getResource("/WEB-INF/driverList.txt").getFile();
-        String string = IOUtils.toString(new FileInputStream(drivers));
-        String[] stringList = string.split("\\r?\\n");
+//        File drivers = appContext.getResource("/WEB-INF/driverList.txt").getFile();
+//        String string = IOUtils.toString(new FileInputStream(drivers));
+//        String[] stringList = string.split("\\r?\\n");
         model.addAttribute("link", "driver");
-        model.addAttribute("list", stringList);
+//        model.addAttribute("list", stringList);
+        model.addAttribute("list", driverList.getList().toArray());
         return "stepForm";
     }
 

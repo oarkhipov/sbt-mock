@@ -181,7 +181,7 @@
     <!-- Если операция в роутере не определена, то она попадает в канал по умолчанию и мы её заворачиваем на выход //TODO нужно сформировать ответ, что всё плохо-->
     <bridge input-channel="DefaultOutputChannelIfNoOperationRouted" output-channel="MockOutboundResponse"/>
 
-    <context:component-scan base-package="ru.sbt.bpm.mock"/>
+    <context:component-scan base-package="ru.sbt.bpm.mock.spring"/>
 
     <beans:bean id="jspResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="prefix" value="/WEB-INF/jsp/"/>

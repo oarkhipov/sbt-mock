@@ -115,9 +115,12 @@ textarea {
 }
 
 .content {
-    /*height: 100%;*/
+    /*override jquery steps*/
     height: auto !important;
+    /*override jquery steps*/
     overflow: visible !important;
+    /*override jquery steps*/
+    position: relative !important;
 }
 
 /*
