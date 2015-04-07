@@ -104,13 +104,7 @@
             <scope>test</scope>
             <type>jar</type>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.apache.activemq</groupId>-->
-            <!--<artifactId>activemq-all</artifactId>-->
-            <!--<version>5.10.0</version>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
-        <!--TESTING-->
+
         <!--Xml comparator-->
         <dependency>
             <groupId>xmlunit</groupId>
@@ -139,8 +133,14 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>jstl-impl</artifactId>
@@ -159,13 +159,17 @@
                     <groupId>javax.servlet.jsp.jstl</groupId>
                 </exclusion>
             </exclusions>
+            <scope>provided</scope>
         </dependency>
+
+        <!-- JSON Serializer-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.2.4</version>
         </dependency>
 
+        <!-- XSLT 2.0-->
         <dependency>
             <groupId>net.sf.saxon</groupId>
             <artifactId>Saxon-HE</artifactId>
@@ -261,12 +265,41 @@
                 </executions>
             </plugin>
 
+            <!-- Exclude trash from WAR-->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
-                    <!--<packagingExcludes>WEB-INF/*.xml</packagingExcludes>-->
+                    <packagingExcludes>WEB-INF/classes/in/</packagingExcludes>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>WS</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>war</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>nojms-test</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>war</goal>
+                        </goals>
+                        <configuration>
+                            <warName>${project.artifactId}-nojms-test</warName>
+                            <webResources>
+                                <resource>
+                                    <directory>src\test\resources\env</directory>
+                                    <targetPath>WEB-INF</targetPath>
+                                    <includes>
+                                        <include>mockapp-servlet.xml</include>
+                                    </includes>
+                                </resource>
+                            </webResources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

@@ -2,5 +2,6 @@
 <project version="4">
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
     <file url="file://$PROJECT_DIR$/src/main/java/ru/sbt/bpm/mock/config/MockConfigContainer.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ru/sbt/bpm/mock/spring/bean/impl/DriverListImpl.java" charset="UTF-8" />
   </component>
 </project>

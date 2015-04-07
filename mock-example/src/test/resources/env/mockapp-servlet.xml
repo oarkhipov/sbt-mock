@@ -133,6 +133,7 @@
     <channel id="SrvSendNaturalPersonApplicationStateChangeMessageRq"/>
     <channel id="SrvUpdateClientReferenceDataRq"/>
     <channel id="SrvSendBasicDocumentInformation"/>
+    <channel id="SrvSendBasicDocumentInformationRq"/>
 
     <!-- TODO добавить Router test-->
     <ix:xpath-router id="operationRouter" input-channel="MockInboundRequest" default-output-channel="DefaultOutputChannelIfNoOperationRouted" resolution-required="false">
@@ -164,9 +165,9 @@
     <beans:bean id="BBMO_SrvUpdateClientReferenceDataRq" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/BBMO/SrvUpdateClientReferenceDataRq.xsl"/>
     </beans:bean>
-    <beans:bean id="VIVAT_SrvSendBasicDocumentInformationRq" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/VIVAT/SrvSendBasicDocumentInformation.xsl"/>
-    </beans:bean>
+    <!--<beans:bean id="VIVAT_SrvSendBasicDocumentInformationRq" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">-->
+        <!--<beans:property name="xslPath" value="/WEB-INF/xsl/VIVAT/SrvSendBasicDocumentInformation.xsl"/>-->
+    <!--</beans:bean>-->
 
     <!--маппинг трасформеров на каналы-->
 
@@ -175,12 +176,12 @@
     <transformer input-channel="SrvSendApplicationForCBDFProcessingRq" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvSendApplicationForCBDFProcessingRq"/>
     <transformer input-channel="SrvSendNaturalPersonApplicationStateChangeMessageRq" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvSendNaturalPersonApplicationStateChangeMessageRq"/>
     <transformer input-channel="SrvUpdateClientReferenceDataRq" output-channel="MockOutboundResponse" method="transform" ref="BBMO_SrvUpdateClientReferenceDataRq"/>
-    <transformer input-channel="SrvSendBasicDocumentInformationRq" output-channel="MockOutboundResponse" method="transform" ref="VIVAT_SrvSendBasicDocumentInformationRq"/>
+    <!--<transformer input-channel="SrvSendBasicDocumentInformationRq" output-channel="MockOutboundResponse" method="transform" ref="VIVAT_SrvSendBasicDocumentInformationRq"/>-->
 
     <!-- Если операция в роутере не определена, то она попадает в канал по умолчанию и мы её заворачиваем на выход //TODO нужно сформировать ответ, что всё плохо-->
     <bridge input-channel="DefaultOutputChannelIfNoOperationRouted" output-channel="MockOutboundResponse"/>
 
-    <context:component-scan base-package="ru.sbt.bpm.mock"/>
+    <context:component-scan base-package="ru.sbt.bpm.mock.spring"/>
 
     <beans:bean id="jspResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="prefix" value="/WEB-INF/jsp/"/>
