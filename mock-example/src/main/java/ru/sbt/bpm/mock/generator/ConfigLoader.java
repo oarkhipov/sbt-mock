@@ -115,6 +115,8 @@ public class ConfigLoader {
             return "KD4";
         } else if (system.getHeaderNamespace().equals("http://sbrf.ru/NCP/esb/envelope/")) {
             return "NCP";
+        } else if (system.getHeaderNamespace().equals("http://schemas.xmlsoap.org/soap/envelope/")) {
+            return "KKMB";
         }
         throw new IllegalArgumentException("Header namespace {"+system.getHeaderNamespace()+"} not implemented");
     }

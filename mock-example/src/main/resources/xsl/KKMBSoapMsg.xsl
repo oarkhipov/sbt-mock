@@ -1,9 +1,9 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
-                xmlns:mock="http://sbrf.ru/mockService">
+        xmlns:msg="http://sbrf.ru/prpc/kkmb/crm/Header/req/10/"
+        xmlns:mock="http://sbrf.ru/mockService" >
     <xsl:import href="XSDToExampleXML.xsl"/>
-    <xsl:include href="NCPSoapRqHeaderXSLTTemplate.xsl"/>
+    <xsl:import href="KKMBHeaderTemplate.xsl"/>
 
     <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
 
@@ -13,26 +13,25 @@
 
     <!--Имя тэга элемента-->
     <xsl:param name="rootElementName" select="''"/>
+    <!--выкидываем ошибку, если нам не дали имя тэга элемента-->
     <xsl:variable name="throwError" select="if ($rootElementName!='') then true() else error(QName('http://sbrf.ru/mockService', 'err01'),'rootElementName not defined')"/>
 
+
     <!-- параметры заголовка -->
-    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410')"/>
-    <!--задано ниже в зависимости от тэга <xsl:param name="operation-name" select="'operation-name'"/>-->
-    <xsl:param name="id" select="null"/>
-    <xsl:param name="correlation-id" select="null"/>
-    <xsl:param name="eis-name" select="null"/>
-    <xsl:param name="system-id" select="null"/>
-    <xsl:param name="operation-version" select="null"/>
-    <xsl:param name="user-id" select="null"/>
-    <xsl:param name="user-name" select="null"/>
+    <xsl:param name="RqUID" select="'String36_123456789012345678901234567'"/>
+    <xsl:param name="RqTm" select="'2014-12-16T17:55:06.410'"/>
+    <xsl:param name="SPName"/>
+    <!--задется не здесь <xsl:param name="OperationName"/>-->
+    <xsl:param name="SystemId"/>
 
     <!--*********************************************-->
     <!--параметры для ипротированного XSDToExampleXML-->
     <!--*********************************************-->
     <!-- Этот параметр нужен когда имя главного элемента запроса не соответвует тому что мы взяли из неймспейса. Тогда его можно указать параметром -->
     <xsl:param name="rootTypeName" select="mock:removeNamespaceAlias(/xsd:schema//xsd:element[@name=$rootElementName]/@type)"/>
-    <!--система--><!--TODO выбрать регуляркой -->
-    <xsl:param name="systemName" select="'CRM'"/>
+
+    <!--система-->
+    <xsl:param name="systemName" select="'KKMB'"/>
 
     <!-- пропускать коменты. false - будут комментарии. true - не будет -->
     <xsl:param name="omitComments" select="'false'"/>
@@ -49,7 +48,7 @@
     <xsl:variable name="xsdNsAlias" select="$operationXsdSchema/namespace::*[.='http://www.w3.org/2001/XMLSchema']/local-name()[string-length()>0][1]"/>
     <!--нэймспейс-->
     <xsl:variable name="targetNS" select="$operationXsdSchema/@targetNamespace"/>
-    <!--алиас неймспейса. Лучше не менрять-->
+    <!--алиас неймспейса. Лучше не менять-->
     <xsl:param name="targetNSAlias" select="'tns'"/>
     <!--алиас неймспейса, который используется в исходной xsd-->
     <xsl:variable name="localTargetNSAlias" select="local-name($operationXsdSchema/namespace::*[.=$targetNS][string-length(local-name(.))>0])"/>
@@ -69,19 +68,22 @@
     <!--список всех типов, которые объявленны в схеме-->
     <xsl:variable name="typesList" select="$operationXsdSchema//(xsd:complexType | xsd:simpleType)/@name | $importFilesDocs/(xsd:complexType | xsd:simpleType)/@name | $includeFilesDocs/(xsd:complexType | xsd:simpleType)/@name"/>
 
+
     <xsl:template match="xsd:schema">
-        <xsl:element name="soap:Envelope">
-            <xsl:call-template name="NCPHeaderExample">
-                <xsl:with-param name="operation-name" select="$operationName"/>
+        <xsl:element name="msg:Message">
+            <xsl:call-template name="KKMBSoapHeader">
+                <xsl:with-param name="RqUID" select="$RqUID"/>
+                <xsl:with-param name="RqTm" select="$RqTm"/>
+                <xsl:with-param name="SPName" select="$SPName"/>
+                <xsl:with-param name="OperationName" select="$operationName"/>
+                <xsl:with-param name="SystemId" select="$SystemId"/>
             </xsl:call-template>
-            <xsl:call-template name="NCPSoapBody"/>
+            <xsl:call-template name="KKMBSoapBody"/>
         </xsl:element>
     </xsl:template>
 
-    <xsl:template name="NCPSoapBody">
-        <xsl:element name="soap:Body">
+    <xsl:template name="KKMBSoapBody">
             <xsl:call-template name="operationBody"/>
-        </xsl:element>
     </xsl:template>
 
     <xsl:template name="operationBody">

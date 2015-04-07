@@ -31,7 +31,8 @@
 
     <!--То, что задавать не нужно-->
     <!--алиас xsd схемы-->
-    <xsl:param name="xsdNsAlias" select="local-name(xsd:schema/namespace::*[.='http://www.w3.org/2001/XMLSchema'])"/>
+    <xsl:variable name="xsdNsAlias" select="$operationXsdSchema/namespace::*[.='http://www.w3.org/2001/XMLSchema']/local-name()[string-length()>0][1]"/>
+
     <!--нэймспейс-->
     <xsl:param name="targetNS" select="xsd:schema/@targetNamespace"/>
     <!--алиас неймспейса. Лучше не менрять-->
@@ -60,11 +61,12 @@
     <xsl:param name="elementsDefinition" select="(//(xsd:element)) | ($operationXsdSchema//(xsd:element)) | ($importFilesDocs/(xsd:element)) | ($includeFilesDocs/(xsd:element))"/>
 
     <!-- список известных типов-->
-    <xsl:variable name="stringTypes" select="tokenize('string xsd:string','\s+')"/>
-    <xsl:variable name="digitTypes" select="tokenize('int xsd:int integer xsd:integer long xsd:long double xsd:double float xsd:float decimal xsd:decimal','\s+')"/>
-    <xsl:variable name="dateTypes" select="tokenize('date xsd:date','\s+')"/>
-    <xsl:variable name="dateTimeTypes" select="tokenize('dateTime xsd:dateTime','\s+')"/>
-    <xsl:variable name="booleanTypes" select="tokenize('boolean xsd:boolean','\s+')"/>
+    <xsl:variable name="stringTypes" select="tokenize(concat('string xsd:string ',$xsdNsAlias,':string'),'\s+')"/>
+    <xsl:variable name="digitTypes" select="tokenize(concat('int xsd:int ',$xsdNsAlias,':int integer xsd:integer ',$xsdNsAlias,':integer long xsd:long ',$xsdNsAlias,':long double xsd:double ',$xsdNsAlias,':double float xsd:float ',$xsdNsAlias,':float decimal xsd:decimal ',$xsdNsAlias,':decimal'),'\s+')"/>
+    <xsl:variable name="dateTypes" select="tokenize(concat('date xsd:date ',$xsdNsAlias,':date'),'\s+')"/>
+    <xsl:variable name="dateTimeTypes" select="tokenize(concat('dateTime xsd:dateTime ',$xsdNsAlias,':dateTime'),'\s+')"/>
+    <xsl:variable name="booleanTypes" select="tokenize(concat('boolean xsd:boolean ',$xsdNsAlias,':boolean'),'\s+')"/>
+    <xsl:variable name="anytypeTypes" select="tokenize(concat('anyType xsd:anyType ',$xsdNsAlias,':anyType'),'\s+')"/>
 
     <!--***********************************-->
     <!--************Функции****************-->
@@ -413,7 +415,7 @@
     </xsl:template>
 
     <!--элемент у которого никаких требований-->
-    <xsl:template match="xsd:element[@type='xsd:anyType'
+    <xsl:template match="xsd:element[@type=$anytypeTypes
                             or (count(./*[local-name()!='annotation'])=0 and not(./@type) and not(./@ref))]" mode="type"  priority="10">
         <xsl:param name="ns" select="$targetNS"/>
         <xsl:param name="nsAlias" select="$targetNSAlias"/>

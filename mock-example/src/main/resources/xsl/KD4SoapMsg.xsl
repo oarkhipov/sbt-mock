@@ -53,7 +53,7 @@
 
     <!--То, что задавать не нужно-->
     <!--алиас xsd схемы-->
-    <xsl:variable name="xsdNsAlias" select="local-name($operationXsdSchema/namespace::*[.='http://www.w3.org/2001/XMLSchema'])"/>
+    <xsl:variable name="xsdNsAlias" select="$operationXsdSchema/namespace::*[.='http://www.w3.org/2001/XMLSchema']/local-name()[string-length()>0][1]"/>
     <!--нэймспейс-->
     <xsl:variable name="targetNS" select="$operationXsdSchema/@targetNamespace"/>
     <!--алиас неймспейса. Лучше не менрять-->
