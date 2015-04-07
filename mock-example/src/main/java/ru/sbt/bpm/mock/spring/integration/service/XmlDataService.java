@@ -57,7 +57,8 @@ public class XmlDataService {
         /**
          * ResourceResolver добавлен для корректной работы с XSD с одиннаковыми именами, но в разных директориях
          */
-        factory.setResourceResolver(new ResourceResolver());
+        //TODO
+//        factory.setResourceResolver(new ResourceResolver());
         StreamSource sources[] = new StreamSource[xsdFiles.size()];
 
 //            Add Xsd files to source

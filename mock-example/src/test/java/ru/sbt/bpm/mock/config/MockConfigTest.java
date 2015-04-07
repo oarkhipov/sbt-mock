@@ -16,9 +16,9 @@ public class MockConfigTest {
 
     @Test
     public void testGeneratorSingletonWithFile() throws Exception {
-        final String fileExpected = "xml/MockConfigFiles/MockConfig.xml";
-        MockConfigContainer gen1 = MockConfigContainer.getInstance("xml/MockConfigFiles/MockConfig.xml");
-        MockConfigContainer gen2 = MockConfigContainer.getInstance("xml/MockConfigFiles/MockConfig.xml");
+        final String fileExpected = "src/test/resources/xml/MockConfigFiles/MockConfig.xml";
+        MockConfigContainer gen1 = MockConfigContainer.getInstance("src/test/resources/xml/MockConfigFiles/MockConfig.xml");
+        MockConfigContainer gen2 = MockConfigContainer.getInstance("src/test/resources/xml/MockConfigFiles/MockConfig.xml");
         assertEquals(gen1, gen2);
 
         System.out.println(gen1.getFilePath() + " || " + gen2.getFilePath());
@@ -30,8 +30,8 @@ public class MockConfigTest {
 
     @Test
     public void testGeneratorSingletonWithDiffFiles() throws Exception {
-        final String fileExpected = "xml/MockConfigFiles/MockConfig.xml";
-        MockConfigContainer gen1 = MockConfigContainer.getInstance("xml/MockConfigFiles/MockConfig.xml");
+        final String fileExpected = "src/test/resources/xml/MockConfigFiles/MockConfig.xml";
+        MockConfigContainer gen1 = MockConfigContainer.getInstance("src/test/resources/xml/MockConfigFiles/MockConfig.xml");
 
         System.out.println(gen1.getFilePath());
 
@@ -41,7 +41,7 @@ public class MockConfigTest {
 
     @Test
     public void testGeneratorMockIsNotNull() throws Exception{
-        MockConfigContainer configContainer = MockConfigContainer.getInstance("xml/MockConfigFiles/MockConfig.xml");
+        MockConfigContainer configContainer = MockConfigContainer.getInstance("src/test/resources/xml/MockConfigFiles/MockConfig.xml");
         configContainer.init();
 
         assertNotNull(configContainer.getConfig());
