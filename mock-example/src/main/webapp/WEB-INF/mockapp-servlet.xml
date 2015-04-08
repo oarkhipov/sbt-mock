@@ -205,7 +205,7 @@
    	<transformer input-channel="ImportRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_ImportRating"/>
     <transformer input-channel="UpdateRating" output-channel="ESB.BPM.NCP.OUT.MOCK" method="transform" ref="FinRep_UpdateRating"/>
     
-    <context:component-scan base-package="ru.sbt.bpm.mock.controller"/>
+    <context:component-scan base-package="ru.sbt.bpm.mock.spring"/>
     
     <beans:bean id="jspResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="prefix" value="/WEB-INF/jsp/"/>

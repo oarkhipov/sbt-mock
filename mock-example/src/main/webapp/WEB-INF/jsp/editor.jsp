@@ -13,7 +13,6 @@
   <meta charset="utf-8">
   <style type="text/css">.CodeMirror {border: 1px solid #eee;} .CodeMirror-scroll { height: 100% }</style>
 </head>
-<body>
 <!--[if IE]>
 <style type="text/css">
   #info {
@@ -36,29 +35,45 @@
 </style>
 <![endif]-->
 <b>Integration point:</b> <i><c:out value="${name}"/></i>
+<c:if test="${link=='mock'}">
+  <br/><b><span style="color: #009900">Linked Tag: </span></b><c:out value="${linkedTag}"/>
+</c:if>
+
 
 <form>
   <div id="codeWrapper" style="float: left">
     <div id="info">&nbsp;</div>
     <div id="error"></div>
     <textarea id="code" name="code"><c:out value="${object}" escapeXml="true"/></textarea>
-    <div style="text-align: right; width: 700px; padding-top: 7px">
-      <input id="reset" type="button" value="Reset to def" style="display: inline"/>
-      <input id="undo" type="button" value="Undo" style="display: inline"/>
-      <input id="redo" type="button" value="Redo" style="display: inline"/>
-      &nbsp;&nbsp;
-      <input id="validate" type="button" value="Validate" style="display: inline"/>
-      <input id="save" type="button" value="Save" style="display: inline"/>
+    <div id="actionButtonsDiv">
       <c:if test="${link=='driver'}">
+        <input id="templateInfo" type="button"  title="<c:out value="${templateInfo}"/>" class="actionButtons"/>
         &nbsp;&nbsp;
+        <style>
+          /*jQuery UI customization*/
+          .ui-tooltip {
+            /*override*/
+            font-size: 70%;
+          }
+        </style>
+      </c:if>
+      <input id="reset" type="button"  title="Load precompiled template" class="actionButtons"/>
+      <input id="undo" type="button" title="Undo" class="actionButtons"/>
+      <input id="redo" type="button" title="Redo" class="actionButtons"/>
+      &nbsp;&nbsp;
+      <input id="validate" type="button" title="Validate" class="actionButtons"/>
+      <input id="save" type="button" title="Save" class="actionButtons"/>
+      &nbsp;&nbsp;
+      <input id="test" type="button" title="Test" class="actionButtons"/>
+      <c:if test="${link=='driver'}">
         <select id="reqList" name="request" style="width: 120px">
           <c:forEach var="entry" items="${list}">
             <option value="${entry}">${entry}</option>
           </c:forEach>
         </select>
-        <input id="listRefresh" type="button" value="Refresh List" style="display: inline"/>
+        <input id="listRefresh" type="button" title="Refresh List" class="actionButtons"/>
         &nbsp;&nbsp;
-        <input id="send" type="button" value="Send" style="display: inline"/>
+        <input id="send" type="button" title="Send" class="actionButtons"/>
       </c:if>
 
     </div>
@@ -70,11 +85,13 @@
   </div>
 </c:if>
 </form>
-<div id="htmlConverter" style="display: none"></div>
 
-<script src="../lib/editor.js"></script>
+<div id="htmlConverter" style="display: none"></div>
+<div id="templateInfo" style="display: none"><c:out value="${templateInfo}"/></div>
+
+<script src="../js/editor.js"></script>
 <c:if test="${link=='driver'}">
-  <script src="../lib/editor_driver.js"></script>
+  <script src="../js/editor_driver.js"></script>
 </c:if>
 <script>
   $().ready(function(){
@@ -85,6 +102,15 @@
   <c:if test="${link=='driver'}">
     var resEditor = CodeMirror.fromTextArea(document.getElementById("resCode"), editorSettings);
     resEditor.setSize("600","400");
+
+  $(function () {
+    $("#templateInfo").tooltip({
+      content: function () {
+        return $(this).prop('title');
+      }
+    });
+  });
+
   </c:if>
 </script>
 

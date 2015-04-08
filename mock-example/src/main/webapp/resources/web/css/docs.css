@@ -25,19 +25,6 @@ h2 { font-size: 120%; }
 h3 { font-size: 110%; }
 article > h2:first-child, section:first-child > h2 { margin-top: 0; }
 
-/*#nav h1 {*/
-  /*margin-right: 12px;*/
-  /*margin-top: 0;*/
-  /*margin-bottom: 2px;*/
-  /*color: #d30707;*/
-  /*letter-spacing: .5px;*/
-/*}*/
-
-/*a, a:visited, a:link, .quasilink {*/
-  /*color: #A21313;*/
-  /*text-decoration: none;*/
-/*}*/
-
 em {
   padding-right: 2px;
 }
@@ -45,20 +32,6 @@ em {
 .quasilink {
   cursor: pointer;
 }
-
-/*article {*/
-  /*max-width: 700px;*/
-  /*margin: 0 0 0 160px;*/
-  /*border-left: 2px solid #E30808;*/
-  /*border-right: 1px solid #ddd;*/
-  /*padding: 30px 50px 100px 50px;*/
-  /*background: white;*/
-  /*z-index: 2;*/
-  /*position: relative;*/
-  /*min-height: 100%;*/
-  /*box-sizing: border-box;*/
-  /*-moz-box-sizing: border-box;*/
-/*}*/
 
 #nav {
   position: fixed;
@@ -135,13 +108,6 @@ em {
 section.first {
   border: none;
   margin-top: 0;
-}
-
-#demolist {
-  position: absolute;
-  right: 5px;
-  top: 5px;
-  z-index: 25;
 }
 
 .bankinfo {

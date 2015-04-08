@@ -3,14 +3,8 @@ package ru.sbt.bpm.mock.tests;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Test;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.messaging.support.GenericMessage;
 import org.w3c.dom.Document;
-import ru.sbt.bpm.mock.utils.XmlUtil;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import ru.sbt.bpm.mock.spring.utils.XmlUtil;
 
 
 /**
