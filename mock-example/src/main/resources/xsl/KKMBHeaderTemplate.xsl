@@ -1,7 +1,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 
-    <xsl:template name="KKMBSOAPNS">http://sbrf.ru/prpc/kkmb/crm/Header/req/10</xsl:template>
+    <xsl:template name="KKMBSOAPNS">http://sbrf.ru/prpc/kkmb/crm/Header/req/10/</xsl:template>
 
     <xsl:template name="KKMBnamespaces">
         <xsl:namespace name="ct" select="'http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10'"/>
@@ -36,7 +36,7 @@
                 <xsd:element name="RqTm" type="dateTime"  minOccurs="0"/>
                 <xsd:element name="SPName" type="ct:String50" minOccurs="0"/>
                 <xsd:element name="OperationName" type="ct:String50" minOccurs="0"/>
-                <xsd:element name="system-id" type="ct:String255" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element name="SystemId" type="ct:String255" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsl:element>
     </xsl:template>

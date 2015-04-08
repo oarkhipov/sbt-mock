@@ -92,7 +92,7 @@ public class GeneratorTest {
         String xml = FileUtils.readFileToString(f);
         if (xml.contains("<xsl:template match=\"/\">")) {
             return false; //драйвер
-        } else if (xml.contains("<xsl:template match=\"soap:Envelope\">")) {
+        } else if (xml.contains("<xsl:template match=\"soap:Envelope\">") || xml.contains("<xsl:template match=\"soap:Message\">")) {
             return true; //заглушка
         }
         throw new IllegalArgumentException("file is nor driver nor mock");

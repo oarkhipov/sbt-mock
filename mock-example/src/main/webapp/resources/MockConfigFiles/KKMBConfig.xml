@@ -88,17 +88,18 @@
         <system name="AMRLiRT"> <!--rating-->
             <pathToXSD>/KKMB/AMRLiRT/ESB</pathToXSD>
             <rootXsd>RatingServiceSchema2.xsd</rootXsd>
-            <headerNamespace>http://schemas.xmlsoap.org/soap/envelope/</headerNamespace>
+            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
             <integrationPoints>
                 <integrationPoint name="calculateRating">
                     <rsRootElementName>calculateResponse</rsRootElementName>
                     <rqRootElementName>calculate</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
-                        <tag ns="http://service.lgd.sberbank.luxoft.com/">calculate</tag>
-                        <tag ns="http://service.lgd.sberbank.luxoft.com/">Model</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                        <tag ns="http://service.scoring.sberbank.luxoft.com/">calculate</tag>
+                        <tag ns="http://service.scoring.sberbank.luxoft.com/">arg0</tag>
+                        <tag ns="http://service.scoring.sberbank.luxoft.com/">RatingId</tag>
                     </linkedTagSequence>
                     <protocol>MQ</protocol>
                     <!--OPTIONAL-->
@@ -112,17 +113,17 @@
         <system name="AMRLiRT"> <!--LGD-->
             <pathToXSD>/KKMB/AMRLiRT/LGD</pathToXSD>
             <rootXsd>AMRLiRT/LGDServiceSchema1.xsd</rootXsd>
-            <headerNamespace>http://schemas.xmlsoap.org/soap/envelope/</headerNamespace>
+            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
             <integrationPoints>
                 <integrationPoint name="calculationLGD">
                     <rsRootElementName>calculationResponse</rsRootElementName>
                     <rqRootElementName>calculationRequest</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
-                        <tag ns="http://service.lgd.sberbank.luxoft.com/">calculate</tag>
-                        <tag ns="http://service.lgd.sberbank.luxoft.com/">Model</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">calculationRequest</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">CRMId</tag>
                     </linkedTagSequence>
                     <protocol>MQ</protocol>
                     <!--OPTIONAL-->
@@ -136,10 +137,10 @@
                     <rqRootElementName>finalizationRequest</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
-                        <tag ns="http://service.lgd.sberbank.luxoft.com/">calculate</tag>
-                        <tag ns="http://service.lgd.sberbank.luxoft.com/">Model</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">finalizationRequest</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">CRMId</tag>
                     </linkedTagSequence>
                     <protocol>MQ</protocol>
                     <!--OPTIONAL-->
@@ -153,17 +154,17 @@
         <system name="AMRLiRT"> <!--limits-->
             <pathToXSD>/KKMB/AMRLiRT/SOAP</pathToXSD>
             <rootXsd>smb.xsd</rootXsd>
-            <headerNamespace>http://schemas.xmlsoap.org/soap/envelope/</headerNamespace>
+            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
             <integrationPoints>
                 <integrationPoint name="limCalculation">
                     <rsRootElementName>limCalculationResponse</rsRootElementName>
                     <rqRootElementName>limCalculationRequest</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
-                        <tag ns="http://service.lgd.sberbank.luxoft.com/">calculate</tag>
-                        <tag ns="http://service.lgd.sberbank.luxoft.com/">Model</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                        <tag ns="http://service.smb.sberbank.luxoft.com/">limCalculationRequest</tag>
+                        <tag ns="http://service.smb.sberbank.luxoft.com/">MaxRiskProfile</tag>
                     </linkedTagSequence>
                     <protocol>MQ</protocol>
                     <!--OPTIONAL-->

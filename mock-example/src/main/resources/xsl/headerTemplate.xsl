@@ -69,6 +69,16 @@
         </xsl:choose>
     </xsl:function>
 
+    <!--Возвращает всего одну строку - неймспейс заголовка-->
+    <xsl:function name="mock:MainRootElement">
+        <xsl:param name="headerType"/>
+        <xsl:choose>
+            <xsl:when test="$headerType='NCP'">soap:Envelope</xsl:when>
+            <xsl:when test="$headerType='KD4'">soap:Envelope</xsl:when>
+            <xsl:when test="$headerType='KKMB'">soap:Message</xsl:when>
+        </xsl:choose>
+    </xsl:function>
+
     <!--часть XSD-схемы для вставки в Data-xsd-->
     <xsl:template name="xsdHeader">
         <xsl:param name="headerType"/>

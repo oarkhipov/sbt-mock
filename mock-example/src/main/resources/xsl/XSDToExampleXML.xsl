@@ -114,7 +114,7 @@
         <xsl:param name="parrentNS" select="/xsd:schema/@targetNamespace"/>
         <xsl:variable name="parrentNSAlias" select="if ($parrentNS=/xsd:schema/@targetNamespace) then $targetNSAlias else $systemName"/>
         <xsl:if test="$debug">
-            <xsl:comment>element</xsl:comment>
+            <xsl:comment>testElement</xsl:comment>
         </xsl:if>
         <xsl:element name="{concat($parrentNSAlias,':',$rootElementName)}" namespace="{$parrentNS}">
             <xsl:if test="$parrentNS!=''">
@@ -143,7 +143,11 @@
                     <xsl:apply-templates select="$typesDefinition[@name=$typeLocalName]" mode="subeseq"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select=".//xsd:sequence/xsd:element" mode="subelement"/> <!--TODO этот запрос может вжать лишние подэлементы - элементы внутри типов элементов -->
+                    <xsl:apply-templates select="./xsd:sequence/xsd:element
+        | ./(xsd:complexContent | xsd:complexType)/xsd:sequence/xsd:element
+        | ./(xsd:complexContent | xsd:complexType)/xsd:sequence/xsd:element
+        | ./xsd:complexType/xsd:complexContent/xsd:sequence/xsd:element
+        | ./xsd:complexType/xsd:complexContent/xsd:extension/xsd:sequence/xsd:element" mode="subelement"/> <!--TODO этот запрос может вжать лишние подэлементы - элементы внутри типов элементов -->
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:element>
@@ -170,8 +174,10 @@
         </xsl:if>
         <xsl:apply-templates select="
         ./xsd:sequence/xsd:element
-        | ./xsd:complexContent/xsd:sequence/xsd:element
-        | ./xsd:complexContent/xsd:extension/xsd:sequence/xsd:element
+        | ./(xsd:complexContent | xsd:complexType)/xsd:sequence/xsd:element
+        | ./(xsd:complexContent | xsd:complexType)/xsd:extension/xsd:sequence/xsd:element
+        | ./xsd:complexType/xsd:complexContent/xsd:sequence/xsd:element
+        | ./xsd:complexType/xsd:complexContent/xsd:extension/xsd:sequence/xsd:element
         " mode="subelement">
             <xsl:with-param name="ns" select="$ns"/>
             <xsl:with-param name="nsAlias" select="$nsAlias"/>
