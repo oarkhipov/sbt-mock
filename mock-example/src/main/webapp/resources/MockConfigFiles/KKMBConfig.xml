@@ -21,7 +21,7 @@
                     <type>Mock</type>
                     <linkedTagSequence>
                         <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</tag>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10">ContractID</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">ContractID</tag>
                     </linkedTagSequence>
                     <protocol>MQ</protocol>
                     <!--OPTIONAL-->
@@ -37,7 +37,7 @@
                     <type>Mock</type>
                     <linkedTagSequence>
                         <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</tag>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10">UpdateContractInfo</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">UpdateContractInfo</tag>
                         <tag ns="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10">ContractID</tag>
                     </linkedTagSequence>
                     <protocol>MQ</protocol>
@@ -178,15 +178,15 @@
         <system name="ECH">
             <pathToXSD>/KKMB/ОКИ/ECH</pathToXSD>
             <rootXsd>ECHOperationElements.xsd</rootXsd>
-            <headerNamespace>http://schemas.xmlsoap.org/soap/envelope/</headerNamespace>
+            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
             <integrationPoints>
                 <integrationPoint name="getCreditHistoryScoring">
                     <rsRootElementName>SrvGetCreditHistoryScoringRs</rsRootElementName>
                     <rqRootElementName>SrvGetCreditHistoryScoringRq</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
                         <tag ns="http://sbrf.ru/prpc/ech/10">SrvGetCreditHistoryScoringRq</tag>
                         <tag ns="http://www.sbrf.ru/CreditHistoryScoring">checkInternal</tag>
                     </linkedTagSequence>
@@ -202,7 +202,7 @@
         <system name="MFO">
             <pathToXSD>/KKMB/MFO</pathToXSD>
             <rootXsd>FrWebServicePort.xml</rootXsd>
-            <headerNamespace>http://schemas.xmlsoap.org/soap/envelope/</headerNamespace>
+            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
             <integrationPoints>
                 <integrationPoint name="GetParticipantFactors">
                     <rsRootElementName>GetParticipantFactorsResp</rsRootElementName>

@@ -1,7 +1,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <xsl:template name="KKMBHeader"
-                  xmlns:msg="http://schemas.xmlsoap.org/soap/envelope/">
+                  xmlns:msg="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">
         <xsl:param name="response"/>
         <xsl:param name="RqUID"/>
         <xsl:param name="RqTm" select="'2014-12-16T17:55:06.410'"/>
@@ -28,15 +28,15 @@
                 <xsl:otherwise><xsl:value-of select="''"/></xsl:otherwise>
             </xsl:choose>
         </msg:SPName>
-        <msg:OperationName><xsl:value-of select="$OperationName"/></msg:OperationName>
-        <msg:system-id>
+        <msg:SystemId>
             <xsl:choose>
                 <xsl:when test="$system-id!=''"><xsl:value-of select="$system-id"/></xsl:when>
                 <xsl:when test="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='system-id']"><xsl:value-of select="//*[local-name()='request' or local-name()='response'][@name=$response]/*[local-name()='SoapHeader']/*[local-name()='system-id']"/></xsl:when>
                 <xsl:when test="/*[local-name()='Message']/*[local-name()='system-id']"><xsl:value-of select="/*[local-name()='Message']/*[local-name()='system-id']"/></xsl:when>
                 <xsl:otherwise><xsl:value-of select="''"/></xsl:otherwise>
             </xsl:choose>
-        </msg:system-id>
+        </msg:SystemId>
+        <msg:OperationName><xsl:value-of select="$OperationName"/></msg:OperationName>
         
     </xsl:template>
 

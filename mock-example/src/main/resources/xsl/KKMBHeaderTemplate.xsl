@@ -1,7 +1,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 
-    <xsl:template name="KKMBSOAPNS">http://sbrf.ru/prpc/kkmb/crm/Header/req/10/</xsl:template>
+    <xsl:template name="KKMBSOAPNS">http://sbrf.ru/prpc/kkmb/crm/Header/req/10</xsl:template>
 
     <xsl:template name="KKMBnamespaces">
         <xsl:namespace name="ct" select="'http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10'"/>

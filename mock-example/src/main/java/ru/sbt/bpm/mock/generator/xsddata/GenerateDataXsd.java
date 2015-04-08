@@ -6,6 +6,7 @@ import ru.sbt.bpm.mock.spring.utils.SaveFile;
 import ru.sbt.bpm.mock.spring.utils.Xsl20Transformer;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -30,6 +31,9 @@ public class GenerateDataXsd {
      * @throws Exception
      */
     public void createDataXSD(String system, String name, String type, Map<String, String> params) throws Exception{
+        if (params == null) params = new HashMap<String, String>();
+        if (type.equals("Request")) params.put("msgType", "request");
+        if (type.equals("Response")) params.put("msgType", "response");
         String xsdXml = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + "\\xsdToDataXsd.xsl",
                 LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);

@@ -83,6 +83,9 @@ public class ConfigLoader {
         if (point.getOperationName() != null && !point.getOperationName().isEmpty()) {
             params.put("operationName", point.getOperationName()); //имя операции. Если не задано - возьмет html-тэг ответа
         }
+        if (point.getRqXsdFile()!= null && !point.getRqXsdFile().isEmpty()) {
+            params.put("altOperationsXSD", getUriFilename(LocalPaths.getWebInfPath() + "/xsd/" + systemName + "/" + point.getRqXsdFile()));
+        }
         params.put("dataFolderPath",getUriFilename(LocalPaths.getWebInfPath()+"\\data"));
         mockCycle(systemName, point.getIntegrationPointName(), headerType, params, null); //point.getMappedTagSequence());
     }
