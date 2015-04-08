@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import ru.sbt.bpm.mock.config.entities.LinkedTag;
+import ru.sbt.bpm.mock.spring.bean.LinkedTagCaption;
 import ru.sbt.bpm.mock.spring.integration.service.TransformService;
 import ru.sbt.bpm.mock.spring.integration.service.XmlDataService;
 import ru.sbt.bpm.mock.spring.utils.AjaxObject;
@@ -31,6 +33,9 @@ public class MockController {
     @Autowired
     ApplicationContext appContext;
 
+    @Autowired
+    LinkedTagCaption linkedTagCaption;
+
     @RequestMapping("/mock/")
     public String  getMock(Model model) {
         model.addAttribute("type", "Response");
@@ -49,6 +54,7 @@ public class MockController {
         catch (Exception e) {
             model.addAttribute("object", e.getMessage());
         }
+        model.addAttribute("linkedTag", linkedTagCaption.getCaption(name));
         return "editor";
     }
 

@@ -13,7 +13,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.sbt.bpm.mock.config.MockConfig;
+import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
+import ru.sbt.bpm.mock.config.entities.LinkedTag;
+import ru.sbt.bpm.mock.config.entities.SystemTag;
 import ru.sbt.bpm.mock.spring.bean.DriverList;
+import ru.sbt.bpm.mock.spring.bean.LinkedTagCaption;
+import ru.sbt.bpm.mock.spring.bean.TemplateEngineBean;
 import ru.sbt.bpm.mock.spring.integration.gateway.ClientService;
 import ru.sbt.bpm.mock.spring.integration.service.XmlDataService;
 import ru.sbt.bpm.mock.spring.utils.AjaxObject;
@@ -26,10 +33,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by sbt-bochev-as on 15.12.2014.
@@ -51,15 +55,17 @@ public class DriverController {
     @Autowired
     DriverList driverList;
 
+    @Autowired
+    TemplateEngineBean templateEngineBean;
+
+    @Autowired
+    MockConfigContainer configContainer;
+
     @RequestMapping("/driver/")
     public String  getDriver(Model model) throws IOException {
         model.addAttribute("type", "Request");
 //        List of drivers
-//        File drivers = appContext.getResource("/WEB-INF/driverList.txt").getFile();
-//        String string = IOUtils.toString(new FileInputStream(drivers));
-//        String[] stringList = string.split("\\r?\\n");
         model.addAttribute("link", "driver");
-//        model.addAttribute("list", stringList);
         model.addAttribute("list", driverList.getList().toArray());
         return "stepForm";
     }
@@ -70,6 +76,7 @@ public class DriverController {
         model.addAttribute("link", "driver");
         model.addAttribute("object", xmlDataService.getDataXml(name));
         model.addAttribute("list", getRequestList(name));
+        model.addAttribute("templateInfo", templateEngineBean.htmlInfo());
         return "editor";
     }
 
@@ -81,7 +88,7 @@ public class DriverController {
         AjaxObject ajaxObject = new AjaxObject();
         try {
             SaveFile saver = SaveFile.getInstance(appContext);
-            if (xmlDataService.validate(xml, saver.TranslateNameToSystem(name))) {
+            if (xmlDataService.validate(templateEngineBean.applyTemplate(xml), saver.TranslateNameToSystem(name))) {
                 ajaxObject.setInfo("Valid!");
             }
         }
@@ -102,7 +109,7 @@ public class DriverController {
         AjaxObject ajaxObject = new AjaxObject();
         try {
             SaveFile saver = SaveFile.getInstance(appContext);
-            if (xmlDataService.validate(xml, saver.TranslateNameToSystem(name))) {
+            if (xmlDataService.validate(templateEngineBean.applyTemplate(xml), saver.TranslateNameToSystem(name))) {
 //                IF Valid - then save
                 File dataFile = null;
                 try {
@@ -213,7 +220,7 @@ public class DriverController {
         AjaxObject ajaxObject = new AjaxObject();
         try {
             SaveFile saver = SaveFile.getInstance(appContext);
-            if (xmlDataService.validate(xml, saver.TranslateNameToSystem(name))) {
+            if (xmlDataService.validate(templateEngineBean.applyTemplate(xml), saver.TranslateNameToSystem(name))) {
 
                 ajaxObject.setInfo("DONE!");
                 Resource xslResource = xmlDataService.getXslResource(name);
@@ -223,7 +230,7 @@ public class DriverController {
                 params.put("name", request);
                 Date date = new Date();
                 params.put("timestamp", dateFormat.format(date));
-                String result = XslTransformer.transform(xslResource, xml, params);
+                String result = XslTransformer.transform(xslResource, templateEngineBean.applyTemplate(xml), params);
 
                 ajaxObject.setData(clientService.invoke(result));
             }

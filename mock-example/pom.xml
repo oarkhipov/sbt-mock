@@ -1,18 +1,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>ru.sbt.bpm.mock</groupId>
-    <artifactId>mock_2_0-interactive</artifactId>
+    <artifactId>mock-interactive</artifactId>
+    <version>0.9.5</version>
     <packaging>war</packaging>
-    <version>0.3</version>
-    <name>mock_2_0-interactive</name>
-    <url>http://maven.apache.org</url>
+
+    <name>mock-interactive</name>
 
     <properties>
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.testTarget>1.7</maven.compiler.testTarget>
         <maven.compiler.testSource>1.7</maven.compiler.testSource>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
     </properties>
+
+
 
     <dependencies>
         <dependency>

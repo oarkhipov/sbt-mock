@@ -1,6 +1,5 @@
 package ru.sbt.bpm.mock.spring.bean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

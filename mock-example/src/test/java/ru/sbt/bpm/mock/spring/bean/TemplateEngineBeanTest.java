@@ -29,7 +29,7 @@ public class TemplateEngineBeanTest {
     @Test
     public void testApplyTemplate() throws Exception {
         assertTrue(
-                ("__" + new SimpleDateFormat("YYYYMMddHHmm").format(new Date()) + "__")
+                ("__" + new SimpleDateFormat("YYMMddHHmmss").format(new Date()) + "__")
                         .equals(templateEngineBean.applyTemplate("__${timestamp12}__"))
         );
     }

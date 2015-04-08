@@ -36,7 +36,7 @@ if(isIE()) {
     urlSearch = location.search;
     if(urlSearch.length>0) {
         clearUrl = location.href.split("\?")[0];
-        location.href = clearUrl + "#?" + urlSearch;
+        location.href = clearUrl + "#" + urlSearch;
     }
     //location.href
 
