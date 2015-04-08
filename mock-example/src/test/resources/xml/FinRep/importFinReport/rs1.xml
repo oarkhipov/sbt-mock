@@ -1,0 +1,57 @@
+<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
+   <soap:Header>
+      <soap:message-id>defaultId</soap:message-id>
+      <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
+      <soap:operation-name>importFinReportRs</soap:operation-name>
+   </soap:Header>
+   <soap:Body>
+      <FinRep:importFinReportRs xmlns:FinRep="http://sbrf.ru/NCP/FinRep/"
+                                xmlns:tns="http://sbrf.ru/NCP/FinRep/ImportFinReportRs/1.03/">
+         <tns:finReportType>string</tns:finReportType>
+         <tns:entityType>string</tns:entityType>
+         <tns:entityId>string</tns:entityId>
+         <tns:errorCode>string</tns:errorCode>
+         <!--optional--><tns:errorMessage>string</tns:errorMessage>
+         <!--optional--><tns:nonCurrentAssetsNFRS>10</tns:nonCurrentAssetsNFRS>
+         <!--optional--><tns:currentAssetsNFRS>10</tns:currentAssetsNFRS>
+         <!--optional--><tns:nonCurrentAssetsIFRS>10</tns:nonCurrentAssetsIFRS>
+         <!--optional--><tns:currentAssetsIFRS>10</tns:currentAssetsIFRS>
+         <!--optional--><tns:longTermDebtNFRS>10</tns:longTermDebtNFRS>
+         <!--optional--><tns:shortTermDebtNFRS>10</tns:shortTermDebtNFRS>
+         <!--optional--><tns:longTermDebtIFRS>10</tns:longTermDebtIFRS>
+         <!--optional--><tns:shortTermDebtIFRS>10</tns:shortTermDebtIFRS>
+         <!--optional--><tns:ebitdaNFRS>10</tns:ebitdaNFRS>
+         <!--optional--><tns:numQuarterNFRS>10</tns:numQuarterNFRS>
+         <!--optional--><tns:ebitdaIFRS>10</tns:ebitdaIFRS>
+         <!--optional--><tns:numQuarterIFRS>10</tns:numQuarterIFRS>
+         <tns:currencyCodeForFR>string</tns:currencyCodeForFR>
+         <tns:currencyRate>10</tns:currencyRate>
+         <tns:futureCurrencyRate>10</tns:futureCurrencyRate>
+         <!--optional--><tns:purpose>string</tns:purpose>
+         <!--optional--><tns:currentYear>10</tns:currentYear>
+         <!--optional--><tns:govDebt>10</tns:govDebt>
+         <!--optional--><tns:creditGovDebt>10</tns:creditGovDebt>
+         <!--optional--><tns:credit>10</tns:credit>
+         <!--optional--><tns:liabilities>10</tns:liabilities>
+         <!--optional--><tns:liabilitiesNextYear>10</tns:liabilitiesNextYear>
+         <!--optional--><tns:income>10</tns:income>
+         <!--optional--><tns:incomeNextYear>10</tns:incomeNextYear>
+         <!--optional--><tns:plannedCredit>10</tns:plannedCredit>
+         <!--optional--><tns:plannedCreditNextYear>10</tns:plannedCreditNextYear>
+         <!--from 0 to unbounded elements --><tns:facilitySB><!--optional--><tns:sbName>string</tns:sbName>
+            <tns:sbcd>10</tns:sbcd>
+            <!--optional--><tns:agrNumber>string</tns:agrNumber>
+            <tns:sbcdt>10</tns:sbcdt>
+            <tns:sbDebtCurrencyRate>10</tns:sbDebtCurrencyRate>
+            <!--optional--><tns:sbDebtCurrencyCode>string</tns:sbDebtCurrencyCode>
+         </tns:facilitySB>
+         <!--from 0 to unbounded elements --><tns:facilityNotSB><!--optional--><tns:name>string</tns:name>
+            <tns:cd>10</tns:cd>
+            <tns:cdt>10</tns:cdt>
+            <!--optional--><tns:date>2015-04-08</tns:date>
+            <tns:debtCurrencyRate>10</tns:debtCurrencyRate>
+            <!--optional--><tns:debtCurrencyCode>string</tns:debtCurrencyCode>
+         </tns:facilityNotSB>
+      </FinRep:importFinReportRs>
+   </soap:Body>
+</soap:Envelope>

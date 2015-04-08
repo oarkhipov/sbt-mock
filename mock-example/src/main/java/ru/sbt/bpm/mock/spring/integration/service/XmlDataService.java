@@ -11,7 +11,6 @@ import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.spring.utils.ResourceResolver;
 
 import javax.annotation.PostConstruct;
-import javax.swing.text.html.parser.Entity;
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;

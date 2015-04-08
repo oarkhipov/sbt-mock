@@ -19,11 +19,13 @@ import org.springframework.integration.MessagingException;
 import org.springframework.integration.core.MessageHandler;
 import org.springframework.integration.core.SubscribableChannel;
 import org.springframework.integration.message.GenericMessage;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author sbt-barinov-sv
  */
+@Service
 public class ChannelService {
     
     @Autowired

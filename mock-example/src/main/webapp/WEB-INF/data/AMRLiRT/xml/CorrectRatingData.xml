@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/correctRatingRs/Data/">
+   <response name="default">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410</request-time>
+         <operation-name>correctRatingRs</operation-name>
+      </SoapHeader>
+      <return>
+         <errorCode>string</errorCode>
+         <errorMessage>string</errorMessage>
+         <listOfAddParameter>
+            <addParameter>
+               <order>10</order>
+               <name>string</name>
+               <value>string</value>
+            </addParameter>
+         </listOfAddParameter>
+      </return>
+   </response>
+   <response name="test1">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410</request-time>
+         <operation-name>correctRatingRs</operation-name>
+      </SoapHeader>
+      <return>
+         <errorCode>string</errorCode>
+      </return>
+   </response>
+</data>

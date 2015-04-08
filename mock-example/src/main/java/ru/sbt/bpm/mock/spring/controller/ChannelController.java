@@ -4,30 +4,30 @@
  * and open the template in the editor.
  */
 
-package ru.sbt.bpm.mock.controller;
+package ru.sbt.bpm.mock.spring.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.sbt.bpm.mock.service.ChannelService;
+import ru.sbt.bpm.mock.spring.integration.service.ChannelService;
 
 
 /**
  *
  * @author sbt-barinov-sv
  */
-@Controller
+//@Controller
+ @Deprecated
 public class ChannelController {
     public static final String PARAM_NAME="object";
-//    @Autowired
-    private ChannelService service;    
+
+    @Autowired
+    private ChannelService service;
     
     @RequestMapping("/channel/")
     public String getChannels(Model model) {

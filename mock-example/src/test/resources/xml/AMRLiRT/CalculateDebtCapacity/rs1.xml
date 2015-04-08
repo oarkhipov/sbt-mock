@@ -1,0 +1,27 @@
+<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
+   <soap:Header>
+      <soap:message-id>defaultId</soap:message-id>
+      <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
+      <soap:operation-name>calculateDCRs</soap:operation-name>
+   </soap:Header>
+   <soap:Body>
+      <AMRLiRT:calculateDCRs xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
+                             xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/">
+         <tns:errorCode>s</tns:errorCode>
+         <!--optional--><tns:errorMessage>string</tns:errorMessage>
+         <tns:crmId>string</tns:crmId>
+         <!--optional--><tns:rmk>10</tns:rmk>
+         <tns:debtCapacity>10</tns:debtCapacity>
+         <!--optional--><tns:rmkInDealCurrency>10</tns:rmkInDealCurrency>
+         <tns:debtCapacityInDealCurrency>10</tns:debtCapacityInDealCurrency>
+         <!--optional--><tns:rmkForNextYear>10</tns:rmkForNextYear>
+         <!--optional--><tns:debtCapacityForNextYear>10</tns:debtCapacityForNextYear>
+         <tns:listOfAddParameter><!--from 0 to unbounded elements --><tns:addParameter><!--optional--><tns:order>10</tns:order>
+               <tns:name>string</tns:name>
+               <tns:value>string</tns:value>
+            </tns:addParameter>
+         </tns:listOfAddParameter>
+         <!--optional--><tns:amMessage>anyString</tns:amMessage>
+      </AMRLiRT:calculateDCRs>
+   </soap:Body>
+</soap:Envelope>

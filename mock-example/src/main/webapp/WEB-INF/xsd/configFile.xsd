@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:mock="http://sbrf.ru/mockService"
+        targetNamespace="http://sbrf.ru/mockService" elementFormDefault="qualified">
+    <element name="MockConfig">
+        <annotation>
+            <documentation>Конифг для генерации заглушек</documentation>
+        </annotation>
+        <complexType>
+            <sequence>
+                <element name="namespace-aliases" type="mock:Namespace-aliases" minOccurs="0" maxOccurs="1"/>
+                <element name="systems" type="mock:Systems"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <complexType name="Namespace-aliases">
+        <annotation>
+            <documentation>Список алиасов для неймспейсов</documentation>
+        </annotation>
+        <sequence>
+            <element name="namespace" type="mock:Namespace-alias" minOccurs="1" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="Systems">
+        <sequence>
+            <element name="system" type="mock:System" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="System">
+        <sequence>
+            <element name="pathToXSD" type="string"/>
+            <element name="rootXsd" type="string"/>
+            <element name="headerNamespace" type="anyURI"/>
+            <element name="namespace-aliases" type="mock:Namespace-aliases" minOccurs="0" maxOccurs="1"/>
+            <element name="integrationPoints" type="mock:IntegrationPoints"/>
+            <element name="dependencies" type="mock:Dependencies" minOccurs="0"/>
+        </sequence>
+        <attribute name="name" type="token"/>
+    </complexType>
+
+    <complexType name="IntegrationPoints">
+        <sequence>
+            <element name="integrationPoint" type="mock:IntegrationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="IntegrationPoint">
+        <sequence>
+            <element name="operationName" type="string" minOccurs="0"/>
+            <element name="rsRootElementName" type="string" minOccurs="0"/>
+            <element name="rqRootElementName" type="string"/>
+            <element name="type">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="Mock"/>
+                        <enumeration value="Driver"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="namespace-aliases" type="mock:Namespace-aliases" minOccurs="0" maxOccurs="1"/>
+            <element name="linkedTagSequence" type="mock:TagSequence" minOccurs="0"/>
+            <element name="mappedTagSequence" type="mock:MappingSequence" minOccurs="0"/>
+            <element name="protocol" type="string"/>
+            <element name="incomeQueue" type="string"  minOccurs="0"/>
+            <element name="outcomeQueue" type="string"  minOccurs="0"/>
+            <element name="xsdFile" type="string"/>
+            <element name="RqXsdFile" type="string"  minOccurs="0"/>
+            <element name="dependencies" type="mock:Dependencies" minOccurs="0"/>
+            <element name="dataXml" type="anyType" minOccurs="0"/>
+        </sequence>
+        <attribute name="name" type="token"/>
+    </complexType>
+
+    <complexType name="MappingSequence">
+        <sequence>
+            <element name="mappedTag" type="mock:MappedTag" minOccurs="1" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="MappedTag">
+        <sequence>
+            <choice>
+                <element name="requestMapping" type="mock:TagSequence"/>
+                <element name="requestQuerryValue" type="string"/>
+            </choice>
+            <element name="responceMapping" type="mock:TagSequence"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="TagSequence">
+        <sequence>
+            <element name="tag" type="mock:Tag" minOccurs="1" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="Dependencies">
+        <sequence>
+            <element name="dependency" type="mock:Dependency" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="Tag">
+        <simpleContent>
+            <extension base="token">
+                <attribute name="ns" type="anyURI" use="optional"/>
+            </extension>
+        </simpleContent>
+    </complexType>
+
+    <complexType name="Dependency">
+        <sequence>
+            <element name="xsdFile" type="string"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="DataFileEntries">
+        <choice>
+            <element name="response" type="anyType" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="request" type="anyType" minOccurs="0" maxOccurs="unbounded"/>
+        </choice>
+    </complexType>
+
+
+    <complexType name="Namespace-alias">
+        <annotation>
+            <documentation>алиас для неймспейса</documentation>
+        </annotation>
+        <simpleContent>
+            <extension base="anyURI">
+                <attribute name="name" type="token"/>
+            </extension>
+        </simpleContent>
+    </complexType>
+</schema>

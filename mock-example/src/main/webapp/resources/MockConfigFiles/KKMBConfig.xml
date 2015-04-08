@@ -1,0 +1,248 @@
+<MockConfig xmlns="http://sbrf.ru/mockService">
+    <systems>
+        <system name="CRM">
+            <pathToXSD>/KKMB/CRM</pathToXSD>
+            <rootXsd>kkmb-crm-header-req.xsd</rootXsd>
+            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
+            <integrationPoints>
+                <integrationPoint name="ExportContractInfo">
+                    <rqRootElementName>ContractInfo</rqRootElementName>
+                    <type>Driver</type>
+                    <protocol>MQ</protocol>
+                    <!--OPTIONAL-->
+                    <incomeQueue>Q.KKMB.FROM.CRMORG</incomeQueue>
+                    <!--OPTIONAL-->
+                    <outcomeQueue>Q.KKMB.TO.CRMORG.SYNCRESP</outcomeQueue>
+                    <xsdFile>kkmb-crm-exportcontract-req.xsd</xsdFile>
+                </integrationPoint>
+                <integrationPoint name="GetParticipantInfo">
+                    <rsRootElementName>ParticipantInfo</rsRootElementName>
+                    <rqRootElementName>ContractID</rqRootElementName>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10">ContractID</tag>
+                    </linkedTagSequence>
+                    <protocol>MQ</protocol>
+                    <!--OPTIONAL-->
+                    <incomeQueue>Q.KKMB.TO.CRMORG</incomeQueue>
+                    <!--OPTIONAL-->
+                    <outcomeQueue>Q.KKMB.FROM.CRMORG.SYNCRESP</outcomeQueue>
+                    <xsdFile>kkmb-crm-getparticipant-resp.xsd</xsdFile>
+                    <RqXsdFile>kkmb-crm-getparticipant-req.xsd</RqXsdFile>
+                </integrationPoint>
+                <integrationPoint name="UpdateContractInfo">
+                    <rsRootElementName>UpdateContractInfo</rsRootElementName>
+                    <rqRootElementName>UpdateContractInfo</rqRootElementName>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10">UpdateContractInfo</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10">ContractID</tag>
+                    </linkedTagSequence>
+                    <protocol>MQ</protocol>
+                    <!--OPTIONAL-->
+                    <incomeQueue>Q.KKMB.TO.CRMORG</incomeQueue>
+                    <!--OPTIONAL-->
+                    <outcomeQueue>Q.KKMB.FROM.CRMORG.SYNCRESP</outcomeQueue>
+                    <xsdFile>kkmb-crm-updatecontract-resp.xsd</xsdFile>
+                    <RqXsdFile>kkmb-crm-updatecontract-req.xsd</RqXsdFile>
+                </integrationPoint>
+                <integrationPoint name="ContractClose">
+                    <rqRootElementName>ContractClose</rqRootElementName>
+                    <type>Driver</type>
+                    <protocol>MQ</protocol>
+                    <!--OPTIONAL-->
+                    <incomeQueue>Q.KKMB.FROM.CRMORG</incomeQueue>
+                    <!--OPTIONAL-->
+                    <outcomeQueue>Q.KKMB.TO.CRMORG.SYNCRESP</outcomeQueue>
+                    <xsdFile>kkmb-crm-closecontract-req.xsd</xsdFile>
+                </integrationPoint>
+                <integrationPoint name="ReferenceData">
+                    <rqRootElementName>ReferenceData</rqRootElementName>
+                    <type>Driver</type>
+                    <protocol>MQ</protocol>
+                    <!--OPTIONAL-->
+                    <incomeQueue>Q.KKMB.FROM.CRMORG</incomeQueue>
+                    <!--OPTIONAL-->
+                    <outcomeQueue>Q.KKMB.TO.CRMORG.SYNCRESP</outcomeQueue>
+                    <xsdFile>kkmb-crm-referencedata-req.xsd</xsdFile>
+                </integrationPoint>
+                <integrationPoint name="ProblemGroup">
+                    <rqRootElementName>ProblemGroup</rqRootElementName>
+                    <type>Driver</type>
+                    <protocol>MQ</protocol>
+                    <!--OPTIONAL-->
+                    <incomeQueue>Q.KKMB.FROM.CRMORG</incomeQueue>
+                    <!--OPTIONAL-->
+                    <outcomeQueue>Q.KKMB.TO.CRMORG.SYNCRESP</outcomeQueue>
+                    <xsdFile>kkmb-crm-problemgroup-req.xsd</xsdFile>
+                </integrationPoint>
+            </integrationPoints>
+            <dependencies>
+                <dependency>
+                    <xsdFile>kkmb-crm-commontypes.xsd</xsdFile>
+                </dependency>
+            </dependencies>
+        </system>
+        <system name="AMRLiRT"> <!--rating-->
+            <pathToXSD>/KKMB/AMRLiRT/ESB</pathToXSD>
+            <rootXsd>RatingServiceSchema2.xsd</rootXsd>
+            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
+            <integrationPoints>
+                <integrationPoint name="calculateRating">
+                    <rsRootElementName>calculateResponse</rsRootElementName>
+                    <rqRootElementName>calculate</rqRootElementName>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">calculate</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">Model</tag>
+                    </linkedTagSequence>
+                    <protocol>MQ</protocol>
+                    <!--OPTIONAL-->
+                    <incomeQueue>ESB.FED.KKMB.IN</incomeQueue>
+                    <!--OPTIONAL-->
+                    <outcomeQueue>ESB.FED.KKMB.OUT</outcomeQueue>
+                    <xsdFile>RatingServiceSchema2.xsd</xsdFile>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+        <system name="AMRLiRT"> <!--LGD-->
+            <pathToXSD>/KKMB/AMRLiRT/LGD</pathToXSD>
+            <rootXsd>AMRLiRT/LGDServiceSchema1.xsd</rootXsd>
+            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
+            <integrationPoints>
+                <integrationPoint name="calculationLGD">
+                    <rsRootElementName>calculationResponse</rsRootElementName>
+                    <rqRootElementName>calculationRequest</rqRootElementName>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">calculate</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">Model</tag>
+                    </linkedTagSequence>
+                    <protocol>MQ</protocol>
+                    <!--OPTIONAL-->
+                    <incomeQueue>ESB.FED.KKMB.IN</incomeQueue>
+                    <!--OPTIONAL-->
+                    <outcomeQueue>ESB.FED.KKMB.OUT</outcomeQueue>
+                    <xsdFile>AMRLiRT/LGDServiceSchema1.xsd</xsdFile>
+                </integrationPoint>
+                <integrationPoint name="finalizationLGD">
+                    <rsRootElementName>finalizationResponse</rsRootElementName>
+                    <rqRootElementName>finalizationRequest</rqRootElementName>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">calculate</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">Model</tag>
+                    </linkedTagSequence>
+                    <protocol>MQ</protocol>
+                    <!--OPTIONAL-->
+                    <incomeQueue>ESB.FED.KKMB.IN</incomeQueue>
+                    <!--OPTIONAL-->
+                    <outcomeQueue>ESB.FED.KKMB.OUT</outcomeQueue>
+                    <xsdFile>AMRLiRT/LGDServiceSchema1.xsd</xsdFile>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+        <system name="AMRLiRT"> <!--limits-->
+            <pathToXSD>/KKMB/AMRLiRT/SOAP</pathToXSD>
+            <rootXsd>smb.xsd</rootXsd>
+            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
+            <integrationPoints>
+                <integrationPoint name="limCalculation">
+                    <rsRootElementName>limCalculationResponse</rsRootElementName>
+                    <rqRootElementName>limCalculationRequest</rqRootElementName>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">calculate</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">Model</tag>
+                    </linkedTagSequence>
+                    <protocol>MQ</protocol>
+                    <!--OPTIONAL-->
+                    <incomeQueue>ESB.FED.KKMB.IN</incomeQueue>
+                    <!--OPTIONAL-->
+                    <outcomeQueue>ESB.FED.KKMB.OUT</outcomeQueue>
+                    <xsdFile>smb.xsd</xsdFile>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+        <system name="ECH">
+            <pathToXSD>/KKMB/ОКИ/ECH</pathToXSD>
+            <rootXsd>ECHOperationElements.xsd</rootXsd>
+            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
+            <integrationPoints>
+                <integrationPoint name="getCreditHistoryScoring">
+                    <rsRootElementName>SrvGetCreditHistoryScoringRs</rsRootElementName>
+                    <rqRootElementName>SrvGetCreditHistoryScoringRq</rqRootElementName>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
+                        <tag ns="http://sbrf.ru/prpc/ech/10">SrvGetCreditHistoryScoringRq</tag>
+                        <tag ns="http://www.sbrf.ru/CreditHistoryScoring">checkInternal</tag>
+                    </linkedTagSequence>
+                    <protocol>MQ</protocol>
+                    <!--OPTIONAL-->
+                    <incomeQueue>ESB.CF.KKMB.IN</incomeQueue>
+                    <!--OPTIONAL-->
+                    <outcomeQueue>ESB.CF.KKMB.OUT</outcomeQueue>
+                    <xsdFile>scoring.xsd</xsdFile>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+        <system name="MFO">
+            <pathToXSD>/KKMB/MFO</pathToXSD>
+            <rootXsd>FrWebServicePort.xml</rootXsd>
+            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
+            <integrationPoints>
+                <integrationPoint name="GetParticipantFactors">
+                    <rsRootElementName>GetParticipantFactorsResp</rsRootElementName>
+                    <rqRootElementName>GetParticipantFactorsReq</rqRootElementName>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
+                        <tag ns="http://sbrf.ru/prpc/ech/10">SrvGetCreditHistoryScoringRq</tag>
+                        <tag ns="http://www.sbrf.ru/CreditHistoryScoring">checkInternal</tag>
+                    </linkedTagSequence>
+                    <protocol>SOAP</protocol>
+                    <xsdFile>FrWebServicePort.xml</xsdFile>
+                </integrationPoint>
+                <integrationPoint name="GetGCFactors">
+                    <rsRootElementName>GetGCFactorsResp</rsRootElementName>
+                    <rqRootElementName>GetGCFactorsReq</rqRootElementName>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
+                        <tag ns="http://sbrf.ru/prpc/ech/10">SrvGetCreditHistoryScoringRq</tag>
+                        <tag ns="http://www.sbrf.ru/CreditHistoryScoring">checkInternal</tag>
+                    </linkedTagSequence>
+                    <protocol>SOAP</protocol>
+                    <xsdFile>FrWebServicePort.xml</xsdFile>
+                </integrationPoint>
+                <integrationPoint name="GetProjectFactors">
+                    <rsRootElementName>GetProjectFactorsResp</rsRootElementName>
+                    <rqRootElementName>GetProjectFactorsReq</rqRootElementName>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
+                        <tag ns="http://sbrf.ru/prpc/ech/10">SrvGetCreditHistoryScoringRq</tag>
+                        <tag ns="http://www.sbrf.ru/CreditHistoryScoring">checkInternal</tag>
+                    </linkedTagSequence>
+                    <protocol>SOAP</protocol>
+                    <xsdFile>FrWebServicePort.xml</xsdFile>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+    </systems>
+</MockConfig>

@@ -3,7 +3,6 @@ package ru.sbt.bpm.mock.spring.utils;
 import org.w3c.dom.ls.LSInput;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Created by sbt-vostrikov-mi on 06.04.2015.
