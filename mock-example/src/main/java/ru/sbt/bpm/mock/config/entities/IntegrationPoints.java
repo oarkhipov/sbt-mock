@@ -8,6 +8,7 @@ import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Created by sbt-hodakovskiy-da on 30.01.2015.
@@ -23,4 +24,14 @@ public class IntegrationPoints {
     @Getter
     @Setter
     private List<IntegrationPoint> listOfIntegrationPoints = new ArrayList<IntegrationPoint>();
+
+    public IntegrationPoint getIntegrationPointByName(String name) {
+        for (IntegrationPoint integrationPoint : getListOfIntegrationPoints()) {
+            if(integrationPoint.getIntegrationPointName().equals(name)) {
+                return integrationPoint;
+            }
+        }
+
+        throw new NoSuchElementException("No Integration point with name [" + name + "]");
+    }
 }

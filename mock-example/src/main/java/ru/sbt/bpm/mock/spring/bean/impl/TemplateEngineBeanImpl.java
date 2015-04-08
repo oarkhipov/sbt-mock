@@ -33,8 +33,9 @@ public class TemplateEngineBeanImpl implements TemplateEngineBean {
         Map<String, Object> model = new HashMap<String, Object>();
 
 
-        model.put("timestamp12",new SimpleDateFormat("YYYYMMddHHmm").format(new Date()));
-        model.put("timestamp14",new SimpleDateFormat("YYYYMMddHHmmss").format(new Date()));
+        model.put("timestamp10",new SimpleDateFormat("yyMMddHHmm").format(new Date()));
+        model.put("timestamp12",new SimpleDateFormat("yyMMddHHmmss").format(new Date()));
+        model.put("timestamp15",new SimpleDateFormat("yyMMddHHmmssSSS").format(new Date()));
         model.put("random100", new Random().nextInt(100));
         model.put("random1000", new Random().nextInt(1000));
 
@@ -51,9 +52,10 @@ public class TemplateEngineBeanImpl implements TemplateEngineBean {
     }
 
     public String htmlInfo() {
-        return "<b>Переменные шаблонизатора</b>" +
-                "<b>${timestamp12}</b> - печатает timestamp в формате YYYYMMddHHmm<br/>" +
-                "<b>${timestamp14}</b> - печатает timestamp в формате YYYYMMddHHmmss<br/>" +
+        return "<b>Переменные шаблонизатора:</b><br/>" +
+                "<b>${timestamp10}</b> - печатает timestamp в формате yyMMddHHmm<br/>" +
+                "<b>${timestamp12}</b> - печатает timestamp в формате yyMMddHHmmss<br/>" +
+                "<b>${timestamp15}</b> - печатает timestamp в формате yyMMddHHmmssSSS (with milliseconds)<br/>" +
                 "<b>${random100}</b> - печатает случайное число от 0 до 100<br/>" +
                 "<b>${random1000}</b> - печатает случайное число от 0 до 1000";
     }

@@ -13,7 +13,6 @@
   <meta charset="utf-8">
   <style type="text/css">.CodeMirror {border: 1px solid #eee;} .CodeMirror-scroll { height: 100% }</style>
 </head>
-<body>
 <!--[if IE]>
 <style type="text/css">
   #info {
@@ -36,6 +35,10 @@
 </style>
 <![endif]-->
 <b>Integration point:</b> <i><c:out value="${name}"/></i>
+<c:if test="${link=='mock'}">
+  <br/><b><span style="color: #009900">Linked Tag: </span></b><c:out value="${linkedTag}"/>
+</c:if>
+
 
 <form>
   <div id="codeWrapper" style="float: left">
@@ -43,8 +46,17 @@
     <div id="error"></div>
     <textarea id="code" name="code"><c:out value="${object}" escapeXml="true"/></textarea>
     <div id="actionButtonsDiv">
-      <input id="templateInfo" type="button"  title="TemplateInfo" class="actionButtons"/>
-      &nbsp;&nbsp;
+      <c:if test="${link=='driver'}">
+        <input id="templateInfo" type="button"  title="<c:out value="${templateInfo}"/>" class="actionButtons"/>
+        &nbsp;&nbsp;
+        <style>
+          /*jQuery UI customization*/
+          .ui-tooltip {
+            /*override*/
+            font-size: 70%;
+          }
+        </style>
+      </c:if>
       <input id="reset" type="button"  title="Load precompiled template" class="actionButtons"/>
       <input id="undo" type="button" title="Undo" class="actionButtons"/>
       <input id="redo" type="button" title="Redo" class="actionButtons"/>
@@ -73,7 +85,9 @@
   </div>
 </c:if>
 </form>
+
 <div id="htmlConverter" style="display: none"></div>
+<div id="templateInfo" style="display: none"><c:out value="${templateInfo}"/></div>
 
 <script src="../js/editor.js"></script>
 <c:if test="${link=='driver'}">
@@ -88,6 +102,15 @@
   <c:if test="${link=='driver'}">
     var resEditor = CodeMirror.fromTextArea(document.getElementById("resCode"), editorSettings);
     resEditor.setSize("600","400");
+
+  $(function () {
+    $("#templateInfo").tooltip({
+      content: function () {
+        return $(this).prop('title');
+      }
+    });
+  });
+
   </c:if>
 </script>
 

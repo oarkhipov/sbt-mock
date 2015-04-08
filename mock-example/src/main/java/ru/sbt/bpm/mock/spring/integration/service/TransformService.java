@@ -12,12 +12,14 @@ import javax.xml.transform.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer;
 
 /**
  *
  * @author sbt-barinov-sv
  */
+@Service
 public class TransformService {
     @Autowired
     private ApplicationContext appContext;

@@ -47,6 +47,10 @@
 
   <link rel="stylesheet" href="../css/editor.css">
   <link rel="stylesheet" href="../css/docs.css">
+
+  <%--Tooltip--%>
+  <link rel="stylesheet" href="../css/jquery-ui.css">
+  <script src="../js/jquery-ui.min.js"></script>
 </head>
 <body>
 <!--[if lt IE 7]>
