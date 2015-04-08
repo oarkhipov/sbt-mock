@@ -37,6 +37,9 @@ public class ImportXSD {
         System.out.println("Используется дирректория {"+baseDir.getAbsolutePath()+"}" );
         importFile(baseDir.getAbsolutePath() + File.separator + system.getRootXSD(), formSubPath(system.getRootXSD(), systemName));
         importFile(baseDir.getAbsolutePath() + File.separator + point.getXsdFile(), formSubPath(point.getXsdFile(), systemName));
+        if (point.getRqXsdFile()!= null && !point.getRqXsdFile().isEmpty()) {
+            importFile(baseDir.getAbsolutePath() + File.separator + point.getRqXsdFile(), formSubPath(point.getRqXsdFile(), systemName));
+        }
         if (system!= null ) {
             for (Dependency dependency : system.getDependencies()) {
                 importFile(baseDir.getAbsolutePath() + File.separator + dependency.getXsdFile(), formSubPath(dependency.getXsdFile(), systemName));
