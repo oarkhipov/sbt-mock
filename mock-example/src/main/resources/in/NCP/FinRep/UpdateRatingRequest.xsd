@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:frct="http://sbrf.ru/NCP/FinRep/CommonTypes/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/" targetNamespace="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/"
+    elementFormDefault="qualified">
+    <xsd:import namespace="http://sbrf.ru/NCP/FinRep/CommonTypes/" schemaLocation="CommonTypes.xsd" />
+    <xsd:complexType name="Employee">
+        <xsd:sequence>
+            <xsd:element name="login" type="frct:string50" />
+            <xsd:element name="lastName" type="frct:string50" />
+            <xsd:element name="firstName" type="frct:string50" />
+            <xsd:element name="middleName" type="frct:string50" minOccurs="0" />
+            <xsd:element name="division" type="frct:string50" />
+            <xsd:element name="divisionCode" type="frct:string50" />
+            <xsd:element name="jobTitle" type="frct:string300" minOccurs="0" />
+            <xsd:element name="role" type="frct:string30" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="RatingAjustment">
+        <xsd:sequence>
+            <xsd:element name="ajustmentDate" type="xsd:dateTime" />
+            <xsd:element name="ajustedValue" type="xsd:int" />
+            <xsd:element name="ajustmetReason" type="frct:string250" />
+            <xsd:element name="comments" type="frct:string255" minOccurs="0" />
+            <xsd:element name="status" type="frct:string30" />
+            <xsd:element name="employeeForAjustment" type="tns:Employee" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ListOfRatingAjustment">
+        <xsd:sequence>
+            <xsd:element name="ratingAjustment" type="tns:RatingAjustment" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+	<xsd:complexType name="AddParameter">
+		<xsd:sequence>
+			<xsd:element name="order" type="xsd:int"/>
+			<xsd:element name="name"  type="frct:string255"/>
+			<xsd:element name="value" type="frct:string255"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfAddParameter">
+		<xsd:sequence>
+			<xsd:element name="addParameter" type="tns:AddParameter" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+    <xsd:complexType name="CalculatedFactor">
+        <xsd:sequence>
+            <xsd:element name="code" type="frct:string30" />
+            <xsd:element name="name" type="frct:string255" />
+            <xsd:element name="value" type="frct:string255" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ListOfCalculatedFactor">
+        <xsd:sequence>
+            <xsd:element name="calculatedFactor" type="tns:CalculatedFactor" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ResultRating">
+        <xsd:sequence>
+            <xsd:element name="isPrimary" type="xsd:boolean" />
+            <xsd:element name="name" type="frct:string255" />
+            <xsd:element name="value" type="xsd:int" />
+            <xsd:element name="type" type="frct:string30" minOccurs="0" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ListOfResultRating">
+        <xsd:sequence>
+            <xsd:element name="resultRating" type="tns:ResultRating" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="RatingCalc">
+        <xsd:sequence>
+            <xsd:element name="ratingCalcId" type="frct:string15" />
+            <xsd:element name="modelName" type="frct:string100" />
+            <xsd:element name="modelIntegrationId" type="frct:string30" />
+            <xsd:element name="dateCalc" type="xsd:dateTime" minOccurs="0" />
+            <xsd:element name="calcValue" type="xsd:int" minOccurs="0" />
+            <xsd:element name="listOfRatingAjustment" type="tns:ListOfRatingAjustment" minOccurs="0" />
+            <xsd:element name="employeeForCalc" type="tns:Employee" minOccurs="0" />
+            <xsd:element name="listOfResultRating" type="tns:ListOfResultRating" minOccurs="0" />
+            <xsd:element name="listOfCalculatedFactor" type="tns:ListOfCalculatedFactor" minOccurs="0" />
+            <xsd:element name="listOfAddParameter" type="tns:ListOfAddParameter" minOccurs="0" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ListOfRatingCalc">
+        <xsd:sequence>
+            <xsd:element name="ratingCalc" type="tns:RatingCalc" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Rating">
+        <xsd:sequence>
+            <xsd:element name="ratingId" type="frct:string15" />
+            <xsd:element name="finalRatingValue" type="xsd:int" minOccurs="0" />
+            <xsd:element name="intermediateRatingValue" type="xsd:int" minOccurs="0" />
+            <xsd:element name="ajustedRatingValue" type="xsd:int" minOccurs="0" />
+            <xsd:element name="pd" type="xsd:decimal" minOccurs="0" />
+            <xsd:element name="status" type="frct:string15" />
+            <xsd:element name="approvalDate" type="xsd:dateTime" minOccurs="0" />
+            <xsd:element name="calculationDate" type="xsd:dateTime" minOccurs="0" />
+            <xsd:element name="ajustmentDate" type="xsd:dateTime" minOccurs="0" />
+            <xsd:element name="modelName" type="frct:string100" minOccurs="0"/>
+            <xsd:element name="modelIntegrationId" type="frct:string30" minOccurs="0"/>
+            <xsd:element name="ratingName" type="frct:string255" minOccurs="0"/>
+            <xsd:element name="ratingType" type="frct:string30" minOccurs="0"/>
+            <xsd:element name="employeeForApprove" type="tns:Employee" minOccurs="0"/>
+            <xsd:element name="listOfRatingCalc" type="tns:ListOfRatingCalc" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateRatingRequest">
+        <xsd:sequence>
+            <xsd:element name="rating" type="tns:Rating" />
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
