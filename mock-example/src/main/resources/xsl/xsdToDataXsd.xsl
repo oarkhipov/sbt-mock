@@ -106,7 +106,7 @@
             </xsl:attribute>
             <xsl:attribute name="elementFormDefault">qualified</xsl:attribute>
             <!--<xsl:for-each select="$operationXsdSchema/namespace::*[.!=$targetNS]">-->
-                <!--<xsl:comment><xsl:value-of select="local-name(.)"/>=<xsl:value-of select="."/></xsl:comment>-->
+            <!--<xsl:comment><xsl:value-of select="local-name(.)"/>=<xsl:value-of select="."/></xsl:comment>-->
             <!--</xsl:for-each>-->
 
             <xsl:apply-templates select="$operationXsdSchema/xsd:import" mode="imports"/>
@@ -182,7 +182,7 @@
                 <xsl:apply-templates select="./*" mode="copyMainTypeContainer"/>
             </xsl:element>
             <xsl:element name="xsd:attribute">
-                    <xsl:attribute name="name">name</xsl:attribute>
+                <xsl:attribute name="name">name</xsl:attribute>
             </xsl:element>
         </xsl:element>
 
@@ -203,17 +203,17 @@
         <xsl:variable name="nsAlias" select="mock:getNamespaceAlias(@base)"/>
         <xsl:variable name="ns" select="namespace::*[local-name()=$nsAlias]"/>
         <!--<xsl:comment>test xsd:extension <xsl:value-of select="$name"/>;-->
-            <!--<xsl:value-of select="$typesList[@name=$name]/../@targetNamespace"/></xsl:comment>-->
+        <!--<xsl:value-of select="$typesList[@name=$name]/../@targetNamespace"/></xsl:comment>-->
         <xsl:apply-templates select="$typesList[@name=$name and ./../@targetNamespace=$ns]" mode="copyMainTypeContainerextension"/>
         <xsl:apply-templates select="./*" mode="copyMainTypeContainer"/>
     </xsl:template>
 
     <xsl:template match="xsd:sequence" mode="copyMainTypeContainer"> <!--TODO здесь может быть ошибка, если внутри элементов содержится еще один sequense -->
-            <xsl:apply-templates select="./*" mode="copyMainTypeContainer"/>
-            <!--<xsl:comment>test xsd:sequence</xsl:comment>-->
-            <xsl:if test="count(child::*)=0">
-                <xsl:value-of select="."/>
-            </xsl:if>
+        <xsl:apply-templates select="./*" mode="copyMainTypeContainer"/>
+        <!--<xsl:comment>test xsd:sequence</xsl:comment>-->
+        <xsl:if test="count(child::*)=0">
+            <xsl:value-of select="."/>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="xsd:element[@ref]" mode="copyMainTypeContainer">
@@ -271,13 +271,15 @@
 
     <xsl:template match="*" mode="copyMainTypeContainer">
         <!--<xsl:comment>test*</xsl:comment>-->
-        <xsl:element name="xsd:{local-name(.)}">
-            <xsl:copy-of select="./@*"/>
-            <xsl:apply-templates select="./*" mode="copyMainTypeContainer"/>
-            <xsl:if test="count(child::*)=0">
-                <xsl:value-of select="."/>
-            </xsl:if>
-        </xsl:element>
+        <xsl:if test="not(local-name(.)='annotation')">
+            <xsl:element name="xsd:{local-name(.)}">
+                <xsl:copy-of select="./@*"/>
+                <xsl:apply-templates select="./*" mode="copyMainTypeContainer"/>
+                <xsl:if test="count(child::*)=0">
+                    <xsl:value-of select="."/>
+                </xsl:if>
+            </xsl:element>
+        </xsl:if>
     </xsl:template>
 
     <!-- копирование extension'а из главного типа -->
@@ -290,8 +292,10 @@
     </xsl:template>
 
     <xsl:template match="*" mode="copyMainTypeContainerextension">
-        <xsl:if test="count(child::*)=0">
-            <xsl:value-of select="."/>
+        <xsl:if test="not(local-name(.)='annotation')">
+            <xsl:if test="count(child::*)=0">
+                <xsl:value-of select="."/>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
 
@@ -300,7 +304,7 @@
         <xsl:variable name="nsAlias" select="mock:getNamespaceAlias(@base)"/>
         <xsl:variable name="ns" select="namespace::*[local-name()=$nsAlias]"/>
         <!--<xsl:comment>test xsd:extension <xsl:value-of select="$name"/>;-->
-            <!--<xsl:value-of select="$typesList[@name=$name]/../@targetNamespace"/></xsl:comment>-->
+        <!--<xsl:value-of select="$typesList[@name=$name]/../@targetNamespace"/></xsl:comment>-->
         <xsl:apply-templates select="$typesList[@name=$name and ./../@targetNamespace=$ns]" mode="copyMainTypeContainerextension"/>
     </xsl:template>
 
