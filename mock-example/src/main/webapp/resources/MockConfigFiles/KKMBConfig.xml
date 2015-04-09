@@ -16,6 +16,7 @@
                     <xsdFile>kkmb-crm-exportcontract-req.xsd</xsdFile>
                 </integrationPoint>
                 <integrationPoint name="GetParticipantInfo">
+                    <operationName>GetParticipantInfo</operationName>
                     <rsRootElementName>ParticipantInfo</rsRootElementName>
                     <rqRootElementName>ContractID</rqRootElementName>
                     <type>Mock</type>
@@ -199,7 +200,7 @@
                 </integrationPoint>
             </integrationPoints>
         </system>
-        <system name="MFO">
+        <!--<system name="MFO">
             <pathToXSD>/KKMB/MFO</pathToXSD>
             <rootXsd>FrWebServicePort.xml</rootXsd>
             <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
@@ -244,6 +245,6 @@
                     <xsdFile>FrWebServicePort.xml</xsdFile>
                 </integrationPoint>
             </integrationPoints>
-        </system>
+        </system>-->
     </systems>
 </MockConfig>
