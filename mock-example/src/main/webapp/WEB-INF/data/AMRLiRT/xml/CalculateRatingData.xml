@@ -7,41 +7,63 @@
          <operation-name>calculateRatingRs</operation-name>
       </SoapHeader>
       <return>
-         <errorCode>string</errorCode>
-         <errorMessage>string</errorMessage>
+         <errorCode>0</errorCode>
+         <errorMessage>String</errorMessage>
          <listOfResultRating>
+            <!-- Primary rating -->
+            <resultRating>
+               <isPrimary>true</isPrimary>
+               <name>Name</name>
+               <value>15</value>
+               <type>Type</type>
+            </resultRating>
             <resultRating>
                <isPrimary>false</isPrimary>
-               <name>string</name>
-               <value>10</value>
-               <type>string</type>
+               <name>Name</name>
+               <value>13</value>
+               <type>Type</type>
+            </resultRating>
+            <resultRating>
+               <isPrimary>false</isPrimary>
+               <name>Name</name>
+               <value>15</value>
+               <type>Type</type>
             </resultRating>
          </listOfResultRating>
          <listOfCalculatedFactor>
             <calculatedFactor>
-               <code>string</code>
-               <name>string</name>
-               <value>string</value>
+               <code>Code</code>
+               <name>Name</name>
+               <value>Value</value>
+            </calculatedFactor>
+            <calculatedFactor>
+               <code>Code</code>
+               <name>Name</name>
+               <value>Value</value>
+            </calculatedFactor>
+            <calculatedFactor>
+               <code>Code</code>
+               <name>Name</name>
+               <value>Value</value>
             </calculatedFactor>
          </listOfCalculatedFactor>
          <listOfAddParameter>
             <addParameter>
-               <order>10</order>
-               <name>string</name>
-               <value>string</value>
+               <order>1</order>
+               <name>Name</name>
+               <value>Value</value>
+            </addParameter>
+            <addParameter>
+               <order>1</order>
+               <name>Name</name>
+               <value>Value</value>
+            </addParameter>
+            <addParameter>
+               <order>1</order>
+               <name>Name</name>
+               <value>Value</value>
             </addParameter>
          </listOfAddParameter>
-      </return>
-   </response>
-   <response name="test1">
-      <SoapHeader>
-         <message-id>defaultId</message-id>
-         <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>calculateRatingRs</operation-name>
-      </SoapHeader>
-      <return>
-         <errorCode>string</errorCode>
-         <listOfResultRating/>
       </return>
    </response>
 </data>
