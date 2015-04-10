@@ -6,7 +6,7 @@
             <headerNamespace>http://sbrf.ru/NCP/esb/envelope/</headerNamespace>
             <integrationPoints>
                 <integrationPoint name="CreateTask">
-                    <operationName>CreateTask</operationName>
+                    <operationName>CreateTaskClientService</operationName>
                     <rsRootElementName>createTaskRs</rsRootElementName>
                     <rqRootElementName>createTaskRq</rqRootElementName>
                     <type>Mock</type>
@@ -41,7 +41,7 @@
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint name="ForceSignal">
-                    <operationName>forceSignalRq</operationName>
+                    <operationName>ForceSignalOfActionClientService</operationName>
                     <rqRootElementName>forceSignalRq</rqRootElementName>
                     <type>Driver</type>
                     <protocol>MQ/SOAP/HTTP</protocol>
@@ -69,7 +69,7 @@
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint name="GetParticipants">
-                    <operationName>prtspRs</operationName>
+                    <operationName>GetParticipantsOfCreditDeal</operationName>
                     <rsRootElementName>prtspRs</rsRootElementName>
                     <rqRootElementName>prtspRq</rqRootElementName>
                     <type>Mock</type>
@@ -104,7 +104,7 @@
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint name="SaveDeal">
-                    <operationName>saveDealRs</operationName>
+                    <operationName>SaveCreditDealData</operationName>
                     <rsRootElementName>saveDealRs</rsRootElementName>
                     <rqRootElementName>saveDealRq</rqRootElementName>
                     <type>Mock</type>
@@ -140,7 +140,7 @@
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint name="UpdateDeal">
-                    <operationName>updateDealRq</operationName>
+                    <operationName>UpdateCreditDealData</operationName>
                     <rqRootElementName>updateDealRq</rqRootElementName>
                     <type>Driver</type>
                     <protocol>MQ/SOAP/HTTP</protocol>
@@ -168,7 +168,7 @@
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint name="UpdateRef">
-                    <operationName>updateRefRs</operationName>
+                    <operationName>UpdateReference</operationName>
                     <rsRootElementName>updateRefRs</rsRootElementName>
                     <rqRootElementName>updateRefRq</rqRootElementName>
                     <type>Mock</type>
@@ -210,7 +210,7 @@
             <headerNamespace>http://sbrf.ru/NCP/esb/envelope/</headerNamespace>
             <integrationPoints>
                 <integrationPoint name="CalculateDebtCapacity">
-                    <operationName>calculateDCRs</operationName>
+                    <operationName>SrvCalcDebtCapacity</operationName>
                     <rsRootElementName>calculateDCRs</rsRootElementName>
                     <rqRootElementName>calculateDCRq</rqRootElementName>
                     <type>Mock</type>
@@ -249,7 +249,7 @@
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint name="CalculateLGD">
-                    <operationName>calculateLGDRs</operationName>
+                    <operationName>SrvCalcLGD</operationName>
                     <rsRootElementName>calculateLGDRs</rsRootElementName>
                     <rqRootElementName>calculateLGDRq</rqRootElementName>
                     <type>Mock</type>
@@ -287,7 +287,7 @@
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint name="CalculateRating">
-                    <operationName>calculateRatingRs</operationName>
+                    <operationName>SrvCalcRating</operationName>
                     <rsRootElementName>calculateRatingRs</rsRootElementName>
                     <rqRootElementName>calculateRatingRq</rqRootElementName>
                     <type>Mock</type>
@@ -324,7 +324,7 @@
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint name="ConfirmRating">
-                    <operationName>confirmRatingRs</operationName>
+                    <operationName>SrvConfirmRating</operationName>
                     <rsRootElementName>confirmRatingRs</rsRootElementName>
                     <rqRootElementName>confirmRatingRq</rqRootElementName>
                     <type>Mock</type>
@@ -350,7 +350,7 @@
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint name="CorrectRating">
-                    <operationName>correctRatingRs</operationName>
+                    <operationName>SrvUpdateRating</operationName>
                     <rsRootElementName>correctRatingRs</rsRootElementName>
                     <rqRootElementName>correctRatingRq</rqRootElementName>
                     <type>Mock</type>
@@ -388,7 +388,7 @@
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint name="FinalizeLGD">
-                    <operationName>finalizeLGDRs</operationName>
+                    <operationName>SrvFinalizeLGD</operationName>
                     <rsRootElementName>finalizeLGDRs</rsRootElementName>
                     <rqRootElementName>finalizeLGDRq</rqRootElementName>
                     <type>Mock</type>
@@ -433,7 +433,7 @@
             <headerNamespace>http://sbrf.ru/NCP/esb/envelope/</headerNamespace>
             <integrationPoints>
                 <integrationPoint name="importFinReport">
-                    <operationName>importFinReportRs</operationName>
+                    <operationName>SrvGetFinReport</operationName>
                     <rsRootElementName>importFinReportRs</rsRootElementName>
                     <rqRootElementName>importFinReportRq</rqRootElementName>
                     <type>Mock</type>
@@ -471,7 +471,7 @@
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint name="importRating">
-                    <operationName>importRatingRs</operationName>
+                    <operationName>SrvGetRatingsAndFactors</operationName>
                     <rsRootElementName>importRatingRs</rsRootElementName>
                     <rqRootElementName>importRatingRq</rqRootElementName>
                     <type>Mock</type>
@@ -509,7 +509,7 @@
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint name="updateRating">
-                    <operationName>updateRatingRs</operationName>
+                    <operationName>SrvUpdateRating</operationName>
                     <rsRootElementName>updateRatingRs</rsRootElementName>
                     <rqRootElementName>updateRatingRq</rqRootElementName>
                     <type>Mock</type>
@@ -548,7 +548,7 @@
                     </dependencies>
                 </integrationPoint>
                 <integrationPoint name="getExchangeRates">
-                    <operationName>getExchangeRatesRs</operationName>
+                    <operationName>SrvGetExchangeRates</operationName>
                     <rsRootElementName>getExchangeRatesRs</rsRootElementName>
                     <rqRootElementName>getExchangeRatesRq</rqRootElementName>
                     <type>Mock</type>
