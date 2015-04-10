@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"
                 xmlns:rsd="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/calculateLGDRs/Data/"
+                xmlns:rq="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"
                 xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
    <xsl:import href="../util/NCPSoapRqHeaderXSLTTemplate.xsl"/>
    <!--опускаем строку 'xml version="1.0" encoding="UTF-8"'. С ней не работает MQ очередь-->
-<xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
+   <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
    <xsl:param name="name"
               select="//*[local-name()='Envelope' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='Body' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='calculateLGDRq' and namespace-uri()='http://sbrf.ru/NCP/AMRLIRT/']/*[local-name()='comment' and namespace-uri()='http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/']/text()"/>
    <xsl:param name="dataFileName"
@@ -15,7 +16,7 @@
    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
    <xsl:param name="id" select="null"/>
    <!--Optional params for optional header values-->
-<xsl:param name="correlation-id" select="null"/>
+   <xsl:param name="correlation-id" select="null"/>
    <xsl:param name="eis-name" select="null"/>
    <xsl:param name="system-id" select="null"/>
    <xsl:param name="operation-version" select="null"/>
@@ -61,32 +62,45 @@
       </xsl:element>
    </xsl:template>
 
-   <xsl:template match="rsd:collateral">
+   <xsl:template name="collateral">
+      <xsl:param name="crmId"/>
+      <xsl:param name="collType"/>
+      <xsl:param name="response"/>
+      <xsl:param name="data"/>
       <tns:collateral>
          <tns:crmId>
-            <xsl:value-of select="./rsd:crmId"/>
+            <xsl:value-of select="$crmId"/>
          </tns:crmId>
          <tns:collType>
-            <xsl:value-of select="./rsd:collType"/>
+            <xsl:value-of select="$collType"/>
          </tns:collType>
          <tns:returnRate>
-            <xsl:value-of select="./rsd:returnRate"/>
+            <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:listOfCollateral/rsd:collateral/rsd:returnRate"/>
          </tns:returnRate>
          <tns:discountRate>
-            <xsl:value-of select="./rsd:discountRate"/>
+            <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:listOfCollateral/rsd:collateral/rsd:discountRate"/>
          </tns:discountRate>
          <tns:collValueEad>
-            <xsl:value-of select="./rsd:collValueEad"/>
+            <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:listOfCollateral/rsd:collateral/rsd:collValueEad"/>
          </tns:collValueEad>
          <tns:collValueLgd>
-            <xsl:value-of select="./rsd:collValueLgd"/>
+            <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:listOfCollateral/rsd:collateral/rsd:collValueLgd"/>
          </tns:collValueLgd>
       </tns:collateral>
    </xsl:template>
 
-   <xsl:template match="rsd:listOfCollateral">
+   <xsl:template name="listOfCollateral">
+      <xsl:param name="response"/>
+      <xsl:param name="data"/>
       <tns:listOfCollateral>
-         <xsl:apply-templates select="./rsd:collateral"/>
+         <xsl:for-each select="soap:Body/AMRLiRT:calculateLGDRq/rq:listOfCollateral/rq:collateral">
+            <xsl:call-template name="collateral">
+               <xsl:with-param name="crmId" select="rq:crmId"/>
+               <xsl:with-param name="collType" select="rq:collType"/>
+               <xsl:with-param name="response" select="$response"/>
+               <xsl:with-param name="data" select="$data"/>
+            </xsl:call-template>
+         </xsl:for-each>
       </tns:listOfCollateral>
    </xsl:template>
 
@@ -103,10 +117,10 @@
             </tns:errorMessage>
          </xsl:if>
          <tns:crmId>
-            <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:crmId"/>
+            <xsl:value-of select="soap:Body/AMRLiRT:calculateLGDRq/rq:crmId"/>
          </tns:crmId>
          <tns:lgdType>
-            <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:lgdType"/>
+            <xsl:value-of select="soap:Body/AMRLiRT:calculateLGDRq/rq:lgdType"/>
          </tns:lgdType>
          <tns:lgdDate>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:lgdDate"/>
@@ -144,7 +158,10 @@
          <tns:totalColValueEad>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:totalColValueEad"/>
          </tns:totalColValueEad>
-         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:listOfCollateral"/>
+         <xsl:call-template name="listOfCollateral">
+            <xsl:with-param name="response" select="$response"/>
+            <xsl:with-param name="data" select="$data"/>
+         </xsl:call-template>
       </xsl:element>
    </xsl:template>
 </xsl:stylesheet>
