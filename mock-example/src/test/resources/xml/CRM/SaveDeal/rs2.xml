@@ -4,10 +4,13 @@
       <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
       <soap:operation-name>saveDealRs</soap:operation-name>
    </soap:Header>
-   <soap:Body><!--complexType--><CRM:saveDealRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
-                      xmlns:tns="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/"><!--testXsd import {OperationStatus}--><tns:operationStatus><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/")--><!--testXsd import {string50}--><tns:errorCode><!--test6 50-->string</tns:errorCode>
+   <soap:Body>
+      <CRM:saveDealRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+                      xmlns:tns="http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/">
+         <tns:operationStatus>
+            <tns:errorCode>string</tns:errorCode>
          </tns:operationStatus>
-         <!--testXsd import {string15}--><tns:dealID><!--test6 15-->string</tns:dealID>
+         <tns:dealID>string</tns:dealID>
       </CRM:saveDealRs>
    </soap:Body>
 </soap:Envelope>

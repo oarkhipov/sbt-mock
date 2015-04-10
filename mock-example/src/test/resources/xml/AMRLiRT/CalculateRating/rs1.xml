@@ -4,23 +4,29 @@
       <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
       <soap:operation-name>calculateRatingRs</soap:operation-name>
    </soap:Header>
-   <soap:Body><!--complexType--><AMRLiRT:calculateRatingRs xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
-                                 xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/"><!--testXsd import {Return}--><tns:return><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/")--><!--testxsdStrMax--><tns:errorCode>string</tns:errorCode>
-            <!--optional--><!--testxsdStrMax--><tns:errorMessage>string</tns:errorMessage>
-            <!--testXsd import {ListOfResultRating}--><tns:listOfResultRating><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/")--><!--from 0 to unbounded elements --><!--testXsd import {ResultRating}--><tns:resultRating><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/")--><!--testxsdBool--><tns:isPrimary>false</tns:isPrimary>
-                  <!--testxsdStrMax--><tns:name>string</tns:name>
-                  <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/"--><tns:value>10</tns:value>
-                  <!--optional--><!--testxsdStrMax--><tns:type>string</tns:type>
+   <soap:Body>
+      <AMRLiRT:calculateRatingRs xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
+                                 xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/">
+         <tns:return>
+            <tns:errorCode>string</tns:errorCode>
+            <!--optional--><tns:errorMessage>string</tns:errorMessage>
+            <tns:listOfResultRating><!--from 0 to unbounded elements --><tns:resultRating>
+                  <tns:isPrimary>false</tns:isPrimary>
+                  <tns:name>string</tns:name>
+                  <tns:value>10</tns:value>
+                  <!--optional--><tns:type>string</tns:type>
                </tns:resultRating>
             </tns:listOfResultRating>
-            <!--optional--><!--testXsd import {ListOfCalculatedFactor}--><tns:listOfCalculatedFactor><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/")--><!--from 0 to unbounded elements --><!--testXsd import {CalculatedFactor}--><tns:calculatedFactor><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/")--><!--testxsdStrMax--><tns:code>string</tns:code>
-                  <!--testxsdStrMax--><tns:name>string</tns:name>
-                  <!--testxsdStrMax--><tns:value>string</tns:value>
+            <!--optional--><tns:listOfCalculatedFactor><!--from 0 to unbounded elements --><tns:calculatedFactor>
+                  <tns:code>string</tns:code>
+                  <tns:name>string</tns:name>
+                  <tns:value>string</tns:value>
                </tns:calculatedFactor>
             </tns:listOfCalculatedFactor>
-            <!--optional--><!--testXsd import {ListOfAddParameter}--><tns:listOfAddParameter><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/")--><!--from 0 to unbounded elements --><!--testXsd import {AddParameter}--><tns:addParameter><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/")--><!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/"--><tns:order>10</tns:order>
-                  <!--testxsdStrMax--><tns:name>string</tns:name>
-                  <!--testxsdStrMax--><tns:value>string</tns:value>
+            <!--optional--><tns:listOfAddParameter><!--from 0 to unbounded elements --><tns:addParameter>
+                  <tns:order>10</tns:order>
+                  <tns:name>string</tns:name>
+                  <tns:value>string</tns:value>
                </tns:addParameter>
             </tns:listOfAddParameter>
          </tns:return>

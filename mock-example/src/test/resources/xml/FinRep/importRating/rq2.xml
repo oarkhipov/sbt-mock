@@ -4,10 +4,12 @@
       <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
       <soap:operation-name>importRatingRs</soap:operation-name>
    </soap:Header>
-   <soap:Body><!--complexType--><FinRep:importRatingRq xmlns:FinRep="http://sbrf.ru/NCP/FinRep/"
-                             xmlns:tns="http://sbrf.ru/NCP/FinRep/ImportRatingRq/1.00/"><!--testXsd import {string15}--><tns:dealId><!--test6 15-->string</tns:dealId>
+   <soap:Body>
+      <FinRep:importRatingRq xmlns:FinRep="http://sbrf.ru/NCP/FinRep/"
+                             xmlns:tns="http://sbrf.ru/NCP/FinRep/ImportRatingRq/1.00/">
+         <tns:dealId>string</tns:dealId>
          <tns:entityType>test1</tns:entityType>
-         <!--testXsd import {string15}--><tns:entityId><!--test6 15-->string</tns:entityId>
+         <tns:entityId>string</tns:entityId>
       </FinRep:importRatingRq>
    </soap:Body>
 </soap:Envelope>

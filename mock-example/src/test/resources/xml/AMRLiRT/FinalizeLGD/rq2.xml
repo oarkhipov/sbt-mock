@@ -4,10 +4,12 @@
       <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
       <soap:operation-name>finalizeLGDRs</soap:operation-name>
    </soap:Header>
-   <soap:Body><!--complexType--><AMRLiRT:finalizeLGDRq xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
-                             xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRq/"><!--testxsdStrMax--><tns:fio>string</tns:fio>
-         <!--testxsdStrMax--><tns:position>string</tns:position>
-         <!--testxsdStrMax--><tns:crmId>string</tns:crmId>
+   <soap:Body>
+      <AMRLiRT:finalizeLGDRq xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
+                             xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRq/">
+         <tns:fio>string</tns:fio>
+         <tns:position>string</tns:position>
+         <tns:crmId>string</tns:crmId>
          <tns:type>test1</tns:type>
       </AMRLiRT:finalizeLGDRq>
    </soap:Body>

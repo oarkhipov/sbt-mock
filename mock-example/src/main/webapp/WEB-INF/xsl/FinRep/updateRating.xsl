@@ -61,16 +61,17 @@
       </xsl:element>
    </xsl:template>
 
-   <!--xsd:complexType - template :UpdateRatingResponse--><!--local-name=$xsdTagsToImport base complexType - complexTypehttp://sbrf.ru/NCP/FinRep/UpdateRatingRs/1.00/-http://sbrf.ru/NCP/FinRep/--><xsl:template name="updateRatingRs">
+   <xsl:template name="updateRatingRs">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="FinRep:updateRatingRs"><!--xsd:element - Inside--><tns:ratingId>
+      <xsl:element name="FinRep:updateRatingRs">
+         <tns:ratingId>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:ratingId"/>
          </tns:ratingId>
-         <!--xsd:element - Inside--><tns:errorCode>
+         <tns:errorCode>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
          </tns:errorCode>
-         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+         <xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
             <tns:errorMessage>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
             </tns:errorMessage>

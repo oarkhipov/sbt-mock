@@ -4,10 +4,12 @@
       <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
       <soap:operation-name>updateRatingRs</soap:operation-name>
    </soap:Header>
-   <soap:Body><!--complexType--><FinRep:updateRatingRs xmlns:FinRep="http://sbrf.ru/NCP/FinRep/"
-                             xmlns:tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRs/1.00/"><!--testXsd import {string15}--><tns:ratingId><!--test6 15-->string</tns:ratingId>
-         <!--testXsd import {string30}--><tns:errorCode><!--test6 30-->string</tns:errorCode>
-         <!--optional--><!--testXsd import {string2000}--><tns:errorMessage><!--test6 2000-->string</tns:errorMessage>
+   <soap:Body>
+      <FinRep:updateRatingRs xmlns:FinRep="http://sbrf.ru/NCP/FinRep/"
+                             xmlns:tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRs/1.00/">
+         <tns:ratingId>string</tns:ratingId>
+         <tns:errorCode>string</tns:errorCode>
+         <!--optional--><tns:errorMessage>string</tns:errorMessage>
       </FinRep:updateRatingRs>
    </soap:Body>
 </soap:Envelope>

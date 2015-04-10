@@ -93,7 +93,7 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <!--test baseContainer complexType-UpdateRefRs--><xsd:complexType name="UpdateRefRs">
+   <xsd:complexType name="UpdateRefRs">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
          <xsd:element name="referenceItem"

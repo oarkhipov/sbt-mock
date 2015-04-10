@@ -57,7 +57,7 @@
     <xsl:variable name="nsList" select="$operationXsdSchema/namespace::*[.!=$operationXsdSchema/@targetNamespace and string-length(local-name(.))>0]/string()"/>
     <xsl:variable name="nsAliasList" select="$operationXsdSchema/namespace::*[.!=$operationXsdSchema/@targetNamespace and string-length(local-name(.))>0]/local-name()"/>
 
-    <xsl:variable name="DEBUG" select="true()"/>
+    <xsl:variable name="DEBUG" select="false()"/>
 
     <!-- файл с темплейтом для soap header'а -->
     <xsl:include href="headerTemplate.xsl"/>

@@ -95,7 +95,7 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <!--test baseContainer complexType-FinReportImportResponse--><xsd:complexType name="FinReportImportResponse">
+   <xsd:complexType name="FinReportImportResponse">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
          <xsd:element name="finReportType" type="tns:string30"/>

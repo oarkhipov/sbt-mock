@@ -93,7 +93,7 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <!--test baseContainer complexType-UpdateDealRq--><xsd:complexType name="UpdateDealRq">
+   <xsd:complexType name="UpdateDealRq">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
          <xsd:element name="deal" type="tns:Deal"/>

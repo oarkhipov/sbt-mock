@@ -93,7 +93,7 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <!--test baseContainer complexType-PrtspRs--><xsd:complexType name="PrtspRs">
+   <xsd:complexType name="PrtspRs">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
          <xsd:element name="dealID" type="tns:string15"/>

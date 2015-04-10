@@ -95,7 +95,7 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <!--test baseContainer complexType-LgdFinalizationResponse--><xsd:complexType name="LgdFinalizationResponse">
+   <xsd:complexType name="LgdFinalizationResponse">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
          <xsd:element name="errorCode" type="tns:string255"/>

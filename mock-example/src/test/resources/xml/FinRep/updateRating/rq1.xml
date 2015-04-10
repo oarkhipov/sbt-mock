@@ -4,73 +4,84 @@
       <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
       <soap:operation-name>updateRatingRs</soap:operation-name>
    </soap:Header>
-   <soap:Body><!--complexType--><FinRep:updateRatingRq xmlns:FinRep="http://sbrf.ru/NCP/FinRep/"
-                             xmlns:tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/"><!--testXsd import {Rating}--><tns:rating><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/")--><!--testXsd import {string15}--><tns:ratingId><!--test6 15-->string</tns:ratingId>
-            <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/"--><tns:finalRatingValue>10</tns:finalRatingValue>
-            <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/"--><tns:intermediateRatingValue>10</tns:intermediateRatingValue>
-            <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/"--><tns:ajustedRatingValue>10</tns:ajustedRatingValue>
-            <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/"--><tns:pd>10</tns:pd>
-            <!--testXsd import {string15}--><tns:status><!--test6 15-->string</tns:status>
-            <!--optional--><!--testxsdDateTime--><tns:approvalDate>2015-04-09T12:00:00</tns:approvalDate>
-            <!--optional--><!--testxsdDateTime--><tns:calculationDate>2015-04-09T12:00:00</tns:calculationDate>
-            <!--optional--><!--testxsdDateTime--><tns:ajustmentDate>2015-04-09T12:00:00</tns:ajustmentDate>
-            <!--optional--><!--testXsd import {string100}--><tns:modelName><!--test6 100-->string</tns:modelName>
-            <!--optional--><!--testXsd import {string30}--><tns:modelIntegrationId><!--test6 30-->string</tns:modelIntegrationId>
-            <!--optional--><!--testXsd import {string255}--><tns:ratingName><!--test6 255-->string</tns:ratingName>
-            <!--optional--><!--testXsd import {string30}--><tns:ratingType><!--test6 30-->string</tns:ratingType>
-            <!--optional--><!--testXsd import {Employee}--><tns:employeeForApprove><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/")--><!--testXsd import {string50}--><tns:login><!--test6 50-->string</tns:login>
-               <!--testXsd import {string50}--><tns:lastName><!--test6 50-->string</tns:lastName>
-               <!--testXsd import {string50}--><tns:firstName><!--test6 50-->string</tns:firstName>
-               <!--optional--><!--testXsd import {string50}--><tns:middleName><!--test6 50-->string</tns:middleName>
-               <!--testXsd import {string50}--><tns:division><!--test6 50-->string</tns:division>
-               <!--testXsd import {string50}--><tns:divisionCode><!--test6 50-->string</tns:divisionCode>
-               <!--optional--><!--testXsd import {string300}--><tns:jobTitle><!--test6 300-->string</tns:jobTitle>
-               <!--testXsd import {string30}--><tns:role><!--test6 30-->string</tns:role>
+   <soap:Body>
+      <FinRep:updateRatingRq xmlns:FinRep="http://sbrf.ru/NCP/FinRep/"
+                             xmlns:tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/">
+         <tns:rating>
+            <tns:ratingId>string</tns:ratingId>
+            <!--optional--><tns:finalRatingValue>10</tns:finalRatingValue>
+            <!--optional--><tns:intermediateRatingValue>10</tns:intermediateRatingValue>
+            <!--optional--><tns:ajustedRatingValue>10</tns:ajustedRatingValue>
+            <!--optional--><tns:pd>10</tns:pd>
+            <tns:status>string</tns:status>
+            <!--optional--><tns:approvalDate>2015-04-10T12:00:00</tns:approvalDate>
+            <!--optional--><tns:calculationDate>2015-04-10T12:00:00</tns:calculationDate>
+            <!--optional--><tns:ajustmentDate>2015-04-10T12:00:00</tns:ajustmentDate>
+            <!--optional--><tns:modelName>string</tns:modelName>
+            <!--optional--><tns:modelIntegrationId>string</tns:modelIntegrationId>
+            <!--optional--><tns:ratingName>string</tns:ratingName>
+            <!--optional--><tns:ratingType>string</tns:ratingType>
+            <!--optional--><tns:employeeForApprove>
+               <tns:login>string</tns:login>
+               <tns:lastName>string</tns:lastName>
+               <tns:firstName>string</tns:firstName>
+               <!--optional--><tns:middleName>string</tns:middleName>
+               <tns:division>string</tns:division>
+               <tns:divisionCode>string</tns:divisionCode>
+               <!--optional--><tns:jobTitle>string</tns:jobTitle>
+               <tns:role>string</tns:role>
             </tns:employeeForApprove>
-            <!--testXsd import {ListOfRatingCalc}--><tns:listOfRatingCalc><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/")--><!--from 1 to unbounded elements --><!--testXsd import {RatingCalc}--><tns:ratingCalc><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/")--><!--testXsd import {string15}--><tns:ratingCalcId><!--test6 15-->string</tns:ratingCalcId>
-                  <!--testXsd import {string100}--><tns:modelName><!--test6 100-->string</tns:modelName>
-                  <!--testXsd import {string30}--><tns:modelIntegrationId><!--test6 30-->string</tns:modelIntegrationId>
-                  <!--optional--><!--testxsdDateTime--><tns:dateCalc>2015-04-09T12:00:00</tns:dateCalc>
-                  <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/"--><tns:calcValue>10</tns:calcValue>
-                  <!--optional--><!--testXsd import {ListOfRatingAjustment}--><tns:listOfRatingAjustment><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/")--><!--from 0 to unbounded elements --><!--testXsd import {RatingAjustment}--><tns:ratingAjustment><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/")--><!--testxsdDateTime--><tns:ajustmentDate>2015-04-09T12:00:00</tns:ajustmentDate>
-                        <!--testxsdDigit tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/"--><tns:ajustedValue>10</tns:ajustedValue>
-                        <!--testXsd import {string250}--><tns:ajustmetReason><!--test6 250-->string</tns:ajustmetReason>
-                        <!--optional--><!--testXsd import {string255}--><tns:comments><!--test6 255-->string</tns:comments>
-                        <!--testXsd import {string30}--><tns:status><!--test6 30-->string</tns:status>
-                        <!--optional--><!--testXsd import {Employee}--><tns:employeeForAjustment><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/")--><!--testXsd import {string50}--><tns:login><!--test6 50-->string</tns:login>
-                           <!--testXsd import {string50}--><tns:lastName><!--test6 50-->string</tns:lastName>
-                           <!--testXsd import {string50}--><tns:firstName><!--test6 50-->string</tns:firstName>
-                           <!--optional--><!--testXsd import {string50}--><tns:middleName><!--test6 50-->string</tns:middleName>
-                           <!--testXsd import {string50}--><tns:division><!--test6 50-->string</tns:division>
-                           <!--testXsd import {string50}--><tns:divisionCode><!--test6 50-->string</tns:divisionCode>
-                           <!--optional--><!--testXsd import {string300}--><tns:jobTitle><!--test6 300-->string</tns:jobTitle>
-                           <!--testXsd import {string30}--><tns:role><!--test6 30-->string</tns:role>
+            <tns:listOfRatingCalc><!--from 1 to unbounded elements --><tns:ratingCalc>
+                  <tns:ratingCalcId>string</tns:ratingCalcId>
+                  <tns:modelName>string</tns:modelName>
+                  <tns:modelIntegrationId>string</tns:modelIntegrationId>
+                  <!--optional--><tns:dateCalc>2015-04-10T12:00:00</tns:dateCalc>
+                  <!--optional--><tns:calcValue>10</tns:calcValue>
+                  <!--optional--><tns:listOfRatingAjustment><!--from 0 to unbounded elements --><tns:ratingAjustment>
+                        <tns:ajustmentDate>2015-04-10T12:00:00</tns:ajustmentDate>
+                        <tns:ajustedValue>10</tns:ajustedValue>
+                        <tns:ajustmetReason>string</tns:ajustmetReason>
+                        <!--optional--><tns:comments>string</tns:comments>
+                        <tns:status>string</tns:status>
+                        <!--optional--><tns:employeeForAjustment>
+                           <tns:login>string</tns:login>
+                           <tns:lastName>string</tns:lastName>
+                           <tns:firstName>string</tns:firstName>
+                           <!--optional--><tns:middleName>string</tns:middleName>
+                           <tns:division>string</tns:division>
+                           <tns:divisionCode>string</tns:divisionCode>
+                           <!--optional--><tns:jobTitle>string</tns:jobTitle>
+                           <tns:role>string</tns:role>
                         </tns:employeeForAjustment>
                      </tns:ratingAjustment>
                   </tns:listOfRatingAjustment>
-                  <!--optional--><!--testXsd import {Employee}--><tns:employeeForCalc><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/")--><!--testXsd import {string50}--><tns:login><!--test6 50-->string</tns:login>
-                     <!--testXsd import {string50}--><tns:lastName><!--test6 50-->string</tns:lastName>
-                     <!--testXsd import {string50}--><tns:firstName><!--test6 50-->string</tns:firstName>
-                     <!--optional--><!--testXsd import {string50}--><tns:middleName><!--test6 50-->string</tns:middleName>
-                     <!--testXsd import {string50}--><tns:division><!--test6 50-->string</tns:division>
-                     <!--testXsd import {string50}--><tns:divisionCode><!--test6 50-->string</tns:divisionCode>
-                     <!--optional--><!--testXsd import {string300}--><tns:jobTitle><!--test6 300-->string</tns:jobTitle>
-                     <!--testXsd import {string30}--><tns:role><!--test6 30-->string</tns:role>
+                  <!--optional--><tns:employeeForCalc>
+                     <tns:login>string</tns:login>
+                     <tns:lastName>string</tns:lastName>
+                     <tns:firstName>string</tns:firstName>
+                     <!--optional--><tns:middleName>string</tns:middleName>
+                     <tns:division>string</tns:division>
+                     <tns:divisionCode>string</tns:divisionCode>
+                     <!--optional--><tns:jobTitle>string</tns:jobTitle>
+                     <tns:role>string</tns:role>
                   </tns:employeeForCalc>
-                  <!--optional--><!--testXsd import {ListOfResultRating}--><tns:listOfResultRating><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/")--><!--from 0 to unbounded elements --><!--testXsd import {ResultRating}--><tns:resultRating><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/")--><!--testxsdBool--><tns:isPrimary>false</tns:isPrimary>
-                        <!--testXsd import {string255}--><tns:name><!--test6 255-->string</tns:name>
-                        <!--testxsdDigit tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/"--><tns:value>10</tns:value>
-                        <!--optional--><!--testXsd import {string30}--><tns:type><!--test6 30-->string</tns:type>
+                  <!--optional--><tns:listOfResultRating><!--from 0 to unbounded elements --><tns:resultRating>
+                        <tns:isPrimary>false</tns:isPrimary>
+                        <tns:name>string</tns:name>
+                        <tns:value>10</tns:value>
+                        <!--optional--><tns:type>string</tns:type>
                      </tns:resultRating>
                   </tns:listOfResultRating>
-                  <!--optional--><!--testXsd import {ListOfCalculatedFactor}--><tns:listOfCalculatedFactor><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/")--><!--from 0 to unbounded elements --><!--testXsd import {CalculatedFactor}--><tns:calculatedFactor><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/")--><!--testXsd import {string30}--><tns:code><!--test6 30-->string</tns:code>
-                        <!--testXsd import {string255}--><tns:name><!--test6 255-->string</tns:name>
-                        <!--testXsd import {string255}--><tns:value><!--test6 255-->string</tns:value>
+                  <!--optional--><tns:listOfCalculatedFactor><!--from 0 to unbounded elements --><tns:calculatedFactor>
+                        <tns:code>string</tns:code>
+                        <tns:name>string</tns:name>
+                        <tns:value>string</tns:value>
                      </tns:calculatedFactor>
                   </tns:listOfCalculatedFactor>
-                  <!--optional--><!--testXsd import {ListOfAddParameter}--><tns:listOfAddParameter><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/")--><!--from 0 to unbounded elements --><!--testXsd import {AddParameter}--><tns:addParameter><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/")--><!--testxsdDigit tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/"--><tns:order>10</tns:order>
-                        <!--testXsd import {string255}--><tns:name><!--test6 255-->string</tns:name>
-                        <!--testXsd import {string255}--><tns:value><!--test6 255-->string</tns:value>
+                  <!--optional--><tns:listOfAddParameter><!--from 0 to unbounded elements --><tns:addParameter>
+                        <tns:order>10</tns:order>
+                        <tns:name>string</tns:name>
+                        <tns:value>string</tns:value>
                      </tns:addParameter>
                   </tns:listOfAddParameter>
                </tns:ratingCalc>

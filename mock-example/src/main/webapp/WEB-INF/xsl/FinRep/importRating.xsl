@@ -61,176 +61,186 @@
       </xsl:element>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:Employee--><xsl:template match="rsd:employeeForAjustment">
-      <tns:employeeForAjustment><!--xsd:element - Inside--><tns:login>
+   <xsl:template match="rsd:employeeForAjustment">
+      <tns:employeeForAjustment>
+         <tns:login>
             <xsl:value-of select="./rsd:login"/>
          </tns:login>
-         <!--xsd:element - Inside--><tns:lastName>
+         <tns:lastName>
             <xsl:value-of select="./rsd:lastName"/>
          </tns:lastName>
-         <!--xsd:element - Inside--><tns:firstName>
+         <tns:firstName>
             <xsl:value-of select="./rsd:firstName"/>
          </tns:firstName>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:middleName">
+         <xsl:if test="./rsd:middleName">
             <tns:middleName>
                <xsl:value-of select="./rsd:middleName"/>
             </tns:middleName>
          </xsl:if>
-         <!--xsd:element - Inside--><tns:division>
+         <tns:division>
             <xsl:value-of select="./rsd:division"/>
          </tns:division>
-         <!--xsd:element - Inside--><tns:divisionCode>
+         <tns:divisionCode>
             <xsl:value-of select="./rsd:divisionCode"/>
          </tns:divisionCode>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:jobTitle">
+         <xsl:if test="./rsd:jobTitle">
             <tns:jobTitle>
                <xsl:value-of select="./rsd:jobTitle"/>
             </tns:jobTitle>
          </xsl:if>
-         <!--xsd:element - Inside--><tns:role>
+         <tns:role>
             <xsl:value-of select="./rsd:role"/>
          </tns:role>
       </tns:employeeForAjustment>
    </xsl:template>
 
    <xsl:template match="rsd:employeeForCalc">
-      <tns:employeeForCalc><!--xsd:element - Inside--><tns:login>
+      <tns:employeeForCalc>
+         <tns:login>
             <xsl:value-of select="./rsd:login"/>
          </tns:login>
-         <!--xsd:element - Inside--><tns:lastName>
+         <tns:lastName>
             <xsl:value-of select="./rsd:lastName"/>
          </tns:lastName>
-         <!--xsd:element - Inside--><tns:firstName>
+         <tns:firstName>
             <xsl:value-of select="./rsd:firstName"/>
          </tns:firstName>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:middleName">
+         <xsl:if test="./rsd:middleName">
             <tns:middleName>
                <xsl:value-of select="./rsd:middleName"/>
             </tns:middleName>
          </xsl:if>
-         <!--xsd:element - Inside--><tns:division>
+         <tns:division>
             <xsl:value-of select="./rsd:division"/>
          </tns:division>
-         <!--xsd:element - Inside--><tns:divisionCode>
+         <tns:divisionCode>
             <xsl:value-of select="./rsd:divisionCode"/>
          </tns:divisionCode>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:jobTitle">
+         <xsl:if test="./rsd:jobTitle">
             <tns:jobTitle>
                <xsl:value-of select="./rsd:jobTitle"/>
             </tns:jobTitle>
          </xsl:if>
-         <!--xsd:element - Inside--><tns:role>
+         <tns:role>
             <xsl:value-of select="./rsd:role"/>
          </tns:role>
       </tns:employeeForCalc>
    </xsl:template>
 
    <xsl:template match="rsd:employeeForApprove">
-      <tns:employeeForApprove><!--xsd:element - Inside--><tns:login>
+      <tns:employeeForApprove>
+         <tns:login>
             <xsl:value-of select="./rsd:login"/>
          </tns:login>
-         <!--xsd:element - Inside--><tns:lastName>
+         <tns:lastName>
             <xsl:value-of select="./rsd:lastName"/>
          </tns:lastName>
-         <!--xsd:element - Inside--><tns:firstName>
+         <tns:firstName>
             <xsl:value-of select="./rsd:firstName"/>
          </tns:firstName>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:middleName">
+         <xsl:if test="./rsd:middleName">
             <tns:middleName>
                <xsl:value-of select="./rsd:middleName"/>
             </tns:middleName>
          </xsl:if>
-         <!--xsd:element - Inside--><tns:division>
+         <tns:division>
             <xsl:value-of select="./rsd:division"/>
          </tns:division>
-         <!--xsd:element - Inside--><tns:divisionCode>
+         <tns:divisionCode>
             <xsl:value-of select="./rsd:divisionCode"/>
          </tns:divisionCode>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:jobTitle">
+         <xsl:if test="./rsd:jobTitle">
             <tns:jobTitle>
                <xsl:value-of select="./rsd:jobTitle"/>
             </tns:jobTitle>
          </xsl:if>
-         <!--xsd:element - Inside--><tns:role>
+         <tns:role>
             <xsl:value-of select="./rsd:role"/>
          </tns:role>
       </tns:employeeForApprove>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:RatingAjustment--><xsl:template match="rsd:ratingAjustment">
-      <tns:ratingAjustment><!--xsd:element - Inside--><tns:ajustmentDate>
+   <xsl:template match="rsd:ratingAjustment">
+      <tns:ratingAjustment>
+         <tns:ajustmentDate>
             <xsl:value-of select="./rsd:ajustmentDate"/>
          </tns:ajustmentDate>
-         <!--xsd:element - Inside--><tns:ajustedValue>
+         <tns:ajustedValue>
             <xsl:value-of select="./rsd:ajustedValue"/>
          </tns:ajustedValue>
-         <!--xsd:element - Inside--><tns:ajustmetReason>
+         <tns:ajustmetReason>
             <xsl:value-of select="./rsd:ajustmetReason"/>
          </tns:ajustmetReason>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:comments">
+         <xsl:if test="./rsd:comments">
             <tns:comments>
                <xsl:value-of select="./rsd:comments"/>
             </tns:comments>
          </xsl:if>
-         <!--xsd:element - Inside--><tns:status>
+         <tns:status>
             <xsl:value-of select="./rsd:status"/>
          </tns:status>
-         <!-- xsd:element[$typesList] - Inside Employee--><xsl:apply-templates select="./rsd:employeeForAjustment"/>
+         <xsl:apply-templates select="./rsd:employeeForAjustment"/>
       </tns:ratingAjustment>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:ListOfRatingAjustment--><xsl:template match="rsd:listOfRatingAjustment">
-      <tns:listOfRatingAjustment><!-- xsd:element[$typesList] - Inside RatingAjustment--><xsl:apply-templates select="./rsd:ratingAjustment"/>
+   <xsl:template match="rsd:listOfRatingAjustment">
+      <tns:listOfRatingAjustment>
+         <xsl:apply-templates select="./rsd:ratingAjustment"/>
       </tns:listOfRatingAjustment>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:AddParameter--><xsl:template match="rsd:addParameter">
-      <tns:addParameter><!--xsd:element - Inside--><tns:order>
+   <xsl:template match="rsd:addParameter">
+      <tns:addParameter>
+         <tns:order>
             <xsl:value-of select="./rsd:order"/>
          </tns:order>
-         <!--xsd:element - Inside--><tns:name>
+         <tns:name>
             <xsl:value-of select="./rsd:name"/>
          </tns:name>
-         <!--xsd:element - Inside--><tns:value>
+         <tns:value>
             <xsl:value-of select="./rsd:value"/>
          </tns:value>
       </tns:addParameter>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:ListOfAddParameter--><xsl:template match="rsd:listOfAddParameter">
-      <tns:listOfAddParameter><!-- xsd:element[$typesList] - Inside AddParameter--><xsl:apply-templates select="./rsd:addParameter"/>
+   <xsl:template match="rsd:listOfAddParameter">
+      <tns:listOfAddParameter>
+         <xsl:apply-templates select="./rsd:addParameter"/>
       </tns:listOfAddParameter>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:CalculatedFactor--><xsl:template match="rsd:calculatedFactor">
-      <tns:calculatedFactor><!--xsd:element - Inside--><tns:code>
+   <xsl:template match="rsd:calculatedFactor">
+      <tns:calculatedFactor>
+         <tns:code>
             <xsl:value-of select="./rsd:code"/>
          </tns:code>
-         <!--xsd:element - Inside--><tns:name>
+         <tns:name>
             <xsl:value-of select="./rsd:name"/>
          </tns:name>
-         <!--xsd:element - Inside--><tns:value>
+         <tns:value>
             <xsl:value-of select="./rsd:value"/>
          </tns:value>
       </tns:calculatedFactor>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:ListOfCalculatedFactor--><xsl:template match="rsd:listOfCalculatedFactor">
-      <tns:listOfCalculatedFactor><!-- xsd:element[$typesList] - Inside CalculatedFactor--><xsl:apply-templates select="./rsd:calculatedFactor"/>
+   <xsl:template match="rsd:listOfCalculatedFactor">
+      <tns:listOfCalculatedFactor>
+         <xsl:apply-templates select="./rsd:calculatedFactor"/>
       </tns:listOfCalculatedFactor>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:ResultRating--><xsl:template match="rsd:resultRating">
-      <tns:resultRating><!--xsd:element - Inside--><tns:isPrimary>
+   <xsl:template match="rsd:resultRating">
+      <tns:resultRating>
+         <tns:isPrimary>
             <xsl:value-of select="./rsd:isPrimary"/>
          </tns:isPrimary>
-         <!--xsd:element - Inside--><tns:name>
+         <tns:name>
             <xsl:value-of select="./rsd:name"/>
          </tns:name>
-         <!--xsd:element - Inside--><tns:value>
+         <tns:value>
             <xsl:value-of select="./rsd:value"/>
          </tns:value>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:type">
+         <xsl:if test="./rsd:type">
             <tns:type>
                <xsl:value-of select="./rsd:type"/>
             </tns:type>
@@ -238,22 +248,24 @@
       </tns:resultRating>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:ListOfResultRating--><xsl:template match="rsd:listOfResultRating">
-      <tns:listOfResultRating><!-- xsd:element[$typesList] - Inside ResultRating--><xsl:apply-templates select="./rsd:resultRating"/>
+   <xsl:template match="rsd:listOfResultRating">
+      <tns:listOfResultRating>
+         <xsl:apply-templates select="./rsd:resultRating"/>
       </tns:listOfResultRating>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:CardinalFactor--><xsl:template match="rsd:cardinalFactor">
-      <tns:cardinalFactor><!--xsd:element - Inside--><tns:factor>
+   <xsl:template match="rsd:cardinalFactor">
+      <tns:cardinalFactor>
+         <tns:factor>
             <xsl:value-of select="./rsd:factor"/>
          </tns:factor>
-         <!--xsd:element - Inside--><tns:factorIntegrationId>
+         <tns:factorIntegrationId>
             <xsl:value-of select="./rsd:factorIntegrationId"/>
          </tns:factorIntegrationId>
-         <!--xsd:element - Inside--><tns:group>
+         <tns:group>
             <xsl:value-of select="./rsd:group"/>
          </tns:group>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:numValue">
+         <xsl:if test="./rsd:numValue">
             <tns:numValue>
                <xsl:value-of select="./rsd:numValue"/>
             </tns:numValue>
@@ -261,72 +273,76 @@
       </tns:cardinalFactor>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:ListOfCardinalFactor--><xsl:template match="rsd:listOfCardinalFactor">
-      <tns:listOfCardinalFactor><!-- xsd:element[$typesList] - Inside CardinalFactor--><xsl:apply-templates select="./rsd:cardinalFactor"/>
+   <xsl:template match="rsd:listOfCardinalFactor">
+      <tns:listOfCardinalFactor>
+         <xsl:apply-templates select="./rsd:cardinalFactor"/>
       </tns:listOfCardinalFactor>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:RatingPeriod--><xsl:template match="rsd:ratingPeriod">
-      <tns:ratingPeriod><!--xsd:element - Inside--><xsl:if test="./rsd:reportDate">
+   <xsl:template match="rsd:ratingPeriod">
+      <tns:ratingPeriod>
+         <xsl:if test="./rsd:reportDate">
             <tns:reportDate>
                <xsl:value-of select="./rsd:reportDate"/>
             </tns:reportDate>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:period">
+         <xsl:if test="./rsd:period">
             <tns:period>
                <xsl:value-of select="./rsd:period"/>
             </tns:period>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:startDate">
+         <xsl:if test="./rsd:startDate">
             <tns:startDate>
                <xsl:value-of select="./rsd:startDate"/>
             </tns:startDate>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:endDate">
+         <xsl:if test="./rsd:endDate">
             <tns:endDate>
                <xsl:value-of select="./rsd:endDate"/>
             </tns:endDate>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:type">
+         <xsl:if test="./rsd:type">
             <tns:type>
                <xsl:value-of select="./rsd:type"/>
             </tns:type>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:comments">
+         <xsl:if test="./rsd:comments">
             <tns:comments>
                <xsl:value-of select="./rsd:comments"/>
             </tns:comments>
          </xsl:if>
-         <!-- xsd:element[$typesList] - Inside ListOfCardinalFactor--><xsl:apply-templates select="./rsd:listOfCardinalFactor"/>
+         <xsl:apply-templates select="./rsd:listOfCardinalFactor"/>
       </tns:ratingPeriod>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:ListOfRatingPeriod--><xsl:template match="rsd:listOfRatingPeriod">
-      <tns:listOfRatingPeriod><!-- xsd:element[$typesList] - Inside RatingPeriod--><xsl:apply-templates select="./rsd:ratingPeriod"/>
+   <xsl:template match="rsd:listOfRatingPeriod">
+      <tns:listOfRatingPeriod>
+         <xsl:apply-templates select="./rsd:ratingPeriod"/>
       </tns:listOfRatingPeriod>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:SupportFactor--><xsl:template match="rsd:supportFactor">
-      <tns:supportFactor><!--xsd:element - Inside--><tns:factor>
+   <xsl:template match="rsd:supportFactor">
+      <tns:supportFactor>
+         <tns:factor>
             <xsl:value-of select="./rsd:factor"/>
          </tns:factor>
-         <!--xsd:element - Inside--><tns:factorIntegrationId>
+         <tns:factorIntegrationId>
             <xsl:value-of select="./rsd:factorIntegrationId"/>
          </tns:factorIntegrationId>
-         <!--xsd:element - Inside--><tns:group>
+         <tns:group>
             <xsl:value-of select="./rsd:group"/>
          </tns:group>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:value">
+         <xsl:if test="./rsd:value">
             <tns:value>
                <xsl:value-of select="./rsd:value"/>
             </tns:value>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:valueIntegrationId">
+         <xsl:if test="./rsd:valueIntegrationId">
             <tns:valueIntegrationId>
                <xsl:value-of select="./rsd:valueIntegrationId"/>
             </tns:valueIntegrationId>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:freeValue">
+         <xsl:if test="./rsd:freeValue">
             <tns:freeValue>
                <xsl:value-of select="./rsd:freeValue"/>
             </tns:freeValue>
@@ -334,43 +350,47 @@
       </tns:supportFactor>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:ListOfSupportFactor--><xsl:template match="rsd:listOfSupportFactor">
-      <tns:listOfSupportFactor><!-- xsd:element[$typesList] - Inside SupportFactor--><xsl:apply-templates select="./rsd:supportFactor"/>
+   <xsl:template match="rsd:listOfSupportFactor">
+      <tns:listOfSupportFactor>
+         <xsl:apply-templates select="./rsd:supportFactor"/>
       </tns:listOfSupportFactor>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:RatingSupport--><xsl:template match="rsd:ratingSupport">
-      <tns:ratingSupport><!--xsd:element - Inside--><tns:name>
+   <xsl:template match="rsd:ratingSupport">
+      <tns:ratingSupport>
+         <tns:name>
             <xsl:value-of select="./rsd:name"/>
          </tns:name>
-         <!--xsd:element - Inside--><tns:integrationId>
+         <tns:integrationId>
             <xsl:value-of select="./rsd:integrationId"/>
          </tns:integrationId>
-         <!-- xsd:element[$typesList] - Inside ListOfSupportFactor--><xsl:apply-templates select="./rsd:listOfSupportFactor"/>
+         <xsl:apply-templates select="./rsd:listOfSupportFactor"/>
       </tns:ratingSupport>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:ListOfRatingSupport--><xsl:template match="rsd:listOfRatingSupport">
-      <tns:listOfRatingSupport><!-- xsd:element[$typesList] - Inside RatingSupport--><xsl:apply-templates select="./rsd:ratingSupport"/>
+   <xsl:template match="rsd:listOfRatingSupport">
+      <tns:listOfRatingSupport>
+         <xsl:apply-templates select="./rsd:ratingSupport"/>
       </tns:listOfRatingSupport>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:FixedFactor--><xsl:template match="rsd:fixedFactor">
-      <tns:fixedFactor><!--xsd:element - Inside--><tns:factor>
+   <xsl:template match="rsd:fixedFactor">
+      <tns:fixedFactor>
+         <tns:factor>
             <xsl:value-of select="./rsd:factor"/>
          </tns:factor>
-         <!--xsd:element - Inside--><tns:factorIntegrationId>
+         <tns:factorIntegrationId>
             <xsl:value-of select="./rsd:factorIntegrationId"/>
          </tns:factorIntegrationId>
-         <!--xsd:element - Inside--><tns:group>
+         <tns:group>
             <xsl:value-of select="./rsd:group"/>
          </tns:group>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:value">
+         <xsl:if test="./rsd:value">
             <tns:value>
                <xsl:value-of select="./rsd:value"/>
             </tns:value>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:valueIntegrationId">
+         <xsl:if test="./rsd:valueIntegrationId">
             <tns:valueIntegrationId>
                <xsl:value-of select="./rsd:valueIntegrationId"/>
             </tns:valueIntegrationId>
@@ -378,140 +398,146 @@
       </tns:fixedFactor>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:ListOfFixedFactor--><xsl:template match="rsd:listOfFixedFactor">
-      <tns:listOfFixedFactor><!-- xsd:element[$typesList] - Inside FixedFactor--><xsl:apply-templates select="./rsd:fixedFactor"/>
+   <xsl:template match="rsd:listOfFixedFactor">
+      <tns:listOfFixedFactor>
+         <xsl:apply-templates select="./rsd:fixedFactor"/>
       </tns:listOfFixedFactor>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:RatingCalc--><xsl:template match="rsd:ratingCalc">
-      <tns:ratingCalc><!--xsd:element - Inside--><tns:ratingCalcId>
+   <xsl:template match="rsd:ratingCalc">
+      <tns:ratingCalc>
+         <tns:ratingCalcId>
             <xsl:value-of select="./rsd:ratingCalcId"/>
          </tns:ratingCalcId>
-         <!--xsd:element - Inside--><tns:modelName>
+         <tns:modelName>
             <xsl:value-of select="./rsd:modelName"/>
          </tns:modelName>
-         <!--xsd:element - Inside--><tns:modelIntegrationId>
+         <tns:modelIntegrationId>
             <xsl:value-of select="./rsd:modelIntegrationId"/>
          </tns:modelIntegrationId>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:dateCalc">
+         <xsl:if test="./rsd:dateCalc">
             <tns:dateCalc>
                <xsl:value-of select="./rsd:dateCalc"/>
             </tns:dateCalc>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:calcValue">
+         <xsl:if test="./rsd:calcValue">
             <tns:calcValue>
                <xsl:value-of select="./rsd:calcValue"/>
             </tns:calcValue>
          </xsl:if>
-         <!-- xsd:element[$typesList] - Inside ListOfRatingAjustment--><xsl:apply-templates select="./rsd:listOfRatingAjustment"/>
-         <!-- xsd:element[$typesList] - Inside Employee--><xsl:apply-templates select="./rsd:employeeForCalc"/>
-         <!-- xsd:element[$typesList] - Inside ListOfResultRating--><xsl:apply-templates select="./rsd:listOfResultRating"/>
-         <!-- xsd:element[$typesList] - Inside ListOfCalculatedFactor--><xsl:apply-templates select="./rsd:listOfCalculatedFactor"/>
-         <!-- xsd:element[$typesList] - Inside ListOfAddParameter--><xsl:apply-templates select="./rsd:listOfAddParameter"/>
-         <!-- xsd:element[$typesList] - Inside ListOfFixedFactor--><xsl:apply-templates select="./rsd:listOfFixedFactor"/>
-         <!-- xsd:element[$typesList] - Inside ListOfRatingPeriod--><xsl:apply-templates select="./rsd:listOfRatingPeriod"/>
-         <!-- xsd:element[$typesList] - Inside ListOfRatingSupport--><xsl:apply-templates select="./rsd:listOfRatingSupport"/>
+         <xsl:apply-templates select="./rsd:listOfRatingAjustment"/>
+         <xsl:apply-templates select="./rsd:employeeForCalc"/>
+         <xsl:apply-templates select="./rsd:listOfResultRating"/>
+         <xsl:apply-templates select="./rsd:listOfCalculatedFactor"/>
+         <xsl:apply-templates select="./rsd:listOfAddParameter"/>
+         <xsl:apply-templates select="./rsd:listOfFixedFactor"/>
+         <xsl:apply-templates select="./rsd:listOfRatingPeriod"/>
+         <xsl:apply-templates select="./rsd:listOfRatingSupport"/>
       </tns:ratingCalc>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:ListOfRatingCalc--><xsl:template match="rsd:listOfRatingCalc">
-      <tns:listOfRatingCalc><!-- xsd:element[$typesList] - Inside RatingCalc--><xsl:apply-templates select="./rsd:ratingCalc"/>
+   <xsl:template match="rsd:listOfRatingCalc">
+      <tns:listOfRatingCalc>
+         <xsl:apply-templates select="./rsd:ratingCalc"/>
       </tns:listOfRatingCalc>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:Rating--><xsl:template match="rsd:rating">
-      <tns:rating><!--xsd:element - Inside--><tns:ratingId>
+   <xsl:template match="rsd:rating">
+      <tns:rating>
+         <tns:ratingId>
             <xsl:value-of select="./rsd:ratingId"/>
          </tns:ratingId>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:finalRatingValue">
+         <xsl:if test="./rsd:finalRatingValue">
             <tns:finalRatingValue>
                <xsl:value-of select="./rsd:finalRatingValue"/>
             </tns:finalRatingValue>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:intermediateRatingValue">
+         <xsl:if test="./rsd:intermediateRatingValue">
             <tns:intermediateRatingValue>
                <xsl:value-of select="./rsd:intermediateRatingValue"/>
             </tns:intermediateRatingValue>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:ajustedRatingValue">
+         <xsl:if test="./rsd:ajustedRatingValue">
             <tns:ajustedRatingValue>
                <xsl:value-of select="./rsd:ajustedRatingValue"/>
             </tns:ajustedRatingValue>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:pd">
+         <xsl:if test="./rsd:pd">
             <tns:pd>
                <xsl:value-of select="./rsd:pd"/>
             </tns:pd>
          </xsl:if>
-         <!--xsd:element - Inside--><tns:status>
+         <tns:status>
             <xsl:value-of select="./rsd:status"/>
          </tns:status>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:approvalDate">
+         <xsl:if test="./rsd:approvalDate">
             <tns:approvalDate>
                <xsl:value-of select="./rsd:approvalDate"/>
             </tns:approvalDate>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:calculationDate">
+         <xsl:if test="./rsd:calculationDate">
             <tns:calculationDate>
                <xsl:value-of select="./rsd:calculationDate"/>
             </tns:calculationDate>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:ajustmentDate">
+         <xsl:if test="./rsd:ajustmentDate">
             <tns:ajustmentDate>
                <xsl:value-of select="./rsd:ajustmentDate"/>
             </tns:ajustmentDate>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:modelName">
+         <xsl:if test="./rsd:modelName">
             <tns:modelName>
                <xsl:value-of select="./rsd:modelName"/>
             </tns:modelName>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:modelIntegrationId">
+         <xsl:if test="./rsd:modelIntegrationId">
             <tns:modelIntegrationId>
                <xsl:value-of select="./rsd:modelIntegrationId"/>
             </tns:modelIntegrationId>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:ratingName">
+         <xsl:if test="./rsd:ratingName">
             <tns:ratingName>
                <xsl:value-of select="./rsd:ratingName"/>
             </tns:ratingName>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:ratingType">
+         <xsl:if test="./rsd:ratingType">
             <tns:ratingType>
                <xsl:value-of select="./rsd:ratingType"/>
             </tns:ratingType>
          </xsl:if>
-         <!-- xsd:element[$typesList] - Inside Employee--><xsl:apply-templates select="./rsd:employeeForApprove"/>
-         <!-- xsd:element[$typesList] - Inside ListOfRatingCalc--><xsl:apply-templates select="./rsd:listOfRatingCalc"/>
+         <xsl:apply-templates select="./rsd:employeeForApprove"/>
+         <xsl:apply-templates select="./rsd:listOfRatingCalc"/>
       </tns:rating>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/:ListOfRating--><xsl:template match="rsd:listOfRating">
-      <tns:listOfRating><!-- xsd:element[$typesList] - Inside Rating--><xsl:apply-templates select="./rsd:rating"/>
+   <xsl:template match="rsd:listOfRating">
+      <tns:listOfRating>
+         <xsl:apply-templates select="./rsd:rating"/>
       </tns:listOfRating>
    </xsl:template>
 
-   <!--xsd:complexType - template :ImportRatingResponse--><!--local-name=$xsdTagsToImport base complexType - complexTypehttp://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/-http://sbrf.ru/NCP/FinRep/--><xsl:template name="importRatingRs">
+   <xsl:template name="importRatingRs">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="FinRep:importRatingRs"><!--xsd:element - Inside--><tns:dealId>
+      <xsl:element name="FinRep:importRatingRs">
+         <tns:dealId>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:dealId"/>
          </tns:dealId>
-         <!--xsd:element - Inside--><tns:entityType>
+         <tns:entityType>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:entityType"/>
          </tns:entityType>
-         <!--xsd:element - Inside--><tns:entityId>
+         <tns:entityId>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:entityId"/>
          </tns:entityId>
-         <!--xsd:element - Inside--><tns:errorCode>
+         <tns:errorCode>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
          </tns:errorCode>
-         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+         <xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
             <tns:errorMessage>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
             </tns:errorMessage>
          </xsl:if>
-         <!-- xsd:element[$typesList] - Inside ListOfRating--><xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:listOfRating"/>
+         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:listOfRating"/>
       </xsl:element>
    </xsl:template>
 </xsl:stylesheet>

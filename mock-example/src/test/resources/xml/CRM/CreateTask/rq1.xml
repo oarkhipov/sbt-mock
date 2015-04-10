@@ -2,14 +2,16 @@
    <soap:Header>
       <soap:message-id>defaultId</soap:message-id>
       <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
-      <soap:operation-name>createTaskRs</soap:operation-name>
+      <soap:operation-name>CreateTask</soap:operation-name>
    </soap:Header>
-   <soap:Body><!--complexType--><CRM:createTaskRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
-                        xmlns:tns="http://sbrf.ru/NCP/CRM/CreateTaskRq/1.03/"><!--testXsd import {string15}--><tns:contractID><!--test6 15-->string</tns:contractID>
-         <!--testXsd import {string255}--><tns:contractBPMID><!--test6 255-->string</tns:contractBPMID>
-         <!--testXsd import {string255}--><tns:comment><!--test6 255-->string</tns:comment>
-         <!--testXsd import {string50}--><tns:requestType><!--test6 50-->string</tns:requestType>
-         <!--testXsd import {string255}--><tns:responsiblePersonID><!--test6 255-->string</tns:responsiblePersonID>
+   <soap:Body>
+      <CRM:createTaskRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+                        xmlns:tns="http://sbrf.ru/NCP/CRM/CreateTaskRq/1.03/">
+         <tns:contractID>string</tns:contractID>
+         <tns:contractBPMID>string</tns:contractBPMID>
+         <tns:comment>string</tns:comment>
+         <tns:requestType>string</tns:requestType>
+         <tns:responsiblePersonID>string</tns:responsiblePersonID>
       </CRM:createTaskRq>
    </soap:Body>
 </soap:Envelope>

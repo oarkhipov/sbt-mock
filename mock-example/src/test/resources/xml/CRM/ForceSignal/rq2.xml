@@ -4,10 +4,12 @@
       <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
       <soap:operation-name>forceSignalRq</soap:operation-name>
    </soap:Header>
-   <soap:Body><!--complexType--><CRM:forceSignalRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
-                         xmlns:tns="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.05/"><!--testXsd import {string255}--><tns:comment><!--test6 255-->string</tns:comment>
-         <!--testXsd import {string50}--><tns:requestType><!--test6 50-->string</tns:requestType>
-         <!--testXsd import {string255}--><tns:responsiblePersonID><!--test6 255-->string</tns:responsiblePersonID>
+   <soap:Body>
+      <CRM:forceSignalRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+                         xmlns:tns="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.05/">
+         <tns:comment>string</tns:comment>
+         <tns:requestType>string</tns:requestType>
+         <tns:responsiblePersonID>string</tns:responsiblePersonID>
       </CRM:forceSignalRq>
    </soap:Body>
 </soap:Envelope>

@@ -65,7 +65,7 @@
     <xsl:variable name="type" select="'request'"/>
 
     <!--переменная для отображение отладочных сообщений-->
-    <xsl:variable name="DEBUG" select="true()"/>
+    <xsl:variable name="DEBUG" select="false()"/>
 
     <xsl:template match="xsd:schema">
         <xsl:element name="xsl:stylesheet">

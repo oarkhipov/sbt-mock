@@ -61,34 +61,36 @@
       </xsl:element>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/GetExchangeRatesRs/1.02/:ExchangeRate--><xsl:template match="rsd:exchangeRates">
-      <tns:exchangeRates><!--xsd:element - Inside--><tns:currencyCode>
+   <xsl:template match="rsd:exchangeRates">
+      <tns:exchangeRates>
+         <tns:currencyCode>
             <xsl:value-of select="./rsd:currencyCode"/>
          </tns:currencyCode>
-         <!--xsd:element - Inside--><tns:currencyRate>
+         <tns:currencyRate>
             <xsl:value-of select="./rsd:currencyRate"/>
          </tns:currencyRate>
-         <!--xsd:element - Inside--><tns:currencyDate>
+         <tns:currencyDate>
             <xsl:value-of select="./rsd:currencyDate"/>
          </tns:currencyDate>
       </tns:exchangeRates>
    </xsl:template>
 
-   <!--xsd:complexType - template :GetExchangeRatesResponse--><!--local-name=$xsdTagsToImport base complexType - complexTypehttp://sbrf.ru/NCP/FinRep/GetExchangeRatesRs/1.02/-http://sbrf.ru/NCP/FinRep/--><xsl:template name="getExchangeRatesRs">
+   <xsl:template name="getExchangeRatesRs">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="FinRep:getExchangeRatesRs"><!--xsd:element - Inside--><tns:dealID>
+      <xsl:element name="FinRep:getExchangeRatesRs">
+         <tns:dealID>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:dealID"/>
          </tns:dealID>
-         <!--xsd:element - Inside--><tns:errorCode>
+         <tns:errorCode>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
          </tns:errorCode>
-         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+         <xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
             <tns:errorMessage>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
             </tns:errorMessage>
          </xsl:if>
-         <!-- xsd:element[$typesList] - Inside ExchangeRate--><xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:exchangeRates"/>
+         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:exchangeRates"/>
       </xsl:element>
    </xsl:template>
 </xsl:stylesheet>

@@ -60,11 +60,12 @@
       </xsl:element>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/CRM/SaveDealRs/1.01/:OperationStatus--><xsl:template match="rsd:operationStatus">
-      <tns:operationStatus><!--xsd:element - Inside--><tns:errorCode>
+   <xsl:template match="rsd:operationStatus">
+      <tns:operationStatus>
+         <tns:errorCode>
             <xsl:value-of select="./rsd:errorCode"/>
          </tns:errorCode>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:errorMessage">
+         <xsl:if test="./rsd:errorMessage">
             <tns:errorMessage>
                <xsl:value-of select="./rsd:errorMessage"/>
             </tns:errorMessage>
@@ -72,11 +73,12 @@
       </tns:operationStatus>
    </xsl:template>
 
-   <!--xsd:complexType - template :SaveDealRs--><!--local-name=$xsdTagsToImport base complexType - complexTypehttp://sbrf.ru/NCP/CRM/SaveDealRs/1.01/-http://sbrf.ru/NCP/CRM/--><xsl:template name="saveDealRs">
+   <xsl:template name="saveDealRs">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="CRM:saveDealRs"><!-- xsd:element[$typesList] - Inside OperationStatus--><xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:operationStatus"/>
-         <!--xsd:element - Inside--><tns:dealID>
+      <xsl:element name="CRM:saveDealRs">
+         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:operationStatus"/>
+         <tns:dealID>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:dealID"/>
          </tns:dealID>
       </xsl:element>

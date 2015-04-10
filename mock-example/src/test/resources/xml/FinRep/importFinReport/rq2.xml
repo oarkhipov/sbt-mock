@@ -4,9 +4,11 @@
       <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
       <soap:operation-name>importFinReportRs</soap:operation-name>
    </soap:Header>
-   <soap:Body><!--complexType--><FinRep:importFinReportRq xmlns:FinRep="http://sbrf.ru/NCP/FinRep/"
-                                xmlns:tns="http://sbrf.ru/NCP/FinRep/ImportFinReportRq/1.00/"><!--testXsd import {string30}--><tns:entityType><!--test6 30-->string</tns:entityType>
-         <!--testXsd import {string15}--><tns:entityId><!--test6 15-->string</tns:entityId>
+   <soap:Body>
+      <FinRep:importFinReportRq xmlns:FinRep="http://sbrf.ru/NCP/FinRep/"
+                                xmlns:tns="http://sbrf.ru/NCP/FinRep/ImportFinReportRq/1.00/">
+         <tns:entityType>string</tns:entityType>
+         <tns:entityId>string</tns:entityId>
          <tns:dealId>test1</tns:dealId>
       </FinRep:importFinReportRq>
    </soap:Body>

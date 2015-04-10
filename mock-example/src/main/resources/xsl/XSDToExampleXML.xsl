@@ -42,7 +42,7 @@
     <!--имя операции-->
     <xsl:param name="operation-name" select="$rootElementName"/>
     <!--показать дебаг сообщения -з нужно только для отладки -->
-    <xsl:param name="debug" select="true()"/>
+    <xsl:param name="debug" select="false()"/>
 
     <!-- инклюды схем -->
     <xsl:param name="includeFilesList" select="xsd:schema/xsd:include/@schemaLocation"/>

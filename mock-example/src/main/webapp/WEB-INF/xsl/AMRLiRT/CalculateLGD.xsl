@@ -61,87 +61,90 @@
       </xsl:element>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/:CollateralLGDResponse--><xsl:template match="rsd:collateral">
-      <tns:collateral><!--xsd:element - Inside--><tns:crmId>
+   <xsl:template match="rsd:collateral">
+      <tns:collateral>
+         <tns:crmId>
             <xsl:value-of select="./rsd:crmId"/>
          </tns:crmId>
-         <!--xsd:element - Inside--><tns:collType>
+         <tns:collType>
             <xsl:value-of select="./rsd:collType"/>
          </tns:collType>
-         <!--xsd:element - Inside--><tns:returnRate>
+         <tns:returnRate>
             <xsl:value-of select="./rsd:returnRate"/>
          </tns:returnRate>
-         <!--xsd:element - Inside--><tns:discountRate>
+         <tns:discountRate>
             <xsl:value-of select="./rsd:discountRate"/>
          </tns:discountRate>
-         <!--xsd:element - Inside--><tns:collValueEad>
+         <tns:collValueEad>
             <xsl:value-of select="./rsd:collValueEad"/>
          </tns:collValueEad>
-         <!--xsd:element - Inside--><tns:collValueLgd>
+         <tns:collValueLgd>
             <xsl:value-of select="./rsd:collValueLgd"/>
          </tns:collValueLgd>
       </tns:collateral>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/:ListOfCollateral--><xsl:template match="rsd:listOfCollateral">
-      <tns:listOfCollateral><!-- xsd:element[$typesList] - Inside CollateralLGDResponse--><xsl:apply-templates select="./rsd:collateral"/>
+   <xsl:template match="rsd:listOfCollateral">
+      <tns:listOfCollateral>
+         <xsl:apply-templates select="./rsd:collateral"/>
       </tns:listOfCollateral>
    </xsl:template>
 
-   <!--xsd:complexType - template :LgdCalculationResponse--><!--local-name=$xsdTagsToImport base complexType - complexTypehttp://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/-http://sbrf.ru/NCP/AMRLIRT/--><xsl:template name="calculateLGDRs">
+   <xsl:template name="calculateLGDRs">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="AMRLiRT:calculateLGDRs"><!--xsd:element - Inside--><tns:errorCode>
+      <xsl:element name="AMRLiRT:calculateLGDRs">
+         <tns:errorCode>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
          </tns:errorCode>
-         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+         <xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
             <tns:errorMessage>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
             </tns:errorMessage>
          </xsl:if>
-         <!--xsd:element - Inside--><tns:crmId>
+         <tns:crmId>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:crmId"/>
          </tns:crmId>
-         <!--xsd:element - Inside--><tns:lgdType>
+         <tns:lgdType>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:lgdType"/>
          </tns:lgdType>
-         <!--xsd:element - Inside--><tns:lgdDate>
+         <tns:lgdDate>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:lgdDate"/>
          </tns:lgdDate>
-         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:pd">
+         <xsl:if test="$data/rsd:response[@name=$response]/rsd:pd">
             <tns:pd>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:pd"/>
             </tns:pd>
          </xsl:if>
-         <!--xsd:element - Inside--><tns:lgd>
+         <tns:lgd>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:lgd"/>
          </tns:lgd>
-         <!--xsd:element - Inside--><tns:ead>
+         <tns:ead>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:ead"/>
          </tns:ead>
-         <!--xsd:element - Inside--><tns:sum>
+         <tns:sum>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:sum"/>
          </tns:sum>
-         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:elPercent">
+         <xsl:if test="$data/rsd:response[@name=$response]/rsd:elPercent">
             <tns:elPercent>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:elPercent"/>
             </tns:elPercent>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:el">
+         <xsl:if test="$data/rsd:response[@name=$response]/rsd:el">
             <tns:el>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:el"/>
             </tns:el>
          </xsl:if>
-         <!--xsd:element - Inside--><tns:totalValue>
+         <tns:totalValue>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:totalValue"/>
          </tns:totalValue>
-         <!--xsd:element - Inside--><tns:totalColValueLgd>
+         <tns:totalColValueLgd>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:totalColValueLgd"/>
          </tns:totalColValueLgd>
-         <!--xsd:element - Inside--><tns:totalColValueEad>
+         <tns:totalColValueEad>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:totalColValueEad"/>
          </tns:totalColValueEad>
-         <!-- xsd:element[$typesList] - Inside ListOfCollateral--><xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:listOfCollateral"/>
+         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:listOfCollateral"/>
       </xsl:element>
    </xsl:template>
 </xsl:stylesheet>

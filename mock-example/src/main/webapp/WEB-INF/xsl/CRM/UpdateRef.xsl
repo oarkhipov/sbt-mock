@@ -60,14 +60,15 @@
       </xsl:element>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/:ListOfValue--><xsl:template match="rsd:listOfValue">
-      <tns:listOfValue><!--xsd:element - Inside--><tns:value>
+   <xsl:template match="rsd:listOfValue">
+      <tns:listOfValue>
+         <tns:value>
             <xsl:value-of select="./rsd:value"/>
          </tns:value>
-         <!--xsd:element - Inside--><tns:valueId>
+         <tns:valueId>
             <xsl:value-of select="./rsd:valueId"/>
          </tns:valueId>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:parentValueId">
+         <xsl:if test="./rsd:parentValueId">
             <tns:parentValueId>
                <xsl:value-of select="./rsd:parentValueId"/>
             </tns:parentValueId>
@@ -75,22 +76,24 @@
       </tns:listOfValue>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/:ReferenceItem--><xsl:template match="rsd:referenceItem">
-      <tns:referenceItem><!--xsd:element - Inside--><tns:referenceid>
+   <xsl:template match="rsd:referenceItem">
+      <tns:referenceItem>
+         <tns:referenceid>
             <xsl:value-of select="./rsd:referenceid"/>
          </tns:referenceid>
-         <!-- xsd:element[$typesList] - Inside ListOfValue--><xsl:apply-templates select="./rsd:listOfValue"/>
+         <xsl:apply-templates select="./rsd:listOfValue"/>
       </tns:referenceItem>
    </xsl:template>
 
-   <!--xsd:complexType - template :UpdateRefRs--><!--local-name=$xsdTagsToImport base complexType - complexTypehttp://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/-http://sbrf.ru/NCP/CRM/--><xsl:template name="updateRefRs">
+   <xsl:template name="updateRefRs">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="CRM:updateRefRs"><!-- xsd:element[$typesList] - Inside ReferenceItem--><xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:referenceItem"/>
-         <!--xsd:element - Inside--><tns:errorCode>
+      <xsl:element name="CRM:updateRefRs">
+         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:referenceItem"/>
+         <tns:errorCode>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
          </tns:errorCode>
-         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+         <xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
             <tns:errorMessage>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
             </tns:errorMessage>

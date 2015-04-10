@@ -93,7 +93,7 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <!--test baseContainer complexType-CalcRatingResponse--><xsd:complexType name="CalcRatingResponse">
+   <xsd:complexType name="CalcRatingResponse">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
          <xsd:element name="return" type="tns:Return"/>

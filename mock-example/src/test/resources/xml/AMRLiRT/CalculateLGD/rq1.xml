@@ -4,42 +4,47 @@
       <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
       <soap:operation-name>calculateLGDRs</soap:operation-name>
    </soap:Header>
-   <soap:Body><!--complexType--><AMRLiRT:calculateLGDRq xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
-                              xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"><!--testxsdStrMax--><tns:productType>string</tns:productType>
-         <!--testxsdStrMax--><tns:product>string</tns:product>
-         <!--testxsdStrMax--><tns:agrNum>string</tns:agrNum>
-         <!--testxsdDate--><tns:agrDate>2015-04-09</tns:agrDate>
-         <!--testxsdStrMax--><tns:lgdType>string</tns:lgdType>
-         <!--testxsdStrMax--><tns:crmId>string</tns:crmId>
-         <!--optional--><!--testxsdStrMax--><tns:comment>string</tns:comment>
-         <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"--><tns:debt>10</tns:debt>
-         <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"--><tns:rate>10</tns:rate>
-         <!--optional--><!--testxsdStrMax--><tns:loanMode>string</tns:loanMode>
-         <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"--><tns:loanSum>10</tns:loanSum>
-         <!--optional--><!--testxsdDate--><tns:agrEndDate>2015-04-09</tns:agrEndDate>
-         <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"--><tns:rating>10</tns:rating>
-         <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"--><tns:limit>10</tns:limit>
-         <!--testxsdStrMax--><tns:model>string</tns:model>
-         <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"--><tns:unutilizedLimit>10</tns:unutilizedLimit>
-         <!--optional--><!--testxsdStrMax--><tns:agreementNum>string</tns:agreementNum>
-         <!--optional--><!--testXsd import {Account}--><tns:account><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/")--><!--testxsdStrMax--><tns:inn>string</tns:inn>
-            <!--testxsdStrMax--><tns:name>string</tns:name>
+   <soap:Body>
+      <AMRLiRT:calculateLGDRq xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
+                              xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/">
+         <tns:productType>string</tns:productType>
+         <tns:product>string</tns:product>
+         <tns:agrNum>string</tns:agrNum>
+         <tns:agrDate>2015-04-10</tns:agrDate>
+         <tns:lgdType>string</tns:lgdType>
+         <tns:crmId>string</tns:crmId>
+         <!--optional--><tns:comment>string</tns:comment>
+         <!--optional--><tns:debt>10</tns:debt>
+         <!--optional--><tns:rate>10</tns:rate>
+         <!--optional--><tns:loanMode>string</tns:loanMode>
+         <!--optional--><tns:loanSum>10</tns:loanSum>
+         <!--optional--><tns:agrEndDate>2015-04-10</tns:agrEndDate>
+         <!--optional--><tns:rating>10</tns:rating>
+         <!--optional--><tns:limit>10</tns:limit>
+         <tns:model>string</tns:model>
+         <!--optional--><tns:unutilizedLimit>10</tns:unutilizedLimit>
+         <!--optional--><tns:agreementNum>string</tns:agreementNum>
+         <!--optional--><tns:account>
+            <tns:inn>string</tns:inn>
+            <tns:name>string</tns:name>
          </tns:account>
-         <!--testXsd import {User}--><tns:user><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/")--><!--testxsdStrMax--><tns:fio>string</tns:fio>
-            <!--testxsdStrMax--><tns:position>string</tns:position>
-            <!--testxsdStrMax--><tns:tDivision>string</tns:tDivision>
-            <!--testxsdStrMax--><tns:fDivision>string</tns:fDivision>
+         <tns:user>
+            <tns:fio>string</tns:fio>
+            <tns:position>string</tns:position>
+            <tns:tDivision>string</tns:tDivision>
+            <tns:fDivision>string</tns:fDivision>
          </tns:user>
-         <!--optional--><!--testXsd import {ListOfCollateral}--><tns:listOfCollateral><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/")--><!--from 0 to unbounded elements --><!--testXsd import {CollateralLGDRequest}--><tns:collateral><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/")--><!--testxsdStrMax--><tns:crmId>string</tns:crmId>
-               <!--testxsdStrMax--><tns:collType>string</tns:collType>
-               <!--testxsdStrMax--><tns:assessType>string</tns:assessType>
-               <!--optional--><!--testxsdStrMax--><tns:assessSource>string</tns:assessSource>
-               <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"--><tns:assessment>10</tns:assessment>
-               <!--testxsdStrMax--><tns:businessValue>string</tns:businessValue>
-               <!--testxsdStrMax--><tns:expertRate>string</tns:expertRate>
-               <!--optional--><!--testxsdStrMax--><tns:portfSize>string</tns:portfSize>
-               <!--testxsdDate--><tns:assessmentDate>2015-04-09</tns:assessmentDate>
-               <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"--><tns:pdRate>10</tns:pdRate>
+         <!--optional--><tns:listOfCollateral><!--from 0 to unbounded elements --><tns:collateral>
+               <tns:crmId>string</tns:crmId>
+               <tns:collType>string</tns:collType>
+               <tns:assessType>string</tns:assessType>
+               <!--optional--><tns:assessSource>string</tns:assessSource>
+               <tns:assessment>10</tns:assessment>
+               <tns:businessValue>string</tns:businessValue>
+               <tns:expertRate>string</tns:expertRate>
+               <!--optional--><tns:portfSize>string</tns:portfSize>
+               <tns:assessmentDate>2015-04-10</tns:assessmentDate>
+               <!--optional--><tns:pdRate>10</tns:pdRate>
             </tns:collateral>
          </tns:listOfCollateral>
       </AMRLiRT:calculateLGDRq>

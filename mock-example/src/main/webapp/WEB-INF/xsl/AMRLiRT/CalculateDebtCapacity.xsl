@@ -61,68 +61,71 @@
       </xsl:element>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/:AddParameter--><xsl:template match="rsd:addParameter">
-      <tns:addParameter><!--xsd:element - Inside--><xsl:if test="./rsd:order">
+   <xsl:template match="rsd:addParameter">
+      <tns:addParameter>
+         <xsl:if test="./rsd:order">
             <tns:order>
                <xsl:value-of select="./rsd:order"/>
             </tns:order>
          </xsl:if>
-         <!--xsd:element - Inside--><tns:name>
+         <tns:name>
             <xsl:value-of select="./rsd:name"/>
          </tns:name>
-         <!--xsd:element - Inside--><tns:value>
+         <tns:value>
             <xsl:value-of select="./rsd:value"/>
          </tns:value>
       </tns:addParameter>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/:ListOfAddParameter--><xsl:template match="rsd:listOfAddParameter">
-      <tns:listOfAddParameter><!-- xsd:element[$typesList] - Inside AddParameter--><xsl:apply-templates select="./rsd:addParameter"/>
+   <xsl:template match="rsd:listOfAddParameter">
+      <tns:listOfAddParameter>
+         <xsl:apply-templates select="./rsd:addParameter"/>
       </tns:listOfAddParameter>
    </xsl:template>
 
-   <!--xsd:complexType - template :DebtCapacityCalculationResponse--><!--local-name=$xsdTagsToImport base complexType - complexTypehttp://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/-http://sbrf.ru/NCP/AMRLIRT/--><xsl:template name="calculateDCRs">
+   <xsl:template name="calculateDCRs">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="AMRLiRT:calculateDCRs"><!--xsd:element - Inside--><tns:errorCode>
+      <xsl:element name="AMRLiRT:calculateDCRs">
+         <tns:errorCode>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
          </tns:errorCode>
-         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+         <xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
             <tns:errorMessage>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
             </tns:errorMessage>
          </xsl:if>
-         <!--xsd:element - Inside--><tns:crmId>
+         <tns:crmId>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:crmId"/>
          </tns:crmId>
-         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:rmk">
+         <xsl:if test="$data/rsd:response[@name=$response]/rsd:rmk">
             <tns:rmk>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:rmk"/>
             </tns:rmk>
          </xsl:if>
-         <!--xsd:element - Inside--><tns:debtCapacity>
+         <tns:debtCapacity>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:debtCapacity"/>
          </tns:debtCapacity>
-         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:rmkInDealCurrency">
+         <xsl:if test="$data/rsd:response[@name=$response]/rsd:rmkInDealCurrency">
             <tns:rmkInDealCurrency>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:rmkInDealCurrency"/>
             </tns:rmkInDealCurrency>
          </xsl:if>
-         <!--xsd:element - Inside--><tns:debtCapacityInDealCurrency>
+         <tns:debtCapacityInDealCurrency>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:debtCapacityInDealCurrency"/>
          </tns:debtCapacityInDealCurrency>
-         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:rmkForNextYear">
+         <xsl:if test="$data/rsd:response[@name=$response]/rsd:rmkForNextYear">
             <tns:rmkForNextYear>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:rmkForNextYear"/>
             </tns:rmkForNextYear>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:debtCapacityForNextYear">
+         <xsl:if test="$data/rsd:response[@name=$response]/rsd:debtCapacityForNextYear">
             <tns:debtCapacityForNextYear>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:debtCapacityForNextYear"/>
             </tns:debtCapacityForNextYear>
          </xsl:if>
-         <!-- xsd:element[$typesList] - Inside ListOfAddParameter--><xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:listOfAddParameter"/>
-         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:amMessage">
+         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:listOfAddParameter"/>
+         <xsl:if test="$data/rsd:response[@name=$response]/rsd:amMessage">
             <tns:amMessage>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:amMessage"/>
             </tns:amMessage>

@@ -4,7 +4,7 @@
       <SoapHeader>
          <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>createTaskRs</operation-name>
+         <operation-name>CreateTask</operation-name>
       </SoapHeader>
       <contractID>string</contractID>
       <contractBPMID>string</contractBPMID>
@@ -18,7 +18,7 @@
       <SoapHeader>
          <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>createTaskRs</operation-name>
+         <operation-name>CreateTask</operation-name>
       </SoapHeader>
       <contractID>string</contractID>
       <contractBPMID>string</contractBPMID>

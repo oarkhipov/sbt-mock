@@ -61,11 +61,12 @@
       </xsl:element>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.11/:OperationStatus--><xsl:template match="rsd:operationStatus">
-      <tns:operationStatus><!--xsd:element - Inside--><tns:errorCode>
+   <xsl:template match="rsd:operationStatus">
+      <tns:operationStatus>
+         <tns:errorCode>
             <xsl:value-of select="./rsd:errorCode"/>
          </tns:errorCode>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:errorMessage">
+         <xsl:if test="./rsd:errorMessage">
             <tns:errorMessage>
                <xsl:value-of select="./rsd:errorMessage"/>
             </tns:errorMessage>
@@ -73,97 +74,101 @@
       </tns:operationStatus>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.11/:Rating--><xsl:template match="rsd:ratings">
-      <tns:ratings><!--xsd:element - Inside--><tns:ratingID>
+   <xsl:template match="rsd:ratings">
+      <tns:ratings>
+         <tns:ratingID>
             <xsl:value-of select="./rsd:ratingID"/>
          </tns:ratingID>
-         <!--xsd:element - Inside--><tns:ratingValue>
+         <tns:ratingValue>
             <xsl:value-of select="./rsd:ratingValue"/>
          </tns:ratingValue>
-         <!--xsd:element - Inside--><tns:ratingType>
+         <tns:ratingType>
             <xsl:value-of select="./rsd:ratingType"/>
          </tns:ratingType>
-         <!--xsd:element - Inside--><tns:ratingModel>
+         <tns:ratingModel>
             <xsl:value-of select="./rsd:ratingModel"/>
          </tns:ratingModel>
-         <!--xsd:element - Inside--><tns:ratingCalculatedDate>
+         <tns:ratingCalculatedDate>
             <xsl:value-of select="./rsd:ratingCalculatedDate"/>
          </tns:ratingCalculatedDate>
-         <!--xsd:element - Inside--><tns:ratingCalculatedRole>
+         <tns:ratingCalculatedRole>
             <xsl:value-of select="./rsd:ratingCalculatedRole"/>
          </tns:ratingCalculatedRole>
-         <!--xsd:element - Inside--><tns:ratingCalculatedBy>
+         <tns:ratingCalculatedBy>
             <xsl:value-of select="./rsd:ratingCalculatedBy"/>
          </tns:ratingCalculatedBy>
-         <!--xsd:element - Inside--><tns:ratingApprovalDate>
+         <tns:ratingApprovalDate>
             <xsl:value-of select="./rsd:ratingApprovalDate"/>
          </tns:ratingApprovalDate>
-         <!--xsd:element - Inside--><tns:ratingApprovedBy>
+         <tns:ratingApprovedBy>
             <xsl:value-of select="./rsd:ratingApprovedBy"/>
          </tns:ratingApprovedBy>
       </tns:ratings>
    </xsl:template>
 
    <xsl:template match="rsd:rating">
-      <tns:rating><!--xsd:element - Inside--><tns:ratingID>
+      <tns:rating>
+         <tns:ratingID>
             <xsl:value-of select="./rsd:ratingID"/>
          </tns:ratingID>
-         <!--xsd:element - Inside--><tns:ratingValue>
+         <tns:ratingValue>
             <xsl:value-of select="./rsd:ratingValue"/>
          </tns:ratingValue>
-         <!--xsd:element - Inside--><tns:ratingType>
+         <tns:ratingType>
             <xsl:value-of select="./rsd:ratingType"/>
          </tns:ratingType>
-         <!--xsd:element - Inside--><tns:ratingModel>
+         <tns:ratingModel>
             <xsl:value-of select="./rsd:ratingModel"/>
          </tns:ratingModel>
-         <!--xsd:element - Inside--><tns:ratingCalculatedDate>
+         <tns:ratingCalculatedDate>
             <xsl:value-of select="./rsd:ratingCalculatedDate"/>
          </tns:ratingCalculatedDate>
-         <!--xsd:element - Inside--><tns:ratingCalculatedRole>
+         <tns:ratingCalculatedRole>
             <xsl:value-of select="./rsd:ratingCalculatedRole"/>
          </tns:ratingCalculatedRole>
-         <!--xsd:element - Inside--><tns:ratingCalculatedBy>
+         <tns:ratingCalculatedBy>
             <xsl:value-of select="./rsd:ratingCalculatedBy"/>
          </tns:ratingCalculatedBy>
-         <!--xsd:element - Inside--><tns:ratingApprovalDate>
+         <tns:ratingApprovalDate>
             <xsl:value-of select="./rsd:ratingApprovalDate"/>
          </tns:ratingApprovalDate>
-         <!--xsd:element - Inside--><tns:ratingApprovedBy>
+         <tns:ratingApprovedBy>
             <xsl:value-of select="./rsd:ratingApprovedBy"/>
          </tns:ratingApprovedBy>
       </tns:rating>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.11/:ParticipantsGroup--><xsl:template match="rsd:participantsGroup">
-      <tns:participantsGroup><!-- xsd:element[$typesList] - Inside Participant--><xsl:apply-templates select="./rsd:participants"/>
-         <!--xsd:element - Inside--><tns:groupType>
+   <xsl:template match="rsd:participantsGroup">
+      <tns:participantsGroup>
+         <xsl:apply-templates select="./rsd:participants"/>
+         <tns:groupType>
             <xsl:value-of select="./rsd:groupType"/>
          </tns:groupType>
-         <!-- xsd:element[$typesList] - Inside GroupInfo--><xsl:apply-templates select="./rsd:groupInfo"/>
+         <xsl:apply-templates select="./rsd:groupInfo"/>
       </tns:participantsGroup>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.11/:GroupInfo--><xsl:template match="rsd:groupInfo">
-      <tns:groupInfo><!--xsd:element - Inside--><tns:id>
+   <xsl:template match="rsd:groupInfo">
+      <tns:groupInfo>
+         <tns:id>
             <xsl:value-of select="./rsd:id"/>
          </tns:id>
-         <!--xsd:element - Inside--><tns:label>
+         <tns:label>
             <xsl:value-of select="./rsd:label"/>
          </tns:label>
-         <!--xsd:element - Inside--><tns:status>
+         <tns:status>
             <xsl:value-of select="./rsd:status"/>
          </tns:status>
-         <!--xsd:element - Inside--><tns:updateDate>
+         <tns:updateDate>
             <xsl:value-of select="./rsd:updateDate"/>
          </tns:updateDate>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:approvalDate">
+         <xsl:if test="./rsd:approvalDate">
             <tns:approvalDate>
                <xsl:value-of select="./rsd:approvalDate"/>
             </tns:approvalDate>
          </xsl:if>
-         <!-- xsd:element[$typesList] - Inside Rating--><xsl:apply-templates select="./rsd:ratings"/>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:topLevelGroupName">
+         <xsl:apply-templates select="./rsd:ratings"/>
+         <xsl:if test="./rsd:topLevelGroupName">
             <tns:topLevelGroupName>
                <xsl:value-of select="./rsd:topLevelGroupName"/>
             </tns:topLevelGroupName>
@@ -171,63 +176,65 @@
       </tns:groupInfo>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.11/:Participant--><xsl:template match="rsd:participants">
-      <tns:participants><!--xsd:element - Inside--><tns:participantID>
+   <xsl:template match="rsd:participants">
+      <tns:participants>
+         <tns:participantID>
             <xsl:value-of select="./rsd:participantID"/>
          </tns:participantID>
-         <!--xsd:element - Inside--><tns:type>
+         <tns:type>
             <xsl:value-of select="./rsd:type"/>
          </tns:type>
-         <!--xsd:element - Inside--><tns:isBorrower>
+         <tns:isBorrower>
             <xsl:value-of select="./rsd:isBorrower"/>
          </tns:isBorrower>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:clientType">
+         <xsl:if test="./rsd:clientType">
             <tns:clientType>
                <xsl:value-of select="./rsd:clientType"/>
             </tns:clientType>
          </xsl:if>
-         <!--xsd:element - Inside--><tns:name>
+         <tns:name>
             <xsl:value-of select="./rsd:name"/>
          </tns:name>
-         <!--xsd:element - Inside--><tns:resident>
+         <tns:resident>
             <xsl:value-of select="./rsd:resident"/>
          </tns:resident>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:consolidatedGroupID">
+         <xsl:if test="./rsd:consolidatedGroupID">
             <tns:consolidatedGroupID>
                <xsl:value-of select="./rsd:consolidatedGroupID"/>
             </tns:consolidatedGroupID>
          </xsl:if>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:linkedBorrowersGroupID">
+         <xsl:if test="./rsd:linkedBorrowersGroupID">
             <tns:linkedBorrowersGroupID>
                <xsl:value-of select="./rsd:linkedBorrowersGroupID"/>
             </tns:linkedBorrowersGroupID>
          </xsl:if>
-         <!--xsd:element - Inside--><tns:industry>
+         <tns:industry>
             <xsl:value-of select="./rsd:industry"/>
          </tns:industry>
-         <!--xsd:element - Inside--><tns:inn>
+         <tns:inn>
             <xsl:value-of select="./rsd:inn"/>
          </tns:inn>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:reportingDate">
+         <xsl:if test="./rsd:reportingDate">
             <tns:reportingDate>
                <xsl:value-of select="./rsd:reportingDate"/>
             </tns:reportingDate>
          </xsl:if>
-         <!-- xsd:element[$typesList] - Inside Rating--><xsl:apply-templates select="./rsd:rating"/>
+         <xsl:apply-templates select="./rsd:rating"/>
       </tns:participants>
    </xsl:template>
 
-   <!--xsd:complexType - template :PrtspRs--><!--local-name=$xsdTagsToImport base complexType - complexTypehttp://sbrf.ru/NCP/CRM/GetParticipantsRs/1.11/-http://sbrf.ru/NCP/CRM/--><xsl:template name="prtspRs">
+   <xsl:template name="prtspRs">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="CRM:prtspRs"><!--xsd:element - Inside--><tns:dealID>
+      <xsl:element name="CRM:prtspRs">
+         <tns:dealID>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:dealID"/>
          </tns:dealID>
-         <!--xsd:element - Inside--><tns:requestType>
+         <tns:requestType>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:requestType"/>
          </tns:requestType>
-         <!-- xsd:element[$typesList] - Inside ParticipantsGroup--><xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:participantsGroup"/>
-         <!-- xsd:element[$typesList] - Inside OperationStatus--><xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:operationStatus"/>
+         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:participantsGroup"/>
+         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:operationStatus"/>
       </xsl:element>
    </xsl:template>
 </xsl:stylesheet>

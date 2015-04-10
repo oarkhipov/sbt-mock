@@ -61,30 +61,32 @@
       </xsl:element>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/:CalculatedFactor--><xsl:template match="rsd:calculatedFactor">
-      <tns:calculatedFactor><!--xsd:element - Inside--><tns:code>
+   <xsl:template match="rsd:calculatedFactor">
+      <tns:calculatedFactor>
+         <tns:code>
             <xsl:value-of select="./rsd:code"/>
          </tns:code>
-         <!--xsd:element - Inside--><tns:name>
+         <tns:name>
             <xsl:value-of select="./rsd:name"/>
          </tns:name>
-         <!--xsd:element - Inside--><tns:value>
+         <tns:value>
             <xsl:value-of select="./rsd:value"/>
          </tns:value>
       </tns:calculatedFactor>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/:ResultRating--><xsl:template match="rsd:resultRating">
-      <tns:resultRating><!--xsd:element - Inside--><tns:isPrimary>
+   <xsl:template match="rsd:resultRating">
+      <tns:resultRating>
+         <tns:isPrimary>
             <xsl:value-of select="./rsd:isPrimary"/>
          </tns:isPrimary>
-         <!--xsd:element - Inside--><tns:name>
+         <tns:name>
             <xsl:value-of select="./rsd:name"/>
          </tns:name>
-         <!--xsd:element - Inside--><tns:value>
+         <tns:value>
             <xsl:value-of select="./rsd:value"/>
          </tns:value>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:type">
+         <xsl:if test="./rsd:type">
             <tns:type>
                <xsl:value-of select="./rsd:type"/>
             </tns:type>
@@ -92,53 +94,59 @@
       </tns:resultRating>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/:Return--><xsl:template match="rsd:return">
-      <tns:return><!--xsd:element - Inside--><tns:errorCode>
+   <xsl:template match="rsd:return">
+      <tns:return>
+         <tns:errorCode>
             <xsl:value-of select="./rsd:errorCode"/>
          </tns:errorCode>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:errorMessage">
+         <xsl:if test="./rsd:errorMessage">
             <tns:errorMessage>
                <xsl:value-of select="./rsd:errorMessage"/>
             </tns:errorMessage>
          </xsl:if>
-         <!-- xsd:element[$typesList] - Inside ListOfResultRating--><xsl:apply-templates select="./rsd:listOfResultRating"/>
-         <!-- xsd:element[$typesList] - Inside ListOfCalculatedFactor--><xsl:apply-templates select="./rsd:listOfCalculatedFactor"/>
-         <!-- xsd:element[$typesList] - Inside ListOfAddParameter--><xsl:apply-templates select="./rsd:listOfAddParameter"/>
+         <xsl:apply-templates select="./rsd:listOfResultRating"/>
+         <xsl:apply-templates select="./rsd:listOfCalculatedFactor"/>
+         <xsl:apply-templates select="./rsd:listOfAddParameter"/>
       </tns:return>
    </xsl:template>
 
-   <!--xsd:complexType - template :CalcRatingResponse--><!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/:AddParameter--><xsl:template match="rsd:addParameter">
-      <tns:addParameter><!--xsd:element - Inside--><tns:order>
+   <xsl:template match="rsd:addParameter">
+      <tns:addParameter>
+         <tns:order>
             <xsl:value-of select="./rsd:order"/>
          </tns:order>
-         <!--xsd:element - Inside--><tns:name>
+         <tns:name>
             <xsl:value-of select="./rsd:name"/>
          </tns:name>
-         <!--xsd:element - Inside--><tns:value>
+         <tns:value>
             <xsl:value-of select="./rsd:value"/>
          </tns:value>
       </tns:addParameter>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/:ListOfAddParameter--><xsl:template match="rsd:listOfAddParameter">
-      <tns:listOfAddParameter><!-- xsd:element[$typesList] - Inside AddParameter--><xsl:apply-templates select="./rsd:addParameter"/>
+   <xsl:template match="rsd:listOfAddParameter">
+      <tns:listOfAddParameter>
+         <xsl:apply-templates select="./rsd:addParameter"/>
       </tns:listOfAddParameter>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/:ListOfResultRating--><xsl:template match="rsd:listOfResultRating">
-      <tns:listOfResultRating><!-- xsd:element[$typesList] - Inside ResultRating--><xsl:apply-templates select="./rsd:resultRating"/>
+   <xsl:template match="rsd:listOfResultRating">
+      <tns:listOfResultRating>
+         <xsl:apply-templates select="./rsd:resultRating"/>
       </tns:listOfResultRating>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/:ListOfCalculatedFactor--><xsl:template match="rsd:listOfCalculatedFactor">
-      <tns:listOfCalculatedFactor><!-- xsd:element[$typesList] - Inside CalculatedFactor--><xsl:apply-templates select="./rsd:calculatedFactor"/>
+   <xsl:template match="rsd:listOfCalculatedFactor">
+      <tns:listOfCalculatedFactor>
+         <xsl:apply-templates select="./rsd:calculatedFactor"/>
       </tns:listOfCalculatedFactor>
    </xsl:template>
 
-   <!--local-name=$xsdTagsToImport base complexType - complexTypehttp://sbrf.ru/NCP/AMRLIRT/CalculateRatingRs/-http://sbrf.ru/NCP/AMRLIRT/--><xsl:template name="calculateRatingRs">
+   <xsl:template name="calculateRatingRs">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="AMRLiRT:calculateRatingRs"><!-- xsd:element[$typesList] - Inside Return--><xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:return"/>
+      <xsl:element name="AMRLiRT:calculateRatingRs">
+         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:return"/>
       </xsl:element>
    </xsl:template>
 </xsl:stylesheet>

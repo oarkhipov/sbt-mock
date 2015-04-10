@@ -36,7 +36,7 @@
             </xsl:with-param>
             <xsl:with-param name="timestamp" select="$timestamp"/>
             <xsl:with-param name="id" select="$id"/>
-            <xsl:with-param name="operation-name" select="string('createTaskRs')"/>
+            <xsl:with-param name="operation-name" select="string('CreateTask')"/>
             <xsl:with-param name="correlation-id" select="$correlation-id"/>
             <xsl:with-param name="eis-name" select="$eis-name"/>
             <xsl:with-param name="system-id" select="$system-id"/>
@@ -45,7 +45,7 @@
             <xsl:with-param name="user-name" select="$user-name"/>
          </xsl:call-template>
          <soap:Body>
-            <xsl:call-template name="createTaskRs">
+            <xsl:call-template name="CreateTask">
                <xsl:with-param name="data" select="$data"/>
                <xsl:with-param name="response">
                   <xsl:choose>
@@ -60,28 +60,29 @@
       </xsl:element>
    </xsl:template>
 
-   <!--xsd:complexType - template :CreateTaskRs--><!--local-name=$xsdTagsToImport base complexType - complexTypehttp://sbrf.ru/NCP/CRM/CreateTaskRs/1.03/-http://sbrf.ru/NCP/CRM/--><xsl:template name="createTaskRs">
+   <xsl:template name="CreateTask">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="CRM:createTaskRs"><!--xsd:element - Inside--><tns:contractID>
+      <xsl:element name="CRM:createTaskRs">
+         <tns:contractID>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:contractID"/>
          </tns:contractID>
-         <!--xsd:element - Inside--><tns:contractBPMID>
+         <tns:contractBPMID>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:contractBPMID"/>
          </tns:contractBPMID>
-         <!--xsd:element - Inside--><tns:comment>
+         <tns:comment>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:comment"/>
          </tns:comment>
-         <!--xsd:element - Inside--><tns:requestType>
+         <tns:requestType>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:requestType"/>
          </tns:requestType>
-         <!--xsd:element - Inside--><tns:responsiblePersonID>
+         <tns:responsiblePersonID>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:responsiblePersonID"/>
          </tns:responsiblePersonID>
-         <!--xsd:element - Inside--><tns:errorCode>
+         <tns:errorCode>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
          </tns:errorCode>
-         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+         <xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
             <tns:errorMessage>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
             </tns:errorMessage>

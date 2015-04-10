@@ -61,41 +61,45 @@
       </xsl:element>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/:AddParameter--><xsl:template match="rsd:addParameter">
-      <tns:addParameter><!--xsd:element - Inside--><tns:order>
+   <xsl:template match="rsd:addParameter">
+      <tns:addParameter>
+         <tns:order>
             <xsl:value-of select="./rsd:order"/>
          </tns:order>
-         <!--xsd:element - Inside--><tns:name>
+         <tns:name>
             <xsl:value-of select="./rsd:name"/>
          </tns:name>
-         <!--xsd:element - Inside--><tns:value>
+         <tns:value>
             <xsl:value-of select="./rsd:value"/>
          </tns:value>
       </tns:addParameter>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/:ListOfAddParameter--><xsl:template match="rsd:listOfAddParameter">
-      <tns:listOfAddParameter><!-- xsd:element[$typesList] - Inside AddParameter--><xsl:apply-templates select="./rsd:addParameter"/>
+   <xsl:template match="rsd:listOfAddParameter">
+      <tns:listOfAddParameter>
+         <xsl:apply-templates select="./rsd:addParameter"/>
       </tns:listOfAddParameter>
    </xsl:template>
 
-   <!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/:Return--><xsl:template match="rsd:return">
-      <tns:return><!--xsd:element - Inside--><tns:errorCode>
+   <xsl:template match="rsd:return">
+      <tns:return>
+         <tns:errorCode>
             <xsl:value-of select="./rsd:errorCode"/>
          </tns:errorCode>
-         <!--xsd:element - Inside--><xsl:if test="./rsd:errorMessage">
+         <xsl:if test="./rsd:errorMessage">
             <tns:errorMessage>
                <xsl:value-of select="./rsd:errorMessage"/>
             </tns:errorMessage>
          </xsl:if>
-         <!-- xsd:element[$typesList] - Inside ListOfAddParameter--><xsl:apply-templates select="./rsd:listOfAddParameter"/>
+         <xsl:apply-templates select="./rsd:listOfAddParameter"/>
       </tns:return>
    </xsl:template>
 
-   <!--xsd:complexType - template :CorrectResponse--><!--local-name=$xsdTagsToImport base complexType - complexTypehttp://sbrf.ru/NCP/AMRLIRT/CorrectRatingRs/-http://sbrf.ru/NCP/AMRLIRT/--><xsl:template name="correctRatingRs">
+   <xsl:template name="correctRatingRs">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="AMRLiRT:correctRatingRs"><!-- xsd:element[$typesList] - Inside Return--><xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:return"/>
+      <xsl:element name="AMRLiRT:correctRatingRs">
+         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:return"/>
       </xsl:element>
    </xsl:template>
 </xsl:stylesheet>

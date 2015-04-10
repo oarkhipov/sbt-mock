@@ -95,7 +95,7 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <!--test baseContainer complexType-GetExchangeRatesResponse--><xsd:complexType name="GetExchangeRatesResponse">
+   <xsd:complexType name="GetExchangeRatesResponse">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
          <xsd:element name="dealID" type="tns:string15"/>

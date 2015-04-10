@@ -93,7 +93,7 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <!--test baseContainer complexType-ForceSignalRq--><xsd:complexType name="ForceSignalRq">
+   <xsd:complexType name="ForceSignalRq">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
          <xsd:element name="contractID" minOccurs="0" type="tns:string15"/>

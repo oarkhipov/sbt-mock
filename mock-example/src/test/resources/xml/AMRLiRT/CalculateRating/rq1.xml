@@ -4,65 +4,73 @@
       <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
       <soap:operation-name>calculateRatingRs</soap:operation-name>
    </soap:Header>
-   <soap:Body><!--complexType--><AMRLiRT:calculateRatingRq xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
-                                 xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/"><!--testXsd import {RatingRequest}--><tns:arg0><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/")--><!--testxsdStrMax--><tns:ratingId>string</tns:ratingId>
-            <!--testxsdStrMax--><tns:model>string</tns:model>
-            <!--testxsdStrMax--><tns:modelIntagrationId>string</tns:modelIntagrationId>
-            <!--optional--><!--testxsdStrMax--><tns:accountId>string</tns:accountId>
-            <!--optional--><!--testxsdStrMax--><tns:uid>string</tns:uid>
-            <!--optional--><!--testxsdStrMax--><tns:account>string</tns:account>
-            <!--optional--><!--testxsdStrMax--><tns:inn>string</tns:inn>
-            <!--optional--><!--testxsdStrMax--><tns:kpp>string</tns:kpp>
-            <!--optional--><!--testxsdStrMax--><tns:gszId>string</tns:gszId>
-            <!--optional--><!--testxsdStrMax--><tns:gsz>string</tns:gsz>
-            <!--optional--><!--testxsdStrMax--><tns:subjectId>string</tns:subjectId>
-            <!--optional--><!--testxsdStrMax--><tns:subject>string</tns:subject>
-            <!--optional--><!--testxsdStrMax--><tns:subjectOKATO>string</tns:subjectOKATO>
-            <!--optional--><!--testxsdStrMax--><tns:project>string</tns:project>
-            <!--testXsd import {Requestor}--><tns:requestor><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/")--><!--testxsdStrMax--><tns:login>string</tns:login>
-               <!--testxsdStrMax--><tns:lastName>string</tns:lastName>
-               <!--testxsdStrMax--><tns:firstName>string</tns:firstName>
-               <!--optional--><!--testxsdStrMax--><tns:middleName>string</tns:middleName>
-               <!--testxsdStrMax--><tns:division>string</tns:division>
-               <!--testxsdStrMax--><tns:divisionCode>string</tns:divisionCode>
-               <!--optional--><!--testxsdStrMax--><tns:jobTitle>string</tns:jobTitle>
-               <!--testxsdStrMax--><tns:role>string</tns:role>
+   <soap:Body>
+      <AMRLiRT:calculateRatingRq xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
+                                 xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/">
+         <tns:arg0>
+            <tns:ratingId>string</tns:ratingId>
+            <tns:model>string</tns:model>
+            <tns:modelIntagrationId>string</tns:modelIntagrationId>
+            <!--optional--><tns:accountId>string</tns:accountId>
+            <!--optional--><tns:uid>string</tns:uid>
+            <!--optional--><tns:account>string</tns:account>
+            <!--optional--><tns:inn>string</tns:inn>
+            <!--optional--><tns:kpp>string</tns:kpp>
+            <!--optional--><tns:gszId>string</tns:gszId>
+            <!--optional--><tns:gsz>string</tns:gsz>
+            <!--optional--><tns:subjectId>string</tns:subjectId>
+            <!--optional--><tns:subject>string</tns:subject>
+            <!--optional--><tns:subjectOKATO>string</tns:subjectOKATO>
+            <!--optional--><tns:project>string</tns:project>
+            <tns:requestor>
+               <tns:login>string</tns:login>
+               <tns:lastName>string</tns:lastName>
+               <tns:firstName>string</tns:firstName>
+               <!--optional--><tns:middleName>string</tns:middleName>
+               <tns:division>string</tns:division>
+               <tns:divisionCode>string</tns:divisionCode>
+               <!--optional--><tns:jobTitle>string</tns:jobTitle>
+               <tns:role>string</tns:role>
             </tns:requestor>
-            <!--testXsd import {ListOfFixedFactor}--><tns:listOfFixedFactor><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/")--><!--from 1 to unbounded elements --><!--testXsd import {FixedFactor}--><tns:fixedFactor><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/")--><!--testxsdStrMax--><tns:factor>string</tns:factor>
-                  <!--testxsdStrMax--><tns:factorIntegrationId>string</tns:factorIntegrationId>
-                  <!--testxsdStrMax--><tns:group>string</tns:group>
-                  <!--optional--><!--testxsdStrMax--><tns:value>string</tns:value>
-                  <!--optional--><!--testxsdStrMax--><tns:valueIntegrationId>string</tns:valueIntegrationId>
+            <tns:listOfFixedFactor><!--from 1 to unbounded elements --><tns:fixedFactor>
+                  <tns:factor>string</tns:factor>
+                  <tns:factorIntegrationId>string</tns:factorIntegrationId>
+                  <tns:group>string</tns:group>
+                  <!--optional--><tns:value>string</tns:value>
+                  <!--optional--><tns:valueIntegrationId>string</tns:valueIntegrationId>
                </tns:fixedFactor>
             </tns:listOfFixedFactor>
-            <!--testXsd import {ListOfRatingPeriod}--><tns:listOfRatingPeriod><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/")--><!--from 1 to unbounded elements --><!--testXsd import {RatingPeriod}--><tns:ratingPeriod><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/")--><!--optional--><!--testxsdDate--><tns:reportDate>2015-04-09</tns:reportDate>
-                  <!--optional--><!--testxsdStrMax--><tns:period>string</tns:period>
-                  <!--optional--><!--testxsdDate--><tns:startDate>2015-04-09</tns:startDate>
-                  <!--optional--><!--testxsdDate--><tns:endDate>2015-04-09</tns:endDate>
-                  <!--optional--><!--testxsdStrMax--><tns:type>string</tns:type>
-                  <!--optional--><!--testxsdStrMax--><tns:comments>string</tns:comments>
-                  <!--testXsd import {ListOfCardinalFactor}--><tns:listOfCardinalFactor><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/")--><!--from 1 to unbounded elements --><!--testXsd import {CardinalFactor}--><tns:cardinalFactor><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/")--><!--testxsdStrMax--><tns:factor>string</tns:factor>
-                        <!--testxsdStrMax--><tns:factorIntegrationId>string</tns:factorIntegrationId>
-                        <!--testxsdStrMax--><tns:group>string</tns:group>
-                        <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/"--><tns:numValue>10</tns:numValue>
+            <tns:listOfRatingPeriod><!--from 1 to unbounded elements --><tns:ratingPeriod><!--optional--><tns:reportDate>2015-04-10</tns:reportDate>
+                  <!--optional--><tns:period>string</tns:period>
+                  <!--optional--><tns:startDate>2015-04-10</tns:startDate>
+                  <!--optional--><tns:endDate>2015-04-10</tns:endDate>
+                  <!--optional--><tns:type>string</tns:type>
+                  <!--optional--><tns:comments>string</tns:comments>
+                  <tns:listOfCardinalFactor><!--from 1 to unbounded elements --><tns:cardinalFactor>
+                        <tns:factor>string</tns:factor>
+                        <tns:factorIntegrationId>string</tns:factorIntegrationId>
+                        <tns:group>string</tns:group>
+                        <!--optional--><tns:numValue>10</tns:numValue>
                      </tns:cardinalFactor>
                   </tns:listOfCardinalFactor>
                </tns:ratingPeriod>
             </tns:listOfRatingPeriod>
-            <!--optional--><!--testXsd import {ListOfRatingSupport}--><tns:listOfRatingSupport><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/")--><!--from 0 to unbounded elements --><!--testXsd import {RatingSupport}--><tns:ratingSupport><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/")--><!--testxsdStrMax--><tns:name>string</tns:name>
-                  <!--testxsdStrMax--><tns:integrationId>string</tns:integrationId>
-                  <!--testXsd import {ListOfSupportFactor}--><tns:listOfSupportFactor><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/")--><!--from 1 to unbounded elements --><!--testXsd import {SupportFactor}--><tns:supportFactor><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/")--><!--testxsdStrMax--><tns:factor>string</tns:factor>
-                        <!--testxsdStrMax--><tns:factorIntegrationId>string</tns:factorIntegrationId>
-                        <!--testxsdStrMax--><tns:group>string</tns:group>
-                        <!--optional--><!--testxsdStrMax--><tns:value>string</tns:value>
-                        <!--optional--><!--testxsdStrMax--><tns:valueIntegrationId>string</tns:valueIntegrationId>
-                        <!--optional--><!--testxsdStrMax--><tns:freeValue>string</tns:freeValue>
+            <!--optional--><tns:listOfRatingSupport><!--from 0 to unbounded elements --><tns:ratingSupport>
+                  <tns:name>string</tns:name>
+                  <tns:integrationId>string</tns:integrationId>
+                  <tns:listOfSupportFactor><!--from 1 to unbounded elements --><tns:supportFactor>
+                        <tns:factor>string</tns:factor>
+                        <tns:factorIntegrationId>string</tns:factorIntegrationId>
+                        <tns:group>string</tns:group>
+                        <!--optional--><tns:value>string</tns:value>
+                        <!--optional--><tns:valueIntegrationId>string</tns:valueIntegrationId>
+                        <!--optional--><tns:freeValue>string</tns:freeValue>
                      </tns:supportFactor>
                   </tns:listOfSupportFactor>
                </tns:ratingSupport>
             </tns:listOfRatingSupport>
          </tns:arg0>
-         <!--optional--><!--testNoRestrictions--><tns:siebelMessage>anyString</tns:siebelMessage>
+         <!--optional--><tns:siebelMessage>anyString</tns:siebelMessage>
       </AMRLiRT:calculateRatingRq>
    </soap:Body>
 </soap:Envelope>
