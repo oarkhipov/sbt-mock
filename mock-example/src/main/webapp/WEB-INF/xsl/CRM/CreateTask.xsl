@@ -36,7 +36,7 @@
             </xsl:with-param>
             <xsl:with-param name="timestamp" select="$timestamp"/>
             <xsl:with-param name="id" select="$id"/>
-            <xsl:with-param name="operation-name" select="string('CreateTask')"/>
+            <xsl:with-param name="operation-name" select="string('CreateTaskClientService')"/>
             <xsl:with-param name="correlation-id" select="$correlation-id"/>
             <xsl:with-param name="eis-name" select="$eis-name"/>
             <xsl:with-param name="system-id" select="$system-id"/>

@@ -28,7 +28,7 @@ public class RouterTest {
     public void routerTest1() throws Exception {
         String defaultChannel = "DefaultOutputChannelIfNoOperationRouted";
         String requestChannel = "MockInboundRequest";
-        String responseChannel = "CreateTask";
+        String responseChannel = "SaveDeal";
         String request = "routerTest\\rq.xml";
 
         String message = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource(request).getPayload());
