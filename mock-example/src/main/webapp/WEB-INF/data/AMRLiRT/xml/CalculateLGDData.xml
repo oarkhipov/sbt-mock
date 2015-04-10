@@ -8,12 +8,12 @@
       </SoapHeader>
       <errorCode>0</errorCode>
       <errorMessage>Success</errorMessage>
-      <crmId>
-         ***
-      </crmId>
-      <lgdType>
-         ***
-      </lgdType>
+      <!--<crmId>-->
+         <!--***-->
+      <!--</crmId>-->
+      <!--<lgdType>-->
+         <!--***-->
+      <!--</lgdType>-->
       <lgdDate>2014-11-20</lgdDate>
       <pd>10</pd>
       <lgd>15</lgd>
@@ -26,8 +26,8 @@
       <totalColValueEad>1000000</totalColValueEad>
       <listOfCollateral>
             <collateral>
-               <crmId>**************</crmId>
-               <collType>**************</collType>
+               <!--<crmId>**************</crmId>-->
+               <!--<collType>**************</collType>-->
                <returnRate>100000</returnRate>
                <discountRate>11</discountRate>
                <collValueEad>123000</collValueEad>

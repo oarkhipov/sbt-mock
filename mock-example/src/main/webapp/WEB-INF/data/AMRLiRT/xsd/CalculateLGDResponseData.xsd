@@ -112,14 +112,14 @@
                </xsd:restriction>
             </xsd:simpleType>
          </xsd:element>
-         <xsd:element name="crmId" type="xsd:string"/>
-         <xsd:element name="lgdType">
-            <xsd:simpleType>
-               <xsd:restriction base="xsd:string">
-                  <xsd:maxLength value="30"/>
-               </xsd:restriction>
-            </xsd:simpleType>
-         </xsd:element>
+         <!--маппинги <xsd:element name="crmId" type="xsd:string"/>-->
+         <!--маппинги <xsd:element name="lgdType">-->
+            <!--<xsd:simpleType>-->
+               <!--<xsd:restriction base="xsd:string">-->
+                  <!--<xsd:maxLength value="30"/>-->
+               <!--</xsd:restriction>-->
+            <!--</xsd:simpleType>-->
+         <!--</xsd:element>-->
          <xsd:element name="lgdDate" type="xsd:date"/>
          <xsd:element name="pd" minOccurs="0" type="xsd:decimal"/>
          <xsd:element name="lgd" type="xsd:decimal"/>
@@ -136,20 +136,20 @@
    </xsd:complexType>
    <xsd:complexType name="CollateralLGDResponse">
       <xsd:sequence>
-         <xsd:element name="crmId">
-            <xsd:simpleType>
-               <xsd:restriction base="xsd:string">
-                  <xsd:maxLength value="15"/>
-               </xsd:restriction>
-            </xsd:simpleType>
-         </xsd:element>
-         <xsd:element name="collType">
-            <xsd:simpleType>
-               <xsd:restriction base="xsd:string">
-                  <xsd:maxLength value="30"/>
-               </xsd:restriction>
-            </xsd:simpleType>
-         </xsd:element>
+         <!--маппинги <xsd:element name="crmId">-->
+            <!--<xsd:simpleType>-->
+               <!--<xsd:restriction base="xsd:string">-->
+                  <!--<xsd:maxLength value="15"/>-->
+               <!--</xsd:restriction>-->
+            <!--</xsd:simpleType>-->
+         <!--</xsd:element>-->
+         <!--маппинги <xsd:element name="collType">-->
+            <!--<xsd:simpleType>-->
+               <!--<xsd:restriction base="xsd:string">-->
+                  <!--<xsd:maxLength value="30"/>-->
+               <!--</xsd:restriction>-->
+            <!--</xsd:simpleType>-->
+         <!--</xsd:element>-->
          <xsd:element name="returnRate" type="xsd:decimal"/>
          <xsd:element name="discountRate" type="xsd:decimal"/>
          <xsd:element name="collValueEad" type="xsd:decimal"/>

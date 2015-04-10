@@ -97,7 +97,7 @@
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
          <xsd:element name="dealID" type="tns:string15"/>
-         <xsd:element name="requestType" type="tns:string50"/>
+         <!--маппинг <xsd:element name="requestType" type="tns:string50"/>-->
          <xsd:element name="participantsGroup" type="tns:ParticipantsGroup"/>
          <xsd:element name="operationStatus" type="tns:OperationStatus"/>
       </xsd:sequence>

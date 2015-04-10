@@ -7,7 +7,7 @@
          <operation-name>prtspRs</operation-name>
       </SoapHeader>
       <dealID>Deal_01</dealID>
-      <requestType>***</requestType>
+      <!--<requestType>***</requestType>-->
       <participantsGroup>
          <participants>
             <participantID>ID-0</participantID>
@@ -76,7 +76,7 @@
          <operation-name>prtspRs</operation-name>
       </SoapHeader>
       <dealID>Deal_01</dealID>
-      <requestType>***</requestType>
+      <!--<requestType>***</requestType>-->
       <participantsGroup>
          <participants>
             <participantID>ID-0</participantID>
@@ -145,7 +145,7 @@
          <operation-name>prtspRs</operation-name>
       </SoapHeader>
       <dealID>Deal_01</dealID>
-      <requestType>***</requestType>
+      <!--<requestType>***</requestType>-->
       <participantsGroup>
                <participants>
                   <participantID>ID-0</participantID>
@@ -316,7 +316,7 @@
          <operation-name>prtspRs</operation-name>
       </SoapHeader>
       <dealID>Deal_01</dealID>
-      <requestType>***</requestType>
+      <!--<requestType>***</requestType>-->
       <participantsGroup>
                <groupType>CG</groupType>
                <groupInfo>
@@ -351,7 +351,7 @@
          <operation-name>prtspRs</operation-name>
       </SoapHeader>
       <dealID>Deal_01</dealID>
-      <requestType>***</requestType>
+      <!--<requestType>***</requestType>-->
       <participantsGroup>
                <groupType>LBG</groupType>
                <groupInfo>

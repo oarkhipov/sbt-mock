@@ -100,8 +100,8 @@
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
          <xsd:element name="errorCode" type="tns:string255"/>
          <xsd:element name="errorMessage" minOccurs="0" type="tns:string2000"/>
-         <xsd:element name="crmId" type="tns:string15"/>
-         <xsd:element name="type" type="tns:string15"/>
+         <!--маппинги <xsd:element name="crmId" type="tns:string15"/>-->
+         <!--маппинги <xsd:element name="type" type="tns:string15"/>-->
       </xsd:sequence>
       <xsd:attribute name="name"/>
    </xsd:complexType>
