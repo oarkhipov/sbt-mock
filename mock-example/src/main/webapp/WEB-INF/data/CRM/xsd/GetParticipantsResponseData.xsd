@@ -93,37 +93,13 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <xsd:complexType name="PrtspRs">
+   <!--test baseContainer complexType-PrtspRs--><xsd:complexType name="PrtspRs">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
-         <xsd:element name="dealID" type="crmct:string15">
-            <xsd:annotation>
-               <xsd:documentation>
-						ID сделки
-					</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="requestType" type="crmct:string50">
-            <xsd:annotation>
-               <xsd:documentation>
-						Тип сообщения (getDealParticipats, getCG, getLBG, getBorrower)
-					</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="participantsGroup" type="tns:ParticipantsGroup">
-            <xsd:annotation>
-               <xsd:documentation>
-						Информация об участниках
-					</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="operationStatus" type="tns:OperationStatus">
-            <xsd:annotation>
-               <xsd:documentation>
-						Статус операции
-					</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
+         <xsd:element name="dealID" type="tns:string15"/>
+         <xsd:element name="requestType" type="tns:string50"/>
+         <xsd:element name="participantsGroup" type="tns:ParticipantsGroup"/>
+         <xsd:element name="operationStatus" type="tns:OperationStatus"/>
       </xsd:sequence>
       <xsd:attribute name="name"/>
    </xsd:complexType>
@@ -134,14 +110,14 @@
 			</xsd:documentation>
       </xsd:annotation>
       <xsd:sequence>
-         <xsd:element name="errorCode" type="crmct:string50">
+         <xsd:element name="errorCode" type="tns:string50">
             <xsd:annotation>
                <xsd:documentation>
 						Код ошибки
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="errorMessage" minOccurs="0" type="crmct:string2000">
+         <xsd:element name="errorMessage" minOccurs="0" type="tns:string2000">
             <xsd:annotation>
                <xsd:documentation>
 						Сообщение ошибки
@@ -157,28 +133,28 @@
 			</xsd:documentation>
       </xsd:annotation>
       <xsd:sequence>
-         <xsd:element name="ratingID" type="crmct:string15">
+         <xsd:element name="ratingID" type="tns:string15">
             <xsd:annotation>
                <xsd:documentation>
 						ID Рейтинга
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="ratingValue" type="crmct:integer2">
+         <xsd:element name="ratingValue" type="tns:integer2">
             <xsd:annotation>
                <xsd:documentation>
 						Значение рейтинга
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="ratingType" type="crmct:string255">
+         <xsd:element name="ratingType" type="tns:string255">
             <xsd:annotation>
                <xsd:documentation>
 						Тип рейтинга
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="ratingModel" type="crmct:string255">
+         <xsd:element name="ratingModel" type="tns:string255">
             <xsd:annotation>
                <xsd:documentation>
 						Модель
@@ -192,14 +168,14 @@
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="ratingCalculatedRole" type="crmct:string255">
+         <xsd:element name="ratingCalculatedRole" type="tns:string255">
             <xsd:annotation>
                <xsd:documentation>
 						Роль
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="ratingCalculatedBy" type="crmct:string255">
+         <xsd:element name="ratingCalculatedBy" type="tns:string255">
             <xsd:annotation>
                <xsd:documentation>
 						Ф.И.О.
@@ -213,7 +189,7 @@
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="ratingApprovedBy" type="crmct:string255">
+         <xsd:element name="ratingApprovedBy" type="tns:string255">
             <xsd:annotation>
                <xsd:documentation>
 						Ф.И.О.
@@ -239,7 +215,7 @@
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="groupType" type="crmct:string255">
+         <xsd:element name="groupType" type="tns:string255">
             <xsd:annotation>
                <xsd:documentation>
 						Тип группы участников (КГ, ГСЗ, Участники сделки)
@@ -262,21 +238,21 @@
 			</xsd:documentation>
       </xsd:annotation>
       <xsd:sequence>
-         <xsd:element name="id" type="crmct:string15">
+         <xsd:element name="id" type="tns:string15">
             <xsd:annotation>
                <xsd:documentation>
 						ID группы для requestType=CG или requestType=LBG
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="label" type="crmct:string255">
+         <xsd:element name="label" type="tns:string255">
             <xsd:annotation>
                <xsd:documentation>
 						Наименование группы
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="status" type="crmct:string255">
+         <xsd:element name="status" type="tns:string255">
             <xsd:annotation>
                <xsd:documentation>
 						Статус группы
@@ -307,7 +283,7 @@
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="topLevelGroupName" minOccurs="0" type="crmct:string255">
+         <xsd:element name="topLevelGroupName" minOccurs="0" type="tns:string255">
             <xsd:annotation>
                <xsd:documentation>
 						Наименование ГСЗ верхнего уровня
@@ -323,14 +299,14 @@
 			</xsd:documentation>
       </xsd:annotation>
       <xsd:sequence>
-         <xsd:element name="participantID" type="crmct:string15">
+         <xsd:element name="participantID" type="tns:string15">
             <xsd:annotation>
                <xsd:documentation>
 						ID Участника
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="type" type="crmct:string255">
+         <xsd:element name="type" type="tns:string255">
             <xsd:annotation>
                <xsd:documentation>
 						Тип участника (Участник, Заемщик, Гарант... )
@@ -344,14 +320,14 @@
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="clientType" minOccurs="0" type="crmct:string255">
+         <xsd:element name="clientType" minOccurs="0" type="tns:string255">
             <xsd:annotation>
                <xsd:documentation>
 						Тип участника (ФЛ, ЮЛ)
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="name" type="crmct:string255">
+         <xsd:element name="name" type="tns:string255">
             <xsd:annotation>
                <xsd:documentation>
 						Наименование
@@ -365,28 +341,28 @@
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="consolidatedGroupID" minOccurs="0" type="crmct:string15">
+         <xsd:element name="consolidatedGroupID" minOccurs="0" type="tns:string15">
             <xsd:annotation>
                <xsd:documentation>
 						ID КГ
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="linkedBorrowersGroupID" minOccurs="0" type="crmct:string15">
+         <xsd:element name="linkedBorrowersGroupID" minOccurs="0" type="tns:string15">
             <xsd:annotation>
                <xsd:documentation>
 						ID ГСЗ
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="industry" type="crmct:string255">
+         <xsd:element name="industry" type="tns:string255">
             <xsd:annotation>
                <xsd:documentation>
 						Отрасль
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="inn" type="crmct:string12">
+         <xsd:element name="inn" type="tns:string12">
             <xsd:annotation>
                <xsd:documentation>
 						ИНН
@@ -412,4 +388,35 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
+   <xsd:simpleType name="string2000">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="2000"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string255">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="255"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string50">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="50"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string15">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="15"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string12">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="12"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="integer2">
+      <xsd:restriction base="xsd:integer">
+         <xsd:minInclusive value="-99"/>
+         <xsd:maxInclusive value="99"/>
+      </xsd:restriction>
+   </xsd:simpleType>
 </xsd:schema>

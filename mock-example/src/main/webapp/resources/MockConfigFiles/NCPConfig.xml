@@ -6,7 +6,7 @@
             <headerNamespace>http://sbrf.ru/NCP/esb/envelope/</headerNamespace>
             <integrationPoints>
                 <integrationPoint name="CreateTask">
-                    <operationName>createTaskRs</operationName>
+                    <operationName>CreateTask</operationName>
                     <rsRootElementName>createTaskRs</rsRootElementName>
                     <rqRootElementName>createTaskRq</rqRootElementName>
                     <type>Mock</type>
@@ -216,8 +216,10 @@
                     <type>Mock</type>
                     <linkedTagSequence>
                         <tag ns="http://sbrf.ru/NCP/esb/envelope/">Envelope</tag>
-                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Header</tag>
-                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">user-id</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCP/AMRLIRT/">calculateDCRq</tag>
+                        <tag ns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/">user</tag>
+                        <tag ns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/">fio</tag>
                     </linkedTagSequence>
                     <protocol>MQ/SOAP/HTTP</protocol>
                     <!--OPTIONAL-->

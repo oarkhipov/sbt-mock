@@ -61,24 +61,23 @@
       </xsl:element>
    </xsl:template>
 
-   <xsl:template name="finalizeLGDRs">
+   <!--xsd:complexType - template :LgdFinalizationResponse--><!--local-name=$xsdTagsToImport base complexType - complexTypehttp://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/-http://sbrf.ru/NCP/AMRLIRT/--><xsl:template name="finalizeLGDRs">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="AMRLiRT:finalizeLGDRs">			
-			      <tns:errorCode>
+      <xsl:element name="AMRLiRT:finalizeLGDRs"><!--xsd:element - Inside--><tns:errorCode>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
          </tns:errorCode>
-			      <xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
             <tns:errorMessage>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
             </tns:errorMessage>
          </xsl:if>
-			      <tns:crmId>
+         <!--xsd:element - Inside--><tns:crmId>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:crmId"/>
          </tns:crmId>
-			      <tns:type>
+         <!--xsd:element - Inside--><tns:type>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:type"/>
          </tns:type>
-		    </xsl:element>
+      </xsl:element>
    </xsl:template>
 </xsl:stylesheet>

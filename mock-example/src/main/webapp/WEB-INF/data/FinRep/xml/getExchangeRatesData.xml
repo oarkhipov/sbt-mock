@@ -12,7 +12,7 @@
       <exchangeRates>
          <currencyCode>string</currencyCode>
          <currencyRate>1234567890</currencyRate>
-         <currencyDate>2015-04-08</currencyDate>
+         <currencyDate>2015-04-09</currencyDate>
       </exchangeRates>
    </response>
    <response name="test1">
@@ -26,7 +26,7 @@
       <exchangeRates>
          <currencyCode>string</currencyCode>
          <currencyRate>1234567890</currencyRate>
-         <currencyDate>2015-04-08</currencyDate>
+         <currencyDate>2015-04-09</currencyDate>
       </exchangeRates>
    </response>
 </data>

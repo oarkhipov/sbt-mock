@@ -4,15 +4,13 @@
       <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
       <soap:operation-name>createTaskRs</soap:operation-name>
    </soap:Header>
-   <soap:Body>
-      <CRM:createTaskRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
-                        xmlns:tns="http://sbrf.ru/NCP/CRM/CreateTaskRs/1.03/">
-         <tns:contractID>string</tns:contractID>
-         <tns:contractBPMID>string</tns:contractBPMID>
-         <tns:comment>string</tns:comment>
-         <tns:requestType>string</tns:requestType>
-         <tns:responsiblePersonID>string</tns:responsiblePersonID>
-         <tns:errorCode>string</tns:errorCode>
+   <soap:Body><!--complexType--><CRM:createTaskRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+                        xmlns:tns="http://sbrf.ru/NCP/CRM/CreateTaskRs/1.03/"><!--testXsd import {string15}--><tns:contractID><!--test6 15-->string</tns:contractID>
+         <!--testXsd import {string255}--><tns:contractBPMID><!--test6 255-->string</tns:contractBPMID>
+         <!--testXsd import {string255}--><tns:comment><!--test6 255-->string</tns:comment>
+         <!--testXsd import {string50}--><tns:requestType><!--test6 50-->string</tns:requestType>
+         <!--testXsd import {string255}--><tns:responsiblePersonID><!--test6 255-->string</tns:responsiblePersonID>
+         <!--testXsd import {string50}--><tns:errorCode><!--test6 50-->string</tns:errorCode>
       </CRM:createTaskRs>
    </soap:Body>
 </soap:Envelope>

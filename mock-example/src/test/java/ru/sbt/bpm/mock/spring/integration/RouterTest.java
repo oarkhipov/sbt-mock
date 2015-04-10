@@ -1,4 +1,4 @@
-package ru.sbt.bpm.mock.tests;
+package ru.sbt.bpm.mock.spring.integration;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +28,7 @@ public class RouterTest {
     public void routerTest1() throws Exception {
         String defaultChannel = "DefaultOutputChannelIfNoOperationRouted";
         String requestChannel = "MockInboundRequest";
-        String responseChannel = "SrvGetClientReferenceDataRq";
+        String responseChannel = "CreateTask";
         String request = "routerTest\\rq.xml";
 
         String message = XmlUtil.docAsString(XmlUtil.createXmlMessageFromResource(request).getPayload());

@@ -95,14 +95,29 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <xsd:complexType name="LgdFinalizationResponse">
+   <!--test baseContainer complexType-LgdFinalizationResponse--><xsd:complexType name="LgdFinalizationResponse">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
-         <xsd:element name="errorCode" type="amrct:string255"/>
-         <xsd:element name="errorMessage" minOccurs="0" type="amrct:string2000"/>
-         <xsd:element name="crmId" type="amrct:string15"/>
-         <xsd:element name="type" type="amrct:string15"/>
+         <xsd:element name="errorCode" type="tns:string255"/>
+         <xsd:element name="errorMessage" minOccurs="0" type="tns:string2000"/>
+         <xsd:element name="crmId" type="tns:string15"/>
+         <xsd:element name="type" type="tns:string15"/>
       </xsd:sequence>
       <xsd:attribute name="name"/>
    </xsd:complexType>
+   <xsd:simpleType name="string255">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="255"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string2000">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="2000"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string15">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="15"/>
+      </xsd:restriction>
+   </xsd:simpleType>
 </xsd:schema>

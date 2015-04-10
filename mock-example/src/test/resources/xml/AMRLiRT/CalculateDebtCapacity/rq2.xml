@@ -1,8 +1,28 @@
 <soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
-   <soap:Header>
-      <soap:message-id>defaultId</soap:message-id>
-      <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
-      <soap:operation-name>calculateDCRs</soap:operation-name>
-   </soap:Header>
-   <soap:Body/>
+    <soap:Header>
+        <soap:message-id>defaultId</soap:message-id>
+        <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
+        <soap:operation-name>calculateDCRs</soap:operation-name>
+    </soap:Header>
+    <soap:Body>
+        <AMRLiRT:calculateDCRq xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
+                               xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/">
+            <tns:crmId>string</tns:crmId>
+            <tns:rating>10</tns:rating>
+            <tns:finReportType>string</tns:finReportType>
+            <tns:model>string</tns:model>
+            <tns:rmkType>string</tns:rmkType>
+            <tns:currencyCode>string</tns:currencyCode>
+            <tns:currencyCodeForFinReport>string</tns:currencyCodeForFinReport>
+            <tns:currencyRate>10</tns:currencyRate>
+            <tns:futureCurrencyRate>10</tns:futureCurrencyRate>
+            <tns:currentCurrencyRate>10</tns:currentCurrencyRate>
+            <tns:accountList>
+                <tns:inn>string</tns:inn>
+                <tns:name>string</tns:name>
+                <tns:sbrfPriority>string</tns:sbrfPriority>
+                <tns:sbrfIndustry>string</tns:sbrfIndustry>
+            </tns:accountList>
+        </AMRLiRT:calculateDCRq>
+    </soap:Body>
 </soap:Envelope>

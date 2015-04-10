@@ -4,5 +4,10 @@
       <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
       <soap:operation-name>prtspRs</soap:operation-name>
    </soap:Header>
-   <soap:Body/>
+   <soap:Body><!--complexType--><CRM:prtspRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+                   xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRq/1.04/"><!--testXsd import {string15}--><tns:id><!--test6 15-->string</tns:id>
+         <tns:requestType>test1</tns:requestType>
+         <!--testXsd import {string50}--><tns:performer><!--test6 50-->string</tns:performer>
+      </CRM:prtspRq>
+   </soap:Body>
 </soap:Envelope>

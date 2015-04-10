@@ -9,7 +9,7 @@
    <!--опускаем строку 'xml version="1.0" encoding="UTF-8"'. С ней не работает MQ очередь-->
 <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
    <xsl:param name="name"
-              select="//*[local-name()='Envelope' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='Header' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='user-id' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/text()"/>
+              select="//*[local-name()='Envelope' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='Body' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='calculateDCRq' and namespace-uri()='http://sbrf.ru/NCP/AMRLIRT/']/*[local-name()='user' and namespace-uri()='http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/']/*[local-name()='fio' and namespace-uri()='http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/']/text()"/>
    <xsl:param name="dataFileName"
               select="'../../data/AMRLiRT/xml/CalculateDebtCapacityData.xml'"/>
    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
@@ -61,76 +61,72 @@
       </xsl:element>
    </xsl:template>
 
-   <xsl:template match="rsd:addParameter">
-      <tns:addParameter>
-         <xsl:if test="./rsd:order">
+   <!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/:AddParameter--><xsl:template match="rsd:addParameter">
+      <tns:addParameter><!--xsd:element - Inside--><xsl:if test="./rsd:order">
             <tns:order>
                <xsl:value-of select="./rsd:order"/>
             </tns:order>
          </xsl:if>
-         <tns:name>
+         <!--xsd:element - Inside--><tns:name>
             <xsl:value-of select="./rsd:name"/>
          </tns:name>
-         <tns:value>
+         <!--xsd:element - Inside--><tns:value>
             <xsl:value-of select="./rsd:value"/>
          </tns:value>
       </tns:addParameter>
    </xsl:template>
 
-   <xsl:template match="rsd:listOfAddParameter">
-      <tns:listOfAddParameter>
-         <xsl:apply-templates select="./rsd:addParameter"/>
+   <!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/:ListOfAddParameter--><xsl:template match="rsd:listOfAddParameter">
+      <tns:listOfAddParameter><!-- xsd:element[$typesList] - Inside AddParameter--><xsl:apply-templates select="./rsd:addParameter"/>
       </tns:listOfAddParameter>
    </xsl:template>
 
-   <xsl:template name="calculateDCRs">
+   <!--xsd:complexType - template :DebtCapacityCalculationResponse--><!--local-name=$xsdTagsToImport base complexType - complexTypehttp://sbrf.ru/NCP/AMRLIRT/CalculateDCRs/-http://sbrf.ru/NCP/AMRLIRT/--><xsl:template name="calculateDCRs">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="AMRLiRT:calculateDCRs">
-			      <tns:errorCode>
+      <xsl:element name="AMRLiRT:calculateDCRs"><!--xsd:element - Inside--><tns:errorCode>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
          </tns:errorCode>
-			      <xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
             <tns:errorMessage>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
             </tns:errorMessage>
          </xsl:if>
-
-			      <tns:crmId>
+         <!--xsd:element - Inside--><tns:crmId>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:crmId"/>
          </tns:crmId>
-			      <xsl:if test="$data/rsd:response[@name=$response]/rsd:rmk">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:rmk">
             <tns:rmk>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:rmk"/>
             </tns:rmk>
          </xsl:if>
-			      <tns:debtCapacity>
+         <!--xsd:element - Inside--><tns:debtCapacity>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:debtCapacity"/>
          </tns:debtCapacity>
-			      <xsl:if test="$data/rsd:response[@name=$response]/rsd:rmkInDealCurrency">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:rmkInDealCurrency">
             <tns:rmkInDealCurrency>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:rmkInDealCurrency"/>
             </tns:rmkInDealCurrency>
          </xsl:if>
-			      <tns:debtCapacityInDealCurrency>
+         <!--xsd:element - Inside--><tns:debtCapacityInDealCurrency>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:debtCapacityInDealCurrency"/>
          </tns:debtCapacityInDealCurrency>
-			      <xsl:if test="$data/rsd:response[@name=$response]/rsd:rmkForNextYear">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:rmkForNextYear">
             <tns:rmkForNextYear>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:rmkForNextYear"/>
             </tns:rmkForNextYear>
          </xsl:if>
-			      <xsl:if test="$data/rsd:response[@name=$response]/rsd:debtCapacityForNextYear">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:debtCapacityForNextYear">
             <tns:debtCapacityForNextYear>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:debtCapacityForNextYear"/>
             </tns:debtCapacityForNextYear>
          </xsl:if>
-			      <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:listOfAddParameter"/>
-			      <xsl:if test="$data/rsd:response[@name=$response]/rsd:amMessage">
+         <!-- xsd:element[$typesList] - Inside ListOfAddParameter--><xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:listOfAddParameter"/>
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:amMessage">
             <tns:amMessage>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:amMessage"/>
             </tns:amMessage>
          </xsl:if>
-		    </xsl:element>
+      </xsl:element>
    </xsl:template>
 </xsl:stylesheet>

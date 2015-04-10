@@ -36,7 +36,6 @@
 
     <xsl:variable name="dataNS" select="if ($targetNS!='') then mock:addDataToNamespaceUrl($targetNS, $rootElementName) else concat('http://sbrf.ru/mockService/',$rootElementName,'/Data/')"/>
 
-
     <!--В этой переменной идет выбор заголовка между разными системами. Сейчас выбор захорлкожен-->
     <!--!!! этот выбор захардкожен !!!-->
     <xsl:param name="headerType" select="if (contains($targetNS, 'bbmo')) then 'KD4' else 'NCP'"/>
@@ -75,6 +74,9 @@
 
     <xsl:variable name="type" select="'response'"/>
 
+    <!--переменная для отображение отладочных сообщений-->
+    <xsl:variable name="DEBUG" select="true()"/>
+
     <xsl:template match="xsd:schema">
         <xsl:element name="xsl:stylesheet">
             <xsl:if test="$targetNS!=''">
@@ -91,7 +93,7 @@
             <xsl:call-template name="bodyDeclaration"/>
             <xsl:text>&#xA;&#xA;</xsl:text>
 
-            <xsl:variable name="baseContainer" select="$typesList[@name=$rootTypeName or @name=$rootElementName]"/>
+            <xsl:variable name="baseContainer" select="if (count($typesList[local-name()='complexType'][@name=$rootTypeName])>0) then ($typesList[local-name()='complexType'][@name=$rootTypeName])[1] else ($typesList[@name=$rootElementName])[1]"/>
 
             <!--получаем все тэги, которые могут содержать типы, которые нам нужны и берем только те, что лежат в нашем неймспейсе-->
             <xsl:variable name="typesToTemplate" select="$baseContainer//@*[name()=$atributesWithTypes]/mock:removeNamespaceAlias(.,$localTargetNSAlias)[not(contains(.,':'))]"/>
@@ -137,7 +139,7 @@
 
     <xsl:template name="bodyDeclaration">
         <xsl:element name="xsl:template">
-            <xsl:attribute name="match">soap:Envelope</xsl:attribute><!--TODO исправить здесь; edit Забыл что именно нужно здесь исправить. Скорее всего как-то свзязано с неймспейсом soap. Но на эту строку уже заывязан автотест - по этой строке определяется, что xsl заглушка, а не драйвер. Поэтому без понимания на что менять лучше не менять -->
+            <xsl:attribute name="match"><xsl:value-of select="mock:MainRootElement($headerType)"/></xsl:attribute><!--TODO исправить здесь; edit Забыл что именно нужно здесь исправить. Скорее всего как-то свзязано с неймспейсом soap. Но на эту строку уже заывязан автотест - по этой строке определяется, что xsl заглушка, а не драйвер. Поэтому без понимания на что менять лучше не менять -->
             <xsl:element name="xsl:variable">
                 <xsl:attribute name="name">data</xsl:attribute>
                 <xsl:attribute name="select">document($dataFileName)/rsd:data</xsl:attribute>

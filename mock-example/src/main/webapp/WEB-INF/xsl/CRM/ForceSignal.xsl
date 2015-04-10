@@ -57,34 +57,33 @@
       </xsl:element>
    </xsl:template>
 
-   <xsl:template name="forceSignalRq">
+   <!--baseContainer if ForceSignalRq - 1forceSignalRq--><!--all types ForceSignalRq--><!--types to import ForceSignalRq--><!--xsd:complexType - template :ForceSignalRq--><!--local-name=$xsdTagsToImport base complexType - complexTypehttp://sbrf.ru/NCP/CRM/ForceSignalRq/1.05/-http://sbrf.ru/NCP/CRM/--><xsl:template name="forceSignalRq">
       <xsl:param name="request"/>
       <xsl:param name="data"/>
-      <xsl:element name="CRM:forceSignalRq">
-			      <xsl:if test="$data/rsd:request[@name=$request]/rsd:contractID">
+      <xsl:element name="CRM:forceSignalRq"><!--xsd:element - Inside--><xsl:if test="$data/rsd:request[@name=$request]/rsd:contractID">
             <tns:contractID>
                <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:contractID"/>
             </tns:contractID>
          </xsl:if>
-			      <xsl:if test="$data/rsd:request[@name=$request]/rsd:contractBPMID">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:request[@name=$request]/rsd:contractBPMID">
             <tns:contractBPMID>
                <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:contractBPMID"/>
             </tns:contractBPMID>
          </xsl:if>
-			      <xsl:if test="$data/rsd:request[@name=$request]/rsd:status">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:request[@name=$request]/rsd:status">
             <tns:status>
                <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:status"/>
             </tns:status>
          </xsl:if>
-			      <tns:comment>
+         <!--xsd:element - Inside--><tns:comment>
             <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:comment"/>
          </tns:comment>
-			      <tns:requestType>
+         <!--xsd:element - Inside--><tns:requestType>
             <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:requestType"/>
          </tns:requestType>
-			      <tns:responsiblePersonID>
+         <!--xsd:element - Inside--><tns:responsiblePersonID>
             <xsl:value-of select="$data/rsd:request[@name=$request]/rsd:responsiblePersonID"/>
          </tns:responsiblePersonID>
-		    </xsl:element>
+      </xsl:element>
    </xsl:template>
 </xsl:stylesheet>

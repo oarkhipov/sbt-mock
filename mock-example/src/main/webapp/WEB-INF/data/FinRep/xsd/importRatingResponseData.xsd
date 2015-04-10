@@ -95,37 +95,37 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <xsd:complexType name="ImportRatingResponse">
+   <!--test baseContainer complexType-ImportRatingResponse--><xsd:complexType name="ImportRatingResponse">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
-         <xsd:element name="dealId" type="frct:string15"/>
-         <xsd:element name="entityType" type="frct:string30"/>
-         <xsd:element name="entityId" type="frct:string15"/>
-         <xsd:element name="errorCode" type="frct:string30"/>
-         <xsd:element name="errorMessage" minOccurs="0" type="frct:string2000"/>
+         <xsd:element name="dealId" type="tns:string15"/>
+         <xsd:element name="entityType" type="tns:string30"/>
+         <xsd:element name="entityId" type="tns:string15"/>
+         <xsd:element name="errorCode" type="tns:string30"/>
+         <xsd:element name="errorMessage" minOccurs="0" type="tns:string2000"/>
          <xsd:element name="listOfRating" type="tns:ListOfRating"/>
       </xsd:sequence>
       <xsd:attribute name="name"/>
    </xsd:complexType>
    <xsd:complexType name="Employee">
       <xsd:sequence>
-         <xsd:element name="login" type="frct:string50"/>
-         <xsd:element name="lastName" type="frct:string50"/>
-         <xsd:element name="firstName" type="frct:string50"/>
-         <xsd:element name="middleName" minOccurs="0" type="frct:string50"/>
-         <xsd:element name="division" type="frct:string50"/>
-         <xsd:element name="divisionCode" type="frct:string50"/>
-         <xsd:element name="jobTitle" minOccurs="0" type="frct:string300"/>
-         <xsd:element name="role" type="frct:string30"/>
+         <xsd:element name="login" type="tns:string50"/>
+         <xsd:element name="lastName" type="tns:string50"/>
+         <xsd:element name="firstName" type="tns:string50"/>
+         <xsd:element name="middleName" minOccurs="0" type="tns:string50"/>
+         <xsd:element name="division" type="tns:string50"/>
+         <xsd:element name="divisionCode" type="tns:string50"/>
+         <xsd:element name="jobTitle" minOccurs="0" type="tns:string300"/>
+         <xsd:element name="role" type="tns:string30"/>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="RatingAjustment">
       <xsd:sequence>
          <xsd:element name="ajustmentDate" type="xsd:dateTime"/>
          <xsd:element name="ajustedValue" type="xsd:int"/>
-         <xsd:element name="ajustmetReason" type="frct:string250"/>
-         <xsd:element name="comments" minOccurs="0" type="frct:string255"/>
-         <xsd:element name="status" type="frct:string30"/>
+         <xsd:element name="ajustmetReason" type="tns:string250"/>
+         <xsd:element name="comments" minOccurs="0" type="tns:string255"/>
+         <xsd:element name="status" type="tns:string30"/>
          <xsd:element name="employeeForAjustment" minOccurs="0" type="tns:Employee"/>
       </xsd:sequence>
    </xsd:complexType>
@@ -140,8 +140,8 @@
    <xsd:complexType name="AddParameter">
       <xsd:sequence>
          <xsd:element name="order" type="xsd:int"/>
-         <xsd:element name="name" type="frct:string255"/>
-         <xsd:element name="value" type="frct:string255"/>
+         <xsd:element name="name" type="tns:string255"/>
+         <xsd:element name="value" type="tns:string255"/>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="ListOfAddParameter">
@@ -154,9 +154,9 @@
    </xsd:complexType>
    <xsd:complexType name="CalculatedFactor">
       <xsd:sequence>
-         <xsd:element name="code" type="frct:string30"/>
-         <xsd:element name="name" type="frct:string255"/>
-         <xsd:element name="value" type="frct:string255"/>
+         <xsd:element name="code" type="tns:string30"/>
+         <xsd:element name="name" type="tns:string255"/>
+         <xsd:element name="value" type="tns:string255"/>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="ListOfCalculatedFactor">
@@ -170,9 +170,9 @@
    <xsd:complexType name="ResultRating">
       <xsd:sequence>
          <xsd:element name="isPrimary" type="xsd:boolean"/>
-         <xsd:element name="name" type="frct:string255"/>
+         <xsd:element name="name" type="tns:string255"/>
          <xsd:element name="value" type="xsd:int"/>
-         <xsd:element name="type" minOccurs="0" type="frct:string30"/>
+         <xsd:element name="type" minOccurs="0" type="tns:string30"/>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="ListOfResultRating">
@@ -185,9 +185,9 @@
    </xsd:complexType>
    <xsd:complexType name="CardinalFactor">
       <xsd:sequence>
-         <xsd:element name="factor" type="frct:string255"/>
-         <xsd:element name="factorIntegrationId" type="frct:string30"/>
-         <xsd:element name="group" type="frct:string30"/>
+         <xsd:element name="factor" type="tns:string255"/>
+         <xsd:element name="factorIntegrationId" type="tns:string30"/>
+         <xsd:element name="group" type="tns:string30"/>
          <xsd:element name="numValue" minOccurs="0" type="xsd:double"/>
       </xsd:sequence>
    </xsd:complexType>
@@ -201,11 +201,11 @@
    <xsd:complexType name="RatingPeriod">
       <xsd:sequence>
          <xsd:element name="reportDate" minOccurs="0" type="xsd:date"/>
-         <xsd:element name="period" minOccurs="0" type="frct:string50"/>
+         <xsd:element name="period" minOccurs="0" type="tns:string50"/>
          <xsd:element name="startDate" minOccurs="0" type="xsd:date"/>
          <xsd:element name="endDate" minOccurs="0" type="xsd:date"/>
-         <xsd:element name="type" minOccurs="0" type="frct:string30"/>
-         <xsd:element name="comments" minOccurs="0" type="frct:string255"/>
+         <xsd:element name="type" minOccurs="0" type="tns:string30"/>
+         <xsd:element name="comments" minOccurs="0" type="tns:string255"/>
          <xsd:element name="listOfCardinalFactor" type="tns:ListOfCardinalFactor"/>
       </xsd:sequence>
    </xsd:complexType>
@@ -216,12 +216,12 @@
    </xsd:complexType>
    <xsd:complexType name="SupportFactor">
       <xsd:sequence>
-         <xsd:element name="factor" type="frct:string255"/>
-         <xsd:element name="factorIntegrationId" type="frct:string30"/>
-         <xsd:element name="group" type="frct:string30"/>
-         <xsd:element name="value" minOccurs="0" type="frct:string255"/>
-         <xsd:element name="valueIntegrationId" minOccurs="0" type="frct:string30"/>
-         <xsd:element name="freeValue" minOccurs="0" type="frct:string255"/>
+         <xsd:element name="factor" type="tns:string255"/>
+         <xsd:element name="factorIntegrationId" type="tns:string30"/>
+         <xsd:element name="group" type="tns:string30"/>
+         <xsd:element name="value" minOccurs="0" type="tns:string255"/>
+         <xsd:element name="valueIntegrationId" minOccurs="0" type="tns:string30"/>
+         <xsd:element name="freeValue" minOccurs="0" type="tns:string255"/>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="ListOfSupportFactor">
@@ -231,8 +231,8 @@
    </xsd:complexType>
    <xsd:complexType name="RatingSupport">
       <xsd:sequence>
-         <xsd:element name="name" type="frct:string130"/>
-         <xsd:element name="integrationId" type="frct:string30"/>
+         <xsd:element name="name" type="tns:string130"/>
+         <xsd:element name="integrationId" type="tns:string30"/>
          <xsd:element name="listOfSupportFactor" type="tns:ListOfSupportFactor"/>
       </xsd:sequence>
    </xsd:complexType>
@@ -246,11 +246,11 @@
    </xsd:complexType>
    <xsd:complexType name="FixedFactor">
       <xsd:sequence>
-         <xsd:element name="factor" type="frct:string255"/>
-         <xsd:element name="factorIntegrationId" type="frct:string30"/>
-         <xsd:element name="group" type="frct:string30"/>
-         <xsd:element name="value" minOccurs="0" type="frct:string1024"/>
-         <xsd:element name="valueIntegrationId" minOccurs="0" type="frct:string30"/>
+         <xsd:element name="factor" type="tns:string255"/>
+         <xsd:element name="factorIntegrationId" type="tns:string30"/>
+         <xsd:element name="group" type="tns:string30"/>
+         <xsd:element name="value" minOccurs="0" type="tns:string1024"/>
+         <xsd:element name="valueIntegrationId" minOccurs="0" type="tns:string30"/>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="ListOfFixedFactor">
@@ -260,9 +260,9 @@
    </xsd:complexType>
    <xsd:complexType name="RatingCalc">
       <xsd:sequence>
-         <xsd:element name="ratingCalcId" type="frct:string15"/>
-         <xsd:element name="modelName" type="frct:string100"/>
-         <xsd:element name="modelIntegrationId" type="frct:string30"/>
+         <xsd:element name="ratingCalcId" type="tns:string15"/>
+         <xsd:element name="modelName" type="tns:string100"/>
+         <xsd:element name="modelIntegrationId" type="tns:string30"/>
          <xsd:element name="dateCalc" minOccurs="0" type="xsd:dateTime"/>
          <xsd:element name="calcValue" minOccurs="0" type="xsd:int"/>
          <xsd:element name="listOfRatingAjustment"
@@ -294,19 +294,19 @@
    </xsd:complexType>
    <xsd:complexType name="Rating">
       <xsd:sequence>
-         <xsd:element name="ratingId" type="frct:string15"/>
+         <xsd:element name="ratingId" type="tns:string15"/>
          <xsd:element name="finalRatingValue" minOccurs="0" type="xsd:int"/>
          <xsd:element name="intermediateRatingValue" minOccurs="0" type="xsd:int"/>
          <xsd:element name="ajustedRatingValue" minOccurs="0" type="xsd:int"/>
          <xsd:element name="pd" minOccurs="0" type="xsd:decimal"/>
-         <xsd:element name="status" type="frct:string15"/>
+         <xsd:element name="status" type="tns:string15"/>
          <xsd:element name="approvalDate" minOccurs="0" type="xsd:dateTime"/>
          <xsd:element name="calculationDate" minOccurs="0" type="xsd:dateTime"/>
          <xsd:element name="ajustmentDate" minOccurs="0" type="xsd:dateTime"/>
-         <xsd:element name="modelName" minOccurs="0" type="frct:string100"/>
-         <xsd:element name="modelIntegrationId" minOccurs="0" type="frct:string30"/>
-         <xsd:element name="ratingName" minOccurs="0" type="frct:string255"/>
-         <xsd:element name="ratingType" minOccurs="0" type="frct:string30"/>
+         <xsd:element name="modelName" minOccurs="0" type="tns:string100"/>
+         <xsd:element name="modelIntegrationId" minOccurs="0" type="tns:string30"/>
+         <xsd:element name="ratingName" minOccurs="0" type="tns:string255"/>
+         <xsd:element name="ratingType" minOccurs="0" type="tns:string30"/>
          <xsd:element name="employeeForApprove" minOccurs="0" type="tns:Employee"/>
          <xsd:element name="listOfRatingCalc" type="tns:ListOfRatingCalc"/>
       </xsd:sequence>
@@ -316,4 +316,54 @@
          <xsd:element name="rating" maxOccurs="unbounded" type="tns:Rating"/>
       </xsd:sequence>
    </xsd:complexType>
+   <xsd:simpleType name="string2000">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="2000"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string1024">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="1024"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string300">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="300"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string255">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="255"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string250">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="250"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string130">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="130"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string100">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="100"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string50">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="50"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string30">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="30"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string15">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="15"/>
+      </xsd:restriction>
+   </xsd:simpleType>
 </xsd:schema>

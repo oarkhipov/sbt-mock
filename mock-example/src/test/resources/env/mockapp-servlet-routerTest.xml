@@ -142,20 +142,20 @@
 
         <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="DefaultOutputChannelIfNoOperationRouted"/>
 
-        <ix:mapping value="CreateTask" channel="CreateTask"/>
-        <ix:mapping value="GetParticipants" channel="GetParticipants"/>
-        <ix:mapping value="SaveDeal" channel="SaveDeal"/>
-        <ix:mapping value="UpdateRef" channel="UpdateRef"/>
-        <ix:mapping value="CalculateDebtCapacity" channel="CalculateDebtCapacity"/>
-        <ix:mapping value="CalculateLGD" channel="CalculateLGD"/>
-        <ix:mapping value="CalculateRating" channel="CalculateRating"/>
-        <ix:mapping value="ConfirmRating" channel="ConfirmRating"/>
-        <ix:mapping value="CorrectRating" channel="CorrectRating"/>
-        <ix:mapping value="FinalizeLGD" channel="FinalizeLGD"/>
-        <ix:mapping value="getExchangeRates" channel="getExchangeRates"/>
-        <ix:mapping value="importFinReport" channel="importFinReport"/>
-        <ix:mapping value="ImportRating" channel="ImportRating"/>
-        <ix:mapping value="UpdateRating" channel="UpdateRating"/>
+        <ix:mapping value="createTaskRq" channel="CreateTask"/>
+        <ix:mapping value="GetParticipantsRq" channel="GetParticipants"/>
+        <ix:mapping value="SaveDealRq" channel="SaveDeal"/>
+        <ix:mapping value="UpdateRefRq" channel="UpdateRef"/>
+        <ix:mapping value="CalculateDebtCapacityRq" channel="CalculateDebtCapacity"/>
+        <ix:mapping value="CalculateLGDRq" channel="CalculateLGD"/>
+        <ix:mapping value="CalculateRatingRq" channel="CalculateRating"/>
+        <ix:mapping value="ConfirmRatingRq" channel="ConfirmRating"/>
+        <ix:mapping value="CorrectRatingRq" channel="CorrectRating"/>
+        <ix:mapping value="FinalizeLGDRq" channel="FinalizeLGD"/>
+        <ix:mapping value="getExchangeRatesRq" channel="getExchangeRates"/>
+        <ix:mapping value="importFinReportRq" channel="importFinReport"/>
+        <ix:mapping value="ImportRatingRq" channel="ImportRating"/>
+        <ix:mapping value="UpdateRatingRq" channel="UpdateRating"/>
     </ix:xpath-router>
 
     <!-- здесь уже реализация -->
@@ -234,6 +234,7 @@
         <beans:property name="subscribeChannels">
             <util:list>
                 <beans:ref bean="DriverInboundResponse"/>
+                <beans:ref bean="DefaultOutputChannelIfNoOperationRouted"/>
             </util:list>
         </beans:property>
     </beans:bean>

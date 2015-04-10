@@ -95,14 +95,14 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <xsd:complexType name="FinReportImportResponse">
+   <!--test baseContainer complexType-FinReportImportResponse--><xsd:complexType name="FinReportImportResponse">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
-         <xsd:element name="finReportType" type="frct:string30"/>
-         <xsd:element name="entityType" type="frct:string30"/>
-         <xsd:element name="entityId" type="frct:string15"/>
-         <xsd:element name="errorCode" type="frct:string30"/>
-         <xsd:element name="errorMessage" minOccurs="0" type="frct:string2000"/>
+         <xsd:element name="finReportType" type="tns:string30"/>
+         <xsd:element name="entityType" type="tns:string30"/>
+         <xsd:element name="entityId" type="tns:string15"/>
+         <xsd:element name="errorCode" type="tns:string30"/>
+         <xsd:element name="errorMessage" minOccurs="0" type="tns:string2000"/>
          <xsd:element name="nonCurrentAssetsNFRS" minOccurs="0" type="xsd:decimal"/>
          <xsd:element name="currentAssetsNFRS" minOccurs="0" type="xsd:decimal"/>
          <xsd:element name="nonCurrentAssetsIFRS" minOccurs="0" type="xsd:decimal"/>
@@ -115,10 +115,10 @@
          <xsd:element name="numQuarterNFRS" minOccurs="0" type="xsd:int"/>
          <xsd:element name="ebitdaIFRS" minOccurs="0" type="xsd:decimal"/>
          <xsd:element name="numQuarterIFRS" minOccurs="0" type="xsd:int"/>
-         <xsd:element name="currencyCodeForFR" type="frct:string30"/>
+         <xsd:element name="currencyCodeForFR" type="tns:string30"/>
          <xsd:element name="currencyRate" type="xsd:decimal"/>
          <xsd:element name="futureCurrencyRate" type="xsd:decimal"/>
-         <xsd:element name="purpose" minOccurs="0" type="frct:string100"/>
+         <xsd:element name="purpose" minOccurs="0" type="tns:string100"/>
          <xsd:element name="currentYear" minOccurs="0" type="xsd:int"/>
          <xsd:element name="govDebt" minOccurs="0" type="xsd:decimal"/>
          <xsd:element name="creditGovDebt" minOccurs="0" type="xsd:decimal"/>
@@ -142,22 +142,52 @@
    </xsd:complexType>
    <xsd:complexType name="FacilitySB">
       <xsd:sequence>
-         <xsd:element name="sbName" minOccurs="0" type="frct:string255"/>
+         <xsd:element name="sbName" minOccurs="0" type="tns:string255"/>
          <xsd:element name="sbcd" type="xsd:decimal"/>
-         <xsd:element name="agrNumber" minOccurs="0" type="frct:string50"/>
+         <xsd:element name="agrNumber" minOccurs="0" type="tns:string50"/>
          <xsd:element name="sbcdt" type="xsd:decimal"/>
          <xsd:element name="sbDebtCurrencyRate" type="xsd:decimal"/>
-         <xsd:element name="sbDebtCurrencyCode" minOccurs="0" type="frct:string30"/>
+         <xsd:element name="sbDebtCurrencyCode" minOccurs="0" type="tns:string30"/>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="Facility">
       <xsd:sequence>
-         <xsd:element name="name" minOccurs="0" type="frct:string255"/>
+         <xsd:element name="name" minOccurs="0" type="tns:string255"/>
          <xsd:element name="cd" type="xsd:decimal"/>
          <xsd:element name="cdt" type="xsd:decimal"/>
          <xsd:element name="date" minOccurs="0" type="xsd:date"/>
          <xsd:element name="debtCurrencyRate" type="xsd:decimal"/>
-         <xsd:element name="debtCurrencyCode" minOccurs="0" type="frct:string30"/>
+         <xsd:element name="debtCurrencyCode" minOccurs="0" type="tns:string30"/>
       </xsd:sequence>
    </xsd:complexType>
+   <xsd:simpleType name="string2000">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="2000"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string255">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="255"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string100">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="100"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string50">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="50"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string30">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="30"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string15">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="15"/>
+      </xsd:restriction>
+   </xsd:simpleType>
 </xsd:schema>

@@ -95,28 +95,16 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <xsd:complexType name="GetExchangeRatesResponse">
+   <!--test baseContainer complexType-GetExchangeRatesResponse--><xsd:complexType name="GetExchangeRatesResponse">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
-         <xsd:element name="dealID" type="frct:string15">
-            <xsd:annotation>
-               <xsd:documentation>
-						ID сделки
-					</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="errorCode" type="frct:string30"/>
-         <xsd:element name="errorMessage" minOccurs="0" type="frct:string2000"/>
+         <xsd:element name="dealID" type="tns:string15"/>
+         <xsd:element name="errorCode" type="tns:string30"/>
+         <xsd:element name="errorMessage" minOccurs="0" type="tns:string2000"/>
          <xsd:element name="exchangeRates"
                       minOccurs="1"
                       maxOccurs="unbounded"
-                      type="tns:ExchangeRate">
-            <xsd:annotation>
-               <xsd:documentation>
-						Информация о курсах валют
-					</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
+                      type="tns:ExchangeRate"/>
       </xsd:sequence>
       <xsd:attribute name="name"/>
    </xsd:complexType>
@@ -127,14 +115,14 @@
 			</xsd:documentation>
       </xsd:annotation>
       <xsd:sequence>
-         <xsd:element name="currencyCode" type="frct:string255">
+         <xsd:element name="currencyCode" type="tns:string255">
             <xsd:annotation>
                <xsd:documentation>
 						Код валюты
 					</xsd:documentation>
             </xsd:annotation>
          </xsd:element>
-         <xsd:element name="currencyRate" type="frct:double17_5">
+         <xsd:element name="currencyRate" type="tns:double17_5">
             <xsd:annotation>
                <xsd:documentation>
 						Курс валюты
@@ -150,4 +138,29 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
+   <xsd:simpleType name="string2000">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="2000"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string255">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="255"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string30">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="30"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string15">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="15"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="double17_5">
+      <xsd:restriction base="xsd:double">
+         <xsd:pattern value="-?\d{1,17}([/.,/,]\d{1,5}){0,1}"/>
+      </xsd:restriction>
+   </xsd:simpleType>
 </xsd:schema>

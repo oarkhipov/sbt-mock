@@ -64,6 +64,9 @@
 
     <xsl:variable name="type" select="'request'"/>
 
+    <!--переменная для отображение отладочных сообщений-->
+    <xsl:variable name="DEBUG" select="true()"/>
+
     <xsl:template match="xsd:schema">
         <xsl:element name="xsl:stylesheet">
             <xsl:if test="$targetNS!=''">
@@ -79,12 +82,17 @@
             <xsl:call-template name="bodyDeclaration"/>
             <xsl:text>&#xA;&#xA;</xsl:text>
 
-            <xsl:variable name="baseContainer" select="if (count($typesList[@name=$rootTypeName])=1) then $typesList[@name=$rootTypeName] else $typesList[@name=$rootElementName]"/>
+
+            <xsl:variable name="baseContainer" select="if (count($typesList[local-name()='complexType'][@name=$rootTypeName])>0) then ($typesList[local-name()='complexType'][@name=$rootTypeName])[1] else ($typesList[@name=$rootElementName])[1]"/>
 
             <!--получаем все тэги, которые могут содержать типы, которые нам нужны и берем только те, что лежат в нашем неймспейсе-->
-            <xsl:variable name="typesToTemplate" select="$baseContainer//@*[name()=$atributesWithTypes]/mock:removeNamespaceAlias(.,$localTargetNSAlias)[not(contains(.,':'))]"/>
+            <!--<xsl:variable name="typesToTemplate" select="$baseContainer//@*[name()=$atributesWithTypes]/mock:removeNamespaceAlias(.,$localTargetNSAlias)[not(contains(.,':'))]"/>-->
             <!--<xsl:comment>test <xsl:value-of select="$typesToTemplate"/></xsl:comment>-->
-
+            <xsl:if test="$DEBUG">
+                <xsl:comment>baseContainer if <xsl:value-of select="$rootTypeName"/> - <xsl:value-of select="count($typesList[local-name()='complexType'][@name=$rootTypeName])"/>  <xsl:value-of select="$rootElementName"/></xsl:comment>
+                <xsl:comment>all types <xsl:value-of select="$typesList/@name"/></xsl:comment>
+                <xsl:comment>types to import <xsl:value-of select="$typesList[@name=mock:typesToImport($baseContainer)]/@name"/></xsl:comment>
+             </xsl:if>
 
             <xsl:apply-templates select="$typesList[@name=mock:typesToImport($baseContainer)]" mode="template"/>
             <xsl:apply-templates select="$baseContainer" mode="base"/>

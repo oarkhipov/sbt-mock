@@ -21,11 +21,11 @@ public class MockConfigTest {
         MockConfigContainer gen2 = MockConfigContainer.getInstance("src/test/resources/xml/MockConfigFiles/MockConfig.xml");
         assertEquals(gen1, gen2);
 
-        System.out.println(gen1.getFilePath() + " || " + gen2.getFilePath());
+//        System.out.println(gen1.getFilePath() + " || " + gen2.getFilePath());
 
         assertEquals(fileExpected, gen1.getFilePath());
         assertEquals(fileExpected, gen2.getFilePath());
-        System.out.println("================================");
+//        System.out.println("================================");
     }
 
     @Test
@@ -33,10 +33,10 @@ public class MockConfigTest {
         final String fileExpected = "src/test/resources/xml/MockConfigFiles/MockConfig.xml";
         MockConfigContainer gen1 = MockConfigContainer.getInstance("src/test/resources/xml/MockConfigFiles/MockConfig.xml");
 
-        System.out.println(gen1.getFilePath());
+//        System.out.println(gen1.getFilePath());
 
         assertEquals(fileExpected, gen1.getFilePath());
-        System.out.println("================================");
+//        System.out.println("================================");
     }
 
     @Test
@@ -57,6 +57,6 @@ public class MockConfigTest {
 
         GatewayContextGenerator gcg = new GatewayContextGenerator(configContainer.getConfig().getListOfSystems());
         gcg.putChannelsToMap();
-        System.out.println(gcg.getInboundAndOutboundGateway());
+//        System.out.println(gcg.getInboundAndOutboundGateway());
     }
 }

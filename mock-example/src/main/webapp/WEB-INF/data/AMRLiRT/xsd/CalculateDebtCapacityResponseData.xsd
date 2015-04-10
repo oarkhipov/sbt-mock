@@ -95,7 +95,7 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <xsd:complexType name="DebtCapacityCalculationResponse">
+   <!--test baseContainer complexType-DebtCapacityCalculationResponse--><xsd:complexType name="DebtCapacityCalculationResponse">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
          <xsd:element name="errorCode">

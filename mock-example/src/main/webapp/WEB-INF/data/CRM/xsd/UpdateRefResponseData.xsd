@@ -93,32 +93,42 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <xsd:complexType name="UpdateRefRs">
+   <!--test baseContainer complexType-UpdateRefRs--><xsd:complexType name="UpdateRefRs">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
          <xsd:element name="referenceItem"
                       minOccurs="0"
                       maxOccurs="unbounded"
                       type="tns:ReferenceItem"/>
-         <xsd:element name="errorCode" type="crmct:string50"/>
-         <xsd:element name="errorMessage" minOccurs="0" type="crmct:string2000"/>
+         <xsd:element name="errorCode" type="tns:string50"/>
+         <xsd:element name="errorMessage" minOccurs="0" type="tns:string2000"/>
       </xsd:sequence>
       <xsd:attribute name="name"/>
    </xsd:complexType>
    <xsd:complexType name="ListOfValue">
       <xsd:sequence>
-         <xsd:element name="value" type="crmct:string2000"/>
-         <xsd:element name="valueId" type="crmct:string50"/>
-         <xsd:element name="parentValueId" minOccurs="0" type="crmct:string50"/>
+         <xsd:element name="value" type="tns:string2000"/>
+         <xsd:element name="valueId" type="tns:string50"/>
+         <xsd:element name="parentValueId" minOccurs="0" type="tns:string50"/>
       </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="ReferenceItem">
       <xsd:sequence>
-         <xsd:element name="referenceid" type="crmct:string50"/>
+         <xsd:element name="referenceid" type="tns:string50"/>
          <xsd:element name="listOfValue"
                       minOccurs="0"
                       maxOccurs="unbounded"
                       type="tns:ListOfValue"/>
       </xsd:sequence>
    </xsd:complexType>
+   <xsd:simpleType name="string2000">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="2000"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string50">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="50"/>
+      </xsd:restriction>
+   </xsd:simpleType>
 </xsd:schema>

@@ -93,59 +93,37 @@
          </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
-   <xsd:complexType name="CreateTaskRs">
+   <!--test baseContainer complexType-CreateTaskRs--><xsd:complexType name="CreateTaskRs">
       <xsd:sequence>
          <xsd:element name="SoapHeader" type="tns:Header" minOccurs="0"/>
-         <xsd:element name="contractID" type="crmct:string15">
-            <xsd:annotation>
-               <xsd:documentation>
-						ID сделки в CRM
-					</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="contractBPMID" type="crmct:string255">
-            <xsd:annotation>
-               <xsd:documentation>
-						ID сделки в PRPC
-					</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="comment" type="crmct:string255">
-            <xsd:annotation>
-               <xsd:documentation>
-						Примечание
-					</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="requestType" type="crmct:string50">
-            <xsd:annotation>
-               <xsd:documentation>
-						Тип сообщения
-					</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="responsiblePersonID" type="crmct:string255">
-            <xsd:annotation>
-               <xsd:documentation>
-						Идентификатор исполнителя
-					</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="errorCode" type="crmct:string50">
-            <xsd:annotation>
-               <xsd:documentation>
-						Код ошибки
-					</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="errorMessage" minOccurs="0" type="crmct:string2000">
-            <xsd:annotation>
-               <xsd:documentation>
-						Сообщение об ошибке
-					</xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
+         <xsd:element name="contractID" type="tns:string15"/>
+         <xsd:element name="contractBPMID" type="tns:string255"/>
+         <xsd:element name="comment" type="tns:string255"/>
+         <xsd:element name="requestType" type="tns:string50"/>
+         <xsd:element name="responsiblePersonID" type="tns:string255"/>
+         <xsd:element name="errorCode" type="tns:string50"/>
+         <xsd:element name="errorMessage" minOccurs="0" type="tns:string2000"/>
       </xsd:sequence>
       <xsd:attribute name="name"/>
    </xsd:complexType>
+   <xsd:simpleType name="string2000">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="2000"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string255">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="255"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string50">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="50"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="string15">
+      <xsd:restriction base="xsd:string">
+         <xsd:maxLength value="15"/>
+      </xsd:restriction>
+   </xsd:simpleType>
 </xsd:schema>

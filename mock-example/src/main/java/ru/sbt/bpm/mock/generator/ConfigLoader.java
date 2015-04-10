@@ -83,6 +83,9 @@ public class ConfigLoader {
         if (point.getOperationName() != null && !point.getOperationName().isEmpty()) {
             params.put("operationName", point.getOperationName()); //имя операции. Если не задано - возьмет html-тэг ответа
         }
+        if (point.getRqXsdFile()!= null && !point.getRqXsdFile().isEmpty()) {
+            params.put("altOperationsXSD", getUriFilename(LocalPaths.getWebInfPath() + "/xsd/" + systemName + "/" + point.getRqXsdFile()));
+        }
         params.put("dataFolderPath",getUriFilename(LocalPaths.getWebInfPath()+"\\data"));
         mockCycle(systemName, point.getIntegrationPointName(), headerType, params, null); //point.getMappedTagSequence());
     }
@@ -115,6 +118,8 @@ public class ConfigLoader {
             return "KD4";
         } else if (system.getHeaderNamespace().equals("http://sbrf.ru/NCP/esb/envelope/")) {
             return "NCP";
+        } else if (system.getHeaderNamespace().equals("http://schemas.xmlsoap.org/soap/envelope/")) {
+            return "KKMB";
         }
         throw new IllegalArgumentException("Header namespace {"+system.getHeaderNamespace()+"} not implemented");
     }

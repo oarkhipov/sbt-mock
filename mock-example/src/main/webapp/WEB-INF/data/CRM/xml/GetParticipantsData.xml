@@ -20,16 +20,16 @@
             <linkedBorrowersGroupID>string</linkedBorrowersGroupID>
             <industry>string</industry>
             <inn>string</inn>
-            <reportingDate>2015-04-08</reportingDate>
+            <reportingDate>2015-04-09</reportingDate>
             <rating>
                <ratingID>string</ratingID>
                <ratingValue>99</ratingValue>
                <ratingType>string</ratingType>
                <ratingModel>string</ratingModel>
-               <ratingCalculatedDate>2015-04-08</ratingCalculatedDate>
+               <ratingCalculatedDate>2015-04-09</ratingCalculatedDate>
                <ratingCalculatedRole>string</ratingCalculatedRole>
                <ratingCalculatedBy>string</ratingCalculatedBy>
-               <ratingApprovalDate>2015-04-08</ratingApprovalDate>
+               <ratingApprovalDate>2015-04-09</ratingApprovalDate>
                <ratingApprovedBy>string</ratingApprovedBy>
             </rating>
          </participants>
@@ -38,17 +38,17 @@
             <id>string</id>
             <label>string</label>
             <status>string</status>
-            <updateDate>2015-04-08T12:00:00</updateDate>
-            <approvalDate>2015-04-08T12:00:00</approvalDate>
+            <updateDate>2015-04-09T12:00:00</updateDate>
+            <approvalDate>2015-04-09T12:00:00</approvalDate>
             <ratings>
                <ratingID>string</ratingID>
                <ratingValue>99</ratingValue>
                <ratingType>string</ratingType>
                <ratingModel>string</ratingModel>
-               <ratingCalculatedDate>2015-04-08</ratingCalculatedDate>
+               <ratingCalculatedDate>2015-04-09</ratingCalculatedDate>
                <ratingCalculatedRole>string</ratingCalculatedRole>
                <ratingCalculatedBy>string</ratingCalculatedBy>
-               <ratingApprovalDate>2015-04-08</ratingApprovalDate>
+               <ratingApprovalDate>2015-04-09</ratingApprovalDate>
                <ratingApprovedBy>string</ratingApprovedBy>
             </ratings>
             <topLevelGroupName>string</topLevelGroupName>

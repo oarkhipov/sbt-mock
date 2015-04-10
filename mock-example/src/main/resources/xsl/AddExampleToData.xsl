@@ -70,7 +70,7 @@
                 <xsl:if test="$replace='false'"> <!--если надо - копируем то что было в дата-файле до нас. Кроме того, на что заменяем.-->
                     <xsl:copy-of select="$data/*[(local-name()='request' or local-name()='response')][@name!=$name]"/>
                 </xsl:if>
-                <xsl:apply-templates select="//*[local-name()='Body']" mode="add"> <!--копируем тело сообщения, заменяя неймспейсы-->
+                <xsl:apply-templates select="//*[local-name()='Body'] | /*[local-name()='Message']" mode="add"> <!--копируем тело сообщения, заменяя неймспейсы-->
                     <xsl:with-param name="ns" select="$dataNS"/>
                 </xsl:apply-templates>
             </xsl:if>
@@ -88,6 +88,22 @@
                 </xsl:apply-templates>
             </xsl:element>
             <xsl:apply-templates select="./*/*" mode="copyNopNS">
+                <xsl:with-param name="ns" select="$ns"/>
+            </xsl:apply-templates>
+        </xsl:element>
+    </xsl:template>
+
+    <!--копируем тело сообщения, заменяя неймспейсы-->
+    <xsl:template match="*[local-name()='Message']" mode="add">
+        <xsl:param name="ns"/> <!--неймспейс, в котором будет наш дата-файл-->
+        <xsl:element name="{$type}" namespace="{$ns}"> <!--контейнер response или request -->
+            <xsl:attribute name="name"><xsl:value-of select="$name"/></xsl:attribute>
+            <xsl:element name="SoapHeader" namespace="{$ns}"> <!--сначала копируем заголовок. его тоже надо вставить в дата-файл -->
+                <xsl:apply-templates select="./*[position() &lt; last()-1]" mode="copyNopNS">
+                    <xsl:with-param name="ns" select="$ns"/>
+                </xsl:apply-templates>
+            </xsl:element>
+            <xsl:apply-templates select="./*[last()]/*" mode="copyNopNS">
                 <xsl:with-param name="ns" select="$ns"/>
             </xsl:apply-templates>
         </xsl:element>
