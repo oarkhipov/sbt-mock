@@ -142,20 +142,20 @@
 
         <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="DefaultOutputChannelIfNoOperationRouted"/>
 
-        <ix:mapping value="createTaskRq" channel="CreateTask"/>
-        <ix:mapping value="GetParticipantsRq" channel="GetParticipants"/>
-        <ix:mapping value="SaveDealRq" channel="SaveDeal"/>
-        <ix:mapping value="UpdateRefRq" channel="UpdateRef"/>
-        <ix:mapping value="CalculateDebtCapacityRq" channel="CalculateDebtCapacity"/>
-        <ix:mapping value="CalculateLGDRq" channel="CalculateLGD"/>
-        <ix:mapping value="CalculateRatingRq" channel="CalculateRating"/>
-        <ix:mapping value="ConfirmRatingRq" channel="ConfirmRating"/>
-        <ix:mapping value="CorrectRatingRq" channel="CorrectRating"/>
-        <ix:mapping value="FinalizeLGDRq" channel="FinalizeLGD"/>
-        <ix:mapping value="getExchangeRatesRq" channel="getExchangeRates"/>
-        <ix:mapping value="importFinReportRq" channel="importFinReport"/>
-        <ix:mapping value="ImportRatingRq" channel="ImportRating"/>
-        <ix:mapping value="UpdateRatingRq" channel="UpdateRating"/>
+        <ix:mapping value="CreateTaskClientService" channel="CreateTask"/>
+        <ix:mapping value="GetParticipantsOfCreditDeal" channel="GetParticipants"/>
+        <ix:mapping value="SaveCreditDealData" channel="SaveDeal"/>
+        <ix:mapping value="UpdateReference" channel="UpdateRef"/>
+        <ix:mapping value="SrvCalcDebtCapacity" channel="CalculateDebtCapacity"/>
+        <ix:mapping value="SrvCalcLGD" channel="CalculateLGD"/>
+        <ix:mapping value="SrvCalcRating" channel="CalculateRating"/>
+        <ix:mapping value="SrvConfirmRating" channel="ConfirmRating"/>
+        <ix:mapping value="SrvUpdateRating" channel="CorrectRating"/>
+        <ix:mapping value="SrvFinalizeLGD" channel="FinalizeLGD"/>
+        <ix:mapping value="SrvGetExchangeRates" channel="getExchangeRates"/>
+        <ix:mapping value="SrvGetFinReport" channel="importFinReport"/>
+        <ix:mapping value="SrvGetRatingsAndFactors" channel="ImportRating"/>
+        <ix:mapping value="SrvUpdateRating" channel="UpdateRating"/>
     </ix:xpath-router>
 
     <!-- здесь уже реализация -->
@@ -235,6 +235,7 @@
             <util:list>
                 <beans:ref bean="DriverInboundResponse"/>
                 <beans:ref bean="DefaultOutputChannelIfNoOperationRouted"/>
+                <beans:ref bean="SaveDeal"/>
             </util:list>
         </beans:property>
     </beans:bean>

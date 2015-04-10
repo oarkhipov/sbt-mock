@@ -16,7 +16,7 @@
    </response>
    <response name="test1">
       <SoapHeader>
-         <message-id>defaultId</mesage-id>
+         <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
          <operation-name>createTaskRs</operation-name>
       </SoapHeader>

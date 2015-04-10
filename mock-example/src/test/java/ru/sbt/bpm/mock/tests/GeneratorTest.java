@@ -6,6 +6,7 @@ import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.sbt.bpm.mock.generator.spring.integration.GatewayContextGenerator;
 import ru.sbt.bpm.mock.generator.spring.integration.GenerateMockAppServlet;
@@ -29,6 +30,7 @@ import static org.junit.Assert.assertNotNull;
 public class GeneratorTest {
 
     @Test
+    @Ignore
     public void testAllMockxsl() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
         String rootpath = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl";

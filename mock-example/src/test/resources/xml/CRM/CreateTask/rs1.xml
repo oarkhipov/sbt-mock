@@ -1,19 +1,20 @@
 <soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
-   <soap:Header>
+   <soap:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
       <soap:message-id>defaultId</soap:message-id>
       <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
-      <soap:operation-name>CreateTask</soap:operation-name>
+      <soap:operation-name>CreateTaskClientService</soap:operation-name>
    </soap:Header>
-   <soap:Body>
-      <CRM:createTaskRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
-                        xmlns:tns="http://sbrf.ru/NCP/CRM/CreateTaskRs/1.03/">
-         <tns:contractID>string</tns:contractID>
-         <tns:contractBPMID>string</tns:contractBPMID>
-         <tns:comment>string</tns:comment>
-         <tns:requestType>string</tns:requestType>
-         <tns:responsiblePersonID>string</tns:responsiblePersonID>
-         <tns:errorCode>string</tns:errorCode>
-         <!--optional--><tns:errorMessage>string</tns:errorMessage>
+   <soap:Body xmlns:tns="http://sbrf.ru/NCP/CRM/CreateTaskRs/1.03/"
+              xmlns:rsd="http://sbrf.ru/NCP/CRM/CreateTaskRs/1.03/createTaskRs/Data/"
+              xmlns:CRM="http://sbrf.ru/NCP/CRM/">
+      <CRM:createTaskRs>
+         <tns:contractID>contractID0</tns:contractID>
+         <tns:contractBPMID>contractBPMID0</tns:contractBPMID>
+         <tns:comment>comment0</tns:comment>
+         <tns:requestType>requestType0</tns:requestType>
+         <tns:responsiblePersonID>responsiblePerson0</tns:responsiblePersonID>
+         <tns:errorCode>0</tns:errorCode>
+         <tns:errorMessage>errorMessage0</tns:errorMessage>
       </CRM:createTaskRs>
    </soap:Body>
 </soap:Envelope>
