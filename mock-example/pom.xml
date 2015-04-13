@@ -18,8 +18,6 @@
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
     </properties>
 
-
-
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -285,6 +283,9 @@
                         <goals>
                             <goal>war</goal>
                         </goals>
+                        <configuration>
+                            <warName>${project.artifactId}</warName>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>nojms-test</id>

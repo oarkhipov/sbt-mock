@@ -22,7 +22,7 @@
 
     <!-- Настройка используемой конфигурации заглушки-->
     <beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
-        <beans:constructor-arg value="/resources/MockConfigFiles/BBMOConfig.xml" type="java.lang.String" />
+        <beans:constructor-arg value="/resources/MockConfigFiles/NCPConfig.xml" type="java.lang.String" />
     </beans:bean>
 
     <!-- - - - - - - - - - - - - - -->
@@ -33,13 +33,13 @@
 
      <!--Настройки подключения к MQ-->
     <beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.CF"/>
+            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.CF"/>
     </beans:bean>
     <beans:bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.IN.MOCK"/>
+            <beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.IN"/>
     </beans:bean>
     <beans:bean id="outboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.OUT.MOCK"/>
+            <beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.OUT"/>
     </beans:bean>
 
      <beans:bean id="requestDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
@@ -200,10 +200,10 @@
         <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/importFinReport.xsl"/>
     </beans:bean>
     <beans:bean id="FinRep_ImportRating" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/ImportRating.xsl"/>
+        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/importRating.xsl"/>
     </beans:bean>
     <beans:bean id="FinRep_UpdateRating" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">
-        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/UpdateRating.xsl"/>
+        <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/updateRating.xsl"/>
     </beans:bean>
 
  <!--маппинг трасформеров на каналы-->
