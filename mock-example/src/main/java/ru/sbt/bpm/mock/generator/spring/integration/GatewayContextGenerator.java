@@ -1,7 +1,10 @@
 package ru.sbt.bpm.mock.generator.spring.integration;
 
+import ru.sbt.bpm.mock.config.MockConfig;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.entities.SystemTag;
+import ru.sbt.bpm.mock.generator.util.IncrimentingString;
+import ru.sbt.bpm.mock.generator.util.TemplateEngine.ConfigTemplate;
 
 import java.util.*;
 
@@ -12,7 +15,36 @@ import java.util.*;
  */
 
 // Генератор Inbound and Outbound gateway
-public class GatewayContextGenerator {
+public class GatewayContextGenerator implements ConfigTemplate {
+
+    MockConfig config;
+
+    private static GatewayContextGenerator ourInstance;
+
+    public static GatewayContextGenerator getInstance() {
+        if (ourInstance == null) {
+            ourInstance = new GatewayContextGenerator();
+        }
+        return ourInstance;
+    }
+
+    public String getValue(MockConfig config, String[] Args) {
+        return getValue(config);
+    }
+
+    public String getValue(MockConfig config) {
+
+        this.config = config;
+        this.aSystems = config.getListOfSystems();
+        this.mapOfInOutChannels = new HashMap<String, Map<String, Pair<String, String>>>();
+        this.mapOfInOutChannelsByType = new HashMap<String, Map<String, Pair<String, String>>>();
+        this.mapOfInOutChannelsWithoutDuplicates = new HashMap<String, Set<Pair<String, String>>>();
+        this.mapOfInOutChannelsWithoutDuplicates.put(MOCK_CONST, new HashSet<Pair<String, String>>());
+        this.mapOfInOutChannelsWithoutDuplicates.put(DRIVER_CONST,  new HashSet<Pair<String, String>>());
+
+        putChannelsToMap();
+        return getInboundAndOutboundGateway();
+    }
 
     // Тип точки интеграции Driver
     private static final String DRIVER_CONST = "Driver";
@@ -29,11 +61,7 @@ public class GatewayContextGenerator {
     // <Тип точки интеграции, <Входной канал, Выходной канал>>
     private Map<String, Set<Pair<String, String>>> mapOfInOutChannelsWithoutDuplicates;
 
-    public GatewayContextGenerator(List<SystemTag> systems) {
-        this.aSystems = systems;
-        this.mapOfInOutChannels = new HashMap<String, Map<String, Pair<String, String>>>();
-        this.mapOfInOutChannelsByType = new HashMap<String, Map<String, Pair<String, String>>>();
-        this.mapOfInOutChannelsWithoutDuplicates = new HashMap<String, Set<Pair<String, String>>>();
+    private GatewayContextGenerator() {
     }
 
     // Раскладываем в мап все каналы
@@ -61,8 +89,18 @@ public class GatewayContextGenerator {
 
             mapOfInOutChannels.put(system.getSystemName(), mapOfIntPointChannels);
             mapOfInOutChannelsByType.put(system.getSystemName(), mapOfIntPointChannelsByType);
-            mapOfInOutChannelsWithoutDuplicates.put(MOCK_CONST, setOfInChannels);
-            mapOfInOutChannelsWithoutDuplicates.put(DRIVER_CONST, setOfOutChannels);
+            for (Pair<String, String> chanel : setOfInChannels) {
+                if (!mapOfInOutChannelsWithoutDuplicates.get(MOCK_CONST).contains(chanel)) {
+                    mapOfInOutChannelsWithoutDuplicates.get(MOCK_CONST).add(chanel);
+                }
+            }
+            for (Pair<String, String> chanel : setOfOutChannels) {
+                if (!mapOfInOutChannelsWithoutDuplicates.get(DRIVER_CONST).contains(chanel)) {
+                    mapOfInOutChannelsWithoutDuplicates.get(DRIVER_CONST).add(chanel);
+                }
+            }
+//            mapOfInOutChannelsWithoutDuplicates.put(MOCK_CONST, setOfInChannels);
+//            mapOfInOutChannelsWithoutDuplicates.put(DRIVER_CONST, setOfOutChannels);
         }
     }
 
@@ -72,11 +110,14 @@ public class GatewayContextGenerator {
         String sbOUT = null;
         StringBuilder sbCommon = new StringBuilder();
 
-        for (Pair<String, String> mock : mapOfInOutChannelsWithoutDuplicates.get(MOCK_CONST))
-            sbCommon.append(generateGatewayDescription("inbound", "jmsin_" + Double.valueOf(Math.random() * 10000).longValue(), mock.getFirst(), mock.getSecond()));
+        IncrimentingString inrc = new IncrimentingString(mapOfInOutChannelsWithoutDuplicates.get(MOCK_CONST).size());
+        for (Pair<String, String> mock : mapOfInOutChannelsWithoutDuplicates.get(MOCK_CONST)) {
+            sbCommon.append(generateGatewayDescription("inbound", "jmsin" + inrc.get(), mock.getFirst(), mock.getSecond()));
+        }
 
+        inrc = new IncrimentingString(mapOfInOutChannelsWithoutDuplicates.get(MOCK_CONST).size());
         for (Pair<String, String> driver : mapOfInOutChannelsWithoutDuplicates.get(MOCK_CONST))
-            sbCommon.append(generateGatewayDescription("outbound", "jmsout_" + Double.valueOf(Math.random() * 10000).longValue(), driver.getFirst(), driver.getSecond()));
+            sbCommon.append(generateGatewayDescription("outbound", "jmsout" + inrc.get(), driver.getFirst(), driver.getSecond()));
 
         sbCommon.append(sbIN);
         sbCommon.append(sbOUT);

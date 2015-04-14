@@ -19,6 +19,11 @@ import java.util.List;
 @ToString
 public class IntegrationPoint {
 
+    // Тип точки интеграции Driver
+    public static final String DRIVER = "Driver";
+    // Тип точки интеграции Mock
+    public static final String MOCK= "Mock";
+
     @XStreamAlias("name")
     @XStreamAsAttribute
     @Getter

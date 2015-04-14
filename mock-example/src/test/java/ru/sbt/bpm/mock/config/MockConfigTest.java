@@ -55,7 +55,7 @@ public class MockConfigTest {
         MockConfigContainer configContainer = MockConfigContainer.getInstance("xml/MockConfigFiles/MockConfig.xml");
         configContainer.init();
 
-        GatewayContextGenerator gcg = new GatewayContextGenerator(configContainer.getConfig().getListOfSystems());
+        GatewayContextGenerator gcg = GatewayContextGenerator.getInstance();
         gcg.putChannelsToMap();
         System.out.println(gcg.getInboundAndOutboundGateway());
     }

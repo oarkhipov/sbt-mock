@@ -32,6 +32,11 @@ public class Pair<A, B> implements Serializable {
     }
 
     @Override
+    public int hashCode() {
+        return first.hashCode() + second.hashCode();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (obj == null)
             return false;
