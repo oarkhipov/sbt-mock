@@ -74,37 +74,39 @@
     <!-- Входной и выходной каналы Заглушки-->
     <channel id="MockInboundRequest">
         <interceptors>
-            <wire-tap channel="fromGateLogger"/>
+            <wire-tap channel="MockInboundRequestLogger"/>
         </interceptors>
     </channel>
     
     <channel id="MockOutboundResponse">
         <interceptors>
-            <wire-tap channel="toGateLogger"/>
+            <wire-tap channel="MockOutboundResponseLogger"/>
         </interceptors>
     </channel>
     
       <!-- Входной и выходной каналы Драйвера -->
-    <channel id="DriverInboundResponse">
-        <interceptors>
-            <wire-tap channel="fromGateLoggerCRM"/>
-        </interceptors>
-    </channel>
-    
+
     <channel id="DriverOutboundRequest">
         <interceptors>
-            <wire-tap channel="toGateLoggerCRM"/>
+            <wire-tap channel="DriverOutboundRequestLogger"/>
         </interceptors>
-    </channel>  
+    </channel>
+
+    <channel id="DriverInboundResponse">
+        <interceptors>
+            <wire-tap channel="DriverInboundResponseLogger"/>
+        </interceptors>
+    </channel>
+
+
+    <!--настройка логгеров -->
+    <logging-channel-adapter id="MockInboundRequestLogger" logger-name="MockInboundRequestLogger"/>
+    <logging-channel-adapter id="MockOutboundResponseLogger" logger-name="MockOutboundResponseLogger"/>
     
-    <!--настройка логгеров -->   
-    <logging-channel-adapter id="fromGateLogger" logger-name="fromGateLogger"/>
-    <logging-channel-adapter id="toGateLogger" logger-name="toGateLogger"/>
-    
-    <!--настройка логгеров1 -->   
-    <logging-channel-adapter id="fromGateLoggerCRM" logger-name="fromGateLoggerCRM"/>
-    <logging-channel-adapter id="toGateLoggerCRM" logger-name="toGateLoggerCRM"/>
-    
+    <!--настройка логгеров1 -->
+    <logging-channel-adapter id="DriverOutboundRequestLogger" logger-name="DriverOutboundRequestLogger"/>
+    <logging-channel-adapter id="DriverInboundResponseLogger" logger-name="DriverInboundResponseLogger"/>
+
     <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
 
 
@@ -130,7 +132,6 @@
     <channel id="SrvUpdateClientReferenceDataRq"/>
     <channel id="SrvSendBasicDocumentInformation"/>
 
-    <!-- TODO добавить Router test-->
     <!-- Роутер-->
     <ix:xpath-router id="operationRouter" input-channel="MockInboundRequest" default-output-channel="DefaultOutputChannelIfNoOperationRouted" resolution-required="false">
         <ix:xpath-expression expression="/env:Envelope/env:Header/ns1:AsyncHeader/ns1:operation-name" namespace-map="sbrfNamespaceMap" />
