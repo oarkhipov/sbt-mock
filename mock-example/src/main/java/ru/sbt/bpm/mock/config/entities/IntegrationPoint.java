@@ -76,9 +76,17 @@ public class IntegrationPoint {
     private String outcomeQueue;
 
     // Так как маппинг идет по полям xml, для удобства доступа и сравнения создаем Pair<INCOME, OUTCOME>
-    @Getter
-    @Setter
     private Pair<String, String> pairOfChannels;
+
+    public Pair<String, String> getPairOfChannels() {
+        return new Pair<String, String>(this.getIncomeQueue(), this.getOutcomeQueue());
+    }
+
+    public void setPairOfChannels(Pair<String, String> pairOfChannels) {
+        this.setIncomeQueue(pairOfChannels.getFirst());
+        this.setOutcomeQueue(pairOfChannels.getSecond());
+    }
+
 
     @XStreamAlias("xsdFile")
     @Getter

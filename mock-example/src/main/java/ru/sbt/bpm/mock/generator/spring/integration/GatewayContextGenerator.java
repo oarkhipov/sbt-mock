@@ -77,7 +77,7 @@ public class GatewayContextGenerator implements ConfigTemplate {
             Map<String, Pair<String, String>> mapOfIntPointChannelsByType = new HashMap<String, Pair<String, String>>();
 
             for (IntegrationPoint intPoint : system.getListIntegrationPoint()) {
-                intPoint.setPairOfChannels(new Pair<String, String>(intPoint.getIncomeQueue(), intPoint.getOutcomeQueue()));
+
                 mapOfIntPointChannels.put(intPoint.getIntegrationPointName(), intPoint.getPairOfChannels());
                 mapOfIntPointChannelsByType.put(intPoint.getIntegrationPointType(), intPoint.getPairOfChannels());
 
@@ -106,8 +106,8 @@ public class GatewayContextGenerator implements ConfigTemplate {
 
     // Получение inbound & outbound gateway
     public String getInboundAndOutboundGateway() {
-        String sbIN = null;
-        String sbOUT = null;
+//        String sbIN = null;
+//        String sbOUT = null;
         StringBuilder sbCommon = new StringBuilder();
 
         IncrimentingString inrc = new IncrimentingString(mapOfInOutChannelsWithoutDuplicates.get(MOCK_CONST).size());
@@ -119,8 +119,8 @@ public class GatewayContextGenerator implements ConfigTemplate {
         for (Pair<String, String> driver : mapOfInOutChannelsWithoutDuplicates.get(MOCK_CONST))
             sbCommon.append(generateGatewayDescription("outbound", "jmsout" + inrc.get(), driver.getFirst(), driver.getSecond()));
 
-        sbCommon.append(sbIN);
-        sbCommon.append(sbOUT);
+//        sbCommon.append(sbIN);
+//        sbCommon.append(sbOUT);
         return sbCommon.toString();
     }
 
