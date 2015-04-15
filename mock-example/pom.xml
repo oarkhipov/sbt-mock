@@ -286,25 +286,6 @@
                             <goal>war</goal>
                         </goals>
                     </execution>
-                    <execution>
-                        <id>nojms-test</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>war</goal>
-                        </goals>
-                        <configuration>
-                            <warName>${project.artifactId}-nojms-test</warName>
-                            <webResources>
-                                <resource>
-                                    <directory>src\test\resources\env</directory>
-                                    <targetPath>WEB-INF</targetPath>
-                                    <includes>
-                                        <include>mockapp-servlet.xml</include>
-                                    </includes>
-                                </resource>
-                            </webResources>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
         </plugins>
