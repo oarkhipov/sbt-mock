@@ -134,8 +134,8 @@
     <channel id="FinalizeLGD"/>
     <channel id="getExchangeRates"/>
     <channel id="importFinReport"/>
-    <channel id="ImportRating"/>
-    <channel id="UpdateRating"/>
+    <channel id="importRating"/>
+    <channel id="updateRating"/>
 
     <ix:xpath-router id="operationRouter" input-channel="MockInboundRequest" default-output-channel="DefaultOutputChannelIfNoOperationRouted" resolution-required="false">
         <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
@@ -154,8 +154,8 @@
         <ix:mapping value="SrvFinalizeLGD" channel="FinalizeLGD"/>
         <ix:mapping value="SrvGetExchangeRates" channel="getExchangeRates"/>
         <ix:mapping value="SrvGetFinReport" channel="importFinReport"/>
-        <ix:mapping value="SrvGetRatingsAndFactors" channel="ImportRating"/>
-        <ix:mapping value="SrvUpdateRating" channel="UpdateRating"/>
+        <ix:mapping value="SrvGetRatingsAndFactors" channel="importRating"/>
+        <ix:mapping value="SrvUpdateRating" channel="updateRating"/>
     </ix:xpath-router>
 
     <!-- здесь уже реализация -->
@@ -220,8 +220,8 @@
     <transformer input-channel="FinalizeLGD" output-channel="MockOutboundResponse" method="transform" ref="AMRLiRT_FinalizeLGD"/>
     <transformer input-channel="getExchangeRates" output-channel="MockOutboundResponse" method="transform" ref="FinRep_getExchangeRates"/>
     <transformer input-channel="importFinReport" output-channel="MockOutboundResponse" method="transform" ref="FinRep_importFinReport"/>
-   	<transformer input-channel="ImportRating" output-channel="MockOutboundResponse" method="transform" ref="FinRep_ImportRating"/>
-    <transformer input-channel="UpdateRating" output-channel="MockOutboundResponse" method="transform" ref="FinRep_UpdateRating"/>
+   	<transformer input-channel="importRating" output-channel="MockOutboundResponse" method="transform" ref="FinRep_ImportRating"/>
+    <transformer input-channel="updateRating" output-channel="MockOutboundResponse" method="transform" ref="FinRep_UpdateRating"/>
     
     <context:component-scan base-package="ru.sbt.bpm.mock.spring"/>
     
