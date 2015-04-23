@@ -219,6 +219,18 @@ public class ConfigTemplateEngineTest {
     }
 
     @Test
+    public void testFilenameTemplate() throws Exception {
+        TemplateEngineBean engine = TemplateEngine.getInstance(testContainer.getConfig());
+        System.out.println("test [${CONFIG_FILENAME}] template:");
+        String expectedValue = "NCPConfig.xml";
+        System.out.println("expected result:");
+        System.out.println(expectedValue);
+        String result = engine.applyTemplate("${CONFIG_FILENAME}");
+        System.out.println(result);
+        matches(expectedValue, result);
+    }
+
+    @Test
     public void testMockupServletTemplate() throws Exception {
         TemplateEngineBean engine = TemplateEngine.getInstance(configContainer.getConfig());
 

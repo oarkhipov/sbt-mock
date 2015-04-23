@@ -32,6 +32,7 @@ public class TemplateEngine  implements TemplateEngineBean {
         templates.put("ROUTER_MAPPING", RouterMappingTemplateImpl.getInstance());
         templates.put("BEANS_RefreshableXSLTransformer", BeanTransformerTemplateImpl.getInstance());
         templates.put("TRANSFORMERS", TransformerTemplateImpl.getInstance());
+        templates.put("CONFIG_FILENAME", FileNameTemplateImpl.getInstance());
     }
 
     public String applyTemplate(String input) {
