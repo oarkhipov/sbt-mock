@@ -23,7 +23,7 @@
 
     <!-- Настройка используемой конфигурации заглушки-->
     <beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
-        <beans:constructor-arg value="/resources/MockConfigFiles/BBMOConfig.xml" type="java.lang.String" />
+        <beans:constructor-arg value="/resources/MockConfigFiles/NCPConfig.xml" type="java.lang.String" />
     </beans:bean>
 
     <!-- - - - - - - - - - - - - - -->

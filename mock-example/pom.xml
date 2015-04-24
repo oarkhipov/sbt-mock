@@ -3,7 +3,7 @@
 
     <groupId>ru.sbt.bpm.mock</groupId>
     <artifactId>mock-interactive-by</artifactId>
-    <version>0.9.7</version>
+    <version>0.9.8</version>
     <packaging>war</packaging>
 
     <name>mock-interactive</name>
