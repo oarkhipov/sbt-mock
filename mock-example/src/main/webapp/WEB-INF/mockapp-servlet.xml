@@ -95,7 +95,7 @@
         <interceptors>
             <wire-tap channel="toGateLoggerCRM"/>
         </interceptors>
-    </channel>  
+    </channel>
     
     <!--настройка логгеров -->   
     <logging-channel-adapter id="fromGateLogger" logger-name="fromGateLogger"/>
@@ -234,8 +234,9 @@
    		 <beans:property name="subscribeChannels">
    		 	<util:list>
    		 		<beans:ref bean="DriverInboundResponse"/>
+                <beans:ref bean="DriverOutboundRequest"/>
    		 	</util:list>
-   		 </beans:property> 
+   		 </beans:property>
     </beans:bean>
     
     <!--<beans:bean name="transformService" class="ru.sbt.bpm.mock.spring.integration.service.TransformService"/>-->
