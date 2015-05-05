@@ -199,10 +199,10 @@
     <beans:bean id="FinRep_importFinReport" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/importFinReport.xsl"/>
     </beans:bean>
-    <beans:bean id="FinRep_ImportRating" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">
+    <beans:bean id="FinRep_importRating" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/importRating.xsl"/>
     </beans:bean>
-    <beans:bean id="FinRep_UpdateRating" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">
+    <beans:bean id="FinRep_updateRating" class="ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer">
         <beans:property name="xslPath" value="/WEB-INF/xsl/FinRep/updateRating.xsl"/>
     </beans:bean>
 
