@@ -51,6 +51,12 @@ public class DefaultController {
         return FileUtils.readFileToString(xmlDataService.getResource("mockapp-servlet.xml").getFile(),"UTF-8");
     }
 
+    @RequestMapping(value = "/prop", produces = MediaType.TEXT_HTML_VALUE)
+    public @ResponseBody String getProp() throws IOException {
+        return FileUtils.readFileToString(xmlDataService.getResource("../META-INF/maven/ru.sbt.bpm.mock/mock-interactive-by/pom.properties").getFile(),"UTF-8");
+    }
+
+
     @RequestMapping(value = "/templateInfo", produces = MediaType.TEXT_HTML_VALUE)
     public @ResponseBody String getTemplateInfo() {
         return templateEngineBean.htmlInfo();
