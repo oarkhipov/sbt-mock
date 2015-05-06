@@ -131,11 +131,13 @@ public class ChannelTest {
 
 
 //    CRM testing
+    @Ignore
     @Test
     public void createTaskTest1() throws Exception {
         testXSLTmock("CreateTask", "MockOutboundResponse", "xml/CRM/CreateTask/rq1.xml", "xml/CRM/CreateTask/rs1.xml");
     }
 
+    @Ignore
     @Test
     public void createTaskTest2() throws Exception {
         testXSLTmock("CreateTask", "MockOutboundResponse", "xml/CRM/CreateTask/rq2.xml", "xml/CRM/CreateTask/rs2.xml");
