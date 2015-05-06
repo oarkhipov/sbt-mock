@@ -69,8 +69,9 @@
             connection-factory="jndiConnectionFactory"
             reply-timeout="30000"
             receive-timeout="30000"
+            delivery-persistent="true"
+            explicit-qos-enabled="true"
     />
-
     <!-- Входной и выходной каналы Заглушки-->
     <channel id="MockInboundRequest">
         <interceptors>
@@ -220,8 +221,8 @@
     <transformer input-channel="FinalizeLGD" output-channel="MockOutboundResponse" method="transform" ref="AMRLiRT_FinalizeLGD"/>
     <transformer input-channel="getExchangeRates" output-channel="MockOutboundResponse" method="transform" ref="FinRep_getExchangeRates"/>
     <transformer input-channel="importFinReport" output-channel="MockOutboundResponse" method="transform" ref="FinRep_importFinReport"/>
-   	<transformer input-channel="importRating" output-channel="MockOutboundResponse" method="transform" ref="FinRep_ImportRating"/>
-    <transformer input-channel="updateRating" output-channel="MockOutboundResponse" method="transform" ref="FinRep_UpdateRating"/>
+   	<transformer input-channel="importRating" output-channel="MockOutboundResponse" method="transform" ref="FinRep_importRating"/>
+    <transformer input-channel="updateRating" output-channel="MockOutboundResponse" method="transform" ref="FinRep_updateRating"/>
     
     <context:component-scan base-package="ru.sbt.bpm.mock.spring"/>
     
@@ -244,8 +245,14 @@
 
     <!--<channel id="test"/>-->
     <!-- Mock gateway to send requests to outbound -->
-    <gateway id="systemEntry" default-request-channel="DriverOutboundRequest" default-reply-channel="DriverInboundResponse"
-                 service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService" />
+    <gateway id="systemEntry"
+             default-request-channel="DriverOutboundRequest"
+             default-reply-channel="DriverInboundResponse"
+             error-channel="DriverInboundResponse"
+             service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService"
+             default-reply-timeout="30000"
+             default-request-timeout="30000"
+        />
     <!--<gateway id="systemEntry" default-request-channel="test" default-reply-channel="test"-->
                  <!--service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService" />-->
 </beans:beans>

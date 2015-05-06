@@ -3,6 +3,8 @@ package ru.sbt.bpm.mock.spring.controller;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
@@ -60,6 +62,8 @@ public class DriverController {
 
     @Autowired
     MockConfigContainer configContainer;
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping("/driver/")
     public String  getDriver(Model model) throws IOException {
@@ -233,6 +237,14 @@ public class DriverController {
                 String result = XslTransformer.transform(xslResource, templateEngineBean.applyTemplate(xml), params);
 
                 ajaxObject.setData(clientService.invoke(result));
+                log.info("============================================\n" +
+                        "\n" +
+                        "\n" +
+                        "Data to ajax:\n" +
+                        "\n" +
+                        "\n" +
+                        "=============================================\n"
+                        +ajaxObject.getData());
             }
         }
         catch (Exception e) {

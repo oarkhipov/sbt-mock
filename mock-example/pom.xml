@@ -3,7 +3,7 @@
 
     <groupId>ru.sbt.bpm.mock</groupId>
     <artifactId>mock-interactive-by</artifactId>
-    <version>0.9.11</version>
+    <version>0.9.14</version>
     <packaging>war</packaging>
 
     <name>mock-interactive</name>
@@ -276,37 +276,6 @@
                 <configuration>
                     <packagingExcludes>WEB-INF/classes/in/</packagingExcludes>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>WS</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>war</goal>
-                        </goals>
-                        <configuration>
-                            <warName>${project.artifactId}</warName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>nojms-test</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>war</goal>
-                        </goals>
-                        <configuration>
-                            <warName>${project.artifactId}-nojms-test</warName>
-                            <webResources>
-                                <resource>
-                                    <directory>src\test\resources\env</directory>
-                                    <targetPath>WEB-INF</targetPath>
-                                    <includes>
-                                        <include>mockapp-servlet.xml</include>
-                                    </includes>
-                                </resource>
-                            </webResources>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
