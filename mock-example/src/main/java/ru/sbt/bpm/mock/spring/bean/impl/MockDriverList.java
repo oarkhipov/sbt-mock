@@ -19,6 +19,12 @@ public abstract class MockDriverList {
     @Autowired
     MockConfigContainer configContainer;
 
+    /**
+     * Поиск в конфиге точку интеграции с заданным типом
+     *
+     * @param typeConst тип точки интеграции
+     * @return список точек интеграции
+     */
     public List<String> initList(String typeConst) {
         List<String> list = new ArrayList<String>();
 

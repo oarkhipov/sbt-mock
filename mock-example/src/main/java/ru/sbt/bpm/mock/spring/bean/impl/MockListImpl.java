@@ -1,8 +1,6 @@
 package ru.sbt.bpm.mock.spring.bean.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.spring.bean.MockList;
 
 import javax.annotation.PostConstruct;
@@ -16,9 +14,6 @@ import java.util.List;
 @Service
 public class MockListImpl extends MockDriverList implements MockList {
     private List<String> list;
-
-    @Autowired
-    MockConfigContainer configContainer;
 
     @PostConstruct
     public void init() {

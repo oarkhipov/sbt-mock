@@ -206,26 +206,4 @@
     <gateway id="systemEntry" default-request-channel="test" default-reply-channel="test"
     service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService" />
 
-    <channel id="CalculateDebtCapacitySoapRequestChannel"/>
-    <channel id="CalculateDebtCapacitySoapReplyChannel"/>
-    <ws:inbound-gateway request-channel="CalculateDebtCapacitySoapRequestChannel"
-                        reply-channel="CalculateDebtCapacitySoapReplyChannel"/>
-
-
-    <beans:bean class="org.springframework.ws.server.endpoint.mapping.UriEndpointMapping">
-        <beans:property name="mappings">
-            <beans:props>
-                <beans:prop key="ws-url-1">gateway-id-1</beans:prop>
-                <beans:prop key="ws-url-2">gateway-id-2</beans:prop>
-            </beans:props>
-        </beans:property>
-    </beans:bean>
-
-
-    <ix:xslt-transformer xsl-resource="classpath:/WEB-INF/xsl/"
-                         input-channel="CalculateDebtCapacitySoapRequestChannel"
-                         output-channel="CalculateDebtCapacitySoapReplyChannel"
-                         />
-
-
-</beans:beans>
+ </beans:beans>
