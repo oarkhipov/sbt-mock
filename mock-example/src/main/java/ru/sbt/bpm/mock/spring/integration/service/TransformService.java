@@ -19,6 +19,7 @@ import ru.sbt.bpm.mock.spring.integration.bean.RefreshableXSLTransformer;
  *
  * @author sbt-barinov-sv
  */
+@Deprecated
 @Service
 public class TransformService {
     @Autowired

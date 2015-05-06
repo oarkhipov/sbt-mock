@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.sbt.bpm.mock.config.entities.LinkedTag;
 import ru.sbt.bpm.mock.spring.bean.LinkedTagCaption;
+import ru.sbt.bpm.mock.spring.bean.MockList;
 import ru.sbt.bpm.mock.spring.integration.service.TransformService;
 import ru.sbt.bpm.mock.spring.integration.service.XmlDataService;
 import ru.sbt.bpm.mock.spring.utils.AjaxObject;
@@ -25,7 +26,7 @@ import java.io.IOException;
 @Controller
 public class MockController {
     @Autowired
-    private TransformService transformService;
+    private MockList mockList;
 
     @Autowired
     private XmlDataService xmlDataService;
@@ -40,7 +41,7 @@ public class MockController {
     public String  getMock(Model model) {
         model.addAttribute("type", "Response");
         model.addAttribute("link", "mock");
-        model.addAttribute("list", transformService.getTransformers());
+        model.addAttribute("list", mockList.getList());
         return "stepForm";
     }
 
