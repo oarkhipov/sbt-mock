@@ -50,4 +50,8 @@ public class MockConfig {
             system.inheritNamespaceAliases(namespaceAliases);
         }
     }
+
+    @Getter
+    @Setter
+    private String filename;
 }

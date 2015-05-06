@@ -57,7 +57,7 @@
     <xsl:variable name="nsList" select="$operationXsdSchema/namespace::*[.!=$operationXsdSchema/@targetNamespace and string-length(local-name(.))>0]/string()"/>
     <xsl:variable name="nsAliasList" select="$operationXsdSchema/namespace::*[.!=$operationXsdSchema/@targetNamespace and string-length(local-name(.))>0]/local-name()"/>
 
-    <xsl:variable name="DEBUG" select="true()"/>
+    <xsl:variable name="DEBUG" select="false()"/>
 
     <!-- файл с темплейтом для soap header'а -->
     <xsl:include href="headerTemplate.xsl"/>
@@ -168,6 +168,31 @@
         <xsl:apply-templates select="$typesList[@name=mock:removeNamespaceAlias($type)]" mode="copyMainType"/>
     </xsl:template>
 
+    <xsl:template match="xsd:element[not(@type) and ./xsd:complexType]" mode="copyMainType">
+        <xsl:variable name="name" select="mock:removeNamespaceAlias(@name)"/>
+        <xsl:if test="$DEBUG">
+            <xsl:comment>xsd:element[not(@type)] <xsl:value-of select="$name"/></xsl:comment>
+        </xsl:if>
+        <xsl:element name="xsd:complexType">
+        <xsl:copy-of select="./xsd:complexType/@*[not(./name()='name')]"/>
+        <xsl:attribute name="name"><xsl:value-of select="$newDataNodeTypeName"/></xsl:attribute>
+        <xsl:element name="xsd:sequence">
+            <xsl:element name="xsd:element">
+                <xsl:attribute name="name">SoapHeader</xsl:attribute>
+                <xsl:attribute name="type">tns:Header</xsl:attribute>
+                <xsl:attribute name="minOccurs">0</xsl:attribute>
+            </xsl:element>
+            <xsl:apply-templates select="./xsd:complexType/*" mode="copyMainTypeContainer"/>
+        </xsl:element>
+        <xsl:element name="xsd:attribute">
+            <xsl:attribute name="name">name</xsl:attribute>
+        </xsl:element>
+    </xsl:element>
+
+        <xsl:variable name="typesToImport" select="mock:typesToImport(./*)"/>
+        <xsl:apply-templates select="$typesList[@name=$typesToImport]" mode="copyChildTypes"/>
+    </xsl:template>
+
     <!-- перенос главного контейнера -->
     <xsl:template match="xsd:complexType" mode="copyMainType">
         <xsl:element name="xsd:complexType">
@@ -270,7 +295,9 @@
     </xsl:template>
 
     <xsl:template match="*" mode="copyMainTypeContainer">
-        <!--<xsl:comment>test*</xsl:comment>-->
+        <xsl:if test="$DEBUG">
+            <xsl:comment>test*</xsl:comment>
+        </xsl:if>
         <xsl:if test="not(local-name(.)='annotation')">
             <xsl:element name="xsd:{local-name(.)}">
                 <xsl:copy-of select="./@*"/>
@@ -365,6 +392,9 @@
             <xsl:attribute name="type"><xsl:value-of select="$refName"/></xsl:attribute>
             <xsl:apply-templates select="./*" mode="copyTypeContainer"/>
             <xsl:if test="count(child::*)=0">
+                <xsl:if test="$DEBUG">
+                    <xsl:comment>xsd:element[@ref]</xsl:comment>
+                </xsl:if>
                 <xsl:value-of select="."/>
             </xsl:if>
         </xsl:element>
@@ -379,6 +409,9 @@
             <xsl:attribute name="base"><xsl:value-of select="$baseName"/></xsl:attribute>
             <xsl:apply-templates select="./*" mode="copyTypeContainer"/>
             <xsl:if test="count(child::*)=0">
+                <xsl:if test="$DEBUG">
+                    <xsl:comment>xsd:element[@base]</xsl:comment>
+                </xsl:if>
                 <xsl:value-of select="."/>
             </xsl:if>
         </xsl:element>
@@ -394,6 +427,9 @@
             <xsl:attribute name="type"><xsl:value-of select="$typeName"/></xsl:attribute>
             <xsl:apply-templates select="./*" mode="copyTypeContainer"/>
             <xsl:if test="count(child::*)=0">
+                <xsl:if test="$DEBUG">
+                    <xsl:comment>xsd:element[@type]</xsl:comment>
+                </xsl:if>
                 <xsl:value-of select="."/>
             </xsl:if>
         </xsl:element>
@@ -408,6 +444,9 @@
             <xsl:attribute name="base"><xsl:value-of select="$baseName"/></xsl:attribute>
             <xsl:apply-templates select="./*" mode="copyTypeContainer"/>
             <xsl:if test="count(child::*)=0">
+                <xsl:if test="$DEBUG">
+                    <xsl:comment>xsd:restriction[@base]</xsl:comment>
+                </xsl:if>
                 <xsl:value-of select="."/>
             </xsl:if>
         </xsl:element>
@@ -418,6 +457,9 @@
             <xsl:copy-of select="./@*"/>
             <xsl:apply-templates select="./*" mode="copyTypeContainer"/>
             <xsl:if test="count(child::*)=0">
+                <xsl:if test="$DEBUG">
+                    <xsl:comment>*</xsl:comment>
+                </xsl:if>
                 <xsl:value-of select="."/>
             </xsl:if>
         </xsl:element>
