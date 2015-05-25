@@ -1,4 +1,4 @@
-package ru.sbt.bpm.mock.tests;
+package ru.sbt.bpm.mock.generator;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;

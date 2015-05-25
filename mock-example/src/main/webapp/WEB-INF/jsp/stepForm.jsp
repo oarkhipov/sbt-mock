@@ -97,7 +97,9 @@
 
     function chooseIntPoint(obj) {
       int_point = obj.value;
-      selectIp();
+      if(int_point) {
+        selectIp();
+      }
     }
 
     function selectIp() {

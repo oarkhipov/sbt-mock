@@ -1,5 +1,7 @@
 package ru.sbt.bpm.mock.spring.integration.gateway;
 
+import org.springframework.stereotype.Service;
+
 /**
  * Created by sbt-bochev-as on 17.12.2014.
  * <p/>
@@ -12,5 +14,5 @@ public interface  ClientService {
      *
      * @param request
      */
-    public String invoke(String request);
+    String invoke(String request);
 }

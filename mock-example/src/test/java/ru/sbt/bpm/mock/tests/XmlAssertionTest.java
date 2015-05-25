@@ -21,7 +21,9 @@ public class XmlAssertionTest {
 
         XMLUnit.setIgnoreWhitespace(true);
 
-        Diff diff = new Diff(XmlUtil.docAsString(doc1), XmlUtil.docAsString(doc2));
+        String xml1 = XmlUtil.docAsString(doc1);
+        String xml2 = XmlUtil.docAsString(doc2);
+        Diff diff = new Diff(xml1, xml2);
         System.out.println("Identical: " + String.valueOf(diff.identical()));
         System.out.println("Similar: " + String.valueOf(diff.similar()));
     }

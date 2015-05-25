@@ -29,8 +29,8 @@ public class TemplateEngineBeanTest {
     @Test
     public void testApplyTemplate() throws Exception {
         assertTrue(
-                ("__" + new SimpleDateFormat("YYMMddHHmmss").format(new Date()) + "__")
-                        .equals(templateEngineBean.applyTemplate("__${timestamp12}__"))
+                ("__" + new SimpleDateFormat("YYMMdd").format(new Date()) + "__")
+                        .equals(templateEngineBean.applyTemplate("__${timestamp12}__").substring(0,8)+"__")
         );
     }
 }

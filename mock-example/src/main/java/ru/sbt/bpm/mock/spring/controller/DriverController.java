@@ -237,14 +237,6 @@ public class DriverController {
                 String result = XslTransformer.transform(xslResource, templateEngineBean.applyTemplate(xml), params);
 
                 ajaxObject.setData(clientService.invoke(result));
-                log.info("============================================\n" +
-                        "\n" +
-                        "\n" +
-                        "Data to ajax:\n" +
-                        "\n" +
-                        "\n" +
-                        "=============================================\n"
-                        +ajaxObject.getData());
             }
         }
         catch (Exception e) {

@@ -35,10 +35,9 @@ public class DefaultController {
         List<String> functions = new LinkedList<String>();
         functions.add("mock");
         functions.add("driver");
-//        functions.add("");
+
+//        functions.add("sender");
 //        functions.add("FrameMock");
-//        functions.add("transform");
-//        functions.add("channel");
         model.addAttribute("list", functions);
         return "form";
     }

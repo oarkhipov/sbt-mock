@@ -230,19 +230,6 @@
         <beans:property name="suffix" value=".jsp"/>
     </beans:bean>
 
-    <beans:bean id="channelService" class="ru.sbt.bpm.mock.spring.integration.service.ChannelService">
-        <beans:property name="subscribeChannels">
-            <util:list>
-                <beans:ref bean="DriverInboundResponse"/>
-                <beans:ref bean="DefaultOutputChannelIfNoOperationRouted"/>
-                <beans:ref bean="SaveDeal"/>
-            </util:list>
-        </beans:property>
-    </beans:bean>
-
-    <!--<beans:bean name="transformService" class="ru.sbt.bpm.mock.spring.integration.service.TransformService"/>-->
-    <!--<beans:bean name="xmlDataService" class="ru.sbt.bpm.mock.spring.integration.service.XmlDataService"/>-->
-
     <!--<channel id="test"/>-->
     <!-- Mock gateway to send requests to outbound -->
     <gateway id="systemEntry" default-request-channel="DriverOutboundRequest" default-reply-channel="DriverInboundResponse"
