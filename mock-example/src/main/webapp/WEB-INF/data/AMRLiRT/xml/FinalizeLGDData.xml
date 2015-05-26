@@ -8,7 +8,7 @@
       </SoapHeader>
       <errorCode>0</errorCode>
       <errorMessage>Success</errorMessage>
-      <!--<crmId>***</crmId>-->
-      <!--<type>***</type>-->
+      <crmId>crmId</crmId>
+      <type>type</type>
    </response>
 </data>

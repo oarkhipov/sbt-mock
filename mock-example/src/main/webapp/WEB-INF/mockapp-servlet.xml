@@ -73,14 +73,12 @@
     <channel id="MockInboundRequest">
         <interceptors>
             <wire-tap channel="MockInboundRequestLogger"/>
-            <wire-tap channel="MockInboundRequestExternalLogger"/>
         </interceptors>
     </channel>
     
     <channel id="MockOutboundResponse">
         <interceptors>
             <wire-tap channel="MockOutboundResponseLogger"/>
-            <wire-tap channel="MockOutboundResponseExternalLogger"/>
         </interceptors>
     </channel>
     
@@ -89,14 +87,12 @@
     <channel id="DriverOutboundRequest">
         <interceptors>
             <wire-tap channel="DriverOutboundRequestLogger"/>
-            <wire-tap channel="DriverOutboundRequestExternalLogger"/>
         </interceptors>
     </channel>
 
     <channel id="DriverInboundResponse">
         <interceptors>
             <wire-tap channel="DriverInboundResponseLogger"/>
-            <wire-tap channel="DriverInboundResponseExternalLogger"/>
         </interceptors>
     </channel>
 
@@ -110,31 +106,6 @@
     <logging-channel-adapter id="DriverInboundResponseLogger" logger-name="DriverInboundResponseLogger"/>
 
     <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
-
-    <!-- - - - - - - - - - - - - - - - - -->
-    <!--                                 -->
-    <!-- НАСТРОЙКА ВНЕШНЕГО ЛОГИРОВАНИЯ  -->
-    <!--                                 -->
-    <!-- - - - - - - - - - - - - - - - - -->
-
-    <channel id="MockInboundRequestExternalLogger"/>
-    <channel id="MockOutboundResponseExternalLogger"/>
-    <channel id="DriverOutboundRequestExternalLogger"/>
-    <channel id="DriverInboundResponseExternalLogger"/>
-
-    <!--<beans:bean id="messageLogger" class="ru.sbt.bpm.mock.spring.logging.MessageLogger"/>-->
-    <service-activator id="MockInboundRequestExternalLoggerActivator"
-                       input-channel="MockInboundRequestExternalLogger"
-                       expression="@messageLogger.logMessage(payload, inboundMockQueue.getObject())"/>
-    <service-activator id="MockOutboundResponseExternalLoggerActivator"
-                       input-channel="MockOutboundResponseExternalLogger"
-                       expression="@messageLogger.logMessage(payload, outboundMockQueue.getObject())"/>
-    <service-activator id="DriverOutboundRequestExternalLoggerActivator"
-                       input-channel="DriverOutboundRequestExternalLogger"
-                       expression="@messageLogger.logMessage(payload, requestDriverQueue.getObject())"/>
-    <service-activator id="DriverInboundResponseExternalLoggerActivator"
-                       input-channel="DriverInboundResponseExternalLogger"
-                       expression="@messageLogger.logMessage(payload, responseDriverQueue.getObject())"/>
 
 
     <!-- - - - - - - - - - - - -->

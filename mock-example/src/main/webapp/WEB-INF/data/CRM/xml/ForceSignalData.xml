@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.05/forceSignalRq/Data/">
+<data xmlns="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.07/forceSignalRq/Data/">
    <request name="default">
       <SoapHeader>
          <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
          <operation-name>forceSignalRq</operation-name>
       </SoapHeader>
-      <contractID>string</contractID>
-      <contractBPMID>string</contractBPMID>
+      <dealID>string</dealID>
+      <dealBPMID>string</dealBPMID>
       <status>string</status>
       <comment>string</comment>
-      <requestType>string</requestType>
+      <requestType>ConfirmDeal</requestType>
       <responsiblePersonID>string</responsiblePersonID>
    </request>
    <request name="test1">
@@ -19,8 +19,10 @@
          <request-time>2014-12-16T17:55:06.410</request-time>
          <operation-name>forceSignalRq</operation-name>
       </SoapHeader>
+      <dealID>string</dealID>
+      <dealBPMID>string</dealBPMID>
       <comment>string</comment>
-      <requestType>string</requestType>
+      <requestType>CancelDeal</requestType>
       <responsiblePersonID>string</responsiblePersonID>
    </request>
 </data>

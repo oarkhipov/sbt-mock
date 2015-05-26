@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.11/prtspRs/Data/">
+<data xmlns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.12/prtspRs/Data/">
    <response name="default">
       <SoapHeader>
          <message-id>defaultId</message-id>
@@ -7,13 +7,13 @@
          <operation-name>prtspRs</operation-name>
       </SoapHeader>
       <dealID>Deal_01</dealID>
-      <!--<requestType>***</requestType>-->
+      <requestType>getDealParticipants</requestType>
       <participantsGroup>
          <participants>
             <participantID>ID-0</participantID>
             <type>70</type>
             <isBorrower>true</isBorrower>
-            <clientType/>
+            <clientType>NP</clientType>
             <name>Borrower</name>
             <resident>true</resident>
             <consolidatedGroupID>CG_ID1</consolidatedGroupID>
@@ -43,7 +43,7 @@
                <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
             </rating>
          </participants>
-         <groupType/>
+         <groupType>DealParticipats</groupType>
          <groupInfo>
             <id>GRI-1</id>
             <label>Some group info</label>
@@ -76,13 +76,13 @@
          <operation-name>prtspRs</operation-name>
       </SoapHeader>
       <dealID>Deal_01</dealID>
-      <!--<requestType>***</requestType>-->
+      <requestType>getCG</requestType>
       <participantsGroup>
          <participants>
             <participantID>ID-0</participantID>
             <type>70</type>
             <isBorrower>true</isBorrower>
-            <clientType/>
+            <clientType>NP</clientType>
             <name>Borrower</name>
             <resident>true</resident>
             <consolidatedGroupID>CG_ID1</consolidatedGroupID>
@@ -112,7 +112,7 @@
                <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
             </rating>
          </participants>
-         <groupType/>
+         <groupType>DealParticipats</groupType>
          <groupInfo>
             <id>GRI-1</id>
             <label>Some group info</label>
@@ -145,13 +145,13 @@
          <operation-name>prtspRs</operation-name>
       </SoapHeader>
       <dealID>Deal_01</dealID>
-      <!--<requestType>***</requestType>-->
+      <requestType>getBorrower</requestType>
       <participantsGroup>
          <participants>
             <participantID>ID-0</participantID>
             <type>70</type>
             <isBorrower>true</isBorrower>
-            <clientType/>
+            <clientType>NP</clientType>
             <name>Borrower</name>
             <resident>true</resident>
             <consolidatedGroupID>CG_ID1</consolidatedGroupID>
@@ -185,7 +185,7 @@
             <participantID>ID-1</participantID>
             <type>70</type>
             <isBorrower>false</isBorrower>
-            <clientType/>
+            <clientType>NP</clientType>
             <name>Participant1</name>
             <resident>true</resident>
             <consolidatedGroupID>CG_ID1</consolidatedGroupID>
@@ -219,7 +219,7 @@
             <participantID>ID-2</participantID>
             <type>50</type>
             <isBorrower>false</isBorrower>
-            <clientType/>
+            <clientType>NP</clientType>
             <name>Participant2</name>
             <resident>true</resident>
             <consolidatedGroupID>CG_ID1</consolidatedGroupID>
@@ -253,7 +253,7 @@
             <participantID>ID-3</participantID>
             <type>50</type>
             <isBorrower>false</isBorrower>
-            <clientType/>
+            <clientType>NP</clientType>
             <name>Participant3</name>
             <resident>true</resident>
             <consolidatedGroupID>CG_ID1</consolidatedGroupID>
@@ -283,7 +283,7 @@
                <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
             </rating>
          </participants>
-         <groupType/>
+         <groupType>DealParticipats</groupType>
          <groupInfo>
             <id>GRI-1</id>
             <label>Some group info</label>
@@ -316,7 +316,7 @@
          <operation-name>prtspRs</operation-name>
       </SoapHeader>
       <dealID>Deal_01</dealID>
-      <!--<requestType>***</requestType>-->
+      <requestType>getLBG</requestType>
       <participantsGroup>
          <groupType>CG</groupType>
          <groupInfo>
@@ -351,7 +351,7 @@
          <operation-name>prtspRs</operation-name>
       </SoapHeader>
       <dealID>Deal_01</dealID>
-      <!--<requestType>***</requestType>-->
+      <requestType>getLBG</requestType>
       <participantsGroup>
          <groupType>LBG</groupType>
          <groupInfo>

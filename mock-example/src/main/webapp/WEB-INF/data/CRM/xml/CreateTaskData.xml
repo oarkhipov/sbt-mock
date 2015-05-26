@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data xmlns="http://sbrf.ru/NCP/CRM/CreateTaskRs/1.03/createTaskRs/Data/">
+<data xmlns="http://sbrf.ru/NCP/CRM/CreateTaskRs/1.04/createTaskRs/Data/">
    <response name="default">
       <SoapHeader>
          <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
          <operation-name>createTaskRs</operation-name>
       </SoapHeader>
-      <contractID>contractID0</contractID>
-      <contractBPMID>contractBPMID0</contractBPMID>
+      <dealID>deal_id</dealID>
+      <dealBPMID>bpm_id</dealBPMID>
       <comment>comment0</comment>
       <requestType>requestType0</requestType>
       <responsiblePersonID>responsiblePerson0</responsiblePersonID>
@@ -20,8 +20,8 @@
          <request-time>2014-12-16T17:55:06.410</request-time>
          <operation-name>createTaskRs</operation-name>
       </SoapHeader>
-      <contractID>string</contractID>
-      <contractBPMID>string</contractBPMID>
+      <dealID>deal_id</dealID>
+      <dealBPMID>bpm_id</dealBPMID>
       <comment>string</comment>
       <requestType>string</requestType>
       <responsiblePersonID>string</responsiblePersonID>
