@@ -1,7 +1,6 @@
 package ru.sbt.bpm.mock.spring.controller;
 
 import com.google.gson.Gson;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,13 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.sbt.bpm.mock.config.MockConfig;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
-import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
-import ru.sbt.bpm.mock.config.entities.LinkedTag;
-import ru.sbt.bpm.mock.config.entities.SystemTag;
 import ru.sbt.bpm.mock.spring.bean.DriverList;
-import ru.sbt.bpm.mock.spring.bean.LinkedTagCaption;
 import ru.sbt.bpm.mock.spring.bean.TemplateEngineBean;
 import ru.sbt.bpm.mock.spring.integration.gateway.ClientService;
 import ru.sbt.bpm.mock.spring.integration.service.XmlDataService;
@@ -31,7 +25,6 @@ import ru.sbt.bpm.mock.spring.utils.XslTransformer;
 
 import javax.xml.transform.TransformerException;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -237,14 +230,6 @@ public class DriverController {
                 String result = XslTransformer.transform(xslResource, templateEngineBean.applyTemplate(xml), params);
 
                 ajaxObject.setData(clientService.invoke(result));
-                log.info("============================================\n" +
-                        "\n" +
-                        "\n" +
-                        "Data to ajax:\n" +
-                        "\n" +
-                        "\n" +
-                        "=============================================\n"
-                        +ajaxObject.getData());
             }
         }
         catch (Exception e) {

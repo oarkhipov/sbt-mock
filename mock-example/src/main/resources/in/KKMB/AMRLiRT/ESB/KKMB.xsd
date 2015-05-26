@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:element name="RatingCalculateRq" type="RatingCalculateRq_type"/>
+	<xsd:element name="RatingCalculateRs" type="RatingCalculateRs_type"/>
+	<xsd:element name="RatingCalculateProdRq" type="RatingCalculateProdRq_type"/>
+	<xsd:element name="RatingCalculateProdRs" type="RatingCalculateProdRs_type"/>
+	<xsd:element name="RatingFinalLGDRq" type="RatingFinalLGDRq_type"/>
+	<xsd:element name="RatingFinalLGDRs" type="RatingFinalLGDRs_type"/>
+	<xsd:complexType name="RatingCalculateRq_type">
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type"/>
+			<xsd:element name="RqTm" type="RqTm"/>
+			<xsd:element name="calculate" type="calculate"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RatingCalculateRs_type">
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type"/>
+			<xsd:element name="RqTm" type="RqTm"/>
+			<xsd:element name="calculateResponse" type="calculateResponse"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RatingCalculateProdRq_type">
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type"/>
+			<xsd:element name="RqTm" type="RqTm"/>
+			<xsd:element name="calculationRequest" type="calculationRequestType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RatingCalculateProdRs_type">
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type"/>
+			<xsd:element name="RqTm" type="RqTm"/>
+			<xsd:element name="calculationResponse" type="calculationResponseType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RatingFinalLGDRq_type">
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type"/>
+			<xsd:element name="RqTm" type="RqTm"/>
+			<xsd:element name="finalizationRequest" type="finalizationRequest"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RatingFinalLGDRs_type">
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type"/>
+			<xsd:element name="RqTm" type="RqTm"/>
+			<xsd:element name="finalizationResponse" type="finalizationResponse"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="calculate">
+		<xsd:sequence>
+			<xsd:element name="arg0" type="arg0" form="qualified" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="arg0">
+		<xsd:sequence>
+			<xsd:element name="RatingId" type="xsd:string" form="qualified"/>
+			<xsd:element name="Model" type="xsd:string" form="qualified"/>
+			<xsd:element name="ModelIntegrationId" type="xsd:string" form="qualified"/>
+			<xsd:element name="AccountId" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="UID" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="Account" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="INN" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="KPP" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="GSZId" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="GSZ" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="SubjectId" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="Subject" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="SubjectOKATO" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="Project" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="Requestor" type="Requestor" form="qualified"/>
+			<xsd:element name="ListOfFixedFactor" type="ListOfFixedFactor" form="qualified" minOccurs="0"/>
+			<xsd:element name="ListOfRatingPeriod" type="ListOfRatingPeriod" form="qualified" minOccurs="0"/>
+			<xsd:element name="ListOfRatingSupport" type="ListOfRatingSupport" form="qualified" minOccurs="0"/>
+			<xsd:element name="SiebelMessage" type="xsd:anyType" form="qualified" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Requestor">
+		<xsd:sequence>
+			<xsd:element name="Login" type="xsd:string" form="qualified"/>
+			<xsd:element name="LastName" type="xsd:string" form="qualified"/>
+			<xsd:element name="FirstName" type="xsd:string" form="qualified"/>
+			<xsd:element name="MiddleName" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="Division" type="xsd:string" form="qualified"/>
+			<xsd:element name="DivisionCode" type="xsd:string" form="qualified"/>
+			<xsd:element name="JobTitle" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="Role" type="xsd:string" form="qualified" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfFixedFactor">
+		<xsd:sequence>
+			<xsd:element name="FixedFactor" type="FixedFactor" form="qualified" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfRatingPeriod">
+		<xsd:sequence>
+			<xsd:element name="RatingPeriod" type="RatingPeriod" form="qualified" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfRatingSupport">
+		<xsd:sequence>
+			<xsd:element name="RatingSupport" type="RatingSupport" form="qualified" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FixedFactor">
+		<xsd:sequence>
+			<xsd:element name="Factor" type="xsd:string" form="qualified"/>
+			<xsd:element name="FactorIntegrationId" type="xsd:string" form="qualified"/>
+			<xsd:element name="Group" type="xsd:string" form="qualified"/>
+			<xsd:element name="Value" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="ValueIntegrationId" type="xsd:string" form="qualified" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RatingPeriod">
+		<xsd:sequence>
+			<xsd:element name="ReportDate" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="Period" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="StartDate" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="EndDate" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="PeriodType" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="Comments" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="ListOfCardinalFactor" type="ListOfCardinalFactor" form="qualified" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RatingSupport">
+		<xsd:sequence>
+			<xsd:element name="Name" type="xsd:string" form="qualified"/>
+			<xsd:element name="IntegrationId" type="xsd:string" form="qualified"/>
+			<xsd:element name="ListOfSupportFactor" type="ListOfSupportFactor" form="qualified" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfCardinalFactor">
+		<xsd:sequence>
+			<xsd:element name="CardinalFactor" type="CardinalFactor" form="qualified" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfSupportFactor">
+		<xsd:sequence>
+			<xsd:element name="SupportFactor" type="SupportFactor" form="qualified" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CardinalFactor">
+		<xsd:sequence>
+			<xsd:element name="Factor" type="xsd:string" form="qualified"/>
+			<xsd:element name="FactorIntegrationId" type="xsd:string" form="qualified"/>
+			<xsd:element name="Group" type="xsd:string" form="qualified"/>
+			<xsd:element name="NumValue" type="xsd:string" form="qualified" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SupportFactor">
+		<xsd:sequence>
+			<xsd:element name="Factor" type="xsd:string" form="qualified"/>
+			<xsd:element name="FactorIntegrationId" type="xsd:string" form="qualified"/>
+			<xsd:element name="Group" type="xsd:string" form="qualified"/>
+			<xsd:element name="Value" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="ValueIntegrationId" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="FreeValue" type="xsd:string" form="qualified" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="calculateResponse">
+		<xsd:sequence>
+			<xsd:element name="return" type="return" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="return">
+		<xsd:sequence>
+			<xsd:element name="ErrorCode" type="xsd:string" form="qualified"/>
+			<xsd:element name="ErrorMessage" type="xsd:string" form="qualified" minOccurs="0"/>
+			<xsd:element name="ListOfResultRating" type="ListOfResultRating" form="qualified" minOccurs="0"/>
+			<xsd:element name="ListOfCalculatedFactor" type="ListOfCalculatedFactor" form="qualified" minOccurs="0"/>
+			<xsd:element name="ListOfAddParameter" type="ListOfAddParameter" form="qualified" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfResultRating">
+		<xsd:sequence>
+			<xsd:element name="ResultRating" type="ResultRating" form="qualified" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfCalculatedFactor">
+		<xsd:sequence>
+			<xsd:element name="CalculatedFactor" type="CalculatedFactor" form="qualified" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfAddParameter">
+		<xsd:sequence>
+			<xsd:element name="AddParameter" type="AddParameter" form="qualified" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ResultRating">
+		<xsd:sequence>
+			<xsd:element name="IsPrimary" type="xsd:string" form="qualified"/>
+			<xsd:element name="Name" type="xsd:string" form="qualified"/>
+			<xsd:element name="Value" type="xsd:int" form="qualified"/>
+			<xsd:element name="Type" type="xsd:string" form="qualified"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CalculatedFactor">
+		<xsd:sequence>
+			<xsd:element name="Code" type="xsd:string" form="qualified"/>
+			<xsd:element name="Name" type="xsd:string" form="qualified"/>
+			<xsd:element name="Value" type="xsd:string" form="qualified"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AddParameter">
+		<xsd:sequence>
+			<xsd:element name="Order" type="xsd:string" form="qualified"/>
+			<xsd:element name="Name" type="xsd:string" form="qualified"/>
+			<xsd:element name="Value" type="xsd:string" form="qualified"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="calculationRequestType">
+		<xsd:sequence>
+			<xsd:element name="ProductType" type="String30" minOccurs="0"/>
+			<xsd:element name="Product" type="String50" minOccurs="0"/>
+			<xsd:element name="AgrNum" type="String50" minOccurs="0"/>
+			<xsd:element name="AgrDate" type="FormatDateOpt"/>
+			<xsd:element name="LGDType" type="String30" minOccurs="0"/>
+			<xsd:element name="CRMId" type="String15"/>
+			<xsd:element name="Comment" type="String500" minOccurs="0"/>
+			<xsd:element name="Debt" type="NumberOpt" minOccurs="0"/>
+			<xsd:element name="Rate" type="NumberOpt" minOccurs="0"/>
+			<xsd:element name="LoanMode" type="String30" minOccurs="0"/>
+			<xsd:element name="LoanSum" type="NumberOpt" minOccurs="0"/>
+			<xsd:element name="AgrEndDate" type="FormatDateOpt" minOccurs="0"/>
+			<xsd:element name="Rating" type="NumberOpt" minOccurs="0"/>
+			<xsd:element name="Limit" type="NumberOpt" minOccurs="0"/>
+			<xsd:element name="Model" type="String30"/>
+			<xsd:element name="UnutilizedLimit" type="NumberOpt" minOccurs="0"/>
+			<xsd:element name="AgreementNum" type="String50" minOccurs="0"/>
+			<xsd:element name="Account" type="Account" minOccurs="0"/>
+			<xsd:element name="User" type="User" minOccurs="0"/>
+			<xsd:element name="ListOfCollateral" type="ListOfCollateral" minOccurs="0"/>
+			<xsd:element name="SiebelMessage" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Account">
+		<xsd:sequence>
+			<xsd:element name="INN" type="String50" minOccurs="0"/>
+			<xsd:element name="Name" type="String100" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="User">
+		<xsd:sequence>
+			<xsd:element name="FIO" type="String150"/>
+			<xsd:element name="Position" type="String100"/>
+			<xsd:element name="TDivision" type="String100" minOccurs="0"/>
+			<xsd:element name="FDivision" type="String100" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfCollateral">
+		<xsd:sequence>
+			<xsd:element name="Collateral" type="Collateral" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Collateral">
+		<xsd:sequence>
+			<xsd:element name="CRMId" type="String15" minOccurs="0"/>
+			<xsd:element name="CollType" type="String30" minOccurs="0"/>
+			<xsd:element name="AssessType" type="String30" minOccurs="0"/>
+			<xsd:element name="AssessSource" type="String50" minOccurs="0"/>
+			<xsd:element name="Assessment" type="NumberOpt" minOccurs="0"/>
+			<xsd:element name="BusinessValue" type="String500" minOccurs="0"/>
+			<xsd:element name="ExpertRate" type="String500" minOccurs="0"/>
+			<xsd:element name="PortfSize" type="String500" minOccurs="0"/>
+			<xsd:element name="AssessmentDate" type="FormatDateOpt" minOccurs="0"/>
+			<xsd:element name="PDRate" type="NumberOpt" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="calculationResponseType">
+		<xsd:sequence>
+			<xsd:element name="ErrorCode" type="String1"/>
+			<xsd:element name="ErrorMessage" type="String2000" minOccurs="0"/>
+			<xsd:element name="CRMId" type="String15"/>
+			<xsd:element name="LGDType" type="String15"/>
+			<xsd:element name="LGDDate" type="FormatDate"/>
+			<xsd:element name="PD" type="NumberOpt" minOccurs="0"/>
+			<xsd:element name="LGD" type="Number" minOccurs="0"/>
+			<xsd:element name="EAD" type="Number" minOccurs="0"/>
+			<xsd:element name="Sum" type="Number" minOccurs="0"/>
+			<xsd:element name="ELPercent" type="NumberOpt" minOccurs="0"/>
+			<xsd:element name="EL" type="NumberOpt" minOccurs="0"/>
+			<xsd:element name="TotalValue" type="Number" minOccurs="0"/>
+			<xsd:element name="TotalCollValueLGD" type="Number" minOccurs="0"/>
+			<xsd:element name="TotalCollValueEAD" type="Number" minOccurs="0"/>
+			<xsd:element name="ListOfCollateral" type="ListOfCollateral"/>
+			<xsd:element name="ListOfAddParameter" type="ListOfAddParameter" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="finalizationRequest">
+		<xsd:sequence>
+			<xsd:element name="FIO" type="String150"/>
+			<xsd:element name="Position" type="String100"/>
+			<xsd:element name="CRMId" type="String15"/>
+			<xsd:element name="Type" type="String15"/>
+			<xsd:element name="SiebelMessage" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="finalizationResponse">
+		<xsd:sequence>
+			<xsd:element name="ErrorCode" type="String1"/>
+			<xsd:element name="ErrorMessage" type="String2000" minOccurs="0"/>
+			<xsd:element name="CRMId" type="String15"/>
+			<xsd:element name="Type" type="String15"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="String1">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String15">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="15"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String30">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="30"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String50">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="50"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String100">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="100"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String150">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="150"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String255">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String300">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="300"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String500">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="500"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String2000">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="2000"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="FormatDate">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="([0-2]\d|3[01])\.(0\d|1[012])\.(\d{4})( ([0-1]\d|2[0-3]):([0-5]\d):([0-5]\d)){0,1}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="FormatDateOpt">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="|([0-2]\d|3[01])\.(0\d|1[012])\.(\d{4})( ([0-1]\d|2[0-3]):([0-5]\d):([0-5]\d)){0,1}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Number">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="0|-?((0,\d+)|[1-9][0-9]*(,[0-9]+)*)"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="NumberOpt">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="|0|-?((0,\d+)|[1-9][0-9]*(,[0-9]+)*)"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="RqUID_Type">
+		<xsd:annotation>
+			<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="UUID"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="UUID">
+		<xsd:annotation>
+			<xsd:documentation/>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:pattern value="[0-9a-zA-Z]{32}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String">
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="RqTm">
+		<xsd:annotation>
+			<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="DateTime"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="DateTime">
+		<xsd:annotation>
+			<xsd:documentation>Тип данных для представления дат</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:dateTime"/>
+	</xsd:simpleType>
+</xsd:schema>

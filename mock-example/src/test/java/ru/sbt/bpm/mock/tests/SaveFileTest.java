@@ -9,7 +9,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import ru.sbt.bpm.mock.spring.integration.service.ChannelService;
 import ru.sbt.bpm.mock.spring.utils.SaveFile;
 
 import java.io.File;
@@ -24,8 +23,6 @@ import java.util.List;
 @WebAppConfiguration
 @ContextConfiguration({"/env/mockapp-servlet.xml"})
 public class SaveFileTest {
-    @Autowired
-    public ChannelService service;
 
 
     @Autowired

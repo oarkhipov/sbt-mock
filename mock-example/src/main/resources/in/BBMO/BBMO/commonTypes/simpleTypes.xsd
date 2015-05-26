@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by Nesterenko (EMBRACE) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sbrf.ru/prpc/bbmo/simpleTypes/10" xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10" targetNamespace="http://sbrf.ru/prpc/bbmo/simpleTypes/10" elementFormDefault="qualified">
+	<import namespace="http://sbrf.ru/prpc/bbmo/dataTypes/10" schemaLocation="dataTypes.xsd"/>
+	<simpleType name="TaxId_Type">
+		<annotation>
+			<documentation>Идентификатор налогоплательщика (ИНН)</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<maxLength value="32"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="OSB_Type">
+		<annotation>
+			<documentation>Отделение Сбербанка (ОСБ)</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<maxLength value="22"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="VSP_Type">
+		<annotation>
+			<documentation>Внутренние отделение Сбербанка (ВСП)</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<maxLength value="22"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="TB_Type">
+		<annotation>
+			<documentation>Территориальный банк (ТБ)</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<maxLength value="3"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="TaxRegReasonCode_Type">
+		<annotation>
+			<documentation>Код причины постановки на учет (КПП)</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<length value="9"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="AccountNumber_Type">
+		<annotation>
+			<documentation>Номер счета</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<length value="20"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="StateRegPrimeNum_Type">
+		<annotation>
+			<documentation>Основной государственный регистрационный номер (ОГРН)</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<maxLength value="15"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="TransPassportNum_Type">
+		<annotation>
+			<documentation>Номер паспорта сделки</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<length value="22"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="CurrencyCode_Type">
+		<annotation>
+			<documentation>Код валюты</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<length value="3"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="KIO_Type">
+		<annotation>
+			<documentation>Код иностранной организации</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<length value="5"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="KOPF_Type">
+		<annotation>
+			<documentation>Справочник орг. Форм  ЦАС НСИ «KOPF»</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<maxLength value="5"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="OKOPF_Type">
+		<annotation>
+			<documentation>Общероссийский классификатор организационно-правовых форм (ОКОПФ)</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<maxLength value="2"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="OKATO_Type">
+		<annotation>
+			<documentation>Общероссийский классификатор объектов административно-территориального деления (ОКАТО)</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<maxLength value="16"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="OKPO_Type">
+		<annotation>
+			<documentation>Общероссийский классификатор предприятий и организаций (ОКПО)</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<maxLength value="16"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="OKFS_Type">
+		<annotation>
+			<documentation>Общероссийский классификатор форм собственности (ОКФС)</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<maxLength value="2"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="OKOGU_Type">
+		<annotation>
+			<documentation>Общероссийский классификатор органов государственной власти и управления (ОКОГУ)</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<maxLength value="7"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="OKONH_Type">
+		<annotation>
+			<documentation>Отрасли народного хозяйства (ОКОНХ)</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<maxLength value="10"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="OKVED_Type">
+		<annotation>
+			<documentation>Общероссийский классификатор видов экономической деятельности (ОКВЭД)</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<maxLength value="10"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="SSM_Type">
+		<annotation>
+			<documentation>Справочника Стран Мира из ЦАС НСИ</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<maxLength value="3"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="KLADR_Type">
+		<annotation>
+			<documentation>Классификатор адресов России (КЛАДР)</documentation>
+		</annotation>
+		<restriction base="dt:DefString"/>
+	</simpleType>
+	<simpleType name="Belonging_Type">
+		<annotation>
+			<documentation>Отметка о принадлежности</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<length value="1"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="CountryCode_Type">
+		<annotation>
+			<documentation>Код страны</documentation>
+		</annotation>
+		<restriction base="dt:PosInteger">
+			<length value="3"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="IdentificationDocumentType_Type">
+		<annotation>
+			<documentation>Вид документа удостоверяющего личность</documentation>
+		</annotation>
+		<restriction base="dt:DefPosInteger">
+			<enumeration value="0">
+				<annotation>
+					<documentation>паспорт гражданина СССР</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="1">
+				<annotation>
+					<documentation>военный билет</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="106">
+				<annotation>
+					<documentation>миграционная карта</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="4">
+				<annotation>
+					<documentation>свидетельство о рождении</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="6">
+				<annotation>
+					<documentation>загранпаспорт гражданина РФ</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="7">
+				<annotation>
+					<documentation>вид на жительство</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="8">
+				<annotation>
+					<documentation>паспорт моряка</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="9">
+				<annotation>
+					<documentation>иные докум., выдаваемые уполном.органами</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="99">
+				<annotation>
+					<documentation>паспорт гражданина РФ</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="100">
+				<annotation>
+					<documentation>справка о освобождении</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="101">
+				<annotation>
+					<documentation>свидет. о рег.ходат.иммигранта</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="102">
+				<annotation>
+					<documentation>удостоверение беженца</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="104">
+				<annotation>
+					<documentation>паспорт иностранного гражданина</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="108">
+				<annotation>
+					<documentation>дипломатический паспорт гражданина РФ</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="107">
+				<annotation>
+					<documentation>разрешение на временное проживание</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="105">
+				<annotation>
+					<documentation>удостоверение личности офицера</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="114">
+				<annotation>
+					<documentation>временное удостоверение лич.гражд.РФ</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="300">
+				<annotation>
+					<documentation>псевдокумент-спец.документ для WAY4</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="32">
+				<annotation>
+					<documentation>док.ин.гос-ва, удостове-ряющий личность</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="35">
+				<annotation>
+					<documentation>иные документы для лиц без гражданства</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="ApplicationStatus_Type">
+		<annotation>
+			<documentation>Статус обработки заявления на компенсацию</documentation>
+		</annotation>
+		<restriction base="dt:DefPosInteger">
+			<enumeration value="1">
+				<annotation>
+					<documentation>Не сканировано</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="2">
+				<annotation>
+					<documentation>Сканировано</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="3">
+				<annotation>
+					<documentation>На рассмотрении</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="4">
+				<annotation>
+					<documentation>Доп.контроль отказа</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5">
+				<annotation>
+					<documentation>Закрыто/Отказано</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="6">
+				<annotation>
+					<documentation>В работе</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="7">
+				<annotation>
+					<documentation>Направление в ВСП</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="8">
+				<annotation>
+					<documentation>Получено из ВСП</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="9">
+				<annotation>
+					<documentation>Добор документов</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="10">
+				<annotation>
+					<documentation>Результаты добора</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="11">
+				<annotation>
+					<documentation>На Согласовании</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="12">
+				<annotation>
+					<documentation>Результаты согласования</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="13">
+				<annotation>
+					<documentation>Были выплаты</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="14">
+				<annotation>
+					<documentation>Закрыто/Частично исполнено</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="15">
+				<annotation>
+					<documentation>Закрыто/Исполнено полностью</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="16">
+				<annotation>
+					<documentation>Результаты запроса</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="17">
+				<annotation>
+					<documentation>Закрыто</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="PackageId_Type">
+		<annotation>
+			<documentation>Идентификатор пакета документов</documentation>
+		</annotation>
+		<restriction base="dt:DefString"/>
+	</simpleType>
+	<simpleType name="UUID">
+		<annotation>
+			<documentation>Идентификатор</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<length value="32"/>
+			<pattern value="([0-9]|[a-f]|[A-F]){32}"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="ApplicationId_Type">
+		<annotation>
+			<documentation>Идентификатор заявления</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<length value="19"/>
+			<pattern value="[0-9]{9}[/][0-9]{9}"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="SystemName_Type">
+		<annotation>
+			<documentation>Идентификатор системы</documentation>
+		</annotation>
+		<restriction base="dt:DefString"/>
+	</simpleType>
+	<simpleType name="OperationName_Type">
+		<annotation>
+			<documentation>Название операции</documentation>
+		</annotation>
+		<restriction base="dt:DefString">
+			<enumeration value="SrvRegisterLegalPersonApplication">
+				<annotation>
+					<documentation>Регистрация заявления юридического лица</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SrvGetExchangeControlDocumentInformation">
+				<annotation>
+					<documentation>Получение информации по документам ВК</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SrvRegisterTransactionPassport">
+				<annotation>
+					<documentation>Оформление паспорта сделки</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SrvAddExchangeControlDocument">
+				<annotation>
+					<documentation>Добавление документа валютного контроля</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SrvRegisterLegalPersonAccountOperationApplication">
+				<annotation>
+					<documentation>Регистрация заявления юридического лица на операции по счету</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SrvGetClientReferenceData">
+				<annotation>
+					<documentation>Получение справочных данных клиента</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SrvUpdateClientReferenceData">
+				<annotation>
+					<documentation>Изменение справочных данных клиента</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SrvPermitAccountChargeOperation">
+				<annotation>
+					<documentation>Разрешение проведения расходных операций по счету</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SrvSendApplicationForCBDFProcessing">
+				<annotation>
+					<documentation>Передача заявления на обработку в ЦБДФ</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SrvSendNaturalPersonApplicationProcessStageResult">
+				<annotation>
+					<documentation>Передача результата обработки заявления физического лица</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SrvSendApplicationProcessingURL">
+				<annotation>
+					<documentation>Передача URL задания обработки заявления</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SrvRegisterNaturalPersonCompensationApplication">
+				<annotation>
+					<documentation>Регистрация заявления физического лица на компенсацию</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SrvSendNaturalPersonApplicationStateChangeMessage">
+				<annotation>
+					<documentation>Передача сообщения об изменении состояния заявления физического лица</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SrvSendNaturalPersonApplicationCreationByOriginMessage">
+				<annotation>
+					<documentation>Создание нового заявления физического лица на основе первоисточника</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SrvPutRemoteLegalAccOperApp">
+                <annotation>
+                    <documentation>Операция создания задачи на открытие счета по запросу СББОЛ</documentation>
+                </annotation>
+            </enumeration>
+			
+			<!--
+				CKPIT INTEGRATION
+			-->
+			<enumeration value="SrvCKPITUpdateDepositNSO">
+				<annotation>
+					<documentation>Запрос от ЦКПИТ на создание или обновление продукта типа "Депозиты и НСО" (ЮЛ12)</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SrvCKPITUpdateLoan">
+				<annotation>
+					<documentation>Запрос от ЦКПИТ на создание или обновление продукта типа "Кредиты малого бизнеса" (АК06)</documentation>
+				</annotation>
+			</enumeration>
+			
+		</restriction>
+	</simpleType>
+	<simpleType name="URL_Type">
+		<annotation>
+			<documentation>URL</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<maxLength value="500"/>
+		</restriction>
+	</simpleType>
+</schema>

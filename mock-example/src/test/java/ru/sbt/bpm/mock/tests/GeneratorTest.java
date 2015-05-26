@@ -6,10 +6,7 @@ import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
-import org.junit.Ignore;
 import org.junit.Test;
-import ru.sbt.bpm.mock.generator.spring.integration.GatewayContextGenerator;
-import ru.sbt.bpm.mock.generator.spring.integration.GenerateMockAppServlet;
 import ru.sbt.bpm.mock.spring.utils.Xsl20Transformer;
 
 import java.io.File;
@@ -19,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by sbt-hodakovskiy-da on 30.01.2015.
@@ -30,7 +26,6 @@ import static org.junit.Assert.assertNotNull;
 public class GeneratorTest {
 
     @Test
-    @Ignore
     public void testAllMockxsl() throws Exception {
         final String dir = this.getClass().getClassLoader().getResource("").getPath();
         String rootpath = dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl";
@@ -94,7 +89,7 @@ public class GeneratorTest {
         String xml = FileUtils.readFileToString(f);
         if (xml.contains("<xsl:template match=\"/\">")) {
             return false; //драйвер
-        } else if (xml.contains("<xsl:template match=\"soap:Envelope\">")) {
+        } else if (xml.contains("<xsl:template match=\"soap:Envelope\">") || xml.contains("<xsl:template match=\"soap:Message\">")) {
             return true; //заглушка
         }
         throw new IllegalArgumentException("file is nor driver nor mock");

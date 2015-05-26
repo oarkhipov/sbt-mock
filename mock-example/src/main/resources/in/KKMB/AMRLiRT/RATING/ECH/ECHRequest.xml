@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:Envelope 
+	xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/" 
+	xmlns:ech="http://sbrf.ru/prpc/ech/10" 
+	xmlns:hdr="http://sbrf.ru/prpc/mq/headers" 
+	xmlns:tns="http://schemas.xmlsoap.org/soap/envelope/" 
+	xmlns:chs="http://www.sbrf.ru/CreditHistoryScoring" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<tns:Header>
+		<hdr:AsyncHeader>
+			<hdr:message-id>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</hdr:message-id>
+			<hdr:request-time>2001-12-17T09:30:47Z</hdr:request-time>
+			<hdr:correlation-id>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</hdr:correlation-id>
+			<hdr:eis-name>test text</hdr:eis-name>
+			<hdr:system-id>test text</hdr:system-id>
+			<hdr:operation-name>test text</hdr:operation-name>
+			<hdr:operation-version>test text</hdr:operation-version>
+			<hdr:user-id>test text</hdr:user-id>
+			<hdr:user-name>test text</hdr:user-name>
+		</hdr:AsyncHeader>
+	</tns:Header>
+	<tns:Body>
+		<ech:SrvGetCreditHistoryScoringRq>
+			<chs:checkInternal>true</chs:checkInternal>
+			<chs:checkExternal>true</chs:checkExternal>
+			<chs:participants>
+				<chs:participant>
+					<chs:index>0</chs:index>
+					<chs:role>2</chs:role>
+					<chs:status>4</chs:status>
+					<chs:naturalPerson>
+						<chs:INN>aaaaaaaaaaaa</chs:INN>
+						<chs:gender>2</chs:gender>
+						<chs:resident>1</chs:resident>
+						<chs:birthPlace>test text</chs:birthPlace>
+						<chs:currentPersonData>
+							<chs:firstName>xxxxxxxxxxxxxxxxxxxxxxxxx</chs:firstName>
+							<chs:lastName>xxxxxxxxxxxxxxxxxxxxxxxxx</chs:lastName>
+							<chs:middleName>xxxxxxxxxxxxxxxxxxxxxxxxx</chs:middleName>
+							<chs:birthDate>1967-08-13</chs:birthDate>
+						</chs:currentPersonData>
+						<chs:previousPersonData>
+							<chs:firstName>xxxxxxxxxxxxxxxxxxxxxxxxx</chs:firstName>
+							<chs:lastName>xxxxxxxxxxxxxxxxxxxxxxxxx</chs:lastName>
+							<chs:middleName>xxxxxxxxxxxxxxxxxxxxxxxxx</chs:middleName>
+							<chs:birthDate>1967-08-13</chs:birthDate>
+						</chs:previousPersonData>
+						<chs:primaryID>
+							<chs:idType>02</chs:idType>
+							<chs:serie>aaaaaaaaaaaaaaaaaaaa</chs:serie>
+							<chs:number>aaaaaaaaaaaaaaaaaaaa</chs:number>
+							<chs:issueLocation>test text</chs:issueLocation>
+							<chs:issueDate>1967-08-13</chs:issueDate>
+							<chs:issueAuthority>test text</chs:issueAuthority>
+							<chs:foreignSeriesAndNumber>aaaaaaaaaaaaaaaaaaaa</chs:foreignSeriesAndNumber>
+						</chs:primaryID>
+						<chs:actualAddress>
+							<chs:city>xxxxxxxxxxxxxxxxxxxxxxxxxaaaaaaaaaa</chs:city>
+							<chs:street>xxxxxxxxxxxxxxxxxxxxxxxxxaaaaaaaaaa</chs:street>
+							<chs:blockNumber>aaaaaaaaaaaaaaaaaaaa</chs:blockNumber>
+						</chs:actualAddress>
+						<chs:registrationAddress>
+							<chs:city>xxxxxxxxxxxxxxxxxxxxxxxxxaaaaaaaaaa</chs:city>
+							<chs:street>xxxxxxxxxxxxxxxxxxxxxxxxxaaaaaaaaaa</chs:street>
+							<chs:blockNumber>aaaaaaaaaaaaaaaaaaaa</chs:blockNumber>
+						</chs:registrationAddress>
+					</chs:naturalPerson>
+				</chs:participant>
+			</chs:participants>
+		</ech:SrvGetCreditHistoryScoringRq>
+	</tns:Body>
+</tns:Envelope>

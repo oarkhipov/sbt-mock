@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="RatingService" 
+		targetNamespace="http://service.scoring.sberbank.luxoft.com/" 
+		xmlns:ns1="http://service.scoring.sberbank.luxoft.com/" 
+		xmlns:ns2="http://struct.sberbank.luxoft.com/" 
+		xmlns:ns3="http://hd.scoring.sberbank.luxoft.com/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+		xmlns:tns="http://service.scoring.sberbank.luxoft.com/" 
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+		
+  <wsdl:types>
+  	<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<xsd:import schemaLocation="http://izar9.cgs.sbrf.ru:9080/XSD/AMRLIRT/RatingServiceSchema1.xsd" namespace="http://struct.sberbank.luxoft.com/" />
+		<xsd:import schemaLocation="http://izar9.cgs.sbrf.ru:9080/XSD/AMRLIRT/RatingServiceSchema2.xsd" namespace="http://service.scoring.sberbank.luxoft.com/" />
+		<xsd:import schemaLocation="http://izar9.cgs.sbrf.ru:9080/XSD/AMRLIRT/RatingServiceSchema3.xsd" namespace="http://hd.scoring.sberbank.luxoft.com/" />
+  	</xsd:schema>
+  </wsdl:types>
+  
+  <wsdl:message name="confirm">
+    <wsdl:part element="ns1:confirm" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="isAvailableResponse">
+    <wsdl:part element="ns1:isAvailableResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="confirmResponse">
+    <wsdl:part element="ns1:confirmResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="calculate">
+    <wsdl:part element="ns1:calculate" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="calculateResponse">
+    <wsdl:part element="ns1:calculateResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="correct">
+    <wsdl:part element="ns1:correct" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="correctResponse">
+    <wsdl:part element="ns1:correctResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="massCalculate">
+    <wsdl:part element="ns1:massCalculateRequest" name="massCalculateRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="massCalculateResponse">
+    <wsdl:part element="ns1:massCalculateResponse" name="massCalculateResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="StructResponse">
+    <wsdl:part element="ns2:StructResponse" name="StructResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Struct">
+    <wsdl:part element="ns2:StructRequest" name="StructRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="historicalDetails">
+    <wsdl:part element="ns3:historicalDetailsRequest" name="historicalDetailsRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="historicalDetailsResponse">
+    <wsdl:part element="ns3:historicalDetailsResponse" name="historicalDetailsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="isAvailable">
+    <wsdl:part element="ns1:isAvailable" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:portType name="RatingService">
+    <wsdl:operation name="Struct">
+      <wsdl:input message="ns1:Struct" name="Struct">
+    </wsdl:input>
+      <wsdl:output message="ns1:StructResponse" name="StructResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="calculate">
+      <wsdl:input message="ns1:calculate" name="calculate">
+    </wsdl:input>
+      <wsdl:output message="ns1:calculateResponse" name="calculateResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isAvailable">
+      <wsdl:input message="ns1:isAvailable" name="isAvailable">
+    </wsdl:input>
+      <wsdl:output message="ns1:isAvailableResponse" name="isAvailableResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="confirm">
+      <wsdl:input message="ns1:confirm" name="confirm">
+    </wsdl:input>
+      <wsdl:output message="ns1:confirmResponse" name="confirmResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="massCalculate">
+      <wsdl:input message="ns1:massCalculate" name="massCalculate">
+    </wsdl:input>
+      <wsdl:output message="ns1:massCalculateResponse" name="massCalculateResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="historicalDetails">
+      <wsdl:input message="ns1:historicalDetails" name="historicalDetails">
+    </wsdl:input>
+      <wsdl:output message="ns1:historicalDetailsResponse" name="historicalDetailsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="correct">
+      <wsdl:input message="ns1:correct" name="correct">
+    </wsdl:input>
+      <wsdl:output message="ns1:correctResponse" name="correctResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  
+  <wsdl:binding name="RatingServiceImplServiceSoapBinding" type="ns1:RatingService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="calculate">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="calculate">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="calculateResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Struct">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="Struct">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="StructResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="confirm">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="confirm">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="confirmResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isAvailable">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="isAvailable">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="isAvailableResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="massCalculate">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="massCalculate">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="massCalculateResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="historicalDetails">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="historicalDetails">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="historicalDetailsResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="correct">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="correct">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="correctResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  
+  <wsdl:service name="RatingServiceImplService">
+    <wsdl:port binding="tns:RatingServiceImplServiceSoapBinding" name="RatingServiceImplPort">
+      <soap:address location="http://ammrklgd.ca.sbrf.ru:9080/sb-scoring/services/RatingService"></soap:address>
+    </wsdl:port>
+  </wsdl:service>  
+  
+</wsdl:definitions>

@@ -7,9 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import ru.sbt.bpm.mock.config.entities.LinkedTag;
 import ru.sbt.bpm.mock.spring.bean.LinkedTagCaption;
-import ru.sbt.bpm.mock.spring.integration.service.TransformService;
+import ru.sbt.bpm.mock.spring.bean.MockList;
 import ru.sbt.bpm.mock.spring.integration.service.XmlDataService;
 import ru.sbt.bpm.mock.spring.utils.AjaxObject;
 import ru.sbt.bpm.mock.spring.utils.SaveFile;
@@ -24,8 +23,6 @@ import java.io.IOException;
  */
 @Controller
 public class MockController {
-    @Autowired
-    private TransformService transformService;
 
     @Autowired
     private XmlDataService xmlDataService;
@@ -36,11 +33,14 @@ public class MockController {
     @Autowired
     LinkedTagCaption linkedTagCaption;
 
+    @Autowired
+    MockList mockList;
+
     @RequestMapping("/mock/")
     public String  getMock(Model model) {
         model.addAttribute("type", "Response");
         model.addAttribute("link", "mock");
-        model.addAttribute("list", transformService.getTransformers());
+        model.addAttribute("list", mockList.getList());
         return "stepForm";
     }
 

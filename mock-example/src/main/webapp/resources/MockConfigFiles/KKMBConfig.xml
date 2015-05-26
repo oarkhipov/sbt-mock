@@ -3,7 +3,7 @@
         <system name="CRM">
             <pathToXSD>/KKMB/CRM</pathToXSD>
             <rootXsd>kkmb-crm-header-req.xsd</rootXsd>
-            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
+            <headerNamespace>http://schemas.xmlsoap.org/soap/envelope/</headerNamespace>
             <integrationPoints>
                 <integrationPoint name="ExportContractInfo">
                     <rqRootElementName>ContractInfo</rqRootElementName>
@@ -16,6 +16,7 @@
                     <xsdFile>kkmb-crm-exportcontract-req.xsd</xsdFile>
                 </integrationPoint>
                 <integrationPoint name="GetParticipantInfo">
+                    <operationName>GetParticipantInfo</operationName>
                     <rsRootElementName>ParticipantInfo</rsRootElementName>
                     <rqRootElementName>ContractID</rqRootElementName>
                     <type>Mock</type>
@@ -95,10 +96,11 @@
                     <rqRootElementName>calculate</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
-                        <tag ns="http://service.lgd.sberbank.luxoft.com/">calculate</tag>
-                        <tag ns="http://service.lgd.sberbank.luxoft.com/">Model</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                        <tag ns="http://service.scoring.sberbank.luxoft.com/">calculate</tag>
+                        <tag ns="http://service.scoring.sberbank.luxoft.com/">arg0</tag>
+                        <tag ns="http://service.scoring.sberbank.luxoft.com/">RatingId</tag>
                     </linkedTagSequence>
                     <protocol>MQ</protocol>
                     <!--OPTIONAL-->
@@ -119,10 +121,10 @@
                     <rqRootElementName>calculationRequest</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
-                        <tag ns="http://service.lgd.sberbank.luxoft.com/">calculate</tag>
-                        <tag ns="http://service.lgd.sberbank.luxoft.com/">Model</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">calculationRequest</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">CRMId</tag>
                     </linkedTagSequence>
                     <protocol>MQ</protocol>
                     <!--OPTIONAL-->
@@ -136,10 +138,10 @@
                     <rqRootElementName>finalizationRequest</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
-                        <tag ns="http://service.lgd.sberbank.luxoft.com/">calculate</tag>
-                        <tag ns="http://service.lgd.sberbank.luxoft.com/">Model</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">finalizationRequest</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">CRMId</tag>
                     </linkedTagSequence>
                     <protocol>MQ</protocol>
                     <!--OPTIONAL-->
@@ -160,10 +162,10 @@
                     <rqRootElementName>limCalculationRequest</rqRootElementName>
                     <type>Mock</type>
                     <linkedTagSequence>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Envelope</tag>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/simpleTypes/10">Body</tag>
-                        <tag ns="http://service.lgd.sberbank.luxoft.com/">calculate</tag>
-                        <tag ns="http://service.lgd.sberbank.luxoft.com/">Model</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                        <tag ns="http://service.smb.sberbank.luxoft.com/">limCalculationRequest</tag>
+                        <tag ns="http://service.smb.sberbank.luxoft.com/">MaxRiskProfile</tag>
                     </linkedTagSequence>
                     <protocol>MQ</protocol>
                     <!--OPTIONAL-->
@@ -175,8 +177,8 @@
             </integrationPoints>
         </system>
         <system name="ECH">
-            <pathToXSD>/KKMB/ОКИ/ECH</pathToXSD>
-            <rootXsd>ECHOperationElements.xsd</rootXsd>
+            <pathToXSD>/KKMB/ОКИ</pathToXSD>
+            <rootXsd>ECH/ECHOperationElements.xsd</rootXsd>
             <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
             <integrationPoints>
                 <integrationPoint name="getCreditHistoryScoring">
@@ -194,14 +196,34 @@
                     <incomeQueue>ESB.CF.KKMB.IN</incomeQueue>
                     <!--OPTIONAL-->
                     <outcomeQueue>ESB.CF.KKMB.OUT</outcomeQueue>
-                    <xsdFile>scoring.xsd</xsdFile>
+                    <xsdFile>ECH/scoring.xsd</xsdFile>
                 </integrationPoint>
             </integrationPoints>
+            <dependencies>
+                <dependency>
+                    <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
+                </dependency>
+                <dependency>
+                    <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
+                </dependency>
+                <dependency>
+                    <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
+                </dependency>
+                <dependency>
+                    <xsdFile>KKMBHeaderElements.xsd</xsdFile>
+                </dependency>
+                <dependency>
+                    <xsdFile>KKMBMessageElements.xsd</xsdFile>
+                </dependency>
+                <dependency>
+                    <xsdFile>KKMBOperationElements.xsd</xsdFile>
+                </dependency>
+            </dependencies>
         </system>
-        <system name="MFO">
+        <!--<system name="MFO">
             <pathToXSD>/KKMB/MFO</pathToXSD>
             <rootXsd>FrWebServicePort.xml</rootXsd>
-            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
+            <headerNamespace>http://schemas.xmlsoap.org/soap/envelope/</headerNamespace>
             <integrationPoints>
                 <integrationPoint name="GetParticipantFactors">
                     <rsRootElementName>GetParticipantFactorsResp</rsRootElementName>
@@ -243,6 +265,6 @@
                     <xsdFile>FrWebServicePort.xml</xsdFile>
                 </integrationPoint>
             </integrationPoints>
-        </system>
+        </system>-->
     </systems>
 </MockConfig>

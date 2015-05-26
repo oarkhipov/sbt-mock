@@ -26,6 +26,13 @@ public class TemplateEngineBeanImpl implements TemplateEngineBean {
 
     private Logger log = LoggerFactory.getLogger(TemplateEngineBeanImpl.class);
 
+    /**
+     * Применяет правила шаблонизатора на входную строку
+     *
+     * @param input входная строка
+     * @return модифицированная строка
+     * @throws IOException
+     */
     public String applyTemplate(String input) throws IOException {
         Configuration configuration = new Configuration();
         configuration.setObjectWrapper(new DefaultObjectWrapper());
@@ -51,6 +58,11 @@ public class TemplateEngineBeanImpl implements TemplateEngineBean {
         return out.toString();
     }
 
+    /**
+     * Возвращает информацию о переменных шаблонизатора
+     *
+     * @return строка в html
+     */
     public String htmlInfo() {
         return "<b>Переменные шаблонизатора:</b><br/>" +
                 "<b>${timestamp10}</b> - печатает timestamp в формате yyMMddHHmm<br/>" +

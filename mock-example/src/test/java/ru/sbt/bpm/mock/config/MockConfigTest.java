@@ -21,11 +21,9 @@ public class MockConfigTest {
         MockConfigContainer gen2 = MockConfigContainer.getInstance("src/test/resources/xml/MockConfigFiles/MockConfig.xml");
         assertEquals(gen1, gen2);
 
-//        System.out.println(gen1.getFilePath() + " || " + gen2.getFilePath());
 
         assertEquals(fileExpected, gen1.getFilePath());
         assertEquals(fileExpected, gen2.getFilePath());
-//        System.out.println("================================");
     }
 
     @Test
@@ -33,10 +31,8 @@ public class MockConfigTest {
         final String fileExpected = "src/test/resources/xml/MockConfigFiles/MockConfig.xml";
         MockConfigContainer gen1 = MockConfigContainer.getInstance("src/test/resources/xml/MockConfigFiles/MockConfig.xml");
 
-//        System.out.println(gen1.getFilePath());
 
         assertEquals(fileExpected, gen1.getFilePath());
-//        System.out.println("================================");
     }
 
     @Test
@@ -47,16 +43,4 @@ public class MockConfigTest {
         assertNotNull(configContainer.getConfig());
     }
 
-    @Test
-    public void testGatewayContextGenerator() throws Exception {
-        final String expectedIN = "<inbound-gateway id=\"jmsinAMRLiRT\" request-channel=\"IN.AMRLiRT.1\" reply-channel=\"OUT.AMRLiRT.1\"/>/n/n<inbound-gateway id=\"jmsinCRM\" request-channel=\"IN2\" reply-channel=\"OUT2\"/>/n/n";
-        final String expectedOUT = "<outbound-gateway id=\"jmsoutAMRLiRT\" request-channel=\"IN.AMRLiRT.2\" reply-channel=\"OUT.AMRLiRT.2\"/>/n/n<outbound-gateway id=\"jmsoutCRM\" request-channel=\"IN1\" reply-channel=\"OUT1\"/>/n/n";
-
-        MockConfigContainer configContainer = MockConfigContainer.getInstance("xml/MockConfigFiles/MockConfig.xml");
-        configContainer.init();
-
-        GatewayContextGenerator gcg = new GatewayContextGenerator(configContainer.getConfig().getListOfSystems());
-        gcg.putChannelsToMap();
-//        System.out.println(gcg.getInboundAndOutboundGateway());
-    }
 }

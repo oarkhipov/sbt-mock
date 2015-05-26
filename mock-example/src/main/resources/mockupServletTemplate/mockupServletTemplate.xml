@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:jms="http://www.springframework.org/schema/integration/jms"
+             xmlns:ix= "http://www.springframework.org/schema/integration/xml"
+             xmlns:util="http://www.springframework.org/schema/util"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xmlns:mvc="http://www.springframework.org/schema/mvc"
+             xsi:schemaLocation="
+		http://www.springframework.org/schema/beans		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration	http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/jms	http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+		http://www.springframework.org/schema/integration/xml	http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
+		http://www.springframework.org/schema/util		http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/context       http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc   http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	">
+
+    <mvc:resources mapping="/**" location="/resources/web/" />
+    <mvc:annotation-driven/>
+
+    <!-- Настройка используемой конфигурации заглушки-->
+    <beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
+        <beans:constructor-arg value="/resources/MockConfigFiles/${CONFIG_FILENAME}" type="java.lang.String" />
+    </beans:bean>
+
+    <!-- - - - - - - - - - - - - - -->
+    <!--                           -->
+    <!-- ПРЕДВАРИТЕЛЬНАЯ НАСТРОЙКА -->
+    <!--                           -->
+    <!-- - - - - - - - - - - - - - -->
+
+
+    ${MQ_BEANS}
+    <!--эту часть убираем в шаблон-->
+    <!--Настройки подключения к MQ-->
+    <!--&lt;!&ndash;&ndash;&gt;<beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+    <!--&lt;!&ndash;&ndash;&gt;    <beans:property name="jndiName" value="$JMS_QUEUE_NAME"/>-->
+    <!--&lt;!&ndash;&ndash;&gt;</beans:bean>-->
+    <!--&lt;!&ndash;&ndash;&gt;<beans:bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+    <!--&lt;!&ndash;&ndash;&gt;    <beans:property name="jndiName" value="$JMS_QUEUE_NAME"/>-->
+    <!--&lt;!&ndash;&ndash;&gt;</beans:bean>-->
+    <!--&lt;!&ndash;&ndash;&gt;<beans:bean id="outboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+    <!--&lt;!&ndash;&ndash;&gt;    <beans:property name="jndiName" value="$JMS_QUEUE_NAME"/>-->
+    <!--&lt;!&ndash;&ndash;&gt;</beans:bean>-->
+<!--&lt;!&ndash;&ndash;&gt;-->
+    <!--&lt;!&ndash;&ndash;&gt;<beans:bean id="requestDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+    <!--&lt;!&ndash;&ndash;&gt;    <beans:property name="jndiName" value="$JMS_QUEUE_NAME"/>-->
+    <!--&lt;!&ndash;&ndash;&gt;</beans:bean>-->
+    <!--&lt;!&ndash;&ndash;&gt;<beans:bean id="responseDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+    <!--&lt;!&ndash;&ndash;&gt;    <beans:property name="jndiName" value="$JMS_QUEUE_NAME"/>-->
+    <!--&lt;!&ndash;&ndash;&gt;</beans:bean>-->
+    <!--&lt;!&ndash;&ndash;&gt;-->
+    <!--&lt;!&ndash;&ndash;&gt;<jms:inbound-gateway-->
+    <!--&lt;!&ndash;&ndash;&gt;        id="jmsin"-->
+    <!--&lt;!&ndash;&ndash;&gt;        request-destination="inboundMockQueue"-->
+    <!--&lt;!&ndash;&ndash;&gt;        request-channel="MockInboundRequest"-->
+    <!--&lt;!&ndash;&ndash;&gt;        reply-channel="MockOutboundResponse"-->
+    <!--&lt;!&ndash;&ndash;&gt;        default-reply-destination="outboundMockQueue"-->
+    <!--&lt;!&ndash;&ndash;&gt;        header-mapper="defHeaderMapper"-->
+    <!--&lt;!&ndash;&ndash;&gt;        connection-factory="jndiConnectionFactory"-->
+    <!--&lt;!&ndash;&ndash;&gt;        />-->
+<!--&lt;!&ndash;&ndash;&gt;-->
+    <!--&lt;!&ndash;&ndash;&gt;<jms:outbound-gateway-->
+    <!--&lt;!&ndash;&ndash;&gt;        id="jmsout"-->
+    <!--&lt;!&ndash;&ndash;&gt;        request-destination="requestDriverQueue"-->
+    <!--&lt;!&ndash;&ndash;&gt;        reply-destination="responseDriverQueue"-->
+    <!--&lt;!&ndash;&ndash;&gt;        request-channel="DriverOutboundRequest"-->
+    <!--&lt;!&ndash;&ndash;&gt;        reply-channel="DriverInboundResponse"-->
+    <!--&lt;!&ndash;&ndash;&gt;        header-mapper="defHeaderMapper"-->
+    <!--&lt;!&ndash;&ndash;&gt;        connection-factory="jndiConnectionFactory"-->
+    <!--&lt;!&ndash;&ndash;&gt;        reply-timeout="30000"-->
+    <!--&lt;!&ndash;&ndash;&gt;        receive-timeout="30000"-->
+    <!--&lt;!&ndash;&ndash;&gt;        />-->
+    <!--///эту часть убираем в шаблон-->
+
+    <!-- Входной и выходной каналы Заглушки-->
+    <channel id="MockInboundRequest">
+        <interceptors>
+            <wire-tap channel="fromGateLogger"/>
+        </interceptors>
+    </channel>
+
+    <channel id="MockOutboundResponse">
+        <interceptors>
+            <wire-tap channel="toGateLogger"/>
+        </interceptors>
+    </channel>
+
+    <!-- Входной и выходной каналы Драйвера -->
+    <channel id="DriverInboundResponse">
+        <interceptors>
+            <wire-tap channel="fromGateLoggerCRM"/>
+        </interceptors>
+    </channel>
+
+    <channel id="DriverOutboundRequest">
+        <interceptors>
+            <wire-tap channel="toGateLoggerCRM"/>
+        </interceptors>
+    </channel>
+
+    <!--настройка логгеров -->
+    <logging-channel-adapter id="fromGateLogger" logger-name="fromGateLogger"/>
+    <logging-channel-adapter id="toGateLogger" logger-name="toGateLogger"/>
+
+    <!--настройка логгеров1 -->
+    <logging-channel-adapter id="fromGateLoggerCRM" logger-name="fromGateLoggerCRM"/>
+    <logging-channel-adapter id="toGateLoggerCRM" logger-name="toGateLoggerCRM"/>
+
+    <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
+
+
+    <!-- - - - - - - - - - - - -->
+    <!--     МАРШРУТИЗАЦИЯ     -->
+    <!-- - - - - - - - - - - - -->
+
+    ${NAMESPACE_MAP}
+    <!-- Карта неймспейсов-->
+    <util:map id="sbrfNamespaceMap">
+        <beans:entry key="env" value="http://schemas.xmlsoap.org/soap/envelope/"/>
+        <beans:entry key="ns1" value="http://sbrf.ru/prpc/mq/headers"/>
+    </util:map>
+
+    <!-- Каналы-->
+    <channel id="defaultChannel"/>
+    <channel id="DefaultOutputChannelIfNoOperationRouted"/>
+
+    ${CHANELS}
+
+    <!-- TODO добавить Router test-->
+    <!-- Роутер-->
+    <ix:xpath-router id="operationRouter" input-channel="MockInboundRequest" default-output-channel="DefaultOutputChannelIfNoOperationRouted" resolution-required="false">
+        <ix:xpath-expression expression="${MOCK_ROUTER_QUERRY}<!--/env:Envelope/env:Header/ns1:AsyncHeader/ns1:operation-name-->" namespace-map="sbrfNamespaceMap" />
+
+        ${ROUTER_MAPPING}
+    </ix:xpath-router>
+
+    <!-- здесь уже реализация -->
+
+    <!-- BBMO -->
+    @Deprecated
+    ${BEANS_RefreshableXSLTransformer}
+
+    <!--маппинг трасформеров на каналы-->
+
+    @Deprecated
+    ${TRANSFORMERS}
+
+    <!-- Если операция в роутере не определена, то она попадает в канал по умолчанию и мы её заворачиваем на выход //TODO нужно сформировать ответ, что всё плохо-->
+    <bridge input-channel="DefaultOutputChannelIfNoOperationRouted" output-channel="MockOutboundResponse"/>
+
+    <context:component-scan base-package="ru.sbt.bpm.mock.spring"/>
+
+    <beans:bean id="jspResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <beans:property name="prefix" value="/WEB-INF/jsp/"/>
+        <beans:property name="suffix" value=".jsp"/>
+    </beans:bean>
+
+    <!--<channel id="test"/>-->
+    <!-- Mock gateway to send requests to outbound -->
+    <gateway id="systemEntry" default-request-channel="DriverOutboundRequest" default-reply-channel="DriverInboundResponse"
+             service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService" />
+    <!--<gateway id="systemEntry" default-request-channel="test" default-reply-channel="test"-->
+    <!--service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService" />-->
+</beans:beans>

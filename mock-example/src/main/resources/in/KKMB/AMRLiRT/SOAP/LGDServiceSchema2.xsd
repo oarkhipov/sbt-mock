@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		targetNamespace="http://hd.lgd.sberbank.luxoft.com/" 
+		xmlns="http://hd.lgd.sberbank.luxoft.com/" 
+		xmlns:lgd-common="http://service.lgd.sberbank.luxoft.com/" 
+		elementFormDefault="qualified" 
+		attributeFormDefault="qualified">
+		
+	<xs:import schemaLocation="http://izar9.cgs.sbrf.ru:9080/XSD/AMRLIRT/LGDServiceSchema1.xsd" namespace="http://service.lgd.sberbank.luxoft.com/"/>
+	
+	<xs:element name="historicalDetailsRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="crmId" type="lgd-common:String15"/>
+				<xs:element minOccurs="0" name="model" type="lgd-common:String30"/>
+				<xs:element minOccurs="0" name="agrNum" type="lgd-common:String50"/>
+				<xs:element minOccurs="0" name="name" type="lgd-common:String1024"/>
+				<xs:element minOccurs="0" name="inn" type="lgd-common:String50"/>
+				<xs:element minOccurs="0" name="timestamp" type="xs:dateTime"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="historicalDetailsResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="errorCode" type="lgd-common:String1"/>
+				<xs:element minOccurs="0" name="errorMessage" type="lgd-common:String2000"/>
+				<xs:element minOccurs="0" name="extErrorMessage" type="lgd-common:String2000"/>
+				<xs:element maxOccurs="unbounded" minOccurs="0" name="data">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="operationType" type="OperationType"/>
+							<xs:element name="timestamp" type="xs:dateTime"/>
+							<xs:any maxOccurs="2" minOccurs="2" namespace="##other" processContents="lax"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="OperationType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CALCULATE"/>
+			<xs:enumeration value="FINALIZE"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

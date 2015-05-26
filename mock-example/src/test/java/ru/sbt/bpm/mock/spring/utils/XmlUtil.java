@@ -16,16 +16,20 @@ package ru.sbt.bpm.mock.spring.utils;/*
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
+import org.junit.Assert;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.messaging.support.GenericMessage;
-import org.springframework.xml.transform.StringResult;
 
 import org.w3c.dom.Document;
+
+import java.io.StringWriter;
 
 /**
  * @author Jonas Partner
@@ -34,10 +38,18 @@ public class XmlUtil {
 
 	public static String docAsString(Document doc) {
 		try {
-			StringResult res = new StringResult();
+			StringWriter stringWriter = new StringWriter();
+			StreamResult res = new StreamResult(stringWriter);
 			Transformer transformer = TransformerFactory.newInstance().newTransformer();
+			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+
 			transformer.transform(new DOMSource(doc), res);
-			return res.toString();
+			String resString = stringWriter.toString();
+			Assert.assertNotNull(resString);
+			return resString;
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
@@ -46,12 +58,16 @@ public class XmlUtil {
 
 	public static GenericMessage<Document> createXmlMessageFromResource(String path) throws Exception {
 		Resource orderRes = new ClassPathResource(path);
-
+		assert orderRes.getFile().exists();
 		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 		builderFactory.setNamespaceAware(true);
+		builderFactory.setValidating(false);
+		builderFactory.setCoalescing(false);
 		DocumentBuilder builder = builderFactory.newDocumentBuilder();
 
-		Document orderDoc = builder.parse(orderRes.getInputStream());
+		Document orderDoc = builder.parse(orderRes.getFile());
 		return new GenericMessage<Document>(orderDoc);
 	}
+
+
 }

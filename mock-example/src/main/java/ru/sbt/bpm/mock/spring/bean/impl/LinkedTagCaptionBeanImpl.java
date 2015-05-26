@@ -29,6 +29,9 @@ public class LinkedTagCaptionBeanImpl implements LinkedTagCaption{
     @Autowired
     MockConfigContainer configContainer;
 
+    /**
+     * Инициализация карты <System_InterationPointName, linkedTagCaption>
+     */
     @PostConstruct
     public void init() {
         captionMap = new HashMap<String, String>();
@@ -56,6 +59,12 @@ public class LinkedTagCaptionBeanImpl implements LinkedTagCaption{
         }
     }
 
+    /**
+     * Возвращает linked tag по имени точки интеграции
+     *
+     * @param SystemIntegrationPointName название точки интеграции <System_InterationPointName, linkedTagCaption>
+     * @return linkedTag без namespace
+     */
     @Override
     public String getCaption(String SystemIntegrationPointName) {
         return captionMap.get(SystemIntegrationPointName);

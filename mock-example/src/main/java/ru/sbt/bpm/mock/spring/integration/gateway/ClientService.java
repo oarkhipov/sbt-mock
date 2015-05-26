@@ -10,7 +10,7 @@ public interface  ClientService {
     /**
      * Entry to the messaging system. All invocations to this method will be intercepted and sent to the SI "system entry" gateway
      *
-     * @param request
+     * @param request request String
      */
-    public String invoke(String request);
+    String invoke(String request);
 }

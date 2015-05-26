@@ -81,6 +81,8 @@ public class MockConfigContainer {
 //        xStream.autodetectAnnotations(true);
         this.config = (MockConfig) xStream.fromXML(fileReader);
 
+        config.setFilename(resourceFile.getName());
+
         config.inheritNamespaceAliases(); //наследуем алиасы вниз для всех точек интеграции
     }
 
