@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/"
                 xmlns:rsd="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/finalizeLGDRs/Data/"
-                xmlns:rq="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRq/"
                 xmlns:soap="http://sbrf.ru/NCP/esb/envelope/"
                 xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
    <xsl:import href="../util/NCPSoapRqHeaderXSLTTemplate.xsl"/>
    <!--опускаем строку 'xml version="1.0" encoding="UTF-8"'. С ней не работает MQ очередь-->
-   <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
+<xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
    <xsl:param name="name"
               select="//*[local-name()='Envelope' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='Body' and namespace-uri()='http://sbrf.ru/NCP/esb/envelope/']/*[local-name()='finalizeLGDRq' and namespace-uri()='http://sbrf.ru/NCP/AMRLIRT/']/*[local-name()='type' and namespace-uri()='http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRq/']/text()"/>
    <xsl:param name="dataFileName"
@@ -16,7 +15,7 @@
    <xsl:param name="timestamp" select="string('2014-12-16T17:55:06.410+04:00')"/>
    <xsl:param name="id" select="null"/>
    <!--Optional params for optional header values-->
-   <xsl:param name="correlation-id" select="null"/>
+<xsl:param name="correlation-id" select="null"/>
    <xsl:param name="eis-name" select="null"/>
    <xsl:param name="system-id" select="null"/>
    <xsl:param name="operation-version" select="null"/>
@@ -47,7 +46,7 @@
             <xsl:with-param name="user-name" select="$user-name"/>
          </xsl:call-template>
          <soap:Body>
-            <xsl:call-template name="finalizeLGDRs">
+            <xsl:call-template name="SrvFinalizeLGD">
                <xsl:with-param name="data" select="$data"/>
                <xsl:with-param name="response">
                   <xsl:choose>
@@ -62,23 +61,22 @@
       </xsl:element>
    </xsl:template>
 
-   <xsl:template name="finalizeLGDRs">
+   <!--xsd:complexType - template :LgdFinalizationResponse--><!--local-name=$xsdTagsToImport base complexType - complexTypehttp://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/-http://sbrf.ru/NCP/AMRLIRT/--><xsl:template name="SrvFinalizeLGD">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="AMRLiRT:finalizeLGDRs">
-         <tns:errorCode>
+      <xsl:element name="AMRLiRT:finalizeLGDRs"><!--xsd:element - Inside--><tns:errorCode>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
          </tns:errorCode>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
             <tns:errorMessage>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
             </tns:errorMessage>
          </xsl:if>
-         <tns:crmId>
-            <xsl:value-of select="//soap:Body/AMRLiRT:finalizeLGDRq/rq:crmId"/>
+         <!--xsd:element - Inside--><tns:crmId>
+            <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:crmId"/>
          </tns:crmId>
-         <tns:type>
-            <xsl:value-of select="//soap:Body/AMRLiRT:finalizeLGDRq/rq:type"/>
+         <!--xsd:element - Inside--><tns:type>
+            <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:type"/>
          </tns:type>
       </xsl:element>
    </xsl:template>

@@ -42,7 +42,7 @@
             <xsl:with-param name="user-name" select="$user-name"/>
          </xsl:call-template>
          <soap:Body>
-            <xsl:call-template name="updateDealRq">
+            <xsl:call-template name="UpdateCreditDealData">
                <xsl:with-param name="data" select="$data"/>
                <xsl:with-param name="request">
                   <xsl:choose>
@@ -638,7 +638,7 @@
       </tns:deal>
    </xsl:template>
 
-   <xsl:template name="updateDealRq">
+   <xsl:template name="UpdateCreditDealData">
       <xsl:param name="request"/>
       <xsl:param name="data"/>
       <xsl:element name="CRM:updateDealRq">

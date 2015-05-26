@@ -33,7 +33,8 @@
             </xsl:with-param>
             <xsl:with-param name="timestamp" select="$timestamp"/>
             <xsl:with-param name="id" select="$id"/>
-            <xsl:with-param name="operation-name" select="string('ForceSignalOfActionClientService')"/>
+            <xsl:with-param name="operation-name"
+                            select="string('ForceSignalOfActionClientService')"/>
             <xsl:with-param name="correlation-id" select="$correlation-id"/>
             <xsl:with-param name="eis-name" select="$eis-name"/>
             <xsl:with-param name="system-id" select="$system-id"/>
@@ -42,7 +43,7 @@
             <xsl:with-param name="user-name" select="$user-name"/>
          </xsl:call-template>
          <soap:Body>
-            <xsl:call-template name="forceSignalRq">
+            <xsl:call-template name="ForceSignalOfActionClientService">
                <xsl:with-param name="data" select="$data"/>
                <xsl:with-param name="request">
                   <xsl:choose>
@@ -57,7 +58,7 @@
       </xsl:element>
    </xsl:template>
 
-   <xsl:template name="forceSignalRq">
+   <xsl:template name="ForceSignalOfActionClientService">
       <xsl:param name="request"/>
       <xsl:param name="data"/>
       <xsl:element name="CRM:forceSignalRq">

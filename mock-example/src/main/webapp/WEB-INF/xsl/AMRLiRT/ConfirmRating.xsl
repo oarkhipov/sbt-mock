@@ -46,7 +46,7 @@
             <xsl:with-param name="user-name" select="$user-name"/>
          </xsl:call-template>
          <soap:Body>
-            <xsl:call-template name="confirmRatingRs">
+            <xsl:call-template name="SrvConfirmRating">
                <xsl:with-param name="data" select="$data"/>
                <xsl:with-param name="response">
                   <xsl:choose>
@@ -61,45 +61,41 @@
       </xsl:element>
    </xsl:template>
 
-   <xsl:template match="rsd:addParameter">
-      <tns:addParameter>
-         <tns:order>
+   <!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRs/:AddParameter--><xsl:template match="rsd:addParameter">
+      <tns:addParameter><!--xsd:element - Inside--><tns:order>
             <xsl:value-of select="./rsd:order"/>
          </tns:order>
-         <tns:name>
+         <!--xsd:element - Inside--><tns:name>
             <xsl:value-of select="./rsd:name"/>
          </tns:name>
-         <tns:value>
+         <!--xsd:element - Inside--><tns:value>
             <xsl:value-of select="./rsd:value"/>
          </tns:value>
       </tns:addParameter>
    </xsl:template>
 
-   <xsl:template match="rsd:listOfAddParameter">
-      <tns:listOfAddParameter>
-         <xsl:apply-templates select="./rsd:addParameter"/>
+   <!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRs/:ListOfAddParameter--><xsl:template match="rsd:listOfAddParameter">
+      <tns:listOfAddParameter><!-- xsd:element[$typesList] - Inside AddParameter--><xsl:apply-templates select="./rsd:addParameter"/>
       </tns:listOfAddParameter>
    </xsl:template>
 
-   <xsl:template match="rsd:return">
-      <tns:return>
-         <tns:errorCode>
+   <!--xsd:complexType - template :ConfirmResponse--><!--xsd:complexType - template http://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRs/:Return--><xsl:template match="rsd:return">
+      <tns:return><!--xsd:element - Inside--><tns:errorCode>
             <xsl:value-of select="./rsd:errorCode"/>
          </tns:errorCode>
-         <xsl:if test="./rsd:errorMessage">
+         <!--xsd:element - Inside--><xsl:if test="./rsd:errorMessage">
             <tns:errorMessage>
                <xsl:value-of select="./rsd:errorMessage"/>
             </tns:errorMessage>
          </xsl:if>
-         <xsl:apply-templates select="./rsd:listOfAddParameter"/>
+         <!-- xsd:element[$typesList] - Inside ListOfAddParameter--><xsl:apply-templates select="./rsd:listOfAddParameter"/>
       </tns:return>
    </xsl:template>
 
-   <xsl:template name="confirmRatingRs">
+   <!--local-name=$xsdTagsToImport base complexType - complexTypehttp://sbrf.ru/NCP/AMRLIRT/ConfirmRatingRs/-http://sbrf.ru/NCP/AMRLIRT/--><xsl:template name="SrvConfirmRating">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="AMRLiRT:confirmRatingRs">
-         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:return"/>
+      <xsl:element name="AMRLiRT:confirmRatingRs"><!-- xsd:element[$typesList] - Inside Return--><xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:return"/>
       </xsl:element>
    </xsl:template>
 </xsl:stylesheet>

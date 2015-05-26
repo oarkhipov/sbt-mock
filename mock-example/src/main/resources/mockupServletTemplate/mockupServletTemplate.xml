@@ -35,44 +35,44 @@
     ${MQ_BEANS}
     <!--эту часть убираем в шаблон-->
     <!--Настройки подключения к MQ-->
-    <!----><beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
-    <!---->    <beans:property name="jndiName" value="$JMS_QUEUE_NAME"/>
-    <!----></beans:bean>
-    <!----><beans:bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-    <!---->    <beans:property name="jndiName" value="$JMS_QUEUE_NAME"/>
-    <!----></beans:bean>
-    <!----><beans:bean id="outboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-    <!---->    <beans:property name="jndiName" value="$JMS_QUEUE_NAME"/>
-    <!----></beans:bean>
-<!---->
-    <!----><beans:bean id="requestDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-    <!---->    <beans:property name="jndiName" value="$JMS_QUEUE_NAME"/>
-    <!----></beans:bean>
-    <!----><beans:bean id="responseDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-    <!---->    <beans:property name="jndiName" value="$JMS_QUEUE_NAME"/>
-    <!----></beans:bean>
-    <!---->
-    <!----><jms:inbound-gateway
-    <!---->        id="jmsin"
-    <!---->        request-destination="inboundMockQueue"
-    <!---->        request-channel="MockInboundRequest"
-    <!---->        reply-channel="MockOutboundResponse"
-    <!---->        default-reply-destination="outboundMockQueue"
-    <!---->        header-mapper="defHeaderMapper"
-    <!---->        connection-factory="jndiConnectionFactory"
-    <!---->        />
-<!---->
-    <!----><jms:outbound-gateway
-    <!---->        id="jmsout"
-    <!---->        request-destination="requestDriverQueue"
-    <!---->        reply-destination="responseDriverQueue"
-    <!---->        request-channel="DriverOutboundRequest"
-    <!---->        reply-channel="DriverInboundResponse"
-    <!---->        header-mapper="defHeaderMapper"
-    <!---->        connection-factory="jndiConnectionFactory"
-    <!---->        reply-timeout="30000"
-    <!---->        receive-timeout="30000"
-    <!---->        />
+    <!--&lt;!&ndash;&ndash;&gt;<beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+    <!--&lt;!&ndash;&ndash;&gt;    <beans:property name="jndiName" value="$JMS_QUEUE_NAME"/>-->
+    <!--&lt;!&ndash;&ndash;&gt;</beans:bean>-->
+    <!--&lt;!&ndash;&ndash;&gt;<beans:bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+    <!--&lt;!&ndash;&ndash;&gt;    <beans:property name="jndiName" value="$JMS_QUEUE_NAME"/>-->
+    <!--&lt;!&ndash;&ndash;&gt;</beans:bean>-->
+    <!--&lt;!&ndash;&ndash;&gt;<beans:bean id="outboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+    <!--&lt;!&ndash;&ndash;&gt;    <beans:property name="jndiName" value="$JMS_QUEUE_NAME"/>-->
+    <!--&lt;!&ndash;&ndash;&gt;</beans:bean>-->
+<!--&lt;!&ndash;&ndash;&gt;-->
+    <!--&lt;!&ndash;&ndash;&gt;<beans:bean id="requestDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+    <!--&lt;!&ndash;&ndash;&gt;    <beans:property name="jndiName" value="$JMS_QUEUE_NAME"/>-->
+    <!--&lt;!&ndash;&ndash;&gt;</beans:bean>-->
+    <!--&lt;!&ndash;&ndash;&gt;<beans:bean id="responseDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+    <!--&lt;!&ndash;&ndash;&gt;    <beans:property name="jndiName" value="$JMS_QUEUE_NAME"/>-->
+    <!--&lt;!&ndash;&ndash;&gt;</beans:bean>-->
+    <!--&lt;!&ndash;&ndash;&gt;-->
+    <!--&lt;!&ndash;&ndash;&gt;<jms:inbound-gateway-->
+    <!--&lt;!&ndash;&ndash;&gt;        id="jmsin"-->
+    <!--&lt;!&ndash;&ndash;&gt;        request-destination="inboundMockQueue"-->
+    <!--&lt;!&ndash;&ndash;&gt;        request-channel="MockInboundRequest"-->
+    <!--&lt;!&ndash;&ndash;&gt;        reply-channel="MockOutboundResponse"-->
+    <!--&lt;!&ndash;&ndash;&gt;        default-reply-destination="outboundMockQueue"-->
+    <!--&lt;!&ndash;&ndash;&gt;        header-mapper="defHeaderMapper"-->
+    <!--&lt;!&ndash;&ndash;&gt;        connection-factory="jndiConnectionFactory"-->
+    <!--&lt;!&ndash;&ndash;&gt;        />-->
+<!--&lt;!&ndash;&ndash;&gt;-->
+    <!--&lt;!&ndash;&ndash;&gt;<jms:outbound-gateway-->
+    <!--&lt;!&ndash;&ndash;&gt;        id="jmsout"-->
+    <!--&lt;!&ndash;&ndash;&gt;        request-destination="requestDriverQueue"-->
+    <!--&lt;!&ndash;&ndash;&gt;        reply-destination="responseDriverQueue"-->
+    <!--&lt;!&ndash;&ndash;&gt;        request-channel="DriverOutboundRequest"-->
+    <!--&lt;!&ndash;&ndash;&gt;        reply-channel="DriverInboundResponse"-->
+    <!--&lt;!&ndash;&ndash;&gt;        header-mapper="defHeaderMapper"-->
+    <!--&lt;!&ndash;&ndash;&gt;        connection-factory="jndiConnectionFactory"-->
+    <!--&lt;!&ndash;&ndash;&gt;        reply-timeout="30000"-->
+    <!--&lt;!&ndash;&ndash;&gt;        receive-timeout="30000"-->
+    <!--&lt;!&ndash;&ndash;&gt;        />-->
     <!--///эту часть убираем в шаблон-->
 
     <!-- Входной и выходной каналы Заглушки-->
@@ -140,10 +140,12 @@
     <!-- здесь уже реализация -->
 
     <!-- BBMO -->
+    @Deprecated
     ${BEANS_RefreshableXSLTransformer}
 
     <!--маппинг трасформеров на каналы-->
 
+    @Deprecated
     ${TRANSFORMERS}
 
     <!-- Если операция в роутере не определена, то она попадает в канал по умолчанию и мы её заворачиваем на выход //TODO нужно сформировать ответ, что всё плохо-->
@@ -154,14 +156,6 @@
     <beans:bean id="jspResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="prefix" value="/WEB-INF/jsp/"/>
         <beans:property name="suffix" value=".jsp"/>
-    </beans:bean>
-
-    <beans:bean id="channelService" class="ru.sbt.bpm.mock.spring.integration.service.ChannelService">
-        <beans:property name="subscribeChannels">
-            <util:list>
-                <beans:ref bean="DriverInboundResponse"/>
-            </util:list>
-        </beans:property>
     </beans:bean>
 
     <!--<channel id="test"/>-->

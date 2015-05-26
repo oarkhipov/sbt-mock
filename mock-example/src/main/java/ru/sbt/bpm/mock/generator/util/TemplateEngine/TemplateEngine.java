@@ -11,6 +11,7 @@ import java.util.Map;
 /**
  * Created by sbt-vostrikov-mi on 10.04.2015.
  */
+//TODO @Vostrikov переписать на вызов шаблонизатора
 public class TemplateEngine  implements TemplateEngineBean {
     private Map<String, ConfigTemplate> templates;
     MockConfig config;

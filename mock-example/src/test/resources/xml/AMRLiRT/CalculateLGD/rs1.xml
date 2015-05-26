@@ -2,32 +2,29 @@
    <soap:Header>
       <soap:message-id>defaultId</soap:message-id>
       <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
-      <soap:operation-name>calculateLGDRs</soap:operation-name>
+      <soap:operation-name>SrvCalcLGD</soap:operation-name>
    </soap:Header>
-   <soap:Body>
-      <AMRLiRT:calculateLGDRs xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
-                              xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/">
-         <tns:errorCode>string</tns:errorCode>
-         <!--optional--><tns:errorMessage>string</tns:errorMessage>
-         <tns:crmId>string</tns:crmId>
-         <tns:lgdType>string</tns:lgdType>
-         <tns:lgdDate>2015-04-10</tns:lgdDate>
-         <!--optional--><tns:pd>10</tns:pd>
-         <tns:lgd>10</tns:lgd>
-         <tns:ead>10</tns:ead>
-         <tns:sum>10</tns:sum>
-         <!--optional--><tns:elPercent>10</tns:elPercent>
-         <!--optional--><tns:el>10</tns:el>
-         <tns:totalValue>10</tns:totalValue>
-         <tns:totalColValueLgd>10</tns:totalColValueLgd>
-         <tns:totalColValueEad>10</tns:totalColValueEad>
-         <!--optional--><tns:listOfCollateral><!--from 0 to unbounded elements --><tns:collateral>
-               <tns:crmId>string</tns:crmId>
-               <tns:collType>string</tns:collType>
-               <tns:returnRate>10</tns:returnRate>
-               <tns:discountRate>10</tns:discountRate>
-               <tns:collValueEad>10</tns:collValueEad>
-               <tns:collValueLgd>10</tns:collValueLgd>
+   <soap:Body><!--complexType--><AMRLiRT:calculateLGDRs xmlns:AMRLiRT="http://sbrf.ru/NCP/AMRLIRT/"
+                              xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"><!--testxsdStrMax--><tns:errorCode>string</tns:errorCode>
+         <!--optional--><!--testxsdStrMax--><tns:errorMessage>string</tns:errorMessage>
+         <!--testxsdString--><tns:crmId>string</tns:crmId>
+         <!--testxsdStrMax--><tns:lgdType>string</tns:lgdType>
+         <!--testxsdDate--><tns:lgdDate>2015-05-26</tns:lgdDate>
+         <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:pd>10</tns:pd>
+         <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:lgd>10</tns:lgd>
+         <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:ead>10</tns:ead>
+         <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:sum>10</tns:sum>
+         <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:elPercent>10</tns:elPercent>
+         <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:el>10</tns:el>
+         <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:totalValue>10</tns:totalValue>
+         <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:totalColValueLgd>10</tns:totalColValueLgd>
+         <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:totalColValueEad>10</tns:totalColValueEad>
+         <!--optional--><!--testXsd import {ListOfCollateral}--><tns:listOfCollateral><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/")--><!--from 0 to unbounded elements --><!--testXsd import {CollateralLGDResponse}--><tns:collateral><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/")--><!--testxsdStrMax--><tns:crmId>string</tns:crmId>
+               <!--testxsdStrMax--><tns:collType>string</tns:collType>
+               <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:returnRate>10</tns:returnRate>
+               <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:discountRate>10</tns:discountRate>
+               <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:collValueEad>10</tns:collValueEad>
+               <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:collValueLgd>10</tns:collValueLgd>
             </tns:collateral>
          </tns:listOfCollateral>
       </AMRLiRT:calculateLGDRs>

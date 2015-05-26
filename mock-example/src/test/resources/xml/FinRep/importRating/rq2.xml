@@ -2,14 +2,12 @@
    <soap:Header>
       <soap:message-id>defaultId</soap:message-id>
       <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
-      <soap:operation-name>importRatingRs</soap:operation-name>
+      <soap:operation-name>SrvGetRatingsAndFactors</soap:operation-name>
    </soap:Header>
-   <soap:Body>
-      <FinRep:importRatingRq xmlns:FinRep="http://sbrf.ru/NCP/FinRep/"
-                             xmlns:tns="http://sbrf.ru/NCP/FinRep/ImportRatingRq/1.00/">
-         <tns:dealId>string</tns:dealId>
+   <soap:Body><!--complexType--><FinRep:importRatingRq xmlns:FinRep="http://sbrf.ru/NCP/FinRep/"
+                             xmlns:tns="http://sbrf.ru/NCP/FinRep/ImportRatingRq/1.00/"><!--testXsd import {string15}--><tns:dealId><!--test6 15-->string</tns:dealId>
          <tns:entityType>test1</tns:entityType>
-         <tns:entityId>string</tns:entityId>
+         <!--testXsd import {string15}--><tns:entityId><!--test6 15-->string</tns:entityId>
       </FinRep:importRatingRq>
    </soap:Body>
 </soap:Envelope>

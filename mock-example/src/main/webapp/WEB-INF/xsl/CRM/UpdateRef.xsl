@@ -45,7 +45,7 @@
             <xsl:with-param name="user-name" select="$user-name"/>
          </xsl:call-template>
          <soap:Body>
-            <xsl:call-template name="updateRefRs">
+            <xsl:call-template name="UpdateReference">
                <xsl:with-param name="data" select="$data"/>
                <xsl:with-param name="response">
                   <xsl:choose>
@@ -60,15 +60,14 @@
       </xsl:element>
    </xsl:template>
 
-   <xsl:template match="rsd:listOfValue">
-      <tns:listOfValue>
-         <tns:value>
+   <!--xsd:complexType - template http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/:ListOfValue--><xsl:template match="rsd:listOfValue">
+      <tns:listOfValue><!--xsd:element - Inside--><tns:value>
             <xsl:value-of select="./rsd:value"/>
          </tns:value>
-         <tns:valueId>
+         <!--xsd:element - Inside--><tns:valueId>
             <xsl:value-of select="./rsd:valueId"/>
          </tns:valueId>
-         <xsl:if test="./rsd:parentValueId">
+         <!--xsd:element - Inside--><xsl:if test="./rsd:parentValueId">
             <tns:parentValueId>
                <xsl:value-of select="./rsd:parentValueId"/>
             </tns:parentValueId>
@@ -76,24 +75,22 @@
       </tns:listOfValue>
    </xsl:template>
 
-   <xsl:template match="rsd:referenceItem">
-      <tns:referenceItem>
-         <tns:referenceid>
+   <!--xsd:complexType - template http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/:ReferenceItem--><xsl:template match="rsd:referenceItem">
+      <tns:referenceItem><!--xsd:element - Inside--><tns:referenceid>
             <xsl:value-of select="./rsd:referenceid"/>
          </tns:referenceid>
-         <xsl:apply-templates select="./rsd:listOfValue"/>
+         <!-- xsd:element[$typesList] - Inside ListOfValue--><xsl:apply-templates select="./rsd:listOfValue"/>
       </tns:referenceItem>
    </xsl:template>
 
-   <xsl:template name="updateRefRs">
+   <!--xsd:complexType - template :UpdateRefRs--><!--local-name=$xsdTagsToImport base complexType - complexTypehttp://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/-http://sbrf.ru/NCP/CRM/--><xsl:template name="UpdateReference">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="CRM:updateRefRs">
-         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:referenceItem"/>
-         <tns:errorCode>
+      <xsl:element name="CRM:updateRefRs"><!-- xsd:element[$typesList] - Inside ReferenceItem--><xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:referenceItem"/>
+         <!--xsd:element - Inside--><tns:errorCode>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
          </tns:errorCode>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
             <tns:errorMessage>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
             </tns:errorMessage>

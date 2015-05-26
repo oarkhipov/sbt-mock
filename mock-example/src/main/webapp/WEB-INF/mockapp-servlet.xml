@@ -151,7 +151,6 @@
     <!-- Каналы-->
     <channel id="defaultChannel"/>
     <channel id="DefaultOutputChannelIfNoOperationRouted"/>
-    <channel id="DefaultOutputChannelIfNoOperationRouted"/>
 
     <channel id="CreateTask"/>
     <channel id="GetParticipants"/>
@@ -206,23 +205,6 @@
     <ix:xslt-transformer input-channel="importRating" output-channel="MockOutboundResponse" xsl-resource="/WEB-INF/xsl/FinRep/importFinReport.xsl"/>
     <ix:xslt-transformer input-channel="updateRating" output-channel="MockOutboundResponse" xsl-resource="/WEB-INF/xsl/FinRep/importRating.xsl"/>
 
- <!--маппинг трасформеров на каналы-->
-
-    <transformer input-channel="CreateTask" output-channel="MockOutboundResponse" method="transform" ref="CRM_CreateTask"/>
-    <transformer input-channel="GetParticipants" output-channel="MockOutboundResponse" method="transform" ref="CRM_GetParticipants"/>
-    <transformer input-channel="SaveDeal" output-channel="MockOutboundResponse" method="transform" ref="CRM_SaveDeal"/>
-    <transformer input-channel="UpdateRef" output-channel="MockOutboundResponse" method="transform" ref="CRM_UpdateRef"/>
-    <transformer input-channel="CalculateDebtCapacity" output-channel="MockOutboundResponse" method="transform" ref="AMRLiRT_CalculateDebtCapacity"/>
-    <transformer input-channel="CalculateLGD" output-channel="MockOutboundResponse" method="transform" ref="AMRLiRT_CalculateLGD"/>
-    <transformer input-channel="CalculateRating" output-channel="MockOutboundResponse" method="transform" ref="AMRLiRT_CalculateRating"/>
-    <transformer input-channel="ConfirmRating" output-channel="MockOutboundResponse" method="transform" ref="AMRLiRT_ConfirmRating"/>
-    <transformer input-channel="CorrectRating" output-channel="MockOutboundResponse" method="transform" ref="AMRLiRT_CorrectRating"/>
-    <transformer input-channel="FinalizeLGD" output-channel="MockOutboundResponse" method="transform" ref="AMRLiRT_FinalizeLGD"/>
-    <transformer input-channel="getExchangeRates" output-channel="MockOutboundResponse" method="transform" ref="FinRep_getExchangeRates"/>
-    <transformer input-channel="importFinReport" output-channel="MockOutboundResponse" method="transform" ref="FinRep_importFinReport"/>
-   	<transformer input-channel="ImportRating" output-channel="MockOutboundResponse" method="transform" ref="FinRep_ImportRating"/>
-    <transformer input-channel="UpdateRating" output-channel="MockOutboundResponse" method="transform" ref="FinRep_UpdateRating"/>
-    
     <context:component-scan base-package="ru.sbt.bpm.mock.spring"/>
     
     <beans:bean id="jspResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

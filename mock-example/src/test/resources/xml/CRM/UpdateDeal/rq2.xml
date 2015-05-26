@@ -2,29 +2,25 @@
    <soap:Header>
       <soap:message-id>defaultId</soap:message-id>
       <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
-      <soap:operation-name>updateDealRq</soap:operation-name>
+      <soap:operation-name>UpdateCreditDealData</soap:operation-name>
    </soap:Header>
-   <soap:Body>
-      <CRM:updateDealRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
-                        xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.15/">
-         <tns:deal>
-            <tns:dealID>string</tns:dealID>
-            <tns:dealCreationDate>2015-04-10T12:00:00</tns:dealCreationDate>
-            <tns:dealEssense>string</tns:dealEssense>
-            <tns:requestPurpose>string</tns:requestPurpose>
-            <tns:dealType>string</tns:dealType>
-            <tns:dealStatus>string</tns:dealStatus>
-            <tns:requestDate>2015-04-10T12:00:00</tns:requestDate>
-            <tns:origOrgUnit>string</tns:origOrgUnit>
-            <tns:origOrgDivision>st</tns:origOrgDivision>
-            <tns:codeCBS>string</tns:codeCBS>
-            <tns:clientFileID>string</tns:clientFileID>
-            <tns:dealFileID>string</tns:dealFileID>
-            <!--from 1 to unbounded elements --><tns:dealTeamMembers>
-               <tns:memberId>string</tns:memberId>
-               <tns:memberName>string</tns:memberName>
-               <tns:memberEmail>string</tns:memberEmail>
-               <tns:memberRole>string</tns:memberRole>
+   <soap:Body><!--complexType--><CRM:updateDealRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+                        xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.15/"><!--testXsd import {Deal}--><tns:deal><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.15/")--><!--testXsd import {string15}--><tns:dealID><!--test6 15-->string</tns:dealID>
+            <!--testxsdDateTime--><tns:dealCreationDate>2015-05-26T12:00:00</tns:dealCreationDate>
+            <!--testXsd import {string255}--><tns:dealEssense><!--test6 255-->string</tns:dealEssense>
+            <!--testXsd import {string255}--><tns:requestPurpose><!--test6 255-->string</tns:requestPurpose>
+            <!--testXsd import {string255}--><tns:dealType><!--test6 255-->string</tns:dealType>
+            <!--testXsd import {string255}--><tns:dealStatus><!--test6 255-->string</tns:dealStatus>
+            <!--testxsdDateTime--><tns:requestDate>2015-05-26T12:00:00</tns:requestDate>
+            <!--testXsd import {string255}--><tns:origOrgUnit><!--test6 255-->string</tns:origOrgUnit>
+            <!--testXsd import {string2}--><tns:origOrgDivision><!--test6 2-->st</tns:origOrgDivision>
+            <!--testXsd import {string255}--><tns:codeCBS><!--test6 255-->string</tns:codeCBS>
+            <!--testXsd import {string255}--><tns:clientFileID><!--test6 255-->string</tns:clientFileID>
+            <!--testXsd import {string255}--><tns:dealFileID><!--test6 255-->string</tns:dealFileID>
+            <!--from 1 to unbounded elements --><!--testXsd import {DealTeamMember}--><tns:dealTeamMembers><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.15/")--><!--testXsd import {string255}--><tns:memberId><!--test6 255-->string</tns:memberId>
+               <!--testXsd import {string255}--><tns:memberName><!--test6 255-->string</tns:memberName>
+               <!--testXsd import {string255}--><tns:memberEmail><!--test6 255-->string</tns:memberEmail>
+               <!--testXsd import {string255}--><tns:memberRole><!--test6 255-->string</tns:memberRole>
             </tns:dealTeamMembers>
          </tns:deal>
       </CRM:updateDealRq>

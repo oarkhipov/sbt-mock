@@ -46,7 +46,7 @@
             <xsl:with-param name="user-name" select="$user-name"/>
          </xsl:call-template>
          <soap:Body>
-            <xsl:call-template name="importFinReportRs">
+            <xsl:call-template name="SrvGetFinReport">
                <xsl:with-param name="data" select="$data"/>
                <xsl:with-param name="response">
                   <xsl:choose>
@@ -61,28 +61,27 @@
       </xsl:element>
    </xsl:template>
 
-   <xsl:template match="rsd:facilitySB">
-      <tns:facilitySB>
-         <xsl:if test="./rsd:sbName">
+   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportFinReportRs/1.03/:FacilitySB--><xsl:template match="rsd:facilitySB">
+      <tns:facilitySB><!--xsd:element - Inside--><xsl:if test="./rsd:sbName">
             <tns:sbName>
                <xsl:value-of select="./rsd:sbName"/>
             </tns:sbName>
          </xsl:if>
-         <tns:sbcd>
+         <!--xsd:element - Inside--><tns:sbcd>
             <xsl:value-of select="./rsd:sbcd"/>
          </tns:sbcd>
-         <xsl:if test="./rsd:agrNumber">
+         <!--xsd:element - Inside--><xsl:if test="./rsd:agrNumber">
             <tns:agrNumber>
                <xsl:value-of select="./rsd:agrNumber"/>
             </tns:agrNumber>
          </xsl:if>
-         <tns:sbcdt>
+         <!--xsd:element - Inside--><tns:sbcdt>
             <xsl:value-of select="./rsd:sbcdt"/>
          </tns:sbcdt>
-         <tns:sbDebtCurrencyRate>
+         <!--xsd:element - Inside--><tns:sbDebtCurrencyRate>
             <xsl:value-of select="./rsd:sbDebtCurrencyRate"/>
          </tns:sbDebtCurrencyRate>
-         <xsl:if test="./rsd:sbDebtCurrencyCode">
+         <!--xsd:element - Inside--><xsl:if test="./rsd:sbDebtCurrencyCode">
             <tns:sbDebtCurrencyCode>
                <xsl:value-of select="./rsd:sbDebtCurrencyCode"/>
             </tns:sbDebtCurrencyCode>
@@ -90,28 +89,27 @@
       </tns:facilitySB>
    </xsl:template>
 
-   <xsl:template match="rsd:facilityNotSB">
-      <tns:facilityNotSB>
-         <xsl:if test="./rsd:name">
+   <!--xsd:complexType - template http://sbrf.ru/NCP/FinRep/ImportFinReportRs/1.03/:Facility--><xsl:template match="rsd:facilityNotSB">
+      <tns:facilityNotSB><!--xsd:element - Inside--><xsl:if test="./rsd:name">
             <tns:name>
                <xsl:value-of select="./rsd:name"/>
             </tns:name>
          </xsl:if>
-         <tns:cd>
+         <!--xsd:element - Inside--><tns:cd>
             <xsl:value-of select="./rsd:cd"/>
          </tns:cd>
-         <tns:cdt>
+         <!--xsd:element - Inside--><tns:cdt>
             <xsl:value-of select="./rsd:cdt"/>
          </tns:cdt>
-         <xsl:if test="./rsd:date">
+         <!--xsd:element - Inside--><xsl:if test="./rsd:date">
             <tns:date>
                <xsl:value-of select="./rsd:date"/>
             </tns:date>
          </xsl:if>
-         <tns:debtCurrencyRate>
+         <!--xsd:element - Inside--><tns:debtCurrencyRate>
             <xsl:value-of select="./rsd:debtCurrencyRate"/>
          </tns:debtCurrencyRate>
-         <xsl:if test="./rsd:debtCurrencyCode">
+         <!--xsd:element - Inside--><xsl:if test="./rsd:debtCurrencyCode">
             <tns:debtCurrencyCode>
                <xsl:value-of select="./rsd:debtCurrencyCode"/>
             </tns:debtCurrencyCode>
@@ -119,153 +117,152 @@
       </tns:facilityNotSB>
    </xsl:template>
 
-   <xsl:template name="importFinReportRs">
+   <!--xsd:complexType - template :FinReportImportResponse--><!--local-name=$xsdTagsToImport base complexType - complexTypehttp://sbrf.ru/NCP/FinRep/ImportFinReportRs/1.03/-http://sbrf.ru/NCP/FinRep/--><xsl:template name="SrvGetFinReport">
       <xsl:param name="response"/>
       <xsl:param name="data"/>
-      <xsl:element name="FinRep:importFinReportRs">
-         <tns:finReportType>
+      <xsl:element name="FinRep:importFinReportRs"><!--xsd:element - Inside--><tns:finReportType>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:finReportType"/>
          </tns:finReportType>
-         <tns:entityType>
+         <!--xsd:element - Inside--><tns:entityType>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:entityType"/>
          </tns:entityType>
-         <tns:entityId>
+         <!--xsd:element - Inside--><tns:entityId>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:entityId"/>
          </tns:entityId>
-         <tns:errorCode>
+         <!--xsd:element - Inside--><tns:errorCode>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorCode"/>
          </tns:errorCode>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:errorMessage">
             <tns:errorMessage>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:errorMessage"/>
             </tns:errorMessage>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:nonCurrentAssetsNFRS">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:nonCurrentAssetsNFRS">
             <tns:nonCurrentAssetsNFRS>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:nonCurrentAssetsNFRS"/>
             </tns:nonCurrentAssetsNFRS>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:currentAssetsNFRS">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:currentAssetsNFRS">
             <tns:currentAssetsNFRS>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:currentAssetsNFRS"/>
             </tns:currentAssetsNFRS>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:nonCurrentAssetsIFRS">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:nonCurrentAssetsIFRS">
             <tns:nonCurrentAssetsIFRS>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:nonCurrentAssetsIFRS"/>
             </tns:nonCurrentAssetsIFRS>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:currentAssetsIFRS">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:currentAssetsIFRS">
             <tns:currentAssetsIFRS>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:currentAssetsIFRS"/>
             </tns:currentAssetsIFRS>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:longTermDebtNFRS">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:longTermDebtNFRS">
             <tns:longTermDebtNFRS>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:longTermDebtNFRS"/>
             </tns:longTermDebtNFRS>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:shortTermDebtNFRS">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:shortTermDebtNFRS">
             <tns:shortTermDebtNFRS>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:shortTermDebtNFRS"/>
             </tns:shortTermDebtNFRS>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:longTermDebtIFRS">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:longTermDebtIFRS">
             <tns:longTermDebtIFRS>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:longTermDebtIFRS"/>
             </tns:longTermDebtIFRS>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:shortTermDebtIFRS">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:shortTermDebtIFRS">
             <tns:shortTermDebtIFRS>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:shortTermDebtIFRS"/>
             </tns:shortTermDebtIFRS>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:ebitdaNFRS">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:ebitdaNFRS">
             <tns:ebitdaNFRS>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:ebitdaNFRS"/>
             </tns:ebitdaNFRS>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:numQuarterNFRS">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:numQuarterNFRS">
             <tns:numQuarterNFRS>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:numQuarterNFRS"/>
             </tns:numQuarterNFRS>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:ebitdaIFRS">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:ebitdaIFRS">
             <tns:ebitdaIFRS>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:ebitdaIFRS"/>
             </tns:ebitdaIFRS>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:numQuarterIFRS">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:numQuarterIFRS">
             <tns:numQuarterIFRS>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:numQuarterIFRS"/>
             </tns:numQuarterIFRS>
          </xsl:if>
-         <tns:currencyCodeForFR>
+         <!--xsd:element - Inside--><tns:currencyCodeForFR>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:currencyCodeForFR"/>
          </tns:currencyCodeForFR>
-         <tns:currencyRate>
+         <!--xsd:element - Inside--><tns:currencyRate>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:currencyRate"/>
          </tns:currencyRate>
-         <tns:futureCurrencyRate>
+         <!--xsd:element - Inside--><tns:futureCurrencyRate>
             <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:futureCurrencyRate"/>
          </tns:futureCurrencyRate>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:purpose">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:purpose">
             <tns:purpose>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:purpose"/>
             </tns:purpose>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:currentYear">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:currentYear">
             <tns:currentYear>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:currentYear"/>
             </tns:currentYear>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:govDebt">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:govDebt">
             <tns:govDebt>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:govDebt"/>
             </tns:govDebt>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:creditGovDebt">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:creditGovDebt">
             <tns:creditGovDebt>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:creditGovDebt"/>
             </tns:creditGovDebt>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:credit">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:credit">
             <tns:credit>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:credit"/>
             </tns:credit>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:liabilities">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:liabilities">
             <tns:liabilities>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:liabilities"/>
             </tns:liabilities>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:liabilitiesNextYear">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:liabilitiesNextYear">
             <tns:liabilitiesNextYear>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:liabilitiesNextYear"/>
             </tns:liabilitiesNextYear>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:income">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:income">
             <tns:income>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:income"/>
             </tns:income>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:incomeNextYear">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:incomeNextYear">
             <tns:incomeNextYear>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:incomeNextYear"/>
             </tns:incomeNextYear>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:plannedCredit">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:plannedCredit">
             <tns:plannedCredit>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:plannedCredit"/>
             </tns:plannedCredit>
          </xsl:if>
-         <xsl:if test="$data/rsd:response[@name=$response]/rsd:plannedCreditNextYear">
+         <!--xsd:element - Inside--><xsl:if test="$data/rsd:response[@name=$response]/rsd:plannedCreditNextYear">
             <tns:plannedCreditNextYear>
                <xsl:value-of select="$data/rsd:response[@name=$response]/rsd:plannedCreditNextYear"/>
             </tns:plannedCreditNextYear>
          </xsl:if>
-         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:facilitySB"/>
-         <xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:facilityNotSB"/>
+         <!-- xsd:element[$typesList] - Inside FacilitySB--><xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:facilitySB"/>
+         <!-- xsd:element[$typesList] - Inside Facility--><xsl:apply-templates select="$data/rsd:response[@name=$response]/rsd:facilityNotSB"/>
       </xsl:element>
    </xsl:template>
 </xsl:stylesheet>
