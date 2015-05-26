@@ -108,6 +108,7 @@
     <c:if test="${link=='driver'}">
     var resEditor = CodeMirror.fromTextArea(document.getElementById("resCode"), editorSettings);
     resEditor.setSize("600","400");
+    applyActionButtonsEvents();
   </c:if>
 
     $(function () {
@@ -117,6 +118,7 @@
         }
       });
     });
+
 </script>
 
 </body>

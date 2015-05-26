@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:amrct="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/" targetNamespace="http://sbrf.ru/NCP/AMRLIRT/FinalizeLGDRs/" elementFormDefault="qualified">
+	<xsd:import namespace="http://sbrf.ru/NCP/AMRLIRT/CommonTypes/" schemaLocation="CommonTypes.xsd"/>	
+	<xsd:complexType name="LgdFinalizationResponse">
+		<xsd:sequence>			
+			<xsd:element name="errorCode" type="amrct:string255"/>
+			<xsd:element name="errorMessage" minOccurs="0" type="amrct:string2000"/>
+			<xsd:element name="crmId" type="amrct:string15"/>
+			<xsd:element name="type" type="amrct:string15"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

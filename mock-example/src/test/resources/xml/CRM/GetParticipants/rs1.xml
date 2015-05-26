@@ -1,0 +1,56 @@
+<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
+   <soap:Header>
+      <soap:message-id>defaultId</soap:message-id>
+      <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
+      <soap:operation-name>GetParticipantsOfCreditDeal</soap:operation-name>
+   </soap:Header>
+   <soap:Body><!--complexType--><CRM:prtspRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+                   xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.12/"><!--testXsd import {string15}--><tns:dealID><!--test6 15-->string</tns:dealID>
+         <!--not known elementType:{}--><tns:requestType/>
+         <!--testXsd import {ParticipantsGroup}--><tns:participantsGroup><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.12/")--><!--from 0 to unbounded elements --><!--testXsd import {Participant}--><tns:participants><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.12/")--><!--testXsd import {string15}--><tns:participantID><!--test6 15-->string</tns:participantID>
+               <!--from 0 to unbounded elements --><!--testXsd import {string255}--><tns:type><!--test6 255-->string</tns:type>
+               <!--testxsdBool--><tns:isBorrower>false</tns:isBorrower>
+               <!--optional--><!--not known elementType:{}--><tns:clientType/>
+               <!--testXsd import {string255}--><tns:name><!--test6 255-->string</tns:name>
+               <!--testxsdBool--><tns:resident>false</tns:resident>
+               <!--optional--><!--testXsd import {string15}--><tns:consolidatedGroupID><!--test6 15-->string</tns:consolidatedGroupID>
+               <!--optional--><!--testXsd import {string15}--><tns:linkedBorrowersGroupID><!--test6 15-->string</tns:linkedBorrowersGroupID>
+               <!--optional--><!--testXsd import {string255}--><tns:industry><!--test6 255-->string</tns:industry>
+               <!--testXsd import {string12}--><tns:inn><!--test6 12-->string</tns:inn>
+               <!--optional--><!--testxsdDate--><tns:reportingDate>2015-05-26</tns:reportingDate>
+               <!--from 0 to unbounded elements --><!--testXsd import {Rating}--><tns:rating><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.12/")--><!--testXsd import {string15}--><tns:ratingID><!--test6 15-->string</tns:ratingID>
+                  <!--testXsd import {integer2}--><tns:ratingValue><!--test6-->99</tns:ratingValue>
+                  <!--testXsd import {string255}--><tns:ratingType><!--test6 255-->string</tns:ratingType>
+                  <!--testXsd import {string255}--><tns:ratingModel><!--test6 255-->string</tns:ratingModel>
+                  <!--testxsdDate--><tns:ratingCalculatedDate>2015-05-26</tns:ratingCalculatedDate>
+                  <!--testXsd import {string255}--><tns:ratingCalculatedRole><!--test6 255-->string</tns:ratingCalculatedRole>
+                  <!--testXsd import {string255}--><tns:ratingCalculatedBy><!--test6 255-->string</tns:ratingCalculatedBy>
+                  <!--testxsdDate--><tns:ratingApprovalDate>2015-05-26</tns:ratingApprovalDate>
+                  <!--testXsd import {string255}--><tns:ratingApprovedBy><!--test6 255-->string</tns:ratingApprovedBy>
+               </tns:rating>
+            </tns:participants>
+            <!--not known elementType:{}--><tns:groupType/>
+            <!--optional--><!--testXsd import {GroupInfo}--><tns:groupInfo><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.12/")--><!--testXsd import {string15}--><tns:id><!--test6 15-->string</tns:id>
+               <!--testXsd import {string255}--><tns:label><!--test6 255-->string</tns:label>
+               <!--testXsd import {string255}--><tns:status><!--test6 255-->string</tns:status>
+               <!--testxsdDateTime--><tns:updateDate>2015-05-26T12:00:00</tns:updateDate>
+               <!--optional--><!--testxsdDateTime--><tns:approvalDate>2015-05-26T12:00:00</tns:approvalDate>
+               <!--from 0 to unbounded elements --><!--testXsd import {Rating}--><tns:ratings><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.12/")--><!--testXsd import {string15}--><tns:ratingID><!--test6 15-->string</tns:ratingID>
+                  <!--testXsd import {integer2}--><tns:ratingValue><!--test6-->99</tns:ratingValue>
+                  <!--testXsd import {string255}--><tns:ratingType><!--test6 255-->string</tns:ratingType>
+                  <!--testXsd import {string255}--><tns:ratingModel><!--test6 255-->string</tns:ratingModel>
+                  <!--testxsdDate--><tns:ratingCalculatedDate>2015-05-26</tns:ratingCalculatedDate>
+                  <!--testXsd import {string255}--><tns:ratingCalculatedRole><!--test6 255-->string</tns:ratingCalculatedRole>
+                  <!--testXsd import {string255}--><tns:ratingCalculatedBy><!--test6 255-->string</tns:ratingCalculatedBy>
+                  <!--testxsdDate--><tns:ratingApprovalDate>2015-05-26</tns:ratingApprovalDate>
+                  <!--testXsd import {string255}--><tns:ratingApprovedBy><!--test6 255-->string</tns:ratingApprovedBy>
+               </tns:ratings>
+               <!--optional--><!--testXsd import {string255}--><tns:topLevelGroupName><!--test6 255-->string</tns:topLevelGroupName>
+            </tns:groupInfo>
+         </tns:participantsGroup>
+         <!--testXsd import {OperationStatus}--><tns:operationStatus><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.12/")--><!--testXsd import {string50}--><tns:errorCode><!--test6 50-->string</tns:errorCode>
+            <!--optional--><!--testXsd import {string2000}--><tns:errorMessage><!--test6 2000-->string</tns:errorMessage>
+         </tns:operationStatus>
+      </CRM:prtspRs>
+   </soap:Body>
+</soap:Envelope>

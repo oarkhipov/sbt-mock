@@ -1,0 +1,154 @@
+<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
+   <soap:Header>
+      <soap:message-id>defaultId</soap:message-id>
+      <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
+      <soap:operation-name>UpdateCreditDealData</soap:operation-name>
+   </soap:Header>
+   <soap:Body><!--complexType--><CRM:updateDealRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+                        xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/"><!--testXsd import {Deal}--><tns:deal><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testXsd import {string15}--><tns:dealID><!--test6 15-->string</tns:dealID>
+            <!--optional--><!--testXsd import {string15}--><tns:contractID><!--test6 15-->string</tns:contractID>
+            <!--testxsdDateTime--><tns:dealCreationDate>2015-05-26T12:00:00</tns:dealCreationDate>
+            <!--testXsd import {string255}--><tns:dealEssense><!--test6 255-->string</tns:dealEssense>
+            <!--testXsd import {string255}--><tns:requestPurpose><!--test6 255-->string</tns:requestPurpose>
+            <!--testXsd import {string255}--><tns:dealType><!--test6 255-->string</tns:dealType>
+            <!--testXsd import {string255}--><tns:dealStatus><!--test6 255-->string</tns:dealStatus>
+            <!--testxsdDateTime--><tns:requestDate>2015-05-26T12:00:00</tns:requestDate>
+            <!--testXsd import {string255}--><tns:origOrgUnit><!--test6 255-->string</tns:origOrgUnit>
+            <!--testXsd import {string2}--><tns:origOrgDivision><!--test6 2-->st</tns:origOrgDivision>
+            <!--testXsd import {string255}--><tns:codeCBS><!--test6 255-->string</tns:codeCBS>
+            <!--testXsd import {string255}--><tns:clientFileID><!--test6 255-->string</tns:clientFileID>
+            <!--testXsd import {string255}--><tns:dealFileID><!--test6 255-->string</tns:dealFileID>
+            <!--optional--><!--testXsd import {string2000}--><tns:comment><!--test6 2000-->string</tns:comment>
+            <!--optional--><!--testxsdBool--><tns:collateralProvided>false</tns:collateralProvided>
+            <!--optional--><!--testXsd import {string2000}--><tns:limitKM><!--test6 2000-->string</tns:limitKM>
+            <!--optional--><!--testXsd import {string3}--><tns:baseCurrency><!--test6 3-->str</tns:baseCurrency>
+            <!--from 1 to unbounded elements --><!--testXsd import {DealTeamMember}--><tns:dealTeamMembers><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testXsd import {string255}--><tns:memberId><!--test6 255-->string</tns:memberId>
+               <!--testXsd import {string255}--><tns:memberName><!--test6 255-->string</tns:memberName>
+               <!--testXsd import {string255}--><tns:memberEmail><!--test6 255-->string</tns:memberEmail>
+               <!--testXsd import {string255}--><tns:memberRole><!--test6 255-->string</tns:memberRole>
+            </tns:dealTeamMembers>
+            <!--from 0 to unbounded elements --><!--testXsd import {ProductConditions}--><tns:products><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testXsd import {string15}--><tns:productID><!--test6 15-->string</tns:productID>
+               <!--optional--><!--testXsd import {string15}--><tns:projectID><!--test6 15-->string</tns:projectID>
+               <!--testXsd import {string255}--><tns:productName><!--test6 255-->string</tns:productName>
+               <!--testXsd import {string255}--><tns:category><!--test6 255-->string</tns:category>
+               <!--not known elementType:{}--><tns:productType/>
+               <!--from 0 to unbounded elements --><!--testXsd import {ParticipantProductInfo}--><tns:participantProductInfo><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testXsd import {string15}--><tns:participantID><!--test6 15-->string</tns:participantID>
+                  <!--not known elementType:{}--><tns:personType/>
+                  <!--testXsd import {string255}--><tns:participantType><!--test6 255-->string</tns:participantType>
+               </tns:participantProductInfo>
+               <!--from 1 to unbounded elements --><!--testXsd import {Product}--><tns:productInfo><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testXsd import {string255}--><tns:productVersion><!--test6 255-->string</tns:productVersion>
+                  <!--testXsd import {string1000}--><tns:purpose><!--test6 2000-->string</tns:purpose>
+                  <!--testXsd import {string255}--><tns:creditMode><!--test6 255-->string</tns:creditMode>
+                  <!--testXsd import {string255}--><tns:selectionSchedule><!--test6 255-->string</tns:selectionSchedule>
+                  <!--optional--><!--testXsd import {string255}--><tns:changesSchedule><!--test6 255-->string</tns:changesSchedule>
+                  <!--optional--><!--testXsd import {string255}--><tns:selectionSchedulePeriod><!--test6 255-->string</tns:selectionSchedulePeriod>
+                  <!--optional--><!--testXsd import {string255}--><tns:changesSchedulePeriod><!--test6 255-->string</tns:changesSchedulePeriod>
+                  <!--not known elementType:{}--><tns:interestPaymentOrder/>
+                  <!--optional--><!--testXsd import {string255}--><tns:anotherInterestPaymentOrder><!--test6 255-->string</tns:anotherInterestPaymentOrder>
+                  <!--testxsdBool--><tns:refinancing>false</tns:refinancing>
+                  <!--from 0 to unbounded elements --><!--testXsd import {string255}--><tns:suspensiveCondition><!--test6 255-->string</tns:suspensiveCondition>
+                  <!--optional--><!--testXsd import {double17_5}--><tns:principalBaseCurrency><!--test6-->1234567890</tns:principalBaseCurrency>
+                  <!--from 1 to unbounded elements --><!--testXsd import {FinancingInfo}--><tns:financingInfo><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--optional--><!--testXsd import {double17_5}--><tns:interestRate><!--test6-->1234567890</tns:interestRate>
+                     <!--optional--><!--testXsd import {string255}--><tns:interestRateType><!--test6 255-->string</tns:interestRateType>
+                     <!--optional--><!--testXsd import {string255}--><tns:interestRateOrder><!--test6 255-->string</tns:interestRateOrder>
+                     <!--optional--><!--testXsd import {double17_5}--><tns:minRate><!--test6-->1234567890</tns:minRate>
+                     <!--testXsd import {string3}--><tns:currencyOfFunding><!--test6 3-->str</tns:currencyOfFunding>
+                     <!--testXsd import {double17_5}--><tns:principal><!--test6-->1234567890</tns:principal>
+                  </tns:financingInfo>
+                  <!--optional--><!--testxsdDate--><tns:startDate>2015-05-26</tns:startDate>
+                  <!--testXsd import {integer5}--><tns:creditTerm><!--test6-->99999</tns:creditTerm>
+                  <!--testXsd import {integer5}--><tns:period><!--test6-->99999</tns:period>
+                  <!--optional--><!--testXsd import {integer5}--><tns:gracePeriod><!--test6-->99999</tns:gracePeriod>
+                  <!--optional--><!--testXsd import {string255}--><tns:repaymentSchedule><!--test6 255-->string</tns:repaymentSchedule>
+                  <!--optional--><!--testXsd import {integer5}--><tns:turnover><!--test6-->99999</tns:turnover>
+                  <!--from 0 to unbounded elements --><!--testXsd import {string4500}--><tns:covenants><!--test6 4500-->string</tns:covenants>
+                  <!--testXsd import {string2000}--><tns:proposedCollateral><!--test6 2000-->string</tns:proposedCollateral>
+                  <!--optional--><!--testXsd import {string255}--><tns:debtLimit><!--test6 255-->string</tns:debtLimit>
+                  <!--optional--><!--testXsd import {string255}--><tns:pledgeInsurance><!--test6 255-->string</tns:pledgeInsurance>
+                  <!--optional--><!--testXsd import {string255}--><tns:customerProspects><!--test6 255-->string</tns:customerProspects>
+                  <!--optional--><!--testXsd import {integer3}--><tns:financingTerm><!--test6-->999</tns:financingTerm>
+                  <!--optional--><!--testXsd import {string255}--><tns:firstCountry><!--test6 255-->string</tns:firstCountry>
+                  <!--optional--><!--testXsd import {string255}--><tns:lastCountry><!--test6 255-->string</tns:lastCountry>
+                  <!--from 0 to unbounded elements --><!--testXsd import {Fee}--><tns:fee><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testXsd import {string255}--><tns:feeName><!--test6 255-->string</tns:feeName>
+                     <!--optional--><!--testXsd import {string255}--><tns:anotherFeeName><!--test6 255-->string</tns:anotherFeeName>
+                     <!--optional--><!--testXsd import {string255}--><tns:calculationBase><!--test6 255-->string</tns:calculationBase>
+                     <!--optional--><!--testXsd import {string255}--><tns:paymentOrder><!--test6 255-->string</tns:paymentOrder>
+                  </tns:fee>
+                  <!--from 0 to unbounded elements --><!--testXsd import {Schedule}--><tns:repaymentScheduleDetails><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testxsdDate--><tns:sheduleDate>2015-05-26</tns:sheduleDate>
+                     <!--testXsd import {double17_5}--><tns:sheduleAmount><!--test6-->1234567890</tns:sheduleAmount>
+                  </tns:repaymentScheduleDetails>
+                  <!--from 0 to unbounded elements --><!--testXsd import {Schedule}--><tns:selectionScheduleDetails><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testxsdDate--><tns:sheduleDate>2015-05-26</tns:sheduleDate>
+                     <!--testXsd import {double17_5}--><tns:sheduleAmount><!--test6-->1234567890</tns:sheduleAmount>
+                  </tns:selectionScheduleDetails>
+                  <!--from 0 to unbounded elements --><!--testXsd import {Schedule}--><tns:changesScheduleDetails><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testxsdDate--><tns:sheduleDate>2015-05-26</tns:sheduleDate>
+                     <!--testXsd import {double17_5}--><tns:sheduleAmount><!--test6-->1234567890</tns:sheduleAmount>
+                  </tns:changesScheduleDetails>
+                  <!--optional--><!--testXsd import {double17_5}--><tns:unutilizedLimit><!--test6-->1234567890</tns:unutilizedLimit>
+                  <!--optional--><!--testXsd import {double17_5}--><tns:correctedUnutilizedLimit><!--test6-->1234567890</tns:correctedUnutilizedLimit>
+                  <!--optional--><!--testXsd import {string2000}--><tns:comment><!--test6 2000-->string</tns:comment>
+               </tns:productInfo>
+               <!--from 0 to unbounded elements --><!--testXsd import {Collateral}--><tns:collateral><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testXsd import {string15}--><tns:collateralID><!--test6 15-->string</tns:collateralID>
+                  <!--testXsd import {string255}--><tns:collateralType><!--test6 255-->string</tns:collateralType>
+                  <!--testXsd import {string15}--><tns:ownerID><!--test6 15-->string</tns:ownerID>
+                  <!--testxsdBool--><tns:isLegalPerson>false</tns:isLegalPerson>
+                  <!--testXsd import {double17_5}--><tns:estimatedValue><!--test6-->1234567890</tns:estimatedValue>
+                  <!--testXsd import {double17_5}--><tns:discountRate><!--test6-->1234567890</tns:discountRate>
+                  <!--testXsd import {double17_5}--><tns:estimatedValueCorrected><!--test6-->1234567890</tns:estimatedValueCorrected>
+                  <!--testXsd import {string255}--><tns:qualityCategory><!--test6 255-->string</tns:qualityCategory>
+                  <!--optional--><!--testXsd import {integer3}--><tns:daysForCalculation><!--test6-->999</tns:daysForCalculation>
+                  <!--optional--><!--testXsd import {double17_5}--><tns:estimatedValueCorrectedToEAD><!--test6-->1234567890</tns:estimatedValueCorrectedToEAD>
+                  <!--testXsd import {string255}--><tns:estimatedValueSource><!--test6 255-->string</tns:estimatedValueSource>
+                  <!--testxsdDate--><tns:estimationDate>2015-05-26</tns:estimationDate>
+                  <!--testXsd import {string255}--><tns:businessMeaning><!--test6 255-->string</tns:businessMeaning>
+                  <!--testXsd import {string255}--><tns:qualityAndLiquidityEstimation><!--test6 255-->string</tns:qualityAndLiquidityEstimation>
+                  <!--testXsd import {string255}--><tns:currency><!--test6 255-->string</tns:currency>
+                  <!--testXsd import {string255}--><tns:estimatedValueType><!--test6 255-->string</tns:estimatedValueType>
+               </tns:collateral>
+               <!--optional--><!--testXsd import {Losses}--><tns:losses><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--optional--><!--testXsd import {double17_5}--><tns:percentLGD><!--test6-->1234567890</tns:percentLGD>
+                  <!--optional--><!--testXsd import {double17_5}--><tns:countEAD><!--test6-->1234567890</tns:countEAD>
+                  <!--testXsd import {string255}--><tns:currency><!--test6 255-->string</tns:currency>
+                  <!--optional--><!--testXsd import {double17_5}--><tns:reportDateAmount><!--test6-->1234567890</tns:reportDateAmount>
+                  <!--optional--><!--testXsd import {double17_5}--><tns:lossELpercent><!--test6-->1234567890</tns:lossELpercent>
+                  <!--optional--><!--testXsd import {double17_5}--><tns:lossELcount><!--test6-->1234567890</tns:lossELcount>
+                  <!--optional--><!--testXsd import {string255}--><tns:typeLGD><!--test6 255-->string</tns:typeLGD>
+                  <!--optional--><!--testXsd import {string255}--><tns:statusLGD><!--test6 255-->string</tns:statusLGD>
+                  <!--optional--><!--testxsdDate--><tns:dateLGDcalculated>2015-05-26</tns:dateLGDcalculated>
+                  <!--optional--><!--testxsdDate--><tns:finalizationDate>2015-05-26</tns:finalizationDate>
+                  <!--optional--><!--testXsd import {string2000}--><tns:comment><!--test6 2000-->string</tns:comment>
+               </tns:losses>
+            </tns:products>
+            <!--optional--><!--testXsd import {Project}--><tns:project><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testXsd import {string15}--><tns:projectID><!--test6 15-->string</tns:projectID>
+               <!--optional--><!--testXsd import {string255}--><tns:projectName><!--test6 255-->string</tns:projectName>
+               <!--optional--><!--testXsd import {string255}--><tns:indicatorsOfConstruction><!--test6 255-->string</tns:indicatorsOfConstruction>
+               <!--optional--><!--testXsd import {string255}--><tns:parcel><!--test6 255-->string</tns:parcel>
+               <!--optional--><!--testXsd import {string255}--><tns:documentsPresence><!--test6 255-->string</tns:documentsPresence>
+               <!--optional--><!--testXsd import {string255}--><tns:equityVolume><!--test6 255-->string</tns:equityVolume>
+               <!--optional--><!--testXsd import {string255}--><tns:fundingDirection><!--test6 255-->string</tns:fundingDirection>
+               <!--from 0 to unbounded elements --><!--testXsd import {Rating}--><tns:projectRating><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testXsd import {string15}--><tns:ratingID><!--test6 15-->string</tns:ratingID>
+                  <!--testXsd import {integer3}--><tns:ratingValue><!--test6-->999</tns:ratingValue>
+                  <!--testXsd import {string255}--><tns:ratingType><!--test6 255-->string</tns:ratingType>
+                  <!--testXsd import {string255}--><tns:ratingModel><!--test6 255-->string</tns:ratingModel>
+                  <!--testxsdDate--><tns:ratingCalculatedDate>2015-05-26</tns:ratingCalculatedDate>
+                  <!--testXsd import {string255}--><tns:ratingCalculatedRole><!--test6 255-->string</tns:ratingCalculatedRole>
+                  <!--testXsd import {string255}--><tns:ratingCalculatedBy><!--test6 255-->string</tns:ratingCalculatedBy>
+                  <!--testxsdDate--><tns:ratingApprovalDate>2015-05-26</tns:ratingApprovalDate>
+                  <!--testXsd import {string255}--><tns:ratingApprovedBy><!--test6 255-->string</tns:ratingApprovedBy>
+               </tns:projectRating>
+            </tns:project>
+            <!--from 0 to unbounded elements --><!--testXsd import {StopFactor}--><tns:stopFactors><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testXsd import {string15}--><tns:stopFactorID><!--test6 15-->string</tns:stopFactorID>
+               <!--testXsd import {string255}--><tns:stopFactorName><!--test6 255-->string</tns:stopFactorName>
+               <!--optional--><!--testXsd import {string2000}--><tns:stopFactorComment><!--test6 2000-->string</tns:stopFactorComment>
+               <!--optional--><!--testXsd import {string2000}--><tns:stopFactorArgument><!--test6 2000-->string</tns:stopFactorArgument>
+            </tns:stopFactors>
+            <!--from 0 to unbounded elements --><!--testXsd import {ProblemCriteria}--><tns:problemCriterias><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testXsd import {string15}--><tns:problemCriteriaID><!--test6 15-->string</tns:problemCriteriaID>
+               <!--testXsd import {string255}--><tns:problemCriteriaName><!--test6 255-->string</tns:problemCriteriaName>
+               <!--optional--><!--testXsd import {string2000}--><tns:creditJustification><!--test6 2000-->string</tns:creditJustification>
+               <!--optional--><!--testXsd import {string255}--><tns:problemProductName><!--test6 255-->string</tns:problemProductName>
+               <!--optional--><!--testXsd import {double17_5}--><tns:problemProductAmount><!--test6-->1234567890</tns:problemProductAmount>
+               <!--optional--><!--testXsd import {string3}--><tns:problemProductCurrency><!--test6 3-->str</tns:problemProductCurrency>
+               <!--optional--><!--testXsd import {integer10}--><tns:problemProductTerm><!--test6-->9999999999</tns:problemProductTerm>
+            </tns:problemCriterias>
+         </tns:deal>
+      </CRM:updateDealRq>
+   </soap:Body>
+</soap:Envelope>

@@ -1,0 +1,18 @@
+<soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
+   <soap:Header>
+      <soap:message-id>defaultId</soap:message-id>
+      <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
+      <soap:operation-name>SrvUpdateRating</soap:operation-name>
+   </soap:Header>
+   <soap:Body><!--complexType--><FinRep:updateRatingRq xmlns:FinRep="http://sbrf.ru/NCP/FinRep/"
+                             xmlns:tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/"><!--testXsd import {Rating}--><tns:rating><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/")--><!--testXsd import {string15}--><tns:ratingId><!--test6 15-->string</tns:ratingId>
+            <tns:status>test1</tns:status>
+            <!--testXsd import {ListOfRatingCalc}--><tns:listOfRatingCalc><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/")--><!--from 1 to unbounded elements --><!--testXsd import {RatingCalc}--><tns:ratingCalc><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/UpdateRatingRq/1.02/")--><!--testXsd import {string15}--><tns:ratingCalcId><!--test6 15-->string</tns:ratingCalcId>
+                  <!--testXsd import {string100}--><tns:modelName><!--test6 100-->string</tns:modelName>
+                  <!--testXsd import {string30}--><tns:modelIntegrationId><!--test6 30-->string</tns:modelIntegrationId>
+               </tns:ratingCalc>
+            </tns:listOfRatingCalc>
+         </tns:rating>
+      </FinRep:updateRatingRq>
+   </soap:Body>
+</soap:Envelope>

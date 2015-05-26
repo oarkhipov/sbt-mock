@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://sbrf.ru/NCP/CRM/UpdateRefRs/1.02/updateRefRs/Data/">
+   <response name="default">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410</request-time>
+         <operation-name>UpdateReference</operation-name>
+      </SoapHeader>
+      <referenceItem>
+         <referenceid>string</referenceid>
+         <listOfValue>
+            <value>string</value>
+            <valueId>string</valueId>
+            <parentValueId>string</parentValueId>
+         </listOfValue>
+      </referenceItem>
+      <errorCode>string</errorCode>
+      <errorMessage>string</errorMessage>
+   </response>
+   <response name="test1">
+      <SoapHeader>
+         <message-id>defaultId</message-id>
+         <request-time>2014-12-16T17:55:06.410</request-time>
+         <operation-name>UpdateReference</operation-name>
+      </SoapHeader>
+      <errorCode>string</errorCode>
+   </response>
+</data>
