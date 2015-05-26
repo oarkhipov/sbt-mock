@@ -29,7 +29,7 @@ function autoFormatResponse() {
 }
 
 $().ready(function () {
-    applyActionButtonsEvents();
+    //applyActionButtonsEvents();
 });
 
 function fillList(data) {
