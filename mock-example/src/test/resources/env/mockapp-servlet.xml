@@ -14,8 +14,7 @@
 		http://www.springframework.org/schema/integration/xml	http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
 		http://www.springframework.org/schema/util		http://www.springframework.org/schema/util/spring-util.xsd
 		http://www.springframework.org/schema/context       http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/mvc   http://www.springframework.org/schema/mvc/spring-mvc.xsd
-	">
+		http://www.springframework.org/schema/mvc   http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/integration/ws http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd">
 
     <mvc:resources mapping="/**" location="/resources/web/" />
     <mvc:annotation-driven/>
@@ -70,11 +69,13 @@
     <!--/>-->
 
     <!--<jms:outbound-gateway-->
-    <!--request-destination="requestDriverQueue"-->
-    <!--reply-destination="responseDriverQueue"-->
-    <!--request-channel="DriverOutboundRequest"-->
-    <!--reply-channel="DriverInboundResponse"-->
-    <!--connection-factory="jndiConnectionFactory"-->
+            <!--id="jmsout"-->
+            <!--request-destination="requestQueueCRM"-->
+            <!--reply-destination="replyQueueCRM"-->
+            <!--request-channel="ESB.BPM.NCP.REQUEST"-->
+            <!--reply-channel="ESB.BPM.NCP.RESPONSE"-->
+            <!--header-mapper="defHeaderMapper"-->
+            <!--connection-factory="jndiConnectionFactory"-->
     <!--/>-->
 
     <!-- Входной и выходной каналы Заглушки-->
@@ -121,7 +122,8 @@
 
     <!-- Карта неймспейсов-->
     <util:map id="sbrfNamespaceMap">
-        <beans:entry key="env" value="http://sbrf.ru/NCP/esb/envelope/"/>
+        <beans:entry key="env" value="http://schemas.xmlsoap.org/soap/envelope/"/>
+        <beans:entry key="ns1" value="http://sbrf.ru/prpc/mq/headers"/>
     </util:map>
 
     <!-- Каналы-->

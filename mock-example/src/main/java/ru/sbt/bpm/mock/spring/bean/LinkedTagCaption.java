@@ -5,7 +5,6 @@ package ru.sbt.bpm.mock.spring.bean;
  * <p/>
  * Company: SBT - Moscow
  */
-
 public interface LinkedTagCaption {
     public String getCaption(String SystemIntegrationPointName);
 }

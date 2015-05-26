@@ -1,0 +1,446 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ecm.sbrf.ru/port"
+           xmlns:ecm="http://ecm.sbrf.ru/port" attributeFormDefault="unqualified" elementFormDefault="qualified"
+           targetNamespace="http://ecm.sbrf.ru/port">
+    <xs:element name="changePrivileges" type="tns:changePrivileges"></xs:element>
+    <xs:element name="createDocument" type="tns:createDocument"></xs:element>
+    <xs:element name="createDocuments" type="tns:createDocuments"></xs:element>
+    <xs:element name="createPackage" type="tns:createPackage"></xs:element>
+    <xs:element name="deleteObjects" type="tns:deleteObjects"></xs:element>
+    <xs:element name="documentSpec" type="tns:documentSpec"></xs:element>
+    <xs:element name="fetchContent" type="tns:fetchContent"></xs:element>
+    <xs:element name="fetchPrivileges" type="tns:fetchPrivileges"></xs:element>
+    <xs:element name="folder" type="tns:folderSpec"></xs:element>
+    <xs:element name="header" type="tns:header"></xs:element>
+    <xs:element name="modifyDocument" type="tns:modifyDocument"></xs:element>
+    <xs:element name="ticket" type="tns:ticket"></xs:element>
+    <xs:element name="ticketRequest" type="tns:ticketRequest"></xs:element>
+    <xs:element name="traverseTree" type="tns:traverseTree"></xs:element>
+    <xs:complexType name="modifyDocument">
+        <xs:sequence>
+            <xs:element name="document" type="tns:documentSpec"></xs:element>
+            <xs:element default="true" name="majorVersion" type="xs:boolean"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="documentSpec">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="target" type="xs:string"></xs:element>
+            <xs:element minOccurs="0" name="attrs" type="tns:attrs"></xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="content" type="tns:content"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="class" type="xs:string"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="attrs">
+        <xs:sequence>
+            <xs:choice maxOccurs="unbounded" minOccurs="0">
+                <xs:element name="string" type="tns:string"></xs:element>
+                <xs:element name="strings" type="tns:strings"></xs:element>
+                <xs:element name="int" type="tns:int"></xs:element>
+                <xs:element name="ints" type="tns:ints"></xs:element>
+                <xs:element name="bool" type="tns:bool"></xs:element>
+                <xs:element name="bools" type="tns:bools"></xs:element>
+                <xs:element name="date" type="tns:date"></xs:element>
+                <xs:element name="dates" type="tns:dates"></xs:element>
+                <xs:element name="bin" type="tns:bin"></xs:element>
+                <xs:element name="bins" type="tns:bins"></xs:element>
+                <xs:element name="id" type="tns:id"></xs:element>
+                <xs:element name="ids" type="tns:ids"></xs:element>
+                <xs:element name="double" type="tns:double"></xs:element>
+                <xs:element name="doubles" type="tns:doubles"></xs:element>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="string">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="strings">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="string" type="xs:string"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="int">
+        <xs:simpleContent>
+            <xs:extension base="xs:int">
+                <xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="ints">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="int" type="xs:int"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="bool">
+        <xs:simpleContent>
+            <xs:extension base="xs:boolean">
+                <xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="bools">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="bool" type="xs:boolean"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="date">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="dates">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="date" type="xs:dateTime"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="bin">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="value" type="xs:base64Binary"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="bins">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="bin" type="xs:base64Binary"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="id">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="ids">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="id" type="xs:string"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="double">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="doubles">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="double" type="xs:double"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="content">
+        <xs:simpleContent>
+            <xs:extension base="xs:base64Binary">
+                <xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+                <xs:attribute name="contentType" type="xs:string"></xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="header">
+        <xs:sequence>
+            <xs:element name="actor" type="xs:string"></xs:element>
+            <xs:element name="user" type="xs:string"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="objects">
+        <xs:sequence>
+            <xs:choice maxOccurs="unbounded" minOccurs="0">
+                <xs:element name="document" type="tns:document"></xs:element>
+                <xs:element name="folder" type="tns:folder"></xs:element>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="document">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="attrs" type="tns:attrs"></xs:element>
+            <xs:element minOccurs="0" name="privileges" type="tns:privileges"></xs:element>
+            <xs:element minOccurs="0" name="signature" type="tns:signature"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="class" type="xs:string" use="required"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="privileges">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="target" type="tns:target"></xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="privilege" type="tns:privilege"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="inheritParentPermissions" type="xs:boolean" use="required"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="target">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="folder" type="xs:boolean" use="required"></xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="privilege">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="allow">
+                <xs:simpleType>
+                    <xs:list itemType="tns:permission"></xs:list>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="deny">
+                <xs:simpleType>
+                    <xs:list itemType="tns:permission"></xs:list>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="grantee" type="xs:string" use="required"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="signature">
+        <xs:sequence></xs:sequence>
+        <xs:attribute name="signer" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="signature" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="valid" type="xs:boolean" use="required"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="folder">
+        <xs:complexContent>
+            <xs:extension base="tns:document">
+                <xs:sequence>
+                    <xs:choice maxOccurs="unbounded" minOccurs="0">
+                        <xs:element name="document" type="tns:document"></xs:element>
+                        <xs:element name="folder" type="tns:folder"></xs:element>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="fetchContent">
+        <xs:sequence>
+            <xs:element name="target" type="xs:string"></xs:element>
+            <xs:element default="0" name="index" type="xs:int"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="attributeBunch">
+        <xs:sequence>
+            <xs:element name="target" type="tns:target"></xs:element>
+            <xs:element name="attrs" type="tns:attrs"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="deleteObjects">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="target" type="tns:target"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="changePrivileges">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="privileges" type="tns:privileges"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="recusively" type="xs:boolean" use="required"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="ticketRequest">
+        <xs:sequence>
+            <xs:element name="user" type="xs:string"></xs:element>
+            <xs:element name="folder" type="xs:string"></xs:element>
+            <xs:element minOccurs="0" name="searchFolder" type="xs:string"></xs:element>
+            <xs:element minOccurs="0" name="selected" type="xs:string"></xs:element>
+            <xs:element minOccurs="0" name="controls">
+                <xs:simpleType>
+                    <xs:list itemType="tns:controls"></xs:list>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="columns">
+                <xs:simpleType>
+                    <xs:list itemType="tns:columns"></xs:list>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="permissions" nillable="true"
+                        type="tns:permissions"></xs:element>
+            <xs:element minOccurs="0" name="documentClasses">
+                <xs:simpleType>
+                    <xs:list itemType="xs:string"></xs:list>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="fileExtensions" type="xs:string"></xs:element>
+            <xs:element default="false" name="restrictExtensions" type="xs:boolean"></xs:element>
+            <xs:element minOccurs="0" name="folderClasses">
+                <xs:simpleType>
+                    <xs:list itemType="xs:string"></xs:list>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="resolution" type="xs:int"></xs:element>
+            <xs:element minOccurs="0" name="showScanSettings" type="xs:boolean"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="template" type="xs:string"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="permissions">
+        <xs:sequence></xs:sequence>
+        <xs:attribute name="for" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="actions">
+            <xs:simpleType>
+                <xs:list itemType="tns:permission"></xs:list>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="ticket">
+        <xs:sequence>
+            <xs:element name="user" type="xs:string"></xs:element>
+            <xs:element name="folder" type="xs:string"></xs:element>
+            <xs:element minOccurs="0" name="searchFolder" type="xs:string"></xs:element>
+            <xs:element minOccurs="0" name="selected" type="xs:string"></xs:element>
+            <xs:element minOccurs="0" name="controls">
+                <xs:simpleType>
+                    <xs:list itemType="tns:controls"></xs:list>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="columns">
+                <xs:simpleType>
+                    <xs:list itemType="tns:columns"></xs:list>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="permissions" nillable="true"
+                        type="tns:permissions"></xs:element>
+            <xs:element minOccurs="0" name="documentClasses">
+                <xs:simpleType>
+                    <xs:list itemType="xs:string"></xs:list>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="fileExtensions" type="xs:string"></xs:element>
+            <xs:element name="restrictExtensions" type="xs:boolean"></xs:element>
+            <xs:element minOccurs="0" name="folderClasses">
+                <xs:simpleType>
+                    <xs:list itemType="xs:string"></xs:list>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="resolution" type="xs:int"></xs:element>
+            <xs:element name="showScanSettings" type="xs:boolean"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="createDocument">
+        <xs:sequence>
+            <xs:element name="document" type="tns:documentSpec"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="traverseTree">
+        <xs:sequence>
+            <xs:element name="target" type="xs:string"></xs:element>
+            <xs:element default="1" name="depth" type="xs:int"></xs:element>
+            <xs:element default="false" name="verifySignature" type="xs:boolean"></xs:element>
+            <xs:element minOccurs="0" name="attrs" type="tns:attrs"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="createDocuments">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="document" type="tns:documentSpec"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="createPackage">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="target" type="xs:string"></xs:element>
+            <xs:choice minOccurs="0">
+                <xs:element ref="tns:folder"></xs:element>
+                <xs:element name="template" type="tns:templateSpec"></xs:element>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="folderSpec">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:folder"></xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="document" type="tns:documentSpec"></xs:element>
+            <xs:element minOccurs="0" name="attrs" type="tns:attrs"></xs:element>
+            <xs:element minOccurs="0" name="privileges" type="tns:privileges"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="class" type="xs:string"></xs:attribute>
+        <xs:attribute name="link" type="xs:string"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="templateSpec">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="parameters" type="tns:attrs"></xs:element>
+        </xs:sequence>
+        <xs:attribute name="source" type="xs:string" use="required"></xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="fetchPrivileges">
+        <xs:sequence>
+            <xs:element name="target" type="tns:target"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="permission">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="NONE"></xs:enumeration>
+            <xs:enumeration value="DELETE"></xs:enumeration>
+            <xs:enumeration value="MODIFY_OBJECTS"></xs:enumeration>
+            <xs:enumeration value="UNLINK"></xs:enumeration>
+            <xs:enumeration value="USE_MARKING"></xs:enumeration>
+            <xs:enumeration value="LINK"></xs:enumeration>
+            <xs:enumeration value="WRITE"></xs:enumeration>
+            <xs:enumeration value="REMOVE_MARKING"></xs:enumeration>
+            <xs:enumeration value="ADD_MARKING"></xs:enumeration>
+            <xs:enumeration value="PRIVILEGED_WRITE"></xs:enumeration>
+            <xs:enumeration value="PUBLISH"></xs:enumeration>
+            <xs:enumeration value="CONNECT"></xs:enumeration>
+            <xs:enumeration value="MINOR_VERSION"></xs:enumeration>
+            <xs:enumeration value="WRITE_ACL"></xs:enumeration>
+            <xs:enumeration value="WRITE_ANY_OWNER"></xs:enumeration>
+            <xs:enumeration value="READ_ACL"></xs:enumeration>
+            <xs:enumeration value="CREATE_CHILD"></xs:enumeration>
+            <xs:enumeration value="CHANGE_STATE"></xs:enumeration>
+            <xs:enumeration value="VIEW_CONTENT"></xs:enumeration>
+            <xs:enumeration value="MODIFY_RETENTION"></xs:enumeration>
+            <xs:enumeration value="MAJOR_VERSION"></xs:enumeration>
+            <xs:enumeration value="REMOVE_OBJECTS"></xs:enumeration>
+            <xs:enumeration value="STORE_OBJECTS"></xs:enumeration>
+            <xs:enumeration value="WRITE_OWNER"></xs:enumeration>
+            <xs:enumeration value="CREATE_INSTANCE"></xs:enumeration>
+            <xs:enumeration value="READ"></xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="controls">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ADD_DOCUMENT"></xs:enumeration>
+            <xs:enumeration value="REPLACE_DOCUMENT"></xs:enumeration>
+            <xs:enumeration value="SCAN_DOCUMENT"></xs:enumeration>
+            <xs:enumeration value="RESCAN_DOCUMENT"></xs:enumeration>
+            <xs:enumeration value="CHECK_OUT_DOCUMENT"></xs:enumeration>
+            <xs:enumeration value="CHECK_IN_DOCUMENT"></xs:enumeration>
+            <xs:enumeration value="CANCEL_CHECKING_OUT"></xs:enumeration>
+            <xs:enumeration value="SIGN_DOCUMENT"></xs:enumeration>
+            <xs:enumeration value="REMOVE_SIGN_DOCUMENT"></xs:enumeration>
+            <xs:enumeration value="MARK_FOR_RESCANNING"></xs:enumeration>
+            <xs:enumeration value="DISCARD_RESCANNING_MARK"></xs:enumeration>
+            <xs:enumeration value="SHOW_PROPERTIES"></xs:enumeration>
+            <xs:enumeration value="SEARCH_OBJECTS"></xs:enumeration>
+            <xs:enumeration value="ADD_PACKAGE"></xs:enumeration>
+            <xs:enumeration value="ADD_FOLDER"></xs:enumeration>
+            <xs:enumeration value="CREATE_LINK"></xs:enumeration>
+            <xs:enumeration value="DELETE_OBJECT"></xs:enumeration>
+            <xs:enumeration value="REFRESH"></xs:enumeration>
+            <xs:enumeration value="SUBSCRIPTION"></xs:enumeration>
+            <xs:enumeration value="REPORT"></xs:enumeration>
+            <xs:enumeration value="AUDIT"></xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="columns">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="NAME"></xs:enumeration>
+            <xs:enumeration value="SIZE"></xs:enumeration>
+            <xs:enumeration value="CHANGED_BY"></xs:enumeration>
+            <xs:enumeration value="CHANGED_AT"></xs:enumeration>
+            <xs:enumeration value="VERSION"></xs:enumeration>
+            <xs:enumeration value="SIGNED_BY"></xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:element name="modified" nillable="true" type="tns:objects"></xs:element>
+    <xs:element name="content" nillable="true" type="tns:content"></xs:element>
+    <xs:element name="fetchAttributes" nillable="true" type="tns:attributeBunch"></xs:element>
+    <xs:element name="objects" nillable="true" type="tns:objects"></xs:element>
+    <xs:element name="deleted" nillable="true" type="tns:objects"></xs:element>
+    <xs:element name="acquireTicket" nillable="true" type="tns:ticketRequest"></xs:element>
+    <xs:element name="changeAttributes" nillable="true" type="tns:attributeBunch"></xs:element>
+    <xs:element name="created" nillable="true" type="tns:objects"></xs:element>
+</xs:schema>

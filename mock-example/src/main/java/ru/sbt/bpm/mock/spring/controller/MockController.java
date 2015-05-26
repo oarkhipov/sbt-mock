@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import ru.sbt.bpm.mock.config.entities.LinkedTag;
 import ru.sbt.bpm.mock.spring.bean.LinkedTagCaption;
 import ru.sbt.bpm.mock.spring.bean.MockList;
 import ru.sbt.bpm.mock.spring.integration.service.XmlDataService;

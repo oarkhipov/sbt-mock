@@ -19,6 +19,11 @@ import java.util.List;
 @ToString
 public class IntegrationPoint {
 
+    // Тип точки интеграции Driver
+    public static final String DRIVER = "Driver";
+    // Тип точки интеграции Mock
+    public static final String MOCK= "Mock";
+
     @XStreamAlias("name")
     @XStreamAsAttribute
     @Getter
@@ -74,6 +79,16 @@ public class IntegrationPoint {
     @Getter
     @Setter
     private Pair<String, String> pairOfChannels;
+
+    public Pair<String, String> getPairOfChannels() {
+        return new Pair<String, String>(this.getIncomeQueue(), this.getOutcomeQueue());
+    }
+
+    public void setPairOfChannels(Pair<String, String> pairOfChannels) {
+        this.setIncomeQueue(pairOfChannels.getFirst());
+        this.setOutcomeQueue(pairOfChannels.getSecond());
+    }
+
 
     @XStreamAlias("xsdFile")
     @Getter

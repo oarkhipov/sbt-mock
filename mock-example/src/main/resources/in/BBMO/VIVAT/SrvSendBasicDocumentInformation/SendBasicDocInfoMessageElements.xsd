@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bbmo="http://sbrf.ru/prpc/bbmo/10"
+	xmlns:tns="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hdr="http://sbrf.ru/prpc/mq/headers"
+	targetNamespace="http://schemas.xmlsoap.org/soap/envelope/">
+	<import namespace="http://sbrf.ru/prpc/bbmo/10"
+		schemaLocation="SendBasicDocInfoOperationElements.xsd"/>
+	<import namespace="http://sbrf.ru/prpc/mq/headers"
+		schemaLocation="SendBasicDocInfoHeaderElements.xsd"/>
+	<element name="Header">
+		<annotation>
+			<documentation>Заголовок сообщения</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="hdr:AsyncHeader"/>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="Body">
+		<annotation>
+			<documentation>Тело сообщения</documentation>
+		</annotation>
+		<complexType>
+			<choice>
+				<element ref="bbmo:SrvSendSystemMessageRs" minOccurs="0"/>
+				<element ref="bbmo:SrvSendBasicDocumentInformationRq" minOccurs="0"/>
+				<element ref="bbmo:SrvSendBasicDocumentInformationRs" minOccurs="0"/>
+			</choice>
+		</complexType>
+	</element>
+	<element name="Envelope">
+		<annotation>
+			<documentation>Сообщение</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="tns:Header"/>
+				<element ref="tns:Body"/>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

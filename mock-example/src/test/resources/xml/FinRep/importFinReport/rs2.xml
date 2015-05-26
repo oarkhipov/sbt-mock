@@ -2,18 +2,16 @@
    <soap:Header>
       <soap:message-id>defaultId</soap:message-id>
       <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
-      <soap:operation-name>importFinReportRs</soap:operation-name>
+      <soap:operation-name>SrvGetFinReport</soap:operation-name>
    </soap:Header>
-   <soap:Body>
-      <FinRep:importFinReportRs xmlns:FinRep="http://sbrf.ru/NCP/FinRep/"
-                                xmlns:tns="http://sbrf.ru/NCP/FinRep/ImportFinReportRs/1.03/">
-         <tns:finReportType>string</tns:finReportType>
-         <tns:entityType>string</tns:entityType>
-         <tns:entityId>string</tns:entityId>
-         <tns:errorCode>string</tns:errorCode>
-         <tns:currencyCodeForFR>string</tns:currencyCodeForFR>
-         <tns:currencyRate>10</tns:currencyRate>
-         <tns:futureCurrencyRate>10</tns:futureCurrencyRate>
+   <soap:Body><!--complexType--><FinRep:importFinReportRs xmlns:FinRep="http://sbrf.ru/NCP/FinRep/"
+                                xmlns:tns="http://sbrf.ru/NCP/FinRep/ImportFinReportRs/1.03/"><!--testXsd import {string30}--><tns:finReportType><!--test6 30-->string</tns:finReportType>
+         <!--testXsd import {string30}--><tns:entityType><!--test6 30-->string</tns:entityType>
+         <!--testXsd import {string15}--><tns:entityId><!--test6 15-->string</tns:entityId>
+         <!--testXsd import {string30}--><tns:errorCode><!--test6 30-->string</tns:errorCode>
+         <!--testXsd import {string30}--><tns:currencyCodeForFR><!--test6 30-->string</tns:currencyCodeForFR>
+         <!--testxsdDigit tns="http://sbrf.ru/NCP/FinRep/ImportFinReportRs/1.03/"--><tns:currencyRate>10</tns:currencyRate>
+         <!--testxsdDigit tns="http://sbrf.ru/NCP/FinRep/ImportFinReportRs/1.03/"--><tns:futureCurrencyRate>10</tns:futureCurrencyRate>
       </FinRep:importFinReportRs>
    </soap:Body>
 </soap:Envelope>

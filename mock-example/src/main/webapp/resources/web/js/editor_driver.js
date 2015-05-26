@@ -28,8 +28,31 @@ function autoFormatResponse() {
     resEditor.setCursor({line:0, ch:0});
 }
 
-$().ready(function () {
-    applyActionButtonsEvents();
+$("#send").click(function(){
+    showInfo("Sending...");
+    sendDisable(true);
+    showResponse();
+    $.ajax({
+        url: QueryString["ip"]+ "/send/",
+        type: "POST",
+        data: {xml: editor.getValue() , request: $('select[name=request]').val() },
+        success: function(obj) {
+            obj = htmlConvert(obj);
+            obj = $.parseJSON(obj);
+            showInfo(obj.info);
+            showError(obj.error);
+            showResponse(htmlConvert(obj.data));
+            sendDisable(false);
+        },
+        error: function (jqXHR, textStatus,obj) {
+            showError(obj);
+            sendDisable(false);
+        },
+        fail: function() {
+            showError("Unable to send! Try Later...");
+            sendDisable(false);
+        }
+    });
 });
 
 function fillList(data) {
@@ -45,49 +68,20 @@ function fillList(data) {
     }
 }
 
-function applyActionButtonsEvents() {
-    $("#send").click(function () {
-        showInfo("Sending...");
-        sendDisable(true);
-        showResponse();
-        $.ajax({
-            url: QueryString["ip"] + "/send/",
-            type: "POST",
-            data: {xml: editor.getValue(), request: $('select[name=request]').val()},
-            success: function (obj) {
-                obj = htmlConvert(obj);
-                obj = $.parseJSON(obj);
-                showInfo(obj.info);
-                showError(obj.error);
-                showResponse(htmlConvert(obj.data));
-                sendDisable(false);
-            },
-            error: function (jqXHR, textStatus, obj) {
-                showError(obj);
-                sendDisable(false);
-            },
-            fail: function () {
-                showError("Unable to send! Try Later...");
-                sendDisable(false);
-            }
-        });
+$("#listRefresh").click(function(){
+    $.ajax({
+        url: QueryString["ip"]+ "/list/",
+        type: "POST",
+        data: {xml: editor.getValue()},
+        success: function(obj) {
+            obj = htmlConvert(obj);
+            obj = $.parseJSON(obj);
+            showInfo(obj.info);
+            showError(obj.error);
+            fillList(htmlConvert(obj.data));
+        },
+        fail: function() {
+            showError("Unable to refresh! Try Later...");
+        }
     });
-
-    $("#listRefresh").click(function(){
-        $.ajax({
-            url: QueryString["ip"]+ "/list/",
-            type: "POST",
-            data: {xml: editor.getValue()},
-            success: function(obj) {
-                obj = htmlConvert(obj);
-                obj = $.parseJSON(obj);
-                showInfo(obj.info);
-                showError(obj.error);
-                fillList(htmlConvert(obj.data));
-            },
-            fail: function() {
-                showError("Unable to refresh! Try Later...");
-            }
-        });
-    });
-}
+});

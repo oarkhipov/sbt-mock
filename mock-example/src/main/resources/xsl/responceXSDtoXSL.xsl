@@ -75,7 +75,7 @@
     <xsl:variable name="type" select="'response'"/>
 
     <!--переменная для отображение отладочных сообщений-->
-    <xsl:variable name="DEBUG" select="false()"/>
+    <xsl:variable name="DEBUG" select="true()"/>
 
     <xsl:template match="xsd:schema">
         <xsl:element name="xsl:stylesheet">

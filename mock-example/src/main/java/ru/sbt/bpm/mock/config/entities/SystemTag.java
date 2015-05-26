@@ -64,6 +64,13 @@ public class SystemTag {
         return integrationPoints.getListOfIntegrationPoints();
     }
 
+    public List<String> getIntegrationPointNames() {
+        List<String> result = new ArrayList<String>();
+        for (IntegrationPoint point : getListIntegrationPoint()) {
+            result.add(point.getIntegrationPointName());
+        }
+        return result;
+    }
     /**
      * наследование алиасов.  Получаем алиасы сверху и сохраняем себе. Потом передаем алиасы внутрь иерархии, чтобы они взяли их себе
      */

@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface DriverList {
 
-    public List<String> getList();
+    List<String> getList();
 }

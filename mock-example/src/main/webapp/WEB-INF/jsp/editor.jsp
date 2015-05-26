@@ -19,6 +19,7 @@
         height: 100%
     }</style>
 </head>
+<body>
 <!--[if IE]>
 <style type="text/css">
     #info {
@@ -92,7 +93,6 @@
         </div>
     </c:if>
 </form>
-
 <div id="htmlConverter" style="display: none"></div>
 
 <script src="../js/editor.js"></script>
@@ -107,17 +107,16 @@
     editor.setSize("700", "400");
     <c:if test="${link=='driver'}">
     var resEditor = CodeMirror.fromTextArea(document.getElementById("resCode"), editorSettings);
-    resEditor.setSize("600", "400");
+    resEditor.setSize("600","400");
+  </c:if>
 
     $(function () {
-        $("#templateInfo").tooltip({
-            content: function () {
-                return $(this).prop('title');
-            }
-        });
+      $("#templateInfo").tooltip({
+        content: function () {
+          return $(this).prop('title');
+        }
+      });
     });
-
-    </c:if>
 </script>
 
 </body>

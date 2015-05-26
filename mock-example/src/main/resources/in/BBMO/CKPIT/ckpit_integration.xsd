@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            elementFormDefault="unqualified">
+
+    <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+            CKPIT to BBMO integration schema
+        </xsd:documentation>
+    </xsd:annotation>
+
+    <!-- ///////////////////////////////////////////////////////////////////////
+        Elements
+    //////////////////////////////////////////////////////////////////////// -->
+    <xsd:element name="BBMODepositsNSOResp" type="BBMODepositsNSORespType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Response from BBMO for Deposits and NSO
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <xsd:element name="BBMOLoansResp" type="BBMOLoansRespType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Response from BBMO for Loans
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+
+    <xsd:element name="CKPITProductsDepositsNSOReq" type="ProductDepositsNSOReqType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Request from CKPIT for Deposits and NSO
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <xsd:element name="CKPITProductsLoansReq" type="ProductLoansReqType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+                Request from CKPIT for Loans
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <!-- ///////////////////////////////////////////////////////////////////////
+        Types
+    //////////////////////////////////////////////////////////////////////// -->
+    <!--
+        Responses
+    -->
+    <xsd:complexType name="BBMOBasicRespType">
+        <xsd:sequence>
+            <!-- Parameters of the request this response is replying to -->
+            <xsd:element name="RqUID" type="xsd:string"/>  <!-- ID from request -->
+            <xsd:element name="RqTm" type="xsd:string"/>   <!-- Time from request -->
+            <xsd:element name="RqAction" type="xsd:string"/>   <!-- Action from request, passing -->
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="BBMODepositsNSORespType">
+        <xsd:complexContent>
+            <xsd:extension base="BBMOBasicRespType">
+				<xsd:sequence>
+					<xsd:element name="ErrorCode" type="xsd:int"/>
+					<xsd:element name="ErrorDescription" type="xsd:string"/>
+				</xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="BBMOLoansRespType">
+        <xsd:complexContent>
+            <xsd:extension base="BBMOBasicRespType">
+                <xsd:sequence>
+                    <xsd:element name="Loan" type="LoanRespType" minOccurs="1" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+
+    <xsd:complexType name="LoanRespType">
+        <xsd:sequence>
+            <!-- Unique Loan ID from EKS -->
+            <xsd:element name="Label" type="LoanLabelType" />
+            <xsd:element name="CodeEKS" type="CodeEKSType" />
+
+			<xsd:element name="ErrorCode" type="xsd:int"/>
+			<xsd:element name="ErrorDescription" type="xsd:string"/>
+		</xsd:sequence>
+    </xsd:complexType>
+
+    <!--
+        Requests
+    -->
+    <xsd:complexType name="CKPITBasicReqType">
+        <xsd:sequence>
+            <xsd:element name="RqUID" type="xsd:string"/>  <!-- Request ID, passing through -->
+            <xsd:element name="RqTm" type="xsd:string"/>   <!-- Request time, passing through -->
+            <xsd:element name="RqAction" type="xsd:string"/>   <!-- Request action, passing through -->
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ProductDepositsNSOReqType">
+        <xsd:complexContent>
+            <xsd:extension base="CKPITBasicReqType">
+                <xsd:sequence>
+                    <xsd:element name="IDCKPIT" type="IDCKPITType" />
+                    <xsd:element name="Label">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string"><xsd:maxLength value="255" /></xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="Name">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string"><xsd:maxLength value="250" /></xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="ShortName">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string"><xsd:maxLength value="255" /></xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="InstrumentType">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="Deposit" />
+                                <xsd:enumeration value="NSO" />
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+
+                    <xsd:element name="ValidityStartDate" type="xsd:date" minOccurs="0" />
+                    <xsd:element name="ValidityEndDate" type="xsd:date" minOccurs="0" />
+
+                    <!-- Multiple values -->
+                    <xsd:element name="Option" type="ProductOptionType" minOccurs="1" maxOccurs="unbounded" />
+                    <xsd:element name="Restriction" type="ProductRestrictionType" minOccurs="1" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="ProductOptionType">
+        <xsd:sequence>
+            <xsd:element name="OptionID">    <!-- E.g. InterestPaymentTerms -->
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"><xsd:maxLength value="64" /></xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="OptionName">  <!-- E.g. Сроки выплаты процентов -->
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"><xsd:maxLength value="127" /></xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <!-- Multiple values -->
+            <xsd:element name="OptionValue" maxOccurs="unbounded">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"><xsd:maxLength value="127" /></xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ProductRestrictionType">
+        <xsd:sequence>
+            <xsd:element name="Currency">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"><xsd:maxLength value="3" /></xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="AmountMin" minOccurs="0">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:integer"><xsd:pattern value="^\d{1,10}$" /></xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="AmountMax" minOccurs="0">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:integer"><xsd:pattern value="^\d{1,10}$" /></xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="PeriodMin">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:integer"><xsd:pattern value="^\d{1,10}$" /></xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="PeriodMax">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:integer"><xsd:pattern value="^\d{1,10}$" /></xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <xsd:complexType name="ProductLoansReqType">
+        <xsd:complexContent>
+            <xsd:extension base="CKPITBasicReqType">
+                <xsd:sequence>
+                    <xsd:element name="IDCKPIT_MB"  type="IDCKPITType" />
+                    <!-- Multiple values -->
+                    <xsd:element name="Loan" type="LoanReqType" minOccurs="1" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="LoanReqType">
+        <xsd:sequence>
+            <xsd:element name="Label" type="LoanLabelType" />
+            <xsd:element name="Title">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"><xsd:maxLength value="1000" /></xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="CodeEKS" type="CodeEKSType" />
+
+            <xsd:element name="ValidityStartDate" type="xsd:date" minOccurs="0" />
+            <xsd:element name="ValidityEndDate" type="xsd:date" minOccurs="0" />
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:simpleType name="IDCKPITType">
+        <xsd:restriction base="xsd:integer">
+            <xsd:pattern value="^\d{1,10}$" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="CodeEKSType">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="1000" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="LoanLabelType">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>
