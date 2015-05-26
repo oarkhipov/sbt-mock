@@ -50,10 +50,15 @@ public class GeneratorTest {
                                 "xml/" + system + "/" + name + "/rs1.xml");
                         System.out.println(name + " part one Done!");
 
-                        testXSLTmock(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\"+system+"\\"+name+".xsl",
-                                dir + "\\..\\..\\src\\test\\resources\\xml\\"+system+"\\"+name+"\\rq2.xml",
-                                "xml/"+system+"/"+name+"/rs2.xml");
-                        System.out.println(name + " part two Done!");
+                        String secondRq = FileUtils.readFileToString(new File(dir + "\\..\\..\\src\\test\\resources\\xml\\"+system+"\\"+name+"\\rq2.xml"));
+
+                        if (secondRq.contains(">test1<")) { //проверяем второй запрос только если там содержится linked tag
+
+                            testXSLTmock(dir + "\\..\\..\\src\\main\\webapp\\WEB-INF\\xsl\\" + system + "\\" + name + ".xsl",
+                                    dir + "\\..\\..\\src\\test\\resources\\xml\\" + system + "\\" + name + "\\rq2.xml",
+                                    "xml/" + system + "/" + name + "/rs2.xml");
+                            System.out.println(name + " part two Done!");
+                        }
 
                         System.out.println();
                         System.out.println(name + " Mock Done!");
