@@ -4,29 +4,39 @@
       <SoapHeader>
          <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>SrvGetExchangeRates</operation-name>
+         <operation-name>getExchangeRatesRs</operation-name>
       </SoapHeader>
-      <dealID>string</dealID>
-      <errorCode>string</errorCode>
-      <errorMessage>string</errorMessage>
+      <dealID>String</dealID>
+      <errorCode>0</errorCode>
+      <errorMessage>Succes</errorMessage>
       <exchangeRates>
-         <currencyCode>string</currencyCode>
-         <currencyRate>1234567890</currencyRate>
-         <currencyDate>2015-05-26</currencyDate>
+         <currencyCode>RUB</currencyCode>
+         <currencyRate>46</currencyRate>
+         <currencyDate>2015-01-13</currencyDate>
+      </exchangeRates>
+      <exchangeRates>
+         <currencyCode>KZT</currencyCode>
+         <currencyRate>54</currencyRate>
+         <currencyDate>2015-01-12</currencyDate>
+      </exchangeRates>
+      <exchangeRates>
+         <currencyCode>BYR</currencyCode>
+         <currencyRate>36</currencyRate>
+         <currencyDate>2015-01-11</currencyDate>
       </exchangeRates>
    </response>
    <response name="test1">
       <SoapHeader>
          <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>SrvGetExchangeRates</operation-name>
+         <operation-name>getExchangeRatesRs</operation-name>
       </SoapHeader>
       <dealID>string</dealID>
       <errorCode>string</errorCode>
       <exchangeRates>
          <currencyCode>string</currencyCode>
          <currencyRate>1234567890</currencyRate>
-         <currencyDate>2015-05-26</currencyDate>
+         <currencyDate>2015-03-26</currencyDate>
       </exchangeRates>
    </response>
 </data>

@@ -4,16 +4,26 @@
       <SoapHeader>
          <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>SrvUpdateRating</operation-name>
+         <operation-name>correctRatingRs</operation-name>
       </SoapHeader>
       <return>
-         <errorCode>string</errorCode>
-         <errorMessage>string</errorMessage>
+         <errorCode>0</errorCode>
+         <errorMessage>Succes</errorMessage>
          <listOfAddParameter>
             <addParameter>
-               <order>10</order>
-               <name>string</name>
-               <value>string</value>
+               <order>1</order>
+               <name>Name</name>
+               <value>Value</value>
+            </addParameter>
+            <addParameter>
+               <order>1</order>
+               <name>Name</name>
+               <value>Value</value>
+            </addParameter>
+            <addParameter>
+               <order>1</order>
+               <name>Name</name>
+               <value>Value</value>
             </addParameter>
          </listOfAddParameter>
       </return>
@@ -22,7 +32,7 @@
       <SoapHeader>
          <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>SrvUpdateRating</operation-name>
+         <operation-name>correctRatingRs</operation-name>
       </SoapHeader>
       <return>
          <errorCode>string</errorCode>

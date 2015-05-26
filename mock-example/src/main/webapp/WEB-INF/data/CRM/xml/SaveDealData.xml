@@ -4,19 +4,19 @@
       <SoapHeader>
          <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>SaveCreditDealData</operation-name>
+         <operation-name>saveDealRs</operation-name>
       </SoapHeader>
       <operationStatus>
-         <errorCode>string</errorCode>
-         <errorMessage>string</errorMessage>
+         <errorCode>0</errorCode>
+         <errorMessage>errorMessage0</errorMessage>
       </operationStatus>
-      <dealID>string</dealID>
+      <dealID>Deal-ID-XX</dealID>
    </response>
    <response name="test1">
       <SoapHeader>
          <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>SaveCreditDealData</operation-name>
+         <operation-name>saveDealRs</operation-name>
       </SoapHeader>
       <operationStatus>
          <errorCode>string</errorCode>

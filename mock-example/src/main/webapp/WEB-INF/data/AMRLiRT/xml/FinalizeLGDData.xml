@@ -4,21 +4,11 @@
       <SoapHeader>
          <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>SrvFinalizeLGD</operation-name>
+         <operation-name>finalizeLGDRs</operation-name>
       </SoapHeader>
-      <errorCode>string</errorCode>
-      <errorMessage>string</errorMessage>
-      <crmId>string</crmId>
-      <type>string</type>
-   </response>
-   <response name="test1">
-      <SoapHeader>
-         <message-id>defaultId</message-id>
-         <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>SrvFinalizeLGD</operation-name>
-      </SoapHeader>
-      <errorCode>string</errorCode>
-      <crmId>string</crmId>
-      <type>string</type>
+      <errorCode>0</errorCode>
+      <errorMessage>Success</errorMessage>
+      <!--<crmId>***</crmId>-->
+      <!--<type>***</type>-->
    </response>
 </data>

@@ -4,17 +4,17 @@
       <SoapHeader>
          <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>SrvUpdateRating</operation-name>
+         <operation-name>updateRatingRs</operation-name>
       </SoapHeader>
-      <ratingId>string</ratingId>
-      <errorCode>string</errorCode>
-      <errorMessage>string</errorMessage>
+      <ratingId>ratingId</ratingId>
+      <errorCode>0</errorCode>
+      <errorMessage>Succes</errorMessage>
    </response>
    <response name="test1">
       <SoapHeader>
          <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>SrvUpdateRating</operation-name>
+         <operation-name>updateRatingRs</operation-name>
       </SoapHeader>
       <ratingId>string</ratingId>
       <errorCode>string</errorCode>
