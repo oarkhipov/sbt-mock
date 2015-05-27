@@ -122,7 +122,7 @@
     <channel id="DriverOutboundRequestExternalLogger"/>
     <channel id="DriverInboundResponseExternalLogger"/>
 
-    <!--<beans:bean id="messageLogger" class="ru.sbt.bpm.mock.spring.logging.MessageLogger"/>-->
+    <beans:bean id="messageLogger" class="ru.sbt.bpm.mock.spring.logging.impl.MessageLoggerImpl"/>
     <service-activator id="MockInboundRequestExternalLoggerActivator"
                        input-channel="MockInboundRequestExternalLogger"
                        expression="@messageLogger.logMessage(payload, inboundMockQueue.getObject())"/>
