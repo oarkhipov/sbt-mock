@@ -46,7 +46,7 @@
             <!--from 0 to unbounded elements --><!--testXsd import {Facility}--><tns:facilityNotSB><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/")--><!--optional--><!--testxsdStrMax--><tns:name>string</tns:name>
                <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/"--><tns:cd>10</tns:cd>
                <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/"--><tns:cdt>10</tns:cdt>
-               <!--optional--><!--testxsdDate--><tns:date>2015-05-26</tns:date>
+               <!--optional--><!--testxsdDate--><tns:date>2015-05-28</tns:date>
                <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/"--><tns:debtCurrencyRate>10</tns:debtCurrencyRate>
                <!--optional--><!--testxsdStrMax--><tns:debtCurrencyCode>string</tns:debtCurrencyCode>
             </tns:facilityNotSB>

@@ -1,65 +1,16 @@
 <soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
-    <soap:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
-        <soap:message-id>defaultId</soap:message-id>
-        <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
-        <soap:operation-name>GetParticipantsOfCreditDeal</soap:operation-name>
-    </soap:Header>
-    <soap:Body xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.12/"
-               xmlns:rsd="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.12/prtspRs/Data/"
-               xmlns:CRM="http://sbrf.ru/NCP/CRM/">
-        <CRM:prtspRs>
-            <tns:dealID>string</tns:dealID>
-            <tns:requestType/>
-            <tns:participantsGroup>
-                <tns:participants>
-                    <tns:participantID>string</tns:participantID>
-                    <tns:type>string</tns:type>
-                    <tns:isBorrower>false</tns:isBorrower>
-                    <tns:clientType/>
-                    <tns:name>string</tns:name>
-                    <tns:resident>false</tns:resident>
-                    <tns:consolidatedGroupID>string</tns:consolidatedGroupID>
-                    <tns:linkedBorrowersGroupID>string</tns:linkedBorrowersGroupID>
-                    <tns:industry>string</tns:industry>
-                    <tns:inn>string</tns:inn>
-                    <tns:reportingDate>2015-05-26</tns:reportingDate>
-                    <tns:rating>
-                        <tns:ratingID>string</tns:ratingID>
-                        <tns:ratingValue>99</tns:ratingValue>
-                        <tns:ratingType>string</tns:ratingType>
-                        <tns:ratingModel>string</tns:ratingModel>
-                        <tns:ratingCalculatedDate>2015-05-26</tns:ratingCalculatedDate>
-                        <tns:ratingCalculatedRole>string</tns:ratingCalculatedRole>
-                        <tns:ratingCalculatedBy>string</tns:ratingCalculatedBy>
-                        <tns:ratingApprovalDate>2015-05-26</tns:ratingApprovalDate>
-                        <tns:ratingApprovedBy>string</tns:ratingApprovedBy>
-                    </tns:rating>
-                </tns:participants>
-                <tns:groupType/>
-                <tns:groupInfo>
-                    <tns:id>string</tns:id>
-                    <tns:label>string</tns:label>
-                    <tns:status>string</tns:status>
-                    <tns:updateDate>2015-05-26T12:00:00</tns:updateDate>
-                    <tns:approvalDate>2015-05-26T12:00:00</tns:approvalDate>
-                    <tns:ratings>
-                        <tns:ratingID>string</tns:ratingID>
-                        <tns:ratingValue>99</tns:ratingValue>
-                        <tns:ratingType>string</tns:ratingType>
-                        <tns:ratingModel>string</tns:ratingModel>
-                        <tns:ratingCalculatedDate>2015-05-26</tns:ratingCalculatedDate>
-                        <tns:ratingCalculatedRole>string</tns:ratingCalculatedRole>
-                        <tns:ratingCalculatedBy>string</tns:ratingCalculatedBy>
-                        <tns:ratingApprovalDate>2015-05-26</tns:ratingApprovalDate>
-                        <tns:ratingApprovedBy>string</tns:ratingApprovedBy>
-                    </tns:ratings>
-                    <tns:topLevelGroupName>string</tns:topLevelGroupName>
-                </tns:groupInfo>
-            </tns:participantsGroup>
-            <tns:operationStatus>
-                <tns:errorCode>string</tns:errorCode>
-                <tns:errorMessage>string</tns:errorMessage>
-            </tns:operationStatus>
-        </CRM:prtspRs>
-    </soap:Body>
+   <soap:Header>
+      <soap:message-id>defaultId</soap:message-id>
+      <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
+      <soap:operation-name>GetParticipantsOfCreditDeal</soap:operation-name>
+   </soap:Header>
+   <soap:Body><!--complexType--><CRM:prtspRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+                   xmlns:tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.12/"><!--testXsd import {string15}--><tns:dealID><!--test6 15-->string</tns:dealID>
+         <!--not known elementType:{}--><tns:requestType/>
+         <!--testXsd import {ParticipantsGroup}--><tns:participantsGroup><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.12/")--><!--not known elementType:{}--><tns:groupType/>
+         </tns:participantsGroup>
+         <!--testXsd import {OperationStatus}--><tns:operationStatus><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/GetParticipantsRs/1.12/")--><!--testXsd import {string50}--><tns:errorCode><!--test6 50-->string</tns:errorCode>
+         </tns:operationStatus>
+      </CRM:prtspRs>
+   </soap:Body>
 </soap:Envelope>

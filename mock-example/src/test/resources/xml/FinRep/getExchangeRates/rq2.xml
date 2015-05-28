@@ -8,7 +8,7 @@
                                  xmlns:tns="http://sbrf.ru/NCP/FinRep/GetExchangeRatesRq/1.00/"><!--testXsd import {string15}--><tns:dealID><!--test6 15-->string</tns:dealID>
          <!--testXsd import {string3}--><tns:baseCurrencyCode><!--test6 3-->str</tns:baseCurrencyCode>
          <tns:currencyCode>test1</tns:currencyCode>
-         <!--testxsdDate--><tns:requestDate>2015-05-26</tns:requestDate>
+         <!--testxsdDate--><tns:requestDate>2015-05-28</tns:requestDate>
       </FinRep:getExchangeRatesRq>
    </soap:Body>
 </soap:Envelope>

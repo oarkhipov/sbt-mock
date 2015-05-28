@@ -35,10 +35,10 @@
                   <!--optional--><!--testxsdStrMax--><tns:valueIntegrationId>string</tns:valueIntegrationId>
                </tns:fixedFactor>
             </tns:listOfFixedFactor>
-            <!--testXsd import {ListOfRatingPeriod}--><tns:listOfRatingPeriod><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/")--><!--from 1 to unbounded elements --><!--testXsd import {RatingPeriod}--><tns:ratingPeriod><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/")--><!--optional--><!--testxsdDate--><tns:reportDate>2015-05-26</tns:reportDate>
+            <!--testXsd import {ListOfRatingPeriod}--><tns:listOfRatingPeriod><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/")--><!--from 1 to unbounded elements --><!--testXsd import {RatingPeriod}--><tns:ratingPeriod><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/")--><!--optional--><!--testxsdDate--><tns:reportDate>2015-05-28</tns:reportDate>
                   <!--optional--><!--testxsdStrMax--><tns:period>string</tns:period>
-                  <!--optional--><!--testxsdDate--><tns:startDate>2015-05-26</tns:startDate>
-                  <!--optional--><!--testxsdDate--><tns:endDate>2015-05-26</tns:endDate>
+                  <!--optional--><!--testxsdDate--><tns:startDate>2015-05-28</tns:startDate>
+                  <!--optional--><!--testxsdDate--><tns:endDate>2015-05-28</tns:endDate>
                   <!--optional--><!--testxsdStrMax--><tns:type>string</tns:type>
                   <!--optional--><!--testxsdStrMax--><tns:comments>string</tns:comments>
                   <!--testXsd import {ListOfCardinalFactor}--><tns:listOfCardinalFactor><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/")--><!--from 1 to unbounded elements --><!--testXsd import {CardinalFactor}--><tns:cardinalFactor><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/AMRLIRT/CalculateRatingRq/")--><!--testxsdStrMax--><tns:factor>string</tns:factor>

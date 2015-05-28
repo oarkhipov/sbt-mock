@@ -8,7 +8,7 @@
                               xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"><!--testxsdStrMax--><tns:errorCode>string</tns:errorCode>
          <!--testxsdString--><tns:crmId>string</tns:crmId>
          <!--testxsdStrMax--><tns:lgdType>string</tns:lgdType>
-         <!--testxsdDate--><tns:lgdDate>2015-05-26</tns:lgdDate>
+         <!--testxsdDate--><tns:lgdDate>2015-05-28</tns:lgdDate>
          <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:lgd>10</tns:lgd>
          <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:ead>10</tns:ead>
          <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:sum>10</tns:sum>

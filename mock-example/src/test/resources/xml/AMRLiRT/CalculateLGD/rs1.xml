@@ -9,7 +9,7 @@
          <!--optional--><!--testxsdStrMax--><tns:errorMessage>string</tns:errorMessage>
          <!--testxsdString--><tns:crmId>string</tns:crmId>
          <!--testxsdStrMax--><tns:lgdType>string</tns:lgdType>
-         <!--testxsdDate--><tns:lgdDate>2015-05-26</tns:lgdDate>
+         <!--testxsdDate--><tns:lgdDate>2015-05-28</tns:lgdDate>
          <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:pd>10</tns:pd>
          <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:lgd>10</tns:lgd>
          <!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRs/"--><tns:ead>10</tns:ead>

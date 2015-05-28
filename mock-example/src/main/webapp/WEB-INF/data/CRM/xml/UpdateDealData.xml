@@ -2,166 +2,168 @@
 <data xmlns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/updateDealRq/Data/">
    <request name="default">
       <SoapHeader>
-         <message-id>40114</message-id>
+         <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
-         <user-id>9074</user-id>
-         <user-name>User_9074</user-name>
+         <operation-name>UpdateCreditDealData</operation-name>
       </SoapHeader>
       <deal>
-         <dealID>dealID_1</dealID>
-         <contractID>contractID_1</contractID>
-         <dealCreationDate>2015-02-19T18:17:29.628+04:00</dealCreationDate>
-         <dealEssense>Продукт 1. Открытие ОАО «Ромашка» невозобновляемой кредитной линии для финансирования текущей деятельности (пополнения оборотных активов) сроком на 3 года.</dealEssense>
-         <requestPurpose>Повторное согласование решения</requestPurpose>
-         <dealType>DT10</dealType>
-         <dealStatus>Предварительное структурирование</dealStatus>
-         <requestDate>2015-02-19T18:17:29.629+04:00</requestDate>
-         <origOrgUnit>CustomerServices</origOrgUnit>
-         <origOrgDivision>BY</origOrgDivision>
-         <codeCBS>codeCBS</codeCBS>
-         <clientFileID>123</clientFileID>
-         <dealFileID>321</dealFileID>
-         <comment>Отправляю на обработку новую сделку</comment>
-         <collateralProvided>true</collateralProvided>
-         <limitKM>limitKM</limitKM>
+         <dealID>string</dealID>
+         <contractID>string</contractID>
+         <dealCreationDate>2015-05-28T12:00:00</dealCreationDate>
+         <dealEssense>string</dealEssense>
+         <requestPurpose>string</requestPurpose>
+         <dealType>string</dealType>
+         <dealStatus>string</dealStatus>
+         <requestDate>2015-05-28T12:00:00</requestDate>
+         <origOrgUnit>string</origOrgUnit>
+         <origOrgDivision>st</origOrgDivision>
+         <codeCBS>string</codeCBS>
+         <clientFileID>string</clientFileID>
+         <dealFileID>string</dealFileID>
+         <comment>string</comment>
+         <collateralProvided>false</collateralProvided>
+         <limitKM>string</limitKM>
+         <baseCurrency>str</baseCurrency>
          <dealTeamMembers>
-            <memberId>memberId</memberId>
-            <memberName>memberName</memberName>
-            <memberEmail>member@Email.com</memberEmail>
-            <memberRole>loanOfficer</memberRole>
+            <memberId>string</memberId>
+            <memberName>string</memberName>
+            <memberEmail>string</memberEmail>
+            <memberRole>string</memberRole>
          </dealTeamMembers>
          <products>
-            <productID>1000</productID>
-            <productName>BR_Overdraft</productName>
-            <category>1</category>
-            <productType>New</productType>
+            <productID>string</productID>
+            <projectID>string</projectID>
+            <productName>string</productName>
+            <category>string</category>
+            <productType/>
             <participantProductInfo>
-               <participantID>participantID</participantID>
-               <personType>NP</personType>
-               <participantType>Участник</participantType>
+               <participantID>string</participantID>
+               <personType/>
+               <participantType>string</participantType>
             </participantProductInfo>
             <productInfo>
-               <productVersion>Requested</productVersion>
-               <purpose>Главная цель - получить деньги</purpose>
-               <creditMode>BR_Loan</creditMode>
-               <selectionSchedule>S_None</selectionSchedule>
-               <changesSchedule>CS_None</changesSchedule>
-               <selectionSchedulePeriod>Квартал</selectionSchedulePeriod>
-               <changesSchedulePeriod>Месяц</changesSchedulePeriod>
-               <interestPaymentOrder>EveryMonth</interestPaymentOrder>
+               <productVersion>string</productVersion>
+               <purpose>string</purpose>
+               <creditMode>string</creditMode>
+               <selectionSchedule>string</selectionSchedule>
+               <changesSchedule>string</changesSchedule>
+               <selectionSchedulePeriod>string</selectionSchedulePeriod>
+               <changesSchedulePeriod>string</changesSchedulePeriod>
+               <interestPaymentOrder/>
+               <anotherInterestPaymentOrder>string</anotherInterestPaymentOrder>
                <refinancing>false</refinancing>
-               <suspensiveCondition>Заемщик изменил форму собственности</suspensiveCondition>
-               <principalBaseCurrency>32780.0</principalBaseCurrency>
+               <suspensiveCondition>string</suspensiveCondition>
+               <principalBaseCurrency>1234567890</principalBaseCurrency>
                <financingInfo>
-                  <interestRate>0.1</interestRate>
-                  <interestRateType>RT50</interestRateType>
-                  <interestRateOrder>ASC</interestRateOrder>
-                  <minRate>0.09</minRate>
-                  <currencyOfFunding>RUB</currencyOfFunding>
-                  <principal>1.0</principal>
+                  <interestRate>1234567890</interestRate>
+                  <interestRateType>string</interestRateType>
+                  <interestRateOrder>string</interestRateOrder>
+                  <minRate>1234567890</minRate>
+                  <currencyOfFunding>str</currencyOfFunding>
+                  <principal>1234567890</principal>
                </financingInfo>
-               <startDate>2015-02-19+04:00</startDate>
-               <creditTerm>30</creditTerm>
-               <period>4</period>
-               <gracePeriod>10</gracePeriod>
-               <repaymentSchedule>20</repaymentSchedule>
-               <turnover>20</turnover>
-               <covenants>обеспечить ведение обычной деловой деятельности
-                  обеспечить оплату налоговых обязательств</covenants>
-               <proposedCollateral>Самолет компании Ту-154</proposedCollateral>
-               <debtLimit>100000</debtLimit>
-               <pledgeInsurance>Страхование от хищения</pledgeInsurance>
-               <customerProspects>Перспективный клиент</customerProspects>
-               <financingTerm>321</financingTerm>
-               <firstCountry>Российская Федерация</firstCountry>
-               <lastCountry>Российская Федерация</lastCountry>
+               <startDate>2015-05-28</startDate>
+               <creditTerm>99999</creditTerm>
+               <period>99999</period>
+               <gracePeriod>99999</gracePeriod>
+               <repaymentSchedule>string</repaymentSchedule>
+               <turnover>99999</turnover>
+               <covenants>string</covenants>
+               <proposedCollateral>string</proposedCollateral>
+               <debtLimit>string</debtLimit>
+               <pledgeInsurance>string</pledgeInsurance>
+               <customerProspects>string</customerProspects>
+               <financingTerm>999</financingTerm>
+               <firstCountry>string</firstCountry>
+               <lastCountry>string</lastCountry>
                <fee>
-                  <feeName>C10</feeName>
-                  <anotherFeeName>anotherFeeName</anotherFeeName>
-                  <calculationBase>calculationBase</calculationBase>
-                  <paymentOrder>paymentOrder</paymentOrder>
+                  <feeName>string</feeName>
+                  <anotherFeeName>string</anotherFeeName>
+                  <calculationBase>string</calculationBase>
+                  <paymentOrder>string</paymentOrder>
                </fee>
                <repaymentScheduleDetails>
-                  <sheduleDate>2015-02-19+04:00</sheduleDate>
-                  <sheduleAmount>1234.556</sheduleAmount>
+                  <sheduleDate>2015-05-28</sheduleDate>
+                  <sheduleAmount>1234567890</sheduleAmount>
                </repaymentScheduleDetails>
                <selectionScheduleDetails>
-                  <sheduleDate>2015-02-19+04:00</sheduleDate>
-                  <sheduleAmount>1234.556</sheduleAmount>
+                  <sheduleDate>2015-05-28</sheduleDate>
+                  <sheduleAmount>1234567890</sheduleAmount>
                </selectionScheduleDetails>
                <changesScheduleDetails>
-                  <sheduleDate>2015-02-19+04:00</sheduleDate>
-                  <sheduleAmount>1234.556</sheduleAmount>
+                  <sheduleDate>2015-05-28</sheduleDate>
+                  <sheduleAmount>1234567890</sheduleAmount>
                </changesScheduleDetails>
-               <unutilizedLimit>1.0</unutilizedLimit>
-               <correctedUnutilizedLimit>1.0</correctedUnutilizedLimit>
+               <unutilizedLimit>1234567890</unutilizedLimit>
+               <correctedUnutilizedLimit>1234567890</correctedUnutilizedLimit>
+               <comment>string</comment>
             </productInfo>
             <collateral>
-               <collateralID>collateralID</collateralID>
-               <collateralType>BR_Vehicles</collateralType>
-               <ownerID>0</ownerID>
-               <isLegalPerson>true</isLegalPerson>
-               <estimatedValue>0.0</estimatedValue>
-               <discountRate>12.3</discountRate>
-               <estimatedValueCorrected>100.0</estimatedValueCorrected>
-               <qualityCategory>basic</qualityCategory>
-               <daysForCalculation>20</daysForCalculation>
-               <estimatedValueCorrectedToEAD>98.0</estimatedValueCorrectedToEAD>
-               <estimatedValueSource>BR_Int_Appraiser</estimatedValueSource>
-               <estimationDate>2015-02-19+04:00</estimationDate>
-               <businessMeaning>BR_Prof_Key</businessMeaning>
-               <qualityAndLiquidityEstimation>BR_High</qualityAndLiquidityEstimation>
-               <currency>RUB</currency>
-               <estimatedValueType>BR_Balance</estimatedValueType>
+               <collateralID>string</collateralID>
+               <collateralType>string</collateralType>
+               <ownerID>string</ownerID>
+               <isLegalPerson>false</isLegalPerson>
+               <estimatedValue>1234567890</estimatedValue>
+               <discountRate>1234567890</discountRate>
+               <estimatedValueCorrected>1234567890</estimatedValueCorrected>
+               <qualityCategory>string</qualityCategory>
+               <daysForCalculation>999</daysForCalculation>
+               <estimatedValueCorrectedToEAD>1234567890</estimatedValueCorrectedToEAD>
+               <estimatedValueSource>string</estimatedValueSource>
+               <estimationDate>2015-05-28</estimationDate>
+               <businessMeaning>string</businessMeaning>
+               <qualityAndLiquidityEstimation>string</qualityAndLiquidityEstimation>
+               <currency>string</currency>
+               <estimatedValueType>string</estimatedValueType>
             </collateral>
             <losses>
-               <percentLGD>80.89</percentLGD>
-               <countEAD>1000.23</countEAD>
-               <currency>RUB</currency>
-               <reportDateAmount>1000000.33451</reportDateAmount>
-               <lossELpercent>20.45</lossELpercent>
-               <lossELcount>500.231</lossELcount>
-               <typeLGD>По продукту</typeLGD>
-               <statusLGD>Подтвержденный расчет</statusLGD>
-               <dateLGDcalculated>2015-02-19+04:00</dateLGDcalculated>
-               <finalizationDate>2015-02-19+04:00</finalizationDate>
-               <comment>Просто комментарий про LGD</comment>
+               <percentLGD>1234567890</percentLGD>
+               <countEAD>1234567890</countEAD>
+               <currency>string</currency>
+               <reportDateAmount>1234567890</reportDateAmount>
+               <lossELpercent>1234567890</lossELpercent>
+               <lossELcount>1234567890</lossELcount>
+               <typeLGD>string</typeLGD>
+               <statusLGD>string</statusLGD>
+               <dateLGDcalculated>2015-05-28</dateLGDcalculated>
+               <finalizationDate>2015-05-28</finalizationDate>
+               <comment>string</comment>
             </losses>
          </products>
          <project>
-            <projectID>1</projectID>
-            <projectName>Проект Fox</projectName>
-            <indicatorsOfConstruction>1645.34</indicatorsOfConstruction>
-            <parcel>7 соток</parcel>
-            <documentsPresence>0</documentsPresence>
-            <equityVolume>100000</equityVolume>
-            <fundingDirection>fundingDirection_1</fundingDirection>
+            <projectID>string</projectID>
+            <projectName>string</projectName>
+            <indicatorsOfConstruction>string</indicatorsOfConstruction>
+            <parcel>string</parcel>
+            <documentsPresence>string</documentsPresence>
+            <equityVolume>string</equityVolume>
+            <fundingDirection>string</fundingDirection>
             <projectRating>
-               <ratingID>123456</ratingID>
-               <ratingValue>12</ratingValue>
-               <ratingType>2</ratingType>
-               <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2015-02-19+04:00</ratingCalculatedDate>
-               <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
-               <ratingCalculatedBy>ratingCalculatedBy_1</ratingCalculatedBy>
-               <ratingApprovalDate>2015-02-19+04:00</ratingApprovalDate>
-               <ratingApprovedBy>ratingApprovedBy_1</ratingApprovedBy>
+               <ratingID>string</ratingID>
+               <ratingValue>999</ratingValue>
+               <ratingType>string</ratingType>
+               <ratingModel>string</ratingModel>
+               <ratingCalculatedDate>2015-05-28</ratingCalculatedDate>
+               <ratingCalculatedRole>string</ratingCalculatedRole>
+               <ratingCalculatedBy>string</ratingCalculatedBy>
+               <ratingApprovalDate>2015-05-28</ratingApprovalDate>
+               <ratingApprovedBy>string</ratingApprovedBy>
             </projectRating>
          </project>
          <stopFactors>
-            <stopFactorID>stopFactorId</stopFactorID>
-            <stopFactorName>SF10</stopFactorName>
-            <stopFactorComment>stopFactorComment</stopFactorComment>
-            <stopFactorArgument>stopFactorArgument</stopFactorArgument>
+            <stopFactorID>string</stopFactorID>
+            <stopFactorName>string</stopFactorName>
+            <stopFactorComment>string</stopFactorComment>
+            <stopFactorArgument>string</stopFactorArgument>
          </stopFactors>
          <problemCriterias>
-            <problemCriteriaID>pcId</problemCriteriaID>
-            <problemCriteriaName>PC10</problemCriteriaName>
-            <creditJustification>creditJustification</creditJustification>
-            <problemProductName>BR_Overdraft</problemProductName>
-            <problemProductAmount>100000.0</problemProductAmount>
-            <problemProductCurrency>RUB</problemProductCurrency>
-            <problemProductTerm>0</problemProductTerm>
+            <problemCriteriaID>string</problemCriteriaID>
+            <problemCriteriaName>string</problemCriteriaName>
+            <creditJustification>string</creditJustification>
+            <problemProductName>string</problemProductName>
+            <problemProductAmount>1234567890</problemProductAmount>
+            <problemProductCurrency>str</problemProductCurrency>
+            <problemProductTerm>9999999999</problemProductTerm>
          </problemCriterias>
       </deal>
    </request>
@@ -169,16 +171,16 @@
       <SoapHeader>
          <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>updateDealRq</operation-name>
+         <operation-name>UpdateCreditDealData</operation-name>
       </SoapHeader>
       <deal>
          <dealID>string</dealID>
-         <dealCreationDate>2015-03-26T12:00:00</dealCreationDate>
+         <dealCreationDate>2015-05-28T12:00:00</dealCreationDate>
          <dealEssense>string</dealEssense>
          <requestPurpose>string</requestPurpose>
          <dealType>string</dealType>
          <dealStatus>string</dealStatus>
-         <requestDate>2015-03-26T12:00:00</requestDate>
+         <requestDate>2015-05-28T12:00:00</requestDate>
          <origOrgUnit>string</origOrgUnit>
          <origOrgDivision>st</origOrgDivision>
          <codeCBS>string</codeCBS>

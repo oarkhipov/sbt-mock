@@ -1,20 +1,16 @@
 <soap:Envelope xmlns:soap="http://sbrf.ru/NCP/esb/envelope/">
-    <soap:Header xmlns:rsd="http://sbrf.ru/NCP/CRM/ForceSignalRq/1.03/Data/">
-        <soap:message-id>defaultId</soap:message-id>
-        <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
-        <soap:operation-name>CreateTaskClientService</soap:operation-name>
-    </soap:Header>
-    <soap:Body xmlns:tns="http://sbrf.ru/NCP/CRM/CreateTaskRs/1.04/"
-               xmlns:rsd="http://sbrf.ru/NCP/CRM/CreateTaskRs/1.04/createTaskRs/Data/"
-               xmlns:CRM="http://sbrf.ru/NCP/CRM/">
-        <CRM:createTaskRs>
-            <tns:dealID>string</tns:dealID>
-            <tns:dealBPMID>string</tns:dealBPMID>
-            <tns:comment>string</tns:comment>
-            <tns:requestType>string</tns:requestType>
-            <tns:responsiblePersonID>string</tns:responsiblePersonID>
-            <tns:errorCode>string</tns:errorCode>
-            <tns:errorMessage>string</tns:errorMessage>
-        </CRM:createTaskRs>
-    </soap:Body>
+   <soap:Header>
+      <soap:message-id>defaultId</soap:message-id>
+      <soap:request-time>2014-12-16T17:55:06.410</soap:request-time>
+      <soap:operation-name>CreateTaskClientService</soap:operation-name>
+   </soap:Header>
+   <soap:Body><!--complexType--><CRM:createTaskRs xmlns:CRM="http://sbrf.ru/NCP/CRM/"
+                        xmlns:tns="http://sbrf.ru/NCP/CRM/CreateTaskRs/1.04/"><!--testXsd import {string15}--><tns:dealID><!--test6 15-->string</tns:dealID>
+         <!--testXsd import {string255}--><tns:dealBPMID><!--test6 255-->string</tns:dealBPMID>
+         <!--testXsd import {string255}--><tns:comment><!--test6 255-->string</tns:comment>
+         <!--testXsd import {string50}--><tns:requestType><!--test6 50-->string</tns:requestType>
+         <!--testXsd import {string255}--><tns:responsiblePersonID><!--test6 255-->string</tns:responsiblePersonID>
+         <!--testXsd import {string50}--><tns:errorCode><!--test6 50-->string</tns:errorCode>
+      </CRM:createTaskRs>
+   </soap:Body>
 </soap:Envelope>

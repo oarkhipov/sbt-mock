@@ -6,12 +6,12 @@
    </soap:Header>
    <soap:Body><!--complexType--><CRM:updateDealRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                         xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/"><!--testXsd import {Deal}--><tns:deal><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testXsd import {string15}--><tns:dealID><!--test6 15-->string</tns:dealID>
-            <!--testxsdDateTime--><tns:dealCreationDate>2015-05-26T12:00:00</tns:dealCreationDate>
+            <!--testxsdDateTime--><tns:dealCreationDate>2015-05-28T12:00:00</tns:dealCreationDate>
             <!--testXsd import {string255}--><tns:dealEssense><!--test6 255-->string</tns:dealEssense>
             <!--testXsd import {string255}--><tns:requestPurpose><!--test6 255-->string</tns:requestPurpose>
             <!--testXsd import {string255}--><tns:dealType><!--test6 255-->string</tns:dealType>
             <!--testXsd import {string255}--><tns:dealStatus><!--test6 255-->string</tns:dealStatus>
-            <!--testxsdDateTime--><tns:requestDate>2015-05-26T12:00:00</tns:requestDate>
+            <!--testxsdDateTime--><tns:requestDate>2015-05-28T12:00:00</tns:requestDate>
             <!--testXsd import {string255}--><tns:origOrgUnit><!--test6 255-->string</tns:origOrgUnit>
             <!--testXsd import {string2}--><tns:origOrgDivision><!--test6 2-->st</tns:origOrgDivision>
             <!--testXsd import {string255}--><tns:codeCBS><!--test6 255-->string</tns:codeCBS>

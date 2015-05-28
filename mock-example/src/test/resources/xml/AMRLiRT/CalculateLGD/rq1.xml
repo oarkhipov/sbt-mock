@@ -8,7 +8,7 @@
                               xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"><!--testxsdStrMax--><tns:productType>string</tns:productType>
          <!--testxsdStrMax--><tns:product>string</tns:product>
          <!--testxsdStrMax--><tns:agrNum>string</tns:agrNum>
-         <!--testxsdDate--><tns:agrDate>2015-05-26</tns:agrDate>
+         <!--testxsdDate--><tns:agrDate>2015-05-28</tns:agrDate>
          <!--testxsdStrMax--><tns:lgdType>string</tns:lgdType>
          <!--testxsdStrMax--><tns:crmId>string</tns:crmId>
          <!--optional--><!--testxsdStrMax--><tns:comment>string</tns:comment>
@@ -16,7 +16,7 @@
          <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"--><tns:rate>10</tns:rate>
          <!--optional--><!--testxsdStrMax--><tns:loanMode>string</tns:loanMode>
          <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"--><tns:loanSum>10</tns:loanSum>
-         <!--optional--><!--testxsdDate--><tns:agrEndDate>2015-05-26</tns:agrEndDate>
+         <!--optional--><!--testxsdDate--><tns:agrEndDate>2015-05-28</tns:agrEndDate>
          <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"--><tns:rating>10</tns:rating>
          <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"--><tns:limit>10</tns:limit>
          <!--testxsdStrMax--><tns:model>string</tns:model>
@@ -38,7 +38,7 @@
                <!--testxsdStrMax--><tns:businessValue>string</tns:businessValue>
                <!--testxsdStrMax--><tns:expertRate>string</tns:expertRate>
                <!--optional--><!--testxsdStrMax--><tns:portfSize>string</tns:portfSize>
-               <!--testxsdDate--><tns:assessmentDate>2015-05-26</tns:assessmentDate>
+               <!--testxsdDate--><tns:assessmentDate>2015-05-28</tns:assessmentDate>
                <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"--><tns:pdRate>10</tns:pdRate>
             </tns:collateral>
          </tns:listOfCollateral>

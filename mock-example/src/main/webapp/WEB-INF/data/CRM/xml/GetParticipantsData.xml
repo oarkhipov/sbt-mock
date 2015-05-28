@@ -4,379 +4,74 @@
       <SoapHeader>
          <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>prtspRs</operation-name>
+         <operation-name>GetParticipantsOfCreditDeal</operation-name>
       </SoapHeader>
-      <dealID>Deal_01</dealID>
-      <requestType>getDealParticipants</requestType>
+      <dealID>string</dealID>
+      <requestType/>
       <participantsGroup>
          <participants>
-            <participantID>ID-0</participantID>
-            <type>70</type>
-            <isBorrower>true</isBorrower>
-            <clientType>NP</clientType>
-            <name>Borrower</name>
-            <resident>true</resident>
-            <consolidatedGroupID>CG_ID1</consolidatedGroupID>
-            <linkedBorrowersGroupID>LBG_ID1</linkedBorrowersGroupID>
-            <industry>1000</industry>
-            <inn>123456789012</inn>
-            <rating>
-               <ratingID>RatingID</ratingID>
-               <ratingValue>8</ratingValue>
-               <ratingType>2</ratingType>
-               <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-19</ratingCalculatedDate>
-               <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
-               <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-09-19</ratingApprovalDate>
-               <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
-            </rating>
-            <rating>
-               <ratingID>RatingID</ratingID>
-               <ratingValue>10</ratingValue>
-               <ratingType>2</ratingType>
-               <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-19</ratingCalculatedDate>
-               <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
-               <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-09-19</ratingApprovalDate>
-               <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
-            </rating>
-         </participants>
-         <groupType>DealParticipats</groupType>
-         <groupInfo>
-            <id>GRI-1</id>
-            <label>Some group info</label>
-            <status>agreed</status>
-            <updateDate>2013-12-19T17:50:34.980</updateDate>
-            <approvalDate>2014-07-19T17:50:34.968</approvalDate>
-            <ratings>
-               <ratingID>RatingID</ratingID>
-               <ratingValue>21</ratingValue>
-               <ratingType>2</ratingType>
-               <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-19</ratingCalculatedDate>
-               <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
-               <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-05-19</ratingApprovalDate>
-               <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
-            </ratings>
-            <topLevelGroupName>Some top level group name</topLevelGroupName>
-         </groupInfo>
-      </participantsGroup>
-      <operationStatus>
-         <errorCode>0</errorCode>
-         <errorMessage>No error</errorMessage>
-      </operationStatus>
-   </response>
-   <response name="getBorrower">
-      <SoapHeader>
-         <message-id>defaultId</message-id>
-         <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>prtspRs</operation-name>
-      </SoapHeader>
-      <dealID>Deal_01</dealID>
-      <requestType>getCG</requestType>
-      <participantsGroup>
-         <participants>
-            <participantID>ID-0</participantID>
-            <type>70</type>
-            <isBorrower>true</isBorrower>
-            <clientType>NP</clientType>
-            <name>Borrower</name>
-            <resident>true</resident>
-            <consolidatedGroupID>CG_ID1</consolidatedGroupID>
-            <linkedBorrowersGroupID>LBG_ID1</linkedBorrowersGroupID>
-            <industry>1000</industry>
-            <inn>123456789012</inn>
-            <rating>
-               <ratingID>RatingID</ratingID>
-               <ratingValue>8</ratingValue>
-               <ratingType>2</ratingType>
-               <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-19</ratingCalculatedDate>
-               <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
-               <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-09-19</ratingApprovalDate>
-               <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
-            </rating>
-            <rating>
-               <ratingID>RatingID</ratingID>
-               <ratingValue>10</ratingValue>
-               <ratingType>2</ratingType>
-               <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-19</ratingCalculatedDate>
-               <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
-               <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-09-19</ratingApprovalDate>
-               <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
-            </rating>
-         </participants>
-         <groupType>DealParticipats</groupType>
-         <groupInfo>
-            <id>GRI-1</id>
-            <label>Some group info</label>
-            <status>agreed</status>
-            <updateDate>2013-12-19T17:50:34.980</updateDate>
-            <approvalDate>2014-07-19T17:50:34.968</approvalDate>
-            <ratings>
-               <ratingID>RatingID</ratingID>
-               <ratingValue>21</ratingValue>
-               <ratingType>2</ratingType>
-               <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-19</ratingCalculatedDate>
-               <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
-               <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-05-19</ratingApprovalDate>
-               <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
-            </ratings>
-            <topLevelGroupName>Some top level group name</topLevelGroupName>
-         </groupInfo>
-      </participantsGroup>
-      <operationStatus>
-         <errorCode>0</errorCode>
-         <errorMessage>No error</errorMessage>
-      </operationStatus>
-   </response>
-   <response name="getDealParticipants">
-      <SoapHeader>
-         <message-id>defaultId</message-id>
-         <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>prtspRs</operation-name>
-      </SoapHeader>
-      <dealID>Deal_01</dealID>
-      <requestType>getBorrower</requestType>
-      <participantsGroup>
-         <participants>
-            <participantID>ID-0</participantID>
-            <type>70</type>
-            <isBorrower>true</isBorrower>
-            <clientType>NP</clientType>
-            <name>Borrower</name>
-            <resident>true</resident>
-            <consolidatedGroupID>CG_ID1</consolidatedGroupID>
-            <linkedBorrowersGroupID>LBG_ID1</linkedBorrowersGroupID>
-            <industry>1000</industry>
-            <inn>123456789012</inn>
-            <rating>
-               <ratingID>RatingID</ratingID>
-               <ratingValue>9</ratingValue>
-               <ratingType>2</ratingType>
-               <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-26</ratingCalculatedDate>
-               <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
-               <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-09-26</ratingApprovalDate>
-               <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
-            </rating>
-            <rating>
-               <ratingID>RatingID</ratingID>
-               <ratingValue>8</ratingValue>
-               <ratingType>2</ratingType>
-               <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-26</ratingCalculatedDate>
-               <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
-               <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-12-26</ratingApprovalDate>
-               <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
-            </rating>
-         </participants>
-         <participants>
-            <participantID>ID-1</participantID>
-            <type>70</type>
+            <participantID>string</participantID>
+            <type>string</type>
             <isBorrower>false</isBorrower>
-            <clientType>NP</clientType>
-            <name>Participant1</name>
-            <resident>true</resident>
-            <consolidatedGroupID>CG_ID1</consolidatedGroupID>
-            <linkedBorrowersGroupID>LBG_ID1</linkedBorrowersGroupID>
-            <industry>1000</industry>
-            <inn>123456789012</inn>
+            <clientType/>
+            <name>string</name>
+            <resident>false</resident>
+            <consolidatedGroupID>string</consolidatedGroupID>
+            <linkedBorrowersGroupID>string</linkedBorrowersGroupID>
+            <industry>string</industry>
+            <inn>string</inn>
+            <reportingDate>2015-05-28</reportingDate>
             <rating>
-               <ratingID>RatingID</ratingID>
-               <ratingValue>5</ratingValue>
-               <ratingType>2</ratingType>
-               <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-26</ratingCalculatedDate>
-               <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
-               <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-03-26</ratingApprovalDate>
-               <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
-            </rating>
-            <rating>
-               <ratingID>RatingID</ratingID>
-               <ratingValue>16</ratingValue>
-               <ratingType>2</ratingType>
-               <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-26</ratingCalculatedDate>
-               <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
-               <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-11-26</ratingApprovalDate>
-               <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
+               <ratingID>string</ratingID>
+               <ratingValue>99</ratingValue>
+               <ratingType>string</ratingType>
+               <ratingModel>string</ratingModel>
+               <ratingCalculatedDate>2015-05-28</ratingCalculatedDate>
+               <ratingCalculatedRole>string</ratingCalculatedRole>
+               <ratingCalculatedBy>string</ratingCalculatedBy>
+               <ratingApprovalDate>2015-05-28</ratingApprovalDate>
+               <ratingApprovedBy>string</ratingApprovedBy>
             </rating>
          </participants>
-         <participants>
-            <participantID>ID-2</participantID>
-            <type>50</type>
-            <isBorrower>false</isBorrower>
-            <clientType>NP</clientType>
-            <name>Participant2</name>
-            <resident>true</resident>
-            <consolidatedGroupID>CG_ID1</consolidatedGroupID>
-            <linkedBorrowersGroupID>LBG_ID2</linkedBorrowersGroupID>
-            <industry>1000</industry>
-            <inn>123456789012</inn>
-            <rating>
-               <ratingID>RatingID</ratingID>
-               <ratingValue>1</ratingValue>
-               <ratingType>2</ratingType>
-               <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-26</ratingCalculatedDate>
-               <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
-               <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-03-26</ratingApprovalDate>
-               <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
-            </rating>
-            <rating>
-               <ratingID>RatingID</ratingID>
-               <ratingValue>14</ratingValue>
-               <ratingType>2</ratingType>
-               <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-26</ratingCalculatedDate>
-               <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
-               <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-03-26</ratingApprovalDate>
-               <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
-            </rating>
-         </participants>
-         <participants>
-            <participantID>ID-3</participantID>
-            <type>50</type>
-            <isBorrower>false</isBorrower>
-            <clientType>NP</clientType>
-            <name>Participant3</name>
-            <resident>true</resident>
-            <consolidatedGroupID>CG_ID1</consolidatedGroupID>
-            <linkedBorrowersGroupID>LBG_ID2</linkedBorrowersGroupID>
-            <industry>1000</industry>
-            <inn>098765432123</inn>
-            <rating>
-               <ratingID>RatingID</ratingID>
-               <ratingValue>13</ratingValue>
-               <ratingType>2</ratingType>
-               <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-26</ratingCalculatedDate>
-               <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
-               <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-03-26</ratingApprovalDate>
-               <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
-            </rating>
-            <rating>
-               <ratingID>RatingID</ratingID>
-               <ratingValue>19</ratingValue>
-               <ratingType>2</ratingType>
-               <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-26</ratingCalculatedDate>
-               <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
-               <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-11-26</ratingApprovalDate>
-               <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
-            </rating>
-         </participants>
-         <groupType>DealParticipats</groupType>
+         <groupType/>
          <groupInfo>
-            <id>GRI-1</id>
-            <label>Some group info</label>
-            <status>agreed</status>
-            <updateDate>2013-12-26T14:42:15.346</updateDate>
-            <approvalDate>2015-01-26T14:42:15.337</approvalDate>
+            <id>string</id>
+            <label>string</label>
+            <status>string</status>
+            <updateDate>2015-05-28T12:00:00</updateDate>
+            <approvalDate>2015-05-28T12:00:00</approvalDate>
             <ratings>
-               <ratingID>RatingID</ratingID>
-               <ratingValue>23</ratingValue>
-               <ratingType>2</ratingType>
-               <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-26</ratingCalculatedDate>
-               <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
-               <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-06-26</ratingApprovalDate>
-               <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
+               <ratingID>string</ratingID>
+               <ratingValue>99</ratingValue>
+               <ratingType>string</ratingType>
+               <ratingModel>string</ratingModel>
+               <ratingCalculatedDate>2015-05-28</ratingCalculatedDate>
+               <ratingCalculatedRole>string</ratingCalculatedRole>
+               <ratingCalculatedBy>string</ratingCalculatedBy>
+               <ratingApprovalDate>2015-05-28</ratingApprovalDate>
+               <ratingApprovedBy>string</ratingApprovedBy>
             </ratings>
-            <topLevelGroupName>Some top level group name</topLevelGroupName>
+            <topLevelGroupName>string</topLevelGroupName>
          </groupInfo>
       </participantsGroup>
       <operationStatus>
-         <errorCode>0</errorCode>
-         <errorMessage>No error</errorMessage>
+         <errorCode>string</errorCode>
+         <errorMessage>string</errorMessage>
       </operationStatus>
    </response>
-   <response name="getCG">
+   <response name="test1">
       <SoapHeader>
          <message-id>defaultId</message-id>
          <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>prtspRs</operation-name>
+         <operation-name>GetParticipantsOfCreditDeal</operation-name>
       </SoapHeader>
-      <dealID>Deal_01</dealID>
-      <requestType>getLBG</requestType>
+      <dealID>string</dealID>
+      <requestType/>
       <participantsGroup>
-         <groupType>CG</groupType>
-         <groupInfo>
-            <id>GRI-1</id>
-            <label>Some group info</label>
-            <status>agreed</status>
-            <updateDate>2014-11-20T14:50:32.008</updateDate>
-            <approvalDate>2014-01-20T14:50:32.007</approvalDate>
-            <ratings>
-               <ratingID>RatingID</ratingID>
-               <ratingValue>20</ratingValue>
-               <ratingType>2</ratingType>
-               <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-20</ratingCalculatedDate>
-               <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
-               <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-08-20</ratingApprovalDate>
-               <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
-            </ratings>
-            <topLevelGroupName>Some top level group name</topLevelGroupName>
-         </groupInfo>
+         <groupType/>
       </participantsGroup>
       <operationStatus>
-         <errorCode>0</errorCode>
-         <errorMessage>No error</errorMessage>
-      </operationStatus>
-   </response>
-   <response name="getLBG">
-      <SoapHeader>
-         <message-id>defaultId</message-id>
-         <request-time>2014-12-16T17:55:06.410</request-time>
-         <operation-name>prtspRs</operation-name>
-      </SoapHeader>
-      <dealID>Deal_01</dealID>
-      <requestType>getLBG</requestType>
-      <participantsGroup>
-         <groupType>LBG</groupType>
-         <groupInfo>
-            <id>GRI-1</id>
-            <label>Some group info</label>
-            <status>agreed</status>
-            <updateDate>2013-11-20T14:50:32.017</updateDate>
-            <approvalDate>2014-03-20T14:50:32.016</approvalDate>
-            <ratings>
-               <ratingID>RatingID</ratingID>
-               <ratingValue>25</ratingValue>
-               <ratingType>2</ratingType>
-               <ratingModel>B_CC</ratingModel>
-               <ratingCalculatedDate>2013-02-20</ratingCalculatedDate>
-               <ratingCalculatedRole>loanOfficer</ratingCalculatedRole>
-               <ratingCalculatedBy>ratingCalculatedBy</ratingCalculatedBy>
-               <ratingApprovalDate>2013-08-20</ratingApprovalDate>
-               <ratingApprovedBy>ratingApprovedBy</ratingApprovedBy>
-            </ratings>
-            <topLevelGroupName>Some top level group name</topLevelGroupName>
-         </groupInfo>
-      </participantsGroup>
-      <operationStatus>
-         <errorCode>0</errorCode>
-         <errorMessage>No error</errorMessage>
+         <errorCode>string</errorCode>
       </operationStatus>
    </response>
 </data>

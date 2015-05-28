@@ -8,7 +8,7 @@
                               xmlns:tns="http://sbrf.ru/NCP/AMRLIRT/CalculateLGDRq/"><!--testxsdStrMax--><tns:productType>string</tns:productType>
          <!--testxsdStrMax--><tns:product>string</tns:product>
          <!--testxsdStrMax--><tns:agrNum>string</tns:agrNum>
-         <!--testxsdDate--><tns:agrDate>2015-05-26</tns:agrDate>
+         <!--testxsdDate--><tns:agrDate>2015-05-28</tns:agrDate>
          <!--testxsdStrMax--><tns:lgdType>string</tns:lgdType>
          <!--testxsdStrMax--><tns:crmId>string</tns:crmId>
          <tns:comment>test1</tns:comment>

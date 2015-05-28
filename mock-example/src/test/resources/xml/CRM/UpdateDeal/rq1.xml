@@ -7,12 +7,12 @@
    <soap:Body><!--complexType--><CRM:updateDealRq xmlns:CRM="http://sbrf.ru/NCP/CRM/"
                         xmlns:tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/"><!--testXsd import {Deal}--><tns:deal><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testXsd import {string15}--><tns:dealID><!--test6 15-->string</tns:dealID>
             <!--optional--><!--testXsd import {string15}--><tns:contractID><!--test6 15-->string</tns:contractID>
-            <!--testxsdDateTime--><tns:dealCreationDate>2015-05-26T12:00:00</tns:dealCreationDate>
+            <!--testxsdDateTime--><tns:dealCreationDate>2015-05-28T12:00:00</tns:dealCreationDate>
             <!--testXsd import {string255}--><tns:dealEssense><!--test6 255-->string</tns:dealEssense>
             <!--testXsd import {string255}--><tns:requestPurpose><!--test6 255-->string</tns:requestPurpose>
             <!--testXsd import {string255}--><tns:dealType><!--test6 255-->string</tns:dealType>
             <!--testXsd import {string255}--><tns:dealStatus><!--test6 255-->string</tns:dealStatus>
-            <!--testxsdDateTime--><tns:requestDate>2015-05-26T12:00:00</tns:requestDate>
+            <!--testxsdDateTime--><tns:requestDate>2015-05-28T12:00:00</tns:requestDate>
             <!--testXsd import {string255}--><tns:origOrgUnit><!--test6 255-->string</tns:origOrgUnit>
             <!--testXsd import {string2}--><tns:origOrgDivision><!--test6 2-->st</tns:origOrgDivision>
             <!--testXsd import {string255}--><tns:codeCBS><!--test6 255-->string</tns:codeCBS>
@@ -55,7 +55,7 @@
                      <!--testXsd import {string3}--><tns:currencyOfFunding><!--test6 3-->str</tns:currencyOfFunding>
                      <!--testXsd import {double17_5}--><tns:principal><!--test6-->1234567890</tns:principal>
                   </tns:financingInfo>
-                  <!--optional--><!--testxsdDate--><tns:startDate>2015-05-26</tns:startDate>
+                  <!--optional--><!--testxsdDate--><tns:startDate>2015-05-28</tns:startDate>
                   <!--testXsd import {integer5}--><tns:creditTerm><!--test6-->99999</tns:creditTerm>
                   <!--testXsd import {integer5}--><tns:period><!--test6-->99999</tns:period>
                   <!--optional--><!--testXsd import {integer5}--><tns:gracePeriod><!--test6-->99999</tns:gracePeriod>
@@ -74,13 +74,13 @@
                      <!--optional--><!--testXsd import {string255}--><tns:calculationBase><!--test6 255-->string</tns:calculationBase>
                      <!--optional--><!--testXsd import {string255}--><tns:paymentOrder><!--test6 255-->string</tns:paymentOrder>
                   </tns:fee>
-                  <!--from 0 to unbounded elements --><!--testXsd import {Schedule}--><tns:repaymentScheduleDetails><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testxsdDate--><tns:sheduleDate>2015-05-26</tns:sheduleDate>
+                  <!--from 0 to unbounded elements --><!--testXsd import {Schedule}--><tns:repaymentScheduleDetails><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testxsdDate--><tns:sheduleDate>2015-05-28</tns:sheduleDate>
                      <!--testXsd import {double17_5}--><tns:sheduleAmount><!--test6-->1234567890</tns:sheduleAmount>
                   </tns:repaymentScheduleDetails>
-                  <!--from 0 to unbounded elements --><!--testXsd import {Schedule}--><tns:selectionScheduleDetails><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testxsdDate--><tns:sheduleDate>2015-05-26</tns:sheduleDate>
+                  <!--from 0 to unbounded elements --><!--testXsd import {Schedule}--><tns:selectionScheduleDetails><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testxsdDate--><tns:sheduleDate>2015-05-28</tns:sheduleDate>
                      <!--testXsd import {double17_5}--><tns:sheduleAmount><!--test6-->1234567890</tns:sheduleAmount>
                   </tns:selectionScheduleDetails>
-                  <!--from 0 to unbounded elements --><!--testXsd import {Schedule}--><tns:changesScheduleDetails><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testxsdDate--><tns:sheduleDate>2015-05-26</tns:sheduleDate>
+                  <!--from 0 to unbounded elements --><!--testXsd import {Schedule}--><tns:changesScheduleDetails><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/CRM/UpdateDealRq/1.18/")--><!--testxsdDate--><tns:sheduleDate>2015-05-28</tns:sheduleDate>
                      <!--testXsd import {double17_5}--><tns:sheduleAmount><!--test6-->1234567890</tns:sheduleAmount>
                   </tns:changesScheduleDetails>
                   <!--optional--><!--testXsd import {double17_5}--><tns:unutilizedLimit><!--test6-->1234567890</tns:unutilizedLimit>
@@ -98,7 +98,7 @@
                   <!--optional--><!--testXsd import {integer3}--><tns:daysForCalculation><!--test6-->999</tns:daysForCalculation>
                   <!--optional--><!--testXsd import {double17_5}--><tns:estimatedValueCorrectedToEAD><!--test6-->1234567890</tns:estimatedValueCorrectedToEAD>
                   <!--testXsd import {string255}--><tns:estimatedValueSource><!--test6 255-->string</tns:estimatedValueSource>
-                  <!--testxsdDate--><tns:estimationDate>2015-05-26</tns:estimationDate>
+                  <!--testxsdDate--><tns:estimationDate>2015-05-28</tns:estimationDate>
                   <!--testXsd import {string255}--><tns:businessMeaning><!--test6 255-->string</tns:businessMeaning>
                   <!--testXsd import {string255}--><tns:qualityAndLiquidityEstimation><!--test6 255-->string</tns:qualityAndLiquidityEstimation>
                   <!--testXsd import {string255}--><tns:currency><!--test6 255-->string</tns:currency>
@@ -112,8 +112,8 @@
                   <!--optional--><!--testXsd import {double17_5}--><tns:lossELcount><!--test6-->1234567890</tns:lossELcount>
                   <!--optional--><!--testXsd import {string255}--><tns:typeLGD><!--test6 255-->string</tns:typeLGD>
                   <!--optional--><!--testXsd import {string255}--><tns:statusLGD><!--test6 255-->string</tns:statusLGD>
-                  <!--optional--><!--testxsdDate--><tns:dateLGDcalculated>2015-05-26</tns:dateLGDcalculated>
-                  <!--optional--><!--testxsdDate--><tns:finalizationDate>2015-05-26</tns:finalizationDate>
+                  <!--optional--><!--testxsdDate--><tns:dateLGDcalculated>2015-05-28</tns:dateLGDcalculated>
+                  <!--optional--><!--testxsdDate--><tns:finalizationDate>2015-05-28</tns:finalizationDate>
                   <!--optional--><!--testXsd import {string2000}--><tns:comment><!--test6 2000-->string</tns:comment>
                </tns:losses>
             </tns:products>
@@ -128,10 +128,10 @@
                   <!--testXsd import {integer3}--><tns:ratingValue><!--test6-->999</tns:ratingValue>
                   <!--testXsd import {string255}--><tns:ratingType><!--test6 255-->string</tns:ratingType>
                   <!--testXsd import {string255}--><tns:ratingModel><!--test6 255-->string</tns:ratingModel>
-                  <!--testxsdDate--><tns:ratingCalculatedDate>2015-05-26</tns:ratingCalculatedDate>
+                  <!--testxsdDate--><tns:ratingCalculatedDate>2015-05-28</tns:ratingCalculatedDate>
                   <!--testXsd import {string255}--><tns:ratingCalculatedRole><!--test6 255-->string</tns:ratingCalculatedRole>
                   <!--testXsd import {string255}--><tns:ratingCalculatedBy><!--test6 255-->string</tns:ratingCalculatedBy>
-                  <!--testxsdDate--><tns:ratingApprovalDate>2015-05-26</tns:ratingApprovalDate>
+                  <!--testxsdDate--><tns:ratingApprovalDate>2015-05-28</tns:ratingApprovalDate>
                   <!--testXsd import {string255}--><tns:ratingApprovedBy><!--test6 255-->string</tns:ratingApprovedBy>
                </tns:projectRating>
             </tns:project>

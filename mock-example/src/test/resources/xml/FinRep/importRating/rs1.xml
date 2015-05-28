@@ -16,9 +16,9 @@
                <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/"--><tns:ajustedRatingValue>10</tns:ajustedRatingValue>
                <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/"--><tns:pd>10</tns:pd>
                <!--testXsd import {string15}--><tns:status><!--test6 15-->string</tns:status>
-               <!--optional--><!--testxsdDateTime--><tns:approvalDate>2015-05-26T12:00:00</tns:approvalDate>
-               <!--optional--><!--testxsdDateTime--><tns:calculationDate>2015-05-26T12:00:00</tns:calculationDate>
-               <!--optional--><!--testxsdDateTime--><tns:ajustmentDate>2015-05-26T12:00:00</tns:ajustmentDate>
+               <!--optional--><!--testxsdDateTime--><tns:approvalDate>2015-05-28T12:00:00</tns:approvalDate>
+               <!--optional--><!--testxsdDateTime--><tns:calculationDate>2015-05-28T12:00:00</tns:calculationDate>
+               <!--optional--><!--testxsdDateTime--><tns:ajustmentDate>2015-05-28T12:00:00</tns:ajustmentDate>
                <!--optional--><!--testXsd import {string100}--><tns:modelName><!--test6 100-->string</tns:modelName>
                <!--optional--><!--testXsd import {string30}--><tns:modelIntegrationId><!--test6 30-->string</tns:modelIntegrationId>
                <!--optional--><!--testXsd import {string255}--><tns:ratingName><!--test6 255-->string</tns:ratingName>
@@ -35,9 +35,9 @@
                <!--testXsd import {ListOfRatingCalc}--><tns:listOfRatingCalc><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/")--><!--from 1 to unbounded elements --><!--testXsd import {RatingCalc}--><tns:ratingCalc><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/")--><!--testXsd import {string15}--><tns:ratingCalcId><!--test6 15-->string</tns:ratingCalcId>
                      <!--testXsd import {string100}--><tns:modelName><!--test6 100-->string</tns:modelName>
                      <!--testXsd import {string30}--><tns:modelIntegrationId><!--test6 30-->string</tns:modelIntegrationId>
-                     <!--optional--><!--testxsdDateTime--><tns:dateCalc>2015-05-26T12:00:00</tns:dateCalc>
+                     <!--optional--><!--testxsdDateTime--><tns:dateCalc>2015-05-28T12:00:00</tns:dateCalc>
                      <!--optional--><!--testxsdDigit tns="http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/"--><tns:calcValue>10</tns:calcValue>
-                     <!--optional--><!--testXsd import {ListOfRatingAjustment}--><tns:listOfRatingAjustment><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/")--><!--from 0 to unbounded elements --><!--testXsd import {RatingAjustment}--><tns:ratingAjustment><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/")--><!--testxsdDateTime--><tns:ajustmentDate>2015-05-26T12:00:00</tns:ajustmentDate>
+                     <!--optional--><!--testXsd import {ListOfRatingAjustment}--><tns:listOfRatingAjustment><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/")--><!--from 0 to unbounded elements --><!--testXsd import {RatingAjustment}--><tns:ratingAjustment><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/")--><!--testxsdDateTime--><tns:ajustmentDate>2015-05-28T12:00:00</tns:ajustmentDate>
                            <!--testxsdDigit tns="http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/"--><tns:ajustedValue>10</tns:ajustedValue>
                            <!--testXsd import {string250}--><tns:ajustmetReason><!--test6 250-->string</tns:ajustmetReason>
                            <!--optional--><!--testXsd import {string255}--><tns:comments><!--test6 255-->string</tns:comments>
@@ -85,10 +85,10 @@
                            <!--optional--><!--testXsd import {string30}--><tns:valueIntegrationId><!--test6 30-->string</tns:valueIntegrationId>
                         </tns:fixedFactor>
                      </tns:listOfFixedFactor>
-                     <!--optional--><!--testXsd import {ListOfRatingPeriod}--><tns:listOfRatingPeriod><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/")--><!--from 1 to unbounded elements --><!--testXsd import {RatingPeriod}--><tns:ratingPeriod><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/")--><!--optional--><!--testxsdDate--><tns:reportDate>2015-05-26</tns:reportDate>
+                     <!--optional--><!--testXsd import {ListOfRatingPeriod}--><tns:listOfRatingPeriod><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/")--><!--from 1 to unbounded elements --><!--testXsd import {RatingPeriod}--><tns:ratingPeriod><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/")--><!--optional--><!--testxsdDate--><tns:reportDate>2015-05-28</tns:reportDate>
                            <!--optional--><!--testXsd import {string50}--><tns:period><!--test6 50-->string</tns:period>
-                           <!--optional--><!--testxsdDate--><tns:startDate>2015-05-26</tns:startDate>
-                           <!--optional--><!--testxsdDate--><tns:endDate>2015-05-26</tns:endDate>
+                           <!--optional--><!--testxsdDate--><tns:startDate>2015-05-28</tns:startDate>
+                           <!--optional--><!--testxsdDate--><tns:endDate>2015-05-28</tns:endDate>
                            <!--optional--><!--testXsd import {string30}--><tns:type><!--test6 30-->string</tns:type>
                            <!--optional--><!--testXsd import {string255}--><tns:comments><!--test6 255-->string</tns:comments>
                            <!--testXsd import {ListOfCardinalFactor}--><tns:listOfCardinalFactor><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/")--><!--from 1 to unbounded elements --><!--testXsd import {CardinalFactor}--><tns:cardinalFactor><!--testCT--><!--tSubSq (tns="http://sbrf.ru/NCP/FinRep/ImportRatingRs/1.03/")--><!--testXsd import {string255}--><tns:factor><!--test6 255-->string</tns:factor>
