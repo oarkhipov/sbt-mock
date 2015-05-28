@@ -314,6 +314,19 @@
         </xsl:element>
     </xsl:template>
 
+    <!--простой тип унаследованнный от строки с рестриктом на патттерн-->
+    <xsl:template match="xsd:element[./xsd:simpleType/*[@base=$stringTypes]/xsd:pattern[matches(./@value,'^(\w+\|)+\w+')]]" mode="type" priority="1002">
+        <xsl:param name="ns" select="$targetNS"/>
+        <xsl:param name="nsAlias" select="$targetNSAlias"/>
+        <xsl:variable name="pattern" select="./xsd:simpleType/*[@base=$stringTypes]/xsd:pattern/@value"/>
+        <xsl:if test="$debug">
+            <xsl:comment>testxsdStrPattern <xsl:value-of select="$pattern"/></xsl:comment>
+        </xsl:if>
+        <xsl:element name="{concat($nsAlias,':',./@name)}" namespace="{$ns}">
+            <xsl:value-of select="replace($pattern, '^([^|]+)\|.+$', '$1')"/>
+        </xsl:element>
+    </xsl:template>
+
     <!--элемент с типом, определенным в импротах-->
     <xsl:template match="xsd:element[mock:getNamespaceAlias(./@type)=$importFilesNsAlias]" mode="type" priority="99">
         <xsl:param name="ns" select="$targetNS"/>
