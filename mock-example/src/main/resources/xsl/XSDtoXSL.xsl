@@ -204,7 +204,23 @@
         </xsl:if>
 
         <xsl:choose>
-            <!--TODO рассмоьтреть случай, когда есть @maxOccurs. тогда надо длеать еще темплейт -->
+            <xsl:when test="@maxOccurs='unbounded'">
+                <xsl:element name="xsl:for-each">
+                    <xsl:attribute name="select"><xsl:value-of select="$dataPath"/><xsl:value-of select="$elementName"/></xsl:attribute>
+                    <xsl:element name="{$nsAlias}:{$elementName}" namespace="{$ns}">
+                        <xsl:if test="$ns!=''">
+                            <xsl:namespace name="{$nsAlias}" select="$ns"/>
+                        </xsl:if>
+                        <xsl:apply-templates select="./xsd:complexType/(xsd:sequence/xsd:element
+                                                        | xsd:complexContent/(xsd:sequence/xsd:element
+                                                                            | xsd:extension/xsd:sequence/xsd:element))" mode="Inside">
+                            <xsl:with-param name="dataPath" select="'./rsd:'"/> <!-- ищем внутри xsl:for-each -->
+                            <xsl:with-param name="ns" select="$ns"/>
+                            <xsl:with-param name="nsAlias" select="$nsAlias"/>
+                        </xsl:apply-templates>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:when>
             <xsl:when test="@minOccurs=0">
                 <xsl:element name="xsl:if">
                     <xsl:attribute name="test"><xsl:value-of select="$dataPath"/><xsl:value-of select="@name"/></xsl:attribute>
