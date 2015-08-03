@@ -214,6 +214,7 @@
         <xsl:param name="dataPath"/> <!-- в данном параметре харниться путь из дата-xml, по которому будет получаться значение элемента -->
         <xsl:param name="ns" select="$targetNS"/>
         <xsl:param name="nsAlias" select="'tns'"/>
+        <xsl:variable name="elementName" select="@name"/>
 
         <xsl:if test="$DEBUG">
             <xsl:comment>xsd:element - Inside</xsl:comment>
@@ -239,24 +240,24 @@
             </xsl:when>
             <xsl:when test="@minOccurs=0">
                 <xsl:element name="xsl:if">
-                    <xsl:attribute name="test"><xsl:value-of select="$dataPath"/><xsl:value-of select="@name"/></xsl:attribute>
-                    <xsl:element name="{$nsAlias}:{@name}" namespace="{$ns}">
+                    <xsl:attribute name="test"><xsl:value-of select="$dataPath"/><xsl:value-of select="$elementName"/></xsl:attribute>
+                    <xsl:element name="{$nsAlias}:{$elementName}" namespace="{$ns}">
                         <xsl:if test="$ns!=''">
                             <xsl:namespace name="{$nsAlias}" select="$ns"/>
                         </xsl:if>
                         <xsl:element name="xsl:value-of">
-                            <xsl:attribute name="select"><xsl:value-of select="$dataPath"/><xsl:value-of select="@name"/></xsl:attribute>
+                            <xsl:attribute name="select"><xsl:value-of select="$dataPath"/><xsl:value-of select="$elementName"/></xsl:attribute>
                         </xsl:element>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:element name="{$nsAlias}:{@name}" namespace="{$ns}">
+                <xsl:element name="{$nsAlias}:{$elementName}" namespace="{$ns}">
                     <xsl:if test="$ns!=''">
                         <xsl:namespace name="{$nsAlias}" select="$ns"/>
                     </xsl:if>
                     <xsl:element name="xsl:value-of" >
-                        <xsl:attribute name="select"><xsl:value-of select="$dataPath"/><xsl:value-of select="@name"/></xsl:attribute>
+                        <xsl:attribute name="select"><xsl:value-of select="$dataPath"/><xsl:value-of select="$elementName"/></xsl:attribute>
                     </xsl:element>
                 </xsl:element>
             </xsl:otherwise>
