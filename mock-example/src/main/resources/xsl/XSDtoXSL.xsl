@@ -66,19 +66,19 @@
                     <xsl:element name="xsl:element">
                         <xsl:attribute name="name"><xsl:value-of select="$mainElementNSAlias"/>:<xsl:value-of select="$rootElementName"/></xsl:attribute>
                         <xsl:apply-templates select="$extensionElement/(xsd:sequence
-                                                | ./xsd:complexContent/xsd:extension/xsd:sequence/xsd:element
-                                                | ./xsd:complexType/(xsd:sequence/xsd:element
-                                                        | xsd:complexContent/(xsd:sequence/xsd:element
-                                                                            | xsd:extension/xsd:sequence/xsd:element)))" mode="Inside">
+                                                | ./xsd:complexContent/xsd:extension/xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                | ./xsd:complexType/(xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                        | xsd:complexContent/(xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                                            | xsd:extension/xsd:sequence/(xsd:element | xsd:choice/xsd:element))))" mode="Inside">
                             <xsl:with-param name="dataPath" select="concat('$data/rsd:',$type,'[@name=$',$type,']/rsd:')"/>
                             <xsl:with-param name="ns" select="$usedNs"/>
                             <xsl:with-param name="nsAlias" select="$usedNsAlias"/>
                         </xsl:apply-templates>
-                        <xsl:apply-templates select="./xsd:sequence/xsd:element
-                                                | ./xsd:complexContent/xsd:extension/xsd:sequence/xsd:element
-                                                | ./xsd:complexType/(xsd:sequence/xsd:element
-                                                        | xsd:complexContent/(xsd:sequence/xsd:element
-                                                                            | xsd:extension/xsd:sequence/xsd:element))" mode="Inside">
+                        <xsl:apply-templates select="./xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                | ./xsd:complexContent/xsd:extension/xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                | ./xsd:complexType/(xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                        | xsd:complexContent/(xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                                            | xsd:extension/xsd:sequence/(xsd:element | xsd:choice/xsd:element)))" mode="Inside">
                             <xsl:with-param name="dataPath" select="concat('$data/rsd:',$type,'[@name=$',$type,']/rsd:')"/>
                         </xsl:apply-templates>
                     </xsl:element>
@@ -122,17 +122,17 @@
                         <xsl:namespace name="{$nsAlias}" select="$ns"/>
                     </xsl:if>
                     <xsl:apply-templates select="$extensionElement/(xsd:sequence
-                                                | ./xsd:complexContent/xsd:extension/xsd:sequence/xsd:element
-                                                | ./xsd:complexType/(xsd:sequence/xsd:element
-                                                        | xsd:complexContent/(xsd:sequence/xsd:element
-                                                                            | xsd:extension/xsd:sequence/xsd:element)))" mode="Inside">
+                                                | ./xsd:complexContent/xsd:extension/xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                | ./xsd:complexType/(xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                        | xsd:complexContent/(xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                                            | xsd:extension/xsd:sequence/(xsd:element | xsd:choice/xsd:element))))" mode="Inside">
                         <xsl:with-param name="dataPath" select="'./rsd:'"/>
                         <xsl:with-param name="ns" select="$usedExtNs"/>
                         <xsl:with-param name="nsAlias" select="$extNsAlias"/>
                     </xsl:apply-templates>
-                    <xsl:apply-templates select="$self/(xsd:sequence/xsd:element
-                                                        | xsd:complexContent/(xsd:sequence/xsd:element
-                                                                            | xsd:extension/xsd:sequence/xsd:element))" mode="Inside">
+                    <xsl:apply-templates select="$self/(xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                        | xsd:complexContent/(xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                                            | xsd:extension/xsd:sequence/(xsd:element | xsd:choice/xsd:element)))" mode="Inside">
                         <xsl:with-param name="dataPath" select="'./rsd:'"/>
                         <xsl:with-param name="ns" select="$ns"/>
                         <xsl:with-param name="nsAlias" select="$nsAlias"/>
@@ -168,18 +168,18 @@
                     <xsl:namespace name="{$nsAlias}" select="$ns"/>
                 </xsl:if>
                 <xsl:apply-templates select="$extensionElement/(xsd:sequence
-                                                | ./xsd:complexContent/xsd:extension/xsd:sequence/xsd:element
-                                                | ./xsd:complexType/(xsd:sequence/xsd:element
-                                                        | xsd:complexContent/(xsd:sequence/xsd:element
-                                                                            | xsd:extension/xsd:sequence/xsd:element)))" mode="Inside">
+                                                | ./xsd:complexContent/xsd:extension/xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                | ./xsd:complexType/(xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                        | xsd:complexContent/(xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                                            | xsd:extension/xsd:sequence/(xsd:element | xsd:choice/xsd:element))))" mode="Inside">
                     <xsl:with-param name="dataPath" select="'./rsd:'"/>
                     <xsl:with-param name="ns" select="$usedExtNs"/>
                     <xsl:with-param name="nsAlias" select="$extNsAlias"/>
                 </xsl:apply-templates>
-                <xsl:apply-templates select="(./xsd:complexType/(xsd:sequence/xsd:element
-                                                        | xsd:complexContent/(xsd:sequence/xsd:element
-                                                                            | xsd:extension/xsd:sequence/xsd:element)))
-                                                | (./xsd:sequence/xsd:element)" mode="Inside">
+                <xsl:apply-templates select="(./xsd:complexType/(xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                        | xsd:complexContent/(xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                                            | xsd:extension/xsd:sequence/(xsd:element | xsd:choice/xsd:element))))
+                                                | (./xsd:sequence/(xsd:element | xsd:choice/xsd:element))" mode="Inside">
                     <xsl:with-param name="dataPath" select="'./rsd:'"/>
                     <xsl:with-param name="ns" select="$ns"/>
                     <xsl:with-param name="nsAlias" select="$nsAlias"/>
@@ -192,22 +192,6 @@
 
     <xsl:template match="*" mode="template" priority="0">
         <xsl:comment>template * - <xsl:value-of select="@name"/></xsl:comment>
-    </xsl:template>
-
-    <xsl:template match="xsd:choice" mode="Inside" priority="4">
-        <xsl:param name="dataPath"/> <!-- в данном параметре харниться путь из дата-xml, по которому будет получаться значение элемента -->
-        <xsl:param name="ns" select="$targetNS"/>
-        <xsl:param name="nsAlias" select="'tns'"/>
-
-        <xsl:if test="$DEBUG">
-            <xsl:comment>xsd:choice - Inside</xsl:comment>
-        </xsl:if>
-        <xsl:apply-templates select="(./xsd:sequence/xsd:element)
-                                                        | (./xsd:element)" mode="Inside">
-            <xsl:with-param name="dataPath" select="$dataPath"/>
-            <xsl:with-param name="ns" select="$ns"/>
-            <xsl:with-param name="nsAlias" select="$nsAlias"/>
-        </xsl:apply-templates>
     </xsl:template>
 
     <xsl:template match="xsd:element[@name]" mode="Inside" priority="1">
@@ -228,9 +212,9 @@
                         <xsl:if test="$ns!=''">
                             <xsl:namespace name="{$nsAlias}" select="$ns"/>
                         </xsl:if>
-                        <xsl:apply-templates select="./xsd:complexType/(xsd:sequence/xsd:element
-                                                        | xsd:complexContent/(xsd:sequence/xsd:element
-                                                                            | xsd:extension/xsd:sequence/xsd:element))" mode="Inside">
+                        <xsl:apply-templates select="./xsd:complexType/(xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                        | xsd:complexContent/(xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                                            | xsd:extension/xsd:sequence/(xsd:element | xsd:choice/xsd:element)))" mode="Inside">
                             <xsl:with-param name="dataPath" select="'./rsd:'"/> <!-- ищем внутри xsl:for-each -->
                             <xsl:with-param name="ns" select="$ns"/>
                             <xsl:with-param name="nsAlias" select="$nsAlias"/>
@@ -238,7 +222,7 @@
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
-            <xsl:when test="@minOccurs=0">
+            <xsl:when test="@minOccurs=0 or ancestor::xsd:choice">
                 <xsl:element name="xsl:if">
                     <xsl:attribute name="test"><xsl:value-of select="$dataPath"/><xsl:value-of select="$elementName"/></xsl:attribute>
                     <xsl:element name="{$nsAlias}:{$elementName}" namespace="{$ns}">
@@ -282,9 +266,9 @@
                         <xsl:if test="$ns!=''">
                             <xsl:namespace name="{$nsAlias}" select="$ns"/>
                         </xsl:if>
-                        <xsl:apply-templates select="./xsd:complexType/(xsd:sequence/xsd:element
-                                                        | xsd:complexContent/(xsd:sequence/xsd:element
-                                                                            | xsd:extension/xsd:sequence/xsd:element))" mode="Inside">
+                        <xsl:apply-templates select="./xsd:complexType/(xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                        | xsd:complexContent/(xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                                            | xsd:extension/xsd:sequence/(xsd:element | xsd:choice/xsd:element)))" mode="Inside">
                             <xsl:with-param name="dataPath" select="'./rsd:'"/> <!-- ищем внутри xsl:for-each -->
                             <xsl:with-param name="ns" select="$ns"/>
                             <xsl:with-param name="nsAlias" select="$nsAlias"/>
@@ -292,16 +276,16 @@
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
-            <xsl:when test="@minOccurs=0">
+            <xsl:when test="@minOccurs=0 or ancestor::xsd:choice">
                 <xsl:element name="xsl:if">
                     <xsl:attribute name="test"><xsl:value-of select="$dataPath"/><xsl:value-of select="$elementName"/></xsl:attribute>
                     <xsl:element name="{$nsAlias}:{$elementName}" namespace="{$ns}">
                         <xsl:if test="$ns!=''">
                             <xsl:namespace name="{$nsAlias}" select="$ns"/>
                         </xsl:if>
-                        <xsl:apply-templates select="./xsd:complexType/(xsd:sequence/xsd:element
-                                                        | xsd:complexContent/(xsd:sequence/xsd:element
-                                                                            | xsd:extension/xsd:sequence/xsd:element))" mode="Inside">
+                        <xsl:apply-templates select="./xsd:complexType/(xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                        | xsd:complexContent/(xsd:sequence/(xsd:element | xsd:choice/xsd:element)
+                                                                            | xsd:extension/xsd:sequence/(xsd:element | xsd:choice/xsd:element)))" mode="Inside">
                             <xsl:with-param name="dataPath" select="replace($dataPath, '^(.+?)/rsd:$', concat('$1/rsd:',$elementName,'/rsd:'))"/><!-- добавляем в конец пути этот элемент и ищем внутри -->
                             <xsl:with-param name="ns" select="$ns"/>
                             <xsl:with-param name="nsAlias" select="$nsAlias"/>
@@ -314,7 +298,7 @@
                     <xsl:if test="$ns!=''">
                         <xsl:namespace name="{$nsAlias}" select="$ns"/>
                     </xsl:if>
-                    <xsl:apply-templates select="./xsd:complexType/xsd:sequence/xsd:element" mode="Inside">
+                    <xsl:apply-templates select="./xsd:complexType/xsd:sequence/(xsd:element | xsd:choice/xsd:element)" mode="Inside">
                         <xsl:with-param name="dataPath" select="replace($dataPath, '^(.+?)/rsd:$', concat('$1/rsd:',$elementName,'/rsd:'))"/><!-- добавляем в конец пути этот элемент и ищем внутри -->
                         <xsl:with-param name="ns" select="$ns"/>
                         <xsl:with-param name="nsAlias" select="$nsAlias"/>
