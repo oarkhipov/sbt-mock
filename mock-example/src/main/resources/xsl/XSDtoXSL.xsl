@@ -194,6 +194,22 @@
         <xsl:comment>template * - <xsl:value-of select="@name"/></xsl:comment>
     </xsl:template>
 
+    <xsl:template match="xsd:choice" mode="Inside" priority="4">
+        <xsl:param name="dataPath"/> <!-- в данном параметре харниться путь из дата-xml, по которому будет получаться значение элемента -->
+        <xsl:param name="ns" select="$targetNS"/>
+        <xsl:param name="nsAlias" select="'tns'"/>
+
+        <xsl:if test="$DEBUG">
+            <xsl:comment>xsd:choice - Inside</xsl:comment>
+        </xsl:if>
+        <xsl:apply-templates select="(./xsd:sequence/xsd:element)
+                                                        | (./xsd:element)" mode="Inside">
+            <xsl:with-param name="dataPath" select="$dataPath"/>
+            <xsl:with-param name="ns" select="$ns"/>
+            <xsl:with-param name="nsAlias" select="$nsAlias"/>
+        </xsl:apply-templates>
+    </xsl:template>
+
     <xsl:template match="xsd:element[@name]" mode="Inside" priority="1">
         <xsl:param name="dataPath"/> <!-- в данном параметре харниться путь из дата-xml, по которому будет получаться значение элемента -->
         <xsl:param name="ns" select="$targetNS"/>
