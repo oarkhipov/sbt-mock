@@ -8,7 +8,7 @@
     <xsl:namespace-alias stylesheet-prefix="out" result-prefix="xsl"/>
 
     <!-- файл с темплейтом для soap header'а -->
-    <xsl:include href="headerTemplate.xsl"/>
+    <xsl:include href="headerTemplates/headerTemplate.xsl"/>
     <xsl:include href="xsltFunctions.xsl"/>
 
     <!--параметры, в которых указывается откуда и какой элемент брать как само тело сообщения-->

@@ -1,0 +1,65 @@
+<MockConfig xmlns="http://sbrf.ru/mockService">
+    <systems>
+        <system name="AMRLiRT">
+            <pathToXSD>/PEGAFI/AMRLIRT</pathToXSD>
+            <rootXsd>AMRLiRT.xsd</rootXsd>
+            <headerNamespace></headerNamespace>
+            <integrationPoints>
+                <integrationPoint name="RatingCalculate">
+                    <operationName>A.RAT.01</operationName>
+                    <rsRootElementName>RatingCalculateRs</rsRootElementName>
+                    <rqRootElementName>RatingCalculateRq</rqRootElementName>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCP/AMRLIRT/">TopElmt</tag>
+                        <tag ns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/">Model</tag>
+                    </linkedTagSequence>
+                    <protocol>MQ/SOAP/HTTP</protocol>
+                    <!--OPTIONAL-->
+                    <incomeQueue>ESB.BPM.REQUEST</incomeQueue>
+                    <!--OPTIONAL-->
+                    <outcomeQueue>ESB.BPM.RESPONSE</outcomeQueue>
+                    <xsdFile>AMRLiRT.xsd</xsdFile>
+                </integrationPoint>
+                <integrationPoint name="RatingAdjust">
+                    <operationName>A.RAT.02</operationName>
+                    <rsRootElementName>RatingAdjustRs</rsRootElementName>
+                    <rqRootElementName>RatingAdjustRq</rqRootElementName>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCP/AMRLIRT/">TopElmt</tag>
+                        <tag ns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/">Model</tag>
+                    </linkedTagSequence>
+                    <protocol>MQ/SOAP/HTTP</protocol>
+                    <!--OPTIONAL-->
+                    <incomeQueue>ESB.BPM.REQUEST</incomeQueue>
+                    <!--OPTIONAL-->
+                    <outcomeQueue>ESB.BPM.RESPONSE</outcomeQueue>
+                    <xsdFile>AMRLiRT.xsd</xsdFile>
+                </integrationPoint>
+                <integrationPoint name="RatingFinalPD">
+                    <operationName>A.RAT.03</operationName>
+                    <rsRootElementName>RatingFinalPDRs</rsRootElementName>
+                    <rqRootElementName>RatingFinalPDRq</rqRootElementName>
+                    <type>Mock</type>
+                    <linkedTagSequence>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCP/esb/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCP/AMRLIRT/">TopElmt</tag>
+                        <tag ns="http://sbrf.ru/NCP/AMRLIRT/CalculateDCRq/">Model</tag>
+                    </linkedTagSequence>
+                    <protocol>MQ/SOAP/HTTP</protocol>
+                    <!--OPTIONAL-->
+                    <incomeQueue>ESB.BPM.REQUEST</incomeQueue>
+                    <!--OPTIONAL-->
+                    <outcomeQueue>ESB.BPM.RESPONSE</outcomeQueue>
+                    <xsdFile>AMRLiRT.xsd</xsdFile>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+    </systems>
+</MockConfig>

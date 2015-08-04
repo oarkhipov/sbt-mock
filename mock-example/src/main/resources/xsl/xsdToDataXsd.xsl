@@ -60,7 +60,7 @@
     <xsl:variable name="DEBUG" select="false()"/>
 
     <!-- файл с темплейтом для soap header'а -->
-    <xsl:include href="headerTemplate.xsl"/>
+    <xsl:include href="headerTemplates/headerTemplate.xsl"/>
     <xsl:include href="xsltFunctions.xsl"/>
 
     <!--TODO пренести функции в xsltFunctions.xsl-->

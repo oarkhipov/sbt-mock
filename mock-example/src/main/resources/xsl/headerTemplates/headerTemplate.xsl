@@ -16,6 +16,7 @@
     <xsl:include href="NCPSoapRqHeaderXSLTTemplate.xsl"/>
     <xsl:include href="KD4SoapHeaderTemplate.xsl"/>
     <xsl:include href="KKMBHeaderTemplate.xsl"/>
+    <xsl:include href="EmptyHeaderTemplate.xsl"/>
 
     <!--ID сообщения, которое будет использоваться по умолчанию, если не задано параметром или в дата-файле-->
     <xsl:param name="defaultId" select="string('defaultId')"/>
@@ -32,6 +33,9 @@
             <xsl:when test="$headerType='KKMB'">
                 <xsl:call-template name="KKMBnamespaces"/>
             </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="namespaces"/>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
@@ -47,6 +51,9 @@
             <xsl:when test="$headerType='KKMB'">
                 <xsl:call-template name="KKMBTemplatePath"/>
             </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="TemplatePath"/>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
@@ -66,6 +73,9 @@
                 <xsl:call-template name="KKMBSOAPNS">
                 </xsl:call-template>
             </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="SOAPNS"/>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
 
@@ -76,6 +86,7 @@
             <xsl:when test="$headerType='NCP'">soap:Envelope</xsl:when>
             <xsl:when test="$headerType='KD4'">soap:Envelope</xsl:when>
             <xsl:when test="$headerType='KKMB'">soap:Message</xsl:when>
+            <xsl:otherwise>*</xsl:otherwise>
         </xsl:choose>
     </xsl:function>
 
@@ -95,6 +106,9 @@
                 <xsl:call-template name="KKMBHeaderForXSD">
                 </xsl:call-template>
             </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="HeaderForXSD"/>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
@@ -114,6 +128,9 @@
                 <xsl:call-template name="KKMBxslTeplateHeaderDeclaration">
                 </xsl:call-template>
             </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="xslHeaderDeclaration"/>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
@@ -141,6 +158,12 @@
                     <xsl:with-param name="type" select="$type"/>
                 </xsl:call-template>
             </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="xslPatternTeplateDeclaration">
+                    <!--<xsl:with-param name="operationName" select="$operationName"/>-->
+                    <!--<xsl:with-param name="type" select="$type"/>-->
+                </xsl:call-template>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 

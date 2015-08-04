@@ -9,7 +9,7 @@
     <xsl:namespace-alias stylesheet-prefix="out" result-prefix="xsl"/>
 
     <!-- файл с темплейтом для soap header'а -->
-    <xsl:include href="headerTemplate.xsl"/>
+    <xsl:include href="headerTemplates/headerTemplate.xsl"/>
     <!--вспомогательные функции-->
     <xsl:include href="xsltFunctions.xsl"/>
 
@@ -83,7 +83,9 @@
                 <xsl:namespace name="tns" select="$targetNS"/>
             </xsl:if>
             <xsl:namespace name="rsd" select="$dataNS"/>
-            <xsl:namespace name="soap" select="mock:SOAPNS($headerType)"/>
+            <xsl:if test="mock:SOAPNS($headerType)!=''">
+                <xsl:namespace name="soap" select="mock:SOAPNS($headerType)"/>
+            </xsl:if>
             <xsl:if test="$parrentNS!=''">
                 <xsl:namespace name="{$systemName}" select="$parrentNS"/>
             </xsl:if>

@@ -31,7 +31,7 @@ public class GenerateExampleXml {
      * @throws Exception
      */
     public void createRqExample(String system, String name, String msgType, Map<String, String> params) throws Exception{
-        String exampleRq1 = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + File.separator + msgType + "SoapMSG.xsl",
+        String exampleRq1 = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + File.separator + "MSGTemplates" + File.separator + msgType + "SoapMSG.xsl", //TODO вынести этот путь в переменную
                 LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         SimpleValidator.getInstance().validateXML(exampleRq1);
@@ -42,7 +42,7 @@ public class GenerateExampleXml {
         if (params.containsKey("tagNameToTakeLinkedTag")) {
             params.put("useLinkedTagValue","true");
         }
-        String exampleRq2 = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + File.separator + msgType + "SoapMSG.xsl",
+        String exampleRq2 = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + File.separator + "MSGTemplates"  + File.separator + msgType + "SoapMSG.xsl", //TODO вынести этот путь в переменную
                 LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         SimpleValidator.getInstance().validateXML(exampleRq2);
@@ -59,7 +59,7 @@ public class GenerateExampleXml {
      * @throws Exception
      */
     public void createRsExample(String system, String name, String msgType,  Map<String, String> params) throws Exception{
-        String exampleRs1 = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + File.separator + msgType + "SoapMSG.xsl",
+        String exampleRs1 = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + File.separator + "MSGTemplates"  + File.separator + msgType + "SoapMSG.xsl", //TODO вынести этот путь в переменную
                 LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         SimpleValidator.getInstance().validateXML(exampleRs1);
@@ -68,7 +68,7 @@ public class GenerateExampleXml {
 
         if (params == null) params = new HashMap<String, String>(1);
         params.put("showOptionalTags", "false");
-        String exampleRs2 = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + File.separator + msgType + "SoapMSG.xsl",
+        String exampleRs2 = Xsl20Transformer.transform(LocalPaths.getSrcResorcesXSLPath() + File.separator + "MSGTemplates"  + File.separator + msgType + "SoapMSG.xsl", //TODO вынести этот путь в переменную
                 LocalPaths.getWebInfPath() + "\\xsd\\" + system + "\\" + params.get("xsdBase"),
                 params);
         SimpleValidator.getInstance().validateXML(exampleRs2);

@@ -2,8 +2,8 @@
                 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:msg="http://sbrf.ru/prpc/kkmb/crm/Header/req/10"
                 xmlns:mock="http://sbrf.ru/mockService" >
-    <xsl:import href="XSDToExampleXML.xsl"/>
-    <xsl:import href="KKMBHeaderTemplate.xsl"/>
+    <xsl:import href="../XSDToExampleXML.xsl"/>
+    <xsl:import href="../headerTemplates/KKMBHeaderTemplate.xsl"/>
 
     <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
 

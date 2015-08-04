@@ -29,6 +29,9 @@ public class GeneratorEntryPoint {
             if (arg.equals("KKMB")) {
                 instance.loadConfig("KKMBConfig.xml");
             }
+            if (arg.equals("PEGAFI")) {
+                instance.loadConfig("PegaFIConfig.xml");
+            }
             if (arg.equals("clear")) {
                 clear();
             }

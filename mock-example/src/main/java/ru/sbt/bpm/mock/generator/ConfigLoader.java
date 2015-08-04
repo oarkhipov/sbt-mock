@@ -121,7 +121,7 @@ public class ConfigLoader {
         } else if (system.getHeaderNamespace().equals("http://schemas.xmlsoap.org/soap/envelope/")) {
             return "KKMB";
         }
-        throw new IllegalArgumentException("Header namespace {"+system.getHeaderNamespace()+"} not implemented");
+        return "";
     }
 
     /**
