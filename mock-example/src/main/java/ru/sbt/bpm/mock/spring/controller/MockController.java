@@ -95,8 +95,10 @@ public class MockController {
         }
         if (dataFile!=null) {
             try {
-                saver.writeStringToFile(dataFile, xml);
-                ajaxObject.setInfo("saved");
+                if (xmlDataService.validate(xml, saver.TranslateNameToSystem(name))) {
+                    saver.writeStringToFile(dataFile, xml);
+                    ajaxObject.setInfo("saved");
+                }
             } catch (IOException e) {
                 ajaxObject.setError(e.getMessage());
             } catch (Exception e) {
