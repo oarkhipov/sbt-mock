@@ -480,6 +480,23 @@
         </xsl:element>
     </xsl:template>
 
+    <xsl:template match="xsd:extension[@base]" mode="copyTypeContainer">
+        <xsl:variable name="baseAlias" select="mock:getNamespaceAlias(@base)"/>
+        <xsl:variable name="baseNamespace" select="ancestor::xsd:schema/namespace::*[local-name(.)=$baseAlias]"/>
+        <xsl:variable name="baseName" select="mock:addAliasToName(mock:getAliasOfUrl($baseNamespace),mock:removeNamespaceAlias(@base))"/>
+        <xsl:element name="xsd:{local-name(.)}">
+            <xsl:copy-of select="./@*[local-name(.)!='base']"/>
+            <xsl:attribute name="base"><xsl:value-of select="$baseName"/></xsl:attribute>
+            <xsl:apply-templates select="./*" mode="copyTypeContainer"/>
+            <xsl:if test="count(child::*)=0">
+                <xsl:if test="$DEBUG">
+                    <xsl:comment>xsd:extension[@base]</xsl:comment>
+                </xsl:if>
+                <xsl:value-of select="."/>
+            </xsl:if>
+        </xsl:element>
+    </xsl:template>
+
     <xsl:template match="*" mode="copyTypeContainer">
         <xsl:element name="xsd:{local-name(.)}">
             <xsl:copy-of select="./@*"/>
