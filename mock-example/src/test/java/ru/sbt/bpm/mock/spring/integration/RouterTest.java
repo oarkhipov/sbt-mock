@@ -1,5 +1,6 @@
 package ru.sbt.bpm.mock.spring.integration;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration({"/env/mockapp-servlet-routerTest.xml"})
 public class RouterTest {
 
+    @Ignore
     @Test
     public void routerTest1() throws Exception {
         String defaultChannel = "DefaultOutputChannelIfNoOperationRouted";

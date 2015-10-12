@@ -9,6 +9,7 @@
              xsi:schemaLocation="
 		http://www.springframework.org/schema/beans		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/integration	http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/jms	http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
 		http://www.springframework.org/schema/integration/xml	http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
 		http://www.springframework.org/schema/util		http://www.springframework.org/schema/util/spring-util.xsd
 		http://www.springframework.org/schema/context       http://www.springframework.org/schema/context/spring-context.xsd
@@ -23,6 +24,10 @@
         <beans:constructor-arg value="/resources/MockConfigFiles/NCPConfig.xml" type="java.lang.String" />
     </beans:bean>
 
+
+    <beans:bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.IN"/>
+    </beans:bean>
 
     <!-- Входной и выходной каналы Заглушки-->
     <channel id="MockInboundRequest">

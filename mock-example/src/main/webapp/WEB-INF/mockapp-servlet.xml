@@ -25,6 +25,16 @@
         <beans:constructor-arg value="/resources/MockConfigFiles/NCPConfig.xml" type="java.lang.String" />
     </beans:bean>
 
+    <beans:bean id="connectionFactoryString" class="java.lang.String">
+        <beans:constructor-arg value="jms/ESB.BPM.NCP.CF"/>
+    </beans:bean>
+    <beans:bean id="connectionInputString" class="java.lang.String">
+        <beans:constructor-arg value="jms/ESB.BYBPM.NCP.IN"/>
+    </beans:bean>
+    <beans:bean id="connectionOutputString" class="java.lang.String">
+        <beans:constructor-arg value="jms/ESB.BYBPM.NCP.OUT"/>
+    </beans:bean>
+
     <!-- - - - - - - - - - - - - - -->
     <!--                           -->
     <!-- ПРЕДВАРИТЕЛЬНАЯ НАСТРОЙКА -->
@@ -33,20 +43,20 @@
 
      <!--Настройки подключения к MQ-->
     <beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BPM.NCP.CF"/>
+            <beans:property name="jndiName" value="#{connectionFactoryString}"/>
     </beans:bean>
     <beans:bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.IN"/>
+            <beans:property name="jndiName" value="#{connectionInputString}"/>
     </beans:bean>
     <beans:bean id="outboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.OUT"/>
+            <beans:property name="jndiName" value="#{connectionOutputString}"/>
     </beans:bean>
 
      <beans:bean id="requestDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.REQUEST"/>
+            <beans:property name="jndiName" value="#{connectionInputString}"/>
     </beans:bean>
     <beans:bean id="responseDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.RESPONSE"/>
+            <beans:property name="jndiName" value="#{connectionOutputString}"/>
     </beans:bean>
 
     <jms:inbound-gateway
@@ -125,16 +135,10 @@
     <beans:bean id="messageLogger" class="ru.sbt.bpm.mock.spring.logging.impl.MessageLoggerImpl"/>
     <service-activator id="MockInboundRequestExternalLoggerActivator"
                        input-channel="MockInboundRequestExternalLogger"
-                       expression="@messageLogger.logMessage(payload, inboundMockQueue.getObject())"/>
+                       expression="@messageLogger.logMessage(payload, connectionInputString)"/>
     <service-activator id="MockOutboundResponseExternalLoggerActivator"
                        input-channel="MockOutboundResponseExternalLogger"
-                       expression="@messageLogger.logMessage(payload, outboundMockQueue.getObject())"/>
-    <service-activator id="DriverOutboundRequestExternalLoggerActivator"
-                       input-channel="DriverOutboundRequestExternalLogger"
-                       expression="@messageLogger.logMessage(payload, requestDriverQueue.getObject())"/>
-    <service-activator id="DriverInboundResponseExternalLoggerActivator"
-                       input-channel="DriverInboundResponseExternalLogger"
-                       expression="@messageLogger.logMessage(payload, responseDriverQueue.getObject())"/>
+                       expression="@messageLogger.logMessage(payload, connectionOutputString)"/>
 
 
     <!-- - - - - - - - - - - - -->
