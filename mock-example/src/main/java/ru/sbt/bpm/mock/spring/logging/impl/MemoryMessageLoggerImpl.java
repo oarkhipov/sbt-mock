@@ -40,7 +40,7 @@ public class MemoryMessageLoggerImpl implements MemoryMessageLogger {
 
     private void logMessage(Object payload, CircularFifoQueue<LogEntry> queue) {
         Date date = new Date();
-        queue.add(new LogEntry(date.getTime(), payload.toString()));
+        queue.add(new LogEntry(date.toString(), "", "", payload.toString()));
     }
 
     public Set<String> getQueueList() {

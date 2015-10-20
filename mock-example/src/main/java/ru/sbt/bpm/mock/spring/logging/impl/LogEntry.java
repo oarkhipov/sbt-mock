@@ -11,18 +11,23 @@ import java.util.Date;
 public class LogEntry {
     @Getter
     @Setter
-    Long timestamp;
+    String timestamp;
+    @Getter @Setter
+    String queue;
+    @Getter @Setter
+    String msgtype;
     @Getter @Setter
     String payload;
 
-    public LogEntry(Long timestamp, String payload) {
+    public LogEntry(String timestamp, String queue, String msgtype, String payload) {
         setPayload(payload);
+        setQueue(queue);
+        setMsgtype(msgtype);
         setTimestamp(timestamp);
     }
 
     @Override
     public String toString() {
-        Date date = new Date(timestamp);
-        return date.toString() + ":" + payload;
+        return timestamp + ":" + queue+"/"+msgtype+"["+payload+"]";
     }
 }
