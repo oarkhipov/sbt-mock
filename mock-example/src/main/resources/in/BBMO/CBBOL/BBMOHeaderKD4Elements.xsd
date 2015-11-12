@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:dt="http://sbrf.ru/prpc/bbmo/dataTypes/10" xmlns:ns1="http://www.ibm.com/KD4Soap" targetNamespace="http://www.ibm.com/KD4Soap" elementFormDefault="qualified">
-	<import namespace="http://sbrf.ru/prpc/bbmo/dataTypes/10" schemaLocation="commonTypes/dataTypes.xsd"/>
-	<element name="KD4SoapHeaderV2" type="dt:String">
-		<annotation>
-			<documentation>Заголовок SOAP-сообщения</documentation>
-		</annotation>
-	</element>
-</schema>
