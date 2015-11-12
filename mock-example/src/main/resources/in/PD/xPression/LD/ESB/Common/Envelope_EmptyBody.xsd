@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		xmlns:tns="http://sbrf.ru/ESB/mq/common"
+		targetNamespace="http://sbrf.ru/ESB/mq/common"
+		xmlns:st="http://sbrf.ru/ESB/commonTypes/simpleTypes/" 
+		xmlns:dt="http://sbrf.ru/ESB/commonTypes/dataTypes/"
+		xmlns:hdr="http://sbrf.ru/ESB/mq/headers"
+	>
+	
+	<import namespace="http://sbrf.ru/ESB/mq/headers" schemaLocation="./Header.xsd"/>
+	<import namespace="http://sbrf.ru/ESB/commonTypes/dataTypes/" schemaLocation="./commonTypes/dataTypes.xsd"/>
+	<import namespace="http://sbrf.ru/ESB/commonTypes/simpleTypes/" schemaLocation="./commonTypes/simpleTypes.xsd"/>	
+
+	<element name="Body">
+		<annotation>
+			<documentation>Тело сообщения</documentation>
+		</annotation>
+	</element>
+	
+	<element name="Envelope">
+		<annotation>
+			<documentation>Сообщение</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="hdr:Header"/>
+				<element ref="tns:Body"/>
+			</sequence>
+		</complexType>
+	</element>
+</schema>
+

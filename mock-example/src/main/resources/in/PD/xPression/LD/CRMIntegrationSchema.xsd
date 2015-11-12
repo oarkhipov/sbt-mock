@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sbrf.ru/legal/enquiry/integration" xmlns:types="http://sbrf.ru/legal/enquiry/integration/types" targetNamespace="http://sbrf.ru/legal/enquiry/integration" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://sbrf.ru/legal/enquiry/integration/types" schemaLocation="./CRMIntegrationTypes.xsd"/>
+	<xs:element name="Envelope">
+		<xs:annotation>
+			<xs:documentation>Корневой элемент всех сообщений - как исходящих, так и входящих</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element name="getReferenceData">
+					<xs:annotation>
+						<xs:documentation>Точка интеграции CRM_1. Запрос справочников юридических сервисов</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="requestMessage" type="xs:string"/>
+							<xs:element name="clientSystemId" type="types:ClientSystemId"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="sendReferenceData">
+					<xs:annotation>
+						<xs:documentation>Точка интеграции CRM_2. Передача справочников юридических сервисов</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="legalServices" type="types:LegalServices" minOccurs="0"/>
+							<xs:element name="priorities" type="types:RequestPriorities" minOccurs="0"/>
+							<xs:element name="categories" type="types:RequestCategories" minOccurs="0"/>
+							<xs:element name="subjects" type="types:RequestSubjects" minOccurs="0"/>
+							<xs:element name="types" type="types:RequestTypes" minOccurs="0"/>
+							<xs:element name="subtypes" type="types:RequestSubTypes" minOccurs="0"/>
+							<xs:element name="complexities" type="types:RequestComplexities" minOccurs="0"/>
+							<xs:element name="rejectionReasons" type="types:RejectionReasons" minOccurs="0"/>
+							<xs:element name="qualityAssessments" type="types:QualityAssessments" minOccurs="0"/>
+							<xs:element name="clientStatuses" type="types:ClientStatuses" minOccurs="0"/>
+							<xs:element name="clientJurisdictions" type="types:ClientJurisdictions" minOccurs="0"/>
+							<xs:element name="requestStatuses" type="types:RequestStatuses" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="getAvailableExecutors">
+					<xs:annotation>
+						<xs:documentation>
+							Точка интеграции CRM_3. Запрос списка исполнителей по юридическому сервису
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="clientSystemTaskID" type="types:ClientSystemTaskID"/>
+							<xs:element name="serviceID" type="types:ReferenceItemId"/>
+							<xs:element name="initiatorId" type="types:OperatorId"/>
+							<xs:element name="relatedRequestID" type="types:WOId" minOccurs="0"/>
+							<xs:element name="clientSystemId" type="types:ClientSystemId"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="getAvailableExecutorsResponse">
+					<xs:annotation>
+						<xs:documentation>Точка интеграции CRM_3. Передача списка исполнителей по юридическому сервису</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="clientSystemTaskID" type="types:ClientSystemTaskID"/>
+							<xs:element name="executorList" type="types:OperatorExecutorList" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="createLegalEnquiry">
+					<xs:annotation>
+						<xs:documentation>
+							Точка интеграции CRM_4. Создание запроса на предоставление юридического сервиса
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="clientSystemTaskID" type="types:ClientSystemTaskID"/>
+							<xs:element name="serviceID" type="types:ReferenceItemId"/>
+							<xs:element name="complexityList" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="requestComplexityId" type="types:ReferenceItemId"  maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="legalEnquiryParameters" type="types:LegalEnquiryParameters"/>
+							<xs:element name="initiatorId" type="types:OperatorId"/>
+							<xs:element name="initiatorFullName" type="types:OperatorFullName"/>
+							<xs:element name="documentList" type="types:ECMParameters"/>
+							<xs:element name="customerDossier" type="types:ECMParameters"/>
+							<xs:element name="relatedRequestID" type="types:WOId" minOccurs="0"/>
+							<xs:element name="chosenExecutor" type="types:OperatorId" minOccurs="0"/>
+							<xs:element name="initiatorManager" type="types:OperatorId" minOccurs="0"/>
+							<xs:element name="initiatorManagerFullName" type="types:OperatorFullName" minOccurs="0"/>
+							<xs:element name="clientSystemId" type="types:ClientSystemId"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="sendLegalEnquiryCreationResult">
+					<xs:annotation>
+						<xs:documentation>
+							Точка интеграции CRM_4. Подтверждение создания запроса
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="clientSystemTaskID" type="types:ClientSystemTaskID"/>
+							<xs:element name="workObjectID" type="types:WOId" minOccurs="1"/>
+							<xs:element name="referenceToDocumentsInBPM" type="types:ReferenceToDocumentsInBPM" minOccurs="1"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="sendLegalEnquiryStatus">
+					<xs:complexType>
+						<xs:annotation>
+							<xs:documentation>Точка интеграции CRM_6. Передача статуса запроса</xs:documentation>
+						</xs:annotation>
+						<xs:sequence>
+							<xs:element name="clientSystemTaskID" type="types:ClientSystemTaskID"/>
+							<xs:element name="workObjectID" type="types:WOId"/>
+							<xs:element name="workObjectStatus">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="64"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="assignedToOperatorList" type="types:OperatorInfoList" minOccurs="0"/>
+							<xs:element name="executorList" type="types:OperatorInfoList" minOccurs="0"/>
+							<xs:element name="responsible" type="types:OperatorInfo" minOccurs="0"/>
+							<xs:element name="expectedStartDate" type="xs:dateTime" minOccurs="0"/>
+							<xs:element name="expectedEndDate" type="xs:dateTime" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="getAdditionalInfo">
+					<xs:complexType>
+						<xs:annotation>
+							<xs:documentation>Точка интеграции CRM_7. Запрос дополнительной информации</xs:documentation>
+						</xs:annotation>
+						<xs:sequence>
+							<xs:element name="clientSystemTaskID" type="types:ClientSystemTaskID"/>
+							<xs:element name="workObjectID" type="types:WOId"/>
+							<xs:element name="rejectionReason" type="types:ReferenceItemId"/>
+							<xs:element name="commentsHistory" type="types:CommentHistory" minOccurs="0"/>
+							<xs:element name="referenceToDocumentsInBPM" type="types:ReferenceToDocumentsInBPM" minOccurs="1"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="sendAdditionalInfo">
+					<xs:complexType>
+						<xs:annotation>
+							<xs:documentation>Точка интеграции CRM_8. Передача дополнительной информации</xs:documentation>
+						</xs:annotation>
+						<xs:sequence>
+							<xs:element name="clientSystemTaskID" type="types:ClientSystemTaskID"/>
+							<xs:element name="workObjectID" type="types:WOId"/>
+							<xs:element name="commentsHistory" type="types:CommentHistory" minOccurs="0"/>
+							<xs:element name="clientSystemId" type="types:ClientSystemId"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="cancelLegalEnquiry">
+					<xs:complexType>
+						<xs:annotation>
+							<xs:documentation>Точка интеграции CRM_9. Удаление/ отмена запроса</xs:documentation>
+						</xs:annotation>
+						<xs:sequence>
+							<xs:element name="clientSystemTaskID" type="types:ClientSystemTaskID"/>
+							<xs:element name="workObjectID" type="types:WOId"/>
+							<xs:element name="cancelReason" >
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="500"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="clientSystemId" type="types:ClientSystemId"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="sendLegalEnquiryExecutionResult">
+					<xs:complexType>
+						<xs:annotation>
+							<xs:documentation>Точка интеграции CRM_10. Передача результата выполнения</xs:documentation>
+						</xs:annotation>
+						<xs:sequence>
+							<xs:element name="clientSystemTaskID" type="types:ClientSystemTaskID"/>
+							<xs:element name="workObjectID" type="types:WOId"/>
+							<xs:element name="commentsHistory" type="types:CommentHistory" minOccurs="0"/>
+							<xs:element name="referenceToDocumentsInBPM" type="types:ReferenceToDocumentsInBPM" minOccurs="1"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="assessQuality">
+					<xs:complexType>
+						<xs:annotation>
+							<xs:documentation>Точка интеграции CRM_11. Передача оценки качества</xs:documentation>
+						</xs:annotation>
+						<xs:sequence>
+							<xs:element name="clientSystemTaskID" type="types:ClientSystemTaskID"/>
+							<xs:element name="workObjectID" type="types:WOId"/>
+							<xs:element name="qualityAssessment" type="types:ReferenceItemId"/>
+							<xs:element name="qualityAssessmentDetalization">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="500"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="clientSystemId" type="types:ClientSystemId"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="confirmationMessage">
+					<xs:annotation>
+						<xs:documentation>
+							Передача технического подтверждения / сообщения о возникшей ошибке с доп.информацией
+						</xs:documentation>
+					</xs:annotation>					
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="errorMessage" type="types:ErrorMessage" minOccurs="0"/>
+							<xs:element name="clientSystemTaskID" type="types:ClientSystemTaskID" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

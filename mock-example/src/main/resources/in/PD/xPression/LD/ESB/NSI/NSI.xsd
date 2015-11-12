@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (http://www.altova.com) by ﻿ () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns="http://sbrf.ru/ESB/NSISchema"
+	targetNamespace="http://sbrf.ru/ESB/NSISchema"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="InitiateReferenceRq" type="InitiateReferenceRq_Type">
+		<xs:annotation>
+			<xs:documentation>Запрос справочника(инициализация АС-потребителем процесса загрузки в нее необходимой версии справочника из мастер АС)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="InitiateReferenceRs" type="InitiateReferenceRs_Type"/>
+	<xs:element name="NotifyReferenceActiveNf" type="NotifyReferenceActiveNf_Type"/>
+	<xs:element name="NotifyReferenceActiveRq" type="NotifyReferenceActiveRq_Type">
+		<xs:annotation>
+			<xs:documentation>Запрос на активацию справочников</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="TransferReferenceNf" type="TransferReferenceNf_Type"/>
+	<xs:element name="TransferReferenceRq" type="TransferReferenceRq_Type">
+		<xs:annotation>
+			<xs:documentation>Передача справочников</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="FieldNameValue">
+		<xs:annotation>
+			<xs:documentation>Элемент списка атрибутов справочника</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FieldName" type="C30">
+				<xs:annotation>
+					<xs:documentation>Название (код) атрибута</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FieldValue" type="C45">
+				<xs:annotation>
+					<xs:documentation>Значение (ключ) атрибута</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FieldNameValue_Big">
+		<xs:annotation>
+			<xs:documentation>Элемент списка атрибутов справочника</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FieldName" type="C30">
+				<xs:annotation>
+					<xs:documentation>Название (код) атрибута</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FieldValue" type="C1024">
+				<xs:annotation>
+					<xs:documentation>Значение (ключ) атрибута</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Initiate_Package_Type">
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType name="InitiateReferenceRq_Type">
+		<xs:sequence>
+			<xs:element name="MasterData" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Элемент основных данных справочника</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RefType" type="C30">
+							<xs:annotation>
+								<!-- TODO сделать ENUM? -->
+								<xs:documentation>Код справочника                   </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="RefVersion" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Версия справочника</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="C">
+									<xs:maxLength value="10"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="RefUpdateType">
+							<xs:annotation>
+								<xs:documentation>Тип выгрузки по справочнику (полная версия, только изменения по сравнению с предыдущей версией справочника)</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="ClosedEnum">
+									<xs:enumeration value="Full"/>
+									<xs:enumeration value="Change"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="InitiateReferenceRs_Type">
+		<xs:sequence>
+			<xs:element name="Status" type="Status_Type"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NotifyReferenceActiveNf_Type">
+		<xs:sequence>
+			<xs:element name="Status" type="Status_Type"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NotifyReferenceActiveRq_Type">
+		<xs:sequence>
+			<xs:element name="MasterDataType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип справочной инофрмации(отражает исчточник справочных данных)</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ClosedEnum">
+						<xs:enumeration value="LimitMasterData">
+							<xs:annotation>
+								<xs:documentation>Рассылка SAP LM</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="CRMMasterData">
+							<xs:annotation>
+								<xs:documentation>Рассылка ДБ</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="BPMPOMasterData">
+							<xs:annotation>
+								<xs:documentation>Рассылка АС Правовое обеспечение</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="CollateralMasterData">
+							<xs:annotation>
+								<xs:documentation>Рассылка АС Залоги</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="MasterData">
+				<xs:annotation>
+					<xs:documentation>Элемент основных данных справочника</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RefType" type="C30">
+							<xs:annotation>
+								<!-- TODO сделать ENUM? -->
+								<xs:documentation>Код справочника                   </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="RefVersion" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Дата выпуска версии справочника</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="C">
+									<xs:maxLength value="10"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="RefActualDate" type="DateTime" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Дата активации версии справочника</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="RefActivationDate" type="DateTime">
+							<xs:annotation>
+								<xs:documentation>Дата активации версии справочника (с какого момента справочник всутпает в действие)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SendMasterDataFieldAttribute_Type">
+		<xs:sequence>
+			<xs:element name="FieldName" type="C30">
+				<xs:annotation>
+					<xs:documentation>Название (код) признака, входящего в ключ(если используется простой ключ заполняется строкой 'ValueID')</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FieldValue" type="C45">
+				<xs:annotation>
+					<xs:documentation>Значение кода(ключ элемента справочника)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SendMasterDataFlatList_Type">
+		<xs:sequence>
+			<xs:element name="CompoundKey" type="SendMasterDataFieldAttribute_Type" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Ключ справочника(если указана одна структура, то он простой, если более одной - составной)
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Texts" type="SendMasterDataTexts_Type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Элемент списка текстов для заданного языка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AttrData" type="FieldNameValue_Big" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Атрибуты элемента справочника.
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CompoundKeyDelete" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Указывается только для случая, когда RefUpdateType="Change"]. del - удалить запись из спраочника, add - добавить, change - изменить, nochange - оставить без изменения</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ClosedEnum">
+						<xs:enumeration value="del"/>
+						<xs:enumeration value="add"/>
+						<xs:enumeration value="change"/>
+						<xs:enumeration value="nochange"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SendMasterDataTexts_Type">
+		<xs:sequence>
+			<xs:element name="Lang" type="CountryCodeA2_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Язык текстов. Код языка согласно двухбуквенному ISO-коду страны (например, RU, KZ,
+                        BY, EN).
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ShortText" type="NC256" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Короткий текст (наименование) значения справочника.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MediumText" type="NC1024" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Средний текст (наименование) значения справочника.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LongText" type="NC2048" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Длинный текст (наименование) значения справочника (не более 1024 символов)
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SourceKey_Type">
+		<xs:annotation>
+			<xs:documentation>Ключ источника данных</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SourceSystem">
+				<xs:annotation>
+					<xs:documentation>Исходная система - Код системы источника из справочника «Исходная система»
+                (/1BA/_BA1C_ORGSY)
+            </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="C">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="LegalEntity">
+				<xs:annotation>
+					<xs:documentation>Юридическая единица - Код юридической единицы (Участника группы) из справочника
+                «Юридическая единица» (/BA1/C55LGENT)
+            </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="C">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Status_Type">
+		<xs:annotation>
+			<xs:documentation>Статус ответа</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StatusCode" type="StatusCode_Type">
+				<xs:annotation>
+					<xs:documentation>Статусный код возврата (0 – сообщение обработано успешно, другое – ошибка, подробности в StatusDesc )</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StatusDesc" type="StatusDesc_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание статуса (обязателно, если StatusCode отличен от 0)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Transfer_Package_Type">
+		<xs:sequence>
+			<xs:element name="NumberPackage">
+				<xs:annotation>
+					<xs:documentation>Номер пакета</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="C">
+						<xs:maxLength value="10"/>
+						<xs:pattern value="[0-9]+"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="TotalPackage">
+				<xs:annotation>
+					<xs:documentation>Общее число пакетов</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="C">
+						<xs:maxLength value="10"/>
+						<xs:pattern value="[0-9]+"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CheckSum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Контрольная сумма</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="C">
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TransferReferenceNf_Type">
+		<xs:sequence>
+			<xs:element name="MasterData">
+				<xs:annotation>
+					<xs:documentation>Элемент основных данных справочника</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RefType" type="C30">
+							<xs:annotation>
+								<!-- TODO сделать ENUM? -->
+								<xs:documentation>Код справочника
+                                        </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="RefVersion" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Версия справочника</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="C">
+									<xs:maxLength value="10"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="RefActualDate" type="DateTime" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Дата выпуска</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CatalogPackage" type="Transfer_Package_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Техническая информация о пакете справочника (заполоняется, если для справочника используется пакетная выгрузка)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Status" type="Status_Type">
+				<xs:annotation>
+					<xs:documentation>Статус обработки пакета со справочными данными</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TransferReferenceRq_Type">
+		<xs:sequence>
+			<xs:element name="MasterDataType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип справочной инофрмации(отражает исчточник справочных данных)</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ClosedEnum">
+						<xs:enumeration value="LimitMasterData">
+							<xs:annotation>
+								<xs:documentation>Рассылка SAP LM</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="CRMMasterData">
+							<xs:annotation>
+								<xs:documentation>Рассылка ДБ</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="BPMPOMasterData">
+							<xs:annotation>
+								<xs:documentation>Рассылка АС Правовое обеспечение</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="CollateralMasterData">
+							<xs:annotation>
+								<xs:documentation>Рассылка АС Залоги</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="MasterData">
+				<xs:annotation>
+					<xs:documentation>Элемент основных данных справочника</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RefType" type="C30">
+							<xs:annotation>
+								<!-- TODO сделать ENUM? -->
+								<xs:documentation>Код справочника
+                                        </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="RefVersion" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Версия справочника</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="C">
+									<xs:maxLength value="10"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="RefActualDate" type="DateTime" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Дата выпуска</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="RefUpdateType">
+							<xs:annotation>
+								<xs:documentation>Тип выгрузки по справочнику (полная версия, только изменения по сравнению с предыдущей версией справочника)</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="ClosedEnum">
+									<xs:enumeration value="Full"/>
+									<xs:enumeration value="Change"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="RefAttr" type="FieldNameValue" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Атрибуты справочника.
+										</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DataMain" type="SendMasterDataFlatList_Type" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Элемент основных данных справочника RefType</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CatalogPackage" type="Transfer_Package_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Техническая информация о пакете справочника (заполоняется, если для справочника используется пакетная выгрузка)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="AgencyId_Type">
+		<xs:annotation>
+			<xs:documentation>Идентификатор отделения банка</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="NC">
+			<xs:maxLength value="22"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="C">
+		<xs:annotation>
+			<xs:documentation>Строковый тип с поддержкой русского языка в кодировке UTF-8.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="C30">
+		<xs:restriction base="C">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="C45">
+		<xs:restriction base="C">
+			<xs:maxLength value="45"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="C1024">
+		<xs:restriction base="C">
+			<xs:maxLength value="1024"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ClosedEnum">
+		<xs:annotation>
+			<xs:documentation>Закрытое перечисление. Перечисление содержит конечный набор допустимых значений. Другие
+                значения не допустимы. Обнаружении значения, не входящего в набор допустимых значений, трактуется как
+                ошибка в любом узле системы на
+                любом этапе обработки сообщения.
+            </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="C">
+			<xs:maxLength value="80"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OpenEnum">
+		<xs:annotation>
+			<xs:documentation>Открытое перечисление. Перечисление содержит конечный набор рекомендуемых значений. Допустимы значения, не входящие в рекомендуемый набор. Интепретация корректности значения осуществляется автором и конечным получателем. Промежуточные узлы не осуществляют проверку и считают значение всегда корректным.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="NC">
+			<xs:maxLength value="80"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CountryCodeA2_Type">
+		<xs:annotation>
+			<xs:documentation>Код страны. ISO-3166 Alpha 2</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="NC">
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DateTime">
+		<xs:annotation>
+			<xs:documentation>Дата и время</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:dateTime">
+			<xs:pattern value="\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(.[\d]{1,3})?(([+\-]\d\d:\d\d)|Z)?"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Identifier">
+		<xs:annotation>
+			<xs:documentation>Идентификатор.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="NC">
+			<xs:maxLength value="36"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Long">
+		<xs:annotation>
+			<xs:documentation>Длинное число.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:long"/>
+	</xs:simpleType>
+	<xs:simpleType name="NC">
+		<xs:annotation>
+			<xs:documentation>Строковый тип в кодировке ISO Latin-1.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="NC1024">
+		<xs:restriction base="NC">
+			<xs:maxLength value="1024"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NC20">
+		<xs:restriction base="NC">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NC40">
+		<xs:restriction base="NC">
+			<xs:maxLength value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NC256">
+		<xs:restriction base="NC">
+			<xs:maxLength value="256"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NC2048">
+		<xs:restriction base="NC">
+			<xs:maxLength value="2048"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OperUID_Type">
+		<xs:annotation>
+			<xs:documentation>Уникальный идентификатор операции</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="C">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RegionId_Type">
+		<xs:annotation>
+			<xs:documentation>Код территориального банка (ТБ)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ClosedEnum">
+			<xs:enumeration value="002">
+				<xs:annotation>
+					<xs:documentation>Алтайский банк</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="013">
+				<xs:annotation>
+					<xs:documentation>Центрально-Черноземный банк</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="017">
+				<xs:annotation>
+					<xs:documentation>Уральский банк</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="018">
+				<xs:annotation>
+					<xs:documentation>Байкальский банк</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="031">
+				<xs:annotation>
+					<xs:documentation>Восточно-Сибирский банк</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="036">
+				<xs:annotation>
+					<xs:documentation>Северо-Восточный банк</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="038">
+				<xs:annotation>
+					<xs:documentation>Московский банк</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="040">
+				<xs:annotation>
+					<xs:documentation>Среднерусский банк</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="042">
+				<xs:annotation>
+					<xs:documentation>Волго-Вятский банк</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="044">
+				<xs:annotation>
+					<xs:documentation>Сибирский банк</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="049">
+				<xs:annotation>
+					<xs:documentation>Западно-Уральский банк</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="052">
+				<xs:annotation>
+					<xs:documentation>Юго-Западный банк</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="054">
+				<xs:annotation>
+					<xs:documentation>Поволжский банк</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="055">
+				<xs:annotation>
+					<xs:documentation>Северо-Западный банк</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="060">
+				<xs:annotation>
+					<xs:documentation>Северо-Кавказский банк</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="067">
+				<xs:annotation>
+					<xs:documentation>Западно-Сибирский банк</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="070">
+				<xs:annotation>
+					<xs:documentation>Дальневосточный банк</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="077">
+				<xs:annotation>
+					<xs:documentation>Северный банк</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="099">
+				<xs:annotation>
+					<xs:documentation>Центральный аппарат</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="kz">
+				<xs:annotation>
+					<xs:documentation>ДБ Казахстан</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="by">
+				<xs:annotation>
+					<xs:documentation>ДБ Белоруссия</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ServerStatusCode_Type">
+		<xs:annotation>
+			<xs:documentation>
+				Статусный код сервера. Это значение выдается пользователю на экран и позволяет провайдеру лучше диагностировать ошибку.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="C">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Severity_Type">
+		<xs:annotation>
+			<xs:documentation>
+			Серьезность ошибки.
+			Значения: Error, Warn, Info
+		</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ClosedEnum">
+			<xs:enumeration value="Error"/>
+			<xs:enumeration value="Warn"/>
+			<xs:enumeration value="Info"/>
+			<xs:enumeration value=""/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="StatusCode_Type">
+		<xs:annotation>
+			<xs:documentation>
+				Статусный код возврата.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="Long"/>
+	</xs:simpleType>
+	<xs:simpleType name="StatusDesc_Type">
+		<xs:annotation>
+			<xs:documentation>
+				Описание статуса.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="C">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UUID">
+		<xs:annotation>
+			<xs:documentation>Уникальный 16 байтовый идентификатор. Для обмена в рамках интеграционных проектов
+                Сбербанка представляется набором из 32 символов без разделителей в шестнадцатиричной системе.
+                Размерность 36 оставлена для совместимости
+                со стандартом IFX/
+            </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="NC">
+			<xs:pattern value="[0-9a-zA-Z]{32}"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

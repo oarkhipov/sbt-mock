@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		xmlns:tns="http://sbrf.ru/ESB/commonTypes/simpleTypes/" 
+		xmlns:dt="http://sbrf.ru/ESB/commonTypes/dataTypes/" 
+		targetNamespace="http://sbrf.ru/ESB/commonTypes/simpleTypes/" 
+		elementFormDefault="qualified">
+	<import namespace="http://sbrf.ru/ESB/commonTypes/dataTypes/" schemaLocation="dataTypes.xsd"/>
+	<simpleType name="UUID">
+		<annotation>
+			<documentation>Идентификатор</documentation>
+		</annotation>
+		<restriction base="dt:String">
+			<length value="32"/>
+			<pattern value="([0-9]|[a-f]|[A-F]){32}"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="SystemName_Type">
+		<annotation>
+			<documentation>Идентификатор системы</documentation>
+		</annotation>
+		<restriction base="dt:DefString"/>
+	</simpleType>
+	<simpleType name="OperationName_Type">
+		<annotation>
+			<documentation>Название операции</documentation>
+		</annotation>
+		<restriction base="dt:DefString"/>
+	</simpleType>
+</schema>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+			xmlns="http://www.w3.org/2001/XMLSchema" 
+			xmlns:types="http://sbrf.ru/NCPCA/LD/types"
+			xmlns:tns="http://sbrf.ru/NCPCA/LD/NotifyLegalServiceApplicationResultRs/" 
+			targetNamespace="http://sbrf.ru/NCPCA/LD/NotifyLegalServiceApplicationResultRs/" 
+			elementFormDefault="qualified">
+
+	<import namespace="http://sbrf.ru/NCPCA/LD/types" schemaLocation="./../LDIntegrationTypes.xsd"/>
+
+	<xs:element name="NotifyLegalServiceApplicationResultRs" type="tns:NotifyLegalServiceApplicationResultRs_Type"/>
+	
+	<complexType name="NotifyLegalServiceApplicationResultRs_Type">
+		<sequence>
+			<xs:element name="ConfirmationMessage" type="types:ConfirmationMessage_Type"/>
+		</sequence>
+	</complexType>
+
+</xs:schema>

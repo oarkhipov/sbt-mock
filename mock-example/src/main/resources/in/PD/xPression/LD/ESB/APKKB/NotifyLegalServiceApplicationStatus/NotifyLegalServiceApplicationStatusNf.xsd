@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+			xmlns="http://www.w3.org/2001/XMLSchema" 
+			xmlns:tns="http://sbrf.ru/NCPCA/LD/NotifyLegalServiceApplicationStatusNf/" 
+			xmlns:types="http://sbrf.ru/NCPCA/LD/types"
+			targetNamespace="http://sbrf.ru/NCPCA/LD/NotifyLegalServiceApplicationStatusNf/" 
+			elementFormDefault="qualified">
+
+	<import namespace="http://sbrf.ru/NCPCA/LD/types" schemaLocation="./../LDIntegrationTypes.xsd"/>
+
+	<xs:element name="NotifyLegalServiceApplicationStatusNf">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation> Передача статуса исполнения запроса на предоставление юридической услуги </xs:documentation>
+			</xs:annotation>
+			<xs:sequence>
+				<xs:element name="ClientSystemTaskID" type="types:ClientSystemTaskID"/>
+				<xs:element name="WorkObjectID" type="types:WOId"/>
+				<xs:element name="WorkObjectStatus">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="64"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="AssignedToOperatorList" type="types:OperatorInfoList" minOccurs="0"/>
+				<xs:element name="ExecutorList" type="types:OperatorInfoList" minOccurs="0"/>
+				<xs:element name="Responsible" type="types:OperatorInfo" minOccurs="0"/>
+				<xs:element name="ExpectedStartDate" type="xs:dateTime" minOccurs="0"/>
+				<xs:element name="ExpectedEndDate" type="xs:dateTime" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

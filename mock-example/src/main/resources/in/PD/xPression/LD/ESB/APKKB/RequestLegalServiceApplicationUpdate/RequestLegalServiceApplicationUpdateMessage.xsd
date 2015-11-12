@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		xmlns:tns="http://sbrf.ru/ESB/mq/common"
+		xmlns:hdr="http://sbrf.ru/ESB/mq/headers" 
+		xmlns:rlsaurq="http://sbrf.ru/NCPCA/LD/RequestLegalServiceApplicationUpdateRq/" 
+		xmlns:rlsaurs="http://sbrf.ru/NCPCA/LD/RequestLegalServiceApplicationUpdateRs/" 
+		targetNamespace="http://sbrf.ru/ESB/mq/common">
+	<import namespace="http://sbrf.ru/ESB/mq/headers" schemaLocation="./../../Common/Header.xsd"/>
+	<import namespace="http://sbrf.ru/NCPCA/LD/RequestLegalServiceApplicationUpdateRq/" schemaLocation="./RequestLegalServiceApplicationUpdateRq.xsd"/>
+	<import namespace="http://sbrf.ru/NCPCA/LD/RequestLegalServiceApplicationUpdateRs/" schemaLocation="./RequestLegalServiceApplicationUpdateRs.xsd"/>
+
+	<element name="Body">
+		<annotation>
+			<documentation>Тело сообщения</documentation>
+		</annotation>
+		<complexType>
+			<choice>
+				<element ref="rlsaurq:RequestLegalServiceApplicationUpdateRq"/>
+				<element ref="rlsaurs:RequestLegalServiceApplicationUpdateRs"/>			
+			</choice>
+		</complexType>
+	</element>
+	<element name="Envelope">
+		<annotation>
+			<documentation>Сообщение</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="hdr:Header"/>
+				<element ref="tns:Body"/>
+			</sequence>
+		</complexType>
+	</element>
+</schema>
+

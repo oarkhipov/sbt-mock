@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+			xmlns="http://www.w3.org/2001/XMLSchema" 
+			xmlns:tns="http://sbrf.ru/NCPCA/LD/CancelLegalServiceApplicationRq/" 
+			xmlns:types="http://sbrf.ru/NCPCA/LD/types"
+			targetNamespace="http://sbrf.ru/NCPCA/LD/CancelLegalServiceApplicationRq/" 
+			elementFormDefault="qualified">
+
+	<import namespace="http://sbrf.ru/NCPCA/LD/types" schemaLocation="./../LDIntegrationTypes.xsd"/>
+
+	<xs:element name="CancelLegalServiceApplicationRq">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation> Удаление/ отмена запроса </xs:documentation>
+			</xs:annotation>
+			<xs:sequence>
+				<xs:element name="ClientSystemTaskID" type="types:ClientSystemTaskID"/>
+				<xs:element name="WorkObjectID" type="types:WOId"/>
+				<xs:element name="CancelReason" >
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="500"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

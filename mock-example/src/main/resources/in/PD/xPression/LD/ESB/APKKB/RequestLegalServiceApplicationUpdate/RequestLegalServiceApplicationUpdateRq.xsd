@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+			xmlns="http://www.w3.org/2001/XMLSchema" 
+			xmlns:tns="http://sbrf.ru/NCPCA/LD/RequestLegalServiceApplicationUpdateRq/" 
+			xmlns:types="http://sbrf.ru/NCPCA/LD/types"
+			targetNamespace="http://sbrf.ru/NCPCA/LD/RequestLegalServiceApplicationUpdateRq/" 
+			elementFormDefault="qualified">
+
+	<import namespace="http://sbrf.ru/NCPCA/LD/types" schemaLocation="./../LDIntegrationTypes.xsd"/>
+
+	<xs:element name="RequestLegalServiceApplicationUpdateRq">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation> Запрос дополнительной информации </xs:documentation>
+			</xs:annotation>
+			<xs:sequence>
+				<xs:element name="ClientSystemTaskID" type="types:ClientSystemTaskID"/>
+				<xs:element name="WorkObjectID" type="types:WOId"/>
+				<xs:element name="RejectionReason" type="types:ReferenceItemId"/>
+				<xs:element name="CommentsHistory" type="types:CommentHistory" minOccurs="0"/>
+				<xs:element name="ReferenceToDocumentsInBPM" type="types:ReferenceToDocumentsInBPM" minOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
