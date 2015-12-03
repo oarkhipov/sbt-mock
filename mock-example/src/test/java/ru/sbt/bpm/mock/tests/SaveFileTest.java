@@ -94,13 +94,13 @@ public class SaveFileTest {
         long cheksumA = FileUtils.checksumCRC32(f4);
 
         saveFile = SaveFile.getInstance(appContext);
-        File file = saveFile.getNextBackUpedDataFile(fileToBackUp);
+        File file = saveFile.getNextBackupDataFile(fileToBackUp);
         System.out.println(file.getName());
-        File file2 = saveFile.getNextBackUpedDataFile(fileToBackUp);
+        File file2 = saveFile.getNextBackupDataFile(fileToBackUp);
         System.out.println(file2.getName());
-        File file3 = saveFile.getNextBackUpedDataFile(fileToBackUp);
+        File file3 = saveFile.getNextBackupDataFile(fileToBackUp);
         System.out.println(file3.getName());
-        File file4 = saveFile.getNextBackUpedDataFile(fileToBackUp);
+        File file4 = saveFile.getNextBackupDataFile(fileToBackUp);
         System.out.println(file4.getName());
 
         assert !file.getAbsolutePath().equals(file2.getAbsolutePath());

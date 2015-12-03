@@ -24,6 +24,6 @@ public class ClientServiceTest {
 
     @Test
     public void testInvoke() throws Exception {
-        assertEquals("test",clientService.invoke("test"));
+        assertEquals("test",clientService.send("test"));
     }
 }

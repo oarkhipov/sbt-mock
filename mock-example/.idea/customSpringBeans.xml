@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CustomBeanRegistry">
+    <option name="map">
+      <map>
+        <entry key="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&lt;sws:static-wsdl xmlns:sws=&quot;http://www.springframework.org/schema/web-services&quot; location=&quot;/WEB-INF/xsd/wsdl.xsd&quot; id=&quot;xPression&quot; /&gt;&#10;&#10;">
+          <value>
+            <list>
+              <CustomBeanInfo>
+                <option name="beanName" value="xPression" />
+                <option name="beanClassName" value="org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition" />
+                <option name="idAttribute" value="id" />
+              </CustomBeanInfo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="policies">
+      <map>
+        <entry>
+          <key>
+            <MyQName>
+              <option name="namespace" value="http://www.springframework.org/schema/web-services" />
+              <option name="localName" value="static-wsdl" />
+            </MyQName>
+          </key>
+          <value>
+            <CustomBeanInfo>
+              <option name="beanClassName" value="org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition" />
+              <option name="idAttribute" value="id" />
+            </CustomBeanInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

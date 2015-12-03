@@ -1,9 +1,13 @@
 package ru.sbt.bpm.mock.spring.controller;
 
 import com.google.gson.Gson;
+import groovy.lang.Binding;
+import groovy.lang.GroovyShell;
+import lombok.extern.java.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -22,24 +26,18 @@ import java.io.IOException;
  * <p/>
  * Company: SBT - Moscow
  */
-
+@Log
 @Controller
 public class SenderController {
 
     @Autowired
-    TemplateEngineBean templateEngineBean;
-
-    @Autowired
     ClientService clientService;
-
-    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping(value = "/sender/", method = RequestMethod.GET)
     public String get(Model model) throws IOException, TransformerException {
         model.addAttribute("name", "Any Message Sender");
         model.addAttribute("link", "driver");
         model.addAttribute("object", "<tag>Type request here...</tag>");
-        model.addAttribute("templateInfo", templateEngineBean.htmlInfo());
         model.addAttribute("title", "Sender");
         return "wrappedEditor";
     }
@@ -49,17 +47,28 @@ public class SenderController {
             @RequestParam("xml") String xml,
             ModelMap model) throws IOException, TransformerException {
         AjaxObject ajaxObject = new AjaxObject();
-        String message = templateEngineBean.applyTemplate(xml);
-        log.info("Sending:\n" +
-                "============================================\n" +
-                message + "\n" +
-                "============================================");
-        ajaxObject.setInfo("DONE!");
-        try {
-            ajaxObject.setData(clientService.invoke(message));
-        } catch (Exception e) {
-            ajaxObject.setError(e.getMessage());
-        }
+//        String message = templateEngineBean.applyTemplate(xml);
+//        log.info("Sending:\n" +
+//                "============================================\n" +
+//                message + "\n" +
+//                "============================================");
+//        ajaxObject.setInfo("DONE!");
+//        try {
+//            ajaxObject.setData(clientService.send(message));
+//        } catch (Exception e) {
+//            ajaxObject.setError(e.getMessage());
+//        }
+
+        String init = "class RespObj {\n" +
+                "def properties = [:]\n" +
+                "def getProperty(String name) { properties[name] }\n" +
+                "void setProperty(String name, value) { properties[name] = value }\n" +
+                "}\n" +
+                "def response = new RespObj()\n" +
+                "\n";
+
+        GroovyShell shell = new GroovyShell();
+        ajaxObject.setData((String) shell.evaluate(init + xml));
         Gson gson = new Gson();
         model.addAttribute("object", gson.toJson(ajaxObject));
         return "blank";

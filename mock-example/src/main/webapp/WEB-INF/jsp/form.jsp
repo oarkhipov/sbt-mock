@@ -34,8 +34,8 @@
         <div class="parent">
             <div class="links">
                 <ul>
-                    <c:forEach var="entry" items="${list}">
-                        <li><a href="${entry}/">${entry}</a></li>
+                    <c:forEach var="system" items="${list}">
+                        <li><a href="${system}/">${system}</a></li>
                     </c:forEach>
                 </ul>
             </div>

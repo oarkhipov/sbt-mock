@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import ru.sbt.bpm.mock.config.entities.*;
+import ru.sbt.bpm.mock.config.entities.System;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
@@ -30,7 +31,7 @@ public class MockConfigContainer {
     @Getter
     private String filePath = null;
 
-    private static String localWebappPath = System.getProperty("user.dir") + File.separator + "webapp";
+    private static String localWebappPath = java.lang.System.getProperty("user.dir") + File.separator + "webapp";
 
 
     /**
@@ -68,22 +69,15 @@ public class MockConfigContainer {
 
         // Mapping данных из xml в классы
         xStream.processAnnotations(MockConfig.class);
-        xStream.processAnnotations(SystemsTag.class);
-        xStream.processAnnotations(SystemTag.class);
+        xStream.processAnnotations(Systems.class);
+        xStream.processAnnotations(System.class);
+        xStream.processAnnotations(ElementSelector.class);
+        xStream.processAnnotations(XpathSelector.class);
         xStream.processAnnotations(IntegrationPoints.class);
         xStream.processAnnotations(IntegrationPoint.class);
-        xStream.processAnnotations(LinkedTagSequence.class);
-        xStream.processAnnotations(LinkedTag.class);
-        xStream.processAnnotations(Dependencies.class);
-        xStream.processAnnotations(Dependency.class);
-        // parse
-        //TODO Не работает, хотя должен
-//        xStream.autodetectAnnotations(true);
+
         this.config = (MockConfig) xStream.fromXML(fileReader);
 
-        config.setFilename(resourceFile.getName());
-
-        config.inheritNamespaceAliases(); //наследуем алиасы вниз для всех точек интеграции
     }
 
     private static MockConfigContainer INSTANCE = null;

@@ -1,572 +1,231 @@
-<MockConfig xmlns="http://sbrf.ru/mockService">
-    <namespace-aliases>
-        <namespace name="soap">http://schemas.xmlsoap.org/soap/envelope/</namespace>
-    </namespace-aliases>
+<MockConfig xmlns="http://sbrf.ru/mockService2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://sbrf.ru/mockService2 ">
     <systems>
-        <system name="BBMO">
-            <pathToXSD>/PD/BBMO</pathToXSD>
-            <rootXsd>BBMOOperationElements.xsd</rootXsd>
-            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
-            <integrationPoints>
-                <integrationPoint name="SrvUpdateClientReferenceDataRq">
-                    <operationName>SrvUpdateClientReferenceData</operationName>
-                    <rsRootElementName>SrvUpdateClientReferenceDataRs</rsRootElementName>
-                    <rqRootElementName>SrvUpdateClientReferenceDataRq</rqRootElementName>
-                    <type>Mock</type>
-                    <linkedTagSequence>
-                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
-                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
-                        <tag ns="http://sbrf.ru/prpc/bbmo/10">SrvUpdateClientReferenceDataRq</tag>
-                        <tag ns="http://sbrf.ru/prpc/bbmo/10">ChangeType</tag>
-                    </linkedTagSequence>
-                    <protocol>MQ/SOAP/HTTP - none</protocol>
-                    <xsdFile>BBMOOperationElements.xsd</xsdFile>
-                    <!--OPTIONAL-->
-                    <dependencies>
-                        <dependency>
-                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/TransactionPassportTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/NaturalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/LegalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ExchangeControlTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ClientReferenceDataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CommonStructureTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/DocumentsInfo.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CKPITProductTypes.xsd</xsdFile>
-                        </dependency>
-                    </dependencies>
-                    <dataXml>
-                        <response>
-                            <ResultCode>0</ResultCode>
-                        </response>
-                    </dataXml>
-                </integrationPoint>
-                <integrationPoint name="SrvPermitAccountChargeOperation">
-                    <operationName>SrvPermitAccountChargeOperation</operationName>
-                    <rsRootElementName>SrvPermitAccountChargeOperationRs</rsRootElementName>
-                    <rqRootElementName>SrvPermitAccountChargeOperationRq</rqRootElementName>
-                    <type>Mock</type>
-                    <linkedTagSequence>
-                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
-                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
-                        <tag ns="http://sbrf.ru/prpc/bbmo/10">SrvPermitAccountChargeOperationRq</tag>
-                        <tag ns="http://sbrf.ru/prpc/bbmo/10">AccountNumber</tag>
-                    </linkedTagSequence>
-                    <protocol>MQ/SOAP/HTTP</protocol>
-                    <!--OPTIONAL-->
-                    <incomeQueue>IN.KKMB.2</incomeQueue>
-                    <!--OPTIONAL-->
-                    <outcomeQueue>OUT.KKMB2</outcomeQueue>
-                    <xsdFile>BBMOOperationElements.xsd</xsdFile>
-                    <!--OPTIONAL-->
-                    <dependencies>
-                        <dependency>
-                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/TransactionPassportTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/NaturalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/LegalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ExchangeControlTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ClientReferenceDataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CommonStructureTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/DocumentsInfo.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CKPITProductTypes.xsd</xsdFile>
-                        </dependency>
-                    </dependencies>
-                    <dataXml>
-                        <response>
-                            <ResultCode>0</ResultCode>
-                        </response>
-                    </dataXml>
-                </integrationPoint>
-                <integrationPoint name="SrvGetClientReferenceDataRq">
-                    <operationName>SrvGetClientReferenceData</operationName>
-                    <rsRootElementName>SrvGetClientReferenceDataRs</rsRootElementName>
-                    <rqRootElementName>SrvGetClientReferenceDataRq</rqRootElementName>
-                    <type>Mock</type>
-                    <linkedTagSequence>
-                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
-                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
-                        <tag ns="http://sbrf.ru/prpc/bbmo/10">SrvGetClientReferenceDataRq</tag>
-                        <tag ns="http://sbrf.ru/prpc/bbmo/10">ClientId</tag>
-                    </linkedTagSequence>
-                    <!--<mappedTagSequence>-->
-                        <!--<mappedTag>-->
-                            <!--<requestMapping>-->
-                                    <!--<tag>TaxId</tag>-->
-                            <!--</requestMapping>-->
-                            <!--<responceMapping>-->
-                                <!--<tag>ClientReferenceData</tag>-->
-                                    <!--<tag>MainDetails</tag>-->
-                                        <!--<tag>TaxInspectorateInfo</tag>-->
-                                        <!--<tag>TaxId</tag>-->
-                                <!--</responceMapping>-->
-                        <!--</mappedTag>-->
-                        <!--<mappedTag>-->
-                                <!--<requestMapping>-->
-                                        <!--<tag>TaxRegReasonCode</tag>-->
-                                <!--</requestMapping>-->
-                                <!--<responceMapping>-->
-                                        <!--<tag>ClientReferenceData</tag>-->
-                                        <!--<tag>MainDetails</tag>-->
-                                        <!--<tag>TaxInspectorateInfo</tag>-->
-                                        <!--<tag>TaxRegReasonCode</tag>-->
-                                <!--</responceMapping>-->
-                        <!--</mappedTag>-->
-                        <!--<mappedTag>-->
-                            <!--<requestQuerryValue>/soap-env:Envelope/soap-env:Body/bbmo:SrvGetClientReferenceDataRq/bbmo:TaxInspectorate</requestQuerryValue>-->
-                                <!--<responceMapping>-->
-                                        <!--<tag>ClientReferenceData</tag>-->
-                                        <!--<tag>MainDetails</tag>-->
-                                        <!--<tag>TaxInspectorateInfo</tag>-->
-                                        <!--<tag>TaxInspectorate</tag>-->
-                                <!--</responceMapping>-->
-                        <!--</mappedTag>-->
-                    <!--</mappedTagSequence>-->
-                    <protocol>MQ/SOAP/HTTP</protocol>
-                    <!--OPTIONAL-->
-                    <incomeQueue>IN.KKMB.2</incomeQueue>
-                    <!--OPTIONAL-->
-                    <outcomeQueue>OUT.KKMB2</outcomeQueue>
-                    <xsdFile>BBMOOperationElements.xsd</xsdFile>
-                    <!--OPTIONAL-->
-                    <dependencies>
-                        <dependency>
-                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/TransactionPassportTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/NaturalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/LegalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ExchangeControlTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ClientReferenceDataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CommonStructureTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/DocumentsInfo.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CKPITProductTypes.xsd</xsdFile>
-                        </dependency>
-                    </dependencies>
-                </integrationPoint>
-                <integrationPoint name="SrvSendApplicationForCBDFProcessingRq">
-                    <operationName>SrvSendApplicationForCBDFProcessing</operationName>
-                    <rsRootElementName>SrvSendApplicationForCBDFProcessingRs</rsRootElementName>
-                    <rqRootElementName>SrvSendApplicationForCBDFProcessingRq</rqRootElementName>
-                    <type>Mock</type>
-                    <linkedTagSequence>
-                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
-                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
-                        <tag ns="http://sbrf.ru/prpc/bbmo/10">SrvSendApplicationForCBDFProcessingRq</tag>
-                        <tag ns="http://sbrf.ru/prpc/bbmo/10">NaturalPersonCompesationApplication</tag>
-                        <tag ns="http://sbrf.ru/prpc/bbmo/10">ApplicationId</tag>
-                    </linkedTagSequence>
-                    <protocol>MQ/SOAP/HTTP</protocol>
-                    <!--OPTIONAL-->
-                    <incomeQueue>IN.KKMB.2</incomeQueue>
-                    <!--OPTIONAL-->
-                    <outcomeQueue>OUT.KKMB2</outcomeQueue>
-                    <xsdFile>BBMOOperationElements.xsd</xsdFile>
-                    <!--OPTIONAL-->
-                    <dependencies>
-                        <dependency>
-                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/TransactionPassportTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/NaturalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/LegalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ExchangeControlTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ClientReferenceDataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CommonStructureTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/DocumentsInfo.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CKPITProductTypes.xsd</xsdFile>
-                        </dependency>
-                    </dependencies>
-                </integrationPoint>
-                <integrationPoint name="SrvSendNaturalPersonApplicationStateChangeMessageRq">
-                    <operationName>SrvSendNaturalPersonApplicationProcessStageResult</operationName>
-                    <rsRootElementName>SrvSendNaturalPersonApplicationStateChangeMessageRs</rsRootElementName>
-                    <rqRootElementName>SrvSendNaturalPersonApplicationStateChangeMessageRq</rqRootElementName>
-                    <type>Mock</type>
-                    <linkedTagSequence>
-                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
-                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
-                        <tag ns="http://sbrf.ru/prpc/bbmo/10">SrvSendNaturalPersonApplicationStateChangeMessageRq</tag>
-                        <tag ns="http://sbrf.ru/prpc/bbmo/10">NaturalPersonApplicationState</tag>
-                        <tag ns="http://sbrf.ru/prpc/bbmo/10">ApplicationId</tag>
-                    </linkedTagSequence>
-                    <protocol>MQ/SOAP/HTTP</protocol>
-                    <!--OPTIONAL-->
-                    <incomeQueue>IN.KKMB.2</incomeQueue>
-                    <!--OPTIONAL-->
-                    <outcomeQueue>OUT.KKMB2</outcomeQueue>
-                    <xsdFile>BBMOOperationElements.xsd</xsdFile>
-                    <!--OPTIONAL-->
-                    <dependencies>
-                        <dependency>
-                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/TransactionPassportTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/NaturalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/LegalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ExchangeControlTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ClientReferenceDataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CommonStructureTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/DocumentsInfo.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CKPITProductTypes.xsd</xsdFile>
-                        </dependency>
-                    </dependencies>
-                </integrationPoint>
-                <integrationPoint name="SrvRegisterLegalPersonAccountOperationApplication">
-                    <operationName>SrvRegisterLegalPersonAccountOperationApplication</operationName>
-                    <rqRootElementName>SrvRegisterLegalPersonApplicationRq</rqRootElementName>
-                    <type>Driver</type>
-                    <protocol>MQ/SOAP/HTTP</protocol>
-                    <!--OPTIONAL-->
-                    <incomeQueue>IN.KKMB.2</incomeQueue>
-                    <!--OPTIONAL-->
-                    <outcomeQueue>OUT.KKMB2</outcomeQueue>
-                    <xsdFile>BBMOOperationElements.xsd</xsdFile>
-                    <!--OPTIONAL-->
-                    <dependencies>
-                        <dependency>
-                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/TransactionPassportTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/NaturalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/LegalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ExchangeControlTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ClientReferenceDataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CommonStructureTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/DocumentsInfo.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CKPITProductTypes.xsd</xsdFile>
-                        </dependency>
-                    </dependencies>
-                </integrationPoint>
-                <integrationPoint name="SrvSendApplicationProcessingURL">
-                    <operationName>SrvSendApplicationProcessingURL</operationName>
-                    <rqRootElementName>SrvSendApplicationProcessingURLRq</rqRootElementName>
-                    <type>Driver</type>
-                    <protocol>MQ/SOAP/HTTP</protocol>
-                    <!--OPTIONAL-->
-                    <incomeQueue>ESB.BPM.REQUEST</incomeQueue>
-                    <!--OPTIONAL-->
-                    <outcomeQueue>ESB.BPM.RESPONSE</outcomeQueue>
-                    <xsdFile>BBMOOperationElements.xsd</xsdFile>
-                    <!--OPTIONAL-->
-                    <dependencies>
-                        <dependency>
-                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/TransactionPassportTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/NaturalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/LegalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ExchangeControlTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ClientReferenceDataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CommonStructureTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/DocumentsInfo.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CKPITProductTypes.xsd</xsdFile>
-                        </dependency>
-                    </dependencies>
-                </integrationPoint>
-            </integrationPoints>
-        </system>
-        <system name="CBBOL">
-            <pathToXSD>/BBMO/CBBOL</pathToXSD>
-            <rootXsd>BBMOOperationElements.xsd</rootXsd>
-            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
-            <integrationPoints>
-                <integrationPoint name="SrvPutRemoteLegalAccOperAppRq">
-                    <operationName>SrvPutRemoteLegalAccOperApp</operationName>
-                    <rqRootElementName>SrvPutRemoteLegalAccOperAppRq</rqRootElementName>
-                    <type>Driver</type>
-                    <protocol>MQ/SOAP/HTTP</protocol>
-                    <!--OPTIONAL-->
-                    <incomeQueue>IN.KKMB.2</incomeQueue>
-                    <!--OPTIONAL-->
-                    <outcomeQueue>OUT.KKMB2</outcomeQueue>
-                    <xsdFile>BBMOOperationElements.xsd</xsdFile>
-                    <!--OPTIONAL-->
-                    <dependencies>
-                        <dependency>
-                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/TransactionPassportTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/NaturalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/LegalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ExchangeControlTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ClientReferenceDataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CommonStructureTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/DocumentsInfo.xsd</xsdFile>
-                        </dependency>
-                    </dependencies>
-                </integrationPoint>
-            </integrationPoints>
-        </system>
-        <system name="CKPIT">
-            <pathToXSD>/BBMO/CKPIT</pathToXSD>
-            <rootXsd>BBMOOperationElements.xsd</rootXsd>
-            <headerNamespace>http://sbrf.ru/prpc/mq/headers</headerNamespace>
-            <integrationPoints>
-                <integrationPoint name="UpdateDepositNSO">
-                    <operationName>SrvCKPITUpdateDepositNSO</operationName>
-                    <rqRootElementName>SrvCKPITUpdateDepositNSORq</rqRootElementName>
-                    <type>Driver</type>
-                    <protocol>MQ/SOAP/HTTP</protocol>
-                    <!--OPTIONAL-->
-                    <incomeQueue>IN.KKMB.2</incomeQueue>
-                    <!--OPTIONAL-->
-                    <outcomeQueue>OUT.KKMB2</outcomeQueue>
-                    <xsdFile>BBMOOperationElements.xsd</xsdFile>
-                    <!--OPTIONAL-->
-                    <dependencies>
-                        <dependency>
-                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/TransactionPassportTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/NaturalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/LegalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ExchangeControlTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ClientReferenceDataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CommonStructureTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/DocumentsInfo.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CKPITProductTypes.xsd</xsdFile>
-                        </dependency>
-                    </dependencies>
-                </integrationPoint>
-                <integrationPoint name="UpdateLoan">
-                    <operationName>SrvCKPITUpdateLoan</operationName>
-                    <rqRootElementName>SrvCKPITUpdateLoanRq</rqRootElementName>
-                    <type>Driver</type>
-                    <protocol>MQ/SOAP/HTTP</protocol>
-                    <!--OPTIONAL-->
-                    <incomeQueue>IN.KKMB.2</incomeQueue>
-                    <!--OPTIONAL-->
-                    <outcomeQueue>OUT.KKMB2</outcomeQueue>
-                    <xsdFile>BBMOOperationElements.xsd</xsdFile>
-                    <!--OPTIONAL-->
-                    <dependencies>
-                        <dependency>
-                            <xsdFile>commonTypes/dataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/simpleTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>commonTypes/commonTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/TransactionPassportTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/NaturalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/LegalPersonApplicationTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ExchangeControlTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/ClientReferenceDataTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CommonStructureTypes.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/DocumentsInfo.xsd</xsdFile>
-                        </dependency>
-                        <dependency>
-                            <xsdFile>domainTypes/CKPITProductTypes.xsd</xsdFile>
-                        </dependency>
-                    </dependencies>
-                </integrationPoint>
-            </integrationPoints>
-        </system>
+        <system name="CRM">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <rootXsd>CRMIntegrationSchema.xsd</rootXsd>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                <tag ns="http://sbrf.ru/legal/enquiry/integration">*[local-name()]</tag>
+            </integrationPointSelector>
+            <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-MQ, System-SOAP -->
+            <protocol>MQ</protocol>
 
+            <integrationPoints>
+
+                <!--1. driver getReferenceData -->
+                <integrationPoint name="getReferenceData">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">getReferenceData</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+                    <!-- Входящая очередь-->
+                    <incomeQueue>RESPONSE.PD</incomeQueue>
+                    <!-- Исходящая очередь-->
+                    <outcomeQueue>REQUEST.PD</outcomeQueue>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                </integrationPoint>
+
+                <!--2. mock sendReferenceData -->
+                <integrationPoint name="sendReferenceData">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">sendReferenceData</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+                    <!-- Входящая очередь-->
+                    <incomeQueue>IN.PD</incomeQueue>
+                    <!-- Исходящая очередь-->
+                    <outcomeQueue>OUT.PD</outcomeQueue>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                </integrationPoint>
+
+                <!--3. driver getAvailableExecutors-->
+                <integrationPoint name="getAvailableExecutors">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">getAvailableExecutors</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+                    <!-- Входящая очередь-->
+                    <incomeQueue>RESPONSE.PD</incomeQueue>
+                    <!-- Исходящая очередь-->
+                    <outcomeQueue>REQUEST.PD</outcomeQueue>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                </integrationPoint>
+
+                <!--4. driver createLegalEnquiry-->
+                <integrationPoint name="createLegalEnquiry">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">createLegalEnquiry</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+                    <!-- Входящая очередь-->
+                    <incomeQueue>RESPONSE.PD</incomeQueue>
+                    <!-- Исходящая очередь-->
+                    <outcomeQueue>REQUEST.PD</outcomeQueue>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                </integrationPoint>
+
+                <!--5. mock sendLegalEnquiryStatus-->
+                <integrationPoint name="sendLegalEnquiryStatus">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">sendLegalEnquiryStatus</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+                    <!-- Входящая очередь-->
+                    <incomeQueue>IN.PD</incomeQueue>
+                    <!-- Исходящая очередь-->
+                    <outcomeQueue>OUT.PD</outcomeQueue>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                </integrationPoint>
+
+                <!--6. driver getAdditionalInfo-->
+                <integrationPoint name="getAdditionalInfo">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">getAdditionalInfo</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+                    <!-- Входящая очередь-->
+                    <incomeQueue>RESPONSE.PD</incomeQueue>
+                    <!-- Исходящая очередь-->
+                    <outcomeQueue>REQUEST.PD</outcomeQueue>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                </integrationPoint>
+
+                <!--7. driver sendAdditionalInfo-->
+                <integrationPoint name="sendAdditionalInfo">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">sendAdditionalInfo</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+                    <!-- Входящая очередь-->
+                    <incomeQueue>RESPONSE.PD</incomeQueue>
+                    <!-- Исходящая очередь-->
+                    <outcomeQueue>REQUEST.PD</outcomeQueue>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                </integrationPoint>
+
+                <!--8. driver cancelLegalEnquiry-->
+                <integrationPoint name="cancelLegalEnquiry">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">cancelLegalEnquiry</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+                    <!-- Входящая очередь-->
+                    <incomeQueue>RESPONSE.PD</incomeQueue>
+                    <!-- Исходящая очередь-->
+                    <outcomeQueue>REQUEST.PD</outcomeQueue>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                </integrationPoint>
+
+                <!--9. driver sendLegalEnquiryExecutionResult-->
+                <integrationPoint name="sendLegalEnquiryExecutionResult">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">sendLegalEnquiryExecutionResult</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+                    <!-- Входящая очередь-->
+                    <incomeQueue>RESPONSE.PD</incomeQueue>
+                    <!-- Исходящая очередь-->
+                    <outcomeQueue>REQUEST.PD</outcomeQueue>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                </integrationPoint>
+
+                <!--10. driver assessQuality-->
+                <integrationPoint name="assessQuality">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">assessQuality</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+                    <!-- Входящая очередь-->
+                    <incomeQueue>RESPONSE.PD</incomeQueue>
+                    <!-- Исходящая очередь-->
+                    <outcomeQueue>REQUEST.PD</outcomeQueue>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                </integrationPoint>
+
+            </integrationPoints>
+        </system>
     </systems>
 </MockConfig>

@@ -1,7 +1,6 @@
 package ru.sbt.bpm.mock.config;
 
 import org.junit.Test;
-import ru.sbt.bpm.mock.generator.spring.integration.GatewayContextGenerator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -16,31 +15,9 @@ public class MockConfigTest {
 
     @Test
     public void testGeneratorSingletonWithFile() throws Exception {
-        final String fileExpected = "src/test/resources/xml/MockConfigFiles/MockConfig.xml";
-        MockConfigContainer gen1 = MockConfigContainer.getInstance("src/test/resources/xml/MockConfigFiles/MockConfig.xml");
-        MockConfigContainer gen2 = MockConfigContainer.getInstance("src/test/resources/xml/MockConfigFiles/MockConfig.xml");
-        assertEquals(gen1, gen2);
-
-
-        assertEquals(fileExpected, gen1.getFilePath());
-        assertEquals(fileExpected, gen2.getFilePath());
+        
+        MockConfigContainer gen1 = MockConfigContainer.getInstance("src/main/webapp/resources/MockConfigFiles/PDConfig.xml");
+        gen1.init();
+        assertNotNull(gen1.getConfig().getSystems());
     }
-
-    @Test
-    public void testGeneratorSingletonWithDiffFiles() throws Exception {
-        final String fileExpected = "src/test/resources/xml/MockConfigFiles/MockConfig.xml";
-        MockConfigContainer gen1 = MockConfigContainer.getInstance("src/test/resources/xml/MockConfigFiles/MockConfig.xml");
-
-
-        assertEquals(fileExpected, gen1.getFilePath());
-    }
-
-    @Test
-    public void testGeneratorMockIsNotNull() throws Exception{
-        MockConfigContainer configContainer = MockConfigContainer.getInstance("src/test/resources/xml/MockConfigFiles/MockConfig.xml");
-        configContainer.init();
-
-        assertNotNull(configContainer.getConfig());
-    }
-
 }

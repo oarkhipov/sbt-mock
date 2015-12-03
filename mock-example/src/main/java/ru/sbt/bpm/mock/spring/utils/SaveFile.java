@@ -105,17 +105,22 @@ public class SaveFile {
      */
     public File getBackUpedDataFile(String path) throws IOException{
         if (path.contains(".."+slash)) throw new FileNotFoundException("other directories are blocked");
-        File f = getDataFile(path);
-        File back = isFileNeedBackUp(path, f);
-        if (back != null) {
-            List<File> backUps = getBackUpFilesList(path, f);
-            while (backUps.size()>logSize-1) {
-                FileUtils.forceDelete(backUps.get(1));//получаем второй файл с конца, не первый. Это важно - нельзя удалять самый старый
-                backUps = getBackUpFilesList(path, f);
+        try {
+            File f = getDataFile(path);
+            File back = isFileNeedBackUp(path, f);
+            if (back != null) {
+                List<File> backUps = getBackUpFilesList(path, f);
+                while (backUps.size() > logSize - 1) {
+                    FileUtils.forceDelete(backUps.get(1));//получаем второй файл с конца, не первый. Это важно - нельзя удалять самый старый
+                    backUps = getBackUpFilesList(path, f);
+                }
+                copyFile(f, back);
+                return f;
             }
-            copyFile(f, back);
+        } catch (FileNotFoundException e) {
+            return new File(path);
         }
-        return f;
+        throw new IllegalStateException("unreachable code reached at method" + this.getClass().getPackage().toString() + "getBackUpedDataFile");
     }
 
     /**
@@ -144,7 +149,7 @@ public class SaveFile {
      * @param path путь формата "AMRLiRT/xml/CalculateDebtCapacityData.xml"
      * @return Java.io.File
      */
-    public File getNextBackUpedDataFile(String path) throws IOException, IndexOutOfBoundsException {
+    public File getNextBackupDataFile(String path) throws IOException, IndexOutOfBoundsException {
         assert !path.contains(".."+slash) : "other directories are blocked";
         //создаем бэекап текущего, но только если уже нет такого же
         File f = getBackUpedDataFile(path);
@@ -186,7 +191,7 @@ public class SaveFile {
      * @param path путь формата "AMRLiRT/xml/CalculateDebtCapacityData.xml"
      * @return Java.io.File
      */
-    public File rollbackNextBackUpedDataFile(String path) throws IOException {
+    public File rollbackNextBackupDataFile(String path) throws IOException {
         assert !path.contains(".."+slash) : "other directories are blocked";
         //создаем бэекап текущего, но только если уже нет такого же
         File f = getBackUpedDataFile(path);
@@ -404,30 +409,12 @@ public class SaveFile {
             throw new IllegalArgumentException("Error: Illegal Argument \"name\":=\""+name+"\"");
         }
         String[] parts = name.split("_");
-        path = parts[0]+slash+"xml"+slash+parts[1]+"Data.xml";
-        File file = new File(getWebInfPath()+slash+"data"+slash+path);
-        if (file.exists()) return path; //Нашли файл. Если здесь не нашли - дальше пляски с бубном
-
-        /*//просмотр папок, имя которых похоже на первую часть имени.
-        File dataFolder = new File(getWebInfPath() + slash + "data");
-        File[] catFolders =  dataFolder.listFiles();
-        String category=null;
-        for (File catFolder : catFolders) {
-            if (catFolder.getName().toUpperCase().contains(parts[0].toUpperCase())) category = catFolder.getName();
-        }
-        if (category!=null) {
-            //просмотр файлов внутри группы
-            dataFolder = new File(getWebInfPath() + slash + "data"+slash+category+slash+"xml");
-            File[] files =  dataFolder.listFiles();
-            String dataFilename = null;
-            for (File datafiles : files) {
-                if (datafiles.getName().toUpperCase().contains(parts[1].toUpperCase())) dataFilename = datafiles.getName();
-            }
-            path = dataFolder+slash+dataFilename+".xml";
-            file = new File(path);
-            if (file.exists()) return path; //Нашли файл. Если здесь не нашли - значиьт видимо нет такого файла
-        }*/
-        throw new FileNotFoundException(path);
+        path = parts[0]+slash+parts[1]+slash+parts[2];
+        return getWebInfPath()+slash+"data"+slash+path;
+//        File file = new File(getWebInfPath()+slash+"data"+slash+path);
+//        if (file.exists()) return path; //Нашли файл. Если здесь не нашли - дальше пляски с бубном
+//        throw new FileNotFoundException(path);
+//        return path;
     }
 
     public String TranslateNameToSystem(String name) throws FileNotFoundException, IOException{

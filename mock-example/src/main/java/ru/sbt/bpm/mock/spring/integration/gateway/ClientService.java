@@ -12,5 +12,5 @@ public interface  ClientService {
      *
      * @param request
      */
-    String invoke(String request);
+    String send(String request);
 }

@@ -1,15 +1,11 @@
 package ru.sbt.bpm.mock.spring.controller;
 
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import ru.sbt.bpm.mock.spring.bean.LinkedTagCaption;
-import ru.sbt.bpm.mock.spring.bean.MockList;
-import ru.sbt.bpm.mock.spring.integration.service.XmlDataService;
 import ru.sbt.bpm.mock.spring.utils.AjaxObject;
 import ru.sbt.bpm.mock.spring.utils.SaveFile;
 
@@ -25,36 +21,27 @@ import java.io.IOException;
 public class MockController {
 
     @Autowired
-    private XmlDataService xmlDataService;
-
-    @Autowired
     ApplicationContext appContext;
 
-    @Autowired
-    LinkedTagCaption linkedTagCaption;
+//    @RequestMapping("/mock/")
+//    public String  getMock(Model model) {
+//        model.addAttribute("type", "Response");
+//        model.addAttribute("link", "mock");
+//        model.addAttribute("list", mockList.getList());
+//        return "stepForm";
+//    }
 
-    @Autowired
-    MockList mockList;
-
-    @RequestMapping("/mock/")
-    public String  getMock(Model model) {
-        model.addAttribute("type", "Response");
-        model.addAttribute("link", "mock");
-        model.addAttribute("list", mockList.getList());
-        return "stepForm";
-    }
-
-    @RequestMapping(value="/mock/{name}/", method= RequestMethod.GET)
-    public String get(@PathVariable("name") String name, Model model) throws IOException {
-        model.addAttribute("name", name);
+    @RequestMapping(value= "/mock/{systemName}/{integrationPointName}/", method= RequestMethod.GET)
+    public String get(@PathVariable("systemName") String systemName, @PathVariable("integrationPointName") String integrationPointName, Model model) throws IOException {
+        model.addAttribute("name", integrationPointName);
         model.addAttribute("link", "mock");
         try {
-            model.addAttribute("object", xmlDataService.getDataXml(name + "_Data"));
+//            model.addAttribute("object", xmlDataService.getDataXml(integrationPointName + "_Data"));
         }
         catch (Exception e) {
             model.addAttribute("object", e.getMessage());
         }
-        model.addAttribute("linkedTag", linkedTagCaption.getCaption(name));
+//        model.addAttribute("linkedTag", linkedTagCaption.getCaption(integrationPointName));
         return "editor";
     }
 
@@ -66,15 +53,14 @@ public class MockController {
         AjaxObject ajaxObject = new AjaxObject();
         try {
             SaveFile saver = SaveFile.getInstance(appContext);
-            if (xmlDataService.validate(xml, saver.TranslateNameToSystem(name))) {
+//            if (xmlDataService.validate(xml, saver.TranslateNameToSystem(name))) {
                 ajaxObject.setInfo("Valid!");
-            }
+//            }
         }
         catch (Exception e) {
             ajaxObject.setError(e.getMessage());
         }
-        Gson gson = new Gson();
-        model.addAttribute("object", gson.toJson(ajaxObject));
+        model.addAttribute("object", ajaxObject.toJSON());
 
         return "blank";
     }
@@ -95,19 +81,17 @@ public class MockController {
         }
         if (dataFile!=null) {
             try {
-                if (xmlDataService.validate(xml, saver.TranslateNameToSystem(name))) {
+//                if (xmlDataService.validate(xml, saver.TranslateNameToSystem(name))) {
                     saver.writeStringToFile(dataFile, xml);
                     ajaxObject.setInfo("saved");
-                }
+//                }
             } catch (IOException e) {
-                ajaxObject.setError(e.getMessage());
+                ajaxObject.setErrorFromException(e);
             } catch (Exception e) {
-                e.printStackTrace();
-                ajaxObject.setError(e.getMessage());
+                ajaxObject.setErrorFromException(e);
             }
         }
-        Gson gson = new Gson();
-        model.addAttribute("object", gson.toJson(ajaxObject));
+        model.addAttribute("object", ajaxObject.toJSON());
 
         return "blank";
     }
@@ -121,15 +105,14 @@ public class MockController {
         File dataFile;
         try {
             String path = saver.TranslateNameToPath(name);
-            dataFile = saver.rollbackNextBackUpedDataFile(path);
+            dataFile = saver.rollbackNextBackupDataFile(path);
             String datavalue = saver.getFileString(dataFile);
             ajaxObject.setData(datavalue);
             ajaxObject.setInfo("undo");
         }catch (IndexOutOfBoundsException e) {
             ajaxObject.setError(e.getMessage());
         }
-        Gson gson = new Gson();
-        model.addAttribute("object", gson.toJson(ajaxObject));
+        model.addAttribute("object", ajaxObject.toJSON());
 
         return "blank";
     }
@@ -153,8 +136,7 @@ public class MockController {
         catch (IOException e) {
             model.addAttribute("error", e.getMessage());
         }
-        Gson gson = new Gson();
-        model.addAttribute("object", gson.toJson(ajaxObject));
+        model.addAttribute("object", ajaxObject.toJSON());
 
         return "blank";
     }
@@ -175,8 +157,7 @@ public class MockController {
         } catch (IOException e) {
             ajaxObject.setError(e.getMessage());
         }
-        Gson gson = new Gson();
-        model.addAttribute("object", gson.toJson(ajaxObject));
+        model.addAttribute("object", ajaxObject.toJSON());
 
         return "blank";
     }

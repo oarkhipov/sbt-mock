@@ -17,7 +17,8 @@
 }
 
 #reset {
-    background: url("../img/glyphicons-448-floppy-open.png") no-repeat 4px 4px;
+    /*background: url("../img/glyphicons-448-floppy-open.png") no-repeat 4px 4px;*/
+    background: url("../img/glyphicons-82-refresh.png") no-repeat 2px 2px;
     width: 32px;
     height: 30px;
 }

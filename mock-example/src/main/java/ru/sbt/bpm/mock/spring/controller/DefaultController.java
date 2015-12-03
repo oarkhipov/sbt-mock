@@ -1,8 +1,6 @@
 package ru.sbt.bpm.mock.spring.controller;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ru.sbt.bpm.mock.spring.bean.TemplateEngineBean;
-import ru.sbt.bpm.mock.spring.integration.service.XmlDataService;
-
-
+import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.spring.service.DataService;
 
 /**
  *
@@ -23,21 +19,15 @@ import ru.sbt.bpm.mock.spring.integration.service.XmlDataService;
 public class DefaultController {
 
     @Autowired
-    XmlDataService xmlDataService;
+    MockConfigContainer mockConfigContainer;
 
     @Autowired
-    TemplateEngineBean templateEngineBean;
+    DataService dataService;
 
     @RequestMapping("/")
     public String _default(Model model) {
-        List<String> functions = new LinkedList<String>();
-        functions.add("mock");
-        functions.add("driver");
-
-//        functions.add("sender");
-//        functions.add("FrameMock");
-        model.addAttribute("list", functions);
-        return "form";
+        model.addAttribute("list", mockConfigContainer.getConfig().getSystems());
+        return "stepForm";
     }
 
     /**
@@ -45,19 +35,12 @@ public class DefaultController {
      */
     @RequestMapping(value = "/info", produces = "application/xml;charset=UTF-8")
     public @ResponseBody String getInfo() throws IOException {
-        return FileUtils.readFileToString(xmlDataService.getResource("mockapp-servlet.xml").getFile(),"UTF-8");
+        return FileUtils.readFileToString(dataService.getResource("mockapp-servlet.xml").getFile(), "UTF-8");
     }
-
-    @RequestMapping(value = "/templateInfo", produces = "text/html;charset=UTF-8")
-    public @ResponseBody String getTemplateInfo() {
-        return templateEngineBean.htmlInfo();
-    }
-
-
 
     @RequestMapping(value = "/prop", produces = "text/html;charset=UTF-8")
     public @ResponseBody String getProp() throws IOException {
-        return FileUtils.readFileToString(xmlDataService.getResource("../META-INF/maven/ru.sbt.bpm.mock/mock-interactive-by/pom.properties").getFile(),"UTF-8");
+        return FileUtils.readFileToString(dataService.getResource("../META-INF/maven/ru.sbt.bpm.mock/mock-interactive-by/pom.properties").getFile(),"UTF-8");
     }
 
 }

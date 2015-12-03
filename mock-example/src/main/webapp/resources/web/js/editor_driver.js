@@ -29,7 +29,7 @@ function autoFormatResponse() {
 }
 
 $().ready(function () {
-    //applyActionButtonsEvents();
+    applyActionButtonsEvents();
 });
 
 function fillList(data) {
@@ -50,10 +50,13 @@ function applyActionButtonsEvents() {
         showInfo("Sending...");
         sendDisable(true);
         showResponse();
+        var parts = QueryString["ip"].split("__");
         $.ajax({
-            url: QueryString["ip"] + "/send/",
+            url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/send/",
             type: "POST",
-            data: {xml: editor.getValue(), request: $('select[name=request]').val()},
+            data: { xml :editor.getValue(),
+                script : groovyEditor.getValue(),
+                test : testEditor.getValue()},
             success: function (obj) {
                 obj = htmlConvert(obj);
                 obj = $.parseJSON(obj);
@@ -69,24 +72,6 @@ function applyActionButtonsEvents() {
             fail: function () {
                 showError("Unable to send! Try Later...");
                 sendDisable(false);
-            }
-        });
-    });
-
-    $("#listRefresh").click(function(){
-        $.ajax({
-            url: QueryString["ip"]+ "/list/",
-            type: "POST",
-            data: {xml: editor.getValue()},
-            success: function(obj) {
-                obj = htmlConvert(obj);
-                obj = $.parseJSON(obj);
-                showInfo(obj.info);
-                showError(obj.error);
-                fillList(htmlConvert(obj.data));
-            },
-            fail: function() {
-                showError("Unable to refresh! Try Later...");
             }
         });
     });

@@ -2,83 +2,47 @@ package ru.sbt.bpm.mock.config.entities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 import ru.sbt.bpm.mock.generator.spring.integration.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
-* Created by sbt-hodakovskiy-da on 30.01.2015.
-* <p/>
-* Company: SBT - Saint-Petersburg
-*/
+ * @author sbt-hodakovskiy-da
+ * @author sbt-bochev-as
+ *         on 30.01.2015
+ *         <p/>
+ *         Company: SBT - Saint-Petersburg
+ */
 @XStreamAlias("integrationPoint")
-@ToString
+@Data
 public class IntegrationPoint {
 
     // Тип точки интеграции Driver
     public static final String DRIVER = "Driver";
     // Тип точки интеграции Mock
-    public static final String MOCK= "Mock";
+    public static final String MOCK = "Mock";
 
     @XStreamAlias("name")
     @XStreamAsAttribute
-    @Getter
-    @Setter
-    private String integrationPointName;
+    private String name;
 
     @XStreamAlias("operationName")
-    @Getter
-    @Setter
     private String operationName;
 
-    @XStreamAlias("rsRootElementName")
-    @Getter
-    @Setter
-    private String rsRootElementName;
-
-    @XStreamAlias("rqRootElementName")
-    @Getter
-    @Setter
-    private String rqRootElementName;
-
     @XStreamAlias("type")
-    @Getter
-    @Setter
     private String integrationPointType;
 
-    @XStreamAlias("namespace-aliases")
-    @Getter
-    @Setter
-    private NamespaceAliases namespaceAliases;
-
-    @XStreamAlias("linkedTagSequence")
-    @Getter
-    @Setter
-    private LinkedTagSequence linkedTagSequence;
-
-    @XStreamAlias("protocol")
-    @Getter
-    @Setter
-    private String protocol;
+    @XStreamAlias("xpathValidation")
+    private XpathSelector xpathValidatorSelector;
 
     @XStreamAlias("incomeQueue")
-    @Getter
-    @Setter
     private String incomeQueue;
 
     @XStreamAlias("outcomeQueue")
-    @Getter
-    @Setter
     private String outcomeQueue;
 
     // Так как маппинг идет по полям xml, для удобства доступа и сравнения создаем Pair<INCOME, OUTCOME>
-    @Getter
-    @Setter
-    private Pair<String, String> pairOfChannels;
+    private transient Pair<String, String> pairOfChannels;
 
     public Pair<String, String> getPairOfChannels() {
         return new Pair<String, String>(this.getIncomeQueue(), this.getOutcomeQueue());
@@ -91,46 +55,39 @@ public class IntegrationPoint {
 
 
     @XStreamAlias("xsdFile")
-    @Getter
-    @Setter
     private String xsdFile;
 
-    @XStreamAlias("RqXsdFile")
-    @Getter
-    @Setter
-    private String rqXsdFile;
+    @XStreamAlias("rootElement")
+    private ElementSelector rootElement;
 
-    @XStreamAlias("dataxml")
-    @Getter
-    @Setter
-    private String dataXml;
-
-    @XStreamAlias("dependencies")
-    @Setter
-    private Dependencies dependencies;
-
-    public List<Dependency> getDependencies() {
-        if (dependencies!=null) {
-            return dependencies.getDependencies();
-        }
-        return new ArrayList<Dependency>();
+    public boolean isMock() {
+        return integrationPointType.equals(MOCK);
     }
 
-    public IntegrationPoint() {
-        linkedTagSequence = null;
+    public boolean isDriver() {
+        return integrationPointType.equals(DRIVER);
     }
 
-    /**
-     * наследование алиасов. Получаем алиасы сверху и сохраняем себе
-     */
-    public void inheritNamespaceAliases(NamespaceAliases ns) {
-        if (ns != null) {
-            for (NamespaceAliase nsToAdd : ns.getListOfNamespaces()) {
-                if (namespaceAliases == null) {
-                    setNamespaceAliases(new NamespaceAliases());
-                }
-                namespaceAliases.addNamespaces(nsToAdd);
-            }
+    public String getXpathString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (ElementSelector elementSelector : getXpathValidatorSelector().getElementSelectors()) {
+            stringBuilder.append(elementSelector.getElement()).append("/");
         }
+        stringBuilder.delete(stringBuilder.length()-1,stringBuilder.length());
+        return stringBuilder.toString();
+    }
+
+    public String getXpathWithFullNamespaceString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (ElementSelector elementSelector : getXpathValidatorSelector().getElementSelectors()) {
+            stringBuilder
+                    .append("/*:")
+                    .append(elementSelector.getElement())
+                    .append("[namespace-uri()='")
+                    .append(elementSelector.getNamespace())
+                    .append("']");
+        }
+//        stringBuilder.delete(stringBuilder.length()-1,stringBuilder.length());
+        return stringBuilder.toString();
     }
 }

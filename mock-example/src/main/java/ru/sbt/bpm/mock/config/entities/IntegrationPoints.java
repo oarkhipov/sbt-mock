@@ -2,9 +2,7 @@ package ru.sbt.bpm.mock.config.entities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,17 +15,15 @@ import java.util.NoSuchElementException;
  */
 
 @XStreamAlias("integrationPoints")
-@ToString
+@Data
 public class IntegrationPoints {
 
     @XStreamImplicit(itemFieldName = "integrationPoint")
-    @Getter
-    @Setter
-    private List<IntegrationPoint> listOfIntegrationPoints = new ArrayList<IntegrationPoint>();
+    private List<IntegrationPoint> integrationPoints = new ArrayList<IntegrationPoint>();
 
     public IntegrationPoint getIntegrationPointByName(String name) {
-        for (IntegrationPoint integrationPoint : getListOfIntegrationPoints()) {
-            if(integrationPoint.getIntegrationPointName().equals(name)) {
+        for (IntegrationPoint integrationPoint : getIntegrationPoints()) {
+            if(integrationPoint.getName().equals(name)) {
                 return integrationPoint;
             }
         }

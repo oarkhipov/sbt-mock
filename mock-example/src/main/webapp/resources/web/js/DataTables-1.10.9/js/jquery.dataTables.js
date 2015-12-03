@@ -7551,16 +7551,16 @@
 	
 	/**
 	 * Load data from the newly set Ajax URL. Note that this method is only
-	 * available when `ajax.url()` is used to set a URL. Additionally, this method
+	 * available when `ajax.element()` is used to set a URL. Additionally, this method
 	 * has the same effect as calling `ajax.reload()` but is provided for
 	 * convenience when setting a new URL. Like `ajax.reload()` it will
 	 * automatically redraw the table once the remote data has been loaded.
 	 *
 	 * @returns {DataTables.Api} this
 	 */
-	_api_register( 'ajax.url().load()', function ( callback, resetPaging ) {
+	_api_register( 'ajax.element().load()', function ( callback, resetPaging ) {
 		// Same as a reload, but makes sense to present it for easy access after a
-		// url change
+		// element change
 		return this.iterator( 'table', function ( ctx ) {
 			__reload( ctx, resetPaging===false, callback );
 		} );
@@ -8224,7 +8224,7 @@
 	 *
 	 * {integer}           - column index (>=0 count from left, <0 count from right)
 	 * "{integer}:visIdx"  - visible column index (i.e. translate to column index)  (>=0 count from left, <0 count from right)
-	 * "{integer}:visible" - alias for {integer}:visIdx  (>=0 count from left, <0 count from right)
+	 * "{integer}:visible" - namespace for {integer}:visIdx  (>=0 count from left, <0 count from right)
 	 * "{string}:name"     - column name
 	 * "{string}"          - jQuery selector on column header nodes
 	 *
@@ -9889,7 +9889,7 @@
 		 *   // `data` to `tableData` (i.e. `{ tableData: [ ...data... ] }`)
 		 *   $('#example').dataTable( {
 		 *     "ajax": {
-		 *       "url": "data.json",
+		 *       "element": "data.json",
 		 *       "dataSrc": "tableData"
 		 *     }
 		 *   } );
@@ -9899,7 +9899,7 @@
 		 *   // from a plain array rather than an array in an object
 		 *   $('#example').dataTable( {
 		 *     "ajax": {
-		 *       "url": "data.json",
+		 *       "element": "data.json",
 		 *       "dataSrc": ""
 		 *     }
 		 *   } );
@@ -9910,7 +9910,7 @@
 		 *   // is just a simple example of how the data can be manipulated).
 		 *   $('#example').dataTable( {
 		 *     "ajax": {
-		 *       "url": "data.json",
+		 *       "element": "data.json",
 		 *       "dataSrc": function ( json ) {
 		 *         for ( var i=0, ien=json.length ; i<ien ; i++ ) {
 		 *           json[i][0] = '<a href="/message/'+json[i][0]+'>View message</a>';
@@ -9924,7 +9924,7 @@
 		 *   // Add data to the request
 		 *   $('#example').dataTable( {
 		 *     "ajax": {
-		 *       "url": "data.json",
+		 *       "element": "data.json",
 		 *       "data": function ( d ) {
 		 *         return {
 		 *           "extra_search": $('#extra').val()
@@ -9937,7 +9937,7 @@
 		 *   // Send request as POST
 		 *   $('#example').dataTable( {
 		 *     "ajax": {
-		 *       "url": "data.json",
+		 *       "element": "data.json",
 		 *       "type": "POST"
 		 *     }
 		 *   } );
@@ -10775,7 +10775,7 @@
 		 *          // Send an Ajax request to the server to get the data. Note that
 		 *          // this is a synchronous request.
 		 *          $.ajax( {
-		 *            "url": "/state_load",
+		 *            "element": "/state_load",
 		 *            "async": false,
 		 *            "dataType": "json",
 		 *            "success": function (json) {
@@ -10880,7 +10880,7 @@
 		 *        "stateSaveCallback": function (settings, data) {
 		 *          // Send an Ajax request to the server with the state object
 		 *          $.ajax( {
-		 *            "url": "/state_save",
+		 *            "element": "/state_save",
 		 *            "data": data,
 		 *            "dataType": "json",
 		 *            "method": "POST"
@@ -11552,7 +11552,7 @@
 			 *    $(document).ready( function() {
 			 *      $('#example').dataTable( {
 			 *        "language": {
-			 *          "url": "http://www.sprymedia.co.uk/dataTables/lang.txt"
+			 *          "element": "http://www.sprymedia.co.uk/dataTables/lang.txt"
 			 *        }
 			 *      } );
 			 *    } );
@@ -11634,7 +11634,7 @@
 		 *
 		 * You can instruct DataTables to load data from an external
 		 * source using this parameter (use aData if you want to pass data in you
-		 * already have). Simply provide a url a JSON object can be obtained from.
+		 * already have). Simply provide a element a JSON object can be obtained from.
 		 *  @type string
 		 *  @default null
 		 *
@@ -13337,7 +13337,7 @@
 		"oLoadedState": null,
 	
 		/**
-		 * Source url for AJAX data for the table.
+		 * Source element for AJAX data for the table.
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
 		 *  @type string

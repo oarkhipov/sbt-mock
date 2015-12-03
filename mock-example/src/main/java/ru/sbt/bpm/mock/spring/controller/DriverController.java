@@ -1,34 +1,24 @@
 package ru.sbt.bpm.mock.spring.controller;
 
-import com.google.gson.Gson;
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.sf.saxon.s9api.SaxonApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
-import ru.sbt.bpm.mock.spring.bean.DriverList;
-import ru.sbt.bpm.mock.spring.bean.TemplateEngineBean;
 import ru.sbt.bpm.mock.spring.integration.gateway.ClientService;
-import ru.sbt.bpm.mock.spring.integration.service.XmlDataService;
+import ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService;
+import ru.sbt.bpm.mock.spring.service.DataService;
+import ru.sbt.bpm.mock.spring.service.GroovyService;
 import ru.sbt.bpm.mock.spring.utils.AjaxObject;
 import ru.sbt.bpm.mock.spring.utils.SaveFile;
-import ru.sbt.bpm.mock.spring.utils.XslTransformer;
 
 import javax.xml.transform.TransformerException;
+import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 /**
  * Created by sbt-bochev-as on 15.12.2014.
@@ -39,239 +29,231 @@ import java.util.*;
 public class DriverController {
 
     @Autowired
-    XmlDataService xmlDataService;
-
-    @Autowired
     ApplicationContext appContext;
 
     @Autowired
     ClientService clientService;
 
     @Autowired
-    DriverList driverList;
-
-    @Autowired
-    TemplateEngineBean templateEngineBean;
-
-    @Autowired
     MockConfigContainer configContainer;
 
-    private Logger log = LoggerFactory.getLogger(this.getClass());
+    @Autowired
+    DataService dataService;
 
-    @RequestMapping("/driver/")
-    public String  getDriver(Model model) throws IOException {
-        model.addAttribute("type", "Request");
-//        List of drivers
-        model.addAttribute("link", "driver");
-        model.addAttribute("list", driverList.getList().toArray());
-        return "stepForm";
-    }
+    @Autowired
+    GroovyService groovyService;
 
-    @RequestMapping(value="/driver/{name}/", method= RequestMethod.GET)
-    public String get(@PathVariable("name") String name, Model model) throws IOException, TransformerException {
-        model.addAttribute("name", name);
+    @Autowired
+    XmlGeneratorController generatorController;
+
+    @Autowired
+    TestGatewayService testGatewayService;
+
+
+    @RequestMapping(value = "/driver/{systemName}/{integrationPointName}/", method = RequestMethod.GET)
+    public String get(@PathVariable String systemName,
+                      @PathVariable String integrationPointName,
+                      Model model) throws IOException, TransformerException {
+        model.addAttribute("name", integrationPointName);
         model.addAttribute("link", "driver");
-        model.addAttribute("object", xmlDataService.getDataXml(name));
-        model.addAttribute("list", getRequestList(name));
-        model.addAttribute("templateInfo", templateEngineBean.htmlInfo());
+        //TODO send xpath with namespace js tooltip
+        model.addAttribute("xpath",
+                configContainer.getConfig().getSystems().getSystemByName(systemName)
+                        .getIntegrationPoints().getIntegrationPointByName(integrationPointName)
+                        .getXpathString());
+        model.addAttribute("message", dataService.getDataResourceContent(systemName + "_" + integrationPointName + "_message.xml"));
+        model.addAttribute("script", dataService.getDataResourceContent(systemName + "_" + integrationPointName + "_script.groovy"));
+        model.addAttribute("test", dataService.getDataResourceContent(systemName + "_" + integrationPointName + "_test.xml"));
         return "editor";
     }
 
-    @RequestMapping(value="/driver/{name}/validate/", method=RequestMethod.POST)
+    @RequestMapping(value = "/driver/{systemName}/{integrationPointName}/validate/", method = RequestMethod.POST)
     public String validate(
-            @PathVariable("name") String name,
-            @RequestParam("xml") String xml,
+            @PathVariable("systemName") String systemName,
+            @PathVariable("integrationPointName") String integrationPointName,
+            @RequestParam String xml,
+            @RequestParam String script,
+            @RequestParam String test,
             ModelMap model) {
         AjaxObject ajaxObject = new AjaxObject();
         try {
-            SaveFile saver = SaveFile.getInstance(appContext);
-            if (xmlDataService.validate(templateEngineBean.applyTemplate(xml), saver.TranslateNameToSystem(name))) {
+            String compiledXml = groovyService.compile(test, xml, script);
+            if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
+                dataService.validate(compiledXml, systemName);
                 ajaxObject.setInfo("Valid!");
+            } else {
+                ajaxObject.setError("xml did not pass xpath assertion!");
             }
+        } catch (Exception e) {
+            ajaxObject.setErrorFromException(e);
         }
-        catch (Exception e) {
-            ajaxObject.setError(e.getMessage());
-        }
-        Gson gson = new Gson();
-        model.addAttribute("object", gson.toJson(ajaxObject));
-
+        model.addAttribute("object", ajaxObject.toJSON());
         return "blank";
     }
 
-    @RequestMapping(value="/driver/{name}/save/", method=RequestMethod.POST)
+    @ResponseBody
+    @RequestMapping(value = "/driver/{systemName}/{integrationPointName}/save/", method = RequestMethod.POST)
     public String save(
-            @PathVariable("name") String name,
-            @RequestParam("xml") String xml,
+            @PathVariable String systemName,
+            @PathVariable String integrationPointName,
+            @RequestParam String xml,
+            @RequestParam String script,
+            @RequestParam String test,
             ModelMap model) throws IOException {
         AjaxObject ajaxObject = new AjaxObject();
+        SaveFile saver = SaveFile.getInstance(appContext);
         try {
-            SaveFile saver = SaveFile.getInstance(appContext);
-            if (xmlDataService.validate(templateEngineBean.applyTemplate(xml), saver.TranslateNameToSystem(name))) {
+            String compiledXml = groovyService.compile(test, xml, script);
+            if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
+                dataService.validate(compiledXml, systemName);
 //                IF Valid - then save
-                File dataFile = null;
+                File messageFile = null;
+                File scriptFile = null;
+                File testFile = null;
                 try {
-                    String path = saver.TranslateNameToPath(name);
-                    dataFile = saver.getBackUpedDataFile(path);
+                    //message file
+                    messageFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "_" + integrationPointName + "_" + "message.xml"));
+                    //script file
+                    scriptFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "_" + integrationPointName + "_" + "script.groovy"));
+                    //test file
+                    testFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "_" + integrationPointName + "_" + "test.xml"));
                 } catch (Exception e) {
                     ajaxObject.setError(e.getMessage());
                 }
-                if (dataFile!=null) {
+                if (messageFile != null && scriptFile != null && testFile != null) {
                     try {
-                        saver.writeStringToFile(dataFile, xml);
+                        saver.writeStringToFile(messageFile, xml);
+                        saver.writeStringToFile(scriptFile, script);
+                        saver.writeStringToFile(testFile, test);
                         ajaxObject.setInfo("saved");
                     } catch (IOException e) {
-                        ajaxObject.setError(e.getMessage());
+                        ajaxObject.setErrorFromException(e);
                     } catch (Exception e) {
-                        e.printStackTrace();
-                        ajaxObject.setError(e.getMessage());
+                        ajaxObject.setErrorFromException(e);
                     }
                 }
             }
 //            END Save
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             ajaxObject.setError(e.getMessage());
         }
-        Gson gson = new Gson();
-        model.addAttribute("object", gson.toJson(ajaxObject));
-
-        return "blank";
+        return ajaxObject.toJSON();
     }
 
-    @RequestMapping(value="/driver/{name}/undo/", method=RequestMethod.POST)
-    public String rollback(
-            @PathVariable("name") String name,
-            ModelMap model) throws IOException  {
-        AjaxObject ajaxObject = new AjaxObject();
-        SaveFile saver = SaveFile.getInstance(appContext);
-        File dataFile;
-        try {
-            String path = saver.TranslateNameToPath(name);
-            dataFile = saver.rollbackNextBackUpedDataFile(path);
-            String datavalue = saver.getFileString(dataFile);
-            ajaxObject.setData(datavalue);
-            ajaxObject.setInfo("undo");
-        }catch (IndexOutOfBoundsException e) {
-            ajaxObject.setError(e.getMessage());
-        }
-        Gson gson = new Gson();
-        model.addAttribute("object", gson.toJson(ajaxObject));
+    //TODO
+//    @RequestMapping(value="/driver/{name}/undo/", method=RequestMethod.POST)
+//    public String rollback(
+//            @PathVariable("name") String name,
+//            ModelMap model) throws IOException  {
+//        AjaxObject ajaxObject = new AjaxObject();
+//        SaveFile saver = SaveFile.getInstance(appContext);
+//        File dataFile;
+//        try {
+//            String path = saver.TranslateNameToPath(name);
+//            dataFile = saver.rollbackNextBackupDataFile(path);
+//            String datavalue = saver.getFileString(dataFile);
+//            ajaxObject.setData(datavalue);
+//            ajaxObject.setInfo("undo");
+//        }catch (IndexOutOfBoundsException e) {
+//            ajaxObject.setError(e.getMessage());
+//        }
+//        model.addAttribute("object", ajaxObject.toJSON());
+//
+//        return "blank";
+//    }
+//
+//    @RequestMapping(value="/driver/{name}/redo/", method=RequestMethod.POST)
+//    public String rollforward(
+//            @PathVariable("name") String name,
+//            ModelMap model) throws IOException  {
+//        AjaxObject ajaxObject = new AjaxObject();
+//        SaveFile saver = SaveFile.getInstance(appContext);
+//        File dataFile;
+//        try {
+//            String path = saver.TranslateNameToPath(name);
+//            dataFile = saver.rollbackPervBackUpedDataFile(path);
+//            String datavalue = saver.getFileString(dataFile);
+//            ajaxObject.setData(datavalue);
+//            ajaxObject.setInfo("redo");
+//        }catch (IndexOutOfBoundsException e) {
+//            ajaxObject.setError(e.getMessage());
+//        }
+//        catch (IOException e) {
+//            ajaxObject.setError(e.getMessage());
+//        }
+//        model.addAttribute("object", ajaxObject.toJSON());
+//
+//        return "blank";
+//    }
 
-        return "blank";
-    }
-
-    @RequestMapping(value="/driver/{name}/redo/", method=RequestMethod.POST)
-    public String rollforward(
-            @PathVariable("name") String name,
-            ModelMap model) throws IOException  {
-        AjaxObject ajaxObject = new AjaxObject();
-        SaveFile saver = SaveFile.getInstance(appContext);
-        File dataFile;
-        try {
-            String path = saver.TranslateNameToPath(name);
-            dataFile = saver.rollbackPervBackUpedDataFile(path);
-            String datavalue = saver.getFileString(dataFile);
-            ajaxObject.setData(datavalue);
-            ajaxObject.setInfo("redo");
-        }catch (IndexOutOfBoundsException e) {
-            ajaxObject.setError(e.getMessage());
-        }
-        catch (IOException e) {
-            ajaxObject.setError(e.getMessage());
-        }
-        Gson gson = new Gson();
-        model.addAttribute("object", gson.toJson(ajaxObject));
-
-        return "blank";
-    }
-
-    @RequestMapping(value="/driver/{name}/resetToDefault/", method=RequestMethod.POST)
+    @ResponseBody
+    @RequestMapping(value = "/driver/{systemName}/{integrationPointName}/resetToDefault/", method = RequestMethod.POST)
     public String resetToDefault(
-            @PathVariable("name") String name,
-            ModelMap model) throws IOException  {
-        SaveFile saver = SaveFile.getInstance(appContext);
-        AjaxObject ajaxObject = new AjaxObject();
-        File dataFile;
-        try {
-            String path = saver.TranslateNameToPath(name);
-            dataFile = saver.restoreBackUpedDataFile(path);
-            String datavalue = saver.getFileString(dataFile);
-            ajaxObject.setData(datavalue);
-            ajaxObject.setInfo("reset");
-        } catch (IOException e) {
-            ajaxObject.setError(e.getMessage());
-        }
-        Gson gson = new Gson();
-        model.addAttribute("object", gson.toJson(ajaxObject));
-
-        return "blank";
+            @PathVariable("systemName") String systemName,
+            @PathVariable("integrationPointName") String integrationPointName) throws IOException {
+        return generatorController.generate(systemName, integrationPointName);
     }
 
-    @RequestMapping(value="/driver/{name}/send/", method=RequestMethod.POST)
+
+    @ResponseBody
+    @RequestMapping(value = "/driver/{systemName}/{integrationPointName}/send/", method = RequestMethod.POST)
     public String send(
-            @PathVariable("name") String name,
-            @RequestParam("request") String request,
-            @RequestParam("xml") String xml,
-            ModelMap model) throws IOException, TransformerException {
+            @PathVariable String systemName,
+            @PathVariable String integrationPointName,
+            @RequestParam String xml,
+            @RequestParam String script,
+            @RequestParam String test) {
+
+        AjaxObject ajaxObject = new AjaxObject();
 //        VALIDATE
-        AjaxObject ajaxObject = new AjaxObject();
         try {
-            SaveFile saver = SaveFile.getInstance(appContext);
-            if (xmlDataService.validate(templateEngineBean.applyTemplate(xml), saver.TranslateNameToSystem(name))) {
+            String compiledXml = groovyService.compile(test, xml, script);
+            if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
+                dataService.validate(compiledXml, systemName);
 
+                String response = clientService.send(compiledXml);
+                ajaxObject.setData(response);
                 ajaxObject.setInfo("DONE!");
-                Resource xslResource = xmlDataService.getXslResource(name);
-//                Resource xmlData = xmlDataService.getXmlDataResource(name);
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'+04:00'");//TODO перенести и причесать
-                Map<String, String> params = new HashMap<String, String>(2);
-                params.put("name", request);
-                Date date = new Date();
-                params.put("timestamp", dateFormat.format(date));
-                String result = XslTransformer.transform(xslResource, templateEngineBean.applyTemplate(xml), params);
-
-                ajaxObject.setData(clientService.invoke(result));
             }
-        }
-        catch (Exception e) {
-            ajaxObject.setError(e.getMessage());
+        } catch (SaxonApiException e) {
+            ajaxObject.setErrorFromException(e);
+        } catch (XPathExpressionException e) {
+            ajaxObject.setErrorFromException(e);
+        } catch (Exception e) {
+            ajaxObject.setErrorFromException(e);
         }
 
-        Gson gson = new Gson();
-        model.addAttribute("object", gson.toJson(ajaxObject));
-
-        return "blank";
+        return ajaxObject.toJSON();
     }
 
-    @RequestMapping(value="/driver/{name}/list/", method=RequestMethod.POST)
-    public String getRequestList(
-            @PathVariable("name") String name,
-            @RequestParam("xml") String xml,
-            ModelMap model) throws IOException, TransformerException {
+    @ResponseBody
+    @RequestMapping(value = "/driver/{systemName}/{integrationPointName}/test/", method = RequestMethod.POST)
+    public String test(
+            @PathVariable String systemName,
+            @PathVariable String integrationPointName,
+            @RequestParam String xml,
+            @RequestParam String script,
+            @RequestParam String test) {
+
         AjaxObject ajaxObject = new AjaxObject();
-        ajaxObject.setInfo("Refreshed!");
-        ajaxObject.setData(StringUtils.join(getRequestList(name, xml), ","));
-        Gson gson = new Gson();
-        model.addAttribute("object", gson.toJson(ajaxObject));
+//        VALIDATE
+        try {
+            String compiledXml = groovyService.compile(test, xml, script);
+            if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
+                dataService.validate(compiledXml, systemName);
 
-        return "blank";
+                String response = testGatewayService.test(compiledXml);
+                ajaxObject.setData(response);
+                ajaxObject.setInfo("DONE!");
+            }
+        } catch (SaxonApiException e) {
+            ajaxObject.setErrorFromException(e);
+        } catch (XPathExpressionException e) {
+            ajaxObject.setErrorFromException(e);
+        } catch (Exception e) {
+            ajaxObject.setErrorFromException(e);
+        }
+
+        return ajaxObject.toJSON();
     }
-
-    private String[] getRequestList(String name) throws IOException, TransformerException {
-        Resource xmlData = xmlDataService.getXmlDataResource(name);
-        return getRequestList(xmlData);
-    }
-
-    private String[] getRequestList(String name, String xml) throws IOException, TransformerException {
-        Resource xslResource = appContext.getResource("/WEB-INF/xsl/util/DataRowToDataList.xsl");
-        String result = XslTransformer.transform(xslResource, xml);
-        return result.split("\\r?\\n");
-    }
-
-    private String[] getRequestList(Resource xml) throws IOException, TransformerException {
-        Resource xslResource = appContext.getResource("/WEB-INF/xsl/util/DataRowToDataList.xsl");
-        String result = XslTransformer.transform(xslResource, xml);
-        return result.split("\\r?\\n");
-    }
-
-
 }

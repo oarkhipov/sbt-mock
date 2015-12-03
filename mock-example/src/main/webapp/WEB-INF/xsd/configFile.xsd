@@ -38,7 +38,7 @@
             <element name="integrationPoints" type="mock:IntegrationPoints"/>
             <element name="dependencies" type="mock:Dependencies" minOccurs="0"/>
         </sequence>
-        <attribute name="name" type="token"/>
+        <attribute name="name" type="token" use="required"/>
     </complexType>
 
     <complexType name="IntegrationPoints">
@@ -50,7 +50,7 @@
     <complexType name="IntegrationPoint">
         <sequence>
             <element name="operationName" type="string" minOccurs="0"/>
-            <element name="rsRootElementName" type="string" minOccurs="0"/>
+            <element name="getRootElementName" type="string" minOccurs="0"/>
             <element name="rqRootElementName" type="string"/>
             <element name="type">
                 <simpleType>

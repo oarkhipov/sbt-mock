@@ -33,14 +33,14 @@
         <!--Добавить в урл суффикс '/Data/'. Например 'http://www.w3.org/1999/XSL/Transform' в 'http://www.w3.org/1999/XSL/Transform/Data/'-->
         <xsl:param name="url"/>
         <xsl:param name="operationName"/>
-        <xsl:value-of select="replace($url, concat('^(.+[^/])(/',$operationName,')?(/)?$'), concat('$1/',$operationName,'/Data/'))"/>
+        <xsl:value-of select="replace($element, concat('^(.+[^/])(/',$operationName,')?(/)?$'), concat('$1/',$operationName,'/Data/'))"/>
     </xsl:function>
 
     <!-- определяем алиас урла. Пока не могу придумать, что еще может пригодиться, кроме xsd -->
     <xsl:function name="mock:getAliasOfUrl">
         <xsl:param name="url"/>
         <xsl:choose>
-            <xsl:when test="$url='http://www.w3.org/2001/XMLSchema'">xsd:</xsl:when>
+            <xsl:when test="$element='http://www.w3.org/2001/XMLSchema'">xsd:</xsl:when>
         </xsl:choose>
     </xsl:function>
 
@@ -50,7 +50,7 @@
         <xsl:param name="name"/>
         <xsl:choose>
             <xsl:when test="contains($name,':')"><xsl:value-of select="$name"/></xsl:when>
-            <xsl:when test="string-length($alias)>0"><xsl:value-of select="concat($alias,$name)"/></xsl:when>
+            <xsl:when test="string-length($namespace)>0"><xsl:value-of select="concat($namespace,$name)"/></xsl:when>
             <xsl:otherwise><xsl:value-of select="concat('tns:',$name)"/></xsl:otherwise>
         </xsl:choose>
     </xsl:function>

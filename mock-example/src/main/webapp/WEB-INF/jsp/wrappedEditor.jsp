@@ -149,9 +149,9 @@
             $("#info").fadeTo(0, 0);
             QueryString["ip"] = ".";
 
-            editor = CodeMirror.fromTextArea(document.getElementById("code"), editorSettings);
+            editor = CodeMirror.fromTextArea(document.getElementById("code"), xmlEditorSettings);
             editor.setSize(700, 400);
-            resEditor = CodeMirror.fromTextArea(document.getElementById("resCode"), editorSettings);
+            resEditor = CodeMirror.fromTextArea(document.getElementById("resCode"), xmlEditorSettings);
             resEditor.setSize(600, 400);
 
             $(function () {

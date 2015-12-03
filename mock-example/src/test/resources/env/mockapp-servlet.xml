@@ -2,123 +2,46 @@
 <beans:beans xmlns="http://www.springframework.org/schema/integration"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:beans="http://www.springframework.org/schema/beans"
-             xmlns:jms="http://www.springframework.org/schema/integration/jms"
-             xmlns:ix= "http://www.springframework.org/schema/integration/xml"
              xmlns:util="http://www.springframework.org/schema/util"
              xmlns:context="http://www.springframework.org/schema/context"
              xmlns:mvc="http://www.springframework.org/schema/mvc"
-             xsi:schemaLocation="
-		http://www.springframework.org/schema/beans		http://www.springframework.org/schema/beans/spring-beans.xsd
+             xsi:schemaLocation="http://www.springframework.org/schema/beans		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/integration	http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/integration/jms	http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
-		http://www.springframework.org/schema/integration/xml	http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
 		http://www.springframework.org/schema/util		http://www.springframework.org/schema/util/spring-util.xsd
 		http://www.springframework.org/schema/context       http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/mvc   http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/integration/ws http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd">
+		http://www.springframework.org/schema/mvc   http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
 
     <mvc:resources mapping="/**" location="/resources/web/" />
     <mvc:annotation-driven/>
 
     <!-- Настройка используемой конфигурации заглушки-->
     <beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
-        <beans:constructor-arg value="/resources/MockConfigFiles/NCPConfig.xml" type="java.lang.String" />
+        <beans:constructor-arg value="/resources/MockConfigFiles/PDConfig.xml" type="java.lang.String" />
     </beans:bean>
 
-    <!-- - - - - - - - - - - - - - -->
-    <!--                           -->
-    <!-- ПРЕДВАРИТЕЛЬНАЯ НАСТРОЙКА -->
-    <!--                           -->
-    <!-- - - - - - - - - - - - - - -->
-
-    <!--Настройки подключения к MQ-->
-    <!--<beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-        <!--<beans:property name="jndiName" value="jms/ESB.BPM.NCP.CF"/>-->
-    <!--</beans:bean>-->
-    <!--<beans:bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-        <!--<beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.IN"/>-->
-    <!--</beans:bean>-->
-    <!--<beans:bean id="outboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-        <!--<beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.OUT"/>-->
-    <!--</beans:bean>-->
-
-    <!--<beans:bean id="requestDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-        <!--<beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.REQUEST"/>-->
-    <!--</beans:bean>-->
-    <!--<beans:bean id="responseDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-        <!--<beans:property name="jndiName" value="jms/ESB.BYBPM.NCP.RESPONSE"/>-->
-    <!--</beans:bean>-->
-
-    <!--<jms:inbound-gateway-->
-            <!--request-destination="inboundMockQueue"-->
-            <!--request-channel="MockInboundRequest"-->
-            <!--reply-channel="MockOutboundResponse"-->
-            <!--default-reply-destination="outboundMockQueue"-->
-            <!--connection-factory="jndiConnectionFactory"-->
-            <!--/>-->
-
-    <!--<jms:outbound-gateway-->
-    <!--id="jmsout"-->
-    <!--request-destination="requestDriverQueue"-->
-    <!--reply-destination="responseDriverQueue"-->
-    <!--request-channel="DriverOutboundRequest"-->
-    <!--reply-channel="DriverInboundResponse"-->
-    <!--header-mapper="defHeaderMapper"-->
-    <!--connection-factory="jndiConnectionFactory"-->
-    <!--reply-timeout="30000"-->
-    <!--receive-timeout="30000"-->
-    <!--/>-->
-
-    <!--<jms:outbound-gateway-->
-            <!--id="jmsout"-->
-            <!--request-destination="requestQueueCRM"-->
-            <!--reply-destination="replyQueueCRM"-->
-            <!--request-channel="ESB.BPM.NCP.REQUEST"-->
-            <!--reply-channel="ESB.BPM.NCP.RESPONSE"-->
-            <!--header-mapper="defHeaderMapper"-->
-            <!--connection-factory="jndiConnectionFactory"-->
-    <!--/>-->
 
     <!-- Входной и выходной каналы Заглушки-->
-    <channel id="MockInboundRequest">
-        <interceptors>
-            <wire-tap channel="fromGateLogger"/>
-        </interceptors>
-    </channel>
+    <channel id="MockInboundRequest"/>
 
-    <channel id="MockOutboundResponse">
-        <interceptors>
-            <wire-tap channel="toGateLogger"/>
-        </interceptors>
-    </channel>
+    <channel id="MockOutboundResponse"/>
 
     <!-- Входной и выходной каналы Драйвера -->
-    <channel id="DriverInboundResponse">
-        <interceptors>
-            <wire-tap channel="fromGateLoggerCRM"/>
-        </interceptors>
-    </channel>
 
-    <channel id="DriverOutboundRequest">
-        <interceptors>
-            <wire-tap channel="toGateLoggerCRM"/>
-        </interceptors>
-    </channel>
+    <channel id="DriverOutboundRequest"/>
 
-    <!--настройка логгеров -->
-    <logging-channel-adapter id="fromGateLogger" logger-name="fromGateLogger"/>
-    <logging-channel-adapter id="toGateLogger" logger-name="toGateLogger"/>
+    <channel id="DriverInboundResponse"/>
 
-    <!--настройка логгеров1 -->
-    <logging-channel-adapter id="fromGateLoggerCRM" logger-name="fromGateLoggerCRM"/>
-    <logging-channel-adapter id="toGateLoggerCRM" logger-name="toGateLoggerCRM"/>
 
-    <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
 
 
     <!-- - - - - - - - - - - - -->
     <!--     МАРШРУТИЗАЦИЯ     -->
     <!-- - - - - - - - - - - - -->
 
+    <beans:bean id="operationSelector" class="java.lang.String">
+        <beans:constructor-arg value="/env:Envelope/ns1:*[local-name()]"/>
+    </beans:bean>
 
     <!-- Карта неймспейсов-->
     <util:map id="sbrfNamespaceMap">
@@ -126,62 +49,9 @@
         <beans:entry key="ns1" value="http://sbrf.ru/prpc/mq/headers"/>
     </util:map>
 
-    <!-- Каналы-->
-    <channel id="defaultChannel"/>
-    <channel id="DefaultOutputChannelIfNoOperationRouted"/>
-
-    <channel id="CreateTask"/>
-    <channel id="GetParticipants"/>
-    <channel id="SaveDeal"/>
-    <channel id="UpdateRef"/>
-    <channel id="CalculateDebtCapacity"/>
-    <channel id="CalculateLGD"/>
-    <channel id="CalculateRating"/>
-    <channel id="ConfirmRating"/>
-    <channel id="CorrectRating"/>
-    <channel id="FinalizeLGD"/>
-    <channel id="getExchangeRates"/>
-    <channel id="importFinReport"/>
-    <channel id="importRating"/>
-    <channel id="updateRating"/>
-
-    <ix:xpath-router id="operationRouter" input-channel="MockInboundRequest" default-output-channel="DefaultOutputChannelIfNoOperationRouted" resolution-required="false">
-        <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
-
-        <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="DefaultOutputChannelIfNoOperationRouted"/>
-
-        <ix:mapping value="CreateTaskClientService" channel="CreateTask"/>
-        <ix:mapping value="GetParticipantsOfCreditDeal" channel="GetParticipants"/>
-        <ix:mapping value="SaveCreditDealData" channel="SaveDeal"/>
-        <ix:mapping value="UpdateReference" channel="UpdateRef"/>
-        <ix:mapping value="SrvCalcDebtCapacity" channel="CalculateDebtCapacity"/>
-        <ix:mapping value="SrvCalcLGD" channel="CalculateLGD"/>
-        <ix:mapping value="SrvCalcRating" channel="CalculateRating"/>
-        <ix:mapping value="SrvConfirmRating" channel="ConfirmRating"/>
-        <ix:mapping value="SrvUpdateRating" channel="CorrectRating"/>
-        <ix:mapping value="SrvFinalizeLGD" channel="FinalizeLGD"/>
-        <ix:mapping value="SrvGetExchangeRates" channel="getExchangeRates"/>
-        <ix:mapping value="SrvGetFinReport" channel="importFinReport"/>
-        <ix:mapping value="SrvGetRatingsAndFactors" channel="importRating"/>
-        <ix:mapping value="SrvUpdateRating" channel="updateRating"/>
-    </ix:xpath-router>
-
-    <!-- здесь уже реализация -->
-
-    <ix:xslt-transformer input-channel="CreateTask" output-channel="MockOutboundResponse" xsl-resource="/WEB-INF/xsl/CRM/CreateTask.xsl"/>
-    <ix:xslt-transformer input-channel="GetParticipants" output-channel="MockOutboundResponse" xsl-resource="/WEB-INF/xsl/CRM/CreateTask.xsl"/>
-    <ix:xslt-transformer input-channel="SaveDeal" output-channel="MockOutboundResponse" xsl-resource="/WEB-INF/xsl/CRM/GetParticipants.xsl"/>
-    <ix:xslt-transformer input-channel="UpdateRef" output-channel="MockOutboundResponse" xsl-resource="/WEB-INF/xsl/CRM/SaveDeal.xsl"/>
-    <ix:xslt-transformer input-channel="CalculateDebtCapacity" output-channel="MockOutboundResponse" xsl-resource="/WEB-INF/xsl/CRM/UpdateRef.xsl"/>
-    <ix:xslt-transformer input-channel="CalculateLGD" output-channel="MockOutboundResponse" xsl-resource="/WEB-INF/xsl/AMRLiRT/CalculateDebtCapacity.xsl"/>
-    <ix:xslt-transformer input-channel="CalculateRating" output-channel="MockOutboundResponse" xsl-resource="/WEB-INF/xsl/AMRLiRT/CalculateLGD.xsl"/>
-    <ix:xslt-transformer input-channel="ConfirmRating" output-channel="MockOutboundResponse" xsl-resource="/WEB-INF/xsl/AMRLiRT/CalculateRating.xsl"/>
-    <ix:xslt-transformer input-channel="CorrectRating" output-channel="MockOutboundResponse" xsl-resource="/WEB-INF/xsl/AMRLiRT/ConfirmRating.xsl"/>
-    <ix:xslt-transformer input-channel="FinalizeLGD" output-channel="MockOutboundResponse" xsl-resource="/WEB-INF/xsl/AMRLiRT/CorrectRating.xsl"/>
-    <ix:xslt-transformer input-channel="getExchangeRates" output-channel="MockOutboundResponse" xsl-resource="/WEB-INF/xsl/AMRLiRT/FinalizeLGD.xsl"/>
-    <ix:xslt-transformer input-channel="importFinReport" output-channel="MockOutboundResponse" xsl-resource="/WEB-INF/xsl/FinRep/getExchangeRates.xsl"/>
-    <ix:xslt-transformer input-channel="importRating" output-channel="MockOutboundResponse" xsl-resource="/WEB-INF/xsl/FinRep/importFinReport.xsl"/>
-    <ix:xslt-transformer input-channel="updateRating" output-channel="MockOutboundResponse" xsl-resource="/WEB-INF/xsl/FinRep/importRating.xsl"/>
+    <!-- Генерация ответа -->
+    <beans:bean id="responseGenerator" class="ru.sbt.bpm.mock.spring.bean.ResponseGenerator"/>
+    <service-activator input-channel="MockInboundRequest" output-channel="MockOutboundResponse" expression="@responseGenerator.routeAndGenerate('CRM',payload)"/>
 
     <context:component-scan base-package="ru.sbt.bpm.mock.spring"/>
 
@@ -190,24 +60,13 @@
         <beans:property name="suffix" value=".jsp"/>
     </beans:bean>
 
-    <!--<beans:bean id="channelService" class="ru.sbt.bpm.mock.spring.integration.service.ChannelService">-->
-    <!--<beans:property name="subscribeChannels">-->
-    <!--<util:list>-->
-    <!--<beans:ref bean="DriverInboundResponse"/>-->
-    <!--</util:list>-->
-    <!--</beans:property>-->
-    <!--</beans:bean>-->
-
-    <channel id="test"/>
     <!-- Mock gateway to send requests to outbound -->
-    <!--<gateway id="systemEntry"-->
-             <!--default-request-channel="DriverOutboundRequest"-->
-             <!--default-reply-channel="DriverInboundResponse"-->
-             <!--error-channel="DriverInboundResponse"-->
-             <!--service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService"-->
-             <!--default-reply-timeout="30000"-->
-             <!--default-request-timeout="30000"-->
-            <!--/>-->
-    <gateway id="systemEntry" default-request-channel="test" default-reply-channel="test"
-    service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService" />
+    <gateway id="systemEntry"
+             default-request-channel="DriverOutboundRequest"
+             default-reply-channel="DriverInboundResponse"
+             error-channel="DriverInboundResponse"
+             service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService"
+             default-reply-timeout="30000"
+             default-request-timeout="30000"
+            />
 </beans:beans>

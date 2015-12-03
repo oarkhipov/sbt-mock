@@ -6756,7 +6756,7 @@
     getEditor: function() {return this.cm;}
   });
 
-  // Public alias.
+  // Public namespace.
   Doc.prototype.eachLine = Doc.prototype.iter;
 
   // Set up methods on CodeMirror's prototype to redirect to the editor's document.

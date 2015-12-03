@@ -63,7 +63,7 @@ function completeIfInTag(cm) {
     });
 }
 
-var editorSettings = {
+var xmlEditorSettings = {
     mode: "xml",
     lineNumbers: true,
     extraKeys: {
@@ -82,12 +82,19 @@ var editorSettings = {
     gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
 };
 
+var groovyEditorSettings = {
+    mode: "groovy",
+    lineNumbers: true,
+    lineWrapping: true,
+    gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+};
+
 function showInfo(text) {
     if(text) {
         //IE8 trim compatibility
         text = $.trim(text);
         var info = $("#info");
-        info.html(text).fadeTo(0, 0.7);
+        info.html(text).clearQueue().show().fadeTo(0, 0.7);
         info.delay(800).fadeTo(800, 0);
     }
 }
@@ -95,7 +102,7 @@ function showInfo(text) {
 function showError(text) {
     if(text) {
         //IE8 trim compatibility
-        text = $.trim(text);
+        text = $.trim(text).replace(new RegExp('\\\\r\\\\n','g'),"<br/>");
         $("#error").css("display","block").html(text);
     } else {
         $("#error").css("display","none");
@@ -112,10 +119,13 @@ function htmlConvert(data) {
 //Handlers
 $("#validate").click(function(){
 //  alert("Code:"+editor.getValue());
+    var parts = QueryString["ip"].split("__");
     $.ajax({
-        url: QueryString["ip"]+ "/validate/",
+        url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/validate/",
         type: "POST",
-        data: "xml="+encodeURIComponent(editor.getValue()),
+        data: { xml :editor.getValue(),
+            script : groovyEditor.getValue(),
+            test : testEditor.getValue()},
         success: function(obj) {
             obj = htmlConvert(obj);
             obj = $.parseJSON(obj);
@@ -130,10 +140,14 @@ $("#validate").click(function(){
 
 $("#save").click(function(){
 //  alert("Saving...");
+    //encodeURIComponent() ??
+    var parts = QueryString["ip"].split("__");
     $.ajax({
-        url: QueryString["ip"]+ "/save/",
+        url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/save/",
         type: "POST",
-        data: "xml="+encodeURIComponent(editor.getValue()),
+        data: { xml :editor.getValue(),
+                script : groovyEditor.getValue(),
+                test : testEditor.getValue()},
         success: function(obj) {
             obj = htmlConvert(obj);
             obj = $.parseJSON(obj);
@@ -147,8 +161,9 @@ $("#save").click(function(){
 });
 
 $("#undo").click(function(){
+    var parts = QueryString["ip"].split("__");
     $.ajax({
-        url: QueryString["ip"]+ "/undo/",
+        url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/undo/",
         type: "POST",
         success: function(obj) {
             obj = htmlConvert(obj);
@@ -167,8 +182,9 @@ $("#undo").click(function(){
 
 
 $("#redo").click(function(){
+    var parts = QueryString["ip"].split("__");
     $.ajax({
-        url: QueryString["ip"]+ "/redo/",
+        url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/redo/",
         type: "POST",
         success: function(obj) {
             obj = htmlConvert(obj);
@@ -187,8 +203,9 @@ $("#redo").click(function(){
 
 $("#reset").click(function(){
 //  alert("Restore defaults...");
+    var parts = QueryString["ip"].split("__");
     $.ajax({
-        url: QueryString["ip"]+ "/resetToDefault/",
+        url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/resetToDefault/",
         type: "POST",
         success: function(obj) {
             obj = htmlConvert(obj);
@@ -199,6 +216,31 @@ $("#reset").click(function(){
         },
         fail: function() {
             showError("Unable to save! Try Later...");
+        }
+    });
+});
+
+$("#test").click(function () {
+    showResponse();
+    var parts = QueryString["ip"].split("__");
+    $.ajax({
+        url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/test/",
+        type: "POST",
+        data: { xml :editor.getValue(),
+            script : groovyEditor.getValue(),
+            test : testEditor.getValue()},
+        success: function (obj) {
+            obj = htmlConvert(obj);
+            obj = $.parseJSON(obj);
+            showInfo(obj.info);
+            showError(obj.error);
+            showResponse(htmlConvert(obj.data));
+        },
+        error: function (jqXHR, textStatus, obj) {
+            showError(obj);
+        },
+        fail: function () {
+            showError("Unable to send! Try Later...");
         }
     });
 });

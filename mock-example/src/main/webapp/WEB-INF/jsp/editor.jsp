@@ -41,54 +41,60 @@
     }
 </style>
 <![endif]-->
-<b>Integration point:</b> <i><c:out value="${name}"/></i>
-<c:if test="${link=='mock'}">
-    <br/><b><span style="color: #009900">Linked Tag: </span></b><c:out value="${linkedTag}"/>
-</c:if>
-
+<div style="font-size: 80%; color: dimgray">
+    <b>Integration point:</b> <i><c:out value="${name}"/></i><br/>
+    <b>Xpath assertion:</b> <i><c:out value="${xpath}"/></i>
+</div>
 
 <form>
     <div id="codeWrapper" style="float: left">
+        <span>Message</span>
+
         <div id="info">&nbsp;</div>
         <div id="error"></div>
-        <textarea id="code" name="code"><c:out value="${object}" escapeXml="true"/></textarea>
+        <textarea id="code" name="code"><c:out value="${message}" escapeXml="true"/></textarea>
+
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">Script</a></li>
+                <li><a href="#tabs-2">Test</a></li>
+            </ul>
+            <div id="tabs-1">
+                <textarea id="scriptCode" name="scriptCode"><c:out value="${script}" escapeXml="true"/></textarea>
+            </div>
+            <div id="tabs-2">
+                <textarea id="testCode" name="testCode"><c:out value="${test}" escapeXml="true"/></textarea>
+            </div>
+        </div>
 
         <div id="actionButtonsDiv">
-            <c:if test="${link=='driver'}">
-                <input id="templateInfo" type="button" title="<c:out value="${templateInfo}"/>" class="actionButtons"/>
-                &nbsp;&nbsp;
-                <style>
-                    /*jQuery UI customization*/
-                    .ui-tooltip {
-                        /*override*/
-                        font-size: 70%;
-                    }
-                </style>
-            </c:if>
-            <input id="reset" type="button" title="Load precompiled template" class="actionButtons"/>
-            <input id="undo" type="button" title="Undo" class="actionButtons"/>
-            <input id="redo" type="button" title="Redo" class="actionButtons"/>
+            <input id="reset" type="button" title="Regenerate" class="actionButtons"/>
+            <%-- //TODO implement action buttons --%>
+            <%--<input id="undo" type="button" title="Undo" class="actionButtons"/>--%>
+            <%--<input id="redo" type="button" title="Redo" class="actionButtons"/>--%>
             &nbsp;&nbsp;
             <input id="validate" type="button" title="Validate" class="actionButtons"/>
             <input id="save" type="button" title="Save" class="actionButtons"/>
             &nbsp;&nbsp;
             <input id="test" type="button" title="Test" class="actionButtons"/>
             <c:if test="${link=='driver'}">
-                <select id="reqList" name="request" style="width: 120px">
-                    <c:forEach var="entry" items="${list}">
-                        <option value="${entry}">${entry}</option>
-                    </c:forEach>
-                </select>
-                <input id="listRefresh" type="button" title="Refresh List" class="actionButtons"/>
                 &nbsp;&nbsp;
                 <input id="send" type="button" title="Send" class="actionButtons"/>
             </c:if>
 
         </div>
+        <div id="accordion">
+
+            <%--<span>Test message</span>--%>
+            <%--<div>--%>
+            <%--<textarea id="testCode" name="resCode"></textarea>--%>
+            <%--</div>--%>
+        </div>
     </div>
     <c:if test="${link=='driver'}">
         <div id="resWrapper">
-            Response
+            <span>Response</span>
+            <div style="font-size: 8pt">&nbsp;</div>
             <textarea id="resCode" name="resCode"></textarea>
         </div>
     </c:if>
@@ -99,24 +105,42 @@
 <c:if test="${link=='driver'}">
     <script src="../js/editor_driver.js"></script>
 </c:if>
+<style>
+    <%--resize tabs--%>
+    .ui-helper-reset {
+        font-size: 75%;
+    }
+    .ui-tabs .ui-tabs-panel{
+        padding: 0;
+    }
+</style>
 <script>
     $().ready(function () {
         $("#info").fadeTo(0, 0);
+        $("#tabs").tabs({
+            collapsible: true,
+            active: false
+        });
     });
-    var editor = CodeMirror.fromTextArea(document.getElementById("code"), editorSettings);
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), xmlEditorSettings);
     editor.setSize("700", "400");
-    <c:if test="${link=='driver'}">
-    var resEditor = CodeMirror.fromTextArea(document.getElementById("resCode"), editorSettings);
-    resEditor.setSize("600","400");
-  </c:if>
+    var groovyEditor = CodeMirror.fromTextArea(document.getElementById("scriptCode"), groovyEditorSettings);
+    groovyEditor.setSize("700", "200");
+    var testEditor = CodeMirror.fromTextArea(document.getElementById("testCode"), xmlEditorSettings);
+    testEditor.setSize("700", "200");
 
-    $(function () {
-      $("#templateInfo").tooltip({
-        content: function () {
-          return $(this).prop('title');
-        }
-      });
-    });
+    <c:if test="${link=='driver'}">
+    var resEditor = CodeMirror.fromTextArea(document.getElementById("resCode"), xmlEditorSettings);
+    resEditor.setSize("600", "400");
+    </c:if>
+
+    //    $(function () {
+    //        $("#templateInfo").tooltip({
+    //            content: function () {
+    //                return $(this).prop('title');
+    //            }
+    //        });
+    //    });
 </script>
 
 </body>
