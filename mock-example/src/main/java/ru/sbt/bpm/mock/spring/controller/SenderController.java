@@ -1,20 +1,13 @@
 package ru.sbt.bpm.mock.spring.controller;
 
-import com.google.gson.Gson;
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
 import lombok.extern.java.Log;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.sbt.bpm.mock.spring.bean.TemplateEngineBean;
+import org.springframework.web.bind.annotation.ResponseBody;
 import ru.sbt.bpm.mock.spring.integration.gateway.ClientService;
 import ru.sbt.bpm.mock.spring.utils.AjaxObject;
 
@@ -42,35 +35,20 @@ public class SenderController {
         return "wrappedEditor";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/sender/send/", method = RequestMethod.POST)
     public String send(
-            @RequestParam("xml") String xml,
-            ModelMap model) throws IOException, TransformerException {
+            @RequestParam String xml) {
         AjaxObject ajaxObject = new AjaxObject();
-//        String message = templateEngineBean.applyTemplate(xml);
-//        log.info("Sending:\n" +
-//                "============================================\n" +
-//                message + "\n" +
-//                "============================================");
-//        ajaxObject.setInfo("DONE!");
-//        try {
-//            ajaxObject.setData(clientService.send(message));
-//        } catch (Exception e) {
-//            ajaxObject.setError(e.getMessage());
-//        }
+//        VALIDATE
+        try {
+                String response = clientService.send(xml);
+                ajaxObject.setData(response);
+                ajaxObject.setInfo("DONE!");
+        } catch (Exception e) {
+            ajaxObject.setErrorFromException(e);
+        }
 
-        String init = "class RespObj {\n" +
-                "def properties = [:]\n" +
-                "def getProperty(String name) { properties[name] }\n" +
-                "void setProperty(String name, value) { properties[name] = value }\n" +
-                "}\n" +
-                "def response = new RespObj()\n" +
-                "\n";
-
-        GroovyShell shell = new GroovyShell();
-        ajaxObject.setData((String) shell.evaluate(init + xml));
-        Gson gson = new Gson();
-        model.addAttribute("object", gson.toJson(ajaxObject));
-        return "blank";
+        return ajaxObject.toJSON();
     }
 }

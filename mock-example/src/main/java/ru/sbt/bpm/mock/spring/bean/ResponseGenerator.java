@@ -1,16 +1,16 @@
 package ru.sbt.bpm.mock.spring.bean;
 
 import lombok.extern.log4j.Log4j;
-import org.custommonkey.xmlunit.SimpleNamespaceContext;
+import net.sf.saxon.s9api.SaxonApiException;
+import net.sf.saxon.s9api.XdmNode;
+import net.sf.saxon.s9api.XdmValue;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
+import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.spring.service.DataService;
 import ru.sbt.bpm.mock.spring.service.GroovyService;
 
-import javax.xml.namespace.NamespaceContext;
-import javax.xml.xpath.*;
-import java.util.Map;
+import javax.xml.xpath.XPathExpressionException;
 
 /**
  * @author sbt-bochev-as on 23.11.2015.
@@ -22,9 +22,6 @@ import java.util.Map;
 public class ResponseGenerator {
 
     @Autowired
-    Map<String, String> sbrfNamespaceMap;
-
-    @Autowired
     String operationSelector;
 
     @Autowired
@@ -33,18 +30,32 @@ public class ResponseGenerator {
     @Autowired
     DataService dataService;
 
-    public String routeAndGenerate(String systemName, @Payload String payload) throws Exception {
-        String integrationPointName = getIntegrationPointName(payload);
-        log.debug(integrationPointName);
-        return generate(systemName, integrationPointName, payload);
+    @Autowired
+    MockConfigContainer configContainer;
+
+    public String routeAndGenerate(String systemName, String payload) throws Exception {
+        try {
+            String integrationPointName = getIntegrationPointName(payload);
+            log.debug(integrationPointName);
+
+            Boolean answerRequired = configContainer.getConfig()
+                    .getSystems().getSystemByName(systemName)
+                    .getIntegrationPoints().getIntegrationPointByName(integrationPointName)
+                    .getAnswerRequired();
+            if (answerRequired) {
+                return generate(systemName, integrationPointName, payload);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+
     }
 
-    private String getIntegrationPointName(String payload) throws XPathExpressionException {
-        XPath xPath = XPathFactory.newInstance().newXPath();
-        NamespaceContext context = (NamespaceContext) new SimpleNamespaceContext(sbrfNamespaceMap);
-        xPath.setNamespaceContext(context);
-        XPathExpression expression = xPath.compile(operationSelector);
-        return (String) expression.evaluate(payload, XPathConstants.STRING);
+    private String getIntegrationPointName(String payload) throws XPathExpressionException, SaxonApiException {
+        XdmValue value = dataService.evaluateXpath(payload, operationSelector);
+        return ((XdmNode) value).getNodeName().getLocalName();
     }
 
     private String generate(String systemName, String integrationPoint, String payload) throws Exception {
@@ -52,5 +63,4 @@ public class ResponseGenerator {
         String script = dataService.getCurrentScript(systemName, integrationPoint);
         return groovyService.compile(payload, message, script);
     }
-
 }

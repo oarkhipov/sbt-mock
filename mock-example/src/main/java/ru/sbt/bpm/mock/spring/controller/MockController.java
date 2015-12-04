@@ -1,15 +1,20 @@
 package ru.sbt.bpm.mock.spring.controller;
 
+import net.sf.saxon.s9api.SaxonApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService;
+import ru.sbt.bpm.mock.spring.service.DataService;
+import ru.sbt.bpm.mock.spring.service.GroovyService;
 import ru.sbt.bpm.mock.spring.utils.AjaxObject;
-import ru.sbt.bpm.mock.spring.utils.SaveFile;
 
-import java.io.File;
+import javax.xml.transform.TransformerException;
+import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 
 /**
@@ -23,142 +28,157 @@ public class MockController {
     @Autowired
     ApplicationContext appContext;
 
-//    @RequestMapping("/mock/")
-//    public String  getMock(Model model) {
-//        model.addAttribute("type", "Response");
-//        model.addAttribute("link", "mock");
-//        model.addAttribute("list", mockList.getList());
-//        return "stepForm";
-//    }
+    @Autowired
+    MockConfigContainer configContainer;
 
-    @RequestMapping(value= "/mock/{systemName}/{integrationPointName}/", method= RequestMethod.GET)
-    public String get(@PathVariable("systemName") String systemName, @PathVariable("integrationPointName") String integrationPointName, Model model) throws IOException {
+    @Autowired
+    DataService dataService;
+
+    @Autowired
+    GroovyService groovyService;
+
+    @Autowired
+    XmlGeneratorController generatorController;
+
+    @Autowired
+    TestGatewayService testGatewayService;
+
+    @Autowired
+    DriverController driverController;
+
+    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/", method = RequestMethod.GET)
+    public String get(@PathVariable String systemName,
+                      @PathVariable String integrationPointName,
+                      Model model) throws IOException, TransformerException {
         model.addAttribute("name", integrationPointName);
         model.addAttribute("link", "mock");
-        try {
-//            model.addAttribute("object", xmlDataService.getDataXml(integrationPointName + "_Data"));
-        }
-        catch (Exception e) {
-            model.addAttribute("object", e.getMessage());
-        }
-//        model.addAttribute("linkedTag", linkedTagCaption.getCaption(integrationPointName));
+        //TODO send xpath with namespace js tooltip
+        model.addAttribute("xpath",
+                configContainer.getConfig().getSystems().getSystemByName(systemName)
+                        .getIntegrationPoints().getIntegrationPointByName(integrationPointName)
+                        .getXpathString());
+        model.addAttribute("message", dataService.getDataResourceContent(systemName + "_" + integrationPointName + "_message.xml"));
+        model.addAttribute("script", dataService.getDataResourceContent(systemName + "_" + integrationPointName + "_script.groovy"));
+        model.addAttribute("test", dataService.getDataResourceContent(systemName + "_" + integrationPointName + "_test.xml"));
         return "editor";
     }
 
-    @RequestMapping(value="/mock/{name}/validate/", method=RequestMethod.POST)
+    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/validate/", method = RequestMethod.POST)
     public String validate(
-            @PathVariable("name") String name,
-            @RequestParam("xml") String xml,
+            @PathVariable("systemName") String systemName,
+            @PathVariable("integrationPointName") String integrationPointName,
+            @RequestParam String xml,
+            @RequestParam String script,
+            @RequestParam String test,
             ModelMap model) {
         AjaxObject ajaxObject = new AjaxObject();
         try {
-            SaveFile saver = SaveFile.getInstance(appContext);
-//            if (xmlDataService.validate(xml, saver.TranslateNameToSystem(name))) {
+            String compiledXml = groovyService.compile(test, xml, script);
+            if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
+                dataService.validate(compiledXml, systemName);
                 ajaxObject.setInfo("Valid!");
-//            }
-        }
-        catch (Exception e) {
-            ajaxObject.setError(e.getMessage());
-        }
-        model.addAttribute("object", ajaxObject.toJSON());
-
-        return "blank";
-    }
-
-    @RequestMapping(value="/mock/{name}/save/", method=RequestMethod.POST)
-    public String save(
-            @PathVariable("name") String name,
-            @RequestParam("xml") String xml,
-            ModelMap model) throws IOException {
-        AjaxObject ajaxObject = new AjaxObject();
-        SaveFile saver = SaveFile.getInstance(appContext);
-        File dataFile = null;
-        try {
-            String path = saver.TranslateNameToPath(name);
-            dataFile = saver.getBackUpedDataFile(path);
-        } catch (Exception e) {
-            ajaxObject.setError(e.getMessage());
-        }
-        if (dataFile!=null) {
-            try {
-//                if (xmlDataService.validate(xml, saver.TranslateNameToSystem(name))) {
-                    saver.writeStringToFile(dataFile, xml);
-                    ajaxObject.setInfo("saved");
-//                }
-            } catch (IOException e) {
-                ajaxObject.setErrorFromException(e);
-            } catch (Exception e) {
-                ajaxObject.setErrorFromException(e);
+            } else {
+                ajaxObject.setError("xml did not pass xpath assertion!");
             }
+        } catch (Exception e) {
+            ajaxObject.setErrorFromException(e);
         }
         model.addAttribute("object", ajaxObject.toJSON());
-
         return "blank";
     }
 
-    @RequestMapping(value="/mock/{name}/undo/", method=RequestMethod.POST)
-    public String rollback(
-            @PathVariable("name") String name,
-            ModelMap model) throws IOException  {
-        AjaxObject ajaxObject = new AjaxObject();
-        SaveFile saver = SaveFile.getInstance(appContext);
-        File dataFile;
-        try {
-            String path = saver.TranslateNameToPath(name);
-            dataFile = saver.rollbackNextBackupDataFile(path);
-            String datavalue = saver.getFileString(dataFile);
-            ajaxObject.setData(datavalue);
-            ajaxObject.setInfo("undo");
-        }catch (IndexOutOfBoundsException e) {
-            ajaxObject.setError(e.getMessage());
-        }
-        model.addAttribute("object", ajaxObject.toJSON());
-
-        return "blank";
+    @ResponseBody
+    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/save/", method = RequestMethod.POST)
+    public String save(
+            @PathVariable String systemName,
+            @PathVariable String integrationPointName,
+            @RequestParam String xml,
+            @RequestParam String script,
+            @RequestParam String test) throws IOException {
+      return driverController.save(systemName, integrationPointName, xml, script, test);
     }
 
-    @RequestMapping(value="/mock/{name}/redo/", method=RequestMethod.POST)
-    public String rollforward(
-            @PathVariable("name") String name,
-            ModelMap model) throws IOException  {
-        AjaxObject ajaxObject = new AjaxObject();
-        SaveFile saver = SaveFile.getInstance(appContext);
-        File dataFile;
-        try {
-            String path = saver.TranslateNameToPath(name);
-            dataFile = saver.rollbackPervBackUpedDataFile(path);
-            String datavalue = saver.getFileString(dataFile);
-            ajaxObject.setData(datavalue);
-            ajaxObject.setInfo("redo");
-        }catch (IndexOutOfBoundsException e) {
-            ajaxObject.setError(e.getMessage());
-        }
-        catch (IOException e) {
-            model.addAttribute("error", e.getMessage());
-        }
-        model.addAttribute("object", ajaxObject.toJSON());
+//    @RequestMapping(value="/mock/{name}/undo/", method=RequestMethod.POST)
+//    public String rollback(
+//            @PathVariable("name") String name,
+//            ModelMap model) throws IOException  {
+//        AjaxObject ajaxObject = new AjaxObject();
+//        SaveFile saver = SaveFile.getInstance(appContext);
+//        File dataFile;
+//        try {
+//            String path = saver.TranslateNameToPath(name);
+//            dataFile = saver.rollbackNextBackupDataFile(path);
+//            String datavalue = saver.getFileString(dataFile);
+//            ajaxObject.setData(datavalue);
+//            ajaxObject.setInfo("undo");
+//        }catch (IndexOutOfBoundsException e) {
+//            ajaxObject.setError(e.getMessage());
+//        }
+//        model.addAttribute("object", ajaxObject.toJSON());
+//
+//        return "blank";
+//    }
+//
+//    @RequestMapping(value="/mock/{name}/redo/", method=RequestMethod.POST)
+//    public String rollforward(
+//            @PathVariable("name") String name,
+//            ModelMap model) throws IOException  {
+//        AjaxObject ajaxObject = new AjaxObject();
+//        SaveFile saver = SaveFile.getInstance(appContext);
+//        File dataFile;
+//        try {
+//            String path = saver.TranslateNameToPath(name);
+//            dataFile = saver.rollbackPervBackUpedDataFile(path);
+//            String datavalue = saver.getFileString(dataFile);
+//            ajaxObject.setData(datavalue);
+//            ajaxObject.setInfo("redo");
+//        }catch (IndexOutOfBoundsException e) {
+//            ajaxObject.setError(e.getMessage());
+//        }
+//        catch (IOException e) {
+//            model.addAttribute("error", e.getMessage());
+//        }
+//        model.addAttribute("object", ajaxObject.toJSON());
+//
+//        return "blank";
+//    }
 
-        return "blank";
-    }
-
-    @RequestMapping(value="/mock/{name}/resetToDefault/", method=RequestMethod.POST)
+    @ResponseBody
+    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/resetToDefault/", method = RequestMethod.POST)
     public String resetToDefault(
-            @PathVariable("name") String name,
-            ModelMap model) throws IOException  {
-        SaveFile saver = SaveFile.getInstance(appContext);
-        AjaxObject ajaxObject = new AjaxObject();
-        File dataFile;
-        try {
-            String path = saver.TranslateNameToPath(name);
-            dataFile = saver.restoreBackUpedDataFile(path);
-            String datavalue = saver.getFileString(dataFile);
-            ajaxObject.setData(datavalue);
-            ajaxObject.setInfo("reset");
-        } catch (IOException e) {
-            ajaxObject.setError(e.getMessage());
-        }
-        model.addAttribute("object", ajaxObject.toJSON());
+            @PathVariable("systemName") String systemName,
+            @PathVariable("integrationPointName") String integrationPointName) throws IOException {
+        return generatorController.generate(systemName, integrationPointName);
+    }
 
-        return "blank";
+    @ResponseBody
+    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/test/", method = RequestMethod.POST)
+    public String test(
+            @PathVariable String systemName,
+            @PathVariable String integrationPointName,
+            @RequestParam String xml,
+            @RequestParam String script,
+            @RequestParam String test) {
+
+        AjaxObject ajaxObject = new AjaxObject();
+//        VALIDATE
+        try {
+            String compiledXml = groovyService.compile(test, xml, script);
+            if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
+                dataService.validate(compiledXml, systemName);
+
+                String response = testGatewayService.test(compiledXml);
+                ajaxObject.setData(response);
+                ajaxObject.setInfo("DONE!");
+            }
+        } catch (SaxonApiException e) {
+            ajaxObject.setErrorFromException(e);
+        } catch (XPathExpressionException e) {
+            ajaxObject.setErrorFromException(e);
+        } catch (Exception e) {
+            ajaxObject.setErrorFromException(e);
+        }
+
+        return ajaxObject.toJSON();
     }
 }

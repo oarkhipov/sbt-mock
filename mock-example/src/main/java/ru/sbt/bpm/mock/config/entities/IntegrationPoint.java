@@ -41,6 +41,9 @@ public class IntegrationPoint {
     @XStreamAlias("outcomeQueue")
     private String outcomeQueue;
 
+    @XStreamAlias("answerRequired")
+    private Boolean answerRequired;
+
     // Так как маппинг идет по полям xml, для удобства доступа и сравнения создаем Pair<INCOME, OUTCOME>
     private transient Pair<String, String> pairOfChannels;
 

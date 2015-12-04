@@ -20,13 +20,10 @@ function applyActionButtonsEvents() {
         showInfo("Sending...");
         sendDisable(true);
         showResponse();
-        var parts = QueryString["ip"].split("__");
         $.ajax({
-            url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/send/",
+            url: "send/",
             type: "POST",
-            data: { xml :editor.getValue(),
-                script : groovyEditor.getValue(),
-                test : testEditor.getValue()},
+            data: { xml :editor.getValue()},
             success: function (obj) {
                 obj = htmlConvert(obj);
                 obj = $.parseJSON(obj);

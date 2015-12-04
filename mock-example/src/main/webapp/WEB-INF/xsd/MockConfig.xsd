@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://sbrf.ru/mockService2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="MockConfig" type="moc:MockConfigType" xmlns:moc="http://sbrf.ru/mockService2"/>
+  <xs:complexType name="xpathValidationType">
+    <xs:sequence>
+      <xs:element type="moc:tagType" name="tag" maxOccurs="unbounded" minOccurs="0" xmlns:moc="http://sbrf.ru/mockService2"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="systemsType">
+    <xs:sequence>
+      <xs:element type="moc:systemType" name="system" xmlns:moc="http://sbrf.ru/mockService2"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="rootElementType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:anyURI" name="ns" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="MockConfigType">
+    <xs:sequence>
+      <xs:element type="moc:systemsType" name="systems" xmlns:moc="http://sbrf.ru/mockService2"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="integrationPointSelectorType">
+    <xs:sequence>
+      <xs:element type="moc:tagType" name="tag" maxOccurs="unbounded" minOccurs="0" xmlns:moc="http://sbrf.ru/mockService2"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tagType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:anyURI" name="ns" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="integrationPointsType">
+    <xs:sequence>
+      <xs:element type="moc:integrationPointType" name="integrationPoint" maxOccurs="unbounded" minOccurs="0" xmlns:moc="http://sbrf.ru/mockService2"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="systemType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="rootXsd">
+        <xs:annotation>
+          <xs:documentation>XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="moc:integrationPointSelectorType" name="integrationPointSelector" xmlns:moc="http://sbrf.ru/mockService2">
+        <xs:annotation>
+          <xs:documentation>Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="xs:string" name="protocol">
+        <xs:annotation>
+          <xs:documentation>Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-MQ, System-SOAP</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="xs:string" name="queueConnectionFactory">
+        <xs:annotation>
+          <xs:documentation>ConnectionFactory MQ очередей</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="moc:integrationPointsType" name="integrationPoints" xmlns:moc="http://sbrf.ru/mockService2"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name"/>
+  </xs:complexType>
+  <xs:complexType name="integrationPointType" mixed="true">
+    <xs:sequence>
+      <xs:element type="moc:xpathValidationType" name="xpathValidation" xmlns:moc="http://sbrf.ru/mockService2">
+        <xs:annotation>
+          <xs:documentation>Валидация сообщения, которое должно находиться в точке интеграции</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="type">
+        <xs:annotation>
+          <xs:documentation>Тип точки интеграции Заглушка/Драйвер</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Driver"/>
+            <xs:enumeration value="Mock"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="incomeQueue" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Входящая очередь</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="outcomeQueue" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Исходящая очередь</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="xs:string" name="xsdFile" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Где лежит корневой элемент</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="moc:rootElementType" name="rootElement" xmlns:moc="http://sbrf.ru/mockService2">
+        <xs:annotation>
+          <xs:documentation>Указатель на корневой элемент для генерации тестового сообщения</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="xs:string" name="answerRequired" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Требуется ли ответ</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name"/>
+  </xs:complexType>
+</xs:schema>

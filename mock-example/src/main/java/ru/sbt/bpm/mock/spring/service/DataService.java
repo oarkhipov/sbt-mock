@@ -17,7 +17,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import javax.xml.xpath.*;
+import javax.xml.xpath.XPathExpressionException;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -287,18 +287,23 @@ public class DataService {
                 .getIntegrationPoints().getIntegrationPointByName(integrationPointName)
                 .getXpathWithFullNamespaceString();
         log.debug("assert xpath: " + xpathWithFullNamespaceString);
+
+        return evaluateXpath(xml,xpathWithFullNamespaceString).size()!=0;
+    }
+
+    public XdmValue evaluateXpath(String inputXml, String xpath) throws SaxonApiException {
         Processor processor = new Processor(false);
         XPathCompiler xPathCompiler = processor.newXPathCompiler();
         DocumentBuilder builder = processor.newDocumentBuilder();
 
         //build doc
-        StringReader reader = new StringReader(xml);
+        StringReader reader = new StringReader(inputXml);
         XdmNode xdmNode = builder.build(new StreamSource(reader));
 
         //load xpath
-        XPathSelector selector = xPathCompiler.compile(xpathWithFullNamespaceString).load();
+        XPathSelector selector = xPathCompiler.compile(xpath).load();
         selector.setContextItem(xdmNode);
-        return selector.evaluate().size()!=0;
+        return selector.evaluate();
     }
 
     public String getCurrentMessage(String systemName, String integrationPointName) throws IOException {

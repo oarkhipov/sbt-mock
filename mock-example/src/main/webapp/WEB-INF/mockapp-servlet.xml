@@ -22,13 +22,20 @@
     </beans:bean>
 
     <beans:bean id="connectionFactoryString" class="java.lang.String">
-        <beans:constructor-arg value="jms/ESB.BPM.NCP.CF"/>
+        <beans:constructor-arg value="jms/Q.LEGAL.CF"/>
     </beans:bean>
-    <beans:bean id="connectionInputString" class="java.lang.String">
-        <beans:constructor-arg value="jms/ESB.BYBPM.NCP.IN"/>
+
+    <beans:bean id="mockConnectionInputString" class="java.lang.String">
+        <beans:constructor-arg value="jms/Q.LEGAL.TO.CRMORG"/>
     </beans:bean>
-    <beans:bean id="connectionOutputString" class="java.lang.String">
-        <beans:constructor-arg value="jms/ESB.BYBPM.NCP.OUT"/>
+    <beans:bean id="mockConnectionOutputString" class="java.lang.String">
+        <beans:constructor-arg value="jms/Q.LEGAL.FROM.CRMORG"/>
+    </beans:bean>
+    <beans:bean id="driverConnectionInputString" class="java.lang.String">
+        <beans:constructor-arg value="jms/Q.LEGAL.FROM.CRMORG.SYNCRESP"/>
+    </beans:bean>
+    <beans:bean id="driverConnectionOutputString" class="java.lang.String">
+        <beans:constructor-arg value="jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>
     </beans:bean>
 
     <!-- - - - - - - - - - - - - - -->
@@ -38,58 +45,58 @@
     <!-- - - - - - - - - - - - - - -->
 
      <!--Настройки подключения к MQ-->
-    <!--<beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-            <!--<beans:property name="jndiName" value="#{connectionFactoryString}"/>-->
-    <!--</beans:bean>-->
-    <!--<beans:bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-            <!--<beans:property name="jndiName" value="#{connectionInputString}"/>-->
-    <!--</beans:bean>-->
-    <!--<beans:bean id="outboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-            <!--<beans:property name="jndiName" value="#{connectionOutputString}"/>-->
-    <!--</beans:bean>-->
+    <beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <beans:property name="jndiName" value="#{connectionFactoryString}"/>
+    </beans:bean>
+    <beans:bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <beans:property name="jndiName" value="#{mockConnectionInputString}"/>
+    </beans:bean>
+    <beans:bean id="outboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <beans:property name="jndiName" value="#{mockConnectionOutputString}"/>
+    </beans:bean>
 
-     <!--<beans:bean id="requestDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-            <!--<beans:property name="jndiName" value="#{connectionInputString}"/>-->
-    <!--</beans:bean>-->
-    <!--<beans:bean id="responseDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-            <!--<beans:property name="jndiName" value="#{connectionOutputString}"/>-->
-    <!--</beans:bean>-->
+     <beans:bean id="requestDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <beans:property name="jndiName" value="#{driverConnectionOutputString}"/>
+    </beans:bean>
+    <beans:bean id="responseDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <beans:property name="jndiName" value="#{driverConnectionInputString}"/>
+    </beans:bean>
 
-    <!--<beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>-->
+    <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
 
-    <!--<jms:inbound-gateway-->
-            <!--request-destination="inboundMockQueue"-->
-            <!--request-channel="MockInboundRequest"-->
-            <!--reply-channel="MockOutboundResponse"-->
-            <!--default-reply-destination="outboundMockQueue"-->
-            <!--connection-factory="jndiConnectionFactory"-->
-    <!--/>-->
+    <jms:inbound-gateway
+            request-destination="inboundMockQueue"
+            request-channel="MockInboundRequest"
+            reply-channel="MockOutboundResponse"
+            default-reply-destination="outboundMockQueue"
+            connection-factory="jndiConnectionFactory"
+    />
 
-    <!--<jms:outbound-gateway-->
-            <!--id="jmsout"-->
-            <!--request-destination="requestDriverQueue"-->
-            <!--reply-destination="responseDriverQueue"-->
-            <!--request-channel="DriverOutboundRequest"-->
-            <!--reply-channel="DriverInboundResponse"-->
-            <!--header-mapper="defHeaderMapper"-->
-            <!--connection-factory="jndiConnectionFactory"-->
-            <!--reply-timeout="30000"-->
-            <!--receive-timeout="30000"-->
-    <!--/>-->
+    <jms:outbound-gateway
+            id="jmsout"
+            request-destination="requestDriverQueue"
+            reply-destination="responseDriverQueue"
+            request-channel="DriverOutboundRequest"
+            reply-channel="DriverInboundResponse"
+            header-mapper="defHeaderMapper"
+            connection-factory="jndiConnectionFactory"
+            reply-timeout="30000"
+            receive-timeout="30000"
+    />
 
 
     <!-- Входной и выходной каналы Заглушки-->
     <channel id="MockInboundRequest">
         <interceptors>
             <wire-tap channel="MockInboundRequestLogger"/>
-            <wire-tap channel="MockInboundRequestExternalLogger"/>
+            <!--<wire-tap channel="MockInboundRequestExternalLogger"/>-->
         </interceptors>
     </channel>
     
     <channel id="MockOutboundResponse">
         <interceptors>
             <wire-tap channel="MockOutboundResponseLogger"/>
-            <wire-tap channel="MockOutboundResponseExternalLogger"/>
+            <!--<wire-tap channel="MockOutboundResponseExternalLogger"/>-->
         </interceptors>
     </channel>
     
@@ -124,18 +131,18 @@
     <!--                                 -->
     <!-- - - - - - - - - - - - - - - - - -->
 
-    <channel id="MockInboundRequestExternalLogger"/>
-    <channel id="MockOutboundResponseExternalLogger"/>
+    <!--<channel id="MockInboundRequestExternalLogger"/>-->
+    <!--<channel id="MockOutboundResponseExternalLogger"/>-->
     <!--<channel id="DriverOutboundRequestExternalLogger"/>-->
     <!--<channel id="DriverInboundResponseExternalLogger"/>-->
 
-    <beans:bean id="messageLogger" class="ru.sbt.bpm.mock.spring.logging.impl.MessageLoggerImpl"/>
-    <service-activator id="MockInboundRequestExternalLoggerActivator"
-                       input-channel="MockInboundRequestExternalLogger"
-                       expression="@messageLogger.logMessage(payload, connectionInputString)"/>
-    <service-activator id="MockOutboundResponseExternalLoggerActivator"
-                       input-channel="MockOutboundResponseExternalLogger"
-                       expression="@messageLogger.logMessage(payload, connectionOutputString)"/>
+    <!--<beans:bean id="messageLogger" class="ru.sbt.bpm.mock.spring.logging.impl.MessageLoggerImpl"/>-->
+    <!--<service-activator id="MockInboundRequestExternalLoggerActivator"-->
+                       <!--input-channel="MockInboundRequestExternalLogger"-->
+                       <!--expression="@messageLogger.logMessage(payload, connectionInputString)"/>-->
+    <!--<service-activator id="MockOutboundResponseExternalLoggerActivator"-->
+                       <!--input-channel="MockOutboundResponseExternalLogger"-->
+                       <!--expression="@messageLogger.logMessage(payload, connectionOutputString)"/>-->
 
 
     <!-- - - - - - - - - - - - -->
@@ -143,7 +150,7 @@
     <!-- - - - - - - - - - - - -->
 
     <beans:bean id="operationSelector" class="java.lang.String">
-        <beans:constructor-arg value="/env:Envelope/ns1:*[local-name()]"/>
+        <beans:constructor-arg value="/*:Envelope[namespace-uri()='http://sbrf.ru/legal/enquiry/integration']/*[namespace-uri()='http://sbrf.ru/legal/enquiry/integration']"/>
     </beans:bean>
 
     <!-- Карта неймспейсов-->
@@ -154,7 +161,8 @@
 
     <!-- Генерация ответа -->
     <beans:bean id="responseGenerator" class="ru.sbt.bpm.mock.spring.bean.ResponseGenerator"/>
-    <service-activator input-channel="MockInboundRequest" output-channel="MockOutboundResponse" expression="@responseGenerator.routeAndGenerate(payload)"/>
+    <service-activator input-channel="MockInboundRequest" output-channel="MockOutboundResponse" expression="@responseGenerator.routeAndGenerate('CRM', payload)"/>
+    <!--<bridge id="serviceActivatorBridge" input-channel="MockInboundRequest" output-channel="MockOutboundResponse"/>-->
 
     <context:component-scan base-package="ru.sbt.bpm.mock.spring"/>
     
@@ -169,6 +177,7 @@
              service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService"
              default-reply-timeout="30000"
              default-request-timeout="30000"
+
         >
         <method name="send" request-channel="DriverOutboundRequest" reply-channel="DriverInboundResponse"/>
     </gateway>
@@ -178,7 +187,4 @@
     </gateway>
     <channel id="test"/>
 
-
-    <!-- For tests!-->
-    <bridge input-channel="DriverOutboundRequest" output-channel="DriverInboundResponse"/>
 </beans:beans>

@@ -91,19 +91,17 @@
             <%--</div>--%>
         </div>
     </div>
-    <c:if test="${link=='driver'}">
         <div id="resWrapper">
             <span>Response</span>
             <div style="font-size: 8pt">&nbsp;</div>
             <textarea id="resCode" name="resCode"></textarea>
         </div>
-    </c:if>
 </form>
 <div id="htmlConverter" style="display: none"></div>
 
-<script src="../js/editor.js"></script>
+<script src="js/editor.js"></script>
 <c:if test="${link=='driver'}">
-    <script src="../js/editor_driver.js"></script>
+    <script src="js/editor_driver.js"></script>
 </c:if>
 <style>
     <%--resize tabs--%>
@@ -129,10 +127,8 @@
     var testEditor = CodeMirror.fromTextArea(document.getElementById("testCode"), xmlEditorSettings);
     testEditor.setSize("700", "200");
 
-    <c:if test="${link=='driver'}">
     var resEditor = CodeMirror.fromTextArea(document.getElementById("resCode"), xmlEditorSettings);
     resEditor.setSize("600", "400");
-    </c:if>
 
     //    $(function () {
     //        $("#templateInfo").tooltip({

@@ -116,6 +116,23 @@ function htmlConvert(data) {
     return $.trim(converter.text());
 }
 
+function showResponse(text) {
+    if(text) {
+        $("#resWrapper").css("display", "block");
+        resEditor.setValue(text);
+        autoFormatResponse();
+    } else {
+        $("#resWrapper").css("display", "none");
+    }
+}
+
+function autoFormatResponse() {
+    var totalLines = resEditor.lineCount();
+    var totalChars = resEditor.getTextArea().value.length;
+    resEditor.autoFormatRange({line:0, ch:0}, {line:totalLines, ch: totalChars});
+    resEditor.setCursor({line:0, ch:0});
+}
+
 //Handlers
 $("#validate").click(function(){
 //  alert("Code:"+editor.getValue());

@@ -27,8 +27,8 @@ public class GroovyService {
 
     public String compile(String incomeXml, String mockXml, String script) throws Exception {
         Binding binding = new Binding();
-        binding.setVariable("log", log);
-        binding.setVariable("request", incomeXml);
+        binding.setProperty("log", log);
+        binding.setProperty("request", incomeXml);
         GroovyShell shell = new GroovyShell();
         //fill response object
 //        shell.evaluate(groovyInit + script);

@@ -98,8 +98,7 @@ public class DriverController {
             @PathVariable String integrationPointName,
             @RequestParam String xml,
             @RequestParam String script,
-            @RequestParam String test,
-            ModelMap model) throws IOException {
+            @RequestParam String test) throws IOException {
         AjaxObject ajaxObject = new AjaxObject();
         SaveFile saver = SaveFile.getInstance(appContext);
         try {

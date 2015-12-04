@@ -30,6 +30,9 @@ public class System {
     @XStreamAlias("protocol")
     private String protocol;
 
+    @XStreamAlias("queueConnectionFactory")
+    String queueConnectionFactory;
+
     @XStreamAlias("integrationPoints")
     private IntegrationPoints integrationPoints;
 
