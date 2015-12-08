@@ -25,17 +25,21 @@
         <beans:constructor-arg value="jms/Q.LEGAL.CF"/>
     </beans:bean>
 
+    <!-- - - - - - - -->
+    <!--MOCK-->
     <beans:bean id="mockConnectionInputString" class="java.lang.String">
         <beans:constructor-arg value="jms/Q.LEGAL.TO.CRMORG"/>
     </beans:bean>
     <beans:bean id="mockConnectionOutputString" class="java.lang.String">
-        <beans:constructor-arg value="jms/Q.LEGAL.FROM.CRMORG"/>
-    </beans:bean>
-    <beans:bean id="driverConnectionInputString" class="java.lang.String">
         <beans:constructor-arg value="jms/Q.LEGAL.FROM.CRMORG.SYNCRESP"/>
     </beans:bean>
-    <beans:bean id="driverConnectionOutputString" class="java.lang.String">
+    <!-- - - - - - - -->
+    <!-- DRIVER -->
+    <beans:bean id="driverConnectionInputString" class="java.lang.String">
         <beans:constructor-arg value="jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>
+    </beans:bean>
+    <beans:bean id="driverConnectionOutputString" class="java.lang.String">
+        <beans:constructor-arg value="jms/Q.LEGAL.FROM.CRMORG"/>
     </beans:bean>
 
     <!-- - - - - - - - - - - - - - -->
@@ -48,6 +52,7 @@
     <beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
             <beans:property name="jndiName" value="#{connectionFactoryString}"/>
     </beans:bean>
+
     <beans:bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
             <beans:property name="jndiName" value="#{mockConnectionInputString}"/>
     </beans:bean>
