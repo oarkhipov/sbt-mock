@@ -69,4 +69,9 @@
              default-reply-timeout="30000"
              default-request-timeout="30000"
             />
+    <gateway service-interface="ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService">
+        <method name="test" request-channel="test" reply-channel="test"/>
+    </gateway>
+    <channel id="test"/>
+
 </beans:beans>

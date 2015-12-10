@@ -11,12 +11,10 @@ import ru.sbt.bpm.mock.config.entities.ElementSelector;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 
 import javax.xml.namespace.QName;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.stream.StreamResult;
-import java.io.IOException;
 import java.io.StringWriter;
-import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.List;
 
 /**
  * @author sbt-bochev-as on 03.12.2015.
@@ -32,7 +30,10 @@ public class XmlGeneratorService {
     @Autowired
     DataService dataService;
 
-    public String generate(String systemName, String integrationPointName) throws URISyntaxException, IOException, TransformerConfigurationException {
+    @Autowired
+    GroovyService groovyService;
+
+    public String generate(String systemName, String integrationPointName) throws Exception {
         ru.sbt.bpm.mock.config.entities.System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
         String rootXSD = system.getRootXSD();
         IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
@@ -47,11 +48,11 @@ public class XmlGeneratorService {
 
 
         XSInstance xsInstance = new XSInstance();
-        xsInstance.minimumElementsGenerated = 0;
-        xsInstance.maximumElementsGenerated = 0;
+        xsInstance.minimumElementsGenerated = 1;
+        xsInstance.maximumElementsGenerated = 1;
         xsInstance.generateDefaultAttributes = true;
         xsInstance.generateOptionalElements = true;
-        xsInstance.maximumRecursionDepth = 0;
+        xsInstance.maximumRecursionDepth = 1;
         xsInstance.generateOptionalAttributes = true;
         xsInstance.generateAllChoices = true;
 
@@ -64,6 +65,28 @@ public class XmlGeneratorService {
         sampleXml = new XMLDocument(new StreamResult(writer), true, 4, null);
 
         xsInstance.generate(xsModel, rootElement, sampleXml);
-        return writer.toString();
+        //TODO сделать универсальным для любых сообщений
+        List<ElementSelector> elementSelectors = integrationPoint.getXpathValidatorSelector().getElementSelectors();
+        int elementSize = elementSelectors.size();
+        String lastElementAssertion = elementSelectors.get(elementSize-1).getElement();
+
+        String filterScript = "def stringWriter = new StringWriter()\n" +
+                "def s = new groovy.xml.Namespace(\"http://sbrf.ru/legal/enquiry/integration\")\n" +
+                "def remove = []\n" +
+                "def parent\n" +
+                "requestDom.each { tag ->\n" +
+                "   if(tag.name().localPart != \"" + lastElementAssertion +"\"){\n" +
+                "       remove.add tag\n" +
+                "       parent = tag.parent()\n" +
+                "   }\n" +
+                "}\n" +
+                "remove.each { parent.remove(it) }\n" +
+//                "//response.test=requestDom[s.sendAdditionalInfo][s.clientSystemTaskID].text()\n" +
+                "\n" +
+                "new XmlNodePrinter(new PrintWriter(stringWriter)).print(requestDom)\n" +
+                "response.result=stringWriter.toString()\n" +
+                "";
+
+        return groovyService.compile(writer.toString(), "${result}", filterScript);
     }
 }

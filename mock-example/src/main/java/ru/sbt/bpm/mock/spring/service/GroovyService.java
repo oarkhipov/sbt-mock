@@ -23,13 +23,15 @@ public class GroovyService {
             "void setProperty(String name, value) { properties[name] = value }\n" +
             "}\n" +
             "def response = new RespObj()\n" +
+            "def requestDom \n" +
+            "if(request){ requestDom = new XmlParser().parseText(request)}\n" +
             "\n";
 
     public String compile(String incomeXml, String mockXml, String script) throws Exception {
         Binding binding = new Binding();
         binding.setProperty("log", log);
         binding.setProperty("request", incomeXml);
-        GroovyShell shell = new GroovyShell();
+        GroovyShell shell = new GroovyShell(binding);
         //fill response object
 //        shell.evaluate(groovyInit + script);
 
@@ -38,8 +40,8 @@ public class GroovyService {
         Matcher matcher = pattern.matcher(mockXml);
         matcher.find();
         mockXml = matcher.replaceAll("\\$\\{response.$1\\}");
-//        String inlineMockXml = mockXml.replaceAll("\\r", "").replaceAll("\\n", "");
-        shell.evaluate(groovyInit + script + "\n mockXml = \"\"\"" + mockXml + "\"\"\"");
+        String scriptText = groovyInit + script + "\n mockXml = \"\"\"" + mockXml + "\"\"\"";
+        shell.evaluate(scriptText);
 
         return shell.getVariable("mockXml").toString();
     }
