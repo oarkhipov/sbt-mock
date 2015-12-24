@@ -5,10 +5,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 /**
  * @author sbt-bochev-as
@@ -17,6 +14,7 @@ import lombok.ToString;
 //@XStreamAlias("tag")
 @XStreamConverter(value = ToAttributedValueConverter.class, strings = "element")
 @Data
+@AllArgsConstructor
 public class ElementSelector {
 
     @XStreamAlias("ns")

@@ -22,5 +22,16 @@ public class XpathSelector {
         elementSelectors = new ArrayList<ElementSelector>();
     }
 
+    public XpathSelector(String[] namespaces, String[] names) {
+        List<ElementSelector> elementSelectors = new ArrayList<ElementSelector>();
+        for (int i = 0; i < names.length; i++) {
+            ElementSelector elementSelector = new ElementSelector(
+                    namespaces[i],
+                    names[i]);
+            elementSelectors.add(elementSelector);
+        }
+        this.elementSelectors = elementSelectors;
+    }
+
 }
 

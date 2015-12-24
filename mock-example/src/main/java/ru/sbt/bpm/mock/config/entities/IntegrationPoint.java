@@ -2,6 +2,7 @@ package ru.sbt.bpm.mock.config.entities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import ru.sbt.bpm.mock.generator.spring.integration.Pair;
 
@@ -15,6 +16,7 @@ import ru.sbt.bpm.mock.generator.spring.integration.Pair;
  */
 @XStreamAlias("integrationPoint")
 @Data
+@AllArgsConstructor
 public class IntegrationPoint {
 
     // Тип точки интеграции Driver
@@ -35,9 +37,11 @@ public class IntegrationPoint {
     @XStreamAlias("xpathValidation")
     private XpathSelector xpathValidatorSelector;
 
+    //  For override
     @XStreamAlias("incomeQueue")
     private String incomeQueue;
 
+    //  For override
     @XStreamAlias("outcomeQueue")
     private String outcomeQueue;
 

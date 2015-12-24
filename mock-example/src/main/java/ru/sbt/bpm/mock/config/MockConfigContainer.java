@@ -95,4 +95,19 @@ public class MockConfigContainer {
             }
         return INSTANCE;
     }
+
+    public String toXml() {
+        XStream xStream = new XStream(new DomDriver());
+
+        // Mapping данных из xml в классы
+        xStream.processAnnotations(MockConfig.class);
+        xStream.processAnnotations(Systems.class);
+        xStream.processAnnotations(System.class);
+        xStream.processAnnotations(ElementSelector.class);
+        xStream.processAnnotations(XpathSelector.class);
+        xStream.processAnnotations(IntegrationPoints.class);
+        xStream.processAnnotations(IntegrationPoint.class);
+
+        return xStream.toXML(config);
+    }
 }

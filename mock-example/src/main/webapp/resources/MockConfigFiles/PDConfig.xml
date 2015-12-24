@@ -14,6 +14,14 @@
             <protocol>MQ</protocol>
 
             <queueConnectionFactory>jms/Q.LEGAL.CF</queueConnectionFactory>
+            <!-- Входящая очередь заглушки -->
+            <mockIncomeQueue>jms/Q.LEGAL.TO.CRMORG</mockIncomeQueue>
+            <!-- Исходящая очередь заглушки -->
+            <mockOutcomeQueue>jms/Q.LEGAL.FROM.CRMORG.SYNCRESP</mockOutcomeQueue>
+            <!-- Исходящая очередь драйвера -->
+            <driverOutcomeQueue>jms/Q.LEGAL.FROM.CRMORG</driverOutcomeQueue>
+            <!-- Входящая очередь драйвера -->
+            <driverIncomeQueue>jms/Q.LEGAL.TO.CRMORG.SYNCRESP</driverIncomeQueue>
 
             <integrationPoints>
 
@@ -26,10 +34,7 @@
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Driver</type>
-                    <!-- Входящая очередь-->
-                    <incomeQueue>jms/Q.LEGAL.TO.CRMORG</incomeQueue>
-                    <!-- Исходящая очередь-->
-                    <outcomeQueue>jms/Q.LEGAL.FROM.CRMORG</outcomeQueue>
+
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
                     <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
@@ -47,10 +52,7 @@
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Mock</type>
-                    <!-- Входящая очередь-->
-                    <incomeQueue>jms/Q.LEGAL.TO.CRMORG.SYNCRESP</incomeQueue>
-                    <!-- Исходящая очередь-->
-                    <outcomeQueue>jms/Q.LEGAL.FROM.CRMORG.SYNCRESP</outcomeQueue>
+
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
                     <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
@@ -70,10 +72,6 @@
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Driver</type>
-                    <!-- Входящая очередь-->
-                    <incomeQueue>jms/Q.LEGAL.TO.CRMORG</incomeQueue>
-                    <!-- Исходящая очередь-->
-                    <outcomeQueue>jms/Q.LEGAL.FROM.CRMORG</outcomeQueue>
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
                     <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
@@ -91,10 +89,6 @@
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Driver</type>
-                    <!-- Входящая очередь-->
-                    <incomeQueue>jms/Q.LEGAL.TO.CRMORG</incomeQueue>
-                    <!-- Исходящая очередь-->
-                    <outcomeQueue>jms/Q.LEGAL.FROM.CRMORG</outcomeQueue>
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
                     <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
@@ -112,10 +106,6 @@
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Mock</type>
-                    <!-- Входящая очередь-->
-                    <incomeQueue>jms/Q.LEGAL.TO.CRMORG.SYNCRESP</incomeQueue>
-                    <!-- Исходящая очередь-->
-                    <outcomeQueue>jms/Q.LEGAL.FROM.CRMORG.SYNCRESP</outcomeQueue>
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
                     <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
@@ -135,10 +125,6 @@
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Mock</type>
-                    <!-- Входящая очередь-->
-                    <incomeQueue>jms/Q.LEGAL.TO.CRMORG</incomeQueue>
-                    <!-- Исходящая очередь-->
-                    <outcomeQueue>jms/Q.LEGAL.FROM.CRMORG</outcomeQueue>
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
                     <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
@@ -158,10 +144,6 @@
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Driver</type>
-                    <!-- Входящая очередь-->
-                    <incomeQueue>jms/Q.LEGAL.TO.CRMORG</incomeQueue>
-                    <!-- Исходящая очередь-->
-                    <outcomeQueue>jms/Q.LEGAL.FROM.CRMORG</outcomeQueue>
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
                     <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
@@ -179,10 +161,6 @@
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Driver</type>
-                    <!-- Входящая очередь-->
-                    <incomeQueue>jms/Q.LEGAL.TO.CRMORG</incomeQueue>
-                    <!-- Исходящая очередь-->
-                    <outcomeQueue>jms/Q.LEGAL.FROM.CRMORG</outcomeQueue>
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
                     <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
@@ -200,10 +178,6 @@
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Mock</type>
-                    <!-- Входящая очередь-->
-                    <incomeQueue>jms/Q.LEGAL.TO.CRMORG</incomeQueue>
-                    <!-- Исходящая очередь-->
-                    <outcomeQueue>jms/Q.LEGAL.FROM.CRMORG</outcomeQueue>
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
                     <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
@@ -211,7 +185,7 @@
                     <!-- Optional -->;
                     <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
                     <!-- Требуется ли ответ -->
-                    <answerRequired>false</answerRequired>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
 
                 <!--10. driver assessQuality-->
@@ -223,10 +197,6 @@
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Driver</type>
-                    <!-- Входящая очередь-->
-                    <incomeQueue>jms/Q.LEGAL.TO.CRMORG</incomeQueue>
-                    <!-- Исходящая очередь-->
-                    <outcomeQueue>jms/Q.LEGAL.FROM.CRMORG</outcomeQueue>
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
                     <xsdFile>CRMIntegrationSchema.xsd</xsdFile>

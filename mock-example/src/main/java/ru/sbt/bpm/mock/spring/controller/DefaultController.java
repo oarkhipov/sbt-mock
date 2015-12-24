@@ -38,6 +38,11 @@ public class DefaultController {
         return FileUtils.readFileToString(dataService.getResource("mockapp-servlet.xml").getFile(), "UTF-8");
     }
 
+    @RequestMapping(value = "/config", produces = "application/xml;charset=UTF-8")
+    public @ResponseBody String getConfig() throws IOException {
+        return mockConfigContainer.toXml();
+    }
+
     @RequestMapping(value = "/prop", produces = "text/html;charset=UTF-8")
     public @ResponseBody String getProp() throws IOException {
         return FileUtils.readFileToString(dataService.getResource("../META-INF/maven/ru.sbt.bpm.mock/mock-interactive-by/pom.properties").getFile(),"UTF-8");

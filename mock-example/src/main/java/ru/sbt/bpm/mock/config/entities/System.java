@@ -33,6 +33,18 @@ public class System {
     @XStreamAlias("queueConnectionFactory")
     String queueConnectionFactory;
 
+    @XStreamAlias("mockIncomeQueue")
+    String mockIncomeQueue;
+
+    @XStreamAlias("mockOutcomeQueue")
+    String mockOutcomeQueue;
+
+    @XStreamAlias("driverOutcomeQueue")
+    String driverOutcomeQueue;
+
+    @XStreamAlias("driverIncomeQueue")
+    String driverIncomeQueue;
+
     @XStreamAlias("integrationPoints")
     private IntegrationPoints integrationPoints;
 
@@ -44,29 +56,22 @@ public class System {
         return result;
     }
 
-    private transient List<IntegrationPoint> mockIntegrationPoints;
 
     public List<IntegrationPoint> getMockIntegrationPoints() {
-        if (mockIntegrationPoints == null) {
-            mockIntegrationPoints = new ArrayList<IntegrationPoint>();
-            for (IntegrationPoint integrationPoint : integrationPoints.getIntegrationPoints()) {
-                if (integrationPoint.isMock()) {
-                    mockIntegrationPoints.add(integrationPoint);
-                }
+        List<IntegrationPoint> mockIntegrationPoints = new ArrayList<IntegrationPoint>();
+        for (IntegrationPoint integrationPoint : integrationPoints.getIntegrationPoints()) {
+            if (integrationPoint.isMock()) {
+                mockIntegrationPoints.add(integrationPoint);
             }
         }
         return mockIntegrationPoints;
     }
 
-    private transient List<IntegrationPoint> driverIntegrationPoints;
-
     public List<IntegrationPoint> getDriverIntegrationPoints() {
-        if (driverIntegrationPoints == null) {
-            driverIntegrationPoints = new ArrayList<IntegrationPoint>();
-            for (IntegrationPoint integrationPoint : integrationPoints.getIntegrationPoints()) {
-                if (integrationPoint.isDriver()) {
-                    driverIntegrationPoints.add(integrationPoint);
-                }
+        List<IntegrationPoint> driverIntegrationPoints = new ArrayList<IntegrationPoint>();
+        for (IntegrationPoint integrationPoint : integrationPoints.getIntegrationPoints()) {
+            if (integrationPoint.isDriver()) {
+                driverIntegrationPoints.add(integrationPoint);
             }
         }
         return driverIntegrationPoints;
