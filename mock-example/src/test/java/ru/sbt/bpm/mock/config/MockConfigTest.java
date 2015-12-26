@@ -16,7 +16,7 @@ public class MockConfigTest {
     @Test
     public void testGeneratorSingletonWithFile() throws Exception {
         
-        MockConfigContainer gen1 = MockConfigContainer.getInstance("src/main/webapp/resources/MockConfigFiles/PDConfig.xml");
+        MockConfigContainer gen1 = MockConfigContainer.getInstance("src/main/webapp/resources/MockConfigFiles/MockConfig.xml");
         gen1.init();
         assertNotNull(gen1.getConfig().getSystems());
     }

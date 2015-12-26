@@ -28,7 +28,9 @@ public class XmlGeneratorService {
     MockConfigContainer configContainer;
 
     @Autowired
-    DataService dataService;
+    DataFileService dataFileService;
+
+
 
     @Autowired
     GroovyService groovyService;
@@ -41,7 +43,7 @@ public class XmlGeneratorService {
         String rootElementName = elementSelector.getElement();
         String rootElementNamespace = elementSelector.getNamespace();
 
-        URL resource = dataService.getXsdResource(systemName, rootXSD).getURL();
+        URL resource = dataFileService.getXsdResource(systemName, rootXSD).getURL();
         assert resource != null;
         XSModel xsModel;
         xsModel = new XSParser().parse(String.valueOf(resource.toURI()));
@@ -83,10 +85,13 @@ public class XmlGeneratorService {
                 "remove.each { parent.remove(it) }\n" +
 //                "//response.test=requestDom[s.sendAdditionalInfo][s.clientSystemTaskID].text()\n" +
                 "\n" +
-                "new XmlNodePrinter(new PrintWriter(stringWriter)).print(requestDom)\n" +
+                "xmlNodePrinter = new XmlNodePrinter(new PrintWriter(stringWriter))\n" +
+                "xmlNodePrinter.with {\n" +
+                "   preserveWhitespace = true\n" +
+                "}\n" +
+                "xmlNodePrinter.print(requestDom)\n" +
                 "response.result=stringWriter.toString()\n" +
-                "";
-
+                "\n";
         return groovyService.compile(writer.toString(), "${result}", filterScript);
     }
 }

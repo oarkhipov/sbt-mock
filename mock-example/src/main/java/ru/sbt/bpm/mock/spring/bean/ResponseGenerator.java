@@ -7,6 +7,7 @@ import net.sf.saxon.s9api.XdmValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.DataService;
 import ru.sbt.bpm.mock.spring.service.GroovyService;
 
@@ -29,6 +30,9 @@ public class ResponseGenerator {
 
     @Autowired
     DataService dataService;
+
+    @Autowired
+    DataFileService dataFileService;
 
     @Autowired
     MockConfigContainer configContainer;
@@ -59,8 +63,8 @@ public class ResponseGenerator {
     }
 
     private String generate(String systemName, String integrationPoint, String payload) throws Exception {
-        String message = dataService.getCurrentMessage(systemName, integrationPoint);
-        String script = dataService.getCurrentScript(systemName, integrationPoint);
+        String message = dataFileService.getCurrentMessage(systemName, integrationPoint);
+        String script = dataFileService.getCurrentScript(systemName, integrationPoint);
         return groovyService.compile(payload, message, script);
     }
 }

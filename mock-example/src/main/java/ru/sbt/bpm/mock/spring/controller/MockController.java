@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService;
+import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.DataService;
 import ru.sbt.bpm.mock.spring.service.GroovyService;
 import ru.sbt.bpm.mock.spring.utils.AjaxObject;
@@ -35,6 +36,9 @@ public class MockController {
     DataService dataService;
 
     @Autowired
+    DataFileService dataFileService;
+
+    @Autowired
     GroovyService groovyService;
 
     @Autowired
@@ -50,6 +54,7 @@ public class MockController {
     public String get(@PathVariable String systemName,
                       @PathVariable String integrationPointName,
                       Model model) throws IOException, TransformerException {
+        model.addAttribute("systemName", systemName);
         model.addAttribute("name", integrationPointName);
         model.addAttribute("link", "mock");
         //TODO send xpath with namespace js tooltip
@@ -57,9 +62,9 @@ public class MockController {
                 configContainer.getConfig().getSystems().getSystemByName(systemName)
                         .getIntegrationPoints().getIntegrationPointByName(integrationPointName)
                         .getXpathString());
-        model.addAttribute("message", dataService.getDataResourceContent(systemName + "_" + integrationPointName + "_message.xml"));
-        model.addAttribute("script", dataService.getDataResourceContent(systemName + "_" + integrationPointName + "_script.groovy"));
-        model.addAttribute("test", dataService.getDataResourceContent(systemName + "_" + integrationPointName + "_test.xml"));
+        model.addAttribute("message", dataFileService.getCurrentMessage(systemName, integrationPointName));
+        model.addAttribute("script", dataFileService.getCurrentScript(systemName, integrationPointName));
+        model.addAttribute("test", dataFileService.getCurrentTest(systemName, integrationPointName));
         return "editor";
     }
 

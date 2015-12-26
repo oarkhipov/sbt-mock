@@ -1,46 +1,10 @@
 /**
  * Created by sbt-bochev-as on 19.12.2014.
  */
-//  var dummy = {
-//    attrs: {
-//      color: ["red", "green", "blue", "purple", "white", "black", "yellow"],
-//      size: ["large", "medium", "small"],
-//      description: null
-//    },
-//    children: []
-//  };
-//
-//  var tags = {
-//    "!top": ["top"],
-//    "!attrs": {
-//      id: null,
-//      class: ["A", "B", "C"]
-//    },
-//    top: {
-//      attrs: {
-//        lang: ["en", "de", "fr", "nl"],
-//        freeform: null
-//      },
-//      children: ["animal", "plant"]
-//    },
-//    animal: {
-//      attrs: {
-//        name: null,
-//        isduck: ["yes", "no"]
-//      },
-//      children: ["wings", "feet", "body", "head", "tail"]
-//    },
-//    plant: {
-//      attrs: {name: null},
-//      children: ["leaves", "stem", "flowers"]
-//    },
-//    wings: dummy, feet: dummy, body: dummy, head: dummy, tail: dummy,
-//    leaves: dummy, stem: dummy, flowers: dummy
-//  };
 
 function completeAfter(cm, pred) {
     var cur = cm.getCursor();
-    if (!pred || pred()) setTimeout(function() {
+    if (!pred || pred()) setTimeout(function () {
         if (!cm.state.completionActive)
             cm.showHint({completeSingle: false});
     }, 100);
@@ -48,14 +12,14 @@ function completeAfter(cm, pred) {
 }
 
 function completeIfAfterLt(cm) {
-    return completeAfter(cm, function() {
+    return completeAfter(cm, function () {
         var cur = cm.getCursor();
         return cm.getRange(CodeMirror.Pos(cur.line, cur.ch - 1), cur) == "<";
     });
 }
 
 function completeIfInTag(cm) {
-    return completeAfter(cm, function() {
+    return completeAfter(cm, function () {
         var tok = cm.getTokenAt(cm.getCursor());
         if (tok.type == "string" && (!/['"]/.test(tok.string.charAt(tok.string.length - 1)) || tok.string.length == 1)) return false;
         var inner = CodeMirror.innerMode(cm.getMode(), tok.state).state;
@@ -72,8 +36,12 @@ var xmlEditorSettings = {
         "' '": completeIfInTag,
         "'='": completeIfInTag,
         "Ctrl-Space": completeAfter,
-        "Ctrl-Q": function(cm){cm.foldCode(cm.getCursor());},
-        "Ctrl--": function(cm){cm.foldCode(cm.getCursor());}
+        "Ctrl-Q": function (cm) {
+            cm.foldCode(cm.getCursor());
+        },
+        "Ctrl--": function (cm) {
+            cm.foldCode(cm.getCursor());
+        }
     },
 //    hintOptions: {schemaInfo: tags},
     autoCloseTags: true,
@@ -90,7 +58,7 @@ var groovyEditorSettings = {
 };
 
 function showInfo(text) {
-    if(text) {
+    if (text) {
         //IE8 trim compatibility
         text = $.trim(text);
         var info = $("#info");
@@ -100,12 +68,12 @@ function showInfo(text) {
 }
 
 function showError(text) {
-    if(text) {
+    if (text) {
         //IE8 trim compatibility
-        text = $.trim(text).replace(new RegExp('\\\\r\\\\n','g'),"<br/>");
-        $("#error").css("display","block").html(text);
+        text = $.trim(text).replace(new RegExp('\\\\r\\\\n', 'g'), "<br/>");
+        $("#error").css("display", "block").html(text);
     } else {
-        $("#error").css("display","none");
+        $("#error").css("display", "none");
     }
 }
 
@@ -117,7 +85,7 @@ function htmlConvert(data) {
 }
 
 function showResponse(text) {
-    if(text) {
+    if (text) {
         $("#resWrapper").css("display", "block");
         resEditor.setValue(text);
         autoFormatResponse();
@@ -129,109 +97,110 @@ function showResponse(text) {
 function autoFormatResponse() {
     var totalLines = resEditor.lineCount();
     var totalChars = resEditor.getTextArea().value.length;
-    resEditor.autoFormatRange({line:0, ch:0}, {line:totalLines, ch: totalChars});
-    resEditor.setCursor({line:0, ch:0});
+    resEditor.autoFormatRange({line: 0, ch: 0}, {line: totalLines, ch: totalChars});
+    resEditor.setCursor({line: 0, ch: 0});
 }
 
 //Handlers
-$("#validate").click(function(){
+$("#validate").click(function () {
 //  alert("Code:"+editor.getValue());
     var parts = QueryString["ip"].split("__");
     $.ajax({
         url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/validate/",
         type: "POST",
-        data: { xml :editor.getValue(),
-            script : groovyEditor.getValue(),
-            test : testEditor.getValue()},
-        success: function(obj) {
+        data: {
+            xml: editor.getValue(),
+            script: groovyEditor.getValue(),
+            test: testEditor.getValue()
+        },
+        success: function (obj) {
             obj = htmlConvert(obj);
             obj = $.parseJSON(obj);
             showInfo(obj.info)
             showError(obj.error);
         },
-        fail: function() {
+        fail: function () {
             showError("Unable to verify! Try Later...");
         }
     });
 });
 
-$("#save").click(function(){
-//  alert("Saving...");
-    //encodeURIComponent() ??
+$("#save").click(function () {
     var parts = QueryString["ip"].split("__");
     $.ajax({
         url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/save/",
         type: "POST",
-        data: { xml :editor.getValue(),
-                script : groovyEditor.getValue(),
-                test : testEditor.getValue()},
-        success: function(obj) {
+        data: {
+            xml: editor.getValue(),
+            script: groovyEditor.getValue(),
+            test: testEditor.getValue()
+        },
+        success: function (obj) {
             obj = htmlConvert(obj);
             obj = $.parseJSON(obj);
             showInfo(obj.info);
             showError(obj.error);
         },
-        fail: function() {
+        fail: function () {
             showError("Unable to save! Try Later...");
         }
     });
 });
 
-$("#undo").click(function(){
+$("#undo").click(function () {
     var parts = QueryString["ip"].split("__");
     $.ajax({
         url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/undo/",
         type: "POST",
-        success: function(obj) {
+        success: function (obj) {
             obj = htmlConvert(obj);
             obj = $.parseJSON(obj);
             showInfo(obj.info);
             showError(obj.error);
-            if(obj.data) {
+            if (obj.data) {
                 editor.setValue(htmlConvert(obj.data));
             }
         },
-        fail: function() {
+        fail: function () {
             showError("Unable to Undo! Try Later...");
         }
     });
 });
 
 
-$("#redo").click(function(){
+$("#redo").click(function () {
     var parts = QueryString["ip"].split("__");
     $.ajax({
         url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/redo/",
         type: "POST",
-        success: function(obj) {
+        success: function (obj) {
             obj = htmlConvert(obj);
             obj = $.parseJSON(obj);
             showInfo(obj.info);
             showError(obj.error);
-            if(obj.data) {
+            if (obj.data) {
                 editor.setValue(htmlConvert(obj.data));
             }
         },
-        fail: function() {
+        fail: function () {
             showError("Unable to save! Try Later...");
         }
     });
 });
 
-$("#reset").click(function(){
-//  alert("Restore defaults...");
+$("#reset").click(function () {
     var parts = QueryString["ip"].split("__");
     $.ajax({
         url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/resetToDefault/",
         type: "POST",
-        success: function(obj) {
+        success: function (obj) {
             obj = htmlConvert(obj);
             obj = $.parseJSON(obj);
             showInfo(obj.info);
             showError(obj.error);
             editor.setValue(htmlConvert(obj.data));
         },
-        fail: function() {
+        fail: function () {
             showError("Unable to save! Try Later...");
         }
     });
@@ -243,9 +212,11 @@ $("#test").click(function () {
     $.ajax({
         url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/test/",
         type: "POST",
-        data: { xml :editor.getValue(),
-            script : groovyEditor.getValue(),
-            test : testEditor.getValue()},
+        data: {
+            xml: editor.getValue(),
+            script: groovyEditor.getValue(),
+            test: testEditor.getValue()
+        },
         success: function (obj) {
             obj = htmlConvert(obj);
             obj = $.parseJSON(obj);
@@ -263,3 +234,86 @@ $("#test").click(function () {
 });
 
 var QueryString = getQueryString();
+
+
+//Integration point buttons
+function editIpForm() {
+    var system;
+    var type;
+    var name;
+    var dialog = $("#dialog");
+
+    dialog.html(updateUrl)
+        .dialog({
+            autoOpen: true,
+            height: 450,
+            width: 1100,
+            modal: true,
+            title: "Edit Integration point",
+            draggable: false,
+            resizable: false,
+            open: openForm(),
+            close: function () {
+                closeForm()
+            }
+        });
+
+    function openForm() {
+        console.log("opened");
+        $("#dialogFrame").on('load', function () {
+            var frame = $("#dialogFrame").contents();
+            if (frame.find("body").html() == "OK") {
+                dialog.dialog('close');
+            }
+
+            frame.find("form input[type=submit]").click(function () {
+                system = frame.find("#system").val();
+                type = frame.find("#type").val().toLowerCase();
+                name = frame.find("#name").val();
+                frame.find("form").submit();
+            })
+        });
+    }
+
+    function closeForm() {
+        console.log("go to " + system + type + name);
+        if (system && type && name)
+            window.location.href = "?ip=" + system + "__" + type + "__" + name;
+    }
+
+
+}
+function delIpForm() {
+    var dialog = $("#dialog");
+    var confirmed = false;
+    dialog.html(deleteUrl)
+        .dialog({
+            autoOpen: true,
+            height: 200,
+            width: 320,
+            modal: true,
+            title: "Delete Integration point",
+            draggable: false,
+            resizable: false,
+            open: openForm(),
+            close: function () {
+                if( confirmed ) {
+                    window.location.href = window.location.href.split("?")[0];
+                }
+            }
+        });
+
+    function openForm() {
+        $("#dialogFrame").on('load', function () {
+            var frame = $("#dialogFrame").contents();
+            if (frame.find("body").html() == "OK") {
+                confirmed = true;
+                dialog.dialog('close');
+            }
+
+            frame.find("form #no").click(function () {
+                dialog.dialog('close');
+            })
+        });
+    }
+}

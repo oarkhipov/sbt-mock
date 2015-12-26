@@ -4,7 +4,6 @@
   User: sbt-bochev-as
   Date: 23.12.2015
   Time: 17:18
-  To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -12,13 +11,12 @@
     <title>Тест</title>
 </head>
 <body>
-<h3>Integration point info</h3>
-<form method="post">
+<form <c:if test="${systemName != '' && integrationPointName != ''}">action="/ip/update/${systemName}/${integrationPointName}/"</c:if>  method="post">
     <table>
         <tr>
             <td>System:</td>
             <td>
-                <select name="system">
+                <select name="system" id="system" <c:if test="${!empty systemName}">disabled</c:if> >
                     <c:forEach items="${systems}" var="system">
                         <option name="${system.systemName}"
                                 <c:if test="${system.systemName.equals(systemName)}">selected</c:if> >${system.systemName}</option>
@@ -28,12 +26,12 @@
         </tr>
         <tr>
             <td>Integration point name:</td>
-            <td><input type="text" name="name" size="25" value="${integrationPointName}"/></td>
+            <td><input type="text" name="name" id="name" size="25" value="${integrationPointName}"/></td>
         </tr>
         <tr>
             <td>Integration point type:</td>
             <td>
-                <select name="type">
+                <select name="type" id="type">
                     <option value="Mock"
                             <c:if test="${isMock}">selected</c:if> >MOCK
                     </option>
@@ -56,7 +54,6 @@
                                 elementName + "\" size=\"25\"><input type=\"button\" value=\"-\" onclick='removeElement(this)'/><br/>";
                         span.innerHTML = out;
                         var div = document.getElementById("xpathValidation");
-                        console.log(div);
                         div.appendChild(span);
                     }
                     function removeElement(obj) {

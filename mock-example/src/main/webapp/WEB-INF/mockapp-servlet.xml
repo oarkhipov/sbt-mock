@@ -18,7 +18,7 @@
 
     <!-- Настройка используемой конфигурации заглушки-->
     <beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
-        <beans:constructor-arg value="/resources/MockConfigFiles/PDConfig.xml" type="java.lang.String" />
+        <beans:constructor-arg value="/resources/MockConfigFiles/MockConfig.xml" type="java.lang.String" />
     </beans:bean>
 
     <beans:bean id="connectionFactoryString" class="java.lang.String">
@@ -49,45 +49,45 @@
     <!-- - - - - - - - - - - - - - -->
 
      <!--Настройки подключения к MQ-->
-    <beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="#{connectionFactoryString}"/>
-    </beans:bean>
+    <!--<beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+            <!--<beans:property name="jndiName" value="#{connectionFactoryString}"/>-->
+    <!--</beans:bean>-->
 
-    <beans:bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="#{mockConnectionInputString}"/>
-    </beans:bean>
-    <beans:bean id="outboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="#{mockConnectionOutputString}"/>
-    </beans:bean>
+    <!--<beans:bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+            <!--<beans:property name="jndiName" value="#{mockConnectionInputString}"/>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="outboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+            <!--<beans:property name="jndiName" value="#{mockConnectionOutputString}"/>-->
+    <!--</beans:bean>-->
 
-     <beans:bean id="requestDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="#{driverConnectionOutputString}"/>
-    </beans:bean>
-    <beans:bean id="responseDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
-            <beans:property name="jndiName" value="#{driverConnectionInputString}"/>
-    </beans:bean>
+     <!--<beans:bean id="requestDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+            <!--<beans:property name="jndiName" value="#{driverConnectionOutputString}"/>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="responseDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
+            <!--<beans:property name="jndiName" value="#{driverConnectionInputString}"/>-->
+    <!--</beans:bean>-->
 
-    <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
+    <!--<beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>-->
 
-    <jms:inbound-gateway
-            request-destination="inboundMockQueue"
-            request-channel="MockInboundRequest"
-            reply-channel="MockOutboundResponse"
-            default-reply-destination="outboundMockQueue"
-            connection-factory="jndiConnectionFactory"
-    />
+    <!--<jms:inbound-gateway-->
+            <!--request-destination="inboundMockQueue"-->
+            <!--request-channel="MockInboundRequest"-->
+            <!--reply-channel="MockOutboundResponse"-->
+            <!--default-reply-destination="outboundMockQueue"-->
+            <!--connection-factory="jndiConnectionFactory"-->
+    <!--/>-->
 
-    <jms:outbound-gateway
-            id="jmsout"
-            request-destination="requestDriverQueue"
-            reply-destination="responseDriverQueue"
-            request-channel="DriverOutboundRequest"
-            reply-channel="DriverInboundResponse"
-            header-mapper="defHeaderMapper"
-            connection-factory="jndiConnectionFactory"
-            reply-timeout="30000"
-            receive-timeout="30000"
-    />
+    <!--<jms:outbound-gateway-->
+            <!--id="jmsout"-->
+            <!--request-destination="requestDriverQueue"-->
+            <!--reply-destination="responseDriverQueue"-->
+            <!--request-channel="DriverOutboundRequest"-->
+            <!--reply-channel="DriverInboundResponse"-->
+            <!--header-mapper="defHeaderMapper"-->
+            <!--connection-factory="jndiConnectionFactory"-->
+            <!--reply-timeout="30000"-->
+            <!--receive-timeout="30000"-->
+    <!--/>-->
 
 
     <!-- Входной и выходной каналы Заглушки-->

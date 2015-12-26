@@ -3,7 +3,6 @@
   User: sbt-bochev-as
   Date: 13.12.2014
   Time: 16:55
-  To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -42,8 +41,17 @@
 </style>
 <![endif]-->
 <div style="font-size: 80%; color: dimgray">
-    <b>Integration point:</b> <i><c:out value="${name}"/></i><br/>
+    <script>
+        var updateUrl = "<iframe id='dialogFrame' src='ip/update/<c:out value="${systemName}"/>/<c:out value="${name}"/>/' width='1050' height='350' frameborder='0'/>";
+        var deleteUrl = "<iframe id='dialogFrame' src='ip/delete/<c:out value="${systemName}"/>/<c:out value="${name}"/>/' width='280' height='100' frameborder='0'/>";
+    </script>
+    <b>Integration point:</b> <i><c:out value="${name}"/></i>&nbsp;&nbsp;
+    <input type="button" value="Edit" style="display: inline" onclick="editIpForm()"/>&nbsp;
+    <input type="button" value="Del" style="display: inline" onclick="delIpForm()"/>
+    <br/>
     <b>Xpath assertion:</b> <i><c:out value="${xpath}"/></i>
+
+    <div id="dialog"></div>
 </div>
 
 <form>
@@ -91,11 +99,12 @@
             <%--</div>--%>
         </div>
     </div>
-        <div id="resWrapper">
-            <span>Response</span>
-            <div style="font-size: 8pt">&nbsp;</div>
-            <textarea id="resCode" name="resCode"></textarea>
-        </div>
+    <div id="resWrapper">
+        <span>Response</span>
+
+        <div style="font-size: 8pt">&nbsp;</div>
+        <textarea id="resCode" name="resCode"></textarea>
+    </div>
 </form>
 <div id="htmlConverter" style="display: none"></div>
 
@@ -108,7 +117,8 @@
     .ui-helper-reset {
         font-size: 75%;
     }
-    .ui-tabs .ui-tabs-panel{
+
+    .ui-tabs .ui-tabs-panel {
         padding: 0;
     }
 </style>

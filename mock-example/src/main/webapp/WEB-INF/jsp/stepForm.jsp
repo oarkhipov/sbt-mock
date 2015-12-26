@@ -62,71 +62,16 @@
 <![endif]-->
 
 <div class="content">
-    <script>
-        var wizard;
-        $(function () {
-            wizard = $("#wizard").steps({
-                headerTag: "h2",
-                bodyTag: "section",
-                transitionEffect: "slideLeft",
-                onStepChanging: function (event, currentIndex, newIndex) {
-                    if (currentIndex == 0) {
-                        if (newIndex == 1) {
-                            if (int_point === null) {
-                                alert("Choose integration point!");
-                                return false;
-                            }
-                            History.pushState({}, "Integration points", "?ip=" + int_point);
-                        }
-                    }
-                    if (currentIndex == 1) {
-                        if (newIndex == 0) {
-                            History.pushState({}, "Integration points", "?");
-                        }
-                    }
-                    return true;
-                },
-                enablePagination: false
-            });
-
-            var QueryString = getQueryString();
-            //if integration point was chosen
-            if (QueryString["ip"] != undefined) {
-                int_point = QueryString["ip"];
-                selectIp();
-            }
-        });
-
-        var int_point = null;
-
-        function chooseIntPoint(obj) {
-            int_point = obj.value;
-            if (int_point) {
-                selectIp();
-            }
-        }
-
-        function selectIp() {
-            wizard.steps("remove", 1);
-            var parts = int_point.split("__");
-            if(parts.length!=3) {
-                alert("Произошла ошибка! Имя систсемы или точки интеграции содержит служебные символы. Обратитесь к разработчику");
-                return false;
-            }
-            wizard.steps("insert", 1, {
-                title: parts[1].toUpperCase() + " Data",
-                contentMode: "async",
-                contentUrl: parts[1] + "/" + parts[0] + "/" + parts[2] + "/"
-            });
-            History.pushState({ip: int_point}, int_point, "?ip=" + int_point);
-            wizard.steps("next");
-        }
-    </script>
-
+    <script src="js/stepForm.js"></script>
     <div id="mock">
         <div id="wizard">
             <h2>Integration point</h2>
             <section>
+                <input type="button" value="Add System" style="display: inline;">
+                <input type="button" value="Edit System" style="display: inline;">
+                <input type="button" value="Add Integration point" style="display: inline" onclick="addIpForm()"/>
+
+                <div id="dialog"></div>
                 <%--<input type="button" value="BACK" onclick="window.location.href='../'"/>--%>
                 <span style="line-height: 5pt; display: block">&nbsp;</span>
                 <select size="25" onclick="chooseIntPoint(this)">
@@ -134,18 +79,20 @@
                     <c:forEach var="system" items="${list.systems}">
                         <optgroup label="${system.systemName}">
                                 <%--Mocks--%>
-                            <c:if test="${system.mockIntegrationPoints!=null}">
+                            <c:if test="${not empty system.mockIntegrationPoints}">
                                 <optgroup label="└ mocks">
                                     <c:forEach var="mockIntegrationPoint" items="${system.mockIntegrationPoints}">
-                                        <option value="${system.systemName}__mock__${mockIntegrationPoint.name}">└ ${mockIntegrationPoint.name}</option>
+                                        <option value="${system.systemName}__mock__${mockIntegrationPoint.name}">
+                                            └ ${mockIntegrationPoint.name}</option>
                                     </c:forEach>
                                 </optgroup>
                             </c:if>
                                 <%--Drivers--%>
-                            <c:if test="${system.driverIntegrationPoints!=null}">
+                            <c:if test="${not empty system.driverIntegrationPoints}">
                                 <optgroup label="└ drivers">
                                     <c:forEach var="driverIntegrationPoint" items="${system.driverIntegrationPoints}">
-                                        <option value="${system.systemName}__driver__${driverIntegrationPoint.name}">└ ${driverIntegrationPoint.name}</option>
+                                        <option value="${system.systemName}__driver__${driverIntegrationPoint.name}">
+                                            └ ${driverIntegrationPoint.name}</option>
                                     </c:forEach>
                                 </optgroup>
                             </c:if>
@@ -153,10 +100,6 @@
                     </c:forEach>
                 </select>
             </section>
-
-            <%--<h2>Mock Data</h2>--%>
-            <%--<section class="dyn_url" data-mode="async" data-url="/" style="overflow: scroll">--%>
-            <%--</section>--%>
         </div>
     </div>
 </div>
