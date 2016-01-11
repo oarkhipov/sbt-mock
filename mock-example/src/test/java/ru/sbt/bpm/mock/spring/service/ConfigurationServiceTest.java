@@ -18,14 +18,21 @@ import java.io.File;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration({"/env/mockapp-servlet.xml"})
-public class DataFileServiceTest {
+public class ConfigurationServiceTest {
 
     @Autowired
-    DataFileService dataFileService;
+    ConfigurationService configurationService;
 
     @Test
     public void testCompressConfiguration() throws Exception {
 
-        FileUtils.writeByteArrayToFile(new File("mockZip.zip"), dataFileService.compressConfiguration());
+        FileUtils.writeByteArrayToFile(new File("mockZip.zip"), configurationService.compressConfiguration());
+    }
+
+    @Test
+    public void testUnzipConfiguration() throws Exception {
+        File configFile = new File("mockZip_backup.zip");
+//        FileUtils.writeByteArrayToFile(configFile, configurationService.compressConfiguration());
+        configurationService.unzipConfiguration(configFile);
     }
 }

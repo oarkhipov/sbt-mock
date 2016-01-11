@@ -18,6 +18,8 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.*;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,32 +45,41 @@ public class DataService {
 
     private Map<String, Validator> validator;
 
-    private SchemaFactory factory;
 
     @PostConstruct
     protected void init() throws IOException, SAXException {
-        factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
         /**
          * ResourceResolver добавлен для корректной работы с XSD с одиннаковыми именами, но в разных директориях
          */
-        factory.setResourceResolver(new ResourceResolver());
         validator = new HashMap<String, Validator>();
 
         for (System system : configContainer.getConfig().getSystems().getSystems()) {
-            File systemXsdDirectory = dataFileService.getSystemXsdDirectoryResource(system.getSystemName()).getFile();
+            initValidator(system);
+        }
+    }
+
+    private void initValidator(System system) throws IOException, SAXException {
+        File systemXsdDirectory = dataFileService.getSystemXsdDirectoryResource(system.getSystemName()).getFile();
+        String rootXSD = system.getRootXSD();
+        if (rootXSD.startsWith("http://")) {
+            //http validator
+            initHttpValidator(system.getSystemName(), new URL(rootXSD));
+        } else {
+            //file validator
             List<File> xsdFiles = dataFileService.searchFiles(systemXsdDirectory, ".xsd");
             initSystemValidator(system.getSystemName(), xsdFiles);
         }
     }
 
     /**
-     * заведение валидатора для списска xsd файлов и добавление его в карту валидаторов
+     * заведение валидатора для списка xsd файлов и добавление его в карту валидаторов
      *
      * @param system   имя валидатора - соответсвует имени системы и папке в xsd и data директориях
      * @param xsdFiles список xsd-файлов
      */
     private void initSystemValidator(String system, List<File> xsdFiles) throws SAXException {
+        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         StreamSource sources[] = new StreamSource[xsdFiles.size()];
 
 //            Add Xsd files to source
@@ -76,8 +87,14 @@ public class DataService {
 //            System.out.println(xsdFiles.get(i).getAbsolutePath());
             sources[i] = new StreamSource(xsdFiles.get(i));
         }
-
+        factory.setResourceResolver(new ResourceResolver());
         Schema schema = factory.newSchema(sources);
+        validator.put(system, schema.newValidator());
+    }
+
+    private void initHttpValidator(String system, URL schemaUrl) throws SAXException {
+        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        Schema schema = factory.newSchema(schemaUrl);
         validator.put(system, schema.newValidator());
     }
 
@@ -138,5 +155,18 @@ public class DataService {
         XPathSelector selector = xPathCompiler.compile(xpath).load();
         selector.setContextItem(xdmNode);
         return selector.evaluate();
+    }
+
+    /**
+     * reInitialize validator by it's system name if xsd data was changed
+     *
+     * @param systemName name of system to re-init
+     * @throws IOException
+     * @throws SAXException
+     */
+    public void reinitValidator(String systemName) throws IOException, SAXException {
+        System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
+        validator.remove(systemName);
+        initValidator(system);
     }
 }

@@ -11,35 +11,55 @@
 		http://www.springframework.org/schema/util		http://www.springframework.org/schema/util/spring-util.xsd
 		http://www.springframework.org/schema/context       http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/mvc   http://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
 
     <mvc:resources mapping="/**" location="/resources/web/" />
     <mvc:annotation-driven/>
+    <context:component-scan base-package="ru.sbt.bpm.mock.spring"/>
 
-    <!-- Настройка используемой конфигурации заглушки-->
-    <beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
-        <beans:constructor-arg value="/resources/MockConfigFiles/MockConfig.xml" type="java.lang.String" />
+    <!-- upload files resolver-->
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+    <beans:bean id="jspResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <beans:property name="prefix" value="/WEB-INF/jsp/"/>
+        <beans:property name="suffix" value=".jsp"/>
     </beans:bean>
 
+    <gateway service-interface="ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService">
+        <method name="test" request-channel="test" reply-channel="test"/>
+    </gateway>
+    <channel id="test"/>
+
+    <beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
+        <beans:constructor-arg value="/WEB-INF/MockConfig.xml" type="java.lang.String" />
+    </beans:bean>
+
+    <!-- - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - -->
+    <!-- DEPENDS ON SYSTEM-->
+
+
+    <!-- Настройка используемой конфигурации заглушки-->
+
     <beans:bean id="connectionFactoryString" class="java.lang.String">
-        <beans:constructor-arg value="jms/Q.LEGAL.CF"/>
+        <beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.CF"/>
     </beans:bean>
 
     <!-- - - - - - - -->
     <!--MOCK-->
     <beans:bean id="mockConnectionInputString" class="java.lang.String">
-        <beans:constructor-arg value="jms/Q.LEGAL.TO.CRMORG"/>
+        <beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.TO.CRMORG"/>
     </beans:bean>
     <beans:bean id="mockConnectionOutputString" class="java.lang.String">
-        <beans:constructor-arg value="jms/Q.LEGAL.FROM.CRMORG.SYNCRESP"/>
+        <beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.FROM.CRMORG.SYNCRESP"/>
     </beans:bean>
     <!-- - - - - - - -->
     <!-- DRIVER -->
     <beans:bean id="driverConnectionInputString" class="java.lang.String">
-        <beans:constructor-arg value="jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>
+        <beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>
     </beans:bean>
     <beans:bean id="driverConnectionOutputString" class="java.lang.String">
-        <beans:constructor-arg value="jms/Q.LEGAL.FROM.CRMORG"/>
+        <beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.FROM.CRMORG"/>
     </beans:bean>
 
     <!-- - - - - - - - - - - - - - -->
@@ -49,45 +69,45 @@
     <!-- - - - - - - - - - - - - - -->
 
      <!--Настройки подключения к MQ-->
-    <!--<beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-            <!--<beans:property name="jndiName" value="#{connectionFactoryString}"/>-->
-    <!--</beans:bean>-->
+    <beans:bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <beans:property name="jndiName" value="#{connectionFactoryString}"/>
+    </beans:bean>
 
-    <!--<beans:bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-            <!--<beans:property name="jndiName" value="#{mockConnectionInputString}"/>-->
-    <!--</beans:bean>-->
-    <!--<beans:bean id="outboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-            <!--<beans:property name="jndiName" value="#{mockConnectionOutputString}"/>-->
-    <!--</beans:bean>-->
+    <beans:bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <beans:property name="jndiName" value="#{mockConnectionInputString}"/>
+    </beans:bean>
+    <beans:bean id="outboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <beans:property name="jndiName" value="#{mockConnectionOutputString}"/>
+    </beans:bean>
 
-     <!--<beans:bean id="requestDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-            <!--<beans:property name="jndiName" value="#{driverConnectionOutputString}"/>-->
-    <!--</beans:bean>-->
-    <!--<beans:bean id="responseDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-            <!--<beans:property name="jndiName" value="#{driverConnectionInputString}"/>-->
-    <!--</beans:bean>-->
+     <beans:bean id="requestDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <beans:property name="jndiName" value="#{driverConnectionOutputString}"/>
+    </beans:bean>
+    <beans:bean id="responseDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <beans:property name="jndiName" value="#{driverConnectionInputString}"/>
+    </beans:bean>
 
-    <!--<beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>-->
+    <beans:bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
 
-    <!--<jms:inbound-gateway-->
-            <!--request-destination="inboundMockQueue"-->
-            <!--request-channel="MockInboundRequest"-->
-            <!--reply-channel="MockOutboundResponse"-->
-            <!--default-reply-destination="outboundMockQueue"-->
-            <!--connection-factory="jndiConnectionFactory"-->
-    <!--/>-->
+    <jms:inbound-gateway
+            request-destination="inboundMockQueue"
+            request-channel="MockInboundRequest"
+            reply-channel="MockOutboundResponse"
+            default-reply-destination="outboundMockQueue"
+            connection-factory="jndiConnectionFactory"
+    />
 
-    <!--<jms:outbound-gateway-->
-            <!--id="jmsout"-->
-            <!--request-destination="requestDriverQueue"-->
-            <!--reply-destination="responseDriverQueue"-->
-            <!--request-channel="DriverOutboundRequest"-->
-            <!--reply-channel="DriverInboundResponse"-->
-            <!--header-mapper="defHeaderMapper"-->
-            <!--connection-factory="jndiConnectionFactory"-->
-            <!--reply-timeout="30000"-->
-            <!--receive-timeout="30000"-->
-    <!--/>-->
+    <jms:outbound-gateway
+            id="jmsout"
+            request-destination="requestDriverQueue"
+            reply-destination="responseDriverQueue"
+            request-channel="DriverOutboundRequest"
+            reply-channel="DriverInboundResponse"
+            header-mapper="defHeaderMapper"
+            connection-factory="jndiConnectionFactory"
+            reply-timeout="30000"
+            receive-timeout="30000"
+    />
 
 
     <!-- Входной и выходной каналы Заглушки-->
@@ -154,27 +174,11 @@
     <!--     МАРШРУТИЗАЦИЯ     -->
     <!-- - - - - - - - - - - - -->
 
-    <beans:bean id="operationSelector" class="java.lang.String">
-        <beans:constructor-arg value="/*:Envelope[namespace-uri()='http://sbrf.ru/legal/enquiry/integration']/*[namespace-uri()='http://sbrf.ru/legal/enquiry/integration']"/>
-    </beans:bean>
-
-    <!-- Карта неймспейсов-->
-    <util:map id="sbrfNamespaceMap">
-        <beans:entry key="int" value="http://sbrf.ru/legal/enquiry/integration"/>
-        <beans:entry key="typ" value="http://sbrf.ru/legal/enquiry/integration/types"/>
-    </util:map>
-
     <!-- Генерация ответа -->
     <beans:bean id="responseGenerator" class="ru.sbt.bpm.mock.spring.bean.ResponseGenerator"/>
     <service-activator input-channel="MockInboundRequest" output-channel="MockOutboundResponse" expression="@responseGenerator.routeAndGenerate('CRM', payload)"/>
-    <!--<bridge id="serviceActivatorBridge" input-channel="MockInboundRequest" output-channel="MockOutboundResponse"/>-->
-
-    <context:component-scan base-package="ru.sbt.bpm.mock.spring"/>
     
-    <beans:bean id="jspResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <beans:property name="prefix" value="/WEB-INF/jsp/"/>
-        <beans:property name="suffix" value=".jsp"/>
-    </beans:bean>
+
 
     <!-- Mock gateway to send requests to outbound -->
     <gateway id="systemEntry"
@@ -186,10 +190,5 @@
         >
         <method name="send" request-channel="DriverOutboundRequest" reply-channel="DriverInboundResponse"/>
     </gateway>
-
-    <gateway service-interface="ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService">
-        <method name="test" request-channel="test" reply-channel="test"/>
-    </gateway>
-    <channel id="test"/>
 
 </beans:beans>

@@ -7,7 +7,7 @@
             <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
             <integrationPointSelector>
                 <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                <tag ns="http://sbrf.ru/legal/enquiry/integration">*[local-name()]</tag>
+                <tag ns="http://sbrf.ru/legal/enquiry/integration"/>
             </integrationPointSelector>
             <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
              System-MQ, System-SOAP -->
@@ -141,6 +141,7 @@
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">sendAdditionalInfo</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">commentsHistory</tag>
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Driver</type>

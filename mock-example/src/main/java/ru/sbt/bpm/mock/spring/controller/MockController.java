@@ -57,7 +57,7 @@ public class MockController {
         model.addAttribute("systemName", systemName);
         model.addAttribute("name", integrationPointName);
         model.addAttribute("link", "mock");
-        //TODO send xpath with namespace js tooltip
+        //TODO send "xpath with namespace" via js tooltip
         model.addAttribute("xpath",
                 configContainer.getConfig().getSystems().getSystemByName(systemName)
                         .getIntegrationPoints().getIntegrationPointByName(integrationPointName)

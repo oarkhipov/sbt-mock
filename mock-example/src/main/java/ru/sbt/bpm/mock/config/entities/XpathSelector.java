@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by sbt-bochev-as on 01.12.2015.
+ * @author sbt-bochev-as
+ * 01.12.2015.
  */
 @Data
 public class XpathSelector {
@@ -33,5 +34,33 @@ public class XpathSelector {
         this.elementSelectors = elementSelectors;
     }
 
+    public String toXpath() {
+        /*
+        *   <beans:bean id="operationSelector" class="java.lang.String">
+        *       <beans:constructor-arg value="/*:Envelope[namespace-uri()='http://sbrf.ru/legal/enquiry/integration']/*[namespace-uri()='http://sbrf.ru/legal/enquiry/integration']"/>
+        *   </beans:bean>
+        */
+        StringBuilder stringBuilder = new StringBuilder();
+        for (ElementSelector elementSelector : elementSelectors) {
+            String element = elementSelector.getElement();
+            String namespace = elementSelector.getNamespace();
+            stringBuilder.append("/*[");
+            if((element != null) && (!element.isEmpty())) {
+                stringBuilder.append("local-name()='")
+                        .append(element)
+                        .append("'");
+            }
+            if ((namespace != null) && (!namespace.isEmpty())) {
+                if((element != null) && (!element.isEmpty())) {
+                    stringBuilder.append(" and ");
+                }
+                stringBuilder.append("namespace-uri()='")
+                        .append(namespace)
+                        .append("'");
+            }
+            stringBuilder.append("]");
+        }
+        return stringBuilder.toString();
+    }
 }
 

@@ -1,22 +1,17 @@
 package ru.sbt.bpm.mock.spring.service;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.config.entities.*;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipOutputStream;
 
 /**
  * @author sbt-bochev-as on 26.12.2015.
@@ -46,12 +41,16 @@ public class DataFileService {
         return appContext.getResource(pathBase + name);
     }
 
-    public Resource getDataResourse(String name) {
+    public Resource getDataResource(String name) {
         return appContext.getResource(dataPath + name);
     }
 
     public Resource getSystemXsdDirectoryResource(String systemName) {
         return appContext.getResource(xsdPath + systemName + File.separator);
+    }
+
+    public Resource getConfigResource() {
+        return appContext.getResource(configContainer.getFilePath());
     }
 
     /**
@@ -60,7 +59,7 @@ public class DataFileService {
      * @param rootDir корневая директория поиска
      * @param ext     расширение файла
      */
-    public static List<File> searchFiles(File rootDir, String ext) {
+    public List<File> searchFiles(File rootDir, String ext) {
         List<File> files = new ArrayList<File>();
         File[] listFiles = rootDir.listFiles();
         if (listFiles != null) {
@@ -80,7 +79,7 @@ public class DataFileService {
      *
      * @param rootDir корневая директория поиска
      */
-    public static List<File> searchDirs(File rootDir) {
+    public List<File> searchDirs(File rootDir) {
         List<File> files = new ArrayList<File>();
         File[] listFiles = rootDir.listFiles();
         if (listFiles != null) {
@@ -114,11 +113,35 @@ public class DataFileService {
         return FileUtils.readFileToString(file, "UTF-8");
     }
 
+    protected void clearData() throws IOException {
+        //data clear
+        File rootDir = getDataResource("").getFile();
+        List<File> files = searchFiles(rootDir, "");
+        for (File file : files) {
+            FileUtils.deleteQuietly(file);
+        }
+        List<File> dirs = searchDirs(rootDir);
+        for (File dir : dirs) {
+            FileUtils.deleteQuietly(dir);
+        }
+
+        //xsd clear
+        rootDir = getSystemXsdDirectoryResource(".").getFile();
+        files = searchFiles(rootDir, "");
+        for (File file : files) {
+            FileUtils.deleteQuietly(file);
+        }
+        dirs = searchDirs(rootDir);
+        for (File dir : dirs) {
+            FileUtils.deleteQuietly(dir);
+        }
+    }
+
     /**
      * Возвращает ресурс, лежащий в pathBase
      *
      * @param systemName       name of system
-     * @param integrationPoint name of integraionPoint
+     * @param integrationPoint name of integrationPoint
      * @param fileName         name of File to get
      * @return ресурс xml
      * @throws IOException
@@ -129,6 +152,11 @@ public class DataFileService {
     }
 
     public Resource getXsdResource(String systemName, String xsdFile) throws IOException {
+        ru.sbt.bpm.mock.config.entities.System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
+        String rootXsd = system.getRootXSD();
+        if (rootXsd.toLowerCase().startsWith("http")) {
+            return new UrlResource(rootXsd);
+        } else
         return appContext.getResource(xsdPath + systemName + File.separator + xsdFile);
     }
 
@@ -164,70 +192,5 @@ public class DataFileService {
         FileUtils.deleteDirectory(resource.getFile());
     }
 
-    public byte[] compressConfiguration() throws IOException {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream);
 
-        File rootDirectory = appContext.getResource(pathBase).getFile();
-        File dataDirectory = appContext.getResource(dataPath).getFile();
-
-        //Add data files
-        List<File> fileList = searchFiles(dataDirectory, "");
-        for (File file : fileList) {
-            addZipEntity(zipOutputStream, file.getPath().replace(rootDirectory.getPath() + File.separator, ""), file);
-        }
-        //Add config
-        File configFile = appContext.getResource(configContainer.getFilePath()).getFile();
-        addZipEntity(zipOutputStream, configFile.getName(), configFile);
-
-        zipOutputStream.finish();
-        return byteArrayOutputStream.toByteArray();
-    }
-
-    private void addZipEntity(ZipOutputStream zipOutputStream, String destinationPath, File entityFile) throws IOException {
-        ZipEntry entry = new ZipEntry(destinationPath);
-        zipOutputStream.putNextEntry(entry);
-
-        FileInputStream fileInputStream = new FileInputStream(entityFile.getPath());
-        IOUtils.copy(fileInputStream, zipOutputStream);
-        IOUtils.closeQuietly(fileInputStream);
-    }
-
-    public void unzipConfiguration(MultipartFile configZip) throws IOException {
-        String originalFilename = configZip.getOriginalFilename();
-        ZipFile zipFile = new ZipFile(originalFilename);
-        Enumeration<?> enumeration = zipFile.entries();
-        //TODO check content
-        //TODO clear data folder
-        while (enumeration.hasMoreElements()) {
-            ZipEntry zipEntry = (ZipEntry) enumeration.nextElement();
-
-            String name = zipEntry.getName();
-            //TODO map folders
-            //Directories
-            File file = new File(name);
-            if (name.endsWith("/")) {
-                file.mkdirs();
-                continue;
-            }
-
-            File parentFile = file.getParentFile();
-            if (parentFile != null) {
-                parentFile.mkdirs();
-            }
-
-            //Extract file
-            InputStream inputStream = zipFile.getInputStream(zipEntry);
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            byte[] bytes = new byte[1024];
-            int length;
-            while ((length = inputStream.read(bytes)) >= 0) {
-                fileOutputStream.write(bytes, 0, length);
-            }
-            inputStream.close();
-            fileOutputStream.close();
-
-        }
-        zipFile.close();
-    }
 }

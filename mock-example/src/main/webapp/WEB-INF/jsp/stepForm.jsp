@@ -99,6 +99,10 @@
                         </optgroup>
                     </c:forEach>
                 </select>
+                <br/>
+                <input type="button" value="Show config" style="display: inline;" onclick="window.location.href='config/'">
+                <input type="button" value="Export" style="display: inline;" onclick="window.location.href='config/export/'">
+                <input type="button" value="Import" style="display: inline" onclick="importForm()"/>
             </section>
         </div>
     </div>

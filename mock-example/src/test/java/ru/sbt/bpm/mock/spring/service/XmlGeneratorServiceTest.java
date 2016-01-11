@@ -1,6 +1,5 @@
 package ru.sbt.bpm.mock.spring.service;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

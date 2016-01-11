@@ -1,7 +1,7 @@
 package ru.sbt.bpm.mock.generator.spring.integration;
 
-import lombok.*;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import java.io.Serializable;
 
 /**
@@ -9,17 +9,9 @@ import java.io.Serializable;
  *
  * Company: SBT - Saint-Petersburg
  */
-@ToString
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-@EqualsAndHashCode
 public class Pair<A, B> implements Serializable {
-
-    @Getter
-    @Setter
     private A first;
-
-    @Getter
-    @Setter
     private B second;
 }

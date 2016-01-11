@@ -106,3 +106,39 @@ function addIpForm() {
 }
 
 //Integration point buttons
+function importForm() {
+    var dialog = $("#dialog");
+    dialog.html("<iframe id='dialogFrame' src='config/import' width='450' height='150' frameborder='0'/>")
+        .dialog({
+//                bgiframe: true,
+            autoOpen: true,
+            height: 230,
+            width: 510,
+            modal: true,
+            title: "Upload config",
+            draggable: false,
+            resizable: false,
+            open: openForm(),
+            close: function () {
+                closeForm()
+            }
+        });
+
+    function openForm() {
+        console.log("opened");
+        $("#dialogFrame").on('load', function () {
+            var frame = $("#dialogFrame").contents();
+            if (frame.find("body").html() == "OK") {
+                dialog.dialog('close');
+            }
+
+            frame.find("form input[type=submit]").click(function () {
+                frame.find("form").submit();
+            })
+        });
+    }
+
+    function closeForm() {
+            window.location.reload();
+    }
+}
