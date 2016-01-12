@@ -142,3 +142,40 @@ function importForm() {
             window.location.reload();
     }
 }
+
+function systemForm() {
+    var dialog = $("#dialog");
+    dialog.html("<iframe id='dialogFrame' src='system/add/' width='1050' height='350' frameborder='0'/>")
+        .dialog({
+//                bgiframe: true,
+            autoOpen: true,
+            height: 450,
+            width: 1100,
+            modal: true,
+            title: "Add System",
+            draggable: false,
+            resizable: false,
+            open: openForm(),
+            close: function () {
+                closeForm()
+            }
+        });
+
+    function openForm() {
+        console.log("opened");
+        $("#dialogFrame").on('load', function () {
+            var frame = $("#dialogFrame").contents();
+            if (frame.find("body").html() == "OK") {
+                dialog.dialog('close');
+            }
+
+            frame.find("form input[type=submit]").click(function () {
+                frame.find("form").submit();
+            })
+        });
+    }
+
+    function closeForm() {
+            window.location.reload();
+    }
+}

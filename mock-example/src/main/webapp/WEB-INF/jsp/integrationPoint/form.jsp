@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Тест</title>
+    <title>Modify integration point</title>
 </head>
 <body>
 <form <c:if test="${systemName != '' && integrationPointName != ''}">action="/ip/update/${systemName}/${integrationPointName}/"</c:if>  method="post">
@@ -62,9 +62,9 @@
                     }
                 </script>
                 <div id="xpathValidation">
-                    <c:forEach var="validatorElement" items="${xpathValidation}">
+                    <c:forEach var="selector" items="${xpathValidation}">
                         <script>
-                            addElement("${validatorElement.namespace}", "${validatorElement.element}");
+                            addElement("${selector.namespace}", "${selector.element}");
                         </script>
                     </c:forEach>
                 </div>

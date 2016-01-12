@@ -67,7 +67,7 @@
         <div id="wizard">
             <h2>Integration point</h2>
             <section>
-                <input type="button" value="Add System" style="display: inline;">
+                <input type="button" value="Add System" style="display: inline;" onclick="systemForm()">
                 <input type="button" value="Edit System" style="display: inline;">
                 <input type="button" value="Add Integration point" style="display: inline" onclick="addIpForm()"/>
 

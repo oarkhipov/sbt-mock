@@ -7,9 +7,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
-import ru.sbt.bpm.mock.config.entities.*;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -157,7 +157,7 @@ public class DataFileService {
         if (rootXsd.toLowerCase().startsWith("http")) {
             return new UrlResource(rootXsd);
         } else
-        return appContext.getResource(xsdPath + systemName + File.separator + xsdFile);
+            return appContext.getResource(xsdPath + systemName + File.separator + xsdFile);
     }
 
     /**
@@ -169,10 +169,10 @@ public class DataFileService {
      * @throws IOException
      */
     public void moveDataFiles(String systemName, String integrationPointName, String newIntegrationPointName) throws IOException {
-        Resource resource = appContext.getResource(dataPath + File.separator +
+        Resource resource = appContext.getResource(dataPath +
                 systemName + File.separator +
                 integrationPointName);
-        Resource newResource = appContext.getResource(dataPath + File.separator +
+        Resource newResource = appContext.getResource(dataPath +
                 systemName + File.separator +
                 newIntegrationPointName);
         FileUtils.moveDirectory(resource.getFile(), newResource.getFile());
@@ -186,10 +186,41 @@ public class DataFileService {
      * @throws IOException
      */
     public void deleteDataFiles(String systemName, String integrationPointName) throws IOException {
-        Resource resource = appContext.getResource(dataPath + File.separator +
+        Resource resource = appContext.getResource(dataPath +
                 systemName + File.separator +
                 integrationPointName);
         FileUtils.deleteDirectory(resource.getFile());
+    }
+
+    /**
+     * Move data and xsd files to another directory on system rename
+     *
+     * @param systemName    old system name
+     * @param newSystemName new system name
+     * @throws IOException
+     */
+    public void moveSystemDir(String systemName, String newSystemName) throws IOException {
+        //Data
+        Resource dataResource = appContext.getResource(dataPath + systemName);
+        Resource newDataResource = appContext.getResource(dataPath + newSystemName);
+        FileUtils.moveDirectory(dataResource.getFile(), newDataResource.getFile());
+        //Xsd
+        Resource xsdResource = appContext.getResource(dataPath + systemName);
+        Resource newXsdResource = appContext.getResource(dataPath + newSystemName);
+        FileUtils.moveDirectory(xsdResource.getFile(), newXsdResource.getFile());
+    }
+
+    /**
+     * Delete data and xsd directory on system delete
+     *
+     * @param systemName name of system, to delete
+     * @throws IOException
+     */
+    public void deleteSystemDir(String systemName) throws IOException {
+        Resource xsdResource = appContext.getResource(xsdPath + systemName);
+        Resource dataResource = appContext.getResource(dataPath + systemName);
+        FileUtils.deleteDirectory(xsdResource.getFile());
+        FileUtils.deleteDirectory(dataResource.getFile());
     }
 
 

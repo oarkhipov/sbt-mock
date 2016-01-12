@@ -240,7 +240,6 @@ public class DriverController {
             @RequestParam String test) {
 
         AjaxObject ajaxObject = new AjaxObject();
-//        VALIDATE
         try {
             String compiledXml = groovyService.compile(test, xml, script);
             if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
