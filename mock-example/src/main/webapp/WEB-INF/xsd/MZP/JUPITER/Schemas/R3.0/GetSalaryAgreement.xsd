@@ -1,0 +1,61 @@
+<?xml version = "1.0" encoding="UTF-8"?>
+<!--  
+   Generated 29 декабря 2015 г. 19:22:17 by PowerDesigner Tools
+   Model AttendingSalaryContract-JupiterInt
+   Author sbt-alekseev-va
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:sa="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/"
+  xmlns:ct="http://sbrf.ru/ASP/ESB/commonTypes/" 
+  xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/" 
+  xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"
+  targetNamespace="http://sbrf.ru/ASP/JUPITER/GetSalaryAgreement/2.00/"
+  xmlns:svc="http://sbrf.ru/ASP/JUPITER/GetSalaryAgreement/2.00/">
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/" schemaLocation="asp-jupiter-data-types.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/commonTypes/" schemaLocation="../../../commonTypes/commonTypes.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/" schemaLocation="../../../commonTypes/dataTypes.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/simpleTypes/" schemaLocation="../../../commonTypes/simpleTypes.xsd"/>
+  
+  <xsd:complexType name="GetSalaryAgreementRq">
+   <xsd:annotation>
+   <xsd:documentation>Запрос на получение полной информации по договору</xsd:documentation>
+   </xsd:annotation>
+   <xsd:sequence>
+   <!-- Номер договора-->
+   <xsd:element name="agreementNumber" type="dt:DefString"/>
+   <!-- Версия договора-->
+   <xsd:element name="agreementVersion" type="dt:String" minOccurs="0"/>
+   <!-- Идентификация договора в АС Ю-->
+   <xsd:element name="jupiterID" type="sa:IDType" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>Идентификация договора в АС Ю</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="GetSalaryAgreementRs">
+   <xsd:complexContent>
+    <xsd:extension base="ct:CommonRs">
+      <xsd:annotation>
+      <xsd:documentation>Ответ на запрос на получение полной информации по договору</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+      <!-- Информация о договоре-->
+      <xsd:element name="agreement" type="sa:SalaryAgreementType" minOccurs="0">
+      <xsd:annotation>
+      <xsd:documentation>Информация о договоре</xsd:documentation>
+      </xsd:annotation>
+      </xsd:element>
+      </xsd:sequence>
+    </xsd:extension>
+   </xsd:complexContent>
+  </xsd:complexType>
+
+</xsd:schema>

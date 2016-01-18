@@ -1,0 +1,162 @@
+<?xml version = "1.0" encoding="UTF-8"?>
+<!--  
+   Generated 14 января 2016 г. 17:52:54 by PowerDesigner Tools
+   Model AttendingSalaryContract-JupiterInt
+   Author sbt-alekseev-va
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:sa="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/"
+  xmlns:ct="http://sbrf.ru/ASP/ESB/commonTypes/" 
+  xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/" 
+  xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"
+  targetNamespace="http://sbrf.ru/ASP/JUPITER/SearchSalaryAgreements/1.00/"
+  xmlns:svc="http://sbrf.ru/ASP/JUPITER/SearchSalaryAgreements/1.00/">
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/" schemaLocation="asp-jupiter-data-types.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/commonTypes/" schemaLocation="../../../commonTypes/commonTypes.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/" schemaLocation="../../../commonTypes/dataTypes.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/simpleTypes/" schemaLocation="../../../commonTypes/simpleTypes.xsd"/>
+  
+  <xsd:complexType name="SearchSalaryAgreementsRq">
+   <xsd:annotation>
+   <xsd:documentation>Запрос на поиск договоров</xsd:documentation>
+   </xsd:annotation>
+   <xsd:sequence>
+   <!-- Только по действующим ЗД-->
+   <xsd:element name="isOnlyActiveVersons" type="xsd:boolean" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>В зависимости от участка процесса, на кот-м запускается сервис, параметр принимает значение либо 0, либо 1.
+    Value	Label
+    1	Поиск всех версий договора
+    0	Поиск последних действующих версий договоров</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Номер ЗД-->
+   <xsd:element name="agreementNumber" type="dt:DefString" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Номер ЗД</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Тип договора-->
+   <xsd:element name="contractType" type="dt:DefString" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Тип договора</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Централизованный-->
+   <xsd:element name="isCentralAgreement" type="xsd:boolean" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Централизованный</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Оферта-->
+   <xsd:element name="isOffer" type="xsd:boolean" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Оферта</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Дата начала-->
+   <xsd:element name="fromDate" type="xsd:date" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Дата начала</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Дата окончания-->
+   <xsd:element name="toDate" type="xsd:date" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Дата окончания</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Название клиента-->
+   <xsd:element name="fullName" type="dt:String" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Название клиента</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- КПП-->
+   <xsd:element name="kpp" type="dt:DefString" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>КПП</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- ФИО сотрудника-->
+   <xsd:element name="manager" type="dt:String" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>ФИО сотрудника</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- ИНН-->
+   <xsd:element name="inn" type="dt:DefString" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>ИНН</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- КИО-->
+   <xsd:element name="kio" type="dt:DefString" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>КИО</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- ОГРН-->
+   <xsd:element name="ogrn" type="dt:DefString" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>ОГРН</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Идентификация клиента в АС Ю-->
+   <xsd:element name="clientID" type="sa:IDType" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>Идентификация клиента в АС Ю</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- Постраничная передача данных-->
+   <xsd:element name="pagination" type="sa:PaginationType" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>Постраничная передача данных</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- ОСБ/ГОСБ-->
+   <xsd:element name="osb" type="st:OSB_Type" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>ОСБ/ГОСБ</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- ТБ-->
+   <xsd:element name="tb" type="st:TB_Type" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>ТБ</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="SearchSalaryAgreementsRs">
+   <xsd:complexContent>
+    <xsd:extension base="ct:CommonRs">
+      <xsd:annotation>
+      <xsd:documentation>Ответ на запрос на поиск договоров</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+      <!-- Возвращается множество ЗД/ множество версий конкретного ЗД-->
+      <xsd:element name="agreement" type="sa:ShortSalaryAgreementType" minOccurs="0" maxOccurs="unbounded">
+      <xsd:annotation>
+      <xsd:documentation>Возвращается множество ЗД/ множество версий конкретного ЗД</xsd:documentation>
+      </xsd:annotation>
+      </xsd:element>
+      <!-- pageIndex+pageCount - для Rs-->
+      <xsd:element name="pagination" type="sa:PaginationType" minOccurs="0">
+      <xsd:annotation>
+      <xsd:documentation>pageIndex+pageCount - для Rs</xsd:documentation>
+      </xsd:annotation>
+      </xsd:element>
+      </xsd:sequence>
+    </xsd:extension>
+   </xsd:complexContent>
+  </xsd:complexType>
+
+</xsd:schema>

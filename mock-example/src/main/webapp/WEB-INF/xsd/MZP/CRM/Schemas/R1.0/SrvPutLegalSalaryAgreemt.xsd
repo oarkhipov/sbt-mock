@@ -1,0 +1,60 @@
+<?xml version = "1.0" encoding="UTF-8"?>
+<!--  
+   Generated 14 января 2016 г. 12:35:04 by PowerDesigner Tools
+   Model AttendingSalaryContract-CRMInt
+   Author sbt-alekseev-va
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:ct="http://sbrf.ru/ASP/ESB/commonTypes/"
+  xmlns:sa="http://sbrf.ru/ASP/CRM/dataTypes/"
+  xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/"
+  xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"
+  targetNamespace="http://sbrf.ru/ASP/CRM/PutLegalSalaryAgreemt/1.00/"
+  xmlns:svc="http://sbrf.ru/ASP/CRM/PutLegalSalaryAgreemt/1.00/">
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/CRM/dataTypes/" schemaLocation="asp-crm-data-types.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/commonTypes/" schemaLocation="../../../commonTypes/commonTypes.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/" schemaLocation="../../../commonTypes/dataTypes.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/simpleTypes/" schemaLocation="../../../commonTypes/simpleTypes.xsd"/>
+  
+  <xsd:complexType name="PutLegalSalaryAgreemtRq">
+   <xsd:annotation>
+   <xsd:documentation>Запрос на обновление данных ЗД в CRM</xsd:documentation>
+   </xsd:annotation>
+   <xsd:sequence>
+   <!-- Идентификатор сделки-->
+   <xsd:element name="deal_UID">
+    <xsd:annotation>
+    <xsd:documentation>Идентификатор сделки</xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleType>
+     <xsd:restriction base="dt:DefString">
+      <xsd:maxLength value="30"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+   </xsd:element>
+   <!-- Зарплатный договор-->
+   <xsd:element name="agreement" type="sa:SalaryContract" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>Зарплатный договор</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="PutLegalSalaryAgreemtRs">
+   <xsd:complexContent>
+    <xsd:extension base="ct:CommonRs">
+      <xsd:annotation>
+      <xsd:documentation>Ответ по обновлению данных ЗД в CRM</xsd:documentation>
+      </xsd:annotation>
+    </xsd:extension>
+   </xsd:complexContent>
+  </xsd:complexType>
+
+</xsd:schema>

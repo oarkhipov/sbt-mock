@@ -18,21 +18,30 @@
     <!-- Настройка используемой конфигурации заглушки-->
 
     <bean id="connectionFactoryString" class="java.lang.String">
-        <constructor-arg value="java:/comp/env/jms/Q.LEGAL.CF"/>
+        <constructor-arg value="jms/Q.PROMETHEUS.JUPITER-SA.CF"/>
+    </bean>
+    <bean id="connectionFactoryURLString" class="java.lang.String">
+        <constructor-arg value="jms/Q.PROMETHEUS.JUPITER-REG.CF"/>
     </bean>
 
     <!-- - - - - - - -->
     <!--MOCK-->
     <bean id="mockConnectionInputString" class="java.lang.String">
-        <constructor-arg value="java:/comp/env/jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>
+        <constructor-arg value="jms/Q.PROMETHEUS.JUPITER-SA.IN"/>
     </bean>
     <bean id="mockConnectionOutputString" class="java.lang.String">
-        <constructor-arg value="java:/comp/env/jms/Q.LEGAL.FROM.CRMORG"/>
+        <constructor-arg value="jms/Q.PROMETHEUS.JUPITER-SA.OUT"/>
+    </bean>
+    <bean id="mockConnectionInputURLString" class="java.lang.String">
+        <constructor-arg value="jms/Q.PROMETHEUS.JUPITER-REG.IN"/>
+    </bean>
+    <bean id="mockConnectionOutputURLString" class="java.lang.String">
+        <constructor-arg value="jms/Q.PROMETHEUS.JUPITER-REG.OUT"/>
     </bean>
     <!-- - - - - - - -->
     <!-- DRIVER -->
     <bean id="driverConnectionInputString" class="java.lang.String">
-        <constructor-arg value="java:/comp/env/jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>
+        <constructor-arg value="jms/Q.PROMETHEUS.JUPITER-REG.IN"/>
         <!--<beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>-->
     </bean>
     <bean id="driverConnectionOutputString" class="java.lang.String">
@@ -50,12 +59,21 @@
     <bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
             <property name="jndiName" value="#{connectionFactoryString}"/>
     </bean>
+    <bean id = "jndiConnectionURLFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="#{connectionFactoryURLString}"/>
+    </bean>
 
     <bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
             <property name="jndiName" value="#{mockConnectionInputString}"/>
     </bean>
     <bean id="outboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
             <property name="jndiName" value="#{mockConnectionOutputString}"/>
+    </bean>
+    <bean id="inboundMockURLQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <property name="jndiName" value="#{mockConnectionInputURLString}"/>
+    </bean>
+    <bean id="outboundMockURLQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <property name="jndiName" value="#{mockConnectionOutputURLString}"/>
     </bean>
 
      <bean id="requestDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
@@ -71,6 +89,14 @@
             reply-channel="MockOutboundResponse"
             default-reply-destination="outboundMockQueue"
             connection-factory="jndiConnectionFactory"
+    />
+
+    <jms:inbound-gateway
+            request-destination="inboundMockURLQueue"
+            request-channel="MockInboundURLRequest"
+            reply-channel="MockOutboundURLResponse"
+            default-reply-destination="outboundMockURLQueue"
+            connection-factory="jndiConnectionURLFactory"
     />
 
     <jms:outbound-gateway
@@ -90,30 +116,37 @@
     <int:channel id="MockInboundRequest">
         <int:interceptors>
             <int:wire-tap channel="MockInboundRequestLogger"/>
-            <!--<wire-tap channel="MockInboundRequestExternalLogger"/>-->
         </int:interceptors>
     </int:channel>
-    
+    <int:channel id="MockInboundURLRequest">
+        <int:interceptors>
+            <int:wire-tap channel="MockInboundRequestLogger"/>
+        </int:interceptors>
+    </int:channel>
+
     <int:channel id="MockOutboundResponse">
         <int:interceptors>
             <int:wire-tap channel="MockOutboundResponseLogger"/>
-            <!--<wire-tap channel="MockOutboundResponseExternalLogger"/>-->
         </int:interceptors>
     </int:channel>
-    
+
+    <int:channel id="MockOutboundURLResponse">
+        <int:interceptors>
+            <int:wire-tap channel="MockOutboundResponseLogger"/>
+        </int:interceptors>
+    </int:channel>
+
       <!-- Входной и выходной каналы Драйвера -->
 
     <int:channel id="DriverOutboundRequest">
         <int:interceptors>
             <int:wire-tap channel="DriverOutboundRequestLogger"/>
-            <!--<wire-tap channel="DriverOutboundRequestExternalLogger"/>-->
         </int:interceptors>
     </int:channel>
 
     <int:channel id="DriverInboundResponse">
         <int:interceptors>
             <int:wire-tap channel="DriverInboundResponseLogger"/>
-            <!--<wire-tap channel="DriverInboundResponseExternalLogger"/>-->
         </int:interceptors>
     </int:channel>
 
@@ -144,7 +177,8 @@
 
     <!-- Генерация ответа -->
     <int:service-activator input-channel="MockInboundRequest" output-channel="MockOutboundResponse" expression="@responseGenerator.routeAndGenerate(payload)"/>
-    
+    <int:service-activator input-channel="MockInboundURLRequest" output-channel="MockOutboundURLResponse" expression="@responseGenerator.routeAndGenerate(payload)"/>
+
 
 
     <!-- Mock gateway to send requests to outbound -->
