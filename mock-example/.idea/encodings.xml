@@ -3,9 +3,7 @@
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/ru/sbt/bpm/mock/config/MockConfigContainer.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/ru/sbt/bpm/mock/spring/bean/impl/DriverListImpl.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/resources/web/css/jquery-ui.css" charset="windows-1251" />
-    <file url="file://$PROJECT_DIR$/src/main/webapp/resources/web/css/jquery-ui.min.css" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/resources/web/css/jquery-ui.min.css" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/resources/web/css/jquery-ui.structure.css" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/resources/web/css/jquery-ui.structure.min.css" charset="windows-1251" />
@@ -14,6 +12,6 @@
     <file url="file://$PROJECT_DIR$/src/main/webapp/resources/web/js/codemirror/groovy.js" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/resources/web/js/jquery-ui.js" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/resources/web/js/jquery-ui.min.js" charset="windows-1251" />
-    <file url="file://$PROJECT_DIR$/src/main/webapp/resources/web/js/jquery-ui.min.js" charset="windows-1251" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

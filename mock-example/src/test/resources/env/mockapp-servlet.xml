@@ -12,49 +12,49 @@
 		http://www.springframework.org/schema/mvc   http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
 
-    <mvc:resources mapping="/**" location="/resources/web/" />
-    <mvc:annotation-driven/>
+    <!--<mvc:resources mapping="/**" location="/resources/web/" />-->
+    <!--<mvc:annotation-driven/>-->
 
-    <!-- Настройка используемой конфигурации заглушки-->
-    <beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
-        <beans:constructor-arg value="file:src/test/resources/env/MockConfig.xml" type="java.lang.String" />
-    </beans:bean>
+    <!--&lt;!&ndash; Настройка используемой конфигурации заглушки&ndash;&gt;-->
+    <!--<beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">-->
+        <!--<beans:constructor-arg value="file:src/test/resources/env/MockConfig.xml" type="java.lang.String" />-->
+    <!--</beans:bean>-->
 
 
-    <!-- Входной и выходной каналы Заглушки-->
-    <channel id="MockInboundRequest"/>
+    <!--&lt;!&ndash; Входной и выходной каналы Заглушки&ndash;&gt;-->
+    <!--<channel id="MockInboundRequest"/>-->
 
-    <channel id="MockOutboundResponse"/>
+    <!--<channel id="MockOutboundResponse"/>-->
 
-    <!-- Входной и выходной каналы Драйвера -->
+    <!--&lt;!&ndash; Входной и выходной каналы Драйвера &ndash;&gt;-->
 
-    <channel id="DriverOutboundRequest"/>
+    <!--<channel id="DriverOutboundRequest"/>-->
 
-    <channel id="DriverInboundResponse"/>
+    <!--<channel id="DriverInboundResponse"/>-->
 
-    <!-- Генерация ответа -->
-    <beans:bean id="responseGenerator" class="ru.sbt.bpm.mock.spring.bean.ResponseGenerator"/>
-    <service-activator input-channel="MockInboundRequest" output-channel="MockOutboundResponse" expression="@responseGenerator.routeAndGenerate(payload)"/>
+    <!--&lt;!&ndash; Генерация ответа &ndash;&gt;-->
+    <!--<beans:bean id="responseGenerator" class="ru.sbt.bpm.mock.spring.bean.ResponseGenerator"/>-->
+    <!--<service-activator input-channel="MockInboundRequest" output-channel="MockOutboundResponse" expression="@responseGenerator.routeAndGenerate(payload)"/>-->
 
-    <context:component-scan base-package="ru.sbt.bpm.mock.spring"/>
+    <!--<context:component-scan base-package="ru.sbt.bpm.mock.spring"/>-->
 
-    <beans:bean id="jspResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <beans:property name="prefix" value="/WEB-INF/jsp/"/>
-        <beans:property name="suffix" value=".jsp"/>
-    </beans:bean>
+    <!--<beans:bean id="jspResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--<beans:property name="prefix" value="/WEB-INF/jsp/"/>-->
+        <!--<beans:property name="suffix" value=".jsp"/>-->
+    <!--</beans:bean>-->
 
-    <!-- Mock gateway to send requests to outbound -->
-    <gateway id="systemEntry"
-             default-request-channel="DriverOutboundRequest"
-             default-reply-channel="DriverInboundResponse"
-             error-channel="DriverInboundResponse"
-             service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService"
-             default-reply-timeout="30000"
-             default-request-timeout="30000"
-            />
-    <gateway service-interface="ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService">
-        <method name="test" request-channel="test" reply-channel="test"/>
-    </gateway>
-    <channel id="test"/>
+    <!--&lt;!&ndash; Mock gateway to send requests to outbound &ndash;&gt;-->
+    <!--<gateway id="systemEntry"-->
+             <!--default-request-channel="DriverOutboundRequest"-->
+             <!--default-reply-channel="DriverInboundResponse"-->
+             <!--error-channel="DriverInboundResponse"-->
+             <!--service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService"-->
+             <!--default-reply-timeout="30000"-->
+             <!--default-request-timeout="30000"-->
+            <!--/>-->
+    <!--<gateway service-interface="ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService">-->
+        <!--<method name="test" request-channel="test" reply-channel="test"/>-->
+    <!--</gateway>-->
+    <!--<channel id="test"/>-->
 
 </beans:beans>

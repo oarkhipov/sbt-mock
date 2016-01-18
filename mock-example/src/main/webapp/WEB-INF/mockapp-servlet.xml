@@ -8,8 +8,8 @@
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
 
-    <import resource="contextConfigs/base-config.xml"/>
-    <import resource="contextConfigs/logging-config.xml"/>
+    <!--<import resource="contextConfigs/base-config.xml"/>-->
+    <!--<import resource="contextConfigs/logging-config.xml"/>-->
 
     <!-- - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - -->
     <!-- DEPENDS ON SYSTEM-->
@@ -45,7 +45,7 @@
         <!--<beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>-->
     </bean>
     <bean id="driverConnectionOutputString" class="java.lang.String">
-        <constructor-arg value="java:/comp/env/jms/Q.LEGAL.FROM.CRMORG"/>
+        <constructor-arg value="jms/Q.PROMETHEUS.JUPITER-REG.OUT"/>
         <!--<beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.FROM.CRMORG"/>-->
     </bean>
 
@@ -115,24 +115,24 @@
     <!-- Входной и выходной каналы Заглушки-->
     <int:channel id="MockInboundRequest">
         <int:interceptors>
-            <int:wire-tap channel="MockInboundRequestLogger"/>
+            <int:wire-tap channel="MockInboundRequestExternalLogger"/>
         </int:interceptors>
     </int:channel>
     <int:channel id="MockInboundURLRequest">
         <int:interceptors>
-            <int:wire-tap channel="MockInboundRequestLogger"/>
+            <int:wire-tap channel="MockInboundRequestExternalLogger"/>
         </int:interceptors>
     </int:channel>
 
     <int:channel id="MockOutboundResponse">
         <int:interceptors>
-            <int:wire-tap channel="MockOutboundResponseLogger"/>
+            <int:wire-tap channel="MockOutboundResponseExternalLogger"/>
         </int:interceptors>
     </int:channel>
 
     <int:channel id="MockOutboundURLResponse">
         <int:interceptors>
-            <int:wire-tap channel="MockOutboundResponseLogger"/>
+            <int:wire-tap channel="MockOutboundResponseExternalLogger"/>
         </int:interceptors>
     </int:channel>
 
@@ -140,13 +140,13 @@
 
     <int:channel id="DriverOutboundRequest">
         <int:interceptors>
-            <int:wire-tap channel="DriverOutboundRequestLogger"/>
+            <int:wire-tap channel="DriverOutboundRequestExternalLogger"/>
         </int:interceptors>
     </int:channel>
 
     <int:channel id="DriverInboundResponse">
         <int:interceptors>
-            <int:wire-tap channel="DriverInboundResponseLogger"/>
+            <int:wire-tap channel="DriverInboundResponseExternalLogger"/>
         </int:interceptors>
     </int:channel>
 

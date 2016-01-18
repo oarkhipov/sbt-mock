@@ -15,24 +15,24 @@ import java.io.File;
  *         <p/>
  *         Company: SBT - Moscow
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration({"/env/mockapp-servlet.xml"})
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@WebAppConfiguration
+//@ContextConfiguration({"/env/mockapp-servlet.xml"})
 public class ConfigurationServiceTest {
-
-    @Autowired
-    ConfigurationService configurationService;
-
-    @Test
-    public void testCompressConfiguration() throws Exception {
-
-        FileUtils.writeByteArrayToFile(new File("mockZip.zip"), configurationService.compressConfiguration());
-    }
-
-    @Test
-    public void testUnzipConfiguration() throws Exception {
-        File configFile = new File("mockZip_backup.zip");
-//        FileUtils.writeByteArrayToFile(configFile, configurationService.compressConfiguration());
-        configurationService.unzipConfiguration(configFile);
-    }
+//
+//    @Autowired
+//    ConfigurationService configurationService;
+//
+//    @Test
+//    public void testCompressConfiguration() throws Exception {
+//
+//        FileUtils.writeByteArrayToFile(new File("mockZip.zip"), configurationService.compressConfiguration());
+//    }
+//
+//    @Test
+//    public void testUnzipConfiguration() throws Exception {
+//        File configFile = new File("mockZip_backup.zip");
+////        FileUtils.writeByteArrayToFile(configFile, configurationService.compressConfiguration());
+//        configurationService.unzipConfiguration(configFile);
+//    }
 }
