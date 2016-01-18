@@ -11,8 +11,7 @@ import lombok.*;
  * @author sbt-bochev-as
  * on 25.11.2015.
  */
-//@XStreamAlias("tag")
-@XStreamConverter(value = ToAttributedValueConverter.class, strings = "element")
+@XStreamAlias("tag")
 @Data
 @AllArgsConstructor
 public class ElementSelector {
