@@ -16,38 +16,38 @@
 	xmlns:jupiter="http://sbrf.ru/ASP/JUPITER/R3.0/" targetNamespace="http://sbrf.ru/ASP/JUPITER/R3.0/"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/CreateSalaryAgreement/2.00/"
-		schemaLocation="./CreateSalaryAgreement.xsd" />
+		schemaLocation="CreateSalaryAgreement.xsd" />
 	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/RegisterSalaryAgreement/2.00/"
-		schemaLocation="./RegisterSalaryAgreement.xsd" />
+		schemaLocation="RegisterSalaryAgreement.xsd" />
 <!-- 	<xs:import namespace="http://sbrf.ru/ASP/UPITER/GetClient/1.00/" -->
 <!-- 		schemaLocation="../V1.00/GetClient.xsd" /> -->
 	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/GetSalaryAgreement/2.00/"
-		schemaLocation="./GetSalaryAgreement.xsd" />
+		schemaLocation="GetSalaryAgreement.xsd" />
 <!-- 	<xs:import namespace="http://sbrf.ru/ASP/UPITER/SearchClients/1.00/" -->
 <!-- 		schemaLocation="../V1.00/SearchClients.xsd" /> -->
 	<xs:import
 		namespace="http://sbrf.ru/ASP/JUPITER/UpdateSalaryAgreementTerritory/2.00/"
-		schemaLocation="./UpdateSalaryAgreementTerritory.xsd" />
+		schemaLocation="UpdateSalaryAgreementTerritory.xsd" />
 	<xs:import
 		namespace="http://sbrf.ru/ASP/JUPITER/UpdateSalaryAgreementStatus/2.00/"
-		schemaLocation="./UpdateSalaryAgreementStatus.xsd" />
+		schemaLocation="UpdateSalaryAgreementStatus.xsd" />
 	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/UpdateSalaryAgreement/2.00/"
-		schemaLocation="./UpdateSalaryAgreement.xsd" />
+		schemaLocation="UpdateSalaryAgreement.xsd" />
 	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/GetViewRegistersUrl/1.00/"
 		schemaLocation="../R2.0/GetViewRegistersUrl.xsd" />
 	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/GetUpdateRegisterUrl/2.00/"
-		schemaLocation="./GetUpdateRegisterUrl.xsd" />
+		schemaLocation="GetUpdateRegisterUrl.xsd" />
 	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/GetUpdateRegisterUrl/2.00/"
-		schemaLocation="./GetUpdateRegisterUrl.xsd" />
+		schemaLocation="GetUpdateRegisterUrl.xsd" />
 
 	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/CreateSalaryAgreementVersion/1.00/"
-		schemaLocation="./CreateSalaryAgreementVersion.xsd" />
+		schemaLocation="CreateSalaryAgreementVersion.xsd" />
 	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/GetSalaryAgreementTerritory/1.00/"
-		schemaLocation="./GetSalaryAgreementTerritory.xsd" />
+		schemaLocation="GetSalaryAgreementTerritory.xsd" />
 	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/InitiateUpdateRegisterParametrs/1.00/"
-		schemaLocation="./InitiateUpdateRegisterParametrs.xsd" />
+		schemaLocation="InitiateUpdateRegisterParametrs.xsd" />
 	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/SearchSalaryAgreements/1.00/"
-		schemaLocation="./SearchSalaryAgreements.xsd" />
+		schemaLocation="SearchSalaryAgreements.xsd" />
 
 	<!--======================================= Message Elements Start ================================================================== -->
 	<!-- Заголовки сообщений конец -->

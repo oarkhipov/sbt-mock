@@ -64,7 +64,16 @@ public class XmlGeneratorService {
 
         sampleXml = new XMLDocument(new StreamResult(writer), true, 4, null);
 
-        xsInstance.generate(xsModel, rootElement, sampleXml);
+        try {
+            xsInstance.generate(xsModel, rootElement, sampleXml);
+        } catch (Exception e) {
+            String msg = "Failed to generate xml:\n" +
+                    "resource:["+resource.toString()+"]\n" +
+                    "rootElement:["+rootElement.toString()+"]\n" +
+                    "xsModel:["+xsModel.toString()+"]\n" +
+                    "message: " + e.getMessage();
+            throw new Exception(msg, e);
+        }
 
         //filter elements
         List<ElementSelector> elementSelectors = integrationPoint.getXpathValidatorSelector().getElementSelectors();

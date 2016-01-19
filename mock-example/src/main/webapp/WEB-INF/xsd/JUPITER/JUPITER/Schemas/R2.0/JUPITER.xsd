@@ -9,7 +9,7 @@
 	<xs:import namespace="http://sbrf.ru/ASP/UPITER/RegisterSalaryAgreement/1.00/" schemaLocation="../R1.0/RegisterSalaryAgreement.xsd"/>
 	<xs:import namespace="http://sbrf.ru/ASP/UPITER/UpdateSalaryAgreementStatus/1.00/" schemaLocation="../R1.0/UpdateSalaryAgreementStatus.xsd"/>
 	<xs:import namespace="http://sbrf.ru/ASP/UPITER/UpdateSalaryAgreement/1.00/" schemaLocation="../R1.0/UpdateSalaryAgreement.xsd"/>
-	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/GetViewRegistersUrl/1.00/" schemaLocation="./GetViewRegistersUrl.xsd"/>
+	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/GetViewRegistersUrl/1.00/" schemaLocation="GetViewRegistersUrl.xsd"/>
 	<!--======================================= Message Elements Start ================================================================== -->
 	<!-- Заголовки сообщений конец -->
 	<!-- UP.01. Регистрация заявки зарплатного договора в АС Юпитере начало -->
