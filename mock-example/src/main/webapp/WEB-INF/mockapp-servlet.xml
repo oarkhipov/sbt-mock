@@ -58,6 +58,7 @@
      <!--Настройки подключения к MQ-->
     <bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
             <property name="jndiName" value="#{connectionFactoryString}"/>
+
     </bean>
     <bean id = "jndiConnectionURLFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName" value="#{connectionFactoryURLString}"/>

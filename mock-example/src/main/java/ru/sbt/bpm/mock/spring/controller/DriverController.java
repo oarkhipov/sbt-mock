@@ -204,9 +204,9 @@ public class DriverController {
     public String send(
             @PathVariable String systemName,
             @PathVariable String integrationPointName,
-            @RequestParam String xml,
-            @RequestParam String script,
-            @RequestParam String test) {
+            @RequestParam(required = false) String xml,
+            @RequestParam(required = false) String script,
+            @RequestParam(required = false) String test) {
 
         AjaxObject ajaxObject = new AjaxObject();
 //        VALIDATE

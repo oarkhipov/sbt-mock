@@ -36,9 +36,9 @@ public class XpathSelector {
 
     public String toXpath() {
         /*
-        *   <beans:bean id="operationSelector" class="java.lang.String">
+        *   <beans:beanContainer id="operationSelector" class="java.lang.String">
         *       <beans:constructor-arg value="/*:Envelope[namespace-uri()='http://sbrf.ru/legal/enquiry/integration']/*[namespace-uri()='http://sbrf.ru/legal/enquiry/integration']"/>
-        *   </beans:bean>
+        *   </beans:beanContainer>
         */
         StringBuilder stringBuilder = new StringBuilder();
         for (ElementSelector elementSelector : elementSelectors) {
