@@ -21,7 +21,7 @@ public class GeneratorTest {
 
     @Test
     public void generateXml() throws Exception {
-        URL resource = this.getClass().getClassLoader().getResource("xsd/CRMIntegrationSchema.xsd");
+        URL resource = this.getClass().getClassLoader().getResource("WEB-INF/xsd/CRMIntegrationSchema.xsd");
         assert resource != null;
         XSModel xsModel = new XSParser().parse(String.valueOf(resource.toURI()));
 

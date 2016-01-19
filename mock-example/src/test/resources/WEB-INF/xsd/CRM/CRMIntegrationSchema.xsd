@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sbrf.ru/legal/enquiry/integration" xmlns:types="http://sbrf.ru/legal/enquiry/integration/types" targetNamespace="http://sbrf.ru/legal/enquiry/integration" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import namespace="http://sbrf.ru/legal/enquiry/integration/types" schemaLocation="./CRMIntegrationTypes.xsd"/>
+	<xs:import namespace="http://sbrf.ru/legal/enquiry/integration/types" schemaLocation="CRMIntegrationTypes.xsd"/>
 	<xs:element name="Envelope">
 		<xs:annotation>
 			<xs:documentation>Корневой элемент всех сообщений - как исходящих, так и входящих</xs:documentation>

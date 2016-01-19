@@ -13,7 +13,7 @@
 </head>
 <body>
 <form
-        <c:if test="${system.systemName != ''}">action="/system/update/${system.systemName}"</c:if> method="post">
+        <c:if test="${system.systemName != ''}">action="${system.systemName}"</c:if> method="post">
     <table>
         <tr>
             <td>System:</td>

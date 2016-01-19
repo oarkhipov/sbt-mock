@@ -47,7 +47,7 @@ public class SaveFileTest {
         assert listOfFileNames.size()>0;
         assert listOfFileNames.contains("data");
         assert listOfFileNames.contains("jsp");
-        assert listOfFileNames.contains("xsd");
+        assert listOfFileNames.contains("WEB-INF/xsd");
         assert listOfFileNames.contains("xsl");
     }
 
