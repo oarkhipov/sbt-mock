@@ -8,8 +8,8 @@
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
 
-    <!--<import resource="contextConfigs/base-config.xml"/>-->
-    <!--<import resource="contextConfigs/logging-config.xml"/>-->
+    <import resource="../contextConfigs/base-config.xml"/>
+    <import resource="../contextConfigs/logging-config.xml"/>
 
     <!-- - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - -->
     <!-- DEPENDS ON SYSTEM-->

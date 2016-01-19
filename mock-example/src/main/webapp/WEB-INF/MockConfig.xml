@@ -1,7 +1,7 @@
 <MockConfig xmlns="http://sbrf.ru/mockService2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://sbrf.ru/mockService2">
     <systems>
-        <system name="UPITER">
+        <system name="JUPITER">
             <rootXsd>R3.0/JUPITER.xsd</rootXsd>
             <integrationPointSelector>
                 <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
@@ -151,7 +151,7 @@
                 </integrationPoint>
             </integrationPoints>
         </system>
-        <system name="UPITER">
+        <system name="JUPITER">
             <rootXsd>R3.0/JUPITER.xsd</rootXsd>
             <integrationPointSelector>
                 <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>

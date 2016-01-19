@@ -28,8 +28,8 @@ public class DataFileService {
     MockConfigContainer configContainer;
 
     private final String pathBase = "/WEB-INF/";
-    private final String dataPath = pathBase + File.separator + "data" + File.separator;
-    private final String xsdPath = pathBase + File.separator + "xsd" + File.separator;
+    private final String dataPath = pathBase + "data" + File.separator;
+    private final String xsdPath = pathBase + "xsd" + File.separator;
 
     /**
      * Возвращает ресурс, лежащий в pathBase
