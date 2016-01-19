@@ -11,7 +11,7 @@
     <title>Modify integration point</title>
 </head>
 <body>
-<form <c:if test="${systemName != '' && integrationPointName != ''}">action="${systemName}/${integrationPointName}/"</c:if>  method="post">
+<form method="post">
     <table>
         <tr>
             <td>System:</td>
