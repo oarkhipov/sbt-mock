@@ -7,8 +7,8 @@ xmlns:crm="http://sbrf.ru/ASP/CRM/1.00/" xmlns:ct="http://sbrf.ru/ASP/ESB/common
 	<xs:import namespace="http://sbrf.ru/ASP/ESB/commonTypes/" schemaLocation="../commonTypes/commonTypes.xsd"/>
 	<xs:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/" schemaLocation="../commonTypes/dataTypes.xsd"/>
 	<xs:import namespace="http://sbrf.ru/ASP/ESB/simpleTypes/" schemaLocation="../commonTypes/simpleTypes.xsd"/>
-	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/R2.1/" schemaLocation="../JUPITER/JUPITER/Schemas/R2.1/JUPITER.xsd"/>
-	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/R3.0/" schemaLocation="../JUPITER/JUPITER/Schemas/R3.0/JUPITER.xsd"/>
+	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/R2.1/" schemaLocation="../JUPITER/Schemas/R2.1/JUPITER.xsd"/>
+	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/R3.0/" schemaLocation="../JUPITER/Schemas/R3.0/JUPITER.xsd"/>
 	<xs:import namespace="http://sbrf.ru/ASP/CRM/1.00/" schemaLocation="../CRM/Schemas/R1.0/CRM.xsd"/>
 	<!--======================================= Envelop Start ================================================================== -->
 	<xs:element name="envelope">

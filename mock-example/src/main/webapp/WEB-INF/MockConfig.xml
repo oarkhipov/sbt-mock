@@ -5,7 +5,8 @@
             <rootXsd>ESB/Envelope.xsd</rootXsd>
             <integrationPointSelector>
                 <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
-                <tag ns="http://sbrf.ru/legal/enquiry/integration"/>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/">header</tag>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/">operation-name</tag>
             </integrationPointSelector>
             <protocol>MQ</protocol>
 
@@ -23,6 +24,8 @@
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">updateSalaryAgreementTerritoryRs</tag>
                     </xpathValidation>
                     <type>Mock</type>
                     <!-- Где лежит корневой элемент-->
@@ -31,11 +34,14 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
                 <integrationPoint name="RegisterSalaryAgreement">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">registerSalaryAgreementRs</tag>
                     </xpathValidation>
                     <type>Mock</type>
                     <!-- Где лежит корневой элемент-->
@@ -44,11 +50,14 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
                 <integrationPoint name="CreateSalaryAgreement">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">createSalaryAgreementRs</tag>
                     </xpathValidation>
                     <type>Mock</type>
                     <!-- Где лежит корневой элемент-->
@@ -57,11 +66,14 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
                 <integrationPoint name="GetSalaryAgreement">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">getSalaryAgreementRs</tag>
                     </xpathValidation>
                     <type>Mock</type>
                     <!-- Где лежит корневой элемент-->
@@ -70,11 +82,14 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
                 <integrationPoint name="UpdateSalaryAgreement">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">updateSalaryAgreementRs</tag>
                     </xpathValidation>
                     <type>Mock</type>
                     <!-- Где лежит корневой элемент-->
@@ -83,11 +98,14 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
                 <integrationPoint name="UpdateSalaryAgreementStatus">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">updateSalaryAgreementStatusRs</tag>
                     </xpathValidation>
                     <type>Mock</type>
                     <!-- Где лежит корневой элемент-->
@@ -96,11 +114,14 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
-                <integrationPoint name="createSalaryAgreementVersionRq">
+                <integrationPoint name="createSalaryAgreementVersion">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">createSalaryAgreementVersionRs</tag>
                     </xpathValidation>
                     <type>Mock</type>
                     <!-- Где лежит корневой элемент-->
@@ -109,11 +130,14 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
-                <integrationPoint name="getSalaryAgreementTerritoryRq">
+                <integrationPoint name="getSalaryAgreementTerritory">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">getSalaryAgreementTerritoryRs</tag>
                     </xpathValidation>
                     <type>Mock</type>
                     <!-- Где лежит корневой элемент-->
@@ -122,11 +146,14 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
-                <integrationPoint name="initiateUpdateRegisterParametrsRq">
+                <integrationPoint name="initiateUpdateRegisterParametrs">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">initiateUpdateRegisterParametrsRs</tag>
                     </xpathValidation>
                     <type>Mock</type>
                     <!-- Где лежит корневой элемент-->
@@ -135,11 +162,14 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
-                <integrationPoint name="searchSalaryAgreementsRq">
+                <integrationPoint name="searchSalaryAgreements">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">searchSalaryAgreementsRs</tag>
                     </xpathValidation>
                     <type>Mock</type>
                     <!-- Где лежит корневой элемент-->
@@ -148,6 +178,7 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
             </integrationPoints>
         </system>
@@ -172,6 +203,8 @@
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">getViewRegistersUrlRs</tag>
                     </xpathValidation>
                     <type>Mock</type>
                     <!-- Где лежит корневой элемент-->
@@ -180,11 +213,14 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
                 <integrationPoint name="GetUpdateRegisterUrl">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">getUpdateRegisterUrlRs</tag>
                     </xpathValidation>
                     <type>Mock</type>
                     <!-- Где лежит корневой элемент-->
@@ -193,6 +229,7 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
             </integrationPoints>
         </system>
@@ -202,6 +239,7 @@
             <integrationPointSelector>
                 <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
                 <tag ns="http://sbrf.ru/legal/enquiry/integration"/>
+                <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/"></tag>
             </integrationPointSelector>
             <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
              System-MQ, System-SOAP -->
@@ -222,7 +260,8 @@
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">CreateLegalSalaryAppRq</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/CRM/1.00/">createLegalSalaryAppRq</tag>
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Driver</type>
@@ -232,12 +271,15 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
                 <integrationPoint name="changeSalaryDealStatus">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <!-- Ответ - что угодно, а точнее не требуется -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/CRM/1.00/">changeSalaryDealStatusRs</tag>
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Mock</type>
@@ -248,12 +290,15 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
                 <integrationPoint name="putLegalSalaryAgreemt">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <!-- Ответ - что угодно, а точнее не требуется -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/CRM/1.00/">putLegalSalaryAgreemtRs</tag>
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Mock</type>
@@ -264,12 +309,14 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
                 <integrationPoint name="changeLegalSalaryAgreemtStatus">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">ChangeLegalSalaryAgreemtStatusRq</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/CRM/1.00/">changeLegalSalaryAgreemtStatusRq</tag>
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Driver</type>
@@ -279,6 +326,7 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
             </integrationPoints>
         </system>
