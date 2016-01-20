@@ -1,0 +1,60 @@
+<?xml version = "1.0" encoding="UTF-8"?>
+<!--  
+   Generated 14 января 2016 г. 17:52:54 by PowerDesigner Tools
+   Model AttendingSalaryContract-JupiterInt
+   Author sbt-alekseev-va
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:sa="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/"
+  xmlns:ct="http://sbrf.ru/ASP/ESB/commonTypes/" 
+  xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/" 
+  xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"
+  targetNamespace="http://sbrf.ru/ASP/JUPITER/UpdateSalaryAgreementTerritory/2.00/"
+  xmlns:svc="http://sbrf.ru/ASP/JUPITER/UpdateSalaryAgreementTerritory/2.00/">
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/" schemaLocation="asp-jupiter-data-types.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/commonTypes/" schemaLocation="../../../commonTypes/commonTypes.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/" schemaLocation="../../../commonTypes/dataTypes.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/simpleTypes/" schemaLocation="../../../commonTypes/simpleTypes.xsd"/>
+  
+  <xsd:complexType name="UpdateSalaryAgreementTerritoryRq">
+   <xsd:annotation>
+   <xsd:documentation>Запрос на обновление данных по территориям договора
+   </xsd:documentation>
+   </xsd:annotation>
+   <xsd:sequence>
+   <!-- Номер договора-->
+   <xsd:element name="agreementNumber" type="dt:DefString" minOccurs="0"/>
+   <!-- Версия договора-->
+   <xsd:element name="agreementVersion" type="dt:String" minOccurs="0"/>
+   <!-- Территории обслуживания договора-->
+   <xsd:element name="servicePlace" type="sa:ContractService">
+   <xsd:annotation>
+   <xsd:documentation>Территории обслуживания договора</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- Идентификация договора в АС Ю-->
+   <xsd:element name="jupiterID" type="sa:IDType" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>Идентификация договора в АС Ю</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="UpdateSalaryAgreementTerritoryRs">
+   <xsd:complexContent>
+    <xsd:extension base="ct:CommonRs">
+      <xsd:annotation>
+      <xsd:documentation>Ответ на запрос на обновление данных по территориям договора</xsd:documentation>
+      </xsd:annotation>
+    </xsd:extension>
+   </xsd:complexContent>
+  </xsd:complexType>
+
+</xsd:schema>

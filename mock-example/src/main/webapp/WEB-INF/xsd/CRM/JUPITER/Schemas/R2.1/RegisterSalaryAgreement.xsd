@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by sbt-rogov-an 
+	(EMBRACE) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:rsa="http://sbrf.ru/ASP/JUPITER/RegisterSalaryAgreement/1.01/"
+	xmlns:ct="http://sbrf.ru/ASP/ESB/commonTypes/" xmlns:sa="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R2.1/"
+	xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/" xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/"
+	targetNamespace="http://sbrf.ru/ASP/JUPITER/RegisterSalaryAgreement/1.01/"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R2.1/"
+		schemaLocation="asp-jupiter-data-types.xsd" />
+	<xs:import namespace="http://sbrf.ru/ASP/ESB/commonTypes/"
+		schemaLocation="../../../commonTypes/commonTypes.xsd" />
+	<xs:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/"
+		schemaLocation="../../../commonTypes/dataTypes.xsd" />
+	<xs:import namespace="http://sbrf.ru/ASP/ESB/simpleTypes/"
+		schemaLocation="../../../commonTypes/simpleTypes.xsd" />
+	<!--======================================= Message Types Start ================================================================== -->
+	<!-- UP.06. Регистрация зарплатного договора в АС Юпитере начало -->
+	<xs:complexType name="RegisterSalaryAgreementRq">
+		<xs:annotation>
+			<xs:documentation>Запрос на создание карточки договора
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="salaryAgreement" type="sa:SalaryAgreementType">
+				<xs:annotation>
+					<xs:documentation>Карточка договора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RegisterSalaryAgreementRs">
+		<xs:annotation>
+			<xs:documentation>Ответ на поиск клиента</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ct:CommonRs">
+				<xs:sequence>
+					<xs:element name="contractNumber" type="st:CONTRACTNUMBER_Type"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- UP.06. Регистрация зарплатного договора в АС Юпитере конец -->
+</xs:schema>

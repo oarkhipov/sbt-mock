@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding="UTF-8"?>
+<!--  
+   Generated 29 декабря 2015 г. 19:22:17 by PowerDesigner Tools
+   Model AttendingSalaryContract-JupiterInt
+   Author sbt-alekseev-va
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:sa="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/"
+  xmlns:ct="http://sbrf.ru/ASP/ESB/commonTypes/" 
+  xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/" 
+  xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"
+  targetNamespace="http://sbrf.ru/ASP/JUPITER/RegisterSalaryAgreement/2.00/"
+  xmlns:svc="http://sbrf.ru/ASP/JUPITER/RegisterSalaryAgreement/2.00/">
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/" schemaLocation="asp-jupiter-data-types.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/commonTypes/" schemaLocation="../../../commonTypes/commonTypes.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/" schemaLocation="../../../commonTypes/dataTypes.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/simpleTypes/" schemaLocation="../../../commonTypes/simpleTypes.xsd"/>
+  
+  <xsd:complexType name="RegisterSalaryAgreementRq">
+   <xsd:annotation>
+   <xsd:documentation>Запрос на регистрацию договора</xsd:documentation>
+   </xsd:annotation>
+   <xsd:sequence>
+   <!-- Информация по регистрируемому договору-->
+   <xsd:element name="agreement" type="sa:SalaryAgreementType">
+   <xsd:annotation>
+   <xsd:documentation>Информация по регистрируемому договору</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="RegisterSalaryAgreementRs">
+   <xsd:complexContent>
+    <xsd:extension base="ct:CommonRs">
+      <xsd:annotation>
+      <xsd:documentation>Ответ на запрос на регистрацию договора</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+      <!-- Номер договора-->
+      <xsd:element name="agreementNumber" type="dt:DefString"/>
+      <!-- Номер версии-->
+      <xsd:element name="agreementVersion" type="dt:String"/>
+      </xsd:sequence>
+    </xsd:extension>
+   </xsd:complexContent>
+  </xsd:complexType>
+
+</xsd:schema>

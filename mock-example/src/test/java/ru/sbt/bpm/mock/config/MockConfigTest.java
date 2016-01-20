@@ -15,10 +15,9 @@ import static org.junit.Assert.assertNotNull;
 public class MockConfigTest {
 
     @Test
-    @Ignore
     public void testGeneratorSingletonWithFile() throws Exception {
         
-        MockConfigContainer gen1 = MockConfigContainer.getInstance("src/main/webapp/resources/MockConfigFiles/MockConfig.xml");
+        MockConfigContainer gen1 = MockConfigContainer.getInstance("src/main/webapp/WEB-INF/MockConfig.xml");
         gen1.init();
         assertNotNull(gen1.getConfig().getSystems());
     }

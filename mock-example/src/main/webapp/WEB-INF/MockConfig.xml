@@ -151,11 +151,10 @@
                 </integrationPoint>
             </integrationPoints>
         </system>
-        <system name="JUPITER">
+        <system name="URLJUPITER">
             <rootXsd>ESB/Envelope.xsd</rootXsd>
             <integrationPointSelector>
                 <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
-                <tag ns="http://sbrf.ru/legal/enquiry/integration"/>
             </integrationPointSelector>
             <protocol>MQ</protocol>
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by sbt-rogov-an (EMBRACE) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:usat="http://sbrf.ru/ASP/JUPITER/UpdateSalaryAgreementTerritory/1.01/" xmlns:ct="http://sbrf.ru/ASP/ESB/commonTypes/" xmlns:sa="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R2.1/" xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/" xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/" targetNamespace="http://sbrf.ru/ASP/JUPITER/UpdateSalaryAgreementTerritory/1.01/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R2.1/" schemaLocation="asp-jupiter-data-types.xsd"/>
+	<xs:import namespace="http://sbrf.ru/ASP/ESB/commonTypes/" schemaLocation="../../../commonTypes/commonTypes.xsd"/>
+	<xs:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/" schemaLocation="../../../commonTypes/dataTypes.xsd"/>
+	<xs:import namespace="http://sbrf.ru/ASP/ESB/simpleTypes/" schemaLocation="../../../commonTypes/simpleTypes.xsd"/>
+	<!--======================================= Message Types Start ================================================================== -->
+	<!-- UP.05. Корректировка и удаление подразделений сопровождения начало -->
+	<xs:complexType name="UpdateSalaryAgreementTerritoryRq">
+		<xs:annotation>
+			<xs:documentation>Изменение данных по территории запрос
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="gosbOsb">
+				<xs:annotation>
+					<xs:documentation>Территория мест обслуживания зарплатного договора
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="sa:BranchAllType">
+							<xs:sequence>
+								<xs:element name="comment" type="xs:string" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Примечание по ЗД</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="statusOfTerr" type="dt:DefString">
+									<xs:annotation>
+										<xs:documentation>Сатус Территории, справочник.
+										</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="terrOfCopp" type="sa:DataOfCoppType" minOccurs="0" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="jupiterID" type="sa:IDType" minOccurs="0"/>
+			<xs:element name="fio" type="dt:DefString" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ФИО того кто вносит изменения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UpdateSalaryAgreementTerritoryRs">
+		<xs:annotation>
+			<xs:documentation>Ответ на поиск клиента</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ct:CommonRs"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- UP.05. Корректировка и удаление подразделений сопровождения конец -->
+</xs:schema>

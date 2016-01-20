@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:en="http://sbrf.ru/ASP/ESB/envelope/" 
+xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/" xmlns:jupiter2="http://sbrf.ru/ASP/JUPITER/R2.1/" 
+xmlns:jupiter3="http://sbrf.ru/ASP/JUPITER/R3.0/" 
+xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/" 
+xmlns:crm="http://sbrf.ru/ASP/CRM/1.00/" xmlns:ct="http://sbrf.ru/ASP/ESB/commonTypes/" targetNamespace="http://sbrf.ru/ASP/ESB/envelope/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://sbrf.ru/ASP/ESB/commonTypes/" schemaLocation="../commonTypes/commonTypes.xsd"/>
+	<xs:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/" schemaLocation="../commonTypes/dataTypes.xsd"/>
+	<xs:import namespace="http://sbrf.ru/ASP/ESB/simpleTypes/" schemaLocation="../commonTypes/simpleTypes.xsd"/>
+	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/R2.1/" schemaLocation="../JUPITER/JUPITER/Schemas/R2.1/JUPITER.xsd"/>
+	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/R3.0/" schemaLocation="../JUPITER/JUPITER/Schemas/R3.0/JUPITER.xsd"/>
+	<xs:import namespace="http://sbrf.ru/ASP/CRM/1.00/" schemaLocation="../CRM/Schemas/R1.0/CRM.xsd"/>
+	<!--======================================= Envelop Start ================================================================== -->
+	<xs:element name="envelope">
+		<xs:annotation>
+			<xs:documentation>Сообщение</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="en:header"/>
+				<xs:element ref="en:body"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="header">
+		<xs:annotation>
+			<xs:documentation>Заголовок сообщения</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="message-id" type="st:UUID_Type">
+					<xs:annotation>
+						<xs:documentation>Уникальный идентификатор сообщения (Идентификатор интеграционного запроса). Формат UUID -уникальный 16 байтовый идентификатор. Представляется набором из 32 символов без разделителей в шестнадцатиричной системе
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="request-time" type="dt:DateTime">
+					<xs:annotation>
+						<xs:documentation>Дата и время передачи сообщения (Системное время) при отправке сообщения АС-источником с учетом временной зоны
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="correlation-id" type="st:UUID_Type" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Идентификатор корреляции</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="eis-name" type="st:SystemName_Type" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Идентификатор системы инициатора	запроса/ответа
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="system-id" type="st:SystemName_Type" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Идентификатор системы (получателя запроса), предоставляющей услуги (провайдер сервиса)
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="operation-name" type="st:OperationName_Type">
+					<xs:annotation>
+						<xs:documentation>Название операции вызываемого сервиса</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="operation-version" type="dt:DefString" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Версия операции</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="user-id" type="dt:DefString" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Идентификатор пользователя в системе инициаторе запроса/ответа
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="user-name" type="dt:DefString" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Полное ФИО пользователя в системе инициаторе запроса/ответа</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="body">
+		<xs:annotation>
+			<xs:documentation>Тело сообщения</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="jupiter2:createSalaryAgreementRq"/>
+				<xs:element ref="jupiter2:createSalaryAgreementRs"/>
+				<xs:element ref="jupiter2:getClientRq"/>
+				<xs:element ref="jupiter2:getClientRs"/>
+				<xs:element ref="jupiter2:getSalaryAgreementRq"/>
+				<xs:element ref="jupiter2:getSalaryAgreementRs"/>
+				<xs:element ref="jupiter2:searchClientsRq"/>
+				<xs:element ref="jupiter2:searchClientsRs"/>
+				<xs:element ref="jupiter2:updateSalaryAgreementTerritoryRq"/>
+				<xs:element ref="jupiter2:updateSalaryAgreementTerritoryRs"/>
+				<xs:element ref="jupiter2:registerSalaryAgreementRq"/>
+				<xs:element ref="jupiter2:registerSalaryAgreementRs"/>
+				<xs:element ref="jupiter2:updateSalaryAgreementStatusRq"/>
+				<xs:element ref="jupiter2:updateSalaryAgreementStatusRs"/>
+				<xs:element ref="jupiter2:updateSalaryAgreementRq"/>
+				<xs:element ref="jupiter2:updateSalaryAgreementRs"/>
+				<xs:element ref="jupiter2:getViewRegistersUrlRq"/>
+				<xs:element ref="jupiter2:getViewRegistersUrlRs"/>
+				<xs:element ref="jupiter3:searchSalaryAgreementsRq"/>
+				<xs:element ref="jupiter3:searchSalaryAgreementsRs"/>
+				<xs:element ref="jupiter3:createSalaryAgreementRq"/>
+				<xs:element ref="jupiter3:createSalaryAgreementRs"/>
+				<xs:element ref="jupiter3:createSalaryAgreementVersionRq"/>
+				<xs:element ref="jupiter3:createSalaryAgreementVersionRs"/>
+				<xs:element ref="jupiter3:registerSalaryAgreementRq"/>
+				<xs:element ref="jupiter3:registerSalaryAgreementRs"/>
+				<xs:element ref="jupiter3:getSalaryAgreementRq"/>
+				<xs:element ref="jupiter3:getSalaryAgreementRs"/>
+				<xs:element ref="jupiter3:updateSalaryAgreementRq"/>
+				<xs:element ref="jupiter3:updateSalaryAgreementRs"/>
+				<xs:element ref="jupiter3:getSalaryAgreementTerritoryRq"/>
+				<xs:element ref="jupiter3:getSalaryAgreementTerritoryRs"/>
+				<xs:element ref="jupiter3:updateSalaryAgreementStatusRq"/>
+				<xs:element ref="jupiter3:updateSalaryAgreementStatusRs"/>
+				<xs:element ref="jupiter3:updateSalaryAgreementTerritoryRq"/>
+				<xs:element ref="jupiter3:updateSalaryAgreementTerritoryRs"/>
+				<xs:element ref="jupiter3:getViewRegistersUrlRq"/>
+				<xs:element ref="jupiter3:getViewRegistersUrlRs"/>
+				<xs:element ref="jupiter3:getUpdateRegisterUrlRq"/>
+				<xs:element ref="jupiter3:getUpdateRegisterUrlRs"/>
+				<xs:element ref="jupiter3:initiateUpdateRegisterParametrsRq"/>
+				<xs:element ref="jupiter3:initiateUpdateRegisterParametrsRs"/>
+				<xs:element ref="crm:createLegalSalaryAppRq"/>
+				<xs:element ref="crm:createLegalSalaryAppRs"/>
+				<xs:element ref="crm:changeSalaryDealStatusRq"/>
+				<xs:element ref="crm:changeSalaryDealStatusRs"/>
+				<xs:element ref="crm:putLegalSalaryAgreemtRq"/>
+				<xs:element ref="crm:putLegalSalaryAgreemtRs"/>
+				<xs:element ref="crm:changeLegalSalaryAgreemtStatusRq"/>
+				<xs:element ref="crm:changeLegalSalaryAgreemtStatusRs"/>
+				<xs:element ref="ct:commonRs"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<!--======================================= Envelop End ================================================================== -->
+</xs:schema>

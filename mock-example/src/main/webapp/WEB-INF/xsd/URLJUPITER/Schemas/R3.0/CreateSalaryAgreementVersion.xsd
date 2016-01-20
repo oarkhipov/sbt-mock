@@ -1,0 +1,69 @@
+<?xml version = "1.0" encoding="UTF-8"?>
+<!--  
+   Generated 29 декабря 2015 г. 19:22:17 by PowerDesigner Tools
+   Model AttendingSalaryContract-JupiterInt
+   Author sbt-alekseev-va
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:sa="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/"
+  xmlns:ct="http://sbrf.ru/ASP/ESB/commonTypes/" 
+  xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/" 
+  xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"
+  targetNamespace="http://sbrf.ru/ASP/JUPITER/CreateSalaryAgreementVersion/1.00/"
+  xmlns:svc="http://sbrf.ru/ASP/JUPITER/CreateSalaryAgreementVersion/1.00/">
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/" schemaLocation="asp-jupiter-data-types.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/commonTypes/" schemaLocation="../../../commonTypes/commonTypes.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/" schemaLocation="../../../commonTypes/dataTypes.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/simpleTypes/" schemaLocation="../../../commonTypes/simpleTypes.xsd"/>
+  
+  <xsd:complexType name="CreateSalaryAgreementVersionRq">
+   <xsd:annotation>
+   <xsd:documentation>Запрос на передачу данных по новой версии документа</xsd:documentation>
+   </xsd:annotation>
+   <xsd:sequence>
+   <!-- Базовая версия договора-->
+   <xsd:element name="baseAgreementVersion" type="dt:String">
+    <xsd:annotation>
+    <xsd:documentation>Версия договора, которая использовалась для создании передаваемой версии договора.</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Новая версия договора-->
+   <xsd:element name="newAgreementVersion" type="sa:SalaryAgreementType" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>Новая версия договора</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="CreateSalaryAgreementVersionRs">
+   <xsd:complexContent>
+    <xsd:extension base="ct:CommonRs">
+      <xsd:annotation>
+      <xsd:documentation>Ответ на запрос на передачу данных по новой версии документа</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+      <!-- Новая версия договора-->
+      <xsd:element name="newAgreementVersion" type="dt:String">
+       <xsd:annotation>
+       <xsd:documentation>Передается значение версии, сгенерированное АС Ю, для новой версии договора</xsd:documentation>
+       </xsd:annotation>
+      </xsd:element>
+      <!-- Идентификация новой версии договора в АС Ю-->
+      <xsd:element name="jupiterID" type="sa:IDType" minOccurs="0">
+      <xsd:annotation>
+      <xsd:documentation>Идентификация новой версии договора в АС Ю</xsd:documentation>
+      </xsd:annotation>
+      </xsd:element>
+      </xsd:sequence>
+    </xsd:extension>
+   </xsd:complexContent>
+  </xsd:complexType>
+
+</xsd:schema>
