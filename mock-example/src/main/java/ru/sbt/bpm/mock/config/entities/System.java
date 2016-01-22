@@ -31,6 +31,9 @@ public class System {
     @XStreamAlias("integrationPointSelector")
     private XpathSelector integrationPointSelector;
 
+    @XStreamAlias("selectorType")
+    private XpathType selectorType;
+
     @XStreamAlias("protocol")
     private String protocol;
 
