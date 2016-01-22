@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.entities.System;
+import ru.sbt.bpm.mock.config.entities.XpathType;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.DataService;
 import ru.sbt.bpm.mock.spring.service.GroovyService;
@@ -82,8 +83,16 @@ public class ResponseGenerator {
     protected IntegrationPoint getIntegrationPoint(System system, String payload) throws XPathExpressionException, SaxonApiException {
         String integrationPointSelector = system.getIntegrationPointSelector().toXpath();
         XdmValue value = dataService.evaluateXpath(payload, integrationPointSelector);
-        String integrationPointName = ((XdmNode) value).getNodeName().getLocalName();
+        String integrationPointName = null;
+        if (system.getSelectorType().equals(XpathType.ELEMENT_NAME)) {
+            integrationPointName = ((XdmNode) value).getNodeName().getLocalName();
+        }
+        if (system.getSelectorType().equals(XpathType.ELEMENT_VALUE)) {
+            integrationPointName = ((XdmNode) value).getStringValue();
+        }
+        assert integrationPointName!=null;
         return system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
+
     }
 
     /**

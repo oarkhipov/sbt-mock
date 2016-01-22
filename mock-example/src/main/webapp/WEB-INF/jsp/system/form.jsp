@@ -12,8 +12,7 @@
     <title>Modify system</title>
 </head>
 <body>
-<form
-        <c:if test="${system.systemName != ''}">action="${system.systemName}"</c:if> method="post">
+<form method="post">
     <table>
         <tr>
             <td>System:</td>
