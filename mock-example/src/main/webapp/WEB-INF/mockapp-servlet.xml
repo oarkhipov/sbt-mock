@@ -161,16 +161,16 @@
 
     <int:service-activator id="MockInboundRequestExternalLoggerActivator"
                            input-channel="MockInboundRequestExternalLogger"
-                           expression="@messageLogger.logMessage(payload, mockConnectionInputString)"/>
+                           expression="@messageLogger.logMessage(payload, #{mockConnectionInputString})"/>
     <int:service-activator id="MockOutboundResponseExternalLoggerActivator"
                            input-channel="MockOutboundResponseExternalLogger"
-                           expression="@messageLogger.logMessage(payload, mockConnectionOutputString)"/>
+                           expression="@messageLogger.logMessage(payload, #{mockConnectionOutputString})"/>
     <int:service-activator id="DriverOutboundRequestExternalLoggerActivator"
                        input-channel="DriverOutboundRequestExternalLogger"
-                       expression="@messageLogger.logMessage(payload, driverConnectionOutputString)"/>
+                       expression="@messageLogger.logMessage(payload, #{driverConnectionOutputString})"/>
     <int:service-activator id="DriverInboundResponseExternalLoggerActivator"
                        input-channel="DriverInboundResponseExternalLogger"
-                       expression="@messageLogger.logMessage(payload, driverConnectionInputString)"/>
+                       expression="@messageLogger.logMessage(payload, #{driverConnectionInputString})"/>
 
     <!-- - - - - - - - - - - - -->
     <!--     МАРШРУТИЗАЦИЯ     -->
@@ -184,12 +184,12 @@
 
     <!-- Mock gateway to send requests to outbound -->
     <int:gateway id="systemEntry"
-             error-channel="DriverInboundResponse"
+             error-channel="MockOutboundResponse"
              service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService"
              default-reply-timeout="30000"
              default-request-timeout="30000"
         >
-        <int:method name="send" request-channel="DriverOutboundRequest" reply-channel="DriverInboundResponse"/>
+        <int:method name="send" request-channel="MockInboundRequest" reply-channel="MockOutboundResponse"/>
     </int:gateway>
 
 </beans>

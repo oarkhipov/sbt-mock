@@ -7,6 +7,7 @@
                 <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
                 <tag ns="http://sbrf.ru/ASP/ESB/envelope/">header</tag>
                 <tag ns="http://sbrf.ru/ASP/ESB/envelope/">operation-name</tag>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/"/>
             </integrationPointSelector>
             <protocol>MQ</protocol>
 
@@ -116,7 +117,7 @@
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
                     <answerRequired>true</answerRequired>
                 </integrationPoint>
-                <integrationPoint name="createSalaryAgreementVersion">
+                <integrationPoint name="CreateSalaryAgreementVersion">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
@@ -132,7 +133,7 @@
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
                     <answerRequired>true</answerRequired>
                 </integrationPoint>
-                <integrationPoint name="getSalaryAgreementTerritory">
+                <integrationPoint name="GetSalaryAgreementTerritory">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
@@ -148,7 +149,7 @@
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
                     <answerRequired>true</answerRequired>
                 </integrationPoint>
-                <integrationPoint name="initiateUpdateRegisterParametrs">
+                <integrationPoint name="InitiateUpdateRegisterParametrs">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
@@ -164,7 +165,7 @@
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
                     <answerRequired>true</answerRequired>
                 </integrationPoint>
-                <integrationPoint name="searchSalaryAgreements">
+                <integrationPoint name="SearchSalaryAgreements">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
