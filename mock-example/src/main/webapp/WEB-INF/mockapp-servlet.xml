@@ -114,63 +114,39 @@
 
 
     <!-- Входной и выходной каналы Заглушки-->
-    <int:channel id="MockInboundRequest">
-        <int:interceptors>
-            <int:wire-tap channel="MockInboundRequestExternalLogger"/>
-        </int:interceptors>
-    </int:channel>
-    <int:channel id="MockInboundURLRequest">
-        <int:interceptors>
-            <int:wire-tap channel="MockInboundRequestExternalLogger"/>
-        </int:interceptors>
-    </int:channel>
+    <int:channel id="MockInboundRequest"/>
+    <int:channel id="MockInboundURLRequest"/>
 
-    <int:channel id="MockOutboundResponse">
-        <int:interceptors>
-            <int:wire-tap channel="MockOutboundResponseExternalLogger"/>
-        </int:interceptors>
-    </int:channel>
+    <int:channel id="MockOutboundResponse"/>
 
-    <int:channel id="MockOutboundURLResponse">
-        <int:interceptors>
-            <int:wire-tap channel="MockOutboundResponseExternalLogger"/>
-        </int:interceptors>
-    </int:channel>
+    <int:channel id="MockOutboundURLResponse"/>
 
       <!-- Входной и выходной каналы Драйвера -->
 
-    <int:channel id="DriverOutboundRequest">
-        <int:interceptors>
-            <int:wire-tap channel="DriverOutboundRequestExternalLogger"/>
-        </int:interceptors>
-    </int:channel>
+    <int:channel id="DriverOutboundRequest"/>
 
-    <int:channel id="DriverInboundResponse">
-        <int:interceptors>
-            <int:wire-tap channel="DriverInboundResponseExternalLogger"/>
-        </int:interceptors>
-    </int:channel>
+    <int:channel id="DriverInboundResponse"/>
 
     <!-- external logging -->
 
-    <int:channel id="MockInboundRequestExternalLogger"/>
-    <int:channel id="MockOutboundResponseExternalLogger"/>
-    <int:channel id="DriverOutboundRequestExternalLogger"/>
-    <int:channel id="DriverInboundResponseExternalLogger"/>
+    <!--<int:channel id="MockInboundRequestExternalLogger"/>-->
+    <!--<int:channel id="MockOutboundResponseExternalLogger"/>-->
+    <!--<int:channel id="DriverOutboundRequestExternalLogger"/>-->
+    <!--<int:channel id="DriverInboundResponseExternalLogger"/>-->
 
 
-    <int:service-activator id="MockInboundRequestExternalLoggerActivator"
-                           input-channel="MockInboundRequestExternalLogger"
-                           expression="@messageLogger.logMessage(payload, #{mockConnectionInputString})"/>
-    <int:service-activator id="MockOutboundResponseExternalLoggerActivator"
-                           input-channel="MockOutboundResponseExternalLogger"
-                           expression="@messageLogger.logMessage(payload, #{mockConnectionOutputString})"/>
-    <int:service-activator id="DriverOutboundRequestExternalLoggerActivator"
-                       input-channel="DriverOutboundRequestExternalLogger"
-                       expression="@messageLogger.logMessage(payload, #{driverConnectionOutputString})"/>
-    <int:service-activator id="DriverInboundResponseExternalLoggerActivator"
-                       input-channel="DriverInboundResponseExternalLogger"
-                       expression="@messageLogger.logMessage(payload, #{driverConnectionInputString})"/>
+    <!--<int:service-activator id="MockInboundRequestExternalLoggerActivator"-->
+                           <!--input-channel="MockInboundRequestExternalLogger"-->
+                           <!--expression="@messageLogger.logMessage(payload, #{mockConnectionInputString})"/>-->
+    <!--<int:service-activator id="MockOutboundResponseExternalLoggerActivator"-->
+                           <!--input-channel="MockOutboundResponseExternalLogger"-->
+                           <!--expression="@messageLogger.logMessage(payload, #{mockConnectionOutputString})"/>-->
+    <!--<int:service-activator id="DriverOutboundRequestExternalLoggerActivator"-->
+                       <!--input-channel="DriverOutboundRequestExternalLogger"-->
+                       <!--expression="@messageLogger.logMessage(payload, #{driverConnectionOutputString})"/>-->
+    <!--<int:service-activator id="DriverInboundResponseExternalLoggerActivator"-->
+                       <!--input-channel="DriverInboundResponseExternalLogger"-->
+                       <!--expression="@messageLogger.logMessage(payload, #{driverConnectionInputString})"/>-->
 
     <!-- - - - - - - - - - - - -->
     <!--     МАРШРУТИЗАЦИЯ     -->

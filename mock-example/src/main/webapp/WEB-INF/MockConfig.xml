@@ -7,8 +7,8 @@
                 <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
                 <tag ns="http://sbrf.ru/ASP/ESB/envelope/">header</tag>
                 <tag ns="http://sbrf.ru/ASP/ESB/envelope/">operation-name</tag>
-                <tag ns="http://sbrf.ru/ASP/ESB/envelope/"/>
             </integrationPointSelector>
+            <selectorType>ELEMENT_VALUE</selectorType>
             <protocol>MQ</protocol>
 
             <queueConnectionFactory>jms/Q.PROMETHEUS.JUPITER-SA.CF</queueConnectionFactory>
