@@ -15,9 +15,13 @@
       <ns:user-name>user-name1</ns:user-name>
    </ns:header>
    <ns:body>
-      <ns1:changeLegalSalaryAgreemtStatusRq>
-         <ns7:deal_UID>deal_UID2</ns7:deal_UID>
-         <ns7:status>status1</ns7:status>
-      </ns1:changeLegalSalaryAgreemtStatusRq>
+      <ns1:changeLegalSalaryAgreemtStatusRs>
+         <ns6:error>
+            <ns6:status>SUCCESS</ns6:status>
+            <ns6:code>code24</ns6:code>
+            <ns6:shortDescription>shortDescription24</ns6:shortDescription>
+            <ns6:fullDescription>fullDescription24</ns6:fullDescription>
+         </ns6:error>
+      </ns1:changeLegalSalaryAgreemtStatusRs>
    </ns:body>
 </ns:envelope>

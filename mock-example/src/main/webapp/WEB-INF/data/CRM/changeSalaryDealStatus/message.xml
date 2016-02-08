@@ -15,14 +15,9 @@
       <ns:user-name>user-name1</ns:user-name>
    </ns:header>
    <ns:body>
-      <ns1:changeSalaryDealStatusRs>
-         <ns6:error>
-            <ns6:status>ERROR</ns6:status>
-            <ns6:code>code2</ns6:code>
-            <ns6:shortDescription>shortDescription2</ns6:shortDescription>
-            <ns6:fullDescription>fullDescription2</ns6:fullDescription>
-         </ns6:error>
-         <ns9:deal_UID>deal_UID1</ns9:deal_UID>
-      </ns1:changeSalaryDealStatusRs>
+      <ns1:changeSalaryDealStatusRq>
+         <ns9:deal_UID>deal_UID2</ns9:deal_UID>
+         <ns9:phase>1</ns9:phase>
+      </ns1:changeSalaryDealStatusRq>
    </ns:body>
 </ns:envelope>

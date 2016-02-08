@@ -23,6 +23,9 @@
     <bean id="connectionFactoryURLString" class="java.lang.String">
         <constructor-arg value="jms/Q.PROMETHEUS.JUPITER-REG.CF"/>
     </bean>
+    <bean id="connectionFactoryCRMString" class="java.lang.String">
+        <constructor-arg value="jms/ESB.PROMETHEUS.CRM.CF"/>
+    </bean>
 
     <!-- - - - - - - -->
     <!--MOCK-->
@@ -38,6 +41,12 @@
     <bean id="mockConnectionOutputURLString" class="java.lang.String">
         <constructor-arg value="jms/Q.PROMETHEUS.JUPITER-REG.OUT"/>
     </bean>
+    <bean id="mockConnectionInputCRMString" class="java.lang.String">
+        <constructor-arg value="jms/ESB.PROMETHEUS.CRM.IN"/>
+    </bean>
+    <bean id="mockConnectionOutputCRMString" class="java.lang.String">
+        <constructor-arg value="jms/ESB.PROMETHEUS.CRM.OUT"/>
+    </bean>
     <!-- - - - - - - -->
     <!-- DRIVER -->
     <bean id="driverConnectionInputString" class="java.lang.String">
@@ -46,6 +55,14 @@
     </bean>
     <bean id="driverConnectionOutputString" class="java.lang.String">
         <constructor-arg value="jms/Q.PROMETHEUS.JUPITER-REG.OUT"/>
+        <!--<beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.FROM.CRMORG"/>-->
+    </bean>
+    <bean id="driverConnectionInputCRMString" class="java.lang.String">
+        <constructor-arg value="jms/ESB.PROMETHEUS.CRM.REQUEST"/>
+        <!--<beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>-->
+    </bean>
+    <bean id="driverConnectionOutputCRMString" class="java.lang.String">
+        <constructor-arg value="jms/ESB.PROMETHEUS.CRM.RESPONSE"/>
         <!--<beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.FROM.CRMORG"/>-->
     </bean>
 
@@ -63,6 +80,9 @@
     <bean id = "jndiConnectionURLFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName" value="#{connectionFactoryURLString}"/>
     </bean>
+    <bean id = "jndiConnectionCRMFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="#{connectionFactoryCRMString}"/>
+    </bean>
 
     <bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
             <property name="jndiName" value="#{mockConnectionInputString}"/>
@@ -76,12 +96,25 @@
     <bean id="outboundMockURLQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
             <property name="jndiName" value="#{mockConnectionOutputURLString}"/>
     </bean>
+    <bean id="inboundMockCRMQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <property name="jndiName" value="#{mockConnectionInputCRMString}"/>
+    </bean>
+    <bean id="outboundMockCRMQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <property name="jndiName" value="#{mockConnectionOutputCRMString}"/>
+    </bean>
 
      <bean id="requestDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
             <property name="jndiName" value="#{driverConnectionOutputString}"/>
     </bean>
     <bean id="responseDriverQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
             <property name="jndiName" value="#{driverConnectionInputString}"/>
+    </bean>
+
+     <bean id="requestDriverCRMQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <property name="jndiName" value="#{driverConnectionOutputCRMString}"/>
+    </bean>
+    <bean id="responseDriverCRMQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <property name="jndiName" value="#{driverConnectionInputCRMString}"/>
     </bean>
 
     <jms:inbound-gateway
@@ -100,6 +133,14 @@
             connection-factory="jndiConnectionURLFactory"
     />
 
+    <jms:inbound-gateway
+            request-destination="inboundMockCRMQueue"
+            request-channel="MockInboundCRMRequest"
+            reply-channel="MockOutboundCRMResponse"
+            default-reply-destination="outboundMockCRMQueue"
+            connection-factory="jndiConnectionCRMFactory"
+    />
+
     <jms:outbound-gateway
             id="jmsout"
             request-destination="requestDriverQueue"
@@ -112,20 +153,36 @@
             receive-timeout="30000"
     />
 
+    <jms:outbound-gateway
+            id="jmsCRMout"
+            request-destination="requestDriverCRMQueue"
+            reply-destination="responseDriverCRMQueue"
+            request-channel="DriverOutboundCRMRequest"
+            reply-channel="DriverInboundCRMResponse"
+            header-mapper="defHeaderMapper"
+            connection-factory="jndiConnectionCRMFactory"
+            reply-timeout="30000"
+            receive-timeout="30000"
+    />
+
 
     <!-- Входной и выходной каналы Заглушки-->
     <int:channel id="MockInboundRequest"/>
     <int:channel id="MockInboundURLRequest"/>
+    <int:channel id="MockInboundCRMRequest"/>
 
     <int:channel id="MockOutboundResponse"/>
 
     <int:channel id="MockOutboundURLResponse"/>
+    <int:channel id="MockOutboundCRMResponse"/>
 
       <!-- Входной и выходной каналы Драйвера -->
 
     <int:channel id="DriverOutboundRequest"/>
+    <int:channel id="DriverOutboundCRMRequest"/>
 
     <int:channel id="DriverInboundResponse"/>
+    <int:channel id="DriverInboundCRMResponse"/>
 
     <!-- external logging -->
 
@@ -153,8 +210,9 @@
     <!-- - - - - - - - - - - - -->
 
     <!-- Генерация ответа -->
-    <int:service-activator input-channel="MockInboundRequest" output-channel="MockOutboundResponse" expression="@responseGenerator.routeAndGenerate(payload)"/>
-    <int:service-activator input-channel="MockInboundURLRequest" output-channel="MockOutboundURLResponse" expression="@responseGenerator.routeAndGenerate(payload)"/>
+    <int:service-activator input-channel="MockInboundRequest" output-channel="MockOutboundResponse" expression="@responseGenerator.routeAndGenerate(payload, '#{mockConnectionInputString}')"/>
+    <int:service-activator input-channel="MockInboundURLRequest" output-channel="MockOutboundURLResponse" expression="@responseGenerator.routeAndGenerate(payload, '#{mockConnectionInputURLString}')"/>
+    <int:service-activator input-channel="MockInboundCRMRequest" output-channel="MockOutboundCRMResponse" expression="@responseGenerator.routeAndGenerate(payload, '#{mockConnectionInputCRMString}')"/>
 
 
 
@@ -166,6 +224,8 @@
              default-request-timeout="30000"
         >
         <int:method name="send" request-channel="MockInboundRequest" reply-channel="MockOutboundResponse"/>
+        <int:method name="sendURL" request-channel="MockInboundURLRequest" reply-channel="MockOutboundURLResponse"/>
+        <int:method name="sendCRM" request-channel="MockInboundCRMRequest" reply-channel="MockOutboundCRMResponse"/>
     </int:gateway>
 
 </beans>

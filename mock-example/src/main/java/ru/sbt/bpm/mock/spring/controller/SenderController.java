@@ -35,6 +35,24 @@ public class SenderController {
         return "wrappedEditor";
     }
 
+    @RequestMapping(value = "/senderCRM/", method = RequestMethod.GET)
+    public String getCRM(Model model) throws IOException, TransformerException {
+        model.addAttribute("name", "Any Message Sender");
+        model.addAttribute("link", "driver");
+        model.addAttribute("object", "<tag>Type request here...</tag>");
+        model.addAttribute("title", "Sender");
+        return "wrappedEditor";
+    }
+
+    @RequestMapping(value = "/senderURL/", method = RequestMethod.GET)
+    public String getURL(Model model) throws IOException, TransformerException {
+        model.addAttribute("name", "Any Message Sender");
+        model.addAttribute("link", "driver");
+        model.addAttribute("object", "<tag>Type request here...</tag>");
+        model.addAttribute("title", "Sender");
+        return "wrappedEditor";
+    }
+
     @ResponseBody
     @RequestMapping(value = "/sender/send/", method = RequestMethod.POST)
     public String send(
@@ -43,6 +61,40 @@ public class SenderController {
 //        VALIDATE
         try {
                 String response = clientService.send(xml);
+                ajaxObject.setData(response);
+                ajaxObject.setInfo("DONE!");
+        } catch (Exception e) {
+            ajaxObject.setErrorFromException(e);
+        }
+
+        return ajaxObject.toJSON();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/senderCRM/send/", method = RequestMethod.POST)
+    public String sendCRM(
+            @RequestParam String xml) {
+        AjaxObject ajaxObject = new AjaxObject();
+//        VALIDATE
+        try {
+                String response = clientService.sendURL(xml);
+                ajaxObject.setData(response);
+                ajaxObject.setInfo("DONE!");
+        } catch (Exception e) {
+            ajaxObject.setErrorFromException(e);
+        }
+
+        return ajaxObject.toJSON();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/senderURL/send/", method = RequestMethod.POST)
+    public String sendURL(
+            @RequestParam String xml) {
+        AjaxObject ajaxObject = new AjaxObject();
+//        VALIDATE
+        try {
+                String response = clientService.sendCRM(xml);
                 ajaxObject.setData(response);
                 ajaxObject.setInfo("DONE!");
         } catch (Exception e) {

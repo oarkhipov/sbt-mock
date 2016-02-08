@@ -1,5 +1,6 @@
 package ru.sbt.bpm.mock.config;
 
+import com.google.common.truth.Truth;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -19,6 +20,6 @@ public class MockConfigTest {
         
         MockConfigContainer gen1 = MockConfigContainer.getInstance("src/main/webapp/WEB-INF/MockConfig.xml");
         gen1.init();
-        assertNotNull(gen1.getConfig().getSystems());
+        Truth.assertThat(gen1.getConfig().getSystems()).isNotNull();
     }
 }

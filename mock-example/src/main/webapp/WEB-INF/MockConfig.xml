@@ -187,7 +187,10 @@
             <rootXsd>ESB/Envelope.xsd</rootXsd>
             <integrationPointSelector>
                 <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/">header</tag>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/">operation-name</tag>
             </integrationPointSelector>
+            <selectorType>ELEMENT_VALUE</selectorType>
             <protocol>MQ</protocol>
 
             <queueConnectionFactory>jms/Q.PROMETHEUS.JUPITER-REG.CF</queueConnectionFactory>
@@ -242,6 +245,7 @@
                 <tag ns="http://sbrf.ru/legal/enquiry/integration"/>
                 <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/"></tag>
             </integrationPointSelector>
+            <selectorType>ELEMENT_VALUE</selectorType>
             <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
              System-MQ, System-SOAP -->
             <protocol>MQ</protocol>
@@ -280,10 +284,10 @@
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
-                        <tag ns="http://sbrf.ru/ASP/CRM/1.00/">changeSalaryDealStatusRs</tag>
+                        <tag ns="http://sbrf.ru/ASP/CRM/1.00/">changeSalaryDealStatusRq</tag>
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
-                    <type>Mock</type>
+                    <type>Driver</type>
 
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
@@ -317,10 +321,10 @@
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
-                        <tag ns="http://sbrf.ru/ASP/CRM/1.00/">changeLegalSalaryAgreemtStatusRq</tag>
+                        <tag ns="http://sbrf.ru/ASP/CRM/1.00/">changeLegalSalaryAgreemtStatusRs</tag>
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
-                    <type>Driver</type>
+                    <type>Mock</type>
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
                     <xsdFile>SrvChangeLegalSalaryAgreemtStatus.xsd</xsdFile>

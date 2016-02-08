@@ -13,4 +13,6 @@ public interface  ClientService {
      * @param request
      */
     String send(String request);
+    String sendURL(String request);
+    String sendCRM(String request);
 }

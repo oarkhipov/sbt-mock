@@ -10,6 +10,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -139,7 +140,6 @@ public class GeneratorTest {
 
             assertEquals(validateFileXML, result);
         }
-
     }
 
     protected void checkXSLTdriver (String XSLTFile, String XMLFile, String validateFile ) throws Exception {
