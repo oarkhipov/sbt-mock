@@ -22,7 +22,7 @@
             <ns6:shortDescription>shortDescription1</ns6:shortDescription>
             <ns6:fullDescription>fullDescription1</ns6:fullDescription>
          </ns6:error>
-         <ns16:url>http://mysberbank.ca.sbrf.ru/wps/myportal</ns16:url>
+        <ns16:url>http://mysberbank.ca.sbrf.ru/wps/myportal</ns16:url>
       </ns2:getViewRegistersUrlRs>
    </ns:body>
 </ns:envelope>

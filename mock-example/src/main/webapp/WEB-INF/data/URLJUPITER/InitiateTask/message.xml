@@ -1,0 +1,30 @@
+<ns1:envelope xmlns:ns1="http://sbrf.ru/ASP/ESB/envelope/">
+  <ns1:header>
+    <ns1:message-id>B182B1C3A8A940D8A5BBE6EFCB0E1E07</ns1:message-id>
+    <ns1:request-time>2015-10-30T13:29:39.428Z</ns1:request-time>
+    <ns1:eis-name>ASP</ns1:eis-name>
+    <ns1:operation-name>InitiateUpdateRegisterParametrs </ns1:operation-name>
+    <ns1:operation-version>1</ns1:operation-version>
+    <ns1:user-id>head_sszp_user_4</ns1:user-id>
+    <ns1:user-name>head_sszp_user_4</ns1:user-name>
+  </ns1:header>
+  <ns1:body>
+    <jupiter:initiateUpdateRegisterParametrsRq xmlns:jupiter="http://sbrf.ru/ASP/JUPITER/R3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:ct="http://sbrf.ru/ASP/ESB/commonTypes/"
+xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/"
+xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/"
+xmlns:tns="http://sbrf.ru/ASP/CRM/dataTypes/"
+xmlns:tds="http://sbrf.ru/ASP/JUPITER/InitiateUpdateRegisterParametrs/1.00/">
+      <tds:taskType>taskType</tds:taskType>
+      <tds:agreementNumber>1234567895</tds:agreementNumber>
+      <tds:tb>18</tds:tb>
+      <tds:osb>8601</tds:osb>
+      <tds:loginSAManager>KaverinVS</tds:loginSAManager>
+      <tds:clientName>clientName</tds:clientName>
+      <tds:inn>1234567890</tds:inn>
+      <tds:registerNumber>registerNumber</tds:registerNumber>
+      <tds:registerDate>2001-01-01</tds:registerDate>
+      <tds:supportOrgUnit>0101</tds:supportOrgUnit>
+    </jupiter:initiateUpdateRegisterParametrsRq>
+  </ns1:body>
+</ns1:envelope>

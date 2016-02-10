@@ -10,7 +10,7 @@
       <ns:correlation-id>12345678901234567890123456789012</ns:correlation-id>
       <ns:eis-name>eis-name1</ns:eis-name>
       <ns:operation-name>changeSalaryDealStatus</ns:operation-name>
-      <ns:operation-version>operation-version1</ns:operation-version>
+      <ns:operation-version>1</ns:operation-version>
       <ns:user-id>user-id1</ns:user-id>
       <ns:user-name>user-name1</ns:user-name>
    </ns:header>

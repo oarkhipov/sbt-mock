@@ -33,8 +33,8 @@
             <isCentralAgreement>true</isCentralAgreement>
             <isOffer>false</isOffer>
             <isTariffPlan>true</isTariffPlan>
-            <commissionForServiceInOwnBranch>1</commissionForServiceInOwnBranch>
-            <commissionForServiceInBankBranch>1</commissionForServiceInBankBranch>
+            <commissionForServiceInOwnBranch>1.1</commissionForServiceInOwnBranch>
+            <commissionForServiceInBankBranch>1.1</commissionForServiceInBankBranch>
             <isSeparateRegister>true</isSeparateRegister>
             <accountOfPayment>12345678901234567890</accountOfPayment>
             <accountOfClient>12345678901234567890</accountOfClient>
@@ -93,18 +93,14 @@
             <transferAccountsCommission>12345679801234567890</transferAccountsCommission>
             <CRMID>1-1ES48QJ</CRMID>
             <jupiterID>1234</jupiterID>
-            <servicePlaces>
-             <tb>18</tb>
-             <osb>8601</osb>
-            </servicePlaces>
-            <servicePlaces>
+           <servicePlaces>
              <tb>18</tb>
              <osb>8600</osb>
-            </servicePlaces>
-            <servicePlaces>
+           </servicePlaces>
+           <servicePlaces>
              <tb>40</tb>
              <osb>9040</osb>
-            </servicePlaces>
+           </servicePlaces>
             <clientInfo xsi:type="BusinessPersonEntity" xmlns="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/">
 
                <inn>1234567890</inn>
@@ -156,20 +152,11 @@
 			   
 	
             </clientInfo>
-           
-           <managers>
-            	<fullName>Responsible Employee Name</fullName>
-            	<email>Responsible.email@email.com</email>
-            	<phone>1234567890</phone>
-            	<phone2></phone2>
-            	<phone3></phone3>
-            </managers>
-           
             <superviserCA>
                <fullName>qwe superviserCA full name</fullName>
                <email>email@mail.de</email>
-               <phone>1234567890</phone>
-               <phone2>5321654987</phone2>
+               <phone>3216549870</phone>
+               <phone2>6549873210</phone2>
                <phone3>9876543210</phone3>
             </superviserCA>
             <annualCommission>1</annualCommission>

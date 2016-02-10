@@ -19,7 +19,7 @@
             <fullDescription>fullDescription</fullDescription>
         </error>
          <agreementNumber>10000</agreementNumber>
-         <agreementVersion>01</agreementVersion>
+         <agreementVersion>10000</agreementVersion>
       </ns2:registerSalaryAgreementRs>
    </ns:body>
 </ns:envelope>
