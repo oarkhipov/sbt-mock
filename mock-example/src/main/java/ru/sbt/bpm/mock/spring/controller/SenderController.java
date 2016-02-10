@@ -60,7 +60,7 @@ public class SenderController {
         AjaxObject ajaxObject = new AjaxObject();
 //        VALIDATE
         try {
-                String response = clientService.send(xml);
+                String response = clientService.sendMock(xml);
                 ajaxObject.setData(response);
                 ajaxObject.setInfo("DONE!");
         } catch (Exception e) {
@@ -77,7 +77,7 @@ public class SenderController {
         AjaxObject ajaxObject = new AjaxObject();
 //        VALIDATE
         try {
-                String response = clientService.sendURL(xml);
+                String response = clientService.sendMockURL(xml);
                 ajaxObject.setData(response);
                 ajaxObject.setInfo("DONE!");
         } catch (Exception e) {
@@ -94,7 +94,7 @@ public class SenderController {
         AjaxObject ajaxObject = new AjaxObject();
 //        VALIDATE
         try {
-                String response = clientService.sendCRM(xml);
+                String response = clientService.sendMockCRM(xml);
                 ajaxObject.setData(response);
                 ajaxObject.setInfo("DONE!");
         } catch (Exception e) {

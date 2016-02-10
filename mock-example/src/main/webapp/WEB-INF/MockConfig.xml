@@ -256,9 +256,9 @@
             <!-- Исходящая очередь заглушки -->
             <mockOutcomeQueue>jms/ESB.PROMETHEUS.CRM.OUT</mockOutcomeQueue>
             <!-- Исходящая очередь драйвера -->
-            <driverOutcomeQueue>jms/ESB.PROMETHEUS.CRM.REQUEST</driverOutcomeQueue>
+            <driverOutcomeQueue>jms/ESB.PROMETHEUS.CRM.RESPONSE</driverOutcomeQueue>
             <!-- Входящая очередь драйвера -->
-            <driverIncomeQueue>jms/ESB.PROMETHEUS.CRM.RESPONSE</driverIncomeQueue>
+            <driverIncomeQueue>jms/ESB.PROMETHEUS.CRM.REQUEST</driverIncomeQueue>
 
             <integrationPoints>
                 <integrationPoint name="createLegalSalaryApp">

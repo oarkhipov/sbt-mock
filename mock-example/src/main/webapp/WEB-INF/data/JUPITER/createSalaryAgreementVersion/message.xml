@@ -2,8 +2,7 @@
              xmlns:ns="http://sbrf.ru/ASP/ESB/envelope/"
              xmlns:ns2="http://sbrf.ru/ASP/JUPITER/R3.0/"
              xmlns:ns6="http://sbrf.ru/ASP/ESB/commonTypes/"
-             xmlns:ns14="http://sbrf.ru/ASP/JUPITER/CreateSalaryAgreementVersion/1.00/"
-             xmlns:ns22="http://sbrf.ru/ASP/JUPITER/CreateSalaryAgreement/2.00/">
+             xmlns:ns22="http://sbrf.ru/ASP/JUPITER/CreateSalaryAgreementVersion/1.00/">
    <ns:header>
       <ns:message-id>12345678901234567890123456789012</ns:message-id>
       <ns:request-time>2016-01-19T14:49:08</ns:request-time>
@@ -18,12 +17,12 @@
       <ns2:createSalaryAgreementVersionRs>
          <ns6:error>
             <ns6:status>SUCCESS</ns6:status>
-            <ns6:code>code9</ns6:code>
-            <ns6:shortDescription>shortDescription9</ns6:shortDescription>
-            <ns6:fullDescription>fullDescription9</ns6:fullDescription>
+            <ns6:code>code22</ns6:code>
+            <ns6:shortDescription>shortDescription22</ns6:shortDescription>
+            <ns6:fullDescription>fullDescription22</ns6:fullDescription>
          </ns6:error>
-         <ns14:newAgreementVersion>newAgreementVersion1</ns14:newAgreementVersion>
-         <ns14:jupiterID>jupiterID1</ns14:jupiterID>
+        <ns22:newAgreementVersion>02</ns22:newAgreementVersion>
+        <ns22:jupiterID>6598</ns22:jupiterID>
       </ns2:createSalaryAgreementVersionRs>
    </ns:body>
 </ns:envelope>

@@ -34,25 +34,25 @@
 				<ns32:isRKO>true</ns32:isRKO>
 				<ns32:jupiterID >1234</ns32:jupiterID>
 				<ns32:client >
-					<ns32:name>name1</ns32:name>
+					<ns32:name>Client name</ns32:name>
 					<ns32:isResident>true</ns32:isResident>
 					<ns32:address>
 						<ns32:addressType>0</ns32:addressType>
-						<ns32:area>area8</ns32:area>
-						<ns32:city>city8</ns32:city>
-						<ns32:populatedArea>populatedArea8</ns32:populatedArea>
-						<ns32:street>street8</ns32:street>
-						<ns32:house>house8</ns32:house>
-						<ns32:building>building8</ns32:building>
-						<ns32:office>office8</ns32:office>
-						<ns32:index>index8</ns32:index>
-						<ns32:AY>AY1</ns32:AY>
+						<ns32:area>Даниловский район</ns32:area>
+						<ns32:city>Москва</ns32:city>
+						<ns32:populatedArea></ns32:populatedArea>
+						<ns32:street>Новоданиловская</ns32:street>
+						<ns32:house>10</ns32:house>
+						<ns32:building>1</ns32:building>
+						<ns32:office>521</ns32:office>
+						<ns32:index>321654</ns32:index>
+						<ns32:AY>231</ns32:AY>
 						<ns32:country>
-							<ns32:ISO3>ISO31</ns32:ISO3>
+							<ns32:ISO3>RUS</ns32:ISO3>
 							<ns32:fullName>fullName3</ns32:fullName>
 						</ns32:country>
-						<ns32:region>region8</ns32:region>
-						<ns32:streetType>streetType8</ns32:streetType>
+						<ns32:region>50</ns32:region>
+						<ns32:streetType>2</ns32:streetType>
 					</ns32:address>
 				</ns32:client>
 				<ns32:currency xmlns:ns32="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/">
@@ -71,25 +71,25 @@
 				<ns32:isRKO>true</ns32:isRKO>
 				<ns32:jupiterID >6547</ns32:jupiterID>
 				<ns32:client >
-					<ns32:name>name2</ns32:name>
+					<ns32:name>Client name 2</ns32:name>
 					<ns32:isResident>true</ns32:isResident>
 					<ns32:address>
 						<ns32:addressType>0</ns32:addressType>
-						<ns32:area>area8</ns32:area>
-						<ns32:city>city8</ns32:city>
-						<ns32:populatedArea>populatedArea8</ns32:populatedArea>
-						<ns32:street>street8</ns32:street>
-						<ns32:house>house8</ns32:house>
-						<ns32:building>building8</ns32:building>
-						<ns32:office>office8</ns32:office>
-						<ns32:index>index8</ns32:index>
-						<ns32:AY>AY1</ns32:AY>
+						<ns32:area>Даниловский район</ns32:area>
+						<ns32:city>Москва</ns32:city>
+						<ns32:populatedArea></ns32:populatedArea>
+						<ns32:street>Новоданиловская</ns32:street>
+						<ns32:house>10</ns32:house>
+						<ns32:building>3</ns32:building>
+						<ns32:office>654</ns32:office>
+						<ns32:index>123654</ns32:index>
+						<ns32:AY>654</ns32:AY>
 						<ns32:country>
-							<ns32:ISO3>ISO31</ns32:ISO3>
+							<ns32:ISO3>RUS</ns32:ISO3>
 							<ns32:fullName>fullName3</ns32:fullName>
 						</ns32:country>
-						<ns32:region>region8</ns32:region>
-						<ns32:streetType>streetType8</ns32:streetType>
+						<ns32:region>50</ns32:region>
+						<ns32:streetType>2</ns32:streetType>
 					</ns32:address>
 				</ns32:client>
 				<ns32:currency xmlns:ns32="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/">
@@ -108,25 +108,25 @@
 				<ns32:isRKO>true</ns32:isRKO>
 				<ns32:jupiterID >6543</ns32:jupiterID>
 				<ns32:client >
-					<ns32:name>name3</ns32:name>
+					<ns32:name>Client name 3</ns32:name>
 					<ns32:isResident>true</ns32:isResident>
 					<ns32:address>
 						<ns32:addressType>0</ns32:addressType>
-						<ns32:area>area8</ns32:area>
-						<ns32:city>city8</ns32:city>
-						<ns32:populatedArea>populatedArea8</ns32:populatedArea>
-						<ns32:street>street8</ns32:street>
-						<ns32:house>house8</ns32:house>
-						<ns32:building>building8</ns32:building>
-						<ns32:office>office8</ns32:office>
-						<ns32:index>index8</ns32:index>
-						<ns32:AY>AY1</ns32:AY>
+						<ns32:area>Даниловский район</ns32:area>
+						<ns32:city>Москва</ns32:city>
+						<ns32:populatedArea></ns32:populatedArea>
+						<ns32:street>Новоданиловская</ns32:street>
+						<ns32:house>10</ns32:house>
+						<ns32:building>2</ns32:building>
+						<ns32:office>987</ns32:office>
+						<ns32:index>654321</ns32:index>
+						<ns32:AY>987</ns32:AY>
 						<ns32:country>
-							<ns32:ISO3>ISO31</ns32:ISO3>
+							<ns32:ISO3>RUS</ns32:ISO3>
 							<ns32:fullName>fullName3</ns32:fullName>
 						</ns32:country>
-						<ns32:region>region8</ns32:region>
-						<ns32:streetType>streetType8</ns32:streetType>
+						<ns32:region>50</ns32:region>
+						<ns32:streetType>2</ns32:streetType>
 					</ns32:address>
 				</ns32:client>
 				<ns32:currency xmlns:ns32="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/">

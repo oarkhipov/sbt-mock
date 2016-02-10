@@ -1,27 +1,30 @@
-<ns:envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xmlns:ns="http://sbrf.ru/ASP/ESB/envelope/"
-             xmlns:ns1="http://sbrf.ru/ASP/CRM/1.00/"
-             xmlns:ns2="http://sbrf.ru/ASP/JUPITER/R3.0/"
-             xmlns:ns6="http://sbrf.ru/ASP/ESB/commonTypes/"
-             xmlns:ns7="http://sbrf.ru/ASP/CRM/ChangeLegalSalaryAgreemtStatus/1.00/">
-   <ns:header>
-      <ns:message-id>12345678901234567890123456789012</ns:message-id>
-      <ns:request-time>2016-01-19T14:49:08</ns:request-time>
-      <ns:correlation-id>12345678901234567890123456789012</ns:correlation-id>
-      <ns:eis-name>eis-name1</ns:eis-name>
-      <ns:operation-name>operation-name1</ns:operation-name>
-      <ns:operation-version>operation-version1</ns:operation-version>
-      <ns:user-id>user-id1</ns:user-id>
-      <ns:user-name>user-name1</ns:user-name>
-   </ns:header>
-   <ns:body>
-      <ns1:changeLegalSalaryAgreemtStatusRs>
-         <ns6:error>
-            <ns6:status>SUCCESS</ns6:status>
-            <ns6:code>code24</ns6:code>
-            <ns6:shortDescription>shortDescription24</ns6:shortDescription>
-            <ns6:fullDescription>fullDescription24</ns6:fullDescription>
-         </ns6:error>
-      </ns1:changeLegalSalaryAgreemtStatusRs>
-   </ns:body>
-</ns:envelope>
+<ns1:envelope xmlns:ns1="http://sbrf.ru/ASP/ESB/envelope/">
+	<ns1:header>
+		<ns1:message-id>B182B1C3A8A940D8A5BBE6EFCB0E1E07</ns1:message-id>
+		<ns1:request-time>2015-10-30T13:29:39.428Z</ns1:request-time>
+		<ns1:eis-name>ASP</ns1:eis-name>
+		<ns1:operation-name>СhangeLegalSalaryAgreemtStatus
+		</ns1:operation-name>
+		<ns1:operation-version>1</ns1:operation-version>
+		<ns1:user-id>head_sszp_user_4</ns1:user-id>
+		<ns1:user-name>head_sszp_user_4</ns1:user-name>
+	</ns1:header>
+	<ns1:body>
+		<p:changeLegalSalaryAgreemtStatusRs
+			xmlns:ct="http://sbrf.ru/ASP/ESB/commonTypes/" xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/"
+			xmlns:p="http://sbrf.ru/ASP/CRM/1.00/" xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/"
+			xmlns:svc="http://sbrf.ru/ASP/CRM/CreateLegalSalaryApp/1.00/"
+			xmlns:svc1="http://sbrf.ru/ASP/CRM/ChangeSalaryDealStatus/1.00/"
+			xmlns:svc2="http://sbrf.ru/ASP/CRM/PutLegalSalaryAgreemt/1.00/"
+			xmlns:svc3="http://sbrf.ru/ASP/CRM/ChangeLegalSalaryAgreemtStatus/1.00/"
+			xmlns:tns="http://sbrf.ru/ASP/CRM/dataTypes/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:schemaLocation="http://sbrf.ru/ASP/CRM/1.00/ CRM.xsd ">
+			<ct:error>
+				<ct:status>SUCCESS</ct:status>
+				<ct:code>0</ct:code>
+				<ct:shortDescription>ct:shortDescription</ct:shortDescription>
+				<ct:fullDescription>ct:fullDescription</ct:fullDescription>
+			</ct:error>
+		</p:changeLegalSalaryAgreemtStatusRs>
+	</ns1:body>
+</ns1:envelope> 
