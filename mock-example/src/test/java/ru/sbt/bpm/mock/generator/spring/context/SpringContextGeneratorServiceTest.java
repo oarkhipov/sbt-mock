@@ -1,15 +1,12 @@
 package ru.sbt.bpm.mock.generator.spring.context;
 
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.testng.annotations.Test;
 import ru.sbt.bpm.mock.generator.spring.context.bean.Bean;
 import ru.sbt.bpm.mock.generator.spring.context.bean.BeanContainer;
-import ru.sbt.bpm.mock.spring.service.SpringContextGenerator;
+import ru.sbt.bpm.mock.spring.service.SpringContextGeneratorService;
 
 import java.util.ArrayList;
 
@@ -22,10 +19,10 @@ import static org.testng.Assert.*;
  */
 
 @ContextConfiguration(locations = {"/env/mockapp-servlet.xml"})
-public class SpringContextGeneratorTest extends AbstractTestNGSpringContextTests {
+public class SpringContextGeneratorServiceTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
-    SpringContextGenerator springContextGenerator;
+    SpringContextGeneratorService springContextGeneratorService;
 
     @Test
     public void testToXml() throws Exception {
@@ -34,7 +31,7 @@ public class SpringContextGeneratorTest extends AbstractTestNGSpringContextTests
         beanContainer.getBeans().add(new Bean(null, "beanId1", "className1", null, null));
         beanContainer.getBeans().add(new Bean("test comment", "beanId2", "className2", null, null));
 
-        assertEquals(springContextGenerator.toXml(beanContainer), "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+        assertEquals(springContextGeneratorService.toXml(beanContainer), "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<beans xmlns:int=\"http://www.springframework.org/schema/integration\"\n" +
                 "       xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
                 "       xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\"\n" +

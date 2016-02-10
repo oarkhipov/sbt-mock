@@ -26,7 +26,7 @@ import java.io.*;
  */
 @Slf4j
 @Service
-public class SpringContextGenerator {
+public class SpringContextGeneratorService {
 
     private Marshaller marshaller;
     private Transformer transformer;

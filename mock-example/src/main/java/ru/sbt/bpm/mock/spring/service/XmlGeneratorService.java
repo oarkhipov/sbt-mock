@@ -109,10 +109,13 @@ public class XmlGeneratorService {
                 "                //if element found - make new root\n" +
                 "                newFilterDom = child\n" +
                 "            } else {\n" +
-                "                //add elements to remove array\n" +
-                "                remove.add new Tuple(child.parent(), child)\n" +
-                "                //save parent to remove from\n" +
-                "                //parent = child.parent()\n" +
+                "                // last level of neighbour elements" +
+                "                if(i == xmlMap.size()-1) {" +
+                "                   //add elements to remove array\n" +
+                "                    remove.add new Tuple(child.parent(), child)\n" +
+                "                    //save parent to remove from\n" +
+                "                    //parent = child.parent()\n" +
+                "                }" +
                 "            }\n" +
                 "        }\n" +
                 "        if (newFilterDom == null) break;\n" +
