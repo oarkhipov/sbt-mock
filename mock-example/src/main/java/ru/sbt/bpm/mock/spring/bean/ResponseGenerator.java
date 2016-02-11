@@ -39,8 +39,11 @@ public class ResponseGenerator {
     MockConfigContainer configContainer;
 
     public String routeAndGenerate(String payload) throws Exception {
+        return routeAndGenerate(payload, "");
+    }
+    public String routeAndGenerate(String payload, String queue) throws Exception {
         try {
-            System system = getSystemName(payload);
+            System system = getSystemName(payload, queue);
             IntegrationPoint integrationPoint = getIntegrationPoint(system, payload);
             log.debug(integrationPoint.getName());
 
@@ -56,16 +59,21 @@ public class ResponseGenerator {
     }
 
     protected System getSystemName(String payload) {
+        return getSystemName(payload, "");
+    }
+    protected System getSystemName(String payload, String queue) {
         for (System system : configContainer.getConfig().getSystems().getSystems()) {
-            String xpath = system.getIntegrationPointSelector().toXpath();
-            try {
-                XdmNode xdmItems = (XdmNode) dataService.evaluateXpath(payload, xpath);
-                if (!xdmItems.getNodeName().getLocalName().isEmpty()) {
-                    return system;
-                }
-            } catch (SaxonApiException e) {
+            if (queue.isEmpty() || queue.equals(system.getMockIncomeQueue())) {
+                String xpath = system.getIntegrationPointSelector().toXpath();
+                try {
+                    XdmNode xdmItems = (XdmNode) dataService.evaluateXpath(payload, xpath);
+                    if (!xdmItems.getNodeName().getLocalName().isEmpty()) {
+                        return system;
+                    }
+                } catch (SaxonApiException e) {
 //                e.printStackTrace();
-                //this is not system, that we are looking for
+                    //this is not system, that we are looking for
+                }
             }
         }
         throw new NoSuchElementException("No system found by payload:\n" + payload);

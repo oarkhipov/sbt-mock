@@ -1,0 +1,145 @@
+<ns:envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:ns="http://sbrf.ru/ASP/ESB/envelope/"
+             xmlns:ns1="http://sbrf.ru/ASP/CRM/1.00/"
+             xmlns:ns2="http://sbrf.ru/ASP/JUPITER/R3.0/"
+             xmlns:ns6="http://sbrf.ru/ASP/ESB/commonTypes/"
+             xmlns:ns11="http://sbrf.ru/ASP/JUPITER/SearchSalaryAgreements/1.00/"
+             xmlns:ns32="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/">
+   <ns:header>
+      <ns:message-id>12345678901234567890123456789012</ns:message-id>
+      <ns:request-time>${timestamp}</ns:request-time>
+      <ns:correlation-id>12345678901234567890123456789012</ns:correlation-id>
+      <ns:eis-name>eis-name1</ns:eis-name>
+      <ns:operation-name>operation-name1</ns:operation-name>
+      <ns:operation-version>operation-version1</ns:operation-version>
+      <ns:user-id>userId1</ns:user-id>
+      <ns:user-name>user-name1</ns:user-name>
+   </ns:header>
+   <ns:body>
+      <ns2:searchSalaryAgreementsRs>
+         <ns6:error>
+            <ns6:status>SUCCESS</ns6:status>
+            <ns6:code>0</ns6:code>
+            <ns6:shortDescription>shortDescription10</ns6:shortDescription>
+            <ns6:fullDescription>fullDescription10</ns6:fullDescription>
+         </ns6:error>
+		 <ns11:agreement xmlns:ns11="http://sbrf.ru/ASP/JUPITER/SearchSalaryAgreements/1.00/">
+				<ns32:agreementVersion >123123</ns32:agreementVersion>
+				<ns32:registrationDate >2016-01-22</ns32:registrationDate>
+				<ns32:creationDate >2016-01-22</ns32:creationDate>
+				<ns32:fromDate>2016-01-22</ns32:fromDate>
+				<ns32:toDate>2016-01-22</ns32:toDate>
+				<ns32:isCentralAgreement>true</ns32:isCentralAgreement>
+				<ns32:isOffer >false</ns32:isOffer>
+				<ns32:isRKO>true</ns32:isRKO>
+				<ns32:jupiterID >1234</ns32:jupiterID>
+				<ns32:client >
+					<ns32:name>Client name</ns32:name>
+					<ns32:isResident>true</ns32:isResident>
+					<ns32:address>
+						<ns32:addressType>0</ns32:addressType>
+						<ns32:area>Даниловский район</ns32:area>
+						<ns32:city>Москва</ns32:city>
+						<ns32:populatedArea></ns32:populatedArea>
+						<ns32:street>Новоданиловская</ns32:street>
+						<ns32:house>10</ns32:house>
+						<ns32:building>1</ns32:building>
+						<ns32:office>521</ns32:office>
+						<ns32:index>321654</ns32:index>
+						<ns32:AY>231</ns32:AY>
+						<ns32:country>
+							<ns32:ISO3>RUS</ns32:ISO3>
+							<ns32:fullName>fullName3</ns32:fullName>
+						</ns32:country>
+						<ns32:region>50</ns32:region>
+						<ns32:streetType>2</ns32:streetType>
+					</ns32:address>
+				</ns32:client>
+				<ns32:currency xmlns:ns32="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/">
+					<ns32:ISO>RUB</ns32:ISO>
+					<ns32:Abbreviation>RUB</ns32:Abbreviation>
+				</ns32:currency>
+			</ns11:agreement>
+		 <ns11:agreement xmlns:ns11="http://sbrf.ru/ASP/JUPITER/SearchSalaryAgreements/1.00/">
+				<ns32:agreementVersion >654987</ns32:agreementVersion>
+				<ns32:registrationDate >2016-01-22</ns32:registrationDate>
+				<ns32:creationDate >2016-01-22</ns32:creationDate>
+				<ns32:fromDate>2016-01-22</ns32:fromDate>
+				<ns32:toDate>2016-01-22</ns32:toDate>
+				<ns32:isCentralAgreement>true</ns32:isCentralAgreement>
+				<ns32:isOffer >false</ns32:isOffer>
+				<ns32:isRKO>true</ns32:isRKO>
+				<ns32:jupiterID >6547</ns32:jupiterID>
+				<ns32:client >
+					<ns32:name>Client name 2</ns32:name>
+					<ns32:isResident>true</ns32:isResident>
+					<ns32:address>
+						<ns32:addressType>0</ns32:addressType>
+						<ns32:area>Даниловский район</ns32:area>
+						<ns32:city>Москва</ns32:city>
+						<ns32:populatedArea></ns32:populatedArea>
+						<ns32:street>Новоданиловская</ns32:street>
+						<ns32:house>10</ns32:house>
+						<ns32:building>3</ns32:building>
+						<ns32:office>654</ns32:office>
+						<ns32:index>123654</ns32:index>
+						<ns32:AY>654</ns32:AY>
+						<ns32:country>
+							<ns32:ISO3>RUS</ns32:ISO3>
+							<ns32:fullName>fullName3</ns32:fullName>
+						</ns32:country>
+						<ns32:region>50</ns32:region>
+						<ns32:streetType>2</ns32:streetType>
+					</ns32:address>
+				</ns32:client>
+				<ns32:currency xmlns:ns32="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/">
+					<ns32:ISO>RUB</ns32:ISO>
+					<ns32:Abbreviation>RUB</ns32:Abbreviation>
+				</ns32:currency>
+			</ns11:agreement>
+		 <ns11:agreement xmlns:ns11="http://sbrf.ru/ASP/JUPITER/SearchSalaryAgreements/1.00/">
+				<ns32:agreementVersion >321987</ns32:agreementVersion>
+				<ns32:registrationDate >2016-01-22</ns32:registrationDate>
+				<ns32:creationDate >2016-01-22</ns32:creationDate>
+				<ns32:fromDate>2016-01-22</ns32:fromDate>
+				<ns32:toDate>2016-01-22</ns32:toDate>
+				<ns32:isCentralAgreement>true</ns32:isCentralAgreement>
+				<ns32:isOffer >false</ns32:isOffer>
+				<ns32:isRKO>true</ns32:isRKO>
+				<ns32:jupiterID >6543</ns32:jupiterID>
+				<ns32:client >
+					<ns32:name>Client name 3</ns32:name>
+					<ns32:isResident>true</ns32:isResident>
+					<ns32:address>
+						<ns32:addressType>0</ns32:addressType>
+						<ns32:area>Даниловский район</ns32:area>
+						<ns32:city>Москва</ns32:city>
+						<ns32:populatedArea></ns32:populatedArea>
+						<ns32:street>Новоданиловская</ns32:street>
+						<ns32:house>10</ns32:house>
+						<ns32:building>2</ns32:building>
+						<ns32:office>987</ns32:office>
+						<ns32:index>654321</ns32:index>
+						<ns32:AY>987</ns32:AY>
+						<ns32:country>
+							<ns32:ISO3>RUS</ns32:ISO3>
+							<ns32:fullName>fullName3</ns32:fullName>
+						</ns32:country>
+						<ns32:region>50</ns32:region>
+						<ns32:streetType>2</ns32:streetType>
+					</ns32:address>
+				</ns32:client>
+				<ns32:currency xmlns:ns32="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/">
+					<ns32:ISO>RUB</ns32:ISO>
+					<ns32:Abbreviation>RUB</ns32:Abbreviation>
+				</ns32:currency>
+			</ns11:agreement>
+        
+         <ns11:pagination>
+            <ns32:pageIndex>1</ns32:pageIndex>
+            <ns32:pageCount>1</ns32:pageCount>
+            <ns32:pageSize>1</ns32:pageSize>
+         </ns11:pagination>
+      </ns2:searchSalaryAgreementsRs>
+   </ns:body>
+</ns:envelope>

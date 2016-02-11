@@ -8,7 +8,7 @@
   </xs:complexType>
   <xs:complexType name="systemsType">
     <xs:sequence>
-      <xs:element type="moc:systemType" name="system" xmlns:moc="http://sbrf.ru/mockService2"/>
+      <xs:element type="moc:systemType" name="system" xmlns:moc="http://sbrf.ru/mockService2" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="rootElementType">

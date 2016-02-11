@@ -1,5 +1,6 @@
 package ru.sbt.bpm.mock.config.entities;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import lombok.Data;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * 01.12.2015.
  */
 @Data
+@XStreamAlias("xpathValidation")
 public class XpathSelector {
 
     @XStreamImplicit(itemFieldName = "tag")

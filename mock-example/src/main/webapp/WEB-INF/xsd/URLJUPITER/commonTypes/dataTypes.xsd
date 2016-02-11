@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/" targetNamespace="http://sbrf.ru/ASP/ESB/dataTypes/"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:simpleType name="String">
+		<xs:annotation>
+			<xs:documentation>Текст</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="4000" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DefString">
+		<xs:annotation>
+			<xs:documentation>Текст (255 символов)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="dt:String">
+			<xs:maxLength value="255" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Integer">
+		<xs:annotation>
+			<xs:documentation>Целое число</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:long">
+			<xs:fractionDigits value="0" />
+			<xs:totalDigits value="25" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DefInteger">
+		<xs:annotation>
+			<xs:documentation>Целое число (18 цифр)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="dt:Integer">
+			<xs:totalDigits value="18" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PosInteger">
+		<xs:annotation>
+			<xs:documentation>Целое положительное число</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="25" />
+			<xs:pattern value="[0-9]+" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DefPosInteger">
+		<xs:annotation>
+			<xs:documentation>Целое положительное число (18 цифр)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="dt:PosInteger">
+			<xs:maxLength value="18" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Float">
+		<xs:annotation>
+			<xs:documentation>Дробное число</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="35" />
+			<xs:fractionDigits value="10" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DefFloat">
+		<xs:annotation>
+			<xs:documentation>Дробное число (18 цифр до запятой, 10 цифр после
+				запятой)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="dt:Float">
+			<xs:totalDigits value="28" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PosFloat">
+		<xs:annotation>
+			<xs:documentation>Дробное положительное число</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="dt:Float">
+			<xs:minInclusive value="0" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DefPosFloat">
+		<xs:annotation>
+			<xs:documentation>Дробное положительное число (18 цифр до запятой, 10
+				цифр после запятой)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="dt:PosFloat">
+			<xs:totalDigits value="28" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Date">
+		<xs:annotation>
+			<xs:documentation>Дата</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:date" />
+	</xs:simpleType>
+	<xs:simpleType name="DateTime">
+		<xs:annotation>
+			<xs:documentation>Дата и время</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:dateTime" />
+	</xs:simpleType>
+
+</xs:schema>

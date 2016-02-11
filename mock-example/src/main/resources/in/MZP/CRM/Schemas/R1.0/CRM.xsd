@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:clsa="http://sbrf.ru/ASP/CRM/CreateLegalSalaryApp/1.00/"
+	xmlns:csds="http://sbrf.ru/ASP/CRM/ChangeSalaryDealStatus/1.00/"
+	xmlns:plsa="http://sbrf.ru/ASP/CRM/PutLegalSalaryAgreemt/1.00/"
+	xmlns:clsas="http://sbrf.ru/ASP/CRM/ChangeLegalSalaryAgreemtStatus/1.00/"
+	targetNamespace="http://sbrf.ru/ASP/CRM/1.00/"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://sbrf.ru/ASP/CRM/CreateLegalSalaryApp/1.00/" schemaLocation="SrvCreateLegalSalaryApp.xsd" />
+	<xs:import namespace="http://sbrf.ru/ASP/CRM/ChangeSalaryDealStatus/1.00/" schemaLocation="SrvChangeSalaryDealStatus.xsd" />
+	<xs:import namespace="http://sbrf.ru/ASP/CRM/PutLegalSalaryAgreemt/1.00/" schemaLocation="SrvPutLegalSalaryAgreemt.xsd" />
+	<xs:import namespace="http://sbrf.ru/ASP/CRM/ChangeLegalSalaryAgreemtStatus/1.00/" schemaLocation="SrvChangeLegalSalaryAgreemtStatus.xsd" />
+
+	<xs:element name="createLegalSalaryAppRq" type="clsa:CreateLegalSalaryAppRq" />
+	<xs:element name="createLegalSalaryAppRs" type="clsa:CreateLegalSalaryAppRs" />
+	<xs:element name="changeSalaryDealStatusRq" type="csds:ChangeSalaryDealStatusRq" />
+	<xs:element name="changeSalaryDealStatusRs" type="csds:ChangeSalaryDealStatusRs" />
+	<xs:element name="putLegalSalaryAgreemtRq" type="plsa:PutLegalSalaryAgreemtRq" />
+	<xs:element name="putLegalSalaryAgreemtRs" type="plsa:PutLegalSalaryAgreemtRs" />
+	<xs:element name="changeLegalSalaryAgreemtStatusRq" type="clsas:ChangeLegalSalaryAgreemtStatusRq" />
+	<xs:element name="changeLegalSalaryAgreemtStatusRs" type="clsas:ChangeLegalSalaryAgreemtStatusRs" />
+</xs:schema>

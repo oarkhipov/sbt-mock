@@ -1,5 +1,6 @@
 package ru.sbt.bpm.mock.spring.integration.gateway;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +15,17 @@ import static org.junit.Assert.*;
  * <p/>
  * Company: SBT - Moscow
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration({"/env/mockapp-servlet.xml"})
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@WebAppConfiguration
+//@ContextConfiguration({"/env/mockapp-servlet.xml"})
 public class ClientServiceTest {
 
-    @Autowired
-    ClientService clientService;
-
-    @Test
-    public void testInvoke() throws Exception {
-        assertEquals("test",clientService.send("test"));
-    }
+//    @Autowired
+//    ClientService clientService;
+//
+//    @Test
+//    @Ignore
+//    public void testInvoke() throws Exception {
+//        assertEquals("test",clientService.send("test"));
+//    }
 }

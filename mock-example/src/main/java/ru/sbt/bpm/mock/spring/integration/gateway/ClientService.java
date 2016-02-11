@@ -13,4 +13,7 @@ public interface  ClientService {
      * @param request
      */
     String send(String request);
+    String sendMock(String request);
+    String sendMockURL(String request);
+    String sendMockCRM(String request);
 }

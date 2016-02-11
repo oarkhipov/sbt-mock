@@ -1,5 +1,6 @@
 package ru.sbt.bpm.mock.jlibs;
 
+import com.google.common.truth.Truth;
 import jlibs.xml.sax.XMLDocument;
 import jlibs.xml.xsd.XSInstance;
 import jlibs.xml.xsd.XSParser;
@@ -9,6 +10,7 @@ import org.junit.Test;
 
 import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamResult;
+import java.io.File;
 import java.io.StringWriter;
 import java.net.URL;
 
@@ -21,7 +23,7 @@ public class GeneratorTest {
 
     @Test
     public void generateXml() throws Exception {
-        URL resource = this.getClass().getClassLoader().getResource("WEB-INF/xsd/CRMIntegrationSchema.xsd");
+        URL resource = this.getClass().getClassLoader().getResource("WEB-INF/xsd/CRM/CRMIntegrationSchema.xsd");
         assert resource != null;
         XSModel xsModel = new XSParser().parse(String.valueOf(resource.toURI()));
 
@@ -44,5 +46,32 @@ public class GeneratorTest {
         String generatedXml = writer.toString();
         Assert.assertTrue(generatedXml.contains("Envelope"));
         Assert.assertTrue(generatedXml.contains("getAdditionalInfo"));
+    }
+
+    @Test
+    public void generateXmlFromMain() throws Exception {
+        URL resource = this.getClass().getClassLoader().getResource("WEB-INF/xsd/xsd/JUPITER/../ESB/Envelope.xsd");
+        assert resource != null;
+        XSModel xsModel = new XSParser().parse(String.valueOf(resource.toURI()));
+
+        XSInstance xsInstance = new XSInstance();
+        xsInstance.minimumElementsGenerated = 0;
+        xsInstance.maximumElementsGenerated = 0;
+        xsInstance.generateDefaultAttributes = true;
+        xsInstance.generateOptionalElements = true;
+        xsInstance.maximumRecursionDepth = 0;
+        xsInstance.generateOptionalAttributes = true;
+        xsInstance.generateAllChoices = true;
+
+        xsInstance.showContentModel = false;
+
+
+        QName rootElement = new QName("http://sbrf.ru/ASP/ESB/envelope/","envelope");
+        StringWriter writer = new StringWriter();
+        XMLDocument sampleXml = new XMLDocument(new StreamResult(writer), true, 4 ,null);
+        xsInstance.generate(xsModel, rootElement, sampleXml);
+        String generatedXml = writer.toString();
+        Truth.assertThat(generatedXml).contains("envelope");
+        Truth.assertThat(generatedXml).contains("correspondentAccount");
     }
 }

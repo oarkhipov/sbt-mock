@@ -62,7 +62,7 @@ public class MockConfigContainer {
             resourceFile = applicationContext.getResource(filePath).getFile();
         }
 
-        assert resourceFile.exists();
+        assert resourceFile.exists() : resourceFile.toString() + " not exists";
 
         FileReader fileReader = new FileReader(resourceFile);
         XStream xStream = new XStream(new DomDriver());

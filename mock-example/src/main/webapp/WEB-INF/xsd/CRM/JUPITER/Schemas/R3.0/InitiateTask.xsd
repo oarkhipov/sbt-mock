@@ -1,0 +1,105 @@
+<?xml version = "1.0" encoding="UTF-8"?>
+<!--  
+   Generated 29 января 2016 г. 11:31:47 by PowerDesigner Tools
+   Model AttendingSalaryContract-JupiterInt
+   Author sbt-rogov-an
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:sa="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/"
+  xmlns:ct="http://sbrf.ru/ASP/ESB/commonTypes/" 
+  xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/" 
+  xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"
+  targetNamespace="http://sbrf.ru/ASP/JUPITER/InitiateTask/1.00/"
+  xmlns:svc="http://sbrf.ru/ASP/JUPITER/InitiateTask/1.00/">
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/commonTypes/" schemaLocation="../../../commonTypes/commonTypes.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/" schemaLocation="../../../commonTypes/dataTypes.xsd"/>
+  
+  <xsd:import namespace="http://sbrf.ru/ASP/ESB/simpleTypes/" schemaLocation="../../../commonTypes/simpleTypes.xsd"/>
+  
+  <xsd:complexType name="InitiateTaskRq">
+   <xsd:annotation>
+   <xsd:documentation>Запрос на создание задачи по настройке реестра в АС Прометей </xsd:documentation>
+   </xsd:annotation>
+   <xsd:sequence>
+   <!-- Название задачи-->
+   <xsd:element name="task" type="dt:String" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Название инициируемой задачи
+    Настройка параметров обработки реестра/Деление реестра на ЦОППы/etc</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Номер договора, в рамках которого настраивается реестр-->
+   <xsd:element name="agreementNumber" type="st:CONTRACTNUMBER_Type">
+   <xsd:annotation>
+   <xsd:documentation>Номер договора, в рамках которого настраивается реестр</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- ТБ-->
+   <xsd:element name="tb" type="st:TB_Type">
+   <xsd:annotation>
+   <xsd:documentation>ТБ</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- ОСБ-->
+   <xsd:element name="osb" type="st:OSB_Type">
+   <xsd:annotation>
+   <xsd:documentation>ОСБ</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- Пользователь - ССЗП места сопровождения-->
+   <xsd:element name="loginSAManager" type="dt:DefString" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>ID пользователя системы.
+    Если поле пустое задача по обработке попадает в общую очередь</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Полное наименование клиента-->
+   <xsd:element name="clientName" type="dt:String" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Полное наименование клиента</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- ИНН\КИО клиента.
+        Передается для отображения данных для клиента-->
+   <xsd:element name="inn" type="st:INN_Type" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>ИНН\КИО клиента.
+                      Передается для отображения данных для клиента</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- Номер реестра-->
+   <xsd:element name="registerNumber" type="dt:DefString" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Номер единого равен номер локального реестра, если зд  - нецентрализован и с одним ЦОПП</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Дата реестра-->
+   <xsd:element name="registerDate" type="xsd:date" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Дата реестра</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- ЦОПП-->
+   <xsd:element name="supportOrgUnit" type="st:VSP_Type" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>ЦОПП</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="InitiateTaskRs">
+   <xsd:complexContent>
+    <xsd:extension base="ct:CommonRs">
+      <xsd:annotation>
+      <xsd:documentation>Ответ на запрос на создание задачи по настройке реестра в АС Прометей </xsd:documentation>
+      </xsd:annotation>
+    </xsd:extension>
+   </xsd:complexContent>
+  </xsd:complexType>
+
+</xsd:schema>

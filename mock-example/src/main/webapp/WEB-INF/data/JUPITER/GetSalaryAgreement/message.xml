@@ -1,0 +1,166 @@
+<ns:envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:ns="http://sbrf.ru/ASP/ESB/envelope/"
+             xmlns:ns1="http://sbrf.ru/ASP/CRM/1.00/"
+             xmlns:ns2="http://sbrf.ru/ASP/JUPITER/R3.0/"
+             xmlns:ns20="http://sbrf.ru/ASP/JUPITER/GetSalaryAgreement/2.00/">
+   <ns:header>
+      <ns:message-id>12345678901234567890123456789012</ns:message-id>
+      <ns:request-time>2016-01-19T14:49:08</ns:request-time>
+      <ns:correlation-id>12345678901234567890123456789012</ns:correlation-id>
+      <ns:eis-name>eis-name1</ns:eis-name>
+      <ns:operation-name>GetSalaryAgreement</ns:operation-name>
+      <ns:operation-version>1</ns:operation-version>
+      <ns:user-id>user-id1</ns:user-id>
+      <ns:user-name>user-name1</ns:user-name>
+   </ns:header>
+   <ns:body>
+      <ns2:getSalaryAgreementRs xmlns="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/">
+         <error xmlns="http://sbrf.ru/ASP/ESB/commonTypes/">
+            <status>SUCCESS</status>
+            <code>0</code>
+            <shortDescription>shortDescription19</shortDescription>
+            <fullDescription>fullDescription19</fullDescription>
+         </error>
+         <ns20:agreement>
+            <agreementNumber>123456789</agreementNumber>
+            <agreementVersion>1</agreementVersion>
+            <processType>3</processType>
+            <previousAgreementNumber>123456780</previousAgreementNumber>
+            <registrationDate>2016-01-19</registrationDate>
+            <creationDate>2016-01-19</creationDate>
+            <fromDate>2016-01-19</fromDate>
+            <toDate>2016-01-19</toDate>
+            <isCentralAgreement>true</isCentralAgreement>
+            <isOffer>false</isOffer>
+            <isTariffPlan>true</isTariffPlan>
+            <commissionForServiceInOwnBranch>1.1</commissionForServiceInOwnBranch>
+            <commissionForServiceInBankBranch>1.1</commissionForServiceInBankBranch>
+            <isSeparateRegister>true</isSeparateRegister>
+            <accountOfPayment>12345678901234567890</accountOfPayment>
+            <accountOfClient>12345678901234567890</accountOfClient>
+            <commissionAccount>12345678901234567890</commissionAccount>
+            <workingDaysOf363F>12</workingDaysOf363F>
+            <fot>100000</fot>
+            <employeeForEmission>1000</employeeForEmission>
+            <numberOfCards>1000</numberOfCards>
+            <periodOfRepaymentInterest>321</periodOfRepaymentInterest>
+            <periodOfRepaymentFunds>123</periodOfRepaymentFunds>
+            <commissionForTransferRegister>1</commissionForTransferRegister>
+            <commentSAManager>commentSAManager3</commentSAManager>
+            <commentKUL>commentKUL6#; asdfasdf</commentKUL>
+            <commentKZD>commentKZD6</commentKZD>
+            <numberOfSigners>1</numberOfSigners>
+            <isSuperviserCA>false</isSuperviserCA>
+            <accountsInOwnBranch>12345678901234567890</accountsInOwnBranch>
+            <accountsInBankBranch>12345678901234567890</accountsInBankBranch>
+            <isRKO>true</isRKO>
+            <statusCRM>statusCRM3</statusCRM>
+            <dateCRM>2016-01-19</dateCRM>
+            <agreementStatus>New-Work</agreementStatus>
+            <agreementType>1</agreementType>
+            <bankRequisite>
+               <BIC>040349781</BIC>
+               <correspondentAccount>12345678901234567890</correspondentAccount>
+               <fullName>fBank full name</fullName>
+               <personalAccount>12345678901234567890</personalAccount>
+               <address>address</address>
+               <phone>1234567890</phone>
+            </bankRequisite>
+            <calculationType>1</calculationType>
+            <commissionOrder>1</commissionOrder>
+            <commissionPeriod>10</commissionPeriod>
+            <currency>
+               <ISO>RUB</ISO>
+               <Abbreviation>RUB</Abbreviation>
+            </currency>
+            <packageOfService>
+               <status>status</status>
+               <startDate>2016-01-19</startDate>
+            </packageOfService>
+            <refuseOrder>1</refuseOrder>
+            <signersOfBank>
+               <fullName>Signer ful name</fullName>
+               <cause>cause</cause>
+               <position>position</position>
+               <birthDate>2016-01-19</birthDate>
+            </signersOfBank>
+            <signersOfClient>
+               <fullName>Signer ful name1</fullName>
+               <cause>cause6</cause>
+               <position>position15</position>
+               <birthDate>2016-01-19</birthDate>
+            </signersOfClient>
+            <transferAccountsCommission>12345679801234567890</transferAccountsCommission>
+            <CRMID>1-1ES48QJ</CRMID>
+            <jupiterID>1234</jupiterID>
+           <servicePlaces>
+             <tb>18</tb>
+             <osb>8600</osb>
+           </servicePlaces>
+           <servicePlaces>
+             <tb>40</tb>
+             <osb>9040</osb>
+           </servicePlaces>
+            <clientInfo xsi:type="BusinessPersonEntity" xmlns="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/">
+
+               <inn>1234567890</inn>
+               <kio>12345</kio>
+               <isResident>false</isResident>
+               <registerNumber>123456</registerNumber>
+               <registrationDate>2016-01-19</registrationDate>
+               <registerPlace>registerPlace7</registerPlace>
+               <phone>1234567890</phone>
+               <fax>3216549870</fax>
+               <email>email@mail.com</email>
+               <internetAddress>www.web.com</internetAddress>
+               <numberDBO>321654</numberDBO>
+               <dateDBO>2016-01-19</dateDBO>
+               <okved>321987</okved>
+               <contractNumberEDO>3219874</contractNumberEDO>
+               <clientType>ИП</clientType>
+               <ogrn>321654</ogrn>
+               <okfs>3210654</okfs>
+               <clientID>3214</clientID>
+               <industryType>1</industryType>
+               <orgLegalForm>1</orgLegalForm>
+               <salesChannel>1</salesChannel>
+               <salesMethod>1</salesMethod>
+               <taxOrg>
+                  <index>1234567</index>
+                  <address>address6</address>
+                  <phone>3216549870</phone>
+                  <city>city15</city>
+                  <zip>123456</zip>
+               </taxOrg>   
+               <lastName>last Name</lastName>
+               <fullName>full Name</fullName>
+               <patronymic>patronymic</patronymic>
+               <engLastName>engLastName</engLastName>
+               <engFullName>engFullName</engFullName>
+               <engPatronymic>engPatronymic</engPatronymic>
+               <birthday>1980-01-19</birthday>
+			   <birthPlace>Birth place</birthPlace>
+			   <documentSeries>3214</documentSeries>
+			   <documentNumber>321425</documentNumber>
+			   <issueOrganization>issue organization</issueOrganization>
+			   <issueDate>2000-01-02</issueDate>
+			   <issuePlace>issue place</issuePlace>
+			   <docType>1</docType>
+			   <issueCountry>
+                 <ISO3>RUB</ISO3>
+               </issueCountry>
+			   
+	
+            </clientInfo>
+            <superviserCA>
+               <fullName>qwe superviserCA full name</fullName>
+               <email>email@mail.de</email>
+               <phone>3216549870</phone>
+               <phone2>6549873210</phone2>
+               <phone3>9876543210</phone3>
+            </superviserCA>
+            <annualCommission>1</annualCommission>
+         </ns20:agreement>
+      </ns2:getSalaryAgreementRs>
+   </ns:body>
+</ns:envelope>

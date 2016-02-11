@@ -1,12 +1,15 @@
 package ru.sbt.bpm.mock.generator.spring.context;
 
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.testng.annotations.Test;
 import ru.sbt.bpm.mock.generator.spring.context.bean.Bean;
 import ru.sbt.bpm.mock.generator.spring.context.bean.BeanContainer;
-import ru.sbt.bpm.mock.spring.service.SpringContextGeneratorService;
+import ru.sbt.bpm.mock.spring.service.SpringContextGenerator;
 
 import java.util.ArrayList;
 

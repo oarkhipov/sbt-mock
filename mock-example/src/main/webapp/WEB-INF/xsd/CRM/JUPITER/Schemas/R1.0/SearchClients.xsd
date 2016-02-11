@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by zykrin-as (EMBRACE) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:sc="http://sbrf.ru/ASP/UPITER/SearchClients/1.00/" xmlns:ct="http://sbrf.ru/ASP/ESB/commonTypes/"
+	xmlns:sa="http://sbrf.ru/ASP/UPITER/data/SalaryAgreement/" xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/"
+	xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/" targetNamespace="http://sbrf.ru/ASP/UPITER/SearchClients/1.00/"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://sbrf.ru/ASP/UPITER/data/SalaryAgreement/"
+		schemaLocation="../commonTypes/SalaryAgreementDataTypes.xsd" />
+	<xs:import namespace="http://sbrf.ru/ASP/ESB/commonTypes/"
+		schemaLocation="../../../commonTypes/commonTypes.xsd" />
+	<xs:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/"
+		schemaLocation="../../../commonTypes/dataTypes.xsd" />
+	<xs:import namespace="http://sbrf.ru/ASP/ESB/simpleTypes/"
+		schemaLocation="../../../commonTypes/simpleTypes.xsd" />
+	<!--======================================= Message Types Start ================================================================== -->
+	<!-- UP.04. Общий поиск клиентов и договоров начало -->
+	<xs:complexType name="SearchClientsRq">
+		<xs:annotation>
+			<xs:documentation>Общий поиск клиентов и договоров - запрос
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="inn" type="xs:string" minOccurs="0" />
+			<xs:element name="kpp" type="xs:string" minOccurs="0" />
+			<xs:element name="name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						Полное наименование на русском языке
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ogrn" type="xs:string" minOccurs="0" />
+			<xs:element name="contractNumber" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						Если номер договора введен - не менее 4-х
+						символов
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="4" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="terrForSearch" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						Территория поиска
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="tb" type="st:TB_Type">
+							<xs:annotation>
+								<xs:documentation>ТБ</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="osbGosb" type="st:OSB_Type">
+							<xs:annotation>
+								<xs:documentation>
+									ГОСБ/ОСБ
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="pagingOfSearch" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						Пейджинация поиска
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="pageSize"
+							type="dt:DefPosInteger" default="100" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+									Размер страницы
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="pageIndex"
+							type="dt:DefPosInteger" default="1" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+									индекс страницы
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SearchClientsRs">
+		<xs:annotation>
+			<xs:documentation>Общий поиск клиентов и договоров - ответ
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ct:CommonRs">
+				<xs:sequence>
+					<xs:element name="clientShortInfo" minOccurs="0"
+						maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="inn" type="st:INN_Type" minOccurs="0" />
+								<xs:element name="shortName" type="xs:string">
+									<xs:annotation>
+										<xs:documentation>Сокращенное наименование на русском языке
+										</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="uLAddress" type="sa:AddressDataType">
+									<xs:annotation>
+										<xs:documentation>Юридический адрес</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="kpp" type="dt:DefString"
+									minOccurs="0" />
+								<xs:element name="ogrn" type="st:OGRN_Type"
+									minOccurs="0" />
+								<xs:element name="agreementsShortInfo" minOccurs="0"
+									maxOccurs="unbounded">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="uids" minOccurs="1">
+												<xs:annotation>
+													<xs:documentation>Идентификаторы клиента в системах
+													</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="uid" type="st:UID_Type"
+															minOccurs="1" maxOccurs="unbounded" />
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+											<xs:element name="contractNumber" type="st:CONTRACTNUMBER_Type"
+												minOccurs="0" />
+											<xs:element name="contractStartDate" type="xs:date"
+												minOccurs="0">
+												<xs:annotation>
+													<xs:documentation>Дата создания</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="dateOfContractEnd" type="xs:date"
+												minOccurs="0">
+												<xs:annotation>
+													<xs:documentation>Дата окончания договора
+													</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="centralUniqueContcact" type="xs:boolean"
+												minOccurs="0">
+												<xs:annotation>
+													<xs:documentation>Единый централизованный договор
+													</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="branch" type="sa:BranchType">
+												<xs:annotation>
+													<xs:documentation>подразделение ТБ</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="clientType" type="st:Client_Type">
+									<xs:annotation>
+										<xs:documentation>Тип клиента - справочник: ИП, ЮЛ, Филиал
+										</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="uids" minOccurs="1">
+									<xs:annotation>
+										<xs:documentation>Идентификаторы клиента в системах
+										</xs:documentation>
+									</xs:annotation>
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="uid" type="st:UID_Type"
+												minOccurs="1" maxOccurs="unbounded" />
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="pagingSearch" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Пейджинг результатов поиска
+							</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="pageCount" type="dt:DefPosInteger"
+									minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Количество индексов</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="pageIndex" type="dt:DefPosInteger"
+									minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>индекс страницы</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- UP.04. Общий поиск клиентов и договоров конец -->
+</xs:schema>

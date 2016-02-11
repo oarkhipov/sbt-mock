@@ -1,0 +1,1606 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by zykrin-as (EMBRACE) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:sa="http://sbrf.ru/ASP/UPITER/data/SalaryAgreement/" xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/" xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/" targetNamespace="http://sbrf.ru/ASP/UPITER/data/SalaryAgreement/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/" schemaLocation="../../../commonTypes/dataTypes.xsd"/>
+	<xs:import namespace="http://sbrf.ru/ASP/ESB/simpleTypes/" schemaLocation="../../../commonTypes/simpleTypes.xsd"/>
+	<!--======================================= Common types Start ================================================================== -->
+	<xs:complexType name="PersonContactType">
+		<xs:annotation>
+			<xs:documentation>Данные по физ. лицу</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="fio" type="dt:DefString" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ФИО</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="birsday" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата Рождения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="email" type="st:EMAIL_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Email</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="phone" type="st:PHONE_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Телефон</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mobilePhone" type="st:PHONE_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сотовый телефон</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="position" type="dt:DefString" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Должность</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AccountNonRKOType">
+		<xs:annotation>
+			<xs:documentation>Счет РКО</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="avizo" type="st:AccountNumber_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Лицевой счет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="exchequerName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование казначейства</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AccountRKOType">
+		<xs:annotation>
+			<xs:documentation>Счет не РКО</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="contractNumRKO" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер договора РКО (на будущее)
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="25"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="contractDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата заключения договора в РКо</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cancellationDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата расторжения договора в РКо
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TariffPlan">
+		<xs:annotation>
+			<xs:documentation>Тарифный план</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="numberOfOrderTP" type="xs:positiveInteger">
+				<xs:annotation>
+					<xs:documentation>Номер заявки на ТП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="date" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Дата ТП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="statusOfTP" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Статус ТП (на будущее- справочник)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="task">
+				<xs:annotation>
+					<xs:documentation>Тип задачи (на будущее)</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="На создание ТП"/>
+						<xs:enumeration value="На обновление ТП"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mp" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>МП (на будущее)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="issueOfUpdate" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Источник обновления(на будущее)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TariffForServiceType">
+		<xs:annotation>
+			<xs:documentation>Тариф за обслуживание:Справочника.(в виде строк или
+				кодов по тарифу)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TariffType" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип тарифа: На будущее, указывается ВИП/не ВИП
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cardType" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Тип Карты. СТАС, Справочник "Типы банковских
+						карт», таблица CARD_MDM, передается значение поля "CODE ", длина
+						поля =16. (справочник Юпитер - NSI.CARD_MDM)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fistYearUL" type="xs:nonNegativeInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Первый год (ЮЛ)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nextYearUL" type="xs:nonNegativeInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Последующие ЮЛ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fistYearFIZ" type="xs:nonNegativeInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Первый год (Физ)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nextYearFIZ" type="xs:nonNegativeInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Последующие Физ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cardAccount" type="xs:nonNegativeInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Количество карт</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SubContractType">
+		<xs:annotation>
+			<xs:documentation>ДС (на будущее)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="number" type="dt:DefString" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер ДС. (на будущее)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Тип ДС. (на будущее)Справочник</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dateOfIssue" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Дата окончания действия ДC (на будущее)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="process" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Процесс:(на будущее)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EditContractType">
+		<xs:annotation>
+			<xs:documentation>Редактирование ЗП</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="versionContract" type="dt:DefString" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Версия ЗД (Мастер-источник Прометей)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="initiatorOfProcess" type="dt:DefString">
+				<xs:annotation>
+					<xs:documentation>Инициатор процесса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="initiatorComment" type="dt:DefString">
+				<xs:annotation>
+					<xs:documentation>Комментарий инициатора процесса
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="process" type="dt:DefString">
+				<xs:annotation>
+					<xs:documentation>Процесс</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangeOfContractType">
+		<xs:annotation>
+			<xs:documentation>Тип изменений договора в процессе МПЗ: ДС,
+				Редактирование
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="subContract" type="sa:SubContractType">
+				<xs:annotation>
+					<xs:documentation>Дополнительное соглашение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="editContract" type="sa:EditContractType">
+				<xs:annotation>
+					<xs:documentation>Корректировка ЗД</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="BranchAllType">
+		<xs:annotation>
+			<xs:documentation>Структура подразделения ЗД	</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="branch" type="sa:BranchType">
+				<xs:annotation>
+					<xs:documentation>подразделение ТБ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fot" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Фонд оплаты труда
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BranchFOCType">
+		<xs:annotation>
+			<xs:documentation>Подразделение модели данных</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="branchCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Код подразделения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contractBranch" type="sa:BranchAllType">
+				<xs:annotation>
+					<xs:documentation>Подразделение МСЦ/ТБ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fatherbranch" type="sa:BranchAllType">
+				<xs:annotation>
+					<xs:documentation>Родительское подразделение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="branchName">
+				<xs:annotation>
+					<xs:documentation>Наименование подразделения</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="timeZone" type="xs:positiveInteger">
+				<xs:annotation>
+					<xs:documentation>Часовой пояс</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BranchType">
+		<xs:annotation>
+			<xs:documentation>Тип подразделения</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tb" type="st:TB_Type">
+				<xs:annotation>
+					<xs:documentation>ТБ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="osbGosb" type="st:OSB_Type">
+				<xs:annotation>
+					<xs:documentation>ГОСБ/ОСБ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vsp" type="st:VSP_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ВСП, ЦОПП, Подразделение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DataOfCoppType">
+		<xs:annotation>
+			<xs:documentation>Данные по ЦОПП Территория сопровождения)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="copp" type="st:VSP_Type">
+				<xs:annotation>
+					<xs:documentation>ЦОПП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vspOfAccountOpen" type="st:VSP_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Место открытия счета</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vspofCardIssue" type="st:VSP_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Место выдачи БК</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="scenarioOfWorking" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сценарий обработки ЭР</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Сначала счета"/>
+						<xs:enumeration value="Сначала карты"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stoppingOfRegistr">
+				<xs:annotation>
+					<xs:documentation>Остановка ЭР</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Автоматически"/>
+						<xs:enumeration value="Вручную"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SignersOfType">
+		<xs:annotation>
+			<xs:documentation>Подписанты</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="fio" type="dt:DefString" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ФИО</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="position" type="dt:DefString" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Должность</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="base" type="dt:DefString" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Основание</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AccountType">
+		<xs:annotation>
+			<xs:documentation>Счет договора</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="settlementAccount" type="st:AccountNumber_Type">
+				<xs:annotation>
+					<xs:documentation>Номер счета</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bik" type="st:BIK_Type">
+				<xs:annotation>
+					<xs:documentation>БИК</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="correspondentAccount" type="st:AccountNumber_Type">
+				<xs:annotation>
+					<xs:documentation>Кор счет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bankName" type="dt:DefString">
+				<xs:annotation>
+					<xs:documentation>Имя Банка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entryAmount" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Для зачислений: 0 - не выбрано для зачислений, 1-
+						выбрано для зачислений
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entryCommission" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Для комиссии: 0 - не выбрано для комиссии, 1-
+						выбрано для комиссии
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="accountRKO" type="sa:AccountRKOType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Данные номера счета в РКО</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="accountNonRKO" type="sa:AccountNonRKOType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Данные номера счета не в РКО</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AddressDataType">
+		<xs:annotation>
+			<xs:documentation>Данные по адресу (общие)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="contry" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>СТАС, Справочник "Единый справочник стран»,
+						таблица COUNTRY2, передается значение поля "ISO3", длина=3, [a-z]
+						(справочник Юпитер - NSI.COUNTRIES)
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="region" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регион !из справочника!
+						СТАС, Справочник "Регионы
+						России», таблица PB_region, передается
+						значение поля "CODE",
+						длина=2, [1-99] (справочник Юпитер -
+						NSI.NSICRE)
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="area" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Район </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="city" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Город</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="populatedArea" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Населенный пункт</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="street" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Улица</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="streetType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип улицы
+						СТАС, Справочник "Тип улицы», таблица ReferenceStreetType,
+						передается значение поля "CODE", максдлина=2, [1-12]
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="house" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дом</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="building" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Строение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="office" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Офис</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="index" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Индекс</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ClientCommonDataType">
+		<xs:annotation>
+			<xs:documentation>Данные по клиенту (Общие)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uids" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификаторы в системах	</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="uid" type="st:UID_Type" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="inn" type="st:INN_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ИНН</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="email" type="st:EMAIL_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес EMAIL</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="saleMethod">
+				<xs:annotation>
+					<xs:documentation>Метод продаж. СТАС, Справочник
+						ReferenceSalesMethod
+						поля "Код", привести в соответсвие с кодом АС
+						ЮПИТЕР
+					</xs:documentation>
+					<xs:appinfo>
+						<xs:annotation>
+							<xs:documentation/>
+						</xs:annotation>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="dt:DefString">
+						<xs:maxLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="isResident" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Код езидента/нерезидента</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="phone" type="st:PHONE_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Телефон</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="phax" type="st:PHONE_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ФАКС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="shortName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Сокращенное наименование на русском языке
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Полное наименование на русском языке
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="engName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Полное наименование на английском языке
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="industryType">
+				<xs:annotation>
+					<xs:documentation>СТАС, Справочник "Тип отрасли», таблица Industry,
+						передается значение поля "Код ", длина поля =3 [1-9]. (справочник
+						Юпитер - NSI.INDUSTRYTYPE)
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="3"/>
+						<xs:pattern value="[0-9][0-9][0-9]"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="taxOrg" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>СТАС, Справочник "Налоговые инспекции в регионах
+						России», таблица ReferenceTaxInspection, передается значение поля
+						"CODE_FNS ", длина поля =4. (справочник Юпитер - NALOG_INSP2 ?)
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="organdlegalformid">
+				<xs:annotation>
+					<xs:documentation>Организационно-правовая форма: СТАС, Справочник
+						"Организационно-правовые формы», таблица ABBR_KOPF, передается
+						значение поля "KOD", длина поля =6. (справочник Юпитер -
+						NSI.NSIOKPF)
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="6"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="salesChannel" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Канал продаж: СТАС, Справочник "Канал продаж»,
+						таблица SalesChannel, передается значение поля "Код " (необходимо
+						привести во соответствие с полями Юпитер) (справочник Юпитер -
+						NSI.SALE_CHANNEL)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="internetAddress" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес Internet (web)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberDBO" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер договора ДБО</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dateDBO" type="dt:Date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата ДБО</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="okfs" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ОКФС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="okved" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ОКВЭД</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contractNumberEDO" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер соглашения об ЭДО</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="clientType" type="st:Client_Type">
+				<xs:annotation>
+					<xs:documentation>Тип клиента - ИП, ЮЛ, Филиал. СТАС, В справочнике
+						таблица CustomerType, передается значение поля "Код ", длина поля
+						=1 [1-3]. (справочник Юпитер - ?)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="registerNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер свидетельства о регистрации
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="registerPlace" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Место свидетельства о регистрации
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="registrationDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата выдачи свидетельства о регистрации
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="clientAddress">
+				<xs:annotation>
+					<xs:documentation>Адрес клиента</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ulAddress" type="sa:AddressDataType">
+							<xs:annotation>
+								<xs:documentation>Юридический адрес</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="phisAddress" type="sa:AddressDataType">
+							<xs:annotation>
+								<xs:documentation>Физический Адрес</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="postAddress" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Почтовый адрес</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="address" type="sa:AddressDataType">
+										<xs:annotation>
+											<xs:documentation>адрес</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="abpost" type="dt:DefString" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Абонентский ящик</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="kio" type="st:KIO_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>КИО</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="kpp" type="dt:DefString" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>КПП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ogrn" type="st:OGRN_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ОГРН</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ClientULType">
+		<xs:annotation>
+			<xs:documentation>Данные по клиенту (ЮР. Лицу)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="okato" type="st:OKATO_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ОКАТО</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="okpo" type="st:OKPO_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ОКПО</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ClientIPType">
+		<xs:annotation>
+			<xs:documentation>Данные по клиенту (ИП)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="birthday" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата Рождения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="birthPlace" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Место рождения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contryOfDocument" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Страна выдачи документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="docType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Виды документов, удостоверяющих личность»
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="seriaDoc" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Серия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="number" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер ДУЛ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="issueOgr" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Название выдавшего документ органа
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="issueDate" type="dt:Date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата выдачи документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="placeOfIssue" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Место выдачи документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Client">
+		<xs:annotation>
+			<xs:documentation>Клиент</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="clientCommonData" type="sa:ClientCommonDataType">
+				<xs:annotation>
+					<xs:documentation>Общие данные по клиенту</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="ClientIPData" type="sa:ClientIPType">
+					<xs:annotation>
+						<xs:documentation>Индивидуальный предпрениматель
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="clientULData" type="sa:ClientULType">
+					<xs:annotation>
+						<xs:documentation>ЮР. Лицо</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResponsiblePersonBranchType">
+		<xs:annotation>
+			<xs:documentation>Ответственное лицо (подразделение)
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="fio" type="dt:DefString" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ФИО</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="phone" type="st:PHONE_Type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Телефон</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="branch" type="st:VSP_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Подразделение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResponsiblePersonType">
+		<xs:annotation>
+			<xs:documentation>Ответственное лицо</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="fio" type="dt:DefString" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ФИО</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="phone" type="st:PHONE_Type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Телефон</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="email" type="st:EMAIL_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес EMAIL</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SalaryAgreementType">
+		<xs:annotation>
+			<xs:documentation>Карточка договора</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="statusOfContract" type="dt:DefString">
+				<xs:annotation>
+					<xs:documentation>Статус договора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="creationDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Дата создания</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contractStartDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата начала действия договора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dateOfContractEnd" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата окончания договора/Действует по
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="statusCRM" type="xs:short" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус в CRM: После интеграции с CRM
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="identifierCRM" type="xs:positiveInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор CRM: После интеграции с CRM
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dateCRM" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата в CRM: После интеграции с CRM
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="previousContractNum" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>№_ЗД_Предшественника (на будущее)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="centralUniqueContcact" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Единый централизованный договор: 0 - не выбрано
+						занчение; 1- выбрано
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tariffPlanExist" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>ТП (признак подключения ТП): 0- выбран Тарифный
+						план, 1- отсутствует ТП
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="offer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Оферта: 0- выбрано значение, 1 - значение не
+						выбрано (влияет на печать)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="clientRequisite" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Реквизиты Клиента</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="clientReq" type="sa:CommonRequisiteType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Общие реквизиты</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="enterprise" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Предприятие</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="bankRequisite" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Реквизиты банка</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="bankReq" type="sa:CommonRequisiteType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Общие реквизиты</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="bankAddress" type="dt:DefString" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Адрес Банка</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="phone" type="st:PHONE_Type" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>телефон</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="signersOfBank" type="sa:SignersOfType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Подписант со стороны банка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="signersOfClient" type="sa:SignersOfType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Подписант со стороны клиента</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fot" type="xs:decimal">
+				<xs:annotation>
+					<xs:documentation>Фонд оплаты труда
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="employeeForEmission" type="xs:positiveInteger">
+				<xs:annotation>
+					<xs:documentation>Плановое кол-во получателей в месяц
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commonNumberOfCard" type="xs:positiveInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Общая численность ЗП карт</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="depositSubTypeSids" type="sa:DepositSubTypeSidsType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>СТАС, п.5.2.1 - справочник «Перечень видов и
+						подвидов счетов (вкладов)». Маппинг полей Прометей(таблица
+						SubDeposit)-Юпитер (справочник NSI.DEPOSITS)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="currensyType">
+				<xs:annotation>
+					<xs:documentation>СТАС, Справочник_ «Валюта», таблица
+						ReferenceCurrency,
+						передается значение поля "ISO код" , макс длина
+						поля =3.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="contractType" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Тип договора (Справочник)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="accountsOfDSOtherOffice" type="dt:String" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Счета к доп.соглашению на списание Банком суммы
+						на зачисление на счета физ.лиц в другом филиале
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="accountsOfDSOffice" type="dt:String" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Счета к доп. соглашению фактически зачисленной
+						суммы на счета физ.лиц, ведущихся в этом же филиале Банка
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="calculationType" type="dt:DefString">
+				<xs:annotation>
+					<xs:documentation>Вид расчетов. правочник/ СТАС, Справочник «Вид
+						расчетов», таблица CalculationType, передается значение поля
+						"Код", длина поля =1.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="refuse" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>СТАС, Справочник «Порядок возврата», таблица
+						RefusePayment, передается значение поля "Код", длина поля =1 [0
+						или 1]. (справочник Юпитер CL.DOGOVORS.RETURN_ORDER)
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="1"/>
+						<xs:enumeration value="1"/>
+						<xs:enumeration value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="periodOfRepaymentIntrest">
+				<xs:annotation>
+					<xs:documentation>Срок возврата средств по результатам зачислений
+						(по получателям)
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="dt:DefString">
+						<xs:pattern value="([0-9])*"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="periodOfRepaymentFunds">
+				<xs:annotation>
+					<xs:documentation>Срок возврата средств без зачислений
+						(Организации)
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="dt:DefString">
+						<xs:pattern value="([0-9])*"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="accountWithoutReserve" type="st:AccountNumber_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер расчетного счета (без резервирования)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="accountGRC" type="st:AccountNumber_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер лицевого счета ГРЦ/ТРЦ/ГОСБ
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="uids" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификаторы в системах
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="uid" type="st:UID_Type" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="flagOfNonResidentAndSeparateRegister" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Признак оформления реестров (отдельных на
+						резидентов и резидентов: 0 - нет, 1 - да)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="packageOfService" type="sa:PackageOfServiceType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пакет Услуг</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entryRegistersFormValues" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Форма реестров на зачисление.
+						СТАС, Справочник_
+						«Форма реестра на зачисление», таблица
+						ReferenceRegistryEnrollment:
+						Справочник из 6 полей (в текущей
+						реализации будет использоваться список из 4 полей). Со стороны АС
+						Прометей передается соответствующий
+						«Код» по каждому значению
+						таблицы.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="paymentType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Виды зачисляемых денежных средств. Справочник -
+						передается код выбранного поля
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1"/>
+						<xs:pattern value="[1-7]"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="commisionForServiceInOwnBranch" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Размер платы за услуги банка по зачислению своем
+						филиале
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commisionForServiceInBankBranch" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Размер платы за услуги банка по зачислению
+						филиалах банка*
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commissionForTransferRegister" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Размер платы за услуги банка по пересылке
+						реестров в другие филиалы
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sumOfAccountsForCommission" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>СТАС, Справочник «Система передачи счетов на
+						оплату комиссии», таблица AccountTransferPayment, передается
+						значение поля "Код", длина поля =1 [от 1 до 5]. (справочник Юпитер
+						-NSI.PAYFORM)
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="1"/>
+						<xs:pattern value="[1-5]"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="comissionPass" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Порядок уплаты комиссии, справочник: СТАС,
+						Справочник Порядок уплаты комиссии», таблица ComissionOrder,
+						передается значение поля "Код", длина поля =1 [от 0 до 6].
+						(справочник Юпитер - NSI.COMORDER)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commissionAccount" type="st:AccountNumber_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер расчетного счета организации (к которому
+						банк формирует счет на оплату комиссии)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="signLevel" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Уровень подписи
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="comissionPeriod" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Периодичность расчета комисии. Справочник:- пусто
+						(если Договором не определен срок периодичности расчета комиссии в
+						месяц), «ежедекадно».
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="workingDaysOf363F" type="xs:positiveInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Количество рабочих дней ф-363 (для оплаты счета)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="signers" type="sa:SignersType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Подписи ЭЦП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isRKO" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Клиент на РКО СБ РФ (Признак счета в Юпитере)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="account" type="sa:AccountType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Счет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tariffForService">
+				<xs:annotation>
+					<xs:documentation>Тариф за обслуживание</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="tableDataOfTariff" type="sa:TariffForServiceType" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Данные таблицы карт договоров
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="chargeForService" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>СТАС, Справочник "Виды зачислений денежных
+									средств», таблица AnnualComissionOrder, передается значение
+									поля "Код", длина поля =1 [от 1 до 3]. (справочник Юпитер -
+									NSI.CARD_FEE_TYPE)
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="cardVIP" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Выпуск карт с индивидуальным дизайном: на будущее
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cancellationType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип расторжения (на будущее)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dateOfContractActivation" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Дата ЗД (дата регистрации)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="client" type="sa:Client">
+				<xs:annotation>
+					<xs:documentation>Клиент</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contactPersonOfContract" type="sa:PersonContactType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Контактные лица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="territoryOfContract" type="sa:BranchAllType">
+				<xs:annotation>
+					<xs:documentation>Территория по месту заключения ЗД. Данные по
+						ГОСБ/ОСБ
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="territoryOfService" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Территория по месту обслуживания зарплатного
+						договора (Данные по ГОСБ/ОСБ)
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="sa:BranchAllType">
+							<xs:sequence>
+								<xs:element name="comment" type="xs:string" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Примечание по ЗД</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="statusOfTerr" type="dt:DefString">
+									<xs:annotation>
+										<xs:documentation>Сатус Территории, справочник.
+										</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="loginSSZP" type="xs:string" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Логин ССЗП для Команды</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="responsibleSection">
+				<xs:annotation>
+					<xs:documentation>UI- ответственные</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="responceForAttraction" type="sa:ResponsiblePersonType">
+							<xs:annotation>
+								<xs:documentation>Сотрудники привлечения (менеджер по продажам-
+									МП)
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="responceForSupport" type="sa:ResponsiblePersonBranchType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Сотрудники сопровождения (территория
+									заключения -ССЗП)
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="caMonitor" type="xs:boolean">
+							<xs:annotation>
+								<xs:documentation>Куратор ЦА. 0- не курирует ЦА, 1-курирует ЦА
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="caSupport" type="sa:ResponsiblePersonType">
+							<xs:annotation>
+								<xs:documentation>Обслуживается в ЦА</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="changeOfContract" type="sa:ChangeOfContractType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип изменений договора в процессе МПЗ: ДС,
+						Редактирование (на будущее)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nodesOfContract" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Заметки по договору</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commentSSZP" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Комментарий ССЗП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commentKUL" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Комментарий КЮЛ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commentKZD" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Комментарий КЗД</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="loginSSZP" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Логин ССЗП</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="70"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="idMDM" type="st:IDMDM_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор договора MDM</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contractNumber" type="st:CONTRACTNUMBER_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>№ договора (мастер-система Юпитер)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PackageOfServiceType">
+		<xs:annotation>
+			<xs:documentation>Пакет услуг</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="statusOfconnection" type="dt:DefString" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус подключения. ( = тарифный план?)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dataOfConnection" type="dt:Date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата подключения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CommonRequisiteType">
+		<xs:annotation>
+			<xs:documentation>Общие реквизиты</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="bankName" type="dt:DefString" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование Банка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="correspondentAccount" type="st:AccountNumber_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Кор счет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="settlementAccount" type="st:AccountNumber_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Расчетный счет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bik" type="st:BIK_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>БИК</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DepositSubTypeSidsType">
+		<xs:annotation>
+			<xs:documentation>Справочник видов и подвидов вкладов
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TID">
+				<xs:annotation>
+					<xs:documentation>Тип вклада</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="dt:DefString">
+						<xs:maxLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DTYPE">
+				<xs:annotation>
+					<xs:documentation>Вид вклада</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="dt:DefString">
+						<xs:maxLength value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="SUBTYPE">
+				<xs:annotation>
+					<xs:documentation>Подвид вклада</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="dt:DefString">
+						<xs:maxLength value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SignersType">
+		<xs:annotation>
+			<xs:documentation>Подписи ЭЦП</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Sign" type="dt:DefString" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Подпись</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="position" type="dt:DefString" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Должность</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!--====================================================== Elements Start 
+		============================================================= -->
+</xs:schema>

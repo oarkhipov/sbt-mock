@@ -17,9 +17,9 @@ import static org.junit.Assert.assertTrue;
  * <p/>
  * Company: SBT - Moscow
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration({"/env/mockapp-servlet-routerTest.xml"})
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@WebAppConfiguration
+//@ContextConfiguration({"/env/mockapp-servlet-routerTest.xml"})
 public class RouterTest {
 
     @Ignore
