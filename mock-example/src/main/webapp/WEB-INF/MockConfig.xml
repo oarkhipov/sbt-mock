@@ -217,6 +217,7 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
                 <integrationPoint name="InitiateTask">
                     <type>Driver</type>
