@@ -50,11 +50,11 @@
     <!-- - - - - - - -->
     <!-- DRIVER -->
     <bean id="driverConnectionInputString" class="java.lang.String">
-        <constructor-arg value="jms/Q.PROMETHEUS.JUPITER-REG.IN"/>
+        <constructor-arg value="jms/Q.PROMETHEUS.JUPITER.RESPONSE"/>
         <!--<beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>-->
     </bean>
     <bean id="driverConnectionOutputString" class="java.lang.String">
-        <constructor-arg value="jms/Q.PROMETHEUS.JUPITER-REG.OUT"/>
+        <constructor-arg value="jms/Q.PROMETHEUS.JUPITER.REQUEST"/>
         <!--<beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.FROM.CRMORG"/>-->
     </bean>
     <bean id="driverConnectionInputCRMString" class="java.lang.String">
@@ -225,15 +225,15 @@
         >
         <int:method name="send" request-channel="DriverOutboundCRMRequest" reply-channel="DriverInboundCRMResponse"/>
     </int:gateway>
-    <int:gateway id="systemEntry"
-             error-channel="MockOutboundResponse"
-             service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService"
-             default-reply-timeout="30000"
-             default-request-timeout="30000"
-        >
-        <int:method name="sendMock" request-channel="MockInboundRequest" reply-channel="MockOutboundResponse"/>
-        <int:method name="sendMockURL" request-channel="MockInboundURLRequest" reply-channel="MockOutboundURLResponse"/>
-        <int:method name="sendMockCRM" request-channel="MockInboundCRMRequest" reply-channel="MockOutboundCRMResponse"/>
-    </int:gateway>
+    <!--<int:gateway id="systemEntry"-->
+             <!--error-channel="MockOutboundResponse"-->
+             <!--service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService"-->
+             <!--default-reply-timeout="30000"-->
+             <!--default-request-timeout="30000"-->
+        <!--&gt;-->
+        <!--<int:method name="sendMock" request-channel="MockInboundRequest" reply-channel="MockOutboundResponse"/>-->
+        <!--<int:method name="sendMockURL" request-channel="MockInboundURLRequest" reply-channel="MockOutboundURLResponse"/>-->
+        <!--<int:method name="sendMockCRM" request-channel="MockInboundCRMRequest" reply-channel="MockOutboundCRMResponse"/>-->
+    <!--</int:gateway>-->
 
 </beans>

@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by zykrin-as (EMBRACE) -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:sa="http://sbrf.ru/ASP/UPITER/data/SalaryAgreement/" xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/"
-	xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/" targetNamespace="http://sbrf.ru/ASP/UPITER/data/SalaryAgreement/"
-	elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/"
-		schemaLocation="../../../commonTypes/dataTypes.xsd" />
-	<xs:import namespace="http://sbrf.ru/ASP/ESB/simpleTypes/"
-		schemaLocation="../../../commonTypes/simpleTypes.xsd" />
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:sa="http://sbrf.ru/ASP/UPITER/data/SalaryAgreement/" xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/" xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/" targetNamespace="http://sbrf.ru/ASP/UPITER/data/SalaryAgreement/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/" schemaLocation="../../../commonTypes/dataTypes.xsd"/>
+	<xs:import namespace="http://sbrf.ru/ASP/ESB/simpleTypes/" schemaLocation="../../../commonTypes/simpleTypes.xsd"/>
 	<!--======================================= Common types Start ================================================================== -->
 	<xs:complexType name="PersonContactType">
 		<xs:annotation>
@@ -34,8 +29,7 @@
 					<xs:documentation>Телефон</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="mobilePhone" type="st:PHONE_Type"
-				minOccurs="0">
+			<xs:element name="mobilePhone" type="st:PHONE_Type" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Сотовый телефон</xs:documentation>
 				</xs:annotation>
@@ -76,7 +70,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:maxLength value="25" />
+						<xs:maxLength value="25"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -120,8 +114,8 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:enumeration value="На создание ТП" />
-						<xs:enumeration value="На обновление ТП" />
+						<xs:enumeration value="На создание ТП"/>
+						<xs:enumeration value="На обновление ТП"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -179,8 +173,7 @@
 					<xs:documentation>Последующие Физ</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="cardAccount" type="xs:nonNegativeInteger"
-				minOccurs="0">
+			<xs:element name="cardAccount" type="xs:nonNegativeInteger" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Количество карт</xs:documentation>
 				</xs:annotation>
@@ -220,8 +213,7 @@
 			<xs:documentation>Редактирование ЗП</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="versionContract" type="dt:DefString"
-				minOccurs="0">
+			<xs:element name="versionContract" type="dt:DefString" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Версия ЗД (Мастер-источник Прометей)
 					</xs:documentation>
@@ -308,7 +300,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:maxLength value="100" />
+						<xs:maxLength value="100"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -357,7 +349,7 @@
 					<xs:documentation>Место открытия счета</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="vspofCardIssue" type="st:VSP_Type" minOccurs="0"> 
+			<xs:element name="vspofCardIssue" type="st:VSP_Type" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Место выдачи БК</xs:documentation>
 				</xs:annotation>
@@ -368,8 +360,8 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:enumeration value="Сначала счета" />
-						<xs:enumeration value="Сначала карты" />
+						<xs:enumeration value="Сначала счета"/>
+						<xs:enumeration value="Сначала карты"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -379,8 +371,8 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:enumeration value="Автоматически" />
-						<xs:enumeration value="Вручную" />
+						<xs:enumeration value="Автоматически"/>
+						<xs:enumeration value="Вручную"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -475,7 +467,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:maxLength value="3" />
+						<xs:maxLength value="3"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -491,7 +483,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:maxLength value="2" />
+						<xs:maxLength value="2"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -501,7 +493,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:maxLength value="50" />
+						<xs:maxLength value="50"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -511,7 +503,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:maxLength value="50" />
+						<xs:maxLength value="50"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -521,7 +513,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:maxLength value="200" />
+						<xs:maxLength value="200"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -531,7 +523,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:maxLength value="50" />
+						<xs:maxLength value="50"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -544,7 +536,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:maxLength value="2" />
+						<xs:maxLength value="2"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -581,8 +573,7 @@
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="uid" type="st:UID_Type" minOccurs="1"
-							maxOccurs="unbounded" />
+						<xs:element name="uid" type="st:UID_Type" maxOccurs="unbounded"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -605,13 +596,13 @@
 					</xs:documentation>
 					<xs:appinfo>
 						<xs:annotation>
-							<xs:documentation></xs:documentation>
+							<xs:documentation/>
 						</xs:annotation>
 					</xs:appinfo>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="dt:DefString">
-						<xs:maxLength value="1" />
+						<xs:maxLength value="1"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -657,8 +648,8 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:length value="3" />
-						<xs:pattern value="[0-9][0-9][0-9]" />
+						<xs:length value="3"/>
+						<xs:pattern value="[0-9][0-9][0-9]"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -671,7 +662,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:maxLength value="4" />
+						<xs:maxLength value="4"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -685,12 +676,11 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:maxLength value="6" />
+						<xs:maxLength value="6"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element name="salesChannel" type="xs:string"
-				minOccurs="0">
+			<xs:element name="salesChannel" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Канал продаж: СТАС, Справочник "Канал продаж»,
 						таблица SalesChannel, передается значение поля "Код " (необходимо
@@ -699,8 +689,7 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="internetAddress" type="xs:string"
-				minOccurs="0">
+			<xs:element name="internetAddress" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Адрес Internet (web)</xs:documentation>
 				</xs:annotation>
@@ -730,7 +719,7 @@
 					<xs:documentation>Номер соглашения об ЭДО</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
-					<xs:restriction base="xs:string" />
+					<xs:restriction base="xs:string"/>
 				</xs:simpleType>
 			</xs:element>
 			<xs:element name="clientType" type="st:Client_Type">
@@ -741,22 +730,19 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="registerNumber" type="xs:string"
-				minOccurs="0">
+			<xs:element name="registerNumber" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Номер свидетельства о регистрации
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="registerPlace" type="xs:string"
-				minOccurs="0">
+			<xs:element name="registerPlace" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Место свидетельства о регистрации
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="registrationDate" type="xs:date"
-				minOccurs="0">
+			<xs:element name="registrationDate" type="xs:date" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Дата выдачи свидетельства о регистрации
 					</xs:documentation>
@@ -849,8 +835,7 @@
 					<xs:documentation>Место рождения</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="contryOfDocument" type="xs:string"
-				minOccurs="0">
+			<xs:element name="contryOfDocument" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Страна выдачи документа</xs:documentation>
 				</xs:annotation>
@@ -862,7 +847,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:maxLength value="10" /> 
+						<xs:maxLength value="10"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -887,8 +872,7 @@
 					<xs:documentation>Дата выдачи документа</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="placeOfIssue" type="xs:string"
-				minOccurs="0">
+			<xs:element name="placeOfIssue" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Место выдачи документа</xs:documentation>
 				</xs:annotation>
@@ -931,8 +915,7 @@
 					<xs:documentation>ФИО</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="phone" type="st:PHONE_Type" minOccurs="0"
-				maxOccurs="unbounded">
+			<xs:element name="phone" type="st:PHONE_Type" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>Телефон</xs:documentation>
 				</xs:annotation>
@@ -954,8 +937,7 @@
 					<xs:documentation>ФИО</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="phone" type="st:PHONE_Type" minOccurs="0"
-				maxOccurs="unbounded">
+			<xs:element name="phone" type="st:PHONE_Type" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>Телефон</xs:documentation>
 				</xs:annotation>
@@ -982,13 +964,12 @@
 					<xs:documentation>Дата создания</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="contractStartDate" type="xs:date">
+			<xs:element name="contractStartDate" type="xs:date" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Дата начала действия договора</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="dateOfContractEnd" type="xs:date"
-				minOccurs="0">
+			<xs:element name="dateOfContractEnd" type="xs:date" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Дата окончания договора/Действует по
 					</xs:documentation>
@@ -1000,8 +981,7 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="identifierCRM" type="xs:positiveInteger"
-				minOccurs="0">
+			<xs:element name="identifierCRM" type="xs:positiveInteger" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Идентификатор CRM: После интеграции с CRM
 					</xs:documentation>
@@ -1013,8 +993,7 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="previousContractNum" type="xs:string"
-				minOccurs="0">
+			<xs:element name="previousContractNum" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>№_ЗД_Предшественника (на будущее)
 					</xs:documentation>
@@ -1047,14 +1026,12 @@
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="clientReq" type="sa:CommonRequisiteType"
-							minOccurs="0">
+						<xs:element name="clientReq" type="sa:CommonRequisiteType" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Общие реквизиты</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="enterprise" type="xs:string"
-							minOccurs="0">
+						<xs:element name="enterprise" type="xs:string" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Предприятие</xs:documentation>
 							</xs:annotation>
@@ -1068,20 +1045,17 @@
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="bankReq" type="sa:CommonRequisiteType"
-							minOccurs="0">
+						<xs:element name="bankReq" type="sa:CommonRequisiteType" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Общие реквизиты</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="bankAddress" type="dt:DefString"
-							minOccurs="0">
+						<xs:element name="bankAddress" type="dt:DefString" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Адрес Банка</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="phone" type="st:PHONE_Type"
-							minOccurs="0">
+						<xs:element name="phone" type="st:PHONE_Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>телефон</xs:documentation>
 							</xs:annotation>
@@ -1089,14 +1063,12 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="signersOfBank" type="sa:SignersOfType"
-				minOccurs="0">
+			<xs:element name="signersOfBank" type="sa:SignersOfType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Подписант со стороны банка</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="signersOfClient" type="sa:SignersOfType"
-				minOccurs="0">
+			<xs:element name="signersOfClient" type="sa:SignersOfType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Подписант со стороны клиента</xs:documentation>
 				</xs:annotation>
@@ -1113,14 +1085,12 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="commonNumberOfCard" type="xs:positiveInteger"
-				minOccurs="0">
+			<xs:element name="commonNumberOfCard" type="xs:positiveInteger" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Общая численность ЗП карт</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="depositSubTypeSids" type="sa:DepositSubTypeSidsType"
-				maxOccurs="unbounded">
+			<xs:element name="depositSubTypeSids" type="sa:DepositSubTypeSidsType" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>СТАС, п.5.2.1 - справочник «Перечень видов и
 						подвидов счетов (вкладов)». Маппинг полей Прометей(таблица
@@ -1138,7 +1108,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:maxLength value="3" />
+						<xs:maxLength value="3"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -1148,16 +1118,14 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="accountsOfDSOtherOffice" type="dt:String"
-				minOccurs="0">
+			<xs:element name="accountsOfDSOtherOffice" type="dt:String" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Счета к доп.соглашению на списание Банком суммы
 						на зачисление на счета физ.лиц в другом филиале
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="accountsOfDSOffice" type="dt:String"
-				minOccurs="0">
+			<xs:element name="accountsOfDSOffice" type="dt:String" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Счета к доп. соглашению фактически зачисленной
 						суммы на счета физ.лиц, ведущихся в этом же филиале Банка
@@ -1181,9 +1149,9 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:length value="1" />
-						<xs:enumeration value="1" />
-						<xs:enumeration value="0" />
+						<xs:length value="1"/>
+						<xs:enumeration value="1"/>
+						<xs:enumeration value="0"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -1195,7 +1163,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="dt:DefString">
-						<xs:pattern value="([0-9])*" />
+						<xs:pattern value="([0-9])*"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -1207,19 +1175,17 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="dt:DefString">
-						<xs:pattern value="([0-9])*" />
+						<xs:pattern value="([0-9])*"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element name="accountWithoutReserve" type="st:AccountNumber_Type"
-				minOccurs="0">
+			<xs:element name="accountWithoutReserve" type="st:AccountNumber_Type" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Номер расчетного счета (без резервирования)
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="accountGRC" type="st:AccountNumber_Type"
-				minOccurs="0">
+			<xs:element name="accountGRC" type="st:AccountNumber_Type" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Номер лицевого счета ГРЦ/ТРЦ/ГОСБ
 					</xs:documentation>
@@ -1232,27 +1198,23 @@
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="uid" type="st:UID_Type" minOccurs="1"
-							maxOccurs="unbounded" />
+						<xs:element name="uid" type="st:UID_Type" maxOccurs="unbounded"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="flagOfNonResidentAndSeparateRegister"
-				type="xs:boolean">
+			<xs:element name="flagOfNonResidentAndSeparateRegister" type="xs:boolean">
 				<xs:annotation>
 					<xs:documentation>Признак оформления реестров (отдельных на
 						резидентов и резидентов: 0 - нет, 1 - да)
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="packageOfService" type="sa:PackageOfServiceType"
-				minOccurs="0">
+			<xs:element name="packageOfService" type="sa:PackageOfServiceType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Пакет Услуг</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="entryRegistersFormValues" type="xs:string"
-				minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="entryRegistersFormValues" type="xs:string" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>Форма реестров на зачисление.
 						СТАС, Справочник_
@@ -1274,26 +1236,26 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:maxLength value="1" />
-						<xs:pattern value="[1-7]" />
+						<xs:maxLength value="1"/>
+						<xs:pattern value="[1-7]"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element name="commisionForServiceInOwnBranch" type="xs:decimal" minOccurs="0" >
+			<xs:element name="commisionForServiceInOwnBranch" type="xs:decimal" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Размер платы за услуги банка по зачислению своем
 						филиале
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="commisionForServiceInBankBranch" type="xs:decimal" minOccurs="0" >
+			<xs:element name="commisionForServiceInBankBranch" type="xs:decimal" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Размер платы за услуги банка по зачислению
 						филиалах банка*
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="commissionForTransferRegister" type="xs:decimal" minOccurs="0" >
+			<xs:element name="commissionForTransferRegister" type="xs:decimal" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Размер платы за услуги банка по пересылке
 						реестров в другие филиалы
@@ -1310,8 +1272,8 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:length value="1" />
-						<xs:pattern value="[1-5]" />
+						<xs:length value="1"/>
+						<xs:pattern value="[1-5]"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -1324,8 +1286,7 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="commissionAccount" type="st:AccountNumber_Type"
-				minOccurs="0">
+			<xs:element name="commissionAccount" type="st:AccountNumber_Type" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Номер расчетного счета организации (к которому
 						банк формирует счет на оплату комиссии)
@@ -1338,8 +1299,7 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="comissionPeriod" type="xs:string"
-				minOccurs="0">
+			<xs:element name="comissionPeriod" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Периодичность расчета комисии. Справочник:- пусто
 						(если Договором не определен срок периодичности расчета комиссии в
@@ -1347,15 +1307,13 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="workingDaysOf363F" type="xs:positiveInteger"
-				minOccurs="0">
+			<xs:element name="workingDaysOf363F" type="xs:positiveInteger" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Количество рабочих дней ф-363 (для оплаты счета)
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="signers" type="sa:SignersType" minOccurs="0"
-				maxOccurs="unbounded">
+			<xs:element name="signers" type="sa:SignersType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>Подписи ЭЦП</xs:documentation>
 				</xs:annotation>
@@ -1366,8 +1324,7 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="account" type="sa:AccountType"
-				maxOccurs="unbounded">
+			<xs:element name="account" type="sa:AccountType" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>Счет</xs:documentation>
 				</xs:annotation>
@@ -1378,8 +1335,7 @@
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="tableDataOfTariff" type="sa:TariffForServiceType"
-							maxOccurs="unbounded">
+						<xs:element name="tableDataOfTariff" type="sa:TariffForServiceType" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation>Данные таблицы карт договоров
 								</xs:documentation>
@@ -1403,8 +1359,7 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="cancellationType" type="xs:string"
-				minOccurs="0">
+			<xs:element name="cancellationType" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Тип расторжения (на будущее)</xs:documentation>
 				</xs:annotation>
@@ -1419,8 +1374,7 @@
 					<xs:documentation>Клиент</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="contactPersonOfContract" type="sa:PersonContactType"
-				maxOccurs="unbounded">
+			<xs:element name="contactPersonOfContract" type="sa:PersonContactType" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>Контактные лица</xs:documentation>
 				</xs:annotation>
@@ -1432,8 +1386,7 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="territoryOfService" minOccurs="0"
-				maxOccurs="unbounded">
+			<xs:element name="territoryOfService" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>Территория по месту обслуживания зарплатного
 						договора (Данные по ГОСБ/ОСБ)
@@ -1443,8 +1396,7 @@
 					<xs:complexContent>
 						<xs:extension base="sa:BranchAllType">
 							<xs:sequence>
-								<xs:element name="comment" type="xs:string"
-									minOccurs="0">
+								<xs:element name="comment" type="xs:string" minOccurs="0">
 									<xs:annotation>
 										<xs:documentation>Примечание по ЗД</xs:documentation>
 									</xs:annotation>
@@ -1455,8 +1407,7 @@
 										</xs:documentation>
 									</xs:annotation>
 								</xs:element>
-								<xs:element name="loginSSZP" type="xs:string"
-									minOccurs="0">
+								<xs:element name="loginSSZP" type="xs:string" minOccurs="0">
 									<xs:annotation>
 										<xs:documentation>Логин ССЗП для Команды</xs:documentation>
 									</xs:annotation>
@@ -1500,16 +1451,14 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="changeOfContract" type="sa:ChangeOfContractType"
-				minOccurs="0">
+			<xs:element name="changeOfContract" type="sa:ChangeOfContractType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Тип изменений договора в процессе МПЗ: ДС,
 						Редактирование (на будущее)
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="nodesOfContract" type="xs:string"
-				minOccurs="0">
+			<xs:element name="nodesOfContract" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Заметки по договору</xs:documentation>
 				</xs:annotation>
@@ -1535,7 +1484,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:maxLength value="70" />
+						<xs:maxLength value="70"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -1544,8 +1493,7 @@
 					<xs:documentation>Идентификатор договора MDM</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="contractNumber" type="st:CONTRACTNUMBER_Type"
-				minOccurs="0">
+			<xs:element name="contractNumber" type="st:CONTRACTNUMBER_Type" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>№ договора (мастер-система Юпитер)
 					</xs:documentation>
@@ -1558,15 +1506,13 @@
 			<xs:documentation>Пакет услуг</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="statusOfconnection" type="dt:DefString"
-				minOccurs="0">
+			<xs:element name="statusOfconnection" type="dt:DefString" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Статус подключения. ( = тарифный план?)
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="dataOfConnection" type="dt:Date"
-				minOccurs="0">
+			<xs:element name="dataOfConnection" type="dt:Date" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Дата подключения</xs:documentation>
 				</xs:annotation>
@@ -1583,14 +1529,12 @@
 					<xs:documentation>Наименование Банка</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="correspondentAccount" type="st:AccountNumber_Type"
-				minOccurs="0">
+			<xs:element name="correspondentAccount" type="st:AccountNumber_Type" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Кор счет</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="settlementAccount" type="st:AccountNumber_Type"
-				minOccurs="0">
+			<xs:element name="settlementAccount" type="st:AccountNumber_Type" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Расчетный счет</xs:documentation>
 				</xs:annotation>
@@ -1614,7 +1558,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="dt:DefString">
-						<xs:maxLength value="1" />
+						<xs:maxLength value="1"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -1624,7 +1568,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="dt:DefString">
-						<xs:maxLength value="2" />
+						<xs:maxLength value="2"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -1634,7 +1578,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="dt:DefString">
-						<xs:maxLength value="2" />
+						<xs:maxLength value="2"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -1657,7 +1601,6 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-
 	<!--====================================================== Elements Start 
 		============================================================= -->
 </xs:schema>

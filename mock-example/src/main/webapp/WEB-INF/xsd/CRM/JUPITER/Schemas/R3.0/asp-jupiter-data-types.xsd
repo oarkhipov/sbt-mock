@@ -1,6 +1,6 @@
 <?xml version = "1.0" encoding="UTF-8"?>
 <!--  
-   Generated 14 января 2016 г. 17:50:46 by PowerDesigner Tools
+   Generated 8 февраля 2016 г. 13:44:26 by PowerDesigner Tools
    Model AttendingSalaryContract-JupiterInt
    Author sbt-alekseev-va
 -->
@@ -119,19 +119,19 @@
     </xsd:annotation>
     <xsd:simpleType>
      <xsd:restriction base="dt:DefString">
-      <xsd:enumeration value = "0">
+      <xsd:enumeration value = "Postal">
        <xsd:annotation>
-        <xsd:documentation>Фактический</xsd:documentation>
+        <xsd:documentation>Почтовый</xsd:documentation>
        </xsd:annotation>
       </xsd:enumeration>
-      <xsd:enumeration value = "1">
+      <xsd:enumeration value = "Legal">
        <xsd:annotation>
         <xsd:documentation>Юридический</xsd:documentation>
        </xsd:annotation>
       </xsd:enumeration>
-      <xsd:enumeration value = "2">
+      <xsd:enumeration value = "Actual">
        <xsd:annotation>
-        <xsd:documentation>Почтовый</xsd:documentation>
+        <xsd:documentation>Фактический</xsd:documentation>
        </xsd:annotation>
       </xsd:enumeration>
      </xsd:restriction>
@@ -207,6 +207,75 @@
    <xsd:element name="streetType" type="tns:ReferenceStreetType" minOccurs="0">
    <xsd:annotation>
    <xsd:documentation>Тип улицы</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="AgreementShortInfoSCs">
+   <xsd:annotation>
+   <xsd:documentation>Зарплатный договор (Поиск SCs)</xsd:documentation>
+   </xsd:annotation>
+   <xsd:sequence>
+   <!-- Номер договора-->
+   <xsd:element name="agreementNumber" type="dt:DefString" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Номер договора</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Версия договора-->
+   <xsd:element name="agreementVersion" type="dt:String" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Версия договора</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Дата регистрации-->
+   <xsd:element name="registrationDate" type="xsd:date" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Дата выдачи свидетельства о регистрации</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Дата создания-->
+   <xsd:element name="creationDate" type="xsd:date" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Дата создания</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Дата начала действия договора-->
+   <xsd:element name="fromDate" type="xsd:date" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Дата начала действия договора</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Дата окончания договора-->
+   <xsd:element name="toDate" type="xsd:date" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Дата окончания договора</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Единый централизованный договор-->
+   <xsd:element name="isCentralAgreement" type="xsd:boolean" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Единый централизованный договор: false - не выбрано значение; true- выбрано
+    </xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Оферта-->
+   <xsd:element name="isOffer" type="xsd:boolean" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Признак оферты</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Признак счетов на РКО-->
+   <xsd:element name="isRKO" type="xsd:boolean" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Признак счетов на РКО</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Идентификатор договора-->
+   <xsd:element name="jupiterID" type="tns:IDType">
+   <xsd:annotation>
+   <xsd:documentation>Идентификатор договора</xsd:documentation>
    </xsd:annotation>
    </xsd:element>
    </xsd:sequence>
@@ -295,18 +364,6 @@
    <xsd:documentation>Клиент</xsd:documentation>
    </xsd:annotation>
    <xsd:sequence>
-   <!-- ИНН-->
-   <xsd:element name="inn" type="dt:DefString" minOccurs="0">
-    <xsd:annotation>
-    <xsd:documentation>+</xsd:documentation>
-    </xsd:annotation>
-   </xsd:element>
-   <!-- КИО-->
-   <xsd:element name="kio" type="dt:DefString" minOccurs="0">
-    <xsd:annotation>
-    <xsd:documentation>+</xsd:documentation>
-    </xsd:annotation>
-   </xsd:element>
    <!-- Резидент/нерезидент-->
    <xsd:element name="isResident" type="xsd:boolean" minOccurs="0">
     <xsd:annotation>
@@ -315,8 +372,12 @@
    </xsd:element>
    <!-- Номер свидетельства о регистрации-->
    <xsd:element name="registerNumber" type="xsd:double" minOccurs="0"/>
-   <!-- Дата выдачи свидетельства о регистрации-->
-   <xsd:element name="registrationDate" type="xsd:date" minOccurs="0"/>
+   <!-- Дата регистрации-->
+   <xsd:element name="registrationDate" type="xsd:date" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Дата выдачи свидетельства о регистрации</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
    <!-- Место выдачи свидетельства о регистрации-->
    <xsd:element name="registerPlace" type="dt:DefString" minOccurs="0"/>
    <!-- Контактный Телефон-->
@@ -347,20 +408,6 @@
     <xsd:documentation>+</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
-   <!-- Тип клиента-->
-   <xsd:element name="clientType" type="xsd:string" minOccurs="0">
-    <xsd:annotation>
-    <xsd:documentation>ЮЛ,
-    ИП,
-    Филиал</xsd:documentation>
-    </xsd:annotation>
-   </xsd:element>
-   <!-- ОГРН-->
-   <xsd:element name="ogrn" type="dt:DefString" minOccurs="0">
-    <xsd:annotation>
-    <xsd:documentation>+</xsd:documentation>
-    </xsd:annotation>
-   </xsd:element>
    <!-- ОКФС-->
    <xsd:element name="okfs" type="dt:DefString" minOccurs="0">
     <xsd:annotation>
@@ -368,7 +415,7 @@
     </xsd:annotation>
    </xsd:element>
    <!-- ID клиента в АС Ю-->
-   <xsd:element name="clientID" type="sa:IDType" minOccurs="0">
+   <xsd:element name="clientID" type="tns:IDType" minOccurs="0">
    <xsd:annotation>
    <xsd:documentation>ID клиента в АС Ю</xsd:documentation>
    </xsd:annotation>
@@ -409,6 +456,20 @@
    <xsd:documentation>Налоговая инспекция</xsd:documentation>
    </xsd:annotation>
    </xsd:element>
+   <!-- ИНН/ КИО-->
+   <xsd:element name="inn" type="st:INN_Type" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>ИНН/ КИО</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- ОГРН-->
+   <xsd:element name="ogrn" type="st:OGRN_Type" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>ОГРН</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- -->
+   <xsd:element name="clientType" type="st:Client_Type"/>
    </xsd:sequence>
   </xsd:complexType>
   
@@ -503,12 +564,90 @@
     <xsd:documentation>Резидент/нерезидент</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
+   <!-- КПП-->
+   <xsd:element name="kpp" type="dt:DefString" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>КПП</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
    <!-- Юридический адрес клиента.
         Элементы типа конкатенируются для вывода в одном поле UI-->
    <xsd:element name="address" type="tns:AddressDataType" minOccurs="0">
    <xsd:annotation>
    <xsd:documentation>Юридический адрес клиента.
                       Элементы типа конкатенируются для вывода в одном поле UI</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- ИНН/ КИО-->
+   <xsd:element name="inn" type="st:INN_Type" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>ИНН/ КИО</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- ОГРН-->
+   <xsd:element name="ogrn" type="st:OGRN_Type" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>ОГРН</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- Тип клиента-->
+   <xsd:element name="clientType" type="st:Client_Type" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>Тип клиента</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="ClientShortInfoSCs">
+   <xsd:annotation>
+   <xsd:documentation>Клиент (Поиск SCs)</xsd:documentation>
+   </xsd:annotation>
+   <xsd:sequence>
+   <!-- Краткое наименование клиента на русском языке-->
+   <xsd:element name="name" type="dt:String" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Краткое наименование клиента на русском языке</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- КПП-->
+   <xsd:element name="kpp" type="dt:DefString" minOccurs="0"/>
+   <!-- Договора клиента-->
+   <xsd:element name="clientAgreementsShortInfo" type="tns:AgreementShortInfoSCs" minOccurs="0" maxOccurs="unbounded">
+   <xsd:annotation>
+   <xsd:documentation>Договора клиента</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- ИНН/КИО-->
+   <xsd:element name="inn" type="st:INN_Type" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>ИНН/КИО</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- Идентификатор клиента-->
+   <xsd:element name="clientID" type="tns:IDType">
+   <xsd:annotation>
+   <xsd:documentation>Идентификатор клиента</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- ОГРН-->
+   <xsd:element name="ogrn" type="st:OGRN_Type" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>ОГРН</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- Тип клиента-->
+   <xsd:element name="clientType" type="st:Client_Type">
+   <xsd:annotation>
+   <xsd:documentation>Тип клиента</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- Юридический адрес
+        addressType='Legal'-->
+   <xsd:element name="address" type="tns:AddressDataType" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>Юридический адрес
+                      addressType=&#39;Legal&#39;</xsd:documentation>
    </xsd:annotation>
    </xsd:element>
    </xsd:sequence>
@@ -520,13 +659,13 @@
    </xsd:annotation>
    <xsd:sequence>
    <!-- Фонд оплаты труда-->
-   <xsd:element name="fot" type="xsd:decimal">
+   <xsd:element name="fot" type="xsd:decimal" minOccurs="0">
     <xsd:annotation>
     <xsd:documentation>Фонд оплаты труда</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
    <!-- Примечание по договору-->
-   <xsd:element name="comment" type="dt:String">
+   <xsd:element name="comment" type="dt:String" minOccurs="0">
     <xsd:annotation>
     <xsd:documentation>Примечание по договору</xsd:documentation>
     </xsd:annotation>
@@ -575,12 +714,6 @@
    <xsd:documentation>ЦП</xsd:documentation>
    </xsd:annotation>
    <xsd:sequence>
-   <!-- Уровень-->
-   <xsd:element name="signLevel" type="xsd:int" minOccurs="0">
-    <xsd:annotation>
-    <xsd:documentation>1/2</xsd:documentation>
-    </xsd:annotation>
-   </xsd:element>
    <!-- Должность-->
    <xsd:element name="position" type="dt:String" minOccurs="0">
     <xsd:annotation>
@@ -607,6 +740,12 @@
     <xsd:documentation>+</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
+   <!-- Фамилия-->
+   <xsd:element name="lastName" type="dt:String" minOccurs="0"/>
+   <!-- Имя-->
+   <xsd:element name="name" type="dt:String" minOccurs="0"/>
+   <!-- Отчество-->
+   <xsd:element name="patronymic" type="dt:String" minOccurs="0"/>
    <!-- EMail-->
    <xsd:element name="email" type="dt:DefString" minOccurs="0"/>
    <!-- Телефон-->
@@ -691,6 +830,12 @@
     <xsd:documentation>ФИО</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
+   <!-- Фамилия-->
+   <xsd:element name="lastName" type="dt:String" minOccurs="0"/>
+   <!-- Имя-->
+   <xsd:element name="name" type="dt:String" minOccurs="0"/>
+   <!-- Отчество-->
+   <xsd:element name="patronymic" type="dt:String" minOccurs="0"/>
    <!-- Email-->
    <xsd:element name="email" type="dt:DefString" minOccurs="0">
     <xsd:annotation>
@@ -774,7 +919,8 @@
   
   <xsd:simpleType name="ReferenceAccountTransferPayment">
    <xsd:annotation>
-   <xsd:documentation>Из выпадающего списка сотрудником выбирается одно значение в соответствии с заключенным Договором:
+   <xsd:documentation>СТАС, Справочник_ «Система передачи счетов на оплату комиссии», таблица ReferenceAccountTransferPayment, передается значение поля &quot;Код&quot;,  длина поля =1 [от 1 до 5]. (справочник Юпитер -NSI.PAYFORM)
+   Из выпадающего списка сотрудником выбирается одно значение в соответствии с заключенным Договором:
    1) Клиент-Сбербанк,
    2) СПОД Текос-КБ,
    3) Эл. канал, отличный от АС Клиент-Сбербанк и СПОД Текос-КБ
@@ -787,7 +933,8 @@
   
   <xsd:simpleType name="ReferenceAnnualComissionOrder">
    <xsd:annotation>
-   <xsd:documentation>Порядок взимания комиссии за годовое обслуживание</xsd:documentation>
+   <xsd:documentation>Порядок взимания комиссии за годовое обслуживание
+   СТАС, Справочник_ &quot;Порядок взимания комиссии за годовое обслуживание», таблица ReferenceAnnualComissionOrder, передается значение поля &quot;Код&quot;</xsd:documentation>
    </xsd:annotation>
    <xsd:restriction base="dt:DefString">
    </xsd:restriction>
@@ -821,29 +968,16 @@
   
   <xsd:simpleType name="ReferenceCalculation">
    <xsd:annotation>
-   <xsd:documentation>Вид расчетов</xsd:documentation>
+   <xsd:documentation>СТАС, Справочник_ «Вид расчетов», таблица ReferenceCalculationType, передается значение поля &quot;Код&quot;,  длина поля =1. (справочник Юпитер NSI.SETTLEKINDS)</xsd:documentation>
    </xsd:annotation>
    <xsd:restriction base="dt:DefString">
    </xsd:restriction>
   </xsd:simpleType>
   
-  <xsd:complexType name="ReferenceCardTarifs">
-   <xsd:annotation>
-   <xsd:documentation>Тариф за годовое обслуживание МБК</xsd:documentation>
-   </xsd:annotation>
-   <xsd:sequence>
-   <!-- Тип банковской карты-->
-   <xsd:element name="TARIFF_cardType" type="xsd:string" minOccurs="0"/>
-   <!-- Тариф за 1 год обслуживания-->
-   <xsd:element name="TARIFF_value1Year" type="xsd:double" minOccurs="0"/>
-   <!-- Тариф за последующие  года-->
-   <xsd:element name="TARIFF_valueNextYear" type="xsd:double" minOccurs="0"/>
-   </xsd:sequence>
-  </xsd:complexType>
-  
   <xsd:simpleType name="ReferenceCardType">
    <xsd:annotation>
-   <xsd:documentation>Тип банковских карт</xsd:documentation>
+   <xsd:documentation>Тип банковских карт
+   СТАС, Справочник ЦАС НСИ_ &quot;Типы банковских карт», таблица ReferenceCardType, поле CARD_MDM-&gt; полt &quot;CODE &quot;,  длина поля =16. (справочник Юпитер - NSI.CARD_MDM)</xsd:documentation>
    </xsd:annotation>
    <xsd:restriction base="dt:DefString">
    </xsd:restriction>
@@ -851,7 +985,8 @@
   
   <xsd:simpleType name="ReferenceCommissionOrder">
    <xsd:annotation>
-   <xsd:documentation>1)	одновременно с основной суммой (фиксированная позиция, до внесения изменений),
+   <xsd:documentation>СТАС, Справочник_ &quot;Порядок уплаты комиссии», таблица ReferenceComissionOrder, передается значение поля &quot;Код&quot;,  длина поля =1 [от 0 до 6]. (справочник Юпитер - NSI.COMORDER)
+   1)	одновременно с основной суммой (фиксированная позиция, до внесения изменений),
    2)	единовременно по окончании месяца по всем операциям, прошедшим в течение месяца,
    3)	единовременно по окончании квартала по всем операциям, прошедшим в течение квартала,
    4)	в безакцептном порядке со счета юридического лица по факту исполнения обязательств,
@@ -866,7 +1001,9 @@
   
   <xsd:simpleType name="ReferenceCommissionPeriodical">
    <xsd:annotation>
-   <xsd:documentation>По условиям ЗД/Ежедекадно</xsd:documentation>
+   <xsd:documentation>По условиям ЗД/Ежедекадно
+   СТАС, Справочник_ Порядок уплаты комиссии», таблица ReferenceComissionPeriodicaly, передается значение поля &quot;Код&quot;,  длина поля =1 [от 0 до 1]. (справочник Юпитер - CL.DOGOVORS.SETTLING_PERIOD IS )
+   (если Договором не определен срок периодичности расчета комиссии в месяц «ежедекадно», код =1)</xsd:documentation>
    </xsd:annotation>
    <xsd:restriction base="dt:DefString">
    </xsd:restriction>
@@ -874,7 +1011,8 @@
   
   <xsd:simpleType name="ReferenceContractStatus">
    <xsd:annotation>
-   <xsd:documentation>Статус договора</xsd:documentation>
+   <xsd:documentation>Статус договора
+   СТАС, таблица «Соотношение статусов АСП – АС Юпитер», передается наименование (код) статус на английском</xsd:documentation>
    </xsd:annotation>
    <xsd:restriction base="dt:DefString">
    </xsd:restriction>
@@ -882,54 +1020,29 @@
   
   <xsd:simpleType name="ReferenceContractType">
    <xsd:annotation>
-   <xsd:documentation>Тип договора</xsd:documentation>
+   <xsd:documentation>СТАС, Справочник_ «Тип договора», таблица ReferenceContractType, передается значение поля &quot;Код&quot;,  длина поля =1.</xsd:documentation>
    </xsd:annotation>
    <xsd:restriction base="dt:DefString">
    </xsd:restriction>
   </xsd:simpleType>
   
-  <xsd:complexType name="ReferenceCountry">
+  <xsd:simpleType name="ReferenceCountry">
    <xsd:annotation>
-   <xsd:documentation>Страна</xsd:documentation>
+   <xsd:documentation>Страна
+   СТАС, Справочник ЦАС НСИ &quot;Единый справочник стран» (ReferenceCountry), код = COUNTRY2.ISO3, передается значение поля &quot;ISO3&quot;, макс. длина=3, (справочник Юпитер - NSI.COUNTRIES)</xsd:documentation>
    </xsd:annotation>
-   <xsd:sequence>
-   <!-- ISO код-->
-   <xsd:element name="ISO3" type="dt:DefString" minOccurs="0">
-    <xsd:annotation>
-    <xsd:documentation>Трехзначный буквенный код страны мира (код альфа-3)</xsd:documentation>
-    </xsd:annotation>
-   </xsd:element>
-   <!-- ФИО-->
-   <xsd:element name="fullName" type="dt:String" minOccurs="0">
-    <xsd:annotation>
-    <xsd:documentation>ФИО</xsd:documentation>
-    </xsd:annotation>
-   </xsd:element>
-   </xsd:sequence>
-  </xsd:complexType>
+   <xsd:restriction base="dt:DefString">
+   </xsd:restriction>
+  </xsd:simpleType>
   
-  <xsd:complexType name="ReferenceCurrency">
+  <xsd:simpleType name="ReferenceCurrency">
    <xsd:annotation>
-   <xsd:documentation>- Доллар США – USD,
-   - ЕВРО – EUR,
-   - Российский рубль – RUR
+   <xsd:documentation>СТАС, Справочник_ «Валюта», таблица ReferenceCurrency, передается значение поля &quot;код&quot; ,  макс длина поля =3.
    </xsd:documentation>
    </xsd:annotation>
-   <xsd:sequence>
-   <!-- ISO-->
-   <xsd:element name="ISO" type="xsd:string" minOccurs="0">
-    <xsd:annotation>
-    <xsd:documentation>ISO</xsd:documentation>
-    </xsd:annotation>
-   </xsd:element>
-   <!-- Аббревиатура-->
-   <xsd:element name="Abbreviation" type="dt:DefString" minOccurs="0">
-    <xsd:annotation>
-    <xsd:documentation>Аббревиатура</xsd:documentation>
-    </xsd:annotation>
-   </xsd:element>
-   </xsd:sequence>
-  </xsd:complexType>
+   <xsd:restriction base="dt:DefString">
+   </xsd:restriction>
+  </xsd:simpleType>
   
   <xsd:complexType name="ReferenceDepositSubTypes">
    <xsd:annotation>
@@ -951,7 +1064,8 @@
   
   <xsd:simpleType name="ReferenceIdentificationDocumentKind">
    <xsd:annotation>
-   <xsd:documentation>Виды документов, удостоверяющих личность</xsd:documentation>
+   <xsd:documentation>Виды документов, удостоверяющих личность
+   СТАС, Справочник ЦАС НСИ &quot;Виды документов, удостоверяющих личность», таблица PB_document , передается значение поля &quot;CODE&quot;, макс. длина=10, (справочник Юпитер - NSI.NSIDOC)</xsd:documentation>
    </xsd:annotation>
    <xsd:restriction base="dt:DefString">
    </xsd:restriction>
@@ -959,7 +1073,8 @@
   
   <xsd:simpleType name="ReferenceIndustry">
    <xsd:annotation>
-   <xsd:documentation>Тип Отрасли</xsd:documentation>
+   <xsd:documentation>Тип Отрасли
+   СТАС, Справочник_ &quot;Тип отрасли», таблица ReferenceIndustry, передается значение поля &quot;Код &quot;,  длина поля =3 [0-9][0-9][0-9]. (справочник Юпитер - NSI.INDUSTRYTYPE)</xsd:documentation>
    </xsd:annotation>
    <xsd:restriction base="dt:DefString">
    </xsd:restriction>
@@ -967,7 +1082,8 @@
   
   <xsd:simpleType name="ReferenceLegalForm">
    <xsd:annotation>
-   <xsd:documentation>Организационно-правовые формы</xsd:documentation>
+   <xsd:documentation>Организационно-правовые формы
+   СТАС, Справочник ЦАС НСИ_ &quot;Организационно-правовые формы», таблица ABBR_KOPF, передается значение поля &quot;KOD&quot;,  макс. длина поля =6. (справочник Юпитер - NSI.NSIOKPF)</xsd:documentation>
    </xsd:annotation>
    <xsd:restriction base="dt:DefString">
    </xsd:restriction>
@@ -975,7 +1091,8 @@
   
   <xsd:simpleType name="ReferencePayment">
    <xsd:annotation>
-   <xsd:documentation>Виды зачислений денежных средств:
+   <xsd:documentation>СТАС, Справочник_ «Виды зачисляемых денежных средст», таблица ReferencePaymentType, передается значение поля &quot;Код&quot;, длина поля по каждому выбранному значению из списка=1 [от 1 до 7].
+   Значения на этапе проектирования:
     Заработная плата
     Стипендия учащимся
     Пенсия социальная
@@ -991,7 +1108,8 @@
   
   <xsd:simpleType name="ReferenceRefusePayment">
    <xsd:annotation>
-   <xsd:documentation>0 - Единичными платежными поручениями по каждой незачисленной сумме
+   <xsd:documentation>СТАС, Справочник_ «Порядок возврата», таблица ReferenceRefusePayment, передается значение поля &quot;Код&quot;,  длина поля =1 [0 или 1]. (справочник Юпитер CL.DOGOVORS.RETURN_ORDER)
+   0 - Единичными платежными поручениями по каждой незачисленной сумме
    1 - Платежным поручением на общую сумму незачисленных средств.</xsd:documentation>
    </xsd:annotation>
    <xsd:restriction base="dt:DefString">
@@ -1000,7 +1118,8 @@
   
   <xsd:simpleType name="ReferenceRegionRussia">
    <xsd:annotation>
-   <xsd:documentation>Регионы России</xsd:documentation>
+   <xsd:documentation>Регионы России
+   СТАС, ЦАС НСИ Справочник_ &quot;Регионы России», таблица PB_region, передается значение поля &quot;CODE&quot;, максимальная длина=2, (справочник Юпитер - NSI.NSICRE)</xsd:documentation>
    </xsd:annotation>
    <xsd:restriction base="dt:DefString">
    </xsd:restriction>
@@ -1008,15 +1127,8 @@
   
   <xsd:simpleType name="ReferenceRegistryEnrollment">
    <xsd:annotation>
-   <xsd:documentation>Форма реестра на зачисление</xsd:documentation>
-   </xsd:annotation>
-   <xsd:restriction base="dt:DefString">
-   </xsd:restriction>
-  </xsd:simpleType>
-  
-  <xsd:simpleType name="ReferenceRejectReason">
-   <xsd:annotation>
-   <xsd:documentation>Типы причин</xsd:documentation>
+   <xsd:documentation>СТАС, Справочник_ «Форма реестра на зачисление», таблица ReferenceRegistryEnrollment:
+   Справочник из 6 полей (в текущей реализации будет использоваться список из 4 полей). Со стороны АС Прометей передается соответствующий  «Код» по каждому значению таблицы.</xsd:documentation>
    </xsd:annotation>
    <xsd:restriction base="dt:DefString">
    </xsd:restriction>
@@ -1024,7 +1136,8 @@
   
   <xsd:simpleType name="ReferenceSalesChannel">
    <xsd:annotation>
-   <xsd:documentation>Канал продаж</xsd:documentation>
+   <xsd:documentation>Канал продаж
+   СТАС, Справочник_ &quot;Канал продаж», таблица ReferenceSalesChannel, передается значение поля &quot;Код &quot; (необходимо привести во соответствие с полями Юпитер) (справочник Юпитер - NSI.SALE_CHANNEL)</xsd:documentation>
    </xsd:annotation>
    <xsd:restriction base="dt:DefString">
    </xsd:restriction>
@@ -1032,7 +1145,8 @@
   
   <xsd:simpleType name="ReferenceSalesMethod">
    <xsd:annotation>
-   <xsd:documentation>Метод продаж</xsd:documentation>
+   <xsd:documentation>Метод продаж
+   СТАС, Справочник_ «Метод продаж», таблица ReferenceSalesMethod (передается значение поля &quot;Код&quot;, ограничения: длина поля =1 [1-4]. </xsd:documentation>
    </xsd:annotation>
    <xsd:restriction base="dt:DefString">
    </xsd:restriction>
@@ -1042,45 +1156,45 @@
    <xsd:annotation>
    <xsd:documentation>Выбор из списка: 
    2 - Сначала счета
-   1 - Сначала карты</xsd:documentation>
+   1 - Сначала карты
+   Передается кириллическое значение из массива (Сначала счета;Сначала карты) </xsd:documentation>
    </xsd:annotation>
    <xsd:restriction base="dt:DefString">
+    <xsd:enumeration value = "1">
+     <xsd:annotation>
+      <xsd:documentation>Сначала карты</xsd:documentation>
+     </xsd:annotation>
+    </xsd:enumeration>
+    <xsd:enumeration value = "2">
+     <xsd:annotation>
+      <xsd:documentation>Сначала счета</xsd:documentation>
+     </xsd:annotation>
+    </xsd:enumeration>
    </xsd:restriction>
   </xsd:simpleType>
   
   <xsd:simpleType name="ReferenceStreetType">
    <xsd:annotation>
-   <xsd:documentation>Тип улицы</xsd:documentation>
+   <xsd:documentation>СТАС, Справочник &quot;Тип улицы», таблица ReferenceStreetType, передается значение поля &quot;CODE&quot;, максдлина=2, [1-12] </xsd:documentation>
    </xsd:annotation>
    <xsd:restriction base="dt:DefString">
    </xsd:restriction>
   </xsd:simpleType>
   
-  <xsd:complexType name="ReferenceTaxInspection">
+  <xsd:simpleType name="ReferenceTaxInspection">
    <xsd:annotation>
-   <xsd:documentation>Налоговые инспекции в регионах России</xsd:documentation>
+   <xsd:documentation>Налоговые инспекции в регионах России
+   СТАС, Справочник ЦАС НСИ _ &quot;Налоговая инспекция», таблица ReferenceTaxInspection, передается значение поля &quot;CODE_FNS &quot;,  длина поля =4. (справочник Юпитер - NALOG_INSP2 ?)</xsd:documentation>
    </xsd:annotation>
-   <xsd:sequence>
-   <!-- Индекс-->
-   <xsd:element name="index" type="xsd:double" minOccurs="0"/>
-   <!-- Адрес-->
-   <xsd:element name="address" type="xsd:string" minOccurs="0"/>
-   <!-- Телефон-->
-   <xsd:element name="phone" type="xsd:double" minOccurs="0">
-    <xsd:annotation>
-    <xsd:documentation>+</xsd:documentation>
-    </xsd:annotation>
-   </xsd:element>
-   <!-- Город-->
-   <xsd:element name="city" type="xsd:string" minOccurs="0"/>
-   <!-- Почтовый индекс-->
-   <xsd:element name="zip" type="xsd:double" minOccurs="0"/>
-   </xsd:sequence>
-  </xsd:complexType>
+   <xsd:restriction base="dt:DefString">
+   </xsd:restriction>
+  </xsd:simpleType>
   
   <xsd:simpleType name="ReferenceTerritoryStatus">
    <xsd:annotation>
-   <xsd:documentation>Статусы задач на сопровождение</xsd:documentation>
+   <xsd:documentation>Статусы задач на сопровождение
+   В соответствии со СТАС &quot;Статусная модель&quot;
+   передается наименование (код) статус на английском</xsd:documentation>
    </xsd:annotation>
    <xsd:restriction base="dt:DefString">
    </xsd:restriction>
@@ -1088,7 +1202,11 @@
   
   <xsd:simpleType name="ReferenceОКАТО">
    <xsd:annotation>
-   <xsd:documentation>Объекты административно-территориального деления</xsd:documentation>
+   <xsd:documentation>Объекты административно-территориального деления
+   Справочник предназначен для хранения информации об объектах административно-территориального деления. 
+   Обновляем  справочник через импорт из АС ЦАС НСИ. 
+   Передаем Код
+   </xsd:documentation>
    </xsd:annotation>
    <xsd:restriction base="dt:DefString">
    </xsd:restriction>
@@ -1103,20 +1221,6 @@
    <xsd:element name="registerForm" type="tns:ReferenceRegistryEnrollment" minOccurs="0">
    <xsd:annotation>
    <xsd:documentation>Форма реестра на зачисление</xsd:documentation>
-   </xsd:annotation>
-   </xsd:element>
-   </xsd:sequence>
-  </xsd:complexType>
-  
-  <xsd:complexType name="RejectReason">
-   <xsd:annotation>
-   <xsd:documentation>Причина отказа</xsd:documentation>
-   </xsd:annotation>
-   <xsd:sequence>
-   <!-- Тип причины отказа-->
-   <xsd:element name="rejectReasonType" type="tns:ReferenceRejectReason">
-   <xsd:annotation>
-   <xsd:documentation>Тип причины отказа</xsd:documentation>
    </xsd:annotation>
    </xsd:element>
    </xsd:sequence>
@@ -1146,13 +1250,25 @@
    <!-- Номер договора-->
    <xsd:element name="agreementNumber" type="dt:DefString" minOccurs="0">
     <xsd:annotation>
-    <xsd:documentation>Номер ЗД</xsd:documentation>
+    <xsd:documentation>Номер договора</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
-   <!-- Версия ЗД-->
+   <!-- Версия договора-->
    <xsd:element name="agreementVersion" type="dt:String" minOccurs="0">
     <xsd:annotation>
-    <xsd:documentation>Версия ЗД</xsd:documentation>
+    <xsd:documentation>Версия договора</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Уровень-->
+   <xsd:element name="signLevel" type="xsd:int" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>0/1</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Заметки по договору-->
+   <xsd:element name="agreementNotes" type="dt:String" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Заметки по договору</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
    <!-- Процесс-->
@@ -1161,10 +1277,10 @@
     <xsd:documentation>Процесс</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
-   <!-- Номер ЗД предшественника-->
+   <!-- Номер договора - предшественника-->
    <xsd:element name="previousAgreementNumber" type="dt:DefString" minOccurs="0">
     <xsd:annotation>
-    <xsd:documentation>Если ЗД создан в процессе перезаключения</xsd:documentation>
+    <xsd:documentation>Если договора создан в процессе перезаключения</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
    <!-- Дата регистрации-->
@@ -1180,7 +1296,7 @@
     </xsd:annotation>
    </xsd:element>
    <!-- Дата начала действия договора-->
-   <xsd:element name="fromDate" type="xsd:date">
+   <xsd:element name="fromDate" type="xsd:date" minOccurs="0">
     <xsd:annotation>
     <xsd:documentation>Дата начала действия договора</xsd:documentation>
     </xsd:annotation>
@@ -1309,12 +1425,6 @@
     <xsd:documentation>Комментарий КЗД</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
-   <!-- Количество подписей по ЗД-->
-   <xsd:element name="numberOfSigners" type="xsd:int" minOccurs="0">
-    <xsd:annotation>
-    <xsd:documentation>Кол-во зарплатных карт</xsd:documentation>
-    </xsd:annotation>
-   </xsd:element>
    <!-- Признак кураторства ЦА-->
    <xsd:element name="isSuperviserCA" type="xsd:boolean" minOccurs="0">
     <xsd:annotation>
@@ -1339,16 +1449,10 @@
     <xsd:documentation>Признак счетов на РКО</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
-   <!-- Статус в CRM-->
-   <xsd:element name="statusCRM" type="dt:DefString" minOccurs="0">
-    <xsd:annotation>
-    <xsd:documentation>Статус в CRM: После интеграции с CRM</xsd:documentation>
-    </xsd:annotation>
-   </xsd:element>
    <!-- Дата в CRM-->
    <xsd:element name="dateCRM" type="xsd:date" minOccurs="0">
     <xsd:annotation>
-    <xsd:documentation>Дата в CRM: После интеграции с CRM</xsd:documentation>
+    <xsd:documentation>Дата приема информации из CRM</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
    <!-- Счет-->
@@ -1378,7 +1482,7 @@
    </xsd:annotation>
    </xsd:element>
    <!-- Реквизиты клиента-->
-   <xsd:element name="clientRequisite" type="tns:ClientRequisite" minOccurs="0" maxOccurs="unbounded">
+   <xsd:element name="clientRequisite" type="tns:ClientRequisite" minOccurs="0">
    <xsd:annotation>
    <xsd:documentation>Реквизиты клиента</xsd:documentation>
    </xsd:annotation>
@@ -1485,12 +1589,6 @@
    <xsd:documentation>Обслуживание договоров по территориям</xsd:documentation>
    </xsd:annotation>
    </xsd:element>
-   <!-- Причины отказа-->
-   <xsd:element name="rejectReasons" type="tns:RejectReason" minOccurs="0" maxOccurs="unbounded">
-   <xsd:annotation>
-   <xsd:documentation>Причины отказа</xsd:documentation>
-   </xsd:annotation>
-   </xsd:element>
    <!-- Информация о клиенте-->
    <xsd:element name="clientInfo" type="tns:Client" minOccurs="0">
    <xsd:annotation>
@@ -1593,10 +1691,16 @@
    <xsd:documentation>Зарплатный договор</xsd:documentation>
    </xsd:annotation>
    <xsd:sequence>
-   <!-- Версия ЗД-->
+   <!-- Номер договора-->
+   <xsd:element name="agreementNumber" type="dt:DefString" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Номер договора</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Версия договора-->
    <xsd:element name="agreementVersion" type="dt:String" minOccurs="0">
     <xsd:annotation>
-    <xsd:documentation>Версия ЗД</xsd:documentation>
+    <xsd:documentation>Версия договора</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
    <!-- Дата регистрации-->
@@ -1643,7 +1747,7 @@
     </xsd:annotation>
    </xsd:element>
    <!-- Идентификация договора в АС Ю-->
-   <xsd:element name="jupiterID" type="sa:IDType" minOccurs="0">
+   <xsd:element name="jupiterID" type="tns:IDType" minOccurs="0">
    <xsd:annotation>
    <xsd:documentation>Идентификация договора в АС Ю</xsd:documentation>
    </xsd:annotation>
@@ -1686,12 +1790,6 @@
     <xsd:documentation>+</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
-   <!-- Дата рождения-->
-   <xsd:element name="birthDate" type="xsd:date" minOccurs="0">
-    <xsd:annotation>
-    <xsd:documentation>Дата рождения</xsd:documentation>
-    </xsd:annotation>
-   </xsd:element>
    </xsd:sequence>
   </xsd:complexType>
   
@@ -1701,30 +1799,40 @@
    </xsd:annotation>
    <xsd:sequence>
    <!-- Остановка ЭР-->
-   <xsd:element name="stoppingOfRegister" type="xsd:boolean" minOccurs="0">
+   <xsd:element name="stoppingOfRegister" type="dt:DefString" minOccurs="0">
     <xsd:annotation>
     <xsd:documentation>Признак автоматической остановки ЭР
-        Value	Label
-        1	Автоматически
-        2	Вручную</xsd:documentation>
+    Передается кириллическое значение из массива (Автоматически;Вручную)</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
-   <!-- ЦОПП-->
+   <!-- ЦОПП
+        Формат передачи данных: <Номер ВСП>-->
    <xsd:element name="operationalSupportCenter" type="st:VSP_Type" minOccurs="0">
    <xsd:annotation>
-   <xsd:documentation>ЦОПП</xsd:documentation>
+   <xsd:documentation>ЦОПП
+                      Формат передачи данных: &lt;Номер ВСП&gt;</xsd:documentation>
    </xsd:annotation>
    </xsd:element>
-   <!-- Место открытия счета-->
+   <!-- Место открытия счета
+        Формат передачи данных: "<Номер ТБ>+<Номер ОСБ>+<Номер ВСП>"-->
    <xsd:element name="placeOfAccountOpen" type="st:VSP_Type" minOccurs="0">
    <xsd:annotation>
-   <xsd:documentation>Место открытия счета</xsd:documentation>
+   <xsd:documentation>Место открытия счета
+                      Формат передачи данных: &quot;&lt;Номер ТБ&gt;+&lt;Номер ОСБ&gt;+&lt;Номер ВСП&gt;&quot;</xsd:documentation>
    </xsd:annotation>
    </xsd:element>
-   <!-- Место выдачи карт-->
+   <!-- Место выдачи карт
+        Формат передачи данных: "<Номер ТБ>+<Номер ОСБ>+<Номер ВСП>"-->
    <xsd:element name="placeOfCardIssue" type="st:VSP_Type" minOccurs="0">
    <xsd:annotation>
-   <xsd:documentation>Место выдачи карт</xsd:documentation>
+   <xsd:documentation>Место выдачи карт
+                      Формат передачи данных: &quot;&lt;Номер ТБ&gt;+&lt;Номер ОСБ&gt;+&lt;Номер ВСП&gt;&quot;</xsd:documentation>
+   </xsd:annotation>
+   </xsd:element>
+   <!-- Сценарий обработки ЭР-->
+   <xsd:element name="scenarioOfWorking" type="tns:ReferenceScenarioER" minOccurs="0">
+   <xsd:annotation>
+   <xsd:documentation>Сценарий обработки ЭР</xsd:documentation>
    </xsd:annotation>
    </xsd:element>
    </xsd:sequence>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by sbt-rogov-an (EMBRACE) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:csa="http://sbrf.ru/ASP/JUPITER/CreateSalaryAgreement/1.01/" xmlns:ct="http://sbrf.ru/ASP/ESB/commonTypes/" xmlns:sa="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R2.1/" xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/" xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/" targetNamespace="http://sbrf.ru/ASP/JUPITER/CreateSalaryAgreement/1.01/" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R2.1/" schemaLocation="asp-jupiter-data-types.xsd"/>
+	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R2.1/" schemaLocation="./asp-jupiter-data-types.xsd"/>
 	<xs:import namespace="http://sbrf.ru/ASP/ESB/commonTypes/" schemaLocation="../../../commonTypes/commonTypes.xsd"/>
 	<xs:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/" schemaLocation="../../../commonTypes/dataTypes.xsd"/>
 	<xs:import namespace="http://sbrf.ru/ASP/ESB/simpleTypes/" schemaLocation="../../../commonTypes/simpleTypes.xsd"/>

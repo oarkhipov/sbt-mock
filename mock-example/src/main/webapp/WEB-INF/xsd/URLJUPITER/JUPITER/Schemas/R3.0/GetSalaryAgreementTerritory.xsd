@@ -1,8 +1,8 @@
 <?xml version = "1.0" encoding="UTF-8"?>
 <!--  
-   Generated 13 января 2016 г. 12:23:56 by PowerDesigner Tools
+   Generated 1 февраля 2016 г. 16:57:31 by PowerDesigner Tools
    Model AttendingSalaryContract-JupiterInt
-   Author sbt-alekseev-va
+   Author sbt-rogov-an
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:sa="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/"
@@ -38,13 +38,13 @@
    </xsd:annotation>
    </xsd:element>
    <!-- ОСБ-->
-   <xsd:element name="osb" type="st:OSB_Type">
+   <xsd:element name="osb" type="st:OSB_Type" minOccurs="0">
    <xsd:annotation>
    <xsd:documentation>ОСБ</xsd:documentation>
    </xsd:annotation>
    </xsd:element>
    <!-- ТБ-->
-   <xsd:element name="tb" type="st:TB_Type">
+   <xsd:element name="tb" type="st:TB_Type" minOccurs="0">
    <xsd:annotation>
    <xsd:documentation>ТБ</xsd:documentation>
    </xsd:annotation>
@@ -60,7 +60,7 @@
       </xsd:annotation>
       <xsd:sequence>
       <!-- Территории обслуживания договора-->
-      <xsd:element name="servicePlace" type="sa:ContractService">
+      <xsd:element name="servicePlace" type="sa:ContractService"  maxOccurs="unbounded">
       <xsd:annotation>
       <xsd:documentation>Территории обслуживания договора</xsd:documentation>
       </xsd:annotation>

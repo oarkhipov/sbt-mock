@@ -4,7 +4,7 @@
 	<xs:import namespace="http://sbrf.ru/ASP/ESB/commonTypes/" schemaLocation="../../../commonTypes/commonTypes.xsd"/>
 	<xs:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/" schemaLocation="../../../commonTypes/dataTypes.xsd"/>
 	<xs:import namespace="http://sbrf.ru/ASP/ESB/simpleTypes/" schemaLocation="../../../commonTypes/simpleTypes.xsd"/>
-	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R2.1/" schemaLocation="asp-jupiter-data-types.xsd"/>
+	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R2.1/" schemaLocation="./asp-jupiter-data-types.xsd"/>
 	<!--======================================= Message Types Start ================================================================== -->
 	<!-- UP.08. Обновление ЗД в АС Юпитере начало -->
 	<xs:complexType name="UpdateSalaryAgreementRq">

@@ -1,6 +1,6 @@
 <?xml version = "1.0" encoding="UTF-8"?>
 <!--  
-   Generated 14 января 2016 г. 17:52:54 by PowerDesigner Tools
+   Generated 8 февраля 2016 г. 13:44:28 by PowerDesigner Tools
    Model AttendingSalaryContract-JupiterInt
    Author sbt-alekseev-va
 -->
@@ -27,19 +27,47 @@
    <xsd:documentation>Запрос на поиск договоров</xsd:documentation>
    </xsd:annotation>
    <xsd:sequence>
-   <!-- Только по действующим ЗД-->
-   <xsd:element name="isOnlyActiveVersons" type="xsd:boolean" minOccurs="0">
+   <!-- Признак поиска всех версий-->
+   <xsd:element name="isAllVersions" type="xsd:boolean" minOccurs="0">
     <xsd:annotation>
-    <xsd:documentation>В зависимости от участка процесса, на кот-м запускается сервис, параметр принимает значение либо 0, либо 1.
-    Value	Label
-    1	Поиск всех версий договора
-    0	Поиск последних действующих версий договоров</xsd:documentation>
+    <xsd:documentation>В зависимости от процесса, на кот-м запускается сервис, параметр принимает значение либо 0, либо 1.
+        Value	Label
+        True	Поиск всех версий договоров в статусе &quot;Действует&quot;;
+        False	Поиск актуальных договоров в рамках мажорной версии договора</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
-   <!-- Номер ЗД-->
+   <!-- Место заключения-->
+   <xsd:element name="isRegisterPlace" type="xsd:boolean" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Место заключения
+    false - место споровождения
+    true - место заключения
+    null - все места сопровождения договора
+    </xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Номер договора-->
    <xsd:element name="agreementNumber" type="dt:DefString" minOccurs="0">
     <xsd:annotation>
-    <xsd:documentation>Номер ЗД</xsd:documentation>
+    <xsd:documentation>Номер договора</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Версия договора-->
+   <xsd:element name="agreementVersion" type="dt:String" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>При указании версии договоров, ищутся определенные версии</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Дата действия С-->
+   <xsd:element name="fromDate" type="xsd:date" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Дата действия С</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+   <!-- Дата действия По-->
+   <xsd:element name="toDate" type="xsd:date" minOccurs="0">
+    <xsd:annotation>
+    <xsd:documentation>Дата действия По</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
    <!-- Тип договора-->
@@ -60,18 +88,6 @@
     <xsd:documentation>Оферта</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
-   <!-- Дата начала-->
-   <xsd:element name="fromDate" type="xsd:date" minOccurs="0">
-    <xsd:annotation>
-    <xsd:documentation>Дата начала</xsd:documentation>
-    </xsd:annotation>
-   </xsd:element>
-   <!-- Дата окончания-->
-   <xsd:element name="toDate" type="xsd:date" minOccurs="0">
-    <xsd:annotation>
-    <xsd:documentation>Дата окончания</xsd:documentation>
-    </xsd:annotation>
-   </xsd:element>
    <!-- Название клиента-->
    <xsd:element name="fullName" type="dt:String" minOccurs="0">
     <xsd:annotation>
@@ -84,22 +100,16 @@
     <xsd:documentation>КПП</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
-   <!-- ФИО сотрудника-->
-   <xsd:element name="manager" type="dt:String" minOccurs="0">
+   <!-- Логин сотрудника-->
+   <xsd:element name="userIdentifier" type="dt:DefString" minOccurs="0">
     <xsd:annotation>
-    <xsd:documentation>ФИО сотрудника</xsd:documentation>
+    <xsd:documentation>Логин сотрудника</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
-   <!-- ИНН-->
+   <!-- ИНН/ КИО-->
    <xsd:element name="inn" type="dt:DefString" minOccurs="0">
     <xsd:annotation>
-    <xsd:documentation>ИНН</xsd:documentation>
-    </xsd:annotation>
-   </xsd:element>
-   <!-- КИО-->
-   <xsd:element name="kio" type="dt:DefString" minOccurs="0">
-    <xsd:annotation>
-    <xsd:documentation>КИО</xsd:documentation>
+    <xsd:documentation>ИНН/ КИО</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
    <!-- ОГРН-->

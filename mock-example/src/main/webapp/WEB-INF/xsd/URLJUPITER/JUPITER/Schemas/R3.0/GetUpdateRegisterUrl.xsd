@@ -1,6 +1,6 @@
 <?xml version = "1.0" encoding="UTF-8"?>
 <!--  
-   Generated 14 января 2016 г. 17:52:53 by PowerDesigner Tools
+   Generated 9 февраля 2016 г. 13:20:09 by PowerDesigner Tools
    Model AttendingSalaryContract-JupiterInt
    Author sbt-alekseev-va
 -->
@@ -11,10 +11,10 @@
   xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/"
   elementFormDefault="qualified"
   attributeFormDefault="unqualified"
-  targetNamespace="http://sbrf.ru/ASP/JUPITER/GetUpdateRegisterUrl/2.00/"
-  xmlns:svc="http://sbrf.ru/ASP/JUPITER/GetUpdateRegisterUrl/2.00/">
+  targetNamespace="http://sbrf.ru/ASP/JUPITER/GetUpdateRegisterUrl/1.00/"
+  xmlns:svc="http://sbrf.ru/ASP/JUPITER/GetUpdateRegisterUrl/1.00/">
   <xsd:annotation>
-  <xsd:documentation>Получение в виде фрейма информации по реестрам для их настройки
+  <xsd:documentation>Получение в виде фрейма информации для ее обновления
   </xsd:documentation>
   </xsd:annotation>
   
@@ -26,11 +26,17 @@
   
   <xsd:complexType name="GetUpdateRegisterUrlRq">
    <xsd:annotation>
-   <xsd:documentation>Запрос на получение информации по реестрам для их настройки</xsd:documentation>
+   <xsd:documentation>Запрос на получение информации для ее обновления</xsd:documentation>
    </xsd:annotation>
    <xsd:sequence>
+   <!-- Дата реестра-->
+   <xsd:element name="registerDate" type="xsd:date">
+    <xsd:annotation>
+    <xsd:documentation>Дата реестра</xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
    <!-- Тип задачи-->
-   <xsd:element name="taskType" type="dt:String" minOccurs="0">
+   <xsd:element name="task" type="dt:String" minOccurs="0">
     <xsd:annotation>
     <xsd:documentation>Настройка параметров обработки реестра; Деление реестра на ЦОППы</xsd:documentation>
     </xsd:annotation>
@@ -48,19 +54,19 @@
     </xsd:annotation>
    </xsd:element>
    <!-- ТБ-->
-   <xsd:element name="tb" type="st:TB_Type">
+   <xsd:element name="tb" type="st:TB_Type" minOccurs="0">
    <xsd:annotation>
    <xsd:documentation>ТБ</xsd:documentation>
    </xsd:annotation>
    </xsd:element>
    <!-- Номер реестра-->
-   <xsd:element name="registerNumber" type="dt:DefString">
+   <xsd:element name="registerNumber" type="dt:DefString" minOccurs="0">
     <xsd:annotation>
     <xsd:documentation>Номер необходимого реестра</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
    <!-- ОСБ-->
-   <xsd:element name="osb" type="st:OSB_Type">
+   <xsd:element name="osb" type="st:OSB_Type" minOccurs="0">
    <xsd:annotation>
    <xsd:documentation>ОСБ</xsd:documentation>
    </xsd:annotation>
@@ -78,7 +84,7 @@
    <xsd:complexContent>
     <xsd:extension base="ct:CommonRs">
       <xsd:annotation>
-      <xsd:documentation>Ответ на запрос на получение информации по реестрам для их настройки</xsd:documentation>
+      <xsd:documentation>Ответ на запрос на получение информации для ее обновления</xsd:documentation>
       </xsd:annotation>
       <xsd:sequence>
       <!-- Ссылка на форму-->

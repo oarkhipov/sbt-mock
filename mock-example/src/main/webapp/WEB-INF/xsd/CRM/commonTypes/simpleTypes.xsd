@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema targetNamespace="http://sbrf.ru/ASP/ESB/simpleTypes/"
-	elementFormDefault="qualified" attributeFormDefault="unqualified"
-	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/"
-	xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/">
-	<xs:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/"
-		schemaLocation="./dataTypes.xsd" />
+<!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by sbt-rogov-an (EMBRACE) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/" xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/" targetNamespace="http://sbrf.ru/ASP/ESB/simpleTypes/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/" schemaLocation="./dataTypes.xsd"/>
 	<xs:simpleType name="TaxId_Type">
 		<xs:annotation>
 			<xs:documentation>Идентификатор налогоплательщика (ИНН)
 			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="dt:String">
-			<xs:maxLength value="32" />
+			<xs:maxLength value="32"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="OSB_Type">
@@ -19,7 +16,7 @@
 			<xs:documentation>Отделение Сбербанка (ОСБ)</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="dt:String">
-			<xs:maxLength value="22" />
+			<xs:maxLength value="22"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="VSP_Type">
@@ -28,7 +25,7 @@
 			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="dt:String">
-			<xs:maxLength value="32" />
+			<xs:maxLength value="32"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TB_Type">
@@ -36,7 +33,7 @@
 			<xs:documentation>Территориальный банк (ТБ)</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="dt:String">
-			<xs:maxLength value="3" />
+			<xs:maxLength value="3"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TaxRegReasonCode_Type">
@@ -45,7 +42,7 @@
 			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="dt:String">
-			<xs:length value="9" />
+			<xs:length value="9"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="Client_Type">
@@ -54,7 +51,7 @@
 			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="dt:String">
-			<xs:length value="1" />
+			<xs:length value="1"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="AccountNumber_Type">
@@ -62,7 +59,7 @@
 			<xs:documentation>Номер счета</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="dt:String">
-			<xs:maxLength value="20" />
+			<xs:maxLength value="20"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="KIO_Type">
@@ -70,7 +67,7 @@
 			<xs:documentation>Код иностранной организации</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="dt:String">
-			<xs:maxLength value="5" />
+			<xs:maxLength value="5"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="OKATO_Type">
@@ -80,8 +77,8 @@
 			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="dt:String">
-			<xs:minLength value="4" />
-			<xs:maxLength value="16" />
+			<xs:minLength value="4"/>
+			<xs:maxLength value="16"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="OKPO_Type">
@@ -92,8 +89,8 @@
 			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="dt:String">
-			<xs:minLength value="4" />
-			<xs:maxLength value="16" />
+			<xs:minLength value="4"/>
+			<xs:maxLength value="16"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="URL_Type">
@@ -101,8 +98,8 @@
 			<xs:documentation>URL</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="dt:String">
-			<xs:minLength value="4" />
-			<xs:maxLength value="500" />
+			<xs:minLength value="4"/>
+			<xs:maxLength value="500"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="CONTRACTNUMBER_Type">
@@ -110,7 +107,7 @@
 			<xs:documentation>№ договора</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:maxLength value="12" />
+			<xs:maxLength value="12"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="BIK_Type">
@@ -118,21 +115,21 @@
 			<xs:documentation>БИК</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="dt:DefString">
-			<xs:maxLength value="25" />
+			<xs:maxLength value="25"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="IDMDM_Type">
 		<xs:annotation>
 			<xs:documentation>Идентификатор MDM</xs:documentation>
 		</xs:annotation>
-		<xs:restriction base="dt:DefString" />
+		<xs:restriction base="dt:DefString"/>
 	</xs:simpleType>
 	<xs:simpleType name="OGRN_Type">
 		<xs:annotation>
 			<xs:documentation>ОГРН (для ИП)</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:maxLength value="15" />
+			<xs:maxLength value="15"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="INN_Type">
@@ -140,8 +137,8 @@
 			<xs:documentation>ИНН</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:minLength value="5" />
-			<xs:maxLength value="24" />
+			<xs:minLength value="5"/>
+			<xs:maxLength value="24"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="EMAIL_Type">
@@ -149,8 +146,8 @@
 			<xs:documentation>Адрес EMAIL</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:minLength value="4" />
-			<xs:maxLength value="100" />
+			<xs:minLength value="4"/>
+			<xs:maxLength value="100"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="PHONE_Type">
@@ -158,8 +155,8 @@
 			<xs:documentation>Телефон</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:minLength value="4" />
-			<xs:maxLength value="100" />
+			<xs:minLength value="4"/>
+			<xs:maxLength value="100"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="UUID_Type">
@@ -167,8 +164,8 @@
 			<xs:documentation>Идентификатор</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="dt:String">
-			<xs:length value="32" />
-			<xs:pattern value="([0-9]|[a-f]|[A-F]){32}" />
+			<xs:length value="32"/>
+			<xs:pattern value="([0-9]|[a-f]|[A-F]){32}"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ApplicationId_Type">
@@ -176,33 +173,43 @@
 			<xs:documentation>Идентификатор заявления</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="dt:String">
-			<xs:length value="19" />
-			<xs:pattern value="[0-9]{9}[/][0-9]{9}" />
+			<xs:length value="19"/>
+			<xs:pattern value="[0-9]{9}[/][0-9]{9}"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="SystemName_Type">
 		<xs:annotation>
 			<xs:documentation>Идентификатор системы</xs:documentation>
 		</xs:annotation>
-		<xs:restriction base="dt:DefString" />
+		<xs:restriction base="dt:DefString"/>
 	</xs:simpleType>
 	<xs:simpleType name="OperationName_Type">
 		<xs:annotation>
 			<xs:documentation>Название операции</xs:documentation>
 		</xs:annotation>
-		<xs:restriction base="dt:DefString" />
+		<xs:restriction base="dt:DefString"/>
 	</xs:simpleType>
 	<xs:complexType name="UID_Type">
 		<xs:sequence>
-			<xs:element name="system" type="dt:DefString">
+			<xs:element name="system">
 				<xs:annotation>
 					<xs:documentation>Система</xs:documentation>
 				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="dt:DefString">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
 			</xs:element>
-			<xs:element name="value" type="dt:DefString">
+			<xs:element name="value">
 				<xs:annotation>
 					<xs:documentation>ID-системы</xs:documentation>
 				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="dt:DefString">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>

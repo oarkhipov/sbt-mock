@@ -8,7 +8,7 @@
 	targetNamespace="http://sbrf.ru/ASP/JUPITER/RegisterSalaryAgreement/1.01/"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R2.1/"
-		schemaLocation="asp-jupiter-data-types.xsd" />
+		schemaLocation="./asp-jupiter-data-types.xsd" />
 	<xs:import namespace="http://sbrf.ru/ASP/ESB/commonTypes/"
 		schemaLocation="../../../commonTypes/commonTypes.xsd" />
 	<xs:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/"

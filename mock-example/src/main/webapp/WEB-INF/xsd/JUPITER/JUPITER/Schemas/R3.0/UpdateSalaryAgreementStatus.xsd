@@ -1,8 +1,8 @@
 <?xml version = "1.0" encoding="UTF-8"?>
 <!--  
-   Generated 14 января 2016 г. 17:52:54 by PowerDesigner Tools
+   Generated 1 февраля 2016 г. 14:47:18 by PowerDesigner Tools
    Model AttendingSalaryContract-JupiterInt
-   Author sbt-alekseev-va
+   Author sbt-rogov-an
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:sa="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R3.0/"
@@ -29,10 +29,10 @@
    <xsd:sequence>
    <!-- Номер договора-->
    <xsd:element name="agreementNumber" type="dt:DefString" minOccurs="0"/>
-   <!-- Версия ЗД-->
+   <!-- Версия договора-->
    <xsd:element name="agreementVersion" type="dt:String" minOccurs="0">
     <xsd:annotation>
-    <xsd:documentation>Версия ЗД</xsd:documentation>
+    <xsd:documentation>Версия договора</xsd:documentation>
     </xsd:annotation>
    </xsd:element>
    <!-- Статус договора-->

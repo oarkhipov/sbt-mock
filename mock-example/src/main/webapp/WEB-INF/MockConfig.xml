@@ -149,22 +149,6 @@
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
                     <answerRequired>true</answerRequired>
                 </integrationPoint>
-                <integrationPoint name="InitiateUpdateRegisterParametrs">
-                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
-                    <xpathValidation>
-                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
-                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
-                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">initiateUpdateRegisterParametrsRs</tag>
-                    </xpathValidation>
-                    <type>Mock</type>
-                    <!-- Где лежит корневой элемент-->
-                    <!-- Optional -->
-                    <xsdFile>JUPITER/R3.0/InitiateUpdateRegisterParametrs.xsd</xsdFile>
-                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
-                    <!-- Optional -->
-                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
-                    <answerRequired>true</answerRequired>
-                </integrationPoint>
                 <integrationPoint name="SearchSalaryAgreements">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
@@ -233,7 +217,17 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                </integrationPoint>
+                <integrationPoint name="InitiateTask">
+                    <type>Driver</type>
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">initiateTaskRq</tag>
+                    </xpathValidation>
                     <answerRequired>true</answerRequired>
+                    <xsdFile>JUPITER/R3.0/InitiateTask.xsd</xsdFile>
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
                 </integrationPoint>
             </integrationPoints>
         </system>
@@ -242,8 +236,8 @@
             <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
             <integrationPointSelector>
                 <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
-                <tag ns="http://sbrf.ru/legal/enquiry/integration"/>
-                <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/"></tag>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/">header</tag>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/">operation-name</tag>
             </integrationPointSelector>
             <selectorType>ELEMENT_VALUE</selectorType>
             <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
@@ -261,77 +255,49 @@
             <driverIncomeQueue>jms/ESB.PROMETHEUS.CRM.REQUEST</driverIncomeQueue>
 
             <integrationPoints>
-                <integrationPoint name="createLegalSalaryApp">
-                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                <integrationPoint name="SrvCreateLegalSalaryApp">
+                    <type>Driver</type>
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
                         <tag ns="http://sbrf.ru/ASP/CRM/1.00/">createLegalSalaryAppRq</tag>
                     </xpathValidation>
-                    <!-- Тип точки интеграции Заглушка/Драйвер-->
-                    <type>Driver</type>
-                    <!-- Где лежит корневой элемент-->
-                    <!-- Optional -->
-                    <xsdFile>SrvCreateLegalSalaryApp.xsd</xsdFile>
-                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
-                    <!-- Optional -->
-                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
                     <answerRequired>true</answerRequired>
+                    <xsdFile>SrvCreateLegalSalaryApp.xsd</xsdFile>
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
                 </integrationPoint>
                 <integrationPoint name="changeSalaryDealStatus">
-                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
-                    <!-- Ответ - что угодно, а точнее не требуется -->
+                    <type>Driver</type>
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
                         <tag ns="http://sbrf.ru/ASP/CRM/1.00/">changeSalaryDealStatusRq</tag>
                     </xpathValidation>
-                    <!-- Тип точки интеграции Заглушка/Драйвер-->
-                    <type>Driver</type>
-
-                    <!-- Где лежит корневой элемент-->
-                    <!-- Optional -->
-                    <xsdFile>SrvChangeSalaryDealStatus.xsd</xsdFile>
-                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
-                    <!-- Optional -->
-                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
                     <answerRequired>true</answerRequired>
+                    <xsdFile>SrvChangeSalaryDealStatus.xsd</xsdFile>
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
                 </integrationPoint>
-                <integrationPoint name="putLegalSalaryAgreemt">
-                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
-                    <!-- Ответ - что угодно, а точнее не требуется -->
+                <integrationPoint name="SrvPutLegalSalaryAgreemt">
+                    <type>Mock</type>
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
                         <tag ns="http://sbrf.ru/ASP/CRM/1.00/">putLegalSalaryAgreemtRs</tag>
                     </xpathValidation>
-                    <!-- Тип точки интеграции Заглушка/Драйвер-->
-                    <type>Mock</type>
-
-                    <!-- Где лежит корневой элемент-->
-                    <!-- Optional -->
-                    <xsdFile>SrvPutLegalSalaryAgreemt.xsd</xsdFile>
-                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
-                    <!-- Optional -->
-                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
                     <answerRequired>true</answerRequired>
+                    <xsdFile>SrvPutLegalSalaryAgreemt.xsd</xsdFile>
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
                 </integrationPoint>
-                <integrationPoint name="changeLegalSalaryAgreemtStatus">
-                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                <integrationPoint name="SrvChangeLegalSalaryAgreemtStatus">
+                    <type>Mock</type>
                     <xpathValidation>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
                         <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
                         <tag ns="http://sbrf.ru/ASP/CRM/1.00/">changeLegalSalaryAgreemtStatusRs</tag>
                     </xpathValidation>
-                    <!-- Тип точки интеграции Заглушка/Драйвер-->
-                    <type>Mock</type>
-                    <!-- Где лежит корневой элемент-->
-                    <!-- Optional -->
-                    <xsdFile>SrvChangeLegalSalaryAgreemtStatus.xsd</xsdFile>
-                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
-                    <!-- Optional -->
-                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
                     <answerRequired>true</answerRequired>
+                    <xsdFile>SrvChangeLegalSalaryAgreemtStatus.xsd</xsdFile>
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
                 </integrationPoint>
             </integrationPoints>
         </system>

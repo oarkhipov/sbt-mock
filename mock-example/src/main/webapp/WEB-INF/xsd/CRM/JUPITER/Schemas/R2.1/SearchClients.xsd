@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by sbt-rogov-an (EMBRACE) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:sc="http://sbrf.ru/ASP/JUPITER/SearchClients/1.01/" xmlns:ct="http://sbrf.ru/ASP/ESB/commonTypes/" xmlns:sa="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R2.1/" xmlns:dt="http://sbrf.ru/ASP/ESB/dataTypes/" xmlns:st="http://sbrf.ru/ASP/ESB/simpleTypes/" targetNamespace="http://sbrf.ru/ASP/JUPITER/SearchClients/1.01/" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R2.1/" schemaLocation="asp-jupiter-data-types.xsd"/>
+	<xs:import namespace="http://sbrf.ru/ASP/JUPITER/data/SalaryAgreement/R2.1/" schemaLocation="./asp-jupiter-data-types.xsd"/>
 	<xs:import namespace="http://sbrf.ru/ASP/ESB/commonTypes/" schemaLocation="../../../commonTypes/commonTypes.xsd"/>
 	<xs:import namespace="http://sbrf.ru/ASP/ESB/dataTypes/" schemaLocation="../../../commonTypes/dataTypes.xsd"/>
 	<xs:import namespace="http://sbrf.ru/ASP/ESB/simpleTypes/" schemaLocation="../../../commonTypes/simpleTypes.xsd"/>
@@ -13,8 +13,11 @@
 			</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="inn" type="xs:string" minOccurs="0"/>
-			<xs:element name="kio" type="xs:string" minOccurs="0"/>
+			<xs:element name="inn" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ИНН/КИО</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:element name="kpp" type="xs:string" minOccurs="0"/>
 			<xs:element name="name" type="xs:string" minOccurs="0">
 				<xs:annotation>
@@ -50,7 +53,7 @@
 								<xs:documentation>ТБ</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="osbGosb" type="st:OSB_Type">
+						<xs:element name="osbGosb" type="st:OSB_Type" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>
 									ГОСБ/ОСБ
@@ -98,8 +101,11 @@
 					<xs:element name="clientShortInfo" minOccurs="0" maxOccurs="unbounded">
 						<xs:complexType>
 							<xs:sequence>
-								<xs:element name="inn" type="st:INN_Type" minOccurs="0"/>
-								<xs:element name="kio" type="st:KIO_Type" minOccurs="0"/>
+								<xs:element name="inn" type="st:INN_Type" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>ИНН/КИО</xs:documentation>
+									</xs:annotation>
+								</xs:element>
 								<xs:element name="shortName" type="xs:string">
 									<xs:annotation>
 										<xs:documentation>Сокращенное наименование на русском языке
