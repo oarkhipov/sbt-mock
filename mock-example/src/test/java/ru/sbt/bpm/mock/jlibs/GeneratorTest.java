@@ -1,6 +1,5 @@
 package ru.sbt.bpm.mock.jlibs;
 
-import com.google.common.truth.Truth;
 import jlibs.xml.sax.XMLDocument;
 import jlibs.xml.xsd.XSInstance;
 import jlibs.xml.xsd.XSParser;
@@ -71,7 +70,7 @@ public class GeneratorTest {
         XMLDocument sampleXml = new XMLDocument(new StreamResult(writer), true, 4 ,null);
         xsInstance.generate(xsModel, rootElement, sampleXml);
         String generatedXml = writer.toString();
-        Truth.assertThat(generatedXml).contains("envelope");
-        Truth.assertThat(generatedXml).contains("correspondentAccount");
+        assert  generatedXml.contains("envelope") : generatedXml;
+        assert  generatedXml.contains("correspondentAccount") : generatedXml;
     }
 }
