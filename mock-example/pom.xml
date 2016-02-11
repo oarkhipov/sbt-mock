@@ -121,6 +121,12 @@
             <version>1.7.5</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.2.11</version>
+        </dependency>
+
         <!-- JSON Serializer-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
