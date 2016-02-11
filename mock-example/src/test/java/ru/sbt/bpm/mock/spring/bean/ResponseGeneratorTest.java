@@ -1,6 +1,6 @@
 package ru.sbt.bpm.mock.spring.bean;
 
-import org.junit.Ignore;
+import junit.framework.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,35 +16,33 @@ import static org.junit.Assert.*;
  *         <p/>
  *         Company: SBT - Moscow
  */
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@WebAppConfiguration
-//@ContextConfiguration({"/env/mockapp-servlet.xml"})
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration({"/env/mockapp-servlet.xml"})
 public class ResponseGeneratorTest {
-//
-//    @Autowired
-//    XmlGeneratorService generatorService;
-//
-//    @Autowired
-//    ResponseGenerator responseGenerator;
-//
-//    @Test
-//    public void testRouteAndGenerate() throws Exception {
-//    }
-//
-//    @Test
-//    @Ignore
-//    public void testGetSystemName() throws Exception {
-//        String payload1 = generatorService.generate("CRM","getReferenceData");
-//        String payload2 = generatorService.generate("CRM","getAdditionalInfo");
-//        assertEquals("CRM", responseGenerator.getSystemName(payload1).getSystemName());
-//        assertEquals("CRM", responseGenerator.getSystemName(payload2).getSystemName());
-//
-//    }
-//
-//    @Test
-//    @Ignore
-//    public void testGetIntegrationPoint() throws Exception {
-//        String payload1 = generatorService.generate("CRM","getReferenceData");
-//        assertEquals("getReferenceData", responseGenerator.getIntegrationPoint(responseGenerator.getSystemName(payload1), payload1).getName());
-//    }
+
+    @Autowired
+    XmlGeneratorService generatorService;
+
+    @Autowired
+    ResponseGenerator responseGenerator;
+
+    @Test
+    public void testRouteAndGenerate() throws Exception {
+    }
+
+    @Test
+    public void testGetSystemName() throws Exception {
+        String payload1 = generatorService.generate("CRM","getReferenceData");
+        String payload2 = generatorService.generate("CRM","getAdditionalInfo");
+        assertEquals("CRM", responseGenerator.getSystemName(payload1).getSystemName());
+        assertEquals("CRM", responseGenerator.getSystemName(payload2).getSystemName());
+
+    }
+
+    @Test
+    public void testGetIntegrationPoint() throws Exception {
+        String payload1 = generatorService.generate("CRM","getReferenceData");
+        assertEquals("getReferenceData", responseGenerator.getIntegrationPoint(responseGenerator.getSystemName(payload1), payload1).getName());
+    }
 }

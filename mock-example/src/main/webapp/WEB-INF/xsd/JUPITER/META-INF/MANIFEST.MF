@@ -1,4 +1,0 @@
-Manifest-Version: 3.0
-ASP-Release-Version: 3.0
-Build-Time: Wed Feb 10 11:23:39 MSK 2016
-

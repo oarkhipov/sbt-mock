@@ -16,16 +16,16 @@ import static org.junit.Assert.*;
  * Company: SBT - Moscow
  */
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@WebAppConfiguration
-//@ContextConfiguration({"/env/mockapp-servlet.xml"})
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration({"/env/mockapp-servlet.xml"})
 public class XmlDataServiceTest{
 
-//    @Autowired
-//    DataService service;
-//
-//    @Test
-//    public void testInit(){
-//        assertNotNull(service);
-//    }
+    @Autowired
+    DataService service;
+
+    @Test
+    public void testInit(){
+        assertNotNull(service);
+    }
 }

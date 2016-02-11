@@ -16,23 +16,23 @@ import static org.junit.Assert.*;
  *         <p/>
  *         Company: SBT - Moscow
  */
-//@Slf4j
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@WebAppConfiguration
-//@ContextConfiguration({"/dataServiceTest/mockapp-servlet.xml"})
+@Slf4j
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration({"/dataServiceTest/mockapp-servlet.xml"})
 public class DataServiceTest {
 
-//    @Autowired
-//    DataService dataService;
-//
-//    @Autowired
-//    XmlGeneratorService generatorService;
-//
-//    @Test
-//    public void testInitHttpValidator() throws Exception {
-//        String xml = generatorService.generate("CRM2", "test1");
-//        log.info(xml);
-//        assertTrue(!xml.isEmpty());
-//        assertTrue(dataService.validate(xml, "CRM2"));
-//    }
+    @Autowired
+    DataService dataService;
+
+    @Autowired
+    XmlGeneratorService generatorService;
+
+    @Test
+    public void testInitHttpValidator() throws Exception {
+        String xml = generatorService.generate("CRM2", "test1");
+        log.info(xml);
+        assertTrue(!xml.isEmpty());
+        assertTrue(dataService.validate(xml, "CRM2"));
+    }
 }

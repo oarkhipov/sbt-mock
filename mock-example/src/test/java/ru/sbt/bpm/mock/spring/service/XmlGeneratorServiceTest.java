@@ -12,16 +12,16 @@ import org.springframework.test.context.web.WebAppConfiguration;
  *         <p/>
  *         Company: SBT - Moscow
  */
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@WebAppConfiguration
-//@ContextConfiguration({"/env/mockapp-servlet.xml"})
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration({"/env/mockapp-servlet.xml"})
 public class XmlGeneratorServiceTest {
 
-//    @Autowired
-//    XmlGeneratorService xmlGeneratorService;
-//
-//    @Test
-//    public void testGenerate() throws Exception {
-//        System.out.println(xmlGeneratorService.generate("CRM", "sendAdditionalInfo"));
-//    }
+    @Autowired
+    XmlGeneratorService xmlGeneratorService;
+
+    @Test
+    public void testGenerate() throws Exception {
+        System.out.println(xmlGeneratorService.generate("CRM", "sendAdditionalInfo"));
+    }
 }

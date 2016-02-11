@@ -1,6 +1,5 @@
 package ru.sbt.bpm.mock.spring.controller;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +10,6 @@ import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.generator.spring.integration.Pair;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -158,7 +156,7 @@ public class IntegrationPointController {
             integrationPoint.setRootElement(elementSelector);
         }
 
-        //FileUtils.write(File, configContainer.toXml());
+        //TODO здесь надо записать конфиг обратно в файл - чтобы он был сохранен для импорта
         return "OK";
     }
 
