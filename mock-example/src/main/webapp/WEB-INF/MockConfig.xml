@@ -9,6 +9,7 @@
                 <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
                 <tag ns="http://sbrf.ru/legal/enquiry/integration"/>
             </integrationPointSelector>
+            <selectorType>ELEMENT_NAME</selectorType>
             <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
              System-MQ, System-SOAP -->
             <protocol>MQ</protocol>
