@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.entities.System;
-import ru.sbt.bpm.mock.config.entities.XpathType;
+import ru.sbt.bpm.mock.config.enums.XpathTypes;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.DataService;
 import ru.sbt.bpm.mock.spring.service.GroovyService;
@@ -92,10 +92,10 @@ public class ResponseGenerator {
         String integrationPointSelector = system.getIntegrationPointSelector().toXpath();
         XdmValue value = dataService.evaluateXpath(payload, integrationPointSelector);
         String integrationPointName = null;
-        if (system.getSelectorType().equals(XpathType.ELEMENT_NAME)) {
+        if (system.getSelectorType().equals(XpathTypes.ELEMENT_NAME)) {
             integrationPointName = ((XdmNode) value).getNodeName().getLocalName();
         }
-        if (system.getSelectorType().equals(XpathType.ELEMENT_VALUE)) {
+        if (system.getSelectorType().equals(XpathTypes.ELEMENT_VALUE)) {
             integrationPointName = ((XdmNode) value).getStringValue();
         }
         assert integrationPointName!=null;
@@ -115,6 +115,6 @@ public class ResponseGenerator {
     private String generate(String systemName, String integrationPoint, String payload) throws Exception {
         String message = dataFileService.getCurrentMessage(systemName, integrationPoint);
         String script = dataFileService.getCurrentScript(systemName, integrationPoint);
-        return groovyService.compile(payload, message, script);
+        return groovyService.execute(payload, message, script);
     }
 }

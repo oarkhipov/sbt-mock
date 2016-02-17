@@ -5,6 +5,8 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.sbt.bpm.mock.config.enums.Protocols;
+import ru.sbt.bpm.mock.config.enums.XpathTypes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +34,10 @@ public class System {
     private XpathSelector integrationPointSelector;
 
     @XStreamAlias("selectorType")
-    private XpathType selectorType;
+    private XpathTypes selectorType;
 
     @XStreamAlias("protocol")
-    private String protocol;
+    private Protocols protocol;
 
     @XStreamAlias("queueConnectionFactory")
     String queueConnectionFactory;
