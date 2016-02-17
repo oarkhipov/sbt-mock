@@ -8,6 +8,7 @@ import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.entities.Systems;
 import ru.sbt.bpm.mock.config.entities.XpathSelector;
+import ru.sbt.bpm.mock.config.enums.Protocols;
 import ru.sbt.bpm.mock.config.enums.XpathTypes;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 
@@ -37,7 +38,7 @@ public class SystemController {
     @ResponseBody
     @RequestMapping(value = "/system/add/", method = RequestMethod.POST)
     public String add(@RequestParam String name,
-                      @RequestParam String type,
+                      @RequestParam Protocols type,
                       @RequestParam String rootXsd,
                       @RequestParam(value = "integrationPointSelectorNamespace[]") String[] integrationPointSelectorNamespace,
                       @RequestParam(value = "integrationPointSelectorElementName[]") String[] integrationPointSelectorElementName,
@@ -74,7 +75,7 @@ public class SystemController {
     @RequestMapping(value = "/system/update/{systemName}/", method = RequestMethod.POST)
     public String update(@PathVariable String systemName,
                          @RequestParam(value = "name") String newSystemName,
-                         @RequestParam String protocol,
+                         @RequestParam Protocols protocol,
                          @RequestParam String rootXsd,
                          @RequestParam(value = "integrationPointSelectorNamespace[]") String[] integrationPointSelectorNamespace,
                          @RequestParam(value = "integrationPointSelectorElementName[]") String[] integrationPointSelectorElementName,

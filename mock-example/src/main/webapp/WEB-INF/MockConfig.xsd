@@ -52,11 +52,6 @@
           <xs:documentation>Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element type="moc:selectorTypeType" name="selectorType" xmlns:moc="http://sbrf.ru/mockService2">
-        <xs:annotation>
-          <xs:documentation>Что необходимо получать из integrationPointSelector: имя тэга или его значение </xs:documentation>
-        </xs:annotation>
-      </xs:element>
       <xs:element type="xs:string" name="protocol">
         <xs:annotation>
           <xs:documentation>Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
@@ -138,10 +133,4 @@
     </xs:sequence>
     <xs:attribute type="xs:string" name="name"/>
   </xs:complexType>
-  <xs:simpleType name="selectorTypeType">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="ELEMENT_NAME"/>
-      <xs:enumeration value="ELEMENT_VALUE"/>
-    </xs:restriction>
-  </xs:simpleType>
 </xs:schema>

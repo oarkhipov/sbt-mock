@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.entities.System;
+import ru.sbt.bpm.mock.config.entities.XpathSelector;
 import ru.sbt.bpm.mock.config.enums.XpathTypes;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.DataService;
@@ -61,6 +62,7 @@ public class ResponseGenerator {
     protected System getSystemName(String payload) {
         return getSystemName(payload, "");
     }
+
     protected System getSystemName(String payload, String queue) {
         for (System system : configContainer.getConfig().getSystems().getSystems()) {
             if (queue.isEmpty() || queue.equals(system.getMockIncomeQueue())) {
@@ -89,13 +91,21 @@ public class ResponseGenerator {
      * @throws SaxonApiException
      */
     protected IntegrationPoint getIntegrationPoint(System system, String payload) throws XPathExpressionException, SaxonApiException {
-        String integrationPointSelector = system.getIntegrationPointSelector().toXpath();
-        XdmValue value = dataService.evaluateXpath(payload, integrationPointSelector);
+        final XpathSelector integrationPointSelector = system.getIntegrationPointSelector();
+        final int xpathSize = integrationPointSelector.getElementSelectors().size();
+        final String lastElement = integrationPointSelector.getElementSelectors().get(xpathSize - 1).getElement();
+        String integrationPointSelectorXpath = integrationPointSelector.toXpath();
+        XdmValue value = dataService.evaluateXpath(payload, integrationPointSelectorXpath);
         String integrationPointName = null;
-        if (system.getSelectorType().equals(XpathTypes.ELEMENT_NAME)) {
+
+
+
+        if (lastElement.isEmpty()) {
+            //return element name
             integrationPointName = ((XdmNode) value).getNodeName().getLocalName();
         }
-        if (system.getSelectorType().equals(XpathTypes.ELEMENT_VALUE)) {
+        else {
+            //return element value
             integrationPointName = ((XdmNode) value).getStringValue();
         }
         assert integrationPointName!=null;

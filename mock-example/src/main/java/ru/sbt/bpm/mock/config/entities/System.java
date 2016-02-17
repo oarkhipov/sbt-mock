@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.sbt.bpm.mock.config.enums.Protocols;
-import ru.sbt.bpm.mock.config.enums.XpathTypes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +31,6 @@ public class System {
 
     @XStreamAlias("integrationPointSelector")
     private XpathSelector integrationPointSelector;
-
-    @XStreamAlias("selectorType")
-    private XpathTypes selectorType;
 
     @XStreamAlias("protocol")
     private Protocols protocol;

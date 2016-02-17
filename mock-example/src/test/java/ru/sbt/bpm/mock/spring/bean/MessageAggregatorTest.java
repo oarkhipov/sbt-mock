@@ -28,6 +28,6 @@ public class MessageAggregatorTest {
         String message = "test message";
         final MockMessage mockMessage = service.sendMockMessage(message);
         assertEquals(message, mockMessage.getPayload());
-        assertEquals("test endpoint", mockMessage.getEndpoint());
+        assertEquals("test endpoint", mockMessage.getEndpointName());
     }
 }
