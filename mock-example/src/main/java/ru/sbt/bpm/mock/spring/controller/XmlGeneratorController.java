@@ -8,10 +8,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ru.sbt.bpm.mock.spring.service.XmlGeneratorService;
 import ru.sbt.bpm.mock.spring.utils.AjaxObject;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.net.URISyntaxException;
-
 /**
  * @author sbt-bochev-as on 23.11.2015.
  *         <p/>
@@ -28,7 +24,7 @@ public class XmlGeneratorController {
     public String generate(@PathVariable String system, @PathVariable String integrationPointName) {
         AjaxObject ajaxObject = new AjaxObject();
         try {
-            ajaxObject.setData(generatorService.generate(system, integrationPointName));
+            ajaxObject.setData(generatorService.generate(system, integrationPointName, true));
         } catch (Exception e) {
             ajaxObject.setErrorFromException(e);
         }

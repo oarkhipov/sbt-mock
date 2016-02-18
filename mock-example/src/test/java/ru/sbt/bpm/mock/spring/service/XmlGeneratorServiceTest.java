@@ -22,6 +22,6 @@ public class XmlGeneratorServiceTest {
 
     @Test
     public void testGenerate() throws Exception {
-        System.out.println(xmlGeneratorService.generate("CRM", "sendAdditionalInfo"));
+        System.out.println(xmlGeneratorService.generate("CRM", "sendAdditionalInfo", true));
     }
 }

@@ -33,7 +33,7 @@ public class XmlGeneratorService {
     @Autowired
     GroovyService groovyService;
 
-    public String generate(String systemName, String integrationPointName) throws Exception {
+    public String generate(String systemName, String integrationPointName, boolean filterMessage) throws Exception {
         ru.sbt.bpm.mock.config.entities.System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
         String rootXSD = system.getRootXSD();
         IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
@@ -74,79 +74,81 @@ public class XmlGeneratorService {
                     "message: " + e.getMessage();
             throw new Exception(msg, e);
         }
+        if (filterMessage) {
+            //filter elements
+            List<ElementSelector> elementSelectors = integrationPoint.getXpathValidatorSelector().getElementSelectors();
+            StringBuilder xmlMapElements = new StringBuilder();
+            for (ElementSelector selector : elementSelectors) {
+                xmlMapElements.append("        add(new Pair<String, String>(\"")
+                        .append(selector.getNamespace())
+                        .append("\", \"")
+                        .append(selector.getElement())
+                        .append("\"))\n");
+            }
 
-        //filter elements
-        List<ElementSelector> elementSelectors = integrationPoint.getXpathValidatorSelector().getElementSelectors();
-        StringBuilder xmlMapElements = new StringBuilder();
-        for (ElementSelector selector : elementSelectors) {
-            xmlMapElements.append("        add(new Pair<String, String>(\"")
-                    .append(selector.getNamespace())
-                    .append("\", \"")
-                    .append(selector.getElement())
-                    .append("\"))\n");
+
+            String filterScript =
+                    "import groovy.xml.QName\n" +
+                            "import ru.sbt.bpm.mock.generator.spring.integration.Pair\n" +
+                            "\n" +
+                            "def xmlMap = new ArrayList<Pair<String, String>>() {\n" +
+                            "    {\n" +
+                            xmlMapElements +
+                            "    }\n" +
+                            "}\n" +
+                            "\n" +
+                            "//assert first element\n" +
+                            "if (((QName) requestDom.name()).namespaceURI == xmlMap.get(0).first &&\n" +
+                            "        ((QName) requestDom.name()).localPart == xmlMap.get(0).second) {\n" +
+                            "\n" +
+                            "    //dom to search in\n" +
+                            "    def filterDom = requestDom\n" +
+                            "    //new root element\n" +
+                            "    def newFilterDom\n" +
+                            "    //remove elements array\n" +
+                            "    def remove = []\n" +
+                            "    //parent element to delete from\n" +
+                            "//    def parent\n" +
+                            "\n" +
+                            "    //drawn to last element\n" +
+                            "    for (int i = 1; i < xmlMap.size(); i++) {\n" +
+                            "        for (Node child : (List<Node>) filterDom.children()) {\n" +
+                            "            def el = (QName) child.name()\n" +
+                            "            if (el.namespaceURI == xmlMap.get(i).first && el.localPart == xmlMap.get(i).second) {\n" +
+                            "                //if element found - make new root\n" +
+                            "                newFilterDom = child\n" +
+                            "            } else {\n" +
+                            "                // last level of neighbour elements\n" +
+                            "                if(i == xmlMap.size()-1) {\n" +
+                            "                   //add elements to remove array\n" +
+                            "                    remove.add new Tuple(child.parent(), child)\n" +
+                            "                    //save parent to remove from\n" +
+                            "                    //parent = child.parent()\n" +
+                            "                }\n" +
+                            "            }\n" +
+                            "        }\n" +
+                            "        if (newFilterDom == null) break;\n" +
+                            "        if (filterDom != newFilterDom) {\n" +
+                            "            //new root found\n" +
+                            "            filterDom = newFilterDom\n" +
+                            "        } else {\n" +
+                            "            //no new root\n" +
+                            "            break;\n" +
+                            "        }\n" +
+                            "    }\n" +
+                            "    //remove marked\n" +
+                            "    remove.each { it.get(0).remove(it.get(1)) }\n" +
+                            "//                \"//response.test=requestDom[s.sendAdditionalInfo][s.clientSystemTaskID].text()\n" +
+                            "}\n" +
+                            "def stringWriter = new StringWriter()\n" +
+                            "xmlNodePrinter = new XmlNodePrinter(new PrintWriter(stringWriter))\n" +
+                            "xmlNodePrinter.with {\n" +
+                            "    preserveWhitespace = true\n" +
+                            "}\n" +
+                            "xmlNodePrinter.print(requestDom)\n" +
+                            "response.result=stringWriter.toString()";
+            return groovyService.execute(writer.toString(), "${result}", filterScript);
         }
-
-
-        String filterScript =
-                "import groovy.xml.QName\n" +
-                "import ru.sbt.bpm.mock.generator.spring.integration.Pair\n" +
-                "\n" +
-                "def xmlMap = new ArrayList<Pair<String, String>>() {\n" +
-                "    {\n" +
-                xmlMapElements +
-                "    }\n" +
-                "}\n" +
-                "\n" +
-                "//assert first element\n" +
-                "if (((QName) requestDom.name()).namespaceURI == xmlMap.get(0).first &&\n" +
-                "        ((QName) requestDom.name()).localPart == xmlMap.get(0).second) {\n" +
-                "\n" +
-                "    //dom to search in\n" +
-                "    def filterDom = requestDom\n" +
-                "    //new root element\n" +
-                "    def newFilterDom\n" +
-                "    //remove elements array\n" +
-                "    def remove = []\n" +
-                "    //parent element to delete from\n" +
-                "//    def parent\n" +
-                "\n" +
-                "    //drawn to last element\n" +
-                "    for (int i = 1; i < xmlMap.size(); i++) {\n" +
-                "        for (Node child : (List<Node>) filterDom.children()) {\n" +
-                "            def el = (QName) child.name()\n" +
-                "            if (el.namespaceURI == xmlMap.get(i).first && el.localPart == xmlMap.get(i).second) {\n" +
-                "                //if element found - make new root\n" +
-                "                newFilterDom = child\n" +
-                "            } else {\n" +
-                "                // last level of neighbour elements\n" +
-                "                if(i == xmlMap.size()-1) {\n" +
-                "                   //add elements to remove array\n" +
-                "                    remove.add new Tuple(child.parent(), child)\n" +
-                "                    //save parent to remove from\n" +
-                "                    //parent = child.parent()\n" +
-                "                }\n" +
-                "            }\n" +
-                "        }\n" +
-                "        if (newFilterDom == null) break;\n" +
-                "        if (filterDom != newFilterDom) {\n" +
-                "            //new root found\n" +
-                "            filterDom = newFilterDom\n" +
-                "        } else {\n" +
-                "            //no new root\n" +
-                "            break;\n" +
-                "        }\n" +
-                "    }\n" +
-                "    //remove marked\n" +
-                "    remove.each { it.get(0).remove(it.get(1)) }\n" +
-                "//                \"//response.test=requestDom[s.sendAdditionalInfo][s.clientSystemTaskID].text()\n" +
-                "}\n" +
-                "def stringWriter = new StringWriter()\n" +
-                "xmlNodePrinter = new XmlNodePrinter(new PrintWriter(stringWriter))\n" +
-                "xmlNodePrinter.with {\n" +
-                "    preserveWhitespace = true\n" +
-                "}\n" +
-                "xmlNodePrinter.print(requestDom)\n" +
-                "response.result=stringWriter.toString()";
-        return groovyService.execute(writer.toString(), "${result}", filterScript);
+        return writer.toString();
     }
 }
