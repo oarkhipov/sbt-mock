@@ -2,7 +2,7 @@ package ru.sbt.bpm.mock.spring.service;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Matcher;
@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  *         <p/>
  *         Company: SBT - Moscow
  */
-@Log
+@Slf4j
 @Service
 public class GroovyService {
 
@@ -27,7 +27,7 @@ public class GroovyService {
             "if(request){ requestDom = new XmlParser().parseText(request)}\n" +
             "\n";
 
-    public String compile(String incomeXml, String mockXml, String script) throws Exception {
+    public String execute(String incomeXml, String mockXml, String script) throws Exception {
         Binding binding = new Binding();
         binding.setProperty("log", log);
         binding.setProperty("request", incomeXml);
@@ -41,6 +41,10 @@ public class GroovyService {
         matcher.find();
         mockXml = matcher.replaceAll("\\$\\{response.$1\\}");
         String scriptText = groovyInit + script + "\n mockXml = \"\"\"" + mockXml + "\"\"\"";
+        log.debug("Executing groovy script:\n" +
+                "###########################################################################\n" +
+                scriptText + "\n" +
+                "###########################################################################\n");
         shell.evaluate(scriptText);
 
         return shell.getVariable("mockXml").toString();

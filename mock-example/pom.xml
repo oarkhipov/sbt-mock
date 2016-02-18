@@ -222,6 +222,14 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.1.13</version>
+            <!-- TODO test or provided-->
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
     <distributionManagement>
         <repository>

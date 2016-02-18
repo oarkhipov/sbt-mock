@@ -17,7 +17,6 @@ import static org.junit.Assert.*;
  *         Company: SBT - Moscow
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
 @ContextConfiguration({"/env/mockapp-servlet.xml"})
 public class ResponseGeneratorTest {
 

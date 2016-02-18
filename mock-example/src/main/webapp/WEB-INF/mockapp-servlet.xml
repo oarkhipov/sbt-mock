@@ -120,32 +120,39 @@
 
     <!-- external logging -->
 
-    <int:channel id="MockInboundRequestExternalLogger"/>
-    <int:channel id="MockOutboundResponseExternalLogger"/>
-    <int:channel id="DriverOutboundRequestExternalLogger"/>
-    <int:channel id="DriverInboundResponseExternalLogger"/>
+    <!--<int:channel id="MockInboundRequestExternalLogger"/>-->
+    <!--<int:channel id="MockOutboundResponseExternalLogger"/>-->
+    <!--<int:channel id="DriverOutboundRequestExternalLogger"/>-->
+    <!--<int:channel id="DriverInboundResponseExternalLogger"/>-->
 
 
-    <int:service-activator id="MockInboundRequestExternalLoggerActivator"
-                           input-channel="MockInboundRequestExternalLogger"
-                           expression="@messageLogger.logMessage(payload, mockConnectionInputString)"/>
-    <int:service-activator id="MockOutboundResponseExternalLoggerActivator"
-                           input-channel="MockOutboundResponseExternalLogger"
-                           expression="@messageLogger.logMessage(payload, mockConnectionOutputString)"/>
-    <int:service-activator id="DriverOutboundRequestExternalLoggerActivator"
-                       input-channel="DriverOutboundRequestExternalLogger"
-                       expression="@messageLogger.logMessage(payload, driverConnectionOutputString)"/>
-    <int:service-activator id="DriverInboundResponseExternalLoggerActivator"
-                       input-channel="DriverInboundResponseExternalLogger"
-                       expression="@messageLogger.logMessage(payload, driverConnectionInputString)"/>
+    <!--<int:service-activator id="MockInboundRequestExternalLoggerActivator"-->
+                           <!--input-channel="MockInboundRequestExternalLogger"-->
+                           <!--expression="@messageLogger.logMessage(payload, mockConnectionInputString)"/>-->
+    <!--<int:service-activator id="MockOutboundResponseExternalLoggerActivator"-->
+                           <!--input-channel="MockOutboundResponseExternalLogger"-->
+                           <!--expression="@messageLogger.logMessage(payload, mockConnectionOutputString)"/>-->
+    <!--<int:service-activator id="DriverOutboundRequestExternalLoggerActivator"-->
+                       <!--input-channel="DriverOutboundRequestExternalLogger"-->
+                       <!--expression="@messageLogger.logMessage(payload, driverConnectionOutputString)"/>-->
+    <!--<int:service-activator id="DriverInboundResponseExternalLoggerActivator"-->
+                       <!--input-channel="DriverInboundResponseExternalLogger"-->
+                       <!--expression="@messageLogger.logMessage(payload, driverConnectionInputString)"/>-->
 
     <!-- - - - - - - - - - - - -->
     <!--     МАРШРУТИЗАЦИЯ     -->
     <!-- - - - - - - - - - - - -->
 
-    <!-- Генерация ответа -->
-    <int:service-activator input-channel="MockInboundRequest" output-channel="MockOutboundResponse" expression="@responseGenerator.routeAndGenerate(payload)"/>
+    <int:channel id="MockInboundRequestAggregated"/>
+    <int:service-activator input-channel="MockInboundRequest" output-channel="MockInboundRequestAggregated" method="aggregate">
+        <bean class="ru.sbt.bpm.mock.spring.bean.MessageAggregator">
+            <constructor-arg value="#{mockConnectionInputString}" type="java.lang.String"/>
+        </bean>
+    </int:service-activator>
 
+    <!-- Генерация ответа -->
+    <int:service-activator input-channel="MockInboundRequestAggregated" output-channel="MockOutboundResponse" expression="@responseGenerator.routeAndGenerate(payload)"/>
+    
 
 
     <!-- Mock gateway to send requests to outbound -->

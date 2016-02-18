@@ -5,8 +5,8 @@
        xmlns:int="http://www.springframework.org/schema/integration"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
 
-       <mvc:annotation-driven/>
        <mvc:resources mapping="/**" location="/resources/web/" />
+       <mvc:annotation-driven/>
        <context:component-scan base-package="ru.sbt.bpm.mock.spring"/>
 
        <!-- upload files resolver-->
@@ -24,7 +24,7 @@
        <int:channel id="test"/>
 
        <bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
-              <constructor-arg value="/WEB-INF/MockConfig.xml" type="java.lang.String" />
+              <constructor-arg value="/env/MockConfig.xml" type="java.lang.String" />
        </bean>
 
        <bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>

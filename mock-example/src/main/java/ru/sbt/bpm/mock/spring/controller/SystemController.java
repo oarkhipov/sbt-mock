@@ -8,7 +8,8 @@ import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.entities.Systems;
 import ru.sbt.bpm.mock.config.entities.XpathSelector;
-import ru.sbt.bpm.mock.config.entities.XpathType;
+import ru.sbt.bpm.mock.config.enums.Protocols;
+import ru.sbt.bpm.mock.config.enums.XpathTypes;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 
 import java.io.IOException;
@@ -37,11 +38,11 @@ public class SystemController {
     @ResponseBody
     @RequestMapping(value = "/system/add/", method = RequestMethod.POST)
     public String add(@RequestParam String name,
-                      @RequestParam String type,
+                      @RequestParam Protocols type,
                       @RequestParam String rootXsd,
                       @RequestParam(value = "integrationPointSelectorNamespace[]") String[] integrationPointSelectorNamespace,
                       @RequestParam(value = "integrationPointSelectorElementName[]") String[] integrationPointSelectorElementName,
-                      @RequestParam String selectorType,
+                      @RequestParam XpathTypes selectorType,
                       @RequestParam(required = false) String queueConnectionFactory,
                       @RequestParam(required = false) String mockIncomeQueue,
                       @RequestParam(required = false) String mockOutcomeQueue,
@@ -50,7 +51,7 @@ public class SystemController {
         Systems systems = configContainer.getConfig().getSystems();
         XpathSelector xpathSelector = new XpathSelector(integrationPointSelectorNamespace, integrationPointSelectorElementName);
 
-        System system = new System(name, rootXsd, xpathSelector, XpathType.valueOf(selectorType), type, queueConnectionFactory, mockIncomeQueue,
+        System system = new System(name, rootXsd, xpathSelector, selectorType, type, queueConnectionFactory, mockIncomeQueue,
                 mockOutcomeQueue, driverOutcomeQueue, driverIncomeQueue, null);
 
         if (systems.getSystems() == null) {
@@ -74,7 +75,7 @@ public class SystemController {
     @RequestMapping(value = "/system/update/{systemName}/", method = RequestMethod.POST)
     public String update(@PathVariable String systemName,
                          @RequestParam(value = "name") String newSystemName,
-                         @RequestParam String protocol,
+                         @RequestParam Protocols protocol,
                          @RequestParam String rootXsd,
                          @RequestParam(value = "integrationPointSelectorNamespace[]") String[] integrationPointSelectorNamespace,
                          @RequestParam(value = "integrationPointSelectorElementName[]") String[] integrationPointSelectorElementName,

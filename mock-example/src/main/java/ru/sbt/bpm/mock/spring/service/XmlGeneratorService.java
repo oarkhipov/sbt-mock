@@ -87,7 +87,7 @@ public class XmlGeneratorService {
         }
 
 
-        String filterScript = "" +
+        String filterScript =
                 "import groovy.xml.QName\n" +
                 "import ru.sbt.bpm.mock.generator.spring.integration.Pair\n" +
                 "\n" +
@@ -118,13 +118,13 @@ public class XmlGeneratorService {
                 "                //if element found - make new root\n" +
                 "                newFilterDom = child\n" +
                 "            } else {\n" +
-                "                // last level of neighbour elements" +
-                "                if(i == xmlMap.size()-1) {" +
+                "                // last level of neighbour elements\n" +
+                "                if(i == xmlMap.size()-1) {\n" +
                 "                   //add elements to remove array\n" +
                 "                    remove.add new Tuple(child.parent(), child)\n" +
                 "                    //save parent to remove from\n" +
                 "                    //parent = child.parent()\n" +
-                "                }" +
+                "                }\n" +
                 "            }\n" +
                 "        }\n" +
                 "        if (newFilterDom == null) break;\n" +
@@ -147,6 +147,6 @@ public class XmlGeneratorService {
                 "}\n" +
                 "xmlNodePrinter.print(requestDom)\n" +
                 "response.result=stringWriter.toString()";
-        return groovyService.compile(writer.toString(), "${result}", filterScript);
+        return groovyService.execute(writer.toString(), "${result}", filterScript);
     }
 }

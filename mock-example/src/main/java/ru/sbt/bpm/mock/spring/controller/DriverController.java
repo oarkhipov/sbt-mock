@@ -82,7 +82,7 @@ public class DriverController {
             ModelMap model) {
         AjaxObject ajaxObject = new AjaxObject();
         try {
-            String compiledXml = groovyService.compile(test, xml, script);
+            String compiledXml = groovyService.execute(test, xml, script);
             if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
                 dataService.validate(compiledXml, systemName);
                 ajaxObject.setInfo("Valid!");
@@ -107,7 +107,7 @@ public class DriverController {
         AjaxObject ajaxObject = new AjaxObject();
         SaveFile saver = SaveFile.getInstance(appContext);
         try {
-            String compiledXml = groovyService.compile(test, xml, script);
+            String compiledXml = groovyService.execute(test, xml, script);
             if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
                 dataService.validate(compiledXml, systemName);
 //                IF Valid - then save
@@ -211,7 +211,7 @@ public class DriverController {
         AjaxObject ajaxObject = new AjaxObject();
 //        VALIDATE
         try {
-            String compiledXml = groovyService.compile(test, xml, script);
+            String compiledXml = groovyService.execute(test, xml, script);
             if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
                 dataService.validate(compiledXml, systemName);
 
@@ -241,7 +241,7 @@ public class DriverController {
 
         AjaxObject ajaxObject = new AjaxObject();
         try {
-            String compiledXml = groovyService.compile(test, xml, script);
+            String compiledXml = groovyService.execute(test, xml, script);
             if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
                 dataService.validate(compiledXml, systemName);
 

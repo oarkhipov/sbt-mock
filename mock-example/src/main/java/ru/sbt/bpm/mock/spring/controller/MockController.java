@@ -78,7 +78,7 @@ public class MockController {
             ModelMap model) {
         AjaxObject ajaxObject = new AjaxObject();
         try {
-            String compiledXml = groovyService.compile(test, xml, script);
+            String compiledXml = groovyService.execute(test, xml, script);
             if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
                 dataService.validate(compiledXml, systemName);
                 ajaxObject.setInfo("Valid!");
@@ -168,7 +168,7 @@ public class MockController {
         AjaxObject ajaxObject = new AjaxObject();
 //        VALIDATE
         try {
-            String compiledXml = groovyService.compile(test, xml, script);
+            String compiledXml = groovyService.execute(test, xml, script);
             if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
                 dataService.validate(compiledXml, systemName);
 

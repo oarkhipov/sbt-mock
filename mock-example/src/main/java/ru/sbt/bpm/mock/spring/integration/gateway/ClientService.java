@@ -1,5 +1,7 @@
 package ru.sbt.bpm.mock.spring.integration.gateway;
 
+import ru.sbt.bpm.mock.spring.bean.pojo.MockMessage;
+
 /**
  * Created by sbt-bochev-as on 17.12.2014.
  * <p/>
@@ -13,4 +15,6 @@ public interface  ClientService {
      * @param request
      */
     String send(String request);
+
+    MockMessage sendMockMessage(String request);
 }
