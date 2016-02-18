@@ -5,9 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.commons.lang.StringEscapeUtils;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 /**
  * Created by sbt-bochev-as on 17.12.2014.
  * <p/>
@@ -53,9 +50,7 @@ public class AjaxObject {
     }
 
     public void setErrorFromException(Exception exception) {
-        StringWriter writer = new StringWriter();
-        PrintWriter printWriter = new PrintWriter(writer);
-        exception.printStackTrace(printWriter);
-        setError(writer.toString());
+        setError(ExceptionUtils.getExceptionStackTrace(exception));
     }
+
 }

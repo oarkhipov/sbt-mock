@@ -14,6 +14,7 @@ import ru.sbt.bpm.mock.config.enums.XpathTypes;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.DataService;
 import ru.sbt.bpm.mock.spring.service.GroovyService;
+import ru.sbt.bpm.mock.spring.utils.ExceptionUtils;
 
 import javax.xml.xpath.XPathExpressionException;
 import java.util.NoSuchElementException;
@@ -45,6 +46,15 @@ public class ResponseGenerator {
     public String routeAndGenerate(String payload, String queue) throws Exception {
         try {
             System system = getSystemName(payload, queue);
+
+            try {
+                dataService.validate(payload, system.getSystemName());
+            } catch (Exception e){
+                String message = "Validate error " + ExceptionUtils.getExceptionStackTrace(e);
+                log.error(message);
+                return message;
+            }
+
             IntegrationPoint integrationPoint = getIntegrationPoint(system, payload);
             log.debug(integrationPoint.getName());
 
