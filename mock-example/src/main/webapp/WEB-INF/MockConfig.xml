@@ -3,208 +3,299 @@
     <systems>
         <system name="CRM">
             <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
-            <rootXsd>CRMIntegrationSchema.xsd</rootXsd>
+            <rootXsd>kkmb-crm-header-req.xsd</rootXsd>
             <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
             <integrationPointSelector>
-                <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                <tag ns="http://sbrf.ru/legal/enquiry/integration"/>
+                <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</tag>
+                <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">OperationName</tag>
             </integrationPointSelector>
-            <selectorType>ELEMENT_NAME</selectorType>
             <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
              System-MQ, System-SOAP -->
             <protocol>MQ</protocol>
 
-            <queueConnectionFactory>jms/Q.LEGAL.CF</queueConnectionFactory>
+            <queueConnectionFactory>jms/Q.KKMB.FROM.CRMORG</queueConnectionFactory>
             <!-- Входящая очередь заглушки -->
-            <mockIncomeQueue>jms/Q.LEGAL.TO.CRMORG</mockIncomeQueue>
+            <mockIncomeQueue>jms/Q.KKMB.TO.CRMORG</mockIncomeQueue>
             <!-- Исходящая очередь заглушки -->
-            <mockOutcomeQueue>jms/Q.LEGAL.FROM.CRMORG.SYNCRESP</mockOutcomeQueue>
+            <mockOutcomeQueue>jms/Q.KKMB.FROM.CRMORG.SYNCRESP</mockOutcomeQueue>
             <!-- Исходящая очередь драйвера -->
-            <driverOutcomeQueue>jms/Q.LEGAL.FROM.CRMORG</driverOutcomeQueue>
+            <driverOutcomeQueue>jms/Q.KKMB.TO.CRMORG.SYNCRESP</driverOutcomeQueue>
             <!-- Входящая очередь драйвера -->
-            <driverIncomeQueue>jms/Q.LEGAL.TO.CRMORG.SYNCRESP</driverIncomeQueue>
+            <driverIncomeQueue>jms/Q.KKMB.FROM.CRMORG</driverIncomeQueue>
 
             <integrationPoints>
 
-                <!--1. driver getReferenceData -->
-                <integrationPoint name="getReferenceData">
+                <!--1. driver ContractInfo -->
+                <integrationPoint name="ExportContractInfo">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">getReferenceData</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10">ContractInfo</tag>
+
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Driver</type>
-
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
-                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <xsdFile>kkmb-crm-header-req.xsd</xsdFile>
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
-                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                    <rootElement ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</rootElement>
                 </integrationPoint>
 
-                <!--2. mock sendReferenceData -->
-                <integrationPoint name="sendReferenceData">
+                <!--2. mock ContractID -->
+                <integrationPoint name="GetParticipantInfo">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <!-- Ответ - что угодно, а точнее не требуется -->
                     <xpathValidation>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/GetParticipant/req/10">ContractID</tag>
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Mock</type>
 
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
-                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <xsdFile>kkmb-crm-header-req.xsd</xsdFile>
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
-                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                    <rootElement ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</rootElement>
                     <!-- Требуется ли ответ -->
                     <answerRequired>false</answerRequired>
                 </integrationPoint>
 
-                <!--3. driver getAvailableExecutors-->
-                <integrationPoint name="getAvailableExecutors">
+                <!--3. driver ContractClose-->
+                <integrationPoint name="CloseContractInfo">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <xpathValidation>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">getAvailableExecutors</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/ContractClose/req/10">ContractClose</tag>
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Driver</type>
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
-                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <xsdFile>kkmb-crm-header-req.xsd</xsdFile>
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
-                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                    <rootElement ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</rootElement>
                 </integrationPoint>
 
-                <!--4. driver createLegalEnquiry-->
-                <integrationPoint name="createLegalEnquiry">
+                <!--4. mock UpdateContractInfo -->
+                <integrationPoint name="UpdateContractInfo">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ - что угодно, а точнее не требуется -->
                     <xpathValidation>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">createLegalEnquiry</tag>
-                    </xpathValidation>
-                    <!-- Тип точки интеграции Заглушка/Драйвер-->
-                    <type>Driver</type>
-                    <!-- Где лежит корневой элемент-->
-                    <!-- Optional -->
-                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
-                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
-                    <!-- Optional -->
-                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
-                </integrationPoint>
-
-                <!--5. mock sendLegalEnquiryStatus-->
-                <integrationPoint name="sendLegalEnquiryStatus">
-                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
-                    <!-- Ответ не требуется -->
-                    <xpathValidation>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10">UpdateContractInfo</tag>
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Mock</type>
+
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
-                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <xsdFile>kkmb-crm-header-req.xsd</xsdFile>
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
-                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                    <rootElement ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</rootElement>
                     <!-- Требуется ли ответ -->
                     <answerRequired>false</answerRequired>
                 </integrationPoint>
 
-                <!--6. mock getAdditionalInfo-->
-                <integrationPoint name="getAdditionalInfo">
+                <!--5. mock ReferenceData -->
+                <integrationPoint name="UpdateReferenceData">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ - что угодно, а точнее не требуется -->
                     <xpathValidation>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">confirmationMessage</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/ReferenceData/req/10">ReferenceData</tag>
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Mock</type>
+
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
-                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <xsdFile>kkmb-crm-header-req.xsd</xsdFile>
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
-                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                    <rootElement ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</rootElement>
                     <!-- Требуется ли ответ -->
-                    <answerRequired>true</answerRequired>
+                    <answerRequired>false</answerRequired>
                 </integrationPoint>
 
-                <!--7. driver sendAdditionalInfo-->
-                <integrationPoint name="sendAdditionalInfo">
+                <!--6. mock ProblemGroup -->
+                <integrationPoint name="ProblemGroup">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ - что угодно, а точнее не требуется -->
                     <xpathValidation>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">sendAdditionalInfo</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">commentsHistory</tag>
-                    </xpathValidation>
-                    <!-- Тип точки интеграции Заглушка/Драйвер-->
-                    <type>Driver</type>
-                    <!-- Где лежит корневой элемент-->
-                    <!-- Optional -->
-                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
-                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
-                    <!-- Optional -->
-                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
-                </integrationPoint>
-
-                <!--8. driver cancelLegalEnquiry-->
-                <integrationPoint name="cancelLegalEnquiry">
-                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
-                    <xpathValidation>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">cancelLegalEnquiry</tag>
-                    </xpathValidation>
-                    <!-- Тип точки интеграции Заглушка/Драйвер-->
-                    <type>Driver</type>
-                    <!-- Где лежит корневой элемент-->
-                    <!-- Optional -->
-                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
-                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
-                    <!-- Optional -->
-                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
-                </integrationPoint>
-
-                <!--9. mock sendLegalEnquiryExecutionResult-->
-                <integrationPoint name="sendLegalEnquiryExecutionResult">
-                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
-                    <xpathValidation>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">confirmationMessage</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/ProblemGroup/req/10">ProblemGroup</tag>
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Mock</type>
+
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
-                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <xsdFile>kkmb-crm-header-req.xsd</xsdFile>
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
-                    <!-- Optional -->;
-                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</rootElement>
                     <!-- Требуется ли ответ -->
-                    <answerRequired>true</answerRequired>
+                    <answerRequired>false</answerRequired>
                 </integrationPoint>
+            </integrationPoints>
+        </system>
+        <system name="ECH">
+            <rootXsd>KKMBMessageElements.xsd</rootXsd>
+            <integrationPointSelector>
+                <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                <tag ns="http://sbrf.ru/prpc/ech/10"/>
+            </integrationPointSelector>
+            <protocol>MQ</protocol>
 
-                <!--10. driver assessQuality-->
-                <integrationPoint name="assessQuality">
+            <queueConnectionFactory>jms/LT_KKMB.QCF</queueConnectionFactory>
+            <!-- Входящая очередь заглушки -->
+            <mockIncomeQueue>jms/ESB.CF.KKMB.IN</mockIncomeQueue>
+            <!-- Исходящая очередь заглушки -->
+            <mockOutcomeQueue>jms/ESB.CF.KKMB.OUT</mockOutcomeQueue>
+            <!-- Исходящая очередь драйвера -->
+            <driverOutcomeQueue>jms/</driverOutcomeQueue>
+            <!-- Входящая очередь драйвера -->
+            <driverIncomeQueue>jms/</driverIncomeQueue>
+
+            <integrationPoints>
+
+                <!--1. mock ContractID -->
+                <integrationPoint name="SrvGetCreditHistoryScoringRq">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ - что угодно, а точнее не требуется -->
                     <xpathValidation>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">assessQuality</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                        <tag ns="http://sbrf.ru/prpc/ech/10">SrvGetCreditHistoryScoringRq</tag>
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
-                    <type>Driver</type>
+                    <type>Mock</type>
+
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
-                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <xsdFile>KKMBMessageElements.xsd</xsdFile>
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
-                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                    <rootElement ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</rootElement>
+                    <!-- Требуется ли ответ -->
+                    <answerRequired>false</answerRequired>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+        <system name="AMRLIRT_LGD">
+            <rootXsd>KKMBMessageElements.xsd</rootXsd>
+            <integrationPointSelector>
+                <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                <tag ns="http://service.lgd.sberbank.luxoft.com/"/>
+            </integrationPointSelector>
+            <protocol>MQ</protocol>
+
+            <queueConnectionFactory>jms/LT_KKMB.QCF</queueConnectionFactory>
+            <!-- Входящая очередь заглушки -->
+            <mockIncomeQueue>jms/ESB.FED.KKMB.IN</mockIncomeQueue>
+            <!-- Исходящая очередь заглушки -->
+            <mockOutcomeQueue>jms/ESB.FED.KKMB.OUT</mockOutcomeQueue>
+            <!-- Исходящая очередь драйвера -->
+            <driverOutcomeQueue>jms/</driverOutcomeQueue>
+            <!-- Входящая очередь драйвера -->
+            <driverIncomeQueue>jms/</driverIncomeQueue>
+
+            <integrationPoints>
+                <!--1. mock calculationLGD -->
+                <integrationPoint name="calculationRequest">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ - что угодно, а точнее не требуется -->
+                    <xpathValidation>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">calculationRequest</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>KKMBMessageElements.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</rootElement>
+                    <!-- Требуется ли ответ -->
+                    <answerRequired>false</answerRequired>
+                </integrationPoint>
+
+
+                <!--1. mock finalizationLGD -->
+                <integrationPoint name="finalizationRequest">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ - что угодно, а точнее не требуется -->
+                    <xpathValidation>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                        <tag ns="http://service.lgd.sberbank.luxoft.com/">finalizationRequest</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>KKMBMessageElements.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</rootElement>
+                    <!-- Требуется ли ответ -->
+                    <answerRequired>false</answerRequired>
+                </integrationPoint>
+
+            </integrationPoints>
+        </system>
+        <system name="AMRLIRT_R">
+            <rootXsd>KKMBMessageElements.xsd</rootXsd>
+            <integrationPointSelector>
+                <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                <tag ns="http://service.scoring.sberbank.luxoft.com/"/>
+            </integrationPointSelector>
+            <protocol>MQ</protocol>
+
+            <queueConnectionFactory>jms/LT_KKMB.QCF</queueConnectionFactory>
+            <!-- Входящая очередь заглушки -->
+            <mockIncomeQueue>jms/ESB.FED.KKMB.IN</mockIncomeQueue>
+            <!-- Исходящая очередь заглушки -->
+            <mockOutcomeQueue>jms/ESB.FED.KKMB.OUT</mockOutcomeQueue>
+            <!-- Исходящая очередь драйвера -->
+            <driverOutcomeQueue>jms/</driverOutcomeQueue>
+            <!-- Входящая очередь драйвера -->
+            <driverIncomeQueue>jms/</driverIncomeQueue>
+
+            <integrationPoints>
+                <!--1. mock calculateRating -->
+                <integrationPoint name="calculate">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ - что угодно, а точнее не требуется -->
+                    <xpathValidation>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Body</tag>
+                        <tag ns="http://service.scoring.sberbank.luxoft.com/">calculate</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>KKMBMessageElements.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</rootElement>
+                    <!-- Требуется ли ответ -->
+                    <answerRequired>false</answerRequired>
                 </integrationPoint>
 
             </integrationPoints>
