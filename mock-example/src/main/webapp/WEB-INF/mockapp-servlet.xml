@@ -49,7 +49,6 @@
      <!--Настройки подключения к MQ-->
     <bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
             <property name="jndiName" value="#{connectionFactoryString}"/>
-
     </bean>
 
     <bean id="inboundMockQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
@@ -91,14 +90,12 @@
     <int:channel id="MockInboundRequest">
         <int:interceptors>
             <int:wire-tap channel="MockInboundRequestLogger"/>
-            <!--<wire-tap channel="MockInboundRequestExternalLogger"/>-->
         </int:interceptors>
     </int:channel>
 
     <int:channel id="MockOutboundResponse">
         <int:interceptors>
             <int:wire-tap channel="MockOutboundResponseLogger"/>
-            <!--<wire-tap channel="MockOutboundResponseExternalLogger"/>-->
         </int:interceptors>
     </int:channel>
 
@@ -107,51 +104,29 @@
     <int:channel id="DriverOutboundRequest">
         <int:interceptors>
             <int:wire-tap channel="DriverOutboundRequestLogger"/>
-            <!--<wire-tap channel="DriverOutboundRequestExternalLogger"/>-->
         </int:interceptors>
     </int:channel>
 
     <int:channel id="DriverInboundResponse">
         <int:interceptors>
             <int:wire-tap channel="DriverInboundResponseLogger"/>
-            <!--<wire-tap channel="DriverInboundResponseExternalLogger"/>-->
         </int:interceptors>
     </int:channel>
 
-    <!-- external logging -->
-
-    <!--<int:channel id="MockInboundRequestExternalLogger"/>-->
-    <!--<int:channel id="MockOutboundResponseExternalLogger"/>-->
-    <!--<int:channel id="DriverOutboundRequestExternalLogger"/>-->
-    <!--<int:channel id="DriverInboundResponseExternalLogger"/>-->
-
-
-    <!--<int:service-activator id="MockInboundRequestExternalLoggerActivator"-->
-                           <!--input-channel="MockInboundRequestExternalLogger"-->
-                           <!--expression="@messageLogger.logMessage(payload, mockConnectionInputString)"/>-->
-    <!--<int:service-activator id="MockOutboundResponseExternalLoggerActivator"-->
-                           <!--input-channel="MockOutboundResponseExternalLogger"-->
-                           <!--expression="@messageLogger.logMessage(payload, mockConnectionOutputString)"/>-->
-    <!--<int:service-activator id="DriverOutboundRequestExternalLoggerActivator"-->
-                       <!--input-channel="DriverOutboundRequestExternalLogger"-->
-                       <!--expression="@messageLogger.logMessage(payload, driverConnectionOutputString)"/>-->
-    <!--<int:service-activator id="DriverInboundResponseExternalLoggerActivator"-->
-                       <!--input-channel="DriverInboundResponseExternalLogger"-->
-                       <!--expression="@messageLogger.logMessage(payload, driverConnectionInputString)"/>-->
 
     <!-- - - - - - - - - - - - -->
     <!--     МАРШРУТИЗАЦИЯ     -->
     <!-- - - - - - - - - - - - -->
 
-    <int:channel id="MockInboundRequestAggregated"/>
-    <int:service-activator input-channel="MockInboundRequest" output-channel="MockInboundRequestAggregated" method="aggregate">
-        <bean class="ru.sbt.bpm.mock.spring.bean.MessageAggregator">
-            <constructor-arg value="#{mockConnectionInputString}" type="java.lang.String"/>
-        </bean>
-    </int:service-activator>
+    <!--<int:channel id="MockInboundRequestAggregated"/>-->
+    <!--<int:service-activator input-channel="MockInboundRequest" output-channel="MockInboundRequestAggregated" method="aggregate">-->
+        <!--<bean class="ru.sbt.bpm.mock.spring.bean.MessageAggregator">-->
+            <!--<constructor-arg value="#{mockConnectionInputString}" type="java.lang.String"/>-->
+        <!--</bean>-->
+    <!--</int:service-activator>-->
 
     <!-- Генерация ответа -->
-    <int:service-activator input-channel="MockInboundRequestAggregated" output-channel="MockOutboundResponse" expression="@responseGenerator.routeAndGenerate(payload)"/>
+    <int:service-activator input-channel="MockInboundRequest" output-channel="MockOutboundResponse" expression="@responseGenerator.routeAndGenerate(payload)"/>
     
 
 

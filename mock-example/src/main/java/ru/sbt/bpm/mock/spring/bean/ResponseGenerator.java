@@ -84,6 +84,11 @@ public class ResponseGenerator {
                 } catch (SaxonApiException e) {
 //                e.printStackTrace();
                     //this is not system, that we are looking for
+                    log.debug(e.getMessage(), e);
+                }
+                catch (ClassCastException e) {
+                    //this is not system, that we are looking for
+                    log.debug(e.getMessage(), e);
                 }
             }
         }
