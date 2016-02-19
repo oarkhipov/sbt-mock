@@ -189,7 +189,7 @@
                 </integrationPoint>
             </integrationPoints>
         </system>
-        <system name="AMRLIRT_LGD">
+        <system name="AMRLiRT_LGD">
             <rootXsd>KKMBMessageElements.xsd</rootXsd>
             <integrationPointSelector>
                 <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
@@ -256,7 +256,7 @@
 
             </integrationPoints>
         </system>
-        <system name="AMRLIRT_R">
+        <system name="AMRLiRT_R">
             <rootXsd>KKMBMessageElements.xsd</rootXsd>
             <integrationPointSelector>
                 <tag ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</tag>
