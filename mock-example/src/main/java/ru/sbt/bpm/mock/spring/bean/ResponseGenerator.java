@@ -58,7 +58,7 @@ public class ResponseGenerator {
             log.debug(integrationPoint.getName());
 
             Boolean answerRequired = integrationPoint.getAnswerRequired();
-            if (answerRequired) {
+            if (answerRequired==null || answerRequired) {
                 return generate(system.getSystemName(), integrationPoint.getName(), payload);
             } else {
                 return null;
