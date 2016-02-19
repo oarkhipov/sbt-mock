@@ -61,7 +61,7 @@
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</rootElement>
                     <!-- Требуется ли ответ -->
-                    <answerRequired>false</answerRequired>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
 
                 <!--3. driver ContractClose-->
@@ -99,7 +99,7 @@
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</rootElement>
                     <!-- Требуется ли ответ -->
-                    <answerRequired>false</answerRequired>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
 
                 <!--5. mock ReferenceData -->
@@ -185,7 +185,7 @@
                     <!-- Optional -->
                     <rootElement ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</rootElement>
                     <!-- Требуется ли ответ -->
-                    <answerRequired>false</answerRequired>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
             </integrationPoints>
         </system>
@@ -228,11 +228,11 @@
                     <!-- Optional -->
                     <rootElement ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</rootElement>
                     <!-- Требуется ли ответ -->
-                    <answerRequired>false</answerRequired>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
 
 
-                <!--1. mock finalizationLGD -->
+                <!--2. mock finalizationLGD -->
                 <integrationPoint name="finalizationRequest">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <!-- Ответ - что угодно, а точнее не требуется -->
@@ -251,7 +251,7 @@
                     <!-- Optional -->
                     <rootElement ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</rootElement>
                     <!-- Требуется ли ответ -->
-                    <answerRequired>false</answerRequired>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
 
             </integrationPoints>
@@ -295,7 +295,7 @@
                     <!-- Optional -->
                     <rootElement ns="http://schemas.xmlsoap.org/soap/envelope/">Envelope</rootElement>
                     <!-- Требуется ли ответ -->
-                    <answerRequired>false</answerRequired>
+                    <answerRequired>true</answerRequired>
                 </integrationPoint>
 
             </integrationPoints>
