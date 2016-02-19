@@ -13,7 +13,7 @@
              System-MQ, System-SOAP -->
             <protocol>MQ</protocol>
 
-            <queueConnectionFactory>jms/LT_KKMB.QCF</queueConnectionFactory>
+            <queueConnectionFactory>jms/KKMB.DEV.CF</queueConnectionFactory>
             <!-- Входящая очередь заглушки -->
             <mockIncomeQueue>jms/Q.KKMB.TO.CRMORG</mockIncomeQueue>
             <!-- Исходящая очередь заглушки -->
@@ -154,7 +154,7 @@
             </integrationPointSelector>
             <protocol>MQ</protocol>
 
-            <queueConnectionFactory>jms/LT_KKMB.QCF</queueConnectionFactory>
+            <queueConnectionFactory>jms/KKMB.DEV.CF</queueConnectionFactory>
             <!-- Входящая очередь заглушки -->
             <mockIncomeQueue>jms/ESB.CF.KKMB.IN</mockIncomeQueue>
             <!-- Исходящая очередь заглушки -->
@@ -198,7 +198,7 @@
             </integrationPointSelector>
             <protocol>MQ</protocol>
 
-            <queueConnectionFactory>jms/LT_KKMB.QCF</queueConnectionFactory>
+            <queueConnectionFactory>jms/KKMB.DEV.CF</queueConnectionFactory>
             <!-- Входящая очередь заглушки -->
             <mockIncomeQueue>jms/ESB.FED.KKMB.IN</mockIncomeQueue>
             <!-- Исходящая очередь заглушки -->
@@ -265,7 +265,7 @@
             </integrationPointSelector>
             <protocol>MQ</protocol>
 
-            <queueConnectionFactory>jms/Q.KKMB.FROM.CRMORG</queueConnectionFactory>
+            <queueConnectionFactory>jms/KKMB.DEV.CF</queueConnectionFactory>
             <!-- Входящая очередь заглушки -->
             <mockIncomeQueue>jms/ESB.FED.KKMB.IN</mockIncomeQueue>
             <!-- Исходящая очередь заглушки -->
