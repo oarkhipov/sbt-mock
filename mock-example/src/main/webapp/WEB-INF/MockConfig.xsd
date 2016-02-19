@@ -70,7 +70,7 @@
       </xs:element>
       <xs:element type="xs:string" name="mockOutcomeQueue">
         <xs:annotation>
-          <xs:documentation>Исходящая очеред заглушки</xs:documentation>
+          <xs:documentation>Исходящая очередь заглушки</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element type="xs:string" name="driverOutcomeQueue">
@@ -91,7 +91,7 @@
     <xs:sequence>
       <xs:element type="moc:xpathValidationType" name="xpathValidation" xmlns:moc="http://sbrf.ru/mockService2">
         <xs:annotation>
-          <xs:documentation>Валидация сообщения, которое должно находиться в точке интеграции</xs:documentation>
+          <xs:documentation>Валидация ИСХОДЯЩЕГО сообщения, которое должно находиться в точке интеграции.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="type">
@@ -127,7 +127,7 @@
       </xs:element>
       <xs:element type="xs:string" name="answerRequired" minOccurs="0">
         <xs:annotation>
-          <xs:documentation>Требуется ли ответ</xs:documentation>
+          <xs:documentation>Требуется ли ответ заглушки</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
