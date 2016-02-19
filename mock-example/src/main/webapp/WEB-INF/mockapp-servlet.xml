@@ -44,11 +44,11 @@
     <!-- - - - - - - -->
     <!-- DRIVER -->
     <bean id="driverConnectionCRMInputString" class="java.lang.String">
-        <constructor-arg value="jms/Q.KKMB.FROM.CRMORG"/>
+        <constructor-arg value="jms/Q.KKMB.TO.CRMORG.SYNCRESP"/>
         <!--<beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>-->
     </bean>
     <bean id="driverConnectionCRMOutputString" class="java.lang.String">
-        <constructor-arg value="jms/Q.KKMB.TO.CRMORG.SYNCRESP"/>
+        <constructor-arg value="jms/Q.KKMB.FROM.CRMORG"/>
         <!--<beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.FROM.CRMORG"/>-->
     </bean>
 
