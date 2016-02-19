@@ -3,7 +3,7 @@
     <systems>
         <system name="CRM">
             <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
-            <rootXsd>kkmb-crm-header-req.xsd</rootXsd>
+            <rootXsd>kkmb-crm-header-resp.xsd</rootXsd>
             <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
             <integrationPointSelector>
                 <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/resp/10">Message</tag>
