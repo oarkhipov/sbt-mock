@@ -18,37 +18,37 @@
     <!-- Настройка используемой конфигурации заглушки-->
 
     <bean id="connectionFactoryString" class="java.lang.String">
-        <constructor-arg value="KKMB.DEV.CF"/>
+        <constructor-arg value="jms/KKMB.DEV.CF"/>
     </bean>
 
     <!-- - - - - - - -->
     <!--MOCK-->
     <bean id="mockConnectionCRMInputString" class="java.lang.String">
-        <constructor-arg value="Q.KKMB.TO.CRMORG"/>
+        <constructor-arg value="jms/Q.KKMB.TO.CRMORG"/>
     </bean>
     <bean id="mockConnectionCRMOutputString" class="java.lang.String">
-        <constructor-arg value="Q.KKMB.FROM.CRMORG.SYNCRESP"/>
+        <constructor-arg value="jms/Q.KKMB.FROM.CRMORG.SYNCRESP"/>
     </bean>
     <bean id="mockConnectionECHInputString" class="java.lang.String">
-        <constructor-arg value="ESB.CF.KKMB.IN"/>
+        <constructor-arg value="jms/ESB.CF.KKMB.IN"/>
     </bean>
     <bean id="mockConnectionECHOutputString" class="java.lang.String">
-        <constructor-arg value="ESB.CF.KKMB.OUT"/>
+        <constructor-arg value="jms/ESB.CF.KKMB.OUT"/>
     </bean>
     <bean id="mockConnectionAMRLIRTInputString" class="java.lang.String">
-        <constructor-arg value="ESB.FED.KKMB.IN"/>
+        <constructor-arg value="jms/ESB.FED.KKMB.IN"/>
     </bean>
     <bean id="mockConnectionAMRLIRTOutputString" class="java.lang.String">
-        <constructor-arg value="ESB.FED.KKMB.OUT"/>
+        <constructor-arg value="jms/ESB.FED.KKMB.OUT"/>
     </bean>
     <!-- - - - - - - -->
     <!-- DRIVER -->
     <bean id="driverConnectionCRMInputString" class="java.lang.String">
-        <constructor-arg value="Q.KKMB.FROM.CRMORG"/>
+        <constructor-arg value="jms/Q.KKMB.FROM.CRMORG"/>
         <!--<beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>-->
     </bean>
     <bean id="driverConnectionCRMOutputString" class="java.lang.String">
-        <constructor-arg value="Q.KKMB.TO.CRMORG.SYNCRESP"/>
+        <constructor-arg value="jms/Q.KKMB.TO.CRMORG.SYNCRESP"/>
         <!--<beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.FROM.CRMORG"/>-->
     </bean>
 
@@ -206,7 +206,7 @@
     <!-- Генерация ответа -->
     <int:service-activator input-channel="MockCRMInboundRequest" output-channel="MockCRMOutboundResponse" expression="@responseGenerator.routeAndGenerate(payload)"/>
     <int:service-activator input-channel="MockECHInboundRequest" output-channel="MockECHOutboundResponse" expression="@responseGenerator.routeAndGenerate(payload)"/>
-    <int:service-activator input-channel="MockAMRLIRTInboundRequest" output-channel="MockARMLIRTOutboundResponse" expression="@responseGenerator.routeAndGenerate(payload)"/>
+    <int:service-activator input-channel="MockAMRLIRTInboundRequest" output-channel="MockAMRLIRTOutboundResponse" expression="@responseGenerator.routeAndGenerate(payload)"/>
 
 
 
