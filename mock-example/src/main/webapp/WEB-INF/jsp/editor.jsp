@@ -76,7 +76,9 @@
         </div>
 
         <div id="actionButtonsDiv">
-            <input type="checkbox" name="filter" value="Filter generated message" checked>
+            <label style="vertical-align: middle; padding-bottom: 6px">
+                <input type="checkbox" id="filterGen" name="filterGen" alt="Filter generated message" checked>Filter
+            </label>
             <input id="reset" type="button" title="Regenerate" class="actionButtons"/>
             <%-- //TODO implement action buttons --%>
             <%--<input id="undo" type="button" title="Undo" class="actionButtons"/>--%>

@@ -150,10 +150,18 @@ public class MockController {
 
     @ResponseBody
     @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/resetToDefault/", method = RequestMethod.POST)
-    public String resetToDefault(
+    public String resetToDefaultFull(
             @PathVariable("systemName") String systemName,
             @PathVariable("integrationPointName") String integrationPointName) throws IOException {
-        return generatorController.generate(systemName, integrationPointName);
+        return generatorController.generate(systemName, integrationPointName, false);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/resetToDefault/filtered", method = RequestMethod.POST)
+    public String resetToDefaultFiltered(
+            @PathVariable("systemName") String systemName,
+            @PathVariable("integrationPointName") String integrationPointName) throws IOException {
+        return generatorController.generate(systemName, integrationPointName, true);
     }
 
     @ResponseBody

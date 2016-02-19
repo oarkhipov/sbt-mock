@@ -20,11 +20,11 @@ public class XmlGeneratorController {
     XmlGeneratorService generatorService;
 
     @ResponseBody
-    @RequestMapping(value = "/xml/{system}/{integrationPointName}")
-    public String generate(@PathVariable String system, @PathVariable String integrationPointName) {
+    @RequestMapping(value = "/xml/{system}/{integrationPointName}/{filtered}")
+    public String generate(@PathVariable String system, @PathVariable String integrationPointName, @PathVariable boolean filtered) {
         AjaxObject ajaxObject = new AjaxObject();
         try {
-            ajaxObject.setData(generatorService.generate(system, integrationPointName, true));
+            ajaxObject.setData(generatorService.generate(system, integrationPointName, filtered));
         } catch (Exception e) {
             ajaxObject.setErrorFromException(e);
         }

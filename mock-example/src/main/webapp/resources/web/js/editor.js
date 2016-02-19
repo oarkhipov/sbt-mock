@@ -190,8 +190,9 @@ $("#redo").click(function () {
 
 $("#reset").click(function () {
     var parts = QueryString["ip"].split("__");
+    var filtered = $("#filterGen").val()?"filtered":"";
     $.ajax({
-        url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/resetToDefault/",
+        url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/resetToDefault/"+ filtered,
         type: "POST",
         success: function (obj) {
             obj = htmlConvert(obj);

@@ -191,11 +191,19 @@ public class DriverController {
 //    }
 
     @ResponseBody
-    @RequestMapping(value = "/driver/{systemName}/{integrationPointName}/resetToDefault/", method = RequestMethod.POST)
-    public String resetToDefault(
+    @RequestMapping(value = "/driver/{systemName}/{integrationPointName}/resetToDefault/filtered", method = RequestMethod.POST)
+    public String resetToDefaultFiltered(
             @PathVariable("systemName") String systemName,
             @PathVariable("integrationPointName") String integrationPointName) throws IOException {
-        return generatorController.generate(systemName, integrationPointName);
+        return generatorController.generate(systemName, integrationPointName, true);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/driver/{systemName}/{integrationPointName}/resetToDefault/", method = RequestMethod.POST)
+    public String resetToDefaultFull(
+            @PathVariable("systemName") String systemName,
+            @PathVariable("integrationPointName") String integrationPointName) throws IOException {
+        return generatorController.generate(systemName, integrationPointName, false);
     }
 
 
