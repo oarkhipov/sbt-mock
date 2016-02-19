@@ -6,8 +6,8 @@
             <rootXsd>kkmb-crm-header-req.xsd</rootXsd>
             <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
             <integrationPointSelector>
-                <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</tag>
-                <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">OperationName</tag>
+                <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/resp/10">Message</tag>
+                <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/resp/10">OperationName</tag>
             </integrationPointSelector>
             <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
              System-MQ, System-SOAP -->
