@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		targetNamespace="http://sbrf.ru/prpc/kkmb/crm/Header/req/10" 
+		xmlns:tns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10" 
+		xmlns:ct="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"
+		xmlns:xc="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10"
+		xmlns:gp="http://sbrf.ru/prpc/kkmb/crm/GetParticipant/req/10" 
+		xmlns:uc="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10"
+		xmlns:cc="http://sbrf.ru/prpc/kkmb/crm/ContractClose/req/10"
+		xmlns:rd="http://sbrf.ru/prpc/kkmb/crm/ReferenceData/req/10"
+		xmlns:pg="http://sbrf.ru/prpc/kkmb/crm/ProblemGroup/req/10"
+		elementFormDefault="qualified">
+		
+	<import schemaLocation="./kkmb-crm-commontypes.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10"/>
+	<import schemaLocation="./kkmb-crm-exportcontract-req.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ExportContractInfo/req/10"/>
+	<import schemaLocation="./kkmb-crm-getparticipant-req.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/GetParticipant/req/10"/>
+	<import schemaLocation="./kkmb-crm-updatecontract-req.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/req/10"/>
+	<import schemaLocation="./kkmb-crm-closecontract-req.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ContractClose/req/10"/>
+	<import schemaLocation="./kkmb-crm-referencedata-req.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ReferenceData/req/10"/>
+	<import schemaLocation="./kkmb-crm-problemgroup-req.xsd" namespace="http://sbrf.ru/prpc/kkmb/crm/ProblemGroup/req/10"/>
+	
+	<element name="Message">
+		<complexType>
+			<sequence>
+				<element name="RqUID" type="ct:String36" minOccurs="1" maxOccurs="1"/>
+				<element name="RqTm" type="dateTime" minOccurs="1" maxOccurs="1"/>
+				<element name="SPName" type="ct:String50" minOccurs="1" maxOccurs="1"/>
+				<element name="SystemId" type="ct:String50" minOccurs="1" maxOccurs="1"/>
+				<element name="OperationName" type="ct:String255" minOccurs="1" maxOccurs="1"/>
+				<choice>
+					<element ref="xc:ContractInfo" minOccurs="0" maxOccurs="1"/>
+					<element ref="gp:ContractID" minOccurs="0" maxOccurs="1"/>
+					<element ref="uc:UpdateContractInfo" minOccurs="0" maxOccurs="1"/>
+					<element ref="cc:ContractClose" minOccurs="0" maxOccurs="1"/>
+					<element ref="rd:ReferenceData" minOccurs="0" maxOccurs="1"/>
+					<element ref="pg:ProblemGroup" minOccurs="0" maxOccurs="1"/>
+				</choice>				
+			</sequence>		
+		</complexType>
+	</element>
+	
+</schema>

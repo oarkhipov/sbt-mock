@@ -1,0 +1,1139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		targetNamespace="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10" 
+		xmlns:tns="http://sbrf.ru/prpc/kkmb/crm/CommonTypes/10" 
+		elementFormDefault="qualified">
+
+	<element name="Participant">
+		<annotation><documentation>Участники</documentation></annotation>
+		<complexType>
+			<sequence>
+				<element name="ListOfParticipantFL" minOccurs="1" maxOccurs="1">
+					<annotation><documentation>Список участников ФЛ</documentation></annotation>
+					<complexType>
+						<sequence>
+							<element ref="tns:ParticipantFL" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="ListOfParticipantUL" minOccurs="1" maxOccurs="1">
+					<annotation><documentation>Список участников ЮЛ</documentation></annotation>
+					<complexType>
+						<sequence>
+							<element ref="tns:ParticipantUL" minOccurs="1" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>	
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="ParticipantFL">
+		<complexType>
+			<sequence>
+				<element name="ClientID" type="tns:String15" minOccurs="1" maxOccurs="1"/>
+				<element name="ListOfStatusFL" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<sequence>
+							<element name="StatusFL" type="tns:String30" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="RoleFL" type="tns:String30" minOccurs="1" maxOccurs="1"/>
+			</sequence>
+		</complexType>
+	</element>	
+	
+	<element name="ParticipantUL">
+		<complexType>
+			<sequence>
+				<element name="ClientID" type="tns:String15" minOccurs="1" maxOccurs="1"/>
+				<element name="ListOfStatusUL" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<sequence>
+							<element name="StatusUL" type="tns:String30" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>
+				</element>
+			 	<element name="RoleUL" type="tns:String30" minOccurs="1" maxOccurs="1"/>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="GSL">
+		<complexType>
+			<sequence>
+				<element name="ListOfPartGSLFL" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<sequence>
+							<element ref="tns:PartGSLFL" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="ListOfPartGSLUL" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<sequence>
+							<element ref="tns:PartGSLUL" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="PartGSLFL">
+		<complexType>
+			<sequence>
+				<element name="ClientID" type="tns:String15" minOccurs="1" maxOccurs="1"/>
+				<element name="ListOfStatusFL" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<sequence>
+							<element name="StatusFL" type="tns:String30" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="RoleFL" type="tns:String30" minOccurs="1" maxOccurs="1"/>
+				<element name="CommentOnInclusion" type="tns:String255" minOccurs="1" maxOccurs="1"/>
+				<element name="Stake" type="tns:Decimal4_2" minOccurs="1" maxOccurs="1"/>
+				<element name="CommentGSLFL" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="PartGSLUL">
+		<complexType>
+			<sequence>
+				<element name="ClientID" type="tns:String15" minOccurs="1" maxOccurs="1"/>
+				<element name="ListOfStatusUL" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<sequence>
+							<element name="StatusUL" type="tns:String30" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>
+				</element>										
+			 	<element name="RoleUL" type="tns:String30" minOccurs="1" maxOccurs="1"/>
+				<element name="CommentOnInclusion" type="tns:String255" minOccurs="1" maxOccurs="1"/>
+				<element name="Stake" type="tns:Decimal4_2" minOccurs="1" maxOccurs="1"/>
+				<element name="CommentGSLUL" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<complexType name="ListOfGSZ">
+		<sequence>
+			<element ref="tns:GSZ" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	
+	<element name="GSZ">
+		<complexType>
+			<sequence>
+				<element name="GSZ_ID" type="tns:String15" minOccurs="1" maxOccurs="1"/>
+				<element name="NameGSZ" type="tns:String250" minOccurs="1" maxOccurs="1"/>
+				<element name="ListOfMemberGSZFL" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<sequence>
+							<element name="ClientID" type="tns:String15" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="ListOfMemberGSZUL" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<sequence>
+							<element name="ClientID" type="tns:String15" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<complexType name="ListOfKG">
+		<sequence>
+			<element ref="tns:KG" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	
+	<element name="KG">
+		<complexType>
+			<sequence>
+				<element name="KG_ID" type="tns:String15" minOccurs="1" maxOccurs="1"/>
+				<element name="NameKG" type="tns:String250" minOccurs="1" maxOccurs="1"/>
+				<element name="ListOfMemberKGFL" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<sequence>
+							<element name="ClientID" type="tns:String15" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="ListOfMemberKGUL" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<sequence>
+							<element name="ClientID" type="tns:String15" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<complexType name="ListOfLegalPerson">
+		<sequence>
+			<element ref="tns:LegalPerson" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	
+	<element name="LegalPerson">
+		<complexType>
+			<sequence>
+				<element name="LegalPersonID" type="tns:String15" minOccurs="1" maxOccurs="1"/>
+				<element name="NaturalPersonID" type="tns:String15" minOccurs="1" maxOccurs="1"/>
+				<element name="SubDivision" type="tns:String1024" minOccurs="0" maxOccurs="1"/>
+				<element name="StoppingList" type="boolean" minOccurs="1" maxOccurs="1"/>
+				<element name="OPF" type="tns:String50" minOccurs="1" maxOccurs="1"/>
+				<element name="OrganizationName" type="tns:String1024" minOccurs="1" maxOccurs="1"/>
+				<element name="INN" type="tns:String15" minOccurs="1" maxOccurs="1"/>
+				<element name="KPP" type="tns:String15" minOccurs="1" maxOccurs="1"/>
+				<element name="OGRN" type="tns:String100" minOccurs="0" maxOccurs="1"/>
+				<element name="Industry" type="tns:String30" minOccurs="1" maxOccurs="1"/>
+				<element name="ProblemGroup" type="tns:String50" minOccurs="0" maxOccurs="1"/>
+				<element name="OKPO" type="tns:String60" minOccurs="0" maxOccurs="1"/>
+        <element name="Phone" type="tns:String15" minOccurs="0" maxOccurs="1"/>
+				<element name="ListOfAddressInfoUL" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<sequence>
+							<element ref="tns:AddressInfoUL" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="ListOfRegistrationInfo" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<sequence>
+							<element ref="tns:RegistrationInfo" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>											
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="AddressInfoUL">
+		<complexType>
+			<sequence>
+				<element name="AddressTypeUL" type="tns:String30" minOccurs="1" maxOccurs="1"/>
+				<element name="Country" type="tns:String30" minOccurs="0" maxOccurs="1"/>
+				<element name="Index" type="tns:String30" minOccurs="0" maxOccurs="1"/>
+				<element name="Region" type="tns:String60" minOccurs="0" maxOccurs="1"/>
+				<element name="District" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+				<element name="City" type="tns:String60" minOccurs="0" maxOccurs="1"/>
+				<element name="Settlement" type="tns:String60" minOccurs="0" maxOccurs="1"/>
+				<element name="Street" type="tns:String100" minOccurs="0" maxOccurs="1"/>
+				<element name="House" type="tns:String20" minOccurs="0" maxOccurs="1"/>
+        		<element name="Corps" type="tns:String20" minOccurs="0" maxOccurs="1"/>
+				<element name="Building" type="tns:String20" minOccurs="0" maxOccurs="1"/>
+				<element name="Apartment" type="tns:String50" minOccurs="0" maxOccurs="1"/>
+        		<element name="RegionCode" type="tns:RegionAddressDictType" minOccurs="0" maxOccurs="1">
+					<annotation>
+						<documentation>Не используется в обмене с CRM</documentation>
+					</annotation>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="RegistrationInfo">
+		<complexType>
+			<sequence>
+				<element name="RegistrationDate" type="date" minOccurs="0" maxOccurs="1"/>
+				<element name="RegistrationAuthority" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+				<element name="RegistrationSertificateSeries" type="tns:String100" minOccurs="0" maxOccurs="1"/>
+				<element name="RegistrationSertificateDate" type="date" minOccurs="0" maxOccurs="1"/>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<complexType name="ListOfNaturalPerson">
+		<sequence>
+			<element ref="tns:NaturalPerson" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	
+	<element name="NaturalPerson">
+		<complexType>
+			<sequence>
+				<element name="NaturalPersonID" type="tns:String15" minOccurs="1" maxOccurs="1"/>
+				<element name="SubDivision" type="tns:String1024" minOccurs="0" maxOccurs="1"/>
+				<element name="LastName" type="tns:String50" minOccurs="1" maxOccurs="1"/>
+				<element name="FirstName" type="tns:String50" minOccurs="1" maxOccurs="1"/>
+				<element name="MiddleName" type="tns:String50" minOccurs="0" maxOccurs="1"/>
+				<element name="DateOfBirth" type="date" minOccurs="0" maxOccurs="1"/>
+				<element name="PlaceOfBirth" type="tns:String250" minOccurs="0" maxOccurs="1"/>
+				<element name="Gender" type="tns:String50" minOccurs="0" maxOccurs="1"/>
+				<element name="ListOfDocument" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<sequence>
+							<element ref="tns:Document" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="ListOfAddressInfoFL" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<sequence>
+							<element ref="tns:AddressInfoFL" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="Document">
+		<complexType>
+			<sequence>
+				<element name="DocumentTypeCode" type="tns:String50" minOccurs="1" maxOccurs="1"/>
+				<element name="DocumentType" type="tns:String255" minOccurs="1" maxOccurs="1"/>
+				<element name="DocumentSeries" type="tns:String30" minOccurs="1" maxOccurs="1"/>
+				<element name="DocumentName" type="tns:String30" minOccurs="1" maxOccurs="1"/>
+				<element name="IssueDate" type="date" minOccurs="1" maxOccurs="1"/>
+				<element name="IssueAuthorityCode" type="tns:String30" minOccurs="1" maxOccurs="1"/>
+				<element name="IssueAuthority" type="tns:String250" minOccurs="1" maxOccurs="1"/>
+				<element name="IssueLocation" type="tns:String250" minOccurs="0" maxOccurs="1">
+					<annotation>
+						<documentation>Не используется в обмене с CRM</documentation></annotation></element>
+				<element name="Primary" type="boolean" minOccurs="1" maxOccurs="1"/>
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="AddressInfoFL">
+		<complexType>
+			<sequence>
+				<element name="AddressTypeFL" type="tns:String30" minOccurs="1" maxOccurs="1"/>
+				<element name="Country" type="tns:String30" minOccurs="0" maxOccurs="1"/>
+				<element name="Index" type="tns:String30" minOccurs="0" maxOccurs="1"/>
+				<element name="Region" type="tns:String60" minOccurs="0" maxOccurs="1"/>
+				<element name="District" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+				<element name="City" type="tns:String60" minOccurs="0" maxOccurs="1"/>
+				<element name="Settlement" type="tns:String60" minOccurs="0" maxOccurs="1"/>
+				<element name="Street" type="tns:String100" minOccurs="0" maxOccurs="1"/>
+				<element name="House" type="tns:String20" minOccurs="0" maxOccurs="1"/>
+        		<element name="Corps" type="tns:String20" minOccurs="0" maxOccurs="1"/>
+				<element name="Building" type="tns:String20" minOccurs="0" maxOccurs="1"/>
+				<element name="Apartment" type="tns:String50" minOccurs="0" maxOccurs="1"/>				
+			</sequence>
+		</complexType>
+	</element>
+	
+	<complexType name="ListOfTermOfProduct">
+		<sequence>
+			<element ref="tns:TermOfProduct" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	
+	<element name="TermOfProduct">
+		<complexType>
+			<sequence>
+				<element name="ProductIntID" type="tns:String15" minOccurs="1" maxOccurs="1"/>
+				<element name="CreditMode" type="tns:String50" minOccurs="1" maxOccurs="1"/>
+				<element name="CreditInstrument" type="tns:String50" minOccurs="1" maxOccurs="1"/>
+				<element name="GeneralAgreement" type="boolean" minOccurs="0" maxOccurs="1"/>
+				<element name="ProductLimitID" type="tns:String60" minOccurs="0" maxOccurs="1">
+					<annotation>
+						<documentation>В том случае, если схема используется для обновления сделки в CRM (из kkmd-crm_updatecontract-req), то элемент должен быть (обязательный)</documentation>
+					</annotation></element>
+				<element name="TypeOfTermOfProduct" type="tns:String30" minOccurs="1" maxOccurs="1"/>
+				<element name="ProductCategory" type="tns:String50" minOccurs="1" maxOccurs="1"/>
+				<element name="Product" type="tns:String50" minOccurs="1" maxOccurs="1"/>
+				<element name="CreditAvailabilityPeriod" type="tns:int4" minOccurs="0" maxOccurs="1"/>
+				<element name="StartDate" type="date" minOccurs="0" maxOccurs="1"/>
+				<element name="EndDate" type="date" minOccurs="0" maxOccurs="1"/>
+				<element name="WarrantyPaymentTerm" type="tns:int4" minOccurs="0" maxOccurs="1"/>
+				<element name="PrincipalRepaymentDeferment" type="tns:int4" minOccurs="0" maxOccurs="1"/>
+				<element name="RepaymentSchedule" type="tns:String50" minOccurs="1" maxOccurs="1"/>
+				<element name="SumInCurrency" type="tns:Decimal22_5" minOccurs="1" maxOccurs="1"/>
+				<element name="Currency" type="tns:String50" minOccurs="1" maxOccurs="1"/>
+				<element name="SumInRub" type="tns:Decimal22_7" minOccurs="0" maxOccurs="1"/>
+				<element name="CollateralFullySatisfiesDebt" type="boolean" minOccurs="0" maxOccurs="1"/>
+				<element name="Purpose" type="tns:String50" minOccurs="0" maxOccurs="1"/>
+				<element name="PurposeElaboration" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+				<element name="CreditDuration" type="tns:Decimal22_4" minOccurs="1" maxOccurs="1"/>
+				<element name="Rate" type="tns:Decimal22_7" minOccurs="0" maxOccurs="1"/>
+				<element name="RateType" type="tns:String50" minOccurs="0" maxOccurs="1"/>
+				<element name="InterestPaymentProcess" type="tns:String50" minOccurs="0" maxOccurs="1"/>
+				<element name="VariableInterestRatePeriod" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+				<element name="VariableInterestRateCalcPeriod" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+				<element name="VariableInterestRatePercentPeriod" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+				<element name="ListOfComission" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<sequence>
+							<element ref="tns:Comission" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>														
+					</complexType>
+				</element>
+				<element name="ListOfAdvancedRepaymentFee" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<sequence>
+							<element ref="tns:AdvancedRepaymentFee" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>														
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>	
+	
+	<element name="Comission">
+		<complexType>
+			<sequence> 
+				<element name="NameComission" type="tns:String50" minOccurs="1" maxOccurs="1"/>
+				<element name="NameComissionOther" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+				<element name="ComissionBase" type="tns:String255" minOccurs="1" maxOccurs="1"/>
+				<element name="PaymentRegulation" type="tns:String255" minOccurs="1" maxOccurs="1"/>
+				<element name="PaymentDate" type="date" minOccurs="1" maxOccurs="1"/>
+			</sequence>
+		</complexType>	
+	</element>
+	
+	<element name="AdvancedRepaymentFee">
+		<complexType>
+			<sequence>
+				<element name="AdvancedRepaymentFeeCondtion" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+				<element name="Amount" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+				<element name="NotificationDate" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+				<element name="CalcProcedure" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+				<element name="FreePeriod" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+				<element name="Comment" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+			</sequence>
+		</complexType>	
+	</element>
+	
+	<complexType name="ListOfTerm">
+		<sequence>
+			<element ref="tns:Term" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	
+	<element name="Term">
+		<complexType>
+			<sequence>
+				<element name="Type" type="tns:String50" minOccurs="1" maxOccurs="1"/>
+				<element name="DescriptionOfTerm" type="tns:String255" minOccurs="1" maxOccurs="1"/>
+				<element name="ResponsibleEmployee" type="tns:String1024" minOccurs="0" maxOccurs="1"/>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<complexType name="ListOfLoanSecurityInformation">
+		<sequence>
+			<element ref="tns:LoanSecurityInformation" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	
+	<element name="LoanSecurityInformation">
+		<complexType>
+			<sequence>
+				<element name="ClientID" type="tns:String15" minOccurs="1" maxOccurs="1"/>
+				<element name="IsLegalPerson" type="boolean" minOccurs="1" maxOccurs="1"/>
+				<element name="SecurityType" type="tns:String250" minOccurs="1" maxOccurs="1"/>
+				<element name="PropertyName" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+				<element name="IdentifyingFeatures" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+				<element name="PropertyLocationAddress" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+				<element name="ExpectedValueEstimationProcess" type="tns:String250" minOccurs="1" maxOccurs="1"/>
+				<element name="MarketValue" type="tns:Decimal17_2" minOccurs="1" maxOccurs="1"/>
+				<element name="CorrectionFactor" type="tns:Decimal4_2" minOccurs="1" maxOccurs="1"/>
+				<element name="PledgeValue" type="tns:Decimal17_2" minOccurs="1" maxOccurs="1"/>
+				<element name="Insurance" type="tns:String250" minOccurs="1" maxOccurs="1"/>
+				<element name="InsuranceCompany" type="tns:String250" minOccurs="0" maxOccurs="1"/>
+				<element name="InsuranceAmount" type="tns:Decimal17_2" minOccurs="0" maxOccurs="1"/>
+				<element name="Beneficiary" type="tns:String250" minOccurs="0" maxOccurs="1"/>
+				<element name="DecisionOnContract" type="tns:String250" minOccurs="1" maxOccurs="1"/>
+				<element name="ExpectedValueType" type="tns:String250" minOccurs="1" maxOccurs="1"/>
+				<element name="ExpectedValueSource" type="tns:String250" minOccurs="1" maxOccurs="1"/>
+				<element name="BusinessValue" type="tns:String250" minOccurs="1" maxOccurs="1"/>
+				<element name="QualityAndLiquidityExpertEstimation" type="tns:String255" minOccurs="1" maxOccurs="1"/>
+				<element name="ListOfDefermentTermsOfPledger" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<sequence>
+							<element name="DefermentTermsOfPledger" type="tns:String1000" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>
+				</element>				
+				<element name="EstimationDate" type="date" minOccurs="1" maxOccurs="1"/>
+				<element name="TermsOfExtrajudicialPropertyClaims" type="tns:String300" minOccurs="0" maxOccurs="1"/>
+				<element name="IncludeTerms" type="boolean" minOccurs="0" maxOccurs="1"/>
+				<element name="SecurityCategory" type="tns:String250" minOccurs="1" maxOccurs="1"/>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<complexType name="ListOfGuarantor">
+		<sequence>
+			<element ref="tns:Guarantor" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	
+	<element name="Guarantor">
+		<complexType>
+			<sequence>
+				<element name="ClientID" type="tns:String15" minOccurs="1" maxOccurs="1"/>
+				<element name="IsLegalPerson" type="boolean" minOccurs="1" maxOccurs="1"/>
+				<element name="Guarantor" type="tns:String250" minOccurs="1" maxOccurs="1"/>
+				<element name="DecisionOnContract" type="tns:String250" minOccurs="1" maxOccurs="1"/>
+				<element name="GuaranteeAmount" type="tns:Decimal17_2" minOccurs="1" maxOccurs="1"/>
+				<element name="GeneralConclusionOnLiquidityAndSufficiencyOfSecurity" type="tns:String255" minOccurs="0" maxOccurs="1"/>
+				<element name="Comment" type="tns:String1000" minOccurs="0" maxOccurs="1"/>
+				<element name="ListOfDefermentTermsOfGuarantor" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<sequence>
+							<element name="DefermentTermsOfGuarantor" type="tns:String1000" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+								
+	<complexType name="ListOfError">
+		<annotation><documentation>Список ошибок</documentation></annotation>
+		<sequence>
+			<element ref="tns:Error" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+
+	<element name="Error">
+		<annotation><documentation>Информация об ошибке</documentation></annotation>
+		<complexType>
+			<sequence>
+				<element name="ErrorCode" type="tns:String50" minOccurs="0" maxOccurs="1">
+					<annotation><documentation>Код ошибки</documentation></annotation>
+				</element>
+				<element name="ErrorMessage" type="tns:String2000" minOccurs="1" maxOccurs="1">
+					<annotation><documentation>Текст ошибки</documentation></annotation>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+
+  <simpleType name="String6">
+    <restriction base="string">
+      <maxLength value="6"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="String9">
+		<restriction base="string">
+			<maxLength value="9"/>
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="String10">
+		<restriction base="string">
+			<maxLength value="10"/>
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="String12">
+		<restriction base="string">
+			<maxLength value="12"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="String13">
+		<restriction base="string">
+			<maxLength value="13"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="String15">
+		<restriction base="string">
+			<maxLength value="15"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="String20">
+		<restriction base="string">
+			<maxLength value="20"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="String30">
+		<restriction base="string">
+			<maxLength value="30"/>
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="String36">
+		<restriction base="string">  
+			<maxLength value="36"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="String50">
+		<restriction base="string">
+			<maxLength value="50"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="String60">
+		<restriction base="string">
+			<maxLength value="60"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="String100">
+		<restriction base="string">
+			<maxLength value="100"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="String115">
+		<restriction base="string">
+			<maxLength value="115"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="String200">
+		<restriction base="string">
+			<maxLength value="200"/>
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="String250">
+		<restriction base="string">
+			<maxLength value="250"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="String255">
+		<restriction base="string">
+			<maxLength value="255"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="String300">
+		<restriction base="string">
+			<maxLength value="300"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="String600">
+		<restriction base="string">
+			<maxLength value="600"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="String1000">
+		<restriction base="string">
+			<maxLength value="1024"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="String1024">
+		<restriction base="string">
+			<maxLength value="1024"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="String2000">
+		<restriction base="string">
+			<maxLength value="2000"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="Decimal2_2">
+		<restriction base="decimal">
+			<totalDigits value="2"/>
+			<fractionDigits value="2"/>
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="int4">
+		<restriction base="int">
+			<maxExclusive value="4"></maxExclusive>
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="int3">
+		<restriction base="int">
+			<maxExclusive value="3"></maxExclusive>
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="int2">
+		<restriction base="int">
+			<maxExclusive value="2"></maxExclusive>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="Decimal4_2">
+		<restriction base="decimal">
+			<totalDigits value="4"/>
+			<fractionDigits value="3"/>
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="Decimal5_3">
+		<restriction base="decimal">
+			<totalDigits value="5"/>
+			<fractionDigits value="3"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="Decimal17_2">
+		<restriction base="decimal">
+			<totalDigits value="17"/>
+			<fractionDigits value="2"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="Decimal20_5">
+		<restriction base="decimal">
+			<totalDigits value="20"/>
+			<fractionDigits value="5"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="Decimal22_7">
+		<restriction base="decimal">
+			<totalDigits value="22"/>
+			<fractionDigits value="7"/>
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="Decimal22_5">
+		<restriction base="decimal">
+			<totalDigits value="22"/>
+			<fractionDigits value="5"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="Decimal22_4">
+		<restriction base="decimal">
+			<totalDigits value="22"/>
+			<fractionDigits value="4"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="Decimal22_2">
+		<restriction base="decimal">
+			<totalDigits value="22"/>
+			<fractionDigits value="2"/>
+		</restriction>
+	</simpleType>
+	
+    <simpleType name="RegionAddressDictType" xml:base="string">
+        <restriction base="string">
+            <enumeration value="01">
+                <annotation>
+                    <documentation>АЛТАЙСКИЙ КРАЙ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="03">
+                <annotation>
+                    <documentation>КРАСНОДАРСКИЙ КРАЙ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="04">
+                <annotation>
+                    <documentation>КРАСНОЯРСКИЙ КРАЙ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="05">
+                <annotation>
+                    <documentation>ПРИМОРСКИЙ КРАЙ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="07">
+                <annotation>
+                    <documentation>СТАВРОПОЛЬСКИЙ КРАЙ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="08">
+                <annotation>
+                    <documentation>ХАБАРОВСКИЙ КРАЙ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="10">
+                <annotation>
+                    <documentation>АМУРСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="11">
+                <annotation>
+                    <documentation>АРХАНГЕЛЬСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="12">
+                <annotation>
+                    <documentation>АСТРАХАНСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="14">
+                <annotation>
+                    <documentation>БЕЛГОРОДСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="15">
+                <annotation>
+                    <documentation>БРЯНСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="17">
+                <annotation>
+                    <documentation>ВЛАДИМИРСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="18">
+                <annotation>
+                    <documentation>ВОЛГОГРАДСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="19">
+                <annotation>
+                    <documentation>ВОЛОГОДСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="20">
+                <annotation>
+                    <documentation>ВОРОНЕЖСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="22">
+                <annotation>
+                    <documentation>НИЖЕГОРОДСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="24">
+                <annotation>
+                    <documentation>ИВАНОВСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="25">
+                <annotation>
+                    <documentation>ИРКУТСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="26">
+                <annotation>
+                    <documentation>РЕСПУБЛИКА ИНГУШЕТИЯ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="27">
+                <annotation>
+                    <documentation>КАЛИНИНГРАДСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="28">
+                <annotation>
+                    <documentation>ТВЕРСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="29">
+                <annotation>
+                    <documentation>КАЛУЖСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="30">
+                <annotation>
+                    <documentation>КАМЧАТСКИЙ КРАЙ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="32">
+                <annotation>
+                    <documentation>КЕМЕРОВСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="33">
+                <annotation>
+                    <documentation>КИРОВСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="34">
+                <annotation>
+                    <documentation>КОСТРОМСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="36">
+                <annotation>
+                    <documentation>САМАРСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="37">
+                <annotation>
+                    <documentation>КУРГАНСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="38">
+                <annotation>
+                    <documentation>КУРСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="40">
+                <annotation>
+                    <documentation>САНКТ-ПЕТЕРБУРГ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="41">
+                <annotation>
+                    <documentation>ЛЕНИНГРАДСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="42">
+                <annotation>
+                    <documentation>ЛИПЕЦКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="44">
+                <annotation>
+                    <documentation>МАГАДАНСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="45">
+                <annotation>
+                    <documentation>МОСКВА</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="46">
+                <annotation>
+                    <documentation>МОСКОВСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="47">
+                <annotation>
+                    <documentation>МУРМАНСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="49">
+                <annotation>
+                    <documentation>НОВГОРОДСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="50">
+                <annotation>
+                    <documentation>НОВОСИБИРСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="52">
+                <annotation>
+                    <documentation>ОМСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="53">
+                <annotation>
+                    <documentation>ОРЕНБУРГСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="54">
+                <annotation>
+                    <documentation>ОРЛОВСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="55">
+                <annotation>
+                    <documentation>БАЙКОНУР</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="56">
+                <annotation>
+                    <documentation>ПЕНЗЕНСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="57">
+                <annotation>
+                    <documentation>ПЕРМСКИЙ КРАЙ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="58">
+                <annotation>
+                    <documentation>ПСКОВСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="60">
+                <annotation>
+                    <documentation>РОСТОВСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="61">
+                <annotation>
+                    <documentation>РЯЗАНСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="63">
+                <annotation>
+                    <documentation>САРАТОВСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="64">
+                <annotation>
+                    <documentation>САХАЛИНСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="65">
+                <annotation>
+                    <documentation>СВЕРДЛОВСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="66">
+                <annotation>
+                    <documentation>СМОЛЕНСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="68">
+                <annotation>
+                    <documentation>ТАМБОВСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="69">
+                <annotation>
+                    <documentation>ТОМСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="70">
+                <annotation>
+                    <documentation>ТУЛЬСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="71">
+                <annotation>
+                    <documentation>ТЮМЕНСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="73">
+                <annotation>
+                    <documentation>УЛЬЯНОВСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="75">
+                <annotation>
+                    <documentation>ЧЕЛЯБИНСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="76">
+                <annotation>
+                    <documentation>ЗАБАЙКАЛЬСКИЙ КРАЙ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="77">
+                <annotation>
+                    <documentation>ЧУКОТСКИЙ АВТОНОМНЫЙ ОКРУГ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="78">
+                <annotation>
+                    <documentation>ЯРОСЛАВСКАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="79">
+                <annotation>
+                    <documentation>РЕСПУБЛИКА АДЫГЕЯ (АДЫГЕЯ)</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="80">
+                <annotation>
+                    <documentation>РЕСПУБЛИКА БАШКОРТОСТАН</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="81">
+                <annotation>
+                    <documentation>РЕСПУБЛИКА БУРЯТИЯ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="82">
+                <annotation>
+                    <documentation>РЕСПУБЛИКА ДАГЕСТАН</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="83">
+                <annotation>
+                    <documentation>КАБАРДИНО-БАЛКАРСКАЯ РЕСПУБЛИКА</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="84">
+                <annotation>
+                    <documentation>РЕСПУБЛИКА АЛТАЙ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="85">
+                <annotation>
+                    <documentation>РЕСПУБЛИКА КАЛМЫКИЯ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="86">
+                <annotation>
+                    <documentation>РЕСПУБЛИКА КАРЕЛИЯ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="87">
+                <annotation>
+                    <documentation>РЕСПУБЛИКА КОМИ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="88">
+                <annotation>
+                    <documentation>РЕСПУБЛИКА МАРИЙ ЭЛ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="89">
+                <annotation>
+                    <documentation>РЕСПУБЛИКА МОРДОВИЯ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="90">
+                <annotation>
+                    <documentation>РЕСПУБЛИКА СЕВЕРНАЯ ОСЕТИЯ-АЛАНИЯ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="91">
+                <annotation>
+                    <documentation>КАРАЧАЕВО-ЧЕРКЕССКАЯ РЕСПУБЛИКА</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="92">
+                <annotation>
+                    <documentation>РЕСПУБЛИКА ТАТАРСТАН (ТАТАРСТАН)</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="93">
+                <annotation>
+                    <documentation>РЕСПУБЛИКА ТЫВА</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="94">
+                <annotation>
+                    <documentation>УДМУРТСКАЯ РЕСПУБЛИКА</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="95">
+                <annotation>
+                    <documentation>РЕСПУБЛИКА ХАКАСИЯ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="96">
+                <annotation>
+                    <documentation>ЧЕЧЕНСКАЯ РЕСПУБЛИКА</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="97">
+                <annotation>
+                    <documentation>ЧУВАШСКАЯ РЕСПУБЛИКА - ЧУВАШИЯ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="98">
+                <annotation>
+                    <documentation>РЕСПУБЛИКА САХА (ЯКУТИЯ)</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="99">
+                <annotation>
+                    <documentation>ЕВРЕЙСКАЯ АВТОНОМНАЯ ОБЛАСТЬ</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="00">
+                <annotation>
+                    <documentation>Неизвестно</documentation>
+                </annotation>
+            </enumeration>
+        </restriction>
+
+    </simpleType>
+	
+</schema>
