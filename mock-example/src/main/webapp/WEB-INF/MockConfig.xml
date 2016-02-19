@@ -48,7 +48,7 @@
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <!-- Ответ - что угодно, а точнее не требуется -->
                     <xpathValidation>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/resp/10">Message</tag>
                         <tag ns="http://sbrf.ru/prpc/kkmb/crm/GetParticipant/resp/10">ParticipantInfo</tag>
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
@@ -56,10 +56,10 @@
 
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
-                    <xsdFile>kkmb-crm-header-req.xsd</xsdFile>
+                    <xsdFile>kkmb-crm-header-resp.xsd</xsdFile>
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
-                    <rootElement ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</rootElement>
+                    <rootElement ns="http://sbrf.ru/prpc/kkmb/crm/Header/resp/10">Message</rootElement>
                     <!-- Требуется ли ответ -->
                     <answerRequired>true</answerRequired>
                 </integrationPoint>
@@ -86,7 +86,7 @@
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <!-- Ответ - что угодно, а точнее не требуется -->
                     <xpathValidation>
-                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</tag>
+                        <tag ns="http://sbrf.ru/prpc/kkmb/crm/Header/resp/10">Message</tag>
                         <tag ns="http://sbrf.ru/prpc/kkmb/crm/UpdateContractInfo/resp/10">UpdateContractInfo</tag>
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
@@ -94,10 +94,10 @@
 
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
-                    <xsdFile>kkmb-crm-header-req.xsd</xsdFile>
+                    <xsdFile>kkmb-crm-header-resp.xsd</xsdFile>
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
-                    <rootElement ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</rootElement>
+                    <rootElement ns="http://sbrf.ru/prpc/kkmb/crm/Header/resp/10">Message</rootElement>
                     <!-- Требуется ли ответ -->
                     <answerRequired>true</answerRequired>
                 </integrationPoint>
