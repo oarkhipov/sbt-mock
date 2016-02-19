@@ -102,7 +102,7 @@
                     <answerRequired>true</answerRequired>
                 </integrationPoint>
 
-                <!--5. mock ReferenceData -->
+                <!--5. Driver ReferenceData -->
                 <integrationPoint name="UpdateReferenceData">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <!-- Ответ - что угодно, а точнее не требуется -->
@@ -111,7 +111,7 @@
                         <tag ns="http://sbrf.ru/prpc/kkmb/crm/ReferenceData/req/10">ReferenceData</tag>
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
-                    <type>Mock</type>
+                    <type>Driver</type>
 
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
@@ -119,11 +119,10 @@
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</rootElement>
-                    <!-- Требуется ли ответ -->
-                    <answerRequired>false</answerRequired>
+
                 </integrationPoint>
 
-                <!--6. mock ProblemGroup -->
+                <!--6. driver ProblemGroup -->
                 <integrationPoint name="ProblemGroup">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <!-- Ответ - что угодно, а точнее не требуется -->
@@ -132,16 +131,14 @@
                         <tag ns="http://sbrf.ru/prpc/kkmb/crm/ProblemGroup/req/10">ProblemGroup</tag>
                     </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
-                    <type>Mock</type>
-
+                    <type>Driver</type>
                     <!-- Где лежит корневой элемент-->
                     <!-- Optional -->
                     <xsdFile>kkmb-crm-header-req.xsd</xsdFile>
                     <!-- Указатель на корневой элемент для генерации тестового сообщения-->
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/prpc/kkmb/crm/Header/req/10">Message</rootElement>
-                    <!-- Требуется ли ответ -->
-                    <answerRequired>false</answerRequired>
+
                 </integrationPoint>
             </integrationPoints>
         </system>
