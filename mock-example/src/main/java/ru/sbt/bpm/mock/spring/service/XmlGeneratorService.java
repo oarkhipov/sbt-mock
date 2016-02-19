@@ -37,6 +37,9 @@ public class XmlGeneratorService {
         ru.sbt.bpm.mock.config.entities.System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
         String rootXSD = system.getRootXSD();
         IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
+        if (integrationPoint.getXsdFile()!=null && !integrationPoint.getXsdFile().isEmpty()) {
+            rootXSD = integrationPoint.getXsdFile();
+        }
         ElementSelector elementSelector = integrationPoint.getRootElement();
         String rootElementName = elementSelector.getElement();
         String rootElementNamespace = elementSelector.getNamespace();
