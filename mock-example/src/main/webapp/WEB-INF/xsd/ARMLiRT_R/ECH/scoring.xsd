@@ -1,0 +1,2064 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns="http://www.sbrf.ru/CreditHistoryScoring"
+           targetNamespace="http://www.sbrf.ru/CreditHistoryScoring"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="scoring" type="ScoringType" nillable="false"/>
+
+    <xs:complexType name="ScoringType">
+        <xs:annotation>
+            <xs:documentation>Корневой элемент</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="HeaderType" name="header" minOccurs="1" maxOccurs="1" nillable="false"/>
+            <xs:element type="PayloadType" name="payload" minOccurs="1" maxOccurs="1" nillable="false"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ParticipantsType">
+        <xs:annotation>
+            <xs:documentation>Список участников сделки</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="ScoringParticipantType" name="participant" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="HeaderType">
+        <xs:annotation>
+            <xs:documentation>Заголовок, обязательно должен присутствовать</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+
+            <xs:element name="targetInstance" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Целевой экземпляр для приема</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="100"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <xs:element name="externalRef" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Внешний идентификатор сделки</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="150"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <xs:element name="timestamp" minOccurs="1" maxOccurs="1" type="xs:dateTime" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>Дата/время создания запроса</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:choice minOccurs="1" maxOccurs="1">
+                <xs:element name="processing" type="ScoringProcessingType" nillable="false"/>
+            </xs:choice>
+
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="PayloadType">
+        <xs:annotation>
+            <xs:documentation>Сообщение (запрос/ответ), должен присутствовать либо запрос либо ответ</xs:documentation>
+        </xs:annotation>
+        <!--
+        <xs:sequence>
+            <xs:element type="RequestType" name="request" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="ResponseType" name="response" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        -->
+        <xs:choice minOccurs="1" maxOccurs="1">
+            <xs:element type="RequestType" name="request"/>
+            <xs:element type="ResponseType" name="response"/>
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="ScoringProcessingType">
+        <xs:annotation>
+            <xs:documentation>Запрос на оценку КИ</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="xs:string" name="uid" minOccurs="1" maxOccurs="1" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>Уникальный в рамках системы - источника идентификатор запроса/ответа. Для запроса(request) с UID = ZZZ ответ(response) придет с таким же UID = ZZZ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="sourceSystem" type="SourceSystemDictType" minOccurs="1" maxOccurs="1" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>Система - источник запроса</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="scoringType" type="ScoringTypeDictType" minOccurs="1" maxOccurs="1" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>Тип оценки</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="DealScoringResultType">
+        <xs:annotation>
+            <xs:documentation>Оценка КИ по сделке</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="xs:string" name="sid">
+                <xs:annotation>
+                    <xs:documentation>СИД типа оценки КИ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:string" name="name">
+                <xs:annotation>
+                    <xs:documentation>Наименование типа оценки КИ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:string" name="value">
+                <xs:annotation>
+                    <xs:documentation>Результат оценки по типу оценки КИ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="BlockDataASSDType">
+        <xs:sequence>
+            <xs:element type="xs:decimal" name="_dcas_ResidualDebtAndArrear" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>АС СД: общий остаток ссудной задолжности (сумма срочной и просроченной задолженности по основному долгу)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="productType">
+                <xs:annotation>
+                    <xs:documentation>Код типа продукта</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="10"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="productCode">
+                <xs:annotation>
+                    <xs:documentation>Код продукта</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="10"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="subProductCode">
+                <xs:annotation>
+                    <xs:documentation>Код субпродукта</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="10"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="LiabilityArrearsBlockType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="yearNumber">
+                <xs:annotation>
+                    <xs:documentation>Номер анализируемого года</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:date" name="DtYearBegin">
+                <xs:annotation>
+                    <xs:documentation>Дата начала годового интервала</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:date" name="DtYearEnd">
+                <xs:annotation>
+                    <xs:documentation>Дата окончания периода годового интеравала</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:decimal" name="arrearsCount_1_5" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Количество случаев возникновения просроченной задолжности в период 1-5</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:decimal" name="arrearsCount_6_30" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Количество случаев возникновения просроченной задолжности в период 6-30</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:decimal" name="arrearsCount_1_30" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Количество случаев возникновения просроченной задолжности в период 1-30</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:decimal" name="arrearsCount_31_60" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Количество случаев возникновения просроченной задолжности в перио 31-60</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:decimal" name="arrearsCount_61_90" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Количество случаев возникновения просроченной задолжности в период 61-90</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:decimal" name="arrearsCount_91_120" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Количество случаев возникновения просроченной задолжности в период 91-120</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:decimal" name="arrearsCount_121_150" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Количество случаев возникновения просроченной задолжности в период 121-150</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:decimal" name="arrearsCount_151_180" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Количество случаев возникновения просроченной задолжности в период 151-180</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:decimal" name="arrearsCount_180" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Количество случаев возникновения просроченной задолжности в период свыше 180</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:int" name="nMaxDelayPayments">
+                <xs:annotation>
+                    <xs:documentation>Количество случаев возникновения просроченной задолженности в годовом интервале</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:int" name="arrearsCount_PerYear">
+                <xs:annotation>
+                    <xs:documentation>Максимальная продолжительность задержки платежей (дней) в анализируемом интервале</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ParticipantCreditHistoriesType">
+        <xs:annotation>
+            <xs:documentation>Список КИ участника сделки</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="CreditHistoryType" name="creditHistory" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CreditHistoryType">
+        <xs:annotation>
+            <xs:documentation>КИ участника сделки</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="sourceCB" type="CreditBureauDictType">
+                <xs:annotation>
+                    <xs:documentation>Код БKИ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="BankSign">
+                <xs:annotation>
+                    <xs:documentation>Наименование кредитора</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element type="xs:int" name="nRelationshipDuration">
+                <xs:annotation>
+                    <xs:documentation>Длительность взаимоотношений с банком (дней)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:date" name="lastRecordUpdate">
+                <xs:annotation>
+                    <xs:documentation>Дата последнего обновления записи</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+			
+            <xs:element name="liabilityStatus">
+                <xs:annotation>
+                    <xs:documentation>Статус обязательства</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:enumeration value="1">
+                            <xs:annotation>
+                                <xs:documentation>Не действующее</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="0">
+                            <xs:annotation>
+                                <xs:documentation>Действующее</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <xs:element type="LiabilityTypeDictType" name="liabilityType">
+                <xs:annotation>
+                    <xs:documentation>Вид обязательства</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="BaseLiabilityTypeDictType" name="baseLiabilityType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Вид основного обязательства</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:decimal" name="amountInitial"  minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Начальная сумма обязательств</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:decimal" name="interestRate" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Процентная ставка</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:decimal" name="residualDebt" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Общий остаток задолжности по основному долгу</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="liabilityCurrency" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Валюта, в которой указана сумма, в формате ISO, т.е. USD, EUR и т.д.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="3"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="liabilityNo" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Номер кредитного договора / банковской карты</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="100"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element type="xs:date" name="dateStart">
+                <xs:annotation>
+                    <xs:documentation>Дата открытия кредитного договора</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:date" name="dateRedemptionScheduled">
+                <xs:annotation>
+                    <xs:documentation>Плановая дата окончания срока действия обязательства</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:date" name="dateRedemptionActual" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Фактическая дата погашения обязательства</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="repaymentMethod" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Метод погашения задолжности</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:enumeration value="2">
+                            <xs:annotation>
+                                <xs:documentation>Аннуитетный</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="0">
+                            <xs:annotation>
+                                <xs:documentation>Дифференцированный</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element type="xs:decimal" name="currentArrearAmount" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Сумма текущей просроченной задолжности</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:int" name="isRestructured">
+                <xs:annotation>
+                    <xs:documentation>Наличие реструктуризации условий кредитования</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:decimal" name="cred_sum_limit" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Неиспользованный кредитный лимит</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:int" name="cred_prolong" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Количество пролонгаций</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:decimal" name="credMaxOverdue" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Максимальная сумма просроченной задолженности</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="kodTb" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Код тербанка</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="3"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="nameTb" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Наименование тербанка</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="80"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element type="xs:int" name="liabilityArrearsBlockCount">
+                <xs:annotation>
+                    <xs:documentation>Количество блоков с информацией о просрочках (за год)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:boolean" name="isTakenIntoAccount" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Учтено в оценке КИ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:boolean" name="isBusinessGoal" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Цель кредита</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="BlockDataASSDType" name="blockDataASSD" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Блок данных из АС СД</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="LiabilityArrearsBlockType" name="liabilityArrearsBlock" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Блок информации о просрочненных задолженностях по Договору, в разрезе каждого анализируемого года</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ResponseType">
+        <xs:annotation>
+            <xs:documentation>Ответ АС ОКИ</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" type="DealResultType" name="dealResult"/>
+            <xs:element minOccurs="0" maxOccurs="1" type="ParticipantResultsType" name="participantResults"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="DealResultType">
+        <xs:annotation>
+            <xs:documentation>Результат оценки по сделке</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" type="SystemErrorsType" name="systemErrors"/>
+            <xs:element minOccurs="0" maxOccurs="unbounded" type="DealScoringResultType" name="dealScoringResult"/>
+            <xs:element minOccurs="1" maxOccurs="1" nillable="false" type="ScoringStatusDictType" name="status">
+                <xs:annotation>
+                    <xs:documentation>Статус оценки по сделке</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="strategyCodes" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Вектор с кодами ошибок, возвращаемых из стратегии</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="100"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="comments" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Комментарий</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="250"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SystemErrorsType">
+        <xs:annotation>
+            <xs:documentation>Список ошибок обработки</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="SystemErrorType" name="error" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SystemErrorType">
+        <xs:annotation>
+            <xs:documentation>Ошибка обработки в системе АС ОКИ, список ошибок:
+                SYSTEM-OKI-001  Неизвестная ошибка в системе
+                SYSTEM-OKI-002  Время вызова БКИ превысило заданное
+                SYSTEM-OKI-003  Ошибка вызова БД
+                SYSTEM-OKI-004  Количество участников сделки превышает допустимое значение
+                SYSTEM-OKI-005  Сделка не найдена
+                SYSTEM-OKI-006  Сделка находится в неверном статусе, невозможно отправить на оценку
+                SYSTEM-OKI-007  Ошибка трансформации в XML или из XML
+                SYSTEM-OKI-008  Лимит сообщений в день превышен
+                SYSTEM-OKI-009  Ошибка БКИ
+                SYSTEM-OKI-010  Ошибка стратегии
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="code" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Код ошибки</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="message" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Описание ошибки</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="500"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cause" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Причина ошибки</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="500"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element type="xs:int" name="participantIndex" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Индекс участника сделки для которого произошла ошибка, если не заполнено то ошибка произошла на уровне сделки. Соответствует индексу переданому в запросе.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ParticipantResultsType">
+        <xs:annotation>
+            <xs:documentation>Список результатов оценки по участникам сделки</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="participantResult" type="ParticipantResultType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ParticipantScoringResultType">
+        <xs:annotation>
+            <xs:documentation>Результат оценки по участнику сделки</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="internalScoringGrade" type="xs:string" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Внутренняя оценка</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="externalScoringGrade" type="xs:string" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Внешняя оценка</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="unifiedScoringGrade" type="xs:string" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Совокупная оценка</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="strategyCodes" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Коды ошибок</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="100"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="comments" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Комментарий</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="250"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ParticipantResultType">
+        <xs:annotation>
+            <xs:documentation>Список результатов оценки по участнику сделки</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="xs:int" minOccurs="1" maxOccurs="1" nillable="false" name="participantIndex">
+                <xs:annotation>
+                    <xs:documentation>Уникальный индекс участника в сделке</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" nillable="false" type="ScoringStatusDictType" name="status">
+                <xs:annotation>
+                    <xs:documentation>Статус результата оценки для участника сделки</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="ParticipantScoringResultType" minOccurs="0" maxOccurs="1" name="participantScoringResult"/>
+            <xs:element type="ParticipantCreditHistoriesType" minOccurs="0" maxOccurs="1" name="histories"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="RequestType">
+        <xs:annotation>
+            <xs:documentation>Запрос в АС ОКИ</xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element type="xs:boolean" name="checkInternal" default="true" minOccurs="1" maxOccurs="1" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>Запрашивать внутреннее БКИ (АС СД)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:boolean" name="checkExternal" default="true" minOccurs="1" maxOccurs="1" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>Запрашивать внешние БКИ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="ParticipantsType" name="participants" minOccurs="1" maxOccurs="1" nillable="true"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ScoringParticipantType">
+        <xs:annotation>
+            <xs:documentation>Участник сделки</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="index" type="xs:int" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>Порядковый номер участника сделки</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" type="ParticipantRoleDictType" name="role" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>Роль в сделке</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" type="ParticipantStatusDictType" name="status" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>Статус в сделке</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" type="GslStatusDictType" name="gslStatus" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>Участник ГСЛ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" type="KgStatusDictType" name="kgStatus" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>Участник КГ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:choice>
+                <xs:element type="CreditBureauNaturalPersonType" name="naturalPerson" nillable="false"/>
+                <xs:element type="CreditBureauLegalPersonType" name="legalPerson" nillable="false"/>
+                <xs:element type="CreditBureauOrganisationType" name="organisation" nillable="false"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ########################################### -->
+    <!-- ##  CreditBureauNaturalPerson               -->
+    <!-- ########################################### -->
+    <xs:complexType name="CreditBureauNaturalPersonType">
+        <xs:annotation>
+            <xs:documentation>Физическое лицо</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="INN">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="12"/>
+                        <xs:maxLength value="12"/>
+                        <xs:pattern value="[0-9]+"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" nillable="false" name="gender" type="PersonGenderDictType">
+                <xs:annotation>
+                    <xs:documentation>Пол</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" nillable="false" name="resident" type="ResidentDictType">
+                <xs:annotation>
+                    <xs:documentation>Резидент/нерезидент</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" name="birthPlace">
+                <xs:annotation>
+                    <xs:documentation>Место рождения</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="150"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <xs:element minOccurs="1" maxOccurs="1" name="currentPersonData" type="PersonDataType">
+                <xs:annotation>
+                    <xs:documentation>Текущие персональные данные участника сделки</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="previousPersonData" type="PersonDataType">
+                <xs:annotation>
+                    <xs:documentation>Предыдущие персональные данные участника сделки</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" name="primaryID" type="DocumentType">
+                <xs:annotation>
+                    <xs:documentation>Основной документ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element minOccurs="1" maxOccurs="1" name="actualAddress" type="NaturalOrLegalPersonAddressType">
+                <xs:annotation>
+                    <xs:documentation>Фактический адрес</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" name="registrationAddress" type="NaturalOrLegalPersonAddressType">
+                <xs:annotation>
+                    <xs:documentation>Адрес регистрации</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ########################################### -->
+    <!-- ##  CreditBureauLegalPerson                 -->
+    <!-- ########################################### -->
+    <xs:complexType name="CreditBureauLegalPersonType">
+        <xs:annotation>
+            <xs:documentation>Индивидуальный предприниматель</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" nillable="false" name="INN">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="12"/>
+                        <xs:maxLength value="12"/>
+                        <xs:pattern value="[0-9]+"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="1" name="gender" type="PersonGenderDictType">
+                <xs:annotation>
+                    <xs:documentation>Пол</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" name="resident" type="ResidentDictType">
+                <xs:annotation>
+                    <xs:documentation>Резидент/нерезидент</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" name="birthPlace">
+                <xs:annotation>
+                    <xs:documentation>Место рождения</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="150"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <xs:element minOccurs="1" maxOccurs="1" name="currentPersonData" type="PersonDataType">
+                <xs:annotation>
+                    <xs:documentation>Текущие персональные данные участника сделки</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="previousPersonData" type="PersonDataType">
+                <xs:annotation>
+                    <xs:documentation>Предыдущие персональные данные участника сделки</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" name="primaryID" type="DocumentType">
+                <xs:annotation>
+                    <xs:documentation>Основной документ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element minOccurs="1" maxOccurs="1" name="actualAddress" type="NaturalOrLegalPersonAddressType">
+                <xs:annotation>
+                    <xs:documentation>Фактический адрес</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" name="registrationAddress" type="NaturalOrLegalPersonAddressType">
+                <xs:annotation>
+                    <xs:documentation>Адрес регистрации</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ########################################### -->
+    <!-- ##  CreditBureauOrganisation                 -->
+    <!-- ########################################### -->
+    <xs:complexType name="CreditBureauOrganisationType">
+        <xs:annotation>
+            <xs:documentation>Юридическое лицо</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="fullName">
+                <xs:annotation>
+                    <xs:documentation>Полное наименование клиента</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1020"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="1" name="INN" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>ИНН</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="10"/>
+                        <xs:maxLength value="10"/>
+                        <xs:pattern value="[0-9]+"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="1" name="OGRN" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>ОГРН</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="13"/>
+                        <xs:maxLength value="13"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="OKPO">
+                <xs:annotation>
+                    <xs:documentation>ОКПО</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="8"/>
+                        <xs:maxLength value="10"/>
+                        <xs:pattern value="[0-9]+"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="KPP">
+                <xs:annotation>
+                    <xs:documentation>КПП</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="9"/>
+                        <xs:maxLength value="9"/>
+                        <xs:pattern value="[0-9]+"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="1" name="Phone">
+                <xs:annotation>
+                    <xs:documentation>Телефон</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" name="registration_date">
+                <xs:annotation>
+                    <xs:documentation>Дата регистрации</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:date"/>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" name="actualAddress" type="OrganisationAddressType">
+                <xs:annotation>
+                    <xs:documentation>Фактический адрес</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" name="registrationAddress" type="OrganisationAddressType">
+                <xs:annotation>
+                    <xs:documentation>Адрес регистрации</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <!-- ########################################### -->
+    <!-- ##  PersonData                              -->
+    <!-- ########################################### -->
+    <xs:complexType name="PersonDataType">
+        <xs:annotation>
+            <xs:documentation>Блок данных, идентифицирующие человека</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="firstName" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>Имя</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="40"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" name="lastName" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>Фамилия</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="40"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="middleName">
+                <xs:annotation>
+                    <xs:documentation>Отчество</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="40"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" name="birthDate" type="xs:date" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>Дата рождения</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ########################################### -->
+    <!-- ##  Document                                -->
+    <!-- ########################################### -->
+    <xs:complexType name="DocumentType">
+        <xs:annotation>
+            <xs:documentation>Блок с данными документа, удостоверяющего личность физического лица</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element maxOccurs="1" name="idType" type="PrimaryDocumentDictType">
+                <xs:annotation>
+                    <xs:documentation>Код вида основного документа</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" name="serie">
+                <xs:annotation>
+                    <xs:documentation>Серия документа</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" name="number">
+                <xs:annotation>
+                    <xs:documentation>Номер документа</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" name="issueLocation">
+                <xs:annotation>
+                    <xs:documentation>Место выдачи документа</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="200"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" name="issueDate" type="xs:date">
+                <xs:annotation>
+                    <xs:documentation>Дата выдачи документа</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" name="issueAuthority">
+                <xs:annotation>
+                    <xs:documentation>Наименование органа, выдавшего документ</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="160"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <!--<xs:element minOccurs="0" maxOccurs="1" name="foreignSeriesAndNumber">-->
+                <!--<xs:annotation>-->
+                    <!--<xs:documentation>Серия и номер документа «Паспорт иностранного гражданина»</xs:documentation>-->
+                <!--</xs:annotation>-->
+                <!--<xs:simpleType>-->
+                    <!--<xs:restriction base="xs:string">-->
+                        <!--<xs:maxLength value="20"/>-->
+                    <!--</xs:restriction>-->
+                <!--</xs:simpleType>-->
+            <!--</xs:element>-->
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ########################################### -->
+    <!-- ##  Address for Natural or Legal Person     -->
+    <!-- ########################################### -->
+    <xs:complexType name="NaturalOrLegalPersonAddressType">
+        <xs:annotation>
+            <xs:documentation>Информация об адресе</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="1" name="city">
+                <xs:annotation>
+                    <xs:documentation>Город</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="1" name="street">
+                <xs:annotation>
+                    <xs:documentation>Улица</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="blockNumber">
+                <xs:annotation>
+                    <xs:documentation>Номер строения</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <!-- ########################################### -->
+    <!-- ##  Organisation address                    -->
+    <!-- ########################################### -->
+    <xs:complexType name="OrganisationAddressType">
+        <xs:annotation>
+            <xs:documentation>Информация об адресе</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="1" name="city">
+                <xs:annotation>
+                    <xs:documentation>Город</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="1" name="index">
+                <xs:annotation>
+                    <xs:documentation>Индекс</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="6"/>
+                    </xs:restriction>
+
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="1" name="street">
+                <xs:annotation>
+                    <xs:documentation>Улица</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="1" type="RegionAddressDictType" name="region">
+                <xs:annotation>
+                    <xs:documentation>Регион</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="blockNumber">
+                <xs:annotation>
+                    <xs:documentation>Номер строения</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--##############   Справочники  ############### -->
+    <!--############################################# -->
+    <!--############################################# -->
+    <!--############################################# -->
+    <!--############################################# -->
+
+    <xs:simpleType name="RegionAddressDictType" xml:base="xs:string">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="01">
+                <xs:annotation>
+                    <xs:documentation>АЛТАЙСКИЙ КРАЙ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="03">
+                <xs:annotation>
+                    <xs:documentation>КРАСНОДАРСКИЙ КРАЙ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="04">
+                <xs:annotation>
+                    <xs:documentation>КРАСНОЯРСКИЙ КРАЙ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="05">
+                <xs:annotation>
+                    <xs:documentation>ПРИМОРСКИЙ КРАЙ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="07">
+                <xs:annotation>
+                    <xs:documentation>СТАВРОПОЛЬСКИЙ КРАЙ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="08">
+                <xs:annotation>
+                    <xs:documentation>ХАБАРОВСКИЙ КРАЙ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="10">
+                <xs:annotation>
+                    <xs:documentation>АМУРСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="11">
+                <xs:annotation>
+                    <xs:documentation>АРХАНГЕЛЬСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="12">
+                <xs:annotation>
+                    <xs:documentation>АСТРАХАНСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="14">
+                <xs:annotation>
+                    <xs:documentation>БЕЛГОРОДСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="15">
+                <xs:annotation>
+                    <xs:documentation>БРЯНСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="17">
+                <xs:annotation>
+                    <xs:documentation>ВЛАДИМИРСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="18">
+                <xs:annotation>
+                    <xs:documentation>ВОЛГОГРАДСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="19">
+                <xs:annotation>
+                    <xs:documentation>ВОЛОГОДСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="20">
+                <xs:annotation>
+                    <xs:documentation>ВОРОНЕЖСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="22">
+                <xs:annotation>
+                    <xs:documentation>НИЖЕГОРОДСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="24">
+                <xs:annotation>
+                    <xs:documentation>ИВАНОВСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="25">
+                <xs:annotation>
+                    <xs:documentation>ИРКУТСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="26">
+                <xs:annotation>
+                    <xs:documentation>РЕСПУБЛИКА ИНГУШЕТИЯ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="27">
+                <xs:annotation>
+                    <xs:documentation>КАЛИНИНГРАДСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="28">
+                <xs:annotation>
+                    <xs:documentation>ТВЕРСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="29">
+                <xs:annotation>
+                    <xs:documentation>КАЛУЖСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="30">
+                <xs:annotation>
+                    <xs:documentation>КАМЧАТСКИЙ КРАЙ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="32">
+                <xs:annotation>
+                    <xs:documentation>КЕМЕРОВСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="33">
+                <xs:annotation>
+                    <xs:documentation>КИРОВСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="34">
+                <xs:annotation>
+                    <xs:documentation>КОСТРОМСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="36">
+                <xs:annotation>
+                    <xs:documentation>САМАРСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="37">
+                <xs:annotation>
+                    <xs:documentation>КУРГАНСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="38">
+                <xs:annotation>
+                    <xs:documentation>КУРСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="40">
+                <xs:annotation>
+                    <xs:documentation>САНКТ-ПЕТЕРБУРГ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="41">
+                <xs:annotation>
+                    <xs:documentation>ЛЕНИНГРАДСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="42">
+                <xs:annotation>
+                    <xs:documentation>ЛИПЕЦКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="44">
+                <xs:annotation>
+                    <xs:documentation>МАГАДАНСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="45">
+                <xs:annotation>
+                    <xs:documentation>МОСКВА</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="46">
+                <xs:annotation>
+                    <xs:documentation>МОСКОВСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="47">
+                <xs:annotation>
+                    <xs:documentation>МУРМАНСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="49">
+                <xs:annotation>
+                    <xs:documentation>НОВГОРОДСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="50">
+                <xs:annotation>
+                    <xs:documentation>НОВОСИБИРСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="52">
+                <xs:annotation>
+                    <xs:documentation>ОМСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="53">
+                <xs:annotation>
+                    <xs:documentation>ОРЕНБУРГСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="54">
+                <xs:annotation>
+                    <xs:documentation>ОРЛОВСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="55">
+                <xs:annotation>
+                    <xs:documentation>БАЙКОНУР</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="56">
+                <xs:annotation>
+                    <xs:documentation>ПЕНЗЕНСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="57">
+                <xs:annotation>
+                    <xs:documentation>ПЕРМСКИЙ КРАЙ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="58">
+                <xs:annotation>
+                    <xs:documentation>ПСКОВСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="60">
+                <xs:annotation>
+                    <xs:documentation>РОСТОВСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="61">
+                <xs:annotation>
+                    <xs:documentation>РЯЗАНСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="63">
+                <xs:annotation>
+                    <xs:documentation>САРАТОВСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="64">
+                <xs:annotation>
+                    <xs:documentation>САХАЛИНСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="65">
+                <xs:annotation>
+                    <xs:documentation>СВЕРДЛОВСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="66">
+                <xs:annotation>
+                    <xs:documentation>СМОЛЕНСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="68">
+                <xs:annotation>
+                    <xs:documentation>ТАМБОВСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="69">
+                <xs:annotation>
+                    <xs:documentation>ТОМСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="70">
+                <xs:annotation>
+                    <xs:documentation>ТУЛЬСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="71">
+                <xs:annotation>
+                    <xs:documentation>ТЮМЕНСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="73">
+                <xs:annotation>
+                    <xs:documentation>УЛЬЯНОВСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="75">
+                <xs:annotation>
+                    <xs:documentation>ЧЕЛЯБИНСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="76">
+                <xs:annotation>
+                    <xs:documentation>ЗАБАЙКАЛЬСКИЙ КРАЙ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="77">
+                <xs:annotation>
+                    <xs:documentation>ЧУКОТСКИЙ АВТОНОМНЫЙ ОКРУГ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="78">
+                <xs:annotation>
+                    <xs:documentation>ЯРОСЛАВСКАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="79">
+                <xs:annotation>
+                    <xs:documentation>РЕСПУБЛИКА АДЫГЕЯ (АДЫГЕЯ)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="80">
+                <xs:annotation>
+                    <xs:documentation>РЕСПУБЛИКА БАШКОРТОСТАН</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="81">
+                <xs:annotation>
+                    <xs:documentation>РЕСПУБЛИКА БУРЯТИЯ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="82">
+                <xs:annotation>
+                    <xs:documentation>РЕСПУБЛИКА ДАГЕСТАН</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="83">
+                <xs:annotation>
+                    <xs:documentation>КАБАРДИНО-БАЛКАРСКАЯ РЕСПУБЛИКА</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="84">
+                <xs:annotation>
+                    <xs:documentation>РЕСПУБЛИКА АЛТАЙ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="85">
+                <xs:annotation>
+                    <xs:documentation>РЕСПУБЛИКА КАЛМЫКИЯ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="86">
+                <xs:annotation>
+                    <xs:documentation>РЕСПУБЛИКА КАРЕЛИЯ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="87">
+                <xs:annotation>
+                    <xs:documentation>РЕСПУБЛИКА КОМИ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="88">
+                <xs:annotation>
+                    <xs:documentation>РЕСПУБЛИКА МАРИЙ ЭЛ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="89">
+                <xs:annotation>
+                    <xs:documentation>РЕСПУБЛИКА МОРДОВИЯ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="90">
+                <xs:annotation>
+                    <xs:documentation>РЕСПУБЛИКА СЕВЕРНАЯ ОСЕТИЯ-АЛАНИЯ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="91">
+                <xs:annotation>
+                    <xs:documentation>КАРАЧАЕВО-ЧЕРКЕССКАЯ РЕСПУБЛИКА</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="92">
+                <xs:annotation>
+                    <xs:documentation>РЕСПУБЛИКА ТАТАРСТАН (ТАТАРСТАН)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="93">
+                <xs:annotation>
+                    <xs:documentation>РЕСПУБЛИКА ТЫВА</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="94">
+                <xs:annotation>
+                    <xs:documentation>УДМУРТСКАЯ РЕСПУБЛИКА</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="95">
+                <xs:annotation>
+                    <xs:documentation>РЕСПУБЛИКА ХАКАСИЯ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="96">
+                <xs:annotation>
+                    <xs:documentation>ЧЕЧЕНСКАЯ РЕСПУБЛИКА</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="97">
+                <xs:annotation>
+                    <xs:documentation>ЧУВАШСКАЯ РЕСПУБЛИКА - ЧУВАШИЯ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="98">
+                <xs:annotation>
+                    <xs:documentation>РЕСПУБЛИКА САХА (ЯКУТИЯ)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="99">
+                <xs:annotation>
+                    <xs:documentation>ЕВРЕЙСКАЯ АВТОНОМНАЯ ОБЛАСТЬ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="00">
+                <xs:annotation>
+                    <xs:documentation>Неизвестно</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+
+    </xs:simpleType>
+
+    <xs:simpleType name="PrimaryDocumentDictType" xml:base="xs:string">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="01">
+                <xs:annotation>
+                    <xs:documentation>Паспорт гражданина РФ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="02">
+                <xs:annotation>
+                    <xs:documentation>Международный паспорт (для не граждан РФ)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="03">
+                <xs:annotation>
+                    <xs:documentation>Военный билет</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="04">
+                <xs:annotation>
+                    <xs:documentation>Удостоверение офицера</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="05">
+                <xs:annotation>
+                    <xs:documentation>Паспорт моряка</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="07">
+                <xs:annotation>
+                    <xs:documentation>Временное удостоверение по форме № 2-П</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="11">
+                <xs:annotation>
+                    <xs:documentation>Заграничный паспорт (для граждан РФ для выезда за рубеж)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="13">
+                <xs:annotation>
+                    <xs:documentation>Дипломатический паспорт гражданина РФ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="14">
+                <xs:annotation>
+                    <xs:documentation>Паспорт гражданина СССР</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="17">
+                <xs:annotation>
+                    <xs:documentation>Вид на жительство</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:simpleType name="ScoringStatusDictType" xml:base="xs:string">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="20"/>
+            <xs:enumeration value="OK">
+                <xs:annotation>
+                    <xs:documentation>Оценка по проведена успешно</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ERROR">
+                <xs:annotation>
+                    <xs:documentation>Ошибка при проведении оценки</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ParticipantStatusDictType" xml:base="xs:string">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation>Не заполнено/Не требуется</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Собственник</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Не собственник</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Учредитель</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Руководитель</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation>Сотрудник</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ParticipantRoleDictType" xml:base="xs:string">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation>На заполнено/Не требуется</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Заемщик</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Созаемщик</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Титульный созаемщик</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Поручитель</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation>Залогодатель</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="6">
+                <xs:annotation>
+                    <xs:documentation>Учащийся</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="7">
+                <xs:annotation>
+                    <xs:documentation>Представитель учащегося</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="GslStatusDictType" xml:base="xs:string">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation>На заполнено/Не требуется</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Да</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Нет</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="KgStatusDictType" xml:base="xs:string">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation>На заполнено/Не требуется</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Да</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Нет</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ScoringTypeDictType" xml:base="xs:string">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Кредитный конвейер (стандарт)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Кредитный конвейер (индивидуальный)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Кредитная фабрика</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="SourceSystemDictType" xml:base="xs:string">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CREDIT_CONVEYOR">
+                <xs:annotation>
+                    <xs:documentation>Кредитный конвейер АС ККМБ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="WEBAPP">
+                <xs:annotation>
+                    <xs:documentation>Веб приложение АС ОКИ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="CreditBureauDictType" xml:base="xs:string">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ASSD">
+                <xs:annotation>
+                    <xs:documentation>АС СД</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EI">
+                <xs:annotation>
+                    <xs:documentation>Experian Interfax</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="GP">
+                <xs:annotation>
+                    <xs:documentation>Эквифакс</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NBCH">
+                <xs:annotation>
+                    <xs:documentation>НБКИ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="PersonGenderDictType" xml:base="xs:string">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Мужской</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Женский</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="9">
+                <xs:annotation>
+                    <xs:documentation>Неопредленно</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ResidentDictType" xml:base="xs:int">
+        <xs:restriction base="xs:int">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Резидент</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation>Нерезидент</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="BaseLiabilityTypeDictType" xml:base="xs:string">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation>Заявка на получение кредита (Заявление-анкета)</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Договор, предусматривающий единовременную выдачу суммы кредита</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Договор, предусматривающий предоставление возобновляемой кредитной линии</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Договор, предусматривающий предоставление невозобновляемой кредитной линии</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Договор (соглашение) о предоставлении овердрафта по счету клиента-юридического лица</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation>Овердрафт по счету международной банковской карты</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="6">
+                <xs:annotation>
+                    <xs:documentation>Кредитная международная банковская карта</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="7">
+                <xs:annotation>
+                    <xs:documentation>Договор поручительства</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="8">
+                <xs:annotation>
+                    <xs:documentation>Договор залога</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="9">
+                <xs:annotation>
+                    <xs:documentation>Прочие виды обязательств</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="99">
+                <xs:annotation>
+                    <xs:documentation>Неизвестное значение</xs:documentation></xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="LiabilityTypeDictType" xml:base="xs:string">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Заявка на получение кредита (Заявление-анкета)</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Договор, предусматривающий единовременную выдачу суммы кредита</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Договор, предусматривающий предоставление невозобновляемой кредитной линии</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Договор (соглашение) о предоставлении овердрафта по счету Клиента-юридического лица</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation>Овердрафт по счету международной банковской карты</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="6">
+                <xs:annotation>
+                    <xs:documentation>Неизвестный тип кредита</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="7">
+                <xs:annotation>
+                    <xs:documentation>Возобновляемый кредит/Кредитная линия</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="8">
+                <xs:annotation>
+                    <xs:documentation>Кредитная карта</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="9">
+                <xs:annotation>
+                    <xs:documentation>Договор поручительства</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="10">
+                <xs:annotation>
+                    <xs:documentation>Договор залога</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="11">
+                <xs:annotation>
+                    <xs:documentation>Кредит на автомобиль</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="12">
+                <xs:annotation>
+                    <xs:documentation>Лизинг</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="13">
+                <xs:annotation>
+                    <xs:documentation>Ипотека</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="14">
+                <xs:annotation>
+                    <xs:documentation>Потребительский кредит</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="15">
+                <xs:annotation>
+                    <xs:documentation>Кредит на развитие бизнеса</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="16">
+                <xs:annotation>
+                    <xs:documentation>Кредит на пополнение оборотных средств</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="17">
+                <xs:annotation>
+                    <xs:documentation>Кредит на покупку оборудования</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="18">
+                <xs:annotation>
+                    <xs:documentation>Кредит на строительство</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="19">
+                <xs:annotation>
+                    <xs:documentation>Кредит на покупку акций (маржинальное кредитование)</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="20">
+                <xs:annotation>
+                    <xs:documentation>Межбанковский кредит</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="21">
+                <xs:annotation>
+                    <xs:documentation>Кредит под обеспечение (под залог)</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="22">
+                <xs:annotation>
+                    <xs:documentation>Необеспеченная ссуда</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="23">
+                <xs:annotation>
+                    <xs:documentation>Продажа в рассрочку (в точках продаж)</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="24">
+                <xs:annotation>
+                    <xs:documentation>Государственное кредитование</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="25">
+                <xs:annotation>
+                    <xs:documentation>Синдицированный кредит</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="26">
+                <xs:annotation>
+                    <xs:documentation>Карта продавца</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="27">
+                <xs:annotation>
+                    <xs:documentation>Платежная карта</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="28">
+                <xs:annotation>
+                    <xs:documentation>Дебетовая карта</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="29">
+                <xs:annotation>
+                    <xs:documentation>Мобильный счет</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="30">
+                <xs:annotation>
+                    <xs:documentation>Договор аренды</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="31">
+                <xs:annotation>
+                    <xs:documentation>Почтовый перевод</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="32">
+                <xs:annotation>
+                    <xs:documentation>Услуги он-лайн</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="33">
+                <xs:annotation>
+                    <xs:documentation>Счет телекоммуникационных услуг</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="34">
+                <xs:annotation>
+                    <xs:documentation>Страховой полис</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="35">
+                <xs:annotation>
+                    <xs:documentation>Факторинг</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="36">
+                <xs:annotation>
+                    <xs:documentation>Неизвестный тип кредита</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="37">
+                <xs:annotation>
+                    <xs:documentation>Кредит на строительство недвижимости</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="38">
+                <xs:annotation>
+                    <xs:documentation>Кредит мобильного оператора</xs:documentation></xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="99">
+                <xs:annotation>
+                    <xs:documentation>Неизвестное значение</xs:documentation></xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+</xs:schema>
