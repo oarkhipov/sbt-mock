@@ -13,15 +13,15 @@
              System-MQ, System-SOAP -->
             <protocol>MQ</protocol>
 
-            <queueConnectionFactory>jms/Q.KKMB.FROM.CRMORG</queueConnectionFactory>
+            <queueConnectionFactory>jms/LT_KKMB.QCF</queueConnectionFactory>
             <!-- Входящая очередь заглушки -->
             <mockIncomeQueue>jms/Q.KKMB.TO.CRMORG</mockIncomeQueue>
             <!-- Исходящая очередь заглушки -->
             <mockOutcomeQueue>jms/Q.KKMB.FROM.CRMORG.SYNCRESP</mockOutcomeQueue>
             <!-- Исходящая очередь драйвера -->
-            <driverOutcomeQueue>jms/Q.KKMB.TO.CRMORG.SYNCRESP</driverOutcomeQueue>
+            <driverOutcomeQueue>jms/Q.KKMB.FROM.CRMORG</driverOutcomeQueue>
             <!-- Входящая очередь драйвера -->
-            <driverIncomeQueue>jms/Q.KKMB.FROM.CRMORG</driverIncomeQueue>
+            <driverIncomeQueue>jms/Q.KKMB.TO.CRMORG.SYNCRESP</driverIncomeQueue>
 
             <integrationPoints>
 
