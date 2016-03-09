@@ -1,6 +1,5 @@
 package ru.sbt.bpm.mock.spring.controller;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,9 +8,9 @@ import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.*;
 import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.generator.spring.integration.Pair;
+import ru.sbt.bpm.mock.spring.service.ConfigurationService;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +25,9 @@ public class IntegrationPointController {
 
     @Autowired
     MockConfigContainer configContainer;
+
+    @Autowired
+    ConfigurationService configurationService;
 
     @Autowired
     DataFileService dataFileService;
@@ -51,7 +53,7 @@ public class IntegrationPointController {
                       @RequestParam(required = false) Boolean answerRequired,
                       @RequestParam(required = false) String xsdFile,
                       @RequestParam String rootElementNamespace,
-                      @RequestParam String rootElementName) {
+                      @RequestParam String rootElementName) throws IOException {
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(system);
         XpathSelector xpathSelector = new XpathSelector(xpathValidatorNamespace, xpathValidatorElementName);
 
@@ -72,6 +74,7 @@ public class IntegrationPointController {
             integrationPoints = systemObject.getIntegrationPoints().getIntegrationPoints();
         }
         integrationPoints.add(integrationPoint);
+        configurationService.saveConfig();
         return "OK";
     }
 
@@ -158,8 +161,7 @@ public class IntegrationPointController {
             integrationPoint.setRootElement(elementSelector);
         }
 
-        File file = dataFileService.getPathBaseResource(name).getFile();
-        FileUtils.write(file, configContainer.toXml());
+        configurationService.saveConfig();
         return "OK";
     }
 
@@ -182,6 +184,7 @@ public class IntegrationPointController {
             if (integrationPoints.get(i).getName().equals(name)) {
                 integrationPoints.remove(i);
                 dataFileService.deleteDataFiles(system, name);
+                configurationService.saveConfig();
                 return "OK";
             }
         }

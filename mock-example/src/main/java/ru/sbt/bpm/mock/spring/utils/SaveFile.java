@@ -1,10 +1,13 @@
 package ru.sbt.bpm.mock.spring.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.context.ApplicationContext;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -15,6 +18,8 @@ import java.util.regex.Pattern;
 /**
  * Created by SBT-Vostrikov-MI on 16.12.2014.
  */
+
+@Slf4j
 public class SaveFile {
     private static SaveFile ourInstance = new SaveFile();
 
@@ -92,7 +97,9 @@ public class SaveFile {
      */
     protected File getDataFile(String path) throws IOException {
         File f = new File(getWebInfPath() +slash+"data"+slash+path);
+        log.debug("Trying to get file: " + f.getAbsolutePath());
         if (!f.exists()) {
+            log.debug("File not found!");
             throw new FileNotFoundException();
         }
         return f;
@@ -118,6 +125,7 @@ public class SaveFile {
                 return f;
             }
         } catch (FileNotFoundException e) {
+            log.debug("No such file: " + path);
             return new File(path);
         }
         throw new IllegalStateException("unreachable code reached at method" + this.getClass().getPackage().toString() + "getBackUpedDataFile");
@@ -405,11 +413,12 @@ public class SaveFile {
 
     public String TranslateNameToPath(String name) throws FileNotFoundException, IOException{
         String path;
-        if (!name.contains("_")) {
+        if (!name.contains("__")) {
             throw new IllegalArgumentException("Error: Illegal Argument \"name\":=\""+name+"\"");
         }
-        String[] parts = name.split("_");
+        String[] parts = name.split("__");
         path = parts[0]+slash+parts[1]+slash+parts[2];
+        log.debug("Translated: " + name + " to path: " + path);
         return getWebInfPath()+slash+"data"+slash+path;
 //        File file = new File(getWebInfPath()+slash+"data"+slash+path);
 //        if (file.exists()) return path; //Нашли файл. Если здесь не нашли - дальше пляски с бубном
@@ -419,10 +428,10 @@ public class SaveFile {
 
     public String TranslateNameToSystem(String name) throws FileNotFoundException, IOException{
         String path;
-        if (!name.contains("_")) {
+        if (!name.contains("__")) {
             throw new IllegalArgumentException("Error: Illegal Argument \"name\":=\""+name+"\"");
         }
-        String[] parts = name.split("_");
+        String[] parts = name.split("__");
         path = parts[0];
         File file = new File(getWebInfPath()+slash+"data"+slash+path);
         if (file.exists()) return parts[0];
@@ -431,15 +440,19 @@ public class SaveFile {
     }
 
     public void writeStringToFile(File f, String data) throws Exception {
+        log.debug("Writing string to file: " + f.getAbsolutePath());
         if (!f.exists()) {
             File dir = f.getParentFile();
             if (!dir.exists()) {
+                log.debug("Creating directory tree: " + dir.getAbsolutePath());
                 dir.mkdirs();
             }
+            log.debug("Create empty file: " + f.getAbsolutePath());
             f.createNewFile();
         }
         try {
             FileUtils.writeStringToFile(f, data, Charset.forName("UTF-8"));
+            log.debug("String was written to file: " + f.getAbsoluteFile());
         } catch (Exception e) {
             throw e;
         }

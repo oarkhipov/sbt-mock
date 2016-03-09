@@ -110,4 +110,25 @@ public class MockConfigContainer {
 
         return xStream.toXML(config);
     }
+
+    /**
+     * Returns System by it's name
+     *
+     * @param systemName name of system
+     * @return @ru.sbt.bpm.mock.config.entities.System
+     */
+    public System getSystemByName(String systemName) {
+        return config.getSystems().getSystemByName(systemName);
+    }
+
+    /**
+     * Returns @integrationPoint by System name and integration point name
+     *
+     * @param systemName           name of system, which integration point belongs
+     * @param integrationPointName name of integration point
+     * @return @ru.sbt.bpm.mock.config.entities.IntegrationPoint
+     */
+    public IntegrationPoint getIntegrationPointByName(String systemName, String integrationPointName) {
+        return getSystemByName(systemName).getIntegrationPoints().getIntegrationPointByName(integrationPointName);
+    }
 }

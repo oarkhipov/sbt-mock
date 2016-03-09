@@ -18,6 +18,7 @@
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
 
         <spring.version>4.1.1.RELEASE</spring.version>
+        <spring.ws.version>2.0.3.RELEASE</spring.ws.version>
         <spring-integration.version>4.1.0.RELEASE</spring-integration.version>
     </properties>
 
@@ -31,6 +32,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws</artifactId>
+            <version>${spring.ws.version}</version>
         </dependency>
 
         <dependency>
@@ -93,6 +100,12 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.0</version>
         </dependency>
         <!-- Javax context-->
         <dependency>
@@ -230,6 +243,77 @@
             <scope>test</scope>
         </dependency>
 
+
+        <!-- SOAP UI-->
+        <dependency>
+            <groupId>com.eviware.soapui</groupId>
+            <artifactId>soapui</artifactId>
+            <version>4.5.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.eviware.soapui</groupId>
+            <artifactId>soapui-xmlbeans</artifactId>
+            <version>4.5.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>eviware</groupId>
+            <artifactId>soap-xmlbeans</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+            <version>1.6.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-cli</groupId>
+            <artifactId>commons-cli</artifactId>
+            <version>1.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>fife</groupId>
+            <artifactId>rsyntaxtextarea</artifactId>
+            <version>2.0.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15</artifactId>
+            <version>1.45</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4</version>
+        </dependency>
+
     </dependencies>
     <distributionManagement>
         <repository>
@@ -237,7 +321,7 @@
             <id>ci-nexus</id>
             <name>CC number 7 Releases</name>
             <url>
-                http://df-asm-2:8080/nexus/content/repositories/releases/
+                http://10.68.195.26:8080/nexus/content/repositories/releases/
             </url>
         </repository>
         <snapshotRepository>
@@ -245,7 +329,7 @@
             <id>ci-nexus</id>
             <name>CC number 7 Snapshots</name>
             <url>
-                http://df-asm-2:8080/nexus/content/repositories/snapshots/
+                http://10.68.195.26:8080/nexus/content/repositories/snapshots/
             </url>
         </snapshotRepository>
     </distributionManagement>

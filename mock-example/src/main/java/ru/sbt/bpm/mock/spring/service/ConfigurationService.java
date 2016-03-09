@@ -1,5 +1,6 @@
 package ru.sbt.bpm.mock.spring.service;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -96,5 +97,10 @@ public class ConfigurationService {
         //re-init configuration
         configContainer.init();
         //TODO generate mockApp-servlet
+    }
+
+    public void saveConfig() throws IOException {
+        File configFile = dataFileService.getConfigResource().getFile();
+        FileUtils.write(configFile, configContainer.toXml());
     }
 }

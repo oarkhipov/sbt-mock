@@ -116,11 +116,11 @@ public class DriverController {
                 File testFile = null;
                 try {
                     //message file
-                    messageFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "_" + integrationPointName + "_" + "message.xml"));
+                    messageFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + "__" + "message.xml"));
                     //script file
-                    scriptFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "_" + integrationPointName + "_" + "script.groovy"));
+                    scriptFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + "__" + "script.groovy"));
                     //test file
-                    testFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "_" + integrationPointName + "_" + "test.xml"));
+                    testFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + "__" + "test.xml"));
                 } catch (Exception e) {
                     ajaxObject.setError(e.getMessage());
                 }
@@ -222,7 +222,7 @@ public class DriverController {
             String compiledXml = groovyService.execute(test, xml, script);
             if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
                 dataService.validate(compiledXml, systemName);
-
+    
                 String response = clientService.send(compiledXml);
                 ajaxObject.setData(response);
                 ajaxObject.setInfo("DONE!");
