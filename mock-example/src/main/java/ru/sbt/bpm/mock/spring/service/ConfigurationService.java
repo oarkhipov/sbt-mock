@@ -80,17 +80,20 @@ public class ConfigurationService {
             if (parentFile != null) {
                 parentFile.mkdirs();
             }
-
-            //Extract file
-            InputStream inputStream = zipFile.getInputStream(zipEntry);
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            byte[] bytes = new byte[1024];
-            int length;
-            while ((length = inputStream.read(bytes)) >= 0) {
-                fileOutputStream.write(bytes, 0, length);
+            if (file.isDirectory()) {
+                file.mkdir();
+            } else {
+                //Extract file
+                InputStream inputStream = zipFile.getInputStream(zipEntry);
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                byte[] bytes = new byte[1024];
+                int length;
+                while ((length = inputStream.read(bytes)) >= 0) {
+                    fileOutputStream.write(bytes, 0, length);
+                }
+                inputStream.close();
+                fileOutputStream.close();
             }
-            inputStream.close();
-            fileOutputStream.close();
         }
         zipFile.close();
 
