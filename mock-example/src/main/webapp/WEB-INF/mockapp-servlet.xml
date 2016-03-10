@@ -168,14 +168,14 @@
         </int:interceptors>
     </int:channel>
     <int:logging-channel-adapter id="MockCRMInboundRequestLogger" logger-name="MockInboundRequestLogger"/>
-    <int:logging-channel-adapter id="MockCRMOutboundResponseLogger" logger-name="MockInboundRequestLogger"/>
+    <int:logging-channel-adapter id="MockCRMOutboundResponseLogger" logger-name="MockOutboundResponseLogger"/>
     <int:logging-channel-adapter id="MockECHInboundRequestLogger" logger-name="MockInboundRequestLogger"/>
-    <int:logging-channel-adapter id="MockECHOutboundResponseLogger" logger-name="MockInboundRequestLogger"/>
+    <int:logging-channel-adapter id="MockECHOutboundResponseLogger" logger-name="MockOutboundResponseLogger"/>
     <int:logging-channel-adapter id="MockAMRLIRTInboundRequestLogger" logger-name="MockInboundRequestLogger"/>
-    <int:logging-channel-adapter id="MockAMRLIRTOutboundResponseLogger" logger-name="MockInboundRequestLogger"/>
+    <int:logging-channel-adapter id="MockAMRLIRTOutboundResponseLogger" logger-name="MockOutboundResponseLogger"/>
 
     <int:logging-channel-adapter id="DriverCRMOutboundRequestLogger" logger-name="MockInboundRequestLogger"/>
-    <int:logging-channel-adapter id="DriverCRMInboundResponseLogger" logger-name="MockInboundRequestLogger"/>
+    <int:logging-channel-adapter id="DriverCRMInboundResponseLogger" logger-name="MockOutboundResponseLogger"/>
 
       <!-- Входной и выходной каналы Драйвера -->
 

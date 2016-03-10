@@ -38,15 +38,28 @@ public class GroovyService {
         //generate xml
         Pattern pattern = Pattern.compile("\\$\\{(.*?)\\}");
         Matcher matcher = pattern.matcher(mockXml);
-        matcher.find();
-        mockXml = matcher.replaceAll("\\$\\{response.$1\\}");
-        String scriptText = groovyInit + script + "\n mockXml = \"\"\"" + mockXml + "\"\"\"";
+        if (matcher.find()) {
+            mockXml = matcher.replaceAll("\\$\\{response.$1\\}");
+        }
+        //save xml
+//        final File tempFile = new File(System.currentTimeMillis() + ".dat");
+//        log.debug("write mockXml to [" + tempFile.getAbsolutePath() + "]");
+//        FileUtils.writeStringToFile(tempFile, mockXml);
+//        final String s = tempFile.getAbsolutePath().replaceAll("\\\\","\\\\\\\\");
+
+        String scriptText = groovyInit + script + "\n" +
+                "mockXml=\"\"\"" + mockXml + "\"\"\"";
+//                "mockXml = new File('" + s +"').text \n" +
+//                "def out = Eval.me(\"response\", response.getProperties(), \"\\\"\" + mockXml.replaceAll(\"\\\"\",\"\\\\\\\"\") + \"\\\"\" )\n" +
+//                "mockXml = out";
         log.debug("Executing groovy script:\n" +
                 "###########################################################################\n" +
                 scriptText + "\n" +
                 "###########################################################################\n");
         shell.evaluate(scriptText);
 
+//        log.debug("delete temporary file [" + tempFile.getAbsolutePath() + "]");
+//        FileUtils.deleteQuietly(tempFile);
         return shell.getVariable("mockXml").toString();
     }
 

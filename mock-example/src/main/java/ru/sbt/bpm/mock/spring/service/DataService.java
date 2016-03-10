@@ -3,9 +3,9 @@ package ru.sbt.bpm.mock.spring.service;
 import lombok.extern.log4j.Log4j;
 import net.sf.saxon.s9api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.spring.utils.ResourceResolver;
@@ -18,9 +18,7 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.*;
-import java.net.URI;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,25 +108,12 @@ public class DataService {
         InputStream stream = new ByteArrayInputStream(xml.getBytes("UTF-8"));
         try {
             validator.get(System).validate(new StreamSource(stream));
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+        } catch (SAXParseException e) {
+            SAXParseException saxParseException = new SAXParseException("Validation error on line " + e.getLineNumber() + " and column " + e.getColumnNumber(), null, e);
+            log.error(saxParseException);
+            throw saxParseException;
         }
         return true;
-    }
-
-    /**
-     * Валидирует xml на соответствие схем, не бросает исключений
-     *
-     * @param xmlData спец имя xml
-     * @return признак валидности
-     */
-    public boolean assertableValidate(String xmlData, String System) {
-        try {
-            return validate(xmlData, System);
-        } catch (Exception e) {
-            return false;
-        }
     }
 
     public boolean assertXpath(String xml, String systemName, String integrationPointName) throws XPathExpressionException, SaxonApiException {

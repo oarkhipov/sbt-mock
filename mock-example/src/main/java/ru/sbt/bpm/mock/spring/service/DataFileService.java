@@ -1,5 +1,6 @@
 package ru.sbt.bpm.mock.spring.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -18,6 +19,8 @@ import java.util.List;
  *         <p/>
  *         Company: SBT - Moscow
  */
+
+@Slf4j
 @Service
 public class DataFileService {
 
@@ -107,6 +110,7 @@ public class DataFileService {
     public String getDataFileContent(String systemName, String integrationPointName, String fileName) throws IOException {
         Resource resource = getDataResource(systemName, integrationPointName, fileName);
         File file = resource.getFile();
+        log.debug("Getting file: " + file.getAbsolutePath());
         if (!file.exists()) {
             return "";
         }

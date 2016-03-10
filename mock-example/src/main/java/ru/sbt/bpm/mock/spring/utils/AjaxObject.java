@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Arrays;
 
 /**
  * Created by sbt-bochev-as on 17.12.2014.
@@ -50,7 +53,11 @@ public class AjaxObject {
     }
 
     public void setErrorFromException(Exception exception) {
-        setError(ExceptionUtils.getExceptionStackTrace(exception));
+        final String exceptionStackTrace = ExceptionUtils.getExceptionStackTrace(exception);
+        String[] splittedExceptions = exceptionStackTrace.split("\n");
+        splittedExceptions = Arrays.copyOf(splittedExceptions, 10);
+        final String joinedExceptions = StringUtils.join(splittedExceptions, "<br/>");
+        setError(joinedExceptions);
     }
 
 }
