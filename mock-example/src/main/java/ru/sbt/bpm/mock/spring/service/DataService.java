@@ -116,20 +116,6 @@ public class DataService {
         return true;
     }
 
-    /**
-     * Валидирует xml на соответствие схем, не бросает исключений
-     *
-     * @param xmlData спец имя xml
-     * @return признак валидности
-     */
-    public boolean assertableValidate(String xmlData, String System) {
-        try {
-            return validate(xmlData, System);
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     public boolean assertXpath(String xml, String systemName, String integrationPointName) throws XPathExpressionException, SaxonApiException {
 
         String xpathWithFullNamespaceString = configContainer.getConfig()
