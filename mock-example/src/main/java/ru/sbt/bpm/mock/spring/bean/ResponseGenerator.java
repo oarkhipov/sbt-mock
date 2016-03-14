@@ -11,11 +11,13 @@ import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.entities.XpathSelector;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
-import ru.sbt.bpm.mock.spring.service.DataService;
 import ru.sbt.bpm.mock.spring.service.GroovyService;
-import ru.sbt.bpm.mock.spring.utils.ExceptionUtils;
+import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
+import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
+import ru.sbt.bpm.mock.spring.utils.XpathUtils;
 
 import javax.xml.xpath.XPathExpressionException;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -31,7 +33,7 @@ public class ResponseGenerator {
     GroovyService groovyService;
 
     @Autowired
-    DataService dataService;
+    MessageValidationService messageValidationService;
 
     @Autowired
     DataFileService dataFileService;
@@ -42,23 +44,23 @@ public class ResponseGenerator {
     public String routeAndGenerate(String payload) throws Exception {
         return routeAndGenerate(payload, "");
     }
+
     public String routeAndGenerate(String payload, String queue) throws Exception {
         try {
             System system = getSystemName(payload, queue);
 
-            try {
-                dataService.validate(payload, system.getSystemName());
-            } catch (Exception e){
-                String message = "Validate error " + ExceptionUtils.getExceptionStackTrace(e);
-                log.error(message);
-                return message;
+            log.debug("Validate Request");
+            List<String> validationErrors = messageValidationService.validate(payload, system.getSystemName());
+            if (validationErrors.size() > 0) {
+                return ValidationUtils.getSolidErrorMessage(validationErrors);
             }
+            log.debug("Validation status: OK!");
 
             IntegrationPoint integrationPoint = getIntegrationPoint(system, payload);
             log.debug(integrationPoint.getName());
 
             Boolean answerRequired = integrationPoint.getAnswerRequired();
-            if (answerRequired==null || answerRequired) {
+            if (answerRequired == null || answerRequired) {
                 return generate(system.getSystemName(), integrationPoint.getName(), payload);
             } else {
                 return null;
@@ -77,7 +79,7 @@ public class ResponseGenerator {
             if (queue.isEmpty() || queue.equals(system.getMockIncomeQueue())) {
                 String xpath = system.getIntegrationPointSelector().toXpath();
                 try {
-                    XdmNode xdmItems = (XdmNode) dataService.evaluateXpath(payload, xpath);
+                    XdmNode xdmItems = (XdmNode) XpathUtils.evaluateXpath(payload, xpath);
                     if (!xdmItems.getNodeName().getLocalName().isEmpty()) {
                         return system;
                     }
@@ -85,8 +87,7 @@ public class ResponseGenerator {
 //                e.printStackTrace();
                     //this is not system, that we are looking for
                     log.debug(e.getMessage(), e);
-                }
-                catch (ClassCastException e) {
+                } catch (ClassCastException e) {
                     //this is not system, that we are looking for
                     log.debug(e.getMessage(), e);
                 }
@@ -98,7 +99,7 @@ public class ResponseGenerator {
     /**
      * Returns integration point by system name and payload
      *
-     * @param system system object in configuration
+     * @param system  system object in configuration
      * @param payload request message
      * @return Integration point
      * @throws XPathExpressionException
@@ -109,20 +110,18 @@ public class ResponseGenerator {
         final int xpathSize = integrationPointSelector.getElementSelectors().size();
         final String lastElement = integrationPointSelector.getElementSelectors().get(xpathSize - 1).getElement();
         String integrationPointSelectorXpath = integrationPointSelector.toXpath();
-        XdmValue value = dataService.evaluateXpath(payload, integrationPointSelectorXpath);
-        String integrationPointName = null;
-
+        XdmValue value = XpathUtils.evaluateXpath(payload, integrationPointSelectorXpath);
+        String integrationPointName;
 
 
         if (lastElement.isEmpty()) {
             //return element name
             integrationPointName = ((XdmNode) value).getNodeName().getLocalName();
-        }
-        else {
+        } else {
             //return element value
             integrationPointName = ((XdmNode) value).getStringValue();
         }
-        assert integrationPointName!=null;
+        assert integrationPointName != null;
         return system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
 
     }
@@ -130,9 +129,9 @@ public class ResponseGenerator {
     /**
      * Generates response
      *
-     * @param systemName name of system in config
+     * @param systemName       name of system in config
      * @param integrationPoint name of integration point of system
-     * @param payload request
+     * @param payload          request
      * @return generated response
      * @throws Exception
      */

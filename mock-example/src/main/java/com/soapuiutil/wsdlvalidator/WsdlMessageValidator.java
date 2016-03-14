@@ -21,8 +21,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xmlsoap.schemas.soap.envelope.Envelope;
 
-import javax.wsdl.Definition;
-import javax.wsdl.factory.WSDLFactory;
 import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
@@ -64,13 +62,13 @@ public class WsdlMessageValidator {
                 soapVersion = wsdlInterfaces[0].getSoapVersion();
             }
 
-            final WSDLFactory factory = WSDLFactory.newInstance();
-            final Definition def = factory.newWSDLReader().readWSDL(wsdlUrl);
-            final Map<String, String> namespaceMap = (Map<String, String>) def.getNamespaces();
-            final Map<String, String> reverseNamespaceMap = new HashMap<String, String>();
-            for (String key : namespaceMap.keySet()) {
-                reverseNamespaceMap.put(namespaceMap.get(key), key);
-            }
+//            final WSDLFactory factory = WSDLFactory.newInstance();
+//            final Definition def = factory.newWSDLReader().readWSDL(wsdlUrl);
+//            final Map<String, String> namespaceMap = (Map<String, String>) def.getNamespaces();
+//            final Map<String, String> reverseNamespaceMap = new HashMap<String, String>();
+//            for (String key : namespaceMap.keySet()) {
+//                reverseNamespaceMap.put(namespaceMap.get(key), key);
+//            }
 
             final WsdlMockService mockServ = wsdlProject.addNewMockService(SERVICE_NAME);
 
@@ -189,7 +187,6 @@ public class WsdlMessageValidator {
         } finally {
             if (wsdlMockOperation != null && mockResponse != null) {
                 wsdlMockOperation.removeMockResponse(mockResponse);
-
             }
         }
     }

@@ -116,7 +116,7 @@ $("#validate").click(function () {
         success: function (obj) {
             obj = htmlConvert(obj);
             obj = $.parseJSON(obj);
-            showInfo(obj.info)
+            showInfo(obj.info);
             showError(obj.error);
         },
         fail: function () {

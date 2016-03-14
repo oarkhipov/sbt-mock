@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import ru.sbt.bpm.mock.spring.service.DataService;
+import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by sbt-bochev-as on 03.04.2015.
@@ -19,10 +19,10 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration({"/env/mockapp-servlet.xml"})
-public class XmlDataServiceTest{
+public class XmlMessageValidationServiceTest {
 
     @Autowired
-    DataService service;
+    MessageValidationService service;
 
     @Test
     public void testInit(){

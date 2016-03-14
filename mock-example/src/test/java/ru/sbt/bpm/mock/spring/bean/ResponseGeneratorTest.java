@@ -5,8 +5,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ru.sbt.bpm.mock.spring.service.DataService;
 import ru.sbt.bpm.mock.spring.service.XmlGeneratorService;
+import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 
 import static org.junit.Assert.assertEquals;
 
@@ -26,14 +26,14 @@ public class ResponseGeneratorTest {
     ResponseGenerator responseGenerator;
 
     @Autowired
-    DataService dataService;
+    MessageValidationService messageValidationService;
 
     @Test
     public void testGetSystemName() throws Exception {
         String payload1 = generatorService.generate("CRM","getReferenceData", true);
-        dataService.validate(payload1, "CRM");
+        assertEquals(messageValidationService.validate(payload1, "CRM").size(),0);
         String payload2 = generatorService.generate("CRM","getAdditionalInfo", true);
-        dataService.validate(payload2, "CRM");
+        assertEquals(messageValidationService.validate(payload2, "CRM").size(),0);
         assertEquals("CRM", responseGenerator.getSystemName(payload1).getSystemName());
         assertEquals("CRM", responseGenerator.getSystemName(payload2).getSystemName());
 

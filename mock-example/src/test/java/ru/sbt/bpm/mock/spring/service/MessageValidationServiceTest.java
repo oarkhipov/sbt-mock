@@ -6,9 +6,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author sbt-bochev-as on 31.12.2015.
@@ -18,10 +18,10 @@ import static org.junit.Assert.*;
 @Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"/dataServiceTest/mockapp-servlet.xml"})
-public class DataServiceTest {
+public class MessageValidationServiceTest {
 
     @Autowired
-    DataService dataService;
+    MessageValidationService messageValidationService;
 
     @Autowired
     XmlGeneratorService generatorService;
@@ -31,6 +31,6 @@ public class DataServiceTest {
         String xml = generatorService.generate("CRM2", "test1", true);
         log.info(xml);
         assertTrue(!xml.isEmpty());
-        assertTrue(dataService.validate(xml, "CRM2"));
+        assertTrue(messageValidationService.validate(xml, "CRM2").size() == 0);
     }
 }

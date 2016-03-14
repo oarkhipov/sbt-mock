@@ -1,6 +1,5 @@
 package ru.sbt.bpm.mock.spring.controller;
 
-import net.sf.saxon.s9api.SaxonApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -10,13 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
-import ru.sbt.bpm.mock.spring.service.DataService;
 import ru.sbt.bpm.mock.spring.service.GroovyService;
+import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
+import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
 import ru.sbt.bpm.mock.spring.utils.AjaxObject;
 
 import javax.xml.transform.TransformerException;
-import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by sbt-bochev-as on 13.12.2014.
@@ -33,7 +33,7 @@ public class MockController {
     MockConfigContainer configContainer;
 
     @Autowired
-    DataService dataService;
+    MessageValidationService messageValidationService;
 
     @Autowired
     DataFileService dataFileService;
@@ -79,9 +79,13 @@ public class MockController {
         AjaxObject ajaxObject = new AjaxObject();
         try {
             String compiledXml = groovyService.execute(test, xml, script);
-            if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
-                dataService.validate(compiledXml, systemName);
-                ajaxObject.setInfo("Valid!");
+            if (messageValidationService.assertXpath(compiledXml, systemName, integrationPointName)) {
+                final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
+                if (validationErrors.size() == 0) {
+                    ajaxObject.setInfo("Valid!");
+                } else {
+                    ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
+                }
             } else {
                 ajaxObject.setError("xml did not pass xpath assertion!");
             }
@@ -177,17 +181,17 @@ public class MockController {
 //        VALIDATE
         try {
             String compiledXml = groovyService.execute(test, xml, script);
-            if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
-                dataService.validate(compiledXml, systemName);
+            if (messageValidationService.assertXpath(compiledXml, systemName, integrationPointName)) {
+                final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
 
-                String response = testGatewayService.test(compiledXml);
-                ajaxObject.setData(response);
-                ajaxObject.setInfo("DONE!");
+                if (validationErrors.size() == 0) {
+                    String response = testGatewayService.test(compiledXml);
+                    ajaxObject.setData(response);
+                    ajaxObject.setInfo("DONE!");
+                } else {
+                    ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
+                }
             }
-        } catch (SaxonApiException e) {
-            ajaxObject.setErrorFromException(e);
-        } catch (XPathExpressionException e) {
-            ajaxObject.setErrorFromException(e);
         } catch (Exception e) {
             ajaxObject.setErrorFromException(e);
         }

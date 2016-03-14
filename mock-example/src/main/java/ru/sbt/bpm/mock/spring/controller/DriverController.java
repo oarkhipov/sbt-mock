@@ -1,6 +1,5 @@
 package ru.sbt.bpm.mock.spring.controller;
 
-import net.sf.saxon.s9api.SaxonApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -11,15 +10,16 @@ import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.spring.integration.gateway.ClientService;
 import ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
-import ru.sbt.bpm.mock.spring.service.DataService;
 import ru.sbt.bpm.mock.spring.service.GroovyService;
+import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
+import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
 import ru.sbt.bpm.mock.spring.utils.AjaxObject;
 import ru.sbt.bpm.mock.spring.utils.SaveFile;
 
 import javax.xml.transform.TransformerException;
-import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by sbt-bochev-as on 15.12.2014.
@@ -39,7 +39,7 @@ public class DriverController {
     MockConfigContainer configContainer;
 
     @Autowired
-    DataService dataService;
+    MessageValidationService messageValidationService;
 
     @Autowired
     DataFileService dataFileService;
@@ -83,9 +83,13 @@ public class DriverController {
         AjaxObject ajaxObject = new AjaxObject();
         try {
             String compiledXml = groovyService.execute(test, xml, script);
-            if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
-                dataService.validate(compiledXml, systemName);
-                ajaxObject.setInfo("Valid!");
+            if (messageValidationService.assertXpath(compiledXml, systemName, integrationPointName)) {
+                final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
+                if (validationErrors.size() == 0) {
+                    ajaxObject.setInfo("Valid!");
+                } else {
+                    ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
+                }
             } else {
                 ajaxObject.setError("xml did not pass xpath assertion!");
             }
@@ -108,36 +112,40 @@ public class DriverController {
         SaveFile saver = SaveFile.getInstance(appContext);
         try {
             String compiledXml = groovyService.execute(test, xml, script);
-            if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
-                dataService.validate(compiledXml, systemName);
-//                IF Valid - then save
-                File messageFile = null;
-                File scriptFile = null;
-                File testFile = null;
-                try {
-                    //message file
-                    messageFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + "__" + "message.xml"));
-                    //script file
-                    scriptFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + "__" + "script.groovy"));
-                    //test file
-                    testFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + "__" + "test.xml"));
-                } catch (Exception e) {
-                    ajaxObject.setError(e.getMessage());
-                }
-                if (messageFile != null && scriptFile != null && testFile != null) {
+            if (messageValidationService.assertXpath(compiledXml, systemName, integrationPointName)) {
+                List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
+
+                if (validationErrors.size() == 0) {
+                    // If Valid - then save
+                    File messageFile = null;
+                    File scriptFile = null;
+                    File testFile = null;
                     try {
-                        saver.writeStringToFile(messageFile, xml);
-                        saver.writeStringToFile(scriptFile, script);
-                        saver.writeStringToFile(testFile, test);
-                        ajaxObject.setInfo("saved");
-                    } catch (IOException e) {
-                        ajaxObject.setErrorFromException(e);
+                        //message file
+                        messageFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + "__" + "message.xml"));
+                        //script file
+                        scriptFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + "__" + "script.groovy"));
+                        //test file
+                        testFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + "__" + "test.xml"));
                     } catch (Exception e) {
-                        ajaxObject.setErrorFromException(e);
+                        ajaxObject.setError(e.getMessage());
                     }
+                    if (messageFile != null && scriptFile != null && testFile != null) {
+                        try {
+                            saver.writeStringToFile(messageFile, xml);
+                            saver.writeStringToFile(scriptFile, script);
+                            saver.writeStringToFile(testFile, test);
+                            ajaxObject.setInfo("saved");
+                        } catch (IOException e) {
+                            ajaxObject.setErrorFromException(e);
+                        } catch (Exception e) {
+                            ajaxObject.setErrorFromException(e);
+                        }
+                    }
+                } else {
+                    ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
                 }
             }
-//            END Save
         } catch (Exception e) {
             ajaxObject.setError(e.getMessage());
         }
@@ -220,17 +228,17 @@ public class DriverController {
 //        VALIDATE
         try {
             String compiledXml = groovyService.execute(test, xml, script);
-            if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
-                dataService.validate(compiledXml, systemName);
-    
-                String response = clientService.send(compiledXml);
-                ajaxObject.setData(response);
-                ajaxObject.setInfo("DONE!");
+            if (messageValidationService.assertXpath(compiledXml, systemName, integrationPointName)) {
+                final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
+                if (validationErrors.size() == 0) {
+                    String response = clientService.send(compiledXml);
+
+                    ajaxObject.setData(response);
+                    ajaxObject.setInfo("DONE!");
+                } else {
+                    ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
+                }
             }
-        } catch (SaxonApiException e) {
-            ajaxObject.setErrorFromException(e);
-        } catch (XPathExpressionException e) {
-            ajaxObject.setErrorFromException(e);
         } catch (Exception e) {
             ajaxObject.setErrorFromException(e);
         }
@@ -250,17 +258,17 @@ public class DriverController {
         AjaxObject ajaxObject = new AjaxObject();
         try {
             String compiledXml = groovyService.execute(test, xml, script);
-            if (dataService.assertXpath(compiledXml, systemName, integrationPointName)) {
-                dataService.validate(compiledXml, systemName);
+            if (messageValidationService.assertXpath(compiledXml, systemName, integrationPointName)) {
+                final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
 
-                String response = testGatewayService.test(compiledXml);
-                ajaxObject.setData(response);
-                ajaxObject.setInfo("DONE!");
+                if (validationErrors.size() == 0) {
+                    String response = testGatewayService.test(compiledXml);
+                    ajaxObject.setData(response);
+                    ajaxObject.setInfo("DONE!");
+                } else {
+                    ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
+                }
             }
-        } catch (SaxonApiException e) {
-            ajaxObject.setErrorFromException(e);
-        } catch (XPathExpressionException e) {
-            ajaxObject.setErrorFromException(e);
         } catch (Exception e) {
             ajaxObject.setErrorFromException(e);
         }
