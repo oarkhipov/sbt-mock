@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamResult;
-import java.io.File;
 import java.io.StringWriter;
 import java.net.URL;
 
@@ -44,12 +43,15 @@ public class GeneratorTest {
         xsInstance.generate(xsModel, rootElement, sampleXml);
         String generatedXml = writer.toString();
         Assert.assertTrue(generatedXml.contains("Envelope"));
-        Assert.assertTrue(generatedXml.contains("getAdditionalInfo"));
+        Assert.assertTrue(generatedXml.contains("sendReferenceData"));
     }
 
     @Test
     public void generateXmlFromMain() throws Exception {
-        URL resource = this.getClass().getClassLoader().getResource("WEB-INF/xsd/xsd/JUPITER/../ESB/Envelope.xsd");
+        URL resource = this.getClass().getClassLoader().getResource("WEB-INF/xsd/CRM/CRMIntegrationSchema.xsd");
+        String namespaceURI = "http://sbrf.ru/legal/enquiry/integration";
+        String rootElementName = "Envelope";
+
         assert resource != null;
         XSModel xsModel = new XSParser().parse(String.valueOf(resource.toURI()));
 
@@ -64,13 +66,12 @@ public class GeneratorTest {
 
         xsInstance.showContentModel = false;
 
-
-        QName rootElement = new QName("http://sbrf.ru/ASP/ESB/envelope/","envelope");
+        QName rootElement = new QName(namespaceURI, rootElementName);
         StringWriter writer = new StringWriter();
         XMLDocument sampleXml = new XMLDocument(new StreamResult(writer), true, 4 ,null);
         xsInstance.generate(xsModel, rootElement, sampleXml);
         String generatedXml = writer.toString();
-        assert  generatedXml.contains("envelope") : generatedXml;
-        assert  generatedXml.contains("correspondentAccount") : generatedXml;
+        assert generatedXml.contains("Envelope") : generatedXml;
+        assert generatedXml.contains("sendReferenceData") : generatedXml;
     }
 }
