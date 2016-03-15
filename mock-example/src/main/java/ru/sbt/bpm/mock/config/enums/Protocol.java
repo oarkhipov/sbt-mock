@@ -5,7 +5,7 @@ package ru.sbt.bpm.mock.config.enums;
  *         <p/>
  *         Company: SBT - Moscow
  */
-public enum Protocols {
-    MQ,
+public enum Protocol {
+    JMS,
     SOAP
 }

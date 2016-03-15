@@ -5,7 +5,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.sbt.bpm.mock.config.enums.Protocols;
+import ru.sbt.bpm.mock.config.enums.Protocol;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,29 +26,35 @@ public class System {
     @XStreamAsAttribute
     private String systemName;
 
-    @XStreamAlias("rootXsd")
-    private String rootXSD;
+    @XStreamAlias("remoteRootSchema")
+    private String remoteRootSchema;
+
+    @XStreamAlias("localRootSchema")
+    private String localRootSchema;
 
     @XStreamAlias("integrationPointSelector")
     private XpathSelector integrationPointSelector;
 
     @XStreamAlias("protocol")
-    private Protocols protocol;
+    private Protocol protocol;
 
     @XStreamAlias("queueConnectionFactory")
-    String queueConnectionFactory;
+    private String queueConnectionFactory;
 
     @XStreamAlias("mockIncomeQueue")
-    String mockIncomeQueue;
+    private String mockIncomeQueue;
 
     @XStreamAlias("mockOutcomeQueue")
-    String mockOutcomeQueue;
+    private String mockOutcomeQueue;
 
     @XStreamAlias("driverOutcomeQueue")
-    String driverOutcomeQueue;
+    private String driverOutcomeQueue;
 
     @XStreamAlias("driverIncomeQueue")
-    String driverIncomeQueue;
+    private String driverIncomeQueue;
+
+    @XStreamAlias("driverWebServiceEndpoint")
+    private String driverWebServiceEndpoint;
 
     @XStreamAlias("integrationPoints")
     private IntegrationPoints integrationPoints;

@@ -4,6 +4,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.generator.spring.integration.Pair;
 
 
@@ -28,14 +29,17 @@ public class IntegrationPoint {
     @XStreamAsAttribute
     private String name;
 
-    @XStreamAlias("operationName")
-    private String operationName;
-
     @XStreamAlias("type")
     private String integrationPointType;
 
-    @XStreamAlias("xpathValidation")
-    private XpathSelector xpathValidatorSelector;
+    @XStreamAlias("delayMs")
+    private Integer delayMs;
+
+    @XStreamAlias("rqXpath")
+    private XpathSelector requestXpathValidatorSelector;
+
+    @XStreamAlias("rsXpath")
+    private XpathSelector responseXpathValidatorSelector;
 
     //  For override
     @XStreamAlias("incomeQueue")
@@ -75,9 +79,21 @@ public class IntegrationPoint {
         return integrationPointType.equals(DRIVER);
     }
 
-    public String getXpathString() {
+    public String getXpathString(MessageType messageType) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (ElementSelector elementSelector : getXpathValidatorSelector().getElementSelectors()) {
+        XpathSelector selector;
+        switch (messageType) {
+            case RQ:
+                selector = getRequestXpathValidatorSelector();
+                break;
+            case RS:
+                selector = getResponseXpathValidatorSelector();
+                break;
+            default:
+                throw new RuntimeException("No such message type");
+        }
+
+        for (ElementSelector elementSelector : selector.getElementSelectors()) {
             stringBuilder.append(elementSelector.getElement()).append("/");
         }
         stringBuilder.delete(stringBuilder.length()-1,stringBuilder.length());
@@ -86,7 +102,7 @@ public class IntegrationPoint {
 
     public String getXpathWithFullNamespaceString() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (ElementSelector elementSelector : getXpathValidatorSelector().getElementSelectors()) {
+        for (ElementSelector elementSelector : getRequestXpathValidatorSelector().getElementSelectors()) {
             stringBuilder
                     .append("/*:")
                     .append(elementSelector.getElement())

@@ -1,7 +1,6 @@
 package ru.sbt.bpm.mock.spring.service;
 
 import com.sun.org.apache.xml.internal.serializer.OutputPropertiesFactory;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.generator.spring.context.CommentMarshalListener;
 import ru.sbt.bpm.mock.generator.spring.context.bean.Bean;
@@ -24,7 +23,6 @@ import java.io.*;
  *         <p/>
  *         Company: SBT - Moscow
  */
-@Slf4j
 @Service
 public class SpringContextGeneratorService {
 

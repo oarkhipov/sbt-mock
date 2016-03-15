@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.spring.integration.gateway.ClientService;
 import ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
@@ -65,7 +66,7 @@ public class DriverController {
         model.addAttribute("xpath",
                 configContainer.getConfig().getSystems().getSystemByName(systemName)
                         .getIntegrationPoints().getIntegrationPointByName(integrationPointName)
-                        .getXpathString());
+                        .getXpathString(MessageType.RQ));
         model.addAttribute("message", dataFileService.getCurrentMessage(systemName, integrationPointName));
         model.addAttribute("script", dataFileService.getCurrentScript(systemName, integrationPointName));
         model.addAttribute("test", dataFileService.getCurrentTest(systemName, integrationPointName));

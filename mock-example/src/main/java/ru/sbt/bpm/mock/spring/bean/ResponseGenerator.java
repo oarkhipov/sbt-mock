@@ -136,6 +136,12 @@ public class ResponseGenerator {
      * @throws Exception
      */
     private String generate(String systemName, String integrationPoint, String payload) throws Exception {
+        //emulate System latency
+        final Integer delayMs = configContainer.getIntegrationPointByName(systemName, integrationPoint).getDelayMs();
+        if (delayMs != null) {
+            Thread.sleep(delayMs);
+        }
+
         String message = dataFileService.getCurrentMessage(systemName, integrationPoint);
         String script = dataFileService.getCurrentScript(systemName, integrationPoint);
         return groovyService.execute(payload, message, script);

@@ -35,7 +35,7 @@ public class XmlGeneratorService {
 
     public String generate(String systemName, String integrationPointName, boolean filterMessage) throws Exception {
         ru.sbt.bpm.mock.config.entities.System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
-        String rootXSD = system.getRootXSD();
+        String rootXSD = system.getRemoteRootSchema();
         IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
         if (integrationPoint.getXsdFile()!=null && !integrationPoint.getXsdFile().isEmpty()) {
             rootXSD = integrationPoint.getXsdFile();
@@ -79,7 +79,7 @@ public class XmlGeneratorService {
         }
         if (filterMessage) {
             //filter elements
-            List<ElementSelector> elementSelectors = integrationPoint.getXpathValidatorSelector().getElementSelectors();
+            List<ElementSelector> elementSelectors = integrationPoint.getRequestXpathValidatorSelector().getElementSelectors();
             StringBuilder xmlMapElements = new StringBuilder();
             for (ElementSelector selector : elementSelectors) {
                 xmlMapElements.append("        add(new Pair<String, String>(\"")

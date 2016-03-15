@@ -1,7 +1,7 @@
 package ru.sbt.bpm.mock.spring.bean;
 
 import lombok.AllArgsConstructor;
-import ru.sbt.bpm.mock.config.enums.Protocols;
+import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.spring.bean.pojo.MockMessage;
 
 /**
@@ -11,7 +11,7 @@ import ru.sbt.bpm.mock.spring.bean.pojo.MockMessage;
  */
 @AllArgsConstructor
 public class MessageAggregator {
-    private Protocols protocol;
+    private Protocol protocol;
     private String MQConnectionFactoryName;
     //Queue or EndpointName
     private String endpointName;

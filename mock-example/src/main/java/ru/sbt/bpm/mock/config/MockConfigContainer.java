@@ -31,9 +31,6 @@ public class MockConfigContainer {
     @Getter
     private String filePath = null;
 
-    private static String localWebappPath = java.lang.System.getProperty("user.dir") + File.separator + "webapp";
-
-
     /**
      * Создание экземпляра объекта из метода getInstance (CoreJava) или из бина с вызовом конструктора (Java EE)
      *

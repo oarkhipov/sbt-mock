@@ -45,9 +45,11 @@ public class IntegrationPointController {
     public String add(@RequestParam String system,
                       @RequestParam String name,
                       @RequestParam String type,
-                      @RequestParam(required = false) String operationName,
-                      @RequestParam(value = "xpathValidatorNamespace[]") String[] xpathValidatorNamespace,
-                      @RequestParam(value = "xpathValidatorElementName[]") String[] xpathValidatorElementName,
+                      @RequestParam(required = false) Integer delayMs,
+                      @RequestParam(value = "rqXpathValidatorNamespace[]") String[] rqXpathValidatorNamespace,
+                      @RequestParam(value = "rqXpathValidatorElementName[]") String[] rqXpathValidatorElementName,
+                      @RequestParam(value = "rsXpathValidatorNamespace[]") String[] rsXpathValidatorNamespace,
+                      @RequestParam(value = "rsXpathValidatorElementName[]") String[] rsXpathValidatorElementName,
                       @RequestParam(required = false) String incomeQueue,
                       @RequestParam(required = false) String outcomeQueue,
                       @RequestParam(required = false) Boolean answerRequired,
@@ -55,13 +57,15 @@ public class IntegrationPointController {
                       @RequestParam String rootElementNamespace,
                       @RequestParam String rootElementName) throws IOException {
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(system);
-        XpathSelector xpathSelector = new XpathSelector(xpathValidatorNamespace, xpathValidatorElementName);
-
+        XpathSelector rqXpathSelector = new XpathSelector(rqXpathValidatorNamespace, rqXpathValidatorElementName);
+        XpathSelector rsXpathSelector = new XpathSelector(rsXpathValidatorNamespace, rsXpathValidatorElementName);
+        if (delayMs == null) delayMs = 1000;
         IntegrationPoint integrationPoint =
                 new IntegrationPoint(name,
-                        operationName,
                         type,
-                        xpathSelector,
+                        delayMs,
+                        rqXpathSelector,
+                        rsXpathSelector,
                         incomeQueue,
                         outcomeQueue,
                         answerRequired,
@@ -94,7 +98,7 @@ public class IntegrationPointController {
         model.addAttribute("isAnswerRequired", integrationPoint.getAnswerRequired());
         model.addAttribute("xsdFile", integrationPoint.getXsdFile());
         model.addAttribute("rootElement", integrationPoint.getRootElement());
-        model.addAttribute("xpathValidation", integrationPoint.getXpathValidatorSelector().getElementSelectors());
+        model.addAttribute("xpathValidation", integrationPoint.getRequestXpathValidatorSelector().getElementSelectors());
         return "integrationPoint/form";
     }
 
@@ -104,9 +108,11 @@ public class IntegrationPointController {
                          @PathVariable String name,
                          @RequestParam(value = "name") String newIntegrationPointName,
                          @RequestParam String type,
-                         @RequestParam(required = false) String operationName,
-                         @RequestParam(value = "xpathValidatorNamespace[]") String[] xpathValidatorNamespace,
-                         @RequestParam(value = "xpathValidatorElementName[]") String[] xpathValidatorElementName,
+                         @RequestParam(required = false) Integer delayMs,
+                         @RequestParam(value = "rqXpathValidatorNamespace[]") String[] rqXpathValidatorNamespace,
+                         @RequestParam(value = "rqXpathValidatorElementName[]") String[] rqXpathValidatorElementName,
+                         @RequestParam(value = "rsXpathValidatorNamespace[]") String[] rsXpathValidatorNamespace,
+                         @RequestParam(value = "rsXpathValidatorElementName[]") String[] rsXpathValidatorElementName,
                          @RequestParam(required = false) String incomeQueue,
                          @RequestParam(required = false) String outcomeQueue,
                          @RequestParam(required = false) Boolean answerRequired,
@@ -126,35 +132,45 @@ public class IntegrationPointController {
             integrationPoint.setIntegrationPointType(type);
         }
 
-        if (operationName != null)
-            if (!integrationPoint.getOperationName().equals(operationName)) {
-                integrationPoint.setOperationName(operationName);
+        if (delayMs != null) {
+            if (!integrationPoint.getDelayMs().equals(delayMs)) {
+                integrationPoint.setDelayMs(delayMs);
             }
-
-        XpathSelector xpathSelector = new XpathSelector(xpathValidatorNamespace, xpathValidatorElementName);
-        if (!integrationPoint.getXpathValidatorSelector().equals(xpathSelector)) {
-            integrationPoint.setXpathValidatorSelector(xpathSelector);
         }
 
-        if (incomeQueue != null)
+        XpathSelector rqXpathSelector = new XpathSelector(rqXpathValidatorNamespace, rqXpathValidatorElementName);
+        if (!integrationPoint.getRequestXpathValidatorSelector().equals(rqXpathSelector)) {
+            integrationPoint.setRequestXpathValidatorSelector(rqXpathSelector);
+        }
+
+        XpathSelector rsXpathSelector = new XpathSelector(rsXpathValidatorNamespace, rsXpathValidatorElementName);
+        if (!integrationPoint.getRequestXpathValidatorSelector().equals(rsXpathSelector)) {
+            integrationPoint.setRequestXpathValidatorSelector(rsXpathSelector);
+        }
+
+        if (incomeQueue != null) {
             if (!integrationPoint.getIncomeQueue().equals(incomeQueue)) {
                 integrationPoint.setIncomeQueue(incomeQueue);
             }
+        }
 
-        if (outcomeQueue != null)
+        if (outcomeQueue != null) {
             if (!integrationPoint.getOutcomeQueue().equals(outcomeQueue)) {
                 integrationPoint.setOutcomeQueue(outcomeQueue);
             }
+        }
 
-        if (answerRequired != null)
+        if (answerRequired != null) {
             if (integrationPoint.getAnswerRequired() != answerRequired) {
                 integrationPoint.setAnswerRequired(answerRequired);
             }
+        }
 
-        if (xsdFile != null)
+        if (xsdFile != null) {
             if (!integrationPoint.getXsdFile().equals(xsdFile)) {
                 integrationPoint.setXsdFile(xsdFile);
             }
+        }
 
         ElementSelector elementSelector = new ElementSelector(rootElementNamespace, rootElementName);
         if (!integrationPoint.getRootElement().equals(elementSelector)) {

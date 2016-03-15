@@ -67,9 +67,8 @@ public class LogController {
         logJsonObject.setAaData(pagedLogList);
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json2 = gson.toJson(logJsonObject);
 
-        return json2;
+        return gson.toJson(logJsonObject);
     }
 
     private List<LogEntry> getListBasedOnSearchParameter(String searchParameter,List<LogEntry> logList) {

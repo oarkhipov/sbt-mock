@@ -1,5 +1,6 @@
 package ru.sbt.bpm.mock.generator.spring.context;
 
+import org.junit.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -10,7 +11,7 @@ import ru.sbt.bpm.mock.spring.service.SpringContextGeneratorService;
 
 import java.util.ArrayList;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 /**
  * @author sbt-bochev-as on 13.01.2016.
@@ -24,6 +25,7 @@ public class SpringContextGeneratorServiceTest extends AbstractTestNGSpringConte
     @Autowired
     SpringContextGeneratorService springContextGeneratorService;
 
+    @Ignore
     @Test
     public void testToXml() throws Exception {
         BeanContainer beanContainer = new BeanContainer();

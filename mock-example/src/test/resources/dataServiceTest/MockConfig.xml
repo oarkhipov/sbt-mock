@@ -2,12 +2,12 @@
             xsi:schemaLocation="http://sbrf.ru/mockService2">
     <systems>
         <system name="CRM2">
-            <rootXsd>http://10.68.199.212:9080/XSD/LD/CRMIntegrationSchema.xsd</rootXsd>
+            <localRootSchema>http://10.68.199.212:9080/XSD/LD/CRMIntegrationSchema.xsd</localRootSchema>
             <integrationPointSelector>
                 <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
                 <tag ns="http://sbrf.ru/legal/enquiry/integration"/>
             </integrationPointSelector>
-            <protocol>MQ</protocol>
+            <protocol>JMS</protocol>
             <queueConnectionFactory>java:comp/env/jms/Q.LEGAL.CF</queueConnectionFactory>
             <!-- Входящая очередь заглушки -->
             <mockIncomeQueue>java:comp/env/jms/Q.LEGAL.TO.CRMORG</mockIncomeQueue>

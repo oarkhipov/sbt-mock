@@ -24,8 +24,8 @@
             <td>Protocol:</td>
             <td>
                 <select name="protocol" id="type">
-                    <option value="MQ"
-                            <c:if test="${system.protocol.equals('MQ')}">selected</c:if> >MQ
+                    <option value="JMS"
+                            <c:if test="${system.protocol.equals('JMS')}">selected</c:if> >MQ
                     </option>
                     <option value="SOAP"
                             <c:if test="${system.protocol.equals('SOAP')}">selected</c:if> >SOAP
@@ -35,7 +35,8 @@
         </tr>
         <tr>
             <td>rootXsd file:</td>
-            <td><input type="text" name="rootXsd" size="50" placeholder="File name from system root or URL" value="${system.rootXSD}"/></td>
+            <td><input type="text" name="rootXsd" size="50" placeholder="File name from system root or URL"
+                       value="${system.remoteRootSchema}"/></td>
         </tr>
         <tr>
             <td colspan="2">&nbsp;</td>

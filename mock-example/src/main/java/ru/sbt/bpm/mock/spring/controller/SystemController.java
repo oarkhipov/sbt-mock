@@ -8,7 +8,7 @@ import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.entities.Systems;
 import ru.sbt.bpm.mock.config.entities.XpathSelector;
-import ru.sbt.bpm.mock.config.enums.Protocols;
+import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 
 import java.io.IOException;
@@ -37,20 +37,22 @@ public class SystemController {
     @ResponseBody
     @RequestMapping(value = "/system/add/", method = RequestMethod.POST)
     public String add(@RequestParam String name,
-                      @RequestParam Protocols type,
-                      @RequestParam String rootXsd,
+                      @RequestParam Protocol type,
+                      @RequestParam String remoteRootSchema,
+                      @RequestParam String localRootSchema,
                       @RequestParam(value = "integrationPointSelectorNamespace[]") String[] integrationPointSelectorNamespace,
                       @RequestParam(value = "integrationPointSelectorElementName[]") String[] integrationPointSelectorElementName,
                       @RequestParam(required = false) String queueConnectionFactory,
                       @RequestParam(required = false) String mockIncomeQueue,
                       @RequestParam(required = false) String mockOutcomeQueue,
                       @RequestParam(required = false) String driverOutcomeQueue,
-                      @RequestParam(required = false) String driverIncomeQueue) {
+                      @RequestParam(required = false) String driverIncomeQueue,
+                      @RequestParam(required = false) String driverWebServiceEndpoint) {
         Systems systems = configContainer.getConfig().getSystems();
         XpathSelector xpathSelector = new XpathSelector(integrationPointSelectorNamespace, integrationPointSelectorElementName);
 
-        System system = new System(name, rootXsd, xpathSelector, type, queueConnectionFactory, mockIncomeQueue,
-                mockOutcomeQueue, driverOutcomeQueue, driverIncomeQueue, null);
+        System system = new System(name, remoteRootSchema, localRootSchema, xpathSelector, type, queueConnectionFactory, mockIncomeQueue,
+                mockOutcomeQueue, driverOutcomeQueue, driverIncomeQueue, driverWebServiceEndpoint, null);
 
         if (systems.getSystems() == null) {
             systems.setSystems(new ArrayList<System>());
@@ -73,15 +75,17 @@ public class SystemController {
     @RequestMapping(value = "/system/update/{systemName}/", method = RequestMethod.POST)
     public String update(@PathVariable String systemName,
                          @RequestParam(value = "name") String newSystemName,
-                         @RequestParam Protocols protocol,
-                         @RequestParam String rootXsd,
+                         @RequestParam Protocol protocol,
+                         @RequestParam String remoteRootSchema,
+                         @RequestParam String localRootSchema,
                          @RequestParam(value = "integrationPointSelectorNamespace[]") String[] integrationPointSelectorNamespace,
                          @RequestParam(value = "integrationPointSelectorElementName[]") String[] integrationPointSelectorElementName,
                          @RequestParam(required = false) String queueConnectionFactory,
                          @RequestParam(required = false) String mockIncomeQueue,
                          @RequestParam(required = false) String mockOutcomeQueue,
                          @RequestParam(required = false) String driverOutcomeQueue,
-                         @RequestParam(required = false) String driverIncomeQueue) throws IOException {
+                         @RequestParam(required = false) String driverIncomeQueue,
+                         @RequestParam(required = false) String driverWebServiceEndpoint) throws IOException {
 
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(systemName);
 
@@ -95,40 +99,59 @@ public class SystemController {
             systemObject.setProtocol(protocol);
         }
 
-        if (rootXsd != null)
-            if (!systemObject.getRootXSD().equals(rootXsd)) {
-                systemObject.setRootXSD(rootXsd);
+        if (remoteRootSchema != null) {
+            if (!systemObject.getRemoteRootSchema().equals(remoteRootSchema)) {
+                systemObject.setRemoteRootSchema(remoteRootSchema);
             }
+        }
+
+        if (localRootSchema != null) {
+            if (!systemObject.getLocalRootSchema().equals(localRootSchema)) {
+                systemObject.setLocalRootSchema(localRootSchema);
+            }
+        }
 
         XpathSelector xpathSelector = new XpathSelector(integrationPointSelectorNamespace, integrationPointSelectorElementName);
         if (!systemObject.getIntegrationPointSelector().equals(xpathSelector)) {
             systemObject.setIntegrationPointSelector(xpathSelector);
         }
 
-        if (queueConnectionFactory != null)
+        if (queueConnectionFactory != null) {
             if (!systemObject.getQueueConnectionFactory().equals(queueConnectionFactory)) {
                 systemObject.setQueueConnectionFactory(queueConnectionFactory);
             }
+        }
 
-        if (mockIncomeQueue != null)
+        if (mockIncomeQueue != null) {
             if (!systemObject.getMockIncomeQueue().equals(mockIncomeQueue)) {
                 systemObject.setMockIncomeQueue(mockIncomeQueue);
             }
+        }
 
-        if (mockOutcomeQueue != null)
+        if (mockOutcomeQueue != null) {
             if (!systemObject.getMockOutcomeQueue().equals(mockOutcomeQueue)) {
                 systemObject.setMockOutcomeQueue(mockOutcomeQueue);
             }
+        }
 
-        if (driverOutcomeQueue != null)
+        if (driverOutcomeQueue != null) {
             if (!systemObject.getDriverOutcomeQueue().equals(driverOutcomeQueue)) {
                 systemObject.setDriverOutcomeQueue(driverOutcomeQueue);
             }
+        }
 
-        if (driverIncomeQueue != null)
+        if (driverIncomeQueue != null) {
             if (!systemObject.getDriverIncomeQueue().equals(driverIncomeQueue)) {
                 systemObject.setDriverIncomeQueue(driverIncomeQueue);
             }
+        }
+
+        if (driverWebServiceEndpoint != null) {
+            if (!systemObject.getDriverWebServiceEndpoint().equals(driverWebServiceEndpoint)) {
+                systemObject.setDriverWebServiceEndpoint(driverWebServiceEndpoint);
+            }
+        }
+
         return "OK";
     }
 

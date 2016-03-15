@@ -2,7 +2,7 @@ package ru.sbt.bpm.mock.spring.bean.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import ru.sbt.bpm.mock.config.enums.Protocols;
+import ru.sbt.bpm.mock.config.enums.Protocol;
 
 /**
  * @author sbt-bochev-as on 10.02.2016.
@@ -12,7 +12,7 @@ import ru.sbt.bpm.mock.config.enums.Protocols;
 @Data
 @AllArgsConstructor
 public class MockMessage {
-    private Protocols protocol;
+    private Protocol protocol;
     private String MQConnectionFactoryName;
     //Queue or EndpointName
     private String endpointName;

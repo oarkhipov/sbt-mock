@@ -157,7 +157,7 @@ public class DataFileService {
 
     public Resource getXsdResource(String systemName, String xsdFile) throws IOException {
         ru.sbt.bpm.mock.config.entities.System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
-        String rootXsd = system.getRootXSD();
+        String rootXsd = system.getRemoteRootSchema();
         if (rootXsd.toLowerCase().startsWith("http")) {
             return new UrlResource(rootXsd);
         } else

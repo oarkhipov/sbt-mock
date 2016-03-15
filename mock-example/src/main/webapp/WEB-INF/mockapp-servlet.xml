@@ -18,26 +18,26 @@
     <!-- Настройка используемой конфигурации заглушки-->
 
     <bean id="connectionFactoryString" class="java.lang.String">
-        <constructor-arg value="java:/comp/env/jms/Q.LEGAL.CF"/>
+        <constructor-arg value="jms/Q.LEGAL.CF"/>
     </bean>
 
     <!-- - - - - - - -->
     <!--MOCK-->
     <bean id="mockConnectionInputString" class="java.lang.String">
-        <constructor-arg value="java:/comp/env/jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>
+        <constructor-arg value="jms/Q.LEGAL.TO.CRMORG"/>
     </bean>
     <bean id="mockConnectionOutputString" class="java.lang.String">
-        <constructor-arg value="java:/comp/env/jms/Q.LEGAL.FROM.CRMORG"/>
+        <constructor-arg value="jms/Q.LEGAL.FROM.CRMORG.SYNCRESP"/>
     </bean>
     <!-- - - - - - - -->
     <!-- DRIVER -->
     <bean id="driverConnectionInputString" class="java.lang.String">
-        <constructor-arg value="java:/comp/env/jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>
-        <!--<beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>-->
+        <constructor-arg value="jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>
+        <!--<beans:constructor-arg value="jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>-->
     </bean>
     <bean id="driverConnectionOutputString" class="java.lang.String">
-        <constructor-arg value="java:/comp/env/jms/Q.LEGAL.FROM.CRMORG"/>
-        <!--<beans:constructor-arg value="java:/comp/env/jms/Q.LEGAL.FROM.CRMORG"/>-->
+        <constructor-arg value="jms/Q.LEGAL.FROM.CRMORG"/>
+        <!--<beans:constructor-arg value="jms/Q.LEGAL.FROM.CRMORG"/>-->
     </bean>
 
     <!-- - - - - - - - - - - - - - -->
@@ -46,7 +46,7 @@
     <!--                           -->
     <!-- - - - - - - - - - - - - - -->
 
-     <!--Настройки подключения к MQ-->
+    <!--Настройки подключения к JMS-->
     <bean id = "jndiConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
             <property name="jndiName" value="#{connectionFactoryString}"/>
     </bean>
@@ -123,8 +123,7 @@
     <int:service-activator input-channel="MockInboundRequest" output-channel="MockInboundRequestAggregated"
                            method="aggregate">
         <bean class="ru.sbt.bpm.mock.spring.bean.MessageAggregator">
-            <constructor-arg value="MQ" type="java.lang.String"/>
-            <constructor-arg value="#{mockConnectionInputString}" type="java.lang.String"/>
+            <constructor-arg value="JMS" type="ru.sbt.bpm.mock.config.enums.Protocol"/>
             <constructor-arg value="#{mockConnectionInputString}" type="java.lang.String"/>
             <constructor-arg value="#{mockConnectionInputString}" type="java.lang.String"/>
         </bean>

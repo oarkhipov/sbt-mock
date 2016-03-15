@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.System;
-import ru.sbt.bpm.mock.config.enums.Protocols;
+import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.message.validation.impl.WsdlValidator;
 import ru.sbt.bpm.mock.spring.service.message.validation.impl.XsdValidator;
@@ -57,10 +57,10 @@ public class MessageValidationService {
 
     private void initValidator(System system) throws IOException, SAXException {
         File systemXsdDirectory = dataFileService.getSystemXsdDirectoryResource(system.getSystemName()).getFile();
-        String rootXSD = system.getRootXSD();
-        Protocols protocol = system.getProtocol();
+        String rootXSD = system.getRemoteRootSchema();
+        Protocol protocol = system.getProtocol();
         switch (protocol) {
-            case MQ:
+            case JMS:
                 List<File> xsdFiles = dataFileService.searchFiles(systemXsdDirectory, ".xsd");
                 validator.put(system.getSystemName(), new XsdValidator(xsdFiles));
                 break;
