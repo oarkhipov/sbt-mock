@@ -32,9 +32,8 @@ public class GroovyService {
         binding.setProperty("log", log);
         binding.setProperty("request", incomeXml);
         GroovyShell shell = new GroovyShell(binding);
-        //fill response object
-//        shell.evaluate(groovyInit + script);
 
+        //TODO remove __ from replace
         //generate xml
         Pattern pattern = Pattern.compile("\\$\\{(.*?)\\}");
         Matcher matcher = pattern.matcher(mockXml);
@@ -47,6 +46,7 @@ public class GroovyService {
 //        FileUtils.writeStringToFile(tempFile, mockXml);
 //        final String s = tempFile.getAbsolutePath().replaceAll("\\\\","\\\\\\\\");
 
+        //TODO move xml to file and evaliate it when read
         String scriptText = groovyInit + script + "\n" +
                 "mockXml=\"\"\"" + mockXml + "\"\"\"";
 //                "mockXml = new File('" + s +"').text \n" +

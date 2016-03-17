@@ -224,7 +224,6 @@ public class DriverController {
             @RequestParam(required = false) String xml,
             @RequestParam(required = false) String script,
             @RequestParam(required = false) String test) {
-
         AjaxObject ajaxObject = new AjaxObject();
 //        VALIDATE
         try {

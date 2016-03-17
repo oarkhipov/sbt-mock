@@ -1,6 +1,5 @@
 package ru.sbt.bpm.mock.config.entities;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import lombok.Data;
 
@@ -9,10 +8,9 @@ import java.util.List;
 
 /**
  * @author sbt-bochev-as
- * 01.12.2015.
+ *         01.12.2015.
  */
 @Data
-@XStreamAlias("xpathValidation")
 public class XpathSelector {
 
     @XStreamImplicit(itemFieldName = "tag")
@@ -47,13 +45,13 @@ public class XpathSelector {
             String element = elementSelector.getElement();
             String namespace = elementSelector.getNamespace();
             stringBuilder.append("/*[");
-            if((element != null) && (!element.isEmpty())) {
+            if ((element != null) && (!element.isEmpty())) {
                 stringBuilder.append("local-name()='")
                         .append(element)
                         .append("'");
             }
             if ((namespace != null) && (!namespace.isEmpty())) {
-                if((element != null) && (!element.isEmpty())) {
+                if ((element != null) && (!element.isEmpty())) {
                     stringBuilder.append(" and ");
                 }
                 stringBuilder.append("namespace-uri()='")

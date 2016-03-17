@@ -131,7 +131,7 @@
 
     <!-- Генерация ответа -->
     <int:service-activator input-channel="MockInboundRequest" output-channel="MockOutboundResponse"
-                           expression="@responseGenerator.routeAndGenerate(payload)"/>
+                           expression="@responseGenerator.proceedJmsRequest(payload)"/>
 
 
 

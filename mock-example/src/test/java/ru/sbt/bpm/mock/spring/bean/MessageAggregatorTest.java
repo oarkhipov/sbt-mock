@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.sbt.bpm.mock.spring.bean.pojo.MockMessage;
 import ru.sbt.bpm.mock.spring.integration.gateway.ClientService;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author sbt-bochev-as on 10.02.2016.
@@ -28,6 +28,6 @@ public class MessageAggregatorTest {
         String message = "test message";
         final MockMessage mockMessage = service.sendMockMessage(message);
         assertEquals(message, mockMessage.getPayload());
-        assertEquals("test endpoint", mockMessage.getEndpointName());
+        assertEquals("test endpoint", mockMessage.getQueue());
     }
 }

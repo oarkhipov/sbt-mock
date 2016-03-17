@@ -1,6 +1,6 @@
 package ru.sbt.bpm.mock.spring.service.message.validation;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import net.sf.saxon.s9api.SaxonApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,8 @@ import java.util.Map;
  *         <p/>
  *         Company: SBT - Moscow
  */
-@Log4j
+
+@Slf4j
 @Service
 public class MessageValidationService {
 

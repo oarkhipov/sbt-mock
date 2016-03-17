@@ -1,7 +1,7 @@
 package ru.sbt.bpm.mock.spring.bean.pojo;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.enums.Protocol;
 
 /**
@@ -10,11 +10,30 @@ import ru.sbt.bpm.mock.config.enums.Protocol;
  *         Company: SBT - Moscow
  */
 @Data
-@AllArgsConstructor
 public class MockMessage {
     private Protocol protocol;
-    private String MQConnectionFactoryName;
-    //Queue or EndpointName
-    private String endpointName;
+    private ru.sbt.bpm.mock.config.entities.System system;
+    private IntegrationPoint integrationPoint;
+
+    //JMS
+    private String jmsConnectionFactoryName;
+    private String queue;
+
     private String payload;
+
+    private boolean faultMessage = false;
+    private boolean sendMessage = true;
+
+    //for JMS
+    public MockMessage(Protocol protocol, String jmsConnectionFactoryName, String queue, String payload) {
+        this.protocol = protocol;
+        this.jmsConnectionFactoryName = jmsConnectionFactoryName;
+        this.queue = queue;
+        this.payload = payload;
+    }
+
+    //for SOAP
+    public MockMessage(String payload) {
+        this.payload = payload;
+    }
 }

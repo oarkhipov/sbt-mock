@@ -34,8 +34,8 @@ public class ResponseGeneratorTest {
         assertEquals(messageValidationService.validate(payload1, "CRM").size(),0);
         String payload2 = generatorService.generate("CRM","getAdditionalInfo", true);
         assertEquals(messageValidationService.validate(payload2, "CRM").size(),0);
-        assertEquals("CRM", responseGenerator.getSystemName(payload1).getSystemName());
-        assertEquals("CRM", responseGenerator.getSystemName(payload2).getSystemName());
+        assertEquals("CRM", responseGenerator.getJmsSystem(payload1).getSystemName());
+        assertEquals("CRM", responseGenerator.getJmsSystem(payload2).getSystemName());
 
     }
 
@@ -43,6 +43,6 @@ public class ResponseGeneratorTest {
     public void testGetIntegrationPoint() throws Exception {
         String payload1 = generatorService.generate("CRM","getReferenceData", true);
 
-        assertEquals("getReferenceData", responseGenerator.getIntegrationPoint(responseGenerator.getSystemName(payload1), payload1).getName());
+        assertEquals("getReferenceData", responseGenerator.findIntegrationPoint(responseGenerator.getJmsSystem(payload1), payload1).getName());
     }
 }

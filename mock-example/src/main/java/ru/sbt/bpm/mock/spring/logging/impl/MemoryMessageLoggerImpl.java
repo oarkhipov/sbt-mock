@@ -1,16 +1,13 @@
 package ru.sbt.bpm.mock.spring.logging.impl;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.spring.logging.MemoryMessageLogger;
-import ru.sbt.bpm.mock.spring.logging.MessageLogger;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 
 /**
@@ -25,7 +22,6 @@ public class MemoryMessageLoggerImpl implements MemoryMessageLogger {
     private int logSize=100;
 
     private HashMap<String, CircularFifoQueue<LogEntry>> logList;
-    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     public MemoryMessageLoggerImpl(){
         logList = new HashMap<String, CircularFifoQueue<LogEntry>>();

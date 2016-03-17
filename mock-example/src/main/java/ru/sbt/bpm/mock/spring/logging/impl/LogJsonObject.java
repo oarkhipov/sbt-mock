@@ -1,32 +1,21 @@
 package ru.sbt.bpm.mock.spring.logging.impl;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 /**
  * Created by sbt-vostrikov-mi on 14.10.2015.
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class LogJsonObject {
-
-    @Getter
-    @Setter
     int iTotalRecords;
-
-    @Getter
-    @Setter
     int iTotalDisplayRecords;
-
-    @Getter
-    @Setter
     String sEcho;
-
-    @Getter
-    @Setter
     String sColumns;
-
-    @Getter
-    @Setter
     List<LogEntry> aaData;
 }

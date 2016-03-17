@@ -1,6 +1,6 @@
 package ru.sbt.bpm.mock.spring.bean;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.XdmNode;
 import net.sf.saxon.s9api.XdmValue;
@@ -10,109 +10,109 @@ import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.entities.XpathSelector;
+import ru.sbt.bpm.mock.config.enums.MessageType;
+import ru.sbt.bpm.mock.config.enums.Protocol;
+import ru.sbt.bpm.mock.spring.bean.pojo.MockMessage;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.GroovyService;
+import ru.sbt.bpm.mock.spring.service.message.JmsService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
 import ru.sbt.bpm.mock.spring.utils.XpathUtils;
 
 import javax.xml.xpath.XPathExpressionException;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 /**
  * @author sbt-bochev-as on 23.11.2015.
  *         <p/>
  *         Company: SBT - Moscow
  */
-@Log4j
+@Slf4j
 @Component
 public class ResponseGenerator {
 
     @Autowired
-    GroovyService groovyService;
+    private GroovyService groovyService;
 
     @Autowired
-    MessageValidationService messageValidationService;
+    private MessageValidationService messageValidationService;
 
     @Autowired
-    DataFileService dataFileService;
+    private DataFileService dataFileService;
 
     @Autowired
-    MockConfigContainer configContainer;
+    private MockConfigContainer configContainer;
 
-    public String routeAndGenerate(String payload) throws Exception {
-        return routeAndGenerate(payload, "");
+    @Autowired
+    private JmsService jmsService;
+
+    public MockMessage proceedJmsRequest(MockMessage mockMessage) throws Exception {
+        mockMessage.setProtocol(Protocol.JMS);
+        final System systemByPayload = jmsService.getSystemByPayload(mockMessage.getPayload(), mockMessage.getQueue());
+        mockMessage.setSystem(systemByPayload);
+
+        MockMessage responseMockMessage = proceedMessageRequest(mockMessage);
+
+        System system = responseMockMessage.getSystem();
+        IntegrationPoint integrationPoint = responseMockMessage.getIntegrationPoint();
+        String outcomeQueue = system.getMockOutcomeQueue();
+        if (outcomeQueue == null || outcomeQueue.isEmpty()) {
+            outcomeQueue = integrationPoint.getOutcomeQueue();
+        }
+        responseMockMessage.setQueue(outcomeQueue);
+        return responseMockMessage;
     }
 
-    public String routeAndGenerate(String payload, String queue) throws Exception {
+    public MockMessage proceedWsRequest(MockMessage mockMessage, String systemName) {
+        mockMessage.setProtocol(Protocol.SOAP);
+        final System systemByName = configContainer.getSystemByName(systemName);
+        mockMessage.setSystem(systemByName);
+        return proceedMessageRequest(mockMessage);
+    }
+
+    private MockMessage proceedMessageRequest(MockMessage mockMessage) {
         try {
-            System system = getSystemName(payload, queue);
+            findIntegrationPoint(mockMessage);
+            log(mockMessage, MessageType.RQ);
+            validate(mockMessage, MessageType.RQ);
 
-            log.debug("Validate Request");
-            List<String> validationErrors = messageValidationService.validate(payload, system.getSystemName());
-            if (validationErrors.size() > 0) {
-                return ValidationUtils.getSolidErrorMessage(validationErrors);
-            }
-            log.debug("Validation status: OK!");
-
-            IntegrationPoint integrationPoint = getIntegrationPoint(system, payload);
-            log.debug(integrationPoint.getName());
-
-            Boolean answerRequired = integrationPoint.getAnswerRequired();
+            Boolean answerRequired = mockMessage.getIntegrationPoint().getAnswerRequired();
             if (answerRequired == null || answerRequired) {
-                return generate(system.getSystemName(), integrationPoint.getName(), payload);
+                generateResponse(mockMessage);
+                delay(mockMessage);
+                validate(mockMessage, MessageType.RS);
+                log(mockMessage, MessageType.RS);
             } else {
-                return null;
+                mockMessage.setSendMessage(false);
+                log(mockMessage, MessageType.RS);
+                mockMessage.setPayload(null);
             }
         } catch (Exception e) {
-            return e.getMessage();
+            mockMessage.setPayload(e.getMessage());
         }
+        return mockMessage;
     }
 
-    protected System getSystemName(String payload) {
-        return getSystemName(payload, "");
-    }
-
-    protected System getSystemName(String payload, String queue) {
-        for (System system : configContainer.getConfig().getSystems().getSystems()) {
-            if (queue.isEmpty() || queue.equals(system.getMockIncomeQueue())) {
-                String xpath = system.getIntegrationPointSelector().toXpath();
-                try {
-                    XdmNode xdmItems = (XdmNode) XpathUtils.evaluateXpath(payload, xpath);
-                    if (!xdmItems.getNodeName().getLocalName().isEmpty()) {
-                        return system;
-                    }
-                } catch (SaxonApiException e) {
-//                e.printStackTrace();
-                    //this is not system, that we are looking for
-                    log.debug(e.getMessage(), e);
-                } catch (ClassCastException e) {
-                    //this is not system, that we are looking for
-                    log.debug(e.getMessage(), e);
-                }
-            }
-        }
-        throw new NoSuchElementException("No system found by payload:\n" + payload);
-    }
 
     /**
-     * Returns integration point by system name and payload
+     * Returns integration point by system and payload from mock message
      *
-     * @param system  system object in configuration
-     * @param payload request message
-     * @return Integration point
+     * @param mockMessage incoming message
      * @throws XPathExpressionException
      * @throws SaxonApiException
      */
-    protected IntegrationPoint getIntegrationPoint(System system, String payload) throws XPathExpressionException, SaxonApiException {
+    protected void findIntegrationPoint(MockMessage mockMessage) throws XPathExpressionException, SaxonApiException {
+        final System system = mockMessage.getSystem();
+        final String payload = mockMessage.getPayload();
+
         final XpathSelector integrationPointSelector = system.getIntegrationPointSelector();
         final int xpathSize = integrationPointSelector.getElementSelectors().size();
         final String lastElement = integrationPointSelector.getElementSelectors().get(xpathSize - 1).getElement();
+
         String integrationPointSelectorXpath = integrationPointSelector.toXpath();
         XdmValue value = XpathUtils.evaluateXpath(payload, integrationPointSelectorXpath);
         String integrationPointName;
-
 
         if (lastElement.isEmpty()) {
             //return element name
@@ -122,28 +122,60 @@ public class ResponseGenerator {
             integrationPointName = ((XdmNode) value).getStringValue();
         }
         assert integrationPointName != null;
-        return system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
+        final IntegrationPoint integrationPointByName = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
 
+        mockMessage.setIntegrationPoint(integrationPointByName);
+        log.debug(integrationPointByName.getName());
+
+    }
+
+    private void delay(MockMessage mockMessage) throws InterruptedException {
+        //emulate System latency
+        final Integer delayMs = mockMessage.getIntegrationPoint().getDelayMs();
+        if (delayMs != null) {
+            Thread.sleep(delayMs);
+        }
     }
 
     /**
      * Generates response
      *
-     * @param systemName       name of system in config
-     * @param integrationPoint name of integration point of system
-     * @param payload          request
-     * @return generated response
+     * @param mockMessage incoming message
      * @throws Exception
      */
-    private String generate(String systemName, String integrationPoint, String payload) throws Exception {
-        //emulate System latency
-        final Integer delayMs = configContainer.getIntegrationPointByName(systemName, integrationPoint).getDelayMs();
-        if (delayMs != null) {
-            Thread.sleep(delayMs);
-        }
+    private void generateResponse(MockMessage mockMessage) throws Exception {
+        if (mockMessage.isFaultMessage()) return;
+        final System system = mockMessage.getSystem();
+        final IntegrationPoint integrationPoint = mockMessage.getIntegrationPoint();
+        final String payload = mockMessage.getPayload();
 
-        String message = dataFileService.getCurrentMessage(systemName, integrationPoint);
-        String script = dataFileService.getCurrentScript(systemName, integrationPoint);
-        return groovyService.execute(payload, message, script);
+        String message = dataFileService.getCurrentMessage(system.getSystemName(), integrationPoint.getName());
+        String script = dataFileService.getCurrentScript(system.getSystemName(), integrationPoint.getName());
+        mockMessage.setPayload(groovyService.execute(payload, message, script));
+    }
+
+    /**
+     * Validate system message
+     *
+     * @param mockMessage message to validate
+     * @param messageType type of message RQ/RS
+     */
+
+    private void validate(MockMessage mockMessage, MessageType messageType) {
+        if (mockMessage.isFaultMessage()) return;
+        final String systemName = mockMessage.getSystem().getSystemName();
+        final String payload = mockMessage.getPayload();
+
+        log.debug("Validate " + messageType.name());
+        List<String> validationErrors = messageValidationService.validate(payload, systemName);
+        if (validationErrors.size() > 0) {
+            mockMessage.setPayload(ValidationUtils.getSolidErrorMessage(validationErrors));
+            mockMessage.setFaultMessage(true);
+        }
+        log.debug("Validation status: OK!");
+    }
+
+    private void log(MockMessage mockMessage, MessageType messageType) {
+        //TODO
     }
 }
