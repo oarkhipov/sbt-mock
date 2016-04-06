@@ -11,12 +11,12 @@
 		http://www.springframework.org/schema/mvc   http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
 
-    <mvc:resources mapping="/**" location="/resources/web/" />
+    <mvc:resources mapping="/**" location="/resources/web/"/>
     <mvc:annotation-driven/>
 
     <!-- Настройка используемой конфигурации заглушки-->
     <beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
-        <beans:constructor-arg value="file:src/test/resources/dataServiceTest/MockConfig.xml" type="java.lang.String" />
+        <beans:constructor-arg value="file:src/test/resources/env/MockConfigWithSoapHttp.xml" type="java.lang.String"/>
     </beans:bean>
 
 
@@ -56,5 +56,7 @@
         <method name="test" request-channel="test" reply-channel="test"/>
     </gateway>
     <channel id="test"/>
+
+    <bridge input-channel="DriverOutboundRequest" output-channel="DriverInboundResponse"/>
 
 </beans:beans>

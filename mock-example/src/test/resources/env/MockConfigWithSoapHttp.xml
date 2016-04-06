@@ -1,4 +1,4 @@
-<MockConfig xmlns="http://sbrf.ru/mockService2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<MockConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://sbrf.ru/mockService2"
             xsi:schemaLocation="http://sbrf.ru/mockService2">
     <systems>
         <system name="CRM">
@@ -256,6 +256,32 @@
                     <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
                 </integrationPoint>
 
+            </integrationPoints>
+        </system>
+        <system name="Spyne">
+            <remoteRootSchema>http://localhost:8080/path/to/dir/spyne.wsdl</remoteRootSchema>
+            <localRootSchema/>
+            <integrationPointSelector>
+                <tag ns="http://schemas.xmlsoap.org/wsdl/soap/">Envelope</tag>
+                <tag ns="http://schemas.xmlsoap.org/wsdl/soap/">Header</tag>
+                <tag ns="http://schemas.xmlsoap.org/wsdl/soap/">Operation-name</tag>
+            </integrationPointSelector>
+            <protocol>SOAP</protocol>
+            <integrationPoints>
+                <integrationPoint name="say_hello">
+                    <rqXpath>
+                        <tag ns="http://schemas.xmlsoap.org/wsdl/soap/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/wsdl/soap/">Header</tag>
+                        <tag ns="http://sbrf.ru/prpc/finrep/10">getParticipantFactorsReq</tag>
+                    </rqXpath>
+                    <rsXpath>
+                        <tag ns="http://schemas.xmlsoap.org/wsdl/soap/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/wsdl/soap/">Header</tag>
+                        <tag ns="http://sbrf.ru/prpc/finrep/10">getParticipantFactorsResp</tag>
+                    </rsXpath>
+                    <type>Mock</type>
+                    <rootElement ns="http://schemas.xmlsoap.org/wsdl/soap/">Envelope</rootElement>
+                </integrationPoint>
             </integrationPoints>
         </system>
     </systems>

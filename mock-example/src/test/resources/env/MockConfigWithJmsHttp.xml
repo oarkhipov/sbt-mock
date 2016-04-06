@@ -1,4 +1,4 @@
-<MockConfig xmlns="http://sbrf.ru/mockService2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<MockConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://sbrf.ru/mockService2"
             xsi:schemaLocation="http://sbrf.ru/mockService2">
     <systems>
         <system name="CRM">
@@ -256,6 +256,38 @@
                     <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
                 </integrationPoint>
 
+            </integrationPoints>
+        </system>
+        <system name="CRM2">
+            <remoteRootSchema>http://localhost:8080/path/to/dir/CRMIntegrationSchema.xsd</remoteRootSchema>
+            <localRootSchema/>
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                <tag ns="http://sbrf.ru/legal/enquiry/integration"/>
+            </integrationPointSelector>
+            <protocol>JMS</protocol>
+            <queueConnectionFactory>java:comp/env/jms/Q.LEGAL.CF</queueConnectionFactory>
+            <!-- Входящая очередь заглушки -->
+            <mockIncomeQueue>java:comp/env/jms/Q.LEGAL.TO.CRMORG</mockIncomeQueue>
+            <!-- Исходящая очередь заглушки -->
+            <mockOutcomeQueue>java:comp/env/jms/Q.LEGAL.FROM.CRMORG.SYNCRESP</mockOutcomeQueue>
+            <!-- Исходящая очередь драйвера -->
+            <driverOutcomeQueue>java:comp/env/jms/Q.LEGAL.FROM.CRMORG</driverOutcomeQueue>
+            <!-- Входящая очередь драйвера -->
+            <driverIncomeQueue>java:comp/env/jms/Q.LEGAL.TO.CRMORG.SYNCRESP</driverIncomeQueue>
+            <integrationPoints>
+                <integrationPoint name="test1">
+                    <rqXpath>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">assessQuality</tag>
+                    </rqXpath>
+                    <rsXpath>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">assessQuality</tag>
+                    </rsXpath>
+                    <type>Mock</type>
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                </integrationPoint>
             </integrationPoints>
         </system>
     </systems>

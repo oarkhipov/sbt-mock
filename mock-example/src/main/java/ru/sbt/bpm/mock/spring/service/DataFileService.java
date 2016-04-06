@@ -49,7 +49,17 @@ public class DataFileService {
     }
 
     public Resource getSystemXsdDirectoryResource(String systemName) {
-        return appContext.getResource(xsdPath + systemName + File.separator);
+        String relativePath = xsdPath + systemName + File.separator;
+        Resource resource = appContext.getResource(relativePath);
+        if (!resource.exists()) {
+            try {
+                String basePath = appContext.getResource("").getFile().getPath();
+                new File(basePath + relativePath).mkdirs();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return resource;
     }
 
     public Resource getConfigResource() {
@@ -156,10 +166,10 @@ public class DataFileService {
     }
 
     public Resource getXsdResource(String systemName, String xsdFile) throws IOException {
-        ru.sbt.bpm.mock.config.entities.System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
-        String rootXsd = system.getRemoteRootSchema();
-        if (rootXsd.toLowerCase().startsWith("http")) {
-            return new UrlResource(rootXsd);
+//        ru.sbt.bpm.mock.config.entities.System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
+//        String remoteRootSchema = system.getRemoteRootSchema();
+        if (xsdFile.toLowerCase().startsWith("http")) {
+            return new UrlResource(xsdFile);
         } else
             return appContext.getResource(xsdPath + systemName + File.separator + xsdFile);
     }

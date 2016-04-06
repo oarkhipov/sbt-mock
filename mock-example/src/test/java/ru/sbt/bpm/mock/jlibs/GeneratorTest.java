@@ -4,19 +4,21 @@ import jlibs.xml.sax.XMLDocument;
 import jlibs.xml.xsd.XSInstance;
 import jlibs.xml.xsd.XSParser;
 import org.apache.xerces.xs.XSModel;
-import org.junit.Assert;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
 import java.net.URL;
 
+import static org.testng.Assert.assertTrue;
+
 /**
  * @author sbt-bochev-as on 23.11.2015.
  *         <p/>
  *         Company: SBT - Moscow
  */
+
 public class GeneratorTest {
 
     @Test
@@ -42,8 +44,8 @@ public class GeneratorTest {
         XMLDocument sampleXml = new XMLDocument(new StreamResult(writer), true, 4 ,null);
         xsInstance.generate(xsModel, rootElement, sampleXml);
         String generatedXml = writer.toString();
-        Assert.assertTrue(generatedXml.contains("Envelope"));
-        Assert.assertTrue(generatedXml.contains("sendReferenceData"));
+        assertTrue(generatedXml.contains("Envelope"));
+        assertTrue(generatedXml.contains("sendReferenceData"));
     }
 
     @Test
@@ -71,7 +73,7 @@ public class GeneratorTest {
         XMLDocument sampleXml = new XMLDocument(new StreamResult(writer), true, 4 ,null);
         xsInstance.generate(xsModel, rootElement, sampleXml);
         String generatedXml = writer.toString();
-        assert generatedXml.contains("Envelope") : generatedXml;
-        assert generatedXml.contains("sendReferenceData") : generatedXml;
+        assertTrue(generatedXml.contains("Envelope"));
+        assertTrue(generatedXml.contains("sendReferenceData"));
     }
 }

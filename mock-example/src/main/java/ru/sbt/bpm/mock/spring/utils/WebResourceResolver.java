@@ -1,16 +1,32 @@
 package ru.sbt.bpm.mock.spring.utils;
 
-import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.FileUtils;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
-import java.io.*;
-import java.net.URI;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 /**
  * Created by sbt-vostrikov-mi on 03.04.2015.
  */
-public class ResourceResolver implements LSResourceResolver {
+public class WebResourceResolver implements LSResourceResolver {
+
+    private String basePath;
+    private String systemPath;
+
+    private WebResourceResolver() {
+    }
+
+    public WebResourceResolver(String rootSchemaUrl, String systemPath) throws IOException {
+        int indexOf = rootSchemaUrl.lastIndexOf("/");
+        this.basePath = rootSchemaUrl.substring(0, indexOf + 1);
+        this.systemPath = systemPath;
+        cacheResource(rootSchemaUrl.substring(indexOf + 1, rootSchemaUrl.length()));
+    }
 
     /**
      * имплементация резолвера
@@ -26,12 +42,12 @@ public class ResourceResolver implements LSResourceResolver {
                                    String publicId, String systemId, String baseURI) {
 
         try {
-            URI newUri = new URI(baseURI);
-            String folder = FilenameUtils.getFullPath(newUri.getPath());
+            String folder = systemPath;
             String fileSubPath = systemId;
             if (systemId.startsWith("./")) {
                 fileSubPath=systemId.replace("./", "");
             }
+            cacheResource(fileSubPath);
             File f = new File(folder + fileSubPath);
             InputStream resourceAsStream = new FileInputStream(f);
             return new Input(publicId, systemId, resourceAsStream, baseURI);
@@ -39,6 +55,14 @@ public class ResourceResolver implements LSResourceResolver {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private void cacheResource(String fileSubPath) throws IOException {
+        String filePath = systemPath + fileSubPath;
+        URL fileUri = new URL(basePath + fileSubPath);
+        File file = new File(filePath);
+        FileUtils.forceMkdir(file.getParentFile());
+        FileUtils.copyURLToFile(fileUri, file);
     }
 
 }

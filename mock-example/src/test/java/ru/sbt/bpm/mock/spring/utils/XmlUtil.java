@@ -14,6 +14,11 @@ package ru.sbt.bpm.mock.spring.utils;/*
  * limitations under the License.
  */
 
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.messaging.support.GenericMessage;
+import org.w3c.dom.Document;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -21,15 +26,9 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import org.junit.Assert;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.messaging.support.GenericMessage;
-
-import org.w3c.dom.Document;
-
 import java.io.StringWriter;
+
+import static org.testng.Assert.assertNotNull;
 
 /**
  * @author Jonas Partner
@@ -48,7 +47,7 @@ public class XmlUtil {
 
 			transformer.transform(new DOMSource(doc), res);
 			String resString = stringWriter.toString();
-			Assert.assertNotNull(resString);
+			assertNotNull(resString);
 			return resString;
 		}
 		catch (Exception e) {

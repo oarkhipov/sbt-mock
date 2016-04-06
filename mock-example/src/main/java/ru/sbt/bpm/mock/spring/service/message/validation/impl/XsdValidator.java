@@ -5,7 +5,8 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidator;
-import ru.sbt.bpm.mock.spring.utils.ResourceResolver;
+import ru.sbt.bpm.mock.spring.utils.FileResourceResolver;
+import ru.sbt.bpm.mock.spring.utils.WebResourceResolver;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
@@ -13,6 +14,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,31 +40,17 @@ public class XsdValidator implements MessageValidator {
 //            System.out.println(xsdFiles.get(i).getAbsolutePath());
             sources[i] = new StreamSource(xsdFiles.get(i));
         }
-        factory.setResourceResolver(new ResourceResolver());
+        factory.setResourceResolver(new FileResourceResolver());
         Schema schema = factory.newSchema(sources);
         validator = schema.newValidator();
+        setValidatorErrorHandler();
+    }
 
-        validator.setErrorHandler(new ErrorHandler() {
-            @Override
-            public void warning(SAXParseException exception) throws SAXException {
-//                handle(exception);
-            }
-
-            @Override
-            public void error(SAXParseException exception) throws SAXException {
-                handle(exception);
-            }
-
-            @Override
-            public void fatalError(SAXParseException exception) throws SAXException {
-                handle(exception);
-            }
-
-            private void handle(SAXParseException exception) throws SAXException {
-                errors.add("error [" + exception.getLineNumber() + ":" + exception.getColumnNumber() + "]: " + exception.getMessage());
-            }
-        });
-
+    public XsdValidator(String schemaUri, String localRootSchemaDir) throws IOException, SAXException {
+        factory.setResourceResolver(new WebResourceResolver(schemaUri, localRootSchemaDir));
+        Schema schema = factory.newSchema(new URL(schemaUri));
+        validator = schema.newValidator();
+        setValidatorErrorHandler();
     }
 
     @Override
@@ -86,5 +74,28 @@ public class XsdValidator implements MessageValidator {
             log.error(message, e);
         }
         return errors.size() > 0 ? errors : result;
+    }
+
+    private void setValidatorErrorHandler() {
+        validator.setErrorHandler(new ErrorHandler() {
+            @Override
+            public void warning(SAXParseException exception) throws SAXException {
+//                handle(exception);
+            }
+
+            @Override
+            public void error(SAXParseException exception) throws SAXException {
+                handle(exception);
+            }
+
+            @Override
+            public void fatalError(SAXParseException exception) throws SAXException {
+                handle(exception);
+            }
+
+            private void handle(SAXParseException exception) throws SAXException {
+                errors.add("error [" + exception.getLineNumber() + ":" + exception.getColumnNumber() + "]: " + exception.getMessage());
+            }
+        });
     }
 }

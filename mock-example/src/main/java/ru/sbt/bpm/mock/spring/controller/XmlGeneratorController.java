@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.spring.service.XmlGeneratorService;
 import ru.sbt.bpm.mock.spring.utils.AjaxObject;
 
@@ -24,7 +25,8 @@ public class XmlGeneratorController {
     public String generate(@PathVariable String system, @PathVariable String integrationPointName, @PathVariable boolean filtered) {
         AjaxObject ajaxObject = new AjaxObject();
         try {
-            ajaxObject.setData(generatorService.generate(system, integrationPointName, filtered));
+            //TODO make generate RQ happen
+            ajaxObject.setData(generatorService.generate(system, integrationPointName, MessageType.RS, filtered));
         } catch (Exception e) {
             ajaxObject.setErrorFromException(e);
         }

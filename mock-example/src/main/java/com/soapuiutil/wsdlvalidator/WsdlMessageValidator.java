@@ -1,22 +1,24 @@
 package com.soapuiutil.wsdlvalidator;
 
+import com.eviware.soapui.config.TestStepConfig;
 import com.eviware.soapui.impl.WsdlInterfaceFactory;
-import com.eviware.soapui.impl.wsdl.WsdlInterface;
-import com.eviware.soapui.impl.wsdl.WsdlOperation;
-import com.eviware.soapui.impl.wsdl.WsdlProject;
-import com.eviware.soapui.impl.wsdl.WsdlProjectFactory;
-import com.eviware.soapui.impl.wsdl.mock.WsdlMockOperation;
-import com.eviware.soapui.impl.wsdl.mock.WsdlMockResponse;
-import com.eviware.soapui.impl.wsdl.mock.WsdlMockService;
+import com.eviware.soapui.impl.wsdl.*;
+import com.eviware.soapui.impl.wsdl.mock.*;
+import com.eviware.soapui.impl.wsdl.panels.mockoperation.WsdlMockRequestMessageExchange;
 import com.eviware.soapui.impl.wsdl.panels.mockoperation.WsdlMockResponseMessageExchange;
 import com.eviware.soapui.impl.wsdl.support.soap.SoapVersion;
 import com.eviware.soapui.impl.wsdl.support.wsdl.WsdlContext;
 import com.eviware.soapui.impl.wsdl.support.wsdl.WsdlValidator;
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestCase;
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext;
+import com.eviware.soapui.impl.wsdl.teststeps.WsdlTestStep;
+import com.eviware.soapui.impl.wsdl.teststeps.registry.WsdlTestRequestStepFactory;
 import com.eviware.soapui.model.iface.Operation;
 import com.eviware.soapui.model.testsuite.AssertionError;
 import org.apache.commons.lang.StringUtils;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xmlsoap.schemas.soap.envelope.Envelope;
@@ -44,6 +46,12 @@ public class WsdlMessageValidator {
     private WsdlValidator wsdlValidator;
     private SoapVersion soapVersion;
 
+    public WsdlProject getWsdlProject() {
+        return wsdlProject;
+    }
+
+    private WsdlProject wsdlProject;
+
     /**
      * Sets up Exception
      *
@@ -54,13 +62,19 @@ public class WsdlMessageValidator {
     public WsdlMessageValidator(String wsdlUrl) throws WsdlMessageValidatorException {
         final WsdlContext wsdlContext = new WsdlContext(wsdlUrl);
         wsdlValidator = new WsdlValidator(wsdlContext);
-
         try {
-            final WsdlProject wsdlProject = new WsdlProjectFactory().createNew();
-            final WsdlInterface[] wsdlInterfaces = WsdlInterfaceFactory.importWsdl(wsdlProject, wsdlUrl, true);
-            if (wsdlInterfaces.length > 0) {
-                soapVersion = wsdlInterfaces[0].getSoapVersion();
-            }
+            buildProject(wsdlUrl);
+        } catch (final Exception e) {
+            throw new WsdlMessageValidatorException(e);
+        }
+    }
+
+    private void buildProject(String wsdlUrl) throws Exception {
+        wsdlProject = new WsdlProjectFactory().createNew();
+        final WsdlInterface[] wsdlInterfaces = WsdlInterfaceFactory.importWsdl(wsdlProject, wsdlUrl, true);
+        if (wsdlInterfaces.length > 0) {
+            soapVersion = wsdlInterfaces[0].getSoapVersion();
+        }
 
 //            final WSDLFactory factory = WSDLFactory.newInstance();
 //            final Definition def = factory.newWSDLReader().readWSDL(wsdlUrl);
@@ -70,21 +84,18 @@ public class WsdlMessageValidator {
 //                reverseNamespaceMap.put(namespaceMap.get(key), key);
 //            }
 
-            final WsdlMockService mockServ = wsdlProject.addNewMockService(SERVICE_NAME);
+        final WsdlMockService mockServ = wsdlProject.addNewMockService(SERVICE_NAME);
 
-            for (final WsdlInterface wsdlInterface : wsdlInterfaces) {
-                for (final Operation operation : wsdlInterface.getOperationList()) {
-                    final WsdlOperation wsdlOperation = wsdlInterface.getOperationByName(operation.getName());
-                    final QName requestQname = wsdlOperation.getRequestBodyElementQName();
-                    final QName responseQname = wsdlOperation.getResponseBodyElementQName();
-                    final WsdlMockOperation mockOper = mockServ.addNewMockOperation((WsdlOperation) operation);
-                    typeOperationMap.put(requestQname.getLocalPart(), mockOper);
-                    typeOperationMap.put(responseQname.getLocalPart(), mockOper);
-                }
+        for (final WsdlInterface wsdlInterface : wsdlInterfaces) {
+            for (final Operation operation : wsdlInterface.getOperationList()) {
+                final WsdlOperation wsdlOperation = wsdlInterface.getOperationByName(operation.getName());
+
+                final QName requestQname = wsdlOperation.getRequestBodyElementQName();
+                final QName responseQname = wsdlOperation.getResponseBodyElementQName();
+                final WsdlMockOperation mockOper = (WsdlMockOperation) mockServ.addNewMockOperation(operation);
+                typeOperationMap.put(requestQname.getLocalPart(), mockOper);
+                typeOperationMap.put(responseQname.getLocalPart(), mockOper);
             }
-
-        } catch (final Exception e) {
-            throw new WsdlMessageValidatorException(e);
         }
     }
 
@@ -167,12 +178,45 @@ public class WsdlMessageValidator {
                 }
             }
 
-            final String type = wsdlMockOperation.getName();
+            final String mockOperationName = wsdlMockOperation.getName();
 
-            mockResponse = wsdlMockOperation.addNewMockResponse(type, true);
-            mockResponse.setResponseContent(message);
-            final WsdlMockResponseMessageExchange messageExchange = new WsdlMockResponseMessageExchange(mockResponse);
-            final AssertionError[] assertionErrors = wsdlValidator.assertResponse(messageExchange, false);
+            AssertionError[] assertionErrors = null;
+
+            WsdlOperation operation = wsdlMockOperation.getOperation();
+            if (messageType.equals(operation.getOutputName())) {
+                mockResponse = wsdlMockOperation.addNewMockResponse(mockOperationName, true);
+                mockResponse.setResponseContent(message);
+                final WsdlMockResponseMessageExchange messageExchange = new WsdlMockResponseMessageExchange(mockResponse);
+                assertionErrors = wsdlValidator.assertResponse(messageExchange, false);
+            }
+
+            if (messageType.equals(operation.getInputName())) {
+
+                //create http request
+                MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
+                mockHttpServletRequest.setMethod("POST");
+                mockHttpServletRequest.setContent(message.getBytes("UTF-8"));
+
+
+                WsdlMockService mockService = wsdlProject.getMockServiceByName("SERVICE NAME");
+                //create testsuite
+                WsdlTestSuite testSuite = wsdlProject.addNewTestSuite("TestSuite");
+                WsdlTestCase testCase = testSuite.addNewTestCase("TestCase");
+                TestStepConfig testStepConfig = WsdlTestRequestStepFactory.createConfig(operation, operation.getName());
+                WsdlTestStep wsdlTestStep = testCase.addTestStep(testStepConfig);
+                WsdlTestRunContext wsdlTestRunContext = new WsdlTestRunContext(wsdlTestStep);
+                WsdlMockRunContext runContext = new WsdlMockRunContext(mockService, wsdlTestRunContext);
+                runContext.setMockResponse(mockResponse);
+
+
+                WsdlMockRequest wsdlMockRequest = new WsdlMockRequest(mockHttpServletRequest, null, runContext);
+                wsdlMockRequest.setRequestContent(message);
+
+                final WsdlMockRequestMessageExchange messageExchange = new WsdlMockRequestMessageExchange(wsdlMockRequest, wsdlMockOperation);
+                assertionErrors = wsdlValidator.assertRequest(messageExchange, false);
+            }
+
+            assert assertionErrors != null;
             final String[] stringErrors = new String[assertionErrors.length];
 
             for (int i = 0; i < assertionErrors.length; i++) {

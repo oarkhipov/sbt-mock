@@ -1,18 +1,27 @@
 package ru.sbt.bpm.mock.spring.service;
 
+import com.eviware.soapui.impl.wsdl.WsdlInterface;
+import com.eviware.soapui.impl.wsdl.WsdlOperation;
+import com.eviware.soapui.impl.wsdl.WsdlProject;
+import com.eviware.soapui.model.iface.Interface;
+import com.eviware.soapui.support.SoapUIException;
 import jlibs.xml.sax.XMLDocument;
 import jlibs.xml.xsd.XSInstance;
 import jlibs.xml.xsd.XSParser;
 import org.apache.xerces.xs.XSModel;
+import org.apache.xmlbeans.XmlException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.ElementSelector;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
+import ru.sbt.bpm.mock.config.entities.System;
+import ru.sbt.bpm.mock.config.enums.MessageType;
 
 import javax.annotation.PostConstruct;
 import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamResult;
+import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.List;
@@ -35,9 +44,9 @@ public class XmlGeneratorService {
     GroovyService groovyService;
     private XSInstance xsInstance;
 
-
     @PostConstruct
-    private void init() {
+    private void init() throws XmlException, IOException, SoapUIException {
+        //JMS
         xsInstance = new XSInstance();
         xsInstance.minimumElementsGenerated = 1;
         xsInstance.maximumElementsGenerated = 1;
@@ -48,31 +57,34 @@ public class XmlGeneratorService {
         xsInstance.generateAllChoices = true;
 
         xsInstance.showContentModel = false;
+
+        //SOAP
+        //Already created wsdlProject at validator initialization stage
     }
 
-    public String generate(String systemName, String integrationPointName, boolean filterMessage) throws Exception {
+
+    public String generate(String systemName, String integrationPointName, MessageType messageType, boolean filterMessage) throws Exception {
         ru.sbt.bpm.mock.config.entities.System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
+        IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
         switch (system.getProtocol()) {
             case JMS:
-                return generateJmsMessage(system, integrationPointName, filterMessage);
+                return generateJmsMessage(system, integrationPoint, messageType, filterMessage);
             case SOAP:
-                return null;
+                return generateSoapMessage(system, integrationPoint, messageType);
         }
         throw new IllegalStateException("Reached unreachable code in xml generator");
     }
 
-    private String generateJmsMessage(ru.sbt.bpm.mock.config.entities.System system, String integrationPointName, boolean filterMessage) throws Exception {
-
-        String rootXSD = system.getRemoteRootSchema();
-        IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
+    private String generateJmsMessage(System system, IntegrationPoint integrationPoint, MessageType messageType, boolean filterMessage) throws Exception {
+        String localRootSchema = system.getLocalRootSchema();
         if (integrationPoint.getXsdFile()!=null && !integrationPoint.getXsdFile().isEmpty()) {
-            rootXSD = integrationPoint.getXsdFile();
+            localRootSchema = integrationPoint.getXsdFile();
         }
         ElementSelector elementSelector = integrationPoint.getRootElement();
         String rootElementName = elementSelector.getElement();
         String rootElementNamespace = elementSelector.getNamespace();
 
-        URL resource = dataFileService.getXsdResource(system.getSystemName(), rootXSD).getURL();
+        URL resource = dataFileService.getXsdResource(system.getSystemName(), localRootSchema).getURL();
         assert resource != null;
         XSModel xsModel;
         xsModel = new XSParser().parse(String.valueOf(resource.toURI()));
@@ -171,5 +183,21 @@ public class XmlGeneratorService {
                         "xmlNodePrinter.print(requestDom)\n" +
                         "response.result=stringWriter.toString()";
         return groovyService.execute(writer.toString(), "${result}", filterScript);
+    }
+
+    private String generateSoapMessage(System system, IntegrationPoint integrationPoint, MessageType messageType) {
+        WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(system);
+        String integrationPointName = integrationPoint.getName();
+        for (Interface anInterface : wsdlProject.getInterfaceList()) {
+            try {
+                WsdlInterface wsdlInterface = (WsdlInterface) anInterface;
+                WsdlOperation wsdlOperation = wsdlInterface.getOperationByName(integrationPointName);
+                if (messageType.equals(MessageType.RQ)) return wsdlOperation.createRequest(true);
+                if (messageType.equals(MessageType.RS)) return wsdlOperation.createResponse(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        throw new IllegalStateException("no such WSDL interface with operation [" + integrationPointName + "]");
     }
 }

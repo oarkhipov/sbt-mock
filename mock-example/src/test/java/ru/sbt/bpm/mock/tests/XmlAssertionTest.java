@@ -2,7 +2,7 @@ package ru.sbt.bpm.mock.tests;
 
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
-import org.junit.Test;
+import org.testng.annotations.Test;
 import org.w3c.dom.Document;
 import ru.sbt.bpm.mock.spring.utils.XmlUtil;
 

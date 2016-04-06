@@ -1,14 +1,13 @@
 package ru.sbt.bpm.mock.spring.integration.service;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.annotations.Test;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 
-import static org.junit.Assert.assertNotNull;
+import static org.testng.Assert.assertNotNull;
+
 
 /**
  * Created by sbt-bochev-as on 03.04.2015.
@@ -16,16 +15,14 @@ import static org.junit.Assert.assertNotNull;
  * Company: SBT - Moscow
  */
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
 @ContextConfiguration({"/env/mockapp-servlet.xml"})
-public class XmlMessageValidationServiceTest {
+public class XmlMessageValidationServiceTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     MessageValidationService service;
 
     @Test
-    public void testInit(){
+    public void testInit() {
         assertNotNull(service);
     }
 }

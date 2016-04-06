@@ -1,10 +1,11 @@
 package ru.sbt.bpm.mock.config;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 import ru.sbt.bpm.mock.config.entities.ElementSelector;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 
-import static org.junit.Assert.assertTrue;
+import static org.testng.Assert.assertTrue;
+
 
 /**
  * Created by sbt-hodakovskiy-da on 02.04.2015.

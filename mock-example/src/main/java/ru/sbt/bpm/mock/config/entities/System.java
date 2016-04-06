@@ -59,6 +59,10 @@ public class System {
     @XStreamAlias("integrationPoints")
     private IntegrationPoints integrationPoints;
 
+    //for soap
+//    @XStreamOmitField
+//    private WsdlProject wsdlProject;
+
     public List<String> getIntegrationPointNames() {
         List<String> result = new ArrayList<String>();
         for (IntegrationPoint point : getIntegrationPoints().getIntegrationPoints()) {

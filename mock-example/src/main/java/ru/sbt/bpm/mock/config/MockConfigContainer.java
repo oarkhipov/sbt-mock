@@ -1,5 +1,6 @@
 package ru.sbt.bpm.mock.config;
 
+import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import lombok.Getter;
@@ -13,6 +14,8 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by sbt-bochev-as on 02.04.2015.
@@ -28,6 +31,10 @@ public class MockConfigContainer {
     @Getter
     private MockConfig config;
 
+    //map of wsdl projects for message generation and validation. It initializes at validator initialization method
+    @Getter
+    private Map<System, WsdlProject> wsdlProjectMap = new HashMap<System, WsdlProject>();
+
     @Getter
     private String filePath = null;
 
@@ -42,7 +49,7 @@ public class MockConfigContainer {
     }
 
     /**
-     * десерализация файла в объект конфига
+     * десерализация файла в объект конфига при инициализации
      *
      * @throws IOException
      */

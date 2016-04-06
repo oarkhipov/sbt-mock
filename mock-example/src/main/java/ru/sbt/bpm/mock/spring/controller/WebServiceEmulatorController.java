@@ -25,7 +25,7 @@ public class WebServiceEmulatorController {
     public
     @ResponseBody
     String getWsdl(@PathVariable String webServiceName, HttpServletRequest request) {
-        if (request.getQueryString().equals("wsdl")) {
+        if (request.getQueryString().equalsIgnoreCase("wsdl")) {
             return "some Wsdl of " + webServiceName;
         }
         return SoapMessageBuilder.buildFault("Server", "No such method", SoapVersion.Soap11);

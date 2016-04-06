@@ -1,24 +1,35 @@
-package com.soapuiutil.wsdlvalidator;
+package ru.sbt.bpm.mock.spring.utils;
 
 
+import com.soapuiutil.wsdlvalidator.WsdlMessageValidator;
+import org.apache.commons.io.FileUtils;
+import org.mortbay.jetty.Server;
+import org.mortbay.jetty.servlet.ServletHandler;
 import org.testng.Assert;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 /**
  * Test class
  *
- * @author kchan
+ * @author sbt-bochev-as
+ * @since 2016-03-28
  */
-public class WsdlMessageValidatorTest {
+public class HttpWsdlMessageValidatorTest {
 
     private String getWsdlPath() throws Exception {
-        final String currentPath = new java.io.File(".").getCanonicalPath();
-//		final String wsdlUrl = "file:" + currentPath + File.separator + ".."  + File.separator + "spec" + File.separator + "wsdl" + File.separator + "spyne.wsdl";
-        final String wsdlUrl = "file:" + currentPath + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "wsdl" + File.separator + "spyne.wsdl";
-        return wsdlUrl;
+        return "http://localhost:8080/path/to/dir/spyne.wsdl";
     }
+
+    private Server server;
 
     private String getSoapEnvelope(final String innerContent) {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
@@ -85,5 +96,36 @@ public class WsdlMessageValidatorTest {
 
         System.out.println("assertion count : " + assertionErrors.length);
         Assert.assertEquals(0, assertionErrors.length);
+    }
+
+
+    @AfterSuite
+    public void tearDown() throws Exception {
+        server.stop();
+    }
+
+    @BeforeSuite
+    public void setUp() throws Exception {
+        server = new Server(8080);
+        ServletHandler handler = new ServletHandler();
+        server.setHandler(handler);
+        handler.addServletWithMapping(MockServlet.class, "/");
+        server.start();
+
+    }
+
+    @SuppressWarnings("serial")
+    public static class MockServlet extends HttpServlet {
+        @Override
+        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+            URL basePath = this.getClass().getClassLoader().getResource("");
+            assert basePath != null;
+            String fileName = basePath.getPath() + "wsdl" + request.getServletPath().substring("path/to/dir/".length());
+            File file = new File(fileName);
+            response.setContentType("application/xml");
+            response.setCharacterEncoding("UTF-8");
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().println(FileUtils.readFileToString(file, "UTF-8"));
+        }
     }
 }

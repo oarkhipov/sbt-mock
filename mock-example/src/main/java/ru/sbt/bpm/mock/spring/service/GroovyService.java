@@ -33,13 +33,19 @@ public class GroovyService {
         binding.setProperty("request", incomeXml);
         GroovyShell shell = new GroovyShell(binding);
 
-        //TODO remove __ from replace
         //generate xml
-        Pattern pattern = Pattern.compile("\\$\\{(.*?)\\}");
+        Pattern pattern = Pattern.compile("\\$\\{([^=]*?)\\}");
         Matcher matcher = pattern.matcher(mockXml);
         if (matcher.find()) {
             mockXml = matcher.replaceAll("\\$\\{response.$1\\}");
         }
+
+        pattern = Pattern.compile("\\$\\{=(.*?)\\}");
+        matcher = pattern.matcher(mockXml);
+        if (matcher.find()) {
+            mockXml = matcher.replaceAll("\\$\\{$1\\}");
+        }
+
         //save xml
 //        final File tempFile = new File(System.currentTimeMillis() + ".dat");
 //        log.debug("write mockXml to [" + tempFile.getAbsolutePath() + "]");

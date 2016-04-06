@@ -17,6 +17,8 @@
 
     <int:service-activator input-channel="testChannel" output-channel="testChannelAggregated" method="aggregate">
         <bean class="ru.sbt.bpm.mock.spring.bean.MessageAggregator">
+            <constructor-arg value="JMS" type="ru.sbt.bpm.mock.config.enums.Protocol"/>
+            <constructor-arg value="test CF" type="java.lang.String"/>
             <constructor-arg value="test endpoint" type="java.lang.String"/>
         </bean>
     </int:service-activator>

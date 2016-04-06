@@ -47,7 +47,7 @@ public class MessageValidationService {
     protected void init() throws IOException, SAXException {
 
         /**
-         * ResourceResolver добавлен для корректной работы с XSD с одиннаковыми именами, но в разных директориях
+         * FileResourceResolver добавлен для корректной работы с XSD с одиннаковыми именами, но в разных директориях
          */
         validator = new HashMap<String, MessageValidator>();
 
@@ -56,17 +56,38 @@ public class MessageValidationService {
         }
     }
 
+    /**
+     * Init the validator
+     *
+     * @param system name of system, for which validator need to be init
+     * @throws IOException
+     * @throws SAXException
+     */
     private void initValidator(System system) throws IOException, SAXException {
         File systemXsdDirectory = dataFileService.getSystemXsdDirectoryResource(system.getSystemName()).getFile();
-        String rootXSD = system.getRemoteRootSchema();
+        String remoteRootSchema = system.getRemoteRootSchema();
         Protocol protocol = system.getProtocol();
         switch (protocol) {
             case JMS:
-                List<File> xsdFiles = dataFileService.searchFiles(systemXsdDirectory, ".xsd");
-                validator.put(system.getSystemName(), new XsdValidator(xsdFiles));
+                if (remoteRootSchema.toLowerCase().startsWith("http://")) {
+                    String requestPath = remoteRootSchema.split("//")[1];
+                    String basePath = requestPath.substring(requestPath.indexOf("/"), requestPath.lastIndexOf("/") + 1);
+                    String relativePath = requestPath.substring(requestPath.indexOf("/") + 1, requestPath.length());
+                    system.setLocalRootSchema(relativePath);
+
+                    String absoluteSystemRootSchemaDir = dataFileService.getSystemXsdDirectoryResource(system.getSystemName()).getFile().getAbsolutePath() + basePath;
+                    absoluteSystemRootSchemaDir = absoluteSystemRootSchemaDir.replace("/", File.separator);
+                    validator.put(system.getSystemName(), new XsdValidator(remoteRootSchema, absoluteSystemRootSchemaDir));
+                } else {
+                    system.setLocalRootSchema(system.getRemoteRootSchema());
+                    List<File> xsdFiles = dataFileService.searchFiles(systemXsdDirectory, ".xsd");
+                    validator.put(system.getSystemName(), new XsdValidator(xsdFiles));
+                }
                 break;
             case SOAP:
-                validator.put(system.getSystemName(), new WsdlValidator(rootXSD));
+                WsdlValidator wsdlValidator = new WsdlValidator(remoteRootSchema);
+                configContainer.getWsdlProjectMap().put(system, wsdlValidator.getWsdlProject());
+                validator.put(system.getSystemName(), wsdlValidator);
                 break;
             default:
                 throw new RuntimeException("Unknown system protocol!");
@@ -77,14 +98,24 @@ public class MessageValidationService {
      * Валидирует xml на соответствие схем
      *
      * @param xml    спец имя xml
-     * @param System подпапка из директорий xsd и data, по которым будет производится ваидация
+     * @param systemName подпапка из директорий xsd и data, по которым будет производится ваидация
      * @return признак валидности
      */
-    public List<String> validate(String xml, String System) {
-        return validator.get(System).validate(xml);
+    public List<String> validate(String xml, String systemName) {
+        return validator.get(systemName).validate(xml);
     }
 
 
+    /**
+     * Get element by xpath and asserts, that it exists
+     *
+     * @param xml                  xml to search into
+     * @param systemName           name of system, which xml belongs
+     * @param integrationPointName name of integration point, which message represents
+     * @return true if one or more elements match the xpath
+     * @throws XPathExpressionException
+     * @throws SaxonApiException
+     */
     public boolean assertXpath(String xml, String systemName, String integrationPointName) throws XPathExpressionException, SaxonApiException {
 
         String xpathWithFullNamespaceString = configContainer.getConfig()

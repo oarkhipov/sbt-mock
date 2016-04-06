@@ -6,7 +6,7 @@
     <types>
         <xsd:schema>
             <xsd:import namespace="http://sbrf.ru/prpc/finrep/10"
-                        schemaLocation="http://izar9.cgs.sbrf.ru:9080/frweb/service?xsd=1"></xsd:import>
+                        schemaLocation="FrWebService.xsd"></xsd:import>
         </xsd:schema>
     </types>
     <message name="getParticipantFactors">
