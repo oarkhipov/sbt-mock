@@ -47,7 +47,7 @@ public class WsdlValidator implements MessageValidator {
         return result;
     }
 
-    private static String compactXml(String xml) {
+    public static String compactXml(String xml) {
         BufferedReader bufferedReader = new BufferedReader(new StringReader(xml));
         String line;
         StringWriter stringWriter = new StringWriter();

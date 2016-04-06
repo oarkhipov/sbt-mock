@@ -1,27 +1,27 @@
 package com.soapuiutil.wsdlvalidator;
 
-import com.eviware.soapui.config.TestStepConfig;
 import com.eviware.soapui.impl.WsdlInterfaceFactory;
-import com.eviware.soapui.impl.wsdl.*;
+import com.eviware.soapui.impl.wsdl.WsdlInterface;
+import com.eviware.soapui.impl.wsdl.WsdlOperation;
+import com.eviware.soapui.impl.wsdl.WsdlProject;
+import com.eviware.soapui.impl.wsdl.WsdlProjectFactory;
 import com.eviware.soapui.impl.wsdl.mock.*;
 import com.eviware.soapui.impl.wsdl.panels.mockoperation.WsdlMockRequestMessageExchange;
 import com.eviware.soapui.impl.wsdl.panels.mockoperation.WsdlMockResponseMessageExchange;
 import com.eviware.soapui.impl.wsdl.support.soap.SoapVersion;
 import com.eviware.soapui.impl.wsdl.support.wsdl.WsdlContext;
 import com.eviware.soapui.impl.wsdl.support.wsdl.WsdlValidator;
-import com.eviware.soapui.impl.wsdl.testcase.WsdlTestCase;
 import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext;
 import com.eviware.soapui.impl.wsdl.teststeps.WsdlTestStep;
-import com.eviware.soapui.impl.wsdl.teststeps.registry.WsdlTestRequestStepFactory;
 import com.eviware.soapui.model.iface.Operation;
 import com.eviware.soapui.model.testsuite.AssertionError;
 import org.apache.commons.lang.StringUtils;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xmlsoap.schemas.soap.envelope.Envelope;
+import ru.sbt.bpm.mock.spring.service.message.validation.MockHttpServletRequest;
 
 import javax.xml.namespace.QName;
 import java.util.HashMap;
@@ -130,7 +130,6 @@ public class WsdlMessageValidator {
             throws WsdlMessageValidatorException {
 
         WsdlMockOperation wsdlMockOperation = null;
-        WsdlMockResponse mockResponse = null;
         try {
 
             // parse for body in the response string
@@ -166,7 +165,7 @@ public class WsdlMessageValidator {
 
                     for (int i = 0; i < faultList.getLength(); i++) {
                         Node current = faultList.item(i);
-                        if (current.getLocalName() == "faultstring") {
+                        if (current.getLocalName().equals("faultstring")) {
                             current = current.getFirstChild();
                             errorMessage = current.getNodeValue();
                             break;
@@ -178,10 +177,19 @@ public class WsdlMessageValidator {
                 }
             }
 
-            final String mockOperationName = wsdlMockOperation.getName();
+            return performValidation(message, wsdlMockOperation, messageType);
+        } catch (final WsdlMessageValidatorException e) {
+            throw e;
+        } catch (final Exception e) {
+            throw new WsdlMessageValidatorException(e);
+        }
+    }
 
+    private String[] performValidation(String message, WsdlMockOperation wsdlMockOperation, String messageType) throws Exception {
+        WsdlMockResponse mockResponse = null;
+        final String mockOperationName = wsdlMockOperation.getName();
+        try {
             AssertionError[] assertionErrors = null;
-
             WsdlOperation operation = wsdlMockOperation.getOperation();
             if (messageType.equals(operation.getOutputName())) {
                 mockResponse = wsdlMockOperation.addNewMockResponse(mockOperationName, true);
@@ -197,17 +205,10 @@ public class WsdlMessageValidator {
                 mockHttpServletRequest.setMethod("POST");
                 mockHttpServletRequest.setContent(message.getBytes("UTF-8"));
 
-
                 WsdlMockService mockService = wsdlProject.getMockServiceByName("SERVICE NAME");
-                //create testsuite
-                WsdlTestSuite testSuite = wsdlProject.addNewTestSuite("TestSuite");
-                WsdlTestCase testCase = testSuite.addNewTestCase("TestCase");
-                TestStepConfig testStepConfig = WsdlTestRequestStepFactory.createConfig(operation, operation.getName());
-                WsdlTestStep wsdlTestStep = testCase.addTestStep(testStepConfig);
-                WsdlTestRunContext wsdlTestRunContext = new WsdlTestRunContext(wsdlTestStep);
+                WsdlTestStep testStepByName = wsdlProject.getTestSuiteAt(0).getTestCaseAt(0).getTestStepByName(operation.getName());
+                WsdlTestRunContext wsdlTestRunContext = new WsdlTestRunContext(testStepByName);
                 WsdlMockRunContext runContext = new WsdlMockRunContext(mockService, wsdlTestRunContext);
-                runContext.setMockResponse(mockResponse);
-
 
                 WsdlMockRequest wsdlMockRequest = new WsdlMockRequest(mockHttpServletRequest, null, runContext);
                 wsdlMockRequest.setRequestContent(message);
@@ -224,14 +225,11 @@ public class WsdlMessageValidator {
             }
 
             return stringErrors;
-        } catch (final WsdlMessageValidatorException e) {
-            throw e;
-        } catch (final Exception e) {
-            throw new WsdlMessageValidatorException(e);
         } finally {
             if (wsdlMockOperation != null && mockResponse != null) {
                 wsdlMockOperation.removeMockResponse(mockResponse);
             }
         }
+
     }
 }

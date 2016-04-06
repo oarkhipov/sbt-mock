@@ -1,5 +1,12 @@
 package ru.sbt.bpm.mock.spring.service.message.validation;
 
+import com.eviware.soapui.config.TestStepConfig;
+import com.eviware.soapui.impl.wsdl.WsdlOperation;
+import com.eviware.soapui.impl.wsdl.WsdlProject;
+import com.eviware.soapui.impl.wsdl.WsdlTestSuite;
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestCase;
+import com.eviware.soapui.impl.wsdl.teststeps.registry.WsdlTestRequestStepFactory;
+import com.eviware.soapui.model.iface.Operation;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.saxon.s9api.SaxonApiException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +93,18 @@ public class MessageValidationService {
                 break;
             case SOAP:
                 WsdlValidator wsdlValidator = new WsdlValidator(remoteRootSchema);
-                configContainer.getWsdlProjectMap().put(system, wsdlValidator.getWsdlProject());
+                WsdlProject wsdlProject = wsdlValidator.getWsdlProject();
+                configContainer.getWsdlProjectMap().put(system, wsdlProject);
+                //create testsuite
+                WsdlTestSuite testSuite = wsdlProject.addNewTestSuite("TestSuite");
+                WsdlTestCase testCase = testSuite.addNewTestCase("TestCase");
+                //init test steps for all operations
+                for (Operation operation : wsdlProject.getInterfaceList().get(0).getOperationList()) {
+                    WsdlOperation wsdlOperation = (WsdlOperation) operation;
+                    TestStepConfig testStepConfig = WsdlTestRequestStepFactory.createConfig(wsdlOperation, wsdlOperation.getName());
+                    testCase.addTestStep(testStepConfig);
+                }
+
                 validator.put(system.getSystemName(), wsdlValidator);
                 break;
             default:

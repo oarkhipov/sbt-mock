@@ -44,8 +44,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
-            <!-- For WSDL validation in PROD-->
-            <!--<scope>test</scope>-->
+            <scope>test</scope>
             <type>jar</type>
         </dependency>
 
