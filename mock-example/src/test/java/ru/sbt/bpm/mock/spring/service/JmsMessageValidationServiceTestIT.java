@@ -7,8 +7,8 @@ import org.mortbay.jetty.servlet.ServletHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
@@ -30,7 +30,7 @@ import static org.testng.Assert.assertTrue;
  */
 @Slf4j
 @ContextConfiguration({"/env/mockapp-servlet-jms-http.xml"})
-public class JmsMessageValidationServiceTest extends AbstractTestNGSpringContextTests {
+public class JmsMessageValidationServiceTestIT extends AbstractTestNGSpringContextTests {
 
     @Autowired
     MessageValidationService messageValidationService;
@@ -48,19 +48,29 @@ public class JmsMessageValidationServiceTest extends AbstractTestNGSpringContext
         assertTrue(messageValidationService.validate(xml, "CRM2").size() == 0, messageValidationService.validate(xml, "CRM2").toString());
     }
 
-    @AfterMethod
-    public void tearDown() throws Exception {
+
+    @AfterClass
+    @Override
+    public void springTestContextAfterTestClass() throws Exception {
         server.stop();
     }
 
-    @BeforeTest
-    public void setUp() throws Exception {
+    @BeforeClass
+    @Override
+    public void springTestContextBeforeTestClass() throws Exception {
+        super.springTestContextBeforeTestClass();
         server = new Server(8080);
         ServletHandler handler = new ServletHandler();
         server.setHandler(handler);
         handler.addServletWithMapping(MockServlet.class, "/");
         server.start();
 
+    }
+
+    @BeforeClass
+    @Override
+    protected void springTestContextPrepareTestInstance() throws Exception {
+        super.springTestContextPrepareTestInstance();
     }
 
     @SuppressWarnings("serial")

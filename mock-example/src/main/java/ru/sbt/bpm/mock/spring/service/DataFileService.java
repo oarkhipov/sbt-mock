@@ -40,8 +40,10 @@ public class DataFileService {
      * @param name имя файла, относительно WEB-INF
      * @return ресурс
      */
-    public Resource getPathBaseResource(String name) {
-        return appContext.getResource(pathBase + name);
+    public String getPathBaseFilePath(String name) throws IOException {
+        Resource resource = appContext.getResource(pathBase);
+        File file = resource.getFile();
+        return file.getAbsolutePath() + File.separator + name;
     }
 
     public Resource getDataResource(String name) {

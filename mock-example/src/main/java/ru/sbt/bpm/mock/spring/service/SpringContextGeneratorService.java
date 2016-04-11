@@ -1,6 +1,5 @@
 package ru.sbt.bpm.mock.spring.service;
 
-import com.sun.org.apache.xml.internal.serializer.OutputPropertiesFactory;
 import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.generator.spring.context.CommentMarshalListener;
 import ru.sbt.bpm.mock.generator.spring.context.bean.Bean;
@@ -37,7 +36,6 @@ public class SpringContextGeneratorService {
 
         transformer = TransformerFactory.newInstance().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        transformer.setOutputProperty(OutputPropertiesFactory.S_KEY_INDENT_AMOUNT, "2");
     }
 
     public String toXml(BeanContainer beanContainer) throws UnsupportedEncodingException, TransformerException, XMLStreamException, JAXBException {

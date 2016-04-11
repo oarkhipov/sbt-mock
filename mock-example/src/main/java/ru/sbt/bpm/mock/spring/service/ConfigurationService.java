@@ -32,7 +32,7 @@ public class ConfigurationService {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream);
 
-        File rootDirectory = dataFileService.getPathBaseResource("").getFile();
+        File rootDirectory = new File(dataFileService.getPathBaseFilePath(""));
         File dataDirectory = dataFileService.getDataResource("").getFile();
         File xsdDirectory = dataFileService.getSystemXsdDirectoryResource(".").getFile();
 
@@ -74,7 +74,7 @@ public class ConfigurationService {
 
             String name = zipEntry.getName();
 
-            File file = dataFileService.getPathBaseResource(name).getFile();
+            File file = new File(dataFileService.getPathBaseFilePath(name));
 
             File parentFile = file.getParentFile();
             if (parentFile != null) {

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
+import reactor.tuple.Tuple2;
 
 import static org.testng.Assert.assertEquals;
 
@@ -45,13 +46,28 @@ public class GroovyServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testCompileHugeStaticAlphaNumericText() throws Exception {
-        String randomAlphanumeric = RandomStringUtils.randomAlphanumeric(68000);
+        String randomAlphanumeric = RandomStringUtils.randomAlphanumeric(1000000);
         assertEquals(randomAlphanumeric, groovyService.execute("", randomAlphanumeric, ""));
+    }
+
+    @Test(timeOut = 10000)
+    public void testCompileHugeDynamicAlphaNumericInlineText() throws Exception {
+        String randomAlphanumeric = RandomStringUtils.randomAlphanumeric(1000000);
+        assertEquals("3" + randomAlphanumeric + "5", groovyService.execute("", "${= new Integer(3)}" + randomAlphanumeric + "${= new Integer(5)}", ""));
     }
 
     @Test
     public void testCompileHugeDynamicAlphaNumericText() throws Exception {
         String randomAlphanumeric = RandomStringUtils.randomAlphanumeric(68000);
-        assertEquals(randomAlphanumeric, groovyService.execute("", randomAlphanumeric + "${a}", "response.a=123"));
+        assertEquals(randomAlphanumeric + "123", groovyService.execute("", randomAlphanumeric + "${a}", "response.a=123"));
+    }
+
+    @Test
+    public void testExtractVariablesFromInlineExpressions() throws Exception {
+        Tuple2<String, String> tuple2 = groovyService.extractVariablesFromInlineExpressions("string1${= new Integer(5)}string2${=new Integer(3)}");
+        String extractedVariables = tuple2.getT1();
+        String modifiedString = tuple2.getT2();
+        assertEquals(extractedVariables.replaceAll("extracted_variable_[\\d]+", "var"), "response.var = new Integer(3)\nresponse.var =  new Integer(5)\n");
+        assertEquals(modifiedString.replaceAll("extracted_variable_[\\d]+", "var"), "string1${var}string2${var}");
     }
 }

@@ -1,7 +1,5 @@
 package ru.sbt.bpm.mock.spring.controller;
 
-import java.io.IOException;
-
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  *
@@ -35,12 +36,12 @@ public class DefaultController {
      */
     @RequestMapping(value = "/info", produces = "application/xml;charset=UTF-8")
     public @ResponseBody String getInfo() throws IOException {
-        return FileUtils.readFileToString(dataFileService.getPathBaseResource("mockapp-servlet.xml").getFile(), "UTF-8");
+        return FileUtils.readFileToString(new File(dataFileService.getPathBaseFilePath("mockapp-servlet.xml")), "UTF-8");
     }
 
     @RequestMapping(value = "/prop", produces = "text/html;charset=UTF-8")
     public @ResponseBody String getProp() throws IOException {
-        return FileUtils.readFileToString(dataFileService.getPathBaseResource("../META-INF/maven/ru.sbt.bpm.mock/mock-interactive-by/pom.properties").getFile(), "UTF-8");
+        return FileUtils.readFileToString(new File(dataFileService.getPathBaseFilePath("../META-INF/maven/ru.sbt.bpm.mock/mock-interactive-by/pom.properties")), "UTF-8");
     }
 
 }

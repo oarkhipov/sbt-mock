@@ -6,6 +6,9 @@ import org.testng.annotations.Test;
 import org.w3c.dom.Document;
 import ru.sbt.bpm.mock.spring.utils.XmlUtil;
 
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
+
 
 /**
  * Created by sbt-bochev-as on 04.12.2014.
@@ -24,7 +27,7 @@ public class XmlAssertionTest {
         String xml1 = XmlUtil.docAsString(doc1);
         String xml2 = XmlUtil.docAsString(doc2);
         Diff diff = new Diff(xml1, xml2);
-        System.out.println("Identical: " + String.valueOf(diff.identical()));
-        System.out.println("Similar: " + String.valueOf(diff.similar()));
+        assertFalse(diff.identical(), "Identical must be false!");
+        assertTrue(diff.similar(), "Similar must be true!");
     }
 }

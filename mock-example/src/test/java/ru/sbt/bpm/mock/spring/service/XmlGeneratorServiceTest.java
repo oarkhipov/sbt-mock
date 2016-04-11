@@ -30,7 +30,9 @@ public class XmlGeneratorServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testGenerate() throws Exception {
-        System.out.println(xmlGeneratorService.generate("CRM", "sendAdditionalInfo", MessageType.RS, true));
+        String message = xmlGeneratorService.generate("CRM", "sendAdditionalInfo", MessageType.RS, true);
+        assertTrue(message.contains("Envelope"));
+        assertTrue(message.contains("sendAdditionalInfo"));
     }
 
     @Test

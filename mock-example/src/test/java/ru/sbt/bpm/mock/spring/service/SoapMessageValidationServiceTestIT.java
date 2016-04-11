@@ -7,8 +7,8 @@ import org.mortbay.jetty.servlet.ServletHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
@@ -32,7 +32,7 @@ import static org.testng.Assert.assertTrue;
  */
 @Slf4j
 @ContextConfiguration({"/env/mockapp-servlet-soap-http.xml"})
-public class SoapMessageValidationServiceTest extends AbstractTestNGSpringContextTests {
+public class SoapMessageValidationServiceTestIT extends AbstractTestNGSpringContextTests {
 
     @Autowired
     MessageValidationService messageValidationService;
@@ -130,19 +130,28 @@ public class SoapMessageValidationServiceTest extends AbstractTestNGSpringContex
         assertFalse(validationErrors.size() == 0, validationErrors.toString());
     }
 
-    @AfterMethod
-    public void tearDown() throws Exception {
-        server.stop();
+    @BeforeClass
+    @Override
+    protected void springTestContextPrepareTestInstance() throws Exception {
+        super.springTestContextPrepareTestInstance();
     }
 
-    @BeforeTest
-    public void setUp() throws Exception {
+    @BeforeClass
+    @Override
+    protected void springTestContextBeforeTestClass() throws Exception {
+        super.springTestContextBeforeTestClass();
         server = new Server(8080);
         ServletHandler handler = new ServletHandler();
         server.setHandler(handler);
         handler.addServletWithMapping(MockServlet.class, "/");
         server.start();
+    }
 
+    @AfterClass
+    @Override
+    protected void springTestContextAfterTestClass() throws Exception {
+        super.springTestContextAfterTestClass();
+        server.stop();
     }
 
     @SuppressWarnings("serial")

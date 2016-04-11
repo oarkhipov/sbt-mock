@@ -6,8 +6,8 @@ import org.apache.commons.io.FileUtils;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.servlet.ServletHandler;
 import org.testng.Assert;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.servlet.http.HttpServlet;
@@ -23,7 +23,7 @@ import java.net.URL;
  * @author sbt-bochev-as
  * @since 2016-03-28
  */
-public class HttpWsdlMessageValidatorTest {
+public class HttpWsdlMessageValidatorTestIT {
 
     private String getWsdlPath() throws Exception {
         return "http://localhost:8080/path/to/dir/spyne.wsdl";
@@ -55,7 +55,7 @@ public class HttpWsdlMessageValidatorTest {
         final WsdlMessageValidator rubyValidationWrapper = new WsdlMessageValidator(wsdlUrl);
         final String[] assertionErrors = rubyValidationWrapper.validateSchemaCompliance(responseString);
 
-        System.out.println("assertion count : " + assertionErrors.length);
+//        System.out.println("assertion count : " + assertionErrors.length);
         Assert.assertEquals(1, assertionErrors.length);
     }
 
@@ -75,7 +75,7 @@ public class HttpWsdlMessageValidatorTest {
         final WsdlMessageValidator rubyValidationWrapper = new WsdlMessageValidator(wsdlUrl);
         final String[] assertionErrors = rubyValidationWrapper.validateSchemaCompliance(responseString);
 
-        System.out.println("assertion count : " + assertionErrors.length);
+//        System.out.println("assertion count : " + assertionErrors.length);
         Assert.assertEquals(2, assertionErrors.length);
     }
 
@@ -94,17 +94,17 @@ public class HttpWsdlMessageValidatorTest {
         final WsdlMessageValidator rubyValidationWrapper = new WsdlMessageValidator(wsdlUrl);
         final String[] assertionErrors = rubyValidationWrapper.validateSchemaCompliance(responseString);
 
-        System.out.println("assertion count : " + assertionErrors.length);
+//        System.out.println("assertion count : " + assertionErrors.length);
         Assert.assertEquals(0, assertionErrors.length);
     }
 
 
-    @AfterSuite
+    @AfterClass
     public void tearDown() throws Exception {
         server.stop();
     }
 
-    @BeforeSuite
+    @BeforeClass
     public void setUp() throws Exception {
         server = new Server(8080);
         ServletHandler handler = new ServletHandler();
