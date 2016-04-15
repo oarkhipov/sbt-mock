@@ -112,7 +112,7 @@ public class XmlGeneratorService {
     }
 
     private String filterMessage(IntegrationPoint integrationPoint, StringWriter writer) throws Exception {
-        List<ElementSelector> elementSelectors = integrationPoint.getRequestXpathValidatorSelector().getElementSelectors();
+        List<ElementSelector> elementSelectors = integrationPoint.getXpathValidatorSelector().getElementSelectors();
         StringBuilder xmlMapElements = new StringBuilder();
         for (ElementSelector selector : elementSelectors) {
             xmlMapElements.append("        add(new Pair<String, String>(\"")

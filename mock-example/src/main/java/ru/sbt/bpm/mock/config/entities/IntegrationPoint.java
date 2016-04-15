@@ -35,11 +35,8 @@ public class IntegrationPoint {
     @XStreamAlias("delayMs")
     private Integer delayMs;
 
-    @XStreamAlias("rqXpath")
-    private XpathSelector requestXpathValidatorSelector;
-
-    @XStreamAlias("rsXpath")
-    private XpathSelector responseXpathValidatorSelector;
+    @XStreamAlias("xpathValidation")
+    private XpathSelector xpathValidatorSelector;
 
     //  For override
     @XStreamAlias("incomeQueue")
@@ -79,21 +76,9 @@ public class IntegrationPoint {
         return integrationPointType.equals(DRIVER);
     }
 
-    public String getXpathString(MessageType messageType) {
+    public String getXpathString() {
         StringBuilder stringBuilder = new StringBuilder();
-        XpathSelector selector;
-        switch (messageType) {
-            case RQ:
-                selector = getRequestXpathValidatorSelector();
-                break;
-            case RS:
-                selector = getResponseXpathValidatorSelector();
-                break;
-            default:
-                throw new RuntimeException("No such message type");
-        }
-
-        for (ElementSelector elementSelector : selector.getElementSelectors()) {
+        for (ElementSelector elementSelector : xpathValidatorSelector.getElementSelectors()) {
             stringBuilder.append(elementSelector.getElement()).append("/");
         }
         stringBuilder.delete(stringBuilder.length()-1,stringBuilder.length());
@@ -102,7 +87,7 @@ public class IntegrationPoint {
 
     public String getXpathWithFullNamespaceString() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (ElementSelector elementSelector : getRequestXpathValidatorSelector().getElementSelectors()) {
+        for (ElementSelector elementSelector : xpathValidatorSelector.getElementSelectors()) {
             stringBuilder
                     .append("/*:")
                     .append(elementSelector.getElement())

@@ -1,4 +1,4 @@
-package ru.sbt.bpm.mock.spring.controller;
+package ru.sbt.bpm.mock.spring.controllers.api;
 
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;

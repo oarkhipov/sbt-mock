@@ -1,4 +1,4 @@
-package ru.sbt.bpm.mock.spring.controller;
+package ru.sbt.bpm.mock.spring.controllers.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

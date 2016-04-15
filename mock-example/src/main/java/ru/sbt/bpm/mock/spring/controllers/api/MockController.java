@@ -1,4 +1,4 @@
-package ru.sbt.bpm.mock.spring.controller;
+package ru.sbt.bpm.mock.spring.controllers.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -6,7 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import reactor.tuple.Tuple;
+import reactor.tuple.Tuple2;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
@@ -62,13 +65,14 @@ public class MockController {
         model.addAttribute("xpath",
                 configContainer.getConfig().getSystems().getSystemByName(systemName)
                         .getIntegrationPoints().getIntegrationPointByName(integrationPointName)
-                        .getXpathString(MessageType.RS));
+                        .getXpathString());
         model.addAttribute("message", dataFileService.getCurrentMessage(systemName, integrationPointName));
         model.addAttribute("script", dataFileService.getCurrentScript(systemName, integrationPointName));
         model.addAttribute("test", dataFileService.getCurrentTest(systemName, integrationPointName));
         return "editor";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/validate/", method = RequestMethod.POST)
     public String validate(
             @PathVariable("systemName") String systemName,
@@ -77,24 +81,12 @@ public class MockController {
             @RequestParam String script,
             @RequestParam String test,
             ModelMap model) {
-        AjaxObject ajaxObject = new AjaxObject();
-        try {
-            String compiledXml = groovyService.execute(test, xml, script);
-            if (messageValidationService.assertXpath(compiledXml, systemName, integrationPointName)) {
-                final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
-                if (validationErrors.size() == 0) {
-                    ajaxObject.setInfo("Valid!");
-                } else {
-                    ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
-                }
-            } else {
-                ajaxObject.setError("xml did not pass xpath assertion!");
-            }
-        } catch (Exception e) {
-            ajaxObject.setErrorFromException(e);
+        Tuple2<AjaxObject, String> ajaxObjectWithCompiledXml = validateMockMessages(xml, test, script, systemName, integrationPointName);
+        AjaxObject ajaxObject = ajaxObjectWithCompiledXml.getT1();
+        if (ajaxObject.getError() == null || ajaxObject.getError().length() == 0) {
+            ajaxObject.setInfo("Valid!");
         }
-        model.addAttribute("object", ajaxObject.toJSON());
-        return "blank";
+        return ajaxObject.toJSON();
     }
 
     @ResponseBody
@@ -105,7 +97,7 @@ public class MockController {
             @RequestParam String xml,
             @RequestParam String script,
             @RequestParam String test) throws IOException {
-      return driverController.save(systemName, integrationPointName, xml, script, test);
+        return driverController.save(systemName, integrationPointName, xml, script, test);
     }
 
 //    @RequestMapping(value="/mock/{name}/undo/", method=RequestMethod.POST)
@@ -178,25 +170,50 @@ public class MockController {
             @RequestParam String script,
             @RequestParam String test) {
 
-        AjaxObject ajaxObject = new AjaxObject();
-//        VALIDATE
-        try {
-            String compiledXml = groovyService.execute(test, xml, script);
-            if (messageValidationService.assertXpath(compiledXml, systemName, integrationPointName)) {
-                final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
+        Tuple2<AjaxObject, String> ajaxObjectWithCompiledXml = validateMockMessages(xml, test, script, systemName, integrationPointName);
+        AjaxObject ajaxObject = ajaxObjectWithCompiledXml.getT1();
+        String compiledXml = ajaxObjectWithCompiledXml.getT2();
+        if (ajaxObject.getError() == null || ajaxObject.getError().length() == 0) {
+            String response = testGatewayService.test(compiledXml);
+            ajaxObject.setData(response);
+            ajaxObject.setInfo("DONE!");
+        }
+        return ajaxObject.toJSON();
+    }
 
-                if (validationErrors.size() == 0) {
-                    String response = testGatewayService.test(compiledXml);
-                    ajaxObject.setData(response);
-                    ajaxObject.setInfo("DONE!");
+
+    /**
+     * Returns ajaxObject with possible errors and compiled xml
+     *
+     * @param xml                  mockXml string
+     * @param test                 test xml for mock
+     * @param script               groovy script
+     * @param systemName           name of system of Mock
+     * @param integrationPointName name of integration point
+     * @return Tuple of AjaxObject and compiledXml
+     */
+    private Tuple2<AjaxObject, String> validateMockMessages(String xml, String test, String script, String systemName, String integrationPointName) {
+        AjaxObject ajaxObject = new AjaxObject();
+        String compiledXml = "";
+        try {
+            ru.sbt.bpm.mock.config.entities.System system = configContainer.getSystemByName(systemName);
+            IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
+            if (messageValidationService.assertXpath(test, system, integrationPoint, MessageType.RQ)) {
+                compiledXml = groovyService.execute(test, xml, script);
+                if (messageValidationService.assertXpath(compiledXml, system, integrationPoint, MessageType.RS)) {
+                    final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
+                    if (validationErrors.size() != 0) {
+                        ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
+                    }
                 } else {
-                    ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
+                    ajaxObject.setError("mock xml did not pass xpath assertion!");
                 }
+            } else {
+                ajaxObject.setError("test xml did not pass xpath assertion!");
             }
         } catch (Exception e) {
             ajaxObject.setErrorFromException(e);
         }
-
-        return ajaxObject.toJSON();
+        return Tuple.of(ajaxObject, compiledXml);
     }
 }

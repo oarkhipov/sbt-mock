@@ -52,7 +52,7 @@ public class ResponseGenerator {
         final System systemByPayload = jmsService.getSystemByPayload(mockMessage.getPayload(), mockMessage.getQueue());
         mockMessage.setSystem(systemByPayload);
 
-        MockMessage responseMockMessage = proceedMessageRequest(mockMessage);
+        MockMessage responseMockMessage = proceedAbstractMessageRequest(mockMessage);
 
         System system = responseMockMessage.getSystem();
         IntegrationPoint integrationPoint = responseMockMessage.getIntegrationPoint();
@@ -68,10 +68,10 @@ public class ResponseGenerator {
         mockMessage.setProtocol(Protocol.SOAP);
         final System systemByName = configContainer.getSystemByName(systemName);
         mockMessage.setSystem(systemByName);
-        return proceedMessageRequest(mockMessage);
+        return proceedAbstractMessageRequest(mockMessage);
     }
 
-    private MockMessage proceedMessageRequest(MockMessage mockMessage) {
+    private MockMessage proceedAbstractMessageRequest(MockMessage mockMessage) {
         try {
             findIntegrationPoint(mockMessage);
             log(mockMessage, MessageType.RQ);
@@ -166,13 +166,19 @@ public class ResponseGenerator {
         final String systemName = mockMessage.getSystem().getSystemName();
         final String payload = mockMessage.getPayload();
 
-        log.debug("Validate " + messageType.name());
+        log.debug("Validate [" + systemName + "] " + messageType.name());
         List<String> validationErrors = messageValidationService.validate(payload, systemName);
         if (validationErrors.size() > 0) {
             mockMessage.setPayload(ValidationUtils.getSolidErrorMessage(validationErrors));
             mockMessage.setFaultMessage(true);
         }
         log.debug("Validation status: OK!");
+    }
+
+    private void assertMessageByXpath(MockMessage mockMessage, MessageType messageType) throws SaxonApiException {
+        System system = mockMessage.getSystem();
+        IntegrationPoint integrationPoint = mockMessage.getIntegrationPoint();
+        messageValidationService.assertXpath(mockMessage.getPayload(), system, integrationPoint, messageType);
     }
 
     private void log(MockMessage mockMessage, MessageType messageType) {

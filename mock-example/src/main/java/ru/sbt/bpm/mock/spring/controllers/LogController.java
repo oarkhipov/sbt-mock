@@ -1,4 +1,4 @@
-package ru.sbt.bpm.mock.spring.controller;
+package ru.sbt.bpm.mock.spring.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

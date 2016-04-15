@@ -29,15 +29,10 @@
                 <!--1. driver getReferenceData -->
                 <integrationPoint name="getReferenceData">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
-                    <rqXpath>
+                    <xpathValidation>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">getReferenceData</tag>
-                    </rqXpath>
-
-                    <rsXpath>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">getReferenceData</tag>
-                    </rsXpath>
+                    </xpathValidation>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Driver</type>
 
@@ -53,13 +48,10 @@
                 <integrationPoint name="sendReferenceData">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <!-- Ответ - что угодно, а точнее не требуется -->
-                    <rqXpath>
+                    <xpathValidation>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                    </rqXpath>
+                    </xpathValidation>
 
-                    <rsXpath>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                    </rsXpath>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Mock</type>
 
@@ -76,15 +68,11 @@
                 <!--3. driver getAvailableExecutors-->
                 <integrationPoint name="getAvailableExecutors">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
-                    <rqXpath>
+                    <xpathValidation>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">getAvailableExecutors</tag>
-                    </rqXpath>
+                    </xpathValidation>
 
-                    <rsXpath>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">getAvailableExecutors</tag>
-                    </rsXpath>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Driver</type>
                     <!-- Где лежит корневой элемент-->
@@ -98,15 +86,11 @@
                 <!--4. driver createLegalEnquiry-->
                 <integrationPoint name="createLegalEnquiry">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
-                    <rqXpath>
+                    <xpathValidation>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">createLegalEnquiry</tag>
-                    </rqXpath>
+                    </xpathValidation>
 
-                    <rsXpath>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">createLegalEnquiry</tag>
-                    </rsXpath>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Driver</type>
                     <!-- Где лежит корневой элемент-->
@@ -121,13 +105,10 @@
                 <integrationPoint name="sendLegalEnquiryStatus">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
                     <!-- Ответ не требуется -->
-                    <rqXpath>
+                    <xpathValidation>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                    </rqXpath>
+                    </xpathValidation>
 
-                    <rsXpath>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                    </rsXpath>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Mock</type>
                     <!-- Где лежит корневой элемент-->
@@ -143,15 +124,11 @@
                 <!--6. mock getAdditionalInfo-->
                 <integrationPoint name="getAdditionalInfo">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
-                    <rqXpath>
+                    <xpathValidation>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">confirmationMessage</tag>
-                    </rqXpath>
+                    </xpathValidation>
 
-                    <rsXpath>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">confirmationMessage</tag>
-                    </rsXpath>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Mock</type>
                     <!-- Где лежит корневой элемент-->
@@ -167,17 +144,12 @@
                 <!--7. driver sendAdditionalInfo-->
                 <integrationPoint name="sendAdditionalInfo">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
-                    <rqXpath>
+                    <xpathValidation>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">sendAdditionalInfo</tag>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">commentsHistory</tag>
-                    </rqXpath>
+                    </xpathValidation>
 
-                    <rsXpath>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">sendAdditionalInfo</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">commentsHistory</tag>
-                    </rsXpath>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Driver</type>
                     <!-- Где лежит корневой элемент-->
@@ -191,15 +163,11 @@
                 <!--8. driver cancelLegalEnquiry-->
                 <integrationPoint name="cancelLegalEnquiry">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
-                    <rqXpath>
+                    <xpathValidation>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">cancelLegalEnquiry</tag>
-                    </rqXpath>
+                    </xpathValidation>
 
-                    <rsXpath>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">cancelLegalEnquiry</tag>
-                    </rsXpath>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Driver</type>
                     <!-- Где лежит корневой элемент-->
@@ -213,15 +181,11 @@
                 <!--9. mock sendLegalEnquiryExecutionResult-->
                 <integrationPoint name="sendLegalEnquiryExecutionResult">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
-                    <rqXpath>
+                    <xpathValidation>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">confirmationMessage</tag>
-                    </rqXpath>
+                    </xpathValidation>
 
-                    <rsXpath>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">confirmationMessage</tag>
-                    </rsXpath>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Mock</type>
                     <!-- Где лежит корневой элемент-->
@@ -237,15 +201,11 @@
                 <!--10. driver assessQuality-->
                 <integrationPoint name="assessQuality">
                     <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
-                    <rqXpath>
+                    <xpathValidation>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
                         <tag ns="http://sbrf.ru/legal/enquiry/integration">assessQuality</tag>
-                    </rqXpath>
+                    </xpathValidation>
 
-                    <rsXpath>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
-                        <tag ns="http://sbrf.ru/legal/enquiry/integration">assessQuality</tag>
-                    </rsXpath>
                     <!-- Тип точки интеграции Заглушка/Драйвер-->
                     <type>Driver</type>
                     <!-- Где лежит корневой элемент-->

@@ -9,11 +9,16 @@ import com.eviware.soapui.impl.wsdl.teststeps.registry.WsdlTestRequestStepFactor
 import com.eviware.soapui.model.iface.Operation;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.saxon.s9api.SaxonApiException;
+import net.sf.saxon.s9api.XdmNode;
+import net.sf.saxon.s9api.XdmValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.entities.System;
+import ru.sbt.bpm.mock.config.entities.XpathSelector;
+import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.message.validation.impl.WsdlValidator;
@@ -130,19 +135,34 @@ public class MessageValidationService {
      * @param xml                  xml to search into
      * @param systemName           name of system, which xml belongs
      * @param integrationPointName name of integration point, which message represents
+     * @param messageType
      * @return true if one or more elements match the xpath
      * @throws XPathExpressionException
      * @throws SaxonApiException
      */
-    public boolean assertXpath(String xml, String systemName, String integrationPointName) throws XPathExpressionException, SaxonApiException {
+    public boolean assertXpath(String xml, String systemName, String integrationPointName, MessageType messageType) throws XPathExpressionException, SaxonApiException {
+        System system = configContainer.getSystemByName(systemName);
+        IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
 
-        String xpathWithFullNamespaceString = configContainer.getConfig()
-                .getSystems().getSystemByName(systemName)
-                .getIntegrationPoints().getIntegrationPointByName(integrationPointName)
-                .getXpathWithFullNamespaceString();
-        log.debug("assert xpath: " + xpathWithFullNamespaceString);
 
-        return XpathUtils.evaluateXpath(xml, xpathWithFullNamespaceString).size() != 0;
+        return assertXpath(xml, system, integrationPoint, messageType);
+    }
+
+    public boolean assertXpath(String xml, System system, IntegrationPoint integrationPoint, MessageType messageType) throws SaxonApiException {
+        if (messageType == MessageType.RQ) {
+            //ipSelector+ipName
+            String integrationPointSelectorXpath = system.getIntegrationPointSelector().toXpath();
+            String integrationPointName = integrationPoint.getName();
+            XdmValue value = XpathUtils.evaluateXpath(xml, integrationPointSelectorXpath);
+            return ((XdmNode) value).getNodeName().getLocalName().equals(integrationPointName);
+        }
+        if (messageType == MessageType.RS) {
+            //xpathSelector
+            String xpathWithFullNamespaceString = integrationPoint.getXpathWithFullNamespaceString();
+            log.debug("assert xpath: " + xpathWithFullNamespaceString);
+            return XpathUtils.evaluateXpath(xml, xpathWithFullNamespaceString).size() != 0;
+        }
+        throw new IllegalStateException("Unknown message type: " + messageType.name());
     }
 
 

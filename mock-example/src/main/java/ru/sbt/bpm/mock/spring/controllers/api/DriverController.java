@@ -1,4 +1,4 @@
-package ru.sbt.bpm.mock.spring.controller;
+package ru.sbt.bpm.mock.spring.controllers.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -6,7 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import reactor.tuple.Tuple;
+import reactor.tuple.Tuple2;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.spring.integration.gateway.ClientService;
 import ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService;
@@ -66,13 +69,14 @@ public class DriverController {
         model.addAttribute("xpath",
                 configContainer.getConfig().getSystems().getSystemByName(systemName)
                         .getIntegrationPoints().getIntegrationPointByName(integrationPointName)
-                        .getXpathString(MessageType.RQ));
+                        .getXpathString());
         model.addAttribute("message", dataFileService.getCurrentMessage(systemName, integrationPointName));
         model.addAttribute("script", dataFileService.getCurrentScript(systemName, integrationPointName));
         model.addAttribute("test", dataFileService.getCurrentTest(systemName, integrationPointName));
         return "editor";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/driver/{systemName}/{integrationPointName}/validate/", method = RequestMethod.POST)
     public String validate(
             @PathVariable("systemName") String systemName,
@@ -81,24 +85,13 @@ public class DriverController {
             @RequestParam String script,
             @RequestParam String test,
             ModelMap model) {
-        AjaxObject ajaxObject = new AjaxObject();
-        try {
-            String compiledXml = groovyService.execute(test, xml, script);
-            if (messageValidationService.assertXpath(compiledXml, systemName, integrationPointName)) {
-                final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
-                if (validationErrors.size() == 0) {
-                    ajaxObject.setInfo("Valid!");
-                } else {
-                    ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
-                }
-            } else {
-                ajaxObject.setError("xml did not pass xpath assertion!");
-            }
-        } catch (Exception e) {
-            ajaxObject.setErrorFromException(e);
+        Tuple2<AjaxObject, String> ajaxObjectWithCompiledXml = validateDriverMessages(xml, test, script, systemName, integrationPointName);
+        AjaxObject ajaxObject = ajaxObjectWithCompiledXml.getT1();
+
+        if (ajaxObject.getError() == null || ajaxObject.getError().length() == 0) {
+            ajaxObject.setInfo("Valid!");
         }
-        model.addAttribute("object", ajaxObject.toJSON());
-        return "blank";
+        return ajaxObject.toJSON();
     }
 
     @ResponseBody
@@ -109,46 +102,38 @@ public class DriverController {
             @RequestParam String xml,
             @RequestParam String script,
             @RequestParam String test) throws IOException {
-        AjaxObject ajaxObject = new AjaxObject();
-        SaveFile saver = SaveFile.getInstance(appContext);
-        try {
-            String compiledXml = groovyService.execute(test, xml, script);
-            if (messageValidationService.assertXpath(compiledXml, systemName, integrationPointName)) {
-                List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
+        Tuple2<AjaxObject, String> ajaxObjectWithCompiledXml = validateDriverMessages(xml, test, script, systemName, integrationPointName);
+        AjaxObject ajaxObject = ajaxObjectWithCompiledXml.getT1();
+        String compiledXml = ajaxObjectWithCompiledXml.getT2();
 
-                if (validationErrors.size() == 0) {
-                    // If Valid - then save
-                    File messageFile = null;
-                    File scriptFile = null;
-                    File testFile = null;
-                    try {
-                        //message file
-                        messageFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + "__" + "message.xml"));
-                        //script file
-                        scriptFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + "__" + "script.groovy"));
-                        //test file
-                        testFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + "__" + "test.xml"));
-                    } catch (Exception e) {
-                        ajaxObject.setError(e.getMessage());
-                    }
-                    if (messageFile != null && scriptFile != null && testFile != null) {
-                        try {
-                            saver.writeStringToFile(messageFile, xml);
-                            saver.writeStringToFile(scriptFile, script);
-                            saver.writeStringToFile(testFile, test);
-                            ajaxObject.setInfo("saved");
-                        } catch (IOException e) {
-                            ajaxObject.setErrorFromException(e);
-                        } catch (Exception e) {
-                            ajaxObject.setErrorFromException(e);
-                        }
-                    }
-                } else {
-                    ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
+        SaveFile saver = SaveFile.getInstance(appContext);
+        if (ajaxObject.getError() == null || ajaxObject.getError().length() == 0) {
+            // If Valid - then save
+            File messageFile = null;
+            File scriptFile = null;
+            File testFile = null;
+            try {
+                //message file
+                messageFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + "__" + "message.xml"));
+                //script file
+                scriptFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + "__" + "script.groovy"));
+                //test file
+                testFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + "__" + "test.xml"));
+            } catch (Exception e) {
+                ajaxObject.setError(e.getMessage());
+            }
+            if (messageFile != null && scriptFile != null && testFile != null) {
+                try {
+                    saver.writeStringToFile(messageFile, xml);
+                    saver.writeStringToFile(scriptFile, script);
+                    saver.writeStringToFile(testFile, test);
+                    ajaxObject.setInfo("saved");
+                } catch (IOException e) {
+                    ajaxObject.setErrorFromException(e);
+                } catch (Exception e) {
+                    ajaxObject.setErrorFromException(e);
                 }
             }
-        } catch (Exception e) {
-            ajaxObject.setError(e.getMessage());
         }
         return ajaxObject.toJSON();
     }
@@ -224,25 +209,14 @@ public class DriverController {
             @RequestParam(required = false) String xml,
             @RequestParam(required = false) String script,
             @RequestParam(required = false) String test) {
-        AjaxObject ajaxObject = new AjaxObject();
-//        VALIDATE
-        try {
-            String compiledXml = groovyService.execute(test, xml, script);
-            if (messageValidationService.assertXpath(compiledXml, systemName, integrationPointName)) {
-                final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
-                if (validationErrors.size() == 0) {
-                    String response = clientService.send(compiledXml);
-
-                    ajaxObject.setData(response);
-                    ajaxObject.setInfo("DONE!");
-                } else {
-                    ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
-                }
-            }
-        } catch (Exception e) {
-            ajaxObject.setErrorFromException(e);
+        Tuple2<AjaxObject, String> ajaxObjectWithCompiledXml = validateDriverMessages(xml, test, script, systemName, integrationPointName);
+        AjaxObject ajaxObject = ajaxObjectWithCompiledXml.getT1();
+        String compiledXml = ajaxObjectWithCompiledXml.getT2();
+        if (ajaxObject.getError() == null || ajaxObject.getError().length() == 0) {
+            String response = clientService.send(compiledXml);
+            ajaxObject.setData(response);
+            ajaxObject.setInfo("DONE!");
         }
-
         return ajaxObject.toJSON();
     }
 
@@ -254,25 +228,48 @@ public class DriverController {
             @RequestParam String xml,
             @RequestParam String script,
             @RequestParam String test) {
+        Tuple2<AjaxObject, String> ajaxObjectWithCompiledXml = validateDriverMessages(xml, test, script, systemName, integrationPointName);
+        AjaxObject ajaxObject = ajaxObjectWithCompiledXml.getT1();
+        String compiledXml = ajaxObjectWithCompiledXml.getT2();
+        if (ajaxObject.getError() == null || ajaxObject.getError().length() == 0) {
+            String response = testGatewayService.test(compiledXml);
+            ajaxObject.setData(response);
+            ajaxObject.setInfo("DONE!");
+        }
+        return ajaxObject.toJSON();
 
+    }
+
+    /**
+     * Returns ajaxObject with possible errors and compiled xml
+     *
+     * @param xml                  mockXml string
+     * @param test                 test xml for driver -- not used
+     * @param script               groovy script
+     * @param systemName           name of system of Driver
+     * @param integrationPointName name of integration point
+     * @return Tuple of AjaxObject and compiledXml
+     */
+    private Tuple2<AjaxObject, String> validateDriverMessages(String xml, String test, String script, String systemName, String integrationPointName) {
         AjaxObject ajaxObject = new AjaxObject();
+        String compiledXml = "";
         try {
-            String compiledXml = groovyService.execute(test, xml, script);
-            if (messageValidationService.assertXpath(compiledXml, systemName, integrationPointName)) {
-                final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
 
-                if (validationErrors.size() == 0) {
-                    String response = testGatewayService.test(compiledXml);
-                    ajaxObject.setData(response);
-                    ajaxObject.setInfo("DONE!");
-                } else {
+            ru.sbt.bpm.mock.config.entities.System system = configContainer.getSystemByName(systemName);
+            IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
+
+            compiledXml = groovyService.execute(test, xml, script);
+            if (messageValidationService.assertXpath(compiledXml, system, integrationPoint, MessageType.RQ)) {
+                final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
+                if (validationErrors.size() != 0) {
                     ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
                 }
+            } else {
+                ajaxObject.setError("xml did not pass xpath assertion!");
             }
         } catch (Exception e) {
             ajaxObject.setErrorFromException(e);
         }
-
-        return ajaxObject.toJSON();
+        return Tuple.of(ajaxObject, compiledXml);
     }
 }

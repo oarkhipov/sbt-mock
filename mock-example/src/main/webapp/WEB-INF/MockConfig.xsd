@@ -140,14 +140,9 @@
     <!-- integration point element type-->
     <xs:complexType name="integrationPointType" mixed="true">
         <xs:sequence>
-            <xs:element xmlns:moc="http://sbrf.ru/mockService2" type="moc:xpathValidationType" name="rqXpath">
+            <xs:element xmlns:moc="http://sbrf.ru/mockService2" type="moc:xpathValidationType" name="xpathValidation">
                 <xs:annotation>
                     <xs:documentation>Валидация Запроса</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element xmlns:moc="http://sbrf.ru/mockService2" type="moc:xpathValidationType" name="rsXpath">
-                <xs:annotation>
-                    <xs:documentation>Валидация Ответа</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="type">
