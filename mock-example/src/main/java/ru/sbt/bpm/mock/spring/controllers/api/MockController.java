@@ -197,7 +197,7 @@ public class MockController {
         try {
             ru.sbt.bpm.mock.config.entities.System system = configContainer.getSystemByName(systemName);
             IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
-            if (test == null || test.length() >0 || messageValidationService.assertXpath(test, system, integrationPoint, MessageType.RQ)) {
+            if (test == null || test.length() == 0 || messageValidationService.assertXpath(test, system, integrationPoint, MessageType.RQ)) {
                 compiledXml = groovyService.execute(test, xml, script);
                 if (messageValidationService.assertXpath(compiledXml, system, integrationPoint, MessageType.RS)) {
                     final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
