@@ -6,13 +6,14 @@ import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.eviware.soapui.impl.wsdl.mock.WsdlMockDispatcher;
 import com.eviware.soapui.impl.wsdl.mock.WsdlMockService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 import ru.sbt.bpm.mock.config.enums.MessageType;
+import ru.sbt.bpm.mock.spring.service.message.validation.mockObjects.MockHttpServletResponse;
 
 import java.io.File;
+import java.net.URL;
 
 import static org.testng.Assert.assertTrue;
 
@@ -21,7 +22,7 @@ import static org.testng.Assert.assertTrue;
  *         <p/>
  *         Company: SBT - Moscow
  */
-//@WebAppConfiguration
+
 @ContextConfiguration({"/env/mockapp-servlet.xml"})
 public class XmlGeneratorServiceTest extends AbstractTestNGSpringContextTests {
 
@@ -37,8 +38,11 @@ public class XmlGeneratorServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testWsdlGenerate() throws Exception {
-        final String currentPath = new java.io.File(".").getCanonicalPath();
-        final String wsdlUrl = "file:" + currentPath + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "wsdl" + File.separator + "spyne.wsdl";
+        URL resource = this.getClass().getClassLoader().getResource("");
+        assert resource != null;
+        String baseDir = resource.getFile();
+        assert baseDir != null;
+        final String wsdlUrl = baseDir + File.separator + "wsdl" + File.separator + "spyne.wsdl";
         WsdlProject wsdlProject = new WsdlProject();
         WsdlInterfaceFactory.importWsdl(wsdlProject, wsdlUrl, true);
         WsdlInterface wsdlInterface = (WsdlInterface) wsdlProject.getInterfaceList().get(0);
@@ -60,7 +64,5 @@ public class XmlGeneratorServiceTest extends AbstractTestNGSpringContextTests {
         assertTrue(responseString.contains("address location=\"http://someHost:80/\""));
         assertTrue(responseString.contains("wsdl:operation>"));
         assertTrue(responseString.contains("wsdl:definitions"));
-
-
     }
 }

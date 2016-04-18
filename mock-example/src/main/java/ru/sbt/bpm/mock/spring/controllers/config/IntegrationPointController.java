@@ -10,6 +10,7 @@ import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.generator.spring.integration.Pair;
 import ru.sbt.bpm.mock.spring.service.ConfigurationService;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
+import ru.sbt.bpm.mock.spring.service.IntegrationPointNameSuggestionService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,11 +33,15 @@ public class IntegrationPointController {
     @Autowired
     DataFileService dataFileService;
 
+    @Autowired
+    IntegrationPointNameSuggestionService suggestionService;
+
     @RequestMapping(value = "/ip/add/", method = RequestMethod.GET)
     public String add(Model model) {
         model.addAttribute("systems", configContainer.getConfig().getSystems().getSystems());
         model.addAttribute("systemName", "");
         model.addAttribute("integrationPointName", "");
+        model.addAttribute("suggestedNames", "");
         return "integrationPoint/form";
     }
 
@@ -52,7 +57,7 @@ public class IntegrationPointController {
                       @RequestParam(required = false) String outcomeQueue,
                       @RequestParam(required = false) Boolean answerRequired,
                       @RequestParam(required = false) String xsdFile,
-                      @RequestParam String rootElementNamespace,
+                      @RequestParam(required = false) String rootElementNamespace,
                       @RequestParam String rootElementName) throws IOException {
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(system);
         XpathSelector xpathSelector = new XpathSelector(xpathValidatorNamespace, xpathValidatorElementName);
@@ -81,7 +86,7 @@ public class IntegrationPointController {
     @RequestMapping(value = "/ip/update/{system}/{name}/", method = RequestMethod.GET)
     public String update(@PathVariable String system,
                          @PathVariable String name,
-                         Model model) {
+                         Model model) throws Exception {
         Systems systems = configContainer.getConfig().getSystems();
         model.addAttribute("systems", systems.getSystems());
         assert systems.getSystemByName(system) != null;
@@ -95,6 +100,7 @@ public class IntegrationPointController {
         model.addAttribute("xsdFile", integrationPoint.getXsdFile());
         model.addAttribute("rootElement", integrationPoint.getRootElement());
         model.addAttribute("xpathValidation", integrationPoint.getXpathValidatorSelector().getElementSelectors());
+        model.addAttribute("suggestedNames", suggestionService.suggestName(configContainer.getSystemByName(system)));
         return "integrationPoint/form";
     }
 
@@ -111,7 +117,7 @@ public class IntegrationPointController {
                          @RequestParam(required = false) String outcomeQueue,
                          @RequestParam(required = false) Boolean answerRequired,
                          @RequestParam(required = false) String xsdFile,
-                         @RequestParam String rootElementNamespace,
+                         @RequestParam(required = false) String rootElementNamespace,
                          @RequestParam String rootElementName) throws IOException {
 
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(system);

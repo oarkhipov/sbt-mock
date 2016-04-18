@@ -24,6 +24,7 @@
             <!-- Входящая очередь драйвера -->
             <driverIncomeQueue>jms/Q.LEGAL.TO.CRMORG.SYNCRESP</driverIncomeQueue>
 
+            <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
             <integrationPoints>
 
                 <!--1. driver getReferenceData -->

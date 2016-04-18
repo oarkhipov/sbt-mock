@@ -68,19 +68,29 @@ public class XmlGeneratorService {
         IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
         switch (system.getProtocol()) {
             case JMS:
-                return generateJmsMessage(system, integrationPoint, messageType, filterMessage);
+                return generateJmsMessage(system, integrationPoint, filterMessage);
             case SOAP:
                 return generateSoapMessage(system, integrationPoint, messageType);
         }
         throw new IllegalStateException("Reached unreachable code in xml generator");
     }
 
-    private String generateJmsMessage(System system, IntegrationPoint integrationPoint, MessageType messageType, boolean filterMessage) throws Exception {
+    public String generateJmsSystemMessage(String systemName) throws Exception {
+        ru.sbt.bpm.mock.config.entities.System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
+        return generateJmsMessage(system, null, false);
+    }
+
+    private String generateJmsMessage(System system, IntegrationPoint integrationPoint, boolean filterMessage) throws Exception {
         String localRootSchema = system.getLocalRootSchema();
-        if (integrationPoint.getXsdFile()!=null && !integrationPoint.getXsdFile().isEmpty()) {
-            localRootSchema = integrationPoint.getXsdFile();
+        ElementSelector elementSelector = system.getRootElement();
+        if (integrationPoint != null) {
+            if (integrationPoint.getXsdFile() != null && !integrationPoint.getXsdFile().isEmpty()) {
+                localRootSchema = integrationPoint.getXsdFile();
+            }
+            if (integrationPoint.getRootElement() != null) {
+                elementSelector = integrationPoint.getRootElement();
+            }
         }
-        ElementSelector elementSelector = integrationPoint.getRootElement();
         String rootElementName = elementSelector.getElement();
         String rootElementNamespace = elementSelector.getNamespace();
 

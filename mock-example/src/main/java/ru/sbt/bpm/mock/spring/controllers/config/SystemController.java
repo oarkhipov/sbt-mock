@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.config.entities.ElementSelector;
 import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.entities.Systems;
 import ru.sbt.bpm.mock.config.entities.XpathSelector;
@@ -47,12 +48,15 @@ public class SystemController {
                       @RequestParam(required = false) String mockOutcomeQueue,
                       @RequestParam(required = false) String driverOutcomeQueue,
                       @RequestParam(required = false) String driverIncomeQueue,
-                      @RequestParam(required = false) String driverWebServiceEndpoint) {
+                      @RequestParam(required = false) String driverWebServiceEndpoint,
+                      @RequestParam(value = "rootElementNamespace") String rootElementNamespace,
+                      @RequestParam(value = "rootElementName") String rootElementName) {
         Systems systems = configContainer.getConfig().getSystems();
         XpathSelector xpathSelector = new XpathSelector(integrationPointSelectorNamespace, integrationPointSelectorElementName);
+        ElementSelector rootElement = new ElementSelector(rootElementNamespace, rootElementName);
 
         System system = new System(name, remoteRootSchema, localRootSchema, xpathSelector, type, queueConnectionFactory, mockIncomeQueue,
-                mockOutcomeQueue, driverOutcomeQueue, driverIncomeQueue, driverWebServiceEndpoint, null);
+                mockOutcomeQueue, driverOutcomeQueue, driverIncomeQueue, driverWebServiceEndpoint, rootElement, null);
 
         if (systems.getSystems() == null) {
             systems.setSystems(new ArrayList<System>());

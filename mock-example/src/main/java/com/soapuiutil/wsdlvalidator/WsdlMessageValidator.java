@@ -21,7 +21,7 @@ import org.apache.xmlbeans.XmlObject;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xmlsoap.schemas.soap.envelope.Envelope;
-import ru.sbt.bpm.mock.spring.service.message.validation.MockHttpServletRequest;
+import ru.sbt.bpm.mock.spring.service.message.validation.mockObjects.MockHttpServletRequest;
 
 import javax.xml.namespace.QName;
 import java.util.HashMap;

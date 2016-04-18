@@ -26,7 +26,14 @@
         </tr>
         <tr>
             <td>Integration point name:</td>
-            <td><input type="text" name="name" id="name" size="25" value="${integrationPointName}"/></td>
+            <td>
+                <select name="name" id="name">
+                    <c:forEach items="${suggestedNames}" var="name">
+                        <option name="${name}"
+                                    <c:if test="${name.equals(integrationPointName)}">selected</c:if> >${name}</option>
+                    </c:forEach>
+                </select>
+            </td>
         </tr>
         <tr>
             <td>Integration point type:</td>

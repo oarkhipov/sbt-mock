@@ -4,6 +4,7 @@ import com.eviware.soapui.config.TestStepConfig;
 import com.eviware.soapui.impl.wsdl.WsdlOperation;
 import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.eviware.soapui.impl.wsdl.WsdlTestSuite;
+import com.eviware.soapui.impl.wsdl.mock.WsdlMockService;
 import com.eviware.soapui.impl.wsdl.testcase.WsdlTestCase;
 import com.eviware.soapui.impl.wsdl.teststeps.registry.WsdlTestRequestStepFactory;
 import com.eviware.soapui.model.iface.Operation;
@@ -103,11 +104,14 @@ public class MessageValidationService {
                 //create testsuite
                 WsdlTestSuite testSuite = wsdlProject.addNewTestSuite("TestSuite");
                 WsdlTestCase testCase = testSuite.addNewTestCase("TestCase");
+
+                WsdlMockService mockService = wsdlProject.addNewMockService("MockService");
                 //init test steps for all operations
                 for (Operation operation : wsdlProject.getInterfaceList().get(0).getOperationList()) {
                     WsdlOperation wsdlOperation = (WsdlOperation) operation;
                     TestStepConfig testStepConfig = WsdlTestRequestStepFactory.createConfig(wsdlOperation, wsdlOperation.getName());
                     testCase.addTestStep(testStepConfig);
+                    mockService.addNewMockOperation(operation);
                 }
 
                 validator.put(system.getSystemName(), wsdlValidator);

@@ -237,7 +237,6 @@ public class DriverController {
             ajaxObject.setInfo("DONE!");
         }
         return ajaxObject.toJSON();
-
     }
 
     /**
@@ -254,7 +253,6 @@ public class DriverController {
         AjaxObject ajaxObject = new AjaxObject();
         String compiledXml = "";
         try {
-
             ru.sbt.bpm.mock.config.entities.System system = configContainer.getSystemByName(systemName);
             IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
 

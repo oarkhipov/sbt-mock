@@ -125,7 +125,11 @@
                     </xs:sequence>
                 </xs:choice>
             </xs:sequence>
-
+            <xs:element xmlns:moc="http://sbrf.ru/mockService2" type="moc:rootElementType" name="rootElement" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Указатель на корневой элемент для генерации тестового сообщения</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element type="xs:string" name="driverWebServiceEndpoint" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>Адрес webservice для отсылки запросов</xs:documentation>
@@ -171,7 +175,7 @@
                     <xs:documentation>Где лежит корневой элемент</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element xmlns:moc="http://sbrf.ru/mockService2" type="moc:rootElementType" name="rootElement">
+            <xs:element xmlns:moc="http://sbrf.ru/mockService2" type="moc:rootElementType" name="rootElement" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>Указатель на корневой элемент для генерации тестового сообщения</xs:documentation>
                 </xs:annotation>

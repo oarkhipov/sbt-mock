@@ -23,7 +23,7 @@
             <driverOutcomeQueue>jms/Q.LEGAL.FROM.CRMORG</driverOutcomeQueue>
             <!-- Входящая очередь драйвера -->
             <driverIncomeQueue>jms/Q.LEGAL.TO.CRMORG.SYNCRESP</driverIncomeQueue>
-
+            <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
             <integrationPoints>
 
                 <!--1. driver getReferenceData -->
@@ -238,6 +238,7 @@
                 <tag ns="http://schemas.xmlsoap.org/wsdl/soap/">Operation-name</tag>
             </integrationPointSelector>
             <protocol>SOAP</protocol>
+            <rootElement ns="http://schemas.xmlsoap.org/wsdl/soap/">Envelope</rootElement>
             <integrationPoints>
                 <integrationPoint name="say_hello">
                     <xpathValidation>

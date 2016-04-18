@@ -56,6 +56,9 @@ public class System {
     @XStreamAlias("driverWebServiceEndpoint")
     private String driverWebServiceEndpoint;
 
+    @XStreamAlias("rootElement")
+    private ElementSelector rootElement;
+
     @XStreamAlias("integrationPoints")
     private IntegrationPoints integrationPoints;
 

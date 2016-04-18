@@ -1,4 +1,4 @@
-package ru.sbt.bpm.mock.spring.service.message.validation;
+package ru.sbt.bpm.mock.spring.service.message.validation.mockObjects;
 
 import lombok.Data;
 
