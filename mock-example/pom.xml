@@ -38,12 +38,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.ws</groupId>
-            <artifactId>spring-ws</artifactId>
-            <version>${spring.ws.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
@@ -57,27 +51,9 @@
 
         <dependency>
             <groupId>org.springframework.integration</groupId>
-            <artifactId>spring-integration-xml</artifactId>
-            <version>${spring-integration.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-jms</artifactId>
             <version>${spring-integration.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.integration</groupId>
-            <artifactId>spring-integration-ws</artifactId>
-            <version>${spring-integration.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.integration</groupId>
-            <artifactId>spring-integration-http</artifactId>
-            <version>${spring-integration.version}</version>
-        </dependency>
-        <!--
-                   O T H E R
-            -->
 
         <dependency>
             <groupId>junit</groupId>
@@ -185,16 +161,8 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.2</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
-
-        <!-- SI  STREAM-->
-        <dependency>
-            <groupId>org.springframework.integration</groupId>
-            <artifactId>spring-integration-stream</artifactId>
-            <version>${spring-integration.version}</version>
-        </dependency>
-
 
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -302,7 +270,6 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -362,7 +329,7 @@
         </snapshotRepository>
     </distributionManagement>
     <build>
-        <finalName>mock_${version}-interactive</finalName>
+        <finalName>mock_${project.version}-interactive</finalName>
         <plugins>
             <!--
                 Compiling
@@ -437,5 +404,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

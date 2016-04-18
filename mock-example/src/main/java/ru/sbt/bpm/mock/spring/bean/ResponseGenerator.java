@@ -182,6 +182,6 @@ public class ResponseGenerator {
     }
 
     private void log(MockMessage mockMessage, MessageType messageType) {
-        //TODO
+        //TODO log implementation
     }
 }

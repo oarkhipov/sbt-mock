@@ -65,8 +65,10 @@ public class System {
 
     public List<String> getIntegrationPointNames() {
         List<String> result = new ArrayList<String>();
-        for (IntegrationPoint point : getIntegrationPoints().getIntegrationPoints()) {
-            result.add(point.getName());
+        if (integrationPoints != null && integrationPoints.getIntegrationPoints() != null) {
+            for (IntegrationPoint point : getIntegrationPoints().getIntegrationPoints()) {
+                result.add(point.getName());
+            }
         }
         return result;
     }
@@ -74,7 +76,7 @@ public class System {
 
     public List<IntegrationPoint> getMockIntegrationPoints() {
         List<IntegrationPoint> mockIntegrationPoints = new ArrayList<IntegrationPoint>();
-        if (integrationPoints != null) {
+        if (integrationPoints != null && integrationPoints.getIntegrationPoints() != null) {
             for (IntegrationPoint integrationPoint : integrationPoints.getIntegrationPoints()) {
                 if (integrationPoint.isMock()) {
                     mockIntegrationPoints.add(integrationPoint);
@@ -86,7 +88,7 @@ public class System {
 
     public List<IntegrationPoint> getDriverIntegrationPoints() {
         List<IntegrationPoint> driverIntegrationPoints = new ArrayList<IntegrationPoint>();
-        if (integrationPoints != null) {
+        if (integrationPoints != null && integrationPoints.getIntegrationPoints() != null) {
             for (IntegrationPoint integrationPoint : integrationPoints.getIntegrationPoints()) {
                 if (integrationPoint.isDriver()) {
                     driverIntegrationPoints.add(integrationPoint);
