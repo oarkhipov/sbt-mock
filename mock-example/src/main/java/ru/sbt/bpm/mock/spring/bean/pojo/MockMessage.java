@@ -36,4 +36,8 @@ public class MockMessage {
     public MockMessage(String payload) {
         this.payload = payload;
     }
+
+    public String extractPayload() {
+        return payload;
+    }
 }
