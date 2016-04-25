@@ -51,8 +51,8 @@ public class IntegrationPointController {
                       @RequestParam String name,
                       @RequestParam String type,
                       @RequestParam(required = false) Integer delayMs,
-                      @RequestParam(value = "xpathValidatorNamespace[]") String[] xpathValidatorNamespace,
-                      @RequestParam(value = "xpathValidatorElementName[]") String[] xpathValidatorElementName,
+                      @RequestParam(required = false, value = "xpathValidatorNamespace[]") String[] xpathValidatorNamespace,
+                      @RequestParam(required = false, value = "xpathValidatorElementName[]") String[] xpathValidatorElementName,
                       @RequestParam(required = false) String incomeQueue,
                       @RequestParam(required = false) String outcomeQueue,
                       @RequestParam(required = false) Boolean answerRequired,
@@ -60,7 +60,7 @@ public class IntegrationPointController {
                       @RequestParam(required = false) String rootElementNamespace,
                       @RequestParam String rootElementName) throws IOException {
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(system);
-        XpathSelector xpathSelector = new XpathSelector(xpathValidatorNamespace, xpathValidatorElementName);
+        XpathSelector xpathSelector = xpathValidatorNamespace!=null?new XpathSelector(xpathValidatorNamespace, xpathValidatorElementName):null;
         if (delayMs == null) delayMs = 1000;
         IntegrationPoint integrationPoint =
                 new IntegrationPoint(name,
@@ -85,7 +85,7 @@ public class IntegrationPointController {
 
     @RequestMapping(value = "/ip/update/{system}/{name}/", method = RequestMethod.GET)
     public String update(@PathVariable String system,
-                         @PathVariable String name,
+                         @PathVariable final String name,
                          Model model) throws Exception {
         Systems systems = configContainer.getConfig().getSystems();
         model.addAttribute("systems", systems.getSystems());
@@ -99,8 +99,11 @@ public class IntegrationPointController {
         model.addAttribute("isAnswerRequired", integrationPoint.getAnswerRequired());
         model.addAttribute("xsdFile", integrationPoint.getXsdFile());
         model.addAttribute("rootElement", integrationPoint.getRootElement());
-        model.addAttribute("xpathValidation", integrationPoint.getXpathValidatorSelector().getElementSelectors());
-        model.addAttribute("suggestedNames", suggestionService.suggestName(configContainer.getSystemByName(system)));
+        model.addAttribute("xpathValidation", integrationPoint.getXpathValidatorSelector()!=null?integrationPoint.getXpathValidatorSelector().getElementSelectors():null);
+
+        List<String> integrationPointNames = new ArrayList<String>(){{add(name);}};
+        integrationPointNames.addAll(suggestionService.suggestName(configContainer.getSystemByName(system)));
+        model.addAttribute("suggestedNames", integrationPointNames);
         return "integrationPoint/form";
     }
 
@@ -111,8 +114,8 @@ public class IntegrationPointController {
                          @RequestParam(value = "name") String newIntegrationPointName,
                          @RequestParam String type,
                          @RequestParam(required = false) Integer delayMs,
-                         @RequestParam(value = "xpathValidatorNamespace[]") String[] xpathValidatorNamespace,
-                         @RequestParam(value = "xpathValidatorElementName[]") String[] xpathValidatorElementName,
+                         @RequestParam(required = false, value = "xpathValidatorNamespace[]") String[] xpathValidatorNamespace,
+                         @RequestParam(required = false, value = "xpathValidatorElementName[]") String[] xpathValidatorElementName,
                          @RequestParam(required = false) String incomeQueue,
                          @RequestParam(required = false) String outcomeQueue,
                          @RequestParam(required = false) Boolean answerRequired,
@@ -138,8 +141,8 @@ public class IntegrationPointController {
             }
         }
 
-        XpathSelector xpathSelector = new XpathSelector(xpathValidatorNamespace, xpathValidatorElementName);
-        if (!integrationPoint.getXpathValidatorSelector().equals(xpathSelector)) {
+        XpathSelector xpathSelector = xpathValidatorNamespace!=null?new XpathSelector(xpathValidatorNamespace, xpathValidatorElementName):null;
+        if (xpathSelector!=null && !integrationPoint.getXpathValidatorSelector().equals(xpathSelector)) {
             integrationPoint.setXpathValidatorSelector(xpathSelector);
         }
 

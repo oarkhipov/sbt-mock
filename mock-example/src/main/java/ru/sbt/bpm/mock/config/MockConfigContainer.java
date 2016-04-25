@@ -33,7 +33,7 @@ public class MockConfigContainer {
 
     //map of wsdl projects for message generation and validation. It initializes at validator initialization method
     @Getter
-    private Map<System, WsdlProject> wsdlProjectMap = new HashMap<System, WsdlProject>();
+    private Map<String, WsdlProject> wsdlProjectMap = new HashMap<String, WsdlProject>();
 
     @Getter
     private String filePath = null;

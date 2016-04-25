@@ -6,6 +6,7 @@ import com.eviware.soapui.model.iface.Operation;
 import net.sf.saxon.s9api.XdmItem;
 import net.sf.saxon.s9api.XdmNode;
 import net.sf.saxon.s9api.XdmValue;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
@@ -31,35 +32,45 @@ public class IntegrationPointNameSuggestionService {
     XmlGeneratorService generatorService;
 
     public List<String> suggestName(System system) throws Exception {
+        return suggestName(system, true);
+    }
+
+    public List<String> suggestName(System system, boolean filterExist) throws Exception {
         Protocol protocol = system.getProtocol();
         if (protocol == Protocol.JMS) {
-            return suggestJmsName(system);
+            return suggestJmsName(system, filterExist);
         }
         if (protocol == Protocol.SOAP) {
-            return suggestWsName(system);
+            return suggestWsName(system, filterExist);
         }
         throw new IllegalStateException("No such protocol: " + protocol);
     }
 
-    private List<String> suggestWsName(System system) {
-        WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(system);
-        ArrayList<String> operationNames = new ArrayList<String>();
+    private List<String> suggestWsName(System system, boolean filterExist) {
+        WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(system.getSystemName());
+        ArrayList<String> suggestedOperationNames = new ArrayList<String>();
         Interface anInterface = wsdlProject.getInterfaceList().get(0);
         for (Operation operation : anInterface.getOperationList()) {
-            operationNames.add(operation.getName());
+            suggestedOperationNames.add(operation.getName());
         }
-        return operationNames;
+        if (filterExist) {
+            suggestedOperationNames = (ArrayList<String>) CollectionUtils.removeAll(suggestedOperationNames, system.getIntegrationPointNames());
+        }
+        return suggestedOperationNames;
     }
 
-    private List<String> suggestJmsName(System system) throws Exception {
-        List<String> integrationPointNames = new ArrayList<String>();
+    private List<String> suggestJmsName(System system, boolean filterExits) throws Exception {
+        List<String> suggestedIntegrationPointNames = new ArrayList<String>();
         String fullMessage = generatorService.generateJmsSystemMessage(system.getSystemName());
         String xpath = system.getIntegrationPointSelector().toXpath();
         XdmValue value = XpathUtils.evaluateXpath(fullMessage, xpath);
         for (XdmItem xdmItem : value) {
             String stringValue = ((XdmNode) xdmItem).getNodeName().getLocalName();
-            integrationPointNames.add(stringValue);
+            suggestedIntegrationPointNames.add(stringValue);
         }
-        return integrationPointNames;
+        if (filterExits) {
+            suggestedIntegrationPointNames = (List<String>) CollectionUtils.removeAll(suggestedIntegrationPointNames, system.getIntegrationPointNames());
+        }
+        return suggestedIntegrationPointNames;
     }
 }

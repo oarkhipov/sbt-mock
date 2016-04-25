@@ -14,15 +14,15 @@
              System-JMS, System-SOAP -->
             <protocol>JMS</protocol>
 
-            <queueConnectionFactory>jms/Q.LEGAL.CF</queueConnectionFactory>
+            <queueConnectionFactory>java:comp/env/jms/Q.LEGAL.CF</queueConnectionFactory>
             <!-- Входящая очередь заглушки -->
-            <mockIncomeQueue>jms/Q.LEGAL.TO.CRMORG</mockIncomeQueue>
+            <mockIncomeQueue>java:comp/env/jms/Q.LEGAL.TO.CRMORG</mockIncomeQueue>
             <!-- Исходящая очередь заглушки -->
-            <mockOutcomeQueue>jms/Q.LEGAL.FROM.CRMORG.SYNCRESP</mockOutcomeQueue>
+            <mockOutcomeQueue>java:comp/env/jms/Q.LEGAL.FROM.CRMORG.SYNCRESP</mockOutcomeQueue>
             <!-- Исходящая очередь драйвера -->
-            <driverOutcomeQueue>jms/Q.LEGAL.FROM.CRMORG</driverOutcomeQueue>
+            <driverOutcomeQueue>java:comp/env/jms/Q.LEGAL.FROM.CRMORG</driverOutcomeQueue>
             <!-- Входящая очередь драйвера -->
-            <driverIncomeQueue>jms/Q.LEGAL.TO.CRMORG.SYNCRESP</driverIncomeQueue>
+            <driverIncomeQueue>java:comp/env/jms/Q.LEGAL.TO.CRMORG.SYNCRESP</driverIncomeQueue>
 
             <!-- Указатель на корневой элемент для генерации тестового сообщения-->
             <!-- Optional -->
@@ -239,6 +239,7 @@
             <driverOutcomeQueue>java:comp/env/jms/Q.LEGAL.FROM.CRMORG</driverOutcomeQueue>
             <!-- Входящая очередь драйвера -->
             <driverIncomeQueue>java:comp/env/jms/Q.LEGAL.TO.CRMORG.SYNCRESP</driverIncomeQueue>
+            <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
             <integrationPoints>
             <!--<integrationPoint name="test1">-->
             <!--<rqXpath>-->
@@ -259,6 +260,7 @@
                 <tag ns="http://webservice.framework.xprs.dsc.com"/>
             </integrationPointSelector>
             <protocol>SOAP</protocol>
+            <rootElement ns="http://schemas.xmlsoap.org/wsdl/soap/">Envelope</rootElement>
             <integrationPoints></integrationPoints>
         </system>
     </systems>

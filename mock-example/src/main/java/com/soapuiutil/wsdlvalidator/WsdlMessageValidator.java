@@ -1,10 +1,7 @@
 package com.soapuiutil.wsdlvalidator;
 
 import com.eviware.soapui.impl.WsdlInterfaceFactory;
-import com.eviware.soapui.impl.wsdl.WsdlInterface;
-import com.eviware.soapui.impl.wsdl.WsdlOperation;
-import com.eviware.soapui.impl.wsdl.WsdlProject;
-import com.eviware.soapui.impl.wsdl.WsdlProjectFactory;
+import com.eviware.soapui.impl.wsdl.*;
 import com.eviware.soapui.impl.wsdl.mock.*;
 import com.eviware.soapui.impl.wsdl.panels.mockoperation.WsdlMockRequestMessageExchange;
 import com.eviware.soapui.impl.wsdl.panels.mockoperation.WsdlMockResponseMessageExchange;
@@ -129,7 +126,7 @@ public class WsdlMessageValidator {
     public String[] validateSchemaCompliance(final String message)
             throws WsdlMessageValidatorException {
 
-        WsdlMockOperation wsdlMockOperation = null;
+        WsdlMockOperation wsdlMockOperation;
         try {
 
             // parse for body in the response string
@@ -191,16 +188,15 @@ public class WsdlMessageValidator {
         try {
             AssertionError[] assertionErrors = null;
             WsdlOperation operation = wsdlMockOperation.getOperation();
-            if (messageType.equals(operation.getOutputName())) {
+            if (messageType.equals(((WsdlContentPart) operation.getDefaultResponseParts()[0]).getPartElementName().getLocalPart())) {
+                //validate response
                 mockResponse = wsdlMockOperation.addNewMockResponse(mockOperationName, true);
                 mockResponse.setResponseContent(message);
                 final WsdlMockResponseMessageExchange messageExchange = new WsdlMockResponseMessageExchange(mockResponse);
                 assertionErrors = wsdlValidator.assertResponse(messageExchange, false);
             }
-
-            if (messageType.equals(operation.getInputName())) {
-
-                //create http request
+            if (messageType.equals(((WsdlContentPart) operation.getDefaultRequestParts()[0]).getPartElementName().getLocalPart())) {
+                //validate request
                 MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
                 mockHttpServletRequest.setMethod("POST");
                 mockHttpServletRequest.setContent(message.getBytes("UTF-8"));
@@ -226,7 +222,7 @@ public class WsdlMessageValidator {
 
             return stringErrors;
         } finally {
-            if (wsdlMockOperation != null && mockResponse != null) {
+            if (mockResponse != null) {
                 wsdlMockOperation.removeMockResponse(mockResponse);
             }
         }

@@ -1,6 +1,7 @@
 package ru.sbt.bpm.mock.spring.service.message.validation;
 
 import com.eviware.soapui.config.TestStepConfig;
+import com.eviware.soapui.impl.wsdl.WsdlContentPart;
 import com.eviware.soapui.impl.wsdl.WsdlOperation;
 import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.eviware.soapui.impl.wsdl.WsdlTestSuite;
@@ -12,13 +13,15 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.XdmNode;
 import net.sf.saxon.s9api.XdmValue;
+import org.apache.xmlbeans.XmlException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3.x2003.x05.soapEnvelope.Envelope;
+import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.entities.System;
-import ru.sbt.bpm.mock.config.entities.XpathSelector;
 import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
@@ -100,7 +103,7 @@ public class MessageValidationService {
             case SOAP:
                 WsdlValidator wsdlValidator = new WsdlValidator(remoteRootSchema);
                 WsdlProject wsdlProject = wsdlValidator.getWsdlProject();
-                configContainer.getWsdlProjectMap().put(system, wsdlProject);
+                configContainer.getWsdlProjectMap().put(system.getSystemName(), wsdlProject);
                 //create testsuite
                 WsdlTestSuite testSuite = wsdlProject.addNewTestSuite("TestSuite");
                 WsdlTestCase testCase = testSuite.addNewTestCase("TestCase");
@@ -124,7 +127,7 @@ public class MessageValidationService {
     /**
      * Валидирует xml на соответствие схем
      *
-     * @param xml    спец имя xml
+     * @param xml        спец имя xml
      * @param systemName подпапка из директорий xsd и data, по которым будет производится ваидация
      * @return признак валидности
      */
@@ -144,15 +147,38 @@ public class MessageValidationService {
      * @throws XPathExpressionException
      * @throws SaxonApiException
      */
-    public boolean assertXpath(String xml, String systemName, String integrationPointName, MessageType messageType) throws XPathExpressionException, SaxonApiException {
+    public boolean assertMessageElementName(String xml, String systemName, String integrationPointName, MessageType messageType) throws XPathExpressionException, SaxonApiException, XmlException {
         System system = configContainer.getSystemByName(systemName);
         IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
-
-
-        return assertXpath(xml, system, integrationPoint, messageType);
+        return assertMessageElementName(xml, system, integrationPoint, messageType);
     }
 
-    public boolean assertXpath(String xml, System system, IntegrationPoint integrationPoint, MessageType messageType) throws SaxonApiException {
+    public boolean assertMessageElementName(String xml, System system, IntegrationPoint integrationPoint, MessageType messageType) throws SaxonApiException, XmlException {
+        Protocol protocol = system.getProtocol();
+        if (protocol == Protocol.JMS) {
+            return assertByXpath(xml, system, integrationPoint, messageType);
+        }
+        if (protocol == Protocol.SOAP) {
+            return assertByOperation(xml, system, integrationPoint, messageType);
+        }
+        throw new IllegalStateException("Unknown protocol: " + messageType.name());
+    }
+
+    private boolean assertByOperation(String xml, System system, IntegrationPoint integrationPoint, MessageType messageType) throws XmlException {
+        WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(system.getSystemName());
+        WsdlOperation operation = (WsdlOperation) wsdlProject.getInterfaceList().get(0).getOperationByName(integrationPoint.getName());
+        String elementName = getSoapMessageElementName(XpathUtils.compactXml(xml));
+        assert !elementName.isEmpty();
+        if (messageType == MessageType.RQ) {
+            return elementName.equals(((WsdlContentPart) operation.getDefaultRequestParts()[0]).getPartElementName().getLocalPart());
+        }
+        if (messageType == MessageType.RS) {
+            return elementName.equals(((WsdlContentPart) operation.getDefaultResponseParts()[0]).getPartElementName().getLocalPart());
+        }
+        throw new IllegalStateException("Unknown message type: " + messageType.name());
+    }
+
+    private boolean assertByXpath(String xml, System system, IntegrationPoint integrationPoint, MessageType messageType) throws SaxonApiException {
         if (messageType == MessageType.RQ) {
             //ipSelector+ipName
             String integrationPointSelectorXpath = system.getIntegrationPointSelector().toXpath();
@@ -167,6 +193,27 @@ public class MessageValidationService {
             return XpathUtils.evaluateXpath(xml, xpathWithFullNamespaceString).size() != 0;
         }
         throw new IllegalStateException("Unknown message type: " + messageType.name());
+    }
+
+    public String getSoapMessageElementName(String compactXml) throws XmlException {
+        final String BODY = "Body";
+        final String ENVELOPE = "Envelope";
+        final Envelope envelope = Envelope.Factory.parse(compactXml);
+        final Node node = envelope.getDomNode();
+        final Node envelopeNode = node.getFirstChild();
+        Node bodyNode = envelopeNode.getFirstChild();
+        String messageType = null;
+
+        while (BODY.equals(bodyNode.getLocalName()) == false && bodyNode != null) {
+
+            bodyNode = bodyNode.getNextSibling();
+        }
+
+        if (ENVELOPE.equals(envelopeNode.getLocalName()) && bodyNode != null && BODY.equals(bodyNode.getLocalName())) {
+            final Node nodeType = bodyNode.getFirstChild();
+            messageType = nodeType.getLocalName();
+        }
+        return messageType;
     }
 
 

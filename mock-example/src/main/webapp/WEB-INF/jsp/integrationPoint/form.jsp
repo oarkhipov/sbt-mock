@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Modify integration point</title>
+    <script src="../../js/jquery-1.9.1.min.js"></script>
 </head>
 <body>
 <form method="post">
@@ -16,7 +17,8 @@
         <tr>
             <td>System:</td>
             <td>
-                <select name="system" id="system" <c:if test="${!empty systemName}">disabled</c:if> >
+                <select name="system" id="system" <c:if test="${!empty systemName}">disabled</c:if> onchange="getIntegrationPointSuggestionNames()">
+                    <option value="-1">--select System Name--</option>
                     <c:forEach items="${systems}" var="system">
                         <option name="${system.systemName}"
                                 <c:if test="${system.systemName.equals(systemName)}">selected</c:if> >${system.systemName}</option>
@@ -66,6 +68,26 @@
                     function removeElement(obj) {
                         var parent = obj.parentElement;
                         parent.parentElement.removeChild(parent);
+                    }
+                    function getIntegrationPointSuggestionNames() {
+                        var systemName = $("#system").val();
+                        var integrationPointSelector = $("#name");
+                        integrationPointSelector.text("");
+                        if(systemName!=-1) {
+                            console.log("system chosen: " + systemName);
+                            $.ajax({
+                                url: "../../api/" + systemName + "/suggestIpName/",
+                                success: function (data) {
+                                    data = $.parseJSON(data);
+                                    $.each(data, function (key, val) {
+                                        integrationPointSelector.append($("<option>", {
+                                            value: val,
+                                            text: val
+                                        }));
+                                    })
+                                }
+                            });
+                        }
                     }
                 </script>
                 <div id="xpathValidation">

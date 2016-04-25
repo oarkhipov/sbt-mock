@@ -1,4 +1,4 @@
-package ru.sbt.bpm.mock.spring.controllers.api;
+package ru.sbt.bpm.mock.spring.controllers.form;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;

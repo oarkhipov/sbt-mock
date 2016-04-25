@@ -4,17 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import reactor.tuple.Tuple;
 import reactor.tuple.Tuple2;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
-import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
+import ru.sbt.bpm.mock.config.entities.*;
+import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.enums.MessageType;
-import ru.sbt.bpm.mock.spring.integration.gateway.ClientService;
+import ru.sbt.bpm.mock.config.enums.Protocol;
+import ru.sbt.bpm.mock.spring.bean.pojo.MockMessage;
 import ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.GroovyService;
+import ru.sbt.bpm.mock.spring.service.MessageSendingService;
+import ru.sbt.bpm.mock.spring.service.XmlGeneratorService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
 import ru.sbt.bpm.mock.spring.utils.AjaxObject;
@@ -37,7 +40,7 @@ public class DriverController {
     ApplicationContext appContext;
 
     @Autowired
-    ClientService clientService;
+    MessageSendingService sendingService;
 
     @Autowired
     MockConfigContainer configContainer;
@@ -52,24 +55,26 @@ public class DriverController {
     GroovyService groovyService;
 
     @Autowired
-    XmlGeneratorController generatorController;
+    TestGatewayService testGatewayService;
 
     @Autowired
-    TestGatewayService testGatewayService;
+    XmlGeneratorService generatorService;
 
 
     @RequestMapping(value = "/driver/{systemName}/{integrationPointName}/", method = RequestMethod.GET)
     public String get(@PathVariable String systemName,
                       @PathVariable String integrationPointName,
                       Model model) throws IOException, TransformerException {
+        System system = configContainer.getSystemByName(systemName);
         model.addAttribute("systemName", systemName);
         model.addAttribute("name", integrationPointName);
         model.addAttribute("link", "driver");
+        model.addAttribute("protocol",system.getProtocol().toString());
         //TODO send "xpath with namespace" via js tooltip
         model.addAttribute("xpath",
-                configContainer.getConfig().getSystems().getSystemByName(systemName)
-                        .getIntegrationPoints().getIntegrationPointByName(integrationPointName)
-                        .getXpathString());
+                        system.getProtocol().equals(Protocol.JMS)?
+                        system.getIntegrationPoints().getIntegrationPointByName(integrationPointName)
+                        .getXpathString():null);
         model.addAttribute("message", dataFileService.getCurrentMessage(systemName, integrationPointName));
         model.addAttribute("script", dataFileService.getCurrentScript(systemName, integrationPointName));
         model.addAttribute("test", dataFileService.getCurrentTest(systemName, integrationPointName));
@@ -83,8 +88,7 @@ public class DriverController {
             @PathVariable("integrationPointName") String integrationPointName,
             @RequestParam String xml,
             @RequestParam String script,
-            @RequestParam String test,
-            ModelMap model) {
+            @RequestParam String test) {
         Tuple2<AjaxObject, String> ajaxObjectWithCompiledXml = validateDriverMessages(xml, test, script, systemName, integrationPointName);
         AjaxObject ajaxObject = ajaxObjectWithCompiledXml.getT1();
 
@@ -104,8 +108,12 @@ public class DriverController {
             @RequestParam String test) throws IOException {
         Tuple2<AjaxObject, String> ajaxObjectWithCompiledXml = validateDriverMessages(xml, test, script, systemName, integrationPointName);
         AjaxObject ajaxObject = ajaxObjectWithCompiledXml.getT1();
-        String compiledXml = ajaxObjectWithCompiledXml.getT2();
+//        String compiledXml = ajaxObjectWithCompiledXml.getT2();
+        ajaxObject = saveState(systemName, integrationPointName, xml, script, test, ajaxObject);
+        return ajaxObject.toJSON();
+    }
 
+    AjaxObject saveState(String systemName, String integrationPointName, String xml, String script, String test, AjaxObject ajaxObject) throws IOException {
         SaveFile saver = SaveFile.getInstance(appContext);
         if (ajaxObject.getError() == null || ajaxObject.getError().length() == 0) {
             // If Valid - then save
@@ -135,7 +143,7 @@ public class DriverController {
                 }
             }
         }
-        return ajaxObject.toJSON();
+        return ajaxObject;
     }
 
     //TODO
@@ -188,16 +196,28 @@ public class DriverController {
     @RequestMapping(value = "/driver/{systemName}/{integrationPointName}/resetToDefault/filtered", method = RequestMethod.POST)
     public String resetToDefaultFiltered(
             @PathVariable("systemName") String systemName,
-            @PathVariable("integrationPointName") String integrationPointName) throws IOException {
-        return generatorController.generate(systemName, integrationPointName, true);
+            @PathVariable("integrationPointName") String integrationPointName) throws Exception {
+        AjaxObject ajaxObject = new AjaxObject();
+        try {
+            ajaxObject.setData(generatorService.generate(systemName, integrationPointName, MessageType.RQ, true));
+        } catch (Exception e) {
+            ajaxObject.setErrorFromException(e);
+        }
+        return ajaxObject.toJSON();
     }
 
     @ResponseBody
     @RequestMapping(value = "/driver/{systemName}/{integrationPointName}/resetToDefault/", method = RequestMethod.POST)
     public String resetToDefaultFull(
             @PathVariable("systemName") String systemName,
-            @PathVariable("integrationPointName") String integrationPointName) throws IOException {
-        return generatorController.generate(systemName, integrationPointName, false);
+            @PathVariable("integrationPointName") String integrationPointName) throws Exception {
+        AjaxObject ajaxObject = new AjaxObject();
+        try {
+            ajaxObject.setData(generatorService.generate(systemName, integrationPointName, MessageType.RQ, false));
+        } catch (Exception e) {
+            ajaxObject.setErrorFromException(e);
+        }
+        return ajaxObject.toJSON();
     }
 
 
@@ -208,12 +228,23 @@ public class DriverController {
             @PathVariable String integrationPointName,
             @RequestParam(required = false) String xml,
             @RequestParam(required = false) String script,
-            @RequestParam(required = false) String test) {
+            @RequestParam(required = false) String test) throws IOException {
         Tuple2<AjaxObject, String> ajaxObjectWithCompiledXml = validateDriverMessages(xml, test, script, systemName, integrationPointName);
         AjaxObject ajaxObject = ajaxObjectWithCompiledXml.getT1();
-        String compiledXml = ajaxObjectWithCompiledXml.getT2();
+
         if (ajaxObject.getError() == null || ajaxObject.getError().length() == 0) {
-            String response = clientService.send(compiledXml);
+            String compiledXml = ajaxObjectWithCompiledXml.getT2();
+            ru.sbt.bpm.mock.config.entities.System systemByName = configContainer.getSystemByName(systemName);
+            IntegrationPoint integrationPointByName = systemByName.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
+
+            MockMessage mockMessage = new MockMessage(systemByName.getProtocol(),
+                    systemByName.getProtocol()==Protocol.JMS?systemByName.getQueueConnectionFactory():null,
+                    systemByName.getProtocol()==Protocol.JMS?systemByName.getDriverOutcomeQueue():null,
+                    compiledXml);
+            mockMessage.setSystem(systemByName);
+            mockMessage.setIntegrationPoint(integrationPointByName);
+
+            String response = sendingService.send(mockMessage);
             ajaxObject.setData(response);
             ajaxObject.setInfo("DONE!");
         }
@@ -257,7 +288,7 @@ public class DriverController {
             IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
 
             compiledXml = groovyService.execute(test, xml, script);
-            if (messageValidationService.assertXpath(compiledXml, system, integrationPoint, MessageType.RQ)) {
+            if (messageValidationService.assertMessageElementName(compiledXml, system, integrationPoint, MessageType.RQ)) {
                 final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
                 if (validationErrors.size() != 0) {
                     ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));

@@ -70,7 +70,7 @@ function showInfo(text) {
 function showError(text) {
     if (text) {
         //IE8 trim compatibility
-        text = $.trim(text).replace(new RegExp('\\\\r\\\\n', 'g'), "<br/>");
+        text = $.trim(text).replace(/\\r/g, "").replace(/\\n/g, "<br/>");
         $("#error").css("display", "block").html(text);
     } else {
         $("#error").css("display", "none");

@@ -4,16 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import reactor.tuple.Tuple;
 import reactor.tuple.Tuple2;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
-import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
+import ru.sbt.bpm.mock.config.entities.*;
 import ru.sbt.bpm.mock.config.enums.MessageType;
+import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.GroovyService;
+import ru.sbt.bpm.mock.spring.service.XmlGeneratorService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
 import ru.sbt.bpm.mock.spring.utils.AjaxObject;
@@ -46,7 +47,7 @@ public class MockController {
     GroovyService groovyService;
 
     @Autowired
-    XmlGeneratorController generatorController;
+    XmlGeneratorService generatorService;
 
     @Autowired
     TestGatewayService testGatewayService;
@@ -58,14 +59,17 @@ public class MockController {
     public String get(@PathVariable String systemName,
                       @PathVariable String integrationPointName,
                       Model model) throws IOException, TransformerException {
+
+        ru.sbt.bpm.mock.config.entities.System system = configContainer.getSystemByName(systemName);
         model.addAttribute("systemName", systemName);
         model.addAttribute("name", integrationPointName);
         model.addAttribute("link", "mock");
+        model.addAttribute("protocol",system.getProtocol().toString());
         //TODO send "xpath with namespace" via js tooltip
         model.addAttribute("xpath",
-                configContainer.getConfig().getSystems().getSystemByName(systemName)
-                        .getIntegrationPoints().getIntegrationPointByName(integrationPointName)
-                        .getXpathString());
+                system.getProtocol().equals(Protocol.JMS)?
+                    system.getIntegrationPoints().getIntegrationPointByName(integrationPointName)
+                        .getXpathString():null);
         model.addAttribute("message", dataFileService.getCurrentMessage(systemName, integrationPointName));
         model.addAttribute("script", dataFileService.getCurrentScript(systemName, integrationPointName));
         model.addAttribute("test", dataFileService.getCurrentTest(systemName, integrationPointName));
@@ -96,7 +100,11 @@ public class MockController {
             @RequestParam String xml,
             @RequestParam String script,
             @RequestParam String test) throws IOException {
-        return driverController.save(systemName, integrationPointName, xml, script, test);
+        Tuple2<AjaxObject, String> ajaxObjectWithCompiledXml = validateMockMessages(xml, test, script, systemName, integrationPointName);
+        AjaxObject ajaxObject = ajaxObjectWithCompiledXml.getT1();
+//        String compiledXml = ajaxObjectWithCompiledXml.getT2();
+        ajaxObject = driverController.saveState(systemName, integrationPointName, xml, script, test, ajaxObject);
+        return ajaxObject.toJSON();
     }
 
 //    @RequestMapping(value="/mock/{name}/undo/", method=RequestMethod.POST)
@@ -148,16 +156,28 @@ public class MockController {
     @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/resetToDefault/", method = RequestMethod.POST)
     public String resetToDefaultFull(
             @PathVariable("systemName") String systemName,
-            @PathVariable("integrationPointName") String integrationPointName) throws IOException {
-        return generatorController.generate(systemName, integrationPointName, false);
+            @PathVariable("integrationPointName") String integrationPointName) throws Exception {
+        AjaxObject ajaxObject = new AjaxObject();
+        try {
+            ajaxObject.setData(generatorService.generate(systemName, integrationPointName, MessageType.RS, false));
+        } catch (Exception e) {
+            ajaxObject.setErrorFromException(e);
+        }
+        return ajaxObject.toJSON();
     }
 
     @ResponseBody
     @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/resetToDefault/filtered", method = RequestMethod.POST)
     public String resetToDefaultFiltered(
             @PathVariable("systemName") String systemName,
-            @PathVariable("integrationPointName") String integrationPointName) throws IOException {
-        return generatorController.generate(systemName, integrationPointName, true);
+            @PathVariable("integrationPointName") String integrationPointName) throws Exception {
+        AjaxObject ajaxObject = new AjaxObject();
+        try {
+            ajaxObject.setData(generatorService.generate(systemName, integrationPointName, MessageType.RS, true));
+        } catch (Exception e) {
+            ajaxObject.setErrorFromException(e);
+        }
+        return ajaxObject.toJSON();
     }
 
     @ResponseBody
@@ -197,9 +217,9 @@ public class MockController {
         try {
             ru.sbt.bpm.mock.config.entities.System system = configContainer.getSystemByName(systemName);
             IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
-            if (test == null || test.length() == 0 || messageValidationService.assertXpath(test, system, integrationPoint, MessageType.RQ)) {
+            if (test == null || test.length() == 0 || messageValidationService.assertMessageElementName(test, system, integrationPoint, MessageType.RQ)) {
                 compiledXml = groovyService.execute(test, xml, script);
-                if (messageValidationService.assertXpath(compiledXml, system, integrationPoint, MessageType.RS)) {
+                if (messageValidationService.assertMessageElementName(compiledXml, system, integrationPoint, MessageType.RS)) {
                     final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
                     if (validationErrors.size() != 0) {
                         ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));

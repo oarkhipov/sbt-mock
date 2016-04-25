@@ -42,7 +42,7 @@ public class WebServiceEmulatorController {
             ru.sbt.bpm.mock.config.entities.System systemByName = configContainer.getSystemByName(webServiceName);
             if (systemByName.getProtocol() == Protocol.SOAP) {
                 URL url = new URL(request.getRequestURL().toString());
-                WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(systemByName);
+                WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(webServiceName);
                 WsdlMockService mockService = wsdlProject.getMockServiceAt(0);
                 mockService.setHost(url.getHost());
                 mockService.setPort(url.getPort());

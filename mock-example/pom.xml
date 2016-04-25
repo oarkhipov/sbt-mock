@@ -5,7 +5,7 @@
     <parent>
         <groupId>ru.sbt.bpm.mock</groupId>
         <artifactId>mock-interactive-parent</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.0.0</version>
     </parent>
 
     <artifactId>mock-interactive</artifactId>
@@ -28,6 +28,13 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>ru.sbt.bpm.mock</groupId>
+            <artifactId>mock-log-writer</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!--
             S P R I N G
         -->
@@ -65,7 +72,6 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>6.8.8</version>
             <scope>test</scope>
         </dependency>
 
@@ -160,14 +166,12 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.2</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <version>4.0</version>
         </dependency>
 
         <!--<dependency>-->
@@ -216,6 +220,7 @@
             <version>5.0.0</version>
         </dependency>
 
+        <!-- For WsdlMockDispatcher only-->
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
@@ -243,27 +248,13 @@
         <dependency>
             <groupId>org.apache.xmlbeans</groupId>
             <artifactId>xmlbeans</artifactId>
-            <version>2.3.0</version>
+            <version>2.5.0</version>
         </dependency>
 
         <dependency>
             <groupId>wsdl4j</groupId>
             <artifactId>wsdl4j</artifactId>
             <version>1.6.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-cli</groupId>
-            <artifactId>commons-cli</artifactId>
-            <version>1.0</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>fife</groupId>
-            <artifactId>rsyntaxtextarea</artifactId>
-            <version>2.0.1</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -328,6 +319,32 @@
             </url>
         </snapshotRepository>
     </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>Tomcat7-runtime</id>
+            <dependencies>
+                <dependency>
+                    <groupId>commons-cli</groupId>
+                    <artifactId>commons-cli</artifactId>
+                    <version>1.0</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>fife</groupId>
+                    <artifactId>rsyntaxtextarea</artifactId>
+                    <version>2.0.1</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                    <version>4.11</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
     <build>
         <finalName>mock_${project.version}-interactive</finalName>
         <plugins>

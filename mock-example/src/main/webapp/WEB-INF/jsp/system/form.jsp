@@ -4,7 +4,6 @@
   User: sbt-bochev-as
   Date: 25.12.2015
   Time: 9:59
-  To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -25,7 +24,7 @@
             <td>
                 <select name="protocol" id="type">
                     <option value="JMS"
-                            <c:if test="${system.protocol.equals('JMS')}">selected</c:if> >MQ
+                            <c:if test="${system.protocol.equals('JMS')}">selected</c:if> >JMS
                     </option>
                     <option value="SOAP"
                             <c:if test="${system.protocol.equals('SOAP')}">selected</c:if> >SOAP

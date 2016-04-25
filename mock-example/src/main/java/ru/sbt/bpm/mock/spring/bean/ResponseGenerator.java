@@ -1,9 +1,13 @@
 package ru.sbt.bpm.mock.spring.bean;
 
+import com.eviware.soapui.impl.wsdl.support.soap.SoapMessageBuilder;
+import com.eviware.soapui.impl.wsdl.support.soap.SoapVersion;
+import com.soapuiutil.wsdlvalidator.WsdlMessageValidator;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.XdmNode;
 import net.sf.saxon.s9api.XdmValue;
+import org.apache.xmlbeans.XmlException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
@@ -12,12 +16,15 @@ import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.entities.XpathSelector;
 import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.config.enums.Protocol;
+import ru.sbt.bpm.mock.logging.entities.LogsEntity;
+import ru.sbt.bpm.mock.logging.spring.services.LogService;
 import ru.sbt.bpm.mock.spring.bean.pojo.MockMessage;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.GroovyService;
 import ru.sbt.bpm.mock.spring.service.message.JmsService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
+import ru.sbt.bpm.mock.spring.service.message.validation.impl.WsdlValidator;
 import ru.sbt.bpm.mock.spring.utils.XpathUtils;
 
 import javax.xml.xpath.XPathExpressionException;
@@ -46,6 +53,12 @@ public class ResponseGenerator {
 
     @Autowired
     private JmsService jmsService;
+
+    @Autowired
+    MessageValidationService validationService;
+
+    @Autowired
+    LogService logService;
 
     public MockMessage proceedJmsRequest(MockMessage mockMessage) throws Exception {
         mockMessage.setProtocol(Protocol.JMS);
@@ -76,7 +89,7 @@ public class ResponseGenerator {
             findIntegrationPoint(mockMessage);
             log(mockMessage, MessageType.RQ);
             validate(mockMessage, MessageType.RQ);
-
+            if (mockMessage.isFaultMessage()) log(mockMessage, MessageType.RQ);
             Boolean answerRequired = mockMessage.getIntegrationPoint().getAnswerRequired();
             if (answerRequired == null || answerRequired) {
                 generateResponse(mockMessage);
@@ -89,7 +102,16 @@ public class ResponseGenerator {
                 mockMessage.setPayload(null);
             }
         } catch (Exception e) {
-            mockMessage.setPayload(e.getMessage());
+            //TODO fix builder error generator
+//            String fault = SoapMessageBuilder.buildFault("Server", e.getMessage(), SoapVersion.Soap11);
+            mockMessage.setPayload("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">\n" +
+                    "   <soapenv:Body>\n" +
+                    "      <soapenv:Fault>\n" +
+                    "         <faultcode>Server</faultcode>\n" +
+                    "         <faultstring>" + e.getMessage() + "</faultstring>\n" +
+                    "      </soapenv:Fault>\n" +
+                    "   </soapenv:Body>\n" +
+                    "</soapenv:Envelope>");
         }
         return mockMessage;
     }
@@ -102,7 +124,30 @@ public class ResponseGenerator {
      * @throws XPathExpressionException
      * @throws SaxonApiException
      */
-    protected void findIntegrationPoint(MockMessage mockMessage) throws XPathExpressionException, SaxonApiException {
+    protected void findIntegrationPoint(MockMessage mockMessage) throws SaxonApiException, XmlException {
+        final System system = mockMessage.getSystem();
+        Protocol protocol = system.getProtocol();
+        if (protocol == Protocol.JMS) {
+            findJMSIntegrationPoint(mockMessage);
+            return;
+        }
+        if (protocol == Protocol.SOAP) {
+            findSoapIntegrationPoint(mockMessage);
+            return;
+        }
+        throw new IllegalStateException("No such protocol [" + protocol + "]");
+
+    }
+
+    private void findSoapIntegrationPoint(MockMessage mockMessage) throws XmlException {
+        System system = mockMessage.getSystem();
+        String compactXml = XpathUtils.compactXml(mockMessage.getPayload());
+        String soapMessageElementName = validationService.getSoapMessageElementName(compactXml);
+        IntegrationPoint integrationPointByName = system.getIntegrationPoints().getIntegrationPointByName(soapMessageElementName);
+        mockMessage.setIntegrationPoint(integrationPointByName);
+    }
+
+    private void findJMSIntegrationPoint(MockMessage mockMessage) throws SaxonApiException {
         final System system = mockMessage.getSystem();
         final String payload = mockMessage.getPayload();
 
@@ -126,7 +171,6 @@ public class ResponseGenerator {
 
         mockMessage.setIntegrationPoint(integrationPointByName);
         log.debug(integrationPointByName.getName());
-
     }
 
     private void delay(MockMessage mockMessage) throws InterruptedException {
@@ -175,13 +219,28 @@ public class ResponseGenerator {
         log.debug("Validation status: OK!");
     }
 
-    private void assertMessageByXpath(MockMessage mockMessage, MessageType messageType) throws SaxonApiException {
+    private void assertElementName(MockMessage mockMessage, MessageType messageType) throws SaxonApiException, XmlException {
         System system = mockMessage.getSystem();
         IntegrationPoint integrationPoint = mockMessage.getIntegrationPoint();
-        messageValidationService.assertXpath(mockMessage.getPayload(), system, integrationPoint, messageType);
+        messageValidationService.assertMessageElementName(mockMessage.getPayload(), system, integrationPoint, messageType);
     }
 
     private void log(MockMessage mockMessage, MessageType messageType) {
-        //TODO log implementation
+        String fullEndpointName = mockMessage.getProtocol().equals(Protocol.JMS)?mockMessage.getJmsConnectionFactoryName()+"/"+mockMessage.getQueue():"";
+        String shortEndpointName = mockMessage.getProtocol().equals(Protocol.JMS)?mockMessage.getQueue():mockMessage.getIntegrationPoint().getName();
+        String messageState = MessageStatusConverter.convert(mockMessage, messageType).toString();
+        String messagePreview = mockMessage.getPayload().length()>50?mockMessage.getPayload().substring(0,50)+"...":mockMessage.getPayload();
+
+        LogsEntity entity = new LogsEntity(mockMessage.getProtocol().toString(),
+                mockMessage.getSystem().getSystemName(),
+                mockMessage.getIntegrationPoint().getName(),
+                fullEndpointName,
+                shortEndpointName,
+                messageState,
+                messagePreview,
+                mockMessage.getPayload()
+        );
+        logService.write(entity);
     }
+
 }

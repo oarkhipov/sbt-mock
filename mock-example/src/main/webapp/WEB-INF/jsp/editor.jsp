@@ -49,7 +49,9 @@
     <input type="button" value="Edit" style="display: inline" onclick="editIpForm()"/>&nbsp;
     <input type="button" value="Del" style="display: inline" onclick="delIpForm()"/>
     <br/>
-    <b>Xpath assertion:</b> <i><c:out value="${xpath}"/></i>
+    <c:if test='${protocol.equals("JMS")}'>
+        <b>Xpath assertion:</b> <i><c:out value="${xpath}"/></i>
+    </c:if>
 
     <div id="dialog"></div>
 </div>

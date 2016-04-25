@@ -18,26 +18,26 @@
     <!-- Настройка используемой конфигурации заглушки-->
 
     <bean id="connectionFactoryString" class="java.lang.String">
-        <constructor-arg value="jms/Q.LEGAL.CF"/>
+        <constructor-arg value="java:comp/env/jms/Q.LEGAL.CF"/>
     </bean>
 
     <!-- - - - - - - -->
     <!--MOCK-->
     <bean id="mockConnectionInputString" class="java.lang.String">
-        <constructor-arg value="jms/Q.LEGAL.TO.CRMORG"/>
+        <constructor-arg value="java:comp/env/jms/Q.LEGAL.TO.CRMORG"/>
     </bean>
     <bean id="mockConnectionOutputString" class="java.lang.String">
-        <constructor-arg value="jms/Q.LEGAL.FROM.CRMORG.SYNCRESP"/>
+        <constructor-arg value="java:comp/env/jms/Q.LEGAL.FROM.CRMORG.SYNCRESP"/>
     </bean>
     <!-- - - - - - - -->
     <!-- DRIVER -->
     <bean id="driverConnectionInputString" class="java.lang.String">
-        <constructor-arg value="jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>
-        <!--<beans:constructor-arg value="jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>-->
+        <constructor-arg value="java:comp/env/jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>
+        <!--<beans:constructor-arg value="java:comp/env/jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>-->
     </bean>
     <bean id="driverConnectionOutputString" class="java.lang.String">
-        <constructor-arg value="jms/Q.LEGAL.FROM.CRMORG"/>
-        <!--<beans:constructor-arg value="jms/Q.LEGAL.FROM.CRMORG"/>-->
+        <constructor-arg value="java:comp/env/jms/Q.LEGAL.FROM.CRMORG"/>
+        <!--<beans:constructor-arg value="java:comp/env/jms/Q.LEGAL.FROM.CRMORG"/>-->
     </bean>
 
     <!-- - - - - - - - - - - - - - -->

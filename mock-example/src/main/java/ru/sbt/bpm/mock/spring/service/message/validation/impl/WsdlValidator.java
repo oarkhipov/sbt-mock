@@ -6,11 +6,8 @@ import com.soapuiutil.wsdlvalidator.WsdlMessageValidatorException;
 import lombok.extern.slf4j.Slf4j;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidator;
 import ru.sbt.bpm.mock.spring.utils.ExceptionUtils;
+import ru.sbt.bpm.mock.spring.utils.XpathUtils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,28 +37,11 @@ public class WsdlValidator implements MessageValidator {
         List<String> result = new ArrayList<String>();
         try {
             assert wsdlMessageValidator != null;
-            result = Arrays.asList(wsdlMessageValidator.validateSchemaCompliance(compactXml(xml)));
+            result = Arrays.asList(wsdlMessageValidator.validateSchemaCompliance(XpathUtils.compactXml(xml)));
         } catch (WsdlMessageValidatorException e) {
             result.add(ExceptionUtils.getExceptionStackTrace(e));
         }
         return result;
-    }
-
-    public static String compactXml(String xml) {
-        BufferedReader bufferedReader = new BufferedReader(new StringReader(xml));
-        String line;
-        StringWriter stringWriter = new StringWriter();
-
-        try {
-            while ((line = bufferedReader.readLine()) != null) {
-                stringWriter.append(line.trim());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        xml = stringWriter.toString();
-        log.debug("Parsed xml: " + xml);
-        return xml;
     }
 
     public WsdlProject getWsdlProject() {

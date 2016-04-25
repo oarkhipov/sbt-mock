@@ -9,9 +9,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
-import ru.sbt.bpm.mock.config.entities.*;
 
-import java.lang.System;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,14 +35,23 @@ public class IntegrationPointNameSuggestionServiceTestIT extends AbstractTestNGS
     @Test
     public void testSuggestSOAPName() throws Exception {
         ru.sbt.bpm.mock.config.entities.System spyne = configContainer.getSystemByName("Spyne");
-        List<String> pointList = suggestionService.suggestName(spyne);
-        assertEquals(pointList, new ArrayList<Object>(){{add("say_hello");}});
+        List<String> pointList = suggestionService.suggestName(spyne, false);
+        assertEquals(pointList, new ArrayList<Object>() {{
+            add("say_hello");
+        }});
+    }
+
+    @Test
+    public void testSuggestSOAPNameFiltered() throws Exception {
+        ru.sbt.bpm.mock.config.entities.System spyne = configContainer.getSystemByName("Spyne");
+        List<String> pointList = suggestionService.suggestName(spyne, true);
+        assertTrue(pointList.size()==0);
     }
 
     @Test
     public void testSuggestJMSName() throws Exception {
         ru.sbt.bpm.mock.config.entities.System spyne = configContainer.getSystemByName("CRM");
-        List<String> pointList = suggestionService.suggestName(spyne);
+        List<String> pointList = suggestionService.suggestName(spyne, false);
 
         assertTrue(pointList.contains("getReferenceData"));
         assertTrue(pointList.contains("getAvailableExecutors"));
@@ -60,6 +67,17 @@ public class IntegrationPointNameSuggestionServiceTestIT extends AbstractTestNGS
         assertTrue(pointList.contains("sendLegalEnquiryStatus"));
         assertTrue(pointList.contains("createLegalEnquiry"));
     }
+
+    @Test
+    public void testSuggestJMSNameFiltered() throws Exception {
+        ru.sbt.bpm.mock.config.entities.System spyne = configContainer.getSystemByName("CRM");
+        List<String> pointList = suggestionService.suggestName(spyne, true);
+
+        assertTrue(pointList.contains("confirmationMessage"));
+        assertTrue(pointList.contains("sendLegalEnquiryCreationResult"));
+        assertTrue(pointList.contains("getAvailableExecutorsResponse"));
+    }
+
 
     @BeforeClass
     @Override

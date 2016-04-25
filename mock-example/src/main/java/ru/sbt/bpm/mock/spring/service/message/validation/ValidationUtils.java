@@ -1,7 +1,12 @@
 package ru.sbt.bpm.mock.spring.service.message.validation;
 
+import org.apache.commons.collections.Closure;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -11,7 +16,18 @@ import java.util.List;
  */
 public class ValidationUtils {
     public static String getSolidErrorMessage(List<String> errors) {
-        final String errorString = StringUtils.join(errors, ",\n");
+        Collection errorCollection = CollectionUtils.collect(errors, new Transformer() {
+            @Override
+            public Object transform(Object o) {
+                String error = (String) o;
+                String[] errorLines = error.split("\\r?\\n");
+                if (errorLines.length > 10) {
+                    errorLines = Arrays.copyOf(errorLines, 10);
+                }
+                return StringUtils.join(errorLines, "\n");
+            }
+        });
+        final String errorString = StringUtils.join(errorCollection, ",\n");
         return "Validation errors list:\n" + errorString;
     }
 }

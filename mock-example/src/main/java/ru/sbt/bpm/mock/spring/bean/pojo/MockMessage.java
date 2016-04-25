@@ -1,7 +1,7 @@
 package ru.sbt.bpm.mock.spring.bean.pojo;
 
 import lombok.Data;
-import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
+import ru.sbt.bpm.mock.config.entities.*;
 import ru.sbt.bpm.mock.config.enums.Protocol;
 
 /**
@@ -35,9 +35,5 @@ public class MockMessage {
     //for SOAP
     public MockMessage(String payload) {
         this.payload = payload;
-    }
-
-    public String extractPayload() {
-        return payload;
     }
 }

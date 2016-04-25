@@ -21,11 +21,22 @@ public class XmlGeneratorController {
     XmlGeneratorService generatorService;
 
     @ResponseBody
-    @RequestMapping(value = "/xml/{system}/{integrationPointName}/{filtered}")
-    public String generate(@PathVariable String system, @PathVariable String integrationPointName, @PathVariable boolean filtered) {
+    @RequestMapping(value = "/xml/{system}/{integrationPointName}/rq/{filtered}")
+    public String generateRq(@PathVariable String system, @PathVariable String integrationPointName,  @PathVariable boolean filtered) {
         AjaxObject ajaxObject = new AjaxObject();
         try {
-            //TODO make generate RQ happen
+            ajaxObject.setData(generatorService.generate(system, integrationPointName, MessageType.RQ, filtered));
+        } catch (Exception e) {
+            ajaxObject.setErrorFromException(e);
+        }
+        return ajaxObject.toJSON();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/xml/{system}/{integrationPointName}/rs/{filtered}")
+    public String generateRs(@PathVariable String system, @PathVariable String integrationPointName,  @PathVariable boolean filtered) {
+        AjaxObject ajaxObject = new AjaxObject();
+        try {
             ajaxObject.setData(generatorService.generate(system, integrationPointName, MessageType.RS, filtered));
         } catch (Exception e) {
             ajaxObject.setErrorFromException(e);

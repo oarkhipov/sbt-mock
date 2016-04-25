@@ -196,7 +196,7 @@ public class XmlGeneratorService {
     }
 
     private String generateSoapMessage(System system, IntegrationPoint integrationPoint, MessageType messageType) {
-        WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(system);
+        WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(system.getSystemName());
         String integrationPointName = integrationPoint.getName();
         for (Interface anInterface : wsdlProject.getInterfaceList()) {
             try {
