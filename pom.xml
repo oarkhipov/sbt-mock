@@ -4,11 +4,59 @@
 
     <groupId>ru.sbt.bpm.mock</groupId>
     <artifactId>mock-interactive-parent</artifactId>
-    <version>3.2.0</version>
+    <version>3.2.0.0</version>
     <packaging>pom</packaging>
 
     <modules>
         <module>mock-example</module>
         <module>ear-builder</module>
+        <module>mock-log-writer</module>
     </modules>
+
+    <properties>
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.testTarget>1.7</maven.compiler.testTarget>
+        <maven.compiler.testSource>1.7</maven.compiler.testSource>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
+
+        <spring.version>4.1.1.RELEASE</spring.version>
+        <spring.ws.version>2.0.3.RELEASE</spring.ws.version>
+        <spring-integration.version>4.1.0.RELEASE</spring-integration.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.16.2</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>4.0</version>
+            </dependency>
+
+            <!-- TEST-->
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>6.8.8</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
