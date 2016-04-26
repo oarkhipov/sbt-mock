@@ -41,7 +41,7 @@ public class DatabaseTestIT extends AbstractTransactionalTestNGSpringContextTest
                 "someMessageState",
                 "mes preview",
                 "message content"));
-        Thread.sleep(200);
+        Thread.sleep(10);
     }
 
     @Test
