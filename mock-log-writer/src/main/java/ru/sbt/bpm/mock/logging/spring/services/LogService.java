@@ -23,44 +23,49 @@ import java.util.List;
 @Service
 public class LogService {
 
+    final QLogsEntity logsEntity = QLogsEntity.logsEntity;
+
     @Autowired
     LogsRepository logRepository;
 
-    public Iterable<LogsEntity> getLogs(LogsJsonEntity jsonEntity) {
-        final QLogsEntity logsEntity = QLogsEntity.logsEntity;
+    public long getLogsDataBaseSize() {
+        return logRepository.count();
+    }
+
+    public Iterable<LogsEntity> getLogs(LogsApiEntity apiEntity) {
         List<Predicate> predicates = new ArrayList<Predicate>();
         List<Sort> sorts = new ArrayList<Sort>();
-        for (LogsJsonColumnEntity logsJsonColumnEntity : jsonEntity.getLogsJsonColumnEntities()) {
-            if (logsJsonColumnEntity.getData().equals("ts")) {
-                handleOtherColumn(jsonEntity, logsJsonColumnEntity, sorts);
+        for (LogsApiColumnEntity logsApiColumnEntity : apiEntity.getLogsApiColumnEntities()) {
+            if (logsApiColumnEntity.getData().equals("ts")) {
+                handleOtherColumn(apiEntity, logsApiColumnEntity, sorts);
             }
-            if (logsJsonColumnEntity.getData().equals("protocol")) {
-                handleStringColumn(jsonEntity, logsJsonColumnEntity, logsEntity.protocol, predicates, sorts);
+            if (logsApiColumnEntity.getData().equals("protocol")) {
+                handleStringColumn(apiEntity, logsApiColumnEntity, logsEntity.protocol, predicates, sorts);
             }
-            if (logsJsonColumnEntity.getData().equals("systemName")) {
-                handleStringColumn(jsonEntity, logsJsonColumnEntity, logsEntity.systemName, predicates, sorts);
+            if (logsApiColumnEntity.getData().equals("systemName")) {
+                handleStringColumn(apiEntity, logsApiColumnEntity, logsEntity.systemName, predicates, sorts);
             }
-            if (logsJsonColumnEntity.getData().equals("integrationPointName")) {
-                handleStringColumn(jsonEntity, logsJsonColumnEntity, logsEntity.integrationPointName, predicates, sorts);
+            if (logsApiColumnEntity.getData().equals("integrationPointName")) {
+                handleStringColumn(apiEntity, logsApiColumnEntity, logsEntity.integrationPointName, predicates, sorts);
             }
-            if (logsJsonColumnEntity.getData().equals("fullEndpoint")) {
-                handleStringColumn(jsonEntity, logsJsonColumnEntity, logsEntity.fullEndpoint, predicates, sorts);
+            if (logsApiColumnEntity.getData().equals("fullEndpoint")) {
+                handleStringColumn(apiEntity, logsApiColumnEntity, logsEntity.fullEndpoint, predicates, sorts);
             }
-            if (logsJsonColumnEntity.getData().equals("shortEndpoint")) {
-                handleStringColumn(jsonEntity, logsJsonColumnEntity, logsEntity.shortEndpoint, predicates, sorts);
+            if (logsApiColumnEntity.getData().equals("shortEndpoint")) {
+                handleStringColumn(apiEntity, logsApiColumnEntity, logsEntity.shortEndpoint, predicates, sorts);
             }
-            if (logsJsonColumnEntity.getData().equals("messageState")) {
-                handleStringColumn(jsonEntity, logsJsonColumnEntity, logsEntity.messageState, predicates, sorts);
+            if (logsApiColumnEntity.getData().equals("messageState")) {
+                handleStringColumn(apiEntity, logsApiColumnEntity, logsEntity.messageState, predicates, sorts);
             }
-            if (logsJsonColumnEntity.getData().equals("messagePreview")) {
-                handleStringColumn(jsonEntity, logsJsonColumnEntity, logsEntity.messagePreview, predicates, sorts);
+            if (logsApiColumnEntity.getData().equals("messagePreview")) {
+                handleStringColumn(apiEntity, logsApiColumnEntity, logsEntity.messagePreview, predicates, sorts);
             }
-            if (logsJsonColumnEntity.getData().equals("message")) {
-                handleStringColumn(jsonEntity, logsJsonColumnEntity, logsEntity.message, predicates, sorts);
+            if (logsApiColumnEntity.getData().equals("message")) {
+                handleStringColumn(apiEntity, logsApiColumnEntity, logsEntity.message, predicates, sorts);
             }
         }
-        int pageSize = jsonEntity.getLength();
-        int page = jsonEntity.getStart()/ pageSize;
+        int pageSize = apiEntity.getLength();
+        int page = apiEntity.getStart()/ pageSize;
         Sort joinedSort = SortUtils.allOf(sorts);
         Predicate joinedPredicate = ExpressionUtils.allOf(predicates);
         PageRequest pageRequest = new PageRequest(page, pageSize, joinedSort);
@@ -68,32 +73,33 @@ public class LogService {
         return logRepository.findAll(joinedPredicate, pageRequest);
     }
 
-    private void handleOtherColumn(LogsJsonEntity jsonEntity, LogsJsonColumnEntity logsJsonColumnEntity, List<Sort> sorts) {
-        handleOrdering(jsonEntity,logsJsonColumnEntity,sorts);
+    private void handleOtherColumn(LogsApiEntity jsonEntity, LogsApiColumnEntity logsApiColumnEntity, List<Sort> sorts) {
+        handleOrdering(jsonEntity, logsApiColumnEntity,sorts);
     }
 
-    private void handleStringColumn(LogsJsonEntity jsonEntity, final LogsJsonColumnEntity logsJsonColumnEntity, StringPath entityObject, List<Predicate> predicates, List<Sort> sorts) {
-        if (logsJsonColumnEntity.isSearchable()) {
-            if (logsJsonColumnEntity.isSearchRegex()) {
-                predicates.add(entityObject.matches(logsJsonColumnEntity.getSearchValue()));
+    private void handleStringColumn(LogsApiEntity jsonEntity, final LogsApiColumnEntity logsApiColumnEntity, StringPath entityObject, List<Predicate> predicates, List<Sort> sorts) {
+        if (logsApiColumnEntity.isSearchable()) {
+            if (logsApiColumnEntity.isSearchRegex()) {
+                predicates.add(entityObject.matches(logsApiColumnEntity.getSearchValue()));
             } else {
-                predicates.add(entityObject.eq(logsJsonColumnEntity.getSearchValue()));
+                predicates.add(entityObject.eq(logsApiColumnEntity.getSearchValue()));
             }
         }
-        handleOrdering(jsonEntity, logsJsonColumnEntity, sorts);
+        handleOrdering(jsonEntity, logsApiColumnEntity, sorts);
     }
 
-    private void handleOrdering(LogsJsonEntity jsonEntity, final LogsJsonColumnEntity logsJsonColumnEntity, List<Sort> sorts) {
-        if (logsJsonColumnEntity.isOrderable()) {
-            LogsJsonOrderEntity logsJsonOrderEntity = CollectionUtils.find(jsonEntity.getLogsJsonOrderEntities(),
-                    new org.apache.commons.collections4.Predicate<LogsJsonOrderEntity>() {
+    private void handleOrdering(LogsApiEntity jsonEntity, final LogsApiColumnEntity logsApiColumnEntity, List<Sort> sorts) {
+        //TODO replace searching from columns to search from orders
+        if (logsApiColumnEntity.isOrderable()) {
+            LogsApiOrderEntity logsApiOrderEntity = CollectionUtils.find(jsonEntity.getLogsApiOrderEntities(),
+                    new org.apache.commons.collections4.Predicate<LogsApiOrderEntity>() {
                         @Override
-                        public boolean evaluate(LogsJsonOrderEntity logsJsonOrderEntity) {
-                            return logsJsonOrderEntity.getColumnNum() == logsJsonColumnEntity.getNum();
+                        public boolean evaluate(LogsApiOrderEntity logsJsonOrderEntity) {
+                            return logsJsonOrderEntity.getColumnNum() == logsApiColumnEntity.getNum();
                         }
                     });
-            Sort.Direction direction = Sort.Direction.fromString(logsJsonOrderEntity.getDirection().toString());
-            sorts.add(new Sort(direction, logsJsonColumnEntity.getData()));
+            Sort.Direction direction = Sort.Direction.fromString(logsApiOrderEntity.getDirection().toString());
+            sorts.add(new Sort(direction, logsApiColumnEntity.getData()));
         }
     }
 

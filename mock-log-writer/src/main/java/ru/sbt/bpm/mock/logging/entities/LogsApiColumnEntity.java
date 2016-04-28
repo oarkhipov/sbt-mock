@@ -8,7 +8,7 @@ import lombok.Data;
  *         Company: SBT - Moscow
  */
 @Data
-public class LogsJsonColumnEntity {
+public class LogsApiColumnEntity {
     private int num;
     private String data;
     private String name;

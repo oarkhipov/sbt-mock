@@ -9,7 +9,7 @@ import ru.sbt.bpm.mock.logging.enums.OrderDirection;
  *         Company: SBT - Moscow
  */
 @Data
-public class LogsJsonOrderEntity {
+public class LogsApiOrderEntity {
     private int columnNum;
     private OrderDirection direction;
 }

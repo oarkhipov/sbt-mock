@@ -10,12 +10,12 @@ import java.util.List;
  *         Company: SBT - Moscow
  */
 @Data
-public class LogsJsonEntity {
-    int requestNum;
+public class LogsApiEntity {
+    long requestNum;
     int start;
     int length;
     boolean searchRegex;
     String searchValue;
-    List<LogsJsonColumnEntity> logsJsonColumnEntities;
-    List<LogsJsonOrderEntity> logsJsonOrderEntities;
+    List<LogsApiColumnEntity> logsApiColumnEntities;
+    List<LogsApiOrderEntity> logsApiOrderEntities;
 }

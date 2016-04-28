@@ -12,6 +12,11 @@
 <!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
 <html class="no-js"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
@@ -21,28 +26,24 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/jquery.steps.css">
     <script src="../js/modernizr-2.6.2.min.js"></script>
     <script src="../js/jquery-1.9.1.min.js"></script>
     <script src="../js/jquery.cookie-1.3.1.js"></script>
-    <script src="../js/jquery.steps.min.js"></script>
-    <script src="../js/jquery.history.js"></script>
-    <script src="../js/attrs.js"></script>
 
-    <%--Tooltip--%>
+    <!-- Tooltip& -->
     <link rel="stylesheet" href="../css/jquery-ui.css">
     <script src="../js/jquery-ui.min.js"></script>
+    <script src="../js/jquery-ui.js"></script>
 
-    <%--Data Tables --%>
+    <!-- Data Tables -->
     <link rel="stylesheet" type="text/css" href="../css/DataTables-1.10.9/css/dataTables.jqueryui.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/AutoFill-2.0.0/css/autoFill.jqueryui.min.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/FixedHeader-3.0.0/css/fixedHeader.jqueryui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/DataTables-1.10.9/css/jquery.dataTables.css"/>
 
+    <script type="text/javascript" src="../js/DataTables-1.10.9/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="../js/DataTables-1.10.9/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="../js/DataTables-1.10.9/js/dataTables.jqueryui.js"></script>
     <script type="text/javascript" src="../js/AutoFill-2.0.0/js/dataTables.autoFill.js"></script>
     <script type="text/javascript" src="../js/AutoFill-2.0.0/js/autoFill.jqueryui.js"></script>
-    <script type="text/javascript" src="../js/FixedHeader-3.0.0/js/dataTables.fixedHeader.js"></script>
 
 
 </head>
@@ -72,88 +73,101 @@
         /*rgba(256, 182, 193, .7)*/
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#B3FFB6C1, endColorstr=#B3FFB6C1);
     }
+
 </style>
 <![endif]-->
 
-<div class="content">
-    <script>
-        var wizard;
-        $(function () {
-            wizard = $("#wizard").steps({
-                headerTag: "h2",
-                bodyTag: "section",
-                enablePagination: false
-            });
-        });
 
-        jQuery.fn.dataTableExt.oApi.fnPagingInfo = function ( oSettings )
-        {
-            return {
-                "iStart":         oSettings._iDisplayStart,
-                "iEnd":           oSettings.fnDisplayEnd(),
-                "iLength":        oSettings._iDisplayLength,
-                "iTotal":         oSettings.fnRecordsTotal(),
-                "iFilteredTotal": oSettings.fnRecordsDisplay(),
-                "iPage":          oSettings._iDisplayLength === -1 ?
-                        0 : Math.ceil( oSettings._iDisplayStart / oSettings._iDisplayLength ),
-                "iTotalPages":    oSettings._iDisplayLength === -1 ?
-                        0 : Math.ceil( oSettings.fnRecordsDisplay() / oSettings._iDisplayLength )
-            };
-        };
+<input type="button" value="BACK" onclick="window.location.href='../'"/>
+<script>
+    var table;
+    $(document).ready(function() {
 
-    </script>
-    <div id="mock">
-        <div id="wizard">
-            <h2><c:out value="${title}" escapeXml="true"/></h2>
-            <section>
-                <input type="button" value="BACK" onclick="window.location.href='../'"/>
-                <script>
-                    $(document).ready(function() {
-                        $('#example').DataTable( {
-                            "bProcessing": true,
-                            "bServerSide": true,
-                            "sort": "position",
-                            //bStateSave variable you can use to save state on client cookies: set value "true"
-                            "bStateSave": false,
-                            //Default: Page display length
-                            "iDisplayLength": 10,
-                            //We will use below variable to track page number on server side(For more information visit: http://legacy.datatables.net/usage/options#iDisplayStart)
-                            "iDisplayStart": 0,
-                            "fnDrawCallback": function () {
-                                //Get page numer on client. Please note: number start from 0 So
-                                //for the first page you will see 0 second page 1 third page 2...
-                                //Un-comment below alert to see page number
-                                //alert("Current page number: "+this.fnPagingInfo().iPage);
-                            },
-                            "sAjaxSource": "springPaginationDataTables.web",
-                            "aoColumns": [
-                                { "mData": "timestamp" },
-                                { "mData": "queue" },
-                                { "mData": "msgtype" },
-                                { "mData": "payload" }
-                            ]
+        table=$('#example').DataTable( {
+            "ajax": "data.web",
+            "bProcessing": true,
+            "bServerSide": false,
+            <!--"sort": "position",-->
+            //bStateSave variable you can use to save state on client cookies: set value "true"
+            "bStateSave": false,
+            //Default: Page display length
+            "iDisplayLength": 10,
+            //We will use below variable to track page number on server side(For more information visit: http://legacy.datatables.net/usage/options#iDisplayStart)
+            "iDisplayStart": 0,
+            "fnDrawCallback": function () {
+                //Get page number on client. Please note: number start from 0 So
+                //for the first page you will see 0 second page 1 third page 2...
+                //Un-comment below alert to see page number
+                //alert("Current page number: "+this.fnPagingInfo().iPage);
+            },
+            initComplete: function () {
+                this.api().columns().every( function () {
+                    var column = this;
+                    if (this.index() != 0)
+                    {
+                        var select = $('<select><option value=""></option></select>')
+                                .appendTo( $(column.footer()).empty() )
+                                .on( 'change', function () {
+                                    var val = $.fn.dataTable.util.escapeRegex(
+                                            $(this).val()
+                                    );
+
+                                    column
+                                            .search( val ? '^'+val+'$' : '', true, false )
+                                            .draw();
+                                } );
+
+                        column.data().unique().sort().each( function ( d, j ) {
+                            select.append( '<option value="'+d+'">'+d+'</option>' )
                         } );
-                    });
-                </script>
-                <table width="70%" style="border: 3px;background: rgb(243, 244, 248);"><tr><td>
-                    <table id="example" class="display" cellspacing="0" width="100%">
-                        <thead>
-                        <tr>
-                            <th>TimeStamp</th>
-                            <th>Queue</th>
-                            <th>Message Type</th>
-                            <th>Data</th>
-                        </tr>
-                        </thead>
-                    </table>
-                </td></tr></table>
+                    }
+                } );
+            },
+            "aoColumns":[
+                { "mData": "ts","bSearchable":false},
+                { "mData": "protocol"},
+                { "mData": "systemName"},
+                { "mData": "integrationPointName"},
+                { "mData": "fullEndpoint"},
+                { "mData": "shortEndpoint"},
+                { "mData": "messageState"},
+                { "mData": "messagePreview"}
+            ]
+        } );
 
-            </section>
-        </div>
-    </div>
 
-    <script>
-    </script>
-</div>
+    });
+</script>
+<table width="70%" style="border: 3px;background: rgb(243, 244, 248);"><tr><td>
+    <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th class="sorting">TimeStamp</th>
+            <th class="sorting">Protocol</th>
+            <th class="sorting">SystemName</th>
+            <th class="sorting">IntegrationPointName</th>
+            <th class="sorting">FullEndpoint</th>
+            <th class="sorting">ShortEndpoint</th>
+            <th class="sorting">MessageState</th>
+            <th class="sorting">MessagePreview</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <th>TimeStamp</th>
+            <th>Protocol</th>
+            <th>SystemName</th>
+            <th>IntegrationPointName</th>
+            <th>FullEndpoint</th>
+            <th>ShortEndpoint</th>
+            <th>MessageState</th>
+            <th>MessagePreview</th>
+        </tr>
+        </tfoot>
+
+    </table>
+</td></tr></table>
+
+
 </body>
 </html>

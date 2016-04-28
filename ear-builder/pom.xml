@@ -18,8 +18,6 @@
             <artifactId>mock-interactive</artifactId>
             <version>${project.version}</version>
             <type>war</type>
-            <!--<scope>system</scope>-->
-            <!--<systemPath>${project.basedir}/../mock-interactive/target/mock_${project.version}-interactive.war</systemPath>-->
         </dependency>
     </dependencies>
 
@@ -31,7 +29,7 @@
                 <version>2.10</version>
                 <configuration>
                     <displayName>mock-interactive</displayName>
-                    
+
                     <modules>
                         <webModule>
                             <moduleId>WebModule-Mock</moduleId>
@@ -55,7 +53,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/META-INF/</outputDirectory>
+                            <outputDirectory>${project.build.directory}/${project.build.finalName}/META-INF/</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.basedir}/src/main/resources/META-INF</directory>
