@@ -47,6 +47,8 @@
     <script type="text/javascript" src="../js/DataTables-1.10.9/js/dataTables.jqueryui.js"></script>
     <script type="text/javascript" src="../js/AutoFill-2.0.0/js/dataTables.autoFill.js"></script>
     <script type="text/javascript" src="../js/AutoFill-2.0.0/js/autoFill.jqueryui.js"></script>
+
+    <script type="text/javascript" src="../js/jquery.hoverIntent.js"></script>
     <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="../libs/bootstrap-dialog/js/bootstrap-dialog.js"></script>
 
@@ -198,12 +200,18 @@
                 });
             }
         });
-        tableElement.on('mousemove', 'tr', function (e) {
+
+        $(tableElement).hoverIntent({
+            over: showTooltip,
+            out: hideTooltip,
+            selector: 'tr',
+            interval: 200
+        });
+        function showTooltip() {
+            tooltipVisible = true;
             var tooltip = $("#tooltip");
             var data = table.row(this).data();
             var ts = encodeURIComponent(data.ts);
-            console.log(ts);
-            tooltip.css({top: e.pageY, left: e.pageX + 5});
             if (ts && (ts != tooltip.attr("data-ts"))) {
                 tooltip.attr('title', '<span class="glyphicon-refresh-animate glyphicon-refresh glyphicon"></span> Loading...')
                         .attr('data-original-title', '<span class="glyphicon-refresh-animate glyphicon-refresh glyphicon"></span> Loading...')
@@ -213,15 +221,28 @@
                     success: function (data) {
                         tooltip.attr('title', data)
                                 .attr('data-original-title', data);
+                        $('[data-toggle="tooltip"]').tooltip('show')
                     }
                 });
             }
-            $('[data-toggle="tooltip"]').tooltip('show')
+        }
+
+        function hideTooltip() {
+            tooltipVisible = false;
+            $('[data-toggle="tooltip"]').tooltip('hide')
+        }
+
+        tableElement.on('mousemove', 'tr', function (e) {
+            var tooltip = $("#tooltip");
+            tooltip.css({top: e.pageY, left: e.pageX + 5});
+            if  (tooltipVisible) {
+                $('[data-toggle="tooltip"]').tooltip('show')
+            }
 
         });
-        tableElement.on('mouseleave', function (e) {
-            $('[data-toggle="tooltip"]').tooltip('hide')
-        });
+//        tableElement.on('mouseleave', function (e) {
+//            $('[data-toggle="tooltip"]').tooltip('hide')
+//        });
 
 
     });
