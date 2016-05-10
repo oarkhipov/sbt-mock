@@ -38,7 +38,7 @@ public class LogService {
     @Autowired
     LogsRepository logRepository;
 
-    public long getLogsDataBaseSize() {
+    public long getLogsDatabaseSize() {
         return logRepository.count();
     }
 

@@ -48,7 +48,7 @@ public class LogApiEntityBuilder {
     }
 
     private void handleSearchParameters() {
-        if (httpRequestParams.containsKey("search")) {
+        if (httpRequestParams.subMap("search","search"+Character.MAX_VALUE).keySet().size()!=0) {
             entity.setSearchValue(httpRequestParams.get("search[value]")[0]);
             entity.setSearchRegex(Boolean.parseBoolean(httpRequestParams.get("search[regex]")[0]));
         }

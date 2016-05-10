@@ -142,12 +142,6 @@
                 //Get page number on client. Please note: number start from 0 So
                 //for the first page you will see 0 second page 1 third page 2...
                 //Un-comment below alert to see page number
-                //alert("Current page number: "+this.fnPagingInfo().iPage);
-//                $("#example tbody tr").each(function () {
-//                    var data = table.row(this).data();
-//                    var ts = encodeURIComponent(data.ts);
-//                    this.setAttribute("data-title", ts);
-//                });
             },
             initComplete: function () {
                 this.api().columns().every(function () {
@@ -240,10 +234,6 @@
             }
 
         });
-//        tableElement.on('mouseleave', function (e) {
-//            $('[data-toggle="tooltip"]').tooltip('hide')
-//        });
-
 
     });
 </script>

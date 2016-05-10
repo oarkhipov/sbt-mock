@@ -42,7 +42,7 @@ public class LogFormController {
     String getLogsDataTableData(HttpServletRequest request) {
         LogsApiEntity apiEntity = new LogApiEntityBuilder().with(request.getParameterMap()).build();
         Iterable<LogsEntity> logsResult = logService.getLogs(apiEntity);
-        long size = logService.getLogsDataBaseSize();
+        long size = logService.getLogsDatabaseSize();
         String response = new LogControllerResponseBuilder().withApiEntity(apiEntity).withLogsQueryEntities(logsResult).withDataBaseSize(size).build();
         return response;
     }
