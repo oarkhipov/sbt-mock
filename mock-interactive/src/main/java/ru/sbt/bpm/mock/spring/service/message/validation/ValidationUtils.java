@@ -1,6 +1,5 @@
 package ru.sbt.bpm.mock.spring.service.message.validation;
 
-import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
@@ -27,7 +26,7 @@ public class ValidationUtils {
                 return StringUtils.join(errorLines, "\n");
             }
         });
-        final String errorString = StringUtils.join(errorCollection, ",\n");
+        final String errorString = StringUtils.join(errorCollection.iterator(), ",\n");
         return "Validation errors list:\n" + errorString;
     }
 }

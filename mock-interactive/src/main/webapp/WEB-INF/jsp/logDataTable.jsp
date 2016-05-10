@@ -38,12 +38,14 @@
     <!-- Data Tables -->
     <link rel="stylesheet" type="text/css" href="../css/DataTables-1.10.9/css/dataTables.jqueryui.css"/>
     <link rel="stylesheet" type="text/css" href="../css/DataTables-1.10.9/css/jquery.dataTables.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/jquery.tooltip.css"/>
 
     <script type="text/javascript" src="../js/DataTables-1.10.9/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="../js/DataTables-1.10.9/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="../js/DataTables-1.10.9/js/dataTables.jqueryui.js"></script>
     <script type="text/javascript" src="../js/AutoFill-2.0.0/js/dataTables.autoFill.js"></script>
     <script type="text/javascript" src="../js/AutoFill-2.0.0/js/autoFill.jqueryui.js"></script>
+    <script type="text/javascript" src="../js/jquery.tooltip.js"></script>
 
 
 </head>
@@ -73,12 +75,15 @@
         /*rgba(256, 182, 193, .7)*/
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#B3FFB6C1, endColorstr=#B3FFB6C1);
     }
-
+    td{
+        word-wrap: break-word;
+    }
 </style>
 <![endif]-->
 
 
 <input type="button" value="BACK" onclick="window.location.href='../'"/>
+<div id="tooltip" style="display: none"></div>
 <script>
     var table;
     $(document).ready(function() {
@@ -86,7 +91,7 @@
         table=$('#example').DataTable( {
             "ajax": "data.web",
             "bProcessing": true,
-            "bServerSide": false,
+            "bServerSide": true,
             <!--"sort": "position",-->
             //bStateSave variable you can use to save state on client cookies: set value "true"
             "bStateSave": false,
@@ -94,11 +99,19 @@
             "iDisplayLength": 10,
             //We will use below variable to track page number on server side(For more information visit: http://legacy.datatables.net/usage/options#iDisplayStart)
             "iDisplayStart": 0,
+            "search": {
+                "regex": true
+            },
             "fnDrawCallback": function () {
                 //Get page number on client. Please note: number start from 0 So
                 //for the first page you will see 0 second page 1 third page 2...
                 //Un-comment below alert to see page number
                 //alert("Current page number: "+this.fnPagingInfo().iPage);
+                $("#example tbody tr").each( function() {
+                    var nTds = $('td',this);
+//            this.setAttribute("title", $(nTds[2]).text());
+                    this.setAttribute("title", '123');
+                });
             },
             initComplete: function () {
                 this.api().columns().every( function () {
@@ -130,15 +143,32 @@
                 { "mData": "integrationPointName"},
                 { "mData": "fullEndpoint"},
                 { "mData": "shortEndpoint"},
-                { "mData": "messageState"},
-                { "mData": "messagePreview"}
+                { "mData": "messageState"}
             ]
         } );
 
+        var tableElement = $("#example tbody");
 
+        tableElement.on('click', 'tr', function() {
+            var data = table.row(this).data();
+            var ts = encodeURIComponent(data.ts);
+            $.ajax({
+                url: "../api/log/getMessage/" + ts + "/",
+                success: function (data) {
+                    alert(data);
+                }
+            });
+        });
+
+        table.$('tr').tooltip({
+            "delay": 0,
+            html: true,
+            placement: '',
+            "fade": 250
+        });
     });
 </script>
-<table width="70%" style="border: 3px;background: rgb(243, 244, 248);"><tr><td>
+<table style="border: 3px;background: rgb(243, 244, 248); width: 800px"><tr><td>
     <table id="example" class="display" cellspacing="0" width="100%">
         <thead>
         <tr>
@@ -149,7 +179,6 @@
             <th class="sorting">FullEndpoint</th>
             <th class="sorting">ShortEndpoint</th>
             <th class="sorting">MessageState</th>
-            <th class="sorting">MessagePreview</th>
         </tr>
         </thead>
         <tfoot>
@@ -161,7 +190,6 @@
             <th>FullEndpoint</th>
             <th>ShortEndpoint</th>
             <th>MessageState</th>
-            <th>MessagePreview</th>
         </tr>
         </tfoot>
 

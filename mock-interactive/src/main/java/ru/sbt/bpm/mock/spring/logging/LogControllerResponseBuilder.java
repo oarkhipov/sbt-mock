@@ -1,6 +1,7 @@
 package ru.sbt.bpm.mock.spring.logging;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import ru.sbt.bpm.mock.logging.entities.LogsApiEntity;
 import ru.sbt.bpm.mock.logging.entities.LogsEntity;
 import ru.sbt.bpm.mock.spring.logging.pojo.LogResponseDataEntity;
@@ -51,7 +52,7 @@ public class LogControllerResponseBuilder {
             logResponseEntity.setRecordsFiltered(dataEntities.size());
             logResponseEntity.setRecordsTotal(dataBaseSize);
 
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
             String response = gson.toJson(logResponseEntity);
             return response;
         } else {

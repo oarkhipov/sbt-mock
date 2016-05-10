@@ -3,7 +3,7 @@ package ru.sbt.bpm.mock.spring.utils;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
@@ -41,7 +41,7 @@ public class AjaxObject {
     }
 
     public void setData(String data) {
-        this.data = StringEscapeUtils.escapeHtml(StringEscapeUtils.unescapeJava(fixNewLine(data)));
+        this.data = StringEscapeUtils.escapeHtml4(StringEscapeUtils.unescapeJava(fixNewLine(data)));
     }
 
     private String fixNewLine(String text) {

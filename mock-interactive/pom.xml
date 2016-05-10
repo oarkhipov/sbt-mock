@@ -25,13 +25,11 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
             <scope>test</scope>
             <type>jar</type>
         </dependency>
@@ -43,14 +41,6 @@
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-jms</artifactId>
-            <version>${spring-integration.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -66,16 +56,10 @@
             <version>2.4</version>
             <type>jar</type>
         </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
-        </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.0</version>
         </dependency>
         <!-- Javax context-->
         <dependency>
@@ -92,24 +76,12 @@
             <version>1.4</version>
         </dependency>
 
-        <!-- LOGGING-->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.5</version>
-        </dependency>
-
         <!-- For WebSphere-->
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.1.3</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>commons-logging</groupId>-->
+            <!--<artifactId>commons-logging</artifactId>-->
+            <!--<version>1.1.3</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
@@ -119,11 +91,9 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- JSON Serializer-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.2.4</version>
         </dependency>
 
         <!-- XSLT 2.0-->
@@ -138,6 +108,16 @@
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
             <version>1.4.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
         </dependency>
 
         <dependency>
@@ -156,20 +136,6 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-        </dependency>
-
-        <!--<dependency>-->
-        <!--<groupId>org.mongodb</groupId>-->
-        <!--<artifactId>mongo-java-driver</artifactId>-->
-        <!--<version>3.1.0</version>-->
-        <!--</dependency>-->
-
-
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-all</artifactId>
-            <version>5.10.0</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -233,6 +199,12 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -245,6 +217,12 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>1.7.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -302,6 +280,12 @@
                     <groupId>commons-cli</groupId>
                     <artifactId>commons-cli</artifactId>
                     <version>1.0</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>commons-logging</groupId>
+                            <artifactId>commons-logging</artifactId>
+                        </exclusion>
+                    </exclusions>
                 </dependency>
 
                 <dependency>
@@ -315,9 +299,33 @@
                     <artifactId>junit</artifactId>
                     <version>4.11</version>
                 </dependency>
+
+                <dependency>
+                    <groupId>org.apache.activemq</groupId>
+                    <artifactId>activemq-all</artifactId>
+                    <version>5.10.0</version>
+                    <scope>test</scope>
+                </dependency>
             </dependencies>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.6</version>
+                        <executions>
+                            <execution>
+                                <id>prepare-war</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>exploded</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <useCache>true</useCache>
+                        </configuration>
+                    </plugin>
                     <!-- Fix jms names-->
                     <plugin>
                         <groupId>com.google.code.maven-replacer-plugin</groupId>
@@ -325,7 +333,8 @@
                         <version>1.5.2</version>
                         <executions>
                             <execution>
-                                <phase>package</phase>
+                                <id>match-jms-replace</id>
+                                <phase>prepare-package</phase>
                                 <goals>
                                     <goal>replace</goal>
                                 </goals>
@@ -357,13 +366,30 @@
     <build>
         <finalName>mock_${project.version}-interactive</finalName>
         <plugins>
-            <!-- Exclude trash from WAR-->
             <plugin>
-                <artifactId>maven-war-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
                 <version>2.6</version>
-                <configuration>
-                    <packagingExcludes>WEB-INF/classes/in/</packagingExcludes>
-                </configuration>
+                <executions>
+                    <execution>
+                        <id>copy-h2-db</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}</directory>
+                                    <includes>
+                                        <include>mock.mv.db</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

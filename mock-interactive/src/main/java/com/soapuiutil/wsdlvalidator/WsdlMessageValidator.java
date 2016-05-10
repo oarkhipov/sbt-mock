@@ -146,7 +146,7 @@ public class WsdlMessageValidator {
                 messageType = nodeType.getLocalName();
             }
 
-            if (StringUtils.isBlank(messageType)) {
+            if (StringUtils.isEmpty(messageType)) {
                 throw new WsdlMessageValidatorException(NO_TYPE);
             }
 

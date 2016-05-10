@@ -48,8 +48,10 @@ public class LogApiEntityBuilder {
     }
 
     private void handleSearchParameters() {
-        entity.setSearchValue(httpRequestParams.get("search[value]")[0]);
-        entity.setSearchRegex(Boolean.parseBoolean(httpRequestParams.get("search[regex]")[0]));
+        if (httpRequestParams.containsKey("search")) {
+            entity.setSearchValue(httpRequestParams.get("search[value]")[0]);
+            entity.setSearchRegex(Boolean.parseBoolean(httpRequestParams.get("search[regex]")[0]));
+        }
     }
 
     private void handleOrderParameters() {

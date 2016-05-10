@@ -226,7 +226,7 @@ public class ResponseGenerator {
         String fullEndpointName = mockMessage.getProtocol().equals(Protocol.JMS) ? mockMessage.getJmsConnectionFactoryName() + "/" + mockMessage.getQueue() : "";
         String shortEndpointName = mockMessage.getProtocol().equals(Protocol.JMS) ? mockMessage.getQueue() : mockMessage.getIntegrationPoint().getName();
         String messageState = MessageStatusConverter.convert(mockMessage, messageType).toString();
-        String messagePreview = mockMessage.getPayload().length() > 50 ? mockMessage.getPayload().substring(0, 50) + "..." : mockMessage.getPayload();
+        String messagePreview = XpathUtils.compactXml(mockMessage.getPayload().length() > 50 ? mockMessage.getPayload().substring(0, 46) + "..." : mockMessage.getPayload());
 
         LogsEntity entity = new LogsEntity(mockMessage.getProtocol().toString(),
                 mockMessage.getSystem().getSystemName(),

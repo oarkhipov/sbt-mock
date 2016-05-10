@@ -1,6 +1,7 @@
 package ru.sbt.bpm.mock.spring.logging.pojo;
 
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringEscapeUtils;
 import ru.sbt.bpm.mock.logging.entities.LogsEntity;
 
 /**
@@ -14,10 +15,9 @@ public class LogResponseDataEntity {
     String protocol;
     String systemName;
     String integrationPointName;
-    String fullEndpointName;
-    String shortEndpointName;
+    String fullEndpoint;
+    String shortEndpoint;
     String messageState;
-    String messagePreview;
 
 
     public LogResponseDataEntity(LogsEntity entity) {
@@ -25,9 +25,8 @@ public class LogResponseDataEntity {
         protocol = entity.getProtocol();
         systemName = entity.getSystemName();
         integrationPointName = entity.getIntegrationPointName();
-        fullEndpointName = entity.getFullEndpoint();
-        shortEndpointName = entity.getShortEndpoint();
+        fullEndpoint = entity.getFullEndpoint();
+        shortEndpoint = entity.getShortEndpoint();
         messageState = entity.getMessageState();
-        messagePreview = entity.getMessagePreview();
     }
 }

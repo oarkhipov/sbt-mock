@@ -1,17 +1,24 @@
 package ru.sbt.bpm.mock.logging.spring.services;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mysema.query.types.ExpressionUtils;
 import com.mysema.query.types.Predicate;
 import com.mysema.query.types.path.StringPath;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import ru.sbt.bpm.mock.logging.LogsEntityAdapter;
 import ru.sbt.bpm.mock.logging.entities.*;
 import ru.sbt.bpm.mock.logging.repository.LogsRepository;
 import ru.sbt.bpm.mock.logging.utils.SortUtils;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +27,13 @@ import java.util.List;
  *         <p/>
  *         Company: SBT - Moscow
  */
+@Slf4j
 @Service
 public class LogService {
 
     final QLogsEntity logsEntity = QLogsEntity.logsEntity;
+
+    final Gson gson = new GsonBuilder().registerTypeAdapter(LogsEntity.class, new LogsEntityAdapter()).setPrettyPrinting().create();
 
     @Autowired
     LogsRepository logRepository;
@@ -35,10 +45,52 @@ public class LogService {
     public Iterable<LogsEntity> getLogs(LogsApiEntity apiEntity) {
         List<Predicate> predicates = new ArrayList<Predicate>();
         List<Sort> sorts = new ArrayList<Sort>();
-        for (LogsApiColumnEntity logsApiColumnEntity : apiEntity.getLogsApiColumnEntities()) {
-            if (logsApiColumnEntity.getData().equals("ts")) {
-                handleOtherColumn(apiEntity, logsApiColumnEntity, sorts);
+
+        handleColumnPredicates(apiEntity, predicates, sorts);
+        handleOrderingPredicates(apiEntity, sorts);
+        handleFullSearch(apiEntity, predicates);
+
+        int pageSize = apiEntity.getLength();
+        int page = apiEntity.getStart() / pageSize;
+        Sort joinedSort = SortUtils.allOf(sorts);
+        Predicate joinedPredicate = ExpressionUtils.allOf(predicates);
+        PageRequest pageRequest = new PageRequest(page, pageSize, joinedSort);
+        log.debug("Search rows with predicate: " + joinedPredicate);
+        return logRepository.findAll(joinedPredicate, pageRequest);
+    }
+
+    private void handleFullSearch(LogsApiEntity logsApiEntity, List<Predicate> predicates) {
+        String searchValue = logsApiEntity.getSearchValue();
+        if (searchValue != null && !searchValue.isEmpty()) {
+            List<Predicate> fullSearchPredicates = new ArrayList<Predicate>();
+            if (logsApiEntity.isSearchRegex()) {
+                //Fix for DataTablesApi
+                searchValue = "%" + searchValue + "%";
+                fullSearchPredicates.add(logsEntity.protocol.matches(searchValue));
+                fullSearchPredicates.add(logsEntity.systemName.matches(searchValue));
+                fullSearchPredicates.add(logsEntity.integrationPointName.matches(searchValue));
+                fullSearchPredicates.add(logsEntity.fullEndpoint.matches(searchValue));
+                fullSearchPredicates.add(logsEntity.shortEndpoint.matches(searchValue));
+                fullSearchPredicates.add(logsEntity.messageState.matches(searchValue));
+                fullSearchPredicates.add(logsEntity.message.matches(searchValue));
+            } else {
+                fullSearchPredicates.add(logsEntity.protocol.eq(searchValue));
+                fullSearchPredicates.add(logsEntity.systemName.eq(searchValue));
+                fullSearchPredicates.add(logsEntity.integrationPointName.eq(searchValue));
+                fullSearchPredicates.add(logsEntity.fullEndpoint.eq(searchValue));
+                fullSearchPredicates.add(logsEntity.shortEndpoint.eq(searchValue));
+                fullSearchPredicates.add(logsEntity.messageState.eq(searchValue));
+                fullSearchPredicates.add(logsEntity.message.eq(searchValue));
             }
+            predicates.add(ExpressionUtils.anyOf(fullSearchPredicates));
+        }
+    }
+
+    private void handleColumnPredicates(LogsApiEntity apiEntity, List<Predicate> predicates, List<Sort> sorts) {
+        for (LogsApiColumnEntity logsApiColumnEntity : apiEntity.getLogsApiColumnEntities()) {
+//            if (logsApiColumnEntity.getData().equals("ts")) {
+//                // do nothing
+//            }
             if (logsApiColumnEntity.getData().equals("protocol")) {
                 handleStringColumn(apiEntity, logsApiColumnEntity, logsEntity.protocol, predicates, sorts);
             }
@@ -64,47 +116,61 @@ public class LogService {
                 handleStringColumn(apiEntity, logsApiColumnEntity, logsEntity.message, predicates, sorts);
             }
         }
-        int pageSize = apiEntity.getLength();
-        int page = apiEntity.getStart()/ pageSize;
-        Sort joinedSort = SortUtils.allOf(sorts);
-        Predicate joinedPredicate = ExpressionUtils.allOf(predicates);
-        PageRequest pageRequest = new PageRequest(page, pageSize, joinedSort);
-
-        return logRepository.findAll(joinedPredicate, pageRequest);
     }
 
-    private void handleOtherColumn(LogsApiEntity jsonEntity, LogsApiColumnEntity logsApiColumnEntity, List<Sort> sorts) {
-        handleOrdering(jsonEntity, logsApiColumnEntity,sorts);
-    }
 
     private void handleStringColumn(LogsApiEntity jsonEntity, final LogsApiColumnEntity logsApiColumnEntity, StringPath entityObject, List<Predicate> predicates, List<Sort> sorts) {
         if (logsApiColumnEntity.isSearchable()) {
-            if (logsApiColumnEntity.isSearchRegex()) {
-                predicates.add(entityObject.matches(logsApiColumnEntity.getSearchValue()));
-            } else {
-                predicates.add(entityObject.eq(logsApiColumnEntity.getSearchValue()));
+            String searchValue = logsApiColumnEntity.getSearchValue();
+            if (searchValue != null && !searchValue.isEmpty()) {
+                if (logsApiColumnEntity.isSearchRegex()) {
+                    log.debug("replace regex with like for H2! Fix it if  DB change is planning");
+                    searchValue = searchValue.replace("$", "%").replace("^", "%");
+                    predicates.add(entityObject.matches(searchValue));
+                } else {
+                    predicates.add(entityObject.eq(searchValue));
+                }
             }
         }
-        handleOrdering(jsonEntity, logsApiColumnEntity, sorts);
+        handleOrderingPredicates(jsonEntity, sorts);
     }
 
-    private void handleOrdering(LogsApiEntity jsonEntity, final LogsApiColumnEntity logsApiColumnEntity, List<Sort> sorts) {
-        //TODO replace searching from columns to search from orders
-        if (logsApiColumnEntity.isOrderable()) {
-            LogsApiOrderEntity logsApiOrderEntity = CollectionUtils.find(jsonEntity.getLogsApiOrderEntities(),
-                    new org.apache.commons.collections4.Predicate<LogsApiOrderEntity>() {
-                        @Override
-                        public boolean evaluate(LogsApiOrderEntity logsJsonOrderEntity) {
-                            return logsJsonOrderEntity.getColumnNum() == logsApiColumnEntity.getNum();
-                        }
-                    });
-            Sort.Direction direction = Sort.Direction.fromString(logsApiOrderEntity.getDirection().toString());
+    private void handleOrderingPredicates(LogsApiEntity jsonEntity, List<Sort> sorts) {
+
+        for (LogsApiOrderEntity apiOrderEntity : jsonEntity.getLogsApiOrderEntities()) {
+            final int apiOrderEntityColumnNum = apiOrderEntity.getColumnNum();
+            Sort.Direction direction = Sort.Direction.fromString(apiOrderEntity.getDirection().toString());
+
+            LogsApiColumnEntity logsApiColumnEntity = CollectionUtils.find(jsonEntity.getLogsApiColumnEntities(), new org.apache.commons.collections4.Predicate<LogsApiColumnEntity>() {
+                @Override
+                public boolean evaluate(LogsApiColumnEntity logsApiColumnEntity) {
+                    return logsApiColumnEntity.getNum() == apiOrderEntityColumnNum;
+                }
+            });
             sorts.add(new Sort(direction, logsApiColumnEntity.getData()));
         }
     }
 
     public void write(LogsEntity entity) {
         logRepository.save(entity);
+        log.debug("Log saved [" + entity.getSystemName() + "]");
     }
 
+    public String getTopLogs(int rowNumbers, String systemName, String integrationPointName) {
+        List<Predicate> predicates = new ArrayList<Predicate>();
+        if (systemName != null && !systemName.isEmpty()) {
+            predicates.add(logsEntity.systemName.matches(systemName));
+        }
+        if (integrationPointName != null && !integrationPointName.isEmpty()) {
+            predicates.add(logsEntity.integrationPointName.matches(integrationPointName));
+        }
+        Page<LogsEntity> entities = logRepository.findAll(ExpressionUtils.allOf(predicates), new PageRequest(0, rowNumbers, new Sort(Sort.Direction.DESC, "ts")));
+        List<LogsEntity> logsEntities = IteratorUtils.toList(entities.iterator());
+        return gson.toJson(logsEntities);
+    }
+
+    public String getMessageByTs(String stringTimestamp) {
+        Timestamp timestamp = Timestamp.valueOf(stringTimestamp);
+        return logRepository.findByTs(timestamp).getMessage();
+    }
 }

@@ -22,7 +22,7 @@ import java.io.IOException;
  */
 
 @Controller
-public class LogController {
+public class LogFormController {
 
     @Autowired
     LogService logService;

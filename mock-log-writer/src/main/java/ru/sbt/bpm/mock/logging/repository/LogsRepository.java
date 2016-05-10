@@ -15,4 +15,6 @@ import java.util.List;
 public interface LogsRepository extends PagingAndSortingRepository<LogsEntity, Timestamp>, QueryDslPredicateExecutor<LogsEntity> {
 
     List<LogsEntity> findByShortEndpoint(String shortEndpoint);
+
+    LogsEntity findByTs(Timestamp timestamp);
 }
