@@ -55,7 +55,7 @@ public class LogService {
         Sort joinedSort = SortUtils.allOf(sorts);
         Predicate joinedPredicate = ExpressionUtils.allOf(predicates);
         PageRequest pageRequest = new PageRequest(page, pageSize, joinedSort);
-        log.debug("Search rows with predicate: " + joinedPredicate);
+        log.info("Search rows with predicate: " + joinedPredicate);
         return logRepository.findAll(joinedPredicate, pageRequest);
     }
 
@@ -64,15 +64,13 @@ public class LogService {
         if (searchValue != null && !searchValue.isEmpty()) {
             List<Predicate> fullSearchPredicates = new ArrayList<Predicate>();
             if (logsApiEntity.isSearchRegex()) {
-                //Fix for DataTablesApi
-                searchValue = "%" + searchValue + "%";
-                fullSearchPredicates.add(logsEntity.protocol.matches(searchValue));
-                fullSearchPredicates.add(logsEntity.systemName.matches(searchValue));
-                fullSearchPredicates.add(logsEntity.integrationPointName.matches(searchValue));
-                fullSearchPredicates.add(logsEntity.fullEndpoint.matches(searchValue));
-                fullSearchPredicates.add(logsEntity.shortEndpoint.matches(searchValue));
-                fullSearchPredicates.add(logsEntity.messageState.matches(searchValue));
-                fullSearchPredicates.add(logsEntity.message.matches(searchValue));
+                fullSearchPredicates.add(logsEntity.protocol.containsIgnoreCase(searchValue));
+                fullSearchPredicates.add(logsEntity.systemName.containsIgnoreCase(searchValue));
+                fullSearchPredicates.add(logsEntity.integrationPointName.containsIgnoreCase(searchValue));
+                fullSearchPredicates.add(logsEntity.fullEndpoint.containsIgnoreCase(searchValue));
+                fullSearchPredicates.add(logsEntity.shortEndpoint.containsIgnoreCase(searchValue));
+                fullSearchPredicates.add(logsEntity.messageState.containsIgnoreCase(searchValue));
+                fullSearchPredicates.add(logsEntity.message.containsIgnoreCase(searchValue));
             } else {
                 fullSearchPredicates.add(logsEntity.protocol.eq(searchValue));
                 fullSearchPredicates.add(logsEntity.systemName.eq(searchValue));
@@ -153,7 +151,7 @@ public class LogService {
 
     public void write(LogsEntity entity) {
         logRepository.save(entity);
-        log.debug("Log saved [" + entity.getSystemName() + "]");
+        log.info("Log saved [" + entity.getSystemName() + "]");
     }
 
     public String getTopLogs(int rowNumbers, String systemName, String integrationPointName) {
