@@ -145,7 +145,7 @@ public class MessageValidationService {
      * @param xml                  xml to search into
      * @param systemName           name of system, which xml belongs
      * @param integrationPointName name of integration point, which message represents
-     * @param messageType
+     * @param messageType          request or response message
      * @return true if one or more elements match the xpath
      * @throws XPathExpressionException
      * @throws SaxonApiException
