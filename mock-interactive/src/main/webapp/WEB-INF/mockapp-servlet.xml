@@ -31,13 +31,13 @@
     </bean>
     <!-- - - - - - - -->
     <!-- DRIVER -->
-    <bean id="driverConnectionInputString" class="java.lang.String">
-        <constructor-arg value="jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>
-        <!--<beans:constructor-arg value="jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>-->
-    </bean>
     <bean id="driverConnectionOutputString" class="java.lang.String">
         <constructor-arg value="jms/Q.LEGAL.FROM.CRMORG"/>
         <!--<beans:constructor-arg value="jms/Q.LEGAL.FROM.CRMORG"/>-->
+    </bean>
+    <bean id="driverConnectionInputString" class="java.lang.String">
+        <constructor-arg value="jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>
+        <!--<beans:constructor-arg value="jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>-->
     </bean>
 
     <!-- - - - - - - - - - - - - - -->

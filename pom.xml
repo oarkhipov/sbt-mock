@@ -48,13 +48,6 @@
                 </exclusions>
             </dependency>
 
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-test</artifactId>
-                <version>${spring.version}</version>
-                <scope>test</scope>
-                <type>jar</type>
-            </dependency>
 
             <!--
                 S P R I N G  -  I N T E G R A T I O N
