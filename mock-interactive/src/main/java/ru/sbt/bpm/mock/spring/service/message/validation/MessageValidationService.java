@@ -22,6 +22,7 @@ import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.entities.System;
+import ru.sbt.bpm.mock.config.entities.Systems;
 import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
@@ -70,8 +71,15 @@ public class MessageValidationService {
          */
         validator = new HashMap<String, MessageValidator>();
 
-        for (System system : configContainer.getConfig().getSystems().getSystems()) {
-            initValidator(system);
+
+        Systems systemsContainer = configContainer.getConfig().getSystems();
+        if (systemsContainer != null) {
+            List<System> systems = systemsContainer.getSystems();
+            if (systems != null) {
+                for (System system : systems) {
+                    initValidator(system);
+                }
+            }
         }
     }
 
