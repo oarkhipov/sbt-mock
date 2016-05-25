@@ -90,8 +90,12 @@ public class WsdlMessageValidator {
                 final QName requestQname = wsdlOperation.getRequestBodyElementQName();
                 final QName responseQname = wsdlOperation.getResponseBodyElementQName();
                 final WsdlMockOperation mockOper = (WsdlMockOperation) mockServ.addNewMockOperation(operation);
-                typeOperationMap.put(requestQname.getLocalPart(), mockOper);
-                typeOperationMap.put(responseQname.getLocalPart(), mockOper);
+                if (requestQname != null) {
+                    typeOperationMap.put(requestQname.getLocalPart(), mockOper);
+                }
+                if (responseQname != null) {
+                    typeOperationMap.put(responseQname.getLocalPart(), mockOper);
+                }
             }
         }
     }
