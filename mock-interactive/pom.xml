@@ -76,13 +76,6 @@
             <version>1.4</version>
         </dependency>
 
-        <!-- For WebSphere-->
-        <!--<dependency>-->
-            <!--<groupId>commons-logging</groupId>-->
-            <!--<artifactId>commons-logging</artifactId>-->
-            <!--<version>1.1.3</version>-->
-        <!--</dependency>-->
-
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
@@ -377,6 +370,11 @@
                     <artifactId>javax.jms-api</artifactId>
                     <version>2.0.1</version>
                 </dependency>
+                <!--<dependency>-->
+                <!--<groupId>commons-logging</groupId>-->
+                <!--<artifactId>commons-logging</artifactId>-->
+                <!--<version>1.1.3</version>-->
+                <!--</dependency>-->
             </dependencies>
         </profile>
     </profiles>
