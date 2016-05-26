@@ -73,10 +73,12 @@ public class IntegrationPointController {
                         new Pair<String, String>(incomeQueue, outcomeQueue),
                         xsdFile,
                         new ElementSelector(rootElementNamespace, rootElementName));
-        List<IntegrationPoint> integrationPoints = systemObject.getIntegrationPoints().getIntegrationPoints();
+
+        IntegrationPoints integrationPointContainer = systemObject.getIntegrationPoints();
+        List<IntegrationPoint> integrationPoints = integrationPointContainer.getIntegrationPoints();
         if (integrationPoints == null) {
-            systemObject.getIntegrationPoints().setIntegrationPoints(new ArrayList<IntegrationPoint>());
-            integrationPoints = systemObject.getIntegrationPoints().getIntegrationPoints();
+            integrationPointContainer.setIntegrationPoints(new ArrayList<IntegrationPoint>());
+            integrationPoints = integrationPointContainer.getIntegrationPoints();
         }
         integrationPoints.add(integrationPoint);
         configurationService.saveConfig();

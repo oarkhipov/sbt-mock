@@ -38,7 +38,7 @@ public class SystemController {
     @ResponseBody
     @RequestMapping(value = "/system/add/", method = RequestMethod.POST)
     public String add(@RequestParam String name,
-                      @RequestParam Protocol type,
+                      @RequestParam Protocol protocol,
                       @RequestParam String remoteRootSchema,
                       @RequestParam String localRootSchema,
                       @RequestParam(value = "integrationPointSelectorNamespace[]") String[] integrationPointSelectorNamespace,
@@ -55,7 +55,7 @@ public class SystemController {
         XpathSelector xpathSelector = new XpathSelector(integrationPointSelectorNamespace, integrationPointSelectorElementName);
         ElementSelector rootElement = new ElementSelector(rootElementNamespace, rootElementName);
 
-        System system = new System(name, remoteRootSchema, localRootSchema, xpathSelector, type, queueConnectionFactory, mockIncomeQueue,
+        System system = new System(name, remoteRootSchema, localRootSchema, xpathSelector, protocol, queueConnectionFactory, mockIncomeQueue,
                 mockOutcomeQueue, driverOutcomeQueue, driverIncomeQueue, driverWebServiceEndpoint, rootElement, null);
 
         if (systems.getSystems() == null) {
@@ -95,7 +95,6 @@ public class SystemController {
 
         if (!systemObject.getSystemName().equals(systemName)) {
             systemObject.setSystemName(newSystemName);
-            //TODO move system directory
             dataFileService.moveSystemDir(systemName, newSystemName);
         }
 

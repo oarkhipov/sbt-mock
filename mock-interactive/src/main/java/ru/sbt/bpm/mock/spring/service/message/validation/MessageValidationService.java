@@ -181,7 +181,8 @@ public class MessageValidationService {
         String elementName = getSoapMessageElementName(XpathUtils.compactXml(xml));
         assert !elementName.isEmpty();
         if (messageType == MessageType.RQ) {
-            String expectedElementName = ((WsdlContentPart) operation.getDefaultRequestParts()[0]).getPartElementName().getLocalPart();
+            int bodyIndex = operation.getDefaultRequestParts().length - 1;
+            String expectedElementName = ((WsdlContentPart) operation.getDefaultRequestParts()[bodyIndex]).getPartElementName().getLocalPart();
             boolean validationResult = elementName.equals(expectedElementName);
             if (validationResult) {
                 return true;
@@ -190,7 +191,8 @@ public class MessageValidationService {
             }
         }
         if (messageType == MessageType.RS) {
-            String expectedElementName = ((WsdlContentPart) operation.getDefaultResponseParts()[0]).getPartElementName().getLocalPart();
+            int bodyIndex = operation.getDefaultResponseParts().length - 1;
+            String expectedElementName = ((WsdlContentPart) operation.getDefaultResponseParts()[bodyIndex]).getPartElementName().getLocalPart();
             boolean validationResult = elementName.equals(expectedElementName);
             if (validationResult) {
                 return true;

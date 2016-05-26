@@ -12,6 +12,7 @@ import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext;
 import com.eviware.soapui.impl.wsdl.teststeps.WsdlTestStep;
 import com.eviware.soapui.model.iface.Operation;
 import com.eviware.soapui.model.testsuite.AssertionError;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
@@ -32,6 +33,7 @@ import java.util.Map;
  *
  * @author kchan
  */
+@Slf4j
 public class WsdlMessageValidator {
 
     final private static String BODY = "Body";
@@ -192,29 +194,45 @@ public class WsdlMessageValidator {
         try {
             AssertionError[] assertionErrors = null;
             WsdlOperation operation = wsdlMockOperation.getOperation();
-            if (messageType.equals(((WsdlContentPart) operation.getDefaultResponseParts()[0]).getPartElementName().getLocalPart())) {
-                //validate response
-                mockResponse = wsdlMockOperation.addNewMockResponse(mockOperationName, true);
-                mockResponse.setResponseContent(message);
-                final WsdlMockResponseMessageExchange messageExchange = new WsdlMockResponseMessageExchange(mockResponse);
-                assertionErrors = wsdlValidator.assertResponse(messageExchange, false);
+            boolean assertionPerformed = false;
+            try {
+                if (messageType.equals(((WsdlContentPart) operation.getDefaultResponseParts()[0]).getPartElementName().getLocalPart())) {
+                    //validate response
+                    mockResponse = wsdlMockOperation.addNewMockResponse(mockOperationName, true);
+                    mockResponse.setResponseContent(message);
+                    final WsdlMockResponseMessageExchange messageExchange = new WsdlMockResponseMessageExchange(mockResponse);
+                    assertionErrors = wsdlValidator.assertResponse(messageExchange, false);
+                    assertionPerformed = true;
+                }
+            } catch (Exception e) {
+                log.debug("SOAP Response validation error", e);
             }
-            if (messageType.equals(((WsdlContentPart) operation.getDefaultRequestParts()[0]).getPartElementName().getLocalPart())) {
-                //validate request
-                MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
-                mockHttpServletRequest.setMethod("POST");
-                mockHttpServletRequest.setContent(message.getBytes("UTF-8"));
 
-                WsdlMockService mockService = wsdlProject.getMockServiceByName("SERVICE NAME");
-                WsdlTestStep testStepByName = wsdlProject.getTestSuiteAt(0).getTestCaseAt(0).getTestStepByName(operation.getName());
-                WsdlTestRunContext wsdlTestRunContext = new WsdlTestRunContext(testStepByName);
-                WsdlMockRunContext runContext = new WsdlMockRunContext(mockService, wsdlTestRunContext);
+            try {
+                if (messageType.equals(((WsdlContentPart) operation.getDefaultRequestParts()[0]).getPartElementName().getLocalPart())) {
+                    //validate request
+                    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
+                    mockHttpServletRequest.setMethod("POST");
+                    mockHttpServletRequest.setContent(message.getBytes("UTF-8"));
 
-                WsdlMockRequest wsdlMockRequest = new WsdlMockRequest(mockHttpServletRequest, null, runContext);
-                wsdlMockRequest.setRequestContent(message);
+                    WsdlMockService mockService = wsdlProject.getMockServiceByName("SERVICE NAME");
+                    WsdlTestStep testStepByName = wsdlProject.getTestSuiteAt(0).getTestCaseAt(0).getTestStepByName(operation.getName());
+                    WsdlTestRunContext wsdlTestRunContext = new WsdlTestRunContext(testStepByName);
+                    WsdlMockRunContext runContext = new WsdlMockRunContext(mockService, wsdlTestRunContext);
 
-                final WsdlMockRequestMessageExchange messageExchange = new WsdlMockRequestMessageExchange(wsdlMockRequest, wsdlMockOperation);
-                assertionErrors = wsdlValidator.assertRequest(messageExchange, false);
+                    WsdlMockRequest wsdlMockRequest = new WsdlMockRequest(mockHttpServletRequest, null, runContext);
+                    wsdlMockRequest.setRequestContent(message);
+
+                    final WsdlMockRequestMessageExchange messageExchange = new WsdlMockRequestMessageExchange(wsdlMockRequest, wsdlMockOperation);
+                    assertionErrors = wsdlValidator.assertRequest(messageExchange, false);
+                    assertionPerformed = true;
+                }
+            } catch (Exception e) {
+                log.debug("SOAP Request validation error", e);
+            }
+
+            if (!assertionPerformed) {
+                throw new RuntimeException("No SOAP validation operation performed");
             }
 
             assert assertionErrors != null;
