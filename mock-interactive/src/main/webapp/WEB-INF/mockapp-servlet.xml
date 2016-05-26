@@ -133,6 +133,10 @@
     <int:service-activator input-channel="MockInboundRequest" output-channel="MockOutboundResponse"
                            expression="@responseGenerator.proceedJmsRequest(payload)"/>
 
+    <int:router id="someRouter" expression="" input-channel="MockInboundRequestAggregated">
+        <int:mapping value="value1" channel="MockOutboundResponse"/>
+        <int:mapping value="value2" channel="MockOutboundResponse"/>
+    </int:router>
 
 
     <!-- Mock gateway to send requests to outbound -->

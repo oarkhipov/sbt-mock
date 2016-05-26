@@ -4,7 +4,7 @@
 
     <groupId>ru.sbt.bpm.mock</groupId>
     <artifactId>mock-interactive-parent</artifactId>
-    <version>3.2.0.0</version>
+    <version>3.3.0</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -14,6 +14,9 @@
     </modules>
 
     <properties>
+        <build.number>0</build.number>
+        <release.name>RELEASE</release.name>
+
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.testTarget>1.7</maven.compiler.testTarget>
