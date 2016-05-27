@@ -103,7 +103,7 @@
         <tr>
             <td>Answer required</td>
             <td><label><input type="checkbox" name="answerRequired"
-                              <c:if test="${isAnswerRequired}==null || ${isAnswerRequired}">checked</c:if> required</label></td>
+                              <c:if test="${isAnswerRequired==null || isAnswerRequired}">checked</c:if> required</label></td>
         </tr>
         <tr>
             <td>xsdFile:</td>

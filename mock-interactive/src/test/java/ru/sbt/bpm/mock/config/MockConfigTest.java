@@ -18,7 +18,7 @@ public class MockConfigTest {
     @Test
     public void testGeneratorSingletonWithFile() throws Exception {
 
-        MockConfigContainer configContainer = MockConfigContainer.getInstance("src/test/webapp/WEB-INF/MockConfig.xml");
+        MockConfigContainer configContainer = MockConfigContainer.getInstance("src/test/resources/env/MockConfig.xml");
         configContainer.init();
         assertTrue(configContainer.getConfig().getSystems() != null);
         final IntegrationPoint firstIntegrationPoint = configContainer.getConfig().getSystems().getSystems().get(0).getIntegrationPoints().getIntegrationPoints().get(0);
