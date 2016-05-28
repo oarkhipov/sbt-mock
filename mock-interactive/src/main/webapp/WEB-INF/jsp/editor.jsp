@@ -49,7 +49,8 @@
     <input type="button" value="Edit" style="display: inline" onclick="editIpForm()"/>&nbsp;
     <input type="button" value="Del" style="display: inline" onclick="delIpForm()"/>
     <br/>
-    <c:if test='${protocol.equals("JMS")}'>
+    <%--WAS 7 compatible style (legacy)--%>
+    <c:if test='${protocol eq "JMS"}'>
         <b>Xpath assertion:</b> <i><c:out value="${xpath}"/></i>
     </c:if>
 
