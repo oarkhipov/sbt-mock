@@ -91,8 +91,10 @@ public class MessageValidationService {
      * @throws SAXException
      */
     private void initValidator(System system) throws IOException, SAXException {
-        File systemXsdDirectory = dataFileService.getSystemXsdDirectoryResource(system.getSystemName()).getFile();
+        String systemName = system.getSystemName();
+        File systemXsdDirectory = dataFileService.getSystemXsdDirectoryResource(systemName).getFile();
         String remoteRootSchema = system.getRemoteRootSchema();
+        String localRootSchema = system.getLocalRootSchema();
         Protocol protocol = system.getProtocol();
         switch (protocol) {
             case JMS:
@@ -102,19 +104,31 @@ public class MessageValidationService {
                     String relativePath = requestPath.substring(requestPath.indexOf("/") + 1, requestPath.length());
                     system.setLocalRootSchema(relativePath);
 
-                    String absoluteSystemRootSchemaDir = dataFileService.getSystemXsdDirectoryResource(system.getSystemName()).getFile().getAbsolutePath() + basePath;
+                    String absoluteSystemRootSchemaDir = dataFileService.getSystemXsdDirectoryResource(systemName).getFile().getAbsolutePath() + basePath;
                     absoluteSystemRootSchemaDir = absoluteSystemRootSchemaDir.replace("/", File.separator);
-                    validator.put(system.getSystemName(), new XsdValidator(remoteRootSchema, absoluteSystemRootSchemaDir));
+                    validator.put(systemName, new XsdValidator(remoteRootSchema, absoluteSystemRootSchemaDir));
                 } else {
-                    system.setLocalRootSchema(system.getRemoteRootSchema());
+                    system.setLocalRootSchema(remoteRootSchema);
                     List<File> xsdFiles = dataFileService.searchFiles(systemXsdDirectory, ".xsd");
-                    validator.put(system.getSystemName(), new XsdValidator(xsdFiles));
+                    validator.put(systemName, new XsdValidator(xsdFiles));
                 }
                 break;
             case SOAP:
-                WsdlValidator wsdlValidator = new WsdlValidator(remoteRootSchema);
+                WsdlValidator wsdlValidator;
+                if (localRootSchema != null && !localRootSchema.isEmpty()) {
+                    wsdlValidator = initLocalWsdlValidator(system, localRootSchema);
+                } else {
+                    if (remoteRootSchema.startsWith("http://") || remoteRootSchema.startsWith("ftp://")) {
+                        wsdlValidator = new WsdlValidator(remoteRootSchema);
+                    } else {
+                        system.setLocalRootSchema(remoteRootSchema);
+                        wsdlValidator = initLocalWsdlValidator(system, localRootSchema);
+                    }
+
+                }
+
                 WsdlProject wsdlProject = wsdlValidator.getWsdlProject();
-                configContainer.getWsdlProjectMap().put(system.getSystemName(), wsdlProject);
+                configContainer.getWsdlProjectMap().put(systemName, wsdlProject);
                 //create testsuite
                 WsdlTestSuite testSuite = wsdlProject.addNewTestSuite("TestSuite");
                 WsdlTestCase testCase = testSuite.addNewTestCase("TestCase");
@@ -128,11 +142,20 @@ public class MessageValidationService {
                     mockService.addNewMockOperation(operation);
                 }
 
-                validator.put(system.getSystemName(), wsdlValidator);
+                validator.put(systemName, wsdlValidator);
                 break;
             default:
                 throw new RuntimeException("Unknown system protocol!");
         }
+    }
+
+    private WsdlValidator initLocalWsdlValidator(System system, String localRootSchema) throws IOException {
+        WsdlValidator wsdlValidator;
+        wsdlValidator = new WsdlValidator("file:" +
+                dataFileService.getSystemXsdDirectoryResource(system.getSystemName()).getFile().getAbsolutePath() +
+                File.separator +
+                localRootSchema);
+        return wsdlValidator;
     }
 
     /**
