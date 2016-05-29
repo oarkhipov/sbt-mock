@@ -206,7 +206,7 @@ public class MessageValidationService {
         assert !elementName.isEmpty();
         if (messageType == MessageType.RQ) {
             int bodyIndex = operation.getDefaultRequestParts().length - 1;
-            String expectedElementName = ((WsdlContentPart) operation.getDefaultRequestParts()[bodyIndex]).getPartElementName().getLocalPart();
+            String expectedElementName = operation.getDefaultRequestParts()[bodyIndex].getName();
             boolean validationResult = elementName.equals(expectedElementName);
             if (validationResult) {
                 return true;
@@ -216,7 +216,7 @@ public class MessageValidationService {
         }
         if (messageType == MessageType.RS) {
             int bodyIndex = operation.getDefaultResponseParts().length - 1;
-            String expectedElementName = ((WsdlContentPart) operation.getDefaultResponseParts()[bodyIndex]).getPartElementName().getLocalPart();
+            String expectedElementName = operation.getDefaultResponseParts()[bodyIndex].getName();
             boolean validationResult = elementName.equals(expectedElementName);
             if (validationResult) {
                 return true;
