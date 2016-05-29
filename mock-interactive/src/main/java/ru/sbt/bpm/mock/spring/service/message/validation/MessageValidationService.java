@@ -96,9 +96,10 @@ public class MessageValidationService {
         String remoteRootSchema = system.getRemoteRootSchema();
         String localRootSchema = system.getLocalRootSchema();
         Protocol protocol = system.getProtocol();
+        String remoteSchemaInLowerCase = remoteRootSchema.toLowerCase();
         switch (protocol) {
             case JMS:
-                if (remoteRootSchema.toLowerCase().startsWith("http://")) {
+                if (remoteSchemaInLowerCase.startsWith("http://") || remoteSchemaInLowerCase.startsWith("ftp://")) {
                     String requestPath = remoteRootSchema.split("//")[1];
                     String basePath = requestPath.substring(requestPath.indexOf("/"), requestPath.lastIndexOf("/") + 1);
                     String relativePath = requestPath.substring(requestPath.indexOf("/") + 1, requestPath.length());
@@ -118,7 +119,7 @@ public class MessageValidationService {
                 if (localRootSchema != null && !localRootSchema.isEmpty()) {
                     wsdlValidator = initLocalWsdlValidator(system, localRootSchema);
                 } else {
-                    if (remoteRootSchema.startsWith("http://") || remoteRootSchema.startsWith("ftp://")) {
+                    if (remoteSchemaInLowerCase.startsWith("http://") || remoteSchemaInLowerCase.startsWith("ftp://")) {
                         wsdlValidator = new WsdlValidator(remoteRootSchema);
                     } else {
                         system.setLocalRootSchema(remoteRootSchema);
