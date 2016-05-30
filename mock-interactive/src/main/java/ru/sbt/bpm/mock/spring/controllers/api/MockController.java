@@ -219,6 +219,7 @@ public class MockController {
             ru.sbt.bpm.mock.config.entities.System system = configContainer.getSystemByName(systemName);
             IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
             try {
+                //TODO remake this block
                 if (test == null || test.length() == 0 || messageValidationService.assertMessageElementName(test, system, integrationPoint, MessageType.RQ)) {
                     compiledXml = groovyService.execute(test, xml, script);
                     try {
@@ -230,7 +231,7 @@ public class MockController {
                         }
                     } catch (MessageValidationException e) {
                         //TODO make it somehow look better
-                        ajaxObject.setErrorFromException(new RuntimeException("Test element name assertion Exception"));
+                        ajaxObject.setErrorFromException(new RuntimeException("Test element name assertion Exception",e));
                     }
                 }
             } catch (MessageValidationException e) {

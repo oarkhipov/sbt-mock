@@ -264,12 +264,11 @@ public class MessageValidationService {
         Node bodyNode = envelopeNode.getFirstChild();
         String messageType = null;
 
-        while (BODY.equals(bodyNode.getLocalName()) == false && bodyNode != null) {
-
+        while (!BODY.equals(bodyNode.getLocalName())) {
             bodyNode = bodyNode.getNextSibling();
         }
 
-        if (ENVELOPE.equals(envelopeNode.getLocalName()) && bodyNode != null && BODY.equals(bodyNode.getLocalName())) {
+        if (ENVELOPE.equals(envelopeNode.getLocalName()) && BODY.equals(bodyNode.getLocalName())) {
             final Node nodeType = bodyNode.getFirstChild();
             messageType = nodeType.getLocalName();
         }
