@@ -112,7 +112,7 @@
     }
 
     .tooltip-inner {
-        max-width: 600px;
+        max-width: 800px;
     }
 </style>
 
@@ -132,7 +132,7 @@
             //bStateSave variable you can use to save state on client cookies: set value "true"
             "bStateSave": false,
             //Default: Page display length
-            "iDisplayLength": 10,
+            "iDisplayLength": 2,
             //We will use below variable to track page number on server side(For more information visit: http://legacy.datatables.net/usage/options#iDisplayStart)
             "iDisplayStart": 0,
             "search": {

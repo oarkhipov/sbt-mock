@@ -13,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import reactor.tuple.Tuple;
+import reactor.tuple.Tuple2;
 import ru.sbt.bpm.mock.logging.LogsEntityAdapter;
 import ru.sbt.bpm.mock.logging.entities.*;
 import ru.sbt.bpm.mock.logging.repository.LogsRepository;
@@ -42,7 +44,7 @@ public class LogService {
         return logRepository.count();
     }
 
-    public Iterable<LogsEntity> getLogs(LogsApiEntity apiEntity) {
+    public Tuple2<List<LogsEntity>, Long> getLogs(LogsApiEntity apiEntity) {
         List<Predicate> predicates = new ArrayList<Predicate>();
         List<Sort> sorts = new ArrayList<Sort>();
 
@@ -56,7 +58,7 @@ public class LogService {
         Predicate joinedPredicate = ExpressionUtils.allOf(predicates);
         PageRequest pageRequest = new PageRequest(page, pageSize, joinedSort);
         log.info("Search rows with predicate: " + joinedPredicate);
-        return logRepository.findAll(joinedPredicate, pageRequest);
+        return Tuple.of(logRepository.findAll(joinedPredicate, pageRequest).getContent(), logRepository.count(joinedPredicate));
     }
 
     private void handleFullSearch(LogsApiEntity logsApiEntity, List<Predicate> predicates) {

@@ -4,7 +4,7 @@
 
     <groupId>ru.sbt.bpm.mock</groupId>
     <artifactId>mock-interactive-parent</artifactId>
-    <version>3.3.1</version>
+    <version>3.3.2</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -63,6 +63,12 @@
             <!--
                 S P R I N G  -  I N T E G R A T I O N
             -->
+
+            <dependency>
+                <groupId>org.springframework.integration</groupId>
+                <artifactId>spring-integration-core</artifactId>
+                <version>${spring-integration.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.springframework.integration</groupId>

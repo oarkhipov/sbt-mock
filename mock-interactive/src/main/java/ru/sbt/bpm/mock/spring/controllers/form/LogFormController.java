@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import reactor.tuple.Tuple2;
 import ru.sbt.bpm.mock.logging.entities.LogsApiEntity;
 import ru.sbt.bpm.mock.logging.entities.LogsEntity;
 import ru.sbt.bpm.mock.logging.spring.services.LogService;
@@ -15,6 +16,7 @@ import ru.sbt.bpm.mock.spring.logging.LogControllerResponseBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by sbt-bochev-as
@@ -41,9 +43,14 @@ public class LogFormController {
     @ResponseBody
     String getLogsDataTableData(HttpServletRequest request) {
         LogsApiEntity apiEntity = new LogApiEntityBuilder().with(request.getParameterMap()).build();
-        Iterable<LogsEntity> logsResult = logService.getLogs(apiEntity);
+        Tuple2<List<LogsEntity>, Long> logsTuple = logService.getLogs(apiEntity);
         long size = logService.getLogsDatabaseSize();
-        String response = new LogControllerResponseBuilder().withApiEntity(apiEntity).withLogsQueryEntities(logsResult).withDataBaseSize(size).build();
+        String response = new LogControllerResponseBuilder()
+                .withApiEntity(apiEntity)
+                .withLogsQueryEntities(logsTuple.getT1())
+                .withDataBaseSize(size)
+                .withFilteredRecordsCount(logsTuple.getT2())
+                .build();
         return response;
     }
 }

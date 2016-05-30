@@ -20,6 +20,7 @@ public class LogControllerResponseBuilder {
     private LogsApiEntity logsApiEntity;
     private Iterable<LogsEntity> logsEntities;
     private long dataBaseSize;
+    private long filteredRecordsSize;
 
     public LogControllerResponseBuilder() {
     }
@@ -40,7 +41,7 @@ public class LogControllerResponseBuilder {
     }
 
     public String build() {
-        if (logsApiEntity!= null && logsEntities != null) {
+        if (logsApiEntity != null && logsEntities != null) {
             List<LogResponseDataEntity> dataEntities = new ArrayList<LogResponseDataEntity>();
             for (LogsEntity logsEntity : logsEntities) {
                 dataEntities.add(new LogResponseDataEntity(logsEntity));
@@ -49,14 +50,18 @@ public class LogControllerResponseBuilder {
             LogResponseDataEntity[] dataArray = dataEntities.toArray(new LogResponseDataEntity[dataEntities.size()]);
             logResponseEntity.setData(dataArray);
             logResponseEntity.setDraw(logsApiEntity.getRequestNum());
-            logResponseEntity.setRecordsFiltered(dataEntities.size());
+            logResponseEntity.setRecordsFiltered(filteredRecordsSize);
             logResponseEntity.setRecordsTotal(dataBaseSize);
 
             Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-            String response = gson.toJson(logResponseEntity);
-            return response;
+            return gson.toJson(logResponseEntity);
         } else {
             return null;
         }
+    }
+
+    public LogControllerResponseBuilder withFilteredRecordsCount(Long recordsCount) {
+        filteredRecordsSize = recordsCount;
+        return this;
     }
 }
