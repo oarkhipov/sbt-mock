@@ -92,7 +92,7 @@ public class XmlGeneratorService {
             }
         }
         String rootElementName = elementSelector.getElement();
-        String rootElementNamespace = elementSelector.getNamespace();
+        String rootElementNamespace = elementSelector!=null?elementSelector.getNamespace():null;
 
         URL resource = dataFileService.getXsdResource(system.getSystemName(), localRootSchema).getURL();
         assert resource != null;
