@@ -34,7 +34,7 @@ public class WebServiceEmulatorController {
     @Autowired
     MockConfigContainer configContainer;
 
-    @RequestMapping(value = "/ws/{webServiceName}", method = RequestMethod.GET, produces = "application/xml")
+    @RequestMapping(value = "/ws/{webServiceName}", method = RequestMethod.GET, produces = "application/xml;charset=utf-8")
     public
     @ResponseBody
     synchronized String getWsdl(@PathVariable String webServiceName, HttpServletRequest request) throws IOException {
@@ -56,7 +56,7 @@ public class WebServiceEmulatorController {
         return SoapMessageBuilder.buildFault("Server", "No such method", SoapVersion.Soap11);
     }
 
-    @RequestMapping(value = "/ws/{webServiceName}", method = RequestMethod.POST, produces = "application/xml")
+    @RequestMapping(value = "/ws/{webServiceName}", method = RequestMethod.POST, produces = "application/xml;charset=utf-8")
     public
     @ResponseBody
     String emulateWebService(@PathVariable String webServiceName, @RequestBody String payload) {
