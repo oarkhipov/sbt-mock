@@ -25,7 +25,7 @@ public class ApiLogController {
         return logService.getTopLogs(rowNumbers, systemName, integrationPointName);
     }
 
-    @RequestMapping(value = "/api/log/getMessage/{stringTimestamp}")
+    @RequestMapping(value = "/api/log/getMessage/{stringTimestamp}", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String getMessage(@PathVariable String stringTimestamp) {
         return StringEscapeUtils.escapeHtml4(logService.getMessageByTs(stringTimestamp));
