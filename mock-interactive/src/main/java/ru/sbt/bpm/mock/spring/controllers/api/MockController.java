@@ -2,6 +2,7 @@ package ru.sbt.bpm.mock.spring.controllers.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -56,7 +57,7 @@ public class MockController {
     @Autowired
     DriverController driverController;
 
-    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE+";charset=utf-8")
     public String get(@PathVariable String systemName,
                       @PathVariable String integrationPointName,
                       Model model) throws IOException, TransformerException {
@@ -78,7 +79,7 @@ public class MockController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/validate/", method = RequestMethod.POST)
+    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/validate/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE + ";charset=utf-8")
     public String validate(
             @PathVariable("systemName") String systemName,
             @PathVariable("integrationPointName") String integrationPointName,
@@ -94,7 +95,7 @@ public class MockController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/save/", method = RequestMethod.POST)
+    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/save/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE + ";charset=utf-8")
     public String save(
             @PathVariable String systemName,
             @PathVariable String integrationPointName,
@@ -154,7 +155,7 @@ public class MockController {
 //    }
 
     @ResponseBody
-    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/resetToDefault/", method = RequestMethod.POST)
+    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/resetToDefault/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE + ";charset=utf-8")
     public String resetToDefaultFull(
             @PathVariable("systemName") String systemName,
             @PathVariable("integrationPointName") String integrationPointName) throws Exception {
@@ -168,7 +169,7 @@ public class MockController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/resetToDefault/filtered", method = RequestMethod.POST)
+    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/resetToDefault/filtered", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE + ";charset=utf-8")
     public String resetToDefaultFiltered(
             @PathVariable("systemName") String systemName,
             @PathVariable("integrationPointName") String integrationPointName) throws Exception {
@@ -182,7 +183,7 @@ public class MockController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/test/", method = RequestMethod.POST)
+    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/test/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE + ";charset=utf-8")
     public String test(
             @PathVariable String systemName,
             @PathVariable String integrationPointName,
