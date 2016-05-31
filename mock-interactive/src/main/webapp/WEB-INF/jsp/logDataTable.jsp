@@ -138,6 +138,7 @@
             "search": {
                 "regex": true
             },
+            "order": [[0, "desc"]],
             "fnDrawCallback": function () {
                 //Get page number on client. Please note: number start from 0 So
                 //for the first page you will see 0 second page 1 third page 2...
