@@ -12,7 +12,9 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.config.enums.Protocol;
+import ru.sbt.bpm.mock.spring.bean.ResponseGenerator;
 import ru.sbt.bpm.mock.spring.bean.pojo.MockMessage;
 import ru.sbt.bpm.mock.spring.integration.gateway.ClientService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
@@ -36,7 +38,11 @@ public class MessageSendingService {
     @Autowired
     MockConfigContainer configContainer;
 
+    @Autowired
+    ResponseGenerator responseGenerator;
+
     public String send(MockMessage message) throws IOException {
+        responseGenerator.log(message, MessageType.RQ);
         Protocol protocol = message.getProtocol();
         if (protocol == Protocol.JMS) {
             return sendJMS(message);
@@ -44,6 +50,7 @@ public class MessageSendingService {
         if (protocol == Protocol.SOAP) {
             return sendWs(message);
         }
+        //TODO log answers
         throw new IllegalStateException("No such protocol implementation [" + protocol + "]");
     }
 

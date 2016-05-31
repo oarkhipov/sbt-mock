@@ -222,7 +222,7 @@ public class ResponseGenerator {
         messageValidationService.assertMessageElementName(mockMessage.getPayload(), system, integrationPoint, messageType);
     }
 
-    private void log(MockMessage mockMessage, MessageType messageType) {
+    public void log(MockMessage mockMessage, MessageType messageType) {
         String fullEndpointName = mockMessage.getProtocol().equals(Protocol.JMS) ? mockMessage.getJmsConnectionFactoryName() + "/" + mockMessage.getQueue() : "";
         String shortEndpointName = mockMessage.getProtocol().equals(Protocol.JMS) ? mockMessage.getQueue() : mockMessage.getIntegrationPoint().getName();
         String messageState = MessageStatusConverter.convert(mockMessage, messageType).toString();
