@@ -6,6 +6,7 @@ import com.eviware.soapui.impl.wsdl.mock.WsdlMockService;
 import com.eviware.soapui.impl.wsdl.support.soap.SoapMessageBuilder;
 import com.eviware.soapui.impl.wsdl.support.soap.SoapVersion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
@@ -34,7 +35,7 @@ public class WebServiceEmulatorController {
     @Autowired
     MockConfigContainer configContainer;
 
-    @RequestMapping(value = "/ws/{webServiceName}", method = RequestMethod.GET, produces = "application/xml;charset=utf-8")
+    @RequestMapping(value = "/ws/{webServiceName}", method = RequestMethod.GET, produces = MediaType.TEXT_XML_VALUE + ";charset=utf-8")
     public
     @ResponseBody
     synchronized String getWsdl(@PathVariable String webServiceName, HttpServletRequest request) throws IOException {
@@ -56,7 +57,7 @@ public class WebServiceEmulatorController {
         return SoapMessageBuilder.buildFault("Server", "No such method", SoapVersion.Soap11);
     }
 
-    @RequestMapping(value = "/ws/{webServiceName}", method = RequestMethod.POST, produces = "application/xml;charset=utf-8")
+    @RequestMapping(value = "/ws/{webServiceName}", method = RequestMethod.POST, produces = MediaType.TEXT_XML_VALUE + ";charset=utf-8")
     public
     @ResponseBody
     String emulateWebService(@PathVariable String webServiceName, @RequestBody String payload) {
