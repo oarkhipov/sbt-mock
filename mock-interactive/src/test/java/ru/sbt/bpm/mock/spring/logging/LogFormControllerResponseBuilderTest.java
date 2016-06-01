@@ -29,7 +29,7 @@ public class LogFormControllerResponseBuilderTest {
         String expectedResult = "{\n" +
                 "  \"draw\": 1,\n" +
                 "  \"recordsTotal\": 50,\n" +
-                "  \"recordsFiltered\": 1,\n" +
+                "  \"recordsFiltered\": 0,\n" +
                 "  \"data\": [\n" +
                 "    {\n" +
                 "      \"ts\": \"someTs\",\n" +

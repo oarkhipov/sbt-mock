@@ -3,7 +3,6 @@ package ru.sbt.bpm.mock.spring.bean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.testng.annotations.Test;
 import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.config.enums.Protocol;
@@ -11,6 +10,8 @@ import ru.sbt.bpm.mock.spring.bean.pojo.MockMessage;
 import ru.sbt.bpm.mock.spring.service.XmlGeneratorService;
 import ru.sbt.bpm.mock.spring.service.message.JmsService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
+
+import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
@@ -38,9 +39,24 @@ public class ResponseGeneratorTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testGetSystemName() throws Exception {
         String payload1 = generatorService.generate("CRM", "getReferenceData", MessageType.RS, true);
-        assertEquals(messageValidationService.validate(payload1, "CRM").size(),0);
+        List<String> validationErrors = messageValidationService.validate(payload1, "CRM");
+        if (validationErrors.size() > 0 ) {
+            logger.error(payload1);
+            for (String validationError : validationErrors) {
+                logger.error(validationError);
+            }
+        }
+        assertEquals(validationErrors.size(),0);
         String payload2 = generatorService.generate("CRM", "getAdditionalInfo", MessageType.RS, true);
-        assertEquals(messageValidationService.validate(payload2, "CRM").size(),0);
+
+        validationErrors = messageValidationService.validate(payload2, "CRM");
+        if (validationErrors.size() > 0 ) {
+            logger.error(payload2);
+            for (String validationError : validationErrors) {
+                logger.error(validationError);
+            }
+        }
+        assertEquals(validationErrors.size(),0);
         assertEquals("CRM", jmsService.getSystemByPayload(payload1).getSystemName());
         assertEquals("CRM", jmsService.getSystemByPayload(payload2).getSystemName());
 

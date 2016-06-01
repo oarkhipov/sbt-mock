@@ -4,7 +4,7 @@
 
     <groupId>ru.sbt.bpm.mock</groupId>
     <artifactId>mock-interactive-parent</artifactId>
-    <version>3.3.3</version>
+    <version>3.3.4</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -179,69 +179,71 @@
     </dependencyManagement>
 
     <build>
-        <plugins>
-            <!--
-                Compiling
-            -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
-                <executions>
-                    <!-- Working-->
-                    <execution>
-                        <id>project-compile</id>
-                        <configuration>
-                            <showDeprecation>false</showDeprecation>
-                            <showWarnings>false</showWarnings>
-                        </configuration>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <!-- Test-->
-                    <execution>
-                        <id>test-compile</id>
-                        <configuration>
-                            <showDeprecation>true</showDeprecation>
-                            <showWarnings>true</showWarnings>
-                            <source>${maven.compiler.testSource}</source>
-                            <target>${maven.compiler.testTarget}</target>
-                        </configuration>
-                        <phase>process-test-sources</phase>
-                        <goals>
-                            <goal>testCompile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <!-- Testing-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.19.1</version>
-                <configuration>
-                    <!-- для работы с русским языком в тестах: дефолтное значение
-                       project.reporting.outputEncoding почему-то не срабатывает -->
-                    <argLine>-Dfile.encoding=UTF-8</argLine>
-                    <printSummary>true</printSummary>
-                    <!--<skipTests>false</skipTests>-->
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <!--
+                    Compiling
+                -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.5.1</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                    </configuration>
+                    <executions>
+                        <!-- Working-->
+                        <execution>
+                            <id>project-compile</id>
+                            <configuration>
+                                <showDeprecation>false</showDeprecation>
+                                <showWarnings>false</showWarnings>
+                            </configuration>
+                            <phase>process-sources</phase>
+                            <goals>
+                                <goal>compile</goal>
+                            </goals>
+                        </execution>
+                        <!-- Test-->
+                        <execution>
+                            <id>test-compile</id>
+                            <configuration>
+                                <showDeprecation>true</showDeprecation>
+                                <showWarnings>true</showWarnings>
+                                <source>${maven.compiler.testSource}</source>
+                                <target>${maven.compiler.testTarget}</target>
+                            </configuration>
+                            <phase>process-test-sources</phase>
+                            <goals>
+                                <goal>testCompile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!-- Testing-->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>2.19.1</version>
+                    <configuration>
+                        <!-- для работы с русским языком в тестах: дефолтное значение
+                           project.reporting.outputEncoding почему-то не срабатывает -->
+                        <argLine>-Dfile.encoding=UTF-8</argLine>
+                        <printSummary>true</printSummary>
+                        <!--<skipTests>false</skipTests>-->
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>integration-test</goal>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
 </project>

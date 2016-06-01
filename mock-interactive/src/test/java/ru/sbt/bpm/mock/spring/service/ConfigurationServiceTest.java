@@ -22,12 +22,12 @@ public class ConfigurationServiceTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testCompressConfiguration() throws Exception {
 
-        FileUtils.writeByteArrayToFile(new File("mockZip.zip"), configurationService.compressConfiguration());
+        FileUtils.writeByteArrayToFile(new File("target/mockZip.zip"), configurationService.compressConfiguration());
     }
 
     @Test
     public void testUnzipConfiguration() throws Exception {
-        File configFile = new File("mockZip.zip");
+        File configFile = new File("target/mockZip.zip");
         configurationService.unzipConfiguration(configFile);
     }
 }
