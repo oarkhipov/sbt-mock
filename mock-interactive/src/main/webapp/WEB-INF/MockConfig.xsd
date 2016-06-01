@@ -160,6 +160,11 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
+            <xs:element name="delayMs" type="xs:long" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Величина задержки при ответе (имитация "задумчивости" внешней системы)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="incomeQueue" type="xs:string" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>Входящая очередь</xs:documentation>
