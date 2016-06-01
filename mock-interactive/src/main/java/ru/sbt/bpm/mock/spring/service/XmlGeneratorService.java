@@ -166,7 +166,9 @@ public class XmlGeneratorService {
                         "                // last level of neighbour elements\n" +
                         "                if(i == xmlMap.size()-1) {\n" +
                         "                   //add elements to remove array\n" +
-                        "                    remove.add new Tuple(child.parent(), child)\n" +
+                        "                    //remove.add new Tuple(child.parent(), child)\n" +
+                        "                    //fixing parent node link" +
+                        "                    remove.add new Tuple(newFilterDom, child)\n" +
                         "                    //save parent to remove from\n" +
                         "                    //parent = child.parent()\n" +
                         "                }\n" +
