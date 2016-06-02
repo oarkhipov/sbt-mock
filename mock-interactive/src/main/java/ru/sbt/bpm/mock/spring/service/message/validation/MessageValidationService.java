@@ -59,7 +59,7 @@ public class MessageValidationService {
     @Autowired
     private MockConfigContainer configContainer;
 
-    private Map<String, MessageValidator> validator;
+    private Map<String, MessageValidator> validator = new HashMap<String, MessageValidator>();
 
 
     @PostConstruct
@@ -68,7 +68,6 @@ public class MessageValidationService {
         /**
          * FileResourceResolver добавлен для корректной работы с XSD с одиннаковыми именами, но в разных директориях
          */
-        validator = new HashMap<String, MessageValidator>();
 
 
         Systems systemsContainer = configContainer.getConfig().getSystems();

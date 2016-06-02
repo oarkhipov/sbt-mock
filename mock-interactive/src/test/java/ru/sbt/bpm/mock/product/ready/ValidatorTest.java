@@ -2,6 +2,7 @@ package ru.sbt.bpm.mock.product.ready;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
@@ -22,8 +23,8 @@ import java.io.IOException;
 @ContextConfiguration({"/env/mockapp-servlet.xml"})
 public class ValidatorTest extends AbstractTestNGSpringContextTests {
 
-//	@Autowired
-//	TestMessageValidationService validator;
+	@Autowired
+	TestMessageValidationService validator;
 
 	private String getPath() throws IOException {
 		return new File(".").getCanonicalPath();
@@ -43,7 +44,6 @@ public class ValidatorTest extends AbstractTestNGSpringContextTests {
 
 
 		for (ru.sbt.bpm.mock.config.entities.System system : container.getConfig().getSystems().getSystems()) {
-			TestMessageValidationService validator = new TestMessageValidationService();
 			validator.initValidator(system);
 			log.info("Init validator for system: \"" + system.getSystemName() + "\"");
 		}
