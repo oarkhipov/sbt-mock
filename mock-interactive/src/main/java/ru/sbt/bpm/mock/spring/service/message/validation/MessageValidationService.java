@@ -1,7 +1,6 @@
 package ru.sbt.bpm.mock.spring.service.message.validation;
 
 import com.eviware.soapui.config.TestStepConfig;
-import com.eviware.soapui.impl.wsdl.WsdlContentPart;
 import com.eviware.soapui.impl.wsdl.WsdlOperation;
 import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.eviware.soapui.impl.wsdl.WsdlTestSuite;
@@ -64,7 +63,7 @@ public class MessageValidationService {
 
 
     @PostConstruct
-    protected void init() throws IOException, SAXException {
+    protected void init () throws IOException, SAXException {
 
         /**
          * FileResourceResolver добавлен для корректной работы с XSD с одиннаковыми именами, но в разных директориях
@@ -90,13 +89,13 @@ public class MessageValidationService {
      * @throws IOException
      * @throws SAXException
      */
-    protected void initValidator(System system) throws IOException, SAXException {
-        String systemName = system.getSystemName();
-        File systemXsdDirectory = dataFileService.getSystemXsdDirectoryResource(systemName).getFile();
-        String remoteRootSchema = system.getRemoteRootSchema();
-        String localRootSchema = system.getLocalRootSchema();
-        Protocol protocol = system.getProtocol();
-        String remoteSchemaInLowerCase = remoteRootSchema.toLowerCase();
+    protected void initValidator (System system) throws IOException, SAXException {
+        String   systemName              = system.getSystemName();
+        File     systemXsdDirectory      = dataFileService.getSystemXsdDirectoryResource(systemName).getFile();
+        String   remoteRootSchema        = system.getRemoteRootSchema();
+        String   localRootSchema         = system.getLocalRootSchema();
+        Protocol protocol                = system.getProtocol();
+        String   remoteSchemaInLowerCase = remoteRootSchema.toLowerCase();
         switch (protocol) {
             case JMS:
                 if (remoteSchemaInLowerCase.startsWith("http://") || remoteSchemaInLowerCase.startsWith("ftp://")) {
@@ -105,7 +104,8 @@ public class MessageValidationService {
                     String relativePath = requestPath.substring(requestPath.indexOf("/") + 1, requestPath.length());
                     system.setLocalRootSchema(relativePath);
 
-                    String absoluteSystemRootSchemaDir = dataFileService.getSystemXsdDirectoryResource(systemName).getFile().getAbsolutePath() + basePath;
+                    String absoluteSystemRootSchemaDir = dataFileService.getSystemXsdDirectoryResource(systemName)
+                                                                        .getFile().getAbsolutePath() + basePath;
                     absoluteSystemRootSchemaDir = absoluteSystemRootSchemaDir.replace("/", File.separator);
                     validator.put(systemName, new XsdValidator(remoteRootSchema, absoluteSystemRootSchemaDir));
                 } else {
