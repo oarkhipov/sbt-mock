@@ -90,7 +90,7 @@ public class MessageValidationService {
      * @throws IOException
      * @throws SAXException
      */
-    private void initValidator(System system) throws IOException, SAXException {
+    protected void initValidator(System system) throws IOException, SAXException {
         String systemName = system.getSystemName();
         File systemXsdDirectory = dataFileService.getSystemXsdDirectoryResource(systemName).getFile();
         String remoteRootSchema = system.getRemoteRootSchema();
