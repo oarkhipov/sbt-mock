@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.XdmNode;
 import net.sf.saxon.s9api.XdmValue;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.xmlbeans.XmlException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,9 +96,11 @@ public class MessageValidationService {
         String   localRootSchema         = system.getLocalRootSchema();
         Protocol protocol                = system.getProtocol();
         String   remoteSchemaInLowerCase = remoteRootSchema.toLowerCase();
+        log.info(String.format("Init [%s] validator for system [%s]",protocol, systemName));
         switch (protocol) {
             case JMS:
                 if (remoteSchemaInLowerCase.startsWith("http://") || remoteSchemaInLowerCase.startsWith("ftp://")) {
+                    log.info(String.format("Loading schema %s", remoteRootSchema));
                     String requestPath = remoteRootSchema.split("//")[1];
                     String basePath = requestPath.substring(requestPath.indexOf("/"), requestPath.lastIndexOf("/") + 1);
                     String relativePath = requestPath.substring(requestPath.indexOf("/") + 1, requestPath.length());
@@ -110,6 +113,7 @@ public class MessageValidationService {
                 } else {
                     system.setLocalRootSchema(remoteRootSchema);
                     List<File> xsdFiles = dataFileService.searchFiles(systemXsdDirectory, ".xsd");
+                    log.info(String.format("Loading files %s", ArrayUtils.toString(xsdFiles)));
                     validator.put(systemName, new XsdValidator(xsdFiles));
                 }
                 break;

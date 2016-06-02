@@ -5,12 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 
-import java.io.File;
 import java.io.IOException;
 
 
@@ -22,7 +20,7 @@ import java.io.IOException;
 
 @Slf4j
 @ContextConfiguration({"/env/mockapp-servlet.xml"})
-@WebAppConfiguration
+//@WebAppConfiguration
 public class ValidatorTest extends AbstractTestNGSpringContextTests {
 
 	@Autowired
@@ -36,7 +34,6 @@ public class ValidatorTest extends AbstractTestNGSpringContextTests {
 
 		for (ru.sbt.bpm.mock.config.entities.System system : container.getConfig().getSystems().getSystems()) {
 			validator.initValidator(system);
-			log.info("Init validator for system: \"" + system.getSystemName() + "\"");
 		}
 
 
