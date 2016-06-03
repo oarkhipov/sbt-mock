@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>mock-log-writer</artifactId>
-    <version>${parent.version}.${build.number}</version>
+    <version>${parent.version}</version>
 
     <dependencies>
         <dependency>
