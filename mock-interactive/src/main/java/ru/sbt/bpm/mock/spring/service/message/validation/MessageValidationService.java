@@ -69,8 +69,6 @@ public class MessageValidationService {
         /**
          * FileResourceResolver добавлен для корректной работы с XSD с одиннаковыми именами, но в разных директориях
          */
-
-
         Systems systemsContainer = configContainer.getConfig().getSystems();
         if (systemsContainer != null) {
             List<System> systems = systemsContainer.getSystems();

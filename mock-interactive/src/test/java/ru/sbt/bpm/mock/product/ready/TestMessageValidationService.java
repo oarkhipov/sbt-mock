@@ -5,11 +5,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
-import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidator;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by sbt-hodakovskiy-da on 02.06.2016.
