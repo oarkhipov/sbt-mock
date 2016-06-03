@@ -30,38 +30,6 @@ public class GeneratorTest extends AbstractTestNGSpringContextTests {
 	@Autowired
 	TestMessageValidationService messageValidationService;
 
-
-	@Test(enabled = false)
-	public void testGenerateAndValidateRqMessage() {
-		boolean assertSuccess = true;
-		for (ru.sbt.bpm.mock.config.entities.System system : container.getConfig().getSystems().getSystems())
-			for (String intPointName : system.getIntegrationPointNames()) {
-				try {
-					log.info("===============================================================================================");
-					log.info("");
-					log.info(String.format("        Generate RQ XML message for integration point: [%s] of system: [%s]", intPointName, system.getSystemName()));
-					log.info("");
-					log.info("===============================================================================================");
-					String xmlMessage = generatorService.generate(system.getSystemName(), intPointName, MessageType.RQ, false);
-					log.info(String.format("XML Message: \n[%s]", xmlMessage));
-
-
-					log.info("===============================================================================================");
-					log.info("");
-					log.info(String.format("        INIT SYSTEM: [%s]", system.getSystemName()));
-					log.info("");
-					log.info("===============================================================================================");
-					messageValidationService.initValidator(system);
-					messageValidationService.assertMessageElementName(xmlMessage, system.getSystemName(), intPointName, MessageType.RQ);
-					messageValidationService.validate(xmlMessage, system.getSystemName());
-				} catch (Exception e) {
-					assertSuccess = false;
-					e.printStackTrace();
-				}
-				assertTrue(assertSuccess);
-			}
-	}
-
 	@Test
 	public void testGenerateAndValidateRsMessage() {
 		boolean assertSuccess = true;
@@ -70,7 +38,7 @@ public class GeneratorTest extends AbstractTestNGSpringContextTests {
 				try {
 					log.info("===============================================================================================");
 					log.info("");
-					log.info(String.format("        Generate RQ XML message for integration point: [%s] of system: [%s]", intPointName, system.getSystemName()));
+					log.info(String.format("        Generate RS XML message for integration point: [%s] of system: [%s]", intPointName, system.getSystemName()));
 					log.info("");
 					log.info("===============================================================================================");
 					String xmlMessage = generatorService.generate(system.getSystemName(), intPointName, MessageType.RS, false);

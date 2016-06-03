@@ -191,6 +191,7 @@ public class MessageValidationService {
 
     public boolean assertMessageElementName(String xml, System system, IntegrationPoint integrationPoint, MessageType messageType) throws SaxonApiException, XmlException, MessageValidationException {
         Protocol protocol = system.getProtocol();
+        log.info(String.format("Assert xml [%s] for system: [%s]", protocol, system.getSystemName()));
         if (protocol == Protocol.JMS) {
             return assertByXpath(xml, system, integrationPoint, messageType);
         }
@@ -229,10 +230,12 @@ public class MessageValidationService {
     }
 
     private boolean assertByXpath(String xml, System system, IntegrationPoint integrationPoint, MessageType messageType) throws SaxonApiException, JmsMessageValidationException {
+        log.info(String.format("Assert xml message type [%s]", messageType));
         if (messageType == MessageType.RQ) {
             //ipSelector+ipName
             String integrationPointSelectorXpath = system.getIntegrationPointSelector().toXpath();
             String integrationPointName = integrationPoint.getName();
+            log.info(String.format("For integration point:  [%s] xPath %s ", integrationPointName, integrationPointSelectorXpath));
             XdmValue value = XpathUtils.evaluateXpath(xml, integrationPointSelectorXpath);
             String elementName = ((XdmNode) value).getNodeName().getLocalName();
             boolean validationResult = elementName.equals(integrationPointName);
