@@ -31,7 +31,7 @@ public class GeneratorTest extends AbstractTestNGSpringContextTests {
 	TestMessageValidationService messageValidationService;
 
 
-	@Test
+	@Test(enabled = false)
 	public void testGenerateAndValidateRqMessage() {
 		boolean assertSuccess = true;
 		for (ru.sbt.bpm.mock.config.entities.System system : container.getConfig().getSystems().getSystems())
@@ -52,7 +52,37 @@ public class GeneratorTest extends AbstractTestNGSpringContextTests {
 					log.info("");
 					log.info("===============================================================================================");
 					messageValidationService.initValidator(system);
-					messageValidationService.assertMessageElementName(system.getSystemName(), intPointName, xmlMessage, MessageType.RQ);
+					messageValidationService.assertMessageElementName(xmlMessage, system.getSystemName(), intPointName, MessageType.RQ);
+					messageValidationService.validate(xmlMessage, system.getSystemName());
+				} catch (Exception e) {
+					assertSuccess = false;
+					e.printStackTrace();
+				}
+				assertTrue(assertSuccess);
+			}
+	}
+
+	public void testGenerateAndValidateRsMessage() {
+		boolean assertSuccess = true;
+		for (ru.sbt.bpm.mock.config.entities.System system : container.getConfig().getSystems().getSystems())
+			for (String intPointName : system.getIntegrationPointNames()) {
+				try {
+					log.info("===============================================================================================");
+					log.info("");
+					log.info(String.format("        Generate RQ XML message for integration point: [%s] of system: [%s]", intPointName, system.getSystemName()));
+					log.info("");
+					log.info("===============================================================================================");
+					String xmlMessage = generatorService.generate(system.getSystemName(), intPointName, MessageType.RS, false);
+					log.info(String.format("XML Message: \n[%s]", xmlMessage));
+
+
+					log.info("===============================================================================================");
+					log.info("");
+					log.info(String.format("        INIT SYSTEM: [%s]", system.getSystemName()));
+					log.info("");
+					log.info("===============================================================================================");
+					messageValidationService.initValidator(system);
+					messageValidationService.assertMessageElementName(xmlMessage, system.getSystemName(), intPointName, MessageType.RS);
 					messageValidationService.validate(xmlMessage, system.getSystemName());
 				} catch (Exception e) {
 					assertSuccess = false;
