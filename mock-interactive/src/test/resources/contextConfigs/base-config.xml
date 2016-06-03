@@ -7,7 +7,7 @@
 
        <mvc:annotation-driven/>
        <mvc:resources mapping="/**" location="/resources/web/" />
-       <context:component-scan base-package="ru.sbt.bpm.mock.spring.service, ru.sbt.bpm.mock.product.ready"/>
+       <context:component-scan base-package="ru.sbt.bpm.mock.spring.service"/>
 
        <!-- upload files resolver-->
        <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
