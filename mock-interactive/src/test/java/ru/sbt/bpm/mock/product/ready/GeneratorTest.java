@@ -1,19 +1,56 @@
 package ru.sbt.bpm.mock.product.ready;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.testng.annotations.Test;
+import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.config.enums.MessageType;
+import ru.sbt.bpm.mock.spring.service.XmlGeneratorService;
+
+import static org.testng.Assert.assertTrue;
 
 /**
  * Created by sbt-hodakovskiy-da on 03.06.2016.
  */
-
 
 @Slf4j
 @ContextConfiguration({"/env/mockapp-servlet-test.xml"})
 @WebAppConfiguration("mock-interactive/src/main/webapp")
 public class GeneratorTest extends AbstractTestNGSpringContextTests {
 
+	@Autowired
+	MockConfigContainer container;
+
+	@Autowired
+	XmlGeneratorService generatorService;
+
+	@Autowired
+	TestMessageValidationService messageValidationService;
+
+
+	@Test
+	public void testGenerateAndValidateMessage() {
+		boolean assertSuccess = true;
+		for (ru.sbt.bpm.mock.config.entities.System system : container.getConfig().getSystems().getSystems())
+			for (String intPointName : system.getIntegrationPointNames()) {
+				try {
+					log.info("===============================================================================================");
+					log.info("");
+					log.info(String.format("        Generate RQ XML message for integration point: [%s] of system: [%s]", intPointName, system.getSystemName()));
+					log.info("");
+					log.info("===============================================================================================");
+					String xmlMessage = generatorService.generate(system.getSystemName(), intPointName, MessageType.RQ, false);
+					log.info(String.format("XML Message: \n[%s]", xmlMessage));
+//					messageValidationService.
+				} catch (Exception e) {
+					assertSuccess = false;
+					e.printStackTrace();
+				}
+				assertTrue(assertSuccess);
+			}
+	}
 
 }
