@@ -6,7 +6,9 @@ package ru.sbt.bpm.mock.spring.bean.enums;
  *         Company: SBT - Moscow
  */
 public enum MessageStatus {
-    RCV, //Received
+    RCV, //Received (sys and ip - Unknown)
+    RCVSYS, //Received, system found
+    RCVIP, //Received, ip found
     RCVVE, //Validation Error on received message
     SNT, //Sent
     SNTVE, //Validation Error on sending message
