@@ -62,6 +62,7 @@ public class GeneratorTest extends AbstractTestNGSpringContextTests {
 			}
 	}
 
+	@Test
 	public void testGenerateAndValidateRsMessage() {
 		boolean assertSuccess = true;
 		for (ru.sbt.bpm.mock.config.entities.System system : container.getConfig().getSystems().getSystems())
