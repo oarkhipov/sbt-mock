@@ -27,107 +27,113 @@ import static org.testng.Assert.assertTrue;
 @WebAppConfiguration("mock-interactive/src/main/webapp")
 public class DataTest extends AbstractTestNGSpringContextTests {
 
-	@Autowired
-	MockConfigContainer container;
+    @Autowired
+    MockConfigContainer container;
 
-	@Autowired
-	DataFileService dataFileService;
+    @Autowired
+    DataFileService dataFileService;
 
-	@Autowired
-	TestMessageValidationService messageValidationService;
+    @Autowired
+    TestMessageValidationService messageValidationService;
 
-	@Autowired
-	XmlGeneratorService xmlGeneratorService;
+    @Autowired
+    XmlGeneratorService xmlGeneratorService;
 
-	@Autowired
-	GroovyService groovyService;
+    @Autowired
+    GroovyService groovyService;
 
-	@Test
-	public void tesDataFiles() {
-		boolean assertSuccess = true;
-		for (ru.sbt.bpm.mock.config.entities.System system : container.getConfig().getSystems().getSystems()) {
+    @Test
+    public void tesDataFiles() {
+        assertTrue(validateAllSystems());
+    }
 
-				log.info("=========================================================================================");
-				log.info("");
-				log.info("								INIT SYSTEM: " + system.getSystemName());
-				log.info("");
-				log.info("=========================================================================================");
+    private boolean validateAllSystems() {
+        boolean assertSuccess = true;
+        for (ru.sbt.bpm.mock.config.entities.System system : container.getConfig().getSystems().getSystems()) {
+            String systemName = system.getSystemName();
 
-			try {
-				messageValidationService.initValidator(system);
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (SAXException e) {
-				e.printStackTrace();
-			}
+            log.info("=========================================================================================");
+            log.info("");
+            log.info("								INIT SYSTEM: [" + systemName + "]");
+            log.info("");
+            log.info("=========================================================================================");
 
+            try {
+                messageValidationService.initValidator(system);
+            } catch (IOException | SAXException e) {
+                log.error("Unable to initialize validator for system " + systemName + "!", e);
+            }
 
-			for (IntegrationPoint intPoint : system.getIntegrationPoints().getIntegrationPoints()) {
-					try {
-						if (intPoint.isDriver()) {
-							log.info("===============================================================================================");
-							log.info("");
-							log.info(String.format("           INTEGRATION POINT DRIVER                      "));
-							log.info("");
-							log.info("===============================================================================================");
+            for (IntegrationPoint intPoint : system.getIntegrationPoints().getIntegrationPoints()) {
+                try {
+                    if (intPoint.isDriver()) {
+                        validateDriver(system, intPoint);
+                    }
 
-							log.info("Integration point: " + intPoint.getName());
-							String currentMessage = dataFileService.getCurrentMessage(system.getSystemName(), intPoint.getName());
-							log.info("Current message: " + currentMessage);
-							String currentScript = dataFileService.getCurrentScript(system.getSystemName(), intPoint.getName());
+                    if (intPoint.isMock()) {
+                        validateMock(system, intPoint);
+                    }
+                } catch (Exception e) {
+                    assertSuccess = false;
+                    log.error("Unable to validate integration point " + intPoint.getName() + "!", e);
+                }
+            }
+        }
+        return assertSuccess;
+    }
 
-							log.info("Current script: " + currentScript);
+    private void validateMock(ru.sbt.bpm.mock.config.entities.System system, IntegrationPoint intPoint) throws Exception {
+        String systemName = system.getSystemName();
+        String integrationPointName = intPoint.getName();
 
-							currentScript = isEmptyScript(currentScript);
+        log.info("===============================================================================================");
+        log.info("");
+        log.info("                                INTEGRATION POINT MOCK [" + integrationPointName + "]");
+        log.info("");
+        log.info("===============================================================================================");
 
-							if (!currentMessage.isEmpty()) {
-								String message = groovyService.execute("", currentMessage, currentScript);
-								messageValidationService.assertMessageElementName(message, system.getSystemName(), intPoint.getName(), MessageType.RQ);
-								messageValidationService.validate(message, system.getSystemName());
-							}
-						}
+        String currentMessage = dataFileService.getCurrentMessage(systemName, integrationPointName);
+        log.info("Current message: " + currentMessage);
+        String currentScript = dataFileService.getCurrentScript(systemName, integrationPointName);
+        log.info("Current script: " + currentScript);
+        String currentTest = dataFileService.getCurrentTest(systemName, integrationPointName);
+        log.info("Current test: " + currentTest);
 
-						if (intPoint.isMock()) {
-							log.info("===============================================================================================");
-							log.info("");
-							log.info(String.format("           INTEGRATION POINT MOCK                      "));
-							log.info("");
-							log.info("===============================================================================================");
+        currentScript = isEmpty(currentScript);
+        currentTest = isEmpty(currentTest);
 
-							log.info("Integration point: " + intPoint.getName());
-							String currentMessage = dataFileService.getCurrentMessage(system.getSystemName(), intPoint.getName());
-							log.info("Current message: " + currentMessage);
-							String currentScript = dataFileService.getCurrentScript(system.getSystemName(), intPoint.getName());
-							log.info("Current script: " + currentScript);
-							String currentTest = dataFileService.getCurrentTest(system.getSystemName(), intPoint.getName());
-							log.info("Current test: " + currentTest);
+        String message = groovyService.execute(currentTest, currentMessage, currentScript);
+        messageValidationService.assertMessageElementName(message, systemName, integrationPointName, MessageType.RS);
+        messageValidationService.validate(message, systemName);
+    }
 
-							currentScript = isEmptyScript(currentScript);
-							currentTest = isEmptyMessage(currentTest);
+    private void validateDriver(ru.sbt.bpm.mock.config.entities.System system, IntegrationPoint intPoint) throws Exception {
+        String integrationPointName = intPoint.getName();
+        String systemName = system.getSystemName();
 
-							String message = groovyService.execute(currentTest, currentMessage, currentScript);
-							messageValidationService.assertMessageElementName(message, system.getSystemName(), intPoint.getName(), MessageType.RS);
-							messageValidationService.validate(message, system.getSystemName());
-						}
-					} catch (Exception e) {
-						assertSuccess = false;
-						e.printStackTrace();
-					}
-				}
-		}
+        log.info("===============================================================================================");
+        log.info("");
+        log.info("                                 INTEGRATION POINT DRIVER  [" + integrationPointName + "]");
+        log.info("");
+        log.info("===============================================================================================");
 
-		assertTrue(assertSuccess);
-	}
+        String currentMessage = dataFileService.getCurrentMessage(systemName, integrationPointName);
+        log.info("Current message: " + currentMessage);
+        String currentScript = dataFileService.getCurrentScript(systemName, integrationPointName);
+        log.info("Current script: " + currentScript);
 
-	private String isEmptyMessage (String string) {
-		if (string.length() == 0 || string.isEmpty())
-			return "";
-		return string;
-	}
+        currentScript = isEmpty(currentScript);
 
-	private String isEmptyScript (String string) {
-		if (string.length() == 0 || string.isEmpty())
-			return "";
-		return string;
-	}
+        if (!currentMessage.isEmpty()) {
+            String message = groovyService.execute("", currentMessage, currentScript);
+            messageValidationService.assertMessageElementName(message, systemName, integrationPointName, MessageType.RQ);
+            messageValidationService.validate(message, systemName);
+        }
+    }
+
+    private String isEmpty(String string) {
+        if (string == null || string.isEmpty())
+            return "";
+        return string;
+    }
 }
