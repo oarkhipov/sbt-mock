@@ -7,7 +7,6 @@
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
 
     <beans:import resource="../contextConfigs/base-config-test.xml"/>
-    <beans:import resource="../contextConfigs/logging-config.xml"/>
 
     <beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
         <beans:constructor-arg value="/WEB-INF/MockConfig.xml" type="java.lang.String"/>
