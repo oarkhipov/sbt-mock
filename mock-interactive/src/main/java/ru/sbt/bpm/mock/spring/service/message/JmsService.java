@@ -34,7 +34,7 @@ public class JmsService {
                 String xpath = system.getIntegrationPointSelector().toXpath();
                 try {
                     XdmNode xdmItems = (XdmNode) XpathUtils.evaluateXpath(payload, xpath);
-                    if (!xdmItems.getNodeName().getLocalName().isEmpty()) {
+                    if (system.getIntegrationPointNames().contains(xdmItems.getNodeName().getLocalName())) {
                         return system;
                     }
                 } catch (SaxonApiException e) {
