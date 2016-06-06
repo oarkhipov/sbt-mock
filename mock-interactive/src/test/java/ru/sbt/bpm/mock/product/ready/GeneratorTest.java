@@ -38,7 +38,7 @@ public class GeneratorTest extends AbstractTestNGSpringContextTests {
 				try {
 					log.info("===============================================================================================");
 					log.info("");
-					log.info(String.format("        Generate RS XML message for integration point: [%s] of system: [%s]", intPointName, system.getSystemName()));
+					log.info(String.format("                        Generate RS XML message for integration point: [%s] of system: [%s]", intPointName, system.getSystemName()));
 					log.info("");
 					log.info("===============================================================================================");
 					String xmlMessage = generatorService.generate(system.getSystemName(), intPointName, MessageType.RS, false);
@@ -47,7 +47,7 @@ public class GeneratorTest extends AbstractTestNGSpringContextTests {
 
 					log.info("===============================================================================================");
 					log.info("");
-					log.info(String.format("        INIT SYSTEM: [%s]", system.getSystemName()));
+					log.info(String.format("                         INIT SYSTEM: [%s]", system.getSystemName()));
 					log.info("");
 					log.info("===============================================================================================");
 					messageValidationService.initValidator(system);
