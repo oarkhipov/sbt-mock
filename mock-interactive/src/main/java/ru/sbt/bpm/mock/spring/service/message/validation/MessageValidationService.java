@@ -1,7 +1,6 @@
 package ru.sbt.bpm.mock.spring.service.message.validation;
 
 import com.eviware.soapui.config.TestStepConfig;
-import com.eviware.soapui.impl.wsdl.WsdlContentPart;
 import com.eviware.soapui.impl.wsdl.WsdlOperation;
 import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.eviware.soapui.impl.wsdl.WsdlTestSuite;
@@ -13,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.XdmNode;
 import net.sf.saxon.s9api.XdmValue;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.xmlbeans.XmlException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,18 +60,15 @@ public class MessageValidationService {
     @Autowired
     private MockConfigContainer configContainer;
 
-    private Map<String, MessageValidator> validator;
+    private Map<String, MessageValidator> validator = new HashMap<String, MessageValidator>();
 
 
     @PostConstruct
-    protected void init() throws IOException, SAXException {
+    protected void init () throws IOException, SAXException {
 
         /**
          * FileResourceResolver добавлен для корректной работы с XSD с одиннаковыми именами, но в разных директориях
          */
-        validator = new HashMap<String, MessageValidator>();
-
-
         Systems systemsContainer = configContainer.getConfig().getSystems();
         if (systemsContainer != null) {
             List<System> systems = systemsContainer.getSystems();
@@ -90,27 +87,31 @@ public class MessageValidationService {
      * @throws IOException
      * @throws SAXException
      */
-    protected void initValidator(System system) throws IOException, SAXException {
-        String systemName = system.getSystemName();
-        File systemXsdDirectory = dataFileService.getSystemXsdDirectoryResource(systemName).getFile();
-        String remoteRootSchema = system.getRemoteRootSchema();
-        String localRootSchema = system.getLocalRootSchema();
-        Protocol protocol = system.getProtocol();
-        String remoteSchemaInLowerCase = remoteRootSchema.toLowerCase();
+    protected void initValidator (System system) throws IOException, SAXException {
+        String   systemName              = system.getSystemName();
+        File     systemXsdDirectory      = dataFileService.getSystemXsdDirectoryResource(systemName).getFile();
+        String   remoteRootSchema        = system.getRemoteRootSchema();
+        String   localRootSchema         = system.getLocalRootSchema();
+        Protocol protocol                = system.getProtocol();
+        String   remoteSchemaInLowerCase = remoteRootSchema.toLowerCase();
+        log.info(String.format("Init [%s] validator for system [%s]",protocol, systemName));
         switch (protocol) {
             case JMS:
                 if (remoteSchemaInLowerCase.startsWith("http://") || remoteSchemaInLowerCase.startsWith("ftp://")) {
+                    log.info(String.format("Loading schema %s", remoteRootSchema));
                     String requestPath = remoteRootSchema.split("//")[1];
                     String basePath = requestPath.substring(requestPath.indexOf("/"), requestPath.lastIndexOf("/") + 1);
                     String relativePath = requestPath.substring(requestPath.indexOf("/") + 1, requestPath.length());
                     system.setLocalRootSchema(relativePath);
 
-                    String absoluteSystemRootSchemaDir = dataFileService.getSystemXsdDirectoryResource(systemName).getFile().getAbsolutePath() + basePath;
+                    String absoluteSystemRootSchemaDir = dataFileService.getSystemXsdDirectoryResource(systemName)
+                                                                        .getFile().getAbsolutePath() + basePath;
                     absoluteSystemRootSchemaDir = absoluteSystemRootSchemaDir.replace("/", File.separator);
                     validator.put(systemName, new XsdValidator(remoteRootSchema, absoluteSystemRootSchemaDir));
                 } else {
                     system.setLocalRootSchema(remoteRootSchema);
                     List<File> xsdFiles = dataFileService.searchFiles(systemXsdDirectory, ".xsd");
+                    log.info(String.format("Loading files %s", ArrayUtils.toString(xsdFiles)));
                     validator.put(systemName, new XsdValidator(xsdFiles));
                 }
                 break;
@@ -190,6 +191,7 @@ public class MessageValidationService {
 
     public boolean assertMessageElementName(String xml, System system, IntegrationPoint integrationPoint, MessageType messageType) throws SaxonApiException, XmlException, MessageValidationException {
         Protocol protocol = system.getProtocol();
+        log.info(String.format("Assert xml [%s] for system: [%s]", protocol, system.getSystemName()));
         if (protocol == Protocol.JMS) {
             return assertByXpath(xml, system, integrationPoint, messageType);
         }
@@ -228,10 +230,12 @@ public class MessageValidationService {
     }
 
     private boolean assertByXpath(String xml, System system, IntegrationPoint integrationPoint, MessageType messageType) throws SaxonApiException, JmsMessageValidationException {
+        log.info(String.format("Assert xml message type [%s]", messageType));
         if (messageType == MessageType.RQ) {
             //ipSelector+ipName
             String integrationPointSelectorXpath = system.getIntegrationPointSelector().toXpath();
             String integrationPointName = integrationPoint.getName();
+            log.info(String.format("For integration point:  [%s] xPath %s ", integrationPointName, integrationPointSelectorXpath));
             XdmValue value = XpathUtils.evaluateXpath(xml, integrationPointSelectorXpath);
             String elementName = ((XdmNode) value).getNodeName().getLocalName();
             boolean validationResult = elementName.equals(integrationPointName);

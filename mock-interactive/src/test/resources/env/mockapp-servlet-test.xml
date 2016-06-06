@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns="http://www.springframework.org/schema/integration"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration	http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
+
+    <beans:import resource="../contextConfigs/base-config-test.xml"/>
+
+    <beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
+        <beans:constructor-arg value="/WEB-INF/MockConfig.xml" type="java.lang.String"/>
+    </beans:bean>
+
+    <!-- Входной и выходной каналы Заглушки-->
+    <channel id="MockInboundRequest"/>
+
+    <channel id="MockOutboundResponse"/>
+
+    <!-- Входной и выходной каналы Драйвера -->
+    <channel id="DriverOutboundRequest"/>
+
+    <channel id="DriverInboundResponse"/>
+
+    <!-- Генерация ответа -->
+    <service-activator input-channel="MockInboundRequest" output-channel="MockOutboundResponse"
+                       expression="@responseGenerator.proceedJmsRequest(payload)"/>
+
+
+    <!-- Mock gateway to send requests to outbound -->
+    <gateway id="systemEntry"
+             default-request-channel="DriverOutboundRequest"
+             default-reply-channel="DriverInboundResponse"
+             error-channel="DriverInboundResponse"
+             service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService"
+             default-reply-timeout="30000"
+             default-request-timeout="30000"
+            />
+
+    <bridge input-channel="DriverOutboundRequest" output-channel="DriverInboundResponse"/>
+
+</beans:beans>
