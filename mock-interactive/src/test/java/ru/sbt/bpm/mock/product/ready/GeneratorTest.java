@@ -18,7 +18,7 @@ import static org.testng.Assert.assertTrue;
 
 @Slf4j
 @ContextConfiguration({"/env/mockapp-servlet-test.xml"})
-@WebAppConfiguration("mock-interactive/src/main/webapp")
+@WebAppConfiguration("src/main/webapp")
 public class GeneratorTest extends AbstractTestNGSpringContextTests {
 
 	@Autowired
