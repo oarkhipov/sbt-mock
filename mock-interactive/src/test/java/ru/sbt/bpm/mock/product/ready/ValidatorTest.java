@@ -22,7 +22,7 @@ import static org.testng.Assert.assertTrue;
  */
 
 @Slf4j
-@WebAppConfiguration("src/main/webapp")
+@WebAppConfiguration("classpath:.")
 @ContextConfiguration({"/env/mockapp-servlet-test.xml"})
 public class ValidatorTest extends AbstractTestNGSpringContextTests {
 
@@ -43,9 +43,12 @@ public class ValidatorTest extends AbstractTestNGSpringContextTests {
 				log.info("");
 				log.info("=========================================================================================");
 				validator.initValidator(system);
-			} catch (IOException | SAXException e) {
+			} catch (IOException e) {
 				assertSucceed = false;
-				e.printStackTrace();
+				log.error("Failed to init validator!", e);
+			} catch (SAXException e) {
+				assertSucceed = false;
+				log.error("Failed to init validator!", e);
 			}
 		}
 		assertTrue(assertSucceed,"One of validators did not initialized!!!!");

@@ -65,22 +65,24 @@ public class LogService {
         String searchValue = logsApiEntity.getSearchValue();
         if (searchValue != null && !searchValue.isEmpty()) {
             List<Predicate> fullSearchPredicates = new ArrayList<Predicate>();
-            if (logsApiEntity.isSearchRegex()) {
-                fullSearchPredicates.add(logsEntity.protocol.containsIgnoreCase(searchValue));
-                fullSearchPredicates.add(logsEntity.systemName.containsIgnoreCase(searchValue));
-                fullSearchPredicates.add(logsEntity.integrationPointName.containsIgnoreCase(searchValue));
-                fullSearchPredicates.add(logsEntity.fullEndpoint.containsIgnoreCase(searchValue));
-                fullSearchPredicates.add(logsEntity.shortEndpoint.containsIgnoreCase(searchValue));
-                fullSearchPredicates.add(logsEntity.messageState.containsIgnoreCase(searchValue));
-                fullSearchPredicates.add(logsEntity.message.containsIgnoreCase(searchValue));
-            } else {
-                fullSearchPredicates.add(logsEntity.protocol.eq(searchValue));
-                fullSearchPredicates.add(logsEntity.systemName.eq(searchValue));
-                fullSearchPredicates.add(logsEntity.integrationPointName.eq(searchValue));
-                fullSearchPredicates.add(logsEntity.fullEndpoint.eq(searchValue));
-                fullSearchPredicates.add(logsEntity.shortEndpoint.eq(searchValue));
-                fullSearchPredicates.add(logsEntity.messageState.eq(searchValue));
-                fullSearchPredicates.add(logsEntity.message.eq(searchValue));
+            for (String searchValuePart : searchValue.split("\\|")) {
+                if (logsApiEntity.isSearchRegex()) {
+                    fullSearchPredicates.add(logsEntity.protocol.containsIgnoreCase(searchValuePart));
+                    fullSearchPredicates.add(logsEntity.systemName.containsIgnoreCase(searchValuePart));
+                    fullSearchPredicates.add(logsEntity.integrationPointName.containsIgnoreCase(searchValuePart));
+                    fullSearchPredicates.add(logsEntity.fullEndpoint.containsIgnoreCase(searchValuePart));
+                    fullSearchPredicates.add(logsEntity.shortEndpoint.containsIgnoreCase(searchValuePart));
+                    fullSearchPredicates.add(logsEntity.messageState.containsIgnoreCase(searchValuePart));
+                    fullSearchPredicates.add(logsEntity.message.containsIgnoreCase(searchValuePart));
+                } else {
+                    fullSearchPredicates.add(logsEntity.protocol.eq(searchValuePart));
+                    fullSearchPredicates.add(logsEntity.systemName.eq(searchValuePart));
+                    fullSearchPredicates.add(logsEntity.integrationPointName.eq(searchValuePart));
+                    fullSearchPredicates.add(logsEntity.fullEndpoint.eq(searchValuePart));
+                    fullSearchPredicates.add(logsEntity.shortEndpoint.eq(searchValuePart));
+                    fullSearchPredicates.add(logsEntity.messageState.eq(searchValuePart));
+                    fullSearchPredicates.add(logsEntity.message.eq(searchValuePart));
+                }
             }
             predicates.add(ExpressionUtils.anyOf(fullSearchPredicates));
         }

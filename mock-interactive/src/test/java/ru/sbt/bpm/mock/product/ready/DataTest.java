@@ -16,6 +16,7 @@ import ru.sbt.bpm.mock.spring.service.XmlGeneratorService;
 
 import java.io.IOException;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 /**
@@ -24,7 +25,7 @@ import static org.testng.Assert.assertTrue;
 
 @Slf4j
 @ContextConfiguration({"/env/mockapp-servlet-test.xml"})
-@WebAppConfiguration("src/main/webapp")
+@WebAppConfiguration("classpath:.")
 public class DataTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
@@ -44,11 +45,11 @@ public class DataTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void tesDataFiles() {
-        assertTrue(validateAllSystems());
+        assertEquals(validateAllSystems(), 0);
     }
 
-    private boolean validateAllSystems() {
-        boolean assertSuccess = true;
+    private int validateAllSystems() {
+        int assertionErrors = 0;
         for (ru.sbt.bpm.mock.config.entities.System system : container.getConfig().getSystems().getSystems()) {
             String systemName = system.getSystemName();
 
@@ -60,7 +61,9 @@ public class DataTest extends AbstractTestNGSpringContextTests {
 
             try {
                 messageValidationService.initValidator(system);
-            } catch (IOException | SAXException e) {
+            } catch (IOException  e) {
+                log.error("Unable to initialize validator for system " + systemName + "!", e);
+            } catch (SAXException e) {
                 log.error("Unable to initialize validator for system " + systemName + "!", e);
             }
 
@@ -74,12 +77,12 @@ public class DataTest extends AbstractTestNGSpringContextTests {
                         validateMock(system, intPoint);
                     }
                 } catch (Exception e) {
-                    assertSuccess = false;
+                    assertionErrors ++;
                     log.error("Unable to validate integration point " + intPoint.getName() + "!", e);
                 }
             }
         }
-        return assertSuccess;
+        return assertionErrors;
     }
 
     private void validateMock(ru.sbt.bpm.mock.config.entities.System system, IntegrationPoint intPoint) throws Exception {
