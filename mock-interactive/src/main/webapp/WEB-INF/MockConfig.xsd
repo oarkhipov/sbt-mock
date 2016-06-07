@@ -141,7 +141,7 @@
         <xs:sequence>
             <xs:element xmlns:moc="http://sbrf.ru/mockService2" type="moc:xpathValidationType" name="xpathValidation">
                 <xs:annotation>
-                    <xs:documentation>Валидация Запроса</xs:documentation>
+                    <xs:documentation>Валидация Запроса (заполняется только для заглушки!)</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="type">
