@@ -17,7 +17,7 @@
         <dependency>
             <groupId>ru.sbt.bpm.mock</groupId>
             <artifactId>mock-log-writer</artifactId>
-            <version>${parent.version}.${build.number}.${release.name}</version>
+            <version>${parent.version}</version>
         </dependency>
 
         <!--
