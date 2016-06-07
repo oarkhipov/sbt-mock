@@ -49,11 +49,6 @@
     <!-- integration points element type-->
     <xs:complexType name="integrationPointsType">
         <xs:sequence>
-            <xs:element type="xs:integer" name="delayMs" minOccurs="0">
-                <xs:annotation>
-                    <xs:documentation>Задержка ответа</xs:documentation>
-                </xs:annotation>
-            </xs:element>
             <xs:element xmlns:moc="http://sbrf.ru/mockService2" type="moc:integrationPointType" name="integrationPoint"
                         maxOccurs="unbounded"
                         minOccurs="0"/>
