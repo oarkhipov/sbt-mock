@@ -121,6 +121,7 @@ public class XmlGeneratorService {
         return writer.toString();
     }
 
+    //TODO make it work with RQ
     private String filterMessage(IntegrationPoint integrationPoint, StringWriter writer) throws Exception {
         List<ElementSelector> elementSelectors = integrationPoint.getXpathValidatorSelector().getElementSelectors();
         StringBuilder xmlMapElements = new StringBuilder();
