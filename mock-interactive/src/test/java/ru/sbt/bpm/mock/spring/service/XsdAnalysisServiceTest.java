@@ -15,7 +15,7 @@ import ru.sbt.bpm.mock.config.MockConfigContainer;
 
 @Slf4j
 @ContextConfiguration({"/env/mockapp-servlet-test.xml"})
-@WebAppConfiguration("classpath:.")
+@WebAppConfiguration("/mock-interactive/src/main/webapp")
 public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests{
 
 	@Autowired
@@ -32,6 +32,6 @@ public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests{
 
 	@Test
 	public void getXsdTest() {
-
+		xsdAnalysisService.getXsdResources();
 	}
 }
