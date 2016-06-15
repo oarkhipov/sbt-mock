@@ -32,6 +32,6 @@ public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests{
 
 	@Test
 	public void getXsdTest() {
-		xsdAnalysisService.getXsdResources();
+
 	}
 }

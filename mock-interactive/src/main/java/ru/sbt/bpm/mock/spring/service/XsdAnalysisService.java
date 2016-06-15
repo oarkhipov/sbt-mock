@@ -3,12 +3,14 @@ package ru.sbt.bpm.mock.spring.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,14 +30,24 @@ public class XsdAnalysisService {
 	@Autowired
 	DataFileService dataFileService;
 
-	public Map<String, Resource> getXsdResources () {
-		Map<String, Resource> map = new HashMap<String, Resource>();
-		for (ru.sbt.bpm.mock.config.entities.System system : configContainer.getConfig().getSystems().getSystems())
-			try {
-				System.out.println(system.getSystemName() + " xsd: " + dataFileService.getSystemXsdDirectoryResource(system.getSystemName()).getFile());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		return new HashMap<String, Resource>();
+
+
+	private Map<String, List<File>> getXsdFilesFromSystems() throws IOException {
+		Map<String, List<File>> map = new HashMap<String, List<File>>();
+		for (ru.sbt.bpm.mock.config.entities.System system : configContainer.getConfig().getSystems().getSystems()) {
+			String systemName = system.getSystemName();
+			map.put(systemName, getFilesFromDir(dataFileService.getSystemXsdDirectoryResource(systemName).getFile().getCanonicalFile()));
+		}
+		return map;
+	}
+
+	private List<File> getFilesFromDir(File dir) {
+		List<File> listFiles = new ArrayList<File>();
+		for (File fileEntry : dir.listFiles())
+			if (fileEntry.isDirectory())
+				listFiles.addAll(getFilesFromDir(fileEntry));
+			else
+				listFiles.add(fileEntry);
+		return listFiles;
 	}
 }
