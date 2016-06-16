@@ -32,15 +32,33 @@ public class XsdAnalysisService {
 
 
 
-	private Map<String, List<File>> getXsdFilesFromSystems() throws IOException {
+
+	/**
+	 * Получение списка xsd файлов по системе
+	 * @return map<система, список xsd файлов>
+	 * @throws IOException
+	 */
+	public Map<String, List<File>> getXsdFilesFromSystems() throws IOException {
 		Map<String, List<File>> map = new HashMap<String, List<File>>();
 		for (ru.sbt.bpm.mock.config.entities.System system : configContainer.getConfig().getSystems().getSystems()) {
 			String systemName = system.getSystemName();
-			map.put(systemName, getFilesFromDir(dataFileService.getSystemXsdDirectoryResource(systemName).getFile().getCanonicalFile()));
+			log.info("====================================================================");
+			log.info("");
+			log.info(String.format("                           GET XSD FILES FOR SYSTEM: %s", systemName));
+			log.info("");
+			log.info("====================================================================");
+			List<File> filesFromDir = getFilesFromDir(dataFileService.getSystemXsdDirectoryResource(systemName).getFile().getCanonicalFile());
+			log.info(String.format("Files: %s", filesFromDir));
+			map.put(systemName, filesFromDir);
 		}
 		return map;
 	}
 
+	/**
+	 * Получение списка xsd фалов для системы
+	 * @param dir - директория xsd файлов для системы
+	 * @return список xsd файлов системы
+	 */
 	private List<File> getFilesFromDir(File dir) {
 		List<File> listFiles = new ArrayList<File>();
 		for (File fileEntry : dir.listFiles())

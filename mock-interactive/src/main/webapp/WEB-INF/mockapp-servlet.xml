@@ -131,7 +131,7 @@
 
     <!-- Генерация ответа -->
     <int:service-activator input-channel="MockInboundRequest" output-channel="MockOutboundResponse"
-                           expression="@responseGenerator.proceedJmsRequest(payload)"/>
+                           expression="@responseGenerator.proceedJmsRequest(payload).payload"/>
 
     <!--<int:router id="someRouter" expression="" input-channel="MockInboundRequestAggregated">-->
         <!--<int:mapping value="value1" channel="MockOutboundResponse"/>-->
