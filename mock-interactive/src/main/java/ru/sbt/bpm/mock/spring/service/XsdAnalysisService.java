@@ -4,14 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.XdmValue;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.input.BOMInputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.spring.utils.XpathUtils;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -57,7 +57,7 @@ public class XsdAnalysisService {
 			for (File xsdFile : map.get(systemName)) {
 				log.info("Read file: " + xsdFile.getName());
 				// FIXME если файл сохранен в кодировке "UTF-8 with BOM" выдается ошибка чтения файла
-				String inputXml = readFile(xsdFile);
+				String inputXml = readFileWithoutBOM(xsdFile);
 				// Проходим по target
 				getNamespace(setXsdNamespace, inputXml, LOCAL_NAME_SCHEMA_TARGET_NAMESPACE);
 
@@ -85,7 +85,16 @@ public class XsdAnalysisService {
 	}
 
 	private String readFile(File file) throws IOException {
-		return FileUtils.readFileToString(file);
+		return FileUtils.readFileToString(file, "UTF-8");
+	}
+
+	private String readFileWithoutBOM(File file) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(new BOMInputStream(new FileInputStream(file), false)));
+		StringBuilder sb = new StringBuilder();
+		String line;
+		while ((line = br.readLine()) != null)
+			sb.append(line);
+		return sb.toString();
 	}
 
 	/**

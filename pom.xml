@@ -11,7 +11,6 @@
         <module>mock-interactive</module>
         <module>ear-builder</module>
         <module>mock-log-writer</module>
-        <module>context-generator</module>
     </modules>
 
     <properties>
