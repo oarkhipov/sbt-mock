@@ -2,7 +2,6 @@ package ru.sbt.bpm.mock.spring.service;
 
 import lombok.extern.slf4j.Slf4j;
 import net.sf.saxon.s9api.SaxonApiException;
-import net.sf.saxon.s9api.XdmNode;
 import net.sf.saxon.s9api.XdmValue;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,8 @@ public class XsdAnalysisService {
 	@Autowired
 	DataFileService dataFileService;
 
-	private static final String XPATH_SCHEMA = "//*[local-name()='schema']/@targetNamespace";
+	private static final String LOCAL_NAME_SCHEMA_TARGET_NAMESPACE = "//*[local-name()='schema']/@targetNamespace";
+	private static final String LOCAL_NAME_IMPORT_NAMESPACE        = "//*[local-name()='import']/@namespace";
 
 	public Set<String> getNamespaceFromXSD () throws IOException, SaxonApiException {
 		Set<String> setXsdNamespace = new TreeSet<String>(new Comparator<String>() {
@@ -57,17 +57,31 @@ public class XsdAnalysisService {
 			for (File xsdFile : map.get(systemName)) {
 				log.info("Read file: " + xsdFile.getName());
 				// FIXME если файл сохранен в кодировке "UTF-8 with BOM" выдается ошибка чтения файла
-				XdmValue xdmValue = XpathUtils.evaluateXpath(readFile(xsdFile), XPATH_SCHEMA);
-				// FIXME подумать над исправлением данного куска кода
-				if (xdmValue.size() == 0)
-					continue;
-				XdmNode xdmNode = (XdmNode) xdmValue;
-				String namespace = xdmNode.getStringValue();
-				log.info(String.format("Namespace: %s", namespace));
-				setXsdNamespace.add(namespace);
+				String inputXml = readFile(xsdFile);
+				// Проходим по target
+				getNamespace(setXsdNamespace, inputXml, LOCAL_NAME_SCHEMA_TARGET_NAMESPACE);
+
+				// Проходим по import
+				getNamespace(setXsdNamespace, inputXml, LOCAL_NAME_IMPORT_NAMESPACE);
 			}
 		}
 		return setXsdNamespace;
+	}
+
+	/**
+	 * Получение namespace из файла xsd
+	 * @param setXsdNamespace
+	 * @param inputXml
+	 * @param xPath
+	 * @throws SaxonApiException
+	 */
+	private void getNamespace (Set<String> setXsdNamespace, String inputXml, String xPath) throws SaxonApiException {
+		XdmValue xdmValue = XpathUtils.evaluateXpath(inputXml, xPath);
+		for (int i = 0; i < xdmValue.size(); i++) {
+			String namespace = xdmValue.itemAt(i).getStringValue();
+			log.info(String.format("Namespace: %s", namespace));
+			setXsdNamespace.add(namespace);
+		}
 	}
 
 	private String readFile(File file) throws IOException {
