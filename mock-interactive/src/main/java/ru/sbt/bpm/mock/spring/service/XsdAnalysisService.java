@@ -3,7 +3,6 @@ package ru.sbt.bpm.mock.spring.service;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.XdmValue;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.input.BOMInputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -82,10 +81,6 @@ public class XsdAnalysisService {
 			log.info(String.format("Namespace: %s", namespace));
 			setXsdNamespace.add(namespace);
 		}
-	}
-
-	private String readFile(File file) throws IOException {
-		return FileUtils.readFileToString(file, "UTF-8");
 	}
 
 	private String readFileWithoutBOM(File file) throws IOException {
