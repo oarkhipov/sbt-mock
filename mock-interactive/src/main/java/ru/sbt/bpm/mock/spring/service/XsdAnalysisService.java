@@ -12,6 +12,8 @@ import ru.sbt.bpm.mock.spring.utils.XpathUtils;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by sbt-hodakovskiy-da on 14.06.2016.
@@ -30,10 +32,73 @@ public class XsdAnalysisService {
 	@Autowired
 	DataFileService dataFileService;
 
+	// xPath
 	private static final String LOCAL_NAME_SCHEMA_TARGET_NAMESPACE = "//*[local-name()='schema']/@targetNamespace";
 	private static final String LOCAL_NAME_IMPORT_NAMESPACE        = "//*[local-name()='import']/@namespace";
 
-	public Set<String> getNamespaceFromXSD () throws IOException, SaxonApiException {
+	// RegExp
+	private static final Pattern NAMESPACE_PATTERN        = Pattern.compile("xmlns:(.*?)=(\".*?\")");
+	private static final Pattern NAMESPACE_URL_PATTERN    = Pattern.compile("(http:.+)(?=\"[^\"]*$)");
+	private static final Pattern NAMESPACE_PREFIX_PATTERN = Pattern.compile("([^:]+)(?=\\=[^=]*$)");
+
+
+	public Set<String> getNamespaceFromXSDByRegExp () throws IOException {
+		Set<String> setXsdNamespaces = new TreeSet<String>(new Comparator<String>() {
+			@Override
+			public int compare (String o1, String o2) {
+				if (o1 == o2)
+					return 0;
+				if (o1 == null)
+					return -1;
+				if (o2 == null)
+					return 1;
+				return o1.compareTo(o2);
+			}
+		});
+
+		Map<String, List<File>> map = getXsdFilesFromSystems();
+		for (String systemName : map.keySet()) {
+			log.info("====================================================================");
+			log.info("");
+			log.info(String.format("      READ XSD FILES FOR SYSTEM: %s", systemName));
+			log.info("");
+			log.info("====================================================================");
+			for (File xsdFile : map.get(systemName)) {
+				log.info("Read file: " + xsdFile.getName());
+				getNamespaceByRegExp(setXsdNamespaces, readFileWithoutBOM(xsdFile));
+			}
+		}
+		return setXsdNamespaces;
+	}
+	/**
+	 * Получение namespace из файла xsd по xPath
+	 * @param setXsdNamespace
+	 * @param inputXml
+	 */
+	private void getNamespaceByRegExp (Set<String> setXsdNamespace, String inputXml) {
+		Matcher matcherNamespace = getSubstringByRegExp(NAMESPACE_PATTERN, inputXml);
+		while (matcherNamespace.find()) {
+			Matcher matcherNamespaceURL = getSubstringByRegExp(NAMESPACE_URL_PATTERN, matcherNamespace.group());
+			while (matcherNamespaceURL.find())
+				setXsdNamespace.add(matcherNamespaceURL.group());
+		}
+
+	}
+
+	/**
+	 * Получение подстроки по регулянорму выражению
+	 * @param pattern шаблон для получение подстроки
+	 * @param string строка, из которой проводится извлечение
+	 * @return все совпадение по шаблону
+	 */
+	private Matcher getSubstringByRegExp(Pattern pattern, String string) {
+		return pattern.matcher(string);
+	}
+
+
+
+
+	public Set<String> getNamespaceFromXSDByxPath () throws IOException, SaxonApiException {
 		Set<String> setXsdNamespace = new TreeSet<String>(new Comparator<String>() {
 			@Override
 			public int compare (String o1, String o2) {
@@ -55,26 +120,25 @@ public class XsdAnalysisService {
 			log.info("====================================================================");
 			for (File xsdFile : map.get(systemName)) {
 				log.info("Read file: " + xsdFile.getName());
-				// FIXME если файл сохранен в кодировке "UTF-8 with BOM" выдается ошибка чтения файла
 				String inputXml = readFileWithoutBOM(xsdFile);
 				// Проходим по target
-				getNamespace(setXsdNamespace, inputXml, LOCAL_NAME_SCHEMA_TARGET_NAMESPACE);
+				getNamespaceByxPath(setXsdNamespace, inputXml, LOCAL_NAME_SCHEMA_TARGET_NAMESPACE);
 
 				// Проходим по import
-				getNamespace(setXsdNamespace, inputXml, LOCAL_NAME_IMPORT_NAMESPACE);
+				getNamespaceByxPath(setXsdNamespace, inputXml, LOCAL_NAME_IMPORT_NAMESPACE);
 			}
 		}
 		return setXsdNamespace;
 	}
 
 	/**
-	 * Получение namespace из файла xsd
+	 * Получение namespace из файла xsd по xPath
 	 * @param setXsdNamespace
 	 * @param inputXml
 	 * @param xPath
 	 * @throws SaxonApiException
 	 */
-	private void getNamespace (Set<String> setXsdNamespace, String inputXml, String xPath) throws SaxonApiException {
+	private void getNamespaceByxPath (Set<String> setXsdNamespace, String inputXml, String xPath) throws SaxonApiException {
 		XdmValue xdmValue = XpathUtils.evaluateXpath(inputXml, xPath);
 		for (int i = 0; i < xdmValue.size(); i++) {
 			String namespace = xdmValue.itemAt(i).getStringValue();

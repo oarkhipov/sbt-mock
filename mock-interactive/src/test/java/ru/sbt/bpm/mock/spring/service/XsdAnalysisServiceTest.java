@@ -21,7 +21,7 @@ import static org.testng.Assert.assertEquals;
 @Slf4j
 @ContextConfiguration({"/env/mockapp-servlet-test.xml"})
 @WebAppConfiguration("/mock-interactive/src/main/webapp")
-public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests{
+public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests {
 
 	@Autowired
 	DataFileService dataFileService;
@@ -36,11 +36,16 @@ public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests{
 	XsdAnalysisService xsdAnalysisService;
 
 	@Test
-	public void getXsdTest() {
-		assertEquals(assertXsdTest(), 0);
+	public void getXsdByxPathTest() {
+		assertEquals(assertXsdTestByxPath(), 0);
 	}
 
-	private int assertXsdTest () {
+	@Test
+	public  void getXsdByRegExpTest() {
+		assertEquals(assertXsdByRegExp(), 0);
+	}
+
+	private int assertXsdByRegExp () {
 		int assertSuccess = 0;
 		try {
 			log.info("==================================================");
@@ -48,7 +53,26 @@ public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests{
 			log.info("               GETTING XSD NAMESPACES");
 			log.info("");
 			log.info("==================================================");
-			for (String s : xsdAnalysisService.getNamespaceFromXSD()) {
+			for (String s : xsdAnalysisService.getNamespaceFromXSDByRegExp()) {
+				log.info(s);
+			}
+		} catch (IOException e) {
+			assertSuccess++;
+			log.error("Unable to get xsd schema! ", e);
+		}
+		return assertSuccess;
+	}
+
+
+	private int assertXsdTestByxPath () {
+		int assertSuccess = 0;
+		try {
+			log.info("==================================================");
+			log.info("");
+			log.info("               GETTING XSD NAMESPACES");
+			log.info("");
+			log.info("==================================================");
+			for (String s : xsdAnalysisService.getNamespaceFromXSDByxPath()) {
 				log.info(s);
 			}
 		} catch (IOException | SaxonApiException e) {

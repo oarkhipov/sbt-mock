@@ -219,8 +219,725 @@
                     <!-- Optional -->
                     <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
                 </integrationPoint>
+            </integrationPoints>
+        </system>
+
+        <system name="CRM_GetLegalAgreemtDetails">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <remoteRootSchema>GetLegalAgreemtDetails/GetLegalAgreemtDetailsMessageElements.xsd</remoteRootSchema>
+            <localRootSchema>GetLegalAgreemtDetailsMessageElements.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtDetailsMessageElements/">Envelope</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtDetailsMessageElements/">Body</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtDetailsRq/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-MQ, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.APKKB</queueConnectionFactory>
+            <mockIncomeQueue>jms/ESB.APKKB.IN</mockIncomeQueue>
+            <mockOutcomeQueue>jms/ESB.APKKB.OUT</mockOutcomeQueue>
+            <driverOutcomeQueue>jms/ESB.APKKB.REQUEST</driverOutcomeQueue>
+            <driverIncomeQueue>jms/ESB.APKKB.RESPONSE</driverIncomeQueue>
+            <rootElement ns="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtDetailsMessageElements/">Envelope</rootElement>
+
+            <integrationPoints>
+
+                <integrationPoint name="GetLegalAgreemtDetailsRs">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtDetailsMessageElements/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtDetailsMessageElements/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtDetailsRs/">GetLegalAgreemtDetailsRs</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+                    <xsdFile>GetLegalAgreemtDetails/GetLegalAgreemtDetailsMessageElements.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtDetailsMessageElements/">Envelope</rootElement>
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+
+        <system name="CRM_GetLegalAgreemtList">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <remoteRootSchema>GetLegalAgreemtList/GetLegalAgreemtListMessageElements.xsd</remoteRootSchema>
+            <localRootSchema>GetLegalAgreemtListMessageElements.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtListMessageElements/">Envelope</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtListMessageElements/">Body</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtDetailsRq/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-MQ, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.APKKB</queueConnectionFactory>
+            <mockIncomeQueue>jms/ESB.APKKB.IN</mockIncomeQueue>
+            <mockOutcomeQueue>jms/ESB.APKKB.OUT</mockOutcomeQueue>
+            <driverOutcomeQueue>jms/ESB.APKKB.REQUEST</driverOutcomeQueue>
+            <driverIncomeQueue>jms/ESB.APKKB.RESPONSE</driverIncomeQueue>
+            <rootElement ns="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtListMessageElements/">Envelope</rootElement>
+
+            <integrationPoints>
+
+                <integrationPoint name="GetLegalAgreemtDetailsRs">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ - что угодно, а точнее не требуется -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtListMessageElements/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtListMessageElements/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtListRs/">GetLegalAgreemtDetailsRs</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+                    <!-- Optional -->
+                    <xsdFile>GetLegalAgreemtList/GetLegalAgreemtListMessageElements.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtListMessageElements/">Envelope</rootElement>
+                    <!-- Требуется ли ответ -->
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+
+        <system name="CRM_GetRating">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <remoteRootSchema>GetRating/GetRatingMessageElements.xsd</remoteRootSchema>
+            <localRootSchema>GetRatingMessageElements.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/GetRatingMessageElements/">Envelope</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/GetRatingMessageElements/">Body</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/GetRatingRq/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-MQ, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.APKKB</queueConnectionFactory>
+            <mockIncomeQueue>jms/ESB.APKKB.IN</mockIncomeQueue>
+            <mockOutcomeQueue>jms/ESB.APKKB.OUT</mockOutcomeQueue>
+            <driverOutcomeQueue>jms/ESB.APKKB.REQUEST</driverOutcomeQueue>
+            <driverIncomeQueue>jms/ESB.APKKB.RESPONSE</driverIncomeQueue>
+            <rootElement ns="http://sbrf.ru/NCPCA/CRM/GetRatingMessageElements/">Envelope</rootElement>
+
+            <integrationPoints>
+
+                <integrationPoint name="GetRatingRs">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ - что угодно, а точнее не требуется -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/GetRatingMessageElements/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/GetRatingMessageElements/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/GetRatingRs/">GetRatingRs</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+                    <!-- Optional -->
+                    <xsdFile>GetRating/GetRatingMessageElements.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/NCPCA/CRM/GetRatingMessageElements/">Envelope</rootElement>
+                    <!-- Требуется ли ответ -->
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+
+        <system name="CRM_InitiateLegalRatingCalculation">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <remoteRootSchema>InitiateLegalRatingCalculation/InitiateLegalRatingCalculationMessageElements.xsd</remoteRootSchema>
+            <localRootSchema>InitiateLegalRatingCalculationMessageElements.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateLegalRatingCalculationMessageElements/">Envelope</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateLegalRatingCalculationMessageElements/">Body</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateLegalRatingCalculationRq/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+            System-MQ, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.APKKB</queueConnectionFactory>
+            <mockIncomeQueue>jms/ESB.APKKB.IN</mockIncomeQueue>
+            <mockOutcomeQueue>jms/ESB.APKKB.OUT</mockOutcomeQueue>
+            <driverOutcomeQueue>jms/ESB.APKKB.REQUEST</driverOutcomeQueue>
+            <driverIncomeQueue>jms/ESB.APKKB.RESPONSE</driverIncomeQueue>
+            <rootElement ns="http://sbrf.ru/NCPCA/CRM/InitiateLegalRatingCalculationMessageElements/">Envelope</rootElement>
+
+            <integrationPoints>
+
+                <integrationPoint name="InitiateLegalRatingCalculationRs">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ - что угодно, а точнее не требуется -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateLegalRatingCalculationMessageElements/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateLegalRatingCalculationMessageElements/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateLegalRatingCalculationRs/">InitiateLegalRatingCalculationRs</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+                    <!-- Optional -->
+                    <xsdFile>InitiateLegalRatingCalculation/InitiateLegalRatingCalculationMessageElements.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/NCPCA/CRM/InitiateLegalRatingCalculationMessageElements/">Envelope</rootElement>
+                    <!-- Требуется ли ответ -->
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+
+        <system name="CRM_InitiateLimitCorrection">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <remoteRootSchema>InitiateLimitCorrection/InitiateLimitCorrectionMessageElements.xsd</remoteRootSchema>
+            <localRootSchema>InitiateLimitCorrectionMessageElements.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateLimitCorrectionMessageElements/">Envelope</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateLimitCorrectionMessageElements/">Body</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateLimitCorrectionRq/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+            System-MQ, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.APKKB</queueConnectionFactory>
+            <mockIncomeQueue>jms/ESB.APKKB.IN</mockIncomeQueue>
+            <mockOutcomeQueue>jms/ESB.APKKB.OUT</mockOutcomeQueue>
+            <driverOutcomeQueue>jms/ESB.APKKB.REQUEST</driverOutcomeQueue>
+            <driverIncomeQueue>jms/ESB.APKKB.RESPONSE</driverIncomeQueue>
+            <rootElement ns="http://sbrf.ru/NCPCA/CRM/InitiateLimitCorrectionMessageElements/">Envelope</rootElement>
+
+            <integrationPoints>
+
+                <integrationPoint name="InitiateLimitCorrectionRq">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateLimitCorrectionMessageElements/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateLimitCorrectionMessageElements/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateLimitCorrectionRq">InitiateLimitCorrectionRq</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+                    <xsdFile>InitiateLimitCorrection/InitiateLimitCorrectionMessageElements.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/NCPCA/CRM/InitiateLimitCorrectionMessageElements/">Envelope</rootElement>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+
+        <system name="CRM_InitiateProductCorrection">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <remoteRootSchema>InitiateProductCorrection/InitiateProductCorrectionMessageElements.xsd</remoteRootSchema>
+            <localRootSchema>InitiateProductCorrectionMessageElements.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateProductCorrectionMessageElements/">Envelope</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateProductCorrectionMessageElements/">Body</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateProductCorrectionRq/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+            System-MQ, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.APKKB</queueConnectionFactory>
+            <mockIncomeQueue>jms/ESB.APKKB.IN</mockIncomeQueue>
+            <mockOutcomeQueue>jms/ESB.APKKB.OUT</mockOutcomeQueue>
+            <driverOutcomeQueue>jms/ESB.APKKB.REQUEST</driverOutcomeQueue>
+            <driverIncomeQueue>jms/ESB.APKKB.RESPONSE</driverIncomeQueue>
+            <rootElement ns="http://sbrf.ru/NCPCA/CRM/InitiateProductCorrectionMessageElements/">Envelope</rootElement>
+
+            <integrationPoints>
+
+                <integrationPoint name="InitiateProductCorrectionRq">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateProductCorrectionMessageElements/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateProductCorrectionMessageElements/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateProductCorrectionRq">InitiateProductCorrectionRq</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+                    <xsdFile>InitiateProductCorrection/InitiateProductCorrectionMessageElements.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/NCPCA/CRM/InitiateProductCorrectionMessageElements/">Envelope</rootElement>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+
+        <system name="CRM_InitiateRatingAdjustment">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <remoteRootSchema>InitiateRatingAdjustment/InitiateRatingAdjustmentMessageElements.xsd</remoteRootSchema>
+            <localRootSchema>InitiateRatingAdjustmentMessageElements.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingAdjustmentMessageElements/">Envelope</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingAdjustmentMessageElements/">Body</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingAdjustmentRq/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+            System-MQ, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.APKKB</queueConnectionFactory>
+            <mockIncomeQueue>jms/ESB.APKKB.IN</mockIncomeQueue>
+            <mockOutcomeQueue>jms/ESB.APKKB.OUT</mockOutcomeQueue>
+            <driverOutcomeQueue>jms/ESB.APKKB.REQUEST</driverOutcomeQueue>
+            <driverIncomeQueue>jms/ESB.APKKB.RESPONSE</driverIncomeQueue>
+            <rootElement ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingAdjustmentMessageElements/">Envelope</rootElement>
+
+            <integrationPoints>
+                <integrationPoint name="InitiateRatingAdjustmentRs">
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingAdjustmentMessageElements/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingAdjustmentMessageElements/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingAdjustmentRs/">InitiateRatingAdjustmentRs</tag>
+                    </xpathValidation>
+                    <type>Mock</type>
+                    <xsdFile>InitiateRatingAdjustment/InitiateRatingAdjustmentMessageElements.xsd</xsdFile>
+                    <rootElement ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingAdjustmentMessageElements/">Envelope</rootElement>
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+
+        <system name="CRM_InitiateRatingLGDCalculation">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <remoteRootSchema>InitiateRatingLGDCalculation/InitiateRatingLGDCalculationMessageElements.xsd</remoteRootSchema>
+            <localRootSchema>InitiateRatingLGDCalculationMessageElements.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDCalculationMessageElements/">Envelope</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDCalculationMessageElements/">Body</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDCalculationRq/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+            System-MQ, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.APKKB</queueConnectionFactory>
+            <mockIncomeQueue>jms/ESB.APKKB.IN</mockIncomeQueue>
+            <mockOutcomeQueue>jms/ESB.APKKB.OUT</mockOutcomeQueue>
+            <driverOutcomeQueue>jms/ESB.APKKB.REQUEST</driverOutcomeQueue>
+            <driverIncomeQueue>jms/ESB.APKKB.RESPONSE</driverIncomeQueue>
+            <rootElement ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDCalculationMessageElements/">Envelope</rootElement>
+
+            <integrationPoints>
+                <integrationPoint name="InitiateRatingLGDCalculationRs">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ - что угодно, а точнее не требуется -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDCalculationMessageElements/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDCalculationMessageElements/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDCalculationRs/">InitiateRatingLGDCalculationRs</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+                    <!-- Optional -->
+                    <xsdFile>InitiateRatingLGDCalculation/InitiateRatingLGDCalculationMessageElements.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDCalculationMessageElements/">Envelope</rootElement>
+                    <!-- Требуется ли ответ -->
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+
+        <system name="CRM_InitiateRatingLGDFinalization">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <remoteRootSchema>InitiateRatingLGDFinalization/InitiateRatingLGDFinalizationMessageElements.xsd</remoteRootSchema>
+            <localRootSchema>InitiateRatingLGDFinalizationMessageElements.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDFinalizationMessageElements/">Envelope</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDFinalizationMessageElements/">Body</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDFinalizationRq/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-MQ, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.APKKB</queueConnectionFactory>
+            <mockIncomeQueue>jms/ESB.APKKB.IN</mockIncomeQueue>
+            <mockOutcomeQueue>jms/ESB.APKKB.OUT</mockOutcomeQueue>
+            <driverOutcomeQueue>jms/ESB.APKKB.REQUEST</driverOutcomeQueue>
+            <driverIncomeQueue>jms/ESB.APKKB.RESPONSE</driverIncomeQueue>
+            <rootElement ns="http://sbrf.ru/NCPCA/CRM/IInitiateRatingLGDFinalizationMessageElements/">Envelope</rootElement>
+
+            <integrationPoints>
+
+                <integrationPoint name="InitiateRatingLGDFinalizationRs">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ - что угодно, а точнее не требуется -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDFinalizationMessageElements/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDFinalizationMessageElements/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDFinalizationRs/">InitiateRatingLGDFinalizationRs</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+                    <!-- Optional -->
+                    <xsdFile>InitiateRatingLGDFinalization/InitiateRatingLGDFinalizationMessageElements.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/NCPCA/CRM/IInitiateRatingLGDFinalizationMessageElements/">Envelope</rootElement>
+                    <!-- Требуется ли ответ -->
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
 
             </integrationPoints>
         </system>
+
+        <system name="CRM_InitiateRatingMRKCalculation">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <remoteRootSchema>InitiateRatingMRKCalculation/InitiateRatingMRKCalculationMessageElements.xsd</remoteRootSchema>
+            <localRootSchema>InitiateRatingMRKCalculationMessageElements.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingMRKCalculationMessageElements/">Envelope</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingMRKCalculationMessageElements/">Body</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingMRKCalculationRq/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-MQ, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.APKKB</queueConnectionFactory>
+            <mockIncomeQueue>jms/ESB.APKKB.IN</mockIncomeQueue>
+            <mockOutcomeQueue>jms/ESB.APKKB.OUT</mockOutcomeQueue>
+            <driverOutcomeQueue>jms/ESB.APKKB.REQUEST</driverOutcomeQueue>
+            <driverIncomeQueue>jms/ESB.APKKB.RESPONSE</driverIncomeQueue>
+            <rootElement ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingMRKCalculationMessageElements/">Envelope</rootElement>
+
+            <integrationPoints>
+
+                <integrationPoint name="InitiateRatingMRKCalculationRs">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ - что угодно, а точнее не требуется -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingMRKCalculationMessageElements/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingMRKCalculationMessageElements/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingMRKCalculationRs/">InitiateRatingMRKCalculationRs</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+                    <!-- Optional -->
+                    <xsdFile>InitiateRatingMRKCalculation/InitiateRatingMRKCalculationMessageElements.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingMRKCalculationMessageElements/">Envelope</rootElement>
+                    <!-- Требуется ли ответ -->
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+
+        <system name="CRM_InitiateRatingPDFinalization">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <remoteRootSchema>InitiateRatingPDFinalization/InitiateRatingPDFinalizationMessageElements.xsd</remoteRootSchema>
+            <localRootSchema>InitiateRatingPDFinalizationMessageElements.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingPDFinalizationMessageElements/">Envelope</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingPDFinalizationMessageElements/">Body</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingPDFinalizationRq/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-MQ, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.APKKB</queueConnectionFactory>
+            <mockIncomeQueue>jms/ESB.APKKB.IN</mockIncomeQueue>
+            <mockOutcomeQueue>jms/ESB.APKKB.OUT</mockOutcomeQueue>
+            <driverOutcomeQueue>jms/ESB.APKKB.REQUEST</driverOutcomeQueue>
+            <driverIncomeQueue>jms/ESB.APKKB.RESPONSE</driverIncomeQueue>
+            <rootElement ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingPDFinalizationRs/">Envelope</rootElement>
+
+            <integrationPoints>
+
+                <integrationPoint name="InitiateRatingPDFinalization">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ - что угодно, а точнее не требуется -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingPDFinalizationMessageElements/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingPDFinalizationMessageElements/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingPDFinalizationRs/">InitiateRatingPDFinalizationRs</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+                    <!-- Optional -->
+                    <xsdFile>InitiateRatingPDFinalization/InitiateRatingPDFinalizationMessageElements.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingPDFinalizationMessageElements/">Envelope</rootElement>
+                    <!-- Требуется ли ответ -->
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+
+        <system name="CRM_InitiateRatingSendFormat">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <remoteRootSchema>InitiateRatingSendFormat/InitiateRatingSendFormatMessageElements.xsd</remoteRootSchema>
+            <localRootSchema>InitiateRatingSendFormatMessageElements.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingSendFormatMessageElements/">Envelope</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingSendFormatMessageElements/">Body</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingSendFormatRq/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-MQ, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.APKKB</queueConnectionFactory>
+            <mockIncomeQueue>jms/ESB.APKKB.IN</mockIncomeQueue>
+            <mockOutcomeQueue>jms/ESB.APKKB.OUT</mockOutcomeQueue>
+            <driverOutcomeQueue>jms/ESB.APKKB.REQUEST</driverOutcomeQueue>
+            <driverIncomeQueue>jms/ESB.APKKB.RESPONSE</driverIncomeQueue>
+            <rootElement ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingSendFormatMessageElements/">Envelope</rootElement>
+
+            <integrationPoints>
+
+                <integrationPoint name="InitiateRatingSendFormatRq">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingSendFormatMessageElements/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingSendFormatMessageElements/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingSendFormatRq">InitiateRatingSendFormatRq</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+                    <xsdFile>InitiateRatingSendFormat/InitiateRatingSendFormatElements.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/NCPCA/CRM/InitiateRatingSendFormatMessageElements/">Envelope</rootElement>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+
+        <system name="CRM_ProcessLegalLoanApplication">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <remoteRootSchema>ProcessLegalLoanApplication/ProcessLegalLoanApplicationMessageElements.xsd</remoteRootSchema>
+            <localRootSchema>ProcessLegalLoanApplicationMessageElements.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/ProcessLegalLoanApplicationMessageElements/">Envelope</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/ProcessLegalLoanApplicationMessageElements/">Body</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/ProcessLegalLoanApplicationRq/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-MQ, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.APKKB</queueConnectionFactory>
+            <mockIncomeQueue>jms/ESB.APKKB.IN</mockIncomeQueue>
+            <mockOutcomeQueue>jms/ESB.APKKB.OUT</mockOutcomeQueue>
+            <driverOutcomeQueue>jms/ESB.APKKB.REQUEST</driverOutcomeQueue>
+            <driverIncomeQueue>jms/ESB.APKKB.RESPONSE</driverIncomeQueue>
+            <rootElement ns="http://sbrf.ru/NCPCA/CRM/ProcessLegalLoanApplicationMessageElements/">Envelope</rootElement>
+
+            <integrationPoints>
+
+                <integrationPoint name="ProcessLegalLoanApplicationRq">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/ProcessLegalLoanApplicationMessageElements/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/ProcessLegalLoanApplicationMessageElements/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/ProcessLegalLoanApplicationRq">ProcessLegalLoanApplicationRq</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+                    <xsdFile>ProcessLegalLoanApplication/ProcessLegalLoanApplicationMessageElements.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/NCPCA/CRM/ProcessLegalLoanApplicationMessageElements/">Envelope</rootElement>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+
+        <system name="CRM_PutLegalLoanApplicationTeam">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <remoteRootSchema>PutLegalLoanApplicationTeam/PutLegalLoanApplicationTeamMessageElements.xsd</remoteRootSchema>
+            <localRootSchema>PutLegalLoanApplicationTeamMessageElements.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/PutLegalLoanApplicationTeamMessageElements/">Envelope</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/PutLegalLoanApplicationTeamMessageElements/">Body</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/PutLegalLoanApplicationTeamRq/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-MQ, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.APKKB</queueConnectionFactory>
+            <mockIncomeQueue>jms/ESB.APKKB.IN</mockIncomeQueue>
+            <mockOutcomeQueue>jms/ESB.APKKB.OUT</mockOutcomeQueue>
+            <driverOutcomeQueue>jms/ESB.APKKB.REQUEST</driverOutcomeQueue>
+            <driverIncomeQueue>jms/ESB.APKKB.RESPONSE</driverIncomeQueue>
+            <rootElement ns="http://sbrf.ru/NCPCA/CRM/PutLegalLoanApplicationTeamMessageElements/">Envelope</rootElement>
+
+            <integrationPoints>
+
+                <integrationPoint name="PutLegalLoanApplicationTeamRs">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ - что угодно, а точнее не требуется -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/PutLegalLoanApplicationTeamMessageElements/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/PutLegalLoanApplicationTeamMessageElements/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/PutLegalLoanApplicationTeamRs/">PutLegalLoanApplicationTeamRs</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+                    <!-- Optional -->
+                    <xsdFile>PutLegalLoanApplicationTeam/PutLegalLoanApplicationTeamMessageElements.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/NCPCA/CRM/PutLegalLoanApplicationTeamMessageElements/">Envelope</rootElement>
+                    <!-- Требуется ли ответ -->
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+
+        <system name="CRM_SrvPutLegalRating">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <remoteRootSchema>SrvPutLegalRating/PutLegalRatingMessageElements.xsd</remoteRootSchema>
+            <localRootSchema>PutLegalRatingMessageElements.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/PutLegalRatingMessageElements/">Envelope</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/PutLegalRatingMessageElements/">Body</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/PutLegalRatingRq/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-MQ, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.APKKB</queueConnectionFactory>
+            <mockIncomeQueue>jms/ESB.APKKB.IN</mockIncomeQueue>
+            <mockOutcomeQueue>jms/ESB.APKKB.OUT</mockOutcomeQueue>
+            <driverOutcomeQueue>jms/ESB.APKKB.REQUEST</driverOutcomeQueue>
+            <driverIncomeQueue>jms/ESB.APKKB.RESPONSE</driverIncomeQueue>
+            <rootElement ns="http://sbrf.ru/NCPCA/CRM/PutLegalRatingMessageElements/">Envelope</rootElement>
+
+            <integrationPoints>
+
+                <integrationPoint name="PutLegalRatingRs">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ - что угодно, а точнее не требуется -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/PutLegalRatingMessageElements/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/PutLegalRatingMessageElements/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/PutLegalRatingRs/">PutLegalRatingRs</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+                    <!-- Optional -->
+                    <xsdFile>SrvPutLegalRating/PutLegalRatingMessageElement.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/NCPCA/CRM/PutLegalRatingMessageElements/">Envelope</rootElement>
+                    <!-- Требуется ли ответ -->
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+
+        <system name="CRM_UpdateLegalClientRiskInfo">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <remoteRootSchema>UpdateLegalClientRiskInfo/UpdateLegalClientRiskInfoMessageElements.xsd</remoteRootSchema>
+            <localRootSchema>UpdateLegalClientRiskInfoMessageElements.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/UpdateLegalClientRiskInfoMessageElements/">Envelope</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/UpdateLegalClientRiskInfoMessageElements/">Body</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/UpdateLegalClientRiskInfoRq/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-MQ, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.APKKB</queueConnectionFactory>
+            <mockIncomeQueue>jms/ESB.APKKB.IN</mockIncomeQueue>
+            <mockOutcomeQueue>jms/ESB.APKKB.OUT</mockOutcomeQueue>
+            <driverOutcomeQueue>jms/ESB.APKKB.REQUEST</driverOutcomeQueue>
+            <driverIncomeQueue>jms/ESB.APKKB.RESPONSE</driverIncomeQueue>
+            <rootElement ns="http://sbrf.ru/NCPCA/CRM/UpdateLegalClientRiskInfoMessageElements/">Envelope</rootElement>
+
+            <integrationPoints>
+
+                <integrationPoint name="UpdateLegalClientRiskInfoRq">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/UpdateLegalClientRiskInfoMessageElements/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/UpdateLegalClientRiskInfoMessageElements/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/UpdateLegalClientRiskInfoRq">UpdateLegalClientRiskInfoRq</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+                    <xsdFile>UpdateLegalClientRiskInfo/UpdateLegalClientRiskInfoMessageElements.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/NCPCA/CRM/UpdateLegalClientRiskInfoMessageElements/">Envelope</rootElement>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+
+        <system name="CRM_UpdateLegalLoanApplication">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <remoteRootSchema>UpdateLegalLoanApplication/UpdateLegalLoanApplicationMessageElements.xsd</remoteRootSchema>
+            <localRootSchema>UpdateLegalLoanApplicationMessageElements.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/UpdateLegalLoanApplicationMessageElements/">Envelope</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/UpdateLegalLoanApplicationMessageElements/">Body</tag>
+                <tag ns="http://sbrf.ru/NCPCA/CRM/UpdateLegalLoanApplicationRq/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции MQ/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-MQ, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.APKKB</queueConnectionFactory>
+            <mockIncomeQueue>jms/ESB.APKKB.IN</mockIncomeQueue>
+            <mockOutcomeQueue>jms/ESB.APKKB.OUT</mockOutcomeQueue>
+            <driverOutcomeQueue>jms/ESB.APKKB.REQUEST</driverOutcomeQueue>
+            <driverIncomeQueue>jms/ESB.APKKB.RESPONSE</driverIncomeQueue>
+            <rootElement ns="http://sbrf.ru/NCPCA/CRM/UpdateLegalLoanApplicationMessageElements/">Envelope</rootElement>
+
+            <integrationPoints>
+
+                <integrationPoint name="UpdateLegalLoanApplicationRs">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ - что угодно, а точнее не требуется -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/UpdateLegalLoanApplicationMessageElements/">Envelope</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/UpdateLegalLoanApplicationMessageElements/">Body</tag>
+                        <tag ns="http://sbrf.ru/NCPCA/CRM/UpdateLegalLoanApplicationRs/">UpdateLegalLoanApplicationRs</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+                    <!-- Optional -->
+                    <xsdFile>UpdateLegalLoanApplication/UpdateLegalLoanApplicationMessageElement.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/NCPCA/CRM/UpdateLegalLoanApplicationMessageElements/">Envelope</rootElement>
+                    <!-- Требуется ли ответ -->
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+
     </systems>
 </MockConfig>
