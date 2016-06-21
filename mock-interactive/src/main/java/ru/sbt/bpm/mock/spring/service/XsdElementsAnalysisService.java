@@ -12,8 +12,6 @@ import ru.sbt.bpm.mock.spring.utils.XpathUtils;
 
 import java.io.*;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by sbt-hodakovskiy-da on 20.06.2016.
@@ -38,12 +36,6 @@ public class XsdElementsAnalysisService {
 	private static final String XPATH_ELEMENT_ATTRIBUTE_NAME = "//*[local-name()='element']/@name";
 	private static final String XPATH_ELEMENT_ATTRIBUTE_REF  = "//*[local-name()='element']/@ref";
 
-	// RegExp
-	private static final Pattern NAMESPACE_PATTERN        = Pattern.compile("xmlns:(.*?)=(\".*?\")");
-	private static final Pattern NAMESPACE_URL_PATTERN    = Pattern.compile("(http:.+)(?=\"[^\"]*$)");
-	private static final Pattern NAMESPACE_PREFIX_PATTERN = Pattern.compile("([^:]+)(?=\\=[^=]*$)");
-	private static final Pattern ELEMENT_PREFIX           = Pattern.compile("(.*?)(?=:[^:])");
-
 	// String comparator for map and set
 	private static final Comparator<String> STRING_COMPARATOR = new Comparator<String>() {
 		@Override
@@ -58,7 +50,7 @@ public class XsdElementsAnalysisService {
 		}
 	};
 
-	public Map<String, Set<String>> getElements () throws IOException, SaxonApiException {
+	public Map<String, Set<String>> getElementsFromXsd() throws IOException, SaxonApiException {
 		Map<String, Set<String>> mapElementsByNamespace = new TreeMap<String, Set<String>>(STRING_COMPARATOR);
 		Map<String, List<File>> map = getXsdFilesFromSystems();
 		for (String systemName : map.keySet()) {
@@ -103,30 +95,6 @@ public class XsdElementsAnalysisService {
 			map.put(namespace, getElementFromXsd(inputXml, xPathElement));
 		}
 		return map;
-	}
-
-	/**
-	 * Получение namespace из файла xsd по xPath
-	 * @param inputXml
-	 */
-	private void getNamespaceByRegExp (String inputXml) {
-		Matcher matcherNamespace = getSubstringByRegExp(NAMESPACE_PATTERN, inputXml);
-		while (matcherNamespace.find()) {
-			Matcher matcherNamespaceURL = getSubstringByRegExp(NAMESPACE_URL_PATTERN, matcherNamespace.group());
-			while (matcherNamespaceURL.find()) {
-
-			}
-		}
-	}
-
-	/**
-	 * Получение подстроки по регулянорму выражению
-	 * @param pattern шаблон для получение подстроки
-	 * @param string строка, из которой проводится извлечение
-	 * @return все совпадение по шаблону
-	 */
-	private Matcher getSubstringByRegExp(Pattern pattern, String string) {
-		return pattern.matcher(string);
 	}
 
 	private String readFileWithoutBOM(File file) throws IOException {

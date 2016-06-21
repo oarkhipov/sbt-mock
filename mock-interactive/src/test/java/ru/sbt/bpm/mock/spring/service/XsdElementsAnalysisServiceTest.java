@@ -49,9 +49,9 @@ public class XsdElementsAnalysisServiceTest extends AbstractTestNGSpringContextT
 			log.info("               GETTING XSD ELEMENTS");
 			log.info("");
 			log.info("==================================================");
-//			for (String namespace : elementsAnalysisService.getElements().keySet())
-//				log.info("Namespace: " +  namespace + ", elements: " +  elementsAnalysisService.getElements().get(namespace).toString());
-			Map<String, Set<String>> elements = elementsAnalysisService.getElements();
+//			for (String namespace : elementsAnalysisService.getElementsFromXsd().keySet())
+//				log.info("Namespace: " +  namespace + ", elements: " +  elementsAnalysisService.getElementsFromXsd().get(namespace).toString());
+			Map<String, Set<String>> elements = elementsAnalysisService.getElementsFromXsd();
 			for (String namespace : elements.keySet()) {
 				log.info("Namespace: " +  namespace + ", elements: " +  elements.get(namespace));
 			}
