@@ -11,6 +11,10 @@ import org.testng.annotations.Test;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.Set;
+
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by sbt-hodakovskiy-da on 20.06.2016.
@@ -34,10 +38,27 @@ public class XsdElementsAnalysisServiceTest extends AbstractTestNGSpringContextT
 
 	@Test
 	public void test() {
+		assertEquals(assertElements(), 0);
+	}
+
+	private int assertElements () {
+		int assertFail = 0;
 		try {
-			elementsAnalysisService.getElements();
+			log.info("==================================================");
+			log.info("");
+			log.info("               GETTING XSD ELEMENTS");
+			log.info("");
+			log.info("==================================================");
+//			for (String namespace : elementsAnalysisService.getElements().keySet())
+//				log.info("Namespace: " +  namespace + ", elements: " +  elementsAnalysisService.getElements().get(namespace).toString());
+			Map<String, Set<String>> elements = elementsAnalysisService.getElements();
+			for (String namespace : elements.keySet()) {
+				log.info("Namespace: " +  namespace + ", elements: " +  elements.get(namespace));
+			}
 		} catch (IOException | SaxonApiException e) {
-			e.printStackTrace();
+			log.error("Unable to get elements! ", e);
+			assertFail++;
 		}
+		return assertFail;
 	}
 }

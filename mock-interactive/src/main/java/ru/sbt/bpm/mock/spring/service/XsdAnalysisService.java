@@ -70,6 +70,7 @@ public class XsdAnalysisService {
 		}
 		return setXsdNamespaces;
 	}
+
 	/**
 	 * Получение namespace из файла xsd по xPath
 	 * @param setXsdNamespace
@@ -82,7 +83,6 @@ public class XsdAnalysisService {
 			while (matcherNamespaceURL.find())
 				setXsdNamespace.add(matcherNamespaceURL.group());
 		}
-
 	}
 
 	/**
@@ -94,9 +94,6 @@ public class XsdAnalysisService {
 	private Matcher getSubstringByRegExp(Pattern pattern, String string) {
 		return pattern.matcher(string);
 	}
-
-
-
 
 	public Set<String> getNamespaceFromXSDByxPath () throws IOException, SaxonApiException {
 		Set<String> setXsdNamespace = new TreeSet<String>(new Comparator<String>() {

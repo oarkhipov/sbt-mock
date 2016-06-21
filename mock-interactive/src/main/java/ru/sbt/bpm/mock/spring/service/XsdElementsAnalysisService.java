@@ -11,10 +11,9 @@ import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.spring.utils.XpathUtils;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by sbt-hodakovskiy-da on 20.06.2016.
@@ -34,9 +33,33 @@ public class XsdElementsAnalysisService {
 	@Autowired
 	DataFileService dataFileService;
 
-	private static final String xPath = "//*[local-name()='schema']/@*";
+	// xPath
+	private static final String XPATH_TARGET_NAMESPACE       = "//*[local-name()='schema']/@targetNamespace";
+	private static final String XPATH_ELEMENT_ATTRIBUTE_NAME = "//*[local-name()='element']/@name";
+	private static final String XPATH_ELEMENT_ATTRIBUTE_REF  = "//*[local-name()='element']/@ref";
 
-	public void getElements() throws IOException, SaxonApiException {
+	// RegExp
+	private static final Pattern NAMESPACE_PATTERN        = Pattern.compile("xmlns:(.*?)=(\".*?\")");
+	private static final Pattern NAMESPACE_URL_PATTERN    = Pattern.compile("(http:.+)(?=\"[^\"]*$)");
+	private static final Pattern NAMESPACE_PREFIX_PATTERN = Pattern.compile("([^:]+)(?=\\=[^=]*$)");
+	private static final Pattern ELEMENT_PREFIX           = Pattern.compile("(.*?)(?=:[^:])");
+
+	// String comparator for map and set
+	private static final Comparator<String> STRING_COMPARATOR = new Comparator<String>() {
+		@Override
+		public int compare (String o1, String o2) {
+			if (o1 == o2)
+				return 0;
+			if (o1 == null)
+				return -1;
+			if (o2 == null)
+				return 1;
+			return o1.compareTo(o2);
+		}
+	};
+
+	public Map<String, Set<String>> getElements () throws IOException, SaxonApiException {
+		Map<String, Set<String>> mapElementsByNamespace = new TreeMap<String, Set<String>>(STRING_COMPARATOR);
 		Map<String, List<File>> map = getXsdFilesFromSystems();
 		for (String systemName : map.keySet()) {
 			log.info("====================================================================");
@@ -46,13 +69,64 @@ public class XsdElementsAnalysisService {
 			log.info("====================================================================");
 			for (File xsdFile : map.get(systemName)) {
 				String inputXml = readFileWithoutBOM(xsdFile);
-				XdmValue xdmValue = XpathUtils.evaluateXpath(inputXml, xPath);
-				System.out.println("Size of xdm valeu: " + xdmValue.size());
-				for (int i = 0; i < xdmValue.size(); i++) {
-					System.out.println(xdmValue.itemAt(i).getStringValue());
-				}
+				mapElementsByNamespace.putAll(getNamespaceByxPath(inputXml, XPATH_TARGET_NAMESPACE, XPATH_ELEMENT_ATTRIBUTE_NAME));
 			}
 		}
+		return mapElementsByNamespace;
+	}
+
+	private Set<String> getElementFromXsd(String inputXml, String xPath) throws SaxonApiException {
+		Set<String> set = new TreeSet<String>(STRING_COMPARATOR);
+		XdmValue xdmValue = XpathUtils.evaluateXpath(inputXml, xPath);
+		for (int i = 0; i < xdmValue.size(); i++) {
+			String element = xdmValue.itemAt(i).getStringValue();
+			set.add(element);
+			log.info(String.format("Element name: %s", element));
+		}
+		return set;
+	}
+
+	/**
+	 * Получение namespace из файла xsd по xPath
+	 * @param inputXml
+	 * @param xPathNamespace
+	 * @param xPathElement
+	 * @throws SaxonApiException
+	 */
+	private Map<String, Set<String>> getNamespaceByxPath (String inputXml, String xPathNamespace, String xPathElement) throws SaxonApiException {
+		Map<String, Set<String>> map = new TreeMap<String, Set<String>>(STRING_COMPARATOR);
+		String namespace = "";
+		XdmValue xdmValue = XpathUtils.evaluateXpath(inputXml, xPathNamespace);
+		for (int i = 0; i < xdmValue.size(); i++) {
+			namespace = xdmValue.itemAt(i).getStringValue();
+			log.info(String.format("Namespace: %s", namespace));
+			map.put(namespace, getElementFromXsd(inputXml, xPathElement));
+		}
+		return map;
+	}
+
+	/**
+	 * Получение namespace из файла xsd по xPath
+	 * @param inputXml
+	 */
+	private void getNamespaceByRegExp (String inputXml) {
+		Matcher matcherNamespace = getSubstringByRegExp(NAMESPACE_PATTERN, inputXml);
+		while (matcherNamespace.find()) {
+			Matcher matcherNamespaceURL = getSubstringByRegExp(NAMESPACE_URL_PATTERN, matcherNamespace.group());
+			while (matcherNamespaceURL.find()) {
+
+			}
+		}
+	}
+
+	/**
+	 * Получение подстроки по регулянорму выражению
+	 * @param pattern шаблон для получение подстроки
+	 * @param string строка, из которой проводится извлечение
+	 * @return все совпадение по шаблону
+	 */
+	private Matcher getSubstringByRegExp(Pattern pattern, String string) {
+		return pattern.matcher(string);
 	}
 
 	private String readFileWithoutBOM(File file) throws IOException {
