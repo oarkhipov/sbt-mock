@@ -5,6 +5,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 import ru.sbt.bpm.mock.generator.spring.context.bean.*;
+import ru.sbt.bpm.mock.generator.spring.context.gateway.InboundGateway;
+import ru.sbt.bpm.mock.generator.spring.context.gateway.OutboundGateway;
 import ru.sbt.bpm.mock.spring.service.SpringContextGeneratorService;
 
 import java.util.ArrayList;
