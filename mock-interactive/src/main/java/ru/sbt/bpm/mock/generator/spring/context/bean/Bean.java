@@ -27,13 +27,13 @@ public class Bean implements ContextCommentable {
     @XmlAttribute(name = "class")
     String className;
 
-    //    @XStreamAlias("constructor-arg")
-    ConstructorArg constructorArg;
-    //
+    @XmlElement(name = "constructor-arg")
+    ConstructorArg constructor;
+
     Property property;
 
     @Override
-    public String getComment() {
+    public String getComment () {
         return contextComment;
     }
 }

@@ -75,7 +75,10 @@ public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests {
 			for (String s : xsdAnalysisService.getNamespaceFromXSDByxPath()) {
 				log.info(s);
 			}
-		} catch (IOException | SaxonApiException e) {
+		} catch (IOException e) {
+			assertSuccess++;
+			log.error("Unable to get xsd schema! ", e);
+		} catch (SaxonApiException e) {
 			assertSuccess++;
 			log.error("Unable to get xsd schema! ", e);
 		}

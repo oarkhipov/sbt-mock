@@ -19,7 +19,7 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BeanContainer {
 
-    List<Import> imports = new ArrayList<Import>(){{
+    List<Import> imports = new ArrayList<Import>() {{
         add(new Import("contextConfigs/base-config.xml"));
         add(new Import("contextConfigs/logging-config.xml"));
     }};
@@ -29,8 +29,18 @@ public class BeanContainer {
 
     @XmlAttribute(namespace = "http://www.w3.org/2001/XMLSchema-instance")
     String schemaLocation =
-            "http://www.springframework.org/schema/beans \t http://www.springframework.org/schema/beans/spring-beans.xsd\n" +
-            "http://www.springframework.org/schema/integration \t http://www.springframework.org/schema/integration/spring-integration.xsd\n" +
-            "http://www.springframework.org/schema/integration \t http://www.springframework.org/schema/integration/spring-integration.xsd\n" +
-            "http://www.springframework.org/schema/integration/jms \t http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd";
+            "http://www.springframework.org/schema/beans \t http://www.springframework.org/schema/beans/spring-beans"
+            + ".xsd\n" +
+            "http://www.springframework.org/schema/integration \t http://www.springframework"
+            + ".org/schema/integration/spring-integration.xsd\n" +
+            "http://www.springframework.org/schema/integration \t http://www.springframework"
+            + ".org/schema/integration/spring-integration.xsd\n" +
+            "http://www.springframework.org/schema/integration/jms \t http://www.springframework"
+            + ".org/schema/integration/jms/spring-integration-jms.xsd";
+
+    @XmlElement(name = "inbound-gateway", namespace = "http://www.springframework.org/schema/integration/jms")
+    List<InboundGateway> inboundGateways;
+
+    @XmlElement(name = "outbound-gateway", namespace = "http://www.springframework.org/schema/integration/jms")
+    List<OutboundGateway> outboundGateways;
 }

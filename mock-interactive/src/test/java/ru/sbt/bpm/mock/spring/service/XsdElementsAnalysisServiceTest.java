@@ -55,7 +55,10 @@ public class XsdElementsAnalysisServiceTest extends AbstractTestNGSpringContextT
 			for (String namespace : elements.keySet()) {
 				log.info("Namespace: " +  namespace + ", elements: " +  elements.get(namespace));
 			}
-		} catch (IOException | SaxonApiException e) {
+		} catch (IOException e) {
+			log.error("Unable to get elements! ", e);
+			assertFail++;
+		} catch (SaxonApiException e) {
 			log.error("Unable to get elements! ", e);
 			assertFail++;
 		}
