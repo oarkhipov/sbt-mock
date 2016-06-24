@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import ru.sbt.bpm.mock.generator.spring.context.ContextCommentable;
 
 import javax.xml.bind.annotation.*;
+import java.util.List;
 
 /**
  * @author sbt-bochev-as on 12.01.2016.
@@ -28,7 +29,7 @@ public class Bean implements ContextCommentable {
     String className;
 
     @XmlElement(name = "constructor-arg")
-    ConstructorArg constructor;
+    List<ConstructorArg> constructorArgs;
 
     Property property;
 

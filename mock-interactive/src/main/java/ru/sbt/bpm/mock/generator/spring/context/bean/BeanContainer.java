@@ -2,8 +2,6 @@ package ru.sbt.bpm.mock.generator.spring.context.bean;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import ru.sbt.bpm.mock.generator.spring.context.gateway.InboundGateway;
-import ru.sbt.bpm.mock.generator.spring.context.gateway.OutboundGateway;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
@@ -45,4 +43,7 @@ public class BeanContainer {
 
     @XmlElement(name = "outbound-gateway", namespace = "http://www.springframework.org/schema/integration/jms")
     List<OutboundGateway> outboundGateways;
+
+    @XmlElement(name = "channel", namespace = "http://www.springframework.org/schema/integration")
+    List<Channel> channels;
 }

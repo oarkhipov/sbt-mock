@@ -10,22 +10,16 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * @author sbt-bochev-as on 12.01.2016.
- *         <p/>
- *         Company: SBT - Moscow
+ * Created by sbt-hodakovskiy-da on 23.06.2016.
  */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@XmlRootElement(name = "constructor-arg")
+@XmlRootElement(name = "wire-tap", namespace = "http://www.springframework.org/schema/integration")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ConstructorArg {
+public class WireTap {
 
-    //    @XStreamAsAttribute
-
-    @XmlAttribute(name = "value")
-    String valueArg;
-
-    @XmlAttribute(name = "type")
-    String typeValue;
+	@XmlAttribute
+	String channel;
 }
