@@ -21,10 +21,10 @@ public class ServiceActivator implements ContextCommentable {
 	@XmlTransient
 	String comment;
 
-	@XmlAttribute(namespace = "input-channel")
+	@XmlAttribute(name = "input-channel")
 	String inputChannel;
 
-	@XmlAttribute(namespace = "output-channel")
+	@XmlAttribute(name = "output-channel")
 	String outputChannel;
 
 	@XmlAttribute(name = "method")

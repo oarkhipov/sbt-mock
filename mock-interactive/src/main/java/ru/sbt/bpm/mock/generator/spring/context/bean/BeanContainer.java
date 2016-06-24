@@ -46,4 +46,10 @@ public class BeanContainer {
 
     @XmlElement(name = "channel", namespace = "http://www.springframework.org/schema/integration")
     List<Channel> channels;
+
+    @XmlElement(name = "service-activator", namespace = "http://www.springframework.org/schema/integration")
+    List<ServiceActivator> serviceActivators;
+
+    @XmlElement(name = "gateway", namespace = "http://www.springframework.org/schema/integration")
+    Gateway gateway;
 }

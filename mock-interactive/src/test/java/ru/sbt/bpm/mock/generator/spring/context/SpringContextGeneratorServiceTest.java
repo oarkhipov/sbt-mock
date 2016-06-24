@@ -290,13 +290,12 @@ public class SpringContextGeneratorServiceTest extends AbstractTestNGSpringConte
         BeanContainer beanContainer = new BeanContainer();
         beanContainer.setBeans(new ArrayList<Bean>());
         beanContainer.setChannels(new ArrayList<Channel>());
-        Bean bean = new Bean(null, "beanId1", "className1", new ArrayList<ConstructorArg>(), null);
+        beanContainer.setServiceActivators(new ArrayList<ServiceActivator>());
+        Bean bean = new Bean(null, null, "className1", new ArrayList<ConstructorArg>(), null);
         bean.getConstructorArgs().add(new ConstructorArg("JMS", "ru.sbt.bpm.mock.config.enums.Protocol"));
         bean.getConstructorArgs().add(new ConstructorArg("#{mockConnectionOKIInputString}", "java.lang.String"));
         bean.getConstructorArgs().add(new ConstructorArg("#{mockConnectionOKIInputString}", "java.lang.String"));
-        beanContainer.getBeans().add(bean);
-
-
+        beanContainer.getServiceActivators().add(new ServiceActivator("", "input", "output", "method", null, bean));
 
         assertEquals(springContextGeneratorService.toXml(beanContainer), "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                                                                          + "<beans xmlns:int=\"http://www"
@@ -322,18 +321,67 @@ public class SpringContextGeneratorServiceTest extends AbstractTestNGSpringConte
                                                                          + "   <imports "
                                                                          + "resource=\"contextConfigs/logging-config"
                                                                          + ".xml\"/>\n"
-                                                                         + "   <bean id=\"beanId1\" "
-                                                                         + "class=\"className1\">\n"
-                                                                         + "      <constructor-arg value=\"JMS\" "
+                                                                         + "   <int:service-activator "
+                                                                         + "input-channel=\"input\" "
+                                                                         + "output-channel=\"output\" "
+                                                                         + "method=\"method\">\n"
+                                                                         + "      <bean class=\"className1\">\n"
+                                                                         + "         <constructor-arg value=\"JMS\" "
                                                                          + "type=\"ru.sbt.bpm.mock.config.enums"
                                                                          + ".Protocol\"/>\n"
-                                                                         + "      <constructor-arg "
+                                                                         + "         <constructor-arg "
                                                                          + "value=\"#{mockConnectionOKIInputString}\""
                                                                          + " type=\"java.lang.String\"/>\n"
-                                                                         + "      <constructor-arg "
+                                                                         + "         <constructor-arg "
                                                                          + "value=\"#{mockConnectionOKIInputString}\""
                                                                          + " type=\"java.lang.String\"/>\n"
-                                                                         + "   </bean>\n"
+                                                                         + "      </bean>\n"
+                                                                         + "   </int:service-activator>\n"
+                                                                         + "</beans>\n");
+    }
+
+    @Test
+    public void testToXmlWithGateway() throws Exception {
+        BeanContainer beanContainer = new BeanContainer();
+        beanContainer.setGateway(new Gateway(null, "id", "errorChannel", "serviceInterface", "30000", "30000", new Method("name", "in", "out")));
+
+        assertEquals(springContextGeneratorService.toXml(beanContainer), "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                                                                         + "<beans xmlns:int=\"http://www"
+                                                                         + ".springframework.org/schema/integration\"\n"
+                                                                         + "       xmlns:xsi=\"http://www.w3"
+                                                                         + ".org/2001/XMLSchema-instance\"\n"
+                                                                         + "       xmlns:int-jms=\"http://www"
+                                                                         + ".springframework"
+                                                                         + ".org/schema/integration/jms\"\n"
+                                                                         + "       xmlns=\"http://www.springframework"
+                                                                         + ".org/schema/beans\"\n"
+                                                                         + "       xsi:schemaLocation=\"http://www"
+                                                                         + ".springframework.org/schema/beans   "
+                                                                         + "http://www.springframework"
+                                                                         + ".org/schema/beans/spring-beans.xsd "
+                                                                         + "http://www.springframework"
+                                                                         + ".org/schema/integration   http://www"
+                                                                         + ".springframework"
+                                                                         + ".org/schema/integration/spring-integration.xsd http://www.springframework.org/schema/integration   http://www.springframework.org/schema/integration/spring-integration.xsd http://www.springframework.org/schema/integration/jms   http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd\">\n"
+                                                                         + "   <imports "
+                                                                         + "resource=\"contextConfigs/base-config"
+                                                                         + ".xml\"/>\n"
+                                                                         + "   <imports "
+                                                                         + "resource=\"contextConfigs/logging-config"
+                                                                         + ".xml\"/>\n"
+                                                                         + "   <int:gateway id=\"id\"\n"
+                                                                         + "                "
+                                                                         + "error-channel=\"errorChannel\"\n"
+                                                                         + "                "
+                                                                         + "service-interface=\"serviceInterface\"\n"
+                                                                         + "                "
+                                                                         + "default-reply-timeout=\"30000\"\n"
+                                                                         + "                "
+                                                                         + "default-request-timeout=\"30000\">\n"
+                                                                         + "      <method name=\"name\" "
+                                                                         + "request-channel=\"in\" "
+                                                                         + "reply-channel=\"out\"/>\n"
+                                                                         + "   </int:gateway>\n"
                                                                          + "</beans>\n");
     }
 }
