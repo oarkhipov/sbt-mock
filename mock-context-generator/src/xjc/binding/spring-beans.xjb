@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bindings
+        version="2.1"
+        xmlns="http://java.sun.com/xml/ns/jaxb"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <bindings
+            schemaLocation="maven:org.springframework:spring-beans:::4.2.4.RELEASE!/org/springframework/beans/factory/xml/spring-beans-4.2.xsd">
+
+        <bindings node="//xsd:element[@name='ref']">
+            <property name="beanRef"/>
+        </bindings>
+        <bindings node="//xsd:element[@name='value']">
+            <property name="beanValue"/>
+        </bindings>
+        <bindings node="//xsd:element[@name='key']">
+            <property name="beanKey"/>
+        </bindings>
+    </bindings>
+
+</bindings>
