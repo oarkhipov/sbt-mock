@@ -4,8 +4,8 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import ru.sbt.bpm.mock.config.enums.MessageType;
-import ru.sbt.bpm.mock.generator.spring.integration.Pair;
+import reactor.tuple.Tuple;
+import reactor.tuple.Tuple2;
 
 
 /**
@@ -49,24 +49,21 @@ public class IntegrationPoint {
     @XStreamAlias("answerRequired")
     private Boolean answerRequired;
 
-    // Так как маппинг идет по полям xml, для удобства доступа и сравнения создаем Pair<INCOME, OUTCOME>
-    private transient Pair<String, String> pairOfChannels;
-
-    public Pair<String, String> getPairOfChannels() {
-        return new Pair<String, String>(this.getIncomeQueue(), this.getOutcomeQueue());
-    }
-
-    public void setPairOfChannels(Pair<String, String> pairOfChannels) {
-        this.setIncomeQueue(pairOfChannels.getFirst());
-        this.setOutcomeQueue(pairOfChannels.getSecond());
-    }
-
-
+    // Так как маппинг идет по полям xml, для удобства доступа и сравнения создаем Tuple2<INCOME, OUTCOME>
+    private transient Tuple2<String, String> pairOfChannels;
     @XStreamAlias("xsdFile")
     private String xsdFile;
-
     @XStreamAlias("rootElement")
     private ElementSelector rootElement;
+
+    public Tuple2<String, String> getPairOfChannels() {
+        return Tuple.of(this.getIncomeQueue(), this.getOutcomeQueue());
+    }
+
+    public void setPairOfChannels(Tuple2<String, String> pairOfChannels) {
+        this.setIncomeQueue(pairOfChannels.getT1());
+        this.setOutcomeQueue(pairOfChannels.getT2());
+    }
 
     public boolean isMock() {
         return integrationPointType.equals(MOCK);
@@ -81,7 +78,7 @@ public class IntegrationPoint {
         for (ElementSelector elementSelector : xpathValidatorSelector.getElementSelectors()) {
             stringBuilder.append(elementSelector.getElement()).append("/");
         }
-        stringBuilder.delete(stringBuilder.length()-1,stringBuilder.length());
+        stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length());
         return stringBuilder.toString();
     }
 
