@@ -68,7 +68,18 @@ public class XsdAnalysisService {
 		return mapNamespacesByXpath.get(systemName);
 	}
 
+	public void reInit() throws IOException, SaxonApiException {
+		mapNamespacesByRegExp.clear();
+		mapNamespacesByXpath.clear();
+		init();
+	}
+
 	@PostConstruct
+	private void init() throws IOException, SaxonApiException {
+		getNamespaceFromXSDByRegExp();
+		getNamespaceFromXSDByxPath();
+	}
+
 	private void getNamespaceFromXSDByRegExp () throws IOException {
 		Map<String, List<File>> map              = getXsdFilesFromSystems();
 		for (String systemName : map.keySet()) {
@@ -115,8 +126,7 @@ public class XsdAnalysisService {
 		return pattern.matcher(string);
 	}
 
-	@PostConstruct
-	private void getNamespaceFromXSDByxPath () throws IOException, SaxonApiException {
+		private void getNamespaceFromXSDByxPath () throws IOException, SaxonApiException {
 		Map<String, List<File>> map = getXsdFilesFromSystems();
 		for (String systemName : map.keySet()) {
 			Set<String> setXsdNamespace = new TreeSet<String>(COMPARATOR);
