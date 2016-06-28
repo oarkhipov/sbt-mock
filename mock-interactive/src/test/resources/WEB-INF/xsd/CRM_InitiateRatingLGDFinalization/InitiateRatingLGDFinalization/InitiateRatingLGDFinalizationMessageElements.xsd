@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		xmlns:tns="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDFinalizationMessageElements/"
+		xmlns:hdr="http://sbrf.ru/ESB/mq/headers" 
+		xmlns:irfrq="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDFinalizationRq/" 
+		xmlns:irfrs="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDFinalizationRs/" 
+		targetNamespace="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDFinalizationMessageElements/">
+	<import namespace="http://sbrf.ru/ESB/mq/headers" schemaLocation="../../Common/Header.xsd"/>
+	<import namespace="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDFinalizationRq/" schemaLocation="./InitiateRatingLGDFinalizationRq.xsd"/>
+	<import namespace="http://sbrf.ru/NCPCA/CRM/InitiateRatingLGDFinalizationRs/" schemaLocation="./InitiateRatingLGDFinalizationRs.xsd"/>
+
+	<element name="Body">
+		<annotation>
+			<documentation>Тело сообщения</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="irfrq:InitiateRatingLGDFinalizationRq" minOccurs="0"/>
+				<element ref="irfrs:InitiateRatingLGDFinalizationRs" minOccurs="0"/>			
+			</sequence>
+		</complexType>
+	</element>
+	<element name="Envelope">
+		<annotation>
+			<documentation>Сообщение</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="hdr:Header"/>
+				<element ref="tns:Body"/>
+			</sequence>
+		</complexType>
+	</element>
+</schema>
+

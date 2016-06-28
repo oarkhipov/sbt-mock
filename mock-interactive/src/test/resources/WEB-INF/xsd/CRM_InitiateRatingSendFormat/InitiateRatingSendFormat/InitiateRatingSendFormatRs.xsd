@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sbrf.ru/NCPCA/CRM/InitiateRatingSendFormatRs/" xmlns:com="http://sbrf.ru/NCPCA/CRM/CommonTypes/" targetNamespace="http://sbrf.ru/NCPCA/CRM/InitiateRatingSendFormatRs/" elementFormDefault="qualified">
+	<xs:import namespace="http://sbrf.ru/NCPCA/CRM/CommonTypes/" schemaLocation="./../CRMIntegrationTypes.xsd"/>
+	<xs:element name="InitiateRatingSendFormatRs" type="tns:InitiateRatingSendFormatRs_Type"/>
+	<xs:complexType name="InitiateRatingSendFormatRs_Type">
+		<xs:sequence>
+			<xs:element name="RatingModel" type="tns:RatingModelRs_Type" minOccurs="0"/>		
+			<xs:element name="ListOfError" type="com:ListOfError_Type">
+				<xs:annotation>
+					<xs:documentation>Список ошибок</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RatingModelRs_Type">
+		<xs:sequence>
+			<xs:element name="RatingModelId">
+				<xs:annotation>
+					<xs:documentation>Уникальный идентификатор модели в CRM</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>	
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

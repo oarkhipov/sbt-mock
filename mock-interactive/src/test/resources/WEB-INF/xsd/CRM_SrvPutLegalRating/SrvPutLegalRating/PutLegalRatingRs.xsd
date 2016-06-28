@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    xmlns:tns="http://sbrf.ru/NCPCA/CRM/PutLegalRatingRs/"
+    targetNamespace="http://sbrf.ru/NCPCA/CRM/PutLegalRatingRs/">
+    <element name="PutLegalRatingRs" type="tns:PutLegalRatingRs_Type"/>
+    <complexType name="PutLegalRatingRs_Type">
+        <sequence>
+            <element name="Status" type="tns:Status_Type">
+                <annotation>
+                    <documentation>Статус ответа</documentation>
+                </annotation>
+            </element>
+            <element name="OrgId" type="tns:OrgId_Type" minOccurs="0">
+                <annotation>
+                    <documentation>Уникальный номер клиента</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="Status_Type">
+        <sequence>
+            <element name="StatusCode" type="long">
+                <annotation>
+                    <documentation>Код ошибки</documentation>
+                </annotation>
+            </element>
+            <element name="StatusDesc" minOccurs="0">
+                <annotation>
+                    <documentation>Описание ошибки</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="255"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="OrgId_Type">
+        <sequence>
+            <element name="OrgType">
+                <annotation>
+                    <documentation>Тип идентификатора организации</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="80"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="OrgNum">
+                <annotation>
+                    <documentation>Идентификационный номер организации</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="50"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+</schema>

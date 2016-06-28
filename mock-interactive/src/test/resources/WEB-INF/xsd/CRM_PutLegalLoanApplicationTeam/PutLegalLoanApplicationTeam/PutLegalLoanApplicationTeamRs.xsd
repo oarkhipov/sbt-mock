@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+			xmlns="http://www.w3.org/2001/XMLSchema" 
+			xmlns:tns="http://sbrf.ru/NCPCA/CRM/PutLegalLoanApplicationTeamRs/" 
+			targetNamespace="http://sbrf.ru/NCPCA/CRM/PutLegalLoanApplicationTeamRs/" 
+			elementFormDefault="qualified">
+	<xs:element name="PutLegalLoanApplicationTeamRs" type="tns:PutLegalLoanApplicationTeamRs_Type"/>
+    <xs:complexType name="PutLegalLoanApplicationTeamRs_Type">
+        <xs:sequence>
+            <xs:element name="DealInfo" type="tns:DealInfo_Type" >
+                <xs:annotation>
+                    <xs:documentation>Информация по сделке</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DealInfo_Type">
+        <xs:annotation>
+            <xs:documentation>Информация по сделке</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DealID">
+                <xs:annotation>
+                    <xs:documentation>ID сделки в CRM</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ListOfError" type="tns:ListOfError_Type" >
+                <xs:annotation>
+                    <xs:documentation>Список ошибок</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ListOfError_Type">
+        <xs:sequence>
+            <xs:element name="Error" type="tns:Error_Type" minOccurs="1" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Ошибка</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Error_Type">
+        <xs:annotation>
+            <xs:documentation>Ошибка</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="ErrorCode">
+                <xs:annotation>
+                    <xs:documentation>Код ошибки</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ErrorMessage" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Текст ошибки</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="2000" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

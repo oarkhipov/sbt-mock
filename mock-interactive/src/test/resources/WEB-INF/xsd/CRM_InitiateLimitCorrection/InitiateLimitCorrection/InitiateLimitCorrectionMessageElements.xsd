@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="http://sbrf.ru/NCPCA/CRM/InitiateLimitCorrectionMessageElements/"
+        xmlns:hdr="http://sbrf.ru/ESB/mq/headers"
+        xmlns:ilcrq="http://sbrf.ru/NCPCA/CRM/InitiateLimitCorrectionRq/"
+        xmlns:ilcrs="http://sbrf.ru/NCPCA/CRM/InitiateLimitCorrectionRs/"
+        targetNamespace="http://sbrf.ru/NCPCA/CRM/InitiateLimitCorrectionMessageElements/">
+    <import namespace="http://sbrf.ru/ESB/mq/headers" schemaLocation="../../Common/Header.xsd"/>
+    <import namespace="http://sbrf.ru/NCPCA/CRM/InitiateLimitCorrectionRq/" schemaLocation="InitiateLimitCorrectionRq.xsd"/>
+    <import namespace="http://sbrf.ru/NCPCA/CRM/InitiateLimitCorrectionRs/" schemaLocation="InitiateLimitCorrectionRs.xsd"/>
+
+    <element name="Body">
+        <annotation>
+            <documentation>Тело сообщения</documentation>
+        </annotation>
+        <complexType>
+            <choice>
+                <element ref="ilcrq:InitiateLimitCorrectionRq"/>
+                <element ref="ilcrs:InitiateLimitCorrectionRs"/>
+            </choice>
+        </complexType>
+    </element>
+
+    <element name="Envelope">
+        <annotation>
+            <documentation>Сообщение</documentation>
+        </annotation>
+        <complexType>
+            <sequence>
+                <element ref="hdr:Header"/>
+                <element ref="tns:Body"/>
+            </sequence>
+        </complexType>
+    </element>
+</schema>

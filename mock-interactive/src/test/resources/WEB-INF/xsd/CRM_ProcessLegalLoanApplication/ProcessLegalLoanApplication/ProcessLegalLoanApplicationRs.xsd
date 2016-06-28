@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+			xmlns="http://www.w3.org/2001/XMLSchema" 
+			xmlns:tns="http://sbrf.ru/NCPCA/CRM/ProcessLegalLoanApplicationRs/" 
+			targetNamespace="http://sbrf.ru/NCPCA/CRM/ProcessLegalLoanApplicationRs/"
+			xmlns:com="http://sbrf.ru/NCPCA/CRM/CommonTypes/"
+			elementFormDefault="qualified">
+    
+    <import namespace="http://sbrf.ru/NCPCA/CRM/CommonTypes/" schemaLocation="./../CRMIntegrationTypes.xsd"/>
+	<xs:element name="ProcessLegalLoanApplicationRs" type="tns:ProcessLegalLoanApplicationRs_Type"/>
+    <xs:complexType name="ProcessLegalLoanApplicationRs_Type">
+        <xs:sequence>
+            <xs:element name="DealInfo" type="tns:DealInfoRs_Type" >
+                <xs:annotation>
+                    <xs:documentation>Данные по сделке</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DealInfoRs_Type">
+        <xs:sequence>
+			<xs:element name="MessageType">
+				<xs:annotation>
+					<xs:documentation>Тип сообщения, параметр необходим для обработки сообщения</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+            <xs:element name="DealID">
+                <xs:annotation>
+                    <xs:documentation>ID сделки в CRM</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="SymbolicURL">
+                <xs:annotation>
+                    <xs:documentation>URL для открытия окна с отображение интерфейса ВРМ из CRM</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1000" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ListOfError" type="com:ListOfError_Type" >
+                <xs:annotation>
+                    <xs:documentation>Список ошибок</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

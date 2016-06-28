@@ -1,0 +1,1603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://sbrf.ru/NCPCA/CRM/ProcessLegalLoanApplicationRq/"
+	xmlns:com="http://sbrf.ru/NCPCA/CRM/CommonTypes/"
+	targetNamespace="http://sbrf.ru/NCPCA/CRM/ProcessLegalLoanApplicationRq/"
+	elementFormDefault="qualified">
+	<import namespace="http://sbrf.ru/NCPCA/CRM/CommonTypes/"
+		schemaLocation="./../CRMIntegrationTypes.xsd"/>
+	<element name="ProcessLegalLoanApplicationRq" type="tns:ProcessLegalLoanApplicationRq_Type"/>
+	<complexType name="ProcessLegalLoanApplicationRq_Type">
+		<sequence>
+			<element name="DealInfo" type="tns:DealInfoRq_Type">
+				<annotation>
+					<documentation>Данные по сделке</documentation>
+				</annotation>
+			</element>
+			<element name="ListOfUL" type="tns:ListOfULRq_Type" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Список юридических лиц</documentation>
+				</annotation>
+			</element>
+			<element name="ListOfFL" type="com:ListOfFL_Type" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Список физических лиц</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="DealInfoRq_Type">
+		<annotation>
+			<documentation>Информация по сделке</documentation>
+		</annotation>
+		<sequence>
+			<element name="MessageType">
+				<annotation>
+					<documentation>Тип сообщения, параметр необходим для обработки сообщения</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="DealId">
+				<annotation>
+					<documentation>ID сделки в CRM</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="DealDate" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Дата создания в CRM</documentation>
+				</annotation>
+			</element>
+			<element name="DealMotive" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Суть сделки</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="600"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ContragentType" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Тип контрагента</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="EndDatePlan" type="xs:date" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Дата окончания плана</documentation>
+				</annotation>
+			</element>
+			<element name="ProblemDealId" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>В рамках какой проблемной сделки рассматривается текущая сделка</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="MainDealId" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Главная сделка для общих сделок в рамках Группы</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Probability" type="integer" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Вероятность</documentation>
+				</annotation>
+			</element>
+			<element name="Mode" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Режим</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Priority" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Приоритет</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RequestDate" type="xs:date" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Дата обращения</documentation>
+				</annotation>
+			</element>
+			<element name="Confidentially" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Флаг Конфиденциально</documentation>
+				</annotation>
+			</element>
+			<element name="RelatedSubjectId" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Id cвязанного субъекта</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="AuctionDate" type="xs:date" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Дата проведения аукциона</documentation>
+				</annotation>
+			</element>
+			<element name="EnrollmentEnd" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Окончание подачи заявок</documentation>
+				</annotation>
+			</element>
+			<element name="TradingPlatform" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Торговая площадка</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="100"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RecommendedAuctionStructure" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Рекомендуемая структура аукциона</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="1000"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="KGId" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="KGName" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="250"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="KGRiskSegment" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Справочник "Риск-сегмент"</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="KGRiskSegmentComment" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="255"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="GSZId" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="GSZName" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="250"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="CuratorOfGSZ" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Логин куратора ГСЗ</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="250"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RootGSZId" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RootGSZName" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="250"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="GSZMainManager" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>ГКМ по ГСЗ</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="HoldingId" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="HoldingName" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="250"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="HoldingMainManager" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>ГКМ по Холдингу</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="MGId" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="MGName" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="500"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="MGroupMDMId" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="20"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="MGMainManager" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="EKId" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>идентификатор ЕК в CRM</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="EKMdmId" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="20"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="EKName" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="500"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="EKMainManager" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ClientFileId">
+				<annotation>
+					<documentation>идентификатор досье Заемщика в FileNet</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="255"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ListOfRelatedDeals" type="tns:ListOfRelatedDealsRq_Type" minOccurs="0"
+				maxOccurs="1"/>
+			<element name="ListOfParticipant" type="com:ListOfParticipant_Type" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation>Список участников</documentation>
+				</annotation>
+			</element>
+			<element name="ListOfGSL" type="tns:ListOfGSLRq_Type" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Список участников ГСЛ</documentation>
+				</annotation>
+			</element>
+			<element name="ListOfTeamMember" type="tns:ListOfTeamMemberRq_Type" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation>Команда сделки</documentation>
+				</annotation>
+			</element>
+			<element name="ListOfBranchInfo" type="tns:ListOfBranchInfoRq_Type" minOccurs="0"
+				maxOccurs="1"/>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfRelatedDealsRq_Type">
+		<sequence>
+			<element name="RelatedDealInfo" type="tns:RelatedDealInfoRq_Type" minOccurs="1"
+				maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<complexType name="RelatedDealInfoRq_Type">
+		<sequence>
+			<element name="RelatedDealId">
+				<annotation>
+					<documentation>Идентификатор связанной сделки</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfGSLRq_Type">
+		<sequence>
+			<element name="ListOfPartGSLUL" type="tns:ListOfPartGSLULRq_Type" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation>Список участников ГСЛ ЮЛ</documentation>
+				</annotation>
+			</element>
+			<element name="ListOfPartGSLFL" type="tns:ListOfPartGSLFLRq_Type" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation>Участники ГСЛ ФЛ</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfPartGSLULRq_Type">
+		<sequence>
+			<element name="PartGSLUL" type="tns:PartGSLULRq_Type" minOccurs="1"
+				maxOccurs="unbounded">
+				<annotation>
+					<documentation>Участник ГСЛ ЮЛ</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="PartGSLULRq_Type">
+		<sequence>
+			<element name="ULId">
+				<annotation>
+					<documentation>Идентификатор участника ГСЛ ЮЛ</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RelatedULType">
+				<annotation>
+					<documentation>Тип связанного участника сделки/заемщика</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ListOfRelatedUL" type="tns:ListOfRelatedULRq_Type" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation>Список связанных с ГСЛ участников сделки</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfRelatedULRq_Type">
+		<sequence>
+			<element name="RelatedUL" type="tns:RelatedULRq_Type" minOccurs="1"
+				maxOccurs="unbounded">
+				<annotation>
+					<documentation>Связанный с ГСЛ участник сделки</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="RelatedULRq_Type">
+		<sequence>
+			<element name="RelatedULId">
+				<annotation>
+					<documentation>Идентификатор связанного участника сделки/заемщика</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfPartGSLFLRq_Type">
+		<sequence>
+			<element name="PartGSLFL" type="tns:PartGSLFLRq_Type" minOccurs="1"
+				maxOccurs="unbounded">
+				<annotation>
+					<documentation>Участник ГСЛ ФЛ</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="PartGSLFLRq_Type">
+		<sequence>
+			<element name="FLId">
+				<annotation>
+					<documentation>Идентификатор участника ГСЛ ФЛ</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ListOfRelatedUL" type="tns:ListOfRelatedULRq_Type" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation>Список связанных с ГСЛ участников сделки</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfTeamMemberRq_Type">
+		<sequence>
+			<element name="TeamMember" type="tns:TeamMemberRq_Type" minOccurs="1"
+				maxOccurs="unbounded">
+				<annotation>
+					<documentation>Участник команды сделки</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="TeamMemberRq_Type">
+		<sequence>
+			<element name="UserLogin">
+				<annotation>
+					<documentation>Логин пользователя</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="TeamRole">
+				<annotation>
+					<documentation>Роль пользователя в команде</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Primary" type="xs:boolean">
+				<annotation>
+					<documentation>Признак основной роли</documentation>
+				</annotation>
+			</element>
+			<element name="TB">
+				<annotation>
+					<documentation>ЦА/ТБ пользователя</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="1024"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="TerritoryDivision">
+				<annotation>
+					<documentation>Территориальное подразделение пользователя</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="1024"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="FuctionalDivision">
+				<annotation>
+					<documentation>Функциональное подразделение пользователя</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="1024"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="DivisionCode">
+				<annotation>
+					<documentation>Код подразделения</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfBranchInfoRq_Type">
+		<sequence>
+			<element name="BranchInfo" type="tns:BranchInfoRq_Type" minOccurs="1"
+				maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<complexType name="BranchInfoRq_Type">
+		<sequence>
+			<element name="GuarantorId">
+				<annotation>
+					<documentation>Идентификатор участника сделки, для которого передаются Характеристики отрасли</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="BranchId">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="MainBranch" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Основная отрасль</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ListOfMarket" type="tns:ListOfMarketRq_Type" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation/>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfMarketRq_Type">
+		<sequence>
+			<element name="Market" type="tns:MarketRq_Type" minOccurs="1" maxOccurs="unbounded">
+				<annotation>
+					<documentation/>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="MarketRq_Type">
+		<sequence>
+			<element name="MarketId">
+				<annotation>
+					<documentation>идентификатор записи рынка</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="MarketName" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Рынок</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="30"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="MarketShare" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Позиция и доля на рынке</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ListOfCompetitors" type="tns:ListOfCompetitorsRq_Type" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation>Список конкурентов (клиенты банка)</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfCompetitorsRq_Type">
+		<sequence>
+			<element name="Competitor" type="tns:CompetitorRq_Type" minOccurs="1"
+				maxOccurs="unbounded">
+				<annotation>
+					<documentation/>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="CompetitorRq_Type">
+		<sequence>
+			<element name="ULId">
+				<annotation>
+					<documentation>ID Организации CRM</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="OrganizationName">
+				<annotation>
+					<documentation>Для субъекта/муниципального образования поле заполняется Полным географическим наименованием, для организации - полным наименованием организации</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="1024"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="MarketShare" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Позиция и доля на рынке</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="255"/>
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfULRq_Type">
+		<sequence>
+			<element name="UL" type="tns:ULRq_Type" minOccurs="1" maxOccurs="unbounded">
+				<annotation>
+					<documentation>Юридическое лицо</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ULRq_Type">
+		<sequence>
+			<element name="ULId">
+				<annotation>
+					<documentation>ID Организации CRM</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="MDMOrgId" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>ID Организации MDM </documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="19"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="SubDivision" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>ТБ регистрации</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="1024"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="IsResident" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Резидент/Нерезидент</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ProblemGroupCalculated" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Расчетн. группа проблемности</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ProblemGroupApproved" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Утвержд. группа проблемности</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="OPF" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>ОПФ</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="OrganizationName" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Полное наименование</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="1024"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="INN" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>ИНН</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="KPP" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>КПП</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="KIO" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>КИО</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="OGRN" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>ОГРН / ОГРНИП</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="100"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="OKPO" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>ОКПО</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="100"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Industry" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Отрасль</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="255"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="KindOfIndustry" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Вид деятельности</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Segment" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Сегмент</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RiskSegment" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Риск-сегмент</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RiskSegmentComment" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Комментарий (риск-сегмент)</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="255"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Category" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Категория</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Belonging" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Принадлежность</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="KKFZ" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Флаг ККФЗ</documentation>
+				</annotation>
+			</element>
+			<element name="KKFZDate" type="xs:date" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Дата отнесения к ККФЗ</documentation>
+				</annotation>
+			</element>
+			<element name="KGId" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="KGName" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="250"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="MGId" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="MGName" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="500"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="GSZId" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="GSZName" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="250"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RootGSZId" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RootGSZName" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="250"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ParentOrganization" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Id родительской организации исполнительного органа</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ExecuteName" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Наименование исполнительного органа</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="1024"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ExecuteINN" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>ИНН исполнительного органа</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ExecuteKPP" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>КПП исполнительного органа</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RegistrationDate" type="xs:date" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Дата гос. регистрации</documentation>
+				</annotation>
+			</element>
+			<element name="RegistrationAuthority" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Регистрирующий орган</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="255"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RegistrationSertificateSeries" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Серия и номер свидетельства</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="100"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RegistrationSertificateDate" type="xs:date" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Дата выдачи свидетельства</documentation>
+				</annotation>
+			</element>
+			<element name="ULMainManager" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Владелец карточки организации</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RegistrationCountry" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="3"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="OrganizationType" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="WholeSum" type="xs:decimal" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Общая сумма задолженности, тыс. руб</documentation>
+				</annotation>
+			</element>
+			<element name="ClientFileId">
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="255"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="OwnerId" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Идентификатор физического лица, являющегося ИП</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ListOfProblematicalCriterions"
+				type="tns:ListOfProblematicalCriterionsRq_Type" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Список Критериев проблемности</documentation>
+				</annotation>
+			</element>
+			<element name="ListOfAddress" type="com:ListOfAddress_Type" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Список адресов ЮЛ</documentation>
+				</annotation>
+			</element>
+			<element name="ListOfPhone" type="tns:ListOfPhoneRq_Type" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Список телефонов</documentation>
+				</annotation>
+			</element>
+			<element name="ListOfEmail" type="tns:ListOfEmailRq_Type" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Список телефонов</documentation>
+				</annotation>
+			</element>
+			<element name="ListOfRating" type="tns:ListOfRatingRq_Type" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Список рейтингов ЮЛ</documentation>
+				</annotation>
+			</element>
+			<element name="ListOfMarker" type="tns:ListOfMarkerRq_Type" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>РМК и СКЕ ЮЛ</documentation>
+				</annotation>
+			</element>
+			<element name="ListOfStopFactor" type="com:ListOfStopFactor_Type" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation>Список стоп-факторов ЮЛ</documentation>
+				</annotation>
+			</element>
+			<element name="ListOfProjects" type="com:ListOfProjects_Type" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation>Список проектов</documentation>
+				</annotation>
+			</element>
+			<element name="ListOfContracts" type="com:ListOfContracts_Type" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation>Список контрактов организации</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfProblematicalCriterionsRq_Type">
+		<sequence>
+			<element name="ProblematicalCriterion" type="tns:ProblematicalCriterionRq_Type"
+				minOccurs="1" maxOccurs="unbounded">
+				<annotation>
+					<documentation>Критерий проблемности</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ProblematicalCriterionRq_Type">
+		<sequence>
+			<element name="ProblematicalCriterionName">
+				<annotation>
+					<documentation>Критерий проблемности</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfRatingRq_Type">
+		<sequence>
+			<element name="Rating" type="tns:RatingRq_Type" minOccurs="1" maxOccurs="unbounded">
+				<annotation>
+					<documentation>Рейтинг</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="RatingRq_Type">
+		<sequence>
+			<element name="RatingId">
+				<annotation>
+					<documentation>Id рейтинга</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="30"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RatingType" minOccurs="0">
+				<annotation>
+					<documentation>Тип рейтинга</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RatingValue" type="xs:decimal" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Итоговый рейтинг</documentation>
+				</annotation>
+			</element>
+			<element name="RatingModelCode">
+				<annotation>
+					<documentation>Код рейтинговой модели</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="30"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ApprovalDate" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Дата утверждения</documentation>
+				</annotation>
+			</element>
+			<element name="EndDate" type="xs:date" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Дата след. актуализации</documentation>
+				</annotation>
+			</element>
+			<element name="PD" type="xs:decimal" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Вероятность дефолта в %</documentation>
+				</annotation>
+			</element>
+			<element name="RatingStatus">
+				<annotation>
+					<documentation>Статус</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ProjectId" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Id проекта</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ListOfCalculatedRating" type="tns:ListOfCalculatedRatingRq_Type"
+				minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Список рассчитанные рейтингов</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfCalculatedRatingRq_Type">
+		<sequence>
+			<element name="CalculatedRating" type="tns:CalculatedRatingRq_Type" minOccurs="1"
+				maxOccurs="unbounded">
+				<annotation>
+					<documentation>Расчитанный рйтинг</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="CalculatedRatingRq_Type">
+		<sequence>
+			<element name="Role">
+				<annotation>
+					<documentation>Роль</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Login">
+				<annotation>
+					<documentation>Логин пользователя, находящегося в команде рейтинга, последним изменивший запись</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="CalculationDate" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Дата расчета</documentation>
+				</annotation>
+			</element>
+			<element name="UpdateDate" type="xs:dateTime">
+				<annotation>
+					<documentation>Дата обновления записи</documentation>
+				</annotation>
+			</element>
+			<element name="CorrectedValue" type="xs:decimal" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Скорректированный рейтинг</documentation>
+				</annotation>
+			</element>
+			<element name="BasisForAdjustment" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Основание для корректировки</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Judgement" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Мотивированное суждение</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="1024"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ListOfCalcAddInfo" type="tns:ListOfCalcAddInfoRq_Type" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation>Список дополнительных параметров по расчету</documentation>
+				</annotation>
+			</element>
+			<element name="ListOfCorrectAddInfo" type="tns:ListOfCorrectAddInfoRq_Type"
+				minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Список дополнительных параметров по корректировке</documentation>
+				</annotation>
+			</element>
+			<element name="ListOfCalculatedValues" type="com:ListOfCalculatedValues_Type"
+				minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Список расчетных значений</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfCalcAddInfoRq_Type">
+		<sequence>
+			<element name="AddInfo" type="tns:AddInfoRq_Type" minOccurs="1" maxOccurs="unbounded">
+				<annotation>
+					<documentation>Расчетное значение</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfCorrectAddInfoRq_Type">
+		<sequence>
+			<element name="AddInfo" type="tns:AddInfoRq_Type" minOccurs="1" maxOccurs="unbounded">
+				<annotation>
+					<documentation>Расчетное значение</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="AddInfoRq_Type">
+		<sequence>
+			<element name="Name">
+				<annotation>
+					<documentation>Наименование параметра</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="255"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Value">
+				<annotation>
+					<documentation>Значение параметра</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="255"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Description" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Описание параметра</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="1024"/>
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfMarkerRq_Type">
+		<sequence>
+			<element name="Marker" type="tns:MarkerRq_Type" maxOccurs="unbounded">
+				<annotation>
+					<documentation/>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="MarkerRq_Type">
+		<sequence>
+			<element name="MarkerId">
+				<annotation>
+					<documentation>Id маркера</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="MarkerStatus">
+				<annotation>
+					<documentation>Статус</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="DebtCapacityMarker" type="xs:decimal">
+				<annotation>
+					<documentation>Маркер кредитоемкости, тыс. руб. ИЛИ Маркер на тек. бюджетный год, тыс. руб</documentation>
+				</annotation>
+			</element>
+			<element name="DebtCapacity" type="xs:decimal">
+				<annotation>
+					<documentation>Свободная кредитоемкость, тыс. руб. ИЛИ Свободная кредитоемкость на тек. бюджетный год, тыс. руб</documentation>
+				</annotation>
+			</element>
+			<element name="RatingId">
+				<annotation>
+					<documentation>ID Рейтинга</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="30"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ReportingType" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Тип отчетности, использованный для расчета маркера</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="NextDebtCapacityMarker" type="xs:decimal" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Маркер на след.бюджетный год, тыс.руб.</documentation>
+				</annotation>
+			</element>
+			<element name="NextDebtCapacity" type="xs:decimal" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Свободная кредитоемкость на след. бюджетный год, тыс. руб.</documentation>
+				</annotation>
+			</element>
+			<element name="DebtToRevenue" type="xs:decimal" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Соотношение долга к доходам за вычетом безвоздмездных поступлений</documentation>
+				</annotation>
+			</element>
+			<element name="DebtOn" type="xs:date" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Дата соотношения долга к доходам за вычетом безвоздмездных поступлений</documentation>
+				</annotation>
+			</element>
+			<element name="BudgetYear" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Бюджетный год</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="4"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="MarkerOverwriteBy">
+				<annotation>
+					<documentation>Логин пользователя, который последним изменил запись маркера</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfPhoneRq_Type">
+		<sequence>
+			<element name="Phone" type="tns:PhoneRq_Type" minOccurs="1" maxOccurs="unbounded">
+				<annotation>
+					<documentation>Телефонные номера</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="PhoneRq_Type">
+		<sequence>
+			<element name="Phone">
+				<annotation>
+					<documentation>Номер телефона</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="100"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="PhoneType">
+				<annotation>
+					<documentation>Тип телефона</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="30"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="PrimaryFlg" type="xs:boolean">
+				<annotation>
+					<documentation>Признак основного телефона</documentation>
+				</annotation>
+			</element>
+			<element name="ValidFlg" type="xs:boolean">
+				<annotation>
+					<documentation>Признак действующего телефона</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfEmailRq_Type">
+		<sequence>
+			<element name="Email" type="tns:EmailRq_Type" minOccurs="1" maxOccurs="unbounded">
+				<annotation>
+					<documentation>"Электронные почтовые адреса</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="EmailRq_Type">
+		<sequence>
+			<element name="Email">
+				<annotation>
+					<documentation>Электронный почтовый адрес</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="100"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="EmailType">
+				<annotation>
+					<documentation>Тип email</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="xs:string">
+						<maxLength value="30"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="PrimaryFlg" type="xs:boolean">
+				<annotation>
+					<documentation>Признак основного email</documentation>
+				</annotation>
+			</element>
+			<element name="ValidFlg" type="xs:boolean">
+				<annotation>
+					<documentation>Признак действующего email</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+</schema>
