@@ -75,7 +75,7 @@ public class XsdAnalysisService {
 			Set<String>             setXsdNamespaces = new TreeSet<String>(COMPARATOR);
 			printLog(systemName);
 			for (File xsdFile : map.get(systemName)) {
-				log.info("Read file: " + xsdFile.getName());
+				log.debug("Read file: " + xsdFile.getName());
 				setXsdNamespaces.addAll(getNamespaceByRegExp(readFileWithoutBOM(xsdFile)));
 			}
 			mapNamespacesByRegExp.put(systemName, setXsdNamespaces);
@@ -83,11 +83,11 @@ public class XsdAnalysisService {
 	}
 
 	private void printLog (String systemName) {
-		log.info("====================================================================");
-		log.info("");
-		log.info(String.format("      READ XSD FILES FOR SYSTEM: %s", systemName));
-		log.info("");
-		log.info("====================================================================");
+		log.debug("====================================================================");
+		log.debug("");
+		log.debug(String.format("      READ XSD FILES FOR SYSTEM: %s", systemName));
+		log.debug("");
+		log.debug("====================================================================");
 	}
 
 	/**
@@ -146,7 +146,7 @@ public class XsdAnalysisService {
 		Set<String> set = new TreeSet<String>(COMPARATOR);
 		for (int i = 0; i < xdmValue.size(); i++) {
 			String namespace = xdmValue.itemAt(i).getStringValue();
-			log.info(String.format("Namespace: %s", namespace));
+			log.debug(String.format("Namespace: %s", namespace));
 			set.add(namespace);
 		}
 		return set;
@@ -170,13 +170,9 @@ public class XsdAnalysisService {
 		Map<String, List<File>> map = new HashMap<String, List<File>>();
 		for (ru.sbt.bpm.mock.config.entities.System system : configContainer.getConfig().getSystems().getSystems()) {
 			String systemName = system.getSystemName();
-			log.info("====================================================================");
-			log.info("");
-			log.info(String.format("              GET XSD FILES FOR SYSTEM: %s", systemName));
-			log.info("");
-			log.info("====================================================================");
+			printLog(systemName);
 			List<File> filesFromDir = getFilesFromDir(dataFileService.getSystemXsdDirectoryResource(systemName).getFile().getCanonicalFile());
-			log.info(String.format("Files: %s", filesFromDir));
+			log.debug(String.format("Files: %s", filesFromDir));
 			map.put(systemName, filesFromDir);
 		}
 		return map;

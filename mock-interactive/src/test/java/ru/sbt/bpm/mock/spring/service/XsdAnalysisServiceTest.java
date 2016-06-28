@@ -37,17 +37,17 @@ public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests {
 
 	private int assertXsdByRegExp () {
 		int assertSuccess = 0;
-		log.info("==================================================");
-		log.info("");
-		log.info("               GETTING XSD NAMESPACES");
-		log.info("");
-		log.info("==================================================");
+		log.debug("==================================================");
+		log.debug("");
+		log.debug("               GETTING XSD NAMESPACES");
+		log.debug("");
+		log.debug("==================================================");
 		for (ru.sbt.bpm.mock.config.entities.System system : configContainer.getConfig().getSystems().getSystems()) {
 			String systemName = system.getSystemName();
-			log.info("Init system: " + systemName);
+			log.debug("Init system: " + systemName);
 			Set<String> setXsdNamespace = xsdAnalysisService.getNamespaceFromXsdByRegExpForSystem(systemName);
 			for (String namespace : setXsdNamespace)
-				log.info(String.format("Namespace: %s", namespace));
+				log.debug(String.format("Namespace: %s", namespace));
 		}
 		return assertSuccess;
 	}
@@ -55,17 +55,17 @@ public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests {
 
 	private int assertXsdTestByxPath () {
 		int assertSuccess = 0;
-		log.info("==================================================");
-		log.info("");
-		log.info("               GETTING XSD NAMESPACES");
-		log.info("");
-		log.info("==================================================");
+		log.debug("==================================================");
+		log.debug("");
+		log.debug("               GETTING XSD NAMESPACES");
+		log.debug("");
+		log.debug("==================================================");
 		for (ru.sbt.bpm.mock.config.entities.System system : configContainer.getConfig().getSystems().getSystems()) {
 			String systemName = system.getSystemName();
-			log.info("Init system: " + systemName);
+			log.debug("Init system: " + systemName);
 			Set<String> setXsdNamespace = xsdAnalysisService.getNamespaceFromXsdByXpathForSystem(systemName);
 			for (String namespace : setXsdNamespace)
-				log.info(String.format("Namespace: %s", namespace));
+				log.debug(String.format("Namespace: %s", namespace));
 		}
 		return assertSuccess;
 	}
