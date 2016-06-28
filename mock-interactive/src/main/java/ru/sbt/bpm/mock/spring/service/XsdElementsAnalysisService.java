@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.spring.utils.XpathUtils;
 
+import javax.annotation.PostConstruct;
 import java.io.*;
 import java.util.*;
 
@@ -36,6 +37,9 @@ public class XsdElementsAnalysisService {
 	private static final String XPATH_ELEMENT_ATTRIBUTE_NAME = "//*[local-name()='element']/@name";
 	private static final String XPATH_ELEMENT_ATTRIBUTE_REF  = "//*[local-name()='element']/@ref";
 
+	// Maps
+	private Map<String, Map<String, Set<String>>> mapOfElements = new HashMap<String, Map<String, Set<String>>>();
+
 	// String comparator for map and set
 	private static final Comparator<String> STRING_COMPARATOR = new Comparator<String>() {
 		@Override
@@ -50,10 +54,24 @@ public class XsdElementsAnalysisService {
 		}
 	};
 
-	public Map<String, Set<String>> getElementsFromXsd() throws IOException, SaxonApiException {
-		Map<String, Set<String>> mapElementsByNamespace = new TreeMap<String, Set<String>>(STRING_COMPARATOR);
+	public Set<String> getElementsForNamespace(String systemName, String namespaceName) {
+		return mapOfElements.get(systemName).get(namespaceName);
+	}
+
+	public void reInit () throws IOException, SaxonApiException {
+		mapOfElements.clear();
+		init();
+	}
+
+	@PostConstruct
+	private void init () throws IOException, SaxonApiException {
+		getElementsFromXsd();
+	}
+
+	private void getElementsFromXsd () throws IOException, SaxonApiException {
 		Map<String, List<File>> map = getXsdFilesFromSystems();
 		for (String systemName : map.keySet()) {
+			Map<String, Set<String>> mapElementsByNamespace = new TreeMap<String, Set<String>>(STRING_COMPARATOR);
 			log.info("====================================================================");
 			log.info("");
 			log.info(String.format("      READ XSD FILES FOR SYSTEM: %s", systemName));
@@ -63,13 +81,13 @@ public class XsdElementsAnalysisService {
 				String inputXml = readFileWithoutBOM(xsdFile);
 				mapElementsByNamespace.putAll(getNamespaceByxPath(inputXml, XPATH_TARGET_NAMESPACE, XPATH_ELEMENT_ATTRIBUTE_NAME));
 			}
+			mapOfElements.put(systemName, mapElementsByNamespace);
 		}
-		return mapElementsByNamespace;
 	}
 
-	private Set<String> getElementFromXsd(String inputXml, String xPath) throws SaxonApiException {
-		Set<String> set = new TreeSet<String>(STRING_COMPARATOR);
-		XdmValue xdmValue = XpathUtils.evaluateXpath(inputXml, xPath);
+	private Set<String> getElementFromXsd (String inputXml, String xPath) throws SaxonApiException {
+		Set<String> set      = new TreeSet<String>(STRING_COMPARATOR);
+		XdmValue    xdmValue = XpathUtils.evaluateXpath(inputXml, xPath);
 		for (int i = 0; i < xdmValue.size(); i++) {
 			String element = xdmValue.itemAt(i).getStringValue();
 			set.add(element);
@@ -80,15 +98,17 @@ public class XsdElementsAnalysisService {
 
 	/**
 	 * Получение namespace из файла xsd по xPath
+	 *
 	 * @param inputXml
 	 * @param xPathNamespace
 	 * @param xPathElement
 	 * @throws SaxonApiException
 	 */
-	private Map<String, Set<String>> getNamespaceByxPath (String inputXml, String xPathNamespace, String xPathElement) throws SaxonApiException {
-		Map<String, Set<String>> map = new TreeMap<String, Set<String>>(STRING_COMPARATOR);
-		String namespace = "";
-		XdmValue xdmValue = XpathUtils.evaluateXpath(inputXml, xPathNamespace);
+	private Map<String, Set<String>> getNamespaceByxPath (String inputXml, String xPathNamespace, String xPathElement)
+			throws SaxonApiException {
+		Map<String, Set<String>> map       = new TreeMap<String, Set<String>>(STRING_COMPARATOR);
+		String                   namespace = "";
+		XdmValue                 xdmValue  = XpathUtils.evaluateXpath(inputXml, xPathNamespace);
 		for (int i = 0; i < xdmValue.size(); i++) {
 			namespace = xdmValue.itemAt(i).getStringValue();
 			log.info(String.format("Namespace: %s", namespace));
@@ -97,10 +117,11 @@ public class XsdElementsAnalysisService {
 		return map;
 	}
 
-	private String readFileWithoutBOM(File file) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(new BOMInputStream(new FileInputStream(file), false)));
-		StringBuilder sb = new StringBuilder();
-		String line;
+	private String readFileWithoutBOM (File file) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(new BOMInputStream(new FileInputStream(file),
+		                                                                                false)));
+		StringBuilder  sb = new StringBuilder();
+		String         line;
 		while ((line = br.readLine()) != null)
 			sb.append(line);
 		return sb.toString();
@@ -108,10 +129,11 @@ public class XsdElementsAnalysisService {
 
 	/**
 	 * Получение списка xsd файлов по системе
+	 *
 	 * @return map<система, список xsd файлов>
 	 * @throws IOException
 	 */
-	private Map<String, List<File>> getXsdFilesFromSystems() throws IOException {
+	private Map<String, List<File>> getXsdFilesFromSystems () throws IOException {
 		Map<String, List<File>> map = new HashMap<String, List<File>>();
 		for (ru.sbt.bpm.mock.config.entities.System system : configContainer.getConfig().getSystems().getSystems()) {
 			String systemName = system.getSystemName();
@@ -120,7 +142,8 @@ public class XsdElementsAnalysisService {
 			log.info(String.format("              GET XSD FILES FOR SYSTEM: %s", systemName));
 			log.info("");
 			log.info("====================================================================");
-			List<File> filesFromDir = getFilesFromDir(dataFileService.getSystemXsdDirectoryResource(systemName).getFile().getCanonicalFile());
+			List<File> filesFromDir = getFilesFromDir(dataFileService.getSystemXsdDirectoryResource(systemName)
+			                                                         .getFile().getCanonicalFile());
 			log.info(String.format("Files: %s", filesFromDir));
 			map.put(systemName, filesFromDir);
 		}
@@ -129,10 +152,11 @@ public class XsdElementsAnalysisService {
 
 	/**
 	 * Получение списка xsd фалов для системы
+	 *
 	 * @param dir - директория xsd файлов для системы
 	 * @return список xsd файлов системы
 	 */
-	private List<File> getFilesFromDir(File dir) {
+	private List<File> getFilesFromDir (File dir) {
 		List<File> listFiles = new ArrayList<File>();
 		for (File fileEntry : dir.listFiles())
 			if (fileEntry.isDirectory())

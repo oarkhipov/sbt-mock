@@ -1,18 +1,13 @@
 package ru.sbt.bpm.mock.spring.service;
 
 import lombok.extern.slf4j.Slf4j;
-import net.sf.saxon.s9api.SaxonApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.testng.annotations.Test;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
-
-import java.io.IOException;
-import java.util.Map;
-import java.util.Set;
+import ru.sbt.bpm.mock.config.entities.System;
 
 import static org.testng.Assert.assertEquals;
 
@@ -20,8 +15,7 @@ import static org.testng.Assert.assertEquals;
  * Created by sbt-hodakovskiy-da on 20.06.2016.
  */
 @Slf4j
-@ContextConfiguration({"/env/mockapp-servlet-test.xml"})
-@WebAppConfiguration("/mock-interactive/src/main/webapp")
+@ContextConfiguration({ "/env/mockapp-servlet-test-xsd-services.xml" })
 public class XsdElementsAnalysisServiceTest extends AbstractTestNGSpringContextTests {
 
 	@Autowired
@@ -34,33 +28,34 @@ public class XsdElementsAnalysisServiceTest extends AbstractTestNGSpringContextT
 	MockConfigContainer container;
 
 	@Autowired
+	XsdAnalysisService xsdAnalysisService;
+
+	@Autowired
 	XsdElementsAnalysisService elementsAnalysisService;
 
 	@Test
-	public void test() {
+	public void test () {
 		assertEquals(assertElements(), 0);
 	}
 
 	private int assertElements () {
 		int assertFail = 0;
-		try {
-			log.info("==================================================");
-			log.info("");
-			log.info("               GETTING XSD ELEMENTS");
-			log.info("");
-			log.info("==================================================");
-//			for (String namespace : elementsAnalysisService.getElementsFromXsd().keySet())
-//				log.info("Namespace: " +  namespace + ", elements: " +  elementsAnalysisService.getElementsFromXsd().get(namespace).toString());
-			Map<String, Set<String>> elements = elementsAnalysisService.getElementsFromXsd();
-			for (String namespace : elements.keySet()) {
-				log.info("Namespace: " +  namespace + ", elements: " +  elements.get(namespace));
+
+		log.info("==================================================");
+		log.info("");
+		log.info("               GETTING XSD ELEMENTS");
+		log.info("");
+		log.info("==================================================");
+
+		for (System system : container.getConfig().getSystems().getSystems()) {
+			log.info(String.format("System name: %s", system.getSystemName()));
+			for (String namespace : xsdAnalysisService.getNamespaceFromXsdByXpathForSystem(system.getSystemName())) {
+				log.info(String.format("Namespace name: %s", namespace));
+				if (elementsAnalysisService.getElementsForNamespace(system.getSystemName(), namespace) != null)
+					for (String element : elementsAnalysisService.getElementsForNamespace(system.getSystemName(), namespace)) {
+						log.info(String.format("Element: %s", element));
+					}
 			}
-		} catch (IOException e) {
-			log.error("Unable to get elements! ", e);
-			assertFail++;
-		} catch (SaxonApiException e) {
-			log.error("Unable to get elements! ", e);
-			assertFail++;
 		}
 		return assertFail;
 	}
