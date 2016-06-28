@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.spring.utils.XpathUtils;
 
+import javax.annotation.PostConstruct;
 import java.io.*;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -22,6 +23,19 @@ import java.util.regex.Pattern;
 @Slf4j
 @Service
 public class XsdAnalysisService {
+
+	public static final Comparator<String> COMPARATOR = new Comparator<String>() {
+		@Override
+		public int compare (String o1, String o2) {
+			if (o1 == o2)
+				return 0;
+			if (o1 == null)
+				return -1;
+			if (o2 == null)
+				return 1;
+			return o1.compareTo(o2);
+		}
+	};
 
 	@Autowired
 	private ApplicationContext appContext;
@@ -41,48 +55,54 @@ public class XsdAnalysisService {
 	private static final Pattern NAMESPACE_URL_PATTERN    = Pattern.compile("(http:.+)(?=\"[^\"]*$)");
 	private static final Pattern NAMESPACE_PREFIX_PATTERN = Pattern.compile("([^:]+)(?=\\=[^=]*$)");
 
+	// Maps
+	private Map<String, Set<String>> mapNamespacesByRegExp = new HashMap<String, Set<String>>();
+	private Map<String, Set<String>> mapNamespacesByXpath = new HashMap<String, Set<String>>();
 
-	public Set<String> getNamespaceFromXSDByRegExp () throws IOException {
-		Set<String> setXsdNamespaces = new TreeSet<String>(new Comparator<String>() {
-			@Override
-			public int compare (String o1, String o2) {
-				if (o1 == o2)
-					return 0;
-				if (o1 == null)
-					return -1;
-				if (o2 == null)
-					return 1;
-				return o1.compareTo(o2);
-			}
-		});
 
-		Map<String, List<File>> map = getXsdFilesFromSystems();
+	public Set<String> getNamespaceFromXsdByRegExpForSystem(String systemName) {
+		return mapNamespacesByRegExp.get(systemName);
+	}
+
+	public Set<String> getNamespaceFromXsdByXpathForSystem(String systemName) {
+		return mapNamespacesByXpath.get(systemName);
+	}
+
+	@PostConstruct
+	private void getNamespaceFromXSDByRegExp () throws IOException {
+		Map<String, List<File>> map              = getXsdFilesFromSystems();
 		for (String systemName : map.keySet()) {
-			log.info("====================================================================");
-			log.info("");
-			log.info(String.format("      READ XSD FILES FOR SYSTEM: %s", systemName));
-			log.info("");
-			log.info("====================================================================");
+			Set<String>             setXsdNamespaces = new TreeSet<String>(COMPARATOR);
+			printLog(systemName);
 			for (File xsdFile : map.get(systemName)) {
 				log.info("Read file: " + xsdFile.getName());
-				getNamespaceByRegExp(setXsdNamespaces, readFileWithoutBOM(xsdFile));
+				setXsdNamespaces.addAll(getNamespaceByRegExp(readFileWithoutBOM(xsdFile)));
 			}
+			mapNamespacesByRegExp.put(systemName, setXsdNamespaces);
 		}
-		return setXsdNamespaces;
+	}
+
+	private void printLog (String systemName) {
+		log.info("====================================================================");
+		log.info("");
+		log.info(String.format("      READ XSD FILES FOR SYSTEM: %s", systemName));
+		log.info("");
+		log.info("====================================================================");
 	}
 
 	/**
 	 * Получение namespace из файла xsd по xPath
-	 * @param setXsdNamespace
 	 * @param inputXml
 	 */
-	private void getNamespaceByRegExp (Set<String> setXsdNamespace, String inputXml) {
+	private Set<String> getNamespaceByRegExp (String inputXml) {
+		Set<String> set = new TreeSet<String>(COMPARATOR);
 		Matcher matcherNamespace = getSubstringByRegExp(NAMESPACE_PATTERN, inputXml);
 		while (matcherNamespace.find()) {
 			Matcher matcherNamespaceURL = getSubstringByRegExp(NAMESPACE_URL_PATTERN, matcherNamespace.group());
 			while (matcherNamespaceURL.find())
-				setXsdNamespace.add(matcherNamespaceURL.group());
+				set.add(matcherNamespaceURL.group());
 		}
+		return set;
 	}
 
 	/**
@@ -95,53 +115,41 @@ public class XsdAnalysisService {
 		return pattern.matcher(string);
 	}
 
-	public Set<String> getNamespaceFromXSDByxPath () throws IOException, SaxonApiException {
-		Set<String> setXsdNamespace = new TreeSet<String>(new Comparator<String>() {
-			@Override
-			public int compare (String o1, String o2) {
-				if (o1 == o2)
-					return 0;
-				if (o1 == null)
-					return -1;
-				if (o2 == null)
-					return 1;
-				return o1.compareTo(o2);
-			}
-		});
+	@PostConstruct
+	private void getNamespaceFromXSDByxPath () throws IOException, SaxonApiException {
 		Map<String, List<File>> map = getXsdFilesFromSystems();
 		for (String systemName : map.keySet()) {
-			log.info("====================================================================");
-			log.info("");
-			log.info(String.format("      READ XSD FILES FOR SYSTEM: %s", systemName));
-			log.info("");
-			log.info("====================================================================");
+			Set<String> setXsdNamespace = new TreeSet<String>(COMPARATOR);
+			printLog(systemName);
 			for (File xsdFile : map.get(systemName)) {
 				log.info("Read file: " + xsdFile.getName());
 				String inputXml = readFileWithoutBOM(xsdFile);
 				// Проходим по target
-				getNamespaceByxPath(setXsdNamespace, inputXml, LOCAL_NAME_SCHEMA_TARGET_NAMESPACE);
+				setXsdNamespace.addAll(getNamespaceByxPath(inputXml, LOCAL_NAME_SCHEMA_TARGET_NAMESPACE));
 
 				// Проходим по import
-				getNamespaceByxPath(setXsdNamespace, inputXml, LOCAL_NAME_IMPORT_NAMESPACE);
+				setXsdNamespace.addAll(getNamespaceByxPath(inputXml, LOCAL_NAME_IMPORT_NAMESPACE));
 			}
+			mapNamespacesByXpath.put(systemName, setXsdNamespace);
 		}
-		return setXsdNamespace;
 	}
 
 	/**
 	 * Получение namespace из файла xsd по xPath
-	 * @param setXsdNamespace
 	 * @param inputXml
 	 * @param xPath
+	 * @return
 	 * @throws SaxonApiException
 	 */
-	private void getNamespaceByxPath (Set<String> setXsdNamespace, String inputXml, String xPath) throws SaxonApiException {
+	private Set<String> getNamespaceByxPath (String inputXml, String xPath) throws SaxonApiException {
 		XdmValue xdmValue = XpathUtils.evaluateXpath(inputXml, xPath);
+		Set<String> set = new TreeSet<String>(COMPARATOR);
 		for (int i = 0; i < xdmValue.size(); i++) {
 			String namespace = xdmValue.itemAt(i).getStringValue();
 			log.info(String.format("Namespace: %s", namespace));
-			setXsdNamespace.add(namespace);
+			set.add(namespace);
 		}
+		return set;
 	}
 
 	private String readFileWithoutBOM(File file) throws IOException {
