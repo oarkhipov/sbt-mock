@@ -16,10 +16,11 @@
     <!-- - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - - - - -  - -->
     <!-- DEPENDS ON SYSTEM-->
 
-    <int:channel id="testChannel"/>
-    <int:channel id="testChannelAggregated"/>
+    <int:channel id="testChannel1"/>
+    <int:channel id="testChannel2"/>
+    <int:channel id="testChannel3"/>
 
-    <int:service-activator input-channel="testChannel" output-channel="testChannelAggregated" method="aggregate">
+    <int:service-activator input-channel="testChannel1" output-channel="testChannel2" method="aggregate">
         <bean class="ru.sbt.bpm.mock.spring.bean.MessageAggregator">
             <constructor-arg value="JMS" type="ru.sbt.bpm.mock.config.enums.Protocol"/>
             <constructor-arg value="test CF" type="java.lang.String"/>
@@ -27,13 +28,15 @@
         </bean>
     </int:service-activator>
 
+    <int:service-activator expression="payload.queue" input-channel="testChannel2" output-channel="testChannel3"/>
+
     <int:gateway id="systemEntry"
-             error-channel="testChannelAggregated"
+             error-channel="testChannel2"
              service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService"
              default-reply-timeout="1000"
              default-request-timeout="1000"
         >
-        <int:method name="sendMockMessage" request-channel="testChannel" reply-channel="testChannelAggregated"/>
+        <int:method name="send" request-channel="testChannel1" reply-channel="testChannel3"/>
     </int:gateway>
 
 </beans>

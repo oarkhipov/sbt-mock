@@ -18,26 +18,24 @@
     <!-- Настройка используемой конфигурации заглушки-->
 
     <bean id="connectionFactoryString" class="java.lang.String">
-        <constructor-arg value="jms/Q.LEGAL.CF"/>
+        <constructor-arg value=""/>
     </bean>
 
     <!-- - - - - - - -->
     <!--MOCK-->
     <bean id="mockConnectionInputString" class="java.lang.String">
-        <constructor-arg value="jms/Q.LEGAL.TO.CRMORG"/>
+        <constructor-arg value=""/>
     </bean>
     <bean id="mockConnectionOutputString" class="java.lang.String">
-        <constructor-arg value="jms/Q.LEGAL.FROM.CRMORG.SYNCRESP"/>
+        <constructor-arg value="jms/ESB.CRM.OUT"/>
     </bean>
     <!-- - - - - - - -->
     <!-- DRIVER -->
     <bean id="driverConnectionOutputString" class="java.lang.String">
-        <constructor-arg value="jms/Q.LEGAL.FROM.CRMORG"/>
-        <!--<beans:constructor-arg value="jms/Q.LEGAL.FROM.CRMORG"/>-->
+        <constructor-arg value="jms/ESB.CRM.REQUEST"/>
     </bean>
     <bean id="driverConnectionInputString" class="java.lang.String">
-        <constructor-arg value="jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>
-        <!--<beans:constructor-arg value="jms/Q.LEGAL.TO.CRMORG.SYNCRESP"/>-->
+        <constructor-arg value="jms/ESB.CRM.RESPONSE"/>
     </bean>
 
     <!-- - - - - - - - - - - - - - -->
@@ -86,7 +84,6 @@
             receive-timeout="30000"
     />
 
-
     <!-- Входной и выходной каналы Заглушки-->
     <int:channel id="MockInboundRequest">
         <int:interceptors>
@@ -124,20 +121,14 @@
                            method="aggregate">
         <bean class="ru.sbt.bpm.mock.spring.bean.MessageAggregator">
             <constructor-arg value="JMS" type="ru.sbt.bpm.mock.config.enums.Protocol"/>
-            <constructor-arg value="#{mockConnectionInputString}" type="java.lang.String"/>
+            <constructor-arg value="#{connectionFactoryString}" type="java.lang.String"/>
             <constructor-arg value="#{mockConnectionInputString}" type="java.lang.String"/>
         </bean>
     </int:service-activator>
 
     <!-- Генерация ответа -->
-    <int:service-activator input-channel="MockInboundRequest" output-channel="MockOutboundResponse"
-                           expression="@responseGenerator.proceedJmsRequest(payload)"/>
-
-    <!--<int:router id="someRouter" expression="" input-channel="MockInboundRequestAggregated">-->
-        <!--<int:mapping value="value1" channel="MockOutboundResponse"/>-->
-        <!--<int:mapping value="value2" channel="MockOutboundResponse"/>-->
-    <!--</int:router>-->
-
+    <int:service-activator input-channel="MockInboundRequestAggregated" output-channel="MockOutboundResponse"
+                           expression="@responseGenerator.proceedJmsRequest(payload).payload"/>
 
     <!-- Mock gateway to send requests to outbound -->
     <int:gateway id="systemEntry"
@@ -146,7 +137,15 @@
              default-reply-timeout="30000"
              default-request-timeout="30000"
         >
-        <int:method name="send" request-channel="DriverOutboundRequest" reply-channel="DriverInboundResponse"/>
+        <int:method name="sendMockMessage" request-channel="driverRouterChannelInput" reply-channel="DriverInboundResponse"/>
     </int:gateway>
+
+    <int:channel id="driverRouterChannelInput"/>
+    <int:router id="driverRouter" expression="payload.jmsConnectionFactoryName+'_'+payload.queue" input-channel="driverRouterChannelInput">
+        <int:mapping value="#{connectionFactoryString+'_'+driverConnectionOutputString}" channel="DriverOutboundRequestAggregated"/>
+    </int:router>
+
+    <int:channel id="DriverOutboundRequestAggregated"/>
+    <int:service-activator expression="payload.payload" input-channel="DriverOutboundRequestAggregated" output-channel="DriverOutboundRequest"/>
 
 </beans>

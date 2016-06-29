@@ -55,8 +55,7 @@ public class MessageSendingService {
     }
 
     public String sendJMS(MockMessage message) {
-        //TODO JMS Driver
-        return clientService.send(message.getPayload());
+        return clientService.sendMockMessage(message);
     }
 
     private String sendWs(MockMessage message) throws IOException {

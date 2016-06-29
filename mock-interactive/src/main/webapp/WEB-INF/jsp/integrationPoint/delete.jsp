@@ -7,7 +7,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <body>
-<form action="/ip/delete/${system}/${integrationPoint}/" method="post">
+<form method="post">
     <table width="100%">
         <tr>
             <td colspan="2" align="center">

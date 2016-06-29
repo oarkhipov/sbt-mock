@@ -16,5 +16,5 @@ public interface  ClientService {
      */
     String send(String request);
 
-    MockMessage sendMockMessage(String request);
+    String sendMockMessage(MockMessage request);
 }

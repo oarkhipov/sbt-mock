@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
+import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.spring.bean.pojo.MockMessage;
 import ru.sbt.bpm.mock.spring.integration.gateway.ClientService;
 
@@ -24,9 +25,8 @@ public class MessageAggregatorTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testAggregate() throws Exception {
-        String message = "test message";
-        final MockMessage mockMessage = service.sendMockMessage(message);
-        assertEquals(message, mockMessage.getPayload());
-        assertEquals("test endpoint", mockMessage.getQueue());
+        String queueName = "test endpoint";
+        final String response = service.send("");
+        assertEquals(queueName, response);
     }
 }

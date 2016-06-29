@@ -78,7 +78,7 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element type="xs:string" name="protocol">
+            <xs:element type="tns:protocol" name="protocol">
                 <xs:annotation>
                     <xs:documentation>Протокол интеграции JMS/SOAP. Если используется сразу оба, то необходимо разделить
                         на 2 системы.
@@ -188,4 +188,10 @@
         </xs:sequence>
         <xs:attribute type="xs:string" name="name" use="required"/>
     </xs:complexType>
+    <xs:simpleType name="protocol">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="JMS"/>
+            <xs:enumeration value="SOAP"/>
+        </xs:restriction>
+    </xs:simpleType>
 </xs:schema>
