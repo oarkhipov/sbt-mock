@@ -1,12 +1,15 @@
 package queue;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mortbay.jetty.Server;
+import org.mortbay.jetty.servlet.ServletHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.sbt.bpm.mock.spring.service.ValidateQueueService;
 
@@ -17,7 +20,6 @@ import javax.naming.NamingException;
  */
 @Slf4j
 @ContextConfiguration({"/env/mockapp-servlet-test.xml"})
-@WebAppConfiguration("/mock-interactive/src/main/webapp")
 public class QueueValidatorTest extends AbstractTestNGSpringContextTests {
     @Autowired
     ApplicationContext applicationContext;
@@ -25,8 +27,10 @@ public class QueueValidatorTest extends AbstractTestNGSpringContextTests {
     @Autowired
     ValidateQueueService validateQueueService;
 
+    private Server server;
+
     @Test
-    public void testingQueueValidator(){
+    public void testingQueueValidator() {
         String test = "MockInboundRequest";
         Boolean tmp = false;
         try {
@@ -38,7 +42,7 @@ public class QueueValidatorTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void testingQueueValidatorWrongData(){
+    public void testingQueueValidatorWrongData() {
         String test = "driverConnectionInputString";
         Boolean tmp = false;
         try {
@@ -48,5 +52,29 @@ public class QueueValidatorTest extends AbstractTestNGSpringContextTests {
             log.error("Failed! Queue not found", e);
         }
         Assert.assertFalse(tmp);
+    }
+
+    @BeforeClass
+    @Override
+    protected void springTestContextPrepareTestInstance() throws Exception {
+        super.springTestContextPrepareTestInstance();
+    }
+
+    @BeforeClass
+    @Override
+    protected void springTestContextBeforeTestClass() throws Exception {
+        super.springTestContextBeforeTestClass();
+        server = new Server(8080);
+        ServletHandler handler = new ServletHandler();
+        server.setHandler(handler);
+//        handler.addServletWithMapping(SoapMessageValidationServiceTestIT.MockServlet.class, "/");
+        server.start();
+    }
+
+    @AfterClass
+    @Override
+    protected void springTestContextAfterTestClass() throws Exception {
+        super.springTestContextAfterTestClass();
+        server.stop();
     }
 }
