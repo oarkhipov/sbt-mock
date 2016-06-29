@@ -31,51 +31,22 @@ public class QueueValidatorTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testingQueueValidatorQueue1() {
-        String test = "jms/Q.LEGAL.TO.CRMORG.SYNCRESP";
-        Boolean tmp = false;
-        try {
-            tmp = validateQueueService.valid(test);
-        } catch (NamingException e) {
-            log.error("Failed! Queue not found", e);
-        }
-        Assert.assertTrue(tmp);
+        Assert.assertTrue(validateQueueService.valid("jms/Q.LEGAL.TO.CRMORG.SYNCRESP"));
     }
 
     @Test
     public void testingQueueValidatorQueue2() {
-        String test = "jms/Q.LEGAL.FROM.CRMORG";
-        Boolean tmp = false;
-        try {
-            tmp = validateQueueService.valid(test);
-        } catch (NamingException e) {
-            log.error("Failed! Queue not found", e);
-        }
-        Assert.assertTrue(tmp);
+        Assert.assertTrue(validateQueueService.valid("jms/Q.LEGAL.FROM.CRMORG"));
     }
 
     @Test
     public void testingQueueValidatorQueue3() {
-        String test = "jms/Q.LEGAL.FROM.CRMORG.SYNCRESP";
-        Boolean tmp = false;
-        try {
-            tmp = validateQueueService.valid(test);
-        } catch (NamingException e) {
-            log.error("Failed! Queue not found", e);
-        }
-        Assert.assertTrue(tmp);
+        Assert.assertTrue(validateQueueService.valid("jms/Q.LEGAL.FROM.CRMORG.SYNCRESP"));
     }
 
     @Test
     public void testingQueueValidatorWrongData() {
-        String test = "jms/Q.LEGAL.TO.CRMORG";
-        Boolean tmp = false;
-        try {
-            tmp = validateQueueService.valid(test);
-        } catch (NamingException e) {
-            e.printStackTrace();
-            log.error("Failed! Queue not found", e);
-        }
-        Assert.assertFalse(tmp);
+        Assert.assertFalse(validateQueueService.valid("jms/Q.LEGAL.TO.CRMORG"));
     }
 
     @BeforeClass
@@ -89,7 +60,7 @@ public class QueueValidatorTest extends AbstractTestNGSpringContextTests {
     protected void springTestContextBeforeTestClass() throws Exception {
         super.springTestContextBeforeTestClass();
         server = new Server();
-        File             file = new File(this.getClass().getClassLoader().getResource("WEB-INF/jetty/jetty-env.xml").getFile());
+        File file = new File(this.getClass().getClassLoader().getResource("WEB-INF/jetty/jetty-env.xml").getFile());
         XmlConfiguration xmlConfiguration = new XmlConfiguration(file.toURI().toURL());
         xmlConfiguration.configure(server);
         server.start();
