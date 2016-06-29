@@ -35,6 +35,11 @@ public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests {
 		assertEquals(assertXsdByRegExp(), 0);
 	}
 
+	@Test
+	public void getElements () {
+		assertEquals(assertElements(), 0);
+	}
+
 	private int assertXsdByRegExp () {
 		int assertSuccess = 0;
 		log.debug("==================================================");
@@ -68,5 +73,27 @@ public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests {
 				log.debug(String.format("Namespace: %s", namespace));
 		}
 		return assertSuccess;
+	}
+
+	private int assertElements () {
+		int assertFail = 0;
+
+		log.info("==================================================");
+		log.info("");
+		log.info("               GETTING XSD ELEMENTS");
+		log.info("");
+		log.info("==================================================");
+
+		for (ru.sbt.bpm.mock.config.entities.System system : configContainer.getConfig().getSystems().getSystems()) {
+			log.info(String.format("System name: %s", system.getSystemName()));
+			for (String namespace : xsdAnalysisService.getNamespaceFromXsdByXpathForSystem(system.getSystemName())) {
+				log.info(String.format("Namespace name: %s", namespace));
+				if (xsdAnalysisService.getElementsForNamespace(system.getSystemName(), namespace) != null)
+					for (String element : xsdAnalysisService.getElementsForNamespace(system.getSystemName(), namespace)) {
+						log.info(String.format("Element: %s", element));
+					}
+			}
+		}
+		return assertFail;
 	}
 }

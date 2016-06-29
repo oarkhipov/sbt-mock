@@ -22,14 +22,10 @@
        </bean>
 
        <!-- gateway for testing feature -->
-       <!--<int:gateway service-interface="ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService">-->
-              <!--<int:method name="test" request-channel="test" reply-channel="test"/>-->
-       <!--</int:gateway>-->
+       <int:gateway service-interface="ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService">
+              <int:method name="test" request-channel="test" reply-channel="test"/>
+       </int:gateway>
        <int:channel id="test"/>
-
-       <!--<bean class="ru.sbt.bpm.mock.config.MockConfigContainer">-->
-              <!--<constructor-arg value="/env/MockConfig.xml" type="java.lang.String" />-->
-       <!--</bean>-->
 
        <!--<bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>-->
        <!--<bean id="responseGenerator" class="ru.sbt.bpm.mock.spring.bean.ResponseGenerator"/>-->
