@@ -20,7 +20,7 @@ import java.io.File;
  */
 @Slf4j
 @ContextConfiguration({"/env/mockapp-servlet-test-jndi-services.xml"})
-public class QueueValidatorTest extends AbstractTestNGSpringContextTests {
+public class ValidateQueueTest extends AbstractTestNGSpringContextTests {
     @Autowired
     ApplicationContext applicationContext;
 
