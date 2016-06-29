@@ -67,7 +67,7 @@ public class ResponseGenerator {
         System system = responseMockMessage.getSystem();
         IntegrationPoint integrationPoint = responseMockMessage.getIntegrationPoint();
         String outcomeQueue = system.getMockOutcomeQueue();
-        if (outcomeQueue == null || outcomeQueue.isEmpty()) {
+        if (outcomeQueue != null && !outcomeQueue.isEmpty()) {
             outcomeQueue = integrationPoint.getOutcomeQueue();
         }
         responseMockMessage.setQueue(outcomeQueue);
