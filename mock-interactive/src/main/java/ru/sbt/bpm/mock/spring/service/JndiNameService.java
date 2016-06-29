@@ -15,9 +15,9 @@ import java.util.Hashtable;
  */
 @Slf4j
 @Service
-public class ValidateQueueService {
+public class JndiNameService {
 
-    public boolean valid(String queueName) {
+    public boolean isExist(String queueName) {
         try {
             Context cnt = new InitialContext();
             Object tmp = cnt.lookup(queueName);

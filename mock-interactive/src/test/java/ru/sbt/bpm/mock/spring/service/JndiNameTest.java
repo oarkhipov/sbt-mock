@@ -12,7 +12,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import javax.naming.NamingException;
 import java.io.File;
 
 /**
@@ -20,33 +19,33 @@ import java.io.File;
  */
 @Slf4j
 @ContextConfiguration({"/env/mockapp-servlet-test-jndi-services.xml"})
-public class ValidateQueueTest extends AbstractTestNGSpringContextTests {
+public class JndiNameTest extends AbstractTestNGSpringContextTests {
     @Autowired
     ApplicationContext applicationContext;
 
     @Autowired
-    ValidateQueueService validateQueueService;
+    JndiNameService validateQueueService;
 
     private Server server;
 
     @Test
     public void testingQueueValidatorQueue1() {
-        Assert.assertTrue(validateQueueService.valid("jms/Q.LEGAL.TO.CRMORG.SYNCRESP"));
+        Assert.assertTrue(validateQueueService.isExist("jms/Q.LEGAL.TO.CRMORG.SYNCRESP"));
     }
 
     @Test
     public void testingQueueValidatorQueue2() {
-        Assert.assertTrue(validateQueueService.valid("jms/Q.LEGAL.FROM.CRMORG"));
+        Assert.assertTrue(validateQueueService.isExist("jms/Q.LEGAL.FROM.CRMORG"));
     }
 
     @Test
     public void testingQueueValidatorQueue3() {
-        Assert.assertTrue(validateQueueService.valid("jms/Q.LEGAL.FROM.CRMORG.SYNCRESP"));
+        Assert.assertTrue(validateQueueService.isExist("jms/Q.LEGAL.FROM.CRMORG.SYNCRESP"));
     }
 
     @Test
     public void testingQueueValidatorWrongData() {
-        Assert.assertFalse(validateQueueService.valid("jms/Q.LEGAL.TO.CRMORG"));
+        Assert.assertFalse(validateQueueService.isExist("jms/Q.LEGAL.TO.CRMORG"));
     }
 
     @BeforeClass
