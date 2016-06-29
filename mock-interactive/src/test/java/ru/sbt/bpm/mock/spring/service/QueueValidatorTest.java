@@ -1,8 +1,8 @@
-package queue;
+package ru.sbt.bpm.mock.spring.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.mortbay.jetty.Server;
-import org.mortbay.jetty.servlet.ServletHandler;
+import org.mortbay.xml.XmlConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -11,15 +11,15 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.sbt.bpm.mock.spring.service.ValidateQueueService;
 
 import javax.naming.NamingException;
+import java.io.File;
 
 /**
  * Created by sbt-langueva-ep on 20.06.2016.
  */
 @Slf4j
-@ContextConfiguration({"/env/mockapp-servlet-test.xml"})
+@ContextConfiguration({"/env/mockapp-servlet-test-jndi-services.xml"})
 public class QueueValidatorTest extends AbstractTestNGSpringContextTests {
     @Autowired
     ApplicationContext applicationContext;
@@ -30,8 +30,32 @@ public class QueueValidatorTest extends AbstractTestNGSpringContextTests {
     private Server server;
 
     @Test
-    public void testingQueueValidator() {
-        String test = "MockInboundRequest";
+    public void testingQueueValidatorQueue1() {
+        String test = "jms/Q.LEGAL.TO.CRMORG.SYNCRESP";
+        Boolean tmp = false;
+        try {
+            tmp = validateQueueService.valid(test);
+        } catch (NamingException e) {
+            log.error("Failed! Queue not found", e);
+        }
+        Assert.assertTrue(tmp);
+    }
+
+    @Test
+    public void testingQueueValidatorQueue2() {
+        String test = "jms/Q.LEGAL.FROM.CRMORG";
+        Boolean tmp = false;
+        try {
+            tmp = validateQueueService.valid(test);
+        } catch (NamingException e) {
+            log.error("Failed! Queue not found", e);
+        }
+        Assert.assertTrue(tmp);
+    }
+
+    @Test
+    public void testingQueueValidatorQueue3() {
+        String test = "jms/Q.LEGAL.FROM.CRMORG.SYNCRESP";
         Boolean tmp = false;
         try {
             tmp = validateQueueService.valid(test);
@@ -43,7 +67,7 @@ public class QueueValidatorTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testingQueueValidatorWrongData() {
-        String test = "driverConnectionInputString";
+        String test = "jms/Q.LEGAL.TO.CRMORG";
         Boolean tmp = false;
         try {
             tmp = validateQueueService.valid(test);
@@ -56,7 +80,7 @@ public class QueueValidatorTest extends AbstractTestNGSpringContextTests {
 
     @BeforeClass
     @Override
-    protected void springTestContextPrepareTestInstance() throws Exception {
+    protected void springTestContextPrepareTestInstance () throws Exception {
         super.springTestContextPrepareTestInstance();
     }
 
@@ -64,10 +88,10 @@ public class QueueValidatorTest extends AbstractTestNGSpringContextTests {
     @Override
     protected void springTestContextBeforeTestClass() throws Exception {
         super.springTestContextBeforeTestClass();
-        server = new Server(8080);
-        ServletHandler handler = new ServletHandler();
-        server.setHandler(handler);
-//        handler.addServletWithMapping(SoapMessageValidationServiceTestIT.MockServlet.class, "/");
+        server = new Server();
+        File             file = new File(this.getClass().getClassLoader().getResource("WEB-INF/jetty/jetty-env.xml").getFile());
+        XmlConfiguration xmlConfiguration = new XmlConfiguration(file.toURI().toURL());
+        xmlConfiguration.configure(server);
         server.start();
     }
 
