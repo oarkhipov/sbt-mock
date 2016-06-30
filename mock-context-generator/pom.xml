@@ -10,12 +10,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>context-generator</artifactId>
-    <!--<version>${parent.version}.${build.number}.${release.name}</version>-->
+    <version>${parent.version}.${build.number}.${release.name}</version>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-jms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.4</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
@@ -25,6 +30,27 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.10</version>
+                <executions>
+                    <execution>
+                        <id>regex-property-project-home</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>regex-property</goal>
+                        </goals>
+                        <configuration>
+                            <name>module.basedir</name>
+                            <value>${basedir}</value>
+                            <regex>([(\/)|(\\)])</regex>
+                            <replacement>/</replacement>
+                            <failIfNoMatch>false</failIfNoMatch>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>
                 <artifactId>maven-jaxb2-plugin</artifactId>
@@ -38,17 +64,18 @@
                         <phase>generate-sources</phase>
                         <configuration>
                             <episode>true</episode>
-                            <episodeFile>target/generated-sources/META-INF/beans.episode</episodeFile>
+                            <episodeFile>${module.basedir}/target/generated-sources/META-INF/beans.episode</episodeFile>
                             <catalog>src/xjc/catalogs/catalog.cat</catalog>
                             <generatePackage>generated.springframework.beans</generatePackage>
                             <bindings>
                                 <binding>
-                                    <url>src/xjc/binding/spring-beans.xjb</url>
+                                    <!--<url>D:/repositories/Mock/mock-context-generator/src/xjc/binding/spring-beans.xjb</url>-->
+                                    <url>${module.basedir}/src/xjc/binding/spring-beans.xjb</url>
                                 </binding>
                             </bindings>
                             <schemas>
                                 <schema>
-                                    <url>maven:org.springframework:spring-beans:::${spring.version}}!/org/springframework/beans/factory/xml/spring-beans-4.1.xsd</url>
+                                    <url>maven:org.springframework:spring-beans:::${spring.version}!/org/springframework/beans/factory/xml/spring-beans-4.1.xsd</url>
                                 </schema>
                             </schemas>
                         </configuration>
@@ -62,18 +89,18 @@
                         <configuration>
                             <strict>false</strict>
                             <episode>true</episode>
-                            <episodeFile>target/generated-sources/META-INF/intcore.episode</episodeFile>
+                            <episodeFile>${module.basedir}/target/generated-sources/META-INF/intcore.episode</episodeFile>
                             <catalog>src/xjc/catalogs/catalog.cat</catalog>
                             <generatePackage>generated.springframework.integration</generatePackage>
                             <bindings>
                                 <binding>
-                                    <url>src/xjc/binding/spring-integration.xjb</url>
+                                    <url>${module.basedir}/src/xjc/binding/spring-integration.xjb</url>
                                 </binding>
                             </bindings>
                             <args>
                                 <arg>-extension</arg>
                                 <arg>-b</arg>
-                                <arg>target/generated-sources/META-INF/beans.episode</arg>
+                                <arg>${module.basedir}/target/generated-sources/META-INF/beans.episode</arg>
                             </args>
                             <schemas>
                                 <schema>
@@ -91,20 +118,20 @@
                         <configuration>
                             <strict>false</strict>
                             <episode>true</episode>
-                            <episodeFile>target/generated-sources/META-INF/intcore.episode</episodeFile>
+                            <episodeFile>${module.basedir}/target/generated-sources/META-INF/intcore.episode</episodeFile>
                             <catalog>src/xjc/catalogs/catalog.cat</catalog>
                             <generatePackage>generated.springframework.integration.jms</generatePackage>
                             <bindings>
                                 <binding>
-                                    <url>src/xjc/binding/spring-integration-jms.xjb</url>
+                                    <url>${module.basedir}/src/xjc/binding/spring-integration-jms.xjb</url>
                                 </binding>
                             </bindings>
                             <args>
                                 <arg>-extension</arg>
                                 <arg>-b</arg>
-                                <arg>target/generated-sources/META-INF/intcore.episode</arg>
+                                <arg>${module.basedir}/target/generated-sources/META-INF/intcore.episode</arg>
                                 <arg>-b</arg>
-                                <arg>target/generated-sources/META-INF/beans.episode</arg>
+                                <arg>${module.basedir}/target/generated-sources/META-INF/beans.episode</arg>
                             </args>
                             <schemas>
                                 <schema>
