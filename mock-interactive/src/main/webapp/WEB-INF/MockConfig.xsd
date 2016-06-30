@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified"
-           elementFormDefault="qualified" targetNamespace="http://sbrf.ru/mockService2">
+           elementFormDefault="qualified" targetNamespace="http://sbrf.ru/mockService2" xmlns:tns="http://sbrf.ru/mockService2">
     <xs:element xmlns:moc="http://sbrf.ru/mockService2" name="MockConfig" type="moc:MockConfigType"/>
     <xs:complexType name="xpathValidationType">
         <xs:sequence>
