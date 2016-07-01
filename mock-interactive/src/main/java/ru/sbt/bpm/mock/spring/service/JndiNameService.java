@@ -15,18 +15,16 @@ import java.util.Hashtable;
  */
 @Slf4j
 @Service
-public class ValidateQueueService {
+public class JndiNameService {
 
-    @Autowired
-    ApplicationContext appCon;
-
-
-    public boolean valid(String queue) throws NamingException {
-//        Hashtable ht = new Hashtable();
-//        ht.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.fscontext.RefFSContextFactory");
-        Context cnt = new InitialContext();
-
-        Object tmp = cnt.lookup(queue);
-        return tmp != null;
+    public boolean isExist(String queueName) {
+        try {
+            Context cnt = new InitialContext();
+            Object tmp = cnt.lookup(queueName);
+            return tmp != null;
+        } catch (NamingException e) {
+            log.error(String.format("JNDI name %s does not exist!", queueName), e);
+            return false;
+        }
     }
 }
