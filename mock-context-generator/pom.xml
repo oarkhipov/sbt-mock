@@ -36,18 +36,39 @@
                 <version>1.10</version>
                 <executions>
                     <execution>
-                        <id>regex-property-project-home</id>
+                        <id>regex-property</id>
                         <phase>validate</phase>
                         <goals>
-                            <goal>regex-property</goal>
+                            <goal>regex-properties</goal>
                         </goals>
                         <configuration>
-                            <name>module.basedir</name>
-                            <value>${basedir}</value>
-                            <regex>([(\/)|(\\)])</regex>
-                            <replacement>/</replacement>
-                            <failIfNoMatch>false</failIfNoMatch>
+                            <regexPropertySettings>
+                                <regexPropertySetting>
+                                    <name>module.basedir</name>
+                                    <value>${basedir}</value>
+                                    <regex>([(\/)|(\\)])</regex>
+                                    <replacement>/</replacement>
+                                    <failIfNoMatch>false</failIfNoMatch>
+                                </regexPropertySetting>
+                                <regexPropertySetting>
+                                    <name>spring.bean.xsd.version</name>
+                                    <value>${spring.version}</value>
+                                    <regex>([\d]\.[\d]).([\w].*)</regex>
+                                    <replacement>$1</replacement>
+                                    <failIfNoMatch>false</failIfNoMatch>
+                                </regexPropertySetting>
+                                <regexPropertySetting>
+                                    <name>spring.integration.xsd.version</name>
+                                    <value>${spring-integration.version}</value>
+                                    <regex>([\d]\.[\d]).([\w].*)</regex>
+                                    <replacement>$1</replacement>
+                                    <failIfNoMatch>false</failIfNoMatch>
+                                </regexPropertySetting>
+                            </regexPropertySettings>
                         </configuration>
+                    </execution>
+                    <execution>
+
                     </execution>
                 </executions>
             </plugin>
@@ -75,7 +96,7 @@
                             </bindings>
                             <schemas>
                                 <schema>
-                                    <url>maven:org.springframework:spring-beans:::${spring.version}!/org/springframework/beans/factory/xml/spring-beans-4.1.xsd</url>
+                                    <url>maven:org.springframework:spring-beans:::${spring.version}!/org/springframework/beans/factory/xml/spring-beans-${spring.bean.xsd.version}.xsd</url>
                                 </schema>
                             </schemas>
                         </configuration>
@@ -104,7 +125,7 @@
                             </args>
                             <schemas>
                                 <schema>
-                                    <url>maven:org.springframework.integration:spring-integration-core:::${spring-integration.version}!/org/springframework/integration/config/xml/spring-integration-4.1.xsd</url>
+                                    <url>maven:org.springframework.integration:spring-integration-core:::${spring-integration.version}!/org/springframework/integration/config/xml/spring-integration-${spring.integration.xsd.version}.xsd</url>
                                 </schema>
                             </schemas>
                         </configuration>
@@ -135,7 +156,7 @@
                             </args>
                             <schemas>
                                 <schema>
-                                    <url>maven:org.springframework.integration:spring-integration-jms:::${spring-integration.version}!/org/springframework/integration/jms/config/spring-integration-jms-4.1.xsd</url>
+                                    <url>maven:org.springframework.integration:spring-integration-jms:::${spring-integration.version}!/org/springframework/integration/jms/config/spring-integration-jms-${spring.integration.xsd.version}.xsd</url>
                                 </schema>
                             </schemas>
                         </configuration>
