@@ -31,6 +31,11 @@
         <binding.spring.beans.file>spring-beans.xjb</binding.spring.beans.file>
         <binding.spring.integration.file>spring-integration.xjb</binding.spring.integration.file>
         <binding.spring.integration.jms.file>spring-integration-jms.xjb</binding.spring.integration.jms.file>
+
+        <!-- bindings templates -->
+        <binding.spring.beans.template>src/xjc/binding-templates/spring-beans-template.xjb</binding.spring.beans.template>
+        <binding.spring.integration.template>src/xjc/binding-templates/spring-integration-template.xjb</binding.spring.integration.template>
+        <binding.spring.integration.jms.template>src/xjc/binding-templates/spring-integration-jms-template.xjb</binding.spring.integration.jms.template>
     </properties>
 
     <dependencies>
@@ -151,26 +156,15 @@ SYSTEM "http://www.springframework.org/schema/integration/spring-integration-${s
                                 <echo message="================================================" level="debug"/>
                                 <echo message="================================================" level="debug"/>
 
-                                <echo file="${binding.beans.file}">
-                                    &lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
-                                    &lt;bindings
-                                            version="2.1"
-                                            xmlns="http://java.sun.com/xml/ns/jaxb"
-                                            xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-                                        &lt;bindings
-                                                    schemaLocation="${spring.bean.xsd}"&gt;
-                                            &lt;bindings node="//xsd:element[@name='ref']"&gt;
-                                                &lt;property name="beanRef"/&gt;
-                                            &lt;/bindings&gt;
-                                            &lt;bindings node="//xsd:element[@name='value']"&gt;
-                                                &lt;property name="beanValue"/&gt;
-                                            &lt;/bindings&gt;
-                                            &lt;bindings node="//xsd:element[@name='key']"&gt;
-                                                &lt;property name="beanKey"/&gt;
-                                            &lt;/bindings&gt;
-                                        &lt;/bindings&gt;
-                                    &lt;/bindings&gt;
-                                </echo>
+                                <copy file="${binding.spring.beans.template}" tofile="${binding.dir}/${binding.spring.beans.file}" overwrite="true">
+                                    <filterchain>
+                                        <replacetokens>
+                                            <token key="token" value="${spring.bean.xsd}"/>
+                                        </replacetokens>
+                                    </filterchain>
+                                </copy>
+                                <loadfile property="beans" srcFile="${binding.dir}/${binding.spring.beans.file}"/>
+                                <echo level="debug">${beans}</echo>
 
                                 <echo message="================================================" level="debug"/>
                                 <echo message="================================================" level="debug"/>
@@ -178,48 +172,15 @@ SYSTEM "http://www.springframework.org/schema/integration/spring-integration-${s
                                 <echo message="================================================" level="debug"/>
                                 <echo message="================================================" level="debug"/>
 
-                                <echo file="${binding.integration.file}">
-                                    &lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
-                                    &lt;bindings
-                                    version="2.1"
-                                    xmlns="http://java.sun.com/xml/ns/jaxb"
-                                    xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-                                        &lt;globalBindings localScoping="toplevel"/&gt;
-                                        &lt;bindings
-                                        schemaLocation="${spring.integration.xsd}"&gt;
-                                            &lt;bindings multiple="true" node="//xsd:attribute[@name='expression']"&gt;
-                                                &lt;property name="strExpression"/&gt;
-                                            &lt;/bindings&gt;
-                                            &lt;bindings node="//xsd:group[@name='chain-elements-group']//xsd:element[@name='chain']"&gt;
-                                                &lt;class name="ChainElement"/&gt;
-                                            &lt;/bindings&gt;
-                                            &lt;bindings node="//xsd:element[@name='gateway']//xsd:element[@name='method']"&gt;
-                                                &lt;class name="GateMethod"/&gt;
-                                            &lt;/bindings&gt;
-                                            &lt;bindings node="//xsd:complexType[@name='enricher-type']//xsd:element[@name='header']"&gt;
-                                                &lt;class name="EnricherHeader"/&gt;
-                                            &lt;/bindings&gt;
-                                            &lt;bindings node="//xsd:schema/xsd:element[@name='chain']"&gt;
-                                                &lt;class name="RootChain"/&gt;
-                                            &lt;/bindings&gt;
-                                            &lt;bindings node="/xsd:schema/xsd:complexType[@name='channelInterceptorsType']//xsd:element[@name='ref']/xsd:complexType"&gt;
-                                                &lt;class name="InterceptorReference"/&gt;
-                                            &lt;/bindings&gt;
-                                            &lt;bindings node="/xsd:schema/xsd:complexType[@name='adviceChainType']//xsd:element[@name='ref']/xsd:complexType"&gt;
-                                                &lt;class name="ChainReference"/&gt;
-                                            &lt;/bindings&gt;
-                                            &lt;bindings node="/xsd:schema/xsd:complexType[@name='handlerAdviceChainType']//xsd:element[@name='ref']/xsd:complexType"&gt;
-                                                &lt;class name="HandlerChainReference"/&gt;
-                                            &lt;/bindings&gt;
-                                            &lt;bindings node="/xsd:schema/xsd:element[@name='publishing-interceptor']//xsd:element[@name='header']/xsd:complexType"&gt;
-                                            &lt;class name="PublishingInterceptorHeader"/&gt;
-                                                &lt;/bindings&gt;
-                                            &lt;bindings node="/xsd:schema/xsd:element[@name='publishing-interceptor']//xsd:element[@name='method']/xsd:complexType"&gt;
-                                                &lt;class name="PublishingInterceptorMethod"/&gt;
-                                            &lt;/bindings&gt;
-                                        &lt;/bindings&gt;
-                                    &lt;/bindings&gt;
-                                </echo>
+                                <copy file="${binding.spring.integration.template}" tofile="${binding.dir}/${binding.spring.integration.file}" overwrite="true">
+                                    <filterchain>
+                                        <replacetokens>
+                                            <token key="token" value="${spring.integration.xsd}"/>
+                                        </replacetokens>
+                                    </filterchain>
+                                </copy>
+                                <loadfile property="beans" srcFile="${binding.dir}/${binding.spring.integration.file}"/>
+                                <echo level="debug">${beans}</echo>
 
                                 <echo message="================================================" level="debug"/>
                                 <echo message="================================================" level="debug"/>
@@ -227,18 +188,15 @@ SYSTEM "http://www.springframework.org/schema/integration/spring-integration-${s
                                 <echo message="================================================" level="debug"/>
                                 <echo message="================================================" level="debug"/>
 
-                                <echo file="${binding.integration.jms.file}">
-                                    &lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
-                                    &lt;bindings
-                                    version="2.1"
-                                    xmlns="http://java.sun.com/xml/ns/jaxb"
-                                    xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-                                        &lt;globalBindings localScoping="toplevel"/&gt;
-                                        &lt;bindings
-                                            schemaLocation="${spring.integration.jms.xsd}"&gt;
-                                        &lt;/bindings&gt;
-                                    &lt;/bindings&gt;
-                                </echo>
+                                <copy file="${binding.spring.integration.jms.template}" tofile="${binding.dir}/${binding.spring.integration.jms.file}" overwrite="true">
+                                    <filterchain>
+                                        <replacetokens>
+                                            <token key="token" value="${spring.integration.jms.xsd}"/>
+                                        </replacetokens>
+                                    </filterchain>
+                                </copy>
+                                <loadfile property="beans" srcFile="${binding.dir}/${binding.spring.integration.jms.file}"/>
+                                <echo level="debug">${beans}</echo>
                             </tasks>
                         </configuration>
                     </execution>
@@ -263,7 +221,6 @@ SYSTEM "http://www.springframework.org/schema/integration/spring-integration-${s
                             <generatePackage>generated.springframework.beans</generatePackage>
                             <bindings>
                                 <binding>
-                                    <!--<url>${module.basedir}/src/xjc/binding/spring-beans.xjb</url>-->
                                     <url>${module.basedir}/${binding.dir}/${binding.spring.beans.file}</url>
                                 </binding>
                             </bindings>

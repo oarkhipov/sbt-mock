@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                                    <bindings
+                                    version="2.1"
+                                    xmlns="http://java.sun.com/xml/ns/jaxb"
+                                    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                                        <globalBindings localScoping="toplevel"/>
+                                        <bindings
+                                        schemaLocation="@token@">
+                                            <bindings multiple="true" node="//xsd:attribute[@name='expression']">
+                                                <property name="strExpression"/>
+                                            </bindings>
+                                            <bindings node="//xsd:group[@name='chain-elements-group']//xsd:element[@name='chain']">
+                                                <class name="ChainElement"/>
+                                            </bindings>
+                                            <bindings node="//xsd:element[@name='gateway']//xsd:element[@name='method']">
+                                                <class name="GateMethod"/>
+                                            </bindings>
+                                            <bindings node="//xsd:complexType[@name='enricher-type']//xsd:element[@name='header']">
+                                                <class name="EnricherHeader"/>
+                                            </bindings>
+                                            <bindings node="//xsd:schema/xsd:element[@name='chain']">
+                                                <class name="RootChain"/>
+                                            </bindings>
+                                            <bindings node="/xsd:schema/xsd:complexType[@name='channelInterceptorsType']//xsd:element[@name='ref']/xsd:complexType">
+                                                <class name="InterceptorReference"/>
+                                            </bindings>
+                                            <bindings node="/xsd:schema/xsd:complexType[@name='adviceChainType']//xsd:element[@name='ref']/xsd:complexType">
+                                                <class name="ChainReference"/>
+                                            </bindings>
+                                            <bindings node="/xsd:schema/xsd:complexType[@name='handlerAdviceChainType']//xsd:element[@name='ref']/xsd:complexType">
+                                                <class name="HandlerChainReference"/>
+                                            </bindings>
+                                            <bindings node="/xsd:schema/xsd:element[@name='publishing-interceptor']//xsd:element[@name='header']/xsd:complexType">
+                                            <class name="PublishingInterceptorHeader"/>
+                                                </bindings>
+                                            <bindings node="/xsd:schema/xsd:element[@name='publishing-interceptor']//xsd:element[@name='method']/xsd:complexType">
+                                                <class name="PublishingInterceptorMethod"/>
+                                            </bindings>
+                                        </bindings>
+                                    </bindings>
