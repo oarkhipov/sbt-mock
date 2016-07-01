@@ -12,6 +12,27 @@
     <artifactId>context-generator</artifactId>
     <version>${parent.version}.${build.number}.${release.name}</version>
 
+    <properties>
+        <!-- MAVEN sources of xsd -->
+        <spring.bean.xsd>
+            maven:org.springframework:spring-beans:::${spring.version}!/org/springframework/beans/factory/xml/spring-beans-${spring.bean.xsd.version}.xsd
+        </spring.bean.xsd>
+        <spring.integration.xsd>
+            maven:org.springframework.integration:spring-integration-core:::${spring-integration.version}!/org/springframework/integration/config/xml/spring-integration-${spring.integration.xsd.version}.xsd
+        </spring.integration.xsd>
+        <spring.integration.jms.xsd>
+            maven:org.springframework.integration:spring-integration-jms:::${spring-integration.version}!/org/springframework/integration/jms/config/spring-integration-jms-${spring.integration.xsd.version}.xsd</spring.integration.jms.xsd>
+        <!-- directories -->
+        <xjb.dir>src/xjc</xjb.dir>
+        <binding.dir>${xjb.dir}/binding</binding.dir>
+        <catalog.dir>${xjb.dir}/catalogs</catalog.dir>
+        <!-- bindings files -->
+        <catalog.file.name>catalog.cat</catalog.file.name>
+        <binding.spring.beans.file>spring-beans.xjb</binding.spring.beans.file>
+        <binding.spring.integration.file>spring-integration.xjb</binding.spring.integration.file>
+        <binding.spring.integration.jms.file>spring-integration-jms.xjb</binding.spring.integration.jms.file>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.integration</groupId>
@@ -67,11 +88,163 @@
                             </regexPropertySettings>
                         </configuration>
                     </execution>
-                    <execution>
+                </executions>
+            </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <id>mkdir-xjc</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <tasks>
+                                <mkdir dir="${xjb.dir}"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>generate-catalog.cat-file</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <tasks>
+                                <mkdir dir="${catalog.dir}"/>
+                                <property name="catalog.file" value="${catalog.dir}/${catalog.file.name}"/>
+
+                                <echo message="================================================" level="debug"/>
+                                <echo message="================================================" level="debug"/>
+                                <echo message="Creating ${catalog.file.name}" level="debug"/>
+                                <echo message="================================================" level="debug"/>
+                                <echo message="================================================" level="debug"/>
+
+                                <echo file="${catalog.file}">PUBLIC "http://www.springframework.org/schema/integration" "${spring.integration.xsd}"
+PUBLIC "http://www.springframework.org/schema/beans" "${spring.bean.xsd}"
+SYSTEM "http://www.springframework.org/schema/integration/spring-integration-${spring.integration.xsd.version}.xsd" "${spring.integration.xsd}"</echo>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-bindings</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <tasks>
+                                <mkdir dir="${binding.dir}"/>
+                                <property name="binding.beans.file" value="${binding.dir}/${binding.spring.beans.file}"/>
+                                <property name="binding.integration.file" value="${binding.dir}/${binding.spring.integration.file}"/>
+                                <property name="binding.integration.jms.file" value="${binding.dir}/${binding.spring.integration.jms.file}"/>
+
+                                <echo message="================================================" level="debug"/>
+                                <echo message="================================================" level="debug"/>
+                                <echo message="Creating ${binding.spring.beans.file}" level="debug"/>
+                                <echo message="================================================" level="debug"/>
+                                <echo message="================================================" level="debug"/>
+
+                                <echo file="${binding.beans.file}">
+                                    &lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+                                    &lt;bindings
+                                            version="2.1"
+                                            xmlns="http://java.sun.com/xml/ns/jaxb"
+                                            xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+                                        &lt;bindings
+                                                    schemaLocation="${spring.bean.xsd}"&gt;
+                                            &lt;bindings node="//xsd:element[@name='ref']"&gt;
+                                                &lt;property name="beanRef"/&gt;
+                                            &lt;/bindings&gt;
+                                            &lt;bindings node="//xsd:element[@name='value']"&gt;
+                                                &lt;property name="beanValue"/&gt;
+                                            &lt;/bindings&gt;
+                                            &lt;bindings node="//xsd:element[@name='key']"&gt;
+                                                &lt;property name="beanKey"/&gt;
+                                            &lt;/bindings&gt;
+                                        &lt;/bindings&gt;
+                                    &lt;/bindings&gt;
+                                </echo>
+
+                                <echo message="================================================" level="debug"/>
+                                <echo message="================================================" level="debug"/>
+                                <echo message="Creating ${binding.spring.integration.file}" level="debug"/>
+                                <echo message="================================================" level="debug"/>
+                                <echo message="================================================" level="debug"/>
+
+                                <echo file="${binding.integration.file}">
+                                    &lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+                                    &lt;bindings
+                                    version="2.1"
+                                    xmlns="http://java.sun.com/xml/ns/jaxb"
+                                    xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+                                        &lt;globalBindings localScoping="toplevel"/&gt;
+                                        &lt;bindings
+                                        schemaLocation="${spring.integration.xsd}"&gt;
+                                            &lt;bindings multiple="true" node="//xsd:attribute[@name='expression']"&gt;
+                                                &lt;property name="strExpression"/&gt;
+                                            &lt;/bindings&gt;
+                                            &lt;bindings node="//xsd:group[@name='chain-elements-group']//xsd:element[@name='chain']"&gt;
+                                                &lt;class name="ChainElement"/&gt;
+                                            &lt;/bindings&gt;
+                                            &lt;bindings node="//xsd:element[@name='gateway']//xsd:element[@name='method']"&gt;
+                                                &lt;class name="GateMethod"/&gt;
+                                            &lt;/bindings&gt;
+                                            &lt;bindings node="//xsd:complexType[@name='enricher-type']//xsd:element[@name='header']"&gt;
+                                                &lt;class name="EnricherHeader"/&gt;
+                                            &lt;/bindings&gt;
+                                            &lt;bindings node="//xsd:schema/xsd:element[@name='chain']"&gt;
+                                                &lt;class name="RootChain"/&gt;
+                                            &lt;/bindings&gt;
+                                            &lt;bindings node="/xsd:schema/xsd:complexType[@name='channelInterceptorsType']//xsd:element[@name='ref']/xsd:complexType"&gt;
+                                                &lt;class name="InterceptorReference"/&gt;
+                                            &lt;/bindings&gt;
+                                            &lt;bindings node="/xsd:schema/xsd:complexType[@name='adviceChainType']//xsd:element[@name='ref']/xsd:complexType"&gt;
+                                                &lt;class name="ChainReference"/&gt;
+                                            &lt;/bindings&gt;
+                                            &lt;bindings node="/xsd:schema/xsd:complexType[@name='handlerAdviceChainType']//xsd:element[@name='ref']/xsd:complexType"&gt;
+                                                &lt;class name="HandlerChainReference"/&gt;
+                                            &lt;/bindings&gt;
+                                            &lt;bindings node="/xsd:schema/xsd:element[@name='publishing-interceptor']//xsd:element[@name='header']/xsd:complexType"&gt;
+                                            &lt;class name="PublishingInterceptorHeader"/&gt;
+                                                &lt;/bindings&gt;
+                                            &lt;bindings node="/xsd:schema/xsd:element[@name='publishing-interceptor']//xsd:element[@name='method']/xsd:complexType"&gt;
+                                                &lt;class name="PublishingInterceptorMethod"/&gt;
+                                            &lt;/bindings&gt;
+                                        &lt;/bindings&gt;
+                                    &lt;/bindings&gt;
+                                </echo>
+
+                                <echo message="================================================" level="debug"/>
+                                <echo message="================================================" level="debug"/>
+                                <echo message="Creating ${binding.spring.integration.jms.file}" level="debug"/>
+                                <echo message="================================================" level="debug"/>
+                                <echo message="================================================" level="debug"/>
+
+                                <echo file="${binding.integration.jms.file}">
+                                    &lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+                                    &lt;bindings
+                                    version="2.1"
+                                    xmlns="http://java.sun.com/xml/ns/jaxb"
+                                    xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+                                        &lt;globalBindings localScoping="toplevel"/&gt;
+                                        &lt;bindings
+                                            schemaLocation="${spring.integration.jms.xsd}"&gt;
+                                        &lt;/bindings&gt;
+                                    &lt;/bindings&gt;
+                                </echo>
+                            </tasks>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>
                 <artifactId>maven-jaxb2-plugin</artifactId>
@@ -90,13 +263,13 @@
                             <generatePackage>generated.springframework.beans</generatePackage>
                             <bindings>
                                 <binding>
-                                    <!--<url>D:/repositories/Mock/mock-context-generator/src/xjc/binding/spring-beans.xjb</url>-->
-                                    <url>${module.basedir}/src/xjc/binding/spring-beans.xjb</url>
+                                    <!--<url>${module.basedir}/src/xjc/binding/spring-beans.xjb</url>-->
+                                    <url>${module.basedir}/${binding.dir}/${binding.spring.beans.file}</url>
                                 </binding>
                             </bindings>
                             <schemas>
                                 <schema>
-                                    <url>maven:org.springframework:spring-beans:::${spring.version}!/org/springframework/beans/factory/xml/spring-beans-${spring.bean.xsd.version}.xsd</url>
+                                    <url>${spring.bean.xsd}</url>
                                 </schema>
                             </schemas>
                         </configuration>
@@ -110,12 +283,13 @@
                         <configuration>
                             <strict>false</strict>
                             <episode>true</episode>
-                            <episodeFile>${module.basedir}/target/generated-sources/META-INF/intcore.episode</episodeFile>
+                            <episodeFile>${module.basedir}/target/generated-sources/META-INF/intcore.episode
+                            </episodeFile>
                             <catalog>src/xjc/catalogs/catalog.cat</catalog>
                             <generatePackage>generated.springframework.integration</generatePackage>
                             <bindings>
                                 <binding>
-                                    <url>${module.basedir}/src/xjc/binding/spring-integration.xjb</url>
+                                    <url>${module.basedir}/${binding.dir}/${binding.spring.integration.file}</url>
                                 </binding>
                             </bindings>
                             <args>
@@ -125,7 +299,7 @@
                             </args>
                             <schemas>
                                 <schema>
-                                    <url>maven:org.springframework.integration:spring-integration-core:::${spring-integration.version}!/org/springframework/integration/config/xml/spring-integration-${spring.integration.xsd.version}.xsd</url>
+                                    <url>${spring.integration.xsd}</url>
                                 </schema>
                             </schemas>
                         </configuration>
@@ -139,12 +313,13 @@
                         <configuration>
                             <strict>false</strict>
                             <episode>true</episode>
-                            <episodeFile>${module.basedir}/target/generated-sources/META-INF/intcore.episode</episodeFile>
+                            <episodeFile>${module.basedir}/target/generated-sources/META-INF/intcore.episode
+                            </episodeFile>
                             <catalog>src/xjc/catalogs/catalog.cat</catalog>
                             <generatePackage>generated.springframework.integration.jms</generatePackage>
                             <bindings>
                                 <binding>
-                                    <url>${module.basedir}/src/xjc/binding/spring-integration-jms.xjb</url>
+                                    <url>${module.basedir}/${binding.dir}/${binding.spring.integration.jms.file}</url>
                                 </binding>
                             </bindings>
                             <args>
@@ -156,7 +331,7 @@
                             </args>
                             <schemas>
                                 <schema>
-                                    <url>maven:org.springframework.integration:spring-integration-jms:::${spring-integration.version}!/org/springframework/integration/jms/config/spring-integration-jms-${spring.integration.xsd.version}.xsd</url>
+                                    <url>${spring.integration.jms.xsd}</url>
                                 </schema>
                             </schemas>
                         </configuration>
