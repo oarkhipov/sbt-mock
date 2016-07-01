@@ -19,7 +19,7 @@ import java.io.File;
  */
 @Slf4j
 @ContextConfiguration({"/env/mockapp-servlet-test-jndi-services.xml"})
-public class JndiNameTest extends AbstractTestNGSpringContextTests {
+public class JndiNameServiceTest extends AbstractTestNGSpringContextTests {
     @Autowired
     ApplicationContext applicationContext;
 
