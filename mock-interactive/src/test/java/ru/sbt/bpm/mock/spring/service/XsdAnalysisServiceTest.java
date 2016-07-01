@@ -26,21 +26,17 @@ public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests {
 	XsdAnalysisService xsdAnalysisService;
 
 	@Test
-	public void getXsdByxPathTest () {
-		assertEquals(assertXsdTestByxPath(), 0);
+	public void getXsdNamespaceTest () {
+		assertEquals(assertXsdNamespaceTest(), 0);
 	}
 
 	@Test
-	public void getXsdByRegExpTest () {
-		assertEquals(assertXsdByRegExp(), 0);
+	public void getElementsTest () {
+		assertEquals(assertElementsTest(), 0);
 	}
 
-	@Test
-	public void getElements () {
-		assertEquals(assertElements(), 0);
-	}
 
-	private int assertXsdByRegExp () {
+	private int assertXsdNamespaceTest () {
 		int assertSuccess = 0;
 		log.debug("==================================================");
 		log.debug("");
@@ -50,32 +46,14 @@ public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests {
 		for (ru.sbt.bpm.mock.config.entities.System system : configContainer.getConfig().getSystems().getSystems()) {
 			String systemName = system.getSystemName();
 			log.debug("Init system: " + systemName);
-			Set<String> setXsdNamespace = xsdAnalysisService.getNamespaceFromXsdByRegExpForSystem(systemName);
+			Set<String> setXsdNamespace = xsdAnalysisService.getNamespaceFromXsd(systemName);
 			for (String namespace : setXsdNamespace)
 				log.debug(String.format("Namespace: %s", namespace));
 		}
 		return assertSuccess;
 	}
 
-
-	private int assertXsdTestByxPath () {
-		int assertSuccess = 0;
-		log.debug("==================================================");
-		log.debug("");
-		log.debug("               GETTING XSD NAMESPACES");
-		log.debug("");
-		log.debug("==================================================");
-		for (ru.sbt.bpm.mock.config.entities.System system : configContainer.getConfig().getSystems().getSystems()) {
-			String systemName = system.getSystemName();
-			log.debug("Init system: " + systemName);
-			Set<String> setXsdNamespace = xsdAnalysisService.getNamespaceFromXsdByXpathForSystem(systemName);
-			for (String namespace : setXsdNamespace)
-				log.debug(String.format("Namespace: %s", namespace));
-		}
-		return assertSuccess;
-	}
-
-	private int assertElements () {
+	private int assertElementsTest () {
 		int assertFail = 0;
 
 		log.info("==================================================");
@@ -86,7 +64,7 @@ public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests {
 
 		for (ru.sbt.bpm.mock.config.entities.System system : configContainer.getConfig().getSystems().getSystems()) {
 			log.info(String.format("System name: %s", system.getSystemName()));
-			for (String namespace : xsdAnalysisService.getNamespaceFromXsdByXpathForSystem(system.getSystemName())) {
+			for (String namespace : xsdAnalysisService.getNamespaceFromXsd(system.getSystemName())) {
 				log.info(String.format("Namespace name: %s", namespace));
 				if (xsdAnalysisService.getElementsForNamespace(system.getSystemName(), namespace) != null)
 					for (String element : xsdAnalysisService.getElementsForNamespace(system.getSystemName(), namespace)) {

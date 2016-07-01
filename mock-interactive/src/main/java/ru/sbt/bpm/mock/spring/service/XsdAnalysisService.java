@@ -13,7 +13,6 @@ import ru.sbt.bpm.mock.spring.utils.XpathUtils;
 import javax.annotation.PostConstruct;
 import java.io.*;
 import java.util.*;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -36,15 +35,15 @@ public class XsdAnalysisService {
 	// xPath
 	private static final String LOCAL_NAME_SCHEMA_TARGET_NAMESPACE = "//*[local-name()='schema']/@targetNamespace";
 	private static final String LOCAL_NAME_IMPORT_NAMESPACE        = "//*[local-name()='import']/@namespace";
-	private static final String XPATH_ELEMENT_ATTRIBUTE_NAME = "//*[local-name()='element']/@name";
-	private static final String XPATH_ELEMENT_ATTRIBUTE_REF  = "//*[local-name()='element']/@ref";
+	private static final String XPATH_ELEMENT_ATTRIBUTE_NAME       = "//*[local-name()='element']/@name";
+	private static final String XPATH_ELEMENT_ATTRIBUTE_REF        = "//*[local-name()='element']/@ref";
 
 	// RegExp
 	private static final Pattern NAMESPACE_PATTERN        = Pattern.compile("xmlns:(.*?)=(\".*?\")");
 	private static final Pattern NAMESPACE_URL_PATTERN    = Pattern.compile("(http:.+)(?=\"[^\"]*$)");
 	private static final Pattern NAMESPACE_PREFIX_PATTERN = Pattern.compile("([^:]+)(?=\\=[^=]*$)");
 
-	public static final Comparator<String> STRING_COMPARATOR = new Comparator<String>() {
+	private static final Comparator<String> STRING_COMPARATOR = new Comparator<String>() {
 		@Override
 		public int compare (String o1, String o2) {
 			if (o1 == o2)
@@ -58,13 +57,11 @@ public class XsdAnalysisService {
 	};
 
 	// Maps
-	private Map<String, Set<String>> mapNamespacesByRegExp = new HashMap<String, Set<String>>();
-	private Map<String, Set<String>> mapNamespacesByXpath  = new HashMap<String, Set<String>>();
-	private Map<String, Map<String, Set<String>>> mapOfElements = new HashMap<String, Map<String, Set<String>>>();
+	private Map<String, Set<String>>              mapNamespacesByXpath  = new HashMap<String, Set<String>>();
+	private Map<String, Map<String, Set<String>>> mapOfElements         = new HashMap<String, Map<String, Set<String>>>();
 
 
 	public void reInit () throws IOException, SaxonApiException {
-		mapNamespacesByRegExp.clear();
 		mapNamespacesByXpath.clear();
 		mapOfElements.clear();
 		init();
@@ -72,20 +69,15 @@ public class XsdAnalysisService {
 
 	@PostConstruct
 	private void init () throws IOException, SaxonApiException {
-		getNamespaceFromXSDByRegExp();
 		getNamespaceFromXSDByxPath();
 		getElementsFromXsd();
 	}
 
-	public Set<String> getNamespaceFromXsdByRegExpForSystem (String systemName) {
-		return mapNamespacesByRegExp.get(systemName);
-	}
-
-	public Set<String> getNamespaceFromXsdByXpathForSystem (String systemName) {
+	public Set<String> getNamespaceFromXsd (String systemName) {
 		return mapNamespacesByXpath.get(systemName);
 	}
 
-	public Set<String> getElementsForNamespace(String systemName, String namespaceName) {
+	public Set<String> getElementsForNamespace (String systemName, String namespaceName) {
 		return mapOfElements.get(systemName).get(namespaceName);
 	}
 
@@ -111,19 +103,6 @@ public class XsdAnalysisService {
 			log.debug(String.format("Element name: %s", element));
 		}
 		return set;
-	}
-
-	private void getNamespaceFromXSDByRegExp () throws IOException {
-		Map<String, List<File>> map = getXsdFilesFromSystems();
-		for (String systemName : map.keySet()) {
-			Set<String>             setXsdNamespaces = new TreeSet<String>(STRING_COMPARATOR);
-			printLog(systemName);
-			for (File xsdFile : map.get(systemName)) {
-				log.debug("Read file: " + xsdFile.getName());
-				setXsdNamespaces.addAll(getNamespaceByRegExp(readFileWithoutBOM(xsdFile)));
-			}
-			mapNamespacesByRegExp.put(systemName, setXsdNamespaces);
-		}
 	}
 
 	private void printLog (String systemName) {
@@ -155,32 +134,8 @@ public class XsdAnalysisService {
 		return map;
 	}
 
-	/**
-	 * Получение namespace из файла xsd по xPath
-	 * @param inputXml
-	 */
-	private Set<String> getNamespaceByRegExp (String inputXml) {
-		Set<String> set = new TreeSet<String>(STRING_COMPARATOR);
-		Matcher matcherNamespace = getSubstringByRegExp(NAMESPACE_PATTERN, inputXml);
-		while (matcherNamespace.find()) {
-			Matcher matcherNamespaceURL = getSubstringByRegExp(NAMESPACE_URL_PATTERN, matcherNamespace.group());
-			while (matcherNamespaceURL.find())
-				set.add(matcherNamespaceURL.group());
-		}
-		return set;
-	}
 
-	/**
-	 * Получение подстроки по регулянорму выражению
-	 * @param pattern шаблон для получение подстроки
-	 * @param string строка, из которой проводится извлечение
-	 * @return все совпадение по шаблону
-	 */
-	private Matcher getSubstringByRegExp(Pattern pattern, String string) {
-		return pattern.matcher(string);
-	}
-
-		private void getNamespaceFromXSDByxPath () throws IOException, SaxonApiException {
+	private void getNamespaceFromXSDByxPath () throws IOException, SaxonApiException {
 		Map<String, List<File>> map = getXsdFilesFromSystems();
 		for (String systemName : map.keySet()) {
 			Set<String> setXsdNamespace = new TreeSet<String>(STRING_COMPARATOR);
