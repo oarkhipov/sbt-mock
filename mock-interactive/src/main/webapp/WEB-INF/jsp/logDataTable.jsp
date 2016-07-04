@@ -24,34 +24,32 @@
     <title>Mock Service</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/normalize.css">
-    <script src="../js/modernizr-2.6.2.min.js"></script>
-    <script src="../js/jquery-1.9.1.min.js"></script>
-    <script src="../js/jquery.cookie-1.3.1.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/normalize.css">
+    <script src="<%=request.getContextPath()%>/resources/js/modernizr-2.6.2.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/jquery-1.9.1.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/jquery.cookie-1.3.1.js"></script>
 
     <!-- Tooltip& -->
-    <link rel="stylesheet" href="../css/jquery-ui.css">
-    <script src="../js/jquery-ui.min.js"></script>
-    <script src="../js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/jquery-ui.css">
+    <script src="<%=request.getContextPath()%>/resources/js/jquery-ui.js"></script>
 
     <!-- Data Tables -->
-    <link rel="stylesheet" type="text/css" href="../css/DataTables-1.10.9/css/dataTables.jqueryui.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/DataTables-1.10.9/css/jquery.dataTables.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/DataTables-1.10.9/css/dataTables.jqueryui.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/DataTables-1.10.9/css/jquery.dataTables.css"/>
 
-    <link rel="stylesheet" type="text/css" href="../libs/bootstrap/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="../libs/bootstrap-dialog/css/bootstrap-dialog.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/libs/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/libs/bootstrap-dialog/css/bootstrap-dialog.css"/>
 
-    <script type="text/javascript" src="../js/DataTables-1.10.9/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="../js/DataTables-1.10.9/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="../js/DataTables-1.10.9/js/dataTables.jqueryui.js"></script>
-    <script type="text/javascript" src="../js/AutoFill-2.0.0/js/dataTables.autoFill.js"></script>
-    <script type="text/javascript" src="../js/AutoFill-2.0.0/js/autoFill.jqueryui.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/DataTables-1.10.9/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/DataTables-1.10.9/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/DataTables-1.10.9/js/dataTables.jqueryui.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/AutoFill-2.0.0/js/dataTables.autoFill.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/AutoFill-2.0.0/js/autoFill.jqueryui.js"></script>
 
-    <script type="text/javascript" src="../js/jquery.hoverIntent.js"></script>
-    <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.js"></script>
-    <script type="text/javascript" src="../libs/bootstrap-dialog/js/bootstrap-dialog.js"></script>
-
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery.hoverIntent.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/libs/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/libs/bootstrap-dialog/js/bootstrap-dialog.js"></script>
 
 </head>
 <body>
@@ -82,162 +80,15 @@
     }
 </style>
 <![endif]-->
-<style>
-    td {
-        word-wrap: break-word;
-    }
-
-    .glyphicon-refresh-animate {
-        -webkit-animation: spin2 .7s infinite linear;
-        -o-animation: spin .7s infinite linear;
-        animation: spin .7s infinite linear;
-    }
-
-    @-webkit-keyframes spin2 {
-        from {
-            -webkit-transform: rotate(0deg);
-        }
-        to {
-            -webkit-transform: rotate(360deg);
-        }
-    }
-
-    @keyframes spin {
-        from {
-            transform: scale(1) rotate(0deg);
-        }
-        to {
-            transform: scale(1) rotate(360deg);
-        }
-    }
-
-    .tooltip-inner {
-        max-width: 800px;
-    }
-</style>
 
 <input type="button" value="BACK" onclick="window.location.href='../'"/>
 
 <div id="tooltip" data-toggle="tooltip" data-placement="right" data-animation="false" data-trigger="manual"
-     data-html="true" title="Tooltip text" style="position:absolute;"></div>
-<script>
-    var table;
-    $(document).ready(function () {
+     data-html="true" title="Tooltip text" style="position:absolute; width: 100px"></div>
 
-        table = $('#example').DataTable({
-            "ajax": "data.web",
-            "bProcessing": true,
-            "bServerSide": true,
-            <!--"sort": "position",-->
-            //bStateSave variable you can use to save state on client cookies: set value "true"
-            "bStateSave": false,
-            //Default: Page display length
-            "iDisplayLength": 10,
-            //We will use below variable to track page number on server side(For more information visit: http://legacy.datatables.net/usage/options#iDisplayStart)
-            "iDisplayStart": 0,
-            "search": {
-                "regex": true
-            },
-            "order": [[0, "desc"]],
-            "fnDrawCallback": function () {
-                //Get page number on client. Please note: number start from 0 So
-                //for the first page you will see 0 second page 1 third page 2...
-                //Un-comment below alert to see page number
-            },
-            initComplete: function () {
-                this.api().columns().every(function () {
-                    var column = this;
-                    if (this.index() != 0) {
-                        var select = $('<select><option value=""></option></select>')
-                                .appendTo($(column.footer()).empty())
-                                .on('change', function () {
-                                    var val = $.fn.dataTable.util.escapeRegex(
-                                            $(this).val()
-                                    );
-
-                                    column
-                                            .search(val ? '^' + val + '$' : '', true, false)
-                                            .draw();
-                                });
-
-                        column.data().unique().sort().each(function (d, j) {
-                            select.append('<option value="' + d + '">' + d + '</option>')
-                        });
-                    }
-                });
-            },
-            "aoColumns": [
-                {"mData": "ts", "bSearchable": false},
-                {"mData": "protocol"},
-                {"mData": "systemName"},
-                {"mData": "integrationPointName"},
-                {"mData": "fullEndpoint"},
-                {"mData": "shortEndpoint"},
-                {"mData": "messageState"}
-            ]
-        });
-
-        var tableElement = $("#example tbody");
-
-        tableElement.on('click', 'tr', function () {
-            var row = table.row(this).data();
-            var ts = encodeURIComponent(row.ts);
-            if (ts) {
-                $.ajax({
-                    url: "../api/log/getMessage/" + ts + "/",
-                    success: function (data) {
-                        $('[data-toggle="tooltip"]').tooltip('hide');
-                        BootstrapDialog.show({
-                            title: row.systemName + " " + row.integrationPointName + " (" + row.messageState + ") message",
-                            message: data
-                        });
-                    }
-                });
-            }
-        });
-
-        $(tableElement).hoverIntent({
-            over: showTooltip,
-            out: hideTooltip,
-            selector: 'tr',
-            interval: 200
-        });
-        function showTooltip() {
-            tooltipVisible = true;
-            var tooltip = $("#tooltip");
-            var data = table.row(this).data();
-            var ts = encodeURIComponent(data.ts);
-            if (ts && (ts != tooltip.attr("data-ts"))) {
-                tooltip.attr('title', '<span class="glyphicon-refresh-animate glyphicon-refresh glyphicon"></span> Loading...')
-                        .attr('data-original-title', '<span class="glyphicon-refresh-animate glyphicon-refresh glyphicon"></span> Loading...')
-                        .attr('data-ts', ts);
-                $.ajax({
-                    url: "../api/log/getMessage/" + ts + "/",
-                    success: function (data) {
-                        tooltip.attr('title', data)
-                                .attr('data-original-title', data);
-                        $('[data-toggle="tooltip"]').tooltip('show')
-                    }
-                });
-            }
-        }
-
-        function hideTooltip() {
-            tooltipVisible = false;
-            $('[data-toggle="tooltip"]').tooltip('hide')
-        }
-
-        tableElement.on('mousemove', 'tr', function (e) {
-            var tooltip = $("#tooltip");
-            tooltip.css({top: e.pageY, left: e.pageX + 5});
-            if  (tooltipVisible) {
-                $('[data-toggle="tooltip"]').tooltip('show')
-            }
-
-        });
-
-    });
-</script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/libs/ace/ace.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/logDataTable.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/vkbeautify.0.99.00.beta.js"></script>
 <table style="border: 3px;background: rgb(243, 244, 248); width: 800px">
     <tr>
         <td>

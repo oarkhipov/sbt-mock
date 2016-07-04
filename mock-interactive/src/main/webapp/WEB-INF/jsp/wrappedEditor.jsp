@@ -19,40 +19,40 @@
     <title>Mock Service</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/jquery.steps.css">
-    <script src="../js/modernizr-2.6.2.min.js"></script>
-    <script src="../js/jquery-1.9.1.min.js"></script>
-    <script src="../js/jquery.cookie-1.3.1.js"></script>
-    <script src="../js/jquery.steps.min.js"></script>
-    <script src="../js/jquery.history.js"></script>
-    <script src="../js/attrs.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/normalize.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/jquery.steps.css">
+    <script src="<%=request.getContextPath()%>/resources/js/modernizr-2.6.2.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/jquery-1.9.1.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/jquery.cookie-1.3.1.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/jquery.steps.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/jquery.history.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/attrs.js"></script>
 
     <%-- editor pre-load to fix editor display bug, when first time loaded--%>
-    <link rel="stylesheet" href="../css/codemirror/codemirror.css">
-    <script src="../js/codemirror/codemirror.js"></script>
-    <script src="../js/codemirror/show-hint.js"></script>
-    <link rel="stylesheet" href="../css/codemirror/show-hint.css">
-    <script src="../js/codemirror/closetag.js"></script>
-    <script src="../js/codemirror/xml-hint.js"></script>
-    <script src="../js/codemirror/xml.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/codemirror/codemirror.css">
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/codemirror.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/show-hint.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/codemirror/show-hint.css">
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/closetag.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/xml-hint.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/xml.js"></script>
     <%--Folding--%>
-    <link rel="stylesheet" href="../css/codemirror/foldgutter.css">
-    <script src="../js/codemirror/brace-fold.js"></script>
-    <script src="../js/codemirror/comment-fold.js"></script>
-    <script src="../js/codemirror/foldcode.js"></script>
-    <script src="../js/codemirror/foldgutter.js"></script>
-    <script src="../js/codemirror/markdown-fold.js"></script>
-    <script src="../js/codemirror/xml-fold.js"></script>
-    <script src="../js/codemirror/formatting.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/codemirror/foldgutter.css">
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/brace-fold.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/comment-fold.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/foldcode.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/foldgutter.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/markdown-fold.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/xml-fold.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/formatting.js"></script>
 
-    <link rel="stylesheet" href="../css/editor.css">
-    <link rel="stylesheet" href="../css/docs.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/editor.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/docs.css">
 
     <%--Tooltip--%>
-    <link rel="stylesheet" href="../css/jquery-ui.css">
-    <script src="../js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/jquery-ui.css">
+    <script src="<%=request.getContextPath()%>/resources/js/jquery-ui.js"></script>
 
     <style type="text/css">.CodeMirror {
         border: 1px solid #eee;
@@ -164,8 +164,8 @@
             });
         });
     </script>
-    <script src="../js/editor.js"></script>
-    <script src="../js/editor_sender.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/editor.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/editor_sender.js"></script>
 
 </div>
 </body>

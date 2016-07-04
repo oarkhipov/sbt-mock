@@ -114,9 +114,9 @@
 </form>
 <div id="htmlConverter" style="display: none"></div>
 
-<script src="js/editor.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/editor.js"></script>
 <c:if test="${link=='driver'}">
-    <script src="js/editor_driver.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/editor_driver.js"></script>
 </c:if>
 <style>
     <%--resize tabs--%>

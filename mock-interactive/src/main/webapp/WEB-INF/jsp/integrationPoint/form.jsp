@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Modify integration point</title>
-    <script src="../../js/jquery-1.9.1.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/jquery-1.9.1.min.js"></script>
 </head>
 <body>
 <form method="post">

@@ -18,41 +18,45 @@
     <title>Mock Service</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/jquery.steps.css">
-    <script src="js/modernizr-2.6.2.min.js"></script>
-    <script src="js/jquery-1.9.1.min.js"></script>
-    <script src="js/jquery.cookie-1.3.1.js"></script>
-    <script src="js/jquery.steps.min.js"></script>
-    <script src="js/jquery.history.js"></script>
-    <script src="js/attrs.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/normalize.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/jquery.steps.css">
+    <script src="<%=request.getContextPath()%>/resources/js/modernizr-2.6.2.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/jquery-1.9.1.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/jquery.cookie-1.3.1.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/jquery.steps.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/jquery.history.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/attrs.js"></script>
 
     <%-- editor pre-load to fix editor display bug, when first time loaded--%>
-    <link rel="stylesheet" href="css/codemirror/codemirror.css">
-    <script src="js/codemirror/codemirror.js"></script>
-    <script src="js/codemirror/show-hint.js"></script>
-    <link rel="stylesheet" href="css/codemirror/show-hint.css">
-    <script src="js/codemirror/closetag.js"></script>
-    <script src="js/codemirror/xml-hint.js"></script>
-    <script src="js/codemirror/xml.js"></script>
-    <script src="js/codemirror/groovy.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/codemirror/codemirror.css">
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/codemirror.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/show-hint.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/codemirror/show-hint.css">
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/closetag.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/xml-hint.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/xml.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/groovy.js"></script>
     <%--Folding--%>
-    <link rel="stylesheet" href="css/codemirror/foldgutter.css">
-    <script src="js/codemirror/brace-fold.js"></script>
-    <script src="js/codemirror/comment-fold.js"></script>
-    <script src="js/codemirror/foldcode.js"></script>
-    <script src="js/codemirror/foldgutter.js"></script>
-    <script src="js/codemirror/markdown-fold.js"></script>
-    <script src="js/codemirror/xml-fold.js"></script>
-    <script src="js/codemirror/formatting.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/codemirror/foldgutter.css">
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/brace-fold.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/comment-fold.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/foldcode.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/foldgutter.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/markdown-fold.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/xml-fold.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/codemirror/formatting.js"></script>
 
-    <link rel="stylesheet" href="css/editor.css">
-    <link rel="stylesheet" href="css/docs.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/editor.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/docs.css">
 
     <%--Tooltip--%>
-    <link rel="stylesheet" href="css/jquery-ui.css">
-    <script src="js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/jquery-ui.css">
+    <script src="<%=request.getContextPath()%>/resources/js/jquery-ui.js"></script>
+
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/libs/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/libs/bootstrap/css/bootstrap-theme.css">
+    <script src="<%=request.getContextPath()%>/resources/libs/bootstrap/js/bootstrap.js"></script>
 </head>
 <body>
 <!--[if lt IE 7]>
@@ -62,47 +66,117 @@
 <![endif]-->
 
 <div class="content">
-    <script src="js/stepForm.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/stepForm.js"></script>
     <div id="mock">
         <div id="wizard">
             <h2>Integration point</h2>
             <section>
-                <input type="button" value="Add System" style="display: inline;" onclick="systemForm()">
-                <input type="button" value="Edit System" style="display: inline;">
-                <input type="button" value="Add Integration point" style="display: inline" onclick="addIpForm()"/>
-
                 <div id="dialog"></div>
-                <%--<input type="button" value="BACK" onclick="window.location.href='../'"/>--%>
-                <span style="line-height: 5pt; display: block">&nbsp;</span>
-                <select size="25" onclick="chooseIntPoint(this)">
-                    <%--Systems--%>
-                    <c:forEach var="system" items="${list.systems}">
-                        <optgroup label="${system.systemName}">
-                                <%--Mocks--%>
-                            <c:if test="${not empty system.mockIntegrationPoints}">
-                                <optgroup label="└ mocks">
+                <div align="right">
+                    <button class="btn btn-success btn-sm" onclick="systemForm()">
+                        <span class="glyphicon glyphicon-plus"></span> Add System
+                    </button>
+                    <span style="line-height: 5pt; display: block">&nbsp;</span>
+
+                    <div class="panel panel-default" style="margin-bottom: 5pt">
+                        <div class="panel-body">
+                            <table class="table-striped" width="100%">
+                                <tr>
+                                    <th width="10%">System name</th>
+                                    <th width="50"></th>
+                                    <th width="*">Integration point name</th>
+                                    <th width="10%" style="text-align: right">Actions</th>
+                                </tr>
+                                <c:forEach var="system" items="${list.systems}">
+                                    <tr>
+                                        <td <%--rowspan="${system.mockIntegrationPoints.size() + system.driverIntegrationPoints.size() + 1}"--%>
+                                            style="vertical-align: top; text-align: center; padding-top: 10px">
+                                            <c:out value="${system.systemName}"/></td>
+                                        <td colspan="2">&nbsp;</td>
+                                        <td align="right">
+                                            <div class="dropdown" style="margin-top: 5px; margin-bottom: 5px">
+                                                <button id="dropdownMenu_${system.systemName}"
+                                                        class="btn btn-xs btn-default"
+                                                        type="button"
+                                                        data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                <span class="glyphicon glyphicon-menu-hamburger"
+                                                      aria-hidden="true"></span>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-right"
+                                                    aria-labelledby="dropdownMenu_${system.systemName}">
+                                                    <li><a href="#" onclick="addIpForm()">Add integration point</a></li>
+                                                    <li><a href="#">Upload schema</a></li>
+                                                    <li><a href="#">Update Validator</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="#">Edit System</a></li>
+                                                    <li><a href="#">Delete System</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     <c:forEach var="mockIntegrationPoint" items="${system.mockIntegrationPoints}">
-                                        <option value="${system.systemName}__mock__${mockIntegrationPoint.name}">
-                                            └ ${mockIntegrationPoint.name}</option>
+                                        <tr>
+                                            <td align="right">
+                                                <span class="glyphicon glyphicon-menu-right" style="opacity: 0.6"></span>
+                                            </td>
+                                            <td align="center">
+                                                <span class="label label-success">Mock</span>
+                                            </td>
+                                            <td>
+                                                <a href="#" onclick="chooseIntPoint('${system.systemName}__mock__${mockIntegrationPoint.name}'); return false;">
+                                                <c:out value="${mockIntegrationPoint.name}"/></a>
+                                            </td>
+                                            <td align="right" style="padding-right: 30px">
+                                                <button class="btn btn-default btn-xs btn-warning">
+                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                </button>
+                                                <button class="btn btn-xs btn-danger">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                </button>
+                                            </td>
+                                        </tr>
                                     </c:forEach>
-                                </optgroup>
-                            </c:if>
-                                <%--Drivers--%>
-                            <c:if test="${not empty system.driverIntegrationPoints}">
-                                <optgroup label="└ drivers">
                                     <c:forEach var="driverIntegrationPoint" items="${system.driverIntegrationPoints}">
-                                        <option value="${system.systemName}__driver__${driverIntegrationPoint.name}">
-                                            └ ${driverIntegrationPoint.name}</option>
+                                        <tr>
+                                            <td align="right">
+                                                <span class="glyphicon glyphicon-menu-right" style="opacity: 0.6"></span>
+                                            </td>
+                                            <td align="center">
+                                                <span class="label label-primary">Driver</span>
+                                            </td>
+                                            <td>
+                                                <a href="#" onclick="chooseIntPoint('${system.systemName}__driver__${driverIntegrationPoint.name}'); return false;">
+                                                ${driverIntegrationPoint.name}</a>
+                                            </td>
+                                            <td align="right" style="padding-right: 30px">
+                                                <button class="btn btn-default btn-xs btn-warning">
+                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                </button>
+                                                <button class="btn btn-xs btn-danger">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                </button>
+                                            </td>
+                                        </tr>
                                     </c:forEach>
-                                </optgroup>
-                            </c:if>
-                        </optgroup>
-                    </c:forEach>
-                </select>
-                <br/>
-                <input type="button" value="Show config" style="display: inline;" onclick="window.location.href='config/'">
-                <input type="button" value="Export" style="display: inline;" onclick="window.location.href='config/export/'">
-                <input type="button" value="Import" style="display: inline" onclick="importForm()"/>
+                                </c:forEach>
+                            </table>
+                        </div>
+                    </div>
+                    <button class="btn btn-default btn-sm" onclick="window.location.href='<%=request.getContextPath()%>/config/'">
+                        <span class="glyphicon glyphicon-list"></span> Show config
+                    </button>
+                    <button class="btn btn-default btn-sm" onclick="window.location.href='<%=request.getContextPath()%>/config/export/'">
+                        <span class="glyphicon glyphicon-cloud-download"></span> Export
+                    </button>
+                    <button class="btn btn-default btn-sm" onclick="importForm()">
+                        <span class="glyphicon glyphicon-cloud-upload"></span> Import
+                    </button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-info btn-sm" onclick="window.location.href='log/'">
+                        <span class="glyphicon glyphicon-list-alt"></span> Show Logs
+                    </button>
+                </div>
             </section>
         </div>
     </div>
