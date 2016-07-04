@@ -398,3 +398,9 @@ td {
     max-width: 800px !important;
     white-space: pre-wrap;
 }
+
+#mainMenu {
+    position: absolute;
+    right: 15px;
+    bottom: 5px;
+}

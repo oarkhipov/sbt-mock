@@ -27,6 +27,7 @@
     <script src="<%=request.getContextPath()%>/resources/js/jquery.steps.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/js/jquery.history.js"></script>
     <script src="<%=request.getContextPath()%>/resources/js/attrs.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/base64.js"></script>
 
     <%-- editor pre-load to fix editor display bug, when first time loaded--%>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/codemirror/codemirror.css">
@@ -57,6 +58,9 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/libs/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/libs/bootstrap/css/bootstrap-theme.css">
     <script src="<%=request.getContextPath()%>/resources/libs/bootstrap/js/bootstrap.js"></script>
+
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/libs/bootstrap-dialog/js/bootstrap-dialog.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/libs/bootstrap-dialog/css/bootstrap-dialog.css"/>
 </head>
 <body>
 <!--[if lt IE 7]>
@@ -90,7 +94,7 @@
                                 <c:forEach var="system" items="${list.systems}">
                                     <tr>
                                         <td <%--rowspan="${system.mockIntegrationPoints.size() + system.driverIntegrationPoints.size() + 1}"--%>
-                                            style="vertical-align: top; text-align: center; padding-top: 10px">
+                                                style="vertical-align: top; text-align: center; padding-top: 10px">
                                             <c:out value="${system.systemName}"/></td>
                                         <td colspan="2">&nbsp;</td>
                                         <td align="right">
@@ -118,14 +122,16 @@
                                     <c:forEach var="mockIntegrationPoint" items="${system.mockIntegrationPoints}">
                                         <tr>
                                             <td align="right">
-                                                <span class="glyphicon glyphicon-menu-right" style="opacity: 0.6"></span>
+                                                <span class="glyphicon glyphicon-menu-right"
+                                                      style="opacity: 0.6"></span>
                                             </td>
                                             <td align="center">
                                                 <span class="label label-success">Mock</span>
                                             </td>
                                             <td>
-                                                <a href="#" onclick="chooseIntPoint('${system.systemName}__mock__${mockIntegrationPoint.name}'); return false;">
-                                                <c:out value="${mockIntegrationPoint.name}"/></a>
+                                                <a href="#"
+                                                   onclick="chooseIntPoint('${system.systemName}__mock__${mockIntegrationPoint.name}'); return false;">
+                                                    <c:out value="${mockIntegrationPoint.name}"/></a>
                                             </td>
                                             <td align="right" style="padding-right: 30px">
                                                 <button class="btn btn-default btn-xs btn-warning">
@@ -140,14 +146,16 @@
                                     <c:forEach var="driverIntegrationPoint" items="${system.driverIntegrationPoints}">
                                         <tr>
                                             <td align="right">
-                                                <span class="glyphicon glyphicon-menu-right" style="opacity: 0.6"></span>
+                                                <span class="glyphicon glyphicon-menu-right"
+                                                      style="opacity: 0.6"></span>
                                             </td>
                                             <td align="center">
                                                 <span class="label label-primary">Driver</span>
                                             </td>
                                             <td>
-                                                <a href="#" onclick="chooseIntPoint('${system.systemName}__driver__${driverIntegrationPoint.name}'); return false;">
-                                                ${driverIntegrationPoint.name}</a>
+                                                <a href="#"
+                                                   onclick="chooseIntPoint('${system.systemName}__driver__${driverIntegrationPoint.name}'); return false;">
+                                                        ${driverIntegrationPoint.name}</a>
                                             </td>
                                             <td align="right" style="padding-right: 30px">
                                                 <button class="btn btn-default btn-xs btn-warning">
@@ -163,22 +171,45 @@
                             </table>
                         </div>
                     </div>
-                    <button class="btn btn-default btn-sm" onclick="window.location.href='<%=request.getContextPath()%>/config/'">
+                    <button class="btn btn-default btn-sm"
+                            onclick="window.location.href='<%=request.getContextPath()%>/config/'">
                         <span class="glyphicon glyphicon-list"></span> Show config
                     </button>
-                    <button class="btn btn-default btn-sm" onclick="window.location.href='<%=request.getContextPath()%>/config/export/'">
+                    <button class="btn btn-default btn-sm"
+                            onclick="window.location.href='<%=request.getContextPath()%>/config/export/'">
                         <span class="glyphicon glyphicon-cloud-download"></span> Export
                     </button>
                     <button class="btn btn-default btn-sm" onclick="importForm()">
                         <span class="glyphicon glyphicon-cloud-upload"></span> Import
                     </button>
                     &nbsp;&nbsp;
+                    <button class="btn btn-default btn-sm" onclick="window.location.href='FrameMock/'">
+                        <span class="glyphicon glyphicon-modal-window"></span> FrameMock
+                    </button>
                     <button class="btn btn-info btn-sm" onclick="window.location.href='log/'">
                         <span class="glyphicon glyphicon-list-alt"></span> Show Logs
                     </button>
                 </div>
             </section>
         </div>
+    </div>
+</div>
+
+<div id="mainMenu">
+    <div class="dropup" style="margin-top: 5px; margin-bottom: 5px">
+        <button id="dropdownMenu_main"
+                class="btn btn-xs btn-default"
+                type="button"
+                data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
+            <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right"
+            aria-labelledby="dropdownMenu_main">
+            <li><a href="#">Validate all integration points</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#"><span class="glyphicon glyphicon-copyright-mark"></span> Copyright</a></li>
+        </ul>
     </div>
 </div>
 </body>

@@ -57,7 +57,7 @@ public class LogService {
         Sort joinedSort = SortUtils.allOf(sorts);
         Predicate joinedPredicate = ExpressionUtils.allOf(predicates);
         PageRequest pageRequest = new PageRequest(page, pageSize, joinedSort);
-        log.info("Search rows with predicate: " + joinedPredicate);
+        log.debug("Search rows with predicate: " + joinedPredicate);
         return Tuple.of(logRepository.findAll(joinedPredicate, pageRequest).getContent(), logRepository.count(joinedPredicate));
     }
 
