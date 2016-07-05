@@ -4,6 +4,7 @@ import generated.springframework.beans.ConstructorArg;
 import generated.springframework.beans.Import;
 import generated.springframework.beans.PropertyType;
 import org.springframework.stereotype.Service;
+import reactor.tuple.Tuple2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Map;
 /**
  * Created by sbt-hodakovskiy-da on 05.07.2016.
  */
-
+// TODO зарефакторить всё на один большой метод, который будет всегда возвращать beans не нужные параметры передаются либо null, либо пустота
 @Service
 public class BeansConstructor implements IContextGeneratable  {
 
@@ -36,9 +37,8 @@ public class BeansConstructor implements IContextGeneratable  {
 		return beans;
 	}
 
-	public generated.springframework.beans.Beans createBean(generated.springframework.beans.Beans beans, String className, String id, List<String> constructorArgValues) {
-		beans.getImportOrAliasOrBean().add(createBean(className, id, createListConstructorArg((String[])
-				                                                                                      constructorArgValues.toArray()), new ArrayList<PropertyType>()));
+	public generated.springframework.beans.Beans createBean(generated.springframework.beans.Beans beans, String className, String id, List<Tuple2<String, String>> constructorArgValues) {
+		beans.getImportOrAliasOrBean().add(createBean(className, id, createListConstructorArg(constructorArgValues), new ArrayList<PropertyType>()));
 		return beans;
 	}
 
@@ -65,16 +65,18 @@ public class BeansConstructor implements IContextGeneratable  {
 		return resource;
 	}
 
-	private List<generated.springframework.beans.ConstructorArg> createListConstructorArg (String... values) {
+	private List<generated.springframework.beans.ConstructorArg> createListConstructorArg (List<Tuple2<String, String>> values) {
 		List<generated.springframework.beans.ConstructorArg> args = new ArrayList<ConstructorArg>();
-		for (String value : values)
-			args.add(createConstructorAgr(value));
+		for (Tuple2<String, String> value : values)
+			args.add(createConstructorAgr(value.getT1(), value.getT2()));
 		return args;
 	}
 
-	private generated.springframework.beans.ConstructorArg createConstructorAgr(String value) {
+	private generated.springframework.beans.ConstructorArg createConstructorAgr(String value, String type) {
 		generated.springframework.beans.ConstructorArg arg = beanFactory.createConstructorArg();
 		arg.setValue(value);
+		if (type != null && !type.isEmpty())
+			arg.setType(type);
 		return arg;
 	}
 
@@ -102,13 +104,13 @@ public class BeansConstructor implements IContextGeneratable  {
 	 */
 	private generated.springframework.beans.Bean createBean(String className, String id, List<generated.springframework.beans.ConstructorArg> args, List<generated.springframework.beans.PropertyType> properties) {
 		generated.springframework.beans.Bean bean = beanFactory.createBean();
-		if (className != null)
-			bean.setClazz(className);
-		if (id != null)
+		if (id != null && !id.isEmpty())
 			bean.setId(id);
-		if (!args.isEmpty())
+		if (className != null && !className.isEmpty())
+			bean.setClazz(className);
+		if (args != null && !args.isEmpty())
 			bean.getMetaOrConstructorArgOrProperty().addAll(args);
-		if (!properties.isEmpty())
+		if (properties != null && !properties.isEmpty())
 			bean.getMetaOrConstructorArgOrProperty().addAll(properties);
 		return bean;
 	}
