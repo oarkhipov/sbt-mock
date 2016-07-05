@@ -28,18 +28,18 @@ public class BeansConstructor implements IContextGeneratable  {
 		return beans;
 	}
 
-	public generated.springframework.beans.Beans cteateBean(generated.springframework.beans.Beans beans, String className, String id) {
+	public generated.springframework.beans.Beans createBean(generated.springframework.beans.Beans beans, String className, String id) {
 		beans.getImportOrAliasOrBean().add(createBean(className, id, null, null));
 		return beans;
 	}
 
-	public generated.springframework.beans.Beans cteateBean(generated.springframework.beans.Beans beans, String className, String id, List<String> constructorArgValues) {
+	public generated.springframework.beans.Beans createBean(generated.springframework.beans.Beans beans, String className, String id, List<String> constructorArgValues) {
 		beans.getImportOrAliasOrBean().add(createBean(className, id, createListConstructorArg((String[])
 				                                                                                      constructorArgValues.toArray()), null));
 		return beans;
 	}
 
-	public generated.springframework.beans.Beans cteateBean(generated.springframework.beans.Beans beans, String className,String id, Map<String, String> properties) {
+	public generated.springframework.beans.Beans createBean(generated.springframework.beans.Beans beans, String className,String id, Map<String, String> properties) {
 		beans.getImportOrAliasOrBean().add(createBean(className, id, null, createProperties(properties)));
 		return beans;
 	}
