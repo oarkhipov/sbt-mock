@@ -2,7 +2,7 @@ package ru.sbt.bpm.mock.context.generator;
 
 import generated.springframework.beans.ConstructorArg;
 import generated.springframework.beans.PropertyType;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by sbt-hodakovskiy-da on 05.07.2016.
  */
 
-@Slf4j
+@Service
 public class BeansConstructor implements IContextGeneratable  {
 
 	/**
@@ -90,5 +90,9 @@ public class BeansConstructor implements IContextGeneratable  {
 		if (!properties.isEmpty())
 			bean.getMetaOrConstructorArgOrProperty().addAll(properties);
 		return bean;
+	}
+
+	public generated.springframework.beans.ObjectFactory getBeansFactory() {
+		return beanFactory;
 	}
 }
