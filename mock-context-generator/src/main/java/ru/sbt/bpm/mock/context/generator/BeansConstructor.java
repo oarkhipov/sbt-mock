@@ -1,6 +1,5 @@
-package ru.sbt.bpm.mock.context.generator.bean;
+package ru.sbt.bpm.mock.context.generator;
 
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -8,19 +7,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 
 @Slf4j
-public class BeansConstructor {
-
-	@Getter
-	private generated.springframework.beans.ObjectFactory beanFactory = new generated.springframework.beans
-			.ObjectFactory();
-
-	@Getter
-	private generated.springframework.integration.ObjectFactory integrationFactory = new generated.springframework
-			.integration.ObjectFactory();
-
-	@Getter
-	private generated.springframework.integration.jms.ObjectFactory jmsFactory = new generated.springframework
-			.integration.jms.ObjectFactory();
+public class BeansConstructor implements IContextGeneratable  {
 
 	/**
 	 * Создание beans
@@ -83,6 +70,4 @@ public class BeansConstructor {
 			bean.getMetaOrConstructorArgOrProperty().add(property);
 		return bean;
 	}
-
-
 }
