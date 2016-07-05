@@ -1,6 +1,7 @@
 package ru.sbt.bpm.mock.context.generator;
 
 import generated.springframework.beans.ConstructorArg;
+import generated.springframework.beans.Import;
 import generated.springframework.beans.PropertyType;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,24 @@ public class BeansConstructor implements IContextGeneratable  {
 	public generated.springframework.beans.Beans createBean(generated.springframework.beans.Beans beans, String className,String id, Map<String, String> properties) {
 		beans.getImportOrAliasOrBean().add(createBean(className, id, null, createProperties(properties)));
 		return beans;
+	}
+
+	public generated.springframework.beans.Beans createImports(generated.springframework.beans.Beans beans, List<String> imports) {
+		beans.getImportOrAliasOrBean().addAll(createListImports((String[]) imports.toArray()));
+		return beans;
+	}
+
+	private List<generated.springframework.beans.Import> createListImports(String... imports) {
+		List<generated.springframework.beans.Import> listImports = new ArrayList<Import>();
+		for (String importName : imports)
+			listImports.add(createImport(importName));
+		return listImports;
+	}
+
+	private generated.springframework.beans.Import createImport (String importValue) {
+		generated.springframework.beans.Import resource = beanFactory.createImport();
+		resource.setResource(importValue);
+		return resource;
 	}
 
 	private List<generated.springframework.beans.ConstructorArg> createListConstructorArg (String... values) {
