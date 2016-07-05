@@ -25,23 +25,25 @@ public class BeansConstructor implements IContextGeneratable  {
 	}
 
 	public generated.springframework.beans.Beans createBean(generated.springframework.beans.Beans beans, String className) {
-		beans.getImportOrAliasOrBean().add(createBean(className, null, null, null));
+		beans.getImportOrAliasOrBean().add(createBean(className, null, new ArrayList<ConstructorArg>(), new ArrayList
+				<PropertyType>()));
 		return beans;
 	}
 
 	public generated.springframework.beans.Beans createBean(generated.springframework.beans.Beans beans, String className, String id) {
-		beans.getImportOrAliasOrBean().add(createBean(className, id, null, null));
+		beans.getImportOrAliasOrBean().add(createBean(className, id, new ArrayList<ConstructorArg>(), new ArrayList
+				<PropertyType>()));
 		return beans;
 	}
 
 	public generated.springframework.beans.Beans createBean(generated.springframework.beans.Beans beans, String className, String id, List<String> constructorArgValues) {
 		beans.getImportOrAliasOrBean().add(createBean(className, id, createListConstructorArg((String[])
-				                                                                                      constructorArgValues.toArray()), null));
+				                                                                                      constructorArgValues.toArray()), new ArrayList<PropertyType>()));
 		return beans;
 	}
 
 	public generated.springframework.beans.Beans createBean(generated.springframework.beans.Beans beans, String className,String id, Map<String, String> properties) {
-		beans.getImportOrAliasOrBean().add(createBean(className, id, null, createProperties(properties)));
+		beans.getImportOrAliasOrBean().add(createBean(className, id, new ArrayList<ConstructorArg>(), createProperties(properties)));
 		return beans;
 	}
 

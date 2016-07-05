@@ -59,6 +59,25 @@ public class BeansConstructorTest {
 		assert compareResults(expected, beans) == 0;
 	}
 
+	@Test
+	public void testCreateBeanWithClassName() throws JAXBException {
+		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><beans "
+		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
+		                  + ".springframework.org/schema/beans/spring-beans.xsd\n"
+		                  + "        http://www.springframework.org/schema/integration    http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd\n"
+		                  + "        http://www.springframework.org/schema/integration http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd\n"
+		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
+		                  + ".springframework.org/schema/beans\" xmlns:xsi=\"http://www.w3"
+		                  + ".org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\"/></beans>";
+		Beans beans = beansConstructor.createBeans();
+		beans = beansConstructor.createBean(beans, "java.lang.String");
+		assert compareResults(expected, beans) == 0;
+	}
+
+
 	private Marshaller createMarshaller(Class... classes) throws JAXBException {
 		Marshaller marshaller = JAXBContext.newInstance(classes).createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION,"http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans.xsd\n" +
