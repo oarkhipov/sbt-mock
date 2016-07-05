@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.ElementSelector;
 import ru.sbt.bpm.mock.config.entities.System;
@@ -11,6 +12,7 @@ import ru.sbt.bpm.mock.config.entities.Systems;
 import ru.sbt.bpm.mock.config.entities.XpathSelector;
 import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
+import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,40 +31,51 @@ public class SystemController {
     @Autowired
     DataFileService dataFileService;
 
+    @Autowired
+    MessageValidationService validationService;
+
     @RequestMapping(value = "/system/add/", method = RequestMethod.GET)
     public String add(Model model) {
         model.addAttribute("system", new System());
         return "system/form";
     }
 
-    @ResponseBody
     @RequestMapping(value = "/system/add/", method = RequestMethod.POST)
     public String add(@RequestParam String name,
                       @RequestParam Protocol protocol,
-                      @RequestParam String remoteRootSchema,
-                      @RequestParam String localRootSchema,
-                      @RequestParam(value = "integrationPointSelectorNamespace[]") String[] integrationPointSelectorNamespace,
-                      @RequestParam(value = "integrationPointSelectorElementName[]") String[] integrationPointSelectorElementName,
+                      @RequestParam String rootSchema,
+                      @RequestParam(value = "integrationPointSelectorNamespace[]", required = false) String[] integrationPointSelectorNamespace,
+                      @RequestParam(value = "integrationPointSelectorElementName[]", required = false) String[] integrationPointSelectorElementName,
                       @RequestParam(required = false) String queueConnectionFactory,
                       @RequestParam(required = false) String mockIncomeQueue,
                       @RequestParam(required = false) String mockOutcomeQueue,
                       @RequestParam(required = false) String driverOutcomeQueue,
                       @RequestParam(required = false) String driverIncomeQueue,
                       @RequestParam(required = false) String driverWebServiceEndpoint,
-                      @RequestParam(value = "rootElementNamespace") String rootElementNamespace,
-                      @RequestParam(value = "rootElementName") String rootElementName) {
+                      @RequestParam(value = "rootElementNamespace", required = false) String rootElementNamespace,
+                      @RequestParam(value = "rootElementName", required = false) String rootElementName) throws IOException, SAXException {
         Systems systems = configContainer.getConfig().getSystems();
-        XpathSelector xpathSelector = new XpathSelector(integrationPointSelectorNamespace, integrationPointSelectorElementName);
+        XpathSelector xpathSelector = null;
+        if(integrationPointSelectorNamespace != null && integrationPointSelectorElementName != null) {
+            xpathSelector = new XpathSelector(integrationPointSelectorNamespace, integrationPointSelectorElementName);
+        }
         ElementSelector rootElement = new ElementSelector(rootElementNamespace, rootElementName);
 
-        System system = new System(name, remoteRootSchema, localRootSchema, xpathSelector, protocol, queueConnectionFactory, mockIncomeQueue,
+        String localRootSchema = "";
+        String rootSchemaLowerCase = rootSchema.toLowerCase();
+        if(!rootSchemaLowerCase.startsWith("http://") && !rootSchemaLowerCase.startsWith("ftp://")) {
+            localRootSchema = rootSchema;
+        }
+
+        System system = new System(name, rootSchema, localRootSchema, xpathSelector, protocol, queueConnectionFactory, mockIncomeQueue,
                 mockOutcomeQueue, driverOutcomeQueue, driverIncomeQueue, driverWebServiceEndpoint, rootElement, null);
 
         if (systems.getSystems() == null) {
             systems.setSystems(new ArrayList<System>());
         }
         systems.getSystems().add(system);
-        return "OK";
+        validationService.reinitValidator(name);
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/system/update/{system}/", method = RequestMethod.GET)
@@ -75,7 +88,6 @@ public class SystemController {
         return "system/form";
     }
 
-    @ResponseBody
     @RequestMapping(value = "/system/update/{systemName}/", method = RequestMethod.POST)
     public String update(@PathVariable String systemName,
                          @RequestParam(value = "name") String newSystemName,
@@ -89,7 +101,7 @@ public class SystemController {
                          @RequestParam(required = false) String mockOutcomeQueue,
                          @RequestParam(required = false) String driverOutcomeQueue,
                          @RequestParam(required = false) String driverIncomeQueue,
-                         @RequestParam(required = false) String driverWebServiceEndpoint) throws IOException {
+                         @RequestParam(required = false) String driverWebServiceEndpoint) throws IOException, SAXException {
 
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(systemName);
 
@@ -155,7 +167,8 @@ public class SystemController {
             }
         }
 
-        return "OK";
+        validationService.reinitValidator(systemName);
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/system/delete/{system}/", method = RequestMethod.GET)

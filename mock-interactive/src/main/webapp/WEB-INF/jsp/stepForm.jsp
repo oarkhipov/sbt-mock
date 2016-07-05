@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/normalize.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/jquery.steps.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/animate.css">
     <script src="<%=request.getContextPath()%>/resources/js/modernizr-2.6.2.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/js/jquery-1.9.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/js/jquery.cookie-1.3.1.js"></script>
@@ -59,8 +60,10 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/libs/bootstrap/css/bootstrap-theme.css">
     <script src="<%=request.getContextPath()%>/resources/libs/bootstrap/js/bootstrap.js"></script>
 
-    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/libs/bootstrap-dialog/js/bootstrap-dialog.js"></script>
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/libs/bootstrap-dialog/css/bootstrap-dialog.css"/>
+    <script type="text/javascript"
+            src="<%=request.getContextPath()%>/resources/libs/bootstrap-dialog/js/bootstrap-dialog.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="<%=request.getContextPath()%>/resources/libs/bootstrap-dialog/css/bootstrap-dialog.css"/>
 </head>
 <body>
 <!--[if lt IE 7]>
@@ -93,8 +96,7 @@
                                 </tr>
                                 <c:forEach var="system" items="${list.systems}">
                                     <tr>
-                                        <td <%--rowspan="${system.mockIntegrationPoints.size() + system.driverIntegrationPoints.size() + 1}"--%>
-                                                style="vertical-align: top; text-align: center; padding-top: 10px">
+                                        <td style="vertical-align: top; text-align: center; padding-top: 10px">
                                             <c:out value="${system.systemName}"/></td>
                                         <td colspan="2">&nbsp;</td>
                                         <td align="right">
@@ -134,12 +136,15 @@
                                                     <c:out value="${mockIntegrationPoint.name}"/></a>
                                             </td>
                                             <td align="right" style="padding-right: 30px">
-                                                <button class="btn btn-default btn-xs btn-warning">
-                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                </button>
-                                                <button class="btn btn-xs btn-danger">
-                                                    <span class="glyphicon glyphicon-trash"></span>
-                                                </button>
+                                                <div class="editActions">
+                                                    <button class="btn btn-default btn-xs btn-warning">
+                                                        <span class="glyphicon glyphicon-pencil"
+                                                              aria-hidden="true"></span>
+                                                    </button>
+                                                    <button class="btn btn-xs btn-danger">
+                                                        <span class="glyphicon glyphicon-trash"></span>
+                                                    </button>
+                                                </div>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -158,12 +163,15 @@
                                                         ${driverIntegrationPoint.name}</a>
                                             </td>
                                             <td align="right" style="padding-right: 30px">
-                                                <button class="btn btn-default btn-xs btn-warning">
-                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                </button>
-                                                <button class="btn btn-xs btn-danger">
-                                                    <span class="glyphicon glyphicon-trash"></span>
-                                                </button>
+                                                <div class="editActions">
+                                                    <button class="btn btn-default btn-xs btn-warning">
+                                                        <span class="glyphicon glyphicon-pencil"
+                                                              aria-hidden="true"></span>
+                                                    </button>
+                                                    <button class="btn btn-xs btn-danger">
+                                                        <span class="glyphicon glyphicon-trash"></span>
+                                                    </button>
+                                                </div>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -206,6 +214,8 @@
         </button>
         <ul class="dropdown-menu dropdown-menu-right"
             aria-labelledby="dropdownMenu_main">
+            <li id="editingEnabler"><a href="#"><span>Enable</span> editing</a></li>
+            <li><a href="#">Update all validators</a></li>
             <li><a href="#">Validate all integration points</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#"><span class="glyphicon glyphicon-copyright-mark"></span> Copyright</a></li>
