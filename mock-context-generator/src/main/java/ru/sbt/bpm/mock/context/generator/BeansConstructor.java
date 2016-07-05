@@ -1,6 +1,12 @@
 package ru.sbt.bpm.mock.context.generator;
 
+import generated.springframework.beans.ConstructorArg;
+import generated.springframework.beans.PropertyType;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by sbt-hodakovskiy-da on 05.07.2016.
@@ -11,7 +17,7 @@ public class BeansConstructor implements IContextGeneratable  {
 
 	/**
 	 * Создание beans
-	 * @return
+	 * @return beans
 	 */
 	public generated.springframework.beans.Beans createBeans() {
 		return beanFactory.createBeans();
@@ -27,20 +33,35 @@ public class BeansConstructor implements IContextGeneratable  {
 		return beans;
 	}
 
-	public generated.springframework.beans.Beans cteateBean(generated.springframework.beans.Beans beans, String className, String id, String constructorArgValue) {
-		beans.getImportOrAliasOrBean().add(createBean(className, id, createConstructorArg(constructorArgValue), null));
+	public generated.springframework.beans.Beans cteateBean(generated.springframework.beans.Beans beans, String className, String id, List<String> constructorArgValues) {
+		beans.getImportOrAliasOrBean().add(createBean(className, id, createListConstructorArg((String[])
+				                                                                                      constructorArgValues.toArray()), null));
 		return beans;
 	}
 
-	public generated.springframework.beans.Beans cteateBean(generated.springframework.beans.Beans beans, String className, String id, String propertyName, String propertyValue) {
-		beans.getImportOrAliasOrBean().add(createBean(className, id, null, createProperty(propertyName, propertyValue)));
+	public generated.springframework.beans.Beans cteateBean(generated.springframework.beans.Beans beans, String className,String id, Map<String, String> properties) {
+		beans.getImportOrAliasOrBean().add(createBean(className, id, null, createProperties(properties)));
 		return beans;
 	}
 
-	private generated.springframework.beans.ConstructorArg createConstructorArg(String value) {
+	private List<generated.springframework.beans.ConstructorArg> createListConstructorArg (String... values) {
+		List<generated.springframework.beans.ConstructorArg> args = new ArrayList<ConstructorArg>();
+		for (String value : values)
+			args.add(createConstructorAgr(value));
+		return args;
+	}
+
+	private generated.springframework.beans.ConstructorArg createConstructorAgr(String value) {
 		generated.springframework.beans.ConstructorArg arg = beanFactory.createConstructorArg();
 		arg.setValue(value);
 		return arg;
+	}
+
+	private List<generated.springframework.beans.PropertyType> createProperties(Map<String, String> properties) {
+		List<generated.springframework.beans.PropertyType> listProperties = new ArrayList<PropertyType>();
+		for (String propertyName : properties.keySet())
+			listProperties.add(createProperty(propertyName, properties.get(propertyName)));
+		return listProperties;
 	}
 
 	private generated.springframework.beans.PropertyType createProperty(String propertyName, String propertyValue) {
@@ -54,20 +75,20 @@ public class BeansConstructor implements IContextGeneratable  {
 	 * Создание bean
 	 * @param className
 	 * @param id
-	 * @param arg
-	 * @param property
+	 * @param args
+	 * @param properties
 	 * @return
 	 */
-	private generated.springframework.beans.Bean createBean(String className, String id, generated.springframework.beans.ConstructorArg arg, generated.springframework.beans.PropertyType property) {
+	private generated.springframework.beans.Bean createBean(String className, String id, List<generated.springframework.beans.ConstructorArg> args, List<generated.springframework.beans.PropertyType> properties) {
 		generated.springframework.beans.Bean bean = beanFactory.createBean();
 		if (className != null)
 			bean.setClazz(className);
 		if (id != null)
 			bean.setId(id);
-		if (arg != null)
-			bean.getMetaOrConstructorArgOrProperty().add(arg);
-		if (property != null)
-			bean.getMetaOrConstructorArgOrProperty().add(property);
+		if (!args.isEmpty())
+			bean.getMetaOrConstructorArgOrProperty().addAll(args);
+		if (!properties.isEmpty())
+			bean.getMetaOrConstructorArgOrProperty().addAll(properties);
 		return bean;
 	}
 }
