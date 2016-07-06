@@ -11,6 +11,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * Created by sbt-hodakovskiy-da on 05.07.2016.
@@ -191,15 +192,40 @@ public class BeansConstructorTest {
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
 		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
 		                  + ".springframework.org/schema/beans\" xmlns:xsi=\"http://www.w3"
-		                  + ".org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\"><constructor-arg "
-		                  + "type=\"java.lang.String\" value=\"jms/Q.APKKB\"/><constructor-arg type=\"java.lang"
-		                  + ".String\" value=\"jms/ESB.APKKB.OUT\"/><constructor-arg type=\"java.lang.String\" "
-		                  + "value=\"jms/ESB.APKKB.IN\"/></bean></beans>";
+		                  + ".org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\" "
+		                  + "id=\"connectionFactoryString\"><property name=\"prop1\" value=\"value1\"/></bean></beans>";
 		Beans beans = beansConstructor.createBeans();
 		beans = beansConstructor.createBean(beans, "java.lang.String", "connectionFactoryString", new HashMap<String,
 				String>() {
 			{
 				put("prop1", "value1");
+			}
+		});
+		assert compareResults(expected, beans) == 0;
+	}
+
+	@Test
+	public void testCreateBeanWithProperties() throws JAXBException {
+		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><beans "
+		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
+		                  + ".springframework.org/schema/beans/spring-beans.xsd\n"
+		                  + "        http://www.springframework.org/schema/integration    http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd\n"
+		                  + "        http://www.springframework.org/schema/integration http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd\n"
+		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
+		                  + ".springframework.org/schema/beans\" xmlns:xsi=\"http://www.w3"
+		                  + ".org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\" "
+		                  + "id=\"connectionFactoryString\"><property name=\"prop1\" value=\"value1\"/>"
+		                  + "<property name=\"prop2\" value=\"value2\"/><property name=\"prop3\" value=\"value3\"/></bean></beans>";
+		Beans beans = beansConstructor.createBeans();
+		beans = beansConstructor.createBean(beans, "java.lang.String", "connectionFactoryString", new LinkedHashMap<String,
+						String>() {
+			{
+				put("prop1", "value1");
+				put("prop2", "value2");
+				put("prop3", "value3");
 			}
 		});
 		assert compareResults(expected, beans) == 0;

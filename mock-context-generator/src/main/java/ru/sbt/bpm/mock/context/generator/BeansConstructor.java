@@ -8,6 +8,7 @@ import lombok.NonNull;
 import org.springframework.stereotype.Service;
 import reactor.tuple.Tuple2;
 
+import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,6 @@ import java.util.Map;
 /**
  * Created by sbt-hodakovskiy-da on 05.07.2016.
  */
-// TODO зарефакторить всё на один большой метод, который будет всегда возвращать beans не нужные параметры передаются либо null, либо пустота
 @Service
 public class BeansConstructor implements IContextGeneratable  {
 
@@ -98,7 +98,6 @@ public class BeansConstructor implements IContextGeneratable  {
 	 * @param properties
 	 * @return
 	 */
-	// FIXME Исправить создание свойств
 	public generated.springframework.beans.Beans createBean(generated.springframework.beans.Beans beans, String className,String id, Map<String, String> properties) {
 		return createBean(beans, className, id, new ArrayList<Tuple2<String, String>>(), properties);
 	}
@@ -171,24 +170,28 @@ public class BeansConstructor implements IContextGeneratable  {
 	 * @param properties Map свойств
 	 * @return
 	 */
-	private List<generated.springframework.beans.PropertyType> createProperties(Map<String, String> properties) {
-		List<generated.springframework.beans.PropertyType> listProperties = new ArrayList<PropertyType>();
+	private List<JAXBElement<PropertyType>> createProperties(Map<String, String> properties) {
+		List<JAXBElement<PropertyType>> listProperties = new ArrayList<JAXBElement<PropertyType>>();
 		for (String propertyName : properties.keySet())
-			listProperties.add(createProperty(propertyName, properties.get(propertyName)));
+			listProperties.add(createProperty(createPropertyType(propertyName, properties.get(propertyName))));
 		return listProperties;
 	}
 
+	private JAXBElement<PropertyType> createProperty(generated.springframework.beans.PropertyType propertyType) {
+		return beanFactory.createProperty(propertyType);
+	}
+
 	/**
-	 * <property name="" value=""/>
+	 * Создание PropertyType
 	 * @param propertyName - имя свойства
 	 * @param propertyValue - значение свойства
 	 * @return
 	 */
-	private generated.springframework.beans.PropertyType createProperty(String propertyName, String propertyValue) {
-		generated.springframework.beans.PropertyType property = beanFactory.createPropertyType();
-		property.setName(propertyName);
-		property.setValue(propertyValue);
-		return property;
+	private generated.springframework.beans.PropertyType createPropertyType(String propertyName, String propertyValue) {
+		generated.springframework.beans.PropertyType propertyType = beanFactory.createPropertyType();
+		propertyType.setName(propertyName);
+		propertyType.setValue(propertyValue);
+		return propertyType;
 	}
 
 	/**
@@ -223,7 +226,7 @@ public class BeansConstructor implements IContextGeneratable  {
 	 * @param properties - свойства
 	 * @return возвщается объект bean
 	 */
-	private generated.springframework.beans.Bean createBean(String className, String id, List<generated.springframework.beans.ConstructorArg> args, List<generated.springframework.beans.PropertyType> properties) {
+	private generated.springframework.beans.Bean createBean(String className, String id, List<generated.springframework.beans.ConstructorArg> args, List<JAXBElement<PropertyType>> properties) {
 		generated.springframework.beans.Bean bean = beanFactory.createBean();
 		if (id != null && !id.isEmpty())
 			bean.setId(id);
