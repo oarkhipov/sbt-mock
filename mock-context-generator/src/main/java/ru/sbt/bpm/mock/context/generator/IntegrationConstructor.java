@@ -1,5 +1,11 @@
 package ru.sbt.bpm.mock.context.generator;
 
+import generated.springframework.integration.WireTap;
+import lombok.NonNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by sbt-hodakovskiy-da on 05.07.2016.
  */
@@ -7,5 +13,113 @@ package ru.sbt.bpm.mock.context.generator;
 public class IntegrationConstructor implements IContextGeneratable {
 
 
+	/**
+	 * <channel id="">
+	 *     <interceptors>
+	 *         <wire-tap channel=""/>
+	 *         <wire-tap channel=""/>
+	 *     </interceptors>
+	 * </channel>
+	 * @param beans
+	 * @param channelId
+	 * @return
+	 */
+	public generated.springframework.beans.Beans createChannel(generated.springframework.beans.Beans beans, String channelId) {
+		return createChannelPrivate(beans, channelId, new ArrayList<String>());
+	}
 
+	/**
+	 * <channel id="">
+	 *     <interceptors>
+	 *         <wire-tap channel=""/>
+	 *         <wire-tap channel=""/>
+	 *     </interceptors>
+	 * </channel>
+	 * @param beans
+	 * @param channelId
+	 * @param wireTapChannels
+	 * @return
+	 */
+	public generated.springframework.beans.Beans createChannel(generated.springframework.beans.Beans beans, String channelId, List<String> wireTapChannels) {
+		return createChannelPrivate(beans, channelId, wireTapChannels);
+	}
+
+
+
+	/**
+	 * <channel id="">
+	 *     <interceptors>
+	 *         <wire-tap channel=""/>
+	 *         <wire-tap channel=""/>
+	 *     </interceptors>
+	 * </channel>
+	 * @param beans
+	 * @param channelId
+	 * @param wireTapChannels
+	 * @return
+	 */
+	private generated.springframework.beans.Beans createChannelPrivate(generated.springframework.beans.Beans beans, String channelId, List<String> wireTapChannels) {
+		beans.getImportOrAliasOrBean().add(createChannel(channelId, wireTapChannels));
+		return beans;
+	}
+
+	/**
+	 * <wire-tap channel=""/>
+	 * @param wireTapChannel
+	 * @return
+	 */
+	private generated.springframework.integration.WireTap createWireTap (String wireTapChannel) {
+		generated.springframework.integration.WireTap wireTap = integrationFactory.createWireTap();
+		wireTap.setChannel(wireTapChannel);
+		return wireTap;
+	}
+
+	/**
+	 * Список wire-tap
+	 * @param wireTapChannels
+	 * @return
+	 */
+	private List<generated.springframework.integration.WireTap> createListWireTap(List<String> wireTapChannels) {
+		List<generated.springframework.integration.WireTap> listWireTap = new ArrayList<WireTap>();
+		for (String wireTapChannel : wireTapChannels)
+			listWireTap.add(createWireTap(wireTapChannel));
+		return listWireTap;
+	}
+
+	/**
+	 * <interceptors>
+	 *     <wire-tap channel=""/>
+	 *     <wire-tap channel=""/>
+	 * </interceptors>
+	 * @param wireTapChannels
+	 * @return
+	 */
+	private generated.springframework.integration.ChannelInterceptorsType createInterceptorsType(List<String> wireTapChannels) {
+		generated.springframework.integration.ChannelInterceptorsType interceptorsType = integrationFactory.createChannelInterceptorsType();
+		interceptorsType.getRefOrWireTapOrAny().addAll(createListWireTap(wireTapChannels));
+		return interceptorsType;
+	}
+
+	/**
+	 * <channel id="">
+	 *     <interceptors>
+	 *         <wire-tap channel=""/>
+	 *         <wire-tap channel=""/>
+	 *     </interceptors>
+	 * </channel>
+	 * @param channelId
+	 * @param wireTapChannels
+	 * @return
+	 */
+	private generated.springframework.integration.Channel createChannel(@NonNull String channelId, List<String> wireTapChannels) {
+		generated.springframework.integration.Channel channel = integrationFactory.createChannel();
+		channel.setId(channelId);
+		if (wireTapChannels != null && !wireTapChannels.isEmpty())
+			channel.setInterceptors(createInterceptorsType(wireTapChannels));
+		return channel;
+	}
+
+	public generated.springframework.integration.ObjectFactory getIntegrationFactory() {
+		return integrationFactory;
+	}
 }

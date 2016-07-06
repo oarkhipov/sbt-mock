@@ -6,4 +6,8 @@ package ru.sbt.bpm.mock.context.generator;
 
 public class JmsIntegrationConstructor implements IContextGeneratable {
 
+	public generated.springframework.integration.jms.ObjectFactory getIntegrationFactory() {
+		return jmsFactory;
+	}
+
 }

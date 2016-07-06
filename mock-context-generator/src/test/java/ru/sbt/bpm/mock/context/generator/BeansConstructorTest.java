@@ -33,7 +33,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + ".springframework.org/schema/beans\" xmlns:xsi=\"http://www.w3"
 		                  + ".org/2001/XMLSchema-instance\"/>";
 
-		assert compareResults(expected, beans) == 0;
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass()) == 0;
 	}
 
 	@Test
@@ -55,7 +55,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		beans = beansConstructor.createImports(beans, Arrays.asList("../contextConfigs/base-config.xml",
 		                                                            "../contextConfigs/logging-config.xml",
 		                                                            "../contextConfigs/test-import1.xml"));
-		assert compareResults(expected, beans) == 0;
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass()) == 0;
 	}
 
 	@Test
@@ -73,7 +73,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + ".org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\"/></beans>";
 		Beans beans = beansConstructor.createBeans();
 		beans = beansConstructor.createBean(beans, "java.lang.String");
-		assert compareResults(expected, beans) == 0;
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass()) == 0;
 	}
 
 	@Test
@@ -92,7 +92,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + "id=\"connectionFactoryString\"/></beans>";
 		Beans beans = beansConstructor.createBeans();
 		beans = beansConstructor.createBean(beans, "java.lang.String", "connectionFactoryString");
-		assert compareResults(expected, beans) == 0;
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass()) == 0;
 	}
 
 	@Test
@@ -111,7 +111,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + "id=\"connectionFactoryString\"><constructor-arg value=\"jms/Q.APKKB\"/></bean></beans>";
 		Beans beans = beansConstructor.createBeans();
 		beans = beansConstructor.createBean(beans, "java.lang.String", "connectionFactoryString", Arrays.asList(Tuple.of("jms/Q.APKKB", "")));
-		assert compareResults(expected, beans) == 0;
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass()) == 0;
 	}
 
 	@Test
@@ -131,7 +131,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + "value=\"jms/ESB.APKKB.OUT\"/><constructor-arg value=\"jms/ESB.APKKB.IN\"/></bean></beans>";
 		Beans beans = beansConstructor.createBeans();
 		beans = beansConstructor.createBean(beans, "java.lang.String", "connectionFactoryString", Arrays.asList(Tuple.of("jms/Q.APKKB", ""), Tuple.of("jms/ESB.APKKB.OUT", ""), Tuple.of("jms/ESB.APKKB.IN", "")));
-		assert compareResults(expected, beans) == 0;
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass()) == 0;
 	}
 
 	@Test
@@ -152,7 +152,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + "value=\"jms/ESB.APKKB.IN\"/></bean></beans>";
 		Beans beans = beansConstructor.createBeans();
 		beans = beansConstructor.createBean(beans, "java.lang.String", "", Arrays.asList(Tuple.of("jms/Q.APKKB", "java.lang.String"), Tuple.of("jms/ESB.APKKB.OUT", "java.lang.String"), Tuple.of("jms/ESB.APKKB.IN", "java.lang.String")));
-		assert compareResults(expected, beans) == 0;
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass()) == 0;
 	}
 
 	@Test
@@ -173,7 +173,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + "value=\"jms/ESB.APKKB.IN\"/></bean></beans>";
 		Beans beans = beansConstructor.createBeans();
 		beans = beansConstructor.createBean(beans, "java.lang.String", Arrays.asList(Tuple.of("jms/Q.APKKB", "java.lang.String"), Tuple.of("jms/ESB.APKKB.OUT", "java.lang.String"), Tuple.of("jms/ESB.APKKB.IN", "java.lang.String")));
-		assert compareResults(expected, beans) == 0;
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass()) == 0;
 	}
 
 	@Test
@@ -197,7 +197,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 				put("prop1", "value1");
 			}
 		});
-		assert compareResults(expected, beans) == 0;
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass()) == 0;
 	}
 
 	@Test
@@ -224,6 +224,6 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 				put("prop3", "value3");
 			}
 		});
-		assert compareResults(expected, beans) == 0;
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass()) == 0;
 	}
 }

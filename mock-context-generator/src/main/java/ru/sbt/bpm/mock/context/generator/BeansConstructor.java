@@ -243,4 +243,8 @@ public class BeansConstructor implements IContextGeneratable  {
 			bean.getMetaOrConstructorArgOrProperty().addAll(properties);
 		return bean;
 	}
+
+	public generated.springframework.beans.ObjectFactory getBeanFactory() {
+		return beanFactory;
+	}
 }

@@ -30,8 +30,9 @@ public abstract class AbstractConfigGenerator {
 		System.out.println("==============================================");
 	}
 
-	protected int compareResults (String expected, Beans beans) throws JAXBException {Writer writer = new StringWriter();
-		createMarshaller(beans.getClass()).marshal(beans, writer);
+	protected int compareResults (String expected, Beans beans, Class... classes) throws JAXBException {
+		Writer writer = new StringWriter();
+		createMarshaller(classes).marshal(beans, writer);
 		printActual(writer.toString());
 		return expected.compareTo(writer.toString());
 	}
