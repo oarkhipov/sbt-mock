@@ -36,6 +36,9 @@ public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests {
 		assertEquals(assertElementsTest(), 0);
 	}
 
+	@Test void getElementsForSystemTest() {
+		assertEquals(assertElementsForSystemTest(), 0);
+	}
 
 	private int assertXsdNamespaceTest () {
 		int assertSuccess = 0;
@@ -67,10 +70,26 @@ public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests {
 			log.info(String.format("System name: %s", system.getSystemName()));
 			for (String namespace : xsdAnalysisService.getNamespaceFromXsd(system.getSystemName())) {
 				log.info(String.format("Namespace name: %s", namespace));
-				if (xsdAnalysisService.getElementsForNamespace(system.getSystemName(), namespace) != null)
-					for (Tuple2<String, String> element : xsdAnalysisService.getElementsForNamespace(system.getSystemName(), namespace))
+				if (xsdAnalysisService.getElementsForSystem(system.getSystemName(), namespace) != null)
+					for (Tuple2<String, String> element : xsdAnalysisService.getElementsForSystem(system.getSystemName
+							(), namespace))
 						log.info(String.format("Namespace: %s || Element: %s", element.getT1(), element.getT2()));
 			}
+		}
+		return assertFail;
+	}
+
+	private int assertElementsForSystemTest() {
+		int assertFail = 0;
+		log.info("==================================================");
+		log.info("");
+		log.info("               GETTING XSD ELEMENTS");
+		log.info("");
+		log.info("==================================================");
+		for (ru.sbt.bpm.mock.config.entities.System system : configContainer.getConfig().getSystems().getSystems()) {
+			log.info(String.format("System name: %s", system.getSystemName()));
+			for (Tuple2<String, String> element : xsdAnalysisService.getElementsForSystem(system.getSystemName()))
+				log.info(String.format("Namespace: %s || Element: %s", element.getT1(), element.getT2()));
 		}
 		return assertFail;
 	}

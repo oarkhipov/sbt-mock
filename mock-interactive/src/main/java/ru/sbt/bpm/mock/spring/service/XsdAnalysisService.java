@@ -90,8 +90,15 @@ public class XsdAnalysisService {
         return mapNamespacesByXpath.get(systemName);
     }
 
-    public List<Tuple2<String, String>> getElementsForNamespace(String systemName, String namespaceName) {
+    public List<Tuple2<String, String>> getElementsForSystem (String systemName, String namespaceName) {
         return mapOfElements.get(systemName).get(namespaceName);
+    }
+
+    public List<Tuple2<String, String>> getElementsForSystem (String systemName) {
+        List<Tuple2<String, String>> list = new ArrayList<Tuple2<String, String>>();
+        for (String namespace : mapOfElements.get(systemName).keySet())
+            list.addAll(getElementsForSystem(systemName, namespace));
+        return list;
     }
 
     private void fillElementsMap (String systemName, List<File> files) throws IOException, SaxonApiException {
