@@ -44,7 +44,27 @@ public class IntegrationConstructor implements IContextGeneratable {
 		return createChannelPrivate(beans, channelId, wireTapChannels);
 	}
 
-
+	/**
+	 * 
+	 * @param inputChannel
+	 * @param outputChannel
+	 * @param methodName
+	 * @param bean
+	 * @param expression
+	 * @return
+	 */
+	private generated.springframework.integration.ServiceActivator createServiceActivator(@NonNull String inputChannel, @NonNull String outputChannel, String methodName, generated.springframework.beans.Bean bean, String expression) {
+		generated.springframework.integration.ServiceActivator serviceActivator = integrationFactory.createServiceActivator();
+		serviceActivator.setInputChannel(inputChannel);
+		serviceActivator.setOutputChannel(outputChannel);
+		if (methodName != null && !methodName.isEmpty())
+			serviceActivator.setMethod(methodName);
+		if (bean != null)
+			serviceActivator.getPollerOrExpressionOrRequestHandlerAdviceChain().add(bean);
+		if (expression != null || !expression.isEmpty())
+			serviceActivator.setStrExpression(expression);
+		return serviceActivator;
+	}
 
 	/**
 	 * <channel id="">

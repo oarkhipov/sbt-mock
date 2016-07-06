@@ -103,6 +103,16 @@ public class BeansConstructor implements IContextGeneratable  {
 	}
 
 	/**
+	 * Создание обычного bean для вложения в другие элементы
+	 * @param className
+	 * @param constructorArgs
+	 * @return
+	 */
+	public generated.springframework.beans.Bean createBean(String className, List<Tuple2<String, String>> constructorArgs) {
+		return createBean(className, "", createListConstructorArg(constructorArgs), new ArrayList<JAXBElement<PropertyType>>());
+	}
+
+	/**
 	 * <beans xmlns="http://www.springframework.org/schema/beans">
 	 *      <import resource=""/>
 	 * </beans>
@@ -214,7 +224,8 @@ public class BeansConstructor implements IContextGeneratable  {
 	 * @return <beans></beans>
 	 */
 	private generated.springframework.beans.Beans createBean(@NonNull Beans beans, String className, String id, List<Tuple2<String, String>> constructorArgValues, Map<String, String> properties) {
-		beans.getImportOrAliasOrBean().add(createBean(className, id, createListConstructorArg(constructorArgValues), createProperties(properties)));
+		beans.getImportOrAliasOrBean().add(createBean(className, id, createListConstructorArg(constructorArgValues),
+		                                              createProperties(properties)));
 		return beans;
 	}
 
