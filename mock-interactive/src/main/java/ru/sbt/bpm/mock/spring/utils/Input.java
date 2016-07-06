@@ -123,12 +123,8 @@ public class Input implements LSInput {
         this.publicId = publicId;
         this.systemId = sysId;
         this.encoding = "UTF-8";
-//        this.byteStream = new BufferedInputStream(input);
-//        this.byteStream = new BufferedInputStream(input); //TODO до конца не понял принцип работы - надо гуглить. но если расокментить поля кроме inputStream, то работаеть не будет.
         this.inputStream = new BufferedInputStream(input);
-//        this.byteStream = new BufferedInputStream(input);
         certifiedText = false;
-//        this.characterStream = new InputStreamReader(input);
     }
 
     public Input(String publicId, String sysId, InputStream input, String baseURI) {

@@ -13,7 +13,7 @@
     <script src="<%=request.getContextPath()%>/resources/js/system/form.js"></script>
 </head>
 <body>
-<form method="post" action="<%=request.getContextPath()%>/system/add/" class="form-horizontal">
+<form method="post" action="<%=request.getContextPath()%>/api/system/<c:choose><c:when test="${system.systemName != ''}">update/${system.systemName}</c:when><c:otherwise>add</c:otherwise></c:choose>/" class="form-horizontal">
     <div class="form-group">
         <label for="name" class="control-label col-sm-2">System:</label>
 
@@ -32,60 +32,46 @@
         </div>
     </div>
     <input type="hidden"
-           value="<c:if test="${system.protocol.equals('JMS') || !system.protocol.equals('SOAP')}">JMS</c:if>"
+           value="${system.protocol}"
            name="protocol" id="protocol"/>
 
     <div id="protocol-container" class="centered-pills">
         <ul class="nav nav-pills">
-            <li class="<c:if test="${system.protocol.equals('JMS') || !system.protocol.equals('SOAP')}">active</c:if>">
+            <li class="<c:if test="${system.protocol == 'JMS' || system.protocol != 'SOAP'}">active</c:if>">
                 <a href="#JMS" data-toggle="tab">JMS</a></li>
-            <li class="<c:if test="${system.protocol.equals('SOAP')}">active</c:if>"><a href="#SOAP"
+            <li class="<c:if test="${system.protocol == 'SOAP'}">active</c:if>"><a href="#SOAP"
                                                                                         data-toggle="tab">SOAP</a>
             </li>
         </ul>
         <div class="tab-content">
             <div id="JMS"
-                 class="tab-pane <c:if test="${system.protocol.equals('JMS') || !system.protocol.equals('SOAP')}">active</c:if>">
+                 class="tab-pane <c:if test="${system.protocol == 'JMS' || system.protocol != 'SOAP'}">active</c:if>">
 
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="integrationPointSelector">integration Point
                         Selector</label>
 
                     <div class="col-sm-10" style="text-align: right">
-                        <script>
-                            function addElement(namespace, elementName) {
-                                var span = document.createElement('span');
-                                span.innerHTML = "<div><input name=\"integrationPointSelectorNamespace[]\" type=\"text\"  placeholder=\"Namespace\" value=\"" +
-                                namespace +
-                                "\" size=\"62\"/>" +
-                                "<input name=\"integrationPointSelectorElementName[]\" type=\"text\" placeholder=\"Blank element name if it's last\" value=\"" +
-                                elementName + "\" size=\"25\"><input type=\"button\" value=\"-\" style='width: 25px' onclick='removeElement(this)'/></div>";
-                                var div = document.getElementById("integrationPointSelector");
-                                div.appendChild(span);
-                            }
-                            function removeElement(obj) {
-                                var parent = obj.parentElement;
-                                parent.parentElement.removeChild(parent);
-                            }
-                        </script>
                         <div id="integrationPointSelector">
-                            <c:forEach var="selector" items="${system.integrationPointSelector}">
+                            <c:forEach var="selector" items="${system.integrationPointSelector.elementSelectors}">
                                 <script>
                                     addElement("${selector.namespace}", "${selector.element}");
                                 </script>
                             </c:forEach>
                         </div>
-                        <input type="button" value="+" style="width: 25px" onclick="addElement('','')"/>
+                        <input type="button" value="+" class="btn btn-default btn-s" onclick="addElement('','')"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="queueConnectionFactory">Connection factory:</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-10 inner-addon right-addon">
+                        <i class="glyphicon"></i>
                         <input type="text" class="form-control" name="queueConnectionFactory"
                                id="queueConnectionFactory"
                                placeholder="JNDI Name"
-                               value="${system.queueConnectionFactory}"/>
+                               value="${system.queueConnectionFactory}"
+                               onkeyup="checkJndiName(event, this)"/>
                     </div>
                 </div>
 
@@ -95,19 +81,23 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="mockIncomeQueue">Income queue:</label>
 
-                            <div class="col-sm-10">
+                            <div class="col-sm-10 inner-addon right-addon">
+                                <i class="glyphicon"></i>
                                 <input type="text" class="form-control" name="mockIncomeQueue" id="mockIncomeQueue"
                                        placeholder="JNDI Name"
-                                       value="${system.mockIncomeQueue}"/>
+                                       value="${system.mockIncomeQueue}"
+                                       onkeyup="checkJndiName(event, this)"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="mockOutcomeQueue">Outcome queue</label>
 
-                            <div class="col-sm-10">
+                            <div class="col-sm-10 inner-addon right-addon">
+                                <i class="glyphicon"></i>
                                 <input type="text" class="form-control" name="mockOutcomeQueue" id="mockOutcomeQueue"
                                        placeholder="JNDI Name"
-                                       value="${system.mockOutcomeQueue}"/>
+                                       value="${system.mockOutcomeQueue}"
+                                       onkeyup="checkJndiName(event, this)"/>
                             </div>
                         </div>
                     </div>
@@ -119,26 +109,30 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="driverOutcomeQueue">Outcome queue</label>
 
-                            <div class="col-sm-10">
+                            <div class="col-sm-10 inner-addon right-addon">
+                                <i class="glyphicon"></i>
                                 <input type="text" class="form-control" name="driverOutcomeQueue"
                                        id="driverOutcomeQueue"
                                        placeholder="JNDI Name"
-                                       value="${system.driverOutcomeQueue}"/>
+                                       value="${system.driverOutcomeQueue}"
+                                       onkeyup="checkJndiName(event, this)"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="driverIncomeQueue">Income queue</label>
 
-                            <div class="col-sm-10">
+                            <div class="col-sm-10 inner-addon right-addon">
+                                <i class="glyphicon"></i>
                                 <input type="text" class="form-control" name="driverIncomeQueue" id="driverIncomeQueue"
                                        placeholder="JNDI Name"
-                                       value="${system.driverIncomeQueue}"/>
+                                       value="${system.driverIncomeQueue}"
+                                       onkeyup="checkJndiName(event, this)"/>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="SOAP" class="tab-pane <c:if test="${system.protocol.equals('SOAP')}">active</c:if>">
+            <div id="SOAP" class="tab-pane <c:if test="${system.protocol == 'SOAP'}">active</c:if>">
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="driverIncomeQueue">Driver WebService Endpoint:</label>
 

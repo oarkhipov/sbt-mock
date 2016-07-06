@@ -32,3 +32,43 @@
 * + html .centered-pills ul.nav-pills {
     display: inline;
 }
+
+#protocol-container .selectize-input {
+    float: left;
+}
+
+.integrationPointSelectorNamespace>div {
+    width: 440px;
+}
+
+.integrationPointSelectorElementName>div {
+    width: 240px;
+}
+
+/*Glyphicon into input*/
+.inner-addon {
+    position: relative;
+}
+
+/*style glyph*/
+.inner-addon .glyphicon {
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
+}
+
+.left-addon .glyphicon {
+    left: 0;
+}
+
+.right-addon .glyphicon {
+    right: 15px;
+}
+
+.left-addon input {
+    padding-left: 30px;
+}
+
+.right-addon input {
+    padding-right: 30px;
+}

@@ -67,7 +67,6 @@ public class MockController {
         model.addAttribute("name", integrationPointName);
         model.addAttribute("link", "mock");
         model.addAttribute("protocol",system.getProtocol().toString());
-        //TODO send "xpath with namespace" via js tooltip
         model.addAttribute("xpath",
                 system.getProtocol().equals(Protocol.JMS)?
                     system.getIntegrationPoints().getIntegrationPointByName(integrationPointName)

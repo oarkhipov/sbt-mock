@@ -66,8 +66,6 @@ public class ConfigurationService {
     public void unzipConfiguration(File configZip) throws IOException {
         ZipFile zipFile = new ZipFile(configZip);
         Enumeration<?> enumeration = zipFile.entries();
-        //TODO check content
-
         dataFileService.clearData();
         while (enumeration.hasMoreElements()) {
             ZipEntry zipEntry = (ZipEntry) enumeration.nextElement();

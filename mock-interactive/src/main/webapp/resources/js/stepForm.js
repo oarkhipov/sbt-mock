@@ -147,13 +147,41 @@ function importForm() {
     }
 }
 
-function systemForm() {
+function addSysForm() {
     BootstrapDialog.show({
         size: BootstrapDialog.SIZE_WIDE,
         title: "New System",
-        message: $("<div/>").load("system/add/"),
-
+        message: $("<div/>").load("api/system/add/")
     });
+}
+
+function editSysForm(name) {
+    BootstrapDialog.show({
+        size: BootstrapDialog.SIZE_WIDE,
+        title: "Edit system <b>" + name + "</b>",
+        message: $("<div/>").load("api/system/update/" + name + "/")
+    });
+}
+
+function delSystemForm(name) {
+    BootstrapDialog.show({
+        title: "Delete system <b>" + name + "</b>",
+        message: "Are you sure, you want to delete system " + name + " wit all it's integration points and configs?",
+        closable: false,
+        buttons: [{
+            label: "Yes",
+            cssClass: "btn-danger",
+            icon: "glyphicon glyphicon-trash",
+            action: function () {
+                $("<form action='api/system/delete/" + name + "/' method='POST'></form>").appendTo(document.body).submit();
+            }
+        }, {
+            label: "No",
+            action: function (dialogItself) {
+                dialogItself.close();
+            }
+        }]
+    })
 }
 
 $().ready(function () {
@@ -163,12 +191,35 @@ $().ready(function () {
         function () {
             //Enable editing
             $("span", this).text("Disable");
-            $(".editActions").css("visibility", "visible").addClass("animated slideInRight");
+            $(".editActions")
+                .css("visibility", "visible")
+                .addClass("animated fadeInRight")
+                .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                    $(this).removeClass("animated fadeInRight");
+                });
         },
         function () {
             //Disable
             $("span", this).text("Enable");
+            $(".editActions").addClass("animated fadeOutRight")
+                .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                    $(this).removeClass("animated fadeOutRight").css("visibility", "hidden");
+                });
         }
     );
 });
 
+function reinitValidator(name) {
+    if (name) {
+        BootstrapDialog.show({
+            title: "Update validator for system <b>" + name + "</b>",
+            message: $("<div/>").load("api/system/reinitValidator/" + name + "/")
+        });
+    } else {
+        BootstrapDialog.show({
+            title: "Update validator for <b>All</b> systems",
+            message: $("<div/>").load("api/system/reinitValidator/")
+        });
+    }
+
+}

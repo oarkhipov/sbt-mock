@@ -18,6 +18,7 @@
     <title>Mock Service</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/favicon.ico">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/normalize.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/jquery.steps.css">
@@ -64,6 +65,8 @@
             src="<%=request.getContextPath()%>/resources/libs/bootstrap-dialog/js/bootstrap-dialog.js"></script>
     <link rel="stylesheet" type="text/css"
           href="<%=request.getContextPath()%>/resources/libs/bootstrap-dialog/css/bootstrap-dialog.css"/>
+    <script src="<%=request.getContextPath()%>/resources/libs/selectize.js/js/standalone/selectize.min.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/libs/selectize.js/css/selectize.bootstrap3.css">
 </head>
 <body>
 <!--[if lt IE 7]>
@@ -80,7 +83,7 @@
             <section>
                 <div id="dialog"></div>
                 <div align="right">
-                    <button class="btn btn-success btn-sm" onclick="systemForm()">
+                    <button class="btn btn-success btn-sm" onclick="addSysForm()">
                         <span class="glyphicon glyphicon-plus"></span> Add System
                     </button>
                     <span style="line-height: 5pt; display: block">&nbsp;</span>
@@ -113,10 +116,12 @@
                                                     aria-labelledby="dropdownMenu_${system.systemName}">
                                                     <li><a href="#" onclick="addIpForm()">Add integration point</a></li>
                                                     <li><a href="#">Upload schema</a></li>
-                                                    <li><a href="#">Update Validator</a></li>
+                                                    <li><a href="#" onclick="reinitValidator('${system.systemName}')">Update Validator</a></li>
                                                     <li role="separator" class="divider"></li>
-                                                    <li><a href="#">Edit System</a></li>
-                                                    <li><a href="#">Delete System</a></li>
+                                                    <li><a href="#" onclick="editSysForm('${system.systemName}')">Edit
+                                                        System</a></li>
+                                                    <li><a href="#" onclick="delSystemForm('${system.systemName}')">Delete
+                                                        System</a></li>
                                                 </ul>
                                             </div>
                                         </td>
@@ -215,7 +220,7 @@
         <ul class="dropdown-menu dropdown-menu-right"
             aria-labelledby="dropdownMenu_main">
             <li id="editingEnabler"><a href="#"><span>Enable</span> editing</a></li>
-            <li><a href="#">Update all validators</a></li>
+            <li><a href="#" onclick="reinitValidator()">Update all validators</a></li>
             <li><a href="#">Validate all integration points</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#"><span class="glyphicon glyphicon-copyright-mark"></span> Copyright</a></li>

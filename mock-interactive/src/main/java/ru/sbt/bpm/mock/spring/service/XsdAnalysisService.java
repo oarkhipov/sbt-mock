@@ -128,7 +128,7 @@ public class XsdAnalysisService {
 		XdmValue                 xdmValue  = XpathUtils.evaluateXpath(inputXml, xPathNamespace);
 		for (int i = 0; i < xdmValue.size(); i++) {
 			namespace = xdmValue.itemAt(i).getStringValue();
-			log.info(String.format("Namespace: %s", namespace));
+			log.debug(String.format("Namespace: %s", namespace));
 			map.put(namespace, getElementFromXsd(inputXml, xPathElement));
 		}
 		return map;
@@ -141,7 +141,7 @@ public class XsdAnalysisService {
 			Set<String> setXsdNamespace = new TreeSet<String>(STRING_COMPARATOR);
 			printLog(systemName);
 			for (File xsdFile : map.get(systemName)) {
-				log.info("Read file: " + xsdFile.getName());
+				log.debug("Read file: " + xsdFile.getName());
 				String inputXml = readFileWithoutBOM(xsdFile);
 				// Проходим по target
 				setXsdNamespace.addAll(getNamespaceByxPath(inputXml, LOCAL_NAME_SCHEMA_TARGET_NAMESPACE));

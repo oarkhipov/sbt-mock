@@ -145,8 +145,8 @@ public class XmlGeneratorService {
                         "}\n" +
                         "\n" +
                         "//assert first element\n" +
-                        "if (((QName) requestDom.name()).namespaceURI == xmlMap.get(0).getT1 &&\n" +
-                        "        ((QName) requestDom.name()).localPart == xmlMap.get(0).getT2) {\n" +
+                        "if (((QName) requestDom.name()).namespaceURI == xmlMap.get(0).t1 &&\n" +
+                        "        ((QName) requestDom.name()).localPart == xmlMap.get(0).t2) {\n" +
                         "\n" +
                         "    //dom to search in\n" +
                         "    def filterDom = requestDom\n" +
@@ -161,7 +161,7 @@ public class XmlGeneratorService {
                         "    for (int i = 1; i < xmlMap.size(); i++) {\n" +
                         "        for (Node child : (List<Node>) filterDom.children()) {\n" +
                         "            def el = (QName) child.name()\n" +
-                        "            if (el.namespaceURI == xmlMap.get(i).first && el.localPart == xmlMap.get(i).second) {\n" +
+                        "            if (el.namespaceURI == xmlMap.get(i).t1 && el.localPart == xmlMap.get(i).t2) {\n" +
                         "                //if element found - make new root\n" +
                         "                newFilterDom = child\n" +
                         "            } else {\n" +
