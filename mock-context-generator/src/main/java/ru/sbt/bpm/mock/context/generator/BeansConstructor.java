@@ -98,6 +98,7 @@ public class BeansConstructor implements IContextGeneratable  {
 	 * @param properties
 	 * @return
 	 */
+	// FIXME Исправить создание свойств
 	public generated.springframework.beans.Beans createBean(generated.springframework.beans.Beans beans, String className,String id, Map<String, String> properties) {
 		return createBean(beans, className, id, new ArrayList<Tuple2<String, String>>(), properties);
 	}
