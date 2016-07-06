@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+			xmlns="http://www.w3.org/2001/XMLSchema" 
+			xmlns:tns="http://sbrf.ru/NCPCA/CRM/PutLegalLoanApplicationTeamRq/" 
+			targetNamespace="http://sbrf.ru/NCPCA/CRM/PutLegalLoanApplicationTeamRq/" 
+			elementFormDefault="qualified">
+	<xs:element name="PutLegalLoanApplicationTeamRq" type="tns:PutLegalLoanApplicationTeamRq_Type"/>
+    <xs:complexType name="PutLegalLoanApplicationTeamRq_Type">
+        <xs:sequence>
+            <xs:element name="DealInfo" type="tns:DealInfo_Type" >
+                <xs:annotation>
+                    <xs:documentation>Сделка</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DealInfo_Type">
+        <xs:annotation>
+            <xs:documentation>Сделка</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DealID">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор сделки</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ListOfEmployeeInfo" type="tns:ListOfEmployeeInfo_Type" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ListOfEmployeeInfo_Type">
+        <xs:sequence>
+            <xs:element name="EmployeeInfo" type="tns:EmployeeInfo_Type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="EmployeeInfo_Type">
+        <xs:sequence>
+            <xs:element name="Login">
+                <xs:annotation>
+                    <xs:documentation>ФИО</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Role">
+                <xs:annotation>
+                    <xs:documentation>Роль</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ParticipantWrite" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Редактирование участников</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

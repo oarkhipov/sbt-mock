@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 	xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns:tns="http://sbrf.ru/NCPCA/CRM/GetRatingRq/"
+			targetNamespace="http://sbrf.ru/NCPCA/CRM/GetRatingRq/"
+			elementFormDefault="qualified">
+	<xs:element name="GetRatingRq" type="tns:GetRatingRq_Type"/>
+    <xs:complexType name="GetRatingRq_Type">
+        <xs:sequence>
+            <xs:element name="ListOfLegalPerson" type="tns:ListOfLegalPersonRq_Type">
+                <xs:annotation>
+                    <xs:documentation>Список юридичеких лиц</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ListOfKG" type="tns:ListOfKGRq_Type" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Список КГ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ListOfGSZ" type="tns:ListOfGSZRq_Type" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Список ГСЗ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="ListOfLegalPersonRq_Type">
+        <xs:sequence>
+            <xs:element name="LegalPerson" type="tns:LegalPersonRq_Type" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="LegalPersonRq_Type">
+        <xs:sequence>
+            <xs:element name="AccountID">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор ЮЛ</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ListOfKGRq_Type">
+        <xs:sequence>
+            <xs:element name="KG" type="tns:KGRq_Type" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="KGRq_Type">
+        <xs:sequence>
+            <xs:element name="KGID">
+                <xs:annotation>
+                    <xs:documentation>ID консолидированной группы в CRM</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ListOfGSZRq_Type">
+        <xs:sequence>
+            <xs:element name="GSZ" type="tns:GSZRq_Type" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="GSZRq_Type">
+        <xs:sequence>
+            <xs:element name="GSZID">
+                <xs:annotation>
+                    <xs:documentation>ID ГСЗ в CRM</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

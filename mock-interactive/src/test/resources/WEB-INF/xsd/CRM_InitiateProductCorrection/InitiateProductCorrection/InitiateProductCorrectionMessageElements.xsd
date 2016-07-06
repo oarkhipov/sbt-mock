@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="http://sbrf.ru/NCPCA/CRM/InitiateProductCorrectionMessageElements/"
+        xmlns:hdr="http://sbrf.ru/ESB/mq/headers"
+        xmlns:ipcrq="http://sbrf.ru/NCPCA/CRM/InitiateProductCorrectionRq/"
+        xmlns:ipcrs="http://sbrf.ru/NCPCA/CRM/InitiateProductCorrectionRs/"
+        targetNamespace="http://sbrf.ru/NCPCA/CRM/InitiateProductCorrectionMessageElements/">
+    <import namespace="http://sbrf.ru/ESB/mq/headers" schemaLocation="../../Common/Header.xsd"/>
+    <import namespace="http://sbrf.ru/NCPCA/CRM/InitiateProductCorrectionRq/" schemaLocation="InitiateProductCorrectionRq.xsd"/>
+    <import namespace="http://sbrf.ru/NCPCA/CRM/InitiateProductCorrectionRs/" schemaLocation="InitiateProductCorrectionRs.xsd"/>
+
+    <element name="Body">
+        <annotation>
+            <documentation>Тело сообщения</documentation>
+        </annotation>
+        <complexType>
+            <choice>
+                <element ref="ipcrq:InitiateProductCorrectionRq"/>
+                <element ref="ipcrs:InitiateProductCorrectionRs"/>
+            </choice>
+        </complexType>
+    </element>
+
+    <element name="Envelope">
+        <annotation>
+            <documentation>Сообщение</documentation>
+        </annotation>
+        <complexType>
+            <sequence>
+                <element ref="hdr:Header"/>
+                <element ref="tns:Body"/>
+            </sequence>
+        </complexType>
+    </element>
+</schema>

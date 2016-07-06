@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+			xmlns="http://www.w3.org/2001/XMLSchema" 
+			xmlns:tns="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtDetailsRq/" 
+			targetNamespace="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtDetailsRq/" 
+			elementFormDefault="qualified">
+	<xs:element name="GetLegalAgreemtDetailsRq" type="tns:GetLegalAgreemtDetailsRq_Type"/>
+    <xs:complexType name="GetLegalAgreemtDetailsRq_Type">
+        <xs:sequence>
+            <xs:element name="AccountInfo" type="tns:AccountInfoRq_Type" >
+                <xs:annotation>
+                    <xs:documentation></xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AccountInfoRq_Type">
+        <xs:sequence>
+            <xs:element name="AccountId">
+                <xs:annotation>
+                    <xs:documentation>Id Карточки организации в CRM</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ListOfProduct" type="tns:ListOfProductRq_Type" >
+                <xs:annotation>
+                    <xs:documentation>Список продуктов</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ListOfProductRq_Type">
+        <xs:sequence>
+            <xs:element name="ProductInfo" type="tns:ProductInfoRq_Type" >
+                <xs:annotation>
+                    <xs:documentation>Информация о продукте</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ProductInfoRq_Type">
+        <xs:sequence>
+            <xs:element name="ProductId">
+                <xs:annotation>
+                    <xs:documentation>ID продукта</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

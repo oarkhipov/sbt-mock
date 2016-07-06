@@ -1,0 +1,77 @@
+package ru.sbt.bpm.mock.spring.service;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.annotations.Test;
+import ru.sbt.bpm.mock.config.MockConfigContainer;
+
+import java.util.Set;
+
+import static org.testng.Assert.assertEquals;
+
+/**
+ * Created by sbt-hodakovskiy-da on 14.06.2016.
+ */
+
+@Slf4j
+@ContextConfiguration({ "/env/mockapp-servlet-test-xsd-services.xml" })
+public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests {
+
+	@Autowired
+	MockConfigContainer configContainer;
+
+	@Autowired
+	XsdAnalysisService xsdAnalysisService;
+
+	@Test
+	public void getXsdNamespaceTest () {
+		assertEquals(assertXsdNamespaceTest(), 0);
+	}
+
+	@Test
+	public void getElementsTest () {
+		assertEquals(assertElementsTest(), 0);
+	}
+
+
+	private int assertXsdNamespaceTest () {
+		int assertSuccess = 0;
+		log.debug("==================================================");
+		log.debug("");
+		log.debug("               GETTING XSD NAMESPACES");
+		log.debug("");
+		log.debug("==================================================");
+		for (ru.sbt.bpm.mock.config.entities.System system : configContainer.getConfig().getSystems().getSystems()) {
+			String systemName = system.getSystemName();
+			log.debug("Init system: " + systemName);
+			Set<String> setXsdNamespace = xsdAnalysisService.getNamespaceFromXsd(systemName);
+			for (String namespace : setXsdNamespace)
+				log.debug(String.format("Namespace: %s", namespace));
+		}
+		return assertSuccess;
+	}
+
+	private int assertElementsTest () {
+		int assertFail = 0;
+
+		log.info("==================================================");
+		log.info("");
+		log.info("               GETTING XSD ELEMENTS");
+		log.info("");
+		log.info("==================================================");
+
+		for (ru.sbt.bpm.mock.config.entities.System system : configContainer.getConfig().getSystems().getSystems()) {
+			log.info(String.format("System name: %s", system.getSystemName()));
+			for (String namespace : xsdAnalysisService.getNamespaceFromXsd(system.getSystemName())) {
+				log.info(String.format("Namespace name: %s", namespace));
+				if (xsdAnalysisService.getElementsForNamespace(system.getSystemName(), namespace) != null)
+					for (String element : xsdAnalysisService.getElementsForNamespace(system.getSystemName(), namespace)) {
+						log.info(String.format("Element: %s", element));
+					}
+			}
+		}
+		return assertFail;
+	}
+}

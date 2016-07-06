@@ -126,7 +126,7 @@ public class XmlGeneratorService {
         List<ElementSelector> elementSelectors = integrationPoint.getXpathValidatorSelector().getElementSelectors();
         StringBuilder xmlMapElements = new StringBuilder();
         for (ElementSelector selector : elementSelectors) {
-            xmlMapElements.append("        add(new Pair<String, String>(\"")
+            xmlMapElements.append("        add(Tuple.of(\"")
                     .append(selector.getNamespace())
                     .append("\", \"")
                     .append(selector.getElement())
@@ -135,17 +135,18 @@ public class XmlGeneratorService {
 
         String filterScript =
                 "import groovy.xml.QName\n" +
-                        "import ru.sbt.bpm.mock.generator.spring.integration.Pair\n" +
+                        "import reactor.tuple.Tuple;\n" +
+                        "import reactor.tuple.Tuple2;\n" +
                         "\n" +
-                        "def xmlMap = new ArrayList<Pair<String, String>>() {\n" +
+                        "def xmlMap = new ArrayList<Tuple2<String, String>>() {\n" +
                         "    {\n" +
                         xmlMapElements +
                         "    }\n" +
                         "}\n" +
                         "\n" +
                         "//assert first element\n" +
-                        "if (((QName) requestDom.name()).namespaceURI == xmlMap.get(0).first &&\n" +
-                        "        ((QName) requestDom.name()).localPart == xmlMap.get(0).second) {\n" +
+                        "if (((QName) requestDom.name()).namespaceURI == xmlMap.get(0).getT1 &&\n" +
+                        "        ((QName) requestDom.name()).localPart == xmlMap.get(0).getT2) {\n" +
                         "\n" +
                         "    //dom to search in\n" +
                         "    def filterDom = requestDom\n" +

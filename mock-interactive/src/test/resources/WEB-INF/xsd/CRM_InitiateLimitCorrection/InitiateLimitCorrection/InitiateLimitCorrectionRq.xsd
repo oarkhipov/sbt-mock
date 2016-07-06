@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="http://sbrf.ru/NCPCA/CRM/InitiateLimitCorrectionRq/"
+        targetNamespace="http://sbrf.ru/NCPCA/CRM/InitiateLimitCorrectionRq/"
+        elementFormDefault="qualified">
+
+    <element name="InitiateLimitCorrectionRq" type="tns:InitiateLimitCorrectionRq_Type"/>
+
+    <complexType name="InitiateLimitCorrectionRq_Type">
+        <sequence>
+            <element name="LimitInfo" type="tns:LimitInfo_Type">
+                <annotation>
+                    <documentation/>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="LimitInfo_Type">
+        <annotation>
+            <documentation>Информация по лимиту</documentation>
+        </annotation>
+        <sequence>
+            <element name="ActionType">
+                <annotation>
+                    <documentation>Тип сообщения</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="50"/>
+                        <enumeration value="Create"/>
+                        <enumeration value="Modify"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="UserLogin">
+                <annotation>
+                    <documentation>Логин пользователя, выполнившего действие</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="50"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="LimitType" minOccurs="0">
+                <annotation>
+                    <documentation>Вид лимита</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="3"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="LimitIntegrationId" minOccurs="0">
+                <annotation>
+                    <documentation>Идентификатор лимита</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="55"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="TransactionGroup" minOccurs="0">
+                <annotation>
+                    <documentation>Группа операций</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="60"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="PartnerType">
+                <annotation>
+                    <documentation>Тип делового партнера</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="50"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="PartnerId">
+                <annotation>
+                    <documentation>Идентификатор делового партнера</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="15"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="Industry" minOccurs="0">
+                <annotation>
+                    <documentation>Отрасль</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="255"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="Category" minOccurs="0">
+                <annotation>
+                    <documentation>Категория организации</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="50"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="RiskSegment" minOccurs="0">
+                <annotation>
+                    <documentation>Риск-сегмент организации</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="50"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="ProblemGroupCalculated" minOccurs="0">
+                <annotation>
+                    <documentation>Расчетн. группа проблемности</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="50"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="ProblemGroupApproved" minOccurs="0">
+                <annotation>
+                    <documentation>Утвержд. группа проблемности</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="50"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+</schema>

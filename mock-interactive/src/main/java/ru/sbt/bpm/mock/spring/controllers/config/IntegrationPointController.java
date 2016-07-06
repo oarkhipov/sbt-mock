@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import reactor.tuple.Tuple;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.*;
 import ru.sbt.bpm.mock.config.entities.System;
-import ru.sbt.bpm.mock.generator.spring.integration.Pair;
 import ru.sbt.bpm.mock.spring.service.ConfigurationService;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.IntegrationPointNameSuggestionService;
@@ -60,7 +60,7 @@ public class IntegrationPointController {
                       @RequestParam(required = false) String rootElementNamespace,
                       @RequestParam String rootElementName) throws IOException {
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(system);
-        XpathSelector xpathSelector = xpathValidatorNamespace!=null?new XpathSelector(xpathValidatorNamespace, xpathValidatorElementName):null;
+        XpathSelector xpathSelector = xpathValidatorNamespace != null ? new XpathSelector(xpathValidatorNamespace, xpathValidatorElementName) : null;
         if (delayMs == null) delayMs = 1000;
         IntegrationPoint integrationPoint =
                 new IntegrationPoint(name,
@@ -70,7 +70,7 @@ public class IntegrationPointController {
                         incomeQueue,
                         outcomeQueue,
                         answerRequired,
-                        new Pair<String, String>(incomeQueue, outcomeQueue),
+                        Tuple.of(incomeQueue, outcomeQueue),
                         xsdFile,
                         new ElementSelector(rootElementNamespace, rootElementName));
 
@@ -101,9 +101,11 @@ public class IntegrationPointController {
         model.addAttribute("isAnswerRequired", integrationPoint.getAnswerRequired());
         model.addAttribute("xsdFile", integrationPoint.getXsdFile());
         model.addAttribute("rootElement", integrationPoint.getRootElement());
-        model.addAttribute("xpathValidation", integrationPoint.getXpathValidatorSelector()!=null?integrationPoint.getXpathValidatorSelector().getElementSelectors():null);
+        model.addAttribute("xpathValidation", integrationPoint.getXpathValidatorSelector() != null ? integrationPoint.getXpathValidatorSelector().getElementSelectors() : null);
 
-        List<String> integrationPointNames = new ArrayList<String>(){{add(name);}};
+        List<String> integrationPointNames = new ArrayList<String>() {{
+            add(name);
+        }};
         integrationPointNames.addAll(suggestionService.suggestName(configContainer.getSystemByName(system)));
         model.addAttribute("suggestedNames", integrationPointNames);
         return "integrationPoint/form";
@@ -143,8 +145,8 @@ public class IntegrationPointController {
             }
         }
 
-        XpathSelector xpathSelector = xpathValidatorNamespace!=null?new XpathSelector(xpathValidatorNamespace, xpathValidatorElementName):null;
-        if (xpathSelector!=null && !integrationPoint.getXpathValidatorSelector().equals(xpathSelector)) {
+        XpathSelector xpathSelector = xpathValidatorNamespace != null ? new XpathSelector(xpathValidatorNamespace, xpathValidatorElementName) : null;
+        if (xpathSelector != null && !integrationPoint.getXpathValidatorSelector().equals(xpathSelector)) {
             integrationPoint.setXpathValidatorSelector(xpathSelector);
         }
 

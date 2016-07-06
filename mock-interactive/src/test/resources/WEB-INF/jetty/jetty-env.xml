@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Conclusing//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+
+<Configure id="Server" class="org.mortbay.jetty.Server">
+
+    <Call name="addConnector">
+        <Arg>
+            <New class="org.mortbay.jetty.nio.SelectChannelConnector">
+                <Set name="host"><SystemProperty name="jetty.host"/></Set>
+                <Set name="port"><SystemProperty name="jetty.port" default="8090"/></Set>
+                <Set name="maxIdleTime">300000</Set>
+                <Set name="Acceptors">2</Set>
+                <Set name="statsOn">false</Set>
+            </New>
+        </Arg>
+    </Call>
+
+    <New class="org.mortbay.jetty.plus.naming.EnvEntry">
+        <Arg></Arg>
+        <Arg>jms/Q.LEGAL.TO.CRMORG.SYNCRESP</Arg>
+        <Arg type="java.lang.Integer">1</Arg>
+        <Arg type="boolean">true</Arg>
+    </New>
+
+    <New class="org.mortbay.jetty.plus.naming.EnvEntry">
+        <Arg></Arg>
+        <Arg>jms/Q.LEGAL.FROM.CRMORG</Arg>
+        <Arg type="java.lang.Integer">2</Arg>
+        <Arg type="boolean">true</Arg>
+    </New>
+
+    <New class="org.mortbay.jetty.plus.naming.EnvEntry">
+        <Arg></Arg>
+        <Arg>jms/Q.LEGAL.FROM.CRMORG.SYNCRESP</Arg>
+        <Arg type="java.lang.Integer">3</Arg>
+        <Arg type="boolean">true</Arg>
+    </New>
+
+</Configure>

@@ -1,0 +1,968 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sbrf.ru/NCPCA/CRM/GetRatingRs/" xmlns:com="http://sbrf.ru/NCPCA/CRM/CommonTypes/" targetNamespace="http://sbrf.ru/NCPCA/CRM/GetRatingRs/" elementFormDefault="qualified">
+	<xs:import namespace="http://sbrf.ru/NCPCA/CRM/CommonTypes/" schemaLocation="./../CRMIntegrationTypes.xsd"/>
+	<xs:element name="GetRatingRs" type="tns:GetRatingRs_Type"/>
+	<xs:complexType name="GetRatingRs_Type">
+		<xs:sequence>
+			<xs:element name="ListOfLegalPerson" type="tns:ListOfLegalPersonRs_Type">
+				<xs:annotation>
+					<xs:documentation>Список юридичеких лиц</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ListOfKG" type="tns:ListOfKGRs_Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Список КГ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ListOfGSZ" type="tns:ListOfGSZRs_Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Список ГСЗ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ListOfError" type="com:ListOfError_Type">
+				<xs:annotation>
+					<xs:documentation>Список ошибок</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ListOfLegalPersonRs_Type">
+		<xs:sequence>
+			<xs:element name="LegalPerson" type="tns:LegalPersonRs_Type" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LegalPersonRs_Type">
+		<xs:sequence>
+			<xs:element name="AccountID">
+				<xs:annotation>
+					<xs:documentation>Идентификатор ЮЛ</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ListOfRating" type="tns:ListOfRatingRs_Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Список рейтингов организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Marker" type="tns:MarkerRs_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>РМК и СКЕ организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ListOfRatingRs_Type">
+		<xs:sequence>
+			<xs:element name="Rating" type="tns:RatingRs_Type" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RatingRs_Type">
+		<xs:sequence>
+			<xs:element name="RatingId">
+				<xs:annotation>
+					<xs:documentation>Id рейтинга</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RatingType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип рейтинга</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RatingValue" type="xs:decimal" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Итоговый рейтинг</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RatingModelCode">
+				<xs:annotation>
+					<xs:documentation>Код рейтинговой модели</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RatingModelName">
+				<xs:annotation>
+					<xs:documentation>Наименование рейтинговой модели</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ApprovalDate" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Дата утверждения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EndDate" type="xs:date" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Дата след. актуализации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PD" type="xs:decimal" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Вероятность дефолта в %</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RatingStatus">
+				<xs:annotation>
+					<xs:documentation>Статус</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ProjectId" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Id проекта</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RatingIndicators" type="tns:RatingIndicatorsRs_Type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Список показателей</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ListOfCalculatedRating" type="tns:ListOfCalculatedRatingRs_Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Рассчитанные рейтинги</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ListOfTeamMember" type="com:ListOfTeamMember_Type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RatingIndicatorsRs_Type">
+		<xs:sequence>
+			<xs:element name="ListOfRatingPeriod" type="tns:ListOfRatingPeriodRs_Type" minOccurs="0"/>
+			<xs:element name="ListOfFixedFactor" type="tns:ListOfFixedFactorRs_Type" minOccurs="0"/>
+			<xs:element name="ListOfRatingSupport" type="tns:ListOfRatingSupportRs_Type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ListOfRatingPeriodRs_Type">
+		<xs:sequence>
+			<xs:element name="RatingPeriod" type="tns:RatingPeriodRs_Type" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Количественные показатели</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RatingPeriodRs_Type">
+		<xs:sequence>
+			<xs:element name="Period">
+				<xs:annotation>
+					<xs:documentation>Наименование периода отчетности</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="QuarterFO" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Квартал к которому относится финансовая отчетность</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="YearFO" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Год к которому относится финансовая отчетность</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ListOfCardinalFactor" type ="tns:ListOfCardinalFactorRs_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Список количественных показателей периода</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ListOfCardinalFactorRs_Type">
+		<xs:sequence>
+			<xs:element name="CardinalFactor" type="tns:CardinalFactorRs_Type" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Количественные показатели периода</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CardinalFactorRs_Type">
+		<xs:sequence>
+			<xs:element name="FactorIntegrationId">
+				<xs:annotation>
+					<xs:documentation>Интеграционный код показателя</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="NumValue" type="xs:decimal">
+				<xs:annotation>
+					<xs:documentation>Квартал к которому относится финансовая отчетность</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FlagFO" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Год к которому относится финансовая отчетность</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ListOfFixedFactorRs_Type">
+		<xs:sequence>
+			<xs:element name="FixedFactor" type="tns:FixedFactorRs_Type" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Неколичественные показатели</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FixedFactorRs_Type">
+		<xs:sequence>
+			<xs:element name="FactorIntegrationId">
+				<xs:annotation>
+					<xs:documentation>Интеграционный код показателя</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ValueIntegrationId" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Интеграционный код значения</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Comments" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пояснения к заполнению</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="4000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ListOfRatingSupportRs_Type">
+		<xs:sequence>
+			<xs:element name="RatingSupport" type="tns:RatingSupportRs_Type" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Показатели поддержки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RatingSupportRs_Type">
+		<xs:sequence>
+			<xs:element name="IntegrationId">
+				<xs:annotation>
+					<xs:documentation>Интеграционный код типа субъекта</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ListOfSupportFactor" type="tns:ListOfSupportFactorRs_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Показатели субъекта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ListOfSupportFactorRs_Type">
+		<xs:sequence>
+			<xs:element name="SupportFactor" type="tns:SupportFactorRs_Type" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Субъект</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SupportFactorRs_Type">
+		<xs:sequence>
+			<xs:element name="FactorIntegrationId">
+				<xs:annotation>
+					<xs:documentation>Код интеграции</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ValueIntegrationId" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Интеграционный код значения</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="FreeValue" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Значение показателя</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ListOfCalculatedRatingRs_Type">
+		<xs:sequence>
+			<xs:element name="CalculatedRating" type="tns:CalculatedRatingRs_Type" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CalculatedRatingRs_Type">
+		<xs:sequence>
+			<xs:element name="Role">
+				<xs:annotation>
+					<xs:documentation>Роль</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Login">
+				<xs:annotation>
+					<xs:documentation>Логин пользователя, находящегося в команде рейтинга, последним изменивший запись</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CalculationDate" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Дата расчета</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateDate" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Дата обновления записи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CorrectedValue" type="xs:decimal" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Скорректированный рейтинг</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BasisForAdjustment" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Основание для корректировки</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Judgement" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Мотивированное суждение</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1024"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ListOfCalculatedValues" type="tns:ListOfCalculatedValuesRs_Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Список расчетных значений</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ListOfCalculatedValuesRs_Type">
+		<xs:sequence>
+			<xs:element name="CalculatedValue" type="tns:CalculatedValueRs_Type" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CalculatedValueRs_Type">
+		<xs:sequence>
+			<xs:element name="MainValue" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Признак того, что это расчетное значение является главным.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Name">
+				<xs:annotation>
+					<xs:documentation>Наименование рассчитанного рейтинга</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Value" type="xs:decimal">
+				<xs:annotation>
+					<xs:documentation>Расчетное значение рейтинга </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MarkerRs_Type">
+		<xs:sequence>
+			<xs:element name="MarkerId">
+				<xs:annotation>
+					<xs:documentation>Id маркера</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="MarkerStatus">
+				<xs:annotation>
+					<xs:documentation>Статус</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DebtCapacityMarker" type="xs:decimal">
+				<xs:annotation>
+					<xs:documentation>Маркер кредитоемкости, тыс. руб. ИЛИ Маркер на тек. бюджетный год, тыс. руб</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DebtCapacity" type="xs:decimal">
+				<xs:annotation>
+					<xs:documentation>Свободная кредитоемкость, тыс. руб. ИЛИ Свободная кредитоемкость на тек. бюджетный год, тыс. руб</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RatingId">
+				<xs:annotation>
+					<xs:documentation>ID Рейтинга</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ReportingType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Тип отчетности, использованный для расчета маркера</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="NextDebtCapacityMarker" type="xs:decimal" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Маркер на след.бюджетный год, тыс.руб.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NextDebtCapacity" type="xs:decimal" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Свободная кредитоемкость на след. бюджетный год, тыс. руб.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DebtToRevenue" type="xs:decimal" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Соотношение долга к доходам за вычетом безвоздмездных поступлений</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DebtOn" type="xs:date" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Дата соотношения долга к доходам за вычетом безвоздмездных поступлений</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BudgetYear" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Бюджетный год</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="MarkerOverwriteBy">
+				<xs:annotation>
+					<xs:documentation>Логин пользователя, который последним изменил запись маркера</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ListOfMRKAddInfo" type="com:ListOfRatingAddInfo_Type" minOccurs="0"/>
+			<xs:element name="ListOfTeamMember" type="com:ListOfTeamMember_Type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ListOfKGRs_Type">
+		<xs:sequence>
+			<xs:element name="KG" type="tns:KGRs_Type" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="KGRs_Type">
+		<xs:sequence>
+			<xs:element name="KGID">
+				<xs:annotation>
+					<xs:documentation>ID консолидированной группы в CRM</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ListOfSKEKG" type="tns:ListOfSKEKGRs_Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Список СКЕ КГ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ListOfRating" type="tns:ListOfRatingRs_Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Список СКЕ КГ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ListOfSKEKGRs_Type">
+		<xs:sequence>
+			<xs:element name="SKEKG" type="tns:SKEKGRs_Type" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SKEKGRs_Type">
+		<xs:sequence>
+			<xs:element name="MarkerId">
+				<xs:annotation>
+					<xs:documentation>Id свободной кредитоемкости</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="SKEStatus">
+				<xs:annotation>
+					<xs:documentation>Статус</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DebtCapacity" type="xs:decimal">
+				<xs:annotation>
+					<xs:documentation>Свободная кредитоемкость, тыс. руб.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RatingId">
+				<xs:annotation>
+					<xs:documentation>ID Рейтинга</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ReportingType">
+				<xs:annotation>
+					<xs:documentation>Тип отчетности, использованный для расчета свободной кредитоемкости</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="SKEOverwriteBy" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Логин пользователя, который последним изменил запись СКЕ</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ListOfMRKAddInfo" type="com:ListOfRatingAddInfo_Type" minOccurs="0"/>
+			<xs:element name="ListOfTeamMember" type="com:ListOfTeamMember_Type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ListOfGSZRs_Type">
+		<xs:sequence>
+			<xs:element name="GSZ" type="tns:GSZRs_Type" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GSZRs_Type">
+		<xs:sequence>
+			<xs:element name="GSZID">
+				<xs:annotation>
+					<xs:documentation>ID ГСЗ в CRM</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ListOfUL" type="tns:ListOfULRs_Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Список участников ГСЗ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>	
+	<xs:complexType name="ListOfULRs_Type">
+		<xs:sequence>
+			<xs:element name="UL" type="tns:ULInfoRs_Type" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ULInfoRs_Type">
+		<xs:sequence>
+			<xs:element name="ULId">
+				<xs:annotation>
+					<xs:documentation>ID Организации CRM</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="MDMOrgId" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>ID Организации MDM</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="SubDivision">
+				<xs:annotation>
+					<xs:documentation>ТБ регистрации</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1024"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="IsResident">
+				<xs:annotation>
+					<xs:documentation>Резидент/Нерезидент</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ProblemGroupCalculated" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Расчетн. группа проблемности</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ProblemGroupApproved" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Утвержд. группа проблемности</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="OPF" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Организационно-правовая форма</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="OrganizationName">
+				<xs:annotation>
+					<xs:documentation>Полное наименование организации</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1024"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="INN" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>ИНН</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="KPP" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Код причины постановки на учет</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="KIO" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>КИО</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="OGRN" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>ОГРН</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="OKPO" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>ОКПО</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Industry" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Отрасль </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="KindOfIndustry" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид деятельности</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Segment">
+				<xs:annotation>
+					<xs:documentation>Сегмент</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RiskSegment" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Риск-сегмент</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RiskSegmentComment" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Комментарий (риск-сегмент)</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="2000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Category">
+				<xs:annotation>
+					<xs:documentation>Категория</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Belonging" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Принадлежность</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="KKFZ" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Флаг ККФЗ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistationDate" type="xs:date" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Дата гос. регистрации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationAuthority" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Регистрирующий орган</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RegistrationSertificateSeries" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Серия и номер свидетельства</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RegistrationSertificateDate" type="xs:date" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Дата выдачи свидетельства</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ULMainManager" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Логин владельца карточки организации</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RegistrationCountry" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Буквенный код страны регистрации</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="OrganizationType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Тип карточки</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="WholeSum" type="xs:decimal" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Общая сумма задолженности, тыс. руб</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AccountStatus" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Статус вхождения в ГСЗ</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="530"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ListOfRating" type="tns:ListOfRatingRs_Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Список рейтингов организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

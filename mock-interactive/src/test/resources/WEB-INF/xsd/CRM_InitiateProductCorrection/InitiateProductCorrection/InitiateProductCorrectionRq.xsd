@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by SONY (VAIO) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sbrf.ru/NCPCA/CRM/InitiateProductCorrectionRq/" targetNamespace="http://sbrf.ru/NCPCA/CRM/InitiateProductCorrectionRq/" elementFormDefault="qualified">
+	<element name="InitiateProductCorrectionRq" type="tns:InitiateProductCorrectionRq_Type"/>
+	<complexType name="InitiateProductCorrectionRq_Type">
+		<sequence>
+			<element name="AccountInfo" type="tns:AccountInfo_Type">
+				<annotation>
+					<documentation/>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ProductInfo_Type">
+		<sequence>
+			<element name="ProductId">
+				<annotation>
+					<documentation>ID Продукта из Организации</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ProductName">
+				<annotation>
+					<documentation>Идентификатор Продукта из продуктового каталога</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ParentProductId" minOccurs="0">
+				<annotation>
+					<documentation>ID Родительского Продукта</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="LimitIntegrationId" minOccurs="0">
+				<annotation>
+					<documentation>ID Лимита, на который распределен Продукт</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="55"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ProductAmount">
+				<annotation>
+					<documentation>Сумма Продукта</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="decimal">
+						<totalDigits value="28"/>
+						<fractionDigits value="9"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="CreditInstrument">
+				<annotation>
+					<documentation>Инструмент</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="CreditMode">
+				<annotation>
+					<documentation>Режим предоставления продукта</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ContractImportance" minOccurs="0">
+				<annotation>
+					<documentation>Значимость контракта</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="CurrentDebt" minOccurs="0">
+				<annotation>
+					<documentation>Текущая задолженность</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="decimal">
+						<totalDigits value="28"/>
+						<fractionDigits value="9"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="LimitResidue" minOccurs="0">
+				<annotation>
+					<documentation>Невыбранный лимит</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="decimal">
+						<totalDigits value="28"/>
+						<fractionDigits value="9"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="StartpointUtilCountry" minOccurs="0">
+				<annotation>
+					<documentation>Первоначальная страна использования</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="100"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="EndpointUtilCountry" minOccurs="0">
+				<annotation>
+					<documentation>Конечная страна использования</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="100"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Status">
+				<annotation>
+					<documentation>Статус</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="GeneralAgrFlag" type="boolean" minOccurs="0">
+				<annotation>
+					<documentation>Признак генерального соглашения</documentation>
+				</annotation>
+			</element>
+			<element name="IdGeneralAgr" minOccurs="0">
+				<annotation>
+					<documentation>ID Генерального соглашения, в рамках которого выдан продукт</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RateType" minOccurs="0">
+				<annotation>
+					<documentation>Тип ставки</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="InterestRate" minOccurs="0">
+				<annotation>
+					<documentation>Ставка по кредиту</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="decimal">
+						<totalDigits value="28"/>
+						<fractionDigits value="9"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RepaymentSchedule" minOccurs="0">
+				<annotation>
+					<documentation>График погашения</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ProductTerm">
+				<annotation>
+					<documentation>Срок кредитования</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="decimal">
+						<totalDigits value="10"/>
+						<fractionDigits value="2"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="CreditDivision" minOccurs="0">
+				<annotation>
+					<documentation>Кредитующее подразделение</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="30"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="BeginDate" type="date" minOccurs="0">
+				<annotation>
+					<documentation>Дата начала действия Продукта</documentation>
+				</annotation>
+			</element>
+			<element name="ApprovalDate" type="date">
+				<annotation>
+					<documentation>Дата утверждения Продукта</documentation>
+				</annotation>
+			</element>
+			<element name="InvalidContractData" type="boolean" minOccurs="0">
+				<annotation>
+					<documentation>Признак некорректных данных из АССД по договору</documentation>
+				</annotation>
+			</element>
+			<element name="AgreementNumber" minOccurs="0">
+				<annotation>
+					<documentation>№ договора</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="30"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="AgreementDate" type="date" minOccurs="0">
+				<annotation>
+					<documentation>Дата договора</documentation>
+				</annotation>
+			</element>
+			<element name="ProductCurrency">
+				<annotation>
+					<documentation>Валюта финансирования Продукта</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="3"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="FundingSource" minOccurs="0">
+				<annotation>
+					<documentation>Источник фондирования</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ExemptionPeriod" minOccurs="0">
+				<annotation>
+					<documentation>Льготный период, мес.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="decimal">
+						<totalDigits value="28"/>
+						<fractionDigits value="9"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="CreditAvailabilityPeriod" minOccurs="0">
+				<annotation>
+					<documentation>Период доступности, мес.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="decimal">
+						<totalDigits value="28"/>
+						<fractionDigits value="9"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="AgreementIntegrationId" minOccurs="0">
+				<annotation>
+					<documentation>ID Договора</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="50"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="DealID" minOccurs="0">
+				<annotation>
+					<documentation>Идентификатор сделки</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="20"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="MaturityDate" type="date" minOccurs="0">
+				<annotation>
+					<documentation>Дата погашения</documentation>
+				</annotation>
+			</element>
+			<element name="RefinancingSum" minOccurs="0">
+				<annotation>
+					<documentation>Сумма, направляемая на рефинансирование, в валюте кредитования, тыс.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="decimal">
+						<totalDigits value="28"/>
+						<fractionDigits value="9"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="AgreementAmount" minOccurs="0">
+				<annotation>
+					<documentation>Сумма договора</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="decimal">
+						<totalDigits value="28"/>
+						<fractionDigits value="9"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="AgreementCurrency" minOccurs="0">
+				<annotation>
+					<documentation>Валюта финансирования договора</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="3"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="AgreementEAD" minOccurs="0">
+				<annotation>
+					<documentation>Значение EAD</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="decimal">
+						<totalDigits value="28"/>
+						<fractionDigits value="9"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="AgreementLGD" minOccurs="0">
+				<annotation>
+					<documentation>Значение продукта</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="decimal">
+						<totalDigits value="28"/>
+						<fractionDigits value="9"/>
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfProduct_Type">
+		<sequence>
+			<element name="ProductInfo" type="tns:ProductInfo_Type">
+				<annotation>
+					<documentation>Продукт</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="AccountInfo_Type">
+		<sequence>
+			<element name="AccountId">
+				<annotation>
+					<documentation>Id Карточки организации в CRM</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="15"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="AccountName" minOccurs="0">
+				<annotation>
+					<documentation>Наименование организации заемщика</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="1024"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ListOfProduct" type="tns:ListOfProduct_Type">
+				<annotation>
+					<documentation>Список продуктов</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+</schema>

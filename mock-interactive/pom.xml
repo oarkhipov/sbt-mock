@@ -16,6 +16,12 @@
 
         <dependency>
             <groupId>ru.sbt.bpm.mock</groupId>
+            <artifactId>context-generator</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ru.sbt.bpm.mock</groupId>
             <artifactId>mock-log-writer</artifactId>
             <version>${parent.version}</version>
         </dependency>
@@ -233,9 +239,25 @@
             <version>1.4</version>
         </dependency>
 
+        <!--    JETTY MORTBAY   -->
+
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty</artifactId>
+            <version>6.1.25</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-plus</artifactId>
+            <version>6.1.25</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-naming</artifactId>
             <version>6.1.25</version>
             <scope>test</scope>
         </dependency>

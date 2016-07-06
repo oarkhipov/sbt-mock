@@ -2,7 +2,6 @@ package ru.sbt.bpm.mock.spring.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import net.sf.saxon.s9api.*;
-import ru.sbt.bpm.mock.spring.service.message.validation.impl.WsdlValidator;
 
 import javax.xml.transform.stream.StreamSource;
 import java.io.BufferedReader;

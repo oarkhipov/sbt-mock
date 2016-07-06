@@ -3,6 +3,7 @@ package ru.sbt.bpm.mock.config.entities;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import lombok.Data;
 
+import java.lang.*;
 import java.util.ArrayList;
 import java.util.List;
 

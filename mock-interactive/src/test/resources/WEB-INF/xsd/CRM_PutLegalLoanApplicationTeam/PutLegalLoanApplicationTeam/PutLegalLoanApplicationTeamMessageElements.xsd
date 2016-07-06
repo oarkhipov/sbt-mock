@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		xmlns:tns="http://sbrf.ru/NCPCA/CRM/PutLegalLoanApplicationTeamMessageElements/"
+		xmlns:hdr="http://sbrf.ru/ESB/mq/headers" 
+		xmlns:pllatrq="http://sbrf.ru/NCPCA/CRM/PutLegalLoanApplicationTeamRq/" 
+		xmlns:pllatrs="http://sbrf.ru/NCPCA/CRM/PutLegalLoanApplicationTeamRs/" 
+		targetNamespace="http://sbrf.ru/NCPCA/CRM/PutLegalLoanApplicationTeamMessageElements/">
+	<import namespace="http://sbrf.ru/ESB/mq/headers" schemaLocation="../../Common/Header.xsd"/>
+	<import namespace="http://sbrf.ru/NCPCA/CRM/PutLegalLoanApplicationTeamRq/" schemaLocation="./PutLegalLoanApplicationTeamRq.xsd"/>
+	<import namespace="http://sbrf.ru/NCPCA/CRM/PutLegalLoanApplicationTeamRs/" schemaLocation="./PutLegalLoanApplicationTeamRs.xsd"/>
+
+	<element name="Body">
+		<annotation>
+			<documentation>Тело сообщения</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="pllatrq:PutLegalLoanApplicationTeamRq" minOccurs="0"/>
+				<element ref="pllatrs:PutLegalLoanApplicationTeamRs" minOccurs="0"/>			
+			</sequence>
+		</complexType>
+	</element>
+	<element name="Envelope">
+		<annotation>
+			<documentation>Сообщение</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="hdr:Header"/>
+				<element ref="tns:Body"/>
+			</sequence>
+		</complexType>
+	</element>
+</schema>
+

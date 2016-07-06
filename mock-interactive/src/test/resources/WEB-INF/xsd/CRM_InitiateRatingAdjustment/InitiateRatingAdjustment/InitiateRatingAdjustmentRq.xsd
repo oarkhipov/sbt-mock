@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns:tns="http://sbrf.ru/NCPCA/CRM/InitiateRatingAdjustmentRq/"
+    targetNamespace="http://sbrf.ru/NCPCA/CRM/InitiateRatingAdjustmentRq/"
+    xmlns:com="http://sbrf.ru/NCPCA/CRM/CommonTypes/"
+			elementFormDefault="qualified">
+    <xs:import namespace="http://sbrf.ru/NCPCA/CRM/CommonTypes/" schemaLocation="./../CRMIntegrationTypes.xsd"/>
+    <xs:element name="InitiateRatingAdjustmentRq" type="tns:InitiateRatingAdjustmentRq_Type"/>
+    <xs:complexType name="InitiateRatingAdjustmentRq_Type">
+        <xs:sequence>
+            <xs:element name="Rating" type="tns:RatingRq_Type">
+                <xs:annotation>
+                    <xs:documentation>Рейтинг</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="RatingRq_Type">
+        <xs:sequence>
+            <xs:element name="RatingId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор карточки рейтинга (Id BPM/CRM)</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="RatingStatus">
+                <xs:annotation>
+                    <xs:documentation>Статус рейтинга</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Role">
+                <xs:annotation>
+                    <xs:documentation>Роль пользователя в команде рейтинга</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="UpdateDate" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation>Дата обновления записи</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CorrectedValue" type="xs:decimal" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Скорректированный рейтинг</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="BasisForAdjustment" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Основание для корректировки</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Judgement" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Мотивированное суждение</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ListOfTeamMember" type="com:ListOfTeamMember_Type" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

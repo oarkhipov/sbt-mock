@@ -27,10 +27,6 @@
        </int:gateway>
        <int:channel id="test"/>
 
-       <!--<bean class="ru.sbt.bpm.mock.config.MockConfigContainer">-->
-              <!--<constructor-arg value="/env/MockConfig.xml" type="java.lang.String" />-->
-       <!--</bean>-->
-
-       <bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
+       <!--<bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>-->
        <!--<bean id="responseGenerator" class="ru.sbt.bpm.mock.spring.bean.ResponseGenerator"/>-->
 </beans>

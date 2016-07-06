@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 	xmlns="http://www.w3.org/2001/XMLSchema" 
+			xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+			xmlns:tns="http://sbrf.ru/NCPCA/CRM/UpdateLegalClientRiskInfoRq/" 
+			targetNamespace="http://sbrf.ru/NCPCA/CRM/UpdateLegalClientRiskInfoRq/" 
+			elementFormDefault="qualified">
+	<xs:element name="UpdateLegalClientRiskInfoRq" type="tns:UpdateLegalClientRiskInfoRq_Type"/>
+    <xs:complexType name="UpdateLegalClientRiskInfoRq_Type">
+        <xs:sequence>
+            <xs:element name="UL" type="tns:ULRq_Type" >
+                <xs:annotation>
+                    <xs:documentation>Информация об организаци</xs:documentation>
+                </xs:annotation>    
+            </xs:element>  
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ULRq_Type">
+        <xs:annotation>
+            <xs:documentation>организаця</xs:documentation>
+        </xs:annotation> 
+        <xs:sequence>
+            <xs:element name="ULId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор организаци</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="MDMOrgId" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>ID Организации CRM</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="19" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="OrganizationName">
+                <xs:annotation>
+                    <xs:documentation>Полное наименование организации</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1024" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="INN" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>ИНН</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Category">
+                <xs:annotation>
+                    <xs:documentation>Категория карточки организации</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Segment">
+                <xs:annotation>
+                    <xs:documentation>Сегмент</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="RiskSegment" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Риск-сегмент</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="OGRN" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>ОГРН</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="100" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="OPF" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Организационно-правовая форма</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="GSZId" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>CRM ID ГСЗ</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="GSZName" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Название ГСЗ</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="250" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="CuratorOfGSZ" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Логин куратора ГСЗ</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element> 
+            <xs:element name="RootGSZId" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>CRM ID ГСЗ верхнего уровня</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>        
+            <xs:element name="RootGSZName" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Название ГСЗ верхнего уровня</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="250" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="KGId" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>CRM ID КГ</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="KGName" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Название КГ</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="250" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="KGRiskSegment" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Риск-сегмент КГ</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="KGRiskSegmentComment" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Комментарий к риск-сегменту КГ</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="255" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="KPP" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Код причины постановки на учет</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="KIO" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>КИО</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Industry" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Отрасль </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="KindOfIndustry" minOccurs="0" maxOccurs="1">
+			    <xs:annotation>
+			        <xs:documentation>Вид деятельности</xs:documentation>
+			    </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="RegistrationCountry" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Страна регистрации</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="100" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ULMainManager" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>ВКО</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="MGId" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>CRM идентификатор Мета-группы</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="MGName" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Наименование Мета-группы</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="255" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="MGroupMDMId" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>MDM ID МГ</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="20" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="MGMainManager" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Логин Клиентского менеджера МГ</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="EKId" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>CRM идентификатор Единого клиента</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="EKMdmId" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>MDM ID ЕК</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="20" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="EKName" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Наименование Единого Клиента</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="255" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="EKMainManager" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Логин Клиентского менеджера ЕК</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ProblemGroupCalculated" minOccurs="0" maxOccurs="1">
+                 <xs:annotation>
+                     <xs:documentation>Расчетная группа проблемности</xs:documentation>
+                 </xs:annotation>
+                 <xs:simpleType>
+                     <xs:restriction base="xs:string">
+                         <xs:maxLength value="50" />
+                     </xs:restriction>
+                 </xs:simpleType>
+            </xs:element>
+            <xs:element name="ProblemGroupApproved" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Утвержденная группа проблемности</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ProblemGroupForApprove" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Расчетная группа проблемности к утверждению</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="WholeSum" type="xs:decimal" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Общая сумма задолженности, тыс. руб</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ListOfProblematicalCriterion" type="tns:ListOfProblematicalCriterionRq_Type" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Параметры критериев проблемности</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ListOfProblematicalCriterionRq_Type">
+        <xs:annotation>
+            <xs:documentation>Параметры критериев проблемности</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="ProblematicalCriterion" type="tns:ProblematicalCriterionRq_Type" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ProblematicalCriterionRq_Type">
+        <xs:sequence>
+            <xs:element name="ProblematicalCriterionName">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>    
+</xs:schema>

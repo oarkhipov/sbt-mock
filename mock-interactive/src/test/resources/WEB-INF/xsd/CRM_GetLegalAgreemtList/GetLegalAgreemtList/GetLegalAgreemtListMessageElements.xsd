@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		xmlns:tns="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtListMessageElements/" 
+		xmlns:hdr="http://sbrf.ru/ESB/mq/headers" 
+		xmlns:glalrq="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtListRq/" 
+		xmlns:glalrs="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtListRs/" 
+		targetNamespace="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtListMessageElements/" >
+	<import namespace="http://sbrf.ru/ESB/mq/headers" schemaLocation="../../Common/Header.xsd"/>
+	<import namespace="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtListRq/" schemaLocation="GetLegalAgreemtListRq.xsd"/>
+	<import namespace="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtListRs/" schemaLocation="GetLegalAgreemtListRs.xsd"/>
+
+	<element name="Body">
+		<annotation>
+			<documentation>Тело сообщения</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="glalrq:GetLegalAgreemtListRq" minOccurs="0"/>
+				<element ref="glalrs:GetLegalAgreemtListRs" minOccurs="0"/>			
+			</sequence>
+		</complexType>
+	</element>
+	<element name="Envelope">
+		<annotation>
+			<documentation>Сообщение</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="hdr:Header"/>
+				<element ref="tns:Body"/>
+			</sequence>
+		</complexType>
+	</element>
+</schema>
+

@@ -1,0 +1,22 @@
+<get:GetRatingRq xmlns:get="http://sbrf.ru/NCPCA/CRM/GetRatingRq/">
+  <get:ListOfLegalPerson>
+    <!--1 or more repetitions:-->
+    <get:LegalPerson>
+      <get:AccountID>string</get:AccountID>
+    </get:LegalPerson>
+  </get:ListOfLegalPerson>
+  <!--Optional:-->
+  <get:ListOfKG>
+    <!--1 or more repetitions:-->
+    <get:KG>
+      <get:KGID>string</get:KGID>
+    </get:KG>
+  </get:ListOfKG>
+  <!--Optional:-->
+  <get:ListOfGSZ>
+    <!--1 or more repetitions:-->
+    <get:GSZ>
+      <get:GSZID>string</get:GSZID>
+    </get:GSZ>
+  </get:ListOfGSZ>
+</get:GetRatingRq>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    xmlns:tns="http://sbrf.ru/NCPCA/CRM/PutLegalRatingRq/"
+    targetNamespace="http://sbrf.ru/NCPCA/CRM/PutLegalRatingRq/">
+    <element name="PutLegalRatingRq" type="tns:PutLegalRatingRq_Type"/>
+    <complexType name="PutLegalRatingRq_Type">
+        <sequence>
+            <element name="DefaultInfo" type="tns:DefaultInfo_Type">
+                <annotation>
+                    <documentation>Данные о дефолте контрагента</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="DefaultInfo_Type">
+        <sequence>
+            <element name="OperationType">
+                <annotation>
+                    <documentation>Тип операции, проводимой с рейтингом</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="50"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="Rating" type="tns:Rating_Type" minOccurs="0">
+                <annotation>
+                    <documentation>Контейнер с параметрами, необходимыми для создания нового
+                        дефолтного рейтинга/перевода старого дефолтного рейтинга в архив
+                    </documentation>
+                </annotation>
+            </element>
+            <element name="OrgRec" type="tns:OrgRec_Type" minOccurs="0">
+                <annotation>
+                    <documentation>Информация об организации</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="Rating_Type">
+        <sequence>
+            <element name="RaitingId">
+                <annotation>
+                    <documentation>Интеграционный ID нового дефолтного рейтинга</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="15"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="RatingType" minOccurs="0">
+                <annotation>
+                    <documentation>Тип рейтинга</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="50"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="RatingValue"  minOccurs="0">
+                <annotation>
+                    <documentation>Значение рейтинга</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="decimal">
+                        <pattern value="(\+|\-)?[0-9]*\.?[0-9]*"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="RatingModelCode" minOccurs="0">
+                <annotation>
+                    <documentation>Идентификатор рейтинговой модели </documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="30"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="EndDate" type="date" minOccurs="0">
+                <annotation>
+                    <documentation>Дата следующей актуализации рейтинга</documentation>
+                </annotation>
+            </element>
+            <element name="PD" minOccurs="0">
+                <annotation>
+                    <documentation>Вероятность дефолта</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="decimal">
+                        <pattern value="(\+|\-)?[0-9]*\.?[0-9]*"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="ListOfFixedFactor" type="tns:ListOfFixedFactor_Type" minOccurs="0">
+                <annotation>
+                    <documentation>Список неколичественных показателей для установления нового
+                        дефолтного </documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="OrgRec_Type">
+        <sequence>
+            <element name="OrgId" type="tns:OrgId_Type" minOccurs="0" maxOccurs="unbounded">
+                <annotation>
+                    <documentation>Уникальный идентификатор клиента</documentation>
+                </annotation>
+            </element>
+            <element name="OrgInfo" type="tns:OrgInfo_Type" minOccurs="0">
+                <annotation>
+                    <documentation>Информация об организации</documentation>
+                </annotation>
+            </element>
+            <element name="Resident" type="boolean" minOccurs="0">
+                <annotation>
+                    <documentation>Признак резидента</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="OrgId_Type">
+        <annotation>
+            <documentation>список Дополнительная информация из АМ</documentation>
+        </annotation>
+        <sequence>
+            <element name="OrgType">
+                <annotation>
+                    <documentation>Тип идентификатора организации</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="80"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="OrgNum">
+                <annotation>
+                    <documentation>Идентификационный номер организации</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="50"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="ListOfFixedFactor_Type">
+        <sequence>
+            <element name="FixedFactor" type="tns:FixedFactor_Type" maxOccurs="unbounded">
+                <annotation>
+                    <documentation>Неколичественный показатель дефолтного рейтинга</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="OrgInfo_Type">
+        <sequence>
+            <element name="TINInfo" type="tns:TINInfo_Type">
+                <annotation>
+                    <documentation>Идентификатор налогоплательщика</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="FixedFactor_Type">
+        <sequence>
+            <element name="FactorIntegrationId">
+                <annotation>
+                    <documentation>Неколичественный показатель дефолтного рейтинга</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="30"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="ValueIntegrationId">
+                <annotation>
+                    <documentation>Код значения неколичественного показателя </documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="30"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="TINInfo_Type">
+        <sequence>
+            <element name="TaxId">
+                <annotation>
+                    <documentation>Идентификатор налогоплательщика(ИНН/КИО)</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="15"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+</schema>

@@ -1,0 +1,6 @@
+<get:GetLegalAgreemtListRq xmlns:get="http://sbrf.ru/NCPCA/CRM/GetLegalAgreemtListRq/">
+  <get:AccountInfo>
+    <get:QueryType>string</get:QueryType>
+    <get:AccountId>string</get:AccountId>
+  </get:AccountInfo>
+</get:GetLegalAgreemtListRq>

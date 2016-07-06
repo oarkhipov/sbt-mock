@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		xmlns:tns="http://sbrf.ru/NCPCA/CRM/GetRatingMessageElements/"
+		xmlns:hdr="http://sbrf.ru/ESB/mq/headers" 
+		xmlns:grrq="http://sbrf.ru/NCPCA/CRM/GetRatingRq/" 
+		xmlns:grrs="http://sbrf.ru/NCPCA/CRM/GetRatingRs/" 
+		targetNamespace="http://sbrf.ru/NCPCA/CRM/GetRatingMessageElements/">
+	<import namespace="http://sbrf.ru/ESB/mq/headers" schemaLocation="../../Common/Header.xsd"/>
+	<import namespace="http://sbrf.ru/NCPCA/CRM/GetRatingRq/" schemaLocation="GetRatingRq.xsd"/>
+	<import namespace="http://sbrf.ru/NCPCA/CRM/GetRatingRs/" schemaLocation="GetRatingRs.xsd"/>
+
+	<element name="Body">
+		<annotation>
+			<documentation>Тело сообщения</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="grrq:GetRatingRq" minOccurs="0"/>
+				<element ref="grrs:GetRatingRs" minOccurs="0"/>			
+			</sequence>
+		</complexType>
+	</element>
+	<element name="Envelope">
+		<annotation>
+			<documentation>Сообщение</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="hdr:Header"/>
+				<element ref="tns:Body"/>
+			</sequence>
+		</complexType>
+	</element>
+</schema>
+
