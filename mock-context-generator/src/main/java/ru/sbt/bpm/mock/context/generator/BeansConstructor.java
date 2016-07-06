@@ -1,10 +1,10 @@
 package ru.sbt.bpm.mock.context.generator;
 
-import com.sun.istack.internal.NotNull;
 import generated.springframework.beans.Beans;
 import generated.springframework.beans.ConstructorArg;
 import generated.springframework.beans.Import;
 import generated.springframework.beans.PropertyType;
+import lombok.NonNull;
 import org.springframework.stereotype.Service;
 import reactor.tuple.Tuple2;
 
@@ -205,7 +205,7 @@ public class BeansConstructor implements IContextGeneratable  {
 	 * @param properties - свойства
 	 * @return <beans></beans>
 	 */
-	private generated.springframework.beans.Beans createBean(@NotNull Beans beans, String className, String id, List<Tuple2<String, String>> constructorArgValues, Map<String, String> properties) {
+	private generated.springframework.beans.Beans createBean(@NonNull Beans beans, String className, String id, List<Tuple2<String, String>> constructorArgValues, Map<String, String> properties) {
 		beans.getImportOrAliasOrBean().add(createBean(className, id, createListConstructorArg(constructorArgValues), createProperties(properties)));
 		return beans;
 	}

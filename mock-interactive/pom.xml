@@ -240,7 +240,6 @@
         </dependency>
 
         <!--    JETTY MORTBAY   -->
-
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty</artifactId>
