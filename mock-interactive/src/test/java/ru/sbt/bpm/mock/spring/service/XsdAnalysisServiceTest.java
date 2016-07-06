@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
+import reactor.tuple.Tuple2;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 
 import java.util.Set;
@@ -67,9 +68,8 @@ public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests {
 			for (String namespace : xsdAnalysisService.getNamespaceFromXsd(system.getSystemName())) {
 				log.info(String.format("Namespace name: %s", namespace));
 				if (xsdAnalysisService.getElementsForNamespace(system.getSystemName(), namespace) != null)
-					for (String element : xsdAnalysisService.getElementsForNamespace(system.getSystemName(), namespace)) {
-						log.info(String.format("Element: %s", element));
-					}
+					for (Tuple2<String, String> element : xsdAnalysisService.getElementsForNamespace(system.getSystemName(), namespace))
+						log.info(String.format("Namespace: %s || Element: %s", element.getT1(), element.getT2()));
 			}
 		}
 		return assertFail;
