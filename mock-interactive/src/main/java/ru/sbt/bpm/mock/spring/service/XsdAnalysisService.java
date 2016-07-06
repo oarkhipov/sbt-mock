@@ -7,6 +7,8 @@ import org.apache.commons.io.input.BOMInputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import reactor.tuple.Tuple;
+import reactor.tuple.Tuple2;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.spring.utils.XpathUtils;
 
@@ -57,8 +59,10 @@ public class XsdAnalysisService {
 	};
 
 	// Maps
-	private Map<String, Set<String>>              mapNamespacesByXpath  = new HashMap<String, Set<String>>();
-	private Map<String, Map<String, Set<String>>> mapOfElements         = new HashMap<String, Map<String, Set<String>>>();
+	private Map<String, Set<String>>                               mapNamespacesByXpath = new HashMap<String,
+			Set<String>>();
+	private Map<String, Map<String, List<Tuple2<String, String>>>> mapOfElements        = new HashMap<String,
+			Map<String, List<Tuple2<String, String>>>>();
 
 
 	public void reInit () throws IOException, SaxonApiException {
@@ -77,14 +81,14 @@ public class XsdAnalysisService {
 		return mapNamespacesByXpath.get(systemName);
 	}
 
-	public Set<String> getElementsForNamespace (String systemName, String namespaceName) {
+	public List<Tuple2<String, String>> getElementsForNamespace (String systemName, String namespaceName) {
 		return mapOfElements.get(systemName).get(namespaceName);
 	}
 
 	private void getElementsFromXsd () throws IOException, SaxonApiException {
 		Map<String, List<File>> map = getXsdFilesFromSystems();
 		for (String systemName : map.keySet()) {
-			Map<String, Set<String>> mapElementsByNamespace = new HashMap<String, Set<String>>();
+			Map<String, List<Tuple2<String, String>>> mapElementsByNamespace = new HashMap<String, List<Tuple2<String, String>>>();
 			printLog(systemName);
 			for (File xsdFile : map.get(systemName)) {
 				String inputXml = readFileWithoutBOM(xsdFile);
@@ -94,12 +98,12 @@ public class XsdAnalysisService {
 		}
 	}
 
-	private Set<String> getElementFromXsd (String inputXml, String xPath) throws SaxonApiException {
-		Set<String> set      = new TreeSet<String>(STRING_COMPARATOR);
+	private List<Tuple2<String, String>> getElementFromXsd (String inputXml, String xPath, String namespace) throws SaxonApiException {
+		List<Tuple2<String, String>> set      = new ArrayList<Tuple2<String, String>>();
 		XdmValue    xdmValue = XpathUtils.evaluateXpath(inputXml, xPath);
 		for (int i = 0; i < xdmValue.size(); i++) {
 			String element = xdmValue.itemAt(i).getStringValue();
-			set.add(element);
+			set.add(Tuple.of(namespace, element));
 			log.debug(String.format("Element name: %s", element));
 		}
 		return set;
@@ -121,15 +125,15 @@ public class XsdAnalysisService {
 	 * @param xPathElement
 	 * @throws SaxonApiException
 	 */
-	private Map<String, Set<String>> getNamespaceByxPath (String inputXml, String xPathNamespace, String xPathElement)
+	private Map<String, List<Tuple2<String, String>>> getNamespaceByxPath (String inputXml, String xPathNamespace, String xPathElement)
 			throws SaxonApiException {
-		Map<String, Set<String>> map       = new TreeMap<String, Set<String>>(STRING_COMPARATOR);
+		Map<String, List<Tuple2<String, String>>> map       = new TreeMap<String, List<Tuple2<String, String>>>(STRING_COMPARATOR);
 		String                   namespace = "";
 		XdmValue                 xdmValue  = XpathUtils.evaluateXpath(inputXml, xPathNamespace);
 		for (int i = 0; i < xdmValue.size(); i++) {
 			namespace = xdmValue.itemAt(i).getStringValue();
 			log.info(String.format("Namespace: %s", namespace));
-			map.put(namespace, getElementFromXsd(inputXml, xPathElement));
+			map.put(namespace, getElementFromXsd(inputXml, xPathElement, namespace));
 		}
 		return map;
 	}
