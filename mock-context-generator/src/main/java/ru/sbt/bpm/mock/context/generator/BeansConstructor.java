@@ -177,6 +177,11 @@ public class BeansConstructor implements IContextGeneratable  {
 		return listProperties;
 	}
 
+	/**
+	 * <property name="" value=""/>
+	 * @param propertyType - свойство
+	 * @return
+	 */
 	private JAXBElement<PropertyType> createProperty(generated.springframework.beans.PropertyType propertyType) {
 		return beanFactory.createProperty(propertyType);
 	}

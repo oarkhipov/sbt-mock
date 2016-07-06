@@ -5,4 +5,7 @@ package ru.sbt.bpm.mock.context.generator;
  */
 
 public class IntegrationConstructor implements IContextGeneratable {
+
+
+
 }
