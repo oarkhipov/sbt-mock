@@ -78,7 +78,7 @@ public class SystemApiController {
             systems.setSystems(new ArrayList<System>());
         }
         systems.getSystems().add(system);
-        validationService.reinitValidator(name);
+        validationService.reInitValidator(name);
         configurationService.saveConfig();
         return "redirect:/";
     }
@@ -182,7 +182,7 @@ public class SystemApiController {
             }
         }
 
-        validationService.reinitValidator(systemName);
+        validationService.reInitValidator(systemName);
         configurationService.saveConfig();
         return "redirect:/";
     }
@@ -200,7 +200,7 @@ public class SystemApiController {
     @ResponseBody
     @RequestMapping(value = "/api/system/reinitValidator/{systemName}/")
     public String reinitValidator(@PathVariable String systemName) throws IOException, SAXException {
-        validationService.reinitValidator(systemName);
+        validationService.reInitValidator(systemName);
         return "OK!";
     }
 
@@ -210,7 +210,7 @@ public class SystemApiController {
         List<System> systems = configContainer.getConfig().getSystems().getSystems();
         for (System system : systems) {
             try {
-                validationService.reinitValidator(system.getSystemName());
+                validationService.reInitValidator(system.getSystemName());
             } catch (Exception e) {
                 return ExceptionUtils.getExceptionStackTrace(e);
             }

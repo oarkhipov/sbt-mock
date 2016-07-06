@@ -287,7 +287,7 @@ public class MessageValidationService {
      * @throws IOException
      * @throws SAXException
      */
-    public void reinitValidator(String systemName) throws IOException, SAXException {
+    public void reInitValidator (String systemName) throws IOException, SAXException {
         System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
         validator.remove(systemName);
         initValidator(system);

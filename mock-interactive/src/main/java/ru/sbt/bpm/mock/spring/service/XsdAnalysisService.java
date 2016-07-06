@@ -5,17 +5,17 @@ import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.XdmValue;
 import org.apache.commons.io.input.BOMInputStream;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import reactor.tuple.Tuple;
 import reactor.tuple.Tuple2;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.config.entities.System;
+import ru.sbt.bpm.mock.config.entities.Systems;
 import ru.sbt.bpm.mock.spring.utils.XpathUtils;
 
 import javax.annotation.PostConstruct;
 import java.io.*;
 import java.util.*;
-import java.util.regex.Pattern;
 
 /**
  * Created by sbt-hodakovskiy-da on 14.06.2016.
@@ -29,11 +29,8 @@ public class XsdAnalysisService {
     private static final String LOCAL_NAME_SCHEMA_TARGET_NAMESPACE = "//*[local-name()='schema']/@targetNamespace";
     private static final String LOCAL_NAME_IMPORT_NAMESPACE = "//*[local-name()='import']/@namespace";
     private static final String XPATH_ELEMENT_ATTRIBUTE_NAME = "//*[local-name()='element']/@name";
-    private static final String XPATH_ELEMENT_ATTRIBUTE_REF = "//*[local-name()='element']/@ref";
+
     // RegExp
-    private static final Pattern NAMESPACE_PATTERN = Pattern.compile("xmlns:(.*?)=(\".*?\")");
-    private static final Pattern NAMESPACE_URL_PATTERN = Pattern.compile("(http:.+)(?=\"[^\"]*$)");
-    private static final Pattern NAMESPACE_PREFIX_PATTERN = Pattern.compile("([^:]+)(?=\\=[^=]*$)");
     private static final Comparator<String> STRING_COMPARATOR = new Comparator<String>() {
         @Override
         public int compare(String o1, String o2) {
@@ -46,12 +43,11 @@ public class XsdAnalysisService {
             return o1.compareTo(o2);
         }
     };
+
     @Autowired
     MockConfigContainer configContainer;
     @Autowired
     DataFileService dataFileService;
-    @Autowired
-    private ApplicationContext appContext;
     // Maps
     private Map<String, Set<String>> mapNamespacesByXpath = new HashMap<String,
             Set<String>>();
@@ -67,8 +63,27 @@ public class XsdAnalysisService {
 
     @PostConstruct
     private void init() throws IOException, SaxonApiException {
-        getNamespaceFromXSDByxPath();
-        getElementsFromXsd();
+        Systems systemContainer = configContainer.getConfig().getSystems();
+        if (systemContainer != null) {
+            List<ru.sbt.bpm.mock.config.entities.System> systems = systemContainer.getSystems();
+            for (System system : systems)
+                init(system);
+        }
+    }
+
+    protected void init (ru.sbt.bpm.mock.config.entities.System system) throws IOException, SaxonApiException {
+        String systemName = system.getSystemName();
+        File systemPath = dataFileService.getSystemXsdDirectoryResource(systemName).getFile().getCanonicalFile();
+        List<File> systemXsdFile = getFilesFromDir(systemPath);
+        fillElementsMap(systemName, systemXsdFile);
+        fillMapNamespace(systemName, systemXsdFile);
+    }
+
+    protected void reInit (String systemName) throws IOException, SaxonApiException {
+        System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
+        mapNamespacesByXpath.remove(systemName);
+        mapOfElements.remove(systemName);
+        init(system);
     }
 
     public Set<String> getNamespaceFromXsd(String systemName) {
@@ -79,17 +94,14 @@ public class XsdAnalysisService {
         return mapOfElements.get(systemName).get(namespaceName);
     }
 
-    private void getElementsFromXsd() throws IOException, SaxonApiException {
-        Map<String, List<File>> map = getXsdFilesFromSystems();
-        for (String systemName : map.keySet()) {
-            Map<String, List<Tuple2<String, String>>> mapElementsByNamespace = new HashMap<String, List<Tuple2<String, String>>>();
-            printLog(systemName);
-            for (File xsdFile : map.get(systemName)) {
-                String inputXml = readFileWithoutBOM(xsdFile);
-                mapElementsByNamespace.putAll(getNamespaceByxPath(inputXml, LOCAL_NAME_SCHEMA_TARGET_NAMESPACE, XPATH_ELEMENT_ATTRIBUTE_NAME));
-            }
-            mapOfElements.put(systemName, mapElementsByNamespace);
+    private void fillElementsMap (String systemName, List<File> files) throws IOException, SaxonApiException {
+        Map<String, List<Tuple2<String, String>>> mapElementsByNamespace = new HashMap<String, List<Tuple2<String, String>>>();
+        printLog(systemName);
+        for (File xsdFile : files) {
+            String inputXml = readFileWithoutBOM(xsdFile);
+            mapElementsByNamespace.putAll(getNamespaceByxPath(inputXml, LOCAL_NAME_SCHEMA_TARGET_NAMESPACE, XPATH_ELEMENT_ATTRIBUTE_NAME));
         }
+        mapOfElements.put(systemName, mapElementsByNamespace);
     }
 
     private List<Tuple2<String, String>> getElementFromXsd(String inputXml, String xPath, String namespace) throws SaxonApiException {
@@ -132,23 +144,19 @@ public class XsdAnalysisService {
         return map;
     }
 
+    private void fillMapNamespace (String systemName, List<File> files) throws IOException, SaxonApiException {
+        Set<String> setXsdNamespace = new TreeSet<String>(STRING_COMPARATOR);
+        printLog(systemName);
+        for (File xsdFile : files) {
+            log.debug("Read file: " + xsdFile.getName());
+            String inputXml = readFileWithoutBOM(xsdFile);
+            // Проходим по target
+            setXsdNamespace.addAll(getNamespaceByxPath(inputXml, LOCAL_NAME_SCHEMA_TARGET_NAMESPACE));
 
-    private void getNamespaceFromXSDByxPath() throws IOException, SaxonApiException {
-        Map<String, List<File>> map = getXsdFilesFromSystems();
-        for (String systemName : map.keySet()) {
-            Set<String> setXsdNamespace = new TreeSet<String>(STRING_COMPARATOR);
-            printLog(systemName);
-            for (File xsdFile : map.get(systemName)) {
-                log.debug("Read file: " + xsdFile.getName());
-                String inputXml = readFileWithoutBOM(xsdFile);
-                // Проходим по target
-                setXsdNamespace.addAll(getNamespaceByxPath(inputXml, LOCAL_NAME_SCHEMA_TARGET_NAMESPACE));
-
-                // Проходим по import
-                setXsdNamespace.addAll(getNamespaceByxPath(inputXml, LOCAL_NAME_IMPORT_NAMESPACE));
-            }
-            mapNamespacesByXpath.put(systemName, setXsdNamespace);
+            // Проходим по import
+            setXsdNamespace.addAll(getNamespaceByxPath(inputXml, LOCAL_NAME_IMPORT_NAMESPACE));
         }
+        mapNamespacesByXpath.put(systemName, setXsdNamespace);
     }
 
     /**
@@ -177,24 +185,6 @@ public class XsdAnalysisService {
         while ((line = br.readLine()) != null)
             sb.append(line);
         return sb.toString();
-    }
-
-    /**
-     * Получение списка xsd файлов по системе
-     *
-     * @return map<система, список xsd файлов>
-     * @throws IOException
-     */
-    private Map<String, List<File>> getXsdFilesFromSystems() throws IOException {
-        Map<String, List<File>> map = new HashMap<String, List<File>>();
-        for (ru.sbt.bpm.mock.config.entities.System system : configContainer.getConfig().getSystems().getSystems()) {
-            String systemName = system.getSystemName();
-            printLog(systemName);
-            List<File> filesFromDir = getFilesFromDir(dataFileService.getSystemXsdDirectoryResource(systemName).getFile().getCanonicalFile());
-            log.debug(String.format("Files: %s", filesFromDir));
-            map.put(systemName, filesFromDir);
-        }
-        return map;
     }
 
     /**
