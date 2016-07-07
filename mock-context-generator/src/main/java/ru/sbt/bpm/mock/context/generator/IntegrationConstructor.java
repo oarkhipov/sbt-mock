@@ -1,7 +1,9 @@
 package ru.sbt.bpm.mock.context.generator;
 
+import generated.springframework.integration.GateMethod;
 import generated.springframework.integration.WireTap;
 import lombok.NonNull;
+import reactor.tuple.Tuple3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,7 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 * @return
 	 */
 	public generated.springframework.beans.Beans createChannel(generated.springframework.beans.Beans beans, String channelId) {
-		return createChannelPrivate(beans, channelId, new ArrayList<String>());
+		return createChannelInternal(beans, channelId, new ArrayList<String>());
 	}
 
 	/**
@@ -41,7 +43,7 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 * @return
 	 */
 	public generated.springframework.beans.Beans createChannel(generated.springframework.beans.Beans beans, String channelId, List<String> wireTapChannels) {
-		return createChannelPrivate(beans, channelId, wireTapChannels);
+		return createChannelInternal(beans, channelId, wireTapChannels);
 	}
 
 	/**
@@ -72,6 +74,99 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 */
 	public generated.springframework.beans.Beans createServiceActivator (generated.springframework.beans.Beans beans, String inputChannel, String outputChannel, String methodName, generated.springframework.beans.Bean bean) {
 		return createServiceActivator(beans, inputChannel, outputChannel, methodName, bean, null);
+	}
+
+	/**
+	 * <beans>
+	 *    <int:gateway id="" error-channel="" service-interface="" default-reply-timeout="" default-request-timeout="">
+	 *      <int:method name="" request-channel="" reply-channel=""/>
+	 *    </int:gateway>
+	 * </beans>
+	 * @param beans
+	 * @param id
+	 * @param errorChannel
+	 * @param serviceInterface
+	 * @param defaultReplyTimeout
+	 * @param defaultRequestTimeout
+	 * @param methodArgs
+	 * @return
+	 */
+	public generated.springframework.beans.Beans createGateway(generated.springframework.beans.Beans beans, String id,
+	                                                           String errorChannel, String serviceInterface, String defaultReplyTimeout, String defaultRequestTimeout, List<Tuple3<String, String, String>> methodArgs) {
+		return createGatewayInternal(beans, id, errorChannel, serviceInterface, defaultReplyTimeout, defaultRequestTimeout, methodArgs);
+	}
+
+	/**
+	 * <beans>
+	 *    <int:gateway id="" error-channel="" service-interface="" default-reply-timeout="" default-request-timeout="">
+	 *      <int:method name="" request-channel="" reply-channel=""/>
+	 *    </int:gateway>
+	 * </beans>
+	 * @param beans
+	 * @param id
+	 * @param errorChannel
+	 * @param serviceInterface
+	 * @param defaultReplyTimeout
+	 * @param defaultRequestTimeout
+	 * @param methodArgs
+	 * @return
+	 */
+	private generated.springframework.beans.Beans createGatewayInternal(generated.springframework.beans.Beans beans, String id, String errorChannel, String serviceInterface, String defaultReplyTimeout, String defaultRequestTimeout, List<Tuple3<String, String, String>> methodArgs) {
+		beans.getImportOrAliasOrBean().add(createGateway(id, errorChannel, serviceInterface, defaultReplyTimeout, defaultRequestTimeout, createListGateMethods(methodArgs)));
+		return beans;
+	}
+
+	/**
+	 *
+	 * @param methodArgs - список аргуметов method принимается как Tuple3, где
+	 *  - getT1() - methodName;
+	 *  - getT2() - requestChannel;
+	 *  - getT3() - replyChannel.
+	 * @return
+	 */
+	private List<generated.springframework.integration.GateMethod> createListGateMethods(List<Tuple3<String, String, String>> methodArgs) {
+		List<generated.springframework.integration.GateMethod> list = new ArrayList<GateMethod>();
+		for (Tuple3<String, String, String> methodArg : methodArgs)
+			list.add(createGateMethod(methodArg.getT1(), methodArg.getT2(), methodArg.getT3()));
+		return list;
+	}
+
+	/**
+	 * <int:method name="" request-channel="" reply-channel=""/>
+	 * @param methodName
+	 * @param requestChannel
+	 * @param replyChannel
+	 * @return
+	 */
+	private generated.springframework.integration.GateMethod createGateMethod(String methodName, String requestChannel, String replyChannel) {
+		generated.springframework.integration.GateMethod gateMethod = integrationFactory.createGateMethod();
+		gateMethod.setName(methodName);
+		gateMethod.setRequestChannel(requestChannel);
+		gateMethod.setReplyChannel(replyChannel);
+		return gateMethod;
+	}
+
+	/**
+	 * <int:gateway id="" error-channel="" service-interface="" default-reply-timeout="" default-request-timeout="">
+	 *      <int:method name="" request-channel="" reply-channel=""/>
+	 * </int:gateway>
+	 * @param id
+	 * @param errorChannel
+	 * @param serviceInterface
+	 * @param defaultReplyTimeout
+	 * @param defaultRequestTimeout
+	 * @param gateMethods
+	 * @return
+	 */
+	private generated.springframework.integration.Gateway createGateway(String id, String errorChannel, String serviceInterface, String defaultReplyTimeout, String defaultRequestTimeout, List<generated.springframework.integration.GateMethod> gateMethods) {
+		generated.springframework.integration.Gateway gateway = integrationFactory.createGateway();
+		gateway.setId(id);
+		gateway.setErrorChannel(errorChannel);
+		gateway.setServiceInterface(serviceInterface);
+		gateway.setDefaultReplyTimeout(defaultReplyTimeout);
+		gateway.setDefaultRequestTimeout(defaultRequestTimeout);
+		gateway.getMethod().addAll(gateMethods);
+		return gateway;
 	}
 
 	/**
@@ -123,7 +218,8 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 * @param wireTapChannels
 	 * @return
 	 */
-	private generated.springframework.beans.Beans createChannelPrivate(generated.springframework.beans.Beans beans, String channelId, List<String> wireTapChannels) {
+	private generated.springframework.beans.Beans createChannelInternal (generated.springframework.beans.Beans beans,
+	                                                                     String channelId, List<String> wireTapChannels) {
 		beans.getImportOrAliasOrBean().add(createChannel(channelId, wireTapChannels));
 		return beans;
 	}
