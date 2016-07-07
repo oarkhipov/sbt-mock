@@ -1,8 +1,8 @@
 package ru.sbt.bpm.mock.context.generator;
 
-import generated.springframework.integration.GateMethod;
-import generated.springframework.integration.MappingValueChannelType;
-import generated.springframework.integration.WireTap;
+import generated.springframework.beans.Bean;
+import generated.springframework.beans.Beans;
+import generated.springframework.integration.*;
 import lombok.NonNull;
 import reactor.tuple.Tuple2;
 import reactor.tuple.Tuple3;
@@ -20,121 +20,133 @@ public class IntegrationConstructor implements IContextGeneratable {
 
 	/**
 	 * <channel id="">
-	 *     <interceptors>
-	 *         <wire-tap channel=""/>
-	 *         <wire-tap channel=""/>
-	 *     </interceptors>
+	 * <interceptors>
+	 * <wire-tap channel=""/>
+	 * <wire-tap channel=""/>
+	 * </interceptors>
 	 * </channel>
-	 * @param beans
-	 * @param channelId
+	 *
+	 * @param beans - <beans/>
+	 * @param channelId - id канала
 	 * @return
 	 */
-	public generated.springframework.beans.Beans createChannel(generated.springframework.beans.Beans beans, String channelId) {
+	public Beans createChannel (Beans beans, String channelId) {
 		return createChannelInternal(beans, channelId, new ArrayList<String>());
 	}
 
 	/**
 	 * <channel id="">
-	 *     <interceptors>
-	 *         <wire-tap channel=""/>
-	 *         <wire-tap channel=""/>
-	 *     </interceptors>
+	 * <interceptors>
+	 * <wire-tap channel=""/>
+	 * <wire-tap channel=""/>
+	 * </interceptors>
 	 * </channel>
-	 * @param beans
-	 * @param channelId
-	 * @param wireTapChannels
+	 *
+	 * @param beans <beans/>
+	 * @param channelId - id канала
+	 * @param wireTapChannels - список логеров
 	 * @return
 	 */
-	public generated.springframework.beans.Beans createChannel(generated.springframework.beans.Beans beans, String channelId, List<String> wireTapChannels) {
+	public Beans createChannel (Beans beans, String channelId, List<String> wireTapChannels) {
 		return createChannelInternal(beans, channelId, wireTapChannels);
 	}
 
 	/**
 	 * <int:service-activator input-channel="" output-channel="" expression=""/>
-	 * @param beans
-	 * @param inputChannel
-	 * @param outputChannel
-	 * @param expressions
+	 *
+	 * @param beans - <beans/>
+	 * @param inputChannel - входной канал
+	 * @param outputChannel - выходной канал
+	 * @param expressions - выражение
 	 * @return
 	 */
-	public generated.springframework.beans.Beans createServiceActivator(generated.springframework.beans.Beans beans, String inputChannel, String outputChannel, String expressions) {
+	public Beans createServiceActivator (Beans beans, String inputChannel, String outputChannel, String expressions) {
 		return createServiceActivator(beans, inputChannel, outputChannel, null, null, expressions);
 	}
 
 	/**
 	 * <int:service-activator input-channel="" output-channel="" method="">
-	 *     <bean class="">
-	 *         <constructor-arg value="" type=""/>
-	 *         <constructor-arg value="" type=""/>
-	 *         <constructor-arg value="" type=""/>
-	 *     </bean>
+	 * <bean class="">
+	 * <constructor-arg value="" type=""/>
+	 * <constructor-arg value="" type=""/>
+	 * <constructor-arg value="" type=""/>
+	 * </bean>
 	 * </int:service-activator>
-	 * @param inputChannel
-	 * @param outputChannel
-	 * @param methodName
-	 * @param bean
+	 *
+	 * @param beans - <beans/>
+	 * @param inputChannel  - входной канал
+	 * @param outputChannel -выходной канал
+	 * @param methodName - имя методя
+	 * @param bean - <bean><constructor-arg value="" type=""/></bean>
 	 * @return
 	 */
-	public generated.springframework.beans.Beans createServiceActivator (generated.springframework.beans.Beans beans, String inputChannel, String outputChannel, String methodName, generated.springframework.beans.Bean bean) {
+	public Beans createServiceActivator (Beans beans, String inputChannel, String outputChannel, String methodName,
+	                                     Bean bean) {
 		return createServiceActivator(beans, inputChannel, outputChannel, methodName, bean, null);
 	}
 
 	/**
 	 * <beans>
-	 *    <int:gateway id="" error-channel="" service-interface="" default-reply-timeout="" default-request-timeout="">
-	 *      <int:method name="" request-channel="" reply-channel=""/>
-	 *    </int:gateway>
+	 * <int:gateway id="" error-channel="" service-interface="" default-reply-timeout="" default-request-timeout="">
+	 * <int:method name="" request-channel="" reply-channel=""/>
+	 * </int:gateway>
 	 * </beans>
-	 * @param beans
-	 * @param id
-	 * @param errorChannel
-	 * @param serviceInterface
-	 * @param defaultReplyTimeout
-	 * @param defaultRequestTimeout
-	 * @param methodArgs
+	 *
+	 * @param beans <int:method name="" request-channel="" reply-channel=""/>
+	 * @param id - id gateway
+	 * @param errorChannel - канал ошибок
+	 * @param serviceInterface - интерфейс отправки сообщений
+	 * @param defaultReplyTimeout - задержка отправки
+	 * @param defaultRequestTimeout - задержка ответа
+	 * @param methodArgs <int:method name="" request-channel="" reply-channel=""/>
 	 * @return
 	 */
-	public generated.springframework.beans.Beans createGateway(generated.springframework.beans.Beans beans, String id,
-	                                                           String errorChannel, String serviceInterface, String defaultReplyTimeout, String defaultRequestTimeout, List<Tuple3<String, String, String>> methodArgs) {
+	public Beans createGateway (Beans beans, String id, String errorChannel, String serviceInterface, String
+			defaultReplyTimeout, String defaultRequestTimeout, List<Tuple3<String,
+			String, String>> methodArgs) {
 		return createGatewayInternal(beans, id, errorChannel, serviceInterface, defaultReplyTimeout,
 		                             defaultRequestTimeout, methodArgs);
 	}
 
 	/**
-	 *
-	 * @param beans
-	 * @param id
-	 * @param expression
-	 * @param inputChannel
-	 * @param mappings
+	 * @param beans <int:method name="" request-channel="" reply-channel=""/>
+	 * @param id - id router
+	 * @param expression - выражение
+	 * @param inputChannel - входной канал
+	 * @param mappings - парамерты для mapping, где
+	 *                     - getT1() - value
+	 *                     - getT2() -channel
 	 * @return
 	 */
-	public generated.springframework.beans.Beans createRouter (generated.springframework.beans.Beans beans, String id, String expression, String inputChannel, List<Tuple2<String, String>> mappings) {
+	public Beans createRouter (Beans beans, String id, String expression, String inputChannel, List<Tuple2<String,
+			String>> mappings) {
 		return createRouterInternal(beans, id, expression, inputChannel, mappings);
 	}
 
 	/**
-	 *
 	 * @param beans
 	 * @param id
 	 * @param expression
 	 * @param inputChannel
-	 * @param mappings - парамерты для mapping, где
-	 *  - getT1() - value
-	 *  - getT2() -channel
+	 * @param mappings     - парамерты для mapping, где
+	 *                     - getT1() - value
+	 *                     - getT2() -channel
 	 * @return
 	 */
-	private generated.springframework.beans.Beans createRouterInternal (generated.springframework.beans.Beans beans, String id, String expression, String inputChannel, List<Tuple2<String, String>> mappings) {
-		beans.getImportOrAliasOrBean().add(createRouter(createRouterType(id, expression, inputChannel, createMappings(mappings))));
+	private Beans createRouterInternal (Beans beans, String id, String expression, String inputChannel,
+	                                    List<Tuple2<String, String>> mappings) {
+		beans.getImportOrAliasOrBean().add(createRouter(createRouterType(id, expression, inputChannel, createMappings
+				(mappings))));
 		return beans;
 	}
 
 	/**
 	 * <router></router>
+	 *
 	 * @param routerType
 	 * @return
 	 */
-	private JAXBElement<generated.springframework.integration.RouterType> createRouter(generated.springframework.integration.RouterType routerType) {
+	private JAXBElement<RouterType> createRouter (RouterType routerType) {
 		return integrationFactory.createRouter(routerType);
 	}
 
@@ -142,42 +154,43 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 * <int:mapping value="" channel=""/>
 	 * <int:mapping value="" channel=""/>
 	 * <int:mapping value="" channel=""/>
+	 *
 	 * @param mappingsParams - парамерты для mapping, где
-	 *  - getT1() - value
-	 *  - getT2() -channel
+	 *                       - getT1() - value
+	 *                       - getT2() -channel
 	 * @return
 	 */
-	private List<generated.springframework.integration.MappingValueChannelType> createMappings(List<Tuple2<String, String>> mappingsParams) {
-		List<generated.springframework.integration.MappingValueChannelType> list = new ArrayList
-				<MappingValueChannelType>();
+	private List<MappingValueChannelType> createMappings (List<Tuple2<String, String>> mappingsParams) {
+		List<MappingValueChannelType> list = new ArrayList<MappingValueChannelType>();
 		for (Tuple2<String, String> mappingsParam : mappingsParams)
 			list.add(createMapping(mappingsParam.getT1(), mappingsParam.getT2()));
-		return  list;
+		return list;
 	}
 
 	/**
 	 * <int:mapping value="" channel=""/>
+	 *
 	 * @param value
 	 * @param channel
 	 * @return
 	 */
-	private generated.springframework.integration.MappingValueChannelType createMapping (String value, String channel) {
-		generated.springframework.integration.MappingValueChannelType mapping = integrationFactory.createMappingValueChannelType();
+	private MappingValueChannelType createMapping (String value, String channel) {
+		MappingValueChannelType mapping = integrationFactory.createMappingValueChannelType();
 		mapping.setValue(value);
 		mapping.setChannel(channel);
 		return mapping;
 	}
 
 	/**
-	 *
 	 * @param id
 	 * @param expression
 	 * @param inputChannel
 	 * @param mappings
 	 * @return
 	 */
-	private generated.springframework.integration.RouterType createRouterType(String id, String expression, String inputChannel, List<generated.springframework.integration.MappingValueChannelType> mappings) {
-		generated.springframework.integration.RouterType routerType = integrationFactory.createRouterType();
+	private RouterType createRouterType (String id, String expression, String inputChannel,
+	                                     List<MappingValueChannelType> mappings) {
+		RouterType routerType = integrationFactory.createRouterType();
 		routerType.setId(id);
 		routerType.setStrExpression(expression);
 		routerType.setInputChannel(inputChannel);
@@ -187,10 +200,11 @@ public class IntegrationConstructor implements IContextGeneratable {
 
 	/**
 	 * <beans>
-	 *    <int:gateway id="" error-channel="" service-interface="" default-reply-timeout="" default-request-timeout="">
-	 *      <int:method name="" request-channel="" reply-channel=""/>
-	 *    </int:gateway>
+	 * <int:gateway id="" error-channel="" service-interface="" default-reply-timeout="" default-request-timeout="">
+	 * <int:method name="" request-channel="" reply-channel=""/>
+	 * </int:gateway>
 	 * </beans>
+	 *
 	 * @param beans
 	 * @param id
 	 * @param errorChannel
@@ -200,21 +214,22 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 * @param methodArgs
 	 * @return
 	 */
-	private generated.springframework.beans.Beans createGatewayInternal(generated.springframework.beans.Beans beans, String id, String errorChannel, String serviceInterface, String defaultReplyTimeout, String defaultRequestTimeout, List<Tuple3<String, String, String>> methodArgs) {
-		beans.getImportOrAliasOrBean().add(createGateway(id, errorChannel, serviceInterface, defaultReplyTimeout, defaultRequestTimeout, createListGateMethods(methodArgs)));
+	private Beans createGatewayInternal (Beans beans, String id, String errorChannel, String serviceInterface, String
+			defaultReplyTimeout, String defaultRequestTimeout, List<Tuple3<String, String, String>> methodArgs) {
+		beans.getImportOrAliasOrBean().add(createGateway(id, errorChannel, serviceInterface, defaultReplyTimeout,
+		                                                 defaultRequestTimeout, createListGateMethods(methodArgs)));
 		return beans;
 	}
 
 	/**
-	 *
 	 * @param methodArgs - список аргуметов method принимается как Tuple3, где
-	 *  - getT1() - methodName;
-	 *  - getT2() - requestChannel;
-	 *  - getT3() - replyChannel.
+	 *                   - getT1() - methodName;
+	 *                   - getT2() - requestChannel;
+	 *                   - getT3() - replyChannel.
 	 * @return
 	 */
-	private List<generated.springframework.integration.GateMethod> createListGateMethods(List<Tuple3<String, String, String>> methodArgs) {
-		List<generated.springframework.integration.GateMethod> list = new ArrayList<GateMethod>();
+	private List<GateMethod> createListGateMethods (List<Tuple3<String, String, String>> methodArgs) {
+		List<GateMethod> list = new ArrayList<GateMethod>();
 		for (Tuple3<String, String, String> methodArg : methodArgs)
 			list.add(createGateMethod(methodArg.getT1(), methodArg.getT2(), methodArg.getT3()));
 		return list;
@@ -222,13 +237,14 @@ public class IntegrationConstructor implements IContextGeneratable {
 
 	/**
 	 * <int:method name="" request-channel="" reply-channel=""/>
+	 *
 	 * @param methodName
 	 * @param requestChannel
 	 * @param replyChannel
 	 * @return
 	 */
-	private generated.springframework.integration.GateMethod createGateMethod(String methodName, String requestChannel, String replyChannel) {
-		generated.springframework.integration.GateMethod gateMethod = integrationFactory.createGateMethod();
+	private GateMethod createGateMethod (String methodName, String requestChannel, String replyChannel) {
+		GateMethod gateMethod = integrationFactory.createGateMethod();
 		gateMethod.setName(methodName);
 		gateMethod.setRequestChannel(requestChannel);
 		gateMethod.setReplyChannel(replyChannel);
@@ -237,8 +253,9 @@ public class IntegrationConstructor implements IContextGeneratable {
 
 	/**
 	 * <int:gateway id="" error-channel="" service-interface="" default-reply-timeout="" default-request-timeout="">
-	 *      <int:method name="" request-channel="" reply-channel=""/>
+	 * <int:method name="" request-channel="" reply-channel=""/>
 	 * </int:gateway>
+	 *
 	 * @param id
 	 * @param errorChannel
 	 * @param serviceInterface
@@ -247,8 +264,9 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 * @param gateMethods
 	 * @return
 	 */
-	private generated.springframework.integration.Gateway createGateway(String id, String errorChannel, String serviceInterface, String defaultReplyTimeout, String defaultRequestTimeout, List<generated.springframework.integration.GateMethod> gateMethods) {
-		generated.springframework.integration.Gateway gateway = integrationFactory.createGateway();
+	private Gateway createGateway (String id, String errorChannel, String serviceInterface, String
+			defaultReplyTimeout, String defaultRequestTimeout, List<GateMethod> gateMethods) {
+		Gateway gateway = integrationFactory.createGateway();
 		gateway.setId(id);
 		gateway.setErrorChannel(errorChannel);
 		gateway.setServiceInterface(serviceInterface);
@@ -259,7 +277,6 @@ public class IntegrationConstructor implements IContextGeneratable {
 	}
 
 	/**
-	 *
 	 * @param beans
 	 * @param inputChannel
 	 * @param outputChannel
@@ -268,13 +285,14 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 * @param expression
 	 * @return
 	 */
-	 private generated.springframework.beans.Beans createServiceActivator (generated.springframework.beans.Beans beans, @NonNull String inputChannel, @NonNull String outputChannel, String methodName, generated.springframework.beans.Bean bean, String expression) {
-		 beans.getImportOrAliasOrBean().add(createServiceActivator(inputChannel, outputChannel, methodName, bean, expression));
-		 return beans;
-	 }
+	private Beans createServiceActivator (Beans beans, @NonNull String inputChannel, @NonNull String outputChannel,
+	                                      String methodName, Bean bean, String expression) {
+		beans.getImportOrAliasOrBean().add(createServiceActivator(inputChannel, outputChannel, methodName, bean,
+		                                                          expression));
+		return beans;
+	}
 
 	/**
-	 *
 	 * @param inputChannel
 	 * @param outputChannel
 	 * @param methodName
@@ -282,8 +300,9 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 * @param expression
 	 * @return
 	 */
-	private generated.springframework.integration.ServiceActivator createServiceActivator(@NonNull String inputChannel, @NonNull String outputChannel, String methodName, generated.springframework.beans.Bean bean, String expression) {
-		generated.springframework.integration.ServiceActivator serviceActivator = integrationFactory.createServiceActivator();
+	private ServiceActivator createServiceActivator (@NonNull String inputChannel, @NonNull String outputChannel,
+	                                                 String methodName, Bean bean, String expression) {
+		ServiceActivator serviceActivator = integrationFactory.createServiceActivator();
 		serviceActivator.setInputChannel(inputChannel);
 		serviceActivator.setOutputChannel(outputChannel);
 		if (methodName != null && !methodName.isEmpty())
@@ -297,40 +316,42 @@ public class IntegrationConstructor implements IContextGeneratable {
 
 	/**
 	 * <channel id="">
-	 *     <interceptors>
-	 *         <wire-tap channel=""/>
-	 *         <wire-tap channel=""/>
-	 *     </interceptors>
+	 * <interceptors>
+	 * <wire-tap channel=""/>
+	 * <wire-tap channel=""/>
+	 * </interceptors>
 	 * </channel>
+	 *
 	 * @param beans
 	 * @param channelId
 	 * @param wireTapChannels
 	 * @return
 	 */
-	private generated.springframework.beans.Beans createChannelInternal (generated.springframework.beans.Beans beans,
-	                                                                     String channelId, List<String> wireTapChannels) {
+	private Beans createChannelInternal (Beans beans, String channelId, List<String> wireTapChannels) {
 		beans.getImportOrAliasOrBean().add(createChannel(channelId, wireTapChannels));
 		return beans;
 	}
 
 	/**
 	 * <wire-tap channel=""/>
+	 *
 	 * @param wireTapChannel
 	 * @return
 	 */
-	private generated.springframework.integration.WireTap createWireTap (String wireTapChannel) {
-		generated.springframework.integration.WireTap wireTap = integrationFactory.createWireTap();
+	private WireTap createWireTap (String wireTapChannel) {
+		WireTap wireTap = integrationFactory.createWireTap();
 		wireTap.setChannel(wireTapChannel);
 		return wireTap;
 	}
 
 	/**
 	 * Список wire-tap
+	 *
 	 * @param wireTapChannels
 	 * @return
 	 */
-	private List<generated.springframework.integration.WireTap> createListWireTap(List<String> wireTapChannels) {
-		List<generated.springframework.integration.WireTap> listWireTap = new ArrayList<WireTap>();
+	private List<WireTap> createListWireTap (List<String> wireTapChannels) {
+		List<WireTap> listWireTap = new ArrayList<WireTap>();
 		for (String wireTapChannel : wireTapChannels)
 			listWireTap.add(createWireTap(wireTapChannel));
 		return listWireTap;
@@ -338,38 +359,40 @@ public class IntegrationConstructor implements IContextGeneratable {
 
 	/**
 	 * <interceptors>
-	 *     <wire-tap channel=""/>
-	 *     <wire-tap channel=""/>
+	 * <wire-tap channel=""/>
+	 * <wire-tap channel=""/>
 	 * </interceptors>
+	 *
 	 * @param wireTapChannels
 	 * @return
 	 */
-	private generated.springframework.integration.ChannelInterceptorsType createInterceptorsType(List<String> wireTapChannels) {
-		generated.springframework.integration.ChannelInterceptorsType interceptorsType = integrationFactory.createChannelInterceptorsType();
+	private ChannelInterceptorsType createInterceptorsType (List<String> wireTapChannels) {
+		ChannelInterceptorsType interceptorsType = integrationFactory.createChannelInterceptorsType();
 		interceptorsType.getRefOrWireTapOrAny().addAll(createListWireTap(wireTapChannels));
 		return interceptorsType;
 	}
 
 	/**
 	 * <channel id="">
-	 *     <interceptors>
-	 *         <wire-tap channel=""/>
-	 *         <wire-tap channel=""/>
-	 *     </interceptors>
+	 * <interceptors>
+	 * <wire-tap channel=""/>
+	 * <wire-tap channel=""/>
+	 * </interceptors>
 	 * </channel>
+	 *
 	 * @param channelId
 	 * @param wireTapChannels
 	 * @return
 	 */
-	private generated.springframework.integration.Channel createChannel(@NonNull String channelId, List<String> wireTapChannels) {
-		generated.springframework.integration.Channel channel = integrationFactory.createChannel();
+	private Channel createChannel (@NonNull String channelId, List<String> wireTapChannels) {
+		Channel channel = integrationFactory.createChannel();
 		channel.setId(channelId);
 		if (wireTapChannels != null && !wireTapChannels.isEmpty())
 			channel.setInterceptors(createInterceptorsType(wireTapChannels));
 		return channel;
 	}
 
-	public generated.springframework.integration.ObjectFactory getIntegrationFactory() {
+	public ObjectFactory getIntegrationFactory () {
 		return integrationFactory;
 	}
 }

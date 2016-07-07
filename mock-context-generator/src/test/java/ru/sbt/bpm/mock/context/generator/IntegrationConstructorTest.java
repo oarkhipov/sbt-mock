@@ -18,7 +18,7 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 	IntegrationConstructor integrationConstructor = new IntegrationConstructor();
 
 	@Test
-	public void testCreateChannel() throws JAXBException {
+	public void testCreateChannel () throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><beans "
 		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd\n"
@@ -34,11 +34,12 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		                  + ".org/2001/XMLSchema-instance\"><int:channel id=\"channel\"/></beans>";
 		Beans beans = beansConstructor.createBeans();
 		beans = integrationConstructor.createChannel(beans, "channel");
-		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor.getIntegrationFactory().getClass()) == 0;
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor
+				.getIntegrationFactory().getClass()) == 0;
 	}
 
 	@Test
-	public void testCreateMultiChannel() throws JAXBException {
+	public void testCreateMultiChannel () throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><beans "
 		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd\n"
@@ -54,15 +55,16 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		                  + ".org/2001/XMLSchema-instance\"><int:channel id=\"channelIn\"/><int:channel "
 		                  + "id=\"channelOut\"/><int:channel id=\"channelResponse\"/><int:channel "
 		                  + "id=\"channelRequest\"/></beans>";
-		Beans beans = beansConstructor.createBeans();
+		Beans    beans   = beansConstructor.createBeans();
 		String[] strings = { "channelIn", "channelOut", "channelResponse", "channelRequest" };
 		for (String string : strings)
 			beans = integrationConstructor.createChannel(beans, string);
-		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor.getIntegrationFactory().getClass()) == 0;
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor
+				.getIntegrationFactory().getClass()) == 0;
 	}
 
 	@Test
-	public void testCreateChannelWithWireTap() throws JAXBException {
+	public void testCreateChannelWithWireTap () throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><beans "
 		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd\n"
@@ -80,11 +82,12 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		                  + "channel=\"wireTapChannel\"/></int:interceptors></int:channel></beans>";
 		Beans beans = beansConstructor.createBeans();
 		beans = integrationConstructor.createChannel(beans, "channel", Arrays.asList("wireTapChannel"));
-		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor.getIntegrationFactory().getClass()) == 0;
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor
+				.getIntegrationFactory().getClass()) == 0;
 	}
 
 	@Test
-	public void testCreateServiceActivatorWithBean() throws JAXBException {
+	public void testCreateServiceActivatorWithBean () throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><beans "
 		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd\n"
@@ -106,11 +109,12 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		Bean bean = beansConstructor.createBean("java.lang.String", Arrays.asList(Tuple.of("class1", "type1"), Tuple
 				.of("class2", "type2"), Tuple.of("class3", "type3")));
 		beans = integrationConstructor.createServiceActivator(beans, "inputChannel", "outputChannel", "method", bean);
-		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor.getIntegrationFactory().getClass()) == 0;
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor
+				.getIntegrationFactory().getClass()) == 0;
 	}
 
 	@Test
-	public void testCreateServiceActivatorWithExpressions() throws JAXBException {
+	public void testCreateServiceActivatorWithExpressions () throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><beans "
 		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd\n"
@@ -127,11 +131,12 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		                  + "input-channel=\"inputChannel\" expression=\"expressions\"/></beans>";
 		Beans beans = beansConstructor.createBeans();
 		beans = integrationConstructor.createServiceActivator(beans, "inputChannel", "outputChannel", "expressions");
-		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor.getIntegrationFactory().getClass()) == 0;
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor
+				.getIntegrationFactory().getClass()) == 0;
 	}
 
 	@Test
-	public void testCreateGateway() throws JAXBException {
+	public void testCreateGateway () throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><beans "
 		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd\n"
@@ -156,7 +161,8 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		                                             "30000", Arrays.asList(Tuple.of("sendMockMessage",
 		                                                                             "requestChannel",
 		                                                                             "replyChannel")));
-		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor.getIntegrationFactory().getClass()) == 0;
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor
+				.getIntegrationFactory().getClass()) == 0;
 	}
 
 	@Test
@@ -177,8 +183,10 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		                  + "expression=\"payload\" id=\"router\"><int:mapping value=\"value\" "
 		                  + "channel=\"channel\"/></int:router></beans>";
 		Beans beans = beansConstructor.createBeans();
-		beans = integrationConstructor.createRouter(beans, "router", "payload", "inputChannel", Arrays.asList(Tuple.of("value", "channel")));
-		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor.getIntegrationFactory().getClass()) == 0;
+		beans = integrationConstructor.createRouter(beans, "router", "payload", "inputChannel", Arrays.asList(Tuple.of
+				("value", "channel")));
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor
+				.getIntegrationFactory().getClass()) == 0;
 	}
 
 	@Test
@@ -201,8 +209,11 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		                  + "value=\"value3\" channel=\"channel3\"/><int:mapping value=\"value4\" "
 		                  + "channel=\"channel5\"/></int:router></beans>";
 		Beans beans = beansConstructor.createBeans();
-		beans = integrationConstructor.createRouter(beans, "router", "payload", "inputChannel", Arrays.asList(Tuple.of("value1", "channel1"), Tuple.of("value2", "channel2"), Tuple.of("value3", "channel3"), Tuple.of("value4", "channel5")));
-		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor.getIntegrationFactory().getClass()) == 0;
+		beans = integrationConstructor.createRouter(beans, "router", "payload", "inputChannel", Arrays.asList(Tuple.of
+				("value1", "channel1"), Tuple.of("value2", "channel2"), Tuple.of("value3", "channel3"), Tuple.of
+				("value4", "channel5")));
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor
+				.getIntegrationFactory().getClass()) == 0;
 	}
 
 }

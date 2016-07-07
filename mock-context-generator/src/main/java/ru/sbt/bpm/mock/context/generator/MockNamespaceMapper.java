@@ -7,6 +7,8 @@ import com.sun.xml.internal.bind.marshaller.NamespacePrefixMapper;
  */
 public class MockNamespaceMapper extends NamespacePrefixMapper {
 
+	public static final String MAPPER_NAMESPACE_PROPERTY = "com.sun.xml.internal.bind.namespacePrefixMapper";
+
 	// Spring integration namespace and prefix
 	private static final String INTEGRATION_PREFIX    = "int";
 	private static final String INTEGRATION_NAMESPACE = "http://www.springframework.org/schema/integration";
@@ -14,8 +16,6 @@ public class MockNamespaceMapper extends NamespacePrefixMapper {
 	// Spring JMS integration namespace and prefix
 	private static final String JMS_INTEGRATION_PREFIX    = "jms";
 	private static final String JMS_INTEGRATION_NAMESPACE = "http://www.springframework.org/schema/integration/jms";
-
-	public static final String MAPPER_NAMESPACE_PROPERTY = "com.sun.xml.internal.bind.namespacePrefixMapper";
 
 	@Override
 	public String getPreferredPrefix (String namespace, String suggestion, boolean requiredPrefix) {

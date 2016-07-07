@@ -15,10 +15,10 @@ public class JmsIntegrationConstructor implements IContextGeneratable {
 	 * <jms:inbound-gateway id="" request-destination="" request-channel="" reply-channel=""
 	 * default-reply-destination="" connection-factory=""/>
 	 *
-	 * @param beans
-	 * @param id
-	 * @param requestDestination
-	 * @param requestChannel
+	 * @param beans - <beans/>
+	 * @param id - id inbound-gateway
+	 * @param requestDestination -
+	 * @param requestChannel -
 	 * @param replyChannel
 	 * @param defaultReplyDestination
 	 * @param connectionFactory
