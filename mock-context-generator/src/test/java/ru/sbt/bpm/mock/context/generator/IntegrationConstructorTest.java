@@ -1,7 +1,9 @@
 package ru.sbt.bpm.mock.context.generator;
 
+import generated.springframework.beans.Bean;
 import generated.springframework.beans.Beans;
 import org.testng.annotations.Test;
+import reactor.tuple.Tuple;
 
 import javax.xml.bind.JAXBException;
 import java.util.Arrays;
@@ -75,4 +77,50 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		beans = integrationConstructor.createChannel(beans, "channel", Arrays.asList("wireTapChannel"));
 		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor.getIntegrationFactory().getClass()) == 0;
 	}
+
+	@Test
+	public void testCreateServiceActivatorWithBean() throws JAXBException {
+		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><beans "
+		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
+		                  + ".springframework.org/schema/beans/spring-beans.xsd\n"
+		                  + "        http://www.springframework.org/schema/integration    http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd\n"
+		                  + "        http://www.springframework.org/schema/integration http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd\n"
+		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns:ns2=\"http://www"
+		                  + ".springframework.org/schema/integration\" xmlns=\"http://www.springframework"
+		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3"
+		                  + ".org/2001/XMLSchema-instance\"><ns2:service-activator output-channel=\"outputChannel\" "
+		                  + "input-channel=\"inputChannel\" method=\"method\"><bean class=\"java.lang"
+		                  + ".String\"><constructor-arg type=\"type1\" value=\"class1\"/><constructor-arg "
+		                  + "type=\"type2\" value=\"class2\"/><constructor-arg type=\"type3\" "
+		                  + "value=\"class3\"/></bean></ns2:service-activator></beans>";
+		Beans beans = beansConstructor.createBeans();
+		Bean bean = beansConstructor.createBean("java.lang.String", Arrays.asList(Tuple.of("class1", "type1"), Tuple
+				.of("class2", "type2"), Tuple.of("class3", "type3")));
+		beans = integrationConstructor.createServiceActivator(beans, "inputChannel", "outputChannel", "method", bean);
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor.getIntegrationFactory().getClass()) == 0;
+	}
+
+	@Test
+	public void testCreateServiceActivatorWithExpressions() throws JAXBException {
+		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><beans "
+		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
+		                  + ".springframework.org/schema/beans/spring-beans.xsd\n"
+		                  + "        http://www.springframework.org/schema/integration    http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd\n"
+		                  + "        http://www.springframework.org/schema/integration http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd\n"
+		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns:ns2=\"http://www"
+		                  + ".springframework.org/schema/integration\" xmlns=\"http://www.springframework"
+		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3"
+		                  + ".org/2001/XMLSchema-instance\"><ns2:service-activator output-channel=\"outputChannel\" "
+		                  + "input-channel=\"inputChannel\" expression=\"expressions\"/></beans>";
+		Beans beans = beansConstructor.createBeans();
+		beans = integrationConstructor.createServiceActivator(beans, "inputChannel", "outputChannel", "expressions");
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor.getIntegrationFactory().getClass()) == 0;
+	}
+
 }

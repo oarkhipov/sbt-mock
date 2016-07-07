@@ -45,7 +45,52 @@ public class IntegrationConstructor implements IContextGeneratable {
 	}
 
 	/**
-	 * 
+	 * <int:service-activator input-channel="" output-channel="" expression=""/>
+	 * @param beans
+	 * @param inputChannel
+	 * @param outputChannel
+	 * @param expressions
+	 * @return
+	 */
+	public generated.springframework.beans.Beans createServiceActivator(generated.springframework.beans.Beans beans, String inputChannel, String outputChannel, String expressions) {
+		return createServiceActivator(beans, inputChannel, outputChannel, null, null, expressions);
+	}
+
+	/**
+	 * <int:service-activator input-channel="" output-channel="" method="">
+	 *     <bean class="">
+	 *         <constructor-arg value="" type=""/>
+	 *         <constructor-arg value="" type=""/>
+	 *         <constructor-arg value="" type=""/>
+	 *     </bean>
+	 * </int:service-activator>
+	 * @param inputChannel
+	 * @param outputChannel
+	 * @param methodName
+	 * @param bean
+	 * @return
+	 */
+	public generated.springframework.beans.Beans createServiceActivator (generated.springframework.beans.Beans beans, String inputChannel, String outputChannel, String methodName, generated.springframework.beans.Bean bean) {
+		return createServiceActivator(beans, inputChannel, outputChannel, methodName, bean, null);
+	}
+
+	/**
+	 *
+	 * @param beans
+	 * @param inputChannel
+	 * @param outputChannel
+	 * @param methodName
+	 * @param bean
+	 * @param expression
+	 * @return
+	 */
+	 private generated.springframework.beans.Beans createServiceActivator (generated.springframework.beans.Beans beans, @NonNull String inputChannel, @NonNull String outputChannel, String methodName, generated.springframework.beans.Bean bean, String expression) {
+		 beans.getImportOrAliasOrBean().add(createServiceActivator(inputChannel, outputChannel, methodName, bean, expression));
+		 return beans;
+	 }
+
+	/**
+	 *
 	 * @param inputChannel
 	 * @param outputChannel
 	 * @param methodName
@@ -61,7 +106,7 @@ public class IntegrationConstructor implements IContextGeneratable {
 			serviceActivator.setMethod(methodName);
 		if (bean != null)
 			serviceActivator.getPollerOrExpressionOrRequestHandlerAdviceChain().add(bean);
-		if (expression != null || !expression.isEmpty())
+		if (expression != null && !expression.isEmpty())
 			serviceActivator.setStrExpression(expression);
 		return serviceActivator;
 	}
