@@ -30,8 +30,9 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
 		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
-		                  + ".springframework.org/schema/beans\" xmlns:xsi=\"http://www.w3"
-		                  + ".org/2001/XMLSchema-instance\"/>";
+		                  + ".springframework.org/schema/beans\" xmlns:jms=\"http://www.springframework"
+		                  + ".org/schema/integration/jms\" xmlns:int=\"http://www.springframework"
+		                  + ".org/schema/integration\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"/>";
 
 		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass()) == 0;
 	}
@@ -47,9 +48,11 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
 		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
-		                  + ".springframework.org/schema/beans\" xmlns:xsi=\"http://www.w3"
-		                  + ".org/2001/XMLSchema-instance\"><import resource=\"../contextConfigs/base-config"
-		                  + ".xml\"/><import resource=\"../contextConfigs/logging-config.xml\"/><import "
+		                  + ".springframework.org/schema/beans\" xmlns:jms=\"http://www.springframework"
+		                  + ".org/schema/integration/jms\" xmlns:int=\"http://www.springframework"
+		                  + ".org/schema/integration\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><import"
+		                  + " resource=\"../contextConfigs/base-config.xml\"/><import "
+		                  + "resource=\"../contextConfigs/logging-config.xml\"/><import "
 		                  + "resource=\"../contextConfigs/test-import1.xml\"/></beans>";
 		Beans beans = beansConstructor.createBeans();
 		beans = beansConstructor.createImports(beans, Arrays.asList("../contextConfigs/base-config.xml",
@@ -69,8 +72,9 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
 		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
-		                  + ".springframework.org/schema/beans\" xmlns:xsi=\"http://www.w3"
-		                  + ".org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\"/></beans>";
+		                  + ".springframework.org/schema/beans\" xmlns:jms=\"http://www.springframework"
+		                  + ".org/schema/integration/jms\" xmlns:int=\"http://www.springframework"
+		                  + ".org/schema/integration\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\"/></beans>";
 		Beans beans = beansConstructor.createBeans();
 		beans = beansConstructor.createBean(beans, "java.lang.String");
 		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass()) == 0;
@@ -87,8 +91,9 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
 		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
-		                  + ".springframework.org/schema/beans\" xmlns:xsi=\"http://www.w3"
-		                  + ".org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\" "
+		                  + ".springframework.org/schema/beans\" xmlns:jms=\"http://www.springframework"
+		                  + ".org/schema/integration/jms\" xmlns:int=\"http://www.springframework"
+		                  + ".org/schema/integration\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\" "
 		                  + "id=\"connectionFactoryString\"/></beans>";
 		Beans beans = beansConstructor.createBeans();
 		beans = beansConstructor.createBean(beans, "java.lang.String", "connectionFactoryString");
@@ -106,8 +111,9 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
 		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
-		                  + ".springframework.org/schema/beans\" xmlns:xsi=\"http://www.w3"
-		                  + ".org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\" "
+		                  + ".springframework.org/schema/beans\" xmlns:jms=\"http://www.springframework"
+		                  + ".org/schema/integration/jms\" xmlns:int=\"http://www.springframework"
+		                  + ".org/schema/integration\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\" "
 		                  + "id=\"connectionFactoryString\"><constructor-arg value=\"jms/Q.APKKB\"/></bean></beans>";
 		Beans beans = beansConstructor.createBeans();
 		beans = beansConstructor.createBean(beans, "java.lang.String", "connectionFactoryString", Arrays.asList(Tuple.of("jms/Q.APKKB", "")));
@@ -125,8 +131,9 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
 		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
-		                  + ".springframework.org/schema/beans\" xmlns:xsi=\"http://www.w3"
-		                  + ".org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\" "
+		                  + ".springframework.org/schema/beans\" xmlns:jms=\"http://www.springframework"
+		                  + ".org/schema/integration/jms\" xmlns:int=\"http://www.springframework"
+		                  + ".org/schema/integration\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\" "
 		                  + "id=\"connectionFactoryString\"><constructor-arg value=\"jms/Q.APKKB\"/><constructor-arg "
 		                  + "value=\"jms/ESB.APKKB.OUT\"/><constructor-arg value=\"jms/ESB.APKKB.IN\"/></bean></beans>";
 		Beans beans = beansConstructor.createBeans();
@@ -145,8 +152,9 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
 		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
-		                  + ".springframework.org/schema/beans\" xmlns:xsi=\"http://www.w3"
-		                  + ".org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\"><constructor-arg "
+		                  + ".springframework.org/schema/beans\" xmlns:jms=\"http://www.springframework"
+		                  + ".org/schema/integration/jms\" xmlns:int=\"http://www.springframework"
+		                  + ".org/schema/integration\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\"><constructor-arg "
 		                  + "type=\"java.lang.String\" value=\"jms/Q.APKKB\"/><constructor-arg type=\"java.lang"
 		                  + ".String\" value=\"jms/ESB.APKKB.OUT\"/><constructor-arg type=\"java.lang.String\" "
 		                  + "value=\"jms/ESB.APKKB.IN\"/></bean></beans>";
@@ -166,8 +174,9 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
 		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
-		                  + ".springframework.org/schema/beans\" xmlns:xsi=\"http://www.w3"
-		                  + ".org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\"><constructor-arg "
+		                  + ".springframework.org/schema/beans\" xmlns:jms=\"http://www.springframework"
+		                  + ".org/schema/integration/jms\" xmlns:int=\"http://www.springframework"
+		                  + ".org/schema/integration\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\"><constructor-arg "
 		                  + "type=\"java.lang.String\" value=\"jms/Q.APKKB\"/><constructor-arg type=\"java.lang"
 		                  + ".String\" value=\"jms/ESB.APKKB.OUT\"/><constructor-arg type=\"java.lang.String\" "
 		                  + "value=\"jms/ESB.APKKB.IN\"/></bean></beans>";
@@ -187,8 +196,9 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
 		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
-		                  + ".springframework.org/schema/beans\" xmlns:xsi=\"http://www.w3"
-		                  + ".org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\" "
+		                  + ".springframework.org/schema/beans\" xmlns:jms=\"http://www.springframework"
+		                  + ".org/schema/integration/jms\" xmlns:int=\"http://www.springframework"
+		                  + ".org/schema/integration\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\" "
 		                  + "id=\"connectionFactoryString\"><property name=\"prop1\" value=\"value1\"/></bean></beans>";
 		Beans beans = beansConstructor.createBeans();
 		beans = beansConstructor.createBean(beans, "java.lang.String", "connectionFactoryString", new HashMap<String,
@@ -211,8 +221,9 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
 		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
-		                  + ".springframework.org/schema/beans\" xmlns:xsi=\"http://www.w3"
-		                  + ".org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\" "
+		                  + ".springframework.org/schema/beans\" xmlns:jms=\"http://www.springframework"
+		                  + ".org/schema/integration/jms\" xmlns:int=\"http://www.springframework"
+		                  + ".org/schema/integration\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><bean class=\"java.lang.String\" "
 		                  + "id=\"connectionFactoryString\"><property name=\"prop1\" value=\"value1\"/>"
 		                  + "<property name=\"prop2\" value=\"value2\"/><property name=\"prop3\" value=\"value3\"/></bean></beans>";
 		Beans beans = beansConstructor.createBeans();
