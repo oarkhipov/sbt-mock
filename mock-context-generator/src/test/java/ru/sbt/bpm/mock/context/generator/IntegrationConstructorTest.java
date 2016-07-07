@@ -141,7 +141,54 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		                  + "default-reply-timeout=\"30000\"><ns2:method name=\"sendMockMessage\" "
 		                  + "request-channel=\"requestChannel\" reply-channel=\"replyChannel\"/></ns2:gateway></beans>";
 		Beans beans = beansConstructor.createBeans();
-		beans = integrationConstructor.createGateway(beans, "systemEntry", "error-channel", "ru.sbt.bpm.mock.spring.integration.gateway.Service", "30000", "30000", Arrays.asList(Tuple.of("sendMockMessage", "requestChannel", "replyChannel")));
+		beans = integrationConstructor.createGateway(beans, "systemEntry", "error-channel", "ru.sbt.bpm.mock.spring"
+		                                                                                    + ".integration.gateway"
+		                                                                                    + ".Service", "30000",
+		                                             "30000", Arrays.asList(Tuple.of("sendMockMessage",
+		                                                                             "requestChannel",
+		                                                                             "replyChannel")));
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor.getIntegrationFactory().getClass()) == 0;
+	}
+
+	@Test
+	public void testCreateRouterWithOneMapping () throws JAXBException {
+		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><beans "
+		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
+		                  + ".springframework.org/schema/beans/spring-beans.xsd\n"
+		                  + "        http://www.springframework.org/schema/integration    http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd\n"
+		                  + "        http://www.springframework.org/schema/integration http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd\n"
+		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns:ns2=\"http://www"
+		                  + ".springframework.org/schema/integration\" xmlns=\"http://www.springframework"
+		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><ns2:router "
+		                  + "input-channel=\"inputChannel\" expression=\"payload\" id=\"router\"><ns2:mapping "
+		                  + "value=\"value\" channel=\"channel\"/></ns2:router></beans>";
+		Beans beans = beansConstructor.createBeans();
+		beans = integrationConstructor.createRouter(beans, "router", "payload", "inputChannel", Arrays.asList(Tuple.of("value", "channel")));
+		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor.getIntegrationFactory().getClass()) == 0;
+	}
+
+	@Test
+	public void testCreateRouterWithMultiMappings () throws JAXBException {
+		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><beans "
+		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
+		                  + ".springframework.org/schema/beans/spring-beans.xsd\n"
+		                  + "        http://www.springframework.org/schema/integration    http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd\n"
+		                  + "        http://www.springframework.org/schema/integration http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd\n"
+		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns:ns2=\"http://www"
+		                  + ".springframework.org/schema/integration\" xmlns=\"http://www.springframework"
+		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><ns2:router "
+		                  + "input-channel=\"inputChannel\" expression=\"payload\" id=\"router\"><ns2:mapping "
+		                  + "value=\"value1\" channel=\"channel1\"/><ns2:mapping value=\"value2\" "
+		                  + "channel=\"channel2\"/><ns2:mapping value=\"value3\" channel=\"channel3\"/><ns2:mapping "
+		                  + "value=\"value4\" channel=\"channel5\"/></ns2:router></beans>";
+		Beans beans = beansConstructor.createBeans();
+		beans = integrationConstructor.createRouter(beans, "router", "payload", "inputChannel", Arrays.asList(Tuple.of("value1", "channel1"), Tuple.of("value2", "channel2"), Tuple.of("value3", "channel3"), Tuple.of("value4", "channel5")));
 		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor.getIntegrationFactory().getClass()) == 0;
 	}
 

@@ -1,10 +1,13 @@
 package ru.sbt.bpm.mock.context.generator;
 
 import generated.springframework.integration.GateMethod;
+import generated.springframework.integration.MappingValueChannelType;
 import generated.springframework.integration.WireTap;
 import lombok.NonNull;
+import reactor.tuple.Tuple2;
 import reactor.tuple.Tuple3;
 
+import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +96,93 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 */
 	public generated.springframework.beans.Beans createGateway(generated.springframework.beans.Beans beans, String id,
 	                                                           String errorChannel, String serviceInterface, String defaultReplyTimeout, String defaultRequestTimeout, List<Tuple3<String, String, String>> methodArgs) {
-		return createGatewayInternal(beans, id, errorChannel, serviceInterface, defaultReplyTimeout, defaultRequestTimeout, methodArgs);
+		return createGatewayInternal(beans, id, errorChannel, serviceInterface, defaultReplyTimeout,
+		                             defaultRequestTimeout, methodArgs);
+	}
+
+	/**
+	 *
+	 * @param beans
+	 * @param id
+	 * @param expression
+	 * @param inputChannel
+	 * @param mappings
+	 * @return
+	 */
+	public generated.springframework.beans.Beans createRouter (generated.springframework.beans.Beans beans, String id, String expression, String inputChannel, List<Tuple2<String, String>> mappings) {
+		return createRouterInternal(beans, id, expression, inputChannel, mappings);
+	}
+
+	/**
+	 *
+	 * @param beans
+	 * @param id
+	 * @param expression
+	 * @param inputChannel
+	 * @param mappings - парамерты для mapping, где
+	 *  - getT1() - value
+	 *  - getT2() -channel
+	 * @return
+	 */
+	private generated.springframework.beans.Beans createRouterInternal (generated.springframework.beans.Beans beans, String id, String expression, String inputChannel, List<Tuple2<String, String>> mappings) {
+		beans.getImportOrAliasOrBean().add(createRouter(createRouterType(id, expression, inputChannel, createMappings(mappings))));
+		return beans;
+	}
+
+	/**
+	 * <router></router>
+	 * @param routerType
+	 * @return
+	 */
+	private JAXBElement<generated.springframework.integration.RouterType> createRouter(generated.springframework.integration.RouterType routerType) {
+		return integrationFactory.createRouter(routerType);
+	}
+
+	/**
+	 * <int:mapping value="" channel=""/>
+	 * <int:mapping value="" channel=""/>
+	 * <int:mapping value="" channel=""/>
+	 * @param mappingsParams - парамерты для mapping, где
+	 *  - getT1() - value
+	 *  - getT2() -channel
+	 * @return
+	 */
+	private List<generated.springframework.integration.MappingValueChannelType> createMappings(List<Tuple2<String, String>> mappingsParams) {
+		List<generated.springframework.integration.MappingValueChannelType> list = new ArrayList
+				<MappingValueChannelType>();
+		for (Tuple2<String, String> mappingsParam : mappingsParams)
+			list.add(createMapping(mappingsParam.getT1(), mappingsParam.getT2()));
+		return  list;
+	}
+
+	/**
+	 * <int:mapping value="" channel=""/>
+	 * @param value
+	 * @param channel
+	 * @return
+	 */
+	private generated.springframework.integration.MappingValueChannelType createMapping (String value, String channel) {
+		generated.springframework.integration.MappingValueChannelType mapping = integrationFactory.createMappingValueChannelType();
+		mapping.setValue(value);
+		mapping.setChannel(channel);
+		return mapping;
+	}
+
+	/**
+	 *
+	 * @param id
+	 * @param expression
+	 * @param inputChannel
+	 * @param mappings
+	 * @return
+	 */
+	private generated.springframework.integration.RouterType createRouterType(String id, String expression, String inputChannel, List<generated.springframework.integration.MappingValueChannelType> mappings) {
+		generated.springframework.integration.RouterType routerType = integrationFactory.createRouterType();
+		routerType.setId(id);
+		routerType.setStrExpression(expression);
+		routerType.setInputChannel(inputChannel);
+		routerType.getMapping().addAll(mappings);
+		return routerType;
 	}
 
 	/**
