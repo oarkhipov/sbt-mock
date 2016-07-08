@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.xml.sax.SAXException;
+import reactor.tuple.Tuple2;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.ElementSelector;
 import ru.sbt.bpm.mock.config.entities.System;
@@ -20,6 +21,8 @@ import ru.sbt.bpm.mock.spring.utils.ExceptionUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * @author sbt-bochev-as on 23.12.2015.
@@ -220,14 +223,43 @@ public class SystemApiController {
 
     @ResponseBody
     @RequestMapping(value = "/api/system/{systemName}/namespaces/")
-    public String getNamespaceList(@PathVariable String systemName) {
-        return ArrayUtils.toString(xsdAnalysisService.getNamespaceFromXsd(systemName));
+    public String getNamespaceList(@PathVariable String systemName,
+                                   @RequestParam(required = false, value = "namespace") String namespacePart) {
+        Set<String> resultSet = new TreeSet<String>();
+        Set<String> namespaceSet = xsdAnalysisService.getNamespaceFromXsd(systemName);
+        for (String namespace : namespaceSet) {
+            if (namespacePart != null && !namespacePart.isEmpty()) {
+                if (namespace.toLowerCase().contains(namespacePart.toLowerCase())) {
+                    resultSet.add(String.format("{\"value\": \"%s\"}", namespace));
+                }
+            } else {
+                resultSet.add(String.format("{\"value\": \"%s\"}", namespace));
+            }
+        }
+        return ArrayUtils.toString(resultSet);
     }
 
     @ResponseBody
     @RequestMapping(value = "/api/system/{systemName}/elements/")
-    public String getElementsList(@PathVariable String systemName) {
-        //TODO
-        return "";
+    public String getElementsList(@PathVariable String systemName,
+                                  @RequestParam(required = false) String namespace,
+                                  @RequestParam(required = false) String elementName) {
+        List<String> resultList = new ArrayList<String>();
+        List<Tuple2<String, String>> tuple2List;
+        if (namespace == null || namespace.isEmpty()) {
+            tuple2List = xsdAnalysisService.getElementsForSystem(systemName);
+        } else {
+            tuple2List = xsdAnalysisService.getElementsForSystem(systemName, namespace);
+        }
+        for (Tuple2<String, String> tupleEntity : tuple2List) {
+            if (elementName != null) {
+                if (tupleEntity.getT2().toLowerCase().contains(elementName.toLowerCase())) {
+                    resultList.add(String.format("{\"namespace\": \"%s\", \"elementName\": \"%s\"}", tupleEntity.getT1(), tupleEntity.getT2()));
+                }
+            } else {
+                resultList.add(String.format("{\"namespace\": \"%s\", \"elementName\": \"%s\"}", tupleEntity.getT1(), tupleEntity.getT2()));
+            }
+        }
+        return ArrayUtils.toString(resultList);
     }
 }

@@ -37,11 +37,13 @@
     float: left;
 }
 
-.integrationPointSelectorNamespace>div {
+.integrationPointSelectorNamespace>div, .rootElementNamespace>div{
+    text-align: left;
     width: 440px;
 }
 
-.integrationPointSelectorElementName>div {
+.integrationPointSelectorElementName>div, .rootElementName>div{
+    text-align: left;
     width: 240px;
 }
 
@@ -71,4 +73,15 @@
 
 .right-addon input {
     padding-right: 30px;
+}
+
+/*Selectize styles*/
+.selectize-control .selectize-dropdown .selectize-label {
+    font-weight: bold;
+    color: black;
+}
+.selectize-control .selectize-dropdown .selectize-caption {
+    color: darkgray;
+    margin-left: 5px;
+    font-size: x-small;
 }

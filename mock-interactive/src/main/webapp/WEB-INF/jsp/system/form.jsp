@@ -13,7 +13,9 @@
     <script src="<%=request.getContextPath()%>/resources/js/system/form.js"></script>
 </head>
 <body>
-<form method="post" action="<%=request.getContextPath()%>/api/system/<c:choose><c:when test="${system.systemName != ''}">update/${system.systemName}</c:when><c:otherwise>add</c:otherwise></c:choose>/" class="form-horizontal">
+<form method="post"
+      action="<%=request.getContextPath()%>/api/system/<c:choose><c:when test="${system.systemName != ''}">update/${system.systemName}</c:when><c:otherwise>add</c:otherwise></c:choose>/"
+      class="form-horizontal">
     <div class="form-group">
         <label for="name" class="control-label col-sm-2">System:</label>
 
@@ -40,7 +42,7 @@
             <li class="<c:if test="${system.protocol == 'JMS' || system.protocol != 'SOAP'}">active</c:if>">
                 <a href="#JMS" data-toggle="tab">JMS</a></li>
             <li class="<c:if test="${system.protocol == 'SOAP'}">active</c:if>"><a href="#SOAP"
-                                                                                        data-toggle="tab">SOAP</a>
+                                                                                   data-toggle="tab">SOAP</a>
             </li>
         </ul>
         <div class="tab-content">
@@ -129,6 +131,24 @@
                                        onkeyup="checkJndiName(event, this)"/>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="text-align: left; cursor: pointer;" data-toggle="collapse" data-target="#rootElementBodyDiv">
+                        <span class="glyphicon glyphicon-collapse-down"></span> <i>Advanced</i>
+                    </div>
+                    <div class="panel-body collapse" id="rootElementBodyDiv">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="rootElementDiv">Root element</label>
+
+                            <div class="col-sm-10">
+                                <div id="rootElementDiv">
+                                    <input class='rootElementNamespace' name="rootElementNamespace" placeholder="Namespace" value="${system.rootElement.namespace}"/>
+                                    <input class='rootElementName' name="rootElementName" placeholder="Element name" value="${system.rootElement.element}"/>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

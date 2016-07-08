@@ -123,53 +123,9 @@ textarea {
     position: relative !important;
 }
 
-/*
-    CodeMirror Styles
-*/
-
 #wizard {
     height: 100%;
     overflow: visible !important;
-}
-
-#error {
-    width: 690px;
-    background-color: rgba(256, 182, 193, .7);
-    font-weight: bold;
-    display: none;
-    border: lightgray solid 1px;
-    font-size: 8pt;
-    padding-left: 10px;
-    color: dimgray;
-}
-
-#info {
-    width: 690px;
-    background-color: rgba(121, 255, 120, .7);
-    font-weight: bold;
-    display: block;
-    border: lightgray solid 1px;
-    font-size: 8pt;
-    padding-left: 10px;
-    color: dimgray;
-    opacity: 0;
-}
-
-#resWrapper {
-    display: none;
-}
-
-.actionButtons {
-    display: inline !important;
-    margin-top: 5px;
-}
-
-#actionButtonsDiv {
-    text-align: right;
-    width: 700px;
-    padding-top: 5px;
-    vertical-align: top;
-    vert-align: top;
 }
 
 

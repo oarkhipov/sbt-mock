@@ -91,6 +91,12 @@ public class XmlGeneratorService {
                 elementSelector = integrationPoint.getRootElement();
             }
         }
+        //if no System and IntegrationPoint rootElement specified
+        if (elementSelector==null) {
+            //get first element selector from integration point selector
+            elementSelector = system.getIntegrationPointSelector().getElementSelectors().get(0);
+        }
+
         String rootElementName = elementSelector.getElement();
         String rootElementNamespace = elementSelector!=null?elementSelector.getNamespace():null;
 

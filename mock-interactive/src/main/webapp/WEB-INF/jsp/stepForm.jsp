@@ -31,24 +31,7 @@
     <script src="<%=request.getContextPath()%>/resources/js/attrs.js"></script>
     <script src="<%=request.getContextPath()%>/resources/js/base64.js"></script>
 
-    <%-- editor pre-load to fix editor display bug, when first time loaded--%>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/codemirror/codemirror.css">
-    <script src="<%=request.getContextPath()%>/resources/js/codemirror/codemirror.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/codemirror/show-hint.js"></script>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/codemirror/show-hint.css">
-    <script src="<%=request.getContextPath()%>/resources/js/codemirror/closetag.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/codemirror/xml-hint.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/codemirror/xml.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/codemirror/groovy.js"></script>
-    <%--Folding--%>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/codemirror/foldgutter.css">
-    <script src="<%=request.getContextPath()%>/resources/js/codemirror/brace-fold.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/codemirror/comment-fold.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/codemirror/foldcode.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/codemirror/foldgutter.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/codemirror/markdown-fold.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/codemirror/xml-fold.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/codemirror/formatting.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/libs/ace/ace.js"></script>
 
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/editor.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/docs.css">
@@ -88,7 +71,7 @@
                     </button>
                     <span style="line-height: 5pt; display: block">&nbsp;</span>
 
-                    <div class="panel panel-default" style="margin-bottom: 5pt">
+                    <div id="mockPanel" class="panel panel-default" style="margin-bottom: 5pt">
                         <div class="panel-body">
                             <table class="table-striped" width="100%">
                                 <tr>
@@ -127,7 +110,7 @@
                                         </td>
                                     </tr>
                                     <c:forEach var="mockIntegrationPoint" items="${system.mockIntegrationPoints}">
-                                        <tr>
+                                        <tr data-toggle="collapse" data-target="#${mockIntegrationPoint.name}_sequence">
                                             <td align="right">
                                                 <span class="glyphicon glyphicon-menu-right"
                                                       style="opacity: 0.6"></span>
@@ -150,6 +133,12 @@
                                                         <span class="glyphicon glyphicon-trash"></span>
                                                     </button>
                                                 </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="collapse" id="${mockIntegrationPoint.name}_sequence">
+                                            <td>&nbsp;</td>
+                                            <td colspan="2">
+                                                Test
                                             </td>
                                         </tr>
                                     </c:forEach>

@@ -2,60 +2,33 @@
  * Created by sbt-bochev-as on 19.12.2014.
  */
 
-function completeAfter(cm, pred) {
-    var cur = cm.getCursor();
-    if (!pred || pred()) setTimeout(function () {
-        if (!cm.state.completionActive)
-            cm.showHint({completeSingle: false});
-    }, 100);
-    return CodeMirror.Pass;
-}
+var codeEditor;
+var resCodeEditor;
+var scriptEditor;
+var testEditor;
 
-function completeIfAfterLt(cm) {
-    return completeAfter(cm, function () {
-        var cur = cm.getCursor();
-        return cm.getRange(CodeMirror.Pos(cur.line, cur.ch - 1), cur) == "<";
-    });
-}
 
-function completeIfInTag(cm) {
-    return completeAfter(cm, function () {
-        var tok = cm.getTokenAt(cm.getCursor());
-        if (tok.type == "string" && (!/['"]/.test(tok.string.charAt(tok.string.length - 1)) || tok.string.length == 1)) return false;
-        var inner = CodeMirror.innerMode(cm.getMode(), tok.state).state;
-        return inner.tagName;
-    });
-}
+$().ready(function (){
+    var editorTheme = "ace/theme/xcode";
 
-var xmlEditorSettings = {
-    mode: "xml",
-    lineNumbers: true,
-    extraKeys: {
-        "'<'": completeAfter,
-        "'/'": completeIfAfterLt,
-        "' '": completeIfInTag,
-        "'='": completeIfInTag,
-        "Ctrl-Space": completeAfter,
-        "Ctrl-Q": function (cm) {
-            cm.foldCode(cm.getCursor());
-        },
-        "Ctrl--": function (cm) {
-            cm.foldCode(cm.getCursor());
-        }
-    },
-//    hintOptions: {schemaInfo: tags},
-    autoCloseTags: true,
-    lineWrapping: true,
-    foldGutter: true,
-    gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
-};
+    codeEditor = ace.edit("code");
+    codeEditor.getSession().setMode("ace/mode/xml");
+    codeEditor.setTheme(editorTheme);
 
-var groovyEditorSettings = {
-    mode: "groovy",
-    lineNumbers: true,
-    lineWrapping: true,
-    gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
-};
+    resCodeEditor = ace.edit("resCode");
+    resCodeEditor.getSession().setMode("ace/mode/xml");
+    resCodeEditor.setTheme(editorTheme);
+
+    scriptEditor = ace.edit("scriptCode");
+    scriptEditor.getSession().setMode("ace/mode/groovy");
+    scriptEditor.setTheme(editorTheme);
+
+    testEditor = ace.edit("testCode");
+    testEditor.getSession().setMode("ace/mode/xml");
+    testEditor.setTheme(editorTheme);
+
+    updateWizardHeight();
+});
 
 function showInfo(text) {
     if (text) {
@@ -77,12 +50,6 @@ function showError(text) {
     }
 }
 
-function htmlConvert(data) {
-    var converter = $("#htmlConverter");
-    converter.html(data);
-    //IE8 trim compatibility
-    return $.trim(converter.text());
-}
 
 function showResponse(text) {
     if (text) {
@@ -94,12 +61,6 @@ function showResponse(text) {
     }
 }
 
-function autoFormatResponse() {
-    var totalLines = resEditor.lineCount();
-    var totalChars = resEditor.getTextArea().value.length;
-    resEditor.autoFormatRange({line: 0, ch: 0}, {line: totalLines, ch: totalChars});
-    resEditor.setCursor({line: 0, ch: 0});
-}
 
 //Handlers
 $("#validate").click(function () {

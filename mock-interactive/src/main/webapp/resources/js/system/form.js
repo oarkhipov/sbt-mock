@@ -6,30 +6,130 @@ $().ready(function () {
     $("#protocol-container").find("a").click(function () {
         $("#protocol").val($(this).html());
     });
+
+    $(".rootElementNamespace").selectize({
+        persist: false,
+        maxItems: 1,
+        valueField: 'value',
+        labelField: 'value',
+        searchField: 'value',
+        options: [],
+        create: true,
+        load: namespaceLoader
+    });
+
+    $(".rootElementName").selectize({
+        persist: false,
+        maxItems: 1,
+        valueField: 'elementName',
+        labelField: 'elementName',
+        searchField: 'elementName',
+        options: [],
+        sortField: [
+            {field: 'elementName', direction: 'asc'}
+        ],
+        create: true,
+        render: {
+            option: function (item, escape) {
+                return '<div>' +
+                    '<span class="selectize-label">' + escape(item.elementName) + '</span><br/>' +
+                    '<span class="selectize-caption">' + escape(item.namespace) + '</span>' +
+                    '</div>';
+            }
+        },
+        load: function (query, callback) {
+            if (!query.length) return callback();
+            var systemName = $("#name").val();
+            if (systemName) {
+                $.ajax({
+                    url: 'api/system/' + systemName + '/elements/?namespace=' + $(".rootElementNamespace")[0].selectize.getValue() + '&elementName=' + query,
+                    type: 'GET',
+                    dataType: 'json',
+                    error: function () {
+                        callback();
+                    },
+                    success: function (res) {
+                        callback(res);
+                    }
+                });
+            }
+        },
+        onDropdownOpen: function () {
+            $(".selectize-dropdown-content").on('mousedown', 'div[data-selectable]', function (event) {
+                var namespace = $(this).find(".selectize-caption").text();
+                if (namespace) {
+                    var namespaceControl = $(".rootElementNamespace")[0].selectize;
+                    namespaceControl.addOption({value: namespace});
+                    namespaceControl.setValue(namespace);
+                }
+            });
+        }
+    });
 });
 
 function addElement(namespace, elementName) {
     var div = document.createElement('span');
-    div.innerHTML = "<div style='text-align: left'><select class='integrationPointSelectorNamespace' name=\"integrationPointSelectorNamespace[]\" placeholder=\"Namespace\" value=\"" +
-    namespace + "\"></select><select class='integrationPointSelectorElementName' name=\"integrationPointSelectorElementName[]\" placeholder=\"Blank element name if it's last\" value=\"" +
-    elementName + "\"></select><input class='btn btn-s btn-default' type=\"button\" value=\"-\" onclick='removeElement(this)'/></div>";
+    div.innerHTML = "<div style='text-align: left'><select class='integrationPointSelectorNamespace' name=\"integrationPointSelectorNamespace[]\" placeholder=\"Namespace\"></select>" +
+    "<select class='integrationPointSelectorElementName' name=\"integrationPointSelectorElementName[]\" placeholder=\"Blank element name if it's last\"></select>" +
+    "<input class='btn btn-s btn-default' type=\"button\" value=\"-\" onclick='removeElement(this)'/></div>";
     var mainDiv = document.getElementById("integrationPointSelector");
     mainDiv.appendChild(div);
+
     var elNamespace = $(".integrationPointSelectorNamespace", div).selectize({
+        persist: false,
         maxItems: 1,
         valueField: 'value',
         labelField: 'value',
         searchField: 'value',
         options: [],
-        create: true
+        create: true,
+        load: namespaceLoader
     });
     var elName = $(".integrationPointSelectorElementName", div).selectize({
+        persist: false,
         maxItems: 1,
-        valueField: 'value',
-        labelField: 'value',
-        searchField: 'value',
+        valueField: 'elementName',
+        labelField: 'elementName',
+        searchField: 'elementName',
         options: [],
-        create: true
+        sortField: [
+            {field: 'elementName', direction: 'asc'}
+        ],
+        create: true,
+        render: {
+            option: function (item, escape) {
+                return '<div>' +
+                    '<span class="selectize-label">' + escape(item.elementName) + '</span><br/>' +
+                    '<span class="selectize-caption">' + escape(item.namespace) + '</span>' +
+                    '</div>';
+            }
+        },
+        load: function (query, callback) {
+            if (!query.length) return callback();
+            var systemName = $("#name").val();
+            if (systemName) {
+                $.ajax({
+                    url: 'api/system/' + systemName + '/elements/?namespace=' + elNamespace[0].selectize.getValue() + '&elementName=' + query,
+                    type: 'GET',
+                    dataType: 'json',
+                    error: function () {
+                        callback();
+                    },
+                    success: function (res) {
+                        callback(res);
+                    }
+                });
+            }
+        },
+        onDropdownOpen: function () {
+            $(".selectize-dropdown-content").on('mousedown', 'div[data-selectable]', function (event) {
+                var namespace = $(this).find(".selectize-caption").text();
+                if (namespace) {
+                    elNamespace[0].selectize.addOption({value: namespace});
+                    elNamespace[0].selectize.setValue(namespace);
+                }
+            });
+        }
     });
     //TODO link with namespace suggestion service
     if (namespace) {
@@ -39,7 +139,7 @@ function addElement(namespace, elementName) {
     }
     if (elementName) {
         var elNameControl = elName[0].selectize;
-        elNameControl.addOption({value: elementName});
+        elNameControl.addOption({namespace: namespace, elementName: elementName});
         elNameControl.setValue(elementName);
     }
 }
@@ -48,6 +148,27 @@ function removeElement(obj) {
     var parent = obj.parentElement;
     parent.parentElement.removeChild(parent);
 }
+
+// Dataloaders for selectize
+var namespaceLoader = function (query, callback) {
+    if (!query.length) return callback();
+    var systemName = $("#name").val();
+    if (systemName) {
+        $.ajax({
+            url: 'api/system/' + systemName + '/namespaces/?namespace=' + query,
+            type: 'GET',
+            dataType: 'json',
+            error: function () {
+                callback();
+            },
+            success: function (res) {
+                callback(res);
+            }
+        });
+    }
+};
+
+// Selectize END==============
 
 function checkJndiName(event, obj) {
     var key = event.keyCode;
@@ -87,11 +208,9 @@ function enableSubmit(obj) {
         jndiTesterValues.push(true);
     }
 
-    if(jndiTesterValues.indexOf(false) == -1) {
+    if (jndiTesterValues.indexOf(false) == -1) {
         submit.prop("disabled", false);
     }
-    console.log(jndiTesterIds);
-    console.log(jndiTesterValues);
 }
 function disableSubmit(obj) {
     var form = $(obj).closest("form");
@@ -105,8 +224,6 @@ function disableSubmit(obj) {
         jndiTesterValues.push(false);
     }
     submit.prop("disabled", true);
-    console.log(jndiTesterIds);
-    console.log(jndiTesterValues);
 }
 
 

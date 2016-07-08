@@ -33,12 +33,19 @@ $(function () {
         int_point = QueryString["ip"];
         selectIp();
     }
+    updateWizardHeight();
 
-    //set wizard height
-    $(".wizard > .content").css("cssText", "height:" + $(".wizard > .content > .body").css("height") + " !important;");
+    $("#wizard>.steps>ul>li").click(function () {
+        updateWizardHeight();
+    });
 });
 
 var int_point = null;
+
+function updateWizardHeight() {
+    //set wizard height
+    $(".wizard > .content").css("cssText", "height:" + $(".wizard > .content > .body.current").css("height") + " !important;");
+}
 
 function chooseIntPoint(pointName) {
     int_point = pointName;
@@ -207,6 +214,14 @@ $().ready(function () {
                 });
         }
     );
+
+    $("#mockPanel").find("tr.collapse")
+        .on('show.bs.collapse', function () {
+            $(this).prev().find(".glyphicon:first").removeClass("glyphicon-menu-right").addClass("glyphicon-menu-down");
+        })
+        .on('hidden.bs.collapse', function () {
+            $(this).prev().find(".glyphicon:first").addClass("glyphicon-menu-right").removeClass("glyphicon-menu-down");
+        });
 });
 
 function reinitValidator(name) {

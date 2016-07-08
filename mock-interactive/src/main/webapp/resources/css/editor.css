@@ -1,62 +1,52 @@
-#undo {
-    background: url("../img/glyphicons-222-unshare.png") no-repeat 4px 4px;
-    width: 32px;
-    height: 30px;
+#filterGenLabel {
+    padding-top: 12px;
 }
 
-#redo {
-    background: url("../img/glyphicons-223-share.png") no-repeat 4px 4px;
-    width: 32px;
-    height: 30px;
+#code {
+    height: 400px;
+    border: 1px gainsboro solid;
 }
 
-#save {
-    background: url("../img/glyphicons-447-floppy-save.png") no-repeat 4px 4px;
-    width: 32px;
-    height: 30px;
+#resCode {
+    height: 648px;
+    border: 1px gainsboro solid;
 }
 
-#reset {
-    /*background: url("../img/glyphicons-448-floppy-open.png") no-repeat 4px 4px;*/
-    background: url("../img/glyphicons-82-refresh.png") no-repeat 2px 2px;
-    width: 32px;
-    height: 30px;
+#codeWrapper {
+    float: left;
+    width: 49%;
 }
 
-#validate {
-    background: url("../img/glyphicons-199-ok.png") no-repeat 2px 2px;
-    width: 32px;
-    height: 30px;
+#resCodeWrapper {
+    float: right;
+    width: 49%;
 }
 
-#listRefresh {
-    background: url("../img/glyphicons-82-refresh.png") no-repeat 2px 2px;
-    width: 32px;
-    height: 30px;
+#scriptCode, #testCode {
+    height: 200px;
+    border: 1px gainsboro solid;
 }
 
-#send {
-    background: url("../img/glyphicons-422-send.png") no-repeat 2px 2px;
-    width: 32px;
-    height: 30px;
-}
-
-#reqList {
+#testCodeButtons {
     position: relative;
-    top: -7px;
-    height: 30px;
+    right: 5px;
+    margin-left: 95%;
+    margin-top: -28px;
+    z-index: 50;
+    width: 5%;
+    text-align: right;
 }
 
-#test {
-    background: url("../img/glyphicons-534-lab.png") no-repeat 2px 2px;
-    width: 32px;
-    height: 30px;
+.actionButtons {
+    display: inline !important;
+    margin-top: 5px;
 }
 
-#templateInfo {
-    background: url("../img/glyphicons-196-circle-info.png") no-repeat 2px 2px;
-    width: 32px;
-    height: 30px;
+#actionButtonsDiv {
+    text-align: right;
+    width: 100%;
 }
 
-
+#tabs {
+    margin-top: -40px;
+}
