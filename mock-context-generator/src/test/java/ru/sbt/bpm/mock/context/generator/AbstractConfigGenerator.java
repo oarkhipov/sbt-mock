@@ -19,7 +19,8 @@ public abstract class AbstractConfigGenerator {
 		                                                       "        http://www.springframework.org/schema/integration    http://www.springframework.org/schema/integration/spring-integration.xsd\n" +
 		                                                       "        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd\n" +
 		                                                       "        http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd");
-		marshaller.setProperty(MockNamespaceMapper.MAPPER_NAMESPACE_PROPERTY, new MockNamespaceMapper());
+//		marshaller.setProperty(MockNamespaceMapper.MAPPER_NAMESPACE_PROPERTY, new MockNamespaceMapper());
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		return marshaller;
 	}
 

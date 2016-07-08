@@ -1,4 +1,4 @@
-package ru.sbt.bpm.mock.context.generator;
+package ru.sbt.bpm.mock.context.generator.impl;
 
 import generated.springframework.beans.Bean;
 import generated.springframework.beans.Beans;
@@ -6,6 +6,7 @@ import generated.springframework.integration.*;
 import lombok.NonNull;
 import reactor.tuple.Tuple2;
 import reactor.tuple.Tuple3;
+import ru.sbt.bpm.mock.context.generator.IContextGeneratable;
 
 import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;

@@ -1,9 +1,10 @@
-package ru.sbt.bpm.mock.context.generator;
+package ru.sbt.bpm.mock.context.generator.impl;
 
 import generated.springframework.beans.Beans;
 import generated.springframework.integration.jms.InboundGateway;
 import generated.springframework.integration.jms.ObjectFactory;
 import generated.springframework.integration.jms.OutboundGateway;
+import ru.sbt.bpm.mock.context.generator.IContextGeneratable;
 
 /**
  * Created by sbt-hodakovskiy-da on 05.07.2016.

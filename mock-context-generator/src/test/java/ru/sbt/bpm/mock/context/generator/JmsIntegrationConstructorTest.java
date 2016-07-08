@@ -2,6 +2,8 @@ package ru.sbt.bpm.mock.context.generator;
 
 import generated.springframework.beans.Beans;
 import org.testng.annotations.Test;
+import ru.sbt.bpm.mock.context.generator.impl.BeansConstructor;
+import ru.sbt.bpm.mock.context.generator.impl.JmsIntegrationConstructor;
 
 import javax.xml.bind.JAXBException;
 
@@ -16,22 +18,23 @@ public class JmsIntegrationConstructorTest extends AbstractConfigGenerator {
 
 	@Test
 	public void testCreateInboundGateway () throws JAXBException {
-		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><beans "
-		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
+		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
+		                  + "<beans xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration    http://www.springframework"
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration http://www.springframework"
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
-		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
-		                  + ".springframework.org/schema/beans\" xmlns:int=\"http://www.springframework"
-		                  + ".org/schema/integration\" xmlns:jms=\"http://www.springframework"
-		                  + ".org/schema/integration/jms\" xmlns:xsi=\"http://www.w3"
-		                  + ".org/2001/XMLSchema-instance\"><jms:inbound-gateway request-destination=\"inboundMock\" "
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns:ns2=\"http://www"
+		                  + ".springframework.org/schema/integration/jms\" xmlns=\"http://www.springframework"
+		                  + ".org/schema/beans\" xmlns:ns3=\"http://www.springframework.org/schema/integration\" "
+		                  + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+		                  + "    <ns2:inbound-gateway request-destination=\"inboundMock\" "
 		                  + "default-reply-destination=\"defaultReplyChannel\" request-channel=\"inboundRequest\" "
 		                  + "reply-channel=\"replyChannel\" id=\"idName\" "
-		                  + "connection-factory=\"jndiConnectionFactory\"/></beans>";
+		                  + "connection-factory=\"jndiConnectionFactory\"/>\n"
+		                  + "</beans>\n";
 		Beans beans = beansConstructor.createBeans();
 		beans = jmsIntegrationConstructor.createInboundGateway(beans, "idName", "inboundMock", "inboundRequest",
 		                                                       "replyChannel", "defaultReplyChannel",
@@ -42,23 +45,23 @@ public class JmsIntegrationConstructorTest extends AbstractConfigGenerator {
 
 	@Test
 	public void testCreateOutboundGateway () throws JAXBException {
-		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><beans "
-		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
+		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
+		                  + "<beans xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration    http://www.springframework"
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration http://www.springframework"
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
-		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
-		                  + ".springframework.org/schema/beans\" xmlns:int=\"http://www.springframework"
-		                  + ".org/schema/integration\" xmlns:jms=\"http://www.springframework"
-		                  + ".org/schema/integration/jms\" xmlns:xsi=\"http://www.w3"
-		                  + ".org/2001/XMLSchema-instance\"><jms:outbound-gateway id=\"jmsOut\" "
-		                  + "request-channel=\"outboundDriver\" reply-channel=\"inboundDriver\" "
-		                  + "receive-timeout=\"30000\" reply-timeout=\"30000\" request-destination=\"requestDriver\" "
-		                  + "reply-destination=\"replyDriver\" connection-factory=\"connectionFactory\" "
-		                  + "header-mapper=\"headerMapper\"/></beans>";
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns:ns2=\"http://www"
+		                  + ".springframework.org/schema/integration/jms\" xmlns=\"http://www.springframework"
+		                  + ".org/schema/beans\" xmlns:ns3=\"http://www.springframework.org/schema/integration\" "
+		                  + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+		                  + "    <ns2:outbound-gateway id=\"jmsOut\" request-channel=\"outboundDriver\" "
+		                  + "reply-channel=\"inboundDriver\" receive-timeout=\"30000\" reply-timeout=\"30000\" "
+		                  + "request-destination=\"requestDriver\" reply-destination=\"replyDriver\" "
+		                  + "connection-factory=\"connectionFactory\" header-mapper=\"headerMapper\"/>\n"
+		                  + "</beans>\n";
 		Beans beans = beansConstructor.createBeans();
 		beans = jmsIntegrationConstructor.createOutboundGateway(beans, "jmsOut", "requestDriver", "replyDriver",
 		                                                        "outboundDriver", "inboundDriver", "headerMapper",
