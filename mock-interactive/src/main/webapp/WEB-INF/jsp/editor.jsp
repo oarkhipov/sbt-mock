@@ -57,18 +57,22 @@
         <div id="tabs">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#tabs-1"><span class="glyphicon glyphicon-console"></span> Script</a></li>
+                <c:if test="${link=='mock'}">
                 <li><a data-toggle="tab" href="#tabs-2"><span class="glyphicon glyphicon-list-alt"></span> Test</a></li>
+                </c:if>
             </ul>
             <div class="tab-content">
                 <div id="tabs-1" class="tab-pane active">
                     <div id="scriptCode"><c:out value="${script}" escapeXml="true"/></div>
                 </div>
+                <c:if test="${link=='mock'}">
                 <div id="tabs-2" class="tab-pane">
                     <div id="testCode"><c:out value="${test}" escapeXml="true"/></div>
                     <div id="testCodeButtons">
                         <span class="glyphicon glyphicon-refresh btn btn-default btn-xs"></span>
                     </div>
                 </div>
+                </c:if>
             </div>
         </div>
     </div>
