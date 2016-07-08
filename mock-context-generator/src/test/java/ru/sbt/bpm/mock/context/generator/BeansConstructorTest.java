@@ -3,7 +3,7 @@ package ru.sbt.bpm.mock.context.generator;
 import generated.springframework.beans.Beans;
 import org.testng.annotations.Test;
 import reactor.tuple.Tuple;
-import ru.sbt.bpm.mock.context.generator.impl.BeansConstructor;
+import ru.sbt.bpm.mock.context.generator.service.constructors.BeansConstructor;
 
 import javax.xml.bind.JAXBException;
 import java.util.Arrays;

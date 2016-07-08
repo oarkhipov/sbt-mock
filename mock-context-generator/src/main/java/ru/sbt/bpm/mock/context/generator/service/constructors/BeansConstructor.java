@@ -1,4 +1,4 @@
-package ru.sbt.bpm.mock.context.generator.impl;
+package ru.sbt.bpm.mock.context.generator.service.constructors;
 
 import generated.springframework.beans.*;
 import lombok.NonNull;

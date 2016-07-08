@@ -32,6 +32,7 @@ public class SpringContextGeneratorService {
     private void init() throws JAXBException, TransformerConfigurationException {
         JAXBContext context = JAXBContext.newInstance(BeanContainer.class, Bean.class);
         marshaller = context.createMarshaller();
+
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
         transformer = TransformerFactory.newInstance().newTransformer();

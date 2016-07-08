@@ -1,15 +1,17 @@
-package ru.sbt.bpm.mock.context.generator.impl;
+package ru.sbt.bpm.mock.context.generator.service.constructors;
 
 import generated.springframework.beans.Beans;
 import generated.springframework.integration.jms.InboundGateway;
 import generated.springframework.integration.jms.ObjectFactory;
 import generated.springframework.integration.jms.OutboundGateway;
+import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.context.generator.IContextGeneratable;
 
 /**
  * Created by sbt-hodakovskiy-da on 05.07.2016.
  */
 
+@Service
 public class JmsIntegrationConstructor implements IContextGeneratable {
 
 	/**
@@ -22,8 +24,7 @@ public class JmsIntegrationConstructor implements IContextGeneratable {
 	 * @param requestChannel -
 	 * @param replyChannel
 	 * @param defaultReplyDestination
-	 * @param connectionFactory
-	 * @return
+	 * @param connectionFactory* @return
 	 */
 	public Beans createInboundGateway (Beans beans, String id, String requestDestination, String requestChannel,
 	                                   String replyChannel, String defaultReplyDestination, String connectionFactory) {
@@ -159,7 +160,7 @@ public class JmsIntegrationConstructor implements IContextGeneratable {
 		return inboundGateway;
 	}
 
-	public ObjectFactory getIntegrationFactory () {
+	public ObjectFactory getJmsIntegrationFactory () {
 		return jmsFactory;
 	}
 

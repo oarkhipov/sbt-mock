@@ -18,7 +18,7 @@ import static org.testng.Assert.assertEquals;
  */
 
 @ContextConfiguration(locations = {"/env/mockapp-servlet.xml"})
-public class SpringContextGeneratorServiceTest extends AbstractTestNGSpringContextTests {
+public class SpringContextGeneratorServiceServiceTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     SpringContextGeneratorService springContextGeneratorService;

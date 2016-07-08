@@ -1,6 +1,7 @@
 package ru.sbt.bpm.mock.context.generator;
 
-import com.sun.xml.internal.bind.marshaller.NamespacePrefixMapper;
+
+import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 
 /**
  * Created by sbt-hodakovskiy-da on 07.07.2016.

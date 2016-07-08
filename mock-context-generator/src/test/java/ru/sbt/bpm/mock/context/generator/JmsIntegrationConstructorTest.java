@@ -2,8 +2,8 @@ package ru.sbt.bpm.mock.context.generator;
 
 import generated.springframework.beans.Beans;
 import org.testng.annotations.Test;
-import ru.sbt.bpm.mock.context.generator.impl.BeansConstructor;
-import ru.sbt.bpm.mock.context.generator.impl.JmsIntegrationConstructor;
+import ru.sbt.bpm.mock.context.generator.service.constructors.BeansConstructor;
+import ru.sbt.bpm.mock.context.generator.service.constructors.JmsIntegrationConstructor;
 
 import javax.xml.bind.JAXBException;
 
@@ -40,7 +40,7 @@ public class JmsIntegrationConstructorTest extends AbstractConfigGenerator {
 		                                                       "replyChannel", "defaultReplyChannel",
 		                                                       "jndiConnectionFactory");
 		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), jmsIntegrationConstructor
-				.getIntegrationFactory().getClass()) == 0;
+				.getJmsIntegrationFactory().getClass()) == 0;
 	}
 
 	@Test
@@ -67,6 +67,6 @@ public class JmsIntegrationConstructorTest extends AbstractConfigGenerator {
 		                                                        "outboundDriver", "inboundDriver", "headerMapper",
 		                                                        "connectionFactory", "30000", "30000");
 		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), jmsIntegrationConstructor
-				.getIntegrationFactory().getClass()) == 0;
+				.getJmsIntegrationFactory().getClass()) == 0;
 	}
 }

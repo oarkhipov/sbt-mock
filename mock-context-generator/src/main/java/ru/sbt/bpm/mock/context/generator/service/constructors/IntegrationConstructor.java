@@ -1,9 +1,10 @@
-package ru.sbt.bpm.mock.context.generator.impl;
+package ru.sbt.bpm.mock.context.generator.service.constructors;
 
 import generated.springframework.beans.Bean;
 import generated.springframework.beans.Beans;
 import generated.springframework.integration.*;
 import lombok.NonNull;
+import org.springframework.stereotype.Service;
 import reactor.tuple.Tuple2;
 import reactor.tuple.Tuple3;
 import ru.sbt.bpm.mock.context.generator.IContextGeneratable;
@@ -16,6 +17,7 @@ import java.util.List;
  * Created by sbt-hodakovskiy-da on 05.07.2016.
  */
 
+@Service
 public class IntegrationConstructor implements IContextGeneratable {
 
 
