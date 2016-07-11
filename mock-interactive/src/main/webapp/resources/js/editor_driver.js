@@ -3,11 +3,15 @@
  */
 function sendDisable(disabled) {
     var send = $("#send");
-    send.prop("disabled",disabled);
+    var glyph = send.find(".glyphicon");
     if(disabled) {
-        send.css("color","gray");
+        send.prop("disabled", true);
+        glyph.removeClass("glyphicon-send")
+            .addClass("glyphicon-refresh glyphicon-refresh-animate");
     } else {
-        send.css("color","black");
+        send.prop("disabled", false);
+        glyph.addClass("glyphicon-send")
+            .removeClass("glyphicon-refresh glyphicon-refresh-animate");
     }
 }
 
@@ -17,22 +21,21 @@ $().ready(function () {
 
 function applyActionButtonsEvents() {
     $("#send").click(function () {
-        showInfo("Sending...");
+        //showInfo("Sending...");
         sendDisable(true);
-        showResponse();
         var parts = QueryString["ip"].split("__");
         $.ajax({
             url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/send/",
             type: "POST",
-            data: { xml :editor.getValue(),
-                script : groovyEditor.getValue(),
-                test : testEditor.getValue()},
+            data: { xml :codeEditor.getValue(),
+                script : scriptEditor.getValue(),
+                test : ""},
             success: function (obj) {
-                obj = htmlConvert(obj);
+                obj = htmlDecode(obj);
                 obj = $.parseJSON(obj);
-                showInfo(obj.info);
+                if(!obj.error) showInfo(obj.info);
                 showError(obj.error);
-                showResponse(htmlConvert(obj.data));
+                setResponse(htmlDecode(obj.data));
                 sendDisable(false);
             },
             error: function (jqXHR, textStatus, obj) {

@@ -50,8 +50,9 @@
                   class="actionButtons glyphicon glyphicon-wrench btn btn-default"></span>
             <c:if test="${link=='driver'}">
                 &nbsp;&nbsp;
-                <span id="send" title="Send"
-                      class="actionButtons glyphicon glyphicon-send btn btn-default"></span>
+                <button id="send" title="Send" class="actionButtons btn btn-default">
+                    <span class="glyphicon glyphicon-send"></span>
+                </button>
             </c:if>
         </div>
         <div id="tabs">
@@ -69,7 +70,11 @@
                 <div id="tabs-2" class="tab-pane">
                     <div id="testCode"><c:out value="${test}" escapeXml="true"/></div>
                     <div id="testCodeButtons">
-                        <span class="glyphicon glyphicon-refresh btn btn-default btn-xs"></span>
+                        <label id="testFilterGenLabel">
+                            <input id="testFilterGen" type="checkbox" alt="Filter generated message" checked>Filter
+                        </label>
+                        <span id="testRegenerate" class="glyphicon glyphicon-refresh btn btn-default btn-xs"></span>
+                        <span id="testValidate" class="glyphicon glyphicon-ok-circle btn btn-default btn-xs"></span>
                     </div>
                 </div>
                 </c:if>

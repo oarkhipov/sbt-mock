@@ -68,7 +68,7 @@ public class XmlGeneratorService {
         IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
         switch (system.getProtocol()) {
             case JMS:
-                return generateJmsMessage(system, integrationPoint, filterMessage);
+                return generateJmsMessage(system, integrationPoint, messageType, filterMessage);
             case SOAP:
                 return generateSoapMessage(system, integrationPoint, messageType);
         }
@@ -77,10 +77,10 @@ public class XmlGeneratorService {
 
     public String generateJmsSystemMessage(String systemName) throws Exception {
         ru.sbt.bpm.mock.config.entities.System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
-        return generateJmsMessage(system, null, false);
+        return generateJmsMessage(system, null, null, false);
     }
 
-    private String generateJmsMessage(System system, IntegrationPoint integrationPoint, boolean filterMessage) throws Exception {
+    private String generateJmsMessage(System system, IntegrationPoint integrationPoint, MessageType messageType, boolean filterMessage) throws Exception {
         String localRootSchema = system.getLocalRootSchema();
         ElementSelector elementSelector = system.getRootElement();
         if (integrationPoint != null) {
@@ -92,13 +92,14 @@ public class XmlGeneratorService {
             }
         }
         //if no System and IntegrationPoint rootElement specified
-        if (elementSelector==null) {
+        if (elementSelector == null) {
             //get first element selector from integration point selector
             elementSelector = system.getIntegrationPointSelector().getElementSelectors().get(0);
         }
 
         String rootElementName = elementSelector.getElement();
-        String rootElementNamespace = elementSelector!=null?elementSelector.getNamespace():null;
+        @SuppressWarnings("ConstantConditions")
+        String rootElementNamespace = elementSelector != null ? elementSelector.getNamespace() : null;
 
         URL resource = dataFileService.getXsdResource(system.getSystemName(), localRootSchema).getURL();
         assert resource != null;
@@ -115,28 +116,44 @@ public class XmlGeneratorService {
             xsInstance.generate(xsModel, rootElement, sampleXml);
         } catch (Exception e) {
             String msg = "Failed to generate xml:\n" +
-                    "resource:["+resource.toString()+"]\n" +
-                    "rootElement:["+rootElement.toString()+"]\n" +
-                    "xsModel:["+xsModel.toString()+"]\n" +
+                    "resource:[" + resource.toString() + "]\n" +
+                    "rootElement:[" + rootElement.toString() + "]\n" +
+                    "xsModel:[" + xsModel.toString() + "]\n" +
                     "message: " + e.getMessage();
             throw new Exception(msg, e);
         }
         if (filterMessage) {
-            return filterMessage(integrationPoint, writer);
+            return filterMessage(system, integrationPoint, messageType, writer);
         }
         return writer.toString();
     }
 
-    //TODO make it work with RQ
-    private String filterMessage(IntegrationPoint integrationPoint, StringWriter writer) throws Exception {
-        List<ElementSelector> elementSelectors = integrationPoint.getXpathValidatorSelector().getElementSelectors();
+    private String filterMessage(System system, IntegrationPoint integrationPoint, MessageType messageType, StringWriter writer) throws Exception {
         StringBuilder xmlMapElements = new StringBuilder();
-        for (ElementSelector selector : elementSelectors) {
-            xmlMapElements.append("        add(Tuple.of(\"")
-                    .append(selector.getNamespace())
-                    .append("\", \"")
-                    .append(selector.getElement())
-                    .append("\"))\n");
+        if (integrationPoint.isMock() && messageType == MessageType.RQ) {
+            //mock test
+            List<ElementSelector> elementSelectors = system.getIntegrationPointSelector().getElementSelectors();
+            for (int i = 0; i < elementSelectors.size(); i++) {
+                ElementSelector selector = elementSelectors.get(i);
+                xmlMapElements.append("        add(Tuple.of(\"")
+                        .append(selector.getNamespace())
+                        .append("\", \"");
+                //if last element == null -> last element name = integration point name
+                if ((i == elementSelectors.size() - 1) && ((selector.getElement() == null) || (selector.getElement().isEmpty()))) {
+                    xmlMapElements.append(integrationPoint.getName()).append("\"))\n");
+                } else {
+                    xmlMapElements.append(selector.getElement()).append("\"))\n");
+                }
+            }
+        } else {
+            List<ElementSelector> elementSelectors = integrationPoint.getXpathValidatorSelector().getElementSelectors();
+            for (ElementSelector selector : elementSelectors) {
+                xmlMapElements.append("        add(Tuple.of(\"")
+                        .append(selector.getNamespace())
+                        .append("\", \"")
+                        .append(selector.getElement())
+                        .append("\"))\n");
+            }
         }
 
         String filterScript =
