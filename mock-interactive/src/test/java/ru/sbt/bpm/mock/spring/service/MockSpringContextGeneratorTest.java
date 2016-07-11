@@ -28,9 +28,7 @@ public class MockSpringContextGeneratorTest extends AbstractTestNGSpringContextT
 
 	@Test
 	public void testGettingData () throws JAXBException, UnsupportedEncodingException, TransformerException, XMLStreamException {
-		generator.generateContext();
-//		System.out.println(generatorService.toXml());
-
+		log.info(generatorService.toXml(generator.generateContext()));
 	}
 
 }

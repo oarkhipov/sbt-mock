@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.list.TreeList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.tuple.Tuple;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.context.generator.service.constructors.BeansConstructor;
@@ -14,6 +15,7 @@ import ru.sbt.bpm.mock.context.generator.service.constructors.JmsIntegrationCons
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -50,7 +52,7 @@ public class MockSpringContextGeneratorService {
 	 * ************* properties constants  ***************
 	 */
 	// jndiName property name
-	private static final String JNDI_PROPERTY_NAME_           = "jndiName";
+	private static final String JNDI_PROPERTY_NAME          = "jndiName";
 	// JMS constructor-arg value
 	private static final String JMS_CONSTRUCTOR_ARG_VALUE     = "JMS";
 	// sendMockMessage method gateway name
@@ -72,21 +74,21 @@ public class MockSpringContextGeneratorService {
 	 * *************   mock servlet elements prefixes & postfixes  ***************
 	 */
 	// connectionFactoryString bean
-	private static final String QUEUE_CONNECTION_FACTORY_STRING_BEAN = "connectionFactory";
+	private static final String QUEUE_CONNECTION_FACTORY_STRING_BEAN = "_connectionFactory";
 	// mockConnectionInputString bean
-	private static final String MOCK_CONNECTION_INPUT_STRING_BEAN    = "mockConnectionInput";
+	private static final String MOCK_CONNECTION_INPUT_STRING_BEAN    = "_mockConnectionInput";
 	// mockConnectionOutputString bean
-	private static final String MOCK_CONNECTION__OUTPUT_STRING_BEAN  = "mockConnectionOutput";
+	private static final String MOCK_CONNECTION__OUTPUT_STRING_BEAN  = "_mockConnectionOutput";
 	// driverConnectionOutputString bean
-	private static final String DRIVER_CONNECTION_OUTPUT_STRING_BEAN = "driverConnectionOutput";
+	private static final String DRIVER_CONNECTION_OUTPUT_STRING_BEAN = "_driverConnectionOutput";
 	// driverConnectionInputString bean
-	private static final String DRIVER_CONNECTION_INPUT_STRING_BEAN  = "driverConnectionInput";
+	private static final String DRIVER_CONNECTION_INPUT_STRING_BEAN  = "_driverConnectionInput";
 	// jndiConnectionFactory
 	private static final String JNDI_CONNECTION_FACTORY_POSTFIX      = "_jndiConnectionFactory";
 	// Queue postfix
-	private static final String QUEUE_POSTFIX                        = "_Queue";
+	private static final String QUEUE_POSTFIX                        = "_queue";
 	// channel postfix
-	private static final String CHANNEL_POSTFIX                      = "_Channel";
+	private static final String CHANNEL_POSTFIX                      = "_channel";
 
 	/**
 	 * *************   mock container elements     ***************
@@ -145,9 +147,115 @@ public class MockSpringContextGeneratorService {
 
 		for (ru.sbt.bpm.mock.config.entities.System system : systems) {
 			if (system.getProtocol() == Protocol.JMS) {
-				String connectionFactoryName = deleteSpesialCharsFromString(system.getQueueConnectionFactory()) +
-				                               QUEUE_CONNECTION_FACTORY_STRING_BEAN;
-				System.out.println(connectionFactoryName);
+				/**
+				 * Настройка используемой конфигурации заглушки
+				 */
+				String queueConnectionFactory = system.getQueueConnectionFactory();
+				final String queueConnectionFactoryName = deleteSpecialCharsFromString(queueConnectionFactory) + QUEUE_CONNECTION_FACTORY_STRING_BEAN;
+
+				if (isBeanIdInList(queueConnectionFactoryName)) continue;
+
+				listBeansId.add(queueConnectionFactoryName);
+				beans = beansConstructor.createBean(beans, STRING_CLASS, queueConnectionFactoryName, Arrays.asList(Tuple.of
+						(queueConnectionFactory, "")));
+
+				String mockInputString = system.getMockIncomeQueue();
+				final String mockInputStringBeanName = deleteSpecialCharsFromString(mockInputString) + MOCK_CONNECTION_INPUT_STRING_BEAN;
+
+				if (isBeanIdInList(mockInputStringBeanName)) continue;
+
+				listBeansId.add(mockInputStringBeanName);
+				beans = beansConstructor.createBean(beans, STRING_CLASS, mockInputStringBeanName, Arrays.asList(Tuple
+						                                                                                                .of(mockInputString, "")));
+
+				String mockOutputString = system.getMockOutcomeQueue();
+				final String mockOutputStringBeanName = deleteSpecialCharsFromString(mockOutputString) + MOCK_CONNECTION__OUTPUT_STRING_BEAN;
+
+				if (isBeanIdInList(mockOutputStringBeanName)) continue;
+
+				listBeansId.add(mockOutputStringBeanName);
+				beans = beansConstructor.createBean(beans, STRING_CLASS, mockOutputStringBeanName, Arrays.asList(Tuple
+						                                                                                                 .of(mockOutputString, "")));
+
+				String driverOutputString = system.getDriverOutcomeQueue();
+				final String driverOutputStringBeanName = deleteSpecialCharsFromString(driverOutputString) + DRIVER_CONNECTION_OUTPUT_STRING_BEAN;
+
+				if (isBeanIdInList(driverOutputStringBeanName)) continue;
+
+				listBeansId.add(driverOutputStringBeanName);
+				beans = beansConstructor.createBean(beans, STRING_CLASS, driverOutputStringBeanName, Arrays.asList
+						(Tuple.of(driverOutputString, "")));
+
+				String driverInputString = system.getDriverIncomeQueue();
+				final String driverInputStringBeanName = deleteSpecialCharsFromString(driverInputString) + DRIVER_CONNECTION_INPUT_STRING_BEAN;
+
+				if (isBeanIdInList(driverInputStringBeanName)) continue;
+
+				listBeansId.add(driverInputStringBeanName);
+				beans = beansConstructor.createBean(beans, STRING_CLASS, driverInputStringBeanName, Arrays.asList(Tuple.of(driverInputStringBeanName, "")));
+
+				/**
+				 * Создаем настройки подлючения к jms
+				 */
+				String jndiFactoryName = deleteSpecialCharsFromString(queueConnectionFactory) + JNDI_CONNECTION_FACTORY_POSTFIX;
+
+				if (isBeanIdInList(jndiFactoryName)) continue;
+
+				listBeansId.add(jndiFactoryName);
+				beans = beansConstructor.createBean(beans, JNDI_OBJECT_CLASS, jndiFactoryName, new HashMap<String,
+						String>() {
+					{
+						put(JNDI_PROPERTY_NAME, "#{" + queueConnectionFactoryName + "}");
+					}
+				});
+
+				String jndiMockInboundQueueName = deleteSpecialCharsFromString(mockInputString) + QUEUE_POSTFIX;
+
+				if (isBeanIdInList(jndiMockInboundQueueName)) continue;
+
+				listBeansId.add(jndiMockInboundQueueName);
+				beans = beansConstructor.createBean(beans, JNDI_OBJECT_CLASS, jndiMockInboundQueueName, new HashMap
+						<String, String>() {
+					{
+						put(JNDI_PROPERTY_NAME, "#{" + mockInputStringBeanName + "}");
+					}
+				});
+
+				String jndiMockOutboundQueueName = deleteSpecialCharsFromString(mockOutputString) + QUEUE_POSTFIX;
+
+				if (isBeanIdInList(jndiMockOutboundQueueName)) continue;
+
+				listBeansId.add(jndiMockOutboundQueueName);
+				beans = beansConstructor.createBean(beans, JNDI_OBJECT_CLASS, jndiMockOutboundQueueName, new HashMap
+						<String, String>() {
+					{
+						put(JNDI_PROPERTY_NAME, "#{" + mockOutputStringBeanName + "}");
+					}
+				});
+
+				String jndiDriverOutboundQueueName = deleteSpecialCharsFromString(driverOutputString) + QUEUE_POSTFIX;
+
+				if (isBeanIdInList(jndiDriverOutboundQueueName)) continue;
+
+				listBeansId.add(jndiDriverOutboundQueueName);
+				beans = beansConstructor.createBean(beans, JNDI_OBJECT_CLASS, jndiDriverOutboundQueueName, new HashMap
+						<String, String>() {
+					{
+						put(JNDI_PROPERTY_NAME, "#{" + driverOutputStringBeanName + "}");
+					}
+				});
+
+				String jndiDriverInboundQueueName = deleteSpecialCharsFromString(driverInputString) + QUEUE_POSTFIX;
+
+				if (isBeanIdInList(jndiDriverInboundQueueName)) continue;
+
+				listBeansId.add(jndiDriverInboundQueueName);
+				beans = beansConstructor.createBean(beans, JNDI_OBJECT_CLASS, jndiDriverInboundQueueName, new HashMap
+						<String, String>() {
+					{
+						put(JNDI_PROPERTY_NAME, "#{" + driverInputStringBeanName + "}");
+					}
+				});
 			}
 
 			if (system.getProtocol() == Protocol.SOAP) {
@@ -158,7 +266,11 @@ public class MockSpringContextGeneratorService {
 		return beans;
 	}
 
-	private String deleteSpesialCharsFromString (String string) {
+	private boolean isBeanIdInList (String mockIncomeQueueName) {
+		return listBeansId.contains(mockIncomeQueueName);
+	}
+
+	private String deleteSpecialCharsFromString (String string) {
 		return string.replaceAll("\\W", "");
 	}
 
