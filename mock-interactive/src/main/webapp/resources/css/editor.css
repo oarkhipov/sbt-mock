@@ -2,6 +2,11 @@
     padding-top: 12px;
 }
 
+#filterGenLabel>input{
+    vertical-align: middle;
+    margin-top: -2px;
+}
+
 #code {
     height: 400px;
     border: 1px gainsboro solid;
@@ -30,10 +35,10 @@
 #testCodeButtons {
     position: relative;
     right: 5px;
-    margin-left: 95%;
+    margin-left: 80%;
     margin-top: -28px;
     z-index: 50;
-    width: 5%;
+    width: 20%;
     text-align: right;
 }
 
@@ -49,4 +54,22 @@
 
 #tabs {
     margin-top: -40px;
+}
+
+#testFilterGenLabel {
+    vertical-align: middle;
+    margin: 0;
+}
+
+#testFilterGenLabel>input{
+    vertical-align: middle;
+    margin: -1px 0 0;
+}
+
+#send{
+    margin-top: 2px;
+}
+
+[data-notify='container']>[data-notify='message'] {
+    word-wrap: break-word;
 }

@@ -44,8 +44,6 @@
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/DataTables-1.10.9/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/DataTables-1.10.9/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/DataTables-1.10.9/js/dataTables.jqueryui.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/AutoFill-2.0.0/js/dataTables.autoFill.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/AutoFill-2.0.0/js/autoFill.jqueryui.js"></script>
 
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery.hoverIntent.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/libs/bootstrap/js/bootstrap.js"></script>

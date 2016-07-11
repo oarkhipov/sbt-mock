@@ -135,7 +135,7 @@ public class DriverController {
                     saver.writeStringToFile(messageFile, xml);
                     saver.writeStringToFile(scriptFile, script);
                     saver.writeStringToFile(testFile, test);
-                    ajaxObject.setInfo("saved");
+                    ajaxObject.setInfo("Saved!");
                 } catch (IOException e) {
                     ajaxObject.setErrorFromException(e);
                 } catch (Exception e) {

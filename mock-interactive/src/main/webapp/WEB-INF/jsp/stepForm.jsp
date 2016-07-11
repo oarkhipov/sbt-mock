@@ -36,7 +36,6 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/editor.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/docs.css">
 
-    <%--Tooltip--%>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/jquery-ui.css">
     <script src="<%=request.getContextPath()%>/resources/js/jquery-ui.js"></script>
 
@@ -50,6 +49,9 @@
           href="<%=request.getContextPath()%>/resources/libs/bootstrap-dialog/css/bootstrap-dialog.css"/>
     <script src="<%=request.getContextPath()%>/resources/libs/selectize.js/js/standalone/selectize.min.js"></script>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/libs/selectize.js/css/selectize.bootstrap3.css">
+
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/libs/bootstrap-notify/bootstrap-notify.min.js"></script>
+    <%--<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/libs/bootstrap-notify/">--%>
 </head>
 <body>
 <!--[if lt IE 7]>

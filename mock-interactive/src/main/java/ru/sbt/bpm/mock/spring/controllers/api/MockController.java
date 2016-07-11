@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.tuple.Tuple;
 import reactor.tuple.Tuple2;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
-import ru.sbt.bpm.mock.config.entities.*;
+import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService;
@@ -18,6 +18,7 @@ import ru.sbt.bpm.mock.spring.service.GroovyService;
 import ru.sbt.bpm.mock.spring.service.XmlGeneratorService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
+import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.JmsMessageValidationException;
 import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MessageValidationException;
 import ru.sbt.bpm.mock.spring.utils.AjaxObject;
 
@@ -57,7 +58,7 @@ public class MockController {
     @Autowired
     DriverController driverController;
 
-    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE+";charset=utf-8")
+    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE + ";charset=utf-8")
     public String get(@PathVariable String systemName,
                       @PathVariable String integrationPointName,
                       Model model) throws IOException, TransformerException {
@@ -66,11 +67,11 @@ public class MockController {
         model.addAttribute("systemName", systemName);
         model.addAttribute("name", integrationPointName);
         model.addAttribute("link", "mock");
-        model.addAttribute("protocol",system.getProtocol().toString());
+        model.addAttribute("protocol", system.getProtocol().toString());
         model.addAttribute("xpath",
-                system.getProtocol().equals(Protocol.JMS)?
-                    system.getIntegrationPoints().getIntegrationPointByName(integrationPointName)
-                        .getXpathString():null);
+                system.getProtocol().equals(Protocol.JMS) ?
+                        system.getIntegrationPoints().getIntegrationPointByName(integrationPointName)
+                                .getXpathString() : null);
         model.addAttribute("message", dataFileService.getCurrentMessage(systemName, integrationPointName));
         model.addAttribute("script", dataFileService.getCurrentScript(systemName, integrationPointName));
         model.addAttribute("test", dataFileService.getCurrentTest(systemName, integrationPointName));
@@ -182,6 +183,47 @@ public class MockController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/resetToDefault/test/", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE + ";charset=utf-8")
+    public String resetTestToDefaultFull(
+            @PathVariable("systemName") String systemName,
+            @PathVariable("integrationPointName") String integrationPointName) throws Exception {
+        AjaxObject ajaxObject = new AjaxObject();
+        try {
+            ajaxObject.setData(generatorService.generate(systemName, integrationPointName, MessageType.RQ, false));
+        } catch (Exception e) {
+            ajaxObject.setErrorFromException(e);
+        }
+        return ajaxObject.toJSON();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/resetToDefault/test/filtered", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE + ";charset=utf-8")
+    public String resetTestToDefaultFiltered(
+            @PathVariable("systemName") String systemName,
+            @PathVariable("integrationPointName") String integrationPointName) throws Exception {
+        AjaxObject ajaxObject = new AjaxObject();
+        try {
+            ajaxObject.setData(generatorService.generate(systemName, integrationPointName, MessageType.RQ, true));
+        } catch (Exception e) {
+            ajaxObject.setErrorFromException(e);
+        }
+        return ajaxObject.toJSON();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/validate/test/", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE + ";charset=utf-8")
+    public String validateTestMessage(
+            @PathVariable("systemName") String systemName,
+            @PathVariable("integrationPointName") String integrationPointName,
+            @RequestParam String xml) {
+        AjaxObject ajaxObject = validateTest(xml, systemName, integrationPointName);
+        if (ajaxObject.getError() == null || ajaxObject.getError().length() == 0) {
+            ajaxObject.setInfo("Valid!");
+        }
+        return ajaxObject.toJSON();
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/test/", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE + ";charset=utf-8")
     public String test(
             @PathVariable String systemName,
@@ -213,33 +255,57 @@ public class MockController {
      * @return Tuple of AjaxObject and compiledXml
      */
     private Tuple2<AjaxObject, String> validateMockMessages(String xml, String test, String script, String systemName, String integrationPointName) {
-        AjaxObject ajaxObject = new AjaxObject();
+        AjaxObject ajaxObject = validateTest(test, systemName, integrationPointName);
         String compiledXml = "";
+
+        ru.sbt.bpm.mock.config.entities.System system = configContainer.getSystemByName(systemName);
+        IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
         try {
-            ru.sbt.bpm.mock.config.entities.System system = configContainer.getSystemByName(systemName);
-            IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
-            try {
-                //TODO remake this block
-                if (test == null || test.length() == 0 || messageValidationService.assertMessageElementName(test, system, integrationPoint, MessageType.RQ)) {
-                    compiledXml = groovyService.execute(test, xml, script);
-                    try {
-                        if (messageValidationService.assertMessageElementName(compiledXml, system, integrationPoint, MessageType.RS)) {
-                            final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
-                            if (validationErrors.size() != 0) {
-                                ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
-                            }
-                        }
-                    } catch (MessageValidationException e) {
-                        //TODO make it somehow look better
-                        ajaxObject.setErrorFromException(new RuntimeException("Test element name assertion Exception",e));
+            //check if Test validation was OK
+            if (ajaxObject.getError() == null || ajaxObject.getError().length() == 0) {
+                compiledXml = groovyService.execute(test, xml, script);
+                if (messageValidationService.assertMessageElementName(compiledXml, system, integrationPoint, MessageType.RS)) {
+                    final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
+                    if (validationErrors.size() != 0) {
+                        ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
                     }
+                } else {
+                    ajaxObject.setError("Message assertion fail");
                 }
-            } catch (MessageValidationException e) {
-                ajaxObject.setError("");
             }
+        } catch (JmsMessageValidationException e) {
+            ajaxObject.setError(e.getMessage());
+        } catch (MessageValidationException e) {
+            ajaxObject.setError(e.getMessage());
         } catch (Exception e) {
             ajaxObject.setErrorFromException(e);
         }
         return Tuple.of(ajaxObject, compiledXml);
+    }
+
+    private AjaxObject validateTest(String test, String systemName, String integrationPointName) {
+        AjaxObject ajaxObject = new AjaxObject();
+        if (test != null && test.length() > 0) {
+            ru.sbt.bpm.mock.config.entities.System system = configContainer.getSystemByName(systemName);
+            IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
+            try {
+                if (messageValidationService.assertMessageElementName(test, system, integrationPoint, MessageType.RQ)) {
+                    final List<String> validationErrors = messageValidationService.validate(test, systemName);
+                    if (validationErrors.size() != 0) {
+                        ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
+                    }
+                } else {
+                    //assertion fault
+                    ajaxObject.setError("Test message assertion fail");
+                }
+            } catch (JmsMessageValidationException e) {
+                ajaxObject.setError(e.getMessage());
+            } catch (MessageValidationException e) {
+                ajaxObject.setError(e.getMessage());
+            } catch (Exception e) {
+                ajaxObject.setErrorFromException(e);
+            }
+        }
+        return ajaxObject;
     }
 }
