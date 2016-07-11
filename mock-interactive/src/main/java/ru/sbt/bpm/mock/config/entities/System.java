@@ -5,6 +5,8 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import reactor.tuple.Tuple;
+import reactor.tuple.Tuple2;
 import ru.sbt.bpm.mock.config.enums.Protocol;
 
 import java.util.ArrayList;
@@ -99,5 +101,13 @@ public class System {
             }
         }
         return driverIntegrationPoints;
+    }
+
+    public Tuple2<String, String> getMockQueues() {
+        return Tuple.of(mockIncomeQueue, mockOutcomeQueue);
+    }
+
+    public Tuple2<String, String> getDriverQueues () {
+        return Tuple.of(driverIncomeQueue, driverOutcomeQueue);
     }
 }

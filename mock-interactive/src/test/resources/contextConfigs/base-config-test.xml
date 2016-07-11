@@ -7,7 +7,7 @@
 
        <mvc:annotation-driven/>
        <mvc:resources mapping="/**" location="/resources/web/" />
-       <context:component-scan base-package="ru.sbt.bpm.mock.spring.service, ru.sbt.bpm.mock.product.ready">
+       <context:component-scan base-package="ru.sbt.bpm.mock.spring.service, ru.sbt.bpm.mock.product.ready, ru.sbt.bpm.mock.context.generator.service">
               <!--<context:include-filter type="regex" expression="ru\.sbt\.bpm\.mock\.product\.ready\.TestMessageValidationService"/>-->
               <context:exclude-filter type="regex" expression="ru\.sbt\.bpm\.mock\.spring\.service\.message\..*"/>
               <context:exclude-filter type="regex" expression="ru\.sbt\.bpm\.mock\.spring\.service\.MessageSendingService"/>
