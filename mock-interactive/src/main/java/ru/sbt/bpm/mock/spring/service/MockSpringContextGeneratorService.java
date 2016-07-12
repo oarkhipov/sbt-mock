@@ -81,15 +81,15 @@ public class MockSpringContextGeneratorService {
 	 * *************   mock servlet elements prefixes & postfixes  ***************
 	 */
 	// connectionFactoryString bean
-	private static final String QUEUE_CONNECTION_FACTORY_STRING_BEAN         = "_connectionFactory";
+//	private static final String QUEUE_CONNECTION_FACTORY_STRING_BEAN         = "_connectionFactory";
 	// mockConnectionInputString bean
-	private static final String MOCK_CONNECTION_INPUT_STRING_BEAN            = "_mockConnectionInput";
+//	private static final String MOCK_CONNECTION_INPUT_STRING_BEAN            = "_mockConnectionInput";
 	// mockConnectionOutputString bean
-	private static final String MOCK_CONNECTION_OUTPUT_STRING_BEAN           = "_mockConnectionOutput";
+//	private static final String MOCK_CONNECTION_OUTPUT_STRING_BEAN           = "_mockConnectionOutput";
 	// driverConnectionOutputString bean
-	private static final String DRIVER_CONNECTION_OUTPUT_STRING_BEAN         = "_driverConnectionOutput";
+//	private static final String DRIVER_CONNECTION_OUTPUT_STRING_BEAN         = "_driverConnectionOutput";
 	// driverConnectionInputString bean
-	private static final String DRIVER_CONNECTION_INPUT_STRING_BEAN          = "_driverConnectionInput";
+//	private static final String DRIVER_CONNECTION_INPUT_STRING_BEAN          = "_driverConnectionInput";
 	// jndiConnectionFactory
 	private static final String JNDI_CONNECTION_FACTORY_POSTFIX              = "_jndiConnectionFactory";
 	// Queue postfix
