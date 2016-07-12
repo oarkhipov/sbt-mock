@@ -1,0 +1,447 @@
+<MockConfig xmlns="http://sbrf.ru/mockService2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://sbrf.ru/mockService2">
+    <systems>
+        <system name="JUPITER">
+            <remoteRootSchema>ESB/EnvelopeJUPITER-R3.0.xsd</remoteRootSchema>
+            <localRootSchema>ESB/EnvelopeJUPITER-R3.0.xsd</localRootSchema>
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/"/>
+            </integrationPointSelector>
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.PROMETHEUS.JUPITER-SA.CF</queueConnectionFactory>
+            <!-- Входящая очередь заглушки -->
+            <mockIncomeQueue>jms/Q.PROMETHEUS.JUPITER-SA.IN</mockIncomeQueue>
+            <!-- Исходящая очередь заглушки -->
+            <mockOutcomeQueue>jms/Q.PROMETHEUS.JUPITER-SA.OUT</mockOutcomeQueue>
+            <!-- Исходящая очередь драйвера -->
+            <driverOutcomeQueue>jms/Q.PROMETHEUS.JUPITER-REG.IN</driverOutcomeQueue>
+            <!-- Входящая очередь драйвера -->
+            <driverIncomeQueue>jms/Q.PROMETHEUS.JUPITER-REG.OUT</driverIncomeQueue>
+            <integrationPoints>
+                <integrationPoint name="searchClientsRq">
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">searchClientsRs</tag>
+                    </xpathValidation>
+                    <type>Mock</type>
+                    <!-- ��� ����� �������� �������-->
+                    <!-- Optional -->
+                    <xsdFile>ESB/EnvelopeJUPITER-R3.0.xsd</xsdFile>
+                    <!-- ��������� �� �������� ������� ��� ��������� ��������� ���������-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+                <integrationPoint name="getClientRq">
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">getClientRs</tag>
+                    </xpathValidation>
+                    <type>Mock</type>
+                    <!-- ��� ����� �������� �������-->
+                    <!-- Optional -->
+                    <xsdFile>ESB/EnvelopeJUPITER-R3.0.xsd</xsdFile>
+                    <!-- ��������� �� �������� ������� ��� ��������� ��������� ���������-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+                <integrationPoint name="updateSalaryAgreementTerritoryRq">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">updateSalaryAgreementTerritoryRs</tag>
+                    </xpathValidation>
+                    <type>Mock</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>ESB/EnvelopeJUPITER-R3.0.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+                <integrationPoint name="registerSalaryAgreementRq">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">registerSalaryAgreementRs</tag>
+                    </xpathValidation>
+                    <type>Mock</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>ESB/EnvelopeJUPITER-R3.0.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+                <integrationPoint name="createSalaryAgreementRq">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">createSalaryAgreementRs</tag>
+                    </xpathValidation>
+                    <type>Mock</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>ESB/EnvelopeJUPITER-R3.0.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+                <integrationPoint name="getSalaryAgreementRq">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">getSalaryAgreementRs</tag>
+                    </xpathValidation>
+                    <type>Mock</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>ESB/EnvelopeJUPITER-R3.0.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+                <integrationPoint name="updateSalaryAgreementRq">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">updateSalaryAgreementRs</tag>
+                    </xpathValidation>
+                    <type>Mock</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>ESB/EnvelopeJUPITER-R3.0.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+                <integrationPoint name="updateSalaryAgreementStatusRq">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">updateSalaryAgreementStatusRs</tag>
+                    </xpathValidation>
+                    <type>Mock</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>ESB/EnvelopeJUPITER-R3.0.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+                <integrationPoint name="createSalaryAgreementVersionRq">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">createSalaryAgreementVersionRs</tag>
+                    </xpathValidation>
+                    <type>Mock</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>ESB/EnvelopeJUPITER-R3.0.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+                <integrationPoint name="getSalaryAgreementTerritoryRq">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">getSalaryAgreementTerritoryRs</tag>
+                    </xpathValidation>
+                    <type>Mock</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>ESB/EnvelopeJUPITER-R3.0.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+                <integrationPoint name="searchSalaryAgreementsRq">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">searchSalaryAgreementsRs</tag>
+                    </xpathValidation>
+                    <type>Mock</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>ESB/EnvelopeJUPITER-R3.0.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+        <system name="URLJUPITER">
+            <remoteRootSchema>ESB/EnvelopeJUPITER-R3.0.xsd</remoteRootSchema>
+            <localRootSchema>ESB/EnvelopeJUPITER-R3.0.xsd</localRootSchema>
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/"/>
+            </integrationPointSelector>
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/Q.PROMETHEUS.JUPITER-REG.CF</queueConnectionFactory>
+            <!-- Входящая очередь заглушки -->
+            <mockIncomeQueue>jms/Q.PROMETHEUS.JUPITER-REG.IN</mockIncomeQueue>
+            <!-- Исходящая очередь заглушки -->
+            <mockOutcomeQueue>jms/Q.PROMETHEUS.JUPITER-REG.OUT</mockOutcomeQueue>
+            <!-- Исходящая очередь драйвера -->
+            <driverOutcomeQueue>jms/Q.PROMETHEUS.JUPITER.RESPONSE</driverOutcomeQueue>
+            <!-- Входящая очередь драйвера -->
+            <driverIncomeQueue>jms/Q.PROMETHEUS.JUPITER.REQUEST</driverIncomeQueue>
+            <integrationPoints>
+                <integrationPoint name="getViewRegistersUrlRq">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">getViewRegistersUrlRs</tag>
+                    </xpathValidation>
+                    <type>Mock</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>ESB/EnvelopeJUPITER-R3.0.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+                <integrationPoint name="getUpdateRegisterUrlRq">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">getUpdateRegisterUrlRs</tag>
+                    </xpathValidation>
+                    <type>Mock</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>ESB/EnvelopeJUPITER-R3.0.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+                <integrationPoint name="initiateTaskRq">
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/JUPITER/R3.0/">initiateTaskRq</tag>
+                    </xpathValidation>
+                    <type>Driver</type>
+                    <xsdFile>ESB/EnvelopeJUPITER-R3.0.xsd</xsdFile>
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+        <system name="CRMESB">
+            <remoteRootSchema>ESB/Envelope.xsd</remoteRootSchema>
+            <localRootSchema>ESB/Envelope.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                <tag ns="http://sbrf.ru/ASP/ESB/R4.0/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции JMS/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-JMS, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/ESB.PROMETHEUS.CRM.CF</queueConnectionFactory>
+            <!-- Входящая очередь заглушки -->
+            <mockIncomeQueue>jms/ESB.PROMETHEUS.CRM.IN</mockIncomeQueue>
+            <!-- Исходящая очередь заглушки -->
+            <mockOutcomeQueue>jms/ESB.PROMETHEUS.CRM.OUT</mockOutcomeQueue>
+            <!-- Исходящая очередь драйвера -->
+            <driverOutcomeQueue>jms/ESB.PROMETHEUS.CRM.RESPONSE</driverOutcomeQueue>
+            <!-- Входящая очередь драйвера -->
+            <driverIncomeQueue>jms/ESB.PROMETHEUS.CRM.REQUEST</driverIncomeQueue>
+
+            <integrationPoints>
+                <integrationPoint name="changeSalaryDealStatusRq">
+                    <type>Driver</type>
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/R4.0/">changeSalaryDealStatusRq</tag>
+                    </xpathValidation>
+                    <answerRequired>true</answerRequired>
+                    <xsdFile>ESB/Envelope-R4.0.xsd</xsdFile>
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                </integrationPoint>
+                <integrationPoint name="putLegalSalaryAgreemtRq">
+                    <type>Mock</type>
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/R4.0/">putLegalSalaryAgreemtRs</tag>
+                    </xpathValidation>
+                    <answerRequired>true</answerRequired>
+                    <xsdFile>ESB/Envelope-R4.0.xsd</xsdFile>
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+        <system name="CRM">
+            <remoteRootSchema>ESB/Envelope.xsd</remoteRootSchema>
+            <localRootSchema>ESB/Envelope.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                <tag ns="http://sbrf.ru/ASP/CRM/R4.0/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции JMS/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-JMS, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/ESB.PROMETHEUS.CRM.CF</queueConnectionFactory>
+            <!-- Входящая очередь заглушки -->
+            <mockIncomeQueue>jms/ESB.PROMETHEUS.CRM.IN</mockIncomeQueue>
+            <!-- Исходящая очередь заглушки -->
+            <mockOutcomeQueue>jms/ESB.PROMETHEUS.CRM.OUT</mockOutcomeQueue>
+            <!-- Исходящая очередь драйвера -->
+            <driverOutcomeQueue>jms/ESB.PROMETHEUS.CRM.RESPONSE</driverOutcomeQueue>
+            <!-- Входящая очередь драйвера -->
+            <driverIncomeQueue>jms/ESB.PROMETHEUS.CRM.REQUEST</driverIncomeQueue>
+
+            <integrationPoints>
+                <integrationPoint name="changeLegalSalaryAgreemtStatusRq">
+                    <type>Mock</type>
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/CRM/R4.0/">changeLegalSalaryAgreemtStatusRs</tag>
+                    </xpathValidation>
+                    <answerRequired>true</answerRequired>
+                    <xsdFile>ESB/Envelope-R4.0.xsd</xsdFile>
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                </integrationPoint>
+                <integrationPoint name="createLegalSalaryAppRq" >
+                    <type>Driver</type>
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/CRM/R4.0/">createLegalSalaryAppRq</tag>
+                    </xpathValidation>
+                    <answerRequired>true</answerRequired>
+                    <xsdFile>ESB/Envelope-R4.0.xsd</xsdFile>
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+        <system name="SPBBOL">
+            <remoteRootSchema>ESB/Envelope.xsd</remoteRootSchema>
+            <localRootSchema>ESB/Envelope.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                <tag ns="http://sbrf.ru/ASP/ESB/R4.0/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции JMS/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-JMS, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/ESB.PROMETHEUS.ASYNC.CF</queueConnectionFactory>
+            <!-- Входящая очередь заглушки -->
+            <mockIncomeQueue>jms/ESB.PROMETHEUS.ASYNC.IN</mockIncomeQueue>
+            <!-- Исходящая очередь заглушки -->
+            <mockOutcomeQueue>jms/ESB.PROMETHEUS.ASYNC.OUT</mockOutcomeQueue>
+            <!-- Исходящая очередь драйвера -->
+            <driverOutcomeQueue>jms/ESB.PROMETHEUS.ASYNC.REQUEST</driverOutcomeQueue>
+            <!-- Входящая очередь драйвера -->
+            <driverIncomeQueue>jms/ESB.PROMETHEUS.ASYNC.RESPONSE</driverIncomeQueue>
+
+            <integrationPoints>
+                <integrationPoint name="changeSalaryDealStatusRq">
+                    <type>Driver</type>
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/R4.0/">changeSalaryDealStatusRq</tag>
+                    </xpathValidation>
+                    <answerRequired>true</answerRequired>
+                    <xsdFile>ESB/Envelope-R4.0.xsd</xsdFile>
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                </integrationPoint>
+                <integrationPoint name="putLegalSalaryAgreemtRq">
+                    <type>Mock</type>
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/R4.0/">putLegalSalaryAgreemtRs</tag>
+                    </xpathValidation>
+                    <answerRequired>true</answerRequired>
+                    <xsdFile>ESB/Envelope-R4.0.xsd</xsdFile>
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+        <system name="MDM">
+            <remoteRootSchema>ESB/EnvelopeMDM-R4.0.xsd</remoteRootSchema>
+            <localRootSchema>ESB/EnvelopeMDM-R4.0.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                <tag ns="http://sbrf.ru/ASP/MDM/R4.0/"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции JMS/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-JMS, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>jms/ESB.PROMETHEUS.MDM.CF</queueConnectionFactory>
+            <!-- Входящая очередь заглушки -->
+            <mockIncomeQueue>jms/ESB.PROMETHEUS.MDM.IN</mockIncomeQueue>
+            <!-- Исходящая очередь заглушки -->
+            <mockOutcomeQueue>jms/ESB.PROMETHEUS.MDM.OUT</mockOutcomeQueue>
+            <!-- Исходящая очередь драйвера -->
+            <driverOutcomeQueue>jms/ESB.PROMETHEUS.MDM.IN</driverOutcomeQueue>
+            <!-- Входящая очередь драйвера -->
+            <driverIncomeQueue>jms/ESB.PROMETHEUS.MDM.OUT</driverIncomeQueue>
+
+            <integrationPoints>
+                <integrationPoint name="queryLegalAgreemtRq">
+                    <type>Mock</type>
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</tag>
+                        <tag ns="http://sbrf.ru/ASP/ESB/envelope/">body</tag>
+                        <tag ns="http://sbrf.ru/ASP/MDM/R4.0/">queryLegalAgreemtRs</tag>
+                    </xpathValidation>
+                    <answerRequired>true</answerRequired>
+                    <xsdFile>ESB/EnvelopeMDM-R4.0.xsd</xsdFile>
+                    <rootElement ns="http://sbrf.ru/ASP/ESB/envelope/">envelope</rootElement>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+    </systems>
+</MockConfig>

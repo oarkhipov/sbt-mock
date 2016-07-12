@@ -17,7 +17,7 @@ import java.io.UnsupportedEncodingException;
  */
 
 @Slf4j
-@ContextConfiguration({"/env/mockapp-servlet-test-xsd-services.xml"})
+@ContextConfiguration({"/env/mockapp-servlet-test-context-generator-services.xml"})
 public class MockSpringContextGeneratorTest extends AbstractTestNGSpringContextTests {
 
 	@Autowired
