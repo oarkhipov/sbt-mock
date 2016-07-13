@@ -35,4 +35,16 @@
        <int:channel id="MockOutboundRouterResponse"/>
        <int:service-activator input-channel="MockInboundRequestAggregated" output-channel="MockOutboundRouterResponse"
                               expression="@responseGenerator.proceedJmsRequest(payload).payload"/>
+
+       <int:channel id="DriverInboundResponse"/>
+       <int:channel id="DriverRouterChannelInput"/>
+       <!-- Mock gateway to send requests to outbound -->
+       <int:gateway id="systemEntry"
+                    error-channel="DriverInboundResponse"
+                    service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService"
+                    default-reply-timeout="30000"
+                    default-request-timeout="30000"
+               >
+              <int:method name="sendMockMessage" request-channel="DriverRouterChannelInput" reply-channel="DriverInboundResponse"/>
+       </int:gateway>
 </beans>

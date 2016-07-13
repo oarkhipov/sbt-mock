@@ -275,10 +275,21 @@ public class MockSpringContextGeneratorService {
 		return beans;
 	}
 
+	/**
+	 *
+	 * @param routerOutboundResponseChannel
+	 * @param mockOutputChannel
+	 */
 	private void createServiceActivatorWithExpressions (String routerOutboundResponseChannel, String mockOutputChannel) {
 		beans = integrationConstructor.createServiceActivator(beans, routerOutboundResponseChannel, mockOutputChannel, SERVICE_ACTIVATOR_RESPONSE_EXPRESSION);
 	}
 
+	/**
+	 *
+	 * @param queueConnectionFactory
+	 * @param mockOutputQueue
+	 * @param routerOutboundResponseChannel
+	 */
 	private void createRouter (String queueConnectionFactory, String mockOutputQueue, String routerOutboundResponseChannel) {
 		if (!isBeanIdInList(MOCK_ROUTER_NAME)) {
 			listBeansId.add(MOCK_ROUTER_NAME);
@@ -295,6 +306,13 @@ public class MockSpringContextGeneratorService {
 		}
 	}
 
+	/**
+	 *
+	 * @param queueConnectionFactory
+	 * @param mockOutputQueue
+	 * @param mockOutputChannel
+	 * @return
+	 */
 	private List<Tuple2<String, String>> createRouterMappings (String queueConnectionFactory, String mockOutputQueue, String mockOutputChannel) {
 		List<Tuple2<String, String>> mappings = new ArrayList<Tuple2<String, String>>();
 		mappings.add(Tuple.of(queueConnectionFactory+ "_" + mockOutputQueue, mockOutputChannel));

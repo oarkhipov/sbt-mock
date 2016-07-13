@@ -105,12 +105,6 @@
         </int:interceptors>
     </int:channel>
 
-    <int:channel id="DriverInboundResponse">
-        <int:interceptors>
-            <int:wire-tap channel="DriverInboundResponseLogger"/>
-        </int:interceptors>
-    </int:channel>
-
 
     <!-- - - - - - - - - - - - -->
     <!--     МАРШРУТИЗАЦИЯ     -->
@@ -131,17 +125,6 @@
     <int:channel id="MockOutboundRouterResponseAggregated"/>
     <int:service-activator expression="payload.payload" input-channel="MockOutboundRouterResponseAggregated" output-channel="MockOutboundResponse"/>
 
-    <!-- Mock gateway to send requests to outbound -->
-    <int:gateway id="systemEntry"
-                 error-channel="DriverInboundResponse"
-             service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService"
-             default-reply-timeout="30000"
-             default-request-timeout="30000"
-        >
-        <int:method name="sendMockMessage" request-channel="driverRouterChannelInput" reply-channel="DriverInboundResponse"/>
-    </int:gateway>
-
-    <int:channel id="driverRouterChannelInput"/>
     <int:router id="driverRouter" expression="payload.jmsConnectionFactoryName+'_'+payload.queue" input-channel="driverRouterChannelInput">
         <int:mapping value="#{connectionFactoryString+'_'+driverConnectionOutputString}" channel="DriverOutboundRequestAggregated"/>
     </int:router>
