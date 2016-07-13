@@ -167,6 +167,10 @@ public class MockSpringContextGeneratorService {
 		init();
 	}
 
+	/**
+	 * Генерация mockapp-servlet
+	 * @return
+	 */
 	public Beans generateContext () {
 
 		for (ru.sbt.bpm.mock.config.entities.System system : systems) {
@@ -240,6 +244,9 @@ public class MockSpringContextGeneratorService {
 	}
 
 	/**
+	 * <jms:outbound-gateway id="" request-destination="" reply-destination="" request-channel=""
+	 *          reply-channel="" header-mapper="" connection-factory="" reply-timeout="" receive-timeout="" />
+	 *
 	 * @param connectionFactoryName
 	 * @param jndiDriverRequest
 	 * @param jndiDriverResponse
@@ -262,6 +269,9 @@ public class MockSpringContextGeneratorService {
 	}
 
 	/**
+	 * <jms:inbound-gateway id="" request-destination="" request-channel="" reply-channel=""
+	 *              default-reply-destination="" connection-factory="" />
+	 *
 	 * @param connectionFactoryName
 	 * @param jndiConnectionFactory
 	 * @param jndiMockInputString
@@ -301,7 +311,7 @@ public class MockSpringContextGeneratorService {
 	/**
 	 * Созджание настроек для для подключения jms
 	 * <bean id="" class="">
-	 * <property name="" value="#{}"/>
+	 *  <property name="" value="#{}"/>
 	 * </bean>
 	 *
 	 * @param beanString
@@ -322,10 +332,21 @@ public class MockSpringContextGeneratorService {
 		return jndiStringName;
 	}
 
+	/**
+	 *
+	 * @param mockIncomeQueueName
+	 * @return
+	 */
 	private boolean isBeanIdInList (String mockIncomeQueueName) {
 		return listBeansId.contains(mockIncomeQueueName);
 	}
 
+	/**
+	 *
+	 * @param string
+	 * @param postfix
+	 * @return
+	 */
 	private String generateBeanNameLowCamelStyle (String string, String postfix) {
 		String   beanName   = string.replaceAll("\\W", ":").toLowerCase();
 		String[] namesParts = beanName.split(":");
