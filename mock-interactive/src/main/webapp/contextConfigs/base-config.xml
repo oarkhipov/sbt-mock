@@ -36,7 +36,11 @@
        <int:service-activator input-channel="MockInboundRequestAggregated" output-channel="MockOutboundRouterResponse"
                               expression="@responseGenerator.proceedJmsRequest(payload).payload"/>
 
+       <!-- Входной и выходной каналы Драйвера -->
+
+       <int:channel id="DriverOutboundRequest"/>
        <int:channel id="DriverInboundResponse"/>
+
        <int:channel id="DriverRouterChannelInput"/>
        <!-- Mock gateway to send requests to outbound -->
        <int:gateway id="systemEntry"

@@ -88,6 +88,10 @@ public class MockSpringContextGeneratorService {
 	private static final String MOCK_INBOUND_REQUEST_AGGREGATED = "MockInboundRequestAggregated";
 	// MockOutboundRouterResponse channel
 	private static final String MOCK_OUTBOUND_ROUTER_RESPONSE = "MockOutboundRouterResponse";
+	// DriverRouterChannelInput channel
+	private static final String DRIVER_ROUTER_CHANNEL_INPUT = "DriverRouterChannelInput";
+	// DriverOutboundRequest channel
+	private static final String DRIVER_OUTBOUND_REQUEST = "DriverOutboundRequest";
 
 	/**
 	 * *************   mock servlet elements prefixes & postfixes  ***************
@@ -257,14 +261,26 @@ public class MockSpringContextGeneratorService {
 		 */
 		for (ru.sbt.bpm.mock.config.entities.System system : systems) {
 			if (system.getProtocol() == Protocol.JMS) {
-				// Mock
+				/**
+				 * Mock
+ 				 */
 				createServiceActivatorWithBean(mapMockChannels.get(system.getSystemName()).getT1(), system.getQueueConnectionFactory(), system.getMockIncomeQueue());
-				// routerChannel
-				String routerChannel = createChannel(system.getMockOutcomeQueue(), ROUTER_CHANNEL_POSTFIX);
+				// mockRouterChannel
+				String mockRouterChannel = createChannel(system.getMockOutcomeQueue(), ROUTER_CHANNEL_POSTFIX);
 				// router
-				createRouter(system.getQueueConnectionFactory(), system.getMockOutcomeQueue(), routerChannel);
+				createRouter(MOCK_ROUTER_NAME, MOCK_OUTBOUND_ROUTER_RESPONSE, system.getQueueConnectionFactory(), system.getMockOutcomeQueue(), mockRouterChannel, true);
 				// service activator
-				createServiceActivatorWithExpressions(routerChannel, system.getMockOutcomeQueue());
+				createServiceActivatorWithExpressions(mockRouterChannel, system.getMockOutcomeQueue());
+
+				/**
+				 * Driver
+				 */
+				// driver channel
+				String driverRouterChannel = createChannel(system.getDriverOutcomeQueue(), ROUTER_CHANNEL_POSTFIX);
+				// router
+				createRouter(DRIVER_ROUTER_NAME, DRIVER_ROUTER_CHANNEL_INPUT, system.getQueueConnectionFactory(), system.getDriverOutcomeQueue(), driverRouterChannel, false);
+				// service activator
+				createServiceActivatorWithExpressions(driverRouterChannel, DRIVER_OUTBOUND_REQUEST);
 			}
 
 			if (system.getProtocol() == Protocol.SOAP) {
@@ -287,21 +303,27 @@ public class MockSpringContextGeneratorService {
 	/**
 	 *
 	 * @param queueConnectionFactory
-	 * @param mockOutputQueue
+	 * @param outputQueue
 	 * @param routerOutboundResponseChannel
 	 */
-	private void createRouter (String queueConnectionFactory, String mockOutputQueue, String routerOutboundResponseChannel) {
-		if (!isBeanIdInList(MOCK_ROUTER_NAME)) {
-			listBeansId.add(MOCK_ROUTER_NAME);
-			beans = integrationConstructor.createRouter(beans, MOCK_ROUTER_NAME, ROUTER_PAYLOAD, MOCK_OUTBOUND_ROUTER_RESPONSE, createRouterMappings(queueConnectionFactory, mockOutputQueue, routerOutboundResponseChannel));
+	private void createRouter (String routerName, String outboundRouterResponse, String queueConnectionFactory, String outputQueue, String routerOutboundResponseChannel, boolean isMock) {
+		if (!isBeanIdInList(routerName)) {
+			listBeansId.add(routerName);
+			beans = integrationConstructor.createRouter(beans, routerName, ROUTER_PAYLOAD, outboundRouterResponse, createRouterMappings(queueConnectionFactory, outputQueue, routerOutboundResponseChannel));
 		} else {
 			for (Object obj : beans.getImportOrAliasOrBean())
 				if (obj instanceof JAXBElement) {
 					JAXBElement<RouterType> element = (JAXBElement<RouterType>) obj;
 					RouterType router = element.getValue();
-					router.getMapping().add(integrationConstructor.createMapping(queueConnectionFactory + "_" +
-					                                                             mockOutputQueue,
+					if (router.getId().equals(routerName) && isMock)
+						router.getMapping().add(integrationConstructor.createMapping(queueConnectionFactory + "_" +
+					                                                             outputQueue,
 					                                                             routerOutboundResponseChannel));
+
+					if (router.getId().equals(routerName) && !isMock)
+						router.getMapping().add(integrationConstructor.createMapping(queueConnectionFactory + "_" +
+						                                                             outputQueue,
+						                                                             routerOutboundResponseChannel));
 				}
 		}
 	}
@@ -309,13 +331,13 @@ public class MockSpringContextGeneratorService {
 	/**
 	 *
 	 * @param queueConnectionFactory
-	 * @param mockOutputQueue
-	 * @param mockOutputChannel
+	 * @param outputQueue
+	 * @param outputChannel
 	 * @return
 	 */
-	private List<Tuple2<String, String>> createRouterMappings (String queueConnectionFactory, String mockOutputQueue, String mockOutputChannel) {
+	private List<Tuple2<String, String>> createRouterMappings (String queueConnectionFactory, String outputQueue, String outputChannel) {
 		List<Tuple2<String, String>> mappings = new ArrayList<Tuple2<String, String>>();
-		mappings.add(Tuple.of(queueConnectionFactory+ "_" + mockOutputQueue, mockOutputChannel));
+		mappings.add(Tuple.of(queueConnectionFactory+ "_" + outputQueue, outputChannel));
 		return mappings;
 	}
 
