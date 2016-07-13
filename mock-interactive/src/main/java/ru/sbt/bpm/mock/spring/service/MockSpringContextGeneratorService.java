@@ -264,7 +264,7 @@ public class MockSpringContextGeneratorService {
 				// router
 				createRouter(system.getQueueConnectionFactory(), system.getMockOutcomeQueue(), routerChannel);
 				// service activator
-				creaetServiceActivatorWithExpressions(routerChannel, system.getMockOutcomeQueue());
+				createServiceActivatorWithExpressions(routerChannel, system.getMockOutcomeQueue());
 			}
 
 			if (system.getProtocol() == Protocol.SOAP) {
@@ -275,7 +275,7 @@ public class MockSpringContextGeneratorService {
 		return beans;
 	}
 
-	private void creaetServiceActivatorWithExpressions (String routerOutboundResponseChannel, String mockOutputChannel) {
+	private void createServiceActivatorWithExpressions (String routerOutboundResponseChannel, String mockOutputChannel) {
 		beans = integrationConstructor.createServiceActivator(beans, routerOutboundResponseChannel, mockOutputChannel, SERVICE_ACTIVATOR_RESPONSE_EXPRESSION);
 	}
 
