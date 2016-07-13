@@ -115,8 +115,6 @@
     <!-- - - - - - - - - - - - -->
     <!--     МАРШРУТИЗАЦИЯ     -->
     <!-- - - - - - - - - - - - -->
-
-    <int:channel id="MockInboundRequestAggregated"/>
     <int:service-activator input-channel="MockInboundRequest" output-channel="MockInboundRequestAggregated"
                            method="aggregate">
         <bean class="ru.sbt.bpm.mock.spring.bean.MessageAggregator">
@@ -126,9 +124,12 @@
         </bean>
     </int:service-activator>
 
-    <!-- Генерация ответа -->
-    <int:service-activator input-channel="MockInboundRequestAggregated" output-channel="MockOutboundResponse"
-                           expression="@responseGenerator.proceedJmsRequest(payload).payload"/>
+    <int:router id="mockRouter" expression="payload.jmsConnectionFactoryName+'_'+payload.queue" input-channel="MockOutboundRouterResponse">
+        <int:mapping value="#{connectionFactoryString+'_'+mockConnectionOutputString}" channel="MockOutboundRouterResponseAggregated"/>
+    </int:router>
+
+    <int:channel id="MockOutboundRouterResponseAggregated"/>
+    <int:service-activator expression="payload.payload" input-channel="MockOutboundRouterResponseAggregated" output-channel="MockOutboundResponse"/>
 
     <!-- Mock gateway to send requests to outbound -->
     <int:gateway id="systemEntry"

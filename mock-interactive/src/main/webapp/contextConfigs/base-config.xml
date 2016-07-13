@@ -29,4 +29,10 @@
 
        <bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>
        <bean id="responseGenerator" class="ru.sbt.bpm.mock.spring.bean.ResponseGenerator"/>
+
+       <!-- Генерация ответа -->
+       <int:channel id="MockInboundRequestAggregated"/>
+       <int:channel id="MockOutboundRouterResponse"/>
+       <int:service-activator input-channel="MockInboundRequestAggregated" output-channel="MockOutboundRouterResponse"
+                              expression="@responseGenerator.proceedJmsRequest(payload).payload"/>
 </beans>
