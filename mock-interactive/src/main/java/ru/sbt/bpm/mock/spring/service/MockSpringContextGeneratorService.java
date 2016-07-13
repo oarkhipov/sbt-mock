@@ -59,8 +59,14 @@ public class MockSpringContextGeneratorService {
 	// aggregate method name service activator
 	private static final String AGGREGATE_SERVICE_ACTIVATOR_METHOD_NAME = "aggregate";
 	// service activator expressions for generation response
-	private static final String SERVICE_ACTIVATOR_RESPONSE_EXPRESSION   = "@responseGenerator.proceedJmsRequest"
-	                                                                      + "(payload).payload";
+	private static final String SERVICE_ACTIVATOR_RESPONSE_EXPRESSION   = "payload.payload";
+	// default reply timeout
+	private static final String DEFAULT_REPLY_TIMEOUT                   = "30000";
+	// default request timeout
+	private static final String DEFAUL_REQUEST_TIMEOUT                  = "30000";
+	// default receive timeout
+	private static final String DEFAULT_RECEIVE_TIMEOUT                  = "30000";
+
 
 	/**
 	 * *************   logger channels constants  ***************
@@ -245,12 +251,12 @@ public class MockSpringContextGeneratorService {
 	private String createJmsOutboundGateway (String connectionFactoryName, String jndiDriverRequest, String
 			jndiDriverResponse, String driverRequestChannel, String driverResponseChannel, String
 			                                         jndiConnectionFactory) {
-		String jmsBeanName = generateBeanNameLowCamelStyle(connectionFactoryName) + JMS_OUTBOUND_GATEWAY_POSTFIX;
+		String jmsBeanName = generateBeanNameLowCamelStyle(connectionFactoryName, JMS_OUTBOUND_GATEWAY_POSTFIX);
 		if (!isBeanIdInList(jmsBeanName)) {
 			listBeansId.add(jmsBeanName);
 			beans = jmsConstructor.createOutboundGateway(beans, jmsBeanName, jndiDriverRequest, jndiDriverResponse,
 			                                             driverRequestChannel, driverResponseChannel,
-			                                             "defHeaderMapper", jndiConnectionFactory, "30000", "30000");
+			                                             "defHeaderMapper", jndiConnectionFactory, DEFAULT_REPLY_TIMEOUT, DEFAULT_RECEIVE_TIMEOUT);
 		}
 		return jmsBeanName;
 	}
@@ -266,7 +272,7 @@ public class MockSpringContextGeneratorService {
 	 */
 	private String createJmsInboundGateway (String connectionFactoryName, String jndiConnectionFactory, String
 			jndiMockInputString, String jndiMockOutputString, String mockInputChannel, String mockOutputChannel) {
-		String jmsBeanName = generateBeanNameLowCamelStyle(connectionFactoryName) + JMS_INBOUND_GATEWAY_POSTFIX;
+		String jmsBeanName = generateBeanNameLowCamelStyle(connectionFactoryName, JMS_INBOUND_GATEWAY_POSTFIX);
 		if (!isBeanIdInList(jmsBeanName)) {
 			listBeansId.add(jmsBeanName);
 			beans = jmsConstructor.createInboundGateway(beans, jmsBeanName, jndiMockInputString, mockInputChannel,
@@ -284,7 +290,7 @@ public class MockSpringContextGeneratorService {
 	 * @return
 	 */
 	private String createChannel (String beanString, String channelPostfix) {
-		String channelName = generateBeanNameLowCamelStyle(beanString) + channelPostfix;
+		String channelName = generateBeanNameLowCamelStyle(beanString, channelPostfix);
 		if (!isBeanIdInList(channelName)) {
 			listBeansId.add(channelName);
 			beans = integrationConstructor.createChannel(beans, channelName);
@@ -303,7 +309,7 @@ public class MockSpringContextGeneratorService {
 	 * @return
 	 */
 	private String createJndiConnectionObjects (final String beanString, String beanPostfix) {
-		String jndiStringName = generateBeanNameLowCamelStyle(beanString) + beanPostfix;
+		String jndiStringName = generateBeanNameLowCamelStyle(beanString, beanPostfix);
 		if (!isBeanIdInList(jndiStringName)) {
 			listBeansId.add(jndiStringName);
 			beans = beansConstructor.createBean(beans, JNDI_OBJECT_CLASS, jndiStringName, new HashMap<String,
@@ -320,7 +326,7 @@ public class MockSpringContextGeneratorService {
 		return listBeansId.contains(mockIncomeQueueName);
 	}
 
-	private String generateBeanNameLowCamelStyle (String string) {
+	private String generateBeanNameLowCamelStyle (String string, String postfix) {
 		String   beanName   = string.replaceAll("\\W", ":").toLowerCase();
 		String[] namesParts = beanName.split(":");
 		for (int i = 1; i < namesParts.length; i++)
@@ -329,7 +335,7 @@ public class MockSpringContextGeneratorService {
 		beanName = "";
 		for (String namesPart : namesParts)
 			beanName += namesPart;
-		return beanName;
+		return beanName + postfix;
 	}
 
 }
