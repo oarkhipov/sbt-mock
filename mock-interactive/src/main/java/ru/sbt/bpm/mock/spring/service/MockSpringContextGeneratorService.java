@@ -1,11 +1,15 @@
 package ru.sbt.bpm.mock.spring.service;
 
+import generated.springframework.beans.Bean;
 import generated.springframework.beans.Beans;
+import generated.springframework.integration.RouterType;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.list.TreeList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.tuple.Tuple;
+import reactor.tuple.Tuple2;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.context.generator.service.constructors.BeansConstructor;
@@ -13,9 +17,8 @@ import ru.sbt.bpm.mock.context.generator.service.constructors.IntegrationConstru
 import ru.sbt.bpm.mock.context.generator.service.constructors.JmsIntegrationConstructor;
 
 import javax.annotation.PostConstruct;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import javax.xml.bind.JAXBElement;
+import java.util.*;
 
 /**
  * Created by sbt-hodakovskiy-da on 11.07.2016.
@@ -60,6 +63,8 @@ public class MockSpringContextGeneratorService {
 	private static final String AGGREGATE_SERVICE_ACTIVATOR_METHOD_NAME = "aggregate";
 	// service activator expressions for generation response
 	private static final String SERVICE_ACTIVATOR_RESPONSE_EXPRESSION   = "payload.payload";
+	// router payload
+	private static final String ROUTER_PAYLOAD = "payload.jmsConnectionFactoryName+'_'+payload.queue";
 	// default reply timeout
 	private static final String DEFAULT_REPLY_TIMEOUT                   = "30000";
 	// default request timeout
@@ -69,7 +74,7 @@ public class MockSpringContextGeneratorService {
 
 
 	/**
-	 * *************   logger channels constants  ***************
+	 * *************   channels constants  ***************
 	 */
 	// MockInboundRequestLogger channel
 	private static final String MOCK_INBOUNT_REQUEST_LOGGER_CHANNEL    = "MockInboundRequestLogger";
@@ -79,6 +84,10 @@ public class MockSpringContextGeneratorService {
 	private static final String DRIVER_OUTBOUND_RESPONSELOGGER_CHANNEL = "DriverOutboundRequestLogger";
 	// DriverInboundResponseLogger channel
 	private static final String DRIVER_INBOUND_RESPONSELOGGER_CHANNEL  = "DriverInboundResponseLogger";
+	// MockInboundRequestAggregated channel
+	private static final String MOCK_INBOUND_REQUEST_AGGREGATED = "MockInboundRequestAggregated";
+	// MockOutboundRouterResponse channel
+	private static final String MOCK_OUTBOUND_ROUTER_RESPONSE = "MockOutboundRouterResponse";
 
 	/**
 	 * *************   mock servlet elements prefixes & postfixes  ***************
@@ -109,8 +118,10 @@ public class MockSpringContextGeneratorService {
 	private static final String GATEWAY_POSTFIX                              = "_gateway";
 	// router channel postfix
 	private static final String ROUTER_CHANNEL_POSTFIX                       = "_routerChannel";
-	// router postfix
-	private static final String ROUTER_POSTFIX                               = "_router";
+	// router mock name
+	private static final String MOCK_ROUTER_NAME                               = "MockRouter";
+	// router driver name
+	private static final String DRIVER_ROUTER_NAME                               = "DriverRouter";
 	// driver aggregated channel
 	private static final String DRIVER_AGGREGATED_CHANNEL_POSTFIX            = "_aggregatedDriver";
 
@@ -139,10 +150,18 @@ public class MockSpringContextGeneratorService {
 	// список созданных id beans
 	private List<String> listBeansId;
 
+	// Map созданных каналов для mock по системе
+	private Map<String, Tuple2<String, String>> mapMockChannels;
+
+	// Map созданных каналов для driver по системе
+	private Map<String, Tuple2<String, String>> mapDriverChannels;
+
 	@PostConstruct
 	private void init () {
 		systems = container.getConfig().getSystems().getSystems();
 		listBeansId = new TreeList<String>();
+		mapMockChannels = new HashMap<String, Tuple2<String, String>>();
+		mapDriverChannels = new HashMap<String, Tuple2<String, String>>();
 		initBeans();
 	}
 
@@ -160,6 +179,8 @@ public class MockSpringContextGeneratorService {
 	private void clean () {
 		systems.clear();
 		listBeansId.clear();
+		mapDriverChannels.clear();
+		mapMockChannels.clear();
 	}
 
 	public void reInit () {
@@ -206,6 +227,8 @@ public class MockSpringContextGeneratorService {
 
 				String mockOutputChannel = createChannel(mockOutputString, CHANNEL_POSTFIX);
 
+				mapMockChannels.put(system.getSystemName(), Tuple.of(mockInputChannel, mockOutputChannel));
+
 				// Создаем inbound-gateway
 				createJmsInboundGateway(queueConnectionFactory, jndiFactoryName, jndiMockInboundQueueName,
 				                        jndiMockOutboundQueueName, mockInputChannel,
@@ -215,6 +238,8 @@ public class MockSpringContextGeneratorService {
 				String driverRequestChannel = createChannel(driverOutputString, CHANNEL_POSTFIX);
 
 				String driverResponseChannel = createChannel(driverInputString, CHANNEL_POSTFIX);
+
+				mapDriverChannels.put(system.getSystemName(), Tuple.of(driverRequestChannel, driverResponseChannel));
 
 				// Создаем outbound-gateway
 				createJmsOutboundGateway(queueConnectionFactory, jndiDriverRequestQueueName,
@@ -232,7 +257,14 @@ public class MockSpringContextGeneratorService {
 		 */
 		for (ru.sbt.bpm.mock.config.entities.System system : systems) {
 			if (system.getProtocol() == Protocol.JMS) {
-
+				// Mock
+				createServiceActivatorWithBean(mapMockChannels.get(system.getSystemName()).getT1(), system.getQueueConnectionFactory(), system.getMockIncomeQueue());
+				// routerChannel
+				String routerChannel = createChannel(system.getMockOutcomeQueue(), ROUTER_CHANNEL_POSTFIX);
+				// router
+				createRouter(system.getQueueConnectionFactory(), system.getMockOutcomeQueue(), routerChannel);
+				// service activator
+				creaetServiceActivatorWithExpressions(routerChannel, system.getMockOutcomeQueue());
 			}
 
 			if (system.getProtocol() == Protocol.SOAP) {
@@ -241,6 +273,78 @@ public class MockSpringContextGeneratorService {
 		}
 
 		return beans;
+	}
+
+	private void creaetServiceActivatorWithExpressions (String routerOutboundResponseChannel, String mockOutputChannel) {
+		beans = integrationConstructor.createServiceActivator(beans, routerOutboundResponseChannel, mockOutputChannel, SERVICE_ACTIVATOR_RESPONSE_EXPRESSION);
+	}
+
+	private void createRouter (String queueConnectionFactory, String mockOutputQueue, String routerOutboundResponseChannel) {
+		if (!isBeanIdInList(MOCK_ROUTER_NAME)) {
+			listBeansId.add(MOCK_ROUTER_NAME);
+			beans = integrationConstructor.createRouter(beans, MOCK_ROUTER_NAME, ROUTER_PAYLOAD, MOCK_OUTBOUND_ROUTER_RESPONSE, createRouterMappings(queueConnectionFactory, mockOutputQueue, routerOutboundResponseChannel));
+		} else {
+			for (Object obj : beans.getImportOrAliasOrBean())
+				if (obj instanceof JAXBElement) {
+					JAXBElement<RouterType> element = (JAXBElement<RouterType>) obj;
+					RouterType router = element.getValue();
+					router.getMapping().add(integrationConstructor.createMapping(queueConnectionFactory + "_" +
+					                                                             mockOutputQueue,
+					                                                             routerOutboundResponseChannel));
+				}
+		}
+	}
+
+	private List<Tuple2<String, String>> createRouterMappings (String queueConnectionFactory, String mockOutputQueue, String mockOutputChannel) {
+		List<Tuple2<String, String>> mappings = new ArrayList<Tuple2<String, String>>();
+		mappings.add(Tuple.of(queueConnectionFactory+ "_" + mockOutputQueue, mockOutputChannel));
+		return mappings;
+	}
+
+	/**
+	 * <service-activator input-channel="" output-channel="" method="">
+	 *      <bean class="">
+	 *          <constructor-agr value="" type=""/>
+	 *          ...
+	 *          <constructor-agr value="" type=""/>
+	 *      </bean>
+	 * </service-activator>
+	 *
+	 * @param mockInputChannel
+	 * @param constructorArgsValue
+	 */
+	private void createServiceActivatorWithBean(String mockInputChannel, String... constructorArgsValue) {
+		beans = integrationConstructor.createServiceActivator(beans, mockInputChannel, MOCK_INBOUND_REQUEST_AGGREGATED, AGGREGATE_SERVICE_ACTIVATOR_METHOD_NAME, createBeanForServiceActivator(constructorArgsValue));
+	}
+
+	/**
+	 *     <constructor-agr value="" type=""/>
+	 *     ...
+	 *     <constructor-agr value="" type=""/>
+	 *
+	 * @param constructorArgsValue
+	 * @return
+	 */
+	private List<Tuple2<String, String>> createConstructorArgsForBean (String... constructorArgsValue) {
+		List<Tuple2<String, String>> list = new ArrayList<Tuple2<String, String>>();
+		list.add(Tuple.of(JMS_CONSTRUCTOR_ARG_VALUE, PROTOCOL_CLASS));
+		for (String arg : constructorArgsValue)
+			list.add(Tuple.of(arg, STRING_CLASS));
+		return list;
+	}
+
+	/**
+	 * <bean class="">
+	 *     <constructor-agr value="" type=""/>
+	 *     ...
+	 *     <constructor-agr value="" type=""/>
+	 * </bean>
+	 *
+	 * @param constructorArgsValue
+	 * @return
+	 */
+	private Bean createBeanForServiceActivator (String... constructorArgsValue) {
+		return beansConstructor.createBean(MESSAGE_AGGREGATOR_CLASS, createConstructorArgsForBean(constructorArgsValue));
 	}
 
 	/**

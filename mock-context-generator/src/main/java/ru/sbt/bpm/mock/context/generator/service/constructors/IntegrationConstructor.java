@@ -177,7 +177,7 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 * @param channel
 	 * @return
 	 */
-	private MappingValueChannelType createMapping (String value, String channel) {
+	public MappingValueChannelType createMapping (String value, String channel) {
 		MappingValueChannelType mapping = integrationFactory.createMappingValueChannelType();
 		mapping.setValue(value);
 		mapping.setChannel(channel);
