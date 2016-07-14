@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.System;
-import ru.sbt.bpm.mock.spring.utils.XpathUtils;
+import ru.sbt.bpm.mock.spring.utils.XmlUtils;
 
 import java.util.NoSuchElementException;
 
@@ -33,7 +33,7 @@ public class JmsService {
             if (queue.isEmpty() || queue.equals(system.getMockIncomeQueue())) {
                 String xpath = system.getIntegrationPointSelector().toXpath();
                 try {
-                    XdmNode xdmItems = (XdmNode) XpathUtils.evaluateXpath(payload, xpath);
+                    XdmNode xdmItems = (XdmNode) XmlUtils.evaluateXpath(payload, xpath);
                     if (system.getIntegrationPointNames().contains(xdmItems.getNodeName().getLocalName())) {
                         return system;
                     }

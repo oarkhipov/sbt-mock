@@ -75,10 +75,12 @@ public class IntegrationPoint {
 
     public String getXpathString() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (ElementSelector elementSelector : xpathValidatorSelector.getElementSelectors()) {
-            stringBuilder.append(elementSelector.getElement()).append("/");
+        if (xpathValidatorSelector != null) {
+            for (ElementSelector elementSelector : xpathValidatorSelector.getElementSelectors()) {
+                stringBuilder.append(elementSelector.getElement()).append("/");
+            }
+            stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length());
         }
-        stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length());
         return stringBuilder.toString();
     }
 

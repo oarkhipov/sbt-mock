@@ -138,4 +138,8 @@ public class MockConfigContainer {
     public IntegrationPoint getIntegrationPointByName(String systemName, String integrationPointName) {
         return getSystemByName(systemName).getIntegrationPoints().getIntegrationPointByName(integrationPointName);
     }
+
+    public void reInit() throws IOException {
+        init();
+    }
 }

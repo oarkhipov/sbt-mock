@@ -9,118 +9,158 @@
 <html>
 <head>
     <title>Modify integration point</title>
-    <script src="<%=request.getContextPath()%>/resources/js/jquery-1.9.1.min.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/integrationPoint/form.css">
+    <script src="<%=request.getContextPath()%>/resources/js/integrationPoint/form.js"></script>
 </head>
 <body>
-<form method="post">
-    <table>
-        <tr>
-            <td>System:</td>
-            <td>
-                <select name="system" id="system" <c:if test="${!empty systemName}">disabled</c:if> onchange="getIntegrationPointSuggestionNames()">
-                    <option value="-1">--select System Name--</option>
-                    <c:forEach items="${systems}" var="system">
-                        <option name="${system.systemName}"
-                                <c:if test="${system.systemName.equals(systemName)}">selected</c:if> >${system.systemName}</option>
-                    </c:forEach>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Integration point name:</td>
-            <td>
-                <select name="name" id="name">
-                    <c:forEach items="${suggestedNames}" var="name">
-                        <option name="${name}"
-                                    <c:if test="${name.equals(integrationPointName)}">selected</c:if> >${name}</option>
-                    </c:forEach>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Integration point type:</td>
-            <td>
-                <select name="type" id="type">
-                    <option value="Mock"
-                            <c:if test="${isMock}">selected</c:if> >MOCK
-                    </option>
-                    <option value="Driver"
-                            <c:if test="${isDriver}">selected</c:if> >DRIVER
-                    </option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>xpathValidation</td>
-            <td>
-                <script>
-                    function addElement(namespace, elementName) {
-                        var span = document.createElement('span');
-                        var out = "<input name=\"xpathValidatorNamespace[]\" type=\"text\"  placeholder=\"Namespace\" value=\"" +
-                                namespace +
-                                "\" size=\"80\"/>" +
-                                "<input name=\"xpathValidatorElementName[]\" type=\"text\" placeholder=\"Element name\" value=\"" +
-                                elementName + "\" size=\"25\"><input type=\"button\" value=\"-\" onclick='removeElement(this)'/><br/>";
-                        span.innerHTML = out;
-                        var div = document.getElementById("xpathValidation");
-                        div.appendChild(span);
+<form method="post" class="form-horizontal"
+      action="<%=request.getContextPath()%>/api/ip/<c:choose><c:when test="${integrationPointName != ''}">update/${systemName}/${integrationPointName}</c:when><c:otherwise>add</c:otherwise></c:choose>/">
+    <div class="form-group">
+        <label for="system" class="control-label col-sm-2">System:</label>
+
+        <div class="col-sm-10">
+            <c:if test="${!adding && (!empty systemName)}"><input type="hidden" name="system" value="${systemName}"/></c:if>
+            <select name="system" class="form-control" id="system" name="system"
+                    <c:if test="${!adding && (!empty systemName)}">disabled="disabled"</c:if>
+                    onchange="getIntegrationPointSuggestionNames()">
+                <option value="-1">--select System Name--</option>
+                <c:forEach items="${systems}" var="system">
+                    <option name="${system.systemName}"
+                            <c:if test="${system.systemName eq systemName}">selected</c:if> >${system.systemName}</option>
+                </c:forEach>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="name" class="control-label col-sm-2">Integration point name:</label>
+
+        <div class="col-sm-10">
+            <c:if test="${!adding && (!empty integrationPointName)}"><input type="hidden" name="name" value="${integrationPointName}"/></c:if>
+            <select name="name" id="name" class="form-control"
+                    <c:if test="${!adding && (!empty systemName)}">disabled="disabled"</c:if>
+                    >
+                <c:forEach items="${suggestedNames}" var="name">
+                    <option name="${name}"
+                            <c:if test="${name.equals(integrationPointName)}">selected</c:if> >${name}</option>
+                </c:forEach>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="type" class="control-label col-sm-2">Integration point type:</label>
+
+        <div class="col-sm-10">
+            <select name="type" id="type" class="form-control">
+                <option value="Mock"
+                        <c:if test="${isMock}">selected</c:if> >MOCK
+                </option>
+                <option value="Driver"
+                        <c:if test="${isDriver}">selected</c:if> >DRIVER
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="xpathValidation" class="control-label col-sm-2">xpathValidation:</label>
+
+        <div class="col-sm-10" style="text-align: right">
+            <script>
+                function addElement(namespace, elementName) {
+                    var span = document.createElement('span');
+                    span.setAttribute("class", "selectorContainer");
+                    var out = "<input name=\"xpathValidatorNamespace[]\" type=\"text\"  placeholder=\"Namespace\" value=\"" +
+                            namespace +
+                            "\" class='selectorNamespace'/>" +
+                            "<input name=\"xpathValidatorElementName[]\" type=\"text\" placeholder=\"Element name\" value=\"" +
+                            elementName + "\" class='selectorElementName'><input type=\"button\" value=\"-\" onclick='removeElement(this)' class='btn btn-s btn-default'/>";
+                    span.innerHTML = out;
+                    var div = document.getElementById("xpathValidation");
+                    div.appendChild(span);
+                    applySelectize(span);
+                }
+                function removeElement(obj) {
+                    var parent = obj.parentElement;
+                    parent.parentElement.removeChild(parent);
+                }
+                function getIntegrationPointSuggestionNames() {
+                    var systemName = $("#system").val();
+                    var integrationPointSelector = $("#name");
+                    integrationPointSelector.text("");
+                    if (systemName != -1) {
+//                            console.log("system chosen: " + systemName);
+                        $.ajax({
+                            url: "<%=request.getContextPath()%>/api/" + systemName + "/suggestIpName/",
+                            success: function (data) {
+                                data = $.parseJSON(data);
+                                $.each(data, function (key, val) {
+                                    integrationPointSelector.append($("<option>", {
+                                        value: val,
+                                        text: val
+                                    }));
+                                })
+                            }
+                        });
                     }
-                    function removeElement(obj) {
-                        var parent = obj.parentElement;
-                        parent.parentElement.removeChild(parent);
-                    }
-                    function getIntegrationPointSuggestionNames() {
-                        var systemName = $("#system").val();
-                        var integrationPointSelector = $("#name");
-                        integrationPointSelector.text("");
-                        if(systemName!=-1) {
-                            console.log("system chosen: " + systemName);
-                            $.ajax({
-                                url: "../../api/" + systemName + "/suggestIpName/",
-                                success: function (data) {
-                                    data = $.parseJSON(data);
-                                    $.each(data, function (key, val) {
-                                        integrationPointSelector.append($("<option>", {
-                                            value: val,
-                                            text: val
-                                        }));
-                                    })
-                                }
-                            });
-                        }
-                    }
-                </script>
-                <div id="xpathValidation">
-                    <c:forEach var="selector" items="${xpathValidation}">
-                        <script>
-                            addElement("${selector.namespace}", "${selector.element}");
-                        </script>
-                    </c:forEach>
+                }
+            </script>
+            <div id="xpathValidation">
+                <c:forEach var="selector" items="${xpathValidation}">
+                    <script>
+                        addElement("${selector.namespace}", "${selector.element}");
+                    </script>
+                </c:forEach>
+            </div>
+            <input type="button" value="+" onclick="addElement('','')" class="btn btn-s btn-default"/>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" style="text-align: left; cursor: pointer;" data-toggle="collapse"
+             data-target="#advancedContent">
+            <span class="glyphicon glyphicon-collapse-down"></span> <i>Advanced</i>
+        </div>
+        <div class="panel-body collapse" id="advancedContent">
+            <div class="form-group">
+                <label for="answerRequired" class="control-label col-sm-2">Answer required:</label>
+
+                <div class="col-sm-10">
+                    <input type="checkbox" name="answerRequired" id="answerRequired" class="form-control"
+                           <c:if test="${isAnswerRequired==null || isAnswerRequired}">checked</c:if>/>
                 </div>
-                <input type="button" value="+" onclick="addElement('','')"/>
-            </td>
-        </tr>
-        <tr>
-            <td>Answer required</td>
-            <td><label><input type="checkbox" name="answerRequired"
-                              <c:if test="${isAnswerRequired==null || isAnswerRequired}">checked</c:if> required</label></td>
-        </tr>
-        <tr>
-            <td>xsdFile:</td>
-            <td><input type="text" name="xsdFile" placeholder="File name from system root" value="${xsdFile}"/></td>
-        </tr>
-        <tr>
-            <td>rootElement</td>
-            <td>
-                <input name="rootElementNamespace" type="text" placeholder="Namespace" value="${rootElement.namespace}"
-                       size="80"/>
-                <input name="rootElementName" type="text" placeholder="Element name" value="${rootElement.element}"
-                       size="25"><br/>
-            </td>
-        </tr>
-    </table>
-    <br/>
-    <input type="submit" value="SAVE"/>
+            </div>
+            <div class="form-group">
+                <label for="xsdFile" class="control-label col-sm-2">Schema file:</label>
+
+                <div class="col-sm-10">
+                    <input type="text" name="xsdFile" id="xsdFile" placeholder="File name from system root"
+                           value="${xsdFile}"
+                           class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="rootElementDiv" class="control-label col-sm-2">rootElement:</label>
+
+                <div class="col-sm-10">
+                    <div id="rootElementDiv" class="selectorContainer">
+                        <input name="rootElementNamespace" class='selectorNamespace' type="text" placeholder="Namespace"
+                               value="${rootElement.namespace}"/>
+                        <input name="rootElementName" class='selectorElementName' type="text" placeholder="Element name"
+                               value="${rootElement.element}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: right">
+        <input class="btn btn-success" type="submit" value="SAVE"/>
+    </div>
 </form>
+<script>
+    $().ready(function () {
+        var system = $('#system');
+        if (system.val() != -1) {
+            system.change();
+        }
+    });
+</script>
 </body>
 </html>

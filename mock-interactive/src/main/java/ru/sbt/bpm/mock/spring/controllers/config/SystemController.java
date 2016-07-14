@@ -19,13 +19,13 @@ public class SystemController {
     @Autowired
     MockConfigContainer configContainer;
 
-    @RequestMapping(value = "/api/system/add/", method = RequestMethod.GET)
+    @RequestMapping(value = "/system/add/", method = RequestMethod.GET)
     public String add(Model model) {
         model.addAttribute("system", new System());
         return "system/form";
     }
 
-    @RequestMapping(value = "/api/system/update/{system}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/system/update/{system}/", method = RequestMethod.GET)
     public String update(@PathVariable String system,
                          Model model) {
         Systems systems = configContainer.getConfig().getSystems();
@@ -33,5 +33,16 @@ public class SystemController {
         assert systemByName != null;
         model.addAttribute("system", systemByName);
         return "system/form";
+    }
+
+    @RequestMapping(value = "/system/schema/upload/{system}/", method = RequestMethod.GET)
+    public String uploadSchema(@PathVariable String system,
+                         Model model) {
+        Systems systems = configContainer.getConfig().getSystems();
+        System systemByName = systems.getSystemByName(system);
+        if (systemByName != null) {
+            model.addAttribute("system", systemByName);
+        }
+        return "system/schemaUpload";
     }
 }

@@ -30,6 +30,9 @@ public class DataFileService {
     @Autowired
     MockConfigContainer configContainer;
 
+    @Autowired
+    ConfigurationService configurationService;
+
     private final String pathBase = "/WEB-INF/";
     private final String dataPath = pathBase + "data" + File.separator;
     private final String xsdPath = pathBase + "xsd" + File.separator;
@@ -221,8 +224,8 @@ public class DataFileService {
         Resource newDataResource = appContext.getResource(dataPath + newSystemName);
         FileUtils.moveDirectory(dataResource.getFile(), newDataResource.getFile());
         //Xsd
-        Resource xsdResource = appContext.getResource(dataPath + systemName);
-        Resource newXsdResource = appContext.getResource(dataPath + newSystemName);
+        Resource xsdResource = appContext.getResource(xsdPath + systemName);
+        Resource newXsdResource = appContext.getResource(xsdPath + newSystemName);
         FileUtils.moveDirectory(xsdResource.getFile(), newXsdResource.getFile());
     }
 
@@ -239,5 +242,13 @@ public class DataFileService {
         FileUtils.deleteDirectory(dataResource.getFile());
     }
 
-
+    public void uploadSchema(String systemName, File xsdZipFile) throws IOException {
+        Resource xsdDirectoryResource = appContext.getResource(xsdPath + systemName);
+        String xsdDirectoryPath = xsdDirectoryResource.getFile().getAbsolutePath();
+        File file = new File(xsdDirectoryPath);
+        if (file.delete()) {
+            file.deleteOnExit();
+        }
+        configurationService.unzipFile(xsdZipFile, xsdDirectoryPath);
+    }
 }

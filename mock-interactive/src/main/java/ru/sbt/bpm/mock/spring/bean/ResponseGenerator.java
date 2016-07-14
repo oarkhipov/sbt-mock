@@ -22,7 +22,7 @@ import ru.sbt.bpm.mock.spring.service.message.JmsService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
 import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MessageValidationException;
-import ru.sbt.bpm.mock.spring.utils.XpathUtils;
+import ru.sbt.bpm.mock.spring.utils.XmlUtils;
 
 import javax.xml.xpath.XPathExpressionException;
 import java.util.List;
@@ -138,7 +138,7 @@ public class ResponseGenerator {
 
     private void findSoapIntegrationPoint(MockMessage mockMessage) throws XmlException {
         System system = mockMessage.getSystem();
-        String compactXml = XpathUtils.compactXml(mockMessage.getPayload());
+        String compactXml = XmlUtils.compactXml(mockMessage.getPayload());
         String soapMessageElementName = validationService.getSoapMessageElementName(compactXml);
         IntegrationPoint integrationPointByName = system.getIntegrationPoints().getIntegrationPointByName(soapMessageElementName);
         mockMessage.setIntegrationPoint(integrationPointByName);
@@ -153,7 +153,7 @@ public class ResponseGenerator {
         final String lastElement = integrationPointSelector.getElementSelectors().get(xpathSize - 1).getElement();
 
         String integrationPointSelectorXpath = integrationPointSelector.toXpath();
-        XdmValue value = XpathUtils.evaluateXpath(payload, integrationPointSelectorXpath);
+        XdmValue value = XmlUtils.evaluateXpath(payload, integrationPointSelectorXpath);
         String integrationPointName;
 
         if (lastElement.isEmpty()) {
@@ -226,7 +226,7 @@ public class ResponseGenerator {
         String fullEndpointName = mockMessage.getProtocol().equals(Protocol.JMS) ? mockMessage.getJmsConnectionFactoryName() + "/" + mockMessage.getQueue() : "";
         String shortEndpointName = mockMessage.getProtocol().equals(Protocol.JMS) ? mockMessage.getQueue() : mockMessage.getIntegrationPoint().getName();
         String messageState = MessageStatusConverter.convert(mockMessage, messageType).toString();
-        String messagePreview = XpathUtils.compactXml(mockMessage.getPayload().length() > 50 ? mockMessage.getPayload().substring(0, 46) + "..." : mockMessage.getPayload());
+        String messagePreview = XmlUtils.compactXml(mockMessage.getPayload().length() > 50 ? mockMessage.getPayload().substring(0, 46) + "..." : mockMessage.getPayload());
 
         LogsEntity entity = new LogsEntity(mockMessage.getProtocol().toString(),
                 mockMessage.getSystem().getSystemName(),

@@ -31,7 +31,7 @@ import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MessageValid
 import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.SoapMessageValidationException;
 import ru.sbt.bpm.mock.spring.service.message.validation.impl.WsdlValidator;
 import ru.sbt.bpm.mock.spring.service.message.validation.impl.XsdValidator;
-import ru.sbt.bpm.mock.spring.utils.XpathUtils;
+import ru.sbt.bpm.mock.spring.utils.XmlUtils;
 
 import javax.annotation.PostConstruct;
 import javax.xml.xpath.XPathExpressionException;
@@ -204,7 +204,7 @@ public class MessageValidationService {
     private boolean assertByOperation(String xml, System system, IntegrationPoint integrationPoint, MessageType messageType) throws XmlException, SoapMessageValidationException {
         WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(system.getSystemName());
         WsdlOperation operation = (WsdlOperation) wsdlProject.getInterfaceList().get(0).getOperationByName(integrationPoint.getName());
-        String elementName = getSoapMessageElementName(XpathUtils.compactXml(xml));
+        String elementName = getSoapMessageElementName(XmlUtils.compactXml(xml));
         assert !elementName.isEmpty();
         if (messageType == MessageType.RQ) {
             int bodyIndex = operation.getDefaultRequestParts().length - 1;
@@ -236,7 +236,7 @@ public class MessageValidationService {
             String integrationPointSelectorXpath = system.getIntegrationPointSelector().toXpath();
             String integrationPointName = integrationPoint.getName();
             log.info(String.format("For integration point:  [%s] xPath %s ", integrationPointName, integrationPointSelectorXpath));
-            XdmValue value = XpathUtils.evaluateXpath(xml, integrationPointSelectorXpath);
+            XdmValue value = XmlUtils.evaluateXpath(xml, integrationPointSelectorXpath);
             String elementName = ((XdmNode) value).getNodeName().getLocalName();
             boolean validationResult = elementName.equals(integrationPointName);
             if (validationResult) {
@@ -249,7 +249,7 @@ public class MessageValidationService {
             //xpathSelector
             String xpathWithFullNamespaceString = integrationPoint.getXpathWithFullNamespaceString();
             log.debug("assert xpath: " + xpathWithFullNamespaceString);
-            boolean validationResult = XpathUtils.evaluateXpath(xml, xpathWithFullNamespaceString).size() != 0;
+            boolean validationResult = XmlUtils.evaluateXpath(xml, xpathWithFullNamespaceString).size() != 0;
             if (validationResult) {
                 return true;
             } else {

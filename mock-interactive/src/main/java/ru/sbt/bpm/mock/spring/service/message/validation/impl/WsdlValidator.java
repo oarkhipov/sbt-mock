@@ -6,7 +6,7 @@ import com.soapuiutil.wsdlvalidator.WsdlMessageValidatorException;
 import lombok.extern.slf4j.Slf4j;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidator;
 import ru.sbt.bpm.mock.spring.utils.ExceptionUtils;
-import ru.sbt.bpm.mock.spring.utils.XpathUtils;
+import ru.sbt.bpm.mock.spring.utils.XmlUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,7 +37,7 @@ public class WsdlValidator implements MessageValidator {
         List<String> result = new ArrayList<String>();
         try {
             assert wsdlMessageValidator != null;
-            result = Arrays.asList(wsdlMessageValidator.validateSchemaCompliance(XpathUtils.compactXml(xml)));
+            result = Arrays.asList(wsdlMessageValidator.validateSchemaCompliance(XmlUtils.compactXml(xml)));
         } catch (WsdlMessageValidatorException e) {
             result.add(ExceptionUtils.getExceptionStackTrace(e));
         }
