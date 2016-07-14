@@ -1,9 +1,9 @@
 package ru.sbt.bpm.mock.spring.controllers.config;
 
+import net.sf.saxon.s9api.SaxonApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,17 +45,19 @@ public class ConfigController {
     }
 
     @RequestMapping(value = "/config/import", method = RequestMethod.GET)
-    public String importConfig(Model model) throws IOException {
-        return "config/form";
+    public String importConfig() throws IOException {
+        return "config/uploadForm";
     }
 
-    @RequestMapping(value = "/config/import", method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
     @ResponseBody
-    public String importConfig(@RequestParam MultipartFile file) throws IOException {
+    @RequestMapping(value = "/config/import", method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
+    public String importConfig(@RequestParam MultipartFile file) throws IOException, SaxonApiException {
         File tempFile = new File(file.getOriginalFilename() + "_" + System.currentTimeMillis());
         file.transferTo(tempFile);
         configurationService.unzipConfiguration(tempFile);
-        tempFile.delete();
-        return "OK";
+        if (!tempFile.delete()) {
+            tempFile.deleteOnExit();
+        }
+        return "OK!";
     }
 }

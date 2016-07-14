@@ -1,5 +1,6 @@
 package ru.sbt.bpm.mock.spring.service;
 
+import net.sf.saxon.s9api.SaxonApiException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class ConfigurationService {
 
     @Autowired
     MockConfigContainer configContainer;
+
+    @Autowired
+    XsdAnalysisService xsdAnalysisService;
 
 
     public byte[] compressConfiguration() throws IOException {
@@ -63,16 +67,25 @@ public class ConfigurationService {
         IOUtils.closeQuietly(fileInputStream);
     }
 
-    public void unzipConfiguration(File configZip) throws IOException {
-        ZipFile zipFile = new ZipFile(configZip);
-        Enumeration<?> enumeration = zipFile.entries();
+    public void unzipConfiguration(File configZip) throws IOException, SaxonApiException {
         dataFileService.clearData();
+        unzipFile(configZip, dataFileService.getPathBaseFilePath(""));
+        //re-init configuration
+        configContainer.reInit();
+        xsdAnalysisService.reInit();
+
+    }
+
+    public void unzipFile(File zipFile, String placeToUnzip) throws IOException {
+        ZipFile zipFileArch = new ZipFile(zipFile);
+        Enumeration<?> enumeration = zipFileArch.entries();
+
         while (enumeration.hasMoreElements()) {
             ZipEntry zipEntry = (ZipEntry) enumeration.nextElement();
 
             String name = zipEntry.getName();
 
-            File file = new File(dataFileService.getPathBaseFilePath(name));
+            File file = new File(placeToUnzip + File.separator + name);
 
             File parentFile = file.getParentFile();
             if (parentFile != null) {
@@ -82,7 +95,7 @@ public class ConfigurationService {
                 file.mkdir();
             } else {
                 //Extract file
-                InputStream inputStream = zipFile.getInputStream(zipEntry);
+                InputStream inputStream = zipFileArch.getInputStream(zipEntry);
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
                 byte[] bytes = new byte[1024];
                 int length;
@@ -93,15 +106,15 @@ public class ConfigurationService {
                 fileOutputStream.close();
             }
         }
-        zipFile.close();
-
-        //re-init configuration
-        configContainer.init();
-        //TODO generate mockApp-servlet
+        zipFileArch.close();
     }
 
     public void saveConfig() throws IOException {
         File configFile = dataFileService.getConfigResource().getFile();
         FileUtils.write(configFile, configContainer.toXml());
+    }
+
+    public void reInitSpringContext() {
+        //TODO
     }
 }

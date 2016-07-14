@@ -13,14 +13,10 @@
 </head>
 <body>
 <div style="font-size: 80%; color: dimgray">
-    <script>
-        var systemName = "${systemName}";
-        var integrationPointName = "${name}";
-    </script>
     <b>Integration point:</b> <i><c:out value="${name}"/></i>&nbsp;&nbsp;
     <div class="editActions">
-        <span class="btn btn-warning btn-xs glyphicon glyphicon-pencil" onclick="editIpForm()"></span>
-        <span class="btn btn-danger btn-xs glyphicon glyphicon-trash" onclick="delIpForm()"></span>
+        <span class="btn btn-warning btn-xs glyphicon glyphicon-pencil" onclick="editIpForm('${systemName}','${name}')"></span>
+        <span class="btn btn-danger btn-xs glyphicon glyphicon-trash" onclick="delIpForm('${systemName}','${name}')"></span>
     </div>
     <br/>
     <%--WAS 7 compatible style (legacy)--%>

@@ -186,7 +186,7 @@ function checkJndiName(event, obj) {
                 glyph.addClass("glyphicon-ok-circle text-success");
                 enableSubmit(obj);
             } else {
-                glyph.removeClass("glyphicon-ok-circle text-success")
+                glyph.removeClass("glyphicon-ok-circle text-success");
                 glyph.addClass("glyphicon-remove-circle text-danger");
                 disableSubmit(obj);
             }

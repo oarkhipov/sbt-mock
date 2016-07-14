@@ -26,21 +26,14 @@ public class IntegrationPointController {
     IntegrationPointNameSuggestionService suggestionService;
 
     @RequestMapping(value = "/ip/add/", method = RequestMethod.GET)
-    public String add(Model model) {
+    public String add(Model model,
+                      @RequestParam(required = false, value = "system") String systemName) {
         model.addAttribute("systems", configContainer.getConfig().getSystems().getSystems());
-        model.addAttribute("systemName", "");
+        model.addAttribute("systemName", systemName);
         model.addAttribute("integrationPointName", "");
         model.addAttribute("suggestedNames", "");
+        model.addAttribute("adding",true);
         return "integrationPoint/form";
-    }
-
-    @RequestMapping(value = "/ip/delete/{system}/{name}/", method = RequestMethod.GET)
-    public String delete(@PathVariable String system,
-                         @PathVariable String name,
-                         Model model) {
-        model.addAttribute("system", system);
-        model.addAttribute("integrationPoint", name);
-        return "integrationPoint/delete";
     }
 
     @RequestMapping(value = "/ip/update/{system}/{name}/", method = RequestMethod.GET)
@@ -60,6 +53,7 @@ public class IntegrationPointController {
         model.addAttribute("xsdFile", integrationPoint.getXsdFile());
         model.addAttribute("rootElement", integrationPoint.getRootElement());
         model.addAttribute("xpathValidation", integrationPoint.getXpathValidatorSelector() != null ? integrationPoint.getXpathValidatorSelector().getElementSelectors() : null);
+        model.addAttribute("adding",false);
 
         List<String> integrationPointNames = new ArrayList<String>() {{
             add(name);

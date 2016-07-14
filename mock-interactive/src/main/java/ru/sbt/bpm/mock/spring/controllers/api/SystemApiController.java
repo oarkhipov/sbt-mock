@@ -1,9 +1,11 @@
 package ru.sbt.bpm.mock.spring.controllers.api;
 
+import net.sf.saxon.s9api.SaxonApiException;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.SAXException;
 import reactor.tuple.Tuple2;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
@@ -18,6 +20,7 @@ import ru.sbt.bpm.mock.spring.service.XsdAnalysisService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 import ru.sbt.bpm.mock.spring.utils.ExceptionUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +86,9 @@ public class SystemApiController {
         systems.getSystems().add(system);
         validationService.reInitValidator(name);
         configurationService.saveConfig();
+        if (protocol == Protocol.JMS) {
+            configurationService.reInitSpringContext();
+        }
         return "redirect:/";
     }
 
@@ -102,6 +108,7 @@ public class SystemApiController {
                          @RequestParam(value = "rootElementNamespace", required = false) String rootElementNamespace,
                          @RequestParam(value = "rootElementName", required = false) String rootElementName) throws IOException, SAXException {
 
+        boolean needToReInitSpringContext = false;
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(systemName);
 
         if (!systemObject.getSystemName().equals(systemName)) {
@@ -111,6 +118,9 @@ public class SystemApiController {
 
         if (!systemObject.getProtocol().equals(protocol)) {
             systemObject.setProtocol(protocol);
+            if (protocol == Protocol.JMS) {
+                needToReInitSpringContext = true;
+            }
         }
 
         if (rootSchema != null) {
@@ -145,30 +155,35 @@ public class SystemApiController {
         if (queueConnectionFactory != null) {
             if (systemObject.getQueueConnectionFactory() != null && !systemObject.getQueueConnectionFactory().equals(queueConnectionFactory)) {
                 systemObject.setQueueConnectionFactory(queueConnectionFactory);
+                needToReInitSpringContext = true;
             }
         }
 
         if (mockIncomeQueue != null) {
             if (systemObject.getMockIncomeQueue() != null && !systemObject.getMockIncomeQueue().equals(mockIncomeQueue)) {
                 systemObject.setMockIncomeQueue(mockIncomeQueue);
+                needToReInitSpringContext = true;
             }
         }
 
         if (mockOutcomeQueue != null) {
             if (systemObject.getMockOutcomeQueue() != null && !systemObject.getMockOutcomeQueue().equals(mockOutcomeQueue)) {
                 systemObject.setMockOutcomeQueue(mockOutcomeQueue);
+                needToReInitSpringContext = true;
             }
         }
 
         if (driverOutcomeQueue != null) {
             if (systemObject.getDriverOutcomeQueue() != null && !systemObject.getDriverOutcomeQueue().equals(driverOutcomeQueue)) {
                 systemObject.setDriverOutcomeQueue(driverOutcomeQueue);
+                needToReInitSpringContext = true;
             }
         }
 
         if (driverIncomeQueue != null) {
             if (systemObject.getDriverIncomeQueue() != null && !systemObject.getDriverIncomeQueue().equals(driverIncomeQueue)) {
                 systemObject.setDriverIncomeQueue(driverIncomeQueue);
+                needToReInitSpringContext = true;
             }
         }
 
@@ -187,6 +202,9 @@ public class SystemApiController {
 
         validationService.reInitValidator(systemName);
         configurationService.saveConfig();
+        if (needToReInitSpringContext) {
+            configurationService.reInitSpringContext();
+        }
         return "redirect:/";
     }
 
@@ -194,16 +212,21 @@ public class SystemApiController {
     public String delete(@PathVariable String systemName) throws IOException {
         Systems systems = configContainer.getConfig().getSystems();
         System system = systems.getSystemByName(systemName);
+        Protocol protocol = system.getProtocol();
         dataFileService.deleteSystemDir(systemName);
         systems.getSystems().remove(system);
         configurationService.saveConfig();
+        if (protocol == Protocol.JMS) {
+            configurationService.reInitSpringContext();
+        }
         return "redirect:/";
     }
 
     @ResponseBody
     @RequestMapping(value = "/api/system/reinitValidator/{systemName}/")
-    public String reinitValidator(@PathVariable String systemName) throws IOException, SAXException {
+    public String reinitValidator(@PathVariable String systemName) throws IOException, SAXException, SaxonApiException {
         validationService.reInitValidator(systemName);
+        xsdAnalysisService.reInit();
         return "OK!";
     }
 
@@ -214,6 +237,7 @@ public class SystemApiController {
         for (System system : systems) {
             try {
                 validationService.reInitValidator(system.getSystemName());
+                xsdAnalysisService.reInit(system.getSystemName());
             } catch (Exception e) {
                 return ExceptionUtils.getExceptionStackTrace(e);
             }
@@ -261,5 +285,20 @@ public class SystemApiController {
             }
         }
         return ArrayUtils.toString(resultList);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/api/system/schema/upload/{system}/", method = RequestMethod.POST)
+    public String uploadSchema(@PathVariable String system,
+                               @RequestParam MultipartFile file) throws IOException, SAXException, SaxonApiException {
+        File tempFile = new File(file.getOriginalFilename() + "_" + java.lang.System.currentTimeMillis());
+        file.transferTo(tempFile);
+        dataFileService.uploadSchema(system, tempFile);
+        if (!tempFile.delete()) {
+            tempFile.deleteOnExit();
+        }
+        validationService.reInitValidator(system);
+        xsdAnalysisService.reInit(system);
+        return "OK!";
     }
 }

@@ -51,7 +51,9 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/libs/selectize.js/css/selectize.bootstrap3.css">
 
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/libs/bootstrap-notify/bootstrap-notify.min.js"></script>
-    <%--<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/libs/bootstrap-notify/">--%>
+
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/libs/bootstrap-fileinput/css/fileinput.min.css">
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/libs/bootstrap-fileinput/js/fileinput.min.js"></script>
 </head>
 <body>
 <!--[if lt IE 7]>
@@ -66,7 +68,6 @@
         <div id="wizard">
             <h2>Integration point</h2>
             <section>
-                <div id="dialog"></div>
                 <div align="right">
                     <button class="btn btn-success btn-sm" onclick="addSysForm()">
                         <span class="glyphicon glyphicon-plus"></span> Add System
@@ -99,8 +100,8 @@
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-right"
                                                     aria-labelledby="dropdownMenu_${system.systemName}">
-                                                    <li><a href="#" onclick="addIpForm()">Add integration point</a></li>
-                                                    <li><a href="#">Upload schema</a></li>
+                                                    <li><a href="#" onclick="addIpForm('${system.systemName}')">Add integration point</a></li>
+                                                    <li><a href="#" onclick="uploadSchema('${system.systemName}')">Upload schema</a></li>
                                                     <li><a href="#" onclick="reinitValidator('${system.systemName}')">Update Validator</a></li>
                                                     <li role="separator" class="divider"></li>
                                                     <li><a href="#" onclick="editSysForm('${system.systemName}')">Edit
@@ -112,7 +113,7 @@
                                         </td>
                                     </tr>
                                     <c:forEach var="mockIntegrationPoint" items="${system.mockIntegrationPoints}">
-                                        <tr data-toggle="collapse" data-target="#${mockIntegrationPoint.name}_sequence">
+                                        <tr data-toggle="<%--collapse--%>" data-target="<%--#${mockIntegrationPoint.name}_sequence--%>">
                                             <td align="right">
                                                 <span class="glyphicon glyphicon-menu-right"
                                                       style="opacity: 0.6"></span>
@@ -127,22 +128,22 @@
                                             </td>
                                             <td align="right" style="padding-right: 30px">
                                                 <div class="editActions">
-                                                    <button class="btn btn-default btn-xs btn-warning">
+                                                    <button class="btn btn-default btn-xs btn-warning" onclick="editIpForm('${system.systemName}','${mockIntegrationPoint.name}')">
                                                         <span class="glyphicon glyphicon-pencil"
                                                               aria-hidden="true"></span>
                                                     </button>
-                                                    <button class="btn btn-xs btn-danger">
+                                                    <button class="btn btn-xs btn-danger" onclick="delIpForm('${system.systemName}','${mockIntegrationPoint.name}')">
                                                         <span class="glyphicon glyphicon-trash"></span>
                                                     </button>
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr class="collapse" id="${mockIntegrationPoint.name}_sequence">
-                                            <td>&nbsp;</td>
-                                            <td colspan="2">
-                                                Test
-                                            </td>
-                                        </tr>
+                                        <%--<tr class="collapse" id="${mockIntegrationPoint.name}_sequence">--%>
+                                            <%--<td>&nbsp;</td>--%>
+                                            <%--<td colspan="2">--%>
+                                                <%--Test--%>
+                                            <%--</td>--%>
+                                        <%--</tr>--%>
                                     </c:forEach>
                                     <c:forEach var="driverIntegrationPoint" items="${system.driverIntegrationPoints}">
                                         <tr>
@@ -160,11 +161,11 @@
                                             </td>
                                             <td align="right" style="padding-right: 30px">
                                                 <div class="editActions">
-                                                    <button class="btn btn-default btn-xs btn-warning">
+                                                    <button class="btn btn-default btn-xs btn-warning" onclick="editIpForm('${system.systemName}','${driverIntegrationPoint.name}')">
                                                         <span class="glyphicon glyphicon-pencil"
                                                               aria-hidden="true"></span>
                                                     </button>
-                                                    <button class="btn btn-xs btn-danger">
+                                                    <button class="btn btn-xs btn-danger" onclick="delIpForm('${system.systemName}','${driverIntegrationPoint.name}')">
                                                         <span class="glyphicon glyphicon-trash"></span>
                                                     </button>
                                                 </div>

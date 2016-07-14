@@ -1,0 +1,27 @@
+.selectorNamespace>div {
+    text-align: left;
+    width: 420px;
+    float: left;
+}
+
+.selectorElementName>div {
+    text-align: left;
+    width: 260px;
+    float: left;
+    margin-left: 4px;
+}
+
+/*Selectize styles*/
+.selectize-control .selectize-dropdown .selectize-label {
+    font-weight: bold;
+    color: black;
+}
+.selectize-control .selectize-dropdown .selectize-caption {
+    color: darkgray;
+    margin-left: 5px;
+    font-size: x-small;
+}
+
+#answerRequired {
+    width: 20px;
+}

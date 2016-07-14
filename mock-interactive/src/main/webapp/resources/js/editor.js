@@ -8,7 +8,7 @@ var scriptEditor;
 var testEditor;
 
 
-$().ready(function (){
+$().ready(function () {
     var editorTheme = "ace/theme/xcode";
 
     codeEditor = ace.edit("code");
@@ -26,7 +26,7 @@ $().ready(function (){
     scriptEditor.setTheme(editorTheme);
     scriptEditor.$blockScrolling = Infinity;
 
-    if($("#testCode").length > 0) {
+    if ($("#testCode").length > 0) {
         testEditor = ace.edit("testCode");
         testEditor.getSession().setMode("ace/mode/xml");
         testEditor.setTheme(editorTheme);
@@ -35,14 +35,6 @@ $().ready(function (){
 
     updateWizardHeight();
 });
-
-function htmlDecode(text) {
-    return $('<div/>').html(text).text();
-}
-
-function htmlEncode(text) {
-    return $('<div/>').text(text).html();
-}
 
 String.prototype.replaceAll2 = function (search, replacement) {
     var target = this;
@@ -55,7 +47,7 @@ function showInfo(text) {
             //options
             icon: 'glyphicon glyphicon-info-sign',
             message: htmlDecode(text)
-        },{
+        }, {
             //    settings
             type: "success",
             allow_dismiss: true,
@@ -72,10 +64,10 @@ function showInfo(text) {
 }
 function showError(text) {
     if (text) {
-        text = text.replaceAll2("\\r\\n","<br/>");
-        text = text.replaceAll2("\\n\\r","<br/>");
-        text = text.replaceAll2("\\n","<br/>");
-        text = text.replaceAll2("\\r","");
+        text = text.replaceAll2("\\r\\n", "<br/>");
+        text = text.replaceAll2("\\n\\r", "<br/>");
+        text = text.replaceAll2("\\n", "<br/>");
+        text = text.replaceAll2("\\r", "");
         $.notify({
             //options
             icon: 'glyphicon glyphicon-warning-sign',
@@ -105,16 +97,16 @@ function setResponse(text) {
 //Handlers
 $("#reset").click(function () {
     var parts = QueryString["ip"].split("__");
-    var filtered = $("#filterGen").is(":checked")?"filtered":"";
+    var filtered = $("#filterGen").is(":checked") ? "filtered" : "";
     $.ajax({
-        url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/resetToDefault/"+ filtered,
+        url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/resetToDefault/" + filtered,
         type: "POST",
         success: function (obj) {
             obj = htmlDecode(obj);
             obj = $.parseJSON(obj);
             showInfo(obj.info);
             showError(obj.error);
-            codeEditor.setValue( htmlDecode(obj.data).trim(),-1);
+            codeEditor.setValue(htmlDecode(obj.data).trim(), -1);
         },
         fail: function () {
             showError("Unable to reset! Try again later...");
@@ -208,16 +200,16 @@ $("#test").click(function () {
 
 $("#testRegenerate").click(function () {
     var parts = QueryString["ip"].split("__");
-    var filtered = $("#testFilterGen").is(":checked")?"filtered":"";
+    var filtered = $("#testFilterGen").is(":checked") ? "filtered" : "";
     $.ajax({
-        url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/resetToDefault/test/"+ filtered,
+        url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/resetToDefault/test/" + filtered,
         type: "POST",
         success: function (obj) {
             obj = htmlDecode(obj);
             obj = $.parseJSON(obj);
             showInfo(obj.info);
             showError(obj.error);
-            testEditor.setValue( htmlDecode(obj.data).trim(),-1);
+            testEditor.setValue(htmlDecode(obj.data).trim(), -1);
         },
         fail: function () {
             showError("Unable to regenerate! Try again later...");
@@ -249,86 +241,3 @@ $("#testValidate").click(function () {
 });
 
 var QueryString = getQueryString();
-
-
-//Integration point buttons
-function editIpForm() {
-    var system;
-    var type;
-    var name;
-    var dialog = $("#dialog");
-
-    dialog.html(updateUrl)
-        .dialog({
-            autoOpen: true,
-            height: 450,
-            width: 1100,
-            modal: true,
-            title: "Edit Integration point",
-            draggable: false,
-            resizable: false,
-            open: openForm(),
-            close: function () {
-                closeForm()
-            }
-        });
-
-    function openForm() {
-        console.log("opened");
-        $("#dialogFrame").on('load', function () {
-            var frame = $("#dialogFrame").contents();
-            if (frame.find("body").html() == "OK") {
-                dialog.dialog('close');
-            }
-
-            frame.find("form input[type=submit]").click(function () {
-                system = frame.find("#system").val();
-                type = frame.find("#type").val().toLowerCase();
-                name = frame.find("#name").val();
-                frame.find("form").submit();
-            })
-        });
-    }
-
-    function closeForm() {
-        console.log("go to " + system + type + name);
-        if (system && type && name)
-            window.location.href = "?ip=" + system + "__" + type + "__" + name;
-    }
-
-
-}
-function delIpForm() {
-    var dialog = $("#dialog");
-    var confirmed = false;
-    dialog.html(deleteUrl)
-        .dialog({
-            autoOpen: true,
-            height: 200,
-            width: 320,
-            modal: true,
-            title: "Delete Integration point",
-            draggable: false,
-            resizable: false,
-            open: openForm(),
-            close: function () {
-                if( confirmed ) {
-                    window.location.href = window.location.href.split("?")[0];
-                }
-            }
-        });
-
-    function openForm() {
-        $("#dialogFrame").on('load', function () {
-            var frame = $("#dialogFrame").contents();
-            if (frame.find("body").html() == "OK") {
-                confirmed = true;
-                dialog.dialog('close');
-            }
-
-            frame.find("form #no").click(function () {
-                dialog.dialog('close');
-            })
-        });
-    }
-}

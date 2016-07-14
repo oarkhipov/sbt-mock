@@ -117,8 +117,8 @@ public class XmlGeneratorService {
         } catch (Exception e) {
             String msg = "Failed to generate xml:\n" +
                     "resource:[" + resource.toString() + "]\n" +
-                    "rootElement:[" + rootElement.toString() + "]\n" +
-                    "xsModel:[" + xsModel.toString() + "]\n" +
+                    "rootElement:[" + rootElement.toString() + "]\n\n" +
+//                    "xsModel:[" + xsModel.toString() + "]\n" +
                     "message: " + e.getMessage();
             throw new Exception(msg, e);
         }

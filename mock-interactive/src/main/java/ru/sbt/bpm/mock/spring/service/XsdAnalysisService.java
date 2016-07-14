@@ -79,7 +79,7 @@ public class XsdAnalysisService {
         fillMapNamespace(systemName, systemXsdFile);
     }
 
-    protected void reInit (String systemName) throws IOException, SaxonApiException {
+    public void reInit(String systemName) throws IOException, SaxonApiException {
         System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
         mapNamespacesByXpath.remove(systemName);
         mapOfElements.remove(systemName);

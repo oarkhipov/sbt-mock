@@ -38,7 +38,7 @@ public class IntegrationPointApiController {
     @Autowired
     IntegrationPointNameSuggestionService suggestionService;
 
-    @RequestMapping(value = "/ip/add/", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/ip/add/", method = RequestMethod.POST)
     public String add(@RequestParam String system,
                       @RequestParam String name,
                       @RequestParam String type,
@@ -77,7 +77,7 @@ public class IntegrationPointApiController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/ip/update/{system}/{name}/", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/ip/update/{system}/{name}/", method = RequestMethod.POST)
     public String update(@PathVariable String system,
                          @PathVariable String name,
                          @RequestParam(value = "name") String newIntegrationPointName,
@@ -148,7 +148,7 @@ public class IntegrationPointApiController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/ip/delete/{system}/{name}/", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/ip/delete/{system}/{name}/", method = RequestMethod.POST)
     public String delete(@PathVariable String system,
                          @PathVariable String name) throws IOException {
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(system);
@@ -161,7 +161,7 @@ public class IntegrationPointApiController {
                 return "redirect:/";
             }
         }
-        return "No such integrationPoint";
+        throw new RuntimeException("No such integrationPoint");
     }
 
 }

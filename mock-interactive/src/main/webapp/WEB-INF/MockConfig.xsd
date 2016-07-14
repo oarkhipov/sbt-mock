@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified"
-           elementFormDefault="qualified" targetNamespace="http://sbrf.ru/mockService2" xmlns:tns="http://sbrf.ru/mockService2">
-    <xs:element xmlns:moc="http://sbrf.ru/mockService2" name="MockConfig" type="moc:MockConfigType"/>
+           elementFormDefault="qualified" targetNamespace="http://sbrf.ru/mockService2" xmlns:tns="http://sbrf.ru/mockService2" xmlns:moc="http://sbrf.ru/mockService2">
+    <xs:element name="MockConfig" type="moc:MockConfigType"/>
     <xs:complexType name="xpathValidationType">
         <xs:sequence>
-            <xs:element xmlns:moc="http://sbrf.ru/mockService2" type="moc:tagType" name="tag" maxOccurs="unbounded"
+            <xs:element  type="moc:tagType" name="tag" maxOccurs="unbounded"
                         minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="systemsType">
         <xs:sequence>
-            <xs:element xmlns:moc="http://sbrf.ru/mockService2" type="moc:systemType" name="system"
+            <xs:element  type="moc:systemType" name="system"
                         maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
@@ -25,14 +25,14 @@
     <!-- root element type-->
     <xs:complexType name="MockConfigType">
         <xs:sequence>
-            <xs:element xmlns:moc="http://sbrf.ru/mockService2" type="moc:systemsType" name="systems"/>
+            <xs:element  type="moc:systemsType" name="systems"/>
         </xs:sequence>
     </xs:complexType>
 
     <!-- integrationPointSelector type-->
     <xs:complexType name="integrationPointSelectorType">
         <xs:sequence>
-            <xs:element xmlns:moc="http://sbrf.ru/mockService2" type="moc:tagType" name="tag" maxOccurs="unbounded"
+            <xs:element  type="moc:tagType" name="tag" maxOccurs="unbounded"
                         minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
@@ -49,7 +49,7 @@
     <!-- integration points element type-->
     <xs:complexType name="integrationPointsType">
         <xs:sequence>
-            <xs:element xmlns:moc="http://sbrf.ru/mockService2" type="moc:integrationPointType" name="integrationPoint"
+            <xs:element  type="moc:integrationPointType" name="integrationPoint"
                         maxOccurs="unbounded"
                         minOccurs="0"/>
         </xs:sequence>
@@ -70,7 +70,7 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element xmlns:moc="http://sbrf.ru/mockService2" type="moc:integrationPointSelectorType"
+            <xs:element  type="moc:integrationPointSelectorType"
                         name="integrationPointSelector">
                 <xs:annotation>
                     <xs:documentation>Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна
@@ -120,7 +120,7 @@
                     </xs:sequence>
                 </xs:choice>
             </xs:sequence>
-            <xs:element xmlns:moc="http://sbrf.ru/mockService2" type="moc:rootElementType" name="rootElement" minOccurs="1" maxOccurs="1">
+            <xs:element  type="moc:rootElementType" name="rootElement" minOccurs="1" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>Указатель на корневой элемент для генерации тестового сообщения</xs:documentation>
                 </xs:annotation>
@@ -130,7 +130,7 @@
                     <xs:documentation>Адрес webservice для отсылки запросов</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element xmlns:moc="http://sbrf.ru/mockService2" type="moc:integrationPointsType"
+            <xs:element  type="moc:integrationPointsType"
                         name="integrationPoints"/>
         </xs:sequence>
         <xs:attribute type="xs:string" name="name"/>
@@ -139,7 +139,7 @@
     <!-- integration point element type-->
     <xs:complexType name="integrationPointType" mixed="true">
         <xs:sequence>
-            <xs:element xmlns:moc="http://sbrf.ru/mockService2" type="moc:xpathValidationType" name="xpathValidation">
+            <xs:element  type="moc:xpathValidationType" name="xpathValidation">
                 <xs:annotation>
                     <xs:documentation>Валидация Запроса (заполняется только для заглушки!)</xs:documentation>
                 </xs:annotation>
@@ -175,7 +175,7 @@
                     <xs:documentation>Где лежит корневой элемент</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element xmlns:moc="http://sbrf.ru/mockService2" type="moc:rootElementType" name="rootElement" minOccurs="0" maxOccurs="1">
+            <xs:element  type="moc:rootElementType" name="rootElement" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>Указатель на корневой элемент для генерации тестового сообщения</xs:documentation>
                 </xs:annotation>
