@@ -1,43 +1,39 @@
 package ru.sbt.bpm.mock.context.generator;
 
 import generated.springframework.beans.Beans;
-import ru.sbt.bpm.mock.context.generator.service.NamespaceMapper;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import ru.sbt.bpm.mock.context.generator.service.SpringContextGeneratorService;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import java.io.StringWriter;
-import java.io.Writer;
+
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by sbt-hodakovskiy-da on 06.07.2016.
  */
-public abstract class AbstractConfigGenerator {
+@Slf4j
+@ContextConfiguration({ "/env/mockapp-servlet.xml" })
+public abstract class AbstractConfigGenerator extends AbstractTestNGSpringContextTests {
 
-	protected Marshaller createMarshaller(Class... classes) throws JAXBException {
-		Marshaller marshaller = JAXBContext.newInstance(classes).createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION,"http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans.xsd\n" +
-		                                                       "        http://www.springframework.org/schema/integration    http://www.springframework.org/schema/integration/spring-integration.xsd\n" +
-		                                                       "        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd\n" +
-		                                                       "        http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd");
-		marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new NamespaceMapper());
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		return marshaller;
+	@Autowired
+	SpringContextGeneratorService generator;
+
+	protected void printActual(String actual, String classAndMethodName) {
+		log.debug("==============================================");
+		log.debug("");
+		log.debug("Class and method name: " + classAndMethodName);
+		log.debug("Generated config: " + actual);
+		log.debug("");
+		log.debug("==============================================");
 	}
 
-	protected void printActual(String actual) {
-		System.out.println("==============================================");
-		System.out.println("");
-		System.out.println("Generated config: " + actual);
-		System.out.println("");
-		System.out.println("==============================================");
-	}
-
-	protected int compareResults (String expected, Beans beans, Class... classes) throws JAXBException {
-		Writer writer = new StringWriter();
-		createMarshaller(classes).marshal(beans, writer);
-		printActual(writer.toString());
-		return expected.compareTo(writer.toString());
+	protected void compareResults (String expected, Beans beans, String classAndMethodName) throws JAXBException {
+		String actual = generator.toXml(beans);
+		printActual(actual, classAndMethodName);
+		assertEquals(actual.replaceAll("\\s", ""), expected.replaceAll("\\s", ""));
 	}
 
 }
