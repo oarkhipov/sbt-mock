@@ -226,6 +226,13 @@ SYSTEM "http://www.springframework.org/schema/integration/spring-integration-${s
                         </configuration>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jvnet.jaxb2_commons</groupId>
+                        <artifactId>jaxb2-namespace-prefix</artifactId>
+                        <version>1.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <plugin>
@@ -278,6 +285,7 @@ SYSTEM "http://www.springframework.org/schema/integration/spring-integration-${s
                                 <arg>-extension</arg>
                                 <arg>-b</arg>
                                 <arg>${module.basedir}/target/generated-sources/META-INF/beans.episode</arg>
+                                <arg>-Xnamespace-prefix</arg>
                             </args>
                             <schemas>
                                 <schema>
