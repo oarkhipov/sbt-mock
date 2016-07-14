@@ -44,7 +44,7 @@
             <class name="PublishingInterceptorMethod"/>
         </bindings>
         <bindings>
-            <namespace:prexix name="int"/>
+            <namespace:prefix name="int"/>
         </bindings>
     </bindings>
 </bindings>

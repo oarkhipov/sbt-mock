@@ -56,7 +56,6 @@ public class SpringContextGeneratorService {
 		                                                        + ".org/schema/integration/jms/spring-integration-jms"
 		                                                        + ".xsd");
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new NamespaceMapper());
 
 		try {
 			transformer = TransformerFactory.newInstance().newTransformer();

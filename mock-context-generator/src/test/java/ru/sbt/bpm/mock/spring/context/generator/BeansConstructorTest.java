@@ -26,7 +26,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
 		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
-		                  + "xmlns:jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
 		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
 		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
@@ -42,7 +42,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 	public void testCreateImports() throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
 		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
-		                  + "xmlns:jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
 		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
 		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
@@ -65,7 +65,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 	public void testCreateBeanWithClassName() throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
 		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
-		                  + "xmlns:jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
 		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
 		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
@@ -84,7 +84,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 	public void testCreateBeanWithClassNameAndId() throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
 		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
-		                  + "xmlns:jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
 		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
 		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
@@ -103,7 +103,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 	public void testCreateBeanWithOneConstructorArgs() throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
 		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
-		                  + "xmlns:jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
 		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
 		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
@@ -124,7 +124,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 	public void testCreateBeanWithMultiConstructorArgs() throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
 		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
-		                  + "xmlns:jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
 		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
 		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
@@ -147,7 +147,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 	public void testCreateBeanWithMultiConstructorArgsTypes() throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
 		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
-		                  + "xmlns:jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
 		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
 		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
@@ -170,7 +170,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 	public void testCreateBeanWithClassAndConstructorAgr() throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
 		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
-		                  + "xmlns:jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
 		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
 		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
@@ -193,7 +193,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 	public void testCreateBeanWithProperty() throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
 		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
-		                  + "xmlns:jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
 		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
 		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
@@ -219,7 +219,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 	public void testCreateBeanWithProperties() throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
 		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
-		                  + "xmlns:jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
 		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
 		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
