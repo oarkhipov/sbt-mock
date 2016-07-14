@@ -43,8 +43,6 @@ public class MockSpringContextGeneratorService {
 	private static final String STRING_CLASS             = "java.lang.String";
 	// org.springframework.jndi.JndiObjectFactoryBean class
 	private static final String JNDI_OBJECT_CLASS        = "org.springframework.jndi.JndiObjectFactoryBean";
-	// ru.sbt.bpm.mock.spring.integration.gateway.ClientService class
-	private static final String CLIENT_SERVICE_CLASS     = "ru.sbt.bpm.mock.spring.integration.gateway.ClientService";
 	// ru.sbt.bpm.mock.spring.bean.MessageAggregator class
 	private static final String MESSAGE_AGGREGATOR_CLASS = "ru.sbt.bpm.mock.spring.bean.MessageAggregator";
 	// ru.sbt.bpm.mock.config.enums.Protocol class
@@ -57,8 +55,6 @@ public class MockSpringContextGeneratorService {
 	private static final String JNDI_PROPERTY_NAME                      = "jndiName";
 	// JMS constructor-arg value
 	private static final String JMS_CONSTRUCTOR_ARG_VALUE               = "JMS";
-	// sendMockMessage method gateway name
-	private static final String SEND_MOCK_MESSAGE_METHOD_NAME           = "sendMockMessage";
 	// aggregate method name service activator
 	private static final String AGGREGATE_SERVICE_ACTIVATOR_METHOD_NAME = "aggregate";
 	// service activator expressions for generation response
@@ -67,8 +63,6 @@ public class MockSpringContextGeneratorService {
 	private static final String ROUTER_PAYLOAD = "payload.jmsConnectionFactoryName+'_'+payload.queue";
 	// default reply timeout
 	private static final String DEFAULT_REPLY_TIMEOUT                   = "30000";
-	// default request timeout
-	private static final String DEFAUL_REQUEST_TIMEOUT                  = "30000";
 	// default receive timeout
 	private static final String DEFAULT_RECEIVE_TIMEOUT                  = "30000";
 
@@ -96,16 +90,6 @@ public class MockSpringContextGeneratorService {
 	/**
 	 * *************   mock servlet elements prefixes & postfixes  ***************
 	 */
-	// connectionFactoryString bean
-//	private static final String QUEUE_CONNECTION_FACTORY_STRING_BEAN         = "_connectionFactory";
-	// mockConnectionInputString bean
-//	private static final String MOCK_CONNECTION_INPUT_STRING_BEAN            = "_mockConnectionInput";
-	// mockConnectionOutputString bean
-//	private static final String MOCK_CONNECTION_OUTPUT_STRING_BEAN           = "_mockConnectionOutput";
-	// driverConnectionOutputString bean
-//	private static final String DRIVER_CONNECTION_OUTPUT_STRING_BEAN         = "_driverConnectionOutput";
-	// driverConnectionInputString bean
-//	private static final String DRIVER_CONNECTION_INPUT_STRING_BEAN          = "_driverConnectionInput";
 	// jndiConnectionFactory
 	private static final String JNDI_CONNECTION_FACTORY_POSTFIX              = "_jndiConnectionFactory";
 	// Queue postfix
@@ -116,8 +100,6 @@ public class MockSpringContextGeneratorService {
 	private static final String JMS_INBOUND_GATEWAY_POSTFIX                  = "_jmsin";
 	// jms outbound gateway postfix
 	private static final String JMS_OUTBOUND_GATEWAY_POSTFIX                 = "_jmsout";
-	// service activator aggregator channel
-	private static final String SERVICE_ACTIVATOR_AGGREGATOR_CHANNEL_POSTFIX = "_aggregatedChannel";
 	// gateway postfix
 	private static final String GATEWAY_POSTFIX                              = "_gateway";
 	// router channel postfix
@@ -126,8 +108,6 @@ public class MockSpringContextGeneratorService {
 	private static final String MOCK_ROUTER_NAME                               = "MockRouter";
 	// router driver name
 	private static final String DRIVER_ROUTER_NAME                               = "DriverRouter";
-	// driver aggregated channel
-	private static final String DRIVER_AGGREGATED_CHANNEL_POSTFIX            = "_aggregatedDriver";
 
 	/**
 	 * *************   mock container elements     ***************
@@ -250,10 +230,6 @@ public class MockSpringContextGeneratorService {
 				                         jndiDriverResponseQueueName, driverRequestChannel, driverResponseChannel,
 				                         jndiFactoryName);
 			}
-
-			if (system.getProtocol() == Protocol.SOAP) {
-
-			}
 		}
 
 		/**
@@ -282,12 +258,7 @@ public class MockSpringContextGeneratorService {
 				// service activator
 				createServiceActivatorWithExpressions(driverRouterChannel, DRIVER_OUTBOUND_REQUEST);
 			}
-
-			if (system.getProtocol() == Protocol.SOAP) {
-
-			}
 		}
-
 		return beans;
 	}
 

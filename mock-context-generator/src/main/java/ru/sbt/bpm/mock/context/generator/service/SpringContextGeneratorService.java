@@ -70,7 +70,7 @@ public class SpringContextGeneratorService {
 //				return new String[] { INTEGRATION_NAMESPACE, JMS_INTEGRATION_NAMESPACE };
 //			}
 //		});
-//		marshaller.setProperty(MockNamespaceMapper.MAPPER_NAMESPACE_PROPERTY, new MockNamespaceMapper());
+//		marshaller.setProperty("com.sun.xml.internal.bind.namespacePrefixMapper", new MockNamespaceMapper());
 
 		transformer = TransformerFactory.newInstance().newTransformer();
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");

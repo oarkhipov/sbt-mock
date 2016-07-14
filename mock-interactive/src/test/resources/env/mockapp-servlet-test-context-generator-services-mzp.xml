@@ -9,7 +9,7 @@
     <beans:import resource="../contextConfigs/base-config-context-generator.xml"/>
 
     <beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
-        <beans:constructor-arg value="/env/MockConfigContextGeneratorText.xml" type="java.lang.String"/>
+        <beans:constructor-arg value="/env/MockConfigContextGeneratorTestMZP.xml" type="java.lang.String"/>
     </beans:bean>
 
     <!--&lt;!&ndash; Входной и выходной каналы Заглушки&ndash;&gt;-->
