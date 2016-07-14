@@ -5,10 +5,13 @@ import net.sf.saxon.s9api.SaxonApiException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.context.generator.service.SpringContextGeneratorService;
 
+import javax.xml.bind.JAXBException;
 import java.io.*;
 import java.util.Enumeration;
 import java.util.List;
@@ -23,6 +26,9 @@ import java.util.zip.ZipOutputStream;
  */
 @Service
 public class ConfigurationService {
+
+    @Autowired
+    ApplicationContext applicationContext;
 
     @Autowired
     DataFileService dataFileService;
@@ -122,12 +128,13 @@ public class ConfigurationService {
         FileUtils.write(configFile, configContainer.toXml());
     }
 
-    public void reInitSpringContext() {
-        //TODO
+    public void reInitSpringContext() throws JAXBException, IOException {
         mockSpringContextGeneratorService.reInit();
         Beans beans = mockSpringContextGeneratorService.generateContext();
-//        springContextGeneratorService.toXml(beans);
-
-
+        String xml = springContextGeneratorService.toXml(beans);
+        //TODO fix dangerous situation. when servlet config generated broken
+        String servletConfigAbsolutePath = dataFileService.getPathBaseFilePath("mockapp-servlet.xml");
+        FileUtils.writeStringToFile(new File(servletConfigAbsolutePath), xml);
+        applicationContext = new FileSystemXmlApplicationContext(servletConfigAbsolutePath);
     }
 }

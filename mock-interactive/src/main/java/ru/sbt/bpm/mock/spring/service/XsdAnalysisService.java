@@ -106,7 +106,9 @@ public class XsdAnalysisService {
         printLog(systemName);
         for (File xsdFile : files) {
             String inputXml = readFileWithoutBOM(xsdFile);
-            mapElementsByNamespace.putAll(getNamespaceByxPath(inputXml, LOCAL_NAME_SCHEMA_TARGET_NAMESPACE, XPATH_ELEMENT_ATTRIBUTE_NAME));
+            if (inputXml.length() > 0) {
+                mapElementsByNamespace.putAll(getNamespaceByxPath(inputXml, LOCAL_NAME_SCHEMA_TARGET_NAMESPACE, XPATH_ELEMENT_ATTRIBUTE_NAME));
+            }
         }
         mapOfElements.put(systemName, mapElementsByNamespace);
     }
@@ -140,13 +142,16 @@ public class XsdAnalysisService {
      */
     private Map<String, List<Tuple2<String, String>>> getNamespaceByxPath(String inputXml, String xPathNamespace, String xPathElement)
             throws SaxonApiException {
+
         Map<String, List<Tuple2<String, String>>> map = new TreeMap<String, List<Tuple2<String, String>>>(STRING_COMPARATOR);
-        String namespace = "";
-        XdmValue xdmValue = XmlUtils.evaluateXpath(inputXml, xPathNamespace);
-        for (int i = 0; i < xdmValue.size(); i++) {
-            namespace = xdmValue.itemAt(i).getStringValue();
-            log.debug(String.format("Namespace: %s", namespace));
-            map.put(namespace, getElementFromXsd(inputXml, xPathElement, namespace));
+        if (inputXml.length()>0) {
+            String namespace = "";
+            XdmValue xdmValue = XmlUtils.evaluateXpath(inputXml, xPathNamespace);
+            for (int i = 0; i < xdmValue.size(); i++) {
+                namespace = xdmValue.itemAt(i).getStringValue();
+                log.debug(String.format("Namespace: %s", namespace));
+                map.put(namespace, getElementFromXsd(inputXml, xPathElement, namespace));
+            }
         }
         return map;
     }
@@ -175,12 +180,14 @@ public class XsdAnalysisService {
      * @throws SaxonApiException
      */
     private Set<String> getNamespaceByxPath(String inputXml, String xPath) throws SaxonApiException {
-        XdmValue xdmValue = XmlUtils.evaluateXpath(inputXml, xPath);
         Set<String> set = new TreeSet<String>(STRING_COMPARATOR);
-        for (int i = 0; i < xdmValue.size(); i++) {
-            String namespace = xdmValue.itemAt(i).getStringValue();
-            log.debug(String.format("Namespace: %s", namespace));
-            set.add(namespace);
+        if (inputXml.length()>0) {
+            XdmValue xdmValue = XmlUtils.evaluateXpath(inputXml, xPath);
+            for (int i = 0; i < xdmValue.size(); i++) {
+                String namespace = xdmValue.itemAt(i).getStringValue();
+                log.debug(String.format("Namespace: %s", namespace));
+                set.add(namespace);
+            }
         }
         return set;
     }

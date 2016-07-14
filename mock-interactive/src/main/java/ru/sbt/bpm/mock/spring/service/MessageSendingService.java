@@ -52,16 +52,21 @@ public class MessageSendingService {
     }
 
     public String sendJMS(MockMessage message) {
-        return clientService.sendMockMessage(message);
+        String responseString = clientService.sendMockMessage(message);
+        ru.sbt.bpm.mock.config.entities.System messageSystem = message.getSystem();
+        MockMessage responseMessage = new MockMessage(Protocol.JMS, messageSystem.getQueueConnectionFactory(), messageSystem.getDriverIncomeQueue(), responseString);
+        responseGenerator.log(responseMessage, MessageType.RS);
+        return responseString;
     }
 
-    private String sendWs(MockMessage message) throws IOException {
+    protected String sendWs(MockMessage message) throws IOException {
         HttpClient httpClient = HttpClientBuilder.create().build();
 
         ru.sbt.bpm.mock.config.entities.System system = message.getSystem();
         WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(system.getSystemName());
         String[] endpoints = wsdlProject.getInterfaceList().get(0).getEndpoints();
 
+        wsdlProject.getInterfaceList().get(0).getOperationByName(message.getIntegrationPoint().getName());
         HttpPost httpPost = new HttpPost(endpoints[0]);
         httpPost.addHeader("Content-Type", "application/xml");
         httpPost.addHeader("SOAP-Action", message.getIntegrationPoint().getName());

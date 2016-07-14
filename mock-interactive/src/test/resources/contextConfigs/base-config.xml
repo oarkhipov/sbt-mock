@@ -6,8 +6,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
 
        <mvc:annotation-driven/>
-       <mvc:resources mapping="/**" location="/resources/web/" />
-       <context:component-scan base-package="ru.sbt.bpm.mock.spring.service"/>
+       <mvc:resources mapping="/**" location="/resources/" />
+       <context:component-scan base-package="ru.sbt.bpm.mock">
+              <context:exclude-filter type="regex" expression="ru\.sbt\.bpm\.mock\.config.*"/>
+       </context:component-scan>
 
        <!-- upload files resolver-->
        <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>

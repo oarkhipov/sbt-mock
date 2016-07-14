@@ -14,7 +14,7 @@
     <beans:import resource="../contextConfigs/base-config.xml"/>
     <beans:import resource="../contextConfigs/logging-config.xml"/>
 
-    <mvc:resources mapping="/**" location="/resources/web/" />
+    <mvc:resources mapping="/**" location="/resources/" />
     <mvc:annotation-driven/>
 
     <!-- Настройка используемой конфигурации заглушки-->

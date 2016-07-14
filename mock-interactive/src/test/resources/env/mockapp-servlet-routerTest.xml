@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/integration"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:beans="http://www.springframework.org/schema/beans"
-             xmlns:ix= "http://www.springframework.org/schema/integration/xml"
+             xmlns:ix="http://www.springframework.org/schema/integration/xml"
              xmlns:util="http://www.springframework.org/schema/util"
              xmlns:context="http://www.springframework.org/schema/context"
              xmlns:mvc="http://www.springframework.org/schema/mvc"
-             xsi:schemaLocation="
-		http://www.springframework.org/schema/beans		http://www.springframework.org/schema/beans/spring-beans.xsd
+             xmlns="http://www.springframework.org/schema/integration"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/integration	http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/integration/jms	http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+
 		http://www.springframework.org/schema/integration/xml	http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
 		http://www.springframework.org/schema/util		http://www.springframework.org/schema/util/spring-util.xsd
 		http://www.springframework.org/schema/context       http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/mvc   http://www.springframework.org/schema/mvc/spring-mvc.xsd
-	">
+		http://www.springframework.org/schema/mvc   http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <beans:import resource="../contextConfigs/base-config.xml"/>
     <beans:import resource="../contextConfigs/logging-config.xml"/>
 
-    <mvc:resources mapping="/**" location="/resources/web/" />
+    <mvc:resources mapping="/**" location="/resources/"/>
     <mvc:annotation-driven/>
 
     <!-- Настройка используемой конфигурации заглушки-->
     <beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
-        <beans:constructor-arg value="/resources/MockConfigFiles/NCPConfig.xml" type="java.lang.String" />
+        <beans:constructor-arg value="/resources/MockConfigFiles/NCPConfig.xml" type="java.lang.String"/>
     </beans:bean>
 
 
@@ -98,8 +96,9 @@
     <channel id="ImportRating"/>
     <channel id="UpdateRating"/>
 
-    <ix:xpath-router id="operationRouter" input-channel="MockInboundRequest" default-output-channel="DefaultOutputChannelIfNoOperationRouted" resolution-required="false">
-        <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap" />
+    <ix:xpath-router id="operationRouter" input-channel="MockInboundRequest"
+                     default-output-channel="DefaultOutputChannelIfNoOperationRouted" resolution-required="false">
+        <ix:xpath-expression expression="/env:Envelope/env:Header/env:operation-name" namespace-map="sbrfNamespaceMap"/>
 
         <ix:mapping value="SrvSendApplicationForCBDFProcessing" channel="DefaultOutputChannelIfNoOperationRouted"/>
 
@@ -129,8 +128,9 @@
 
     <!--<channel id="test"/>-->
     <!-- Mock gateway to send requests to outbound -->
-    <gateway id="systemEntry" default-request-channel="DriverOutboundRequest" default-reply-channel="DriverInboundResponse"
-             service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService" />
+    <gateway id="systemEntry" default-request-channel="DriverOutboundRequest"
+             default-reply-channel="DriverInboundResponse"
+             service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService"/>
     <!--<gateway id="systemEntry" default-request-channel="test" default-reply-channel="test"-->
     <!--service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService" />-->
 </beans:beans>

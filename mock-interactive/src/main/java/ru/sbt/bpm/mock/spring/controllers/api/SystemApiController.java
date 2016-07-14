@@ -20,6 +20,7 @@ import ru.sbt.bpm.mock.spring.service.XsdAnalysisService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 import ru.sbt.bpm.mock.spring.utils.ExceptionUtils;
 
+import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class SystemApiController {
                       @RequestParam(required = false) String driverIncomeQueue,
                       @RequestParam(required = false) String driverWebServiceEndpoint,
                       @RequestParam(value = "rootElementNamespace", required = false) String rootElementNamespace,
-                      @RequestParam(value = "rootElementName", required = false) String rootElementName) throws IOException, SAXException {
+                      @RequestParam(value = "rootElementName", required = false) String rootElementName) throws IOException, SAXException, JAXBException {
         Systems systems = configContainer.getConfig().getSystems();
         XpathSelector xpathSelector = null;
         if (integrationPointSelectorNamespace != null && integrationPointSelectorElementName != null) {
@@ -106,7 +107,7 @@ public class SystemApiController {
                          @RequestParam(required = false) String driverIncomeQueue,
                          @RequestParam(required = false) String driverWebServiceEndpoint,
                          @RequestParam(value = "rootElementNamespace", required = false) String rootElementNamespace,
-                         @RequestParam(value = "rootElementName", required = false) String rootElementName) throws IOException, SAXException {
+                         @RequestParam(value = "rootElementName", required = false) String rootElementName) throws IOException, SAXException, JAXBException {
 
         boolean needToReInitSpringContext = false;
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(systemName);
@@ -209,7 +210,7 @@ public class SystemApiController {
     }
 
     @RequestMapping(value = "/api/system/delete/{systemName}/", method = RequestMethod.POST)
-    public String delete(@PathVariable String systemName) throws IOException {
+    public String delete(@PathVariable String systemName) throws IOException, JAXBException {
         Systems systems = configContainer.getConfig().getSystems();
         System system = systems.getSystemByName(systemName);
         Protocol protocol = system.getProtocol();
