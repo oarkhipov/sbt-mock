@@ -1,4 +1,4 @@
-package ru.sbt.bpm.mock.context.generator.service;
+package ru.sbt.bpm.mock.spring.context.generator.service;
 
 import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 

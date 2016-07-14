@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
-import ru.sbt.bpm.mock.context.generator.service.SpringContextGeneratorService;
+import ru.sbt.bpm.mock.spring.context.generator.service.SpringContextGeneratorService;
 
 import javax.xml.bind.JAXBException;
 import java.io.*;

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
-import ru.sbt.bpm.mock.context.generator.service.SpringContextGeneratorService;
+import ru.sbt.bpm.mock.spring.context.generator.service.SpringContextGeneratorService;
 
 import javax.xml.bind.JAXBException;
 import java.io.*;

@@ -1,10 +1,10 @@
-package ru.sbt.bpm.mock.context.generator.service.constructors;
+package ru.sbt.bpm.mock.spring.context.generator.service.constructors;
 
 import generated.springframework.beans.*;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
 import reactor.tuple.Tuple2;
-import ru.sbt.bpm.mock.context.generator.IContextGeneratable;
+import ru.sbt.bpm.mock.spring.context.generator.IContextGeneratable;
 
 import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;

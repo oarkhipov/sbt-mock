@@ -7,7 +7,7 @@
 
        <mvc:annotation-driven/>
        <mvc:resources mapping="/**" location="/resources/web/" />
-       <context:component-scan base-package="ru.sbt.bpm.mock.spring.service, ru.sbt.bpm.mock.product.ready, ru.sbt.bpm.mock.context.generator.service">
+       <context:component-scan base-package="ru.sbt.bpm.mock.spring.service, ru.sbt.bpm.mock.product.ready, ru.sbt.bpm.mock.spring.context.generator.service">
               <!--<context:include-filter type="regex" expression="ru\.sbt\.bpm\.mock\.product\.ready\.TestMessageValidationService"/>-->
               <context:exclude-filter type="regex" expression="ru\.sbt\.bpm\.mock\.spring\.service\.message\..*"/>
               <context:exclude-filter type="regex" expression="ru\.sbt\.bpm\.mock\.spring\.service\.MessageSendingService"/>
@@ -27,6 +27,4 @@
        </int:gateway>
        <int:channel id="test"/>
 
-       <!--<bean id="defHeaderMapper" class="org.springframework.integration.jms.DefaultJmsHeaderMapper"/>-->
-       <!--<bean id="responseGenerator" class="ru.sbt.bpm.mock.spring.bean.ResponseGenerator"/>-->
 </beans>

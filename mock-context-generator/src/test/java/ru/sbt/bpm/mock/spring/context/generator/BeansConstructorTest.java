@@ -1,10 +1,10 @@
-package ru.sbt.bpm.mock.context.generator;
+package ru.sbt.bpm.mock.spring.context.generator;
 
 import generated.springframework.beans.Beans;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
 import reactor.tuple.Tuple;
-import ru.sbt.bpm.mock.context.generator.service.constructors.BeansConstructor;
+import ru.sbt.bpm.mock.spring.context.generator.service.constructors.BeansConstructor;
 
 import javax.xml.bind.JAXBException;
 import java.util.Arrays;

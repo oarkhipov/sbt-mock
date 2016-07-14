@@ -12,9 +12,9 @@ import reactor.tuple.Tuple;
 import reactor.tuple.Tuple2;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.enums.Protocol;
-import ru.sbt.bpm.mock.context.generator.service.constructors.BeansConstructor;
-import ru.sbt.bpm.mock.context.generator.service.constructors.IntegrationConstructor;
-import ru.sbt.bpm.mock.context.generator.service.constructors.JmsIntegrationConstructor;
+import ru.sbt.bpm.mock.spring.context.generator.service.constructors.BeansConstructor;
+import ru.sbt.bpm.mock.spring.context.generator.service.constructors.IntegrationConstructor;
+import ru.sbt.bpm.mock.spring.context.generator.service.constructors.JmsIntegrationConstructor;
 
 import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBElement;
