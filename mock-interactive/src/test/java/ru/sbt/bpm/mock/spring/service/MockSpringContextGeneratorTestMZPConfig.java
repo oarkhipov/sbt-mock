@@ -21,7 +21,7 @@ import static org.testng.Assert.assertEquals;
 
 @Slf4j
 @ContextConfiguration({ "/env/mockapp-servlet-test-context-generator-services-mzp.xml" })
-public class MockSpringContextGeneratorTest extends AbstractTestNGSpringContextTests {
+public class MockSpringContextGeneratorTestMZPConfig extends AbstractTestNGSpringContextTests {
 
 	@Autowired
 	MockSpringContextGeneratorService generator;
