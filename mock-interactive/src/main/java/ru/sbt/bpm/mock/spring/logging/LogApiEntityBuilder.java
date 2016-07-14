@@ -1,7 +1,5 @@
 package ru.sbt.bpm.mock.spring.logging;
 
-import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.collections4.Predicate;
 import ru.sbt.bpm.mock.logging.entities.LogsApiColumnEntity;
 import ru.sbt.bpm.mock.logging.entities.LogsApiEntity;
 import ru.sbt.bpm.mock.logging.entities.LogsApiOrderEntity;

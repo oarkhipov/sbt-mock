@@ -1,7 +1,6 @@
 package ru.sbt.bpm.mock.spring.logging.pojo;
 
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.StringEscapeUtils;
 import ru.sbt.bpm.mock.logging.entities.LogsEntity;
 
 /**

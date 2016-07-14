@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
-import ru.sbt.bpm.mock.config.enums.Protocol;
-import ru.sbt.bpm.mock.spring.bean.pojo.MockMessage;
 import ru.sbt.bpm.mock.spring.integration.gateway.ClientService;
 
 import static org.testng.Assert.assertEquals;

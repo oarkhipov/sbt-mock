@@ -46,31 +46,6 @@ public class SpringContextGeneratorService {
 		                                                       "        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd\n" +
 		                                                       "        http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd");
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-//		marshaller.setProperty("com.sun.xml.internal.bind.namespacePrefixMapper", new NamespacePrefixMapper() {
-//
-//			// Spring integration namespace and prefix
-//			private static final String INTEGRATION_PREFIX    = "int";
-//			private static final String INTEGRATION_NAMESPACE = "http://www.springframework.org/schema/integration";
-//
-//			// Spring JMS integration namespace and prefix
-//			private static final String JMS_INTEGRATION_PREFIX    = "jms";
-//			private static final String JMS_INTEGRATION_NAMESPACE = "http://www.springframework.org/schema/integration/jms";
-//
-//			@Override
-//			public String getPreferredPrefix (String namespace, String suggestion, boolean requiredPrefix) {
-//				if (INTEGRATION_NAMESPACE.equals(namespace))
-//					return INTEGRATION_PREFIX;
-//				else if (JMS_INTEGRATION_NAMESPACE.equals(namespace))
-//					return JMS_INTEGRATION_PREFIX;
-//				return suggestion;
-//			}
-//
-//			@Override
-//			public String[] getPreDeclaredNamespaceUris () {
-//				return new String[] { INTEGRATION_NAMESPACE, JMS_INTEGRATION_NAMESPACE };
-//			}
-//		});
-//		marshaller.setProperty("com.sun.xml.internal.bind.namespacePrefixMapper", new MockNamespaceMapper());
 
 		transformer = TransformerFactory.newInstance().newTransformer();
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -83,8 +58,6 @@ public class SpringContextGeneratorService {
 
 		XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newFactory();
 		XMLStreamWriter  xmlStreamWriter = xmlOutputFactory.createXMLStreamWriter(printStream);
-
-//		marshaller.setListener(new CommentMarshalListener(xmlStreamWriter));
 
 		marshaller.marshal(beans, xmlStreamWriter);
 		xmlStreamWriter.close();

@@ -17,7 +17,6 @@ import ru.sbt.bpm.mock.spring.service.XmlGeneratorService;
 import java.io.IOException;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 /**
  * Created by sbt-hodakovskiy-da on 03.06.2016.
