@@ -9,6 +9,7 @@
        <mvc:resources mapping="/**" location="/resources/" />
        <context:component-scan base-package="ru.sbt.bpm.mock">
               <context:exclude-filter type="regex" expression="ru\.sbt\.bpm\.mock\.config.*"/>
+              <context:exclude-filter type="regex" expression="ru\.sbt\.bpm\.mock\.product\.ready.*"/>
        </context:component-scan>
 
        <!-- upload files resolver-->

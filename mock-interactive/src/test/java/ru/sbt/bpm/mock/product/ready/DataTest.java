@@ -42,7 +42,7 @@ public class DataTest extends AbstractTestNGSpringContextTests {
     @Autowired
     GroovyService groovyService;
 
-    @Test
+    @Test(enabled = false)
     public void tesDataFiles() {
         assertEquals(validateAllSystems(), 0);
     }

@@ -4,6 +4,7 @@ import org.apache.commons.io.FileUtils;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.servlet.ServletHandler;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -19,7 +20,7 @@ import java.net.URL;
  *         <p/>
  *         Company: SBT - Moscow
  */
-public class AbstractVirtualHttpServerTentNGSpringContextTests extends AbstractTestNGSpringContextTests {
+public class AbstractVirtualHttpServerTransactionalTestNGSpringContextTests extends AbstractTransactionalTestNGSpringContextTests {
     private Server server;
 
     @AfterClass(alwaysRun = true)
