@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
-import ru.sbt.bpm.mock.context.generator.service.constructors.BeansConstructor;
 import ru.sbt.bpm.mock.context.generator.service.SpringContextGeneratorService;
+import ru.sbt.bpm.mock.context.generator.service.constructors.BeansConstructor;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
@@ -29,6 +29,7 @@ public class SpringContextGeneratorServiceTest extends AbstractTestNGSpringConte
 	                                      XMLStreamException {
 		Beans beans = beansConstructor.createBeans();
 		beans = beansConstructor.createBean(beans, "className", "something");
-		System.out.println(generator.toXml(beans));
+		String actual = generator.toXml(beans);
+		System.out.println(actual);
 	}
 }

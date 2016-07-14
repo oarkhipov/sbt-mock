@@ -29,10 +29,11 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		                  + "        http://www.springframework.org/schema/integration http://www.springframework"
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
-		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns:ns2=\"http://www"
-		                  + ".springframework.org/schema/integration\" xmlns=\"http://www.springframework"
-		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-		                  + "    <ns2:channel id=\"channel\"/>\n"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
+		                  + ".springframework.org/schema/beans\" xmlns:jms=\"http://www.springframework"
+		                  + ".org/schema/integration/jms\" xmlns:int=\"http://www.springframework"
+		                  + ".org/schema/integration\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+		                  + "    <int:channel id=\"channel\"/>\n"
 		                  + "</beans>\n";
 		Beans beans = beansConstructor.createBeans();
 		beans = integrationConstructor.createChannel(beans, "channel");
@@ -50,13 +51,14 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		                  + "        http://www.springframework.org/schema/integration http://www.springframework"
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
-		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns:ns2=\"http://www"
-		                  + ".springframework.org/schema/integration\" xmlns=\"http://www.springframework"
-		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-		                  + "    <ns2:channel id=\"channelIn\"/>\n"
-		                  + "    <ns2:channel id=\"channelOut\"/>\n"
-		                  + "    <ns2:channel id=\"channelResponse\"/>\n"
-		                  + "    <ns2:channel id=\"channelRequest\"/>\n"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
+		                  + ".springframework.org/schema/beans\" xmlns:jms=\"http://www.springframework"
+		                  + ".org/schema/integration/jms\" xmlns:int=\"http://www.springframework"
+		                  + ".org/schema/integration\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+		                  + "    <int:channel id=\"channelIn\"/>\n"
+		                  + "    <int:channel id=\"channelOut\"/>\n"
+		                  + "    <int:channel id=\"channelResponse\"/>\n"
+		                  + "    <int:channel id=\"channelRequest\"/>\n"
 		                  + "</beans>\n";
 		Beans    beans   = beansConstructor.createBeans();
 		String[] strings = { "channelIn", "channelOut", "channelResponse", "channelRequest" };
@@ -76,14 +78,15 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		                  + "        http://www.springframework.org/schema/integration http://www.springframework"
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
-		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns:ns2=\"http://www"
-		                  + ".springframework.org/schema/integration\" xmlns=\"http://www.springframework"
-		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-		                  + "    <ns2:channel id=\"channel\">\n"
-		                  + "        <ns2:interceptors>\n"
-		                  + "            <ns2:wire-tap channel=\"wireTapChannel\"/>\n"
-		                  + "        </ns2:interceptors>\n"
-		                  + "    </ns2:channel>\n"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
+		                  + ".springframework.org/schema/beans\" xmlns:jms=\"http://www.springframework"
+		                  + ".org/schema/integration/jms\" xmlns:int=\"http://www.springframework"
+		                  + ".org/schema/integration\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+		                  + "    <int:channel id=\"channel\">\n"
+		                  + "        <int:interceptors>\n"
+		                  + "            <int:wire-tap channel=\"wireTapChannel\"/>\n"
+		                  + "        </int:interceptors>\n"
+		                  + "    </int:channel>\n"
 		                  + "</beans>\n";
 		Beans beans = beansConstructor.createBeans();
 		beans = integrationConstructor.createChannel(beans, "channel", Arrays.asList("wireTapChannel"));
@@ -101,17 +104,18 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		                  + "        http://www.springframework.org/schema/integration http://www.springframework"
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
-		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns:ns2=\"http://www"
-		                  + ".springframework.org/schema/integration\" xmlns=\"http://www.springframework"
-		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-		                  + "    <ns2:service-activator output-channel=\"outputChannel\" "
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
+		                  + ".springframework.org/schema/beans\" xmlns:jms=\"http://www.springframework"
+		                  + ".org/schema/integration/jms\" xmlns:int=\"http://www.springframework"
+		                  + ".org/schema/integration\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+		                  + "    <int:service-activator output-channel=\"outputChannel\" "
 		                  + "input-channel=\"inputChannel\" method=\"method\">\n"
 		                  + "        <bean class=\"java.lang.String\">\n"
 		                  + "            <constructor-arg type=\"type1\" value=\"class1\"/>\n"
 		                  + "            <constructor-arg type=\"type2\" value=\"class2\"/>\n"
 		                  + "            <constructor-arg type=\"type3\" value=\"class3\"/>\n"
 		                  + "        </bean>\n"
-		                  + "    </ns2:service-activator>\n"
+		                  + "    </int:service-activator>\n"
 		                  + "</beans>\n";
 		Beans beans = beansConstructor.createBeans();
 		Bean bean = beansConstructor.createBean("java.lang.String", Arrays.asList(Tuple.of("class1", "type1"), Tuple
@@ -131,10 +135,11 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		                  + "        http://www.springframework.org/schema/integration http://www.springframework"
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
-		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns:ns2=\"http://www"
-		                  + ".springframework.org/schema/integration\" xmlns=\"http://www.springframework"
-		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-		                  + "    <ns2:service-activator output-channel=\"outputChannel\" "
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
+		                  + ".springframework.org/schema/beans\" xmlns:jms=\"http://www.springframework"
+		                  + ".org/schema/integration/jms\" xmlns:int=\"http://www.springframework"
+		                  + ".org/schema/integration\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+		                  + "    <int:service-activator output-channel=\"outputChannel\" "
 		                  + "input-channel=\"inputChannel\" expression=\"expressions\"/>\n"
 		                  + "</beans>\n";
 		Beans beans = beansConstructor.createBeans();
@@ -153,15 +158,16 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		                  + "        http://www.springframework.org/schema/integration http://www.springframework"
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
-		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns:ns2=\"http://www"
-		                  + ".springframework.org/schema/integration\" xmlns=\"http://www.springframework"
-		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-		                  + "    <ns2:gateway id=\"systemEntry\" service-interface=\"ru.sbt.bpm.mock.spring"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
+		                  + ".springframework.org/schema/beans\" xmlns:jms=\"http://www.springframework"
+		                  + ".org/schema/integration/jms\" xmlns:int=\"http://www.springframework"
+		                  + ".org/schema/integration\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+		                  + "    <int:gateway id=\"systemEntry\" service-interface=\"ru.sbt.bpm.mock.spring"
 		                  + ".integration.gateway.Service\" error-channel=\"error-channel\" "
 		                  + "default-request-timeout=\"30000\" default-reply-timeout=\"30000\">\n"
-		                  + "        <ns2:method name=\"sendMockMessage\" request-channel=\"requestChannel\" "
+		                  + "        <int:method name=\"sendMockMessage\" request-channel=\"requestChannel\" "
 		                  + "reply-channel=\"replyChannel\"/>\n"
-		                  + "    </ns2:gateway>\n"
+		                  + "    </int:gateway>\n"
 		                  + "</beans>\n";
 		Beans beans = beansConstructor.createBeans();
 		beans = integrationConstructor.createGateway(beans, "systemEntry", "error-channel", "ru.sbt.bpm.mock.spring"
@@ -184,12 +190,13 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		                  + "        http://www.springframework.org/schema/integration http://www.springframework"
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
-		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns:ns2=\"http://www"
-		                  + ".springframework.org/schema/integration\" xmlns=\"http://www.springframework"
-		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-		                  + "    <ns2:router input-channel=\"inputChannel\" expression=\"payload\" id=\"router\">\n"
-		                  + "        <ns2:mapping value=\"value\" channel=\"channel\"/>\n"
-		                  + "    </ns2:router>\n"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
+		                  + ".springframework.org/schema/beans\" xmlns:jms=\"http://www.springframework"
+		                  + ".org/schema/integration/jms\" xmlns:int=\"http://www.springframework"
+		                  + ".org/schema/integration\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+		                  + "    <int:router input-channel=\"inputChannel\" expression=\"payload\" id=\"router\">\n"
+		                  + "        <int:mapping value=\"value\" channel=\"channel\"/>\n"
+		                  + "    </int:router>\n"
 		                  + "</beans>\n";
 		Beans beans = beansConstructor.createBeans();
 		beans = integrationConstructor.createRouter(beans, "router", "payload", "inputChannel", Arrays.asList(Tuple.of
@@ -208,15 +215,16 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		                  + "        http://www.springframework.org/schema/integration http://www.springframework"
 		                  + ".org/schema/integration/spring-integration.xsd\n"
 		                  + "        http://www.springframework.org/schema/integration/jms http://www.springframework"
-		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns:ns2=\"http://www"
-		                  + ".springframework.org/schema/integration\" xmlns=\"http://www.springframework"
-		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-		                  + "    <ns2:router input-channel=\"inputChannel\" expression=\"payload\" id=\"router\">\n"
-		                  + "        <ns2:mapping value=\"value1\" channel=\"channel1\"/>\n"
-		                  + "        <ns2:mapping value=\"value2\" channel=\"channel2\"/>\n"
-		                  + "        <ns2:mapping value=\"value3\" channel=\"channel3\"/>\n"
-		                  + "        <ns2:mapping value=\"value4\" channel=\"channel5\"/>\n"
-		                  + "    </ns2:router>\n"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\" xmlns=\"http://www"
+		                  + ".springframework.org/schema/beans\" xmlns:jms=\"http://www.springframework"
+		                  + ".org/schema/integration/jms\" xmlns:int=\"http://www.springframework"
+		                  + ".org/schema/integration\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+		                  + "    <int:router input-channel=\"inputChannel\" expression=\"payload\" id=\"router\">\n"
+		                  + "        <int:mapping value=\"value1\" channel=\"channel1\"/>\n"
+		                  + "        <int:mapping value=\"value2\" channel=\"channel2\"/>\n"
+		                  + "        <int:mapping value=\"value3\" channel=\"channel3\"/>\n"
+		                  + "        <int:mapping value=\"value4\" channel=\"channel5\"/>\n"
+		                  + "    </int:router>\n"
 		                  + "</beans>\n";
 		Beans beans = beansConstructor.createBeans();
 		beans = integrationConstructor.createRouter(beans, "router", "payload", "inputChannel", Arrays.asList(Tuple.of
@@ -225,5 +233,4 @@ public class IntegrationConstructorTest extends AbstractConfigGenerator {
 		assert compareResults(expected, beans, beansConstructor.getBeanFactory().getClass(), integrationConstructor
 				.getIntegrationFactory().getClass()) == 0;
 	}
-
 }

@@ -1,6 +1,7 @@
 package ru.sbt.bpm.mock.context.generator;
 
 import generated.springframework.beans.Beans;
+import ru.sbt.bpm.mock.context.generator.service.NamespaceMapper;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -19,7 +20,7 @@ public abstract class AbstractConfigGenerator {
 		                                                       "        http://www.springframework.org/schema/integration    http://www.springframework.org/schema/integration/spring-integration.xsd\n" +
 		                                                       "        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd\n" +
 		                                                       "        http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd");
-//		marshaller.setProperty(MockNamespaceMapper.MAPPER_NAMESPACE_PROPERTY, new MockNamespaceMapper());
+		marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new NamespaceMapper());
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		return marshaller;
 	}
