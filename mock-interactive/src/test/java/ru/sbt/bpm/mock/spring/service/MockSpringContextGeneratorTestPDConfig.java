@@ -9,8 +9,6 @@ import org.testng.annotations.Test;
 import ru.sbt.bpm.mock.context.generator.service.SpringContextGeneratorService;
 
 import javax.xml.bind.JAXBException;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.transform.TransformerException;
 import java.io.*;
 
 import static org.testng.Assert.assertEquals;
@@ -30,7 +28,7 @@ public class MockSpringContextGeneratorTestPDConfig extends AbstractTestNGSpring
 	SpringContextGeneratorService generatorService;
 
 	@Test
-	public void testGettingData () throws JAXBException, IOException, TransformerException, XMLStreamException {
+	public void testGettingData () throws JAXBException {
 		String actual = generatorService.toXml(generator.generateContext());
 		log.debug(actual);
 		assertEquals(actual, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"

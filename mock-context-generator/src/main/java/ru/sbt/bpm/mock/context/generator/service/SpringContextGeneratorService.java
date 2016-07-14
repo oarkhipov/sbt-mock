@@ -56,18 +56,33 @@ public class SpringContextGeneratorService {
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 	}
 
-	public String toXml(Beans beans) throws XMLStreamException, JAXBException {
+	public String toXml(Beans beans) throws JAXBException {
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		PrintStream printStream = new PrintStream(byteArrayOutputStream);
 
 		XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newFactory();
-		XMLStreamWriter  xmlStreamWriter = xmlOutputFactory.createXMLStreamWriter(printStream);
+		XMLStreamWriter  xmlStreamWriter = null;
+		try {
+			xmlStreamWriter = xmlOutputFactory.createXMLStreamWriter(printStream);
+			marshaller.marshal(beans, xmlStreamWriter);
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				xmlStreamWriter.close();
+			} catch (XMLStreamException e) {
+				e.printStackTrace();
+			}
+		}
 
-		marshaller.marshal(beans, xmlStreamWriter);
-		xmlStreamWriter.close();
-
+		String xml = "";
 		//pretty Xml
-		return prettyXml(byteArrayOutputStream.toString("UTF-8"));
+		try {
+			 xml = prettyXml(byteArrayOutputStream.toString("UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return xml;
 	}
 
 	public String prettyXml(String rawXml) {

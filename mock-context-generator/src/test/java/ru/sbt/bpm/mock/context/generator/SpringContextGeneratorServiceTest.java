@@ -9,9 +9,6 @@ import ru.sbt.bpm.mock.context.generator.service.SpringContextGeneratorService;
 import ru.sbt.bpm.mock.context.generator.service.constructors.BeansConstructor;
 
 import javax.xml.bind.JAXBException;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.transform.TransformerException;
-import java.io.UnsupportedEncodingException;
 
 /**
  * Created by sbt-hodakovskiy-da on 08.07.2016.
@@ -25,8 +22,7 @@ public class SpringContextGeneratorServiceTest extends AbstractTestNGSpringConte
 	BeansConstructor beansConstructor = new BeansConstructor();
 
 	@Test
-	public void testCreateBeans () throws JAXBException, UnsupportedEncodingException, TransformerException,
-	                                      XMLStreamException {
+	public void testCreateBeans () throws JAXBException {
 		Beans beans = beansConstructor.createBeans();
 		beans = beansConstructor.createBean(beans, "className", "something");
 		String actual = generator.toXml(beans);
