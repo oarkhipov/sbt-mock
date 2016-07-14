@@ -1,11 +1,13 @@
 package ru.sbt.bpm.mock.spring.service;
 
+import generated.springframework.beans.Beans;
 import net.sf.saxon.s9api.SaxonApiException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.context.generator.service.SpringContextGeneratorService;
 
 import java.io.*;
 import java.util.Enumeration;
@@ -30,6 +32,12 @@ public class ConfigurationService {
 
     @Autowired
     XsdAnalysisService xsdAnalysisService;
+
+    @Autowired
+    SpringContextGeneratorService springContextGeneratorService;
+
+    @Autowired
+    MockSpringContextGeneratorService mockSpringContextGeneratorService;
 
 
     public byte[] compressConfiguration() throws IOException {
@@ -116,5 +124,10 @@ public class ConfigurationService {
 
     public void reInitSpringContext() {
         //TODO
+        mockSpringContextGeneratorService.reInit();
+        Beans beans = mockSpringContextGeneratorService.generateContext();
+//        springContextGeneratorService.toXml(beans);
+
+
     }
 }

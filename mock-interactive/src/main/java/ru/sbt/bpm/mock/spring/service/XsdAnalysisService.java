@@ -11,7 +11,7 @@ import reactor.tuple.Tuple2;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.entities.Systems;
-import ru.sbt.bpm.mock.spring.utils.XpathUtils;
+import ru.sbt.bpm.mock.spring.utils.XmlUtils;
 
 import javax.annotation.PostConstruct;
 import java.io.*;
@@ -113,7 +113,7 @@ public class XsdAnalysisService {
 
     private List<Tuple2<String, String>> getElementFromXsd(String inputXml, String xPath, String namespace) throws SaxonApiException {
         List<Tuple2<String, String>> set = new ArrayList<Tuple2<String, String>>();
-        XdmValue xdmValue = XpathUtils.evaluateXpath(inputXml, xPath);
+        XdmValue xdmValue = XmlUtils.evaluateXpath(inputXml, xPath);
         for (int i = 0; i < xdmValue.size(); i++) {
             String element = xdmValue.itemAt(i).getStringValue();
             set.add(Tuple.of(namespace, element));
@@ -142,7 +142,7 @@ public class XsdAnalysisService {
             throws SaxonApiException {
         Map<String, List<Tuple2<String, String>>> map = new TreeMap<String, List<Tuple2<String, String>>>(STRING_COMPARATOR);
         String namespace = "";
-        XdmValue xdmValue = XpathUtils.evaluateXpath(inputXml, xPathNamespace);
+        XdmValue xdmValue = XmlUtils.evaluateXpath(inputXml, xPathNamespace);
         for (int i = 0; i < xdmValue.size(); i++) {
             namespace = xdmValue.itemAt(i).getStringValue();
             log.debug(String.format("Namespace: %s", namespace));
@@ -175,7 +175,7 @@ public class XsdAnalysisService {
      * @throws SaxonApiException
      */
     private Set<String> getNamespaceByxPath(String inputXml, String xPath) throws SaxonApiException {
-        XdmValue xdmValue = XpathUtils.evaluateXpath(inputXml, xPath);
+        XdmValue xdmValue = XmlUtils.evaluateXpath(inputXml, xPath);
         Set<String> set = new TreeSet<String>(STRING_COMPARATOR);
         for (int i = 0; i < xdmValue.size(); i++) {
             String namespace = xdmValue.itemAt(i).getStringValue();

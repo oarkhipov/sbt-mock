@@ -17,10 +17,7 @@ import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.spring.bean.ResponseGenerator;
 import ru.sbt.bpm.mock.spring.bean.pojo.MockMessage;
 import ru.sbt.bpm.mock.spring.integration.gateway.ClientService;
-import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
-import ru.sbt.bpm.mock.spring.utils.XpathUtils;
 
-import javax.swing.text.html.parser.Entity;
 import java.io.IOException;
 
 /**

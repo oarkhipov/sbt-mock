@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.enums.Protocol;
-import ru.sbt.bpm.mock.spring.utils.XpathUtils;
+import ru.sbt.bpm.mock.spring.utils.XmlUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +63,7 @@ public class IntegrationPointNameSuggestionService {
         List<String> suggestedIntegrationPointNames = new ArrayList<String>();
         String fullMessage = generatorService.generateJmsSystemMessage(system.getSystemName());
         String xpath = system.getIntegrationPointSelector().toXpath();
-        XdmValue value = XpathUtils.evaluateXpath(fullMessage, xpath);
+        XdmValue value = XmlUtils.evaluateXpath(fullMessage, xpath);
         for (XdmItem xdmItem : value) {
             String stringValue = ((XdmNode) xdmItem).getNodeName().getLocalName();
             suggestedIntegrationPointNames.add(stringValue);

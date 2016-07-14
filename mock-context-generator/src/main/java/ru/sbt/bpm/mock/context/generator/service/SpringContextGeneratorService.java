@@ -39,7 +39,7 @@ public class SpringContextGeneratorService {
 	JmsIntegrationConstructor jmsIntegrationConstructor;
 
 	@PostConstruct
-	private void init() throws JAXBException, TransformerConfigurationException {
+	private void init() throws JAXBException {
 		JAXBContext context = JAXBContext.newInstance(beansConstructor.getBeanFactory().getClass(), integrationConstructor.getIntegrationFactory().getClass(), jmsIntegrationConstructor.getJmsIntegrationFactory().getClass());
 		marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION,"http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans.xsd\n" +
@@ -47,12 +47,15 @@ public class SpringContextGeneratorService {
 		                                                       "        http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd");
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-		transformer = TransformerFactory.newInstance().newTransformer();
+		try {
+			transformer = TransformerFactory.newInstance().newTransformer();
+		} catch (TransformerConfigurationException e) {
+			throw new RuntimeException("Unable to create Transformer!", e);
+		}
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 	}
 
-	public String toXml(Beans beans) throws XMLStreamException, JAXBException, UnsupportedEncodingException,
-	                                        TransformerException {
+	public String toXml(Beans beans) throws XMLStreamException, JAXBException {
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		PrintStream printStream = new PrintStream(byteArrayOutputStream);
 
@@ -66,10 +69,14 @@ public class SpringContextGeneratorService {
 		return prettyXml(byteArrayOutputStream.toString("UTF-8"));
 	}
 
-	private String prettyXml(String rawXml) throws TransformerException {
+	public String prettyXml(String rawXml) {
 		StreamResult result = new StreamResult(new StringWriter());
 		Source streamSource = new StreamSource(new StringReader(rawXml));
-		transformer.transform(streamSource, result);
+		try {
+			transformer.transform(streamSource, result);
+		} catch (TransformerException e) {
+			throw new RuntimeException("Unable to prettify xml!",e);
+		}
 		return result.getWriter().toString();
 	}
 }
