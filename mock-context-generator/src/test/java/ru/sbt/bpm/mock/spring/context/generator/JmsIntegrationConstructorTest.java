@@ -44,6 +44,31 @@ public class JmsIntegrationConstructorTest extends AbstractConfigGenerator {
 	}
 
 	@Test
+	public void testCreateInboundGatewayWithComment () throws JAXBException {
+		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
+		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
+		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
+		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
+		                  + ".org/schema/integration http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd         http://www.springframework"
+		                  + ".org/schema/integration/jms http://www.springframework"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\">\n"
+		                  + "<!--comment-->\n"
+		                  + "<int-jms:inbound-gateway request-destination=\"inboundMock\" "
+		                  + "default-reply-destination=\"defaultReplyChannel\" request-channel=\"inboundRequest\" "
+		                  + "reply-channel=\"replyChannel\" id=\"idName\" "
+		                  + "connection-factory=\"jndiConnectionFactory\"/>\n"
+		                  + "</beans>\n";
+		Beans beans = beansConstructor.createBeans();
+		beans = jmsIntegrationConstructor.createInboundGateway(beans, "idName", "inboundMock", "inboundRequest",
+		                                                       "replyChannel", "defaultReplyChannel",
+		                                                       "jndiConnectionFactory", "comment");
+		compareResults(expected, beans, "JmsIntegrationConstructorTest :: testCreateInboundGateway");
+	}
+
+	@Test
 	public void testCreateOutboundGateway () throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
 		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "

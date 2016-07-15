@@ -100,6 +100,46 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 	}
 
 	@Test
+	public void testCreateBeanWithClassNameAndIdWithComment() throws JAXBException {
+		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
+		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
+		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
+		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
+		                  + ".org/schema/integration http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd         http://www.springframework"
+		                  + ".org/schema/integration/jms http://www.springframework"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\">\n"
+		                  + "<!--comment-->\n"
+		                  + "<bean class=\"java.lang.String\" id=\"connectionFactoryString\"/>\n"
+		                  + "</beans>";
+		Beans beans = beansConstructor.createBeans();
+		beans = beansConstructor.createBean(beans, "java.lang.String", "connectionFactoryString", "comment");
+		compareResults(expected, beans, "BeansConstructorTest :: testCreateBeanWithClassNameAndId");
+	}
+
+	@Test
+	public void testCreateBeanWithClassNameAndIdWithMultiLinesComment() throws JAXBException {
+		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
+		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
+		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
+		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
+		                  + ".org/schema/integration http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd         http://www.springframework"
+		                  + ".org/schema/integration/jms http://www.springframework"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\">\n"
+		                  + "<!--comment\ncomment\ncomment-->\n"
+		                  + "<bean class=\"java.lang.String\" id=\"connectionFactoryString\"/>\n"
+		                  + "</beans>";
+		Beans beans = beansConstructor.createBeans();
+		beans = beansConstructor.createBean(beans, "java.lang.String", "connectionFactoryString", "comment\ncomment\ncomment");
+		compareResults(expected, beans, "BeansConstructorTest :: testCreateBeanWithClassNameAndId");
+	}
+
+	@Test
 	public void testCreateBeanWithOneConstructorArgs() throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
 		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
@@ -117,6 +157,28 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + "</beans>";
 		Beans beans = beansConstructor.createBeans();
 		beans = beansConstructor.createBean(beans, "java.lang.String", "connectionFactoryString", Arrays.asList(Tuple.of("jms/Q.APKKB", "")));
+		compareResults(expected, beans, "BeansConstructorTest :: testCreateBeanWithOneConstructorArgs");
+	}
+
+	@Test
+	public void testCreateBeanWithOneConstructorArgsWithComment() throws JAXBException {
+		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
+		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
+		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
+		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
+		                  + ".org/schema/integration http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd         http://www.springframework"
+		                  + ".org/schema/integration/jms http://www.springframework"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\">\n"
+		                  + "<!--comment-->\n"
+		                  + "<bean class=\"java.lang.String\" id=\"connectionFactoryString\">\n"
+		                  + "<constructor-arg value=\"jms/Q.APKKB\"/>\n"
+		                  + "</bean>\n"
+		                  + "</beans>";
+		Beans beans = beansConstructor.createBeans();
+		beans = beansConstructor.createBean(beans, "java.lang.String", "connectionFactoryString", Arrays.asList(Tuple.of("jms/Q.APKKB", "")), "comment");
 		compareResults(expected, beans, "BeansConstructorTest :: testCreateBeanWithOneConstructorArgs");
 	}
 
@@ -144,6 +206,30 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 	}
 
 	@Test
+	public void testCreateBeanWithMultiConstructorArgsWithComment() throws JAXBException {
+		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
+		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
+		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
+		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
+		                  + ".org/schema/integration http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd         http://www.springframework"
+		                  + ".org/schema/integration/jms http://www.springframework"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\">\n"
+		                  + "<!--comment-->\n"
+		                  + "<bean class=\"java.lang.String\" id=\"connectionFactoryString\">\n"
+		                  + "<constructor-arg value=\"jms/Q.APKKB\"/>\n"
+		                  + "<constructor-arg value=\"jms/ESB.APKKB.OUT\"/>\n"
+		                  + "<constructor-arg value=\"jms/ESB.APKKB.IN\"/>\n"
+		                  + "</bean>\n"
+		                  + "</beans>";
+		Beans beans = beansConstructor.createBeans();
+		beans = beansConstructor.createBean(beans, "java.lang.String", "connectionFactoryString", Arrays.asList(Tuple.of("jms/Q.APKKB", ""), Tuple.of("jms/ESB.APKKB.OUT", ""), Tuple.of("jms/ESB.APKKB.IN", "")), "comment");
+		compareResults(expected, beans, "BeansConstructorTest :: testCreateBeanWithMultiConstructorArgs");
+	}
+
+	@Test
 	public void testCreateBeanWithMultiConstructorArgsTypes() throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
 		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
@@ -167,6 +253,30 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 	}
 
 	@Test
+	public void testCreateBeanWithMultiConstructorArgsTypesWithComment() throws JAXBException {
+		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
+		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
+		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
+		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
+		                  + ".org/schema/integration http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd         http://www.springframework"
+		                  + ".org/schema/integration/jms http://www.springframework"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\">\n"
+		                  + "<!--comment-->\n"
+		                  + "<bean class=\"java.lang.String\">\n"
+		                  + "<constructor-arg type=\"java.lang.String\" value=\"jms/Q.APKKB\"/>\n"
+		                  + "<constructor-arg type=\"java.lang.String\" value=\"jms/ESB.APKKB.OUT\"/>\n"
+		                  + "<constructor-arg type=\"java.lang.String\" value=\"jms/ESB.APKKB.IN\"/>\n"
+		                  + "</bean>\n"
+		                  + "</beans>";
+		Beans beans = beansConstructor.createBeans();
+		beans = beansConstructor.createBean(beans, "java.lang.String", "", Arrays.asList(Tuple.of("jms/Q.APKKB", "java.lang.String"), Tuple.of("jms/ESB.APKKB.OUT", "java.lang.String"), Tuple.of("jms/ESB.APKKB.IN", "java.lang.String")), "comment");
+		compareResults(expected, beans, "BeansConstructorTest :: testCreateBeanWithMultiConstructorArgsTypes");
+	}
+
+	@Test
 	public void testCreateBeanWithClassAndConstructorAgr() throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
 		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
@@ -186,6 +296,29 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 		                  + "</beans>";
 		Beans beans = beansConstructor.createBeans();
 		beans = beansConstructor.createBean(beans, "java.lang.String", Arrays.asList(Tuple.of("jms/Q.APKKB", "java.lang.String"), Tuple.of("jms/ESB.APKKB.OUT", "java.lang.String"), Tuple.of("jms/ESB.APKKB.IN", "java.lang.String")));
+		compareResults(expected, beans, "BeansConstructorTest :: testCreateBeanWithClassAndConstructorAgr");
+	}
+	@Test
+	public void testCreateBeanWithClassAndConstructorAgrWithComment() throws JAXBException {
+		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
+		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
+		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
+		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
+		                  + ".org/schema/integration http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd         http://www.springframework"
+		                  + ".org/schema/integration/jms http://www.springframework"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\">\n"
+		                  + "<!--comment-->\n"
+		                  + "<bean class=\"java.lang.String\">\n"
+		                  + "<constructor-arg type=\"java.lang.String\" value=\"jms/Q.APKKB\"/>\n"
+		                  + "<constructor-arg type=\"java.lang.String\" value=\"jms/ESB.APKKB.OUT\"/>\n"
+		                  + "<constructor-arg type=\"java.lang.String\" value=\"jms/ESB.APKKB.IN\"/>\n"
+		                  + "</bean>\n"
+		                  + "</beans>";
+		Beans beans = beansConstructor.createBeans();
+		beans = beansConstructor.createBean(beans, "java.lang.String", Arrays.asList(Tuple.of("jms/Q.APKKB", "java.lang.String"), Tuple.of("jms/ESB.APKKB.OUT", "java.lang.String"), Tuple.of("jms/ESB.APKKB.IN", "java.lang.String")), "comment");
 		compareResults(expected, beans, "BeansConstructorTest :: testCreateBeanWithClassAndConstructorAgr");
 	}
 
@@ -216,6 +349,33 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 	}
 
 	@Test
+	public void testCreateBeanWithPropertyWithComment() throws JAXBException {
+		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
+		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
+		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
+		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
+		                  + ".org/schema/integration http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd         http://www.springframework"
+		                  + ".org/schema/integration/jms http://www.springframework"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\">\n"
+		                  + "<!--comment-->\n"
+		                  + "<bean class=\"java.lang.String\" id=\"connectionFactoryString\">\n"
+		                  + "<property name=\"prop1\" value=\"value1\"/>\n"
+		                  + "</bean>\n"
+		                  + "</beans>";
+		Beans beans = beansConstructor.createBeans();
+		beans = beansConstructor.createBean(beans, "java.lang.String", "connectionFactoryString", new HashMap<String,
+				String>() {
+			{
+				put("prop1", "value1");
+			}
+		}, "comment");
+		compareResults(expected, beans, "BeansConstructorTest :: testCreateBeanWithProperty");
+	}
+
+	@Test
 	public void testCreateBeanWithProperties() throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
 		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
@@ -242,6 +402,37 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
 				put("prop3", "value3");
 			}
 		});
+		compareResults(expected, beans, "BeansConstructorTest :: testCreateBeanWithProperties");
+	}
+
+	@Test
+	public void testCreateBeanWithPropertiesWithComment() throws JAXBException {
+		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
+		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
+		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
+		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
+		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
+		                  + ".org/schema/integration http://www.springframework"
+		                  + ".org/schema/integration/spring-integration.xsd         http://www.springframework"
+		                  + ".org/schema/integration/jms http://www.springframework"
+		                  + ".org/schema/integration/jms/spring-integration-jms.xsd\">\n"
+		                  + "<!--comment-->\n"
+		                  + "<bean class=\"java.lang.String\" id=\"connectionFactoryString\">\n"
+		                  + "<property name=\"prop1\" value=\"value1\"/>\n"
+		                  + "<property name=\"prop2\" value=\"value2\"/>\n"
+		                  + "<property name=\"prop3\" value=\"value3\"/>\n"
+		                  + "</bean>\n"
+		                  + "</beans>";
+		Beans beans = beansConstructor.createBeans();
+		beans = beansConstructor.createBean(beans, "java.lang.String", "connectionFactoryString", new LinkedHashMap<String,
+				String>() {
+			{
+				put("prop1", "value1");
+				put("prop2", "value2");
+				put("prop3", "value3");
+			}
+		}, "comment");
 		compareResults(expected, beans, "BeansConstructorTest :: testCreateBeanWithProperties");
 	}
 }
