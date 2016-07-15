@@ -1,50 +1,62 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<bindings version="1.0"
-          xmlns="http://java.sun.com/xml/ns/jaxb"
-          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xmlns:namespace="http://jaxb2-commons.dev.java.net/namespace-prefix"
-          xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd
-              http://jaxb2-commons.dev.java.net/namespace-prefix http://java.net/projects/jaxb2-commons/sources/svn/content/namespace-prefix/trunk/src/main/resources/prefix-namespace-schema.xsd">
-    <globalBindings localScoping="toplevel"/>
-    <bindings
+<jaxb:bindings version="2.1"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:namespace="http://jaxb2-commons.dev.java.net/namespace-prefix"
+               xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+               xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+               xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd
+              http://jaxb2-commons.dev.java.net/namespace-prefix http://java.net/projects/jaxb2-commons/sources/svn/content/namespace-prefix/trunk/src/main/resources/prefix-namespace-schema.xsd"
+               jaxb:extensionBindingPrefixes="jaxb xjc xsi xsd namespace inheritance">
+    <jaxb:globalBindings localScoping="toplevel"/>
+    <jaxb:bindings
             schemaLocation="@token@">
-        <bindings multiple="true" node="//xsd:attribute[@name='expression']">
-            <property name="strExpression"/>
-        </bindings>
-        <bindings node="//xsd:group[@name='chain-elements-group']//xsd:element[@name='chain']">
-            <class name="ChainElement"/>
-        </bindings>
-        <bindings node="//xsd:element[@name='gateway']//xsd:element[@name='method']">
-            <class name="GateMethod"/>
-        </bindings>
-        <bindings node="//xsd:complexType[@name='enricher-type']//xsd:element[@name='header']">
-            <class name="EnricherHeader"/>
-        </bindings>
-        <bindings node="//xsd:schema/xsd:element[@name='chain']">
-            <class name="RootChain"/>
-        </bindings>
-        <bindings
+        <jaxb:bindings multiple="true" node="//xsd:attribute[@name='expression']">
+            <jaxb:property name="strExpression"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xsd:group[@name='chain-elements-group']//xsd:element[@name='chain']">
+            <jaxb:class name="ChainElement"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xsd:element[@name='gateway']//xsd:element[@name='method']">
+            <jaxb:class name="GateMethod"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xsd:complexType[@name='enricher-type']//xsd:element[@name='header']">
+            <jaxb:class name="EnricherHeader"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xsd:schema/xsd:element[@name='chain']">
+            <jaxb:class name="RootChain"/>
+        </jaxb:bindings>
+        <jaxb:bindings
                 node="/xsd:schema/xsd:complexType[@name='channelInterceptorsType']//xsd:element[@name='ref']/xsd:complexType">
-            <class name="InterceptorReference"/>
-        </bindings>
-        <bindings node="/xsd:schema/xsd:complexType[@name='adviceChainType']//xsd:element[@name='ref']/xsd:complexType">
-            <class name="ChainReference"/>
-        </bindings>
-        <bindings
+            <jaxb:class name="InterceptorReference"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="/xsd:schema/xsd:complexType[@name='adviceChainType']//xsd:element[@name='ref']/xsd:complexType">
+            <jaxb:class name="ChainReference"/>
+        </jaxb:bindings>
+        <jaxb:bindings
                 node="/xsd:schema/xsd:complexType[@name='handlerAdviceChainType']//xsd:element[@name='ref']/xsd:complexType">
-            <class name="HandlerChainReference"/>
-        </bindings>
-        <bindings
+            <jaxb:class name="HandlerChainReference"/>
+        </jaxb:bindings>
+        <jaxb:bindings
                 node="/xsd:schema/xsd:element[@name='publishing-interceptor']//xsd:element[@name='header']/xsd:complexType">
-            <class name="PublishingInterceptorHeader"/>
-        </bindings>
-        <bindings
+            <jaxb:class name="PublishingInterceptorHeader"/>
+        </jaxb:bindings>
+        <jaxb:bindings
                 node="/xsd:schema/xsd:element[@name='publishing-interceptor']//xsd:element[@name='method']/xsd:complexType">
-            <class name="PublishingInterceptorMethod"/>
-        </bindings>
-        <bindings>
+            <jaxb:class name="PublishingInterceptorMethod"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xsd:complexType[@name='channelType']">
+            <inheritance:extends>ru.sbt.bpm.mock.spring.context.generator.AbstractCommentable</inheritance:extends>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xsd:complexType[@name='handlerEndpointType']">
+            <inheritance:extends>ru.sbt.bpm.mock.spring.context.generator.AbstractCommentable</inheritance:extends>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xsd:complexType[@name='abstractRouterType']">
+            <inheritance:extends>ru.sbt.bpm.mock.spring.context.generator.AbstractCommentable</inheritance:extends>
+        </jaxb:bindings>
+        <jaxb:bindings>
             <namespace:prefix name="int"/>
-        </bindings>
-    </bindings>
-</bindings>
+        </jaxb:bindings>
+    </jaxb:bindings>
+</jaxb:bindings>

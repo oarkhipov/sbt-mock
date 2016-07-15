@@ -3,6 +3,7 @@ package ru.sbt.bpm.mock.spring.context.generator.service;
 import generated.springframework.beans.Beans;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.sbt.bpm.mock.spring.context.generator.CommentMarshalListener;
 import ru.sbt.bpm.mock.spring.context.generator.service.constructors.BeansConstructor;
 import ru.sbt.bpm.mock.spring.context.generator.service.constructors.IntegrationConstructor;
 import ru.sbt.bpm.mock.spring.context.generator.service.constructors.JmsIntegrationConstructor;
@@ -73,6 +74,9 @@ public class SpringContextGeneratorService {
 		XMLStreamWriter  xmlStreamWriter = null;
 		try {
 			xmlStreamWriter = xmlOutputFactory.createXMLStreamWriter(printStream);
+
+			marshaller.setListener(new CommentMarshalListener(xmlStreamWriter));
+
 			marshaller.marshal(beans, xmlStreamWriter);
 		} catch (XMLStreamException e) {
 			e.printStackTrace();
