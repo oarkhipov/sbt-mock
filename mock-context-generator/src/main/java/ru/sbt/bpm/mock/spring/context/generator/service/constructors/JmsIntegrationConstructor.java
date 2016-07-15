@@ -24,12 +24,32 @@ public class JmsIntegrationConstructor implements IContextGeneratable {
 	 * @param requestChannel -
 	 * @param replyChannel
 	 * @param defaultReplyDestination
-	 * @param connectionFactory* @return
+	 * @param connectionFactory
+	 * @return
 	 */
 	public Beans createInboundGateway (Beans beans, String id, String requestDestination, String requestChannel,
 	                                   String replyChannel, String defaultReplyDestination, String connectionFactory) {
 		return createInboundGatewayInternal(beans, id, requestDestination, requestChannel, replyChannel,
-		                                    defaultReplyDestination, connectionFactory);
+		                                    defaultReplyDestination, connectionFactory, null);
+	}
+	/**
+	 * <jms:inbound-gateway id="" request-destination="" request-channel="" reply-channel=""
+	 * default-reply-destination="" connection-factory=""/>
+	 *
+	 * @param beans - <beans/>
+	 * @param id - id inbound-gateway
+	 * @param requestDestination -
+	 * @param requestChannel -
+	 * @param replyChannel
+	 * @param defaultReplyDestination
+	 * @param connectionFactory
+	 * @param comment
+	 * @return
+	 */
+	public Beans createInboundGateway (Beans beans, String id, String requestDestination, String requestChannel,
+	                                   String replyChannel, String defaultReplyDestination, String connectionFactory, String comment) {
+		return createInboundGatewayInternal(beans, id, requestDestination, requestChannel, replyChannel,
+		                                    defaultReplyDestination, connectionFactory, comment);
 	}
 
 	/**
@@ -125,13 +145,14 @@ public class JmsIntegrationConstructor implements IContextGeneratable {
 	 * @param replyChannel
 	 * @param defaultReplyDestination
 	 * @param connectionFactory
+	 * @param comment
 	 * @return
 	 */
 	private Beans createInboundGatewayInternal (Beans beans, String id, String requestDestination,
 	                                            String requestChannel, String replyChannel,
-	                                            String defaultReplyDestination, String connectionFactory) {
+	                                            String defaultReplyDestination, String connectionFactory, String comment) {
 		beans.getImportOrAliasOrBean().add(createInboundGateway(id, requestDestination, requestChannel, replyChannel,
-		                                                        defaultReplyDestination, connectionFactory));
+		                                                        defaultReplyDestination, connectionFactory, comment));
 		return beans;
 	}
 
@@ -145,11 +166,12 @@ public class JmsIntegrationConstructor implements IContextGeneratable {
 	 * @param replyChannel
 	 * @param defaultReplyDestination
 	 * @param connectionFactory
+	 * @param comment
 	 * @return
 	 */
 	private InboundGateway createInboundGateway (String id, String requestDestination, String requestChannel,
 	                                             String replyChannel, String defaultReplyDestination,
-	                                             String connectionFactory) {
+	                                             String connectionFactory, String comment) {
 		generated.springframework.integration.jms.InboundGateway inboundGateway = jmsFactory.createInboundGateway();
 		inboundGateway.setId(id);
 		inboundGateway.setRequestDestination(requestDestination);
@@ -157,6 +179,8 @@ public class JmsIntegrationConstructor implements IContextGeneratable {
 		inboundGateway.setReplyChannel(replyChannel);
 		inboundGateway.setDefaultReplyDestination(defaultReplyDestination);
 		inboundGateway.setConnectionFactory(connectionFactory);
+		if (comment != null && !comment.isEmpty())
+			inboundGateway.setComment(comment);
 		return inboundGateway;
 	}
 

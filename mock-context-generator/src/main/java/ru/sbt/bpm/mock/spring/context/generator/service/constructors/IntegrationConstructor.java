@@ -34,7 +34,23 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 * @return
 	 */
 	public Beans createChannel (Beans beans, String channelId) {
-		return createChannelInternal(beans, channelId, new ArrayList<String>());
+		return createChannelInternal(beans, channelId, new ArrayList<String>(), null);
+	}
+	/**
+	 * <channel id="">
+	 * <interceptors>
+	 * <wire-tap channel=""/>
+	 * <wire-tap channel=""/>
+	 * </interceptors>
+	 * </channel>
+	 *
+	 * @param beans - <beans/>
+	 * @param channelId - id канала
+	 * @param comment
+	 * @return
+	 */
+	public Beans createChannel (Beans beans, String channelId, String comment) {
+		return createChannelInternal(beans, channelId, new ArrayList<String>(), comment);
 	}
 
 	/**
@@ -51,7 +67,25 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 * @return
 	 */
 	public Beans createChannel (Beans beans, String channelId, List<String> wireTapChannels) {
-		return createChannelInternal(beans, channelId, wireTapChannels);
+		return createChannelInternal(beans, channelId, wireTapChannels, null);
+	}
+
+	/**
+	 * <channel id="">
+	 * <interceptors>
+	 * <wire-tap channel=""/>
+	 * <wire-tap channel=""/>
+	 * </interceptors>
+	 * </channel>
+	 *
+	 * @param beans <beans/>
+	 * @param channelId - id канала
+	 * @param wireTapChannels - список логеров
+	 * @param comment
+	 * @return
+	 */
+	public Beans createChannel (Beans beans, String channelId, List<String> wireTapChannels, String comment) {
+		return createChannelInternal(beans, channelId, wireTapChannels, comment);
 	}
 
 	/**
@@ -64,7 +98,21 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 * @return
 	 */
 	public Beans createServiceActivator (Beans beans, String inputChannel, String outputChannel, String expressions) {
-		return createServiceActivator(beans, inputChannel, outputChannel, null, null, expressions);
+		return createServiceActivator(beans, inputChannel, outputChannel, null, null, expressions, null);
+	}
+
+	/**
+	 * <int:service-activator input-channel="" output-channel="" expression=""/>
+	 *
+	 * @param beans - <beans/>
+	 * @param inputChannel - входной канал
+	 * @param outputChannel - выходной канал
+	 * @param expressions - выражение
+	 * @param comment
+	 * @return
+	 */
+	public Beans createServiceActivator (Beans beans, String inputChannel, String outputChannel, String expressions, String comment) {
+		return createServiceActivator(beans, inputChannel, outputChannel, null, null, expressions, comment);
 	}
 
 	/**
@@ -85,7 +133,29 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 */
 	public Beans createServiceActivator (Beans beans, String inputChannel, String outputChannel, String methodName,
 	                                     Bean bean) {
-		return createServiceActivator(beans, inputChannel, outputChannel, methodName, bean, null);
+		return createServiceActivator(beans, inputChannel, outputChannel, methodName, bean, null, null);
+	}
+
+	/**
+	 * <int:service-activator input-channel="" output-channel="" method="">
+	 * <bean class="">
+	 * <constructor-arg value="" type=""/>
+	 * <constructor-arg value="" type=""/>
+	 * <constructor-arg value="" type=""/>
+	 * </bean>
+	 * </int:service-activator>
+	 *
+	 * @param beans - <beans/>
+	 * @param inputChannel  - входной канал
+	 * @param outputChannel -выходной канал
+	 * @param methodName - имя методя
+	 * @param bean - <bean><constructor-arg value="" type=""/></bean>
+	 * @param comment
+	 * @return
+	 */
+	public Beans createServiceActivator (Beans beans, String inputChannel, String outputChannel, String methodName,
+	                                     Bean bean, String comment) {
+		return createServiceActivator(beans, inputChannel, outputChannel, methodName, bean, null, comment);
 	}
 
 	/**
@@ -123,7 +193,22 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 */
 	public Beans createRouter (Beans beans, String id, String expression, String inputChannel, List<Tuple2<String,
 			String>> mappings) {
-		return createRouterInternal(beans, id, expression, inputChannel, mappings);
+		return createRouterInternal(beans, id, expression, inputChannel, mappings, null);
+	}
+
+	/**
+	 * @param beans <int:method name="" request-channel="" reply-channel=""/>
+	 * @param id - id router
+	 * @param expression - выражение
+	 * @param inputChannel - входной канал
+	 * @param mappings - парамерты для mapping, где
+	 *                     - getT1() - value
+	 *                     - getT2() -channel
+	 * @return
+	 */
+	public Beans createRouter (Beans beans, String id, String expression, String inputChannel, List<Tuple2<String,
+			String>> mappings, String comment) {
+		return createRouterInternal(beans, id, expression, inputChannel, mappings, comment);
 	}
 
 	/**
@@ -134,12 +219,13 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 * @param mappings     - парамерты для mapping, где
 	 *                     - getT1() - value
 	 *                     - getT2() -channel
+	 * @param comment
 	 * @return
 	 */
 	private Beans createRouterInternal (Beans beans, String id, String expression, String inputChannel,
-	                                    List<Tuple2<String, String>> mappings) {
+	                                    List<Tuple2<String, String>> mappings, String comment) {
 		beans.getImportOrAliasOrBean().add(createRouter(createRouterType(id, expression, inputChannel, createMappings
-				(mappings))));
+				(mappings), comment)));
 		return beans;
 	}
 
@@ -189,15 +275,18 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 * @param expression
 	 * @param inputChannel
 	 * @param mappings
+	 * @param comment
 	 * @return
 	 */
 	private RouterType createRouterType (String id, String expression, String inputChannel,
-	                                     List<MappingValueChannelType> mappings) {
+	                                     List<MappingValueChannelType> mappings, String comment) {
 		RouterType routerType = integrationFactory.createRouterType();
 		routerType.setId(id);
 		routerType.setStrExpression(expression);
 		routerType.setInputChannel(inputChannel);
 		routerType.getMapping().addAll(mappings);
+		if (comment != null && !comment.isEmpty())
+			routerType.setComment(comment);
 		return routerType;
 	}
 
@@ -286,12 +375,13 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 * @param methodName
 	 * @param bean
 	 * @param expression
+	 * @param comment
 	 * @return
 	 */
 	private Beans createServiceActivator (Beans beans, @NonNull String inputChannel, @NonNull String outputChannel,
-	                                      String methodName, Bean bean, String expression) {
+	                                      String methodName, Bean bean, String expression, String comment) {
 		beans.getImportOrAliasOrBean().add(createServiceActivator(inputChannel, outputChannel, methodName, bean,
-		                                                          expression));
+		                                                          expression, comment));
 		return beans;
 	}
 
@@ -301,10 +391,11 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 * @param methodName
 	 * @param bean
 	 * @param expression
+	 * @param comment
 	 * @return
 	 */
 	private ServiceActivator createServiceActivator (@NonNull String inputChannel, @NonNull String outputChannel,
-	                                                 String methodName, Bean bean, String expression) {
+	                                                 String methodName, Bean bean, String expression, String comment) {
 		ServiceActivator serviceActivator = integrationFactory.createServiceActivator();
 		serviceActivator.setInputChannel(inputChannel);
 		serviceActivator.setOutputChannel(outputChannel);
@@ -314,6 +405,8 @@ public class IntegrationConstructor implements IContextGeneratable {
 			serviceActivator.getPollerOrExpressionOrRequestHandlerAdviceChain().add(bean);
 		if (expression != null && !expression.isEmpty())
 			serviceActivator.setStrExpression(expression);
+		if (comment != null && !comment.isEmpty())
+			serviceActivator.setComment(comment);
 		return serviceActivator;
 	}
 
@@ -328,10 +421,11 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 * @param beans
 	 * @param channelId
 	 * @param wireTapChannels
+	 * @param comment
 	 * @return
 	 */
-	private Beans createChannelInternal (Beans beans, String channelId, List<String> wireTapChannels) {
-		beans.getImportOrAliasOrBean().add(createChannel(channelId, wireTapChannels));
+	private Beans createChannelInternal (Beans beans, String channelId, List<String> wireTapChannels, String comment) {
+		beans.getImportOrAliasOrBean().add(createChannel(channelId, wireTapChannels, comment));
 		return beans;
 	}
 
@@ -385,13 +479,16 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 *
 	 * @param channelId
 	 * @param wireTapChannels
+	 * @param comment
 	 * @return
 	 */
-	private Channel createChannel (@NonNull String channelId, List<String> wireTapChannels) {
+	private Channel createChannel (@NonNull String channelId, List<String> wireTapChannels, String comment) {
 		Channel channel = integrationFactory.createChannel();
 		channel.setId(channelId);
 		if (wireTapChannels != null && !wireTapChannels.isEmpty())
 			channel.setInterceptors(createInterceptorsType(wireTapChannels));
+		if (comment != null && !comment.isEmpty())
+			channel.setComment(comment);
 		return channel;
 	}
 

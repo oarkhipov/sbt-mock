@@ -30,8 +30,8 @@ public abstract class AbstractConfigGenerator extends AbstractTestNGSpringContex
 	protected void printActual(String actual, String classAndMethodName) {
 		log.debug("==============================================");
 		log.debug("");
-		log.debug("Class and method name: " + classAndMethodName);
-		log.debug("Generated config: " + actual);
+		log.info("Class and method name: " + classAndMethodName);
+		log.info("Generated config: " + actual);
 		log.debug("");
 		log.debug("==============================================");
 	}

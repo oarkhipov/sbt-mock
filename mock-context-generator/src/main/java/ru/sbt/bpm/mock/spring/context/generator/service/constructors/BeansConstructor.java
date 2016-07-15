@@ -39,7 +39,7 @@ public class BeansConstructor implements IContextGeneratable {
 	 */
 	public Beans createBean (Beans beans, String className) {
 		return createBean(beans, className, null, new ArrayList<Tuple2<String, String>>(), new HashMap<String,
-				String>());
+				String>(), null);
 	}
 
 	/**
@@ -54,7 +54,23 @@ public class BeansConstructor implements IContextGeneratable {
 	 */
 	public Beans createBean (Beans beans, String className, String id) {
 		return createBean(beans, className, id, new ArrayList<Tuple2<String, String>>(), new HashMap<String, String>
-				());
+				(), null);
+	}
+
+	/**
+	 * <beans xmlns="http://www.springframework.org/schema/beans">
+	 * <bean class="" id=""/>
+	 * </beans>
+	 *
+	 * @param beans
+	 * @param className
+	 * @param id
+	 * @param comment
+	 * @return
+	 */
+	public Beans createBean (Beans beans, String className, String id, String comment) {
+		return createBean(beans, className, id, new ArrayList<Tuple2<String, String>>(), new HashMap<String, String>
+				(), comment);
 	}
 
 	/**
@@ -72,7 +88,26 @@ public class BeansConstructor implements IContextGeneratable {
 	 */
 	public Beans createBean (generated.springframework.beans.Beans beans, String
 			className, String id, List<Tuple2<String, String>> constructorArgValues) {
-		return createBean(beans, className, id, constructorArgValues, new HashMap<String, String>());
+		return createBean(beans, className, id, constructorArgValues, new HashMap<String, String>(), null);
+	}
+
+	/**
+	 * <beans xmlns="http://www.springframework.org/schema/beans">
+	 * <bean class="" id="">
+	 * <constructor-arg value="" type=""/>
+	 * </bean>
+	 * </beans>
+	 *
+	 * @param beans
+	 * @param className
+	 * @param id
+	 * @param constructorArgValues
+	 * @param comment
+	 * @return
+	 */
+	public Beans createBean (generated.springframework.beans.Beans beans, String
+			className, String id, List<Tuple2<String, String>> constructorArgValues, String comment) {
+		return createBean(beans, className, id, constructorArgValues, new HashMap<String, String>(), comment);
 	}
 
 	/**
@@ -89,7 +124,25 @@ public class BeansConstructor implements IContextGeneratable {
 	 */
 	public Beans createBean (generated.springframework.beans.Beans beans, String className, List<Tuple2<String,
 			String>> constructorArgValues) {
-		return createBean(beans, className, null, constructorArgValues, new HashMap<String, String>());
+		return createBean(beans, className, null, constructorArgValues, new HashMap<String, String>(), null);
+	}
+
+	/**
+	 * <beans xmlns="http://www.springframework.org/schema/beans">
+	 * <bean class="">
+	 * <constructor-arg value="" type=""/>
+	 * </bean>
+	 * </beans>
+	 *
+	 * @param beans
+	 * @param className
+	 * @param constructorArgValues
+	 * @param comment
+	 * @return
+	 */
+	public Beans createBean (generated.springframework.beans.Beans beans, String className, List<Tuple2<String,
+			String>> constructorArgValues, String comment) {
+		return createBean(beans, className, null, constructorArgValues, new HashMap<String, String>(), comment);
 	}
 
 	/**
@@ -106,7 +159,25 @@ public class BeansConstructor implements IContextGeneratable {
 	 * @return
 	 */
 	public Beans createBean (Beans beans, String className, String id, Map<String, String> properties) {
-		return createBean(beans, className, id, new ArrayList<Tuple2<String, String>>(), properties);
+		return createBean(beans, className, id, new ArrayList<Tuple2<String, String>>(), properties, null);
+	}
+
+	/**
+	 * <beans xmlns="http://www.springframework.org/schema/beans">
+	 * <bean class="" id="">
+	 * <property name="" value=""/>
+	 * </bean>
+	 * </beans>
+	 *
+	 * @param beans
+	 * @param className
+	 * @param id
+	 * @param properties
+	 * @param comment
+	 * @return
+	 */
+	public Beans createBean (Beans beans, String className, String id, Map<String, String> properties, String comment) {
+		return createBean(beans, className, id, new ArrayList<Tuple2<String, String>>(), properties, comment);
 	}
 
 	/**
@@ -119,7 +190,21 @@ public class BeansConstructor implements IContextGeneratable {
 	public generated.springframework.beans.Bean createBean (String className, List<Tuple2<String, String>>
 			constructorArgs) {
 		return createBean(className, "", createListConstructorArg(constructorArgs), new
-				ArrayList<JAXBElement<PropertyType>>());
+				ArrayList<JAXBElement<PropertyType>>(), null);
+	}
+
+	/**
+	 * Создание обычного bean для вложения в другие элементы
+	 *
+	 * @param className
+	 * @param constructorArgs
+	 * @param comment
+	 * @return
+	 */
+	public generated.springframework.beans.Bean createBean (String className, List<Tuple2<String, String>>
+			constructorArgs, String comment) {
+		return createBean(className, "", createListConstructorArg(constructorArgs), new
+				ArrayList<JAXBElement<PropertyType>>(), comment);
 	}
 
 	/**
@@ -240,13 +325,14 @@ public class BeansConstructor implements IContextGeneratable {
 	 * @param id                   - id
 	 * @param constructorArgValues агрументы конструктора
 	 * @param properties           - свойства
+	 * @param comment
 	 * @return <beans></beans>
 	 */
 	private Beans createBean (@NonNull Beans beans, String className, String id,
 	                          List<Tuple2<String, String>> constructorArgValues,
-	                          Map<String, String> properties) {
+	                          Map<String, String> properties, String comment) {
 		beans.getImportOrAliasOrBean().add(createBean(className, id, createListConstructorArg(constructorArgValues),
-		                                              createProperties(properties)));
+		                                              createProperties(properties), comment));
 		return beans;
 	}
 
@@ -262,10 +348,11 @@ public class BeansConstructor implements IContextGeneratable {
 	 * @param id         - id
 	 * @param args       - агрументы конструктора
 	 * @param properties - свойства
+	 * @param comment
 	 * @return возвщается объект bean
 	 */
 	private Bean createBean (String className, String id, List<ConstructorArg> args, List<JAXBElement<PropertyType>>
-			properties) {
+			properties, String comment) {
 		Bean bean = beanFactory.createBean();
 		if (id != null && !id.isEmpty())
 			bean.setId(id);
@@ -275,6 +362,8 @@ public class BeansConstructor implements IContextGeneratable {
 			bean.getMetaOrConstructorArgOrProperty().addAll(args);
 		if (properties != null && !properties.isEmpty())
 			bean.getMetaOrConstructorArgOrProperty().addAll(properties);
+		if (comment != null && !comment.isEmpty())
+			bean.setComment(comment);
 		return bean;
 	}
 
