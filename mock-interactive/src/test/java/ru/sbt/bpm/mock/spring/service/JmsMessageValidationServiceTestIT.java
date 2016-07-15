@@ -17,7 +17,7 @@ import static org.testng.Assert.assertTrue;
  */
 @Slf4j
 @ContextConfiguration({"/env/mockapp-servlet-jms-http.xml"})
-public class JmsMessageValidationServiceTestIT extends AbstractVirtualHttpServerTransactionalTestNGSpringContextTests {
+public class JmsMessageValidationServiceTestIT extends AbstractJMSCRMVirtualHttpServerTransactionalTestNGSpringContextTests {
 
     @Autowired
     MessageValidationService messageValidationService;

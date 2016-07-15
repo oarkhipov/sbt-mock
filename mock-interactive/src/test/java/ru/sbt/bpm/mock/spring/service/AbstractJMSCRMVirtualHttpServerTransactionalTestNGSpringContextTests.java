@@ -20,7 +20,7 @@ import java.net.URL;
  *         <p/>
  *         Company: SBT - Moscow
  */
-public class AbstractVirtualHttpServerTransactionalTestNGSpringContextTests extends AbstractTransactionalTestNGSpringContextTests {
+public abstract class AbstractJMSCRMVirtualHttpServerTransactionalTestNGSpringContextTests extends AbstractTransactionalTestNGSpringContextTests {
     private Server server;
 
     @AfterClass(alwaysRun = true)

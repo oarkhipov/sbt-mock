@@ -1,0 +1,22 @@
+<xs:schema targetNamespace="spyne.examples.hello"
+           elementFormDefault="qualified"
+           xmlns:tns="spyne.examples.hello"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:complexType name="say_hello"/>
+    <xs:complexType name="say_helloResponse">
+        <xs:sequence>
+            <xs:element name="say_helloResult" type="tns:stringArray"
+                        minOccurs="0" nillable="true"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="stringArray">
+        <xs:sequence>
+            <xs:element name="string" type="xs:string" minOccurs="0"
+                        maxOccurs="unbounded" nillable="true"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="stringArray" type="tns:stringArray"/>
+    <xs:element name="say_helloResponse"
+                type="tns:say_helloResponse"/>
+    <xs:element name="say_hello" type="tns:say_hello"/>
+</xs:schema>

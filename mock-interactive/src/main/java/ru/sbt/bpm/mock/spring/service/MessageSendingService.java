@@ -1,5 +1,6 @@
 package ru.sbt.bpm.mock.spring.service;
 
+import com.eviware.soapui.impl.wsdl.WsdlOperation;
 import com.eviware.soapui.impl.wsdl.WsdlProject;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -54,7 +55,10 @@ public class MessageSendingService {
     public String sendJMS(MockMessage message) {
         String responseString = clientService.sendMockMessage(message);
         ru.sbt.bpm.mock.config.entities.System messageSystem = message.getSystem();
+
         MockMessage responseMessage = new MockMessage(Protocol.JMS, messageSystem.getQueueConnectionFactory(), messageSystem.getDriverIncomeQueue(), responseString);
+        responseMessage.setSystem(messageSystem);
+        responseMessage.setIntegrationPoint(message.getIntegrationPoint());
         responseGenerator.log(responseMessage, MessageType.RS);
         return responseString;
     }
@@ -62,21 +66,28 @@ public class MessageSendingService {
     protected String sendWs(MockMessage message) throws IOException {
         HttpClient httpClient = HttpClientBuilder.create().build();
 
-        ru.sbt.bpm.mock.config.entities.System system = message.getSystem();
-        WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(system.getSystemName());
-        String[] endpoints = wsdlProject.getInterfaceList().get(0).getEndpoints();
+        ru.sbt.bpm.mock.config.entities.System messageSystem = message.getSystem();
+        WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(messageSystem.getSystemName());
 
-        wsdlProject.getInterfaceList().get(0).getOperationByName(message.getIntegrationPoint().getName());
-        HttpPost httpPost = new HttpPost(endpoints[0]);
+
+        String operationName = ((WsdlOperation)wsdlProject.getInterfaceList().get(0).getOperationByName(message.getIntegrationPoint().getName())).getAction();
+        HttpPost httpPost = new HttpPost(messageSystem.getDriverWebServiceEndpoint());
         httpPost.addHeader("Content-Type", "application/xml");
-        httpPost.addHeader("SOAP-Action", message.getIntegrationPoint().getName());
+        httpPost.addHeader("SOAP-Action", operationName);
         HttpEntity entity = new ByteArrayEntity(message.getPayload().getBytes("UTF-8"));
 
         httpPost.setEntity(entity);
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(30000).build();
         httpPost.setConfig(requestConfig);
         HttpResponse response = httpClient.execute(httpPost);
-        return EntityUtils.toString(response.getEntity());
+        String responseString = EntityUtils.toString(response.getEntity());
+
+        MockMessage responseMessage = new MockMessage(Protocol.JMS, messageSystem.getQueueConnectionFactory(), messageSystem.getDriverIncomeQueue(), responseString);
+        responseMessage.setSystem(messageSystem);
+        responseMessage.setIntegrationPoint(message.getIntegrationPoint());
+        responseGenerator.log(responseMessage, MessageType.RS);
+
+        return responseString;
 
     }
 }
