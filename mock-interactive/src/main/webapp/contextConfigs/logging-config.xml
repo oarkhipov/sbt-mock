@@ -5,19 +5,6 @@
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
-    <!--настройка логгеров -->
-    <int:logging-channel-adapter id="MockInboundRequestLogger" logger-name="MockInboundRequestLogger"/>
-    <int:logging-channel-adapter id="MockOutboundResponseLogger" logger-name="MockOutboundResponseLogger"/>
-
-    <!--настройка логгеров1 -->
-    <int:logging-channel-adapter id="DriverOutboundRequestLogger" logger-name="DriverOutboundRequestLogger"/>
-    <int:logging-channel-adapter id="DriverInboundResponseLogger" logger-name="DriverInboundResponseLogger"/>
-
-    <!-- - - - - - - - - - - - - - - - - -->
-    <!--                                 -->
-    <!-- НАСТРОЙКА ВНЕШНЕГО ЛОГИРОВАНИЯ  -->
-    <!--                                 -->
-    <!-- - - - - - - - - - - - - - - - - -->
 
     <context:component-scan base-package="ru.sbt.bpm.mock.logging"/>
     <jpa:repositories base-package="ru.sbt.bpm.mock.logging.repository"/>
