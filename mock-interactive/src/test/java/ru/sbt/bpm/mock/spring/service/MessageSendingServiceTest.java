@@ -16,7 +16,7 @@ import static org.testng.Assert.assertTrue;
  *         Company: SBT - Moscow
  */
 
-@ContextConfiguration("classpath:/env/mockapp-servlet-soap-http.xml")
+@ContextConfiguration(value = {"classpath:/env/mockapp-servlet-soap-http.xml", "classpath:/contextConfigs/logging-config.xml"})
 public class MessageSendingServiceTest extends AbstractSOAPSpyneVirtualHttpServerTransactionalTestNGSpringContextTests {
 
     @Autowired
