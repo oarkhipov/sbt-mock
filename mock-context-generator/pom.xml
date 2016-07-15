@@ -23,7 +23,7 @@
         <spring.integration.jms.xsd>
             maven:org.springframework.integration:spring-integration-jms:::${spring-integration.version}!/org/springframework/integration/jms/config/spring-integration-jms-${spring.integration.xsd.version}.xsd</spring.integration.jms.xsd>
         <!-- directories -->
-        <xjb.dir>src/xjc</xjb.dir>
+        <xjb.dir>target/generated-sources/xjc</xjb.dir>
         <binding.dir>${xjb.dir}/binding</binding.dir>
         <catalog.dir>${xjb.dir}/catalogs</catalog.dir>
         <!-- bindings files -->
