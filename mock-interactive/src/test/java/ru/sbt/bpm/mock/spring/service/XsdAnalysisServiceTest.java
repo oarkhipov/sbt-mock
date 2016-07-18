@@ -60,20 +60,20 @@ public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests {
 	private int assertElementsTest () {
 		int assertFail = 0;
 
-		log.info("==================================================");
-		log.info("");
-		log.info("               GETTING XSD ELEMENTS");
-		log.info("");
-		log.info("==================================================");
+		log.debug("==================================================");
+		log.debug("");
+		log.debug("               GETTING XSD ELEMENTS");
+		log.debug("");
+		log.debug("==================================================");
 
 		for (ru.sbt.bpm.mock.config.entities.System system : configContainer.getConfig().getSystems().getSystems()) {
-			log.info(String.format("System name: %s", system.getSystemName()));
+			log.debug(String.format("System name: %s", system.getSystemName()));
 			for (String namespace : xsdAnalysisService.getNamespaceFromXsd(system.getSystemName())) {
-				log.info(String.format("Namespace name: %s", namespace));
+				log.debug(String.format("Namespace name: %s", namespace));
 				if (xsdAnalysisService.getElementsForSystem(system.getSystemName(), namespace) != null)
 					for (Tuple2<String, String> element : xsdAnalysisService.getElementsForSystem(system.getSystemName
 							(), namespace))
-						log.info(String.format("Namespace: %s || Element: %s", element.getT1(), element.getT2()));
+						log.debug(String.format("Namespace: %s || Element: %s", element.getT1(), element.getT2()));
 			}
 		}
 		return assertFail;
@@ -81,15 +81,15 @@ public class XsdAnalysisServiceTest extends AbstractTestNGSpringContextTests {
 
 	private int assertElementsForSystemTest() {
 		int assertFail = 0;
-		log.info("==================================================");
-		log.info("");
-		log.info("               GETTING XSD ELEMENTS");
-		log.info("");
-		log.info("==================================================");
+		log.debug("==================================================");
+		log.debug("");
+		log.debug("               GETTING XSD ELEMENTS");
+		log.debug("");
+		log.debug("==================================================");
 		for (ru.sbt.bpm.mock.config.entities.System system : configContainer.getConfig().getSystems().getSystems()) {
-			log.info(String.format("System name: %s", system.getSystemName()));
+			log.debug(String.format("System name: %s", system.getSystemName()));
 			for (Tuple2<String, String> element : xsdAnalysisService.getElementsForSystem(system.getSystemName()))
-				log.info(String.format("Namespace: %s || Element: %s", element.getT1(), element.getT2()));
+				log.debug(String.format("Namespace: %s || Element: %s", element.getT1(), element.getT2()));
 		}
 		return assertFail;
 	}
