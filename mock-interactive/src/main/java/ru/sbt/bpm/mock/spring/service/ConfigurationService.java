@@ -103,6 +103,5 @@ public class ConfigurationService {
         String servletConfigAbsolutePath = dataFileService.getContextFilePath("mockapp-servlet.xml");
         FileUtils.writeStringToFile(new File(servletConfigAbsolutePath), xml);
         ((XmlWebApplicationContext) applicationContext).refresh();
-
     }
 }

@@ -16,18 +16,19 @@ import java.io.File;
 @ContextConfiguration({"/env/mockapp-servlet.xml"})
 public class ConfigurationServiceTest extends AbstractTestNGSpringContextTests {
 
+    private final String xsdZip = "target/mockZip.zip";
+
     @Autowired
     ConfigurationService configurationService;
 
     @Test
     public void testCompressConfiguration() throws Exception {
-
-        FileUtils.writeByteArrayToFile(new File("target/mockZip.zip"), configurationService.compressConfiguration());
+        FileUtils.writeByteArrayToFile(new File(xsdZip), configurationService.compressConfiguration());
     }
 
-    @Test
+    @Test(dependsOnMethods = "testCompressConfiguration", expectedExceptions = ClassCastException.class)
     public void testUnzipConfiguration() throws Exception {
-        File configFile = new File("target/mockZip.zip");
+        File configFile = new File(xsdZip);
         configurationService.unzipConfiguration(configFile);
     }
 }

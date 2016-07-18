@@ -413,7 +413,7 @@ public class MockSpringContextGeneratorService {
     }
 
     private String createChannel(String beanString, String channelPostfix) {
-        return createChannel(beanString, channelPostfix);
+        return createChannel(beanString, channelPostfix, null);
     }
     /**
      * Создание канала

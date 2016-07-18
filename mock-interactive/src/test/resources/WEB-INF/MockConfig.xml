@@ -1,0 +1,233 @@
+<MockConfig xmlns="http://sbrf.ru/mockService2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://sbrf.ru/mockService2">
+    <systems>
+        <system name="CRM">
+            <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
+            <remoteRootSchema>CRMIntegrationSchema.xsd</remoteRootSchema>
+            <localRootSchema>CRMIntegrationSchema.xsd</localRootSchema>
+            <!-- Селектор для маршрутизации сообщений. Определения, какая точки интеграции должна быть вызвана-->
+            <integrationPointSelector>
+                <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                <tag ns="http://sbrf.ru/legal/enquiry/integration"/>
+            </integrationPointSelector>
+            <!-- Протокол интеграции JMS/SOAP. Если используется сразу оба, то необходимо разделить на 2 системы.
+             System-JMS, System-SOAP -->
+            <protocol>JMS</protocol>
+
+            <queueConnectionFactory>java:comp/env/jms/ESB.CRM.CF</queueConnectionFactory>
+            <!-- Входящая очередь заглушки -->
+            <mockIncomeQueue>java:comp/env/jms/ESB.CRM.IN</mockIncomeQueue>
+            <!-- Исходящая очередь заглушки -->
+            <mockOutcomeQueue>java:comp/env/jms/ESB.CRM.OUT</mockOutcomeQueue>
+            <!-- Исходящая очередь драйвера -->
+            <driverOutcomeQueue>java:comp/env/jms/ESB.CRM.REQUEST</driverOutcomeQueue>
+            <!-- Входящая очередь драйвера -->
+            <driverIncomeQueue>java:comp/env/jms/ESB.CRM.RESPONSE</driverIncomeQueue>
+
+            <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+            <!-- Optional -->
+            <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+
+            <integrationPoints>
+
+                <!--1. driver getReferenceData -->
+                <integrationPoint name="getReferenceData">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">getReferenceData</tag>
+                    </xpathValidation>
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                </integrationPoint>
+
+                <!--2. mock sendReferenceData -->
+                <integrationPoint name="sendReferenceData">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ - что угодно, а точнее не требуется -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                    </xpathValidation>
+
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                    <!-- Требуется ли ответ -->
+                    <answerRequired>false</answerRequired>
+                </integrationPoint>
+
+                <!--3. driver getAvailableExecutors-->
+                <integrationPoint name="getAvailableExecutors">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">getAvailableExecutors</tag>
+                    </xpathValidation>
+
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                </integrationPoint>
+
+                <!--4. driver createLegalEnquiry-->
+                <integrationPoint name="createLegalEnquiry">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">createLegalEnquiry</tag>
+                    </xpathValidation>
+
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                </integrationPoint>
+
+                <!--5. mock sendLegalEnquiryStatus-->
+                <integrationPoint name="sendLegalEnquiryStatus">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <!-- Ответ не требуется -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                    </xpathValidation>
+
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                    <!-- Требуется ли ответ -->
+                    <answerRequired>false</answerRequired>
+                </integrationPoint>
+
+                <!--6. mock getAdditionalInfo-->
+                <integrationPoint name="getAdditionalInfo">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">confirmationMessage</tag>
+                    </xpathValidation>
+
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                    <!-- Требуется ли ответ -->
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+
+                <!--7. driver sendAdditionalInfo-->
+                <integrationPoint name="sendAdditionalInfo">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">sendAdditionalInfo</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">commentsHistory</tag>
+                    </xpathValidation>
+
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                </integrationPoint>
+
+                <!--8. driver cancelLegalEnquiry-->
+                <integrationPoint name="cancelLegalEnquiry">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">cancelLegalEnquiry</tag>
+                    </xpathValidation>
+
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                </integrationPoint>
+
+                <!--9. mock sendLegalEnquiryExecutionResult-->
+                <integrationPoint name="sendLegalEnquiryExecutionResult">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">confirmationMessage</tag>
+                    </xpathValidation>
+
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Mock</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->;
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                    <!-- Требуется ли ответ -->
+                    <answerRequired>true</answerRequired>
+                </integrationPoint>
+
+                <!--10. driver assessQuality-->
+                <integrationPoint name="assessQuality">
+                    <!-- Валидация сообщения, которое должно находиться в точке интеграции -->
+                    <xpathValidation>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+                        <tag ns="http://sbrf.ru/legal/enquiry/integration">assessQuality</tag>
+                    </xpathValidation>
+
+                    <!-- Тип точки интеграции Заглушка/Драйвер-->
+                    <type>Driver</type>
+                    <!-- Где лежит корневой элемент-->
+                    <!-- Optional -->
+                    <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+                    <!-- Указатель на корневой элемент для генерации тестового сообщения-->
+                    <!-- Optional -->
+                    <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+                </integrationPoint>
+            </integrationPoints>
+        </system>
+        <system name="ECM">
+            <remoteRootSchema>http://10.116.96.11:9080/urpa_ecm/services/port/?wsdl</remoteRootSchema>
+            <localRootSchema></localRootSchema>
+            <integrationPointSelector></integrationPointSelector>
+            <protocol>SOAP</protocol>
+            <rootElement></rootElement>
+            <integrationPoints></integrationPoints>
+        </system>
+    </systems>
+</MockConfig>
