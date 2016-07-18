@@ -89,7 +89,7 @@ public class MessageValidationService {
      */
     protected void initValidator (System system) throws IOException, SAXException {
         String   systemName              = system.getSystemName();
-        File     systemXsdDirectory      = dataFileService.getSystemXsdDirectoryResource(systemName).getFile();
+        File     systemXsdDirectory      = dataFileService.getSystemXsdDirectoryFile(systemName);
         String   remoteRootSchema        = system.getRemoteRootSchema();
         String   localRootSchema         = system.getLocalRootSchema();
         Protocol protocol                = system.getProtocol();
@@ -104,8 +104,8 @@ public class MessageValidationService {
                     String relativePath = requestPath.substring(requestPath.indexOf("/") + 1, requestPath.length());
                     system.setLocalRootSchema(relativePath);
 
-                    String absoluteSystemRootSchemaDir = dataFileService.getSystemXsdDirectoryResource(systemName)
-                                                                        .getFile().getAbsolutePath() + basePath;
+                    String absoluteSystemRootSchemaDir = dataFileService.getSystemXsdDirectoryFile(systemName)
+                                                                        .getAbsolutePath() + basePath;
                     absoluteSystemRootSchemaDir = absoluteSystemRootSchemaDir.replace("/", File.separator);
                     validator.put(systemName, new XsdValidator(remoteRootSchema, absoluteSystemRootSchemaDir));
                 } else {
@@ -154,7 +154,7 @@ public class MessageValidationService {
     private WsdlValidator initLocalWsdlValidator(System system, String localRootSchema) throws IOException {
         WsdlValidator wsdlValidator;
         wsdlValidator = new WsdlValidator("file:" +
-                dataFileService.getSystemXsdDirectoryResource(system.getSystemName()).getFile().getAbsolutePath() +
+                dataFileService.getSystemXsdDirectoryFile(system.getSystemName()).getAbsolutePath() +
                 File.separator +
                 localRootSchema);
         return wsdlValidator;
@@ -288,8 +288,12 @@ public class MessageValidationService {
      * @throws SAXException
      */
     public void reInitValidator (String systemName) throws IOException, SAXException {
+        removeValidator(systemName);
         System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
-        validator.remove(systemName);
         initValidator(system);
+    }
+
+    public void removeValidator(String systemName) {
+        validator.remove(systemName);
     }
 }

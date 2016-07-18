@@ -13,6 +13,7 @@ import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.spring.service.ConfigurationService;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
 
@@ -51,7 +52,7 @@ public class ConfigController {
 
     @ResponseBody
     @RequestMapping(value = "/config/import", method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
-    public String importConfig(@RequestParam MultipartFile file) throws IOException, SaxonApiException {
+    public String importConfig(@RequestParam MultipartFile file) throws IOException, SaxonApiException, JAXBException {
         File tempFile = new File(file.getOriginalFilename() + "_" + System.currentTimeMillis());
         file.transferTo(tempFile);
         configurationService.unzipConfiguration(tempFile);

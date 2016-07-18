@@ -101,8 +101,7 @@ public class XmlGeneratorService {
         @SuppressWarnings("ConstantConditions")
         String rootElementNamespace = elementSelector != null ? elementSelector.getNamespace() : null;
 
-        URL resource = dataFileService.getXsdResource(system.getSystemName(), localRootSchema).getURL();
-        assert resource != null;
+        URL resource = dataFileService.getXsdFile(system.getSystemName(), localRootSchema).toURI().toURL();
         XSModel xsModel;
         xsModel = new XSParser().parse(String.valueOf(resource.toURI()));
 

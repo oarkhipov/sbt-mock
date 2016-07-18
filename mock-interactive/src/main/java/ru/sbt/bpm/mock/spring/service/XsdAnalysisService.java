@@ -73,7 +73,7 @@ public class XsdAnalysisService {
 
     protected void init (ru.sbt.bpm.mock.config.entities.System system) throws IOException, SaxonApiException {
         String systemName = system.getSystemName();
-        File systemPath = dataFileService.getSystemXsdDirectoryResource(systemName).getFile().getCanonicalFile();
+        File systemPath = dataFileService.getSystemXsdDirectoryFile(systemName).getCanonicalFile();
         List<File> systemXsdFile = getFilesFromDir(systemPath);
         fillElementsMap(systemName, systemXsdFile);
         fillMapNamespace(systemName, systemXsdFile);

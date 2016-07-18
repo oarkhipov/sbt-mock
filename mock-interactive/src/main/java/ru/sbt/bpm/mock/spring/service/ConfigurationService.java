@@ -6,17 +6,18 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.XmlWebApplicationContext;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.spring.context.generator.service.SpringContextGeneratorService;
 
 import javax.xml.bind.JAXBException;
-import java.io.*;
-import java.util.Enumeration;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 /**
@@ -50,9 +51,9 @@ public class ConfigurationService {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream);
 
-        File rootDirectory = new File(dataFileService.getPathBaseFilePath(""));
-        File dataDirectory = dataFileService.getDataResource("").getFile();
-        File xsdDirectory = dataFileService.getSystemXsdDirectoryResource(".").getFile();
+        File rootDirectory = new File(dataFileService.getContextFilePath(""));
+        File dataDirectory = dataFileService.getContextDataFile("");
+        File xsdDirectory = dataFileService.getSystemXsdDirectoryFile(".");
 
         //Add data files
         List<File> fileList = dataFileService.searchFiles(dataDirectory, "");
@@ -65,7 +66,7 @@ public class ConfigurationService {
             addZipEntity(zipOutputStream, file.getPath().replace(rootDirectory.getPath() + File.separator, ""), file);
         }
         //Add config
-        File configFile = dataFileService.getConfigResource().getFile();
+        File configFile = dataFileService.getConfigFile();
         addZipEntity(zipOutputStream, configFile.getName(), configFile);
 
         zipOutputStream.finish();
@@ -81,50 +82,17 @@ public class ConfigurationService {
         IOUtils.closeQuietly(fileInputStream);
     }
 
-    public void unzipConfiguration(File configZip) throws IOException, SaxonApiException {
+    public void unzipConfiguration(File configZip) throws IOException, SaxonApiException, JAXBException {
         dataFileService.clearData();
-        unzipFile(configZip, dataFileService.getPathBaseFilePath(""));
+        dataFileService.unzipFile(configZip, dataFileService.getContextFilePath(""));
         //re-init configuration
         configContainer.reInit();
         xsdAnalysisService.reInit();
-
-    }
-
-    public void unzipFile(File zipFile, String placeToUnzip) throws IOException {
-        ZipFile zipFileArch = new ZipFile(zipFile);
-        Enumeration<?> enumeration = zipFileArch.entries();
-
-        while (enumeration.hasMoreElements()) {
-            ZipEntry zipEntry = (ZipEntry) enumeration.nextElement();
-
-            String name = zipEntry.getName();
-
-            File file = new File(placeToUnzip + File.separator + name);
-
-            File parentFile = file.getParentFile();
-            if (parentFile != null) {
-                parentFile.mkdirs();
-            }
-            if (file.isDirectory()) {
-                file.mkdir();
-            } else {
-                //Extract file
-                InputStream inputStream = zipFileArch.getInputStream(zipEntry);
-                FileOutputStream fileOutputStream = new FileOutputStream(file);
-                byte[] bytes = new byte[1024];
-                int length;
-                while ((length = inputStream.read(bytes)) >= 0) {
-                    fileOutputStream.write(bytes, 0, length);
-                }
-                inputStream.close();
-                fileOutputStream.close();
-            }
-        }
-        zipFileArch.close();
+        reInitSpringContext();
     }
 
     public void saveConfig() throws IOException {
-        File configFile = dataFileService.getConfigResource().getFile();
+        File configFile = dataFileService.getConfigFile();
         FileUtils.write(configFile, configContainer.toXml());
     }
 
@@ -132,9 +100,9 @@ public class ConfigurationService {
         mockSpringContextGeneratorService.reInit();
         Beans beans = mockSpringContextGeneratorService.generateContext();
         String xml = springContextGeneratorService.toXml(beans);
-        //TODO fix dangerous situation. when servlet config generated broken
-        String servletConfigAbsolutePath = dataFileService.getPathBaseFilePath("mockapp-servlet.xml");
+        String servletConfigAbsolutePath = dataFileService.getContextFilePath("mockapp-servlet.xml");
         FileUtils.writeStringToFile(new File(servletConfigAbsolutePath), xml);
-        applicationContext = new FileSystemXmlApplicationContext(servletConfigAbsolutePath);
+        ((XmlWebApplicationContext) applicationContext).refresh();
+
     }
 }

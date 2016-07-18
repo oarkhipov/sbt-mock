@@ -85,17 +85,8 @@
     />
 
     <!-- Входной и выходной каналы Заглушки-->
-    <int:channel id="MockInboundRequest">
-        <int:interceptors>
-            <int:wire-tap channel="MockInboundRequestLogger"/>
-        </int:interceptors>
-    </int:channel>
-
-    <int:channel id="MockOutboundResponse">
-        <int:interceptors>
-            <int:wire-tap channel="MockOutboundResponseLogger"/>
-        </int:interceptors>
-    </int:channel>
+    <int:channel id="MockInboundRequest"/>
+    <int:channel id="MockOutboundResponse"/>
 
 
 

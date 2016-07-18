@@ -201,8 +201,8 @@ public class SystemApiController {
             }
         }
 
-        validationService.reInitValidator(systemName);
         configurationService.saveConfig();
+        validationService.reInitValidator(systemName);
         if (needToReInitSpringContext) {
             configurationService.reInitSpringContext();
         }
@@ -214,6 +214,7 @@ public class SystemApiController {
         Systems systems = configContainer.getConfig().getSystems();
         System system = systems.getSystemByName(systemName);
         Protocol protocol = system.getProtocol();
+        validationService.removeValidator(systemName);
         dataFileService.deleteSystemDir(systemName);
         systems.getSystems().remove(system);
         configurationService.saveConfig();

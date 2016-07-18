@@ -27,17 +27,16 @@ import java.util.Map;
 @Component
 public class MockConfigContainer {
 
+    private static MockConfigContainer INSTANCE = null;
     @Autowired
     ApplicationContext applicationContext;
-
+    @Getter
+    private String basePath;
     @Getter
     private MockConfig config;
-
     //map of wsdl projects for message generation and validation. It initializes at validator initialization method
     @Getter
     private Map<String, WsdlProject> wsdlProjectMap = new HashMap<String, WsdlProject>();
-
-
     @Getter
     private String filePath = null;
 
@@ -52,24 +51,37 @@ public class MockConfigContainer {
     }
 
     /**
+     * Получение экземпляра объекта синглтона средствами core Java
+     *
+     * @param filePath путь до файла конфига
+     */
+    public static MockConfigContainer getInstance(String filePath) {
+        if (INSTANCE == null)
+            synchronized (MockConfigContainer.class) {
+                if (INSTANCE == null)
+                    INSTANCE = new MockConfigContainer(filePath);
+            }
+        return INSTANCE;
+    }
+
+    /**
      * десерализация файла в объект конфига при инициализации
      *
      * @throws IOException
      */
     @PostConstruct
-    public void init() throws IOException{
-        if (this.filePath == null || this.filePath.equals(""))
-            throw new IOException("no config file [" + filePath +"]!");
+    public void init() throws IOException {
+        if (this.filePath == null || this.filePath.isEmpty())
+            throw new IOException("no config file [" + filePath + "]!");
 
         File resourceFile;
-        if(applicationContext == null) {
+        if (applicationContext == null) {
             resourceFile = new File(filePath);
-        }
-        else {
+        } else {
+            basePath = applicationContext.getResource("").getFile().getAbsolutePath();
             resourceFile = applicationContext.getResource(filePath).getFile();
         }
 
-        assert resourceFile.exists() : resourceFile.toString() + " not exists";
 
         FileReader fileReader = new FileReader(resourceFile);
         XStream xStream = new XStream(new DomDriver());
@@ -85,22 +97,6 @@ public class MockConfigContainer {
 
         this.config = (MockConfig) xStream.fromXML(fileReader);
 
-    }
-
-    private static MockConfigContainer INSTANCE = null;
-
-    /**
-     * Получение экземпляра объекта синглтона средствами core Java
-     *
-     * @param filePath путь до файла конфига
-     */
-    public static MockConfigContainer getInstance(String filePath) {
-        if (INSTANCE == null)
-            synchronized (MockConfigContainer.class) {
-                if(INSTANCE == null)
-                    INSTANCE = new MockConfigContainer(filePath);
-            }
-        return INSTANCE;
     }
 
     public String toXml() {

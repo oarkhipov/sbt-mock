@@ -57,8 +57,9 @@ public class XsdValidator implements MessageValidator {
     public synchronized List<String> validate(String xml) {
         errors.clear();
         List<String> result = new ArrayList<String>();
+        InputStream stream = null;
         try {
-            InputStream stream = new ByteArrayInputStream(xml.getBytes("UTF-8"));
+            stream = new ByteArrayInputStream(xml.getBytes("UTF-8"));
             validator.validate(new StreamSource(stream));
         } catch (UnsupportedEncodingException e) {
             String message = "Unsupported Encoding UTF-8";
@@ -72,6 +73,14 @@ public class XsdValidator implements MessageValidator {
             String message = "SAXException while validating message";
             result.add(message);
             log.error(message, e);
+        } finally {
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return errors.size() > 0 ? errors : result;
     }
