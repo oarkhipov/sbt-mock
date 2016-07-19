@@ -109,7 +109,7 @@
                                                     </c:if>
                                                     <li role="separator" class="divider"></li>
                                                     <li><a href="#" onclick="editSysForm('${system.systemName}')">Edit
-
+                                                        System</a></li>
                                                     <li><a href="#" onclick="delSystemForm('${system.systemName}')">Delete
                                                         System</a></li>
                                                 </ul>
