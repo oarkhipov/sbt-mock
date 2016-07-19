@@ -37,7 +37,7 @@ public abstract class AbstractConfigGenerator extends AbstractTestNGSpringContex
 	}
 
 	protected void compareResults (String expected, Beans beans, String classAndMethodName) throws JAXBException {
-		String actual = generator.toXml(beans);
+		String actual = generator.toXml(beans).replaceAll("&#10;","");
 		printActual(actual, classAndMethodName);
 		String actualSting = compactXml(actual);
 		String expectedString = compactXml(expected);

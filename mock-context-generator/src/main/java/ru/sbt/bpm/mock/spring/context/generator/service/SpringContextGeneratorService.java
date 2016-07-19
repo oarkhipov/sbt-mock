@@ -82,7 +82,9 @@ public class SpringContextGeneratorService {
 			e.printStackTrace();
 		} finally {
 			try {
-				xmlStreamWriter.close();
+				if (xmlStreamWriter != null) {
+					xmlStreamWriter.close();
+				}
 			} catch (XMLStreamException e) {
 				e.printStackTrace();
 			}
