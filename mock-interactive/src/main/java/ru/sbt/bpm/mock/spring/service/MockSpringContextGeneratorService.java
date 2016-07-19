@@ -194,15 +194,15 @@ public class MockSpringContextGeneratorService {
                  * Создаем настройки подлючения к jms
                  */
                 String jndiFactoryName = createJndiConnectionObjects(queueConnectionFactory,
-                        JNDI_CONNECTION_FACTORY_POSTFIX, String.format("Connection Factory for system [%s}", system.getSystemName()));
+                        JNDI_CONNECTION_FACTORY_POSTFIX, String.format("Connection Factory for system [%s]", system.getSystemName()));
 
-                String jndiMockInboundQueueName = createJndiConnectionObjects(mockInputString, QUEUE_POSTFIX, String.format("Mock Inbound Queue for system [%s}", system.getSystemName()));
+                String jndiMockInboundQueueName = createJndiConnectionObjects(mockInputString, QUEUE_POSTFIX, String.format("Mock Inbound Queue for system [%s]", system.getSystemName()));
 
-                String jndiMockOutboundQueueName = createJndiConnectionObjects(mockOutputString, QUEUE_POSTFIX, String.format("Mock Outbound Queue for system [%s}", system.getSystemName()));
+                String jndiMockOutboundQueueName = createJndiConnectionObjects(mockOutputString, QUEUE_POSTFIX, String.format("Mock Outbound Queue for system [%s]", system.getSystemName()));
 
-                String jndiDriverRequestQueueName = createJndiConnectionObjects(driverOutputString, QUEUE_POSTFIX, String.format("Driver Request Queue for system [%s}", system.getSystemName()));
+                String jndiDriverRequestQueueName = createJndiConnectionObjects(driverOutputString, QUEUE_POSTFIX, String.format("Driver Request Queue for system [%s]", system.getSystemName()));
 
-                String jndiDriverResponseQueueName = createJndiConnectionObjects(driverInputString, QUEUE_POSTFIX, String.format("Driver Response Queue for system [%s}", system.getSystemName()));
+                String jndiDriverResponseQueueName = createJndiConnectionObjects(driverInputString, QUEUE_POSTFIX, String.format("Driver Response Queue for system [%s]", system.getSystemName()));
 
                 /**
                  * Создание jms inbound & outbound
@@ -241,7 +241,7 @@ public class MockSpringContextGeneratorService {
                 /**
                  * Mock
                  */
-                createServiceActivatorWithBean(mapMockChannels.get(system.getSystemName()).getT1(), system.getQueueConnectionFactory(), system.getMockIncomeQueue(), String.format("Aggregator for system [%s]", system.getSystemName()));
+                createServiceActivatorWithBean(mapMockChannels.get(system.getSystemName()).getT1(), new String[]{system.getQueueConnectionFactory(), system.getMockIncomeQueue()}, String.format("Aggregator for system [%s]", system.getSystemName()));
                 // mockRouterChannel
                 String mockRouterChannel = createChannel(system.getMockOutcomeQueue(), ROUTER_CHANNEL_POSTFIX, null);
                 //MochOutboundChannel
@@ -328,8 +328,8 @@ public class MockSpringContextGeneratorService {
      * @param mockInputChannel
      * @param constructorArgsValue
      */
-    private void createServiceActivatorWithBean(String mockInputChannel, String... constructorArgsValue) {
-        beans = integrationConstructor.createServiceActivator(beans, mockInputChannel, MOCK_INBOUND_REQUEST_AGGREGATED, AGGREGATE_SERVICE_ACTIVATOR_METHOD_NAME, createBeanForServiceActivator(constructorArgsValue));
+    private void createServiceActivatorWithBean(String mockInputChannel, String[] constructorArgsValue, String comment) {
+        beans = integrationConstructor.createServiceActivator(beans, mockInputChannel, MOCK_INBOUND_REQUEST_AGGREGATED, AGGREGATE_SERVICE_ACTIVATOR_METHOD_NAME, createBeanForServiceActivator(constructorArgsValue),comment);
     }
 
     /**

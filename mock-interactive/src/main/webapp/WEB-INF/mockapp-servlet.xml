@@ -18,24 +18,24 @@
     <!-- Настройка используемой конфигурации заглушки-->
 
     <bean id="connectionFactoryString" class="java.lang.String">
-        <constructor-arg value="java:comp/env/jms/ESB.CRM.CF"/>
+        <constructor-arg value="jms/ESB.CRM.CF"/>
     </bean>
 
     <!-- - - - - - - -->
     <!--MOCK-->
     <bean id="mockConnectionInputString" class="java.lang.String">
-        <constructor-arg value="java:comp/env/jms/ESB.CRM.IN"/>
+        <constructor-arg value="jms/ESB.CRM.IN"/>
     </bean>
     <bean id="mockConnectionOutputString" class="java.lang.String">
-        <constructor-arg value="java:comp/env/jms/ESB.CRM.OUT"/>
+        <constructor-arg value="jms/ESB.CRM.OUT"/>
     </bean>
     <!-- - - - - - - -->
     <!-- DRIVER -->
     <bean id="driverConnectionOutputString" class="java.lang.String">
-        <constructor-arg value="java:comp/env/jms/ESB.CRM.REQUEST"/>
+        <constructor-arg value="jms/ESB.CRM.REQUEST"/>
     </bean>
     <bean id="driverConnectionInputString" class="java.lang.String">
-        <constructor-arg value="java:comp/env/jms/ESB.CRM.RESPONSE"/>
+        <constructor-arg value="jms/ESB.CRM.RESPONSE"/>
     </bean>
 
     <!-- - - - - - - - - - - - - - -->

@@ -70,7 +70,7 @@ public class SpringContextGeneratorService {
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		PrintStream printStream = new PrintStream(byteArrayOutputStream);
 
-		XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newFactory();
+		XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
 		XMLStreamWriter  xmlStreamWriter = null;
 		try {
 			xmlStreamWriter = xmlOutputFactory.createXMLStreamWriter(printStream);

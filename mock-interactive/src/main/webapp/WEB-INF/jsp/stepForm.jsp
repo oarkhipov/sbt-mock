@@ -103,9 +103,13 @@
                                                     <li><a href="#" onclick="addIpForm('${system.systemName}')">Add integration point</a></li>
                                                     <li><a href="#" onclick="uploadSchema('${system.systemName}')">Upload schema</a></li>
                                                     <li><a href="#" onclick="reinitValidator('${system.systemName}')">Update Validator</a></li>
+                                                    <c:if test="${system.protocol}=='SOAP'">
+                                                        <li role="separator" class="divider"></li>
+                                                        <li><a href="<%=request.getContextPath()%>/ws/${system.systemName}" target="_blank">Show WSDL</a></li>
+                                                    </c:if>
                                                     <li role="separator" class="divider"></li>
                                                     <li><a href="#" onclick="editSysForm('${system.systemName}')">Edit
-                                                        System</a></li>
+
                                                     <li><a href="#" onclick="delSystemForm('${system.systemName}')">Delete
                                                         System</a></li>
                                                 </ul>
