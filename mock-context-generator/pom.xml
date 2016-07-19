@@ -10,7 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>context-generator</artifactId>
-    <version>${parent.version}</version>
 
     <properties>
         <!-- MAVEN sources of xsd -->
@@ -262,6 +261,7 @@ SYSTEM "http://www.springframework.org/schema/integration/spring-integration-${s
                                 <arg>-extension</arg>
                                 <arg>-Xinheritance</arg>
                                 <arg>-Xnamespace-prefix</arg>
+                                <arg>-Xannotate</arg>
                             </args>
                             <schemas>
                                 <schema>
@@ -294,6 +294,7 @@ SYSTEM "http://www.springframework.org/schema/integration/spring-integration-${s
                                 <arg>${module.basedir}/target/generated-sources/META-INF/beans.episode</arg>
                                 <arg>-Xnamespace-prefix</arg>
                                 <arg>-Xinheritance</arg>
+                                <arg>-Xannotate</arg>
                             </args>
                             <schemas>
                                 <schema>
@@ -348,6 +349,11 @@ SYSTEM "http://www.springframework.org/schema/integration/spring-integration-${s
                         <groupId>org.jvnet.jaxb2_commons</groupId>
                         <artifactId>jaxb2-basics</artifactId>
                         <version>0.6.3</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.jvnet.jaxb2_commons</groupId>
+                        <artifactId>jaxb2-basics-annotate</artifactId>
+                        <version>1.0.2</version>
                     </dependency>
                 </dependencies>
             </plugin>
