@@ -1,5 +1,4 @@
-<int:Envelope xmlns:int="http://sbrf.ru/legal/enquiry/integration"
-              xmlns:typ="http://sbrf.ru/legal/enquiry/integration/types">
+<int:Envelope xmlns:int="http://sbrf.ru/legal/enquiry/integration" xmlns:typ="http://sbrf.ru/legal/enquiry/integration/types">
   <!--You have a CHOICE of the next 13 items at this level-->
   <int:getReferenceData>
     <int:requestMessage>string</int:requestMessage>
@@ -37,7 +36,7 @@
         <typ:referenceItemId>string</typ:referenceItemId>
         <typ:value>string</typ:value>
         <!--Optional:-->
-        <typ:effectiveTo>2018-11-01T08:36:46+03:00</typ:effectiveTo>
+        <typ:effectiveTo>2018-11-01T09:36:46+04:00</typ:effectiveTo>
       </typ:requestCategory>
     </int:categories>
     <!--Optional:-->
@@ -73,7 +72,7 @@
         <typ:referenceItemId>string</typ:referenceItemId>
         <typ:value>string</typ:value>
         <!--Optional:-->
-        <typ:effectiveTo>2016-02-20T17:56:29+03:00</typ:effectiveTo>
+        <typ:effectiveTo>2016-02-20T18:56:29+04:00</typ:effectiveTo>
       </typ:requestComplexity>
     </int:complexities>
     <!--Optional:-->
@@ -82,7 +81,7 @@
         <typ:referenceItemId>string</typ:referenceItemId>
         <typ:value>string</typ:value>
         <!--Optional:-->
-        <typ:effectiveTo>2019-08-19T17:35:10</typ:effectiveTo>
+        <typ:effectiveTo>2019-08-19T18:35:10</typ:effectiveTo>
       </typ:rejectionReason>
     </int:rejectionReasons>
     <!--Optional:-->
@@ -91,7 +90,7 @@
         <typ:referenceItemId>string</typ:referenceItemId>
         <typ:value>string</typ:value>
         <!--Optional:-->
-        <typ:effectiveTo>2018-02-04T17:35:59+03:00</typ:effectiveTo>
+        <typ:effectiveTo>2018-02-04T18:35:59+04:00</typ:effectiveTo>
       </typ:qualityAssessment>
     </int:qualityAssessments>
     <!--Optional:-->
@@ -118,7 +117,7 @@
         <typ:referenceItemId>string</typ:referenceItemId>
         <typ:value>string</typ:value>
         <!--Optional:-->
-        <typ:effectiveTo>2015-08-24T02:09:23</typ:effectiveTo>
+        <typ:effectiveTo>2015-08-24T03:09:23</typ:effectiveTo>
       </typ:requestStatus>
     </int:requestStatuses>
   </int:sendReferenceData>
@@ -142,7 +141,7 @@
           <typ:position>string</typ:position>
           <typ:operatorOrgUnitName>string</typ:operatorOrgUnitName>
         </typ:operatorInfo>
-        <typ:expectedStartDate>2015-06-18T01:07:00+03:00</typ:expectedStartDate>
+        <typ:expectedStartDate>2015-06-18T02:07:00+04:00</typ:expectedStartDate>
         <typ:expectedEndDate>2000-04-21T04:36:55+04:00</typ:expectedEndDate>
         <typ:isExecutorInRequest>true</typ:isExecutorInRequest>
       </typ:operatorExecutor>
@@ -285,7 +284,7 @@
       <typ:operatorOrgUnitName>string</typ:operatorOrgUnitName>
     </int:responsible>
     <!--Optional:-->
-    <int:expectedStartDate>2016-02-07T21:34:15+03:00</int:expectedStartDate>
+    <int:expectedStartDate>2016-02-07T22:34:15+04:00</int:expectedStartDate>
     <!--Optional:-->
     <int:expectedEndDate>2009-04-10T01:42:38</int:expectedEndDate>
   </int:sendLegalEnquiryStatus>

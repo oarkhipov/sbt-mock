@@ -67,6 +67,11 @@ public class IntegrationPointApiController {
                         new ElementSelector(rootElementNamespace, rootElementName));
 
         IntegrationPoints integrationPointContainer = systemObject.getIntegrationPoints();
+        if (integrationPointContainer == null) {
+            integrationPointContainer = new IntegrationPoints();
+            systemObject.setIntegrationPoints(integrationPointContainer);
+        }
+
         List<IntegrationPoint> integrationPoints = integrationPointContainer.getIntegrationPoints();
         if (integrationPoints == null) {
             integrationPointContainer.setIntegrationPoints(new ArrayList<IntegrationPoint>());
@@ -111,7 +116,7 @@ public class IntegrationPointApiController {
         }
 
         XpathSelector xpathSelector = xpathValidatorNamespace != null ? new XpathSelector(xpathValidatorNamespace, xpathValidatorElementName) : null;
-        if (xpathSelector != null && !integrationPoint.getXpathValidatorSelector().equals(xpathSelector)) {
+        if (integrationPoint.getXpathValidatorSelector() == null || (xpathSelector != null && !integrationPoint.getXpathValidatorSelector().equals(xpathSelector))) {
             integrationPoint.setXpathValidatorSelector(xpathSelector);
         }
 

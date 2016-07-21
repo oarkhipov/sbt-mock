@@ -35,7 +35,7 @@ function applyActionButtonsEvents() {
                 obj = $.parseJSON(obj);
                 if(!obj.error) showInfo(obj.info);
                 showError(obj.error);
-                setResponse(htmlDecode(obj.data));
+                setResponse(obj.data);
                 sendDisable(false);
             },
             error: function (jqXHR, textStatus, obj) {

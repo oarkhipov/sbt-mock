@@ -21,7 +21,7 @@ public class SystemController {
 
     @RequestMapping(value = "/system/add/", method = RequestMethod.GET)
     public String add(Model model) {
-        model.addAttribute("system", new System());
+        model.addAttribute("system", null);
         return "system/form";
     }
 

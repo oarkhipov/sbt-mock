@@ -130,6 +130,27 @@ function importForm() {
         }]
     });
 }
+
+function refreshContext() {
+    BootstrapDialog.show({
+        title: "Refresh Spring context",
+        message: "Are you sure, you want to refresh Spring Context?",
+        closable: false,
+        buttons: [{
+            label: "Yes",
+            cssClass: "btn-success",
+            action: function () {
+                window.location.href = "config/refreshContext";
+            }
+        }, {
+            label: "No",
+            cssClass: "btn-danger",
+            action: function (dialogItself) {
+                dialogItself.close();
+            }
+        }]
+    })
+}
 // SYSTEMS ----------------------------------------------
 function addSysForm() {
     BootstrapDialog.show({

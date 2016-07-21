@@ -3,6 +3,7 @@ package ru.sbt.bpm.mock.spring.context.generator;
 import generated.springframework.beans.Beans;
 import lombok.extern.slf4j.Slf4j;
 import org.custommonkey.xmlunit.Diff;
+import org.custommonkey.xmlunit.XMLUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -15,7 +16,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by sbt-hodakovskiy-da on 06.07.2016.
@@ -43,7 +44,11 @@ public abstract class AbstractConfigGenerator extends AbstractTestNGSpringContex
 		String expectedString = compactXml(expected);
 		try {
 			Diff diff = new Diff(actualSting, expectedString);
-			assertTrue(diff.identical(), diff.toString());
+			XMLUnit.setIgnoreWhitespace(true);
+			XMLUnit.setIgnoreComments(true);
+			if (!diff.similar()) {
+				assertEquals(expected, actual);
+			}
 		} catch (SAXException e ) {
 			e.printStackTrace();
 		} catch (IOException e) {

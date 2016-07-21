@@ -39,9 +39,9 @@
             <select name="name" id="name" class="form-control"
                     <c:if test="${!adding && (!empty systemName)}">disabled="disabled"</c:if>
                     >
-                <c:forEach items="${suggestedNames}" var="name">
-                    <option name="${name}"
-                            <c:if test="${name.equals(integrationPointName)}">selected</c:if> >${name}</option>
+                <c:forEach items="${suggestedNames}" var="ipName">
+                    <option name="${ipName}"
+                            <c:if test="${ipName == integrationPointName}">selected</c:if> >${ipName}</option>
                 </c:forEach>
             </select>
         </div>
@@ -84,9 +84,9 @@
                 }
                 function getIntegrationPointSuggestionNames() {
                     var systemName = $("#system").val();
-                    var integrationPointSelector = $("#name");
-                    integrationPointSelector.text("");
-                    if (systemName != -1) {
+                    if ((systemName != -1) && ${empty integrationPointName}) {
+                        var integrationPointSelector = $("#name");
+                        integrationPointSelector.text("");
 //                            console.log("system chosen: " + systemName);
                         $.ajax({
                             url: "<%=request.getContextPath()%>/api/" + systemName + "/suggestIpName/",

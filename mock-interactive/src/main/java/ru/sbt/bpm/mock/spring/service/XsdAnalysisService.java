@@ -66,8 +66,11 @@ public class XsdAnalysisService {
         Systems systemContainer = configContainer.getConfig().getSystems();
         if (systemContainer != null) {
             List<ru.sbt.bpm.mock.config.entities.System> systems = systemContainer.getSystems();
-            for (System system : systems)
-                init(system);
+            if (systems != null) {
+                for (System system : systems) {
+                    init(system);
+                }
+            }
         }
     }
 

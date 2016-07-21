@@ -220,6 +220,7 @@
             <li><a href="#">Validate all integration points</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="<%=request.getContextPath()%>/info" target="_blank" style="font-size: x-small">Show Spring context</a></li>
+            <li><a href="#" onclick="refreshContext()">Refresh Spring context</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#"><span class="glyphicon glyphicon-copyright-mark"></span> Copyright</a></li>
         </ul>

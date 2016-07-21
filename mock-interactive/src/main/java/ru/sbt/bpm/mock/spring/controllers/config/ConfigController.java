@@ -61,4 +61,10 @@ public class ConfigController {
         }
         return "OK!";
     }
+
+    @RequestMapping(value = "/config/refreshContext", produces = MediaType.TEXT_HTML_VALUE)
+    public String refreshContext() throws JAXBException, IOException {
+        configurationService.reInitSpringContext();
+        return "redirect:/";
+    }
 }

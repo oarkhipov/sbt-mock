@@ -24,7 +24,7 @@ public class JmsMessageValidationException extends MessageValidationException {
     @Override
     public String getMessage() {
         if (expectedValue == null && actualValue == null) {
-            return "JMS Validation Exception: message did not pass xpath [" + super.getMessage() + "] validation!";
+            return "JMS Validation Exception: message did not pass xpath [" + xpath + "] validation!";
         } else {
             return "JMS Validation Exception: message did not pass xpath [" + xpath + "] validation!\n\n" +
                     "Expected [" + expectedValue + "] but actual is [" + actualValue + "].";

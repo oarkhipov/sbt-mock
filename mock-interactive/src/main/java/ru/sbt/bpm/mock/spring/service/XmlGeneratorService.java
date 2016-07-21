@@ -92,7 +92,7 @@ public class XmlGeneratorService {
             }
         }
         //if no System and IntegrationPoint rootElement specified
-        if (elementSelector == null) {
+        if (elementSelector == null || (elementSelector.getNamespace().isEmpty() && elementSelector.getElement().isEmpty())) {
             //get first element selector from integration point selector
             elementSelector = system.getIntegrationPointSelector().getElementSelectors().get(0);
         }
@@ -129,8 +129,8 @@ public class XmlGeneratorService {
 
     private String filterMessage(System system, IntegrationPoint integrationPoint, MessageType messageType, StringWriter writer) throws Exception {
         StringBuilder xmlMapElements = new StringBuilder();
-        if (integrationPoint.isMock() && messageType == MessageType.RQ) {
-            //mock test
+        if (messageType == MessageType.RQ) {
+            //mock test & driver message
             List<ElementSelector> elementSelectors = system.getIntegrationPointSelector().getElementSelectors();
             for (int i = 0; i < elementSelectors.size(); i++) {
                 ElementSelector selector = elementSelectors.get(i);

@@ -37,7 +37,7 @@ public class IntegrationPointController {
     }
 
     @RequestMapping(value = "/ip/update/{system}/{name}/", method = RequestMethod.GET)
-    public String update(@PathVariable String system,
+    public String update(@PathVariable final String system,
                          @PathVariable final String name,
                          Model model) throws Exception {
         Systems systems = configContainer.getConfig().getSystems();
@@ -53,12 +53,12 @@ public class IntegrationPointController {
         model.addAttribute("xsdFile", integrationPoint.getXsdFile());
         model.addAttribute("rootElement", integrationPoint.getRootElement());
         model.addAttribute("xpathValidation", integrationPoint.getXpathValidatorSelector() != null ? integrationPoint.getXpathValidatorSelector().getElementSelectors() : null);
-        model.addAttribute("adding",false);
+        model.addAttribute("adding", false);
 
         List<String> integrationPointNames = new ArrayList<String>() {{
             add(name);
+            addAll(suggestionService.suggestName(configContainer.getSystemByName(system)));
         }};
-        integrationPointNames.addAll(suggestionService.suggestName(configContainer.getSystemByName(system)));
         model.addAttribute("suggestedNames", integrationPointNames);
         return "integrationPoint/form";
     }

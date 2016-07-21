@@ -11,6 +11,7 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.spring.context.generator.service.SpringContextGeneratorService;
 
+import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -46,6 +47,11 @@ public class ConfigurationService {
     @Autowired
     MockSpringContextGeneratorService mockSpringContextGeneratorService;
 
+    @PostConstruct
+    private void init() throws JAXBException, IOException {
+        //generate spring context
+//        reInitSpringContext();
+    }
 
     public byte[] compressConfiguration() throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

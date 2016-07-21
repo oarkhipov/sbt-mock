@@ -125,7 +125,7 @@ public class SystemApiController {
         }
 
         if (rootSchema != null) {
-            if (systemObject.getRemoteRootSchema() != null && !systemObject.getRemoteRootSchema().equals(rootSchema)) {
+            if (systemObject.getRemoteRootSchema() == null || !systemObject.getRemoteRootSchema().equals(rootSchema)) {
                 systemObject.setRemoteRootSchema(rootSchema);
             }
         }
@@ -139,7 +139,7 @@ public class SystemApiController {
         }
 
         if (localRootSchema != null) {
-            if (systemObject.getLocalRootSchema() != null && !systemObject.getLocalRootSchema().equals(localRootSchema)) {
+            if (systemObject.getLocalRootSchema() == null || !systemObject.getLocalRootSchema().equals(localRootSchema)) {
                 systemObject.setLocalRootSchema(localRootSchema);
             }
         }
@@ -149,47 +149,47 @@ public class SystemApiController {
             xpathSelector = new XpathSelector(integrationPointSelectorNamespace, integrationPointSelectorElementName);
         }
 
-        if (systemObject.getIntegrationPointSelector() != null && !systemObject.getIntegrationPointSelector().equals(xpathSelector)) {
+        if (systemObject.getIntegrationPointSelector() == null || !systemObject.getIntegrationPointSelector().equals(xpathSelector)) {
             systemObject.setIntegrationPointSelector(xpathSelector);
         }
 
         if (queueConnectionFactory != null) {
-            if (systemObject.getQueueConnectionFactory() != null && !systemObject.getQueueConnectionFactory().equals(queueConnectionFactory)) {
+            if (systemObject.getQueueConnectionFactory() == null || !systemObject.getQueueConnectionFactory().equals(queueConnectionFactory)) {
                 systemObject.setQueueConnectionFactory(queueConnectionFactory);
                 needToReInitSpringContext = true;
             }
         }
 
         if (mockIncomeQueue != null) {
-            if (systemObject.getMockIncomeQueue() != null && !systemObject.getMockIncomeQueue().equals(mockIncomeQueue)) {
+            if (systemObject.getMockIncomeQueue() == null || !systemObject.getMockIncomeQueue().equals(mockIncomeQueue)) {
                 systemObject.setMockIncomeQueue(mockIncomeQueue);
                 needToReInitSpringContext = true;
             }
         }
 
         if (mockOutcomeQueue != null) {
-            if (systemObject.getMockOutcomeQueue() != null && !systemObject.getMockOutcomeQueue().equals(mockOutcomeQueue)) {
+            if (systemObject.getMockOutcomeQueue() == null || !systemObject.getMockOutcomeQueue().equals(mockOutcomeQueue)) {
                 systemObject.setMockOutcomeQueue(mockOutcomeQueue);
                 needToReInitSpringContext = true;
             }
         }
 
         if (driverOutcomeQueue != null) {
-            if (systemObject.getDriverOutcomeQueue() != null && !systemObject.getDriverOutcomeQueue().equals(driverOutcomeQueue)) {
+            if (systemObject.getDriverOutcomeQueue() == null || !systemObject.getDriverOutcomeQueue().equals(driverOutcomeQueue)) {
                 systemObject.setDriverOutcomeQueue(driverOutcomeQueue);
                 needToReInitSpringContext = true;
             }
         }
 
         if (driverIncomeQueue != null) {
-            if (systemObject.getDriverIncomeQueue() != null && !systemObject.getDriverIncomeQueue().equals(driverIncomeQueue)) {
+            if (systemObject.getDriverIncomeQueue() == null || !systemObject.getDriverIncomeQueue().equals(driverIncomeQueue)) {
                 systemObject.setDriverIncomeQueue(driverIncomeQueue);
                 needToReInitSpringContext = true;
             }
         }
 
         if (driverWebServiceEndpoint != null) {
-            if (systemObject.getDriverWebServiceEndpoint() != null && !systemObject.getDriverWebServiceEndpoint().equals(driverWebServiceEndpoint)) {
+            if (systemObject.getDriverWebServiceEndpoint() == null || !systemObject.getDriverWebServiceEndpoint().equals(driverWebServiceEndpoint)) {
                 systemObject.setDriverWebServiceEndpoint(driverWebServiceEndpoint);
             }
         }

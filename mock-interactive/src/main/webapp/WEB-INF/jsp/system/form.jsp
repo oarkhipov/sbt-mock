@@ -14,7 +14,7 @@
 </head>
 <body>
 <form method="post"
-      action="<%=request.getContextPath()%>/api/system/<c:choose><c:when test="${system.systemName != ''}">update/${system.systemName}</c:when><c:otherwise>add</c:otherwise></c:choose>/"
+      action="<%=request.getContextPath()%>/api/system/<c:choose><c:when test="${system != null && system.systemName != ''}">update/${system.systemName}</c:when><c:otherwise>add</c:otherwise></c:choose>/"
       class="form-horizontal">
     <div class="form-group">
         <label for="name" class="control-label col-sm-2">System:</label>
@@ -34,7 +34,7 @@
         </div>
     </div>
     <input type="hidden"
-           value="${system.protocol}"
+           value="<c:choose><c:when test="${system.protocol}!=''">${system.protocol}</c:when><c:otherwise>JMS</c:otherwise></c:choose>"
            name="protocol" id="protocol"/>
 
     <div id="protocol-container" class="centered-pills">

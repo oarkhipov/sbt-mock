@@ -18,6 +18,7 @@ import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.spring.bean.ResponseGenerator;
 import ru.sbt.bpm.mock.spring.bean.pojo.MockMessage;
 import ru.sbt.bpm.mock.spring.integration.gateway.ClientService;
+import ru.sbt.bpm.mock.spring.utils.ExceptionUtils;
 
 import java.io.IOException;
 
@@ -53,10 +54,17 @@ public class MessageSendingService {
     }
 
     public String sendJMS(MockMessage message) {
-        String responseString = clientService.sendMockMessage(message);
         ru.sbt.bpm.mock.config.entities.System messageSystem = message.getSystem();
+        MockMessage responseMessage = new MockMessage(Protocol.JMS, messageSystem.getQueueConnectionFactory(), messageSystem.getDriverIncomeQueue(), "");
+        String responseString;
+        try {
+            responseString = clientService.sendMockMessage(message);
 
-        MockMessage responseMessage = new MockMessage(Protocol.JMS, messageSystem.getQueueConnectionFactory(), messageSystem.getDriverIncomeQueue(), responseString);
+        } catch (RuntimeException e) {
+            responseString = ExceptionUtils.getExceptionStackTrace(e);
+            responseMessage.setFaultMessage(true);
+        }
+        responseMessage.setPayload(responseString);
         responseMessage.setSystem(messageSystem);
         responseMessage.setIntegrationPoint(message.getIntegrationPoint());
         responseGenerator.log(responseMessage, MessageType.RS);
@@ -70,7 +78,7 @@ public class MessageSendingService {
         WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(messageSystem.getSystemName());
 
 
-        String operationName = ((WsdlOperation)wsdlProject.getInterfaceList().get(0).getOperationByName(message.getIntegrationPoint().getName())).getAction();
+        String operationName = ((WsdlOperation) wsdlProject.getInterfaceList().get(0).getOperationByName(message.getIntegrationPoint().getName())).getAction();
         HttpPost httpPost = new HttpPost(messageSystem.getDriverWebServiceEndpoint());
         httpPost.addHeader("Content-Type", "application/xml");
         httpPost.addHeader("SOAP-Action", operationName);

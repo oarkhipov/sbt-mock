@@ -23,8 +23,8 @@ public class JmsIntegrationConstructorTest extends AbstractConfigGenerator {
 	public void testCreateInboundGateway () throws JAXBException {
 		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><beans xmlns=\"http://www.springframework"
 		                  + ".org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
-		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
 		                  + "xmlns:int=\"http://www.springframework.org/schema/integration\" "
+		                  + "xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\" "
 		                  + "xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www"
 		                  + ".springframework.org/schema/beans/spring-beans.xsd         http://www.springframework"
 		                  + ".org/schema/integration http://www.springframework"
