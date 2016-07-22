@@ -62,6 +62,7 @@ public class ResponseGenerator {
 
     public MockMessage proceedJmsRequest(MockMessage mockMessage) throws Exception {
         mockMessage.setProtocol(Protocol.JMS);
+        log(mockMessage, MessageType.RQ);
         final System systemByPayload = jmsService.getSystemByPayload(mockMessage.getPayload(), mockMessage.getQueue());
         mockMessage.setSystem(systemByPayload);
 
@@ -88,6 +89,7 @@ public class ResponseGenerator {
 
     private MockMessage proceedAbstractMessageRequest(MockMessage mockMessage) {
         try {
+            log(mockMessage, MessageType.RQ);
             findIntegrationPoint(mockMessage);
             log(mockMessage, MessageType.RQ);
             validate(mockMessage, MessageType.RQ);
@@ -222,13 +224,15 @@ public class ResponseGenerator {
 
     public void log(MockMessage mockMessage, MessageType messageType) {
         String fullEndpointName = mockMessage.getProtocol().equals(Protocol.JMS) ? mockMessage.getJmsConnectionFactoryName() + "/" + mockMessage.getQueue() : "";
-        String shortEndpointName = mockMessage.getProtocol().equals(Protocol.JMS) ? mockMessage.getQueue() : mockMessage.getIntegrationPoint().getName();
+        IntegrationPoint integrationPoint = mockMessage.getIntegrationPoint();
+        String shortEndpointName = mockMessage.getProtocol().equals(Protocol.JMS) ? mockMessage.getQueue() : (integrationPoint!=null?integrationPoint.getName():"<Unknown>");
         String messageState = MessageStatusConverter.convert(mockMessage, messageType).toString();
         String messagePreview = XmlUtils.compactXml(mockMessage.getPayload().length() > 50 ? mockMessage.getPayload().substring(0, 46) + "..." : mockMessage.getPayload());
 
+        System system = mockMessage.getSystem();
         LogsEntity entity = new LogsEntity(mockMessage.getProtocol().toString(),
-                mockMessage.getSystem().getSystemName(),
-                mockMessage.getIntegrationPoint().getName(),
+                system!=null?system.getSystemName():"<Unknown>",
+                integrationPoint!=null?integrationPoint.getName():"<Unknown>",
                 fullEndpointName,
                 shortEndpointName,
                 messageState,
