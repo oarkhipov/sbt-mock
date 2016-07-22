@@ -2,6 +2,7 @@ package ru.sbt.bpm.mock.spring.service;
 
 import generated.springframework.beans.Bean;
 import generated.springframework.beans.Beans;
+import generated.springframework.integration.MappingValueChannelType;
 import generated.springframework.integration.RouterType;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -126,6 +127,9 @@ public class MockSpringContextGeneratorService {
     @Autowired
     private JmsIntegrationConstructor jmsConstructor;
 
+    @Autowired
+    private JndiNameService jndiNameService;
+
     @Getter
     private Beans beans;
 
@@ -190,60 +194,47 @@ public class MockSpringContextGeneratorService {
                     String driverOutputString = system.getDriverOutcomeQueue();
                     String driverInputString = system.getDriverIncomeQueue();
 
-                    if (mockInputString.isEmpty() && mockOutputString.isEmpty()) continue;
-                    /**
-                     * Создаем настройки подлючения к jms
-                     */
-                    String jndiFactoryName = createJndiConnectionObjects(queueConnectionFactory,
-                            JNDI_CONNECTION_FACTORY_POSTFIX, String.format("Connection Factory for system [%s]", system.getSystemName()));
+                    if (jndiExist(queueConnectionFactory)) {
+                        /**
+                         * Создаем настройки подлючения к jms
+                         */
+                        final String CF_SUFFIX = makeSuffix(queueConnectionFactory);
+                        String jndiFactoryName = createJndiConnectionObjects(queueConnectionFactory,
+                                JNDI_CONNECTION_FACTORY_POSTFIX, String.format("Connection Factory for jndi [%s]", queueConnectionFactory));
 
-                    String jndiMockInboundQueueName = null;
-                    String jndiMockOutboundQueueName = null;
+                        //Generating Mock JMS beans + channels + gateway
+                        if (jndiExist(mockInputString, mockOutputString)) {
+                            String jndiMockInboundQueueName = createJndiConnectionObjects(mockInputString, CF_SUFFIX + QUEUE_POSTFIX, String.format("Mock Inbound Queue for [%s]:[%s]", queueConnectionFactory, mockInputString));
+                            String jndiMockOutboundQueueName = createJndiConnectionObjects(mockOutputString, CF_SUFFIX + QUEUE_POSTFIX, String.format("Mock Outbound Queue for [%s]:[%s]", queueConnectionFactory, mockOutputString));
+                            /**
+                             * Создание jms inbound & outbound
+                             */
+                            // Создание каналов inbound gateway
+                            String mockInputChannel = createChannel(mockInputString,  CF_SUFFIX + CHANNEL_POSTFIX);
 
-                    if (!mockInputString.isEmpty() && !mockOutputString.isEmpty()) {
-                        jndiMockInboundQueueName = createJndiConnectionObjects(mockInputString, QUEUE_POSTFIX, String.format("Mock Inbound Queue for system [%s]", system.getSystemName()));
-                        jndiMockOutboundQueueName = createJndiConnectionObjects(mockOutputString, QUEUE_POSTFIX, String.format("Mock Outbound Queue for system [%s]", system.getSystemName()));
-                    }
+                            String mockOutputChannel = createChannel(mockOutputString, CF_SUFFIX + CHANNEL_POSTFIX);
 
+                            mapMockChannels.put(system.getSystemName(), Tuple.of(mockInputChannel, mockOutputChannel));
+                            // Создаем inbound-gateway
+                            createJmsInboundGateway(queueConnectionFactory, jndiFactoryName, jndiMockInboundQueueName,
+                                    jndiMockOutboundQueueName, mockInputChannel,
+                                    mockOutputChannel, String.format("Inbound gateway for queues pair [%s]:[%s] -> [%s]:[%s]", queueConnectionFactory, mockInputString, queueConnectionFactory, mockOutputString));
+                        }
 
-                    String jndiDriverRequestQueueName = null;
-                    String jndiDriverResponseQueueName = null;
+                        // Generating Driver JMS beans + channels + gateway
+                        if (jndiExist(driverOutputString, driverInputString)) {
+                            String jndiDriverRequestQueueName = createJndiConnectionObjects(driverOutputString, CF_SUFFIX + QUEUE_POSTFIX, String.format("Driver Request Queue for [%s]:[%s]", queueConnectionFactory, driverOutputString));
+                            String jndiDriverResponseQueueName = createJndiConnectionObjects(driverInputString, CF_SUFFIX + QUEUE_POSTFIX, String.format("Driver Response Queue for [%s]:[%s]", queueConnectionFactory, driverInputString));
 
-                    if (!driverOutputString.isEmpty() && !driverInputString.isEmpty()) {
-                        jndiDriverRequestQueueName = createJndiConnectionObjects(driverOutputString, QUEUE_POSTFIX, String.format("Driver Request Queue for system [%s]", system.getSystemName()));
-                        jndiDriverResponseQueueName = createJndiConnectionObjects(driverInputString, QUEUE_POSTFIX, String.format("Driver Response Queue for system [%s]", system.getSystemName()));
-                    }
+                            // Создание каналов outbound gateway
+                            String driverRequestChannel = createChannel(driverOutputString, CF_SUFFIX + CHANNEL_POSTFIX);
 
-                    /**
-                     * Создание jms inbound & outbound
-                     */
-                    // Создание каналов inbound gateway
-                    String mockInputChannel = createChannel(mockInputString, CHANNEL_POSTFIX);
+                            // Создаем outbound-gateway
+                            createJmsOutboundGateway(queueConnectionFactory, jndiDriverRequestQueueName,
+                                    jndiDriverResponseQueueName, driverRequestChannel, DRIVER_INBOUND_RESPONSE,
+                                    jndiFactoryName);
+                        }
 
-                    String mockOutputChannel = createChannel(mockOutputString, CHANNEL_POSTFIX);
-
-                    mapMockChannels.put(system.getSystemName(), Tuple.of(mockInputChannel, mockOutputChannel));
-
-                    if (jndiMockInboundQueueName != null && jndiMockOutboundQueueName != null) {
-                        // Создаем inbound-gateway
-                        createJmsInboundGateway(queueConnectionFactory, jndiFactoryName, jndiMockInboundQueueName,
-                                jndiMockOutboundQueueName, mockInputChannel,
-                                mockOutputChannel, String.format("Inbound router for system [%s]", system.getSystemName()));
-                    }
-
-
-                    if (jndiDriverRequestQueueName != null && jndiDriverResponseQueueName != null) {
-                        // Создание каналов outbound gateway
-                        String driverRequestChannel = createChannel(driverOutputString, CHANNEL_POSTFIX);
-
-//                        String driverResponseChannel = createChannel(driverInputString, CHANNEL_POSTFIX);
-//
-//                        mapDriverChannels.put(system.getSystemName(), Tuple.of(driverRequestChannel, driverResponseChannel));
-
-                        // Создаем outbound-gateway
-                        createJmsOutboundGateway(queueConnectionFactory, jndiDriverRequestQueueName,
-                                jndiDriverResponseQueueName, driverRequestChannel, DRIVER_INBOUND_RESPONSE,
-                                jndiFactoryName);
                     }
                 }
             }
@@ -252,44 +243,54 @@ public class MockSpringContextGeneratorService {
          * Маршрутизация
          */
         if (systems != null)
-        for (ru.sbt.bpm.mock.config.entities.System system : systems) {
-            if (system.getProtocol() == Protocol.JMS) {
-                /**
-                 * Mock
-                 */
-                String mockIncomeQueue = system.getMockIncomeQueue();
-                String systemQueueConnectionFactory = system.getQueueConnectionFactory();
+            for (ru.sbt.bpm.mock.config.entities.System system : systems) {
+                if (system.getProtocol() == Protocol.JMS) {
+                    /**
+                     * Mock
+                     */
+                    String mockIncomeQueue = system.getMockIncomeQueue();
+                    String systemQueueConnectionFactory = system.getQueueConnectionFactory();
+                    final String CF_SUFFIX = makeSuffix(systemQueueConnectionFactory);
 
-                if (mockIncomeQueue != null && !mockIncomeQueue.isEmpty()) {
-                    createServiceActivatorWithBean(mapMockChannels.get(system.getSystemName()).getT1(), new String[]{systemQueueConnectionFactory, mockIncomeQueue}, String.format("Aggregator for system [%s]", system.getSystemName()));
+                    if (jndiExist(mockIncomeQueue)) {
+                        createServiceActivatorWithBean(mapMockChannels.get(system.getSystemName()).getT1(), new String[]{systemQueueConnectionFactory, mockIncomeQueue}, String.format("Aggregator for [%s]:[%s]", systemQueueConnectionFactory, mockIncomeQueue));
 
-                    String systemMockOutcomeQueue = system.getMockOutcomeQueue();
-                    // mockRouterChannel
-                    String mockRouterChannel = createChannel(systemMockOutcomeQueue, ROUTER_CHANNEL_POSTFIX, null);
-                    //MochOutboundChannel
-                    String mockOutboundChannel = generateBeanNameLowCamelStyle(systemMockOutcomeQueue, CHANNEL_POSTFIX);
+                        String systemMockOutcomeQueue = system.getMockOutcomeQueue();
+                        // mockRouterChannel
+                        String mockRouterChannel = createChannel(systemMockOutcomeQueue, ROUTER_CHANNEL_POSTFIX, null);
+                        //MockOutboundChannel
+                        String mockOutboundChannel = generateBeanNameLowCamelStyle(systemMockOutcomeQueue, CF_SUFFIX + CHANNEL_POSTFIX);
 
-                    // router
-                    createRouter(MOCK_ROUTER_NAME, MOCK_OUTBOUND_ROUTER_RESPONSE, systemQueueConnectionFactory, systemMockOutcomeQueue, mockRouterChannel, true, "MOCK ROUTER");
-                    // service activator
+                        // router
+                        createRouter(MOCK_ROUTER_NAME, MOCK_OUTBOUND_ROUTER_RESPONSE, systemQueueConnectionFactory, systemMockOutcomeQueue, mockRouterChannel, "MOCK ROUTER");
+                        // service activator
 
-                    createServiceActivatorWithExpressions(mockRouterChannel, mockOutboundChannel, String.format("Extractor service activator for [%s]:[%s] for system [%s]", systemQueueConnectionFactory, systemMockOutcomeQueue, system.getSystemName()));
-                }
-                /**
-                 * Driver
-                 */
-                String driverOutcomeQueue = system.getDriverOutcomeQueue();
-                if (driverOutcomeQueue != null && !driverOutcomeQueue.isEmpty()) {
-                    // driver channel
-                    String driverRouterChannel = createChannel(driverOutcomeQueue, ROUTER_CHANNEL_POSTFIX, null);
-                    // router
-                    createRouter(DRIVER_ROUTER_NAME, DRIVER_ROUTER_CHANNEL_INPUT, systemQueueConnectionFactory, driverOutcomeQueue, driverRouterChannel, false, "DRIVER ROUTER");
-                    // service activator
-                    createServiceActivatorWithExpressions(driverRouterChannel, generateBeanNameLowCamelStyle(driverOutcomeQueue, CHANNEL_POSTFIX), String.format("Extractor service activator for [%s]-[%s] for system [%s]", systemQueueConnectionFactory, driverOutcomeQueue, system.getSystemName()));
+                        createServiceActivatorWithExpressions(mockRouterChannel, mockOutboundChannel, String.format("Extractor service activator for [%s]:[%s]", systemQueueConnectionFactory, systemMockOutcomeQueue));
+                    }
+                    /**
+                     * Driver
+                     */
+                    String driverOutcomeQueue = system.getDriverOutcomeQueue();
+                    if (jndiExist(driverOutcomeQueue)) {
+                        // driver channel
+                        String driverRouterChannel = createChannel(driverOutcomeQueue, ROUTER_CHANNEL_POSTFIX, null);
+                        // router
+                        createRouter(DRIVER_ROUTER_NAME, DRIVER_ROUTER_CHANNEL_INPUT, systemQueueConnectionFactory, driverOutcomeQueue, driverRouterChannel, "DRIVER ROUTER");
+                        // service activator
+                        createServiceActivatorWithExpressions(driverRouterChannel, generateBeanNameLowCamelStyle(driverOutcomeQueue, CF_SUFFIX + CHANNEL_POSTFIX), String.format("Extractor service activator for [%s]:[%s]", systemQueueConnectionFactory, driverOutcomeQueue));
+                    }
                 }
             }
-        }
         return beans;
+    }
+
+    private boolean jndiExist(String... jndiNames) {
+        for (String jndiName : jndiNames) {
+            if (jndiName == null) return false;
+            if (jndiName.isEmpty()) return false;
+            if (!jndiNameService.isExist(jndiName)) return false;
+        }
+        return true;
     }
 
     /**
@@ -308,7 +309,7 @@ public class MockSpringContextGeneratorService {
      * @param routerOutboundResponseChannel
      * @param comment
      */
-    private void createRouter(String routerName, String outboundRouterResponse, String queueConnectionFactory, String outputQueue, String routerOutboundResponseChannel, boolean isMock, String comment) {
+    private void createRouter(String routerName, String outboundRouterResponse, String queueConnectionFactory, String outputQueue, String routerOutboundResponseChannel, String comment) {
         if (!isBeanIdInList(routerName)) {
             listBeansId.add(routerName);
             beans = integrationConstructor.createRouter(beans, routerName, ROUTER_PAYLOAD, outboundRouterResponse, createRouterMappings(queueConnectionFactory, outputQueue, routerOutboundResponseChannel), comment);
@@ -318,15 +319,19 @@ public class MockSpringContextGeneratorService {
                     @SuppressWarnings("unchecked")
                     JAXBElement<RouterType> element = (JAXBElement<RouterType>) obj;
                     RouterType router = element.getValue();
-                    if (router.getId().equals(routerName) && isMock)
-                        router.getMapping().add(integrationConstructor.createMapping(queueConnectionFactory + "_" +
-                                        outputQueue,
-                                routerOutboundResponseChannel));
-
-                    if (router.getId().equals(routerName) && !isMock)
-                        router.getMapping().add(integrationConstructor.createMapping(queueConnectionFactory + "_" +
-                                        outputQueue,
-                                routerOutboundResponseChannel));
+                    if (router.getId().equals(routerName)) {
+                        MappingValueChannelType newMapping = integrationConstructor.createMapping(queueConnectionFactory + "_" +
+                                        outputQueue, routerOutboundResponseChannel);
+                        //check for mapping duplicates
+                        for (MappingValueChannelType mappingValueChannelType : router.getMapping()) {
+                            if (mappingValueChannelType.getValue().equals(newMapping.getValue())
+                                    &&
+                                    mappingValueChannelType.getChannel().equals(newMapping.getChannel())) {
+                                return;
+                            }
+                        }
+                        router.getMapping().add(newMapping);
+                    }
                 }
         }
     }
@@ -429,7 +434,7 @@ public class MockSpringContextGeneratorService {
      */
     private String createJmsInboundGateway(String connectionFactoryName, String jndiConnectionFactory, String
             jndiMockInputString, String jndiMockOutputString, String mockInputChannel, String mockOutputChannel, String comment) {
-        String jmsBeanName = generateBeanNameLowCamelStyle(connectionFactoryName, JMS_INBOUND_GATEWAY_POSTFIX);
+        String jmsBeanName = generateBeanNameLowCamelStyle(connectionFactoryName, makeSuffix(mockInputChannel) + makeSuffix(mockOutputChannel) +JMS_INBOUND_GATEWAY_POSTFIX);
         if (!isBeanIdInList(jmsBeanName)) {
             listBeansId.add(jmsBeanName);
             beans = jmsConstructor.createInboundGateway(beans, jmsBeanName, jndiMockInputString, mockInputChannel,
@@ -508,6 +513,10 @@ public class MockSpringContextGeneratorService {
         for (String namesPart : namesParts)
             beanName += namesPart;
         return beanName + postfix;
+    }
+
+    private String makeSuffix(String string) {
+        return "_" + generateBeanNameLowCamelStyle(string,"");
     }
 
 }

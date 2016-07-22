@@ -105,49 +105,19 @@ public class IntegrationPointApiController {
             dataFileService.moveDataFiles(system, name, newIntegrationPointName);
         }
 
-        if (!integrationPoint.getIntegrationPointType().equals(type)) {
-            integrationPoint.setIntegrationPointType(type);
-        }
-
-        if (delayMs != null) {
-            if (!integrationPoint.getDelayMs().equals(delayMs)) {
-                integrationPoint.setDelayMs(delayMs);
-            }
-        }
+        integrationPoint.setIntegrationPointType(type);
+        integrationPoint.setDelayMs(delayMs);
 
         XpathSelector xpathSelector = xpathValidatorNamespace != null ? new XpathSelector(xpathValidatorNamespace, xpathValidatorElementName) : null;
-        if (integrationPoint.getXpathValidatorSelector() == null || (xpathSelector != null && !integrationPoint.getXpathValidatorSelector().equals(xpathSelector))) {
-            integrationPoint.setXpathValidatorSelector(xpathSelector);
-        }
+        integrationPoint.setXpathValidatorSelector(xpathSelector);
 
-        if (incomeQueue != null) {
-            if (!integrationPoint.getIncomeQueue().equals(incomeQueue)) {
-                integrationPoint.setIncomeQueue(incomeQueue);
-            }
-        }
-
-        if (outcomeQueue != null) {
-            if (!integrationPoint.getOutcomeQueue().equals(outcomeQueue)) {
-                integrationPoint.setOutcomeQueue(outcomeQueue);
-            }
-        }
-
-        if (answerRequired != null) {
-            if (integrationPoint.getAnswerRequired() != answerRequired) {
-                integrationPoint.setAnswerRequired(answerRequired);
-            }
-        }
-
-        if (xsdFile != null) {
-            if (!integrationPoint.getXsdFile().equals(xsdFile)) {
-                integrationPoint.setXsdFile(xsdFile);
-            }
-        }
+        integrationPoint.setIncomeQueue(incomeQueue);
+        integrationPoint.setOutcomeQueue(outcomeQueue);
+        integrationPoint.setAnswerRequired(answerRequired);
+        integrationPoint.setXsdFile(xsdFile);
 
         ElementSelector elementSelector = new ElementSelector(rootElementNamespace, rootElementName);
-        if (!integrationPoint.getRootElement().equals(elementSelector)) {
-            integrationPoint.setRootElement(elementSelector);
-        }
+        integrationPoint.setRootElement(elementSelector);
 
         configurationService.saveConfig();
         return "redirect:/";

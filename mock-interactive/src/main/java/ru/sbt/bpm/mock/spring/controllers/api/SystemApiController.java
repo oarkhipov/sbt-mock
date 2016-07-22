@@ -228,7 +228,7 @@ public class SystemApiController {
     @RequestMapping(value = "/api/system/reinitValidator/{systemName}/")
     public String reinitValidator(@PathVariable String systemName) throws IOException, SAXException, SaxonApiException {
         validationService.reInitValidator(systemName);
-        xsdAnalysisService.reInit();
+        xsdAnalysisService.reInit(systemName);
         return "OK!";
     }
 

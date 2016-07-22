@@ -229,8 +229,10 @@ $("#testValidate").click(function () {
         success: function (obj) {
             obj = htmlDecode(obj);
             obj = $.parseJSON(obj);
-            showInfo("Test validating:<br/>" + obj.info);
-            if (obj.error) {
+            if (obj.info.length > 0) {
+                showInfo("Test validating:<br/>" + obj.info);
+            }
+            if (obj.error.length > 0) {
                 showError("Test validating:<br/>" + obj.error);
             }
         },

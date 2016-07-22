@@ -19,6 +19,7 @@ import java.util.Locale;
  */
 
 @Data
+@SuppressWarnings("all")
 public class MockHttpServletResponse implements HttpServletResponse {
 
     private Writer stringWriter = new StringWriter();

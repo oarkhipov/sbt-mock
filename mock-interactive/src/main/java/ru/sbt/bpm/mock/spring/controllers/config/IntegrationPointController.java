@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.*;
+import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.spring.service.IntegrationPointNameSuggestionService;
 
 import java.util.ArrayList;
@@ -42,9 +43,10 @@ public class IntegrationPointController {
                          Model model) throws Exception {
         Systems systems = configContainer.getConfig().getSystems();
         model.addAttribute("systems", systems.getSystems());
-        assert systems.getSystemByName(system) != null;
+        System systemObject = systems.getSystemByName(system);
+        assert systemObject != null;
         model.addAttribute("systemName", system);
-        IntegrationPoint integrationPoint = systems.getSystemByName(system).getIntegrationPoints().getIntegrationPointByName(name);
+        IntegrationPoint integrationPoint = systemObject.getIntegrationPoints().getIntegrationPointByName(name);
         assert integrationPoint != null;
         model.addAttribute("integrationPointName", name);
         model.addAttribute("isMock", integrationPoint.isMock());

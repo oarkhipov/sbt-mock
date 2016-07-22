@@ -25,4 +25,17 @@ public class JndiNameService {
             return false;
         }
     }
+
+    public String getValue(String jndiName) {
+        if (isExist(jndiName)) {
+            try {
+                Context cnt = new InitialContext();
+                Object tmp = cnt.lookup(jndiName);
+                return tmp.toString();
+            } catch (NamingException e) {
+                e.printStackTrace();
+            }
+        }
+        throw new RuntimeException(String.format("JNDI name %s does not exist!", jndiName));
+    }
 }

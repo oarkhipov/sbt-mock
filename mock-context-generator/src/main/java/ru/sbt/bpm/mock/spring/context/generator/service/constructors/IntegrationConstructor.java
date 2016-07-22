@@ -178,7 +178,7 @@ public class IntegrationConstructor implements IContextGeneratable {
 			defaultReplyTimeout, String defaultRequestTimeout, List<Tuple3<String,
 			String, String>> methodArgs) {
 		return createGatewayInternal(beans, id, errorChannel, serviceInterface, defaultReplyTimeout,
-		                             defaultRequestTimeout, methodArgs);
+				defaultRequestTimeout, methodArgs);
 	}
 
 	/**
@@ -380,6 +380,13 @@ public class IntegrationConstructor implements IContextGeneratable {
 	 */
 	private Beans createServiceActivator (Beans beans, @NonNull String inputChannel, @NonNull String outputChannel,
 	                                      String methodName, Bean bean, String expression, String comment) {
+		for (Object importOrAliasOrBean : beans.getImportOrAliasOrBean()) {
+			if (importOrAliasOrBean instanceof ServiceActivator) {
+				ServiceActivator testingServiceActivator = (ServiceActivator) importOrAliasOrBean;
+				if (testingServiceActivator.getInputChannel().equals(inputChannel)) return beans;
+			}
+		}
+
 		beans.getImportOrAliasOrBean().add(createServiceActivator(inputChannel, outputChannel, methodName, bean,
 		                                                          expression, comment));
 		return beans;

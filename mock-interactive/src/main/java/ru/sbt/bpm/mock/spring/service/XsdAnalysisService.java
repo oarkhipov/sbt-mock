@@ -76,10 +76,15 @@ public class XsdAnalysisService {
 
     protected void init (ru.sbt.bpm.mock.config.entities.System system) throws IOException, SaxonApiException {
         String systemName = system.getSystemName();
-        File systemPath = dataFileService.getSystemXsdDirectoryFile(systemName).getCanonicalFile();
-        List<File> systemXsdFile = getFilesFromDir(systemPath);
-        fillElementsMap(systemName, systemXsdFile);
-        fillMapNamespace(systemName, systemXsdFile);
+        log.info("Init XSD Analyzer for system: " + systemName);
+        try {
+            File systemPath = dataFileService.getSystemXsdDirectoryFile(systemName).getCanonicalFile();
+            List<File> systemXsdFile = getFilesFromDir(systemPath);
+            fillElementsMap(systemName, systemXsdFile);
+            fillMapNamespace(systemName, systemXsdFile);
+        } catch (Exception e) {
+            log.error("Unable to init Analyzer for system: " + systemName, e);
+        }
     }
 
     public void reInit(String systemName) throws IOException, SaxonApiException {
@@ -94,7 +99,10 @@ public class XsdAnalysisService {
     }
 
     public List<Tuple2<String, String>> getElementsForSystem (String systemName, String namespaceName) {
-        return mapOfElements.get(systemName).get(namespaceName);
+        if (mapOfElements.get(systemName) != null)
+            return mapOfElements.get(systemName).get(namespaceName);
+        else
+            return new ArrayList<Tuple2<String, String>>();
     }
 
     public List<Tuple2<String, String>> getElementsForSystem (String systemName) {
@@ -108,6 +116,7 @@ public class XsdAnalysisService {
         Map<String, List<Tuple2<String, String>>> mapElementsByNamespace = new HashMap<String, List<Tuple2<String, String>>>();
         printLog(systemName);
         for (File xsdFile : files) {
+            log.debug("analyze file: " + xsdFile.getName());
             String inputXml = readFileWithoutBOM(xsdFile);
             if (inputXml.length() > 0) {
                 mapElementsByNamespace.putAll(getNamespaceByxPath(inputXml, LOCAL_NAME_SCHEMA_TARGET_NAMESPACE, XPATH_ELEMENT_ATTRIBUTE_NAME));
@@ -148,7 +157,7 @@ public class XsdAnalysisService {
 
         Map<String, List<Tuple2<String, String>>> map = new TreeMap<String, List<Tuple2<String, String>>>(STRING_COMPARATOR);
         if (inputXml.length()>0) {
-            String namespace = "";
+            String namespace;
             XdmValue xdmValue = XmlUtils.evaluateXpath(inputXml, xPathNamespace);
             for (int i = 0; i < xdmValue.size(); i++) {
                 namespace = xdmValue.itemAt(i).getStringValue();
@@ -200,7 +209,8 @@ public class XsdAnalysisService {
         StringBuilder sb = new StringBuilder();
         String line;
         while ((line = br.readLine()) != null)
-            sb.append(line);
+            sb.append(line).append(" ");
+        br.close();
         return sb.toString();
     }
 

@@ -5,7 +5,7 @@
     <parent>
         <groupId>ru.sbt.bpm.mock</groupId>
         <artifactId>mock-interactive-parent</artifactId>
-        <version>3.6.0</version>
+        <version>3.6.1</version>
     </parent>
 
     <artifactId>mock-interactive</artifactId>
@@ -341,6 +341,30 @@
             </dependencies>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>copy-preProd-configuration</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/test/resources/preProdConfigs</directory>
+                                            <filtering>true</filtering>
+                                        </resource>
+                                    </resources>
+                                    <overwrite>true</overwrite>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-war-plugin</artifactId>

@@ -369,3 +369,18 @@ td {
     animation-duration: 0.2s !important;
     display: inline-block;
 }
+
+sup, sub, .sup, .sub {
+    vertical-align: baseline;
+    position: relative;
+    font-size: .7em;
+    line-height: 1;
+}
+
+sup, .sup {
+    bottom: 1.4ex;
+}
+
+sub, .sub {
+    top: .5ex
+}

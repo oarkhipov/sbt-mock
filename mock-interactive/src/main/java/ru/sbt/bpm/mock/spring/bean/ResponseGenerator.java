@@ -22,8 +22,11 @@ import ru.sbt.bpm.mock.spring.service.message.JmsService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
 import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MessageValidationException;
+import ru.sbt.bpm.mock.spring.utils.ExceptionUtils;
 import ru.sbt.bpm.mock.spring.utils.XmlUtils;
 
+import javax.wsdl.extensions.soap12.SOAP12Fault;
+import javax.xml.soap.SOAPFault;
 import javax.xml.xpath.XPathExpressionException;
 import java.util.List;
 
@@ -103,14 +106,7 @@ public class ResponseGenerator {
         } catch (Exception e) {
             //TODO fix builder error generator
 //            String fault = SoapMessageBuilder.buildFault("Server", e.getMessage(), SoapVersion.Soap11);
-            mockMessage.setPayload("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">\n" +
-                    "   <soapenv:Body>\n" +
-                    "      <soapenv:Fault>\n" +
-                    "         <faultcode>Server</faultcode>\n" +
-                    "         <faultstring>" + e.getMessage() + "</faultstring>\n" +
-                    "      </soapenv:Fault>\n" +
-                    "   </soapenv:Body>\n" +
-                    "</soapenv:Envelope>");
+            mockMessage.setPayload(wrapMessageWithSoapFault("Server", ExceptionUtils.getExceptionStackTrace(e)));
         }
         return mockMessage;
     }
@@ -212,7 +208,7 @@ public class ResponseGenerator {
         log.debug("Validate [" + systemName + "] " + messageType.name());
         List<String> validationErrors = messageValidationService.validate(payload, systemName);
         if (validationErrors.size() > 0) {
-            mockMessage.setPayload(ValidationUtils.getSolidErrorMessage(validationErrors));
+            mockMessage.setPayload(wrapMessageWithSoapFault("Validation error", ValidationUtils.getSolidErrorMessage(validationErrors)));
             mockMessage.setFaultMessage(true);
         }
         log.debug("Validation status: OK!");
@@ -240,6 +236,17 @@ public class ResponseGenerator {
                 mockMessage.getPayload()
         );
         logService.write(entity);
+    }
+
+    public String wrapMessageWithSoapFault(String code, String message) {
+        return String.format("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">\n" +
+                "  <soapenv:Body>\n" +
+                "    <soapenv:Fault>\n" +
+                "      <faultcode>%s</faultcode>\n" +
+                "      <faultstring>%s</faultstring>\n" +
+                "    </soapenv:Fault>\n" +
+                "  </soapenv:Body>\n" +
+                "</soapenv:Envelope>",code, message);
     }
 
 }

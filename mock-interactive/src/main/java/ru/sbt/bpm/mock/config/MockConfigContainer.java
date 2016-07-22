@@ -15,8 +15,7 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by sbt-bochev-as on 02.04.2015.
@@ -96,7 +95,21 @@ public class MockConfigContainer {
         xStream.processAnnotations(IntegrationPoint.class);
 
         this.config = (MockConfig) xStream.fromXML(fileReader);
+        sortConfig();
 
+    }
+
+    public void sortConfig() {
+        List<System> systems = config.getSystems().getSystems();
+        if (systems != null) {
+            Collections.sort(systems, new SystemComparator());
+            for (System system : systems) {
+                List<IntegrationPoint> integrationPoints = system.getIntegrationPoints().getIntegrationPoints();
+                if (integrationPoints != null) {
+                    Collections.sort(integrationPoints, new IntegrationPointComparator());
+                }
+            }
+        }
     }
 
     public String toXml() {
@@ -137,5 +150,19 @@ public class MockConfigContainer {
 
     public void reInit() throws IOException {
         init();
+    }
+
+    class SystemComparator implements Comparator<System> {
+        @Override
+        public int compare(System o1, System o2) {
+            return (o1.getProtocol().name()+o1.getSystemName()).compareTo(o2.getProtocol().name()+o2.getSystemName());
+        }
+    }
+
+    class IntegrationPointComparator implements Comparator<IntegrationPoint> {
+        @Override
+        public int compare(IntegrationPoint o1, IntegrationPoint o2) {
+            return o1.getName().compareTo(o2.getName());
+        }
     }
 }

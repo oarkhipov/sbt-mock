@@ -51,12 +51,15 @@ public class XmlUtils {
 
         try {
             while ((line = bufferedReader.readLine()) != null) {
-                stringWriter.append(line.trim());
+                stringWriter.append(line.trim()).append(" ");
             }
+            xml = stringWriter.toString();
+            bufferedReader.close();
+            stringWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        xml = stringWriter.toString();
+
         log.debug("Parsed xml: " + xml);
         return xml;
     }

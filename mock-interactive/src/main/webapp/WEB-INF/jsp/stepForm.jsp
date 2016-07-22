@@ -85,8 +85,10 @@
                                 </tr>
                                 <c:forEach var="system" items="${list.systems}">
                                     <tr>
-                                        <td style="vertical-align: top; text-align: center; padding-top: 10px">
-                                            <c:out value="${system.systemName}"/></td>
+                                        <td style="vertical-align: top; padding-top: 10px">
+                                            <span class="label label-<c:if test="${system.protocol eq 'JMS'}">warning</c:if><c:if test="${system.protocol eq 'SOAP'}">info</c:if> ">${system.protocol}</span>
+                                                ${system.systemName}
+                                        </td>
                                         <td colspan="2">&nbsp;</td>
                                         <td align="right">
                                             <div class="dropdown" style="margin-top: 5px; margin-bottom: 5px">
