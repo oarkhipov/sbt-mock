@@ -15,6 +15,7 @@ import ru.sbt.bpm.mock.logging.utils.SortUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -33,6 +34,7 @@ public class DatabaseTestIT extends AbstractTransactionalTestNGSpringContextTest
 
     public void fillData() throws InterruptedException {
         logsRepository.save(new LogsEntity(
+                UUID.randomUUID(),
                 "someProtocol",
                 "systemName",
                 "integrationPointName",

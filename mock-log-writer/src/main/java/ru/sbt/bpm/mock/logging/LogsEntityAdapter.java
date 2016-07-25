@@ -19,6 +19,7 @@ public class LogsEntityAdapter implements JsonSerializer<LogsEntity> {
     public JsonElement serialize(LogsEntity entity, Type type, JsonSerializationContext jsonSerializationContext) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("ts", entity.getTs().toString());
+        jsonObject.addProperty("transactionId", entity.getTransactionId());
         jsonObject.addProperty("protocol", entity.getProtocol());
         jsonObject.addProperty("systemName", entity.getSystemName());
         jsonObject.addProperty("integrationPointName", entity.getIntegrationPointName());

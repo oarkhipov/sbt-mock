@@ -25,10 +25,9 @@ import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MessageValid
 import ru.sbt.bpm.mock.spring.utils.ExceptionUtils;
 import ru.sbt.bpm.mock.spring.utils.XmlUtils;
 
-import javax.wsdl.extensions.soap12.SOAP12Fault;
-import javax.xml.soap.SOAPFault;
 import javax.xml.xpath.XPathExpressionException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author sbt-bochev-as on 23.11.2015.
@@ -40,33 +39,32 @@ import java.util.List;
 public class ResponseGenerator {
 
     @Autowired
+    private MessageValidationService validationService;
+    @Autowired
+    private LogService logService;
+    @Autowired
     private GroovyService groovyService;
-
     @Autowired
     private MessageValidationService messageValidationService;
-
     @Autowired
     private DataFileService dataFileService;
-
     @Autowired
     private MockConfigContainer configContainer;
-
     @Autowired
     private JmsService jmsService;
 
-    @Autowired
-    MessageValidationService validationService;
-
-    @Autowired
-    LogService logService;
-
     public MockMessage proceedJmsRequest(MockMessage mockMessage) throws Exception {
+        mockMessage.setTransactionId(UUID.randomUUID());
         mockMessage.setProtocol(Protocol.JMS);
-        log(mockMessage, MessageType.RQ);
-        final System systemByPayload = jmsService.getSystemByPayload(mockMessage.getPayload(), mockMessage.getQueue());
-        mockMessage.setSystem(systemByPayload);
-
-        MockMessage responseMockMessage = proceedAbstractMessageRequest(mockMessage);
+        MockMessage responseMockMessage;
+        try {
+            final System systemByPayload = jmsService.getSystemByPayload(mockMessage.getPayload(), mockMessage.getQueue());
+            mockMessage.setSystem(systemByPayload);
+            responseMockMessage = proceedAbstractMessageRequest(mockMessage);
+        } catch (Exception e) {
+            log(mockMessage, MessageType.RQ);
+            throw e;
+        }
 
         System system = responseMockMessage.getSystem();
         IntegrationPoint integrationPoint = responseMockMessage.getIntegrationPoint();
@@ -78,9 +76,11 @@ public class ResponseGenerator {
         }
         responseMockMessage.setQueue(outcomeQueue);
         return responseMockMessage;
+
     }
 
     public MockMessage proceedWsRequest(MockMessage mockMessage, String systemName) {
+        mockMessage.setTransactionId(UUID.randomUUID());
         mockMessage.setProtocol(Protocol.SOAP);
         final System systemByName = configContainer.getSystemByName(systemName);
         mockMessage.setSystem(systemByName);
@@ -89,7 +89,6 @@ public class ResponseGenerator {
 
     private MockMessage proceedAbstractMessageRequest(MockMessage mockMessage) {
         try {
-            log(mockMessage, MessageType.RQ);
             findIntegrationPoint(mockMessage);
             log(mockMessage, MessageType.RQ);
             validate(mockMessage, MessageType.RQ);
@@ -225,14 +224,16 @@ public class ResponseGenerator {
     public void log(MockMessage mockMessage, MessageType messageType) {
         String fullEndpointName = mockMessage.getProtocol().equals(Protocol.JMS) ? mockMessage.getJmsConnectionFactoryName() + "/" + mockMessage.getQueue() : "";
         IntegrationPoint integrationPoint = mockMessage.getIntegrationPoint();
-        String shortEndpointName = mockMessage.getProtocol().equals(Protocol.JMS) ? mockMessage.getQueue() : (integrationPoint!=null?integrationPoint.getName():"<Unknown>");
+        String shortEndpointName = mockMessage.getProtocol().equals(Protocol.JMS) ? mockMessage.getQueue() : (integrationPoint != null ? integrationPoint.getName() : "<Unknown>");
         String messageState = MessageStatusConverter.convert(mockMessage, messageType).toString();
         String messagePreview = XmlUtils.compactXml(mockMessage.getPayload().length() > 50 ? mockMessage.getPayload().substring(0, 46) + "..." : mockMessage.getPayload());
 
         System system = mockMessage.getSystem();
-        LogsEntity entity = new LogsEntity(mockMessage.getProtocol().toString(),
-                system!=null?system.getSystemName():"<Unknown>",
-                integrationPoint!=null?integrationPoint.getName():"<Unknown>",
+        LogsEntity entity = new LogsEntity(
+                mockMessage.getTransactionId(),
+                mockMessage.getProtocol().toString(),
+                system != null ? system.getSystemName() : "<Unknown>",
+                integrationPoint != null ? integrationPoint.getName() : "<Unknown>",
                 fullEndpointName,
                 shortEndpointName,
                 messageState,
@@ -250,7 +251,7 @@ public class ResponseGenerator {
                 "      <faultstring>%s</faultstring>\n" +
                 "    </soapenv:Fault>\n" +
                 "  </soapenv:Body>\n" +
-                "</soapenv:Envelope>",code, message);
+                "</soapenv:Envelope>", code, message);
     }
 
 }

@@ -11,6 +11,9 @@ import ru.sbt.bpm.mock.spring.bean.pojo.MockMessage;
  */
 public class MessageStatusConverter {
     public static MessageStatus convert(MockMessage mockMessage, MessageType messageType) {
+        if (mockMessage.getSystem()==null || mockMessage.getIntegrationPoint()==null) {
+            return MessageStatus.RCVPE;
+        }
         if (!mockMessage.isSendMessage()) {
             return MessageStatus.NANS;
         }

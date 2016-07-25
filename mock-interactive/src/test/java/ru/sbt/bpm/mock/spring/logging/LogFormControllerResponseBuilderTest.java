@@ -5,6 +5,7 @@ import ru.sbt.bpm.mock.logging.entities.LogsApiEntity;
 import ru.sbt.bpm.mock.logging.entities.LogsEntity;
 
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 import static org.testng.Assert.*;
@@ -21,7 +22,7 @@ public class LogFormControllerResponseBuilderTest {
         LogsApiEntity logsApiEntity = new LogsApiEntity();
         logsApiEntity.setRequestNum(1);
         ArrayList<LogsEntity> entities = new ArrayList<LogsEntity>();
-        entities.add(new LogsEntity("protocolName1", "systemName1", "integrationPointName1", "fullEndpointName1", "shortEndpointName1", "messageState1", "messagePreview1", "message1"));
+        entities.add(new LogsEntity(UUID.randomUUID(), "protocolName1", "systemName1", "integrationPointName1", "fullEndpointName1", "shortEndpointName1", "messageState1", "messagePreview1", "message1"));
         String response = new LogControllerResponseBuilder().withLogsQueryEntities(entities).withApiEntity(logsApiEntity).withDataBaseSize(50).build();
 
         Pattern pattern = Pattern.compile("\"ts\":.*?\".*?\"");

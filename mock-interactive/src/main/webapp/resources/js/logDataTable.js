@@ -19,7 +19,7 @@ $(document).ready(function () {
         "search": {
             "regex": true
         },
-        "order": [[0, "desc"]],
+        "order": [[0, "desc"],[1, "desc"]],
         "fnDrawCallback": function () {
             //Get page number on client. Please note: number start from 0 So
             //for the first page you will see 0 second page 1 third page 2...
@@ -28,7 +28,7 @@ $(document).ready(function () {
         initComplete: function () {
             this.api().columns().every(function () {
                 var column = this;
-                if (this.index() != 0) {
+                if (this.index() > 1) {
                     var select = $('<select><option value=""></option></select>')
                         .appendTo($(column.footer()).empty())
                         .on('change', function () {
@@ -49,6 +49,7 @@ $(document).ready(function () {
         },
         "aoColumns": [
             {"mData": "ts", "bSearchable": false},
+            {"mData": "transactionId"},
             {"mData": "protocol"},
             {"mData": "systemName"},
             {"mData": "integrationPointName"},

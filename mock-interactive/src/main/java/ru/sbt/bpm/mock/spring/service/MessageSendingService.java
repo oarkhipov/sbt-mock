@@ -21,6 +21,7 @@ import ru.sbt.bpm.mock.spring.integration.gateway.ClientService;
 import ru.sbt.bpm.mock.spring.utils.ExceptionUtils;
 
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * @author sbt-bochev-as on 20.04.2016.
@@ -54,6 +55,7 @@ public class MessageSendingService {
     }
 
     public String sendJMS(MockMessage message) {
+        message.setTransactionId(UUID.randomUUID());
         ru.sbt.bpm.mock.config.entities.System messageSystem = message.getSystem();
         MockMessage responseMessage = new MockMessage(Protocol.JMS, messageSystem.getQueueConnectionFactory(), messageSystem.getDriverIncomeQueue(), "");
         String responseString;
@@ -65,6 +67,7 @@ public class MessageSendingService {
             responseMessage.setFaultMessage(true);
         }
         responseMessage.setPayload(responseString);
+        responseMessage.setTransactionId(message.getTransactionId());
         responseMessage.setSystem(messageSystem);
         responseMessage.setIntegrationPoint(message.getIntegrationPoint());
         responseGenerator.log(responseMessage, MessageType.RS);
@@ -72,6 +75,7 @@ public class MessageSendingService {
     }
 
     protected String sendWs(MockMessage message) throws IOException {
+        message.setTransactionId(UUID.randomUUID());
         HttpClient httpClient = HttpClientBuilder.create().build();
 
         ru.sbt.bpm.mock.config.entities.System messageSystem = message.getSystem();
@@ -91,6 +95,7 @@ public class MessageSendingService {
         String responseString = EntityUtils.toString(response.getEntity());
 
         MockMessage responseMessage = new MockMessage(Protocol.JMS, messageSystem.getQueueConnectionFactory(), messageSystem.getDriverIncomeQueue(), responseString);
+        responseMessage.setTransactionId(message.getTransactionId());
         responseMessage.setSystem(messageSystem);
         responseMessage.setIntegrationPoint(message.getIntegrationPoint());
         responseGenerator.log(responseMessage, MessageType.RS);

@@ -67,6 +67,7 @@ public class LogService {
             List<Predicate> fullSearchPredicates = new ArrayList<Predicate>();
             for (String searchValuePart : searchValue.split("\\|")) {
                 if (logsApiEntity.isSearchRegex()) {
+                    fullSearchPredicates.add(logsEntity.transactionId.containsIgnoreCase(searchValuePart));
                     fullSearchPredicates.add(logsEntity.protocol.containsIgnoreCase(searchValuePart));
                     fullSearchPredicates.add(logsEntity.systemName.containsIgnoreCase(searchValuePart));
                     fullSearchPredicates.add(logsEntity.integrationPointName.containsIgnoreCase(searchValuePart));
@@ -75,6 +76,7 @@ public class LogService {
                     fullSearchPredicates.add(logsEntity.messageState.containsIgnoreCase(searchValuePart));
                     fullSearchPredicates.add(logsEntity.message.containsIgnoreCase(searchValuePart));
                 } else {
+                    fullSearchPredicates.add(logsEntity.transactionId.eq(searchValuePart));
                     fullSearchPredicates.add(logsEntity.protocol.eq(searchValuePart));
                     fullSearchPredicates.add(logsEntity.systemName.eq(searchValuePart));
                     fullSearchPredicates.add(logsEntity.integrationPointName.eq(searchValuePart));
@@ -93,6 +95,9 @@ public class LogService {
 //            if (logsApiColumnEntity.getData().equals("ts")) {
 //                // do nothing
 //            }
+            if (logsApiColumnEntity.getData().equals("transactionId")) {
+                handleStringColumn(apiEntity, logsApiColumnEntity, logsEntity.transactionId, predicates, sorts);
+            }
             if (logsApiColumnEntity.getData().equals("protocol")) {
                 handleStringColumn(apiEntity, logsApiColumnEntity, logsEntity.protocol, predicates, sorts);
             }

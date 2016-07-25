@@ -4,6 +4,8 @@ import lombok.Data;
 import ru.sbt.bpm.mock.config.entities.*;
 import ru.sbt.bpm.mock.config.enums.Protocol;
 
+import java.util.UUID;
+
 /**
  * @author sbt-bochev-as on 10.02.2016.
  *         <p/>
@@ -11,6 +13,8 @@ import ru.sbt.bpm.mock.config.enums.Protocol;
  */
 @Data
 public class MockMessage {
+    private UUID transactionId;
+
     private Protocol protocol;
     private ru.sbt.bpm.mock.config.entities.System system;
     private IntegrationPoint integrationPoint;

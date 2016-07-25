@@ -94,6 +94,7 @@
                 <thead>
                 <tr>
                     <th class="sorting">TimeStamp</th>
+                    <th class="sorting">TransactionId</th>
                     <th class="sorting">Protocol</th>
                     <th class="sorting">SystemName</th>
                     <th class="sorting">IntegrationPointName</th>
@@ -105,6 +106,7 @@
                 <tfoot>
                 <tr>
                     <th>TimeStamp</th>
+                    <th>TransactionId</th>
                     <th>Protocol</th>
                     <th>SystemName</th>
                     <th>IntegrationPointName</th>
