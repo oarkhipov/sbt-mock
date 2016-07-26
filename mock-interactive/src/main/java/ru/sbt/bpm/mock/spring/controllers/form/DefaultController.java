@@ -27,9 +27,13 @@ public class DefaultController {
     @Autowired
     DataFileService dataFileService;
 
+    @Autowired(required = false)
+    String version;
+
     @RequestMapping("/")
     public String _default(Model model) throws JAXBException, IOException {
         model.addAttribute("list", mockConfigContainer.getConfig().getSystems());
+        model.addAttribute("version", version);
         return "stepForm";
     }
 
@@ -47,7 +51,7 @@ public class DefaultController {
     public
     @ResponseBody
     String getProp() throws IOException {
-        return FileUtils.readFileToString(new File(dataFileService.getContextFilePath("../META-INF/maven/ru.sbt.bpm.mock/mock-interactive-by/pom.properties")), "UTF-8");
+        return FileUtils.readFileToString(new File(dataFileService.getContextFilePath("../META-INF/maven/ru.sbt.bpm.mock/mock-interactive/pom.properties")), "UTF-8");
     }
 
 }

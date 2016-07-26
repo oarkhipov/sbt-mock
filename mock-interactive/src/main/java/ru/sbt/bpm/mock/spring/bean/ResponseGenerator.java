@@ -138,7 +138,7 @@ public class ResponseGenerator {
     private void findSoapIntegrationPoint(MockMessage mockMessage) throws XmlException {
         System system = mockMessage.getSystem();
         String compactXml = XmlUtils.compactXml(mockMessage.getPayload());
-        String soapMessageElementName = validationService.getSoapMessageElementName(compactXml);
+        String soapMessageElementName = validationService.getOperationByElementName(system.getSystemName(), validationService.getSoapMessageElementName(compactXml), MessageType.RQ);
         IntegrationPoint integrationPointByName = system.getIntegrationPoints().getIntegrationPointByName(soapMessageElementName);
         mockMessage.setIntegrationPoint(integrationPointByName);
     }
@@ -232,8 +232,8 @@ public class ResponseGenerator {
         LogsEntity entity = new LogsEntity(
                 mockMessage.getTransactionId(),
                 mockMessage.getProtocol().toString(),
-                system != null ? system.getSystemName() : "<Unknown>",
-                integrationPoint != null ? integrationPoint.getName() : "<Unknown>",
+                system != null ? system.getSystemName() : "-- Unknown --",
+                integrationPoint != null ? integrationPoint.getName() : "-- Unknown --",
                 fullEndpointName,
                 shortEndpointName,
                 messageState,

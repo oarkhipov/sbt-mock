@@ -11,6 +11,7 @@ import ru.sbt.bpm.mock.logging.entities.LogsEntity;
 @NoArgsConstructor
 public class LogResponseDataEntity {
     String ts;
+    String transactionId;
     String protocol;
     String systemName;
     String integrationPointName;
@@ -21,6 +22,7 @@ public class LogResponseDataEntity {
 
     public LogResponseDataEntity(LogsEntity entity) {
         ts = entity.getTs().toString();
+        transactionId = entity.getTransactionId()!=null?entity.getTransactionId():"-- Unknown --";
         protocol = entity.getProtocol();
         systemName = entity.getSystemName();
         integrationPointName = entity.getIntegrationPointName();

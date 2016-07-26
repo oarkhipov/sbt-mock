@@ -1,12 +1,14 @@
 package ru.sbt.bpm.mock.spring.service.message.validation;
 
 import com.eviware.soapui.config.TestStepConfig;
+import com.eviware.soapui.impl.wsdl.WsdlContentPart;
 import com.eviware.soapui.impl.wsdl.WsdlOperation;
 import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.eviware.soapui.impl.wsdl.WsdlTestSuite;
 import com.eviware.soapui.impl.wsdl.mock.WsdlMockService;
 import com.eviware.soapui.impl.wsdl.testcase.WsdlTestCase;
 import com.eviware.soapui.impl.wsdl.teststeps.registry.WsdlTestRequestStepFactory;
+import com.eviware.soapui.model.iface.Interface;
 import com.eviware.soapui.model.iface.Operation;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.saxon.s9api.SaxonApiException;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3.x2003.x05.soapEnvelope.Envelope;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
@@ -64,7 +67,7 @@ public class MessageValidationService {
 
 
     @PostConstruct
-    protected void init () throws IOException, SAXException {
+    protected void init() throws IOException, SAXException {
 
         /**
          * FileResourceResolver добавлен для корректной работы с XSD с одиннаковыми именами, но в разных директориях
@@ -87,14 +90,14 @@ public class MessageValidationService {
      * @throws IOException
      * @throws SAXException
      */
-    protected void initValidator (System system) throws IOException, SAXException {
-        String   systemName              = system.getSystemName();
-        File     systemXsdDirectory      = dataFileService.getSystemXsdDirectoryFile(systemName);
-        String   remoteRootSchema        = system.getRemoteRootSchema();
-        String   localRootSchema         = system.getLocalRootSchema();
-        Protocol protocol                = system.getProtocol();
-        String   remoteSchemaInLowerCase = remoteRootSchema.toLowerCase();
-        log.info(String.format("Init [%s] validator for system [%s]",protocol, systemName));
+    protected void initValidator(System system) throws IOException, SAXException {
+        String systemName = system.getSystemName();
+        File systemXsdDirectory = dataFileService.getSystemXsdDirectoryFile(systemName);
+        String remoteRootSchema = system.getRemoteRootSchema();
+        String localRootSchema = system.getLocalRootSchema();
+        Protocol protocol = system.getProtocol();
+        String remoteSchemaInLowerCase = remoteRootSchema.toLowerCase();
+        log.info(String.format("Init [%s] validator for system [%s]", protocol, systemName));
         switch (protocol) {
             case JMS:
                 if (remoteSchemaInLowerCase.startsWith("http://") || remoteSchemaInLowerCase.startsWith("ftp://")) {
@@ -105,7 +108,7 @@ public class MessageValidationService {
                     system.setLocalRootSchema(relativePath);
 
                     String absoluteSystemRootSchemaDir = dataFileService.getSystemXsdDirectoryFile(systemName)
-                                                                        .getAbsolutePath() + basePath;
+                            .getAbsolutePath() + basePath;
                     absoluteSystemRootSchemaDir = absoluteSystemRootSchemaDir.replace("/", File.separator);
                     validator.put(systemName, new XsdValidator(remoteRootSchema, absoluteSystemRootSchemaDir));
                 } else {
@@ -205,28 +208,15 @@ public class MessageValidationService {
         WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(system.getSystemName());
         WsdlOperation operation = (WsdlOperation) wsdlProject.getInterfaceList().get(0).getOperationByName(integrationPoint.getName());
         String elementName = getSoapMessageElementName(XmlUtils.compactXml(xml));
+        assert elementName != null;
         assert !elementName.isEmpty();
-        if (messageType == MessageType.RQ) {
-            int bodyIndex = operation.getDefaultRequestParts().length - 1;
-            String expectedElementName = operation.getDefaultRequestParts()[bodyIndex].getName();
-            boolean validationResult = elementName.equals(expectedElementName);
-            if (validationResult) {
-                return true;
-            } else {
-                throw new SoapMessageValidationException(expectedElementName, elementName);
-            }
+        String expectedElementName = getDefaultRootElement(operation, messageType);
+        boolean validationResult = elementName.equals(expectedElementName);
+        if (validationResult) {
+            return true;
+        } else {
+            throw new SoapMessageValidationException(expectedElementName, elementName);
         }
-        if (messageType == MessageType.RS) {
-            int bodyIndex = operation.getDefaultResponseParts().length - 1;
-            String expectedElementName = operation.getDefaultResponseParts()[bodyIndex].getName();
-            boolean validationResult = elementName.equals(expectedElementName);
-            if (validationResult) {
-                return true;
-            } else {
-                throw new SoapMessageValidationException(expectedElementName, elementName);
-            }
-        }
-        throw new IllegalStateException("Unknown message type: " + messageType.name());
     }
 
     private boolean assertByXpath(String xml, System system, IntegrationPoint integrationPoint, MessageType messageType) throws SaxonApiException, JmsMessageValidationException {
@@ -273,10 +263,39 @@ public class MessageValidationService {
         }
 
         if (ENVELOPE.equals(envelopeNode.getLocalName()) && BODY.equals(bodyNode.getLocalName())) {
-            final Node nodeType = bodyNode.getFirstChild();
-            messageType = nodeType.getLocalName();
+            final NodeList childNodes = bodyNode.getChildNodes();
+            for (int i = 0; i < childNodes.getLength(); i++) {
+                final String localName = childNodes.item(i).getLocalName();
+                if (localName != null && !localName.isEmpty()) {
+                    messageType = localName;
+                }
+            }
         }
         return messageType;
+    }
+
+    public String getOperationByElementName(String systemName, String elementName, MessageType messageType) {
+        WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(systemName);
+        for (Interface anInterface : wsdlProject.getInterfaceList()) {
+            for (Operation operation : anInterface.getOperationList()) {
+               if (elementName.equals(getDefaultRootElement(operation, messageType))) {
+                   return operation.getName();
+               }
+            }
+        }
+        throw new IllegalStateException(String.format("No wsdl such operation with elementName: [%s]", elementName));
+    }
+
+    public String getDefaultRootElement(Operation operation, MessageType messageType) {
+        if (messageType == MessageType.RQ) {
+            int bodyIndex = operation.getDefaultRequestParts().length - 1;
+            return ((WsdlContentPart) operation.getDefaultRequestParts()[bodyIndex]).getPartElement().getName().getLocalPart();
+        }
+        if (messageType == MessageType.RS) {
+            int bodyIndex = operation.getDefaultResponseParts().length - 1;
+            return ((WsdlContentPart) operation.getDefaultResponseParts()[bodyIndex]).getPartElement().getName().getLocalPart();
+        }
+        throw new IllegalStateException("No such message type handling: " + messageType);
     }
 
 
@@ -287,7 +306,7 @@ public class MessageValidationService {
      * @throws IOException
      * @throws SAXException
      */
-    public void reInitValidator (String systemName) throws IOException, SAXException {
+    public void reInitValidator(String systemName) throws IOException, SAXException {
         removeValidator(systemName);
         System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
         initValidator(system);

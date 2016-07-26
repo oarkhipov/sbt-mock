@@ -207,7 +207,7 @@
 </div>
 
 <div id="mainMenu">
-    <div class="dropup" style="margin-top: 5px; margin-bottom: 5px">
+    <div class="dropup" style="margin-top: 5px; margin-bottom: 5px; position: static">
         <button id="dropdownMenu_main"
                 class="btn btn-xs btn-default"
                 type="button"
@@ -218,13 +218,25 @@
         <ul class="dropdown-menu dropdown-menu-right"
             aria-labelledby="dropdownMenu_main">
             <li id="editingEnabler"><a href="#"><span>Enable</span> editing</a></li>
-            <li><a href="#" onclick="reinitValidator()">Update all validators</a></li>
-            <li><a href="#">Validate all integration points</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="<%=request.getContextPath()%>/info" target="_blank" style="font-size: x-small">Show Spring context</a></li>
-            <li><a href="#" onclick="refreshContext()">Refresh Spring context</a></li>
-            <li role="separator" class="divider"></li>
+            <li><a href="log/">Show Logs</a></li>
+            <li class="dropdown-submenu">
+                <a tabindex="-1" href="#">Validation</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" onclick="reinitValidator()">Update all</a></li>
+                    <li><a href="#">Validate all IPs</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown-submenu">
+                <a tabindex="-1" href="#">Context</a>
+                <ul class="dropdown-menu">
+                    <li><a tabindex="-1" href="<%=request.getContextPath()%>/info" target="_blank">Show Spring context</a></li>
+                    <li><a tabindex="-1" href="#" onclick="refreshContext()">Refresh Spring context</a></li>
+                </ul>
+            </li>
+            <li class="divider"></li>
             <li><a href="#"><span class="glyphicon glyphicon-copyright-mark"></span> Copyright</a></li>
+            <li class="disabled"><a href="#">${version}</a></li>
         </ul>
     </div>
 </div>

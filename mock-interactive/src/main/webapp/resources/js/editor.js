@@ -90,7 +90,7 @@ function showError(text) {
 
 function setResponse(text) {
     if (text) {
-        resCodeEditor.setValue(htmlDecode(text), -1);
+        resCodeEditor.setValue(vkbeautify.xml(htmlDecode(text)), -1);
     }
 }
 

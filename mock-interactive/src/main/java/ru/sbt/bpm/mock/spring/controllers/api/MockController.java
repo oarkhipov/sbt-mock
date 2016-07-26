@@ -267,7 +267,7 @@ public class MockController {
                 if (messageValidationService.assertMessageElementName(compiledXml, system, integrationPoint, MessageType.RS)) {
                     final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
                     if (validationErrors.size() != 0) {
-                        ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
+                        ajaxObject.setError("Message validation:\n" + ValidationUtils.getSolidErrorMessage(validationErrors));
                     }
                 } else {
                     ajaxObject.setError("Message assertion fail");
@@ -292,7 +292,7 @@ public class MockController {
                 if (messageValidationService.assertMessageElementName(test, system, integrationPoint, MessageType.RQ)) {
                     final List<String> validationErrors = messageValidationService.validate(test, systemName);
                     if (validationErrors.size() != 0) {
-                        ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
+                        ajaxObject.setError("Test message validation:\n" + ValidationUtils.getSolidErrorMessage(validationErrors));
                     }
                 } else {
                     //assertion fault

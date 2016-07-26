@@ -148,8 +148,13 @@ public class WsdlMessageValidator {
             }
 
             if (ENVELOPE.equals(envelopeNode.getLocalName()) && bodyNode != null && BODY.equals(bodyNode.getLocalName())) {
-                final Node nodeType = bodyNode.getFirstChild();
-                messageType = nodeType.getLocalName();
+                final NodeList childNodes = bodyNode.getChildNodes();
+                for (int i = 0; i < childNodes.getLength(); i++) {
+                    final String localName = childNodes.item(i).getLocalName();
+                    if (localName != null && !localName.isEmpty()) {
+                        messageType = localName;
+                    }
+                }
             }
 
             if (StringUtils.isEmpty(messageType)) {
@@ -197,7 +202,7 @@ public class WsdlMessageValidator {
             boolean assertionPerformed = false;
             try {
                 int bodyIndex = operation.getDefaultResponseParts().length - 1;
-                if (messageType.equals(operation.getDefaultResponseParts()[bodyIndex].getName()) ) {
+                if (messageType.equals(((WsdlContentPart)operation.getDefaultResponseParts()[bodyIndex]).getPartElement().getName().getLocalPart()) ) {
                     //validate response
                     mockResponse = wsdlMockOperation.addNewMockResponse(mockOperationName, true);
                     mockResponse.setResponseContent(message);
@@ -211,7 +216,7 @@ public class WsdlMessageValidator {
 
             try {
                 int bodyIndex = operation.getDefaultRequestParts().length - 1;
-                if (messageType.equals(operation.getDefaultRequestParts()[bodyIndex].getName()) ) {
+                if (messageType.equals(((WsdlContentPart)operation.getDefaultRequestParts()[bodyIndex]).getPartElement().getName().getLocalPart()) ) {
                     //validate request
                     MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
                     mockHttpServletRequest.setMethod("POST");

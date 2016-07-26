@@ -59,7 +59,7 @@ public class ConfigurationService {
 
         File rootDirectory = new File(dataFileService.getContextFilePath(""));
         File dataDirectory = dataFileService.getContextDataFile("");
-        File xsdDirectory = dataFileService.getSystemXsdDirectoryFile(".");
+        File xsdDirectory = dataFileService.getSystemXsdDirectoryFile(".").getParentFile();
 
         //Add data files
         List<File> fileList = dataFileService.searchFiles(dataDirectory, "");

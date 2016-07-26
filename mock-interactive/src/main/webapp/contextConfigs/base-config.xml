@@ -9,6 +9,12 @@
     <mvc:resources mapping="resources/**" location="/resources/"/>
     <context:component-scan base-package="ru.sbt.bpm.mock.spring"/>
 
+    <context:property-placeholder location="META-INF/maven/ru.sbt.bpm.mock/mock-interactive/pom.properties"/>
+    <bean id="version" class="java.lang.String">
+        <constructor-arg value="${version}" type="java.lang.String"/>
+    </bean>
+
+
     <!-- upload files resolver-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 

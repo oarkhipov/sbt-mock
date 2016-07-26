@@ -9,16 +9,16 @@
 <html>
 <body>
 <form method="post" enctype="multipart/form-data">
-        <input id="upload-input" class="file" type="file" name="file" multiple data-min-file-count="1">
+    <input id="upload-input" class="file" type="file" name="file" data-min-file-count="1" accept="application/zip">
     <script>
         var input = $('#upload-input');
         input.fileinput({
             uploadUrl: '<%=request.getContextPath()%>/config/import',
             showPreview: false,
             maxFileCount: 1,
-            allowedFileExtensions : ['zip']
+            allowedFileExtensions: ['zip']
         });
-        input.on('filebatchuploadcomplete', function() {
+        input.on('filebatchuploadcomplete', function () {
             window.location.reload();
         });
     </script>

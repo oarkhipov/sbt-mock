@@ -5,7 +5,7 @@
     <parent>
         <groupId>ru.sbt.bpm.mock</groupId>
         <artifactId>mock-interactive-parent</artifactId>
-        <version>3.6.1</version>
+        <version>3.6.2</version>
     </parent>
 
     <artifactId>mock-interactive</artifactId>
@@ -389,30 +389,50 @@
                         <version>1.5.2</version>
                         <executions>
                             <execution>
-                                <id>match-jms-replace</id>
+                                <id>replace-jms-activeMQ</id>
                                 <phase>prepare-package</phase>
                                 <goals>
                                     <goal>replace</goal>
                                 </goals>
+                                <configuration>
+                                    <basedir>${project.build.directory}/${project.build.finalName}/WEB-INF</basedir>
+                                    <includes>
+                                        <include>MockConfig.xml</include>
+                                        <include>mockapp-servlet.xml</include>
+                                    </includes>
+                                    <replacements>
+                                        <replacement>
+                                            <token>>jms/</token>
+                                            <value>>java:comp/env/jms/</value>
+                                        </replacement>
+                                        <replacement>
+                                            <token>"jms/</token>
+                                            <value>"java:comp/env/jms/</value>
+                                        </replacement>
+                                    </replacements>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>replace-db-path</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>replace</goal>
+                                </goals>
+                                <configuration>
+                                    <basedir>${project.build.directory}/${project.build.finalName}/contextConfigs</basedir>
+                                    <includes>
+                                        <include>MockConfig.xml</include>
+                                        <include>logging-config.xml</include>
+                                    </includes>
+                                    <replacements>
+                                        <replacement>
+                                            <token>jdbc:h2:/tmp/</token>
+                                            <value>jdbc:h2:./</value>
+                                        </replacement>
+                                    </replacements>
+                                </configuration>
                             </execution>
                         </executions>
-                        <configuration>
-                            <basedir>${project.build.directory}/${project.build.finalName}/WEB-INF</basedir>
-                            <includes>
-                                <include>MockConfig.xml</include>
-                                <include>mockapp-servlet.xml</include>
-                            </includes>
-                            <replacements>
-                                <replacement>
-                                    <token>>jms/</token>
-                                    <value>>java:comp/env/jms/</value>
-                                </replacement>
-                                <replacement>
-                                    <token>"jms/</token>
-                                    <value>"java:comp/env/jms/</value>
-                                </replacement>
-                            </replacements>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
