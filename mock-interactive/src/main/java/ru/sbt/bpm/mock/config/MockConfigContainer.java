@@ -2,7 +2,6 @@ package ru.sbt.bpm.mock.config;
 
 import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import ru.sbt.bpm.mock.config.entities.*;
 import ru.sbt.bpm.mock.config.entities.System;
+import ru.sbt.bpm.mock.config.serialization.MockDomDriver;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
@@ -28,7 +28,7 @@ public class MockConfigContainer {
 
     private static MockConfigContainer INSTANCE = null;
     @Autowired
-    ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
     @Getter
     private String basePath;
     @Getter
@@ -83,7 +83,7 @@ public class MockConfigContainer {
 
 
         FileReader fileReader = new FileReader(resourceFile);
-        XStream xStream = new XStream(new DomDriver());
+        XStream xStream = new XStream(new MockDomDriver());
 
         // Mapping данных из xml в классы
         xStream.processAnnotations(MockConfig.class);
@@ -113,7 +113,7 @@ public class MockConfigContainer {
     }
 
     public String toXml() {
-        XStream xStream = new XStream(new DomDriver());
+        XStream xStream = new XStream(new MockDomDriver());
 
         // Mapping данных из xml в классы
         xStream.processAnnotations(MockConfig.class);

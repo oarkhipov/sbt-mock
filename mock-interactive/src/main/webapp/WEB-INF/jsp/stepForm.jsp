@@ -54,6 +54,8 @@
 
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/libs/bootstrap-fileinput/css/fileinput.min.css">
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/libs/bootstrap-fileinput/js/fileinput.min.js"></script>
+
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/vkbeautify.0.99.00.beta.js"></script>
 </head>
 <body>
 <!--[if lt IE 7]>

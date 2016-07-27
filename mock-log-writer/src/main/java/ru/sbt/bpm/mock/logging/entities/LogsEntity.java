@@ -63,7 +63,7 @@ public class LogsEntity {
 
     public LogsEntity(UUID transactionId, String protocol, String systemName, String integrationPointName, String fullEndpoint, String shortEndpoint, String messageState, String messagePreview, String message) {
         this.ts = new Timestamp(new Date().getTime());
-        this.transactionId = transactionId.toString();
+        this.transactionId = (transactionId != null ? transactionId.toString(): null);
         this.protocol = protocol;
         this.systemName = systemName;
         this.integrationPointName = integrationPointName;

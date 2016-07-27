@@ -42,6 +42,7 @@ public class MessageSendingService {
     ResponseGenerator responseGenerator;
 
     public String send(MockMessage message) throws IOException {
+        message.setTransactionId(UUID.randomUUID());
         responseGenerator.log(message, MessageType.RQ);
         Protocol protocol = message.getProtocol();
         if (protocol == Protocol.JMS) {
@@ -50,7 +51,6 @@ public class MessageSendingService {
         if (protocol == Protocol.SOAP) {
             return sendWs(message);
         }
-        //TODO log answers
         throw new IllegalStateException("No such protocol implementation [" + protocol + "]");
     }
 

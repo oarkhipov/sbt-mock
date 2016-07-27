@@ -2,10 +2,10 @@ package ru.sbt.bpm.mock.config.entities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import reactor.tuple.Tuple;
 import reactor.tuple.Tuple2;
+import ru.sbt.bpm.mock.config.serialization.CdataValue;
 
 
 /**
@@ -17,7 +17,6 @@ import reactor.tuple.Tuple2;
  */
 @XStreamAlias("integrationPoint")
 @Data
-@AllArgsConstructor
 public class IntegrationPoint {
 
     // Тип точки интеграции Driver
@@ -51,10 +50,29 @@ public class IntegrationPoint {
 
     // Так как маппинг идет по полям xml, для удобства доступа и сравнения создаем Tuple2<INCOME, OUTCOME>
     private transient Tuple2<String, String> pairOfChannels;
+
     @XStreamAlias("xsdFile")
     private String xsdFile;
+
     @XStreamAlias("rootElement")
     private ElementSelector rootElement;
+
+    @CdataValue
+    @XStreamAlias("dispatcherExpression")
+    private String dispatcherExpression;
+
+    public IntegrationPoint(String name, String integrationPointType, Integer delayMs, XpathSelector xpathValidatorSelector, String incomeQueue, String outcomeQueue, Boolean answerRequired, Tuple2<String, String> pairOfChannels, String xsdFile, ElementSelector rootElement) {
+        this.name = name;
+        this.integrationPointType = integrationPointType;
+        this.delayMs = delayMs;
+        this.xpathValidatorSelector = xpathValidatorSelector;
+        this.incomeQueue = incomeQueue;
+        this.outcomeQueue = outcomeQueue;
+        this.answerRequired = answerRequired;
+        this.pairOfChannels = pairOfChannels;
+        this.xsdFile = xsdFile;
+        this.rootElement = rootElement;
+    }
 
     public Tuple2<String, String> getPairOfChannels() {
         return Tuple.of(this.getIncomeQueue(), this.getOutcomeQueue());

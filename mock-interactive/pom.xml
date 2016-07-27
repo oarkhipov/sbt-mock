@@ -348,7 +348,7 @@
                         <executions>
                             <execution>
                                 <id>copy-preProd-configuration</id>
-                                <phase>validate</phase>
+                                <phase>prepare-package</phase>
                                 <goals>
                                     <goal>copy-resources</goal>
                                 </goals>
