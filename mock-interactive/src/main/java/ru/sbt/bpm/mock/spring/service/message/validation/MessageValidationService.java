@@ -289,11 +289,21 @@ public class MessageValidationService {
     public String getDefaultRootElement(Operation operation, MessageType messageType) {
         if (messageType == MessageType.RQ) {
             int bodyIndex = operation.getDefaultRequestParts().length - 1;
-            return ((WsdlContentPart) operation.getDefaultRequestParts()[bodyIndex]).getPartElement().getName().getLocalPart();
+            WsdlContentPart wsdlContentPart = (WsdlContentPart) operation.getDefaultRequestParts()[bodyIndex];
+            if (wsdlContentPart.getPartElement() == null) {
+                return wsdlContentPart.getName();
+            } else {
+                return wsdlContentPart.getPartElement().getName().getLocalPart();
+            }
         }
         if (messageType == MessageType.RS) {
             int bodyIndex = operation.getDefaultResponseParts().length - 1;
-            return ((WsdlContentPart) operation.getDefaultResponseParts()[bodyIndex]).getPartElement().getName().getLocalPart();
+            WsdlContentPart wsdlContentPart = (WsdlContentPart) operation.getDefaultResponseParts()[bodyIndex];
+            if (wsdlContentPart.getPartElement() == null) {
+                return wsdlContentPart.getName();
+            } else {
+                return wsdlContentPart.getPartElement().getName().getLocalPart();
+            }
         }
         throw new IllegalStateException("No such message type handling: " + messageType);
     }
