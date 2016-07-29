@@ -211,7 +211,7 @@ public class WsdlMessageValidator {
                     assertionPerformed = true;
                 }
             } catch (Exception e) {
-                log.debug("SOAP Response validation error", e);
+                log.debug("SOAP MessageTemplate validation error", e);
             }
 
             try {
