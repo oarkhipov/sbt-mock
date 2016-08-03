@@ -79,7 +79,7 @@ $(document).ready(function () {
                             editor.setTheme("ace/theme/tomorrow");
                             editor.setOptions({
                                 readOnly: true,
-                                showGutter: false,
+                                showGutter: true,
                                 highlightActiveLine: false,
                                 maxLines: Infinity
                             });
@@ -87,6 +87,9 @@ $(document).ready(function () {
                             editor.setValue(vkbeautify.xml(htmlDecode(data)), 1);
                             editor.renderer.$cursorLayer.element.style.display = "none";
                             editor.getSession().setUseWrapMode(true);
+                            //for errors markup
+                            // var Range = ace.require('ace/range').Range;
+                            // editor.getSession().addMarker(new Range(1,0,1,200), "errorMarker", "line")
                         }
                     });
 

@@ -1,7 +1,6 @@
 package ru.sbt.bpm.mock.spring.controllers.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +24,7 @@ import ru.sbt.bpm.mock.spring.utils.AjaxObject;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by sbt-bochev-as on 13.12.2014.
@@ -34,34 +34,37 @@ import java.util.List;
 @Controller
 public class MockController {
 
-    @Autowired
-    ApplicationContext appContext;
+    private MockConfigContainer configContainer;
+    private MessageValidationService messageValidationService;
+    private DataFileService dataFileService;
+    private GroovyService groovyService;
+    private XmlGeneratorService generatorService;
+    private TestGatewayService testGatewayService;
+    private DriverController driverController;
 
     @Autowired
-    MockConfigContainer configContainer;
-
-    @Autowired
-    MessageValidationService messageValidationService;
-
-    @Autowired
-    DataFileService dataFileService;
-
-    @Autowired
-    GroovyService groovyService;
-
-    @Autowired
-    XmlGeneratorService generatorService;
-
-    @Autowired
-    TestGatewayService testGatewayService;
-
-    @Autowired
-    DriverController driverController;
+    public MockController(MockConfigContainer configContainer, MessageValidationService messageValidationService, DataFileService dataFileService, GroovyService groovyService, XmlGeneratorService generatorService, TestGatewayService testGatewayService, DriverController driverController) {
+        this.configContainer = configContainer;
+        this.messageValidationService = messageValidationService;
+        this.dataFileService = dataFileService;
+        this.groovyService = groovyService;
+        this.generatorService = generatorService;
+        this.testGatewayService = testGatewayService;
+        this.driverController = driverController;
+    }
 
     @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE + ";charset=utf-8")
-    public String get(@PathVariable String systemName,
+    public String getDefaultMessage(@PathVariable String systemName,
                       @PathVariable String integrationPointName,
                       Model model) throws IOException, TransformerException {
+        return getMessageTemplate(systemName, integrationPointName, null, model);
+    }
+
+    @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/{templateId}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE + ";charset=utf-8")
+    public String getMessageTemplate(@PathVariable String systemName,
+                                     @PathVariable String integrationPointName,
+                                     @PathVariable String templateId,
+                                     Model model) throws IOException, TransformerException {
 
         ru.sbt.bpm.mock.config.entities.System system = configContainer.getSystemByName(systemName);
         model.addAttribute("systemName", systemName);
@@ -72,11 +75,23 @@ public class MockController {
                 system.getProtocol().equals(Protocol.JMS) ?
                         system.getIntegrationPoints().getIntegrationPointByName(integrationPointName)
                                 .getXpathString() : null);
-        model.addAttribute("message", dataFileService.getCurrentMessage(systemName, integrationPointName));
-        model.addAttribute("script", dataFileService.getCurrentScript(systemName, integrationPointName));
-        model.addAttribute("test", dataFileService.getCurrentTest(systemName, integrationPointName));
+        //noinspection Duplicates
+        if (templateId != null) {
+            model.addAttribute("message", dataFileService.getMessage(systemName, integrationPointName, templateId));
+            model.addAttribute("script", dataFileService.getScript(systemName, integrationPointName, templateId));
+            model.addAttribute("test", dataFileService.getTest(systemName, integrationPointName, templateId));
+            model.addAttribute("template", configContainer.getConfigEntitiesByMessageTemplateUUID(UUID.fromString(templateId)).getT3());
+
+        } else {
+            model.addAttribute("message", dataFileService.getDefaultMessage(systemName, integrationPointName));
+            model.addAttribute("script", dataFileService.getDefaultScript(systemName, integrationPointName));
+            model.addAttribute("test", dataFileService.getDefaultTest(systemName, integrationPointName));
+            model.addAttribute("template", null);
+        }
         return "editor";
     }
+
+
 
     @ResponseBody
     @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/validate/", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE + ";charset=utf-8")
@@ -101,11 +116,12 @@ public class MockController {
             @PathVariable String integrationPointName,
             @RequestParam String xml,
             @RequestParam String script,
-            @RequestParam String test) throws IOException {
+            @RequestParam String test,
+            @RequestParam(required = false) String templateId) throws IOException {
         Tuple2<AjaxObject, String> ajaxObjectWithCompiledXml = validateMockMessages(xml, test, script, systemName, integrationPointName);
         AjaxObject ajaxObject = ajaxObjectWithCompiledXml.getT1();
 //        String compiledXml = ajaxObjectWithCompiledXml.getT2();
-        ajaxObject = driverController.saveState(systemName, integrationPointName, xml, script, test, ajaxObject);
+        ajaxObject = driverController.saveState(systemName, integrationPointName, xml, script, test, templateId, ajaxObject);
         return ajaxObject.toJSON();
     }
 

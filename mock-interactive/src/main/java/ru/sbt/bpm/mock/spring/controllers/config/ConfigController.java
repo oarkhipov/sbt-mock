@@ -4,12 +4,15 @@ import net.sf.saxon.s9api.SaxonApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import ru.sbt.bpm.mock.config.MockConfig;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.config.entities.MainConfig;
 import ru.sbt.bpm.mock.spring.service.ConfigurationService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -65,6 +68,34 @@ public class ConfigController {
     @RequestMapping(value = "/config/refreshContext", produces = MediaType.TEXT_HTML_VALUE)
     public String refreshContext() throws JAXBException, IOException {
         configurationService.reInitSpringContext();
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/config/updateConfigSettings", method = RequestMethod.GET)
+    public String showConfigSettings(Model model) {
+        model.addAttribute("config", mockConfigContainer.getConfig().getMainConfig());
+        return "config/mainSettings";
+    }
+
+    @RequestMapping(value = "/config/updateConfigSettings", method = RequestMethod.POST)
+    public String updateConfigSettings(@RequestParam String driverTimeout,
+                                       @RequestParam Long maxLogsCount,
+                                       @RequestParam(required = false) Boolean  validationEnabled) {
+        MockConfig config = mockConfigContainer.getConfig();
+        MainConfig mainConfig = config.getMainConfig();
+        if (mainConfig == null) {
+            config.setMainConfig(new MainConfig());
+            mainConfig = config.getMainConfig();
+        }
+
+        mainConfig.setDriverTimeout(driverTimeout);
+        mainConfig.setMaxLogsCount(maxLogsCount);
+        if (validationEnabled != null) {
+            mainConfig.setValidationEnabled(validationEnabled);
+        } else {
+            mainConfig.setValidationEnabled(false);
+        }
+
         return "redirect:/";
     }
 }

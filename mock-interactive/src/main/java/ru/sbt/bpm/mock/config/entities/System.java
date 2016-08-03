@@ -2,7 +2,6 @@ package ru.sbt.bpm.mock.config.entities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import reactor.tuple.Tuple;
@@ -20,7 +19,6 @@ import java.util.List;
 
 @XStreamAlias("system")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class System {
 
@@ -64,7 +62,26 @@ public class System {
     @XStreamAlias("integrationPoints")
     private IntegrationPoints integrationPoints;
 
-    //for soap
+    @XStreamAlias("validationEnabled")
+    private Boolean validationEnabled;
+
+    public System(String systemName, String remoteRootSchema, String localRootSchema, XpathSelector integrationPointSelector, Protocol protocol, String queueConnectionFactory, String mockIncomeQueue, String mockOutcomeQueue, String driverOutcomeQueue, String driverIncomeQueue, String driverWebServiceEndpoint, ElementSelector rootElement, IntegrationPoints integrationPoints) {
+        this.systemName = systemName;
+        this.remoteRootSchema = remoteRootSchema;
+        this.localRootSchema = localRootSchema;
+        this.integrationPointSelector = integrationPointSelector;
+        this.protocol = protocol;
+        this.queueConnectionFactory = queueConnectionFactory;
+        this.mockIncomeQueue = mockIncomeQueue;
+        this.mockOutcomeQueue = mockOutcomeQueue;
+        this.driverOutcomeQueue = driverOutcomeQueue;
+        this.driverIncomeQueue = driverIncomeQueue;
+        this.driverWebServiceEndpoint = driverWebServiceEndpoint;
+        this.rootElement = rootElement;
+        this.integrationPoints = integrationPoints;
+    }
+
+//for soap
 //    @XStreamOmitField
 //    private WsdlProject wsdlProject;
 
@@ -109,5 +126,12 @@ public class System {
 
     public Tuple2<String, String> getDriverQueues () {
         return Tuple.of(driverIncomeQueue, driverOutcomeQueue);
+    }
+
+    public IntegrationPoints getIntegrationPoints() {
+        if (integrationPoints == null) {
+            integrationPoints = new IntegrationPoints();
+        }
+        return integrationPoints;
     }
 }

@@ -65,7 +65,7 @@ public class XsdAnalysisService {
     private void init() throws IOException, SaxonApiException {
         Systems systemContainer = configContainer.getConfig().getSystems();
         if (systemContainer != null) {
-            List<ru.sbt.bpm.mock.config.entities.System> systems = systemContainer.getSystems();
+            Set<ru.sbt.bpm.mock.config.entities.System> systems = systemContainer.getSystems();
             if (systems != null) {
                 for (System system : systems) {
                     init(system);

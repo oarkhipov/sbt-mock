@@ -21,11 +21,31 @@
             <b>Xpath assertion:</b> <i><c:out value="${xpath}"/></i>
         </c:if>
     </c:if>
+    <c:if test="${template != null}">
+        <input type="hidden" id="templateId" value="${template.templateId}">
+        <br/><b>MessageTemplate:</b> ${template.caption}<c:if test="${template.value}"> (${template.value})</c:if>
+    </c:if>
     <div class="editActions" style="margin-left: 20px">
         <span class="btn btn-warning btn-xs glyphicon glyphicon-pencil"
-              onclick="editIpForm('${systemName}','${name}')"></span>
+              <c:choose>
+                  <c:when test="${template != null}">
+                      onclick="editMessageTemplate('${systemName}', '${name}', '${template.templateId}', '${template.caption}')"
+                  </c:when>
+                  <c:otherwise>
+                      onclick="editIpForm('${systemName}', '${name}')"
+                  </c:otherwise>
+                </c:choose>
+        ></span>
         <span class="btn btn-danger btn-xs glyphicon glyphicon-trash"
-              onclick="delIpForm('${systemName}','${name}')"></span>
+                <c:choose>
+                    <c:when test="${template != null}">
+                        onclick="deleteMessageTemplate('${systemName}', '${name}', '${template.templateId}', '${template.caption}')"
+                    </c:when>
+                    <c:otherwise>
+                        onclick="delIpForm('${systemName}', '${name}')"
+                    </c:otherwise>
+                </c:choose>
+        ></span>
     </div>
     <br/>
 </div>

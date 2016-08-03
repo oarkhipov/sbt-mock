@@ -5,5 +5,11 @@ package ru.sbt.bpm.mock.spring.service.message.validation.exceptions;
  *         <p/>
  *         Company: SBT - Moscow
  */
-public class MessageValidationException extends Exception {
+public class MessageValidationException extends RuntimeException {
+    public MessageValidationException(String message) {
+        super(message);
+    }
+
+    public MessageValidationException() {
+    }
 }

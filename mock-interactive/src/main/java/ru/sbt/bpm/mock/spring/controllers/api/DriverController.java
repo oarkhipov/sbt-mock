@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.tuple.Tuple;
 import reactor.tuple.Tuple2;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
-import ru.sbt.bpm.mock.config.entities.*;
+import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.config.enums.Protocol;
@@ -28,6 +28,7 @@ import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by sbt-bochev-as on 15.12.2014.
@@ -63,21 +64,41 @@ public class DriverController {
 
 
     @RequestMapping(value = "/driver/{systemName}/{integrationPointName}/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE + ";charset=utf-8")
-    public String get(@PathVariable String systemName,
+    public String getDefaultMessage(@PathVariable String systemName,
                       @PathVariable String integrationPointName,
                       Model model) throws IOException, TransformerException {
+        getMessageTemplate(systemName, integrationPointName, null, model);
+        return "editor";
+    }
+
+    @RequestMapping(value = "/driver/{systemName}/{integrationPointName}/{templateId}/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE + ";charset=utf-8")
+    public String getMessageTemplate(@PathVariable String systemName,
+                                     @PathVariable String integrationPointName,
+                                     @PathVariable String templateId,
+                                     Model model) throws IOException, TransformerException {
         System system = configContainer.getSystemByName(systemName);
         model.addAttribute("systemName", systemName);
         model.addAttribute("name", integrationPointName);
         model.addAttribute("link", "driver");
-        model.addAttribute("protocol",system.getProtocol().toString());
+        model.addAttribute("protocol", system.getProtocol().toString());
         model.addAttribute("xpath",
-                        system.getProtocol().equals(Protocol.JMS)?
+                system.getProtocol().equals(Protocol.JMS) ?
                         system.getIntegrationPoints().getIntegrationPointByName(integrationPointName)
-                        .getXpathString():null);
-        model.addAttribute("message", dataFileService.getCurrentMessage(systemName, integrationPointName));
-        model.addAttribute("script", dataFileService.getCurrentScript(systemName, integrationPointName));
-        model.addAttribute("test", dataFileService.getCurrentTest(systemName, integrationPointName));
+                                .getXpathString() : null);
+
+        //noinspection Duplicates
+        if (templateId != null) {
+            model.addAttribute("message", dataFileService.getMessage(systemName, integrationPointName, templateId));
+            model.addAttribute("script", dataFileService.getScript(systemName, integrationPointName, templateId));
+            model.addAttribute("test", dataFileService.getTest(systemName, integrationPointName, templateId));
+            model.addAttribute("template", configContainer.getConfigEntitiesByMessageTemplateUUID(UUID.fromString(templateId)).getT3());
+
+        } else {
+            model.addAttribute("message", dataFileService.getDefaultMessage(systemName, integrationPointName));
+            model.addAttribute("script", dataFileService.getDefaultScript(systemName, integrationPointName));
+            model.addAttribute("test", dataFileService.getDefaultTest(systemName, integrationPointName));
+            model.addAttribute("template", null);
+        }
         return "editor";
     }
 
@@ -105,15 +126,16 @@ public class DriverController {
             @PathVariable String integrationPointName,
             @RequestParam String xml,
             @RequestParam String script,
-            @RequestParam String test) throws IOException {
+            @RequestParam String test,
+            @RequestParam String templateId) throws IOException {
         Tuple2<AjaxObject, String> ajaxObjectWithCompiledXml = validateDriverMessages(xml, test, script, systemName, integrationPointName);
         AjaxObject ajaxObject = ajaxObjectWithCompiledXml.getT1();
 //        String compiledXml = ajaxObjectWithCompiledXml.getT2();
-        ajaxObject = saveState(systemName, integrationPointName, xml, script, test, ajaxObject);
+        ajaxObject = saveState(systemName, integrationPointName, xml, script, test, templateId, ajaxObject);
         return ajaxObject.toJSON();
     }
 
-    AjaxObject saveState(String systemName, String integrationPointName, String xml, String script, String test, AjaxObject ajaxObject) throws IOException {
+    AjaxObject saveState(String systemName, String integrationPointName, String xml, String script, String test, String templateId, AjaxObject ajaxObject) throws IOException {
         SaveFile saver = SaveFile.getInstance(appContext);
         if (ajaxObject.getError() == null || ajaxObject.getError().length() == 0) {
             // If Valid - then save
@@ -121,12 +143,13 @@ public class DriverController {
             File scriptFile = null;
             File testFile = null;
             try {
+                String templateSuffix = templateId != null && !templateId.isEmpty() ? "__" + templateId : "";
                 //message file
-                messageFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + "__" + "message.xml"));
+                messageFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + templateSuffix + "__" + "message.xml"));
                 //script file
-                scriptFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + "__" + "script.groovy"));
+                scriptFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + templateSuffix + "__" + "script.groovy"));
                 //test file
-                testFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + "__" + "test.xml"));
+                testFile = saver.getBackUpedDataFile(saver.TranslateNameToPath(systemName + "__" + integrationPointName + templateSuffix + "__" + "test.xml"));
             } catch (Exception e) {
                 ajaxObject.setError(e.getMessage());
             }
@@ -238,8 +261,8 @@ public class DriverController {
             IntegrationPoint integrationPointByName = systemByName.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
 
             MockMessage mockMessage = new MockMessage(systemByName.getProtocol(),
-                    systemByName.getProtocol()==Protocol.JMS?systemByName.getQueueConnectionFactory():null,
-                    systemByName.getProtocol()==Protocol.JMS?systemByName.getDriverOutcomeQueue():null,
+                    systemByName.getProtocol() == Protocol.JMS ? systemByName.getQueueConnectionFactory() : null,
+                    systemByName.getProtocol() == Protocol.JMS ? systemByName.getDriverOutcomeQueue() : null,
                     compiledXml);
             mockMessage.setSystem(systemByName);
             mockMessage.setIntegrationPoint(integrationPointByName);

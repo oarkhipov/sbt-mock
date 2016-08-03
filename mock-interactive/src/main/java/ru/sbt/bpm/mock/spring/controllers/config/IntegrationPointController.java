@@ -1,5 +1,6 @@
 package ru.sbt.bpm.mock.spring.controllers.config;
 
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,11 +21,15 @@ import java.util.List;
 @Controller
 public class IntegrationPointController {
 
-    @Autowired
-    MockConfigContainer configContainer;
+    private MockConfigContainer configContainer;
+    private IntegrationPointNameSuggestionService suggestionService;
 
     @Autowired
-    IntegrationPointNameSuggestionService suggestionService;
+    public IntegrationPointController(@NonNull MockConfigContainer configContainer,
+                                      @NonNull IntegrationPointNameSuggestionService suggestionService) {
+        this.configContainer = configContainer;
+        this.suggestionService = suggestionService;
+    }
 
     @RequestMapping(value = "/ip/add/", method = RequestMethod.GET)
     public String add(Model model,

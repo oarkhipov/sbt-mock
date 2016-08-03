@@ -22,13 +22,16 @@ import java.util.List;
  */
 public class MockDomDriver extends DomDriver {
     private static List<Class> configClasses = new ArrayList<Class>() {{
-//        add(MockConfig.class);
-//        add(Systems.class);
-//        add(System.class);
-//        add(ElementSelector.class);
-//        add(XpathSelector.class);
-//        add(IntegrationPoints.class);
+        add(MockConfig.class);
+        add(MainConfig.class);
+        add(Systems.class);
+        add(System.class);
+        add(ElementSelector.class);
+        add(XpathSelector.class);
+        add(IntegrationPoints.class);
         add(IntegrationPoint.class);
+        add(MessageTemplates.class);
+        add(MessageTemplate.class);
     }};
     @Override
     public HierarchicalStreamWriter createWriter(Writer out) {

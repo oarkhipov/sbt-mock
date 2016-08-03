@@ -98,7 +98,6 @@ public class ConfigurationService {
     }
 
     public void saveConfig() throws IOException {
-        configContainer.sortConfig();
         File configFile = dataFileService.getConfigFile();
         FileUtils.write(configFile, configContainer.toXml());
     }

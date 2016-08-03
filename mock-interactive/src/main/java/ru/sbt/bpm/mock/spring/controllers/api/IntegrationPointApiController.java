@@ -1,5 +1,6 @@
 package ru.sbt.bpm.mock.spring.controllers.api;
 
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,11 +13,9 @@ import ru.sbt.bpm.mock.config.entities.*;
 import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.spring.service.ConfigurationService;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
-import ru.sbt.bpm.mock.spring.service.IntegrationPointNameSuggestionService;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author sbt-bochev-as on 23.12.2015.
@@ -26,17 +25,19 @@ import java.util.List;
 @Controller
 public class IntegrationPointApiController {
 
-    @Autowired
-    MockConfigContainer configContainer;
+    private MockConfigContainer configContainer;
+    private ConfigurationService configurationService;
+    private DataFileService dataFileService;
 
     @Autowired
-    ConfigurationService configurationService;
+    public IntegrationPointApiController(@NonNull MockConfigContainer mockConfigContainer,
+                                         @NonNull ConfigurationService configurationService,
+                                         @NonNull DataFileService dataFileService) {
+        this.configContainer = mockConfigContainer;
+        this.configurationService = configurationService;
+        this.dataFileService = dataFileService;
 
-    @Autowired
-    DataFileService dataFileService;
-
-    @Autowired
-    IntegrationPointNameSuggestionService suggestionService;
+    }
 
     @RequestMapping(value = "/api/ip/add/", method = RequestMethod.POST)
     public String add(@RequestParam String system,
@@ -50,11 +51,12 @@ public class IntegrationPointApiController {
                       @RequestParam(required = false) Boolean answerRequired,
                       @RequestParam(required = false) String xsdFile,
                       @RequestParam(required = false) String rootElementNamespace,
-                      @RequestParam String rootElementName) throws IOException {
+                      @RequestParam String rootElementName,
+                      @RequestParam(required = false) boolean sequenceEnabled) throws IOException {
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(system);
         XpathSelector xpathSelector = xpathValidatorNamespace != null ? new XpathSelector(xpathValidatorNamespace, xpathValidatorElementName) : null;
         if (delayMs == null) delayMs = 1000;
-        IntegrationPoint integrationPoint =
+        IntegrationPoint newIntegrationPoint =
                 new IntegrationPoint(name,
                         type,
                         delayMs,
@@ -64,20 +66,21 @@ public class IntegrationPointApiController {
                         answerRequired,
                         Tuple.of(incomeQueue, outcomeQueue),
                         xsdFile,
-                        new ElementSelector(rootElementNamespace, rootElementName));
+                        new ElementSelector(rootElementNamespace, rootElementName),
+                        sequenceEnabled);
 
-        IntegrationPoints integrationPointContainer = systemObject.getIntegrationPoints();
-        if (integrationPointContainer == null) {
-            integrationPointContainer = new IntegrationPoints();
-            systemObject.setIntegrationPoints(integrationPointContainer);
-        }
-
-        List<IntegrationPoint> integrationPoints = integrationPointContainer.getIntegrationPoints();
+        IntegrationPoints integrationPoints = systemObject.getIntegrationPoints();
         if (integrationPoints == null) {
-            integrationPointContainer.setIntegrationPoints(new ArrayList<IntegrationPoint>());
-            integrationPoints = integrationPointContainer.getIntegrationPoints();
+            integrationPoints = new IntegrationPoints();
+            systemObject.setIntegrationPoints(integrationPoints);
         }
-        integrationPoints.add(integrationPoint);
+
+        Set<IntegrationPoint> integrationPointSet = integrationPoints.getIntegrationPoints();
+        if (integrationPointSet == null) {
+            integrationPoints.setIntegrationPoints(IntegrationPoints.initSet());
+            integrationPointSet = integrationPoints.getIntegrationPoints();
+        }
+        integrationPointSet.add(newIntegrationPoint);
         configurationService.saveConfig();
         return "redirect:/";
     }
@@ -95,7 +98,8 @@ public class IntegrationPointApiController {
                          @RequestParam(required = false) Boolean answerRequired,
                          @RequestParam(required = false) String xsdFile,
                          @RequestParam(required = false) String rootElementNamespace,
-                         @RequestParam String rootElementName) throws IOException {
+                         @RequestParam String rootElementName,
+                         @RequestParam(required = false) boolean sequenceEnabled) throws IOException {
 
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(system);
         IntegrationPoint integrationPoint = systemObject.getIntegrationPoints().getIntegrationPointByName(name);
@@ -119,6 +123,8 @@ public class IntegrationPointApiController {
         ElementSelector elementSelector = new ElementSelector(rootElementNamespace, rootElementName);
         integrationPoint.setRootElement(elementSelector);
 
+        integrationPoint.setSequenceEnabled(sequenceEnabled);
+
         configurationService.saveConfig();
         return "redirect:/";
     }
@@ -127,10 +133,10 @@ public class IntegrationPointApiController {
     public String delete(@PathVariable String system,
                          @PathVariable String name) throws IOException {
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(system);
-        List<IntegrationPoint> integrationPoints = systemObject.getIntegrationPoints().getIntegrationPoints();
-        for (int i = 0; i < integrationPoints.size(); i++) {
-            if (integrationPoints.get(i).getName().equals(name)) {
-                integrationPoints.remove(i);
+        Set<IntegrationPoint> integrationPoints = systemObject.getIntegrationPoints().getIntegrationPoints();
+        for (IntegrationPoint integrationPoint : integrationPoints) {
+            if (integrationPoint.getName().equals(name)) {
+                integrationPoints.remove(integrationPoint);
                 dataFileService.deleteDataFiles(system, name);
                 configurationService.saveConfig();
                 return "redirect:/";

@@ -48,12 +48,16 @@
     <link rel="stylesheet" type="text/css"
           href="<%=request.getContextPath()%>/resources/libs/bootstrap-dialog/css/bootstrap-dialog.css"/>
     <script src="<%=request.getContextPath()%>/resources/libs/selectize.js/js/standalone/selectize.min.js"></script>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/libs/selectize.js/css/selectize.bootstrap3.css">
+    <link rel="stylesheet"
+          href="<%=request.getContextPath()%>/resources/libs/selectize.js/css/selectize.bootstrap3.css">
 
-    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/libs/bootstrap-notify/bootstrap-notify.min.js"></script>
+    <script type="text/javascript"
+            src="<%=request.getContextPath()%>/resources/libs/bootstrap-notify/bootstrap-notify.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/libs/bootstrap-fileinput/css/fileinput.min.css">
-    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/libs/bootstrap-fileinput/js/fileinput.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="<%=request.getContextPath()%>/resources/libs/bootstrap-fileinput/css/fileinput.min.css">
+    <script type="text/javascript"
+            src="<%=request.getContextPath()%>/resources/libs/bootstrap-fileinput/js/fileinput.min.js"></script>
 
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/vkbeautify.0.99.00.beta.js"></script>
 </head>
@@ -74,24 +78,47 @@
                     <button class="btn btn-success btn-sm" onclick="addSysForm()">
                         <span class="glyphicon glyphicon-plus"></span> Add System
                     </button>
+                    <button class="btn btn-default btm-sm" onclick="showSettings()">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </button>
                     <span style="line-height: 5pt; display: block">&nbsp;</span>
 
                     <div id="mockPanel" class="panel panel-default" style="margin-bottom: 5pt">
                         <div class="panel-body">
-                            <table class="table-striped" width="100%">
+                            <table class="table-striped table-hover" width="100%">
+                                <thead>
                                 <tr>
                                     <th width="10%">System name</th>
                                     <th width="50"></th>
                                     <th width="*">Integration point name</th>
-                                    <th width="10%" style="text-align: right">Actions</th>
+                                    <th width="5%">Validation</th>
+                                    <th width="15%" style="text-align: right">Actions</th>
                                 </tr>
+                                </thead>
+                                <tbody>
                                 <c:forEach var="system" items="${list.systems}">
-                                    <tr>
+                                    <tr id="${system.systemName}">
                                         <td style="vertical-align: top; padding-top: 10px">
                                             <span class="label label-<c:if test="${system.protocol eq 'JMS'}">warning</c:if><c:if test="${system.protocol eq 'SOAP'}">info</c:if> ">${system.protocol}</span>
                                                 ${system.systemName}
                                         </td>
                                         <td colspan="2">&nbsp;</td>
+                                        <td align="center">
+                                            <c:choose>
+                                                <c:when test="${globalValidation == false}">
+                                                    <span class="glyphicon glyphicon-ban-circle icon-grey-link btn btn-danger btn-xs"
+                                                          title="Validation disabled (inherited)"></span>
+                                                </c:when>
+                                                <c:when test="${system.validationEnabled == false}">
+                                                    <span class="glyphicon glyphicon-ban-circle btn-danger btn btn-xs"
+                                                          title="Validation disabled"></span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="glyphicon glyphicon-ok-circle btn-success btn-xs icon-grey-link"
+                                                          title="Validation Enabled"></span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
                                         <td align="right">
                                             <div class="dropdown" style="margin-top: 5px; margin-bottom: 5px">
                                                 <button id="dropdownMenu_${system.systemName}"
@@ -104,12 +131,17 @@
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-right"
                                                     aria-labelledby="dropdownMenu_${system.systemName}">
-                                                    <li><a href="#" onclick="addIpForm('${system.systemName}')">Add integration point</a></li>
-                                                    <li><a href="#" onclick="uploadSchema('${system.systemName}')">Upload schema</a></li>
-                                                    <li><a href="#" onclick="reinitValidator('${system.systemName}')">Update Validator</a></li>
+                                                    <li><a href="#" onclick="addIpForm('${system.systemName}')">Add
+                                                        integration point</a></li>
+                                                    <li><a href="#" onclick="uploadSchema('${system.systemName}')">Upload
+                                                        schema</a></li>
+                                                    <li><a href="#" onclick="reinitValidator('${system.systemName}')">Update
+                                                        Validator</a></li>
                                                     <c:if test="${system.protocol=='SOAP'}">
                                                         <li role="separator" class="divider"></li>
-                                                        <li><a href="<%=request.getContextPath()%>/ws/${system.systemName}?wsdl" target="_blank">Show WSDL</a></li>
+                                                        <li>
+                                                            <a href="<%=request.getContextPath()%>/ws/${system.systemName}?wsdl"
+                                                               target="_blank">Show WSDL</a></li>
                                                     </c:if>
                                                     <li role="separator" class="divider"></li>
                                                     <li><a href="#" onclick="editSysForm('${system.systemName}')">Edit
@@ -120,8 +152,11 @@
                                             </div>
                                         </td>
                                     </tr>
+
+                                    <%-- MOCKS --%>
+
                                     <c:forEach var="mockIntegrationPoint" items="${system.mockIntegrationPoints}">
-                                        <tr data-toggle="<%--collapse--%>" data-target="<%--#${mockIntegrationPoint.name}_sequence--%>">
+                                        <tr id="${system.systemName}__${mockIntegrationPoint.name}">
                                             <td align="right">
                                                 <span class="glyphicon glyphicon-menu-right"
                                                       style="opacity: 0.6"></span>
@@ -129,30 +164,91 @@
                                             <td align="center">
                                                 <span class="label label-success">Mock</span>
                                             </td>
-                                            <td>
-                                                <a href="#"
-                                                   onclick="chooseIntPoint('${system.systemName}__mock__${mockIntegrationPoint.name}'); return false;">
-                                                    <c:out value="${mockIntegrationPoint.name}"/></a>
+                                            <td class="text-primary collapseController" data-toggle="collapse"
+                                                data-target=".${mockIntegrationPoint.name}_templates"
+                                                style="cursor: pointer;">${mockIntegrationPoint.name}</td>
+                                            <td align="center">
+                                                <c:choose>
+                                                    <c:when test="${globalValidation == false}">
+                                                        <span class="glyphicon glyphicon-ban-circle icon-grey-link btn btn-danger btn-xs"
+                                                              title="Validation disabled (inherited)"></span>
+                                                    </c:when>
+                                                    <c:when test="${system.validationEnabled == false}">
+                                                        <span class="glyphicon glyphicon-ban-circle icon-grey-link btn btn-danger btn-xs"
+                                                              title="Validation disabled (inherited)"></span>
+                                                    </c:when>
+                                                    <c:when test="${mockIntegrationPoint.validationEnabled == false}">
+                                                        <span class="glyphicon glyphicon-ban-circle btn-danger btn btn-xs"
+                                                              title="Validation disabled"></span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span class="glyphicon glyphicon-ok-circle btn-success btn-xs icon-grey-link"
+                                                              title="Validation Enabled"></span>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </td>
-                                            <td align="right" style="padding-right: 30px">
+                                            <td class="subsystemTd">
                                                 <div class="editActions">
-                                                    <button class="btn btn-default btn-xs btn-warning" onclick="editIpForm('${system.systemName}','${mockIntegrationPoint.name}')">
+                                                    <button class="btn btn-xs btn-success"
+                                                            onclick="addMessageTemplate('${system.systemName}','${mockIntegrationPoint.name}')">
+                                                        <span class=" glyphicon glyphicon-plus"></span> Message
+                                                    </button>
+                                                    <button class="btn btn-xs btn-warning"
+                                                            onclick="editIpForm('${system.systemName}','${mockIntegrationPoint.name}')">
                                                         <span class="glyphicon glyphicon-pencil"
                                                               aria-hidden="true"></span>
                                                     </button>
-                                                    <button class="btn btn-xs btn-danger" onclick="delIpForm('${system.systemName}','${mockIntegrationPoint.name}')">
+                                                    <button class="btn btn-xs btn-danger"
+                                                            onclick="delIpForm('${system.systemName}','${mockIntegrationPoint.name}')">
                                                         <span class="glyphicon glyphicon-trash"></span>
                                                     </button>
                                                 </div>
                                             </td>
                                         </tr>
-                                        <%--<tr class="collapse" id="${mockIntegrationPoint.name}_sequence">--%>
-                                            <%--<td>&nbsp;</td>--%>
-                                            <%--<td colspan="2">--%>
-                                                <%--Test--%>
-                                            <%--</td>--%>
-                                        <%--</tr>--%>
+
+                                        <%-- MESSAGE TEMPLATES--%>
+
+                                        <c:forEach var="messageTemplate"
+                                                   items="${mockIntegrationPoint.messageTemplates.messageTemplateList}">
+                                            <tr data-system="${system.systemName}"
+                                                data-ip="${mockIntegrationPoint.name}"
+                                                class="collapse ${mockIntegrationPoint.name}_templates">
+                                                <td colspan="2">&nbsp;</td>
+                                                <td>
+                                                    <a href="#"
+                                                       onclick="chooseIntPoint('${system.systemName}__mock__${mockIntegrationPoint.name}__${messageTemplate.templateId}'); return false;">
+                                                        <span class="glyphicon glyphicon-link"></span>
+                                                            ${messageTemplate.caption}<c:if
+                                                                test="${messageTemplate.value}">
+                                                        (${messageTemplate.value})</c:if></a>
+                                                </td>
+                                                <td>&nbsp;</td>
+                                                <td class="subsystemTd">
+                                                    <div class="editActions">
+                                                            <%--<span class="btn btn-xs btn-default glyphicon glyphicon-arrow-up" onclick="moveMessageUp(${messageTemplate.templateId})"></span>--%>
+                                                            <%--<span class="btn btn-xs btn-default glyphicon glyphicon-arrow-down"></span>--%>
+                                                        <span class="btn btn-xs btn-warning glyphicon glyphicon-pencil"
+                                                              onclick="editMessageTemplate('${system.systemName}', '${mockIntegrationPoint.name}', '${messageTemplate.templateId}', '${messageTemplate.caption}')"></span>
+                                                        <span class="btn btn-xs btn-danger glyphicon glyphicon-trash"
+                                                              onclick="deleteMessageTemplate('${system.systemName}', '${mockIntegrationPoint.name}', '${messageTemplate.templateId}', '${messageTemplate.caption}')"></span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                        <tr class="collapse ${mockIntegrationPoint.name}_templates">
+                                            <td colspan="2">&nbsp;</td>
+                                            <td>
+                                                <a href="#"
+                                                   onclick="chooseIntPoint('${system.systemName}__mock__${mockIntegrationPoint.name}'); return false;">
+                                                    <span class="glyphicon glyphicon-flash"></span>
+                                                    <i>Default message</i></a>
+                                            </td>
+                                            <td>&nbsp;</td>
+                                        </tr>
                                     </c:forEach>
+
+                                    <%-- DRIVERS --%>
+
                                     <c:forEach var="driverIntegrationPoint" items="${system.driverIntegrationPoints}">
                                         <tr>
                                             <td align="right">
@@ -167,13 +263,35 @@
                                                    onclick="chooseIntPoint('${system.systemName}__driver__${driverIntegrationPoint.name}'); return false;">
                                                         ${driverIntegrationPoint.name}</a>
                                             </td>
-                                            <td align="right" style="padding-right: 30px">
+                                            <td align="center">
+                                                <c:choose>
+                                                    <c:when test="${globalValidation == false}">
+                                                        <span class="glyphicon glyphicon-ban-circle icon-grey-link btn btn-danger btn-xs"
+                                                              title="Validation disabled (inherited)"></span>
+                                                    </c:when>
+                                                    <c:when test="${system.validationEnabled == false}">
+                                                        <span class="glyphicon glyphicon-ban-circle icon-grey-link btn btn-danger btn-xs"
+                                                              title="Validation disabled (inherited)"></span>
+                                                    </c:when>
+                                                    <c:when test="${mockIntegrationPoint.validationEnabled == false}">
+                                                        <span class="glyphicon glyphicon-ban-circle btn-danger btn btn-xs"
+                                                              title="Validation disabled"></span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span class="glyphicon glyphicon-ok-circle btn-success btn-xs icon-grey-link"
+                                                              title="Validation Enabled"></span>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                            <td class="subsystemTd">
                                                 <div class="editActions">
-                                                    <button class="btn btn-default btn-xs btn-warning" onclick="editIpForm('${system.systemName}','${driverIntegrationPoint.name}')">
+                                                    <button class="btn btn-default btn-xs btn-warning"
+                                                            onclick="editIpForm('${system.systemName}','${driverIntegrationPoint.name}')">
                                                         <span class="glyphicon glyphicon-pencil"
                                                               aria-hidden="true"></span>
                                                     </button>
-                                                    <button class="btn btn-xs btn-danger" onclick="delIpForm('${system.systemName}','${driverIntegrationPoint.name}')">
+                                                    <button class="btn btn-xs btn-danger"
+                                                            onclick="delIpForm('${system.systemName}','${driverIntegrationPoint.name}')">
                                                         <span class="glyphicon glyphicon-trash"></span>
                                                     </button>
                                                 </div>
@@ -181,6 +299,7 @@
                                         </tr>
                                     </c:forEach>
                                 </c:forEach>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -232,10 +351,12 @@
             <li class="dropdown-submenu">
                 <a tabindex="-1" href="#">Context</a>
                 <ul class="dropdown-menu">
-                    <li><a tabindex="-1" href="<%=request.getContextPath()%>/info" target="_blank">Show Spring context</a></li>
+                    <li><a tabindex="-1" href="<%=request.getContextPath()%>/info" target="_blank">Show Spring
+                        context</a></li>
                     <li><a tabindex="-1" href="#" onclick="refreshContext()">Refresh Spring context</a></li>
                 </ul>
             </li>
+            <li><a href="#" onclick="showSettings()"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
             <li class="divider"></li>
             <li><a href="#"><span class="glyphicon glyphicon-copyright-mark"></span> Copyright</a></li>
             <li class="disabled"><a href="#">${version}</a></li>

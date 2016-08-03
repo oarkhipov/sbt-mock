@@ -201,8 +201,7 @@ public class WsdlMessageValidator {
             WsdlOperation operation = wsdlMockOperation.getOperation();
             boolean assertionPerformed = false;
             try {
-                int bodyIndex = operation.getDefaultResponseParts().length - 1;
-                if (messageType.equals(((WsdlContentPart)operation.getDefaultResponseParts()[bodyIndex]).getPartElement().getName().getLocalPart()) ) {
+                if (messageType.equals(operation.getResponseBodyElementQName().getLocalPart()) ) {
                     //validate response
                     mockResponse = wsdlMockOperation.addNewMockResponse(mockOperationName, true);
                     mockResponse.setResponseContent(message);
@@ -215,8 +214,7 @@ public class WsdlMessageValidator {
             }
 
             try {
-                int bodyIndex = operation.getDefaultRequestParts().length - 1;
-                if (messageType.equals(((WsdlContentPart)operation.getDefaultRequestParts()[bodyIndex]).getPartElement().getName().getLocalPart()) ) {
+                if (messageType.equals(operation.getRequestBodyElementQName().getLocalPart()) ) {
                     //validate request
                     MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
                     mockHttpServletRequest.setMethod("POST");

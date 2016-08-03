@@ -133,7 +133,7 @@ public class MockSpringContextGeneratorService {
     @Getter
     private Beans beans;
 
-    private List<ru.sbt.bpm.mock.config.entities.System> systems;
+    private Set<ru.sbt.bpm.mock.config.entities.System> systems;
 
     // список созданных id beans
     private List<String> listBeansId;
@@ -224,7 +224,7 @@ public class MockSpringContextGeneratorService {
                         // Generating Driver JMS beans + channels + gateway
                         if (jndiExist(driverOutputString, driverInputString)) {
                             String jndiDriverRequestQueueName = createJndiConnectionObjects(driverOutputString, CF_SUFFIX + QUEUE_POSTFIX, String.format("Driver Request Queue for [%s]:[%s]", queueConnectionFactory, driverOutputString));
-                            String jndiDriverResponseQueueName = createJndiConnectionObjects(driverInputString, CF_SUFFIX + QUEUE_POSTFIX, String.format("Driver Response Queue for [%s]:[%s]", queueConnectionFactory, driverInputString));
+                            String jndiDriverResponseQueueName = createJndiConnectionObjects(driverInputString, CF_SUFFIX + QUEUE_POSTFIX, String.format("Driver MessageTemplate Queue for [%s]:[%s]", queueConnectionFactory, driverInputString));
 
                             // Создание каналов outbound gateway
                             String driverRequestChannel = createChannel(driverOutputString, CF_SUFFIX + CHANNEL_POSTFIX);

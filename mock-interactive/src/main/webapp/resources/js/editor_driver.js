@@ -47,5 +47,6 @@ function applyActionButtonsEvents() {
                 sendDisable(false);
             }
         });
+        return false;
     });
 }

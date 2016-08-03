@@ -147,13 +147,15 @@ $("#save").click(function () {
     if (testEditor) {
         testText = testEditor.getValue();
     }
+    var templateId = $("#templateId").val();
     $.ajax({
         url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/save/",
         type: "POST",
         data: {
             xml: codeEditor.getValue(),
             script: scriptEditor.getValue(),
-            test: testText
+            test: testText,
+            templateId: templateId
         },
         success: function (obj) {
             obj = htmlDecode(obj);

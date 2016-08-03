@@ -57,28 +57,6 @@
     improve your experience.</p>
 <![endif]-->
 
-<!--[if IE]>
-<style type="text/css">
-    #info {
-        background: transparent;
-        zoom: 1;
-        /*rgba(121, 255, 120, .7)*/
-        /* IE8 */
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#B379FF78, endColorstr=#B379FF78);
-        /*-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";*/
-        /* IE 5-7 */
-        /*filter: alpha(opacity=0)*/
-    }
-
-    #error {
-        background: transparent;
-        zoom: 1;
-        /*rgba(256, 182, 193, .7)*/
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#B3FFB6C1, endColorstr=#B3FFB6C1);
-    }
-</style>
-<![endif]-->
-
 <input type="button" value="BACK" onclick="window.location.href='../'"/>
 
 <div id="tooltip" data-toggle="tooltip" data-placement="right" data-animation="false" data-trigger="manual"

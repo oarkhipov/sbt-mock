@@ -107,17 +107,30 @@ public class DataFileService {
         return files;
     }
 
-    public String getCurrentMessage(String systemName, String integrationPointName) throws IOException {
-        return getDataFileContent(systemName, integrationPointName, "message.xml");
+    public String getDefaultMessage(String systemName, String integrationPointName) throws IOException {
+        return getMessage(systemName, integrationPointName, null);
     }
 
-    public String getCurrentScript(String systemName, String integrationPointName) throws IOException {
-        return getDataFileContent(systemName, integrationPointName, "script.groovy");
+    public String getDefaultTest(String systemName, String integrationPointName) throws IOException {
+        return getTest(systemName, integrationPointName, null);
     }
 
-    public String getCurrentTest(String systemName, String integrationPointName) throws IOException {
-        return getDataFileContent(systemName, integrationPointName, "test.xml");
+    public String getDefaultScript(String systemName, String integrationPointName) throws IOException {
+        return getScript(systemName, integrationPointName, null);
     }
+
+    public String getMessage(String systemName, String integrationPointName, String templateId) throws IOException {
+        return getDataFileContent(systemName, integrationPointName, (templateId != null && !templateId.isEmpty() ? templateId + "/" : "") + "message.xml");
+    }
+
+    public String getTest(String systemName, String integrationPointName, String templateId) throws IOException {
+        return getDataFileContent(systemName, integrationPointName, (templateId != null && !templateId.isEmpty() ? templateId + "/" : "") + "test.xml");
+    }
+
+    public String getScript(String systemName, String integrationPointName, String templateId) throws IOException {
+        return getDataFileContent(systemName, integrationPointName, (templateId != null && !templateId.isEmpty() ? templateId + "/" : "") + "script.groovy");
+    }
+
 
     public String getDataFileContent(String systemName, String integrationPointName, String fileName) throws IOException {
         File file = getContextDataFile(systemName, integrationPointName, fileName);
@@ -128,7 +141,7 @@ public class DataFileService {
         return FileUtils.readFileToString(file, "UTF-8");
     }
 
-    protected void clearData() throws IOException {
+    void clearData() throws IOException {
         //data clear
         File rootDir = getContextDataFile("");
         List<File> files = searchFiles(rootDir, "");
@@ -203,6 +216,13 @@ public class DataFileService {
         File dataDirectory = getContextDataFile(
                 systemName + File.separator +
                         integrationPointName);
+        FileUtils.deleteDirectory(dataDirectory);
+    }
+
+    public void deleteDataFiles(String systemName, String integrationPointName, String templateId) throws IOException {
+        File dataDirectory = getContextDataFile(
+                systemName + File.separator +
+                        integrationPointName + File.separator + templateId);
         FileUtils.deleteDirectory(dataDirectory);
     }
 

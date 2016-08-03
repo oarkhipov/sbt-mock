@@ -43,6 +43,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -57,24 +58,29 @@ import java.util.Map;
 @Service
 public class MessageValidationService {
 
-    @Autowired
     private DataFileService dataFileService;
-
-    @Autowired
     private MockConfigContainer configContainer;
-
+    private JMSValidationService jmsMessageValidationService;
+    private SOAPValidationService soapValidationService;
     private Map<String, MessageValidator> validator = new HashMap<String, MessageValidator>();
 
+    @Autowired
+    public MessageValidationService(DataFileService dataFileService, MockConfigContainer configContainer, JMSValidationService jmsMessageValidationService, SOAPValidationService soapValidationService) {
+        this.dataFileService = dataFileService;
+        this.configContainer = configContainer;
+        this.jmsMessageValidationService = jmsMessageValidationService;
+        this.soapValidationService = soapValidationService;
+    }
 
     @PostConstruct
     protected void init() throws IOException, SAXException {
 
-        /**
+        /*
          * FileResourceResolver добавлен для корректной работы с XSD с одиннаковыми именами, но в разных директориях
          */
         Systems systemsContainer = configContainer.getConfig().getSystems();
         if (systemsContainer != null) {
-            List<System> systems = systemsContainer.getSystems();
+            Set<System> systems = systemsContainer.getSystems();
             if (systems != null) {
                 for (System system : systems) {
                     initValidator(system);
@@ -100,68 +106,16 @@ public class MessageValidationService {
         log.info(String.format("Init [%s] validator for system [%s]", protocol, systemName));
         switch (protocol) {
             case JMS:
-                if (remoteSchemaInLowerCase.startsWith("http://") || remoteSchemaInLowerCase.startsWith("ftp://")) {
-                    log.info(String.format("Loading schema %s", remoteRootSchema));
-                    String requestPath = remoteRootSchema.split("//")[1];
-                    String basePath = requestPath.substring(requestPath.indexOf("/"), requestPath.lastIndexOf("/") + 1);
-                    String relativePath = requestPath.substring(requestPath.indexOf("/") + 1, requestPath.length());
-                    system.setLocalRootSchema(relativePath);
-
-                    String absoluteSystemRootSchemaDir = dataFileService.getSystemXsdDirectoryFile(systemName)
-                            .getAbsolutePath() + basePath;
-                    absoluteSystemRootSchemaDir = absoluteSystemRootSchemaDir.replace("/", File.separator);
-                    validator.put(systemName, new XsdValidator(remoteRootSchema, absoluteSystemRootSchemaDir));
-                } else {
-                    system.setLocalRootSchema(remoteRootSchema);
-                    List<File> xsdFiles = dataFileService.searchFiles(systemXsdDirectory, ".xsd");
-                    log.info(String.format("Loading files %s", ArrayUtils.toString(xsdFiles)));
-                    validator.put(systemName, new XsdValidator(xsdFiles));
-                }
+                jmsMessageValidationService.init(validator, system, systemName, systemXsdDirectory, remoteRootSchema, remoteSchemaInLowerCase);
                 break;
             case SOAP:
-                WsdlValidator wsdlValidator;
-                if (localRootSchema != null && !localRootSchema.isEmpty()) {
-                    wsdlValidator = initLocalWsdlValidator(system, localRootSchema);
-                } else {
-                    if (remoteSchemaInLowerCase.startsWith("http://") || remoteSchemaInLowerCase.startsWith("ftp://")) {
-                        wsdlValidator = new WsdlValidator(remoteRootSchema);
-                    } else {
-                        system.setLocalRootSchema(remoteRootSchema);
-                        wsdlValidator = initLocalWsdlValidator(system, localRootSchema);
-                    }
-
-                }
-
-                WsdlProject wsdlProject = wsdlValidator.getWsdlProject();
-                configContainer.getWsdlProjectMap().put(systemName, wsdlProject);
-                //create testsuite
-                WsdlTestSuite testSuite = wsdlProject.addNewTestSuite("TestSuite");
-                WsdlTestCase testCase = testSuite.addNewTestCase("TestCase");
-
-                WsdlMockService mockService = wsdlProject.addNewMockService("MockService");
-                //init test steps for all operations
-                for (Operation operation : wsdlProject.getInterfaceList().get(0).getOperationList()) {
-                    WsdlOperation wsdlOperation = (WsdlOperation) operation;
-                    TestStepConfig testStepConfig = WsdlTestRequestStepFactory.createConfig(wsdlOperation, wsdlOperation.getName());
-                    testCase.addTestStep(testStepConfig);
-                    mockService.addNewMockOperation(operation);
-                }
-
-                validator.put(systemName, wsdlValidator);
+                soapValidationService.init(validator, system, systemName, remoteRootSchema, localRootSchema, remoteSchemaInLowerCase);
                 break;
             default:
                 throw new RuntimeException("Unknown system protocol!");
         }
     }
 
-    private WsdlValidator initLocalWsdlValidator(System system, String localRootSchema) throws IOException {
-        WsdlValidator wsdlValidator;
-        wsdlValidator = new WsdlValidator("file:" +
-                dataFileService.getSystemXsdDirectoryFile(system.getSystemName()).getAbsolutePath() +
-                File.separator +
-                localRootSchema);
-        return wsdlValidator;
-    }
 
     /**
      * Валидирует xml на соответствие схем
@@ -183,10 +137,9 @@ public class MessageValidationService {
      * @param integrationPointName name of integration point, which message represents
      * @param messageType          request or response message
      * @return true if one or more elements match the xpath
-     * @throws XPathExpressionException
-     * @throws SaxonApiException
+     * @throws SaxonApiException if xml cannot be parsed
      */
-    public boolean assertMessageElementName(String xml, String systemName, String integrationPointName, MessageType messageType) throws XPathExpressionException, SaxonApiException, XmlException, MessageValidationException {
+    public boolean assertMessageElementName(String xml, String systemName, String integrationPointName, MessageType messageType) throws SaxonApiException, XmlException, MessageValidationException {
         System system = configContainer.getSystemByName(systemName);
         IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
         return assertMessageElementName(xml, system, integrationPoint, messageType);
@@ -196,118 +149,13 @@ public class MessageValidationService {
         Protocol protocol = system.getProtocol();
         log.info(String.format("Assert xml [%s] for system: [%s]", protocol, system.getSystemName()));
         if (protocol == Protocol.JMS) {
-            return assertByXpath(xml, system, integrationPoint, messageType);
+            return jmsMessageValidationService.assertByXpath(xml, system, integrationPoint, messageType);
         }
         if (protocol == Protocol.SOAP) {
-            return assertByOperation(xml, system, integrationPoint, messageType);
+            return soapValidationService.assertByOperation(xml, system, integrationPoint, messageType);
         }
         throw new IllegalStateException("Unknown protocol: " + messageType.name());
     }
-
-    private boolean assertByOperation(String xml, System system, IntegrationPoint integrationPoint, MessageType messageType) throws XmlException, SoapMessageValidationException {
-        WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(system.getSystemName());
-        WsdlOperation operation = (WsdlOperation) wsdlProject.getInterfaceList().get(0).getOperationByName(integrationPoint.getName());
-        String elementName = getSoapMessageElementName(XmlUtils.compactXml(xml));
-        assert elementName != null;
-        assert !elementName.isEmpty();
-        String expectedElementName = getDefaultRootElement(operation, messageType);
-        boolean validationResult = elementName.equals(expectedElementName);
-        if (validationResult) {
-            return true;
-        } else {
-            throw new SoapMessageValidationException(expectedElementName, elementName);
-        }
-    }
-
-    private boolean assertByXpath(String xml, System system, IntegrationPoint integrationPoint, MessageType messageType) throws SaxonApiException, JmsMessageValidationException {
-        log.info(String.format("Assert xml message type [%s]", messageType));
-        if (messageType == MessageType.RQ) {
-            //ipSelector+ipName
-            String integrationPointSelectorXpath = system.getIntegrationPointSelector().toXpath();
-            String integrationPointName = integrationPoint.getName();
-            log.info(String.format("For integration point:  [%s] xPath %s ", integrationPointName, integrationPointSelectorXpath));
-            XdmValue value = XmlUtils.evaluateXpath(xml, integrationPointSelectorXpath);
-            String elementName = ((XdmNode) value).getNodeName().getLocalName();
-            boolean validationResult = elementName.equals(integrationPointName);
-            if (validationResult) {
-                return true;
-            } else {
-                throw new JmsMessageValidationException(integrationPointSelectorXpath, integrationPointName, elementName);
-            }
-        }
-        if (messageType == MessageType.RS) {
-            //xpathSelector
-            String xpathWithFullNamespaceString = integrationPoint.getXpathWithFullNamespaceString();
-            log.debug("assert xpath: " + xpathWithFullNamespaceString);
-            boolean validationResult = XmlUtils.evaluateXpath(xml, xpathWithFullNamespaceString).size() != 0;
-            if (validationResult) {
-                return true;
-            } else {
-                throw new JmsMessageValidationException(xpathWithFullNamespaceString);
-            }
-        }
-        throw new IllegalStateException("Unknown message type: " + messageType.name());
-    }
-
-    public String getSoapMessageElementName(String compactXml) throws XmlException {
-        final String BODY = "Body";
-        final String ENVELOPE = "Envelope";
-        final Envelope envelope = Envelope.Factory.parse(compactXml);
-        final Node node = envelope.getDomNode();
-        final Node envelopeNode = node.getFirstChild();
-        Node bodyNode = envelopeNode.getFirstChild();
-        String messageType = null;
-
-        while (!BODY.equals(bodyNode.getLocalName())) {
-            bodyNode = bodyNode.getNextSibling();
-        }
-
-        if (ENVELOPE.equals(envelopeNode.getLocalName()) && BODY.equals(bodyNode.getLocalName())) {
-            final NodeList childNodes = bodyNode.getChildNodes();
-            for (int i = 0; i < childNodes.getLength(); i++) {
-                final String localName = childNodes.item(i).getLocalName();
-                if (localName != null && !localName.isEmpty()) {
-                    messageType = localName;
-                }
-            }
-        }
-        return messageType;
-    }
-
-    public String getOperationByElementName(String systemName, String elementName, MessageType messageType) {
-        WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(systemName);
-        for (Interface anInterface : wsdlProject.getInterfaceList()) {
-            for (Operation operation : anInterface.getOperationList()) {
-               if (elementName.equals(getDefaultRootElement(operation, messageType))) {
-                   return operation.getName();
-               }
-            }
-        }
-        throw new IllegalStateException(String.format("No wsdl such operation with elementName: [%s]", elementName));
-    }
-
-    public String getDefaultRootElement(Operation operation, MessageType messageType) {
-        if (messageType == MessageType.RQ) {
-            int bodyIndex = operation.getDefaultRequestParts().length - 1;
-            WsdlContentPart wsdlContentPart = (WsdlContentPart) operation.getDefaultRequestParts()[bodyIndex];
-            if (wsdlContentPart.getPartElement() == null) {
-                return wsdlContentPart.getName();
-            } else {
-                return wsdlContentPart.getPartElement().getName().getLocalPart();
-            }
-        }
-        if (messageType == MessageType.RS) {
-            int bodyIndex = operation.getDefaultResponseParts().length - 1;
-            WsdlContentPart wsdlContentPart = (WsdlContentPart) operation.getDefaultResponseParts()[bodyIndex];
-            if (wsdlContentPart.getPartElement() == null) {
-                return wsdlContentPart.getName();
-            } else {
-                return wsdlContentPart.getPartElement().getName().getLocalPart();
-            }
-        }
-        throw new IllegalStateException("No such message type handling: " + messageType);
-    }
-
 
     /**
      * reInitialize validator by it's system name if xsd data was changed
@@ -325,4 +173,6 @@ public class MessageValidationService {
     public void removeValidator(String systemName) {
         validator.remove(systemName);
     }
+
+
 }

@@ -94,11 +94,11 @@ public class DataTest extends AbstractTestNGSpringContextTests {
         log.info("");
         log.info("===============================================================================================");
 
-        String currentMessage = dataFileService.getCurrentMessage(systemName, integrationPointName);
+        String currentMessage = dataFileService.getDefaultMessage(systemName, integrationPointName);
         log.info("Current message: " + currentMessage);
-        String currentScript = dataFileService.getCurrentScript(systemName, integrationPointName);
+        String currentScript = dataFileService.getDefaultScript(systemName, integrationPointName);
         log.info("Current script: " + currentScript);
-        String currentTest = dataFileService.getCurrentTest(systemName, integrationPointName);
+        String currentTest = dataFileService.getDefaultTest(systemName, integrationPointName);
         log.info("Current test: " + currentTest);
 
         currentScript = isEmpty(currentScript);
@@ -119,9 +119,9 @@ public class DataTest extends AbstractTestNGSpringContextTests {
         log.info("");
         log.info("===============================================================================================");
 
-        String currentMessage = dataFileService.getCurrentMessage(systemName, integrationPointName);
+        String currentMessage = dataFileService.getDefaultMessage(systemName, integrationPointName);
         log.info("Current message: " + currentMessage);
-        String currentScript = dataFileService.getCurrentScript(systemName, integrationPointName);
+        String currentScript = dataFileService.getDefaultScript(systemName, integrationPointName);
         log.info("Current script: " + currentScript);
 
         currentScript = isEmpty(currentScript);

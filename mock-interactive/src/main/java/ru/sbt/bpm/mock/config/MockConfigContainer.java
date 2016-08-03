@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+import reactor.tuple.Tuple;
+import reactor.tuple.Tuple3;
 import ru.sbt.bpm.mock.config.entities.*;
 import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.serialization.MockDomDriver;
@@ -15,7 +17,10 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.UUID;
 
 /**
  * Created by sbt-bochev-as on 02.04.2015.
@@ -26,18 +31,37 @@ import java.util.*;
 @Component
 public class MockConfigContainer {
 
+    public static final Class[] CONFIG_CLASSES = {
+            MockConfig.class,
+            MainConfig.class,
+            Systems.class,
+            System.class,
+            ElementSelector.class,
+            XpathSelector.class,
+            IntegrationPoints.class,
+            IntegrationPoint.class,
+            MessageTemplates.class,
+            MessageTemplate.class
+    };
+
     private static MockConfigContainer INSTANCE = null;
+
     @Autowired
     private ApplicationContext applicationContext;
+
     @Getter
     private String basePath;
+
     @Getter
     private MockConfig config;
+
     //map of wsdl projects for message generation and validation. It initializes at validator initialization method
     @Getter
     private Map<String, WsdlProject> wsdlProjectMap = new HashMap<String, WsdlProject>();
+
     @Getter
     private String filePath = null;
+
 
     /**
      * Создание экземпляра объекта из метода getInstance (CoreJava) или из бина с вызовом конструктора (Java EE)
@@ -64,9 +88,9 @@ public class MockConfigContainer {
     }
 
     /**
-     * десерализация файла в объект конфига при инициализации
+     * MockConfig.xml file deserialization into Config object on bean creation
      *
-     * @throws IOException
+     * @throws IOException if no config file found
      */
     @PostConstruct
     public void init() throws IOException {
@@ -81,49 +105,45 @@ public class MockConfigContainer {
             resourceFile = applicationContext.getResource(filePath).getFile();
         }
 
-
         FileReader fileReader = new FileReader(resourceFile);
         XStream xStream = new XStream(new MockDomDriver());
-
         // Mapping данных из xml в классы
-        xStream.processAnnotations(MockConfig.class);
-        xStream.processAnnotations(Systems.class);
-        xStream.processAnnotations(System.class);
-        xStream.processAnnotations(ElementSelector.class);
-        xStream.processAnnotations(XpathSelector.class);
-        xStream.processAnnotations(IntegrationPoints.class);
-        xStream.processAnnotations(IntegrationPoint.class);
+        xStream.processAnnotations(CONFIG_CLASSES);
+
 
         this.config = (MockConfig) xStream.fromXML(fileReader);
-        sortConfig();
 
-    }
-
-    public void sortConfig() {
-        List<System> systems = config.getSystems().getSystems();
-        if (systems != null) {
-            Collections.sort(systems, new SystemComparator());
-            for (System system : systems) {
-                List<IntegrationPoint> integrationPoints = system.getIntegrationPoints().getIntegrationPoints();
-                if (integrationPoints != null) {
-                    Collections.sort(integrationPoints, new IntegrationPointComparator());
+        //fix collectionTypes
+        config.getSystems().fixTypes();
+        if (config.getSystems().getSystems() != null) {
+            for (System system : config.getSystems().getSystems()) {
+                if (system.getIntegrationPoints() != null) {
+                    system.getIntegrationPoints().fixTypes();
                 }
             }
         }
+
+
+        //Enable GLOBAL validation
+        if (config.getMainConfig() == null) {
+            config.setMainConfig(new MainConfig());
+        }
+
+        if (config.getMainConfig().getValidationEnabled() == null) {
+            config.getMainConfig().setValidationEnabled(true);
+        }
     }
 
+
+    /**
+     * Serialization Config Object to xml string
+     *
+     * @return xml string
+     */
     public String toXml() {
         XStream xStream = new XStream(new MockDomDriver());
-
         // Mapping данных из xml в классы
-        xStream.processAnnotations(MockConfig.class);
-        xStream.processAnnotations(Systems.class);
-        xStream.processAnnotations(System.class);
-        xStream.processAnnotations(ElementSelector.class);
-        xStream.processAnnotations(XpathSelector.class);
-        xStream.processAnnotations(IntegrationPoints.class);
-        xStream.processAnnotations(IntegrationPoint.class);
-
+        xStream.processAnnotations(CONFIG_CLASSES);
         return xStream.toXML(config);
     }
 
@@ -148,21 +168,25 @@ public class MockConfigContainer {
         return getSystemByName(systemName).getIntegrationPoints().getIntegrationPointByName(integrationPointName);
     }
 
+    /**
+     * Reinit Config
+     *
+     * @throws IOException if no config file found
+     */
     public void reInit() throws IOException {
         init();
     }
 
-    class SystemComparator implements Comparator<System> {
-        @Override
-        public int compare(System o1, System o2) {
-            return (o1.getProtocol().name()+o1.getSystemName()).compareTo(o2.getProtocol().name()+o2.getSystemName());
+    public Tuple3<System, IntegrationPoint, MessageTemplate> getConfigEntitiesByMessageTemplateUUID(UUID uuid) {
+        for (System system : config.getSystems().getSystems()) {
+            for (IntegrationPoint integrationPoint : system.getIntegrationPoints().getIntegrationPoints()) {
+                for (MessageTemplate messageTemplate : integrationPoint.getMessageTemplates().getMessageTemplateList()) {
+                    if (messageTemplate.getTemplateId().equals(uuid)) {
+                        return Tuple.of(system, integrationPoint, messageTemplate);
+                    }
+                }
+            }
         }
-    }
-
-    class IntegrationPointComparator implements Comparator<IntegrationPoint> {
-        @Override
-        public int compare(IntegrationPoint o1, IntegrationPoint o2) {
-            return o1.getName().compareTo(o2.getName());
-        }
+        throw new NoSuchElementException("No such message template with UUID: " + uuid);
     }
 }

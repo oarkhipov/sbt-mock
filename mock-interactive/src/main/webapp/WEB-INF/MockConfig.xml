@@ -1,9 +1,5 @@
 <MockConfig xmlns="http://sbrf.ru/mockService2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://sbrf.ru/mockService2">
-    <!--<mainConfig>-->
-        <!--<driverTimeout>30000</driverTimeout>-->
-        <!--<maxLogsCount>1000</maxLogsCount>-->
-    <!--</mainConfig>-->
    <systems>
 
    </systems>

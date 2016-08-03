@@ -343,30 +343,6 @@
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <version>3.0.1</version>
-                        <executions>
-                            <execution>
-                                <id>copy-preProd-configuration</id>
-                                <phase>prepare-package</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>src/test/resources/preProdConfigs</directory>
-                                            <filtering>true</filtering>
-                                        </resource>
-                                    </resources>
-                                    <overwrite>true</overwrite>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-war-plugin</artifactId>
                         <version>2.6</version>
                         <executions>
@@ -430,6 +406,57 @@
                                             <value>jdbc:h2:./</value>
                                         </replacement>
                                     </replacements>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>replace-version-pom-dependency</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>replace</goal>
+                                </goals>
+                                <configuration>
+                                    <basedir>${project.build.directory}/${project.build.finalName}/contextConfigs</basedir>
+                                    <includes>
+                                        <include>MockConfig.xml</include>
+                                        <include>base-config.xml</include>
+                                    </includes>
+                                    <replacements>
+                                        <replacement>
+                                            <token>\$\{version\}</token>
+                                            <value>${project.version}</value>
+                                        </replacement>
+                                    </replacements>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>preConfigure</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>copy-preProd-configuration</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/test/resources/preProdConfigs</directory>
+                                            <filtering>true</filtering>
+                                        </resource>
+                                    </resources>
+                                    <overwrite>true</overwrite>
                                 </configuration>
                             </execution>
                         </executions>

@@ -81,9 +81,6 @@ public class SystemApiController {
         System system = new System(name, rootSchema, localRootSchema, xpathSelector, protocol, queueConnectionFactory, mockIncomeQueue,
                 mockOutcomeQueue, driverOutcomeQueue, driverIncomeQueue, driverWebServiceEndpoint, rootElement, null);
 
-        if (systems.getSystems() == null) {
-            systems.setSystems(new ArrayList<System>());
-        }
         systems.getSystems().add(system);
         validationService.reInitValidator(name);
         configurationService.saveConfig();
@@ -235,7 +232,7 @@ public class SystemApiController {
     @ResponseBody
     @RequestMapping(value = "/api/system/reinitValidator/")
     public String reinitValidator() {
-        List<System> systems = configContainer.getConfig().getSystems().getSystems();
+        Set<System> systems = configContainer.getConfig().getSystems().getSystems();
         for (System system : systems) {
             try {
                 validationService.reInitValidator(system.getSystemName());

@@ -27,12 +27,15 @@ public class DefaultController {
     @Autowired
     DataFileService dataFileService;
 
-    @Autowired(required = false)
+    @Autowired
     String version;
 
     @RequestMapping("/")
     public String _default(Model model) throws JAXBException, IOException {
         model.addAttribute("list", mockConfigContainer.getConfig().getSystems());
+        if (mockConfigContainer.getConfig().getMainConfig() != null) {
+            model.addAttribute("globalValidation", mockConfigContainer.getConfig().getMainConfig().getValidationEnabled());
+        }
         model.addAttribute("version", version);
         return "stepForm";
     }

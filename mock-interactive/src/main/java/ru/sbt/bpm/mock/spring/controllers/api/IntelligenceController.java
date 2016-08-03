@@ -40,7 +40,7 @@ public class IntelligenceController {
     @RequestMapping(value = "/api/getJndi/", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getAllJndi(@RequestParam(required = false) String substring) {
         Set<String> allJndi = new TreeSet<String>();
-        List<ru.sbt.bpm.mock.config.entities.System> systems = configContainer.getConfig().getSystems().getSystems();
+        Set<ru.sbt.bpm.mock.config.entities.System> systems = configContainer.getConfig().getSystems().getSystems();
         for (System system : systems) {
             allJndi.add(system.getQueueConnectionFactory());
             allJndi.add(system.getMockIncomeQueue());

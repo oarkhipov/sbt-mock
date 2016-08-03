@@ -3,9 +3,9 @@ package ru.sbt.bpm.mock.config.entities;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import reactor.tuple.Tuple;
 import reactor.tuple.Tuple2;
-import ru.sbt.bpm.mock.config.serialization.CdataValue;
 
 
 /**
@@ -16,6 +16,7 @@ import ru.sbt.bpm.mock.config.serialization.CdataValue;
  *         Company: SBT - Saint-Petersburg
  */
 @XStreamAlias("integrationPoint")
+@NoArgsConstructor
 @Data
 public class IntegrationPoint {
 
@@ -57,11 +58,28 @@ public class IntegrationPoint {
     @XStreamAlias("rootElement")
     private ElementSelector rootElement;
 
-    @CdataValue
-    @XStreamAlias("dispatcherExpression")
-    private String dispatcherExpression;
+    @XStreamAlias("sequenceEnabled")
+    private Boolean sequenceEnabled;
 
-    public IntegrationPoint(String name, String integrationPointType, Integer delayMs, XpathSelector xpathValidatorSelector, String incomeQueue, String outcomeQueue, Boolean answerRequired, Tuple2<String, String> pairOfChannels, String xsdFile, ElementSelector rootElement) {
+    @XStreamAlias("validationEnabled")
+    private Boolean validationEnabled;
+
+    transient private int responseSequenceNum;
+
+    @XStreamAlias("messageTemplates")
+    private MessageTemplates messageTemplates;
+
+    public IntegrationPoint(
+            String name,
+            String integrationPointType,
+            Integer delayMs,
+            XpathSelector xpathValidatorSelector,
+            String incomeQueue, String outcomeQueue,
+            Boolean answerRequired,
+            Tuple2<String, String> pairOfChannels,
+            String xsdFile,
+            ElementSelector rootElement,
+            boolean sequenceEnabled) {
         this.name = name;
         this.integrationPointType = integrationPointType;
         this.delayMs = delayMs;
@@ -72,6 +90,7 @@ public class IntegrationPoint {
         this.pairOfChannels = pairOfChannels;
         this.xsdFile = xsdFile;
         this.rootElement = rootElement;
+        this.sequenceEnabled = sequenceEnabled;
     }
 
     public Tuple2<String, String> getPairOfChannels() {
@@ -114,5 +133,12 @@ public class IntegrationPoint {
         }
 //        stringBuilder.delete(stringBuilder.length()-1,stringBuilder.length());
         return stringBuilder.toString();
+    }
+
+    public MessageTemplates getMessageTemplates() {
+        if (messageTemplates == null) {
+            messageTemplates = new MessageTemplates();
+        }
+        return messageTemplates;
     }
 }

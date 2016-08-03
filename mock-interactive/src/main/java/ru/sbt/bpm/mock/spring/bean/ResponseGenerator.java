@@ -20,6 +20,7 @@ import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.GroovyService;
 import ru.sbt.bpm.mock.spring.service.message.JmsService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
+import ru.sbt.bpm.mock.spring.service.message.validation.SOAPValidationService;
 import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
 import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MessageValidationException;
 import ru.sbt.bpm.mock.spring.utils.ExceptionUtils;
@@ -38,20 +39,24 @@ import java.util.UUID;
 @Component
 public class ResponseGenerator {
 
+    private static LogService logService;
+    private static GroovyService groovyService;
+    private static MessageValidationService messageValidationService;
+    private static DataFileService dataFileService;
+    private static MockConfigContainer configContainer;
+    private static JmsService jmsService;
+    private static SOAPValidationService soapValidationService;
+
     @Autowired
-    private MessageValidationService validationService;
-    @Autowired
-    private LogService logService;
-    @Autowired
-    private GroovyService groovyService;
-    @Autowired
-    private MessageValidationService messageValidationService;
-    @Autowired
-    private DataFileService dataFileService;
-    @Autowired
-    private MockConfigContainer configContainer;
-    @Autowired
-    private JmsService jmsService;
+    public ResponseGenerator(LogService logService, GroovyService groovyService, MessageValidationService messageValidationService, DataFileService dataFileService, MockConfigContainer configContainer, JmsService jmsService, SOAPValidationService soapValidationService) {
+        ResponseGenerator.logService = logService;
+        ResponseGenerator.groovyService = groovyService;
+        ResponseGenerator.messageValidationService = messageValidationService;
+        ResponseGenerator.dataFileService = dataFileService;
+        ResponseGenerator.configContainer = configContainer;
+        ResponseGenerator.jmsService = jmsService;
+        ResponseGenerator.soapValidationService = soapValidationService;
+    }
 
     public MockMessage proceedJmsRequest(MockMessage mockMessage) throws Exception {
         mockMessage.setTransactionId(UUID.randomUUID());
@@ -76,7 +81,6 @@ public class ResponseGenerator {
         }
         responseMockMessage.setQueue(outcomeQueue);
         return responseMockMessage;
-
     }
 
     public MockMessage proceedWsRequest(MockMessage mockMessage, String systemName) {
@@ -138,7 +142,7 @@ public class ResponseGenerator {
     private void findSoapIntegrationPoint(MockMessage mockMessage) throws XmlException {
         System system = mockMessage.getSystem();
         String compactXml = XmlUtils.compactXml(mockMessage.getPayload());
-        String soapMessageElementName = validationService.getOperationByElementName(system.getSystemName(), validationService.getSoapMessageElementName(compactXml), MessageType.RQ);
+        String soapMessageElementName = soapValidationService.getOperationByElementName(system.getSystemName(), soapValidationService.getSoapMessageElementName(compactXml), MessageType.RQ);
         IntegrationPoint integrationPointByName = system.getIntegrationPoints().getIntegrationPointByName(soapMessageElementName);
         mockMessage.setIntegrationPoint(integrationPointByName);
     }
@@ -189,8 +193,8 @@ public class ResponseGenerator {
         final IntegrationPoint integrationPoint = mockMessage.getIntegrationPoint();
         final String payload = mockMessage.getPayload();
 
-        String message = dataFileService.getCurrentMessage(system.getSystemName(), integrationPoint.getName());
-        String script = dataFileService.getCurrentScript(system.getSystemName(), integrationPoint.getName());
+        String message = dataFileService.getDefaultMessage(system.getSystemName(), integrationPoint.getName());
+        String script = dataFileService.getDefaultScript(system.getSystemName(), integrationPoint.getName());
         mockMessage.setPayload(groovyService.execute(payload, message, script));
     }
 
