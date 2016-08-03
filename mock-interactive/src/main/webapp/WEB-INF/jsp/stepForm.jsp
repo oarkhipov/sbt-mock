@@ -105,18 +105,18 @@
                                         <td colspan="2">&nbsp;</td>
                                         <td align="center">
                                             <c:choose>
-                                                <c:when test="${globalValidation == false}">
-                                                    <span class="glyphicon glyphicon-ban-circle icon-grey-link btn btn-danger btn-xs"
-                                                          title="Validation disabled (inherited)"></span>
-                                                </c:when>
                                                 <c:when test="${system.validationEnabled == false}">
                                                     <span class="glyphicon glyphicon-ban-circle btn-danger btn btn-xs"
                                                           title="Validation disabled"></span>
                                                 </c:when>
-                                                <c:otherwise>
-                                                    <span class="glyphicon glyphicon-ok-circle btn-success btn-xs icon-grey-link"
-                                                          title="Validation Enabled"></span>
-                                                </c:otherwise>
+                                                <c:when test="${globalValidation == false}">
+                                                    <span class="glyphicon glyphicon-ban-circle icon-grey-link btn btn-danger btn-xs"
+                                                          title="Validation disabled (inherited)"></span>
+                                                </c:when>
+                                                <%--<c:otherwise>--%>
+                                                    <%--<span class="glyphicon glyphicon-ok-circle btn-success btn-xs icon-grey-link"--%>
+                                                          <%--title="Validation Enabled"></span>--%>
+                                                <%--</c:otherwise>--%>
                                             </c:choose>
                                         </td>
                                         <td align="right">
@@ -169,22 +169,22 @@
                                                 style="cursor: pointer;">${mockIntegrationPoint.name}</td>
                                             <td align="center">
                                                 <c:choose>
-                                                    <c:when test="${globalValidation == false}">
-                                                        <span class="glyphicon glyphicon-ban-circle icon-grey-link btn btn-danger btn-xs"
-                                                              title="Validation disabled (inherited)"></span>
+                                                    <c:when test="${mockIntegrationPoint.validationEnabled == false}">
+                                                        <span class="glyphicon glyphicon-ban-circle btn-danger btn btn-xs"
+                                                              title="Validation disabled"></span>
                                                     </c:when>
                                                     <c:when test="${system.validationEnabled == false}">
                                                         <span class="glyphicon glyphicon-ban-circle icon-grey-link btn btn-danger btn-xs"
                                                               title="Validation disabled (inherited)"></span>
                                                     </c:when>
-                                                    <c:when test="${mockIntegrationPoint.validationEnabled == false}">
-                                                        <span class="glyphicon glyphicon-ban-circle btn-danger btn btn-xs"
-                                                              title="Validation disabled"></span>
+                                                    <c:when test="${globalValidation == false}">
+                                                        <span class="glyphicon glyphicon-ban-circle icon-grey-link btn btn-danger btn-xs"
+                                                              title="Validation disabled (inherited)"></span>
                                                     </c:when>
-                                                    <c:otherwise>
-                                                        <span class="glyphicon glyphicon-ok-circle btn-success btn-xs icon-grey-link"
-                                                              title="Validation Enabled"></span>
-                                                    </c:otherwise>
+                                                    <%--<c:otherwise>--%>
+                                                        <%--<span class="glyphicon glyphicon-ok-circle btn-success btn-xs icon-grey-link"--%>
+                                                              <%--title="Validation Enabled"></span>--%>
+                                                    <%--</c:otherwise>--%>
                                                 </c:choose>
                                             </td>
                                             <td class="subsystemTd">
@@ -235,7 +235,9 @@
                                                 </td>
                                             </tr>
                                         </c:forEach>
-                                        <tr class="collapse ${mockIntegrationPoint.name}_templates">
+                                        <tr class="collapse ${mockIntegrationPoint.name}_templates"
+                                            data-system="${system.systemName}"
+                                            data-ip="${mockIntegrationPoint.name}">
                                             <td colspan="2">&nbsp;</td>
                                             <td>
                                                 <a href="#"
@@ -250,7 +252,7 @@
                                     <%-- DRIVERS --%>
 
                                     <c:forEach var="driverIntegrationPoint" items="${system.driverIntegrationPoints}">
-                                        <tr>
+                                        <tr id="${system.systemName}__${driverIntegrationPoint.name}">
                                             <td align="right">
                                                 <span class="glyphicon glyphicon-menu-right"
                                                       style="opacity: 0.6"></span>
@@ -258,33 +260,35 @@
                                             <td align="center">
                                                 <span class="label label-primary">Driver</span>
                                             </td>
-                                            <td>
-                                                <a href="#"
-                                                   onclick="chooseIntPoint('${system.systemName}__driver__${driverIntegrationPoint.name}'); return false;">
-                                                        ${driverIntegrationPoint.name}</a>
-                                            </td>
+                                            <td class="text-primary collapseController" data-toggle="collapse"
+                                                data-target=".${driverIntegrationPoint.name}_templates"
+                                                style="cursor: pointer;">${driverIntegrationPoint.name}</td>
                                             <td align="center">
                                                 <c:choose>
-                                                    <c:when test="${globalValidation == false}">
-                                                        <span class="glyphicon glyphicon-ban-circle icon-grey-link btn btn-danger btn-xs"
-                                                              title="Validation disabled (inherited)"></span>
+                                                    <c:when test="${driverIntegrationPoint.validationEnabled == false}">
+                                                        <span class="glyphicon glyphicon-ban-circle btn-danger btn btn-xs"
+                                                              title="Validation disabled"></span>
                                                     </c:when>
                                                     <c:when test="${system.validationEnabled == false}">
                                                         <span class="glyphicon glyphicon-ban-circle icon-grey-link btn btn-danger btn-xs"
                                                               title="Validation disabled (inherited)"></span>
                                                     </c:when>
-                                                    <c:when test="${mockIntegrationPoint.validationEnabled == false}">
-                                                        <span class="glyphicon glyphicon-ban-circle btn-danger btn btn-xs"
-                                                              title="Validation disabled"></span>
+                                                    <c:when test="${globalValidation == false}">
+                                                        <span class="glyphicon glyphicon-ban-circle icon-grey-link btn btn-danger btn-xs"
+                                                              title="Validation disabled (inherited)"></span>
                                                     </c:when>
-                                                    <c:otherwise>
-                                                        <span class="glyphicon glyphicon-ok-circle btn-success btn-xs icon-grey-link"
-                                                              title="Validation Enabled"></span>
-                                                    </c:otherwise>
+                                                    <%--<c:otherwise>--%>
+                                                        <%--<span class="glyphicon glyphicon-ok-circle btn-success btn-xs icon-grey-link"--%>
+                                                              <%--title="Validation Enabled"></span>--%>
+                                                    <%--</c:otherwise>--%>
                                                 </c:choose>
                                             </td>
                                             <td class="subsystemTd">
                                                 <div class="editActions">
+                                                    <button class="btn btn-xs btn-success"
+                                                            onclick="addMessageTemplate('${system.systemName}','${driverIntegrationPoint.name}')">
+                                                        <span class=" glyphicon glyphicon-plus"></span> Message
+                                                    </button>
                                                     <button class="btn btn-default btn-xs btn-warning"
                                                             onclick="editIpForm('${system.systemName}','${driverIntegrationPoint.name}')">
                                                         <span class="glyphicon glyphicon-pencil"
@@ -296,6 +300,48 @@
                                                     </button>
                                                 </div>
                                             </td>
+                                        </tr>
+
+                                        <%-- MESSAGE TEMPLATES--%>
+
+                                        <c:forEach var="messageTemplate"
+                                                   items="${driverIntegrationPoint.messageTemplates.messageTemplateList}">
+                                            <tr data-system="${system.systemName}"
+                                                data-ip="${driverIntegrationPoint.name}"
+                                                class="collapse ${driverIntegrationPoint.name}_templates">
+                                                <td colspan="2">&nbsp;</td>
+                                                <td>
+                                                    <a href="#"
+                                                       onclick="chooseIntPoint('${system.systemName}__driver__${driverIntegrationPoint.name}__${messageTemplate.templateId}'); return false;">
+                                                        <span class="glyphicon glyphicon-link"></span>
+                                                            ${messageTemplate.caption}<c:if
+                                                                test="${messageTemplate.value}">
+                                                        (${messageTemplate.value})</c:if></a>
+                                                </td>
+                                                <td>&nbsp;</td>
+                                                <td class="subsystemTd">
+                                                    <div class="editActions">
+                                                            <%--<span class="btn btn-xs btn-default glyphicon glyphicon-arrow-up" onclick="moveMessageUp(${messageTemplate.templateId})"></span>--%>
+                                                            <%--<span class="btn btn-xs btn-default glyphicon glyphicon-arrow-down"></span>--%>
+                                                        <span class="btn btn-xs btn-warning glyphicon glyphicon-pencil"
+                                                              onclick="editMessageTemplate('${system.systemName}', '${driverIntegrationPoint.name}', '${messageTemplate.templateId}', '${messageTemplate.caption}')"></span>
+                                                        <span class="btn btn-xs btn-danger glyphicon glyphicon-trash"
+                                                              onclick="deleteMessageTemplate('${system.systemName}', '${driverIntegrationPoint.name}', '${messageTemplate.templateId}', '${messageTemplate.caption}')"></span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                        <tr class="collapse ${driverIntegrationPoint.name}_templates"
+                                            data-system="${system.systemName}"
+                                            data-ip="${driverIntegrationPoint.name}">
+                                            <td colspan="2">&nbsp;</td>
+                                            <td>
+                                                <a href="#"
+                                                   onclick="chooseIntPoint('${system.systemName}__driver__${driverIntegrationPoint.name}'); return false;">
+                                                    <span class="glyphicon glyphicon-flash"></span>
+                                                    <i>Default message</i></a>
+                                            </td>
+                                            <td>&nbsp;</td>
                                         </tr>
                                     </c:forEach>
                                 </c:forEach>

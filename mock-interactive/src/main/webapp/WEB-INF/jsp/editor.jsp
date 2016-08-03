@@ -12,43 +12,58 @@
     <meta charset="utf-8">
 </head>
 <body>
-<div style="font-size: 80%; color: dimgray">
-    <b>System: </b> <i><c:out value="${systemName}"/></i>&nbsp;&nbsp;<span class="sup label label-<c:if test="${protocol eq 'JMS'}">warning</c:if><c:if test="${protocol eq 'SOAP'}">info</c:if> ">${protocol}</span><br/>
-    <b>Integration point:</b> <i><c:out value="${name}"/></i><br/>
-    <%--WAS 7 compatible style (legacy)--%>
-    <c:if test='${protocol eq "JMS"}'>
-        <c:if test="${link=='mock' || xpath.length()>0}">
-            <b>Xpath assertion:</b> <i><c:out value="${xpath}"/></i>
-        </c:if>
-    </c:if>
-    <c:if test="${template != null}">
-        <input type="hidden" id="templateId" value="${template.templateId}">
-        <br/><b>MessageTemplate:</b> ${template.caption}<c:if test="${template.value}"> (${template.value})</c:if>
-    </c:if>
-    <div class="editActions" style="margin-left: 20px">
+<table>
+    <tr>
+        <td>
+            <div style="font-size: 80%; color: dimgray">
+                <div>
+                    <b>System: </b> <i><c:out value="${systemName}"/></i>&nbsp;&nbsp;<span class="sup label label-<c:if test="${protocol eq 'JMS'}">warning</c:if><c:if test="${protocol eq 'SOAP'}">info</c:if> ">${protocol}</span>
+                </div>
+                <div>
+                    <b>Integration point:</b> <i><c:out value="${name}"/></i>
+                </div>
+                <%--WAS 7 compatible style (legacy)--%>
+                <c:if test='${protocol eq "JMS"}'>
+                    <c:if test="${link=='mock' || xpath.length()>0}">
+                        <div>
+                            <b>Xpath assertion:</b> <i><c:out value="${xpath}"/></i>
+                        </div>
+                    </c:if>
+                </c:if>
+                <c:if test="${template != null}">
+                    <div>
+                        <input type="hidden" id="templateId" value="${template.templateId}">
+                        <b>MessageTemplate:</b> ${template.caption}<c:if test="${template.value}"> (${template.value})</c:if>
+                    </div>
+                </c:if>
+            </div>
+        </td>
+        <td style="vertical-align: bottom">
+            <div class="editActions" style="margin-left: 20px;">
         <span class="btn btn-warning btn-xs glyphicon glyphicon-pencil"
-              <c:choose>
-                  <c:when test="${template != null}">
-                      onclick="editMessageTemplate('${systemName}', '${name}', '${template.templateId}', '${template.caption}')"
-                  </c:when>
-                  <c:otherwise>
-                      onclick="editIpForm('${systemName}', '${name}')"
-                  </c:otherwise>
-                </c:choose>
-        ></span>
-        <span class="btn btn-danger btn-xs glyphicon glyphicon-trash"
                 <c:choose>
                     <c:when test="${template != null}">
-                        onclick="deleteMessageTemplate('${systemName}', '${name}', '${template.templateId}', '${template.caption}')"
+                        onclick="editMessageTemplate('${systemName}', '${name}', '${template.templateId}', '${template.caption}')"
                     </c:when>
                     <c:otherwise>
-                        onclick="delIpForm('${systemName}', '${name}')"
+                        onclick="editIpForm('${systemName}', '${name}')"
                     </c:otherwise>
                 </c:choose>
         ></span>
-    </div>
-    <br/>
-</div>
+                <span class="btn btn-danger btn-xs glyphicon glyphicon-trash"
+                        <c:choose>
+                            <c:when test="${template != null}">
+                                onclick="deleteMessageTemplate('${systemName}', '${name}', '${template.templateId}', '${template.caption}')"
+                            </c:when>
+                            <c:otherwise>
+                                onclick="delIpForm('${systemName}', '${name}')"
+                            </c:otherwise>
+                        </c:choose>
+                ></span>
+            </div>
+        </td>
+    </tr>
+</table>
 
 <form>
     <div id="codeWrapper">

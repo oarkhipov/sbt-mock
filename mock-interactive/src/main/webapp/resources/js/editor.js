@@ -121,24 +121,27 @@ $("#validate").click(function () {
     if (testEditor) {
         testText = testEditor.getValue();
     }
-    $.ajax({
-        url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/validate/",
-        type: "POST",
-        data: {
-            xml: codeEditor.getValue(),
-            script: scriptEditor.getValue(),
-            test: testText
-        },
-        success: function (obj) {
-            obj = htmlDecode(obj);
-            obj = $.parseJSON(obj);
-            showInfo(obj.info);
-            showError(obj.error);
-        },
-        fail: function () {
-            showError("Unable to validate! Try again later...");
-        }
-    });
+    var message = codeEditor.getValue();
+    if (message) {
+        $.ajax({
+            url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/validate/",
+            type: "POST",
+            data: {
+                xml: message,
+                script: scriptEditor.getValue(),
+                test: testText
+            },
+            success: function (obj) {
+                obj = htmlDecode(obj);
+                obj = $.parseJSON(obj);
+                showInfo(obj.info);
+                showError(obj.error);
+            },
+            fail: function () {
+                showError("Unable to validate! Try again later...");
+            }
+        });
+    }
 });
 
 $("#save").click(function () {
@@ -148,25 +151,28 @@ $("#save").click(function () {
         testText = testEditor.getValue();
     }
     var templateId = $("#templateId").val();
-    $.ajax({
-        url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/save/",
-        type: "POST",
-        data: {
-            xml: codeEditor.getValue(),
-            script: scriptEditor.getValue(),
-            test: testText,
-            templateId: templateId
-        },
-        success: function (obj) {
-            obj = htmlDecode(obj);
-            obj = $.parseJSON(obj);
-            showInfo(obj.info);
-            showError(obj.error);
-        },
-        fail: function () {
-            showError("Unable to save! Try again later...");
-        }
-    });
+    var message = codeEditor.getValue();
+    if (message) {
+        $.ajax({
+            url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/save/",
+            type: "POST",
+            data: {
+                xml: message,
+                script: scriptEditor.getValue(),
+                test: testText,
+                templateId: templateId
+            },
+            success: function (obj) {
+                obj = htmlDecode(obj);
+                obj = $.parseJSON(obj);
+                showInfo(obj.info);
+                showError(obj.error);
+            },
+            fail: function () {
+                showError("Unable to save! Try again later...");
+            }
+        });
+    }
 });
 
 $("#test").click(function () {
@@ -176,28 +182,31 @@ $("#test").click(function () {
         testText = testEditor.getValue();
     }
     var parts = QueryString["ip"].split("__");
-    $.ajax({
-        url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/test/",
-        type: "POST",
-        data: {
-            xml: codeEditor.getValue(),
-            script: scriptEditor.getValue(),
-            test: testText
-        },
-        success: function (obj) {
-            obj = htmlDecode(obj);
-            obj = $.parseJSON(obj);
-            showInfo(obj.info);
-            showError(obj.error);
-            setResponse(obj.data);
-        },
-        error: function (jqXHR, textStatus, obj) {
-            showError(obj);
-        },
-        fail: function () {
-            showError("Unable to test! Try again later...");
-        }
-    });
+    var message = codeEditor.getValue();
+    if (message) {
+        $.ajax({
+            url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/test/",
+            type: "POST",
+            data: {
+                xml: message,
+                script: scriptEditor.getValue(),
+                test: testText
+            },
+            success: function (obj) {
+                obj = htmlDecode(obj);
+                obj = $.parseJSON(obj);
+                showInfo(obj.info);
+                showError(obj.error);
+                setResponse(obj.data);
+            },
+            error: function (jqXHR, textStatus, obj) {
+                showError(obj);
+            },
+            fail: function () {
+                showError("Unable to test! Try again later...");
+            }
+        });
+    }
 });
 
 $("#testRegenerate").click(function () {
@@ -220,28 +229,30 @@ $("#testRegenerate").click(function () {
 });
 
 $("#testValidate").click(function () {
-//  alert("Code:"+editor.getValue());
-    var parts = QueryString["ip"].split("__");
-    $.ajax({
-        url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/validate/test/",
-        type: "POST",
-        data: {
-            xml: testEditor.getValue()
-        },
-        success: function (obj) {
-            obj = htmlDecode(obj);
-            obj = $.parseJSON(obj);
-            if (obj.info.length > 0) {
-                showInfo("Test validating:<br/>" + obj.info);
+    var message = testEditor.getValue();
+    if (message) {
+        var parts = QueryString["ip"].split("__");
+        $.ajax({
+            url: parts[1] + "/" + parts[0] + "/" + parts[2] + "/validate/test/",
+            type: "POST",
+            data: {
+                xml: message
+            },
+            success: function (obj) {
+                obj = htmlDecode(obj);
+                obj = $.parseJSON(obj);
+                if (obj.info.length > 0) {
+                    showInfo("Test validating:<br/>" + obj.info);
+                }
+                if (obj.error.length > 0) {
+                    showError("Test validating:<br/>" + obj.error);
+                }
+            },
+            fail: function () {
+                showError("Unable to validate! Try again later...");
             }
-            if (obj.error.length > 0) {
-                showError("Test validating:<br/>" + obj.error);
-            }
-        },
-        fail: function () {
-            showError("Unable to validate! Try again later...");
-        }
-    });
+        });
+    }
 });
 
 var QueryString = getQueryString();

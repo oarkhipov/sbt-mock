@@ -222,7 +222,7 @@
             </integrationPoints>
         </system>
         <system name="ECM">
-            <remoteRootSchema>http://10.116.96.11:9080/urpa_ecm/services/port/?wsdl</remoteRootSchema>
+            <remoteRootSchema>ecm.wsdl</remoteRootSchema>
             <localRootSchema></localRootSchema>
             <integrationPointSelector></integrationPointSelector>
             <protocol>SOAP</protocol>
