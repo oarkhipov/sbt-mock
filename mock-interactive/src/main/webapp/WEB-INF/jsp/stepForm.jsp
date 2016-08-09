@@ -25,7 +25,6 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/animate.css">
     <script src="<%=request.getContextPath()%>/resources/js/modernizr-2.6.2.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/js/jquery-1.9.1.min.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/jquery.cookie-1.3.1.js"></script>
     <script src="<%=request.getContextPath()%>/resources/js/jquery.steps.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/js/jquery.history.js"></script>
     <script src="<%=request.getContextPath()%>/resources/js/attrs.js"></script>
@@ -60,6 +59,7 @@
             src="<%=request.getContextPath()%>/resources/libs/bootstrap-fileinput/js/fileinput.min.js"></script>
 
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/vkbeautify.0.99.00.beta.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery.cookie.js"></script>
 </head>
 <body>
 <!--[if lt IE 7]>
@@ -98,7 +98,7 @@
                                 <tbody>
                                 <c:forEach var="system" items="${list.systems}">
                                     <tr id="${system.systemName}">
-                                        <td style="vertical-align: top; padding-top: 10px">
+                                        <td style="vertical-align: top; padding-top: 10px" class="<c:if test="${system.enabled == false}">disabledByConfig</c:if>">
                                             <span class="label label-<c:if test="${system.protocol eq 'JMS'}">warning</c:if><c:if test="${system.protocol eq 'SOAP'}">info</c:if> ">${system.protocol}</span>
                                                 ${system.systemName}
                                         </td>
@@ -156,7 +156,7 @@
                                     <%-- MOCKS --%>
 
                                     <c:forEach var="mockIntegrationPoint" items="${system.mockIntegrationPoints}">
-                                        <tr id="${system.systemName}__${mockIntegrationPoint.name}">
+                                        <tr id="${system.systemName}__${mockIntegrationPoint.name}" class="<c:if test="${system.enabled == false || mockIntegrationPoint.enabled == false}">disabledByConfig</c:if>">
                                             <td align="right">
                                                 <span class="glyphicon glyphicon-menu-right"
                                                       style="opacity: 0.6"></span>
@@ -219,7 +219,7 @@
                                                        onclick="chooseIntPoint('${system.systemName}__mock__${mockIntegrationPoint.name}__${messageTemplate.templateId}'); return false;">
                                                         <span class="glyphicon glyphicon-link"></span>
                                                             ${messageTemplate.caption}<c:if
-                                                                test="${messageTemplate.value}">
+                                                                test="${messageTemplate.value.length() > 0}">
                                                         (${messageTemplate.value})</c:if></a>
                                                 </td>
                                                 <td>&nbsp;</td>
@@ -252,7 +252,7 @@
                                     <%-- DRIVERS --%>
 
                                     <c:forEach var="driverIntegrationPoint" items="${system.driverIntegrationPoints}">
-                                        <tr id="${system.systemName}__${driverIntegrationPoint.name}">
+                                        <tr id="${system.systemName}__${driverIntegrationPoint.name}" class="<c:if test="${system.enabled == false || driverIntegrationPoint.enabled == false}">disabledByConfig</c:if>">
                                             <td align="right">
                                                 <span class="glyphicon glyphicon-menu-right"
                                                       style="opacity: 0.6"></span>
@@ -315,7 +315,7 @@
                                                        onclick="chooseIntPoint('${system.systemName}__driver__${driverIntegrationPoint.name}__${messageTemplate.templateId}'); return false;">
                                                         <span class="glyphicon glyphicon-link"></span>
                                                             ${messageTemplate.caption}<c:if
-                                                                test="${messageTemplate.value}">
+                                                                test="${messageTemplate.value.length() > 0}">
                                                         (${messageTemplate.value})</c:if></a>
                                                 </td>
                                                 <td>&nbsp;</td>

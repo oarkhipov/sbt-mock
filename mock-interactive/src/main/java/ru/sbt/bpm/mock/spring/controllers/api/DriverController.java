@@ -81,10 +81,11 @@ public class DriverController {
         model.addAttribute("name", integrationPointName);
         model.addAttribute("link", "driver");
         model.addAttribute("protocol", system.getProtocol().toString());
+        IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
         model.addAttribute("xpath",
                 system.getProtocol().equals(Protocol.JMS) ?
-                        system.getIntegrationPoints().getIntegrationPointByName(integrationPointName)
-                                .getXpathString() : null);
+                        integrationPoint.getXpathString() : null);
+        model.addAttribute("enabled", system.getEnabled() && integrationPoint.getEnabled());
 
         //noinspection Duplicates
         if (templateId != null) {
@@ -127,7 +128,7 @@ public class DriverController {
             @RequestParam String xml,
             @RequestParam String script,
             @RequestParam String test,
-            @RequestParam String templateId) throws IOException {
+            @RequestParam(required = false) String templateId) throws IOException {
         Tuple2<AjaxObject, String> ajaxObjectWithCompiledXml = validateDriverMessages(xml, test, script, systemName, integrationPointName);
         AjaxObject ajaxObject = ajaxObjectWithCompiledXml.getT1();
 //        String compiledXml = ajaxObjectWithCompiledXml.getT2();

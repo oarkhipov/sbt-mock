@@ -17,6 +17,10 @@
     <mvc:resources mapping="/**" location="/resources/" />
     <mvc:annotation-driven/>
 
+    <beans:bean id="version" class="java.lang.String">
+        <beans:constructor-arg value="test.version" type="java.lang.String"/>
+    </beans:bean>
+
     <!-- Настройка используемой конфигурации заглушки-->
     <beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
         <beans:constructor-arg value="env/MockConfigWithJmsHttp.xml" type="java.lang.String"/>

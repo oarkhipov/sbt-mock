@@ -30,6 +30,9 @@ public class MessageTemplate {
     @XStreamAlias("dispatcherExpression")
     private String dispatcherExpression;
 
+    @XStreamAlias("regexGroups")
+    private String regexGroups;
+
     @XStreamAlias("value")
     private String value;
 
@@ -37,11 +40,12 @@ public class MessageTemplate {
         templateId = UUID.randomUUID();
     }
 
-    public MessageTemplate(String caption, DispatcherTypes dispatcherType, String dispatcherExpression, String value) {
+    public MessageTemplate(String caption, DispatcherTypes dispatcherType, String dispatcherExpression, String regexGroups, String value) {
         templateId = UUID.randomUUID();
         this.caption = caption;
         this.dispatcherType = dispatcherType;
         this.dispatcherExpression = dispatcherExpression;
+        this.regexGroups = regexGroups;
         this.value = value;
     }
 }

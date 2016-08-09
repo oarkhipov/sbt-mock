@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.mysema.query.types.ExpressionUtils;
 import com.mysema.query.types.Predicate;
 import com.mysema.query.types.path.StringPath;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.IteratorUtils;
@@ -39,6 +40,9 @@ public class LogService {
 
     @Autowired
     LogsRepository logRepository;
+
+    @Setter
+    Integer maxRowsCount;
 
     public long getLogsDatabaseSize() {
         return logRepository.count();
@@ -161,6 +165,29 @@ public class LogService {
     public void write(LogsEntity entity) {
         logRepository.save(entity);
         log.info("Log saved [" + entity.getSystemName() + "]");
+        fitToLimit();
+    }
+
+    private void fitToLimit() {
+        if (maxRowsCount != null) {
+            boolean cleaningFinished = false;
+            Page<LogsEntity> overLimitItems = getOverLimitItemsPage();
+
+            while (!cleaningFinished) {
+                logRepository.delete(overLimitItems.getContent());
+                overLimitItems = getOverLimitItemsPage();
+
+                if (overLimitItems.getContent().size() == 0) {
+                    cleaningFinished = true;
+                }
+
+            }
+
+        }
+    }
+
+    private Page<LogsEntity> getOverLimitItemsPage() {
+        return logRepository.findAll(new PageRequest(1, maxRowsCount, new Sort(Sort.Direction.DESC, "ts")));
     }
 
     public String getTopLogs(int rowNumbers, String systemName, String integrationPointName) {

@@ -22,6 +22,9 @@ import java.util.List;
 @NoArgsConstructor
 public class System {
 
+    @XStreamAlias("enabled")
+    private Boolean enabled;
+
     @XStreamAlias("name")
     @XStreamAsAttribute
     private String systemName;
@@ -66,6 +69,7 @@ public class System {
     private Boolean validationEnabled;
 
     public System(String systemName, String remoteRootSchema, String localRootSchema, XpathSelector integrationPointSelector, Protocol protocol, String queueConnectionFactory, String mockIncomeQueue, String mockOutcomeQueue, String driverOutcomeQueue, String driverIncomeQueue, String driverWebServiceEndpoint, ElementSelector rootElement, IntegrationPoints integrationPoints) {
+        this.enabled = true;
         this.systemName = systemName;
         this.remoteRootSchema = remoteRootSchema;
         this.localRootSchema = localRootSchema;
@@ -79,6 +83,7 @@ public class System {
         this.driverWebServiceEndpoint = driverWebServiceEndpoint;
         this.rootElement = rootElement;
         this.integrationPoints = integrationPoints;
+        this.validationEnabled = true;
     }
 
 //for soap
@@ -134,4 +139,20 @@ public class System {
         }
         return integrationPoints;
     }
+
+    public Boolean getEnabled() {
+        if (enabled == null) {
+            enabled = true;
+        }
+        return enabled;
+    }
+
+    public Boolean getValidationEnabled() {
+        if (validationEnabled == null) {
+            validationEnabled = true;
+        }
+        return validationEnabled;
+    }
+
+
 }

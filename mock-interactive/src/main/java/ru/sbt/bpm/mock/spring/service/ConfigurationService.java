@@ -1,23 +1,26 @@
 package ru.sbt.bpm.mock.spring.service;
 
 import generated.springframework.beans.Beans;
+import lombok.extern.slf4j.Slf4j;
 import net.sf.saxon.s9api.SaxonApiException;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.support.XmlWebApplicationContext;
+import ru.sbt.bpm.mock.config.MockConfig;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.config.entities.System;
+import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.spring.context.generator.service.SpringContextGeneratorService;
 
 import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBException;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -26,31 +29,46 @@ import java.util.zip.ZipOutputStream;
  *         <p/>
  *         Company: SBT - Moscow
  */
+@Slf4j
 @Service
 public class ConfigurationService {
 
-    @Autowired
+    private final
     ApplicationContext applicationContext;
 
-    @Autowired
+    private final
     DataFileService dataFileService;
 
-    @Autowired
+    private final
     MockConfigContainer configContainer;
 
-    @Autowired
+    private final
     XsdAnalysisService xsdAnalysisService;
 
-    @Autowired
+    private final
     SpringContextGeneratorService springContextGeneratorService;
 
-    @Autowired
+    private final
     MockSpringContextGeneratorService mockSpringContextGeneratorService;
+
+    @Autowired
+    public ConfigurationService(ApplicationContext applicationContext, MockSpringContextGeneratorService mockSpringContextGeneratorService, MockConfigContainer configContainer, SpringContextGeneratorService springContextGeneratorService, DataFileService dataFileService, XsdAnalysisService xsdAnalysisService) {
+        this.applicationContext = applicationContext;
+        this.mockSpringContextGeneratorService = mockSpringContextGeneratorService;
+        this.configContainer = configContainer;
+        this.springContextGeneratorService = springContextGeneratorService;
+        this.dataFileService = dataFileService;
+        this.xsdAnalysisService = xsdAnalysisService;
+    }
 
     @PostConstruct
     private void init() throws JAXBException, IOException {
         //generate spring context
-//        reInitSpringContext();
+        String configChecksum = configContainer.getConfig().getMainConfig().getConfigChecksum();
+        String generatedChecksum = generateChecksum();
+        if (configChecksum == null || !generatedChecksum.equals(configChecksum)) {
+            reInitSpringContext();
+        }
     }
 
     public byte[] compressConfiguration() throws IOException {
@@ -107,7 +125,50 @@ public class ConfigurationService {
         Beans beans = mockSpringContextGeneratorService.generateContext();
         String xml = springContextGeneratorService.toXml(beans);
         String servletConfigAbsolutePath = dataFileService.getContextFilePath("mockapp-servlet.xml");
+        configContainer.getConfig().getMainConfig().setConfigChecksum(generateChecksum());
+        saveConfig();
         FileUtils.writeStringToFile(new File(servletConfigAbsolutePath), xml);
         ((XmlWebApplicationContext) applicationContext).refresh();
+    }
+
+    private String generateChecksum() {
+        StringBuilder stringBuilder = new StringBuilder();
+        MockConfig config = configContainer.getConfig();
+        Set<System> systems = config.getSystems().getSystems();
+        for (System system : systems) {
+            if (system.getProtocol().equals(Protocol.JMS)) {
+                String queueConnectionFactory = system.getQueueConnectionFactory();
+                if (queueConnectionFactory != null) {
+                    stringBuilder.append(queueConnectionFactory.toLowerCase());
+                }
+
+                String mockIncomeQueue = system.getMockIncomeQueue();
+                if (mockIncomeQueue != null) {
+                    stringBuilder.append(mockIncomeQueue.toLowerCase());
+                }
+
+                String mockOutcomeQueue = system.getMockOutcomeQueue();
+                if (mockOutcomeQueue != null) {
+                    stringBuilder.append(mockOutcomeQueue.toLowerCase());
+                }
+
+                String driverOutcomeQueue = system.getDriverOutcomeQueue();
+                if (driverOutcomeQueue != null) {
+                    stringBuilder.append(driverOutcomeQueue.toLowerCase());
+                }
+
+                String driverIncomeQueue = system.getDriverIncomeQueue();
+                if (driverIncomeQueue != null) {
+                    stringBuilder.append(driverIncomeQueue.toLowerCase());
+                }
+            }
+        }
+
+        String driverTimeout = config.getMainConfig().getDriverTimeout();
+        if (driverTimeout != null) {
+            stringBuilder.append(driverTimeout);
+        }
+
+        return DigestUtils.md5Hex(stringBuilder.toString());
     }
 }

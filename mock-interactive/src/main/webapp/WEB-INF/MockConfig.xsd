@@ -25,6 +25,7 @@
     <!-- root element type-->
     <xs:complexType name="MockConfigType">
         <xs:sequence>
+            <xs:element type="moc:mainConfigType" name="mainConfig" minOccurs="0"/>
             <xs:element  type="moc:systemsType" name="systems"/>
         </xs:sequence>
     </xs:complexType>
@@ -194,4 +195,12 @@
             <xs:enumeration value="SOAP"/>
         </xs:restriction>
     </xs:simpleType>
+    <xs:complexType name="mainConfigType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="checksum" minOccurs="0"/>
+            <xs:element type="xs:long" name="driverTimeout" minOccurs="0"/>
+            <xs:element type="xs:int" name="maxLogsCount" minOccurs="0"/>
+            <xs:element type="xs:boolean" name="validationEnabled" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>

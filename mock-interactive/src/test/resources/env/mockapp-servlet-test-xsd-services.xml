@@ -12,6 +12,10 @@
         <beans:constructor-arg value="/env/MockConfigXsdServices.xml" type="java.lang.String"/>
     </beans:bean>
 
+    <beans:bean id="version" class="java.lang.String">
+        <beans:constructor-arg type="java.lang.String" value="test.version"/>
+    </beans:bean>
+
     <!-- Входной и выходной каналы Заглушки-->
     <channel id="MockInboundRequest"/>
 

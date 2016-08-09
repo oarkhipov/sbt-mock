@@ -6,10 +6,14 @@
 		http://www.springframework.org/schema/integration	http://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
 
-    <beans:import resource="../contextConfigs/base-config-test.xml"/>
+    <beans:import resource="../contextConfigs/base-config-prod.xml"/>
 
     <beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
         <beans:constructor-arg value="/WEB-INF/MockConfig.xml" type="java.lang.String"/>
+    </beans:bean>
+
+    <beans:bean id="version" class="java.lang.String">
+        <beans:constructor-arg type="java.lang.String" value="test.version"/>
     </beans:bean>
 
     <!-- Входной и выходной каналы Заглушки-->
@@ -35,7 +39,7 @@
              service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService"
              default-reply-timeout="30000"
              default-request-timeout="30000"
-            />
+    />
 
     <bridge input-channel="DriverOutboundRequest" output-channel="DriverInboundResponse"/>
 

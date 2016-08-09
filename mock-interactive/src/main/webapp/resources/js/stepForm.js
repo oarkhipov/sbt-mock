@@ -264,11 +264,7 @@ $().ready(function () {
                 .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
                     $(this).removeClass("animated fadeInRight");
                 });
-            if (int_point) {
-                History.pushState({}, "Integration points", "?ip=" + int_point+"&edit=true");
-            } else {
-                History.pushState({}, "Integration points", "?edit=true");
-            }
+            $.cookie("edit","true")
         },
         function () {
             //Disable
@@ -277,14 +273,12 @@ $().ready(function () {
                 .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
                     $(this).removeClass("animated fadeOutRight").css("visibility", "hidden");
                 });
-            if (int_point) {
-                History.pushState({}, "Integration points", "?ip=" + int_point);
-            }
+            $.removeCookie("edit")
         }
     );
 
     //Enable editing if parameter EDIT is set
-    if (getQueryString()["edit"]) {
+    if ($.cookie("edit")) {
         editEnablerButton.click();
     }
 
@@ -301,7 +295,8 @@ $().ready(function () {
             if (arrayItem && openedCollapsedIp.indexOf(arrayItem) == -1) {
                 openedCollapsedIp.push(arrayItem);
             }
-            console.log(openedCollapsedIp)
+            // console.log(openedCollapsedIp)
+            $.cookie("openedTabs",openedCollapsedIp)
         })
         .on('hidden.bs.collapse', function () {
             var system = $(this).attr("data-system");
@@ -314,8 +309,17 @@ $().ready(function () {
             if (arrayItem && openedCollapsedIp.indexOf(arrayItem) != -1) {
                 openedCollapsedIp.remove(openedCollapsedIp.indexOf(arrayItem));
             }
-            console.log(openedCollapsedIp)
+            // console.log(openedCollapsedIp)
+            $.cookie("openedTabs",openedCollapsedIp)
         });
+
+    if ($.cookie("openedTabs")) {
+        var openedTabs = $.cookie("openedTabs").split(",");
+        for (var i = 0; i < openedTabs.length; i ++) {
+            // console.log("Open tab: " + openedTabs[i]);
+            $("#" + openedTabs[i] + " .collapseController").click();
+        }
+    }
 });
 
 function reinitValidator(name) {

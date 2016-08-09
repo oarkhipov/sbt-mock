@@ -22,6 +22,6 @@
     font-size: x-small;
 }
 
-#answerRequired {
+#answerRequired, #validationEnabled, #sequenceEnabled, #enabled {
     width: 20px;
 }

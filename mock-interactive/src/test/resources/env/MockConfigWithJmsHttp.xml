@@ -1,5 +1,8 @@
 <MockConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://sbrf.ru/mockService2"
             xsi:schemaLocation="http://sbrf.ru/mockService2">
+    <mainConfig>
+        <checksum>f48b861b94f17c23bd5f4cb7968d1894</checksum>
+    </mainConfig>
     <systems>
         <system name="CRM">
             <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->

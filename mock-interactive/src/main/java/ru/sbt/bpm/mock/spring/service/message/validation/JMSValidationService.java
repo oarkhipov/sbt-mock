@@ -30,12 +30,8 @@ import java.util.Map;
 @Service
 public class JMSValidationService {
 
-    private DataFileService dataFileService;
-
     @Autowired
-    public JMSValidationService(DataFileService dataFileService) {
-        this.dataFileService = dataFileService;
-    }
+    private DataFileService dataFileService;
 
     public void init(Map validator, System system, String systemName, File systemXsdDirectory, String remoteRootSchema, String remoteSchemaInLowerCase) throws IOException, SAXException {
         if (remoteSchemaInLowerCase.startsWith("http://") || remoteSchemaInLowerCase.startsWith("ftp://")) {

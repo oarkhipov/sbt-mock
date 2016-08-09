@@ -16,7 +16,7 @@ import reactor.tuple.Tuple2;
  *         Company: SBT - Saint-Petersburg
  */
 @XStreamAlias("integrationPoint")
-@NoArgsConstructor
+//@NoArgsConstructor
 @Data
 public class IntegrationPoint {
 
@@ -24,6 +24,9 @@ public class IntegrationPoint {
     public static final String DRIVER = "Driver";
     // Тип точки интеграции Mock
     public static final String MOCK = "Mock";
+
+    @XStreamAlias("enabled")
+    private Boolean enabled;
 
     @XStreamAlias("name")
     @XStreamAsAttribute
@@ -79,7 +82,8 @@ public class IntegrationPoint {
             Tuple2<String, String> pairOfChannels,
             String xsdFile,
             ElementSelector rootElement,
-            boolean sequenceEnabled) {
+            Boolean sequenceEnabled) {
+        this.enabled = true;
         this.name = name;
         this.integrationPointType = integrationPointType;
         this.delayMs = delayMs;
@@ -91,6 +95,7 @@ public class IntegrationPoint {
         this.xsdFile = xsdFile;
         this.rootElement = rootElement;
         this.sequenceEnabled = sequenceEnabled;
+        this.validationEnabled = true;
     }
 
     public Tuple2<String, String> getPairOfChannels() {
@@ -140,5 +145,26 @@ public class IntegrationPoint {
             messageTemplates = new MessageTemplates();
         }
         return messageTemplates;
+    }
+
+    public Boolean getEnabled() {
+        if (enabled == null) {
+            enabled = true;
+        }
+        return enabled;
+    }
+
+    public Boolean getSequenceEnabled() {
+        if (sequenceEnabled == null) {
+            sequenceEnabled = false;
+        }
+        return sequenceEnabled;
+    }
+
+    public Boolean getValidationEnabled() {
+        if (validationEnabled == null) {
+            validationEnabled = true;
+        }
+        return validationEnabled;
     }
 }

@@ -12,4 +12,8 @@
         <beans:constructor-arg value="/env/MockConfigContextGeneratorTextPD.xml" type="java.lang.String"/>
     </beans:bean>
 
+    <beans:bean id="version" class="java.lang.String">
+        <beans:constructor-arg type="java.lang.String" value="test.version"/>
+    </beans:bean>
+
 </beans:beans>

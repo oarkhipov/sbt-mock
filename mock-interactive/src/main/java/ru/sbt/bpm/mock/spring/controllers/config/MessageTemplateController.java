@@ -22,12 +22,9 @@ import java.util.UUID;
  */
 @Controller
 public class MessageTemplateController {
-    MockConfigContainer configContainer;
 
     @Autowired
-    public MessageTemplateController(MockConfigContainer configContainer) {
-        this.configContainer = configContainer;
-    }
+    MockConfigContainer configContainer;
 
     @RequestMapping(value = "/messageTemplate/add/{systemName}/{integrationPointName}/", method = RequestMethod.GET)
     public String add(@PathVariable String systemName,

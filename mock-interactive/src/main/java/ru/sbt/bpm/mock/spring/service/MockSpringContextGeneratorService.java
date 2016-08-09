@@ -184,7 +184,7 @@ public class MockSpringContextGeneratorService {
     public Beans generateContext() {
         if (systems != null)
             for (ru.sbt.bpm.mock.config.entities.System system : systems) {
-                if (system.getProtocol() == Protocol.JMS) {
+                if ( (system.getProtocol() == Protocol.JMS) && system.getEnabled()) {
                     /**
                      * Настройка используемой конфигурации заглушки
                      */
@@ -244,7 +244,7 @@ public class MockSpringContextGeneratorService {
          */
         if (systems != null)
             for (ru.sbt.bpm.mock.config.entities.System system : systems) {
-                if (system.getProtocol() == Protocol.JMS) {
+                if ((system.getProtocol() == Protocol.JMS) && system.getEnabled()) {
                     /**
                      * Mock
                      */
@@ -410,11 +410,18 @@ public class MockSpringContextGeneratorService {
             jndiDriverResponse, String driverRequestChannel, String driverResponseChannel, String
                                                     jndiConnectionFactory) {
         String jmsBeanName = generateBeanNameLowCamelStyle(connectionFactoryName, JMS_OUTBOUND_GATEWAY_POSTFIX);
+
+        String timeout = DEFAULT_REPLY_TIMEOUT;
+        String configDriverTimeout = container.getConfig().getMainConfig().getDriverTimeout();
+        if (configDriverTimeout != null && !configDriverTimeout.isEmpty()) {
+            timeout = configDriverTimeout;
+        }
+
         if (!isBeanIdInList(jmsBeanName)) {
             listBeansId.add(jmsBeanName);
             beans = jmsConstructor.createOutboundGateway(beans, jmsBeanName, jndiDriverRequest, jndiDriverResponse,
                     driverRequestChannel, driverResponseChannel,
-                    "defHeaderMapper", jndiConnectionFactory, DEFAULT_REPLY_TIMEOUT, DEFAULT_RECEIVE_TIMEOUT);
+                    "defHeaderMapper", jndiConnectionFactory, timeout, timeout);
         }
         return jmsBeanName;
     }

@@ -40,16 +40,12 @@ import java.util.Map;
 @Service
 public class SOAPValidationService {
 
+    @Autowired
     private MockConfigContainer configContainer;
+    @Autowired
     private DataFileService dataFileService;
 
-    @Autowired
-    public SOAPValidationService(MockConfigContainer configContainer, DataFileService dataFileService) {
-        this.configContainer = configContainer;
-        this.dataFileService = dataFileService;
-    }
-
-    public void init(Map validator, System system, String systemName, String remoteRootSchema, String localRootSchema, String remoteSchemaInLowerCase) throws IOException {
+    public void init(Map<String, MessageValidator> validator, System system, String systemName, String remoteRootSchema, String localRootSchema, String remoteSchemaInLowerCase) throws IOException {
         WsdlValidator wsdlValidator;
         if (localRootSchema != null && !localRootSchema.isEmpty()) {
             wsdlValidator = initLocalWsdlValidator(system, localRootSchema);
@@ -58,7 +54,7 @@ public class SOAPValidationService {
                 wsdlValidator = new WsdlValidator(remoteRootSchema);
             } else {
                 system.setLocalRootSchema(remoteRootSchema);
-                wsdlValidator = initLocalWsdlValidator(system, localRootSchema);
+                wsdlValidator = initLocalWsdlValidator(system, system.getLocalRootSchema());
             }
 
         }

@@ -1,6 +1,7 @@
-<MockConfig xmlns="http://sbrf.ru/mockService2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://sbrf.ru/mockService2">
-   <systems>
-
-   </systems>
+<MockConfig>
+  <mainConfig>
+    <checksum>d41d8cd98f00b204e9800998ecf8427e</checksum>
+    <validationEnabled>true</validationEnabled>
+  </mainConfig>
+  <systems/>
 </MockConfig>

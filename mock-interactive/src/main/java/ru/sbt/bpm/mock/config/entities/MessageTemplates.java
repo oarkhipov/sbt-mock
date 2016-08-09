@@ -42,4 +42,14 @@ public class MessageTemplates {
         }
         return messageTemplateList;
     }
+
+    public List<MessageTemplate> getSequenceTemplateList() {
+        LinkedList<MessageTemplate> sequenceTemplates = new LinkedList<MessageTemplate>();
+        for (MessageTemplate messageTemplate : messageTemplateList) {
+            if (messageTemplate.getDispatcherType().equals(DispatcherTypes.SEQUENCE)) {
+                sequenceTemplates.add(messageTemplate);
+            }
+        }
+        return sequenceTemplates;
+    }
 }

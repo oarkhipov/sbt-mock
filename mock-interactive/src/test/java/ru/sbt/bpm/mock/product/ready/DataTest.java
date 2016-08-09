@@ -10,9 +10,11 @@ import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.enums.MessageType;
+import ru.sbt.bpm.mock.mocked.service.TestMessageValidationService;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.GroovyService;
 import ru.sbt.bpm.mock.spring.service.XmlGeneratorService;
+import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 
 import java.io.IOException;
 
@@ -34,7 +36,7 @@ public class DataTest extends AbstractTestNGSpringContextTests {
     DataFileService dataFileService;
 
     @Autowired
-    TestMessageValidationService messageValidationService;
+    MessageValidationService messageValidationService;
 
     @Autowired
     XmlGeneratorService xmlGeneratorService;
@@ -60,7 +62,7 @@ public class DataTest extends AbstractTestNGSpringContextTests {
 
             try {
                 messageValidationService.initValidator(system);
-            } catch (IOException  e) {
+            } catch (IOException e) {
                 log.error("Unable to initialize validator for system " + systemName + "!", e);
             } catch (SAXException e) {
                 log.error("Unable to initialize validator for system " + systemName + "!", e);
@@ -76,7 +78,7 @@ public class DataTest extends AbstractTestNGSpringContextTests {
                         validateMock(system, intPoint);
                     }
                 } catch (Exception e) {
-                    assertionErrors ++;
+                    assertionErrors++;
                     log.error("Unable to validate integration point " + intPoint.getName() + "!", e);
                 }
             }

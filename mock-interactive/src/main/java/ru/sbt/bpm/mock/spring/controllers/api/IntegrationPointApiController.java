@@ -16,6 +16,7 @@ import ru.sbt.bpm.mock.spring.service.DataFileService;
 
 import java.io.IOException;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * @author sbt-bochev-as on 23.12.2015.
@@ -25,19 +26,12 @@ import java.util.Set;
 @Controller
 public class IntegrationPointApiController {
 
-    private MockConfigContainer configContainer;
-    private ConfigurationService configurationService;
-    private DataFileService dataFileService;
-
     @Autowired
-    public IntegrationPointApiController(@NonNull MockConfigContainer mockConfigContainer,
-                                         @NonNull ConfigurationService configurationService,
-                                         @NonNull DataFileService dataFileService) {
-        this.configContainer = mockConfigContainer;
-        this.configurationService = configurationService;
-        this.dataFileService = dataFileService;
-
-    }
+    private MockConfigContainer configContainer;
+    @Autowired
+    private ConfigurationService configurationService;
+    @Autowired
+    private DataFileService dataFileService;
 
     @RequestMapping(value = "/api/ip/add/", method = RequestMethod.POST)
     public String add(@RequestParam String system,
@@ -52,7 +46,9 @@ public class IntegrationPointApiController {
                       @RequestParam(required = false) String xsdFile,
                       @RequestParam(required = false) String rootElementNamespace,
                       @RequestParam String rootElementName,
-                      @RequestParam(required = false) boolean sequenceEnabled) throws IOException {
+                      @RequestParam(required = false) boolean enabled,
+                      @RequestParam(required = false) Boolean validationEnabled,
+                      @RequestParam(required = false) Boolean sequenceEnabled) throws IOException {
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(system);
         XpathSelector xpathSelector = xpathValidatorNamespace != null ? new XpathSelector(xpathValidatorNamespace, xpathValidatorElementName) : null;
         if (delayMs == null) delayMs = 1000;
@@ -68,6 +64,12 @@ public class IntegrationPointApiController {
                         xsdFile,
                         new ElementSelector(rootElementNamespace, rootElementName),
                         sequenceEnabled);
+
+        newIntegrationPoint.setEnabled(enabled);
+
+        if (validationEnabled != null) {
+            newIntegrationPoint.setValidationEnabled(validationEnabled);
+        }
 
         IntegrationPoints integrationPoints = systemObject.getIntegrationPoints();
         if (integrationPoints == null) {
@@ -99,6 +101,8 @@ public class IntegrationPointApiController {
                          @RequestParam(required = false) String xsdFile,
                          @RequestParam(required = false) String rootElementNamespace,
                          @RequestParam String rootElementName,
+                         @RequestParam(required = false) boolean validationEnabled,
+                         @RequestParam(required = false) boolean enabled,
                          @RequestParam(required = false) boolean sequenceEnabled) throws IOException {
 
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(system);
@@ -108,6 +112,8 @@ public class IntegrationPointApiController {
             integrationPoint.setName(newIntegrationPointName);
             dataFileService.moveDataFiles(system, name, newIntegrationPointName);
         }
+
+        integrationPoint.setEnabled(enabled);
 
         integrationPoint.setIntegrationPointType(type);
         integrationPoint.setDelayMs(delayMs);
@@ -122,6 +128,8 @@ public class IntegrationPointApiController {
 
         ElementSelector elementSelector = new ElementSelector(rootElementNamespace, rootElementName);
         integrationPoint.setRootElement(elementSelector);
+
+        integrationPoint.setValidationEnabled(validationEnabled);
 
         integrationPoint.setSequenceEnabled(sequenceEnabled);
 

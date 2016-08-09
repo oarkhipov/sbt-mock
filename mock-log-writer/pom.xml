@@ -7,11 +7,11 @@
     <parent>
         <groupId>ru.sbt.bpm.mock</groupId>
         <artifactId>mock-interactive-parent</artifactId>
-        <version>3.6.2</version>
+        <version>3.7.0</version>
     </parent>
 
     <artifactId>mock-log-writer</artifactId>
-    <version>${parent.version}</version>
+    <version>${project.parent.version}</version>
 
     <dependencies>
         <dependency>

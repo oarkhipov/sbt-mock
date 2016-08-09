@@ -28,16 +28,12 @@ import java.util.UUID;
 @Controller
 public class MessageTemplateApiController {
 
-    private MockConfigContainer configContainer;
-    private ConfigurationService configurationService;
-    private DataFileService dataFileService;
-
     @Autowired
-    public MessageTemplateApiController(MockConfigContainer configContainer, ConfigurationService configurationService, DataFileService dataFileService) {
-        this.configContainer = configContainer;
-        this.configurationService = configurationService;
-        this.dataFileService = dataFileService;
-    }
+    private MockConfigContainer configContainer;
+    @Autowired
+    private ConfigurationService configurationService;
+    @Autowired
+    private DataFileService dataFileService;
 
     @RequestMapping(value = "/api/messageTemplate/add/{systemName}/{integrationPointName}/", method = RequestMethod.POST)
     public String add(@PathVariable String systemName,
@@ -45,10 +41,11 @@ public class MessageTemplateApiController {
                       @RequestParam String name,
                       @RequestParam String type,
                       @RequestParam String expression,
+                      @RequestParam String regexGroups,
                       @RequestParam String value) throws IOException {
         IntegrationPoint integrationPointByName = configContainer.getIntegrationPointByName(systemName, integrationPointName);
         MessageTemplates messageTemplates = integrationPointByName.getMessageTemplates();
-        MessageTemplate messageTemplate = new MessageTemplate(name, DispatcherTypes.valueOf(type), expression, value);
+        MessageTemplate messageTemplate = new MessageTemplate(name, DispatcherTypes.valueOf(type), expression, regexGroups, value);
         messageTemplates.getMessageTemplateList().add(messageTemplate);
         configurationService.saveConfig();
         return "redirect:/";
@@ -59,12 +56,14 @@ public class MessageTemplateApiController {
                          @RequestParam String name,
                          @RequestParam String type,
                          @RequestParam String expression,
+                         @RequestParam String regexGroups,
                          @RequestParam String value) throws IOException {
         Tuple3<System, IntegrationPoint, MessageTemplate> entitiesByMessageTemplateUUID = configContainer.getConfigEntitiesByMessageTemplateUUID(UUID.fromString(templateId));
         MessageTemplate messageTemplate = entitiesByMessageTemplateUUID.getT3();
         messageTemplate.setCaption(name);
         messageTemplate.setDispatcherType(DispatcherTypes.valueOf(type));
         messageTemplate.setDispatcherExpression(expression);
+        messageTemplate.setRegexGroups(regexGroups);
         messageTemplate.setValue(value);
         configurationService.saveConfig();
         return "redirect:/";

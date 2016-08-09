@@ -18,7 +18,7 @@ public class MainConfig {
     private String driverTimeout;
 
     @XStreamAlias("maxLogsCount")
-    private Long maxLogsCount;
+    private Integer maxLogsCount;
 
     @XStreamAlias("validationEnabled")
     private Boolean validationEnabled;

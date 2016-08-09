@@ -27,9 +27,17 @@
         </select>
     </div>
     <div class="form-group" id="expressionBlock" style="display: none">
-        <label for="expression">Dispatcher expression:</label>
+        <label for="expression">Dispatcher expression:
+            <span id="groovyInfo" style="display: none;" data-toggle="popover" data-content="request variable contains request message. You should return result to activate GROOVY dispatching mechanism" class="glyphicon glyphicon-question-sign"></span>
+        </label>
         <textarea name="expression" style="display: none"></textarea>
         <div id="expression" class="form-control"><c:out value="${template.dispatcherExpression}" escapeXml="true"/></div>
+    </div>
+    <div class="form-group" id="regexBlock" style="display: none">
+        <label for="regexGroups">RegexGroups:
+            <span data-toggle="popover" data-content="$0 group gets all chars, that matches pattern, $1 - first group etc." class="glyphicon glyphicon-question-sign"></span>
+        </label>
+        <input name="regexGroups" id="regexGroups" class="form-control" value="${template.regexGroups}"/>
     </div>
     <div class="form-group" id="valueBlock" style="display: none">
         <label for="value">Expected value:</label>
@@ -51,14 +59,30 @@
     expressionEditor.$blockScrolling = Infinity;
     var expressionBlock = $("#expressionBlock");
     var valueBlock = $("#valueBlock");
+    var regexBlock = $("#regexBlock");
+    var groovyInfo = $("#groovyInfo");
     $("#type").change(function () {
-       if ($(this).val() != "SEQUENCE") {
+        var val = $(this).val();
+
+        if (val != "SEQUENCE") {
            expressionBlock.css("display", "block");
            valueBlock.css("display", "block");
        } else {
            expressionBlock.css("display", "none");
            valueBlock.css("display", "none");
        }
+
+       if (val == "REGEX") {
+           regexBlock.css("display", "block");
+       } else {
+           regexBlock.css("display", "none");
+       }
+
+        if (val == "GROOVY") {
+            groovyInfo.css("display", "inline");
+        } else {
+            groovyInfo.css("display", "none");
+        }
     });
 
     var expression = $("[name='expression']");
@@ -70,7 +94,12 @@
 
     $().ready(function () {
         $("#type").change();
-    })
+    });
+
+    $('[data-toggle="popover"]').popover({
+        trigger: 'hover',
+        'placement': 'top'
+    });
 </script>
 </body>
 </html>

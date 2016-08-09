@@ -1,5 +1,8 @@
 <MockConfig xmlns="http://sbrf.ru/mockService2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://sbrf.ru/mockService2">
+    <mainConfig>
+        <checksum>cc656c77fbd42fbf07b41e2389125ed9</checksum>
+    </mainConfig>
     <systems>
         <system name="CRM_GetLegalAgreemtDetails">
             <remoteRootSchema>GetLegalAgreemtDetails/GetLegalAgreemtDetailsMessageElements.xsd</remoteRootSchema>

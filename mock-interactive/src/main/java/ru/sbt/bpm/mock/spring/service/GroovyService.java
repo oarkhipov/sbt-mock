@@ -21,7 +21,8 @@ import java.util.regex.Pattern;
 @Slf4j
 @Service
 public class GroovyService {
-    public static final String EXTRACTED_VARIABLE_PREFIX = "extracted_variable_";
+
+    private static final String EXTRACTED_VARIABLE_PREFIX = "extracted_variable_";
     private Pattern expressionPattern = Pattern.compile("(.*)(\\$\\{=.*?\\})(.*)");
     private static final String GROOVY_IMPORTS =
             "import java.io.*;\n" +
@@ -82,7 +83,7 @@ public class GroovyService {
         return mockXml;
     }
 
-    public Tuple2<String, String> extractVariablesFromInlineExpressions(String content) throws IOException {
+    Tuple2<String, String> extractVariablesFromInlineExpressions(String content) throws IOException {
         log.debug("Begin content variable extraction");
         StringBuilder extractedVariablesStringBuilder = new StringBuilder();
         if (content.contains("${=")) {

@@ -62,6 +62,10 @@ public class WebServiceEmulatorController {
     @ResponseBody
     String emulateWebService(@PathVariable String webServiceName, @RequestBody String payload) {
         final MockMessage mockMessage = responseGenerator.proceedWsRequest(new MockMessage(payload), webServiceName);
-        return mockMessage.getPayload();
+        if (mockMessage.isSendMessage()) {
+            return mockMessage.getPayload();
+        } else {
+            return null;
+        }
     }
 }

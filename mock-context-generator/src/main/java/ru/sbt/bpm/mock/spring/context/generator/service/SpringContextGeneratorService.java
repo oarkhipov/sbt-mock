@@ -97,11 +97,13 @@ public class SpringContextGeneratorService {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+
 		return xml;
 	}
 
 	public String prettyXml(String rawXml) {
 		StreamResult result = new StreamResult(new StringWriter());
+		rawXml = rawXml.replaceAll("&#xa;","");
 		Source streamSource = new StreamSource(new StringReader(rawXml));
 		try {
 			transformer.transform(streamSource, result);

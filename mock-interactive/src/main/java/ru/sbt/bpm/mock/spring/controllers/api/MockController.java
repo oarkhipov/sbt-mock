@@ -34,24 +34,20 @@ import java.util.UUID;
 @Controller
 public class MockController {
 
-    private MockConfigContainer configContainer;
-    private MessageValidationService messageValidationService;
-    private DataFileService dataFileService;
-    private GroovyService groovyService;
-    private XmlGeneratorService generatorService;
-    private TestGatewayService testGatewayService;
-    private DriverController driverController;
-
     @Autowired
-    public MockController(MockConfigContainer configContainer, MessageValidationService messageValidationService, DataFileService dataFileService, GroovyService groovyService, XmlGeneratorService generatorService, TestGatewayService testGatewayService, DriverController driverController) {
-        this.configContainer = configContainer;
-        this.messageValidationService = messageValidationService;
-        this.dataFileService = dataFileService;
-        this.groovyService = groovyService;
-        this.generatorService = generatorService;
-        this.testGatewayService = testGatewayService;
-        this.driverController = driverController;
-    }
+    private MockConfigContainer configContainer;
+    @Autowired
+    private MessageValidationService messageValidationService;
+    @Autowired
+    private DataFileService dataFileService;
+    @Autowired
+    private GroovyService groovyService;
+    @Autowired
+    private XmlGeneratorService generatorService;
+    @Autowired
+    private TestGatewayService testGatewayService;
+    @Autowired
+    private DriverController driverController;
 
     @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE + ";charset=utf-8")
     public String getDefaultMessage(@PathVariable String systemName,

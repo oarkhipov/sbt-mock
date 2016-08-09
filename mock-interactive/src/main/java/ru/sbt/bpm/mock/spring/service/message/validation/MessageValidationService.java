@@ -58,19 +58,17 @@ import java.util.Set;
 @Service
 public class MessageValidationService {
 
+    @Autowired
     private DataFileService dataFileService;
+    @Autowired
     private MockConfigContainer configContainer;
+    @Autowired
     private JMSValidationService jmsMessageValidationService;
+    @Autowired
     private SOAPValidationService soapValidationService;
+
     private Map<String, MessageValidator> validator = new HashMap<String, MessageValidator>();
 
-    @Autowired
-    public MessageValidationService(DataFileService dataFileService, MockConfigContainer configContainer, JMSValidationService jmsMessageValidationService, SOAPValidationService soapValidationService) {
-        this.dataFileService = dataFileService;
-        this.configContainer = configContainer;
-        this.jmsMessageValidationService = jmsMessageValidationService;
-        this.soapValidationService = soapValidationService;
-    }
 
     @PostConstruct
     protected void init() throws IOException, SAXException {
@@ -96,7 +94,7 @@ public class MessageValidationService {
      * @throws IOException
      * @throws SAXException
      */
-    protected void initValidator(System system) throws IOException, SAXException {
+    public void initValidator(System system) throws IOException, SAXException {
         String systemName = system.getSystemName();
         File systemXsdDirectory = dataFileService.getSystemXsdDirectoryFile(systemName);
         String remoteRootSchema = system.getRemoteRootSchema();

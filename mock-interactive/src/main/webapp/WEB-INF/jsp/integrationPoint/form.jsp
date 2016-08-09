@@ -16,6 +16,14 @@
 <form method="post" class="form-horizontal"
       action="<%=request.getContextPath()%>/api/ip/<c:choose><c:when test="${integrationPointName != ''}">update/${systemName}/${integrationPointName}</c:when><c:otherwise>add</c:otherwise></c:choose>/">
     <div class="form-group">
+        <label for="enabled" class="control-label col-sm-2">Enabled:</label>
+
+        <div class="col-sm-10">
+            <input type="checkbox" name="enabled" id="enabled" class="form-control"
+                   <c:if test="${enabled==null || enabled}">checked</c:if>/>
+        </div>
+    </div>
+    <div class="form-group">
         <label for="system" class="control-label col-sm-2">System:</label>
 
         <div class="col-sm-10">
@@ -58,6 +66,23 @@
                         <c:if test="${isDriver}">selected</c:if> >DRIVER
                 </option>
             </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="delayMs" class="control-label col-sm-2">Delay:</label>
+
+        <div class="col-sm-10">
+            <input type="text" name="delayMs" id="delayMs" placeholder="Delay of integration point in ms"
+                   value="${delayMs}"
+                   class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="sequenceEnabled" class="control-label col-sm-2">Sequence enabled:</label>
+
+        <div class="col-sm-10">
+            <input type="checkbox" name="sequenceEnabled" id="sequenceEnabled" class="form-control"
+                   <c:if test="${sequenceEnabled==null || sequenceEnabled}">checked</c:if>/>
         </div>
     </div>
     <div class="form-group">
@@ -119,6 +144,14 @@
             <span class="glyphicon glyphicon-collapse-down"></span> <i>Advanced</i>
         </div>
         <div class="panel-body collapse" id="advancedContent">
+            <div class="form-group">
+                <label for="validationEnabled" class="control-label col-sm-2">Validation enabled:</label>
+
+                <div class="col-sm-10">
+                    <input type="checkbox" name="validationEnabled" id="validationEnabled" class="form-control"
+                           <c:if test="${validationEnabled==null || validationEnabled}">checked</c:if>/>
+                </div>
+            </div>
             <div class="form-group">
                 <label for="answerRequired" class="control-label col-sm-2">Answer required:</label>
 

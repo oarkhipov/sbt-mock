@@ -54,6 +54,7 @@ public class AbstractSOAPSpyneVirtualHttpServerTransactionalTestNGSpringContextT
         super.springTestContextPrepareTestInstance();
     }
 
+    @SuppressWarnings("Duplicates")
     @BeforeClass(alwaysRun = true)
     @Override
     protected void springTestContextBeforeTestClass() throws Exception {

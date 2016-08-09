@@ -79,16 +79,21 @@ public class ConfigController {
 
     @RequestMapping(value = "/config/updateConfigSettings", method = RequestMethod.POST)
     public String updateConfigSettings(@RequestParam String driverTimeout,
-                                       @RequestParam Long maxLogsCount,
-                                       @RequestParam(required = false) Boolean  validationEnabled) {
+                                       @RequestParam Integer maxLogsCount,
+                                       @RequestParam(required = false) Boolean  validationEnabled) throws JAXBException, IOException {
         MockConfig config = mockConfigContainer.getConfig();
+        boolean reinitNeeded = false;
         MainConfig mainConfig = config.getMainConfig();
         if (mainConfig == null) {
             config.setMainConfig(new MainConfig());
             mainConfig = config.getMainConfig();
         }
 
-        mainConfig.setDriverTimeout(driverTimeout);
+        if (mainConfig.getDriverTimeout() == null || !mainConfig.getDriverTimeout().equals(driverTimeout)) {
+            mainConfig.setDriverTimeout(driverTimeout);
+            reinitNeeded = true;
+        }
+
         mainConfig.setMaxLogsCount(maxLogsCount);
         if (validationEnabled != null) {
             mainConfig.setValidationEnabled(validationEnabled);
@@ -96,6 +101,11 @@ public class ConfigController {
             mainConfig.setValidationEnabled(false);
         }
 
+        configurationService.saveConfig();
+
+        if (reinitNeeded) {
+            configurationService.reInitSpringContext();
+        }
         return "redirect:/";
     }
 }

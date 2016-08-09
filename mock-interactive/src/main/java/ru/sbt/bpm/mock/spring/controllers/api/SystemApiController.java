@@ -37,22 +37,19 @@ import java.util.TreeSet;
 public class SystemApiController {
 
     @Autowired
-    MockConfigContainer configContainer;
-
+    private MockConfigContainer configContainer;
     @Autowired
-    ConfigurationService configurationService;
-
+    private ConfigurationService configurationService;
     @Autowired
-    DataFileService dataFileService;
-
+    private DataFileService dataFileService;
     @Autowired
-    MessageValidationService validationService;
-
+    private MessageValidationService validationService;
     @Autowired
-    XsdAnalysisService xsdAnalysisService;
+    private XsdAnalysisService xsdAnalysisService;
 
     @RequestMapping(value = "/api/system/add/", method = RequestMethod.POST)
-    public String add(@RequestParam String name,
+    public String add(@RequestParam(required = false) boolean enabled,
+                      @RequestParam String name,
                       @RequestParam Protocol protocol,
                       @RequestParam String rootSchema,
                       @RequestParam(value = "integrationPointSelectorNamespace[]", required = false) String[] integrationPointSelectorNamespace,
@@ -63,6 +60,7 @@ public class SystemApiController {
                       @RequestParam(required = false) String driverOutcomeQueue,
                       @RequestParam(required = false) String driverIncomeQueue,
                       @RequestParam(required = false) String driverWebServiceEndpoint,
+                      @RequestParam(required = false) boolean validationEnabled,
                       @RequestParam(value = "rootElementNamespace", required = false) String rootElementNamespace,
                       @RequestParam(value = "rootElementName", required = false) String rootElementName) throws IOException, SAXException, JAXBException {
         Systems systems = configContainer.getConfig().getSystems();
@@ -80,6 +78,8 @@ public class SystemApiController {
 
         System system = new System(name, rootSchema, localRootSchema, xpathSelector, protocol, queueConnectionFactory, mockIncomeQueue,
                 mockOutcomeQueue, driverOutcomeQueue, driverIncomeQueue, driverWebServiceEndpoint, rootElement, null);
+        system.setEnabled(enabled);
+        system.setValidationEnabled(validationEnabled);
 
         systems.getSystems().add(system);
         validationService.reInitValidator(name);
@@ -91,7 +91,8 @@ public class SystemApiController {
     }
 
     @RequestMapping(value = "/api/system/update/{systemName}/", method = RequestMethod.POST)
-    public String update(@PathVariable String systemName,
+    public String update(@RequestParam(required = false) boolean enabled,
+                         @PathVariable String systemName,
                          @RequestParam(value = "name") String newSystemName,
                          @RequestParam Protocol protocol,
                          @RequestParam String rootSchema,
@@ -103,11 +104,19 @@ public class SystemApiController {
                          @RequestParam(required = false) String driverOutcomeQueue,
                          @RequestParam(required = false) String driverIncomeQueue,
                          @RequestParam(required = false) String driverWebServiceEndpoint,
+                         @RequestParam(required = false) boolean validationEnabled,
                          @RequestParam(value = "rootElementNamespace", required = false) String rootElementNamespace,
                          @RequestParam(value = "rootElementName", required = false) String rootElementName) throws IOException, SAXException, JAXBException {
 
         boolean needToReInitSpringContext = false;
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(systemName);
+
+        if (!systemObject.getEnabled().equals(enabled)) {
+            systemObject.setEnabled(enabled);
+            if (protocol == Protocol.JMS) {
+                needToReInitSpringContext = true;
+            }
+        }
 
         if (!systemObject.getSystemName().equals(systemName)) {
             systemObject.setSystemName(newSystemName);
@@ -197,6 +206,8 @@ public class SystemApiController {
                 systemObject.setRootElement(rootElement);
             }
         }
+
+        systemObject.setValidationEnabled(validationEnabled);
 
         configurationService.saveConfig();
         validationService.reInitValidator(systemName);

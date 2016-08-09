@@ -4,6 +4,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.sbt.bpm.mock.config.entities.ElementSelector;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
+import ru.sbt.bpm.mock.config.entities.MessageTemplate;
+import ru.sbt.bpm.mock.config.entities.MessageTemplates;
 
 import static org.testng.Assert.assertTrue;
 
@@ -30,9 +32,11 @@ public class MockConfigTest {
 
     @Test
     public void testCdata() throws Exception {
-        configContainer.getConfig().getSystems().getSystems().iterator().next()
+        MessageTemplates messageTemplates = configContainer.getConfig().getSystems().getSystems().iterator().next()
                 .getIntegrationPoints().getIntegrationPoints().iterator().next()
-                .getMessageTemplates().getMessageTemplateList().get(0).setDispatcherExpression("SomeValue");
+                .getMessageTemplates();
+        messageTemplates.getMessageTemplateList().add(new MessageTemplate());
+        messageTemplates.getMessageTemplateList().get(0).setDispatcherExpression("SomeValue");
         String xml = configContainer.toXml();
         assertTrue(xml.contains("<![CDATA["));
     }

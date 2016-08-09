@@ -8,9 +8,12 @@ import org.apache.xmlbeans.XmlException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.config.container.MovableList;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
+import ru.sbt.bpm.mock.config.entities.MessageTemplate;
 import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.entities.XpathSelector;
+import ru.sbt.bpm.mock.config.enums.DispatcherTypes;
 import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.logging.entities.LogsEntity;
@@ -23,10 +26,10 @@ import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationServic
 import ru.sbt.bpm.mock.spring.service.message.validation.SOAPValidationService;
 import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
 import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MessageValidationException;
+import ru.sbt.bpm.mock.spring.utils.DispatcherUtils;
 import ru.sbt.bpm.mock.spring.utils.ExceptionUtils;
 import ru.sbt.bpm.mock.spring.utils.XmlUtils;
 
-import javax.xml.xpath.XPathExpressionException;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,23 +42,24 @@ import java.util.UUID;
 @Component
 public class ResponseGenerator {
 
-    private static LogService logService;
-    private static GroovyService groovyService;
-    private static MessageValidationService messageValidationService;
-    private static DataFileService dataFileService;
-    private static MockConfigContainer configContainer;
-    private static JmsService jmsService;
-    private static SOAPValidationService soapValidationService;
+    private LogService logService;
+    private GroovyService groovyService;
+    private MessageValidationService messageValidationService;
+    private DataFileService dataFileService;
+    private MockConfigContainer configContainer;
+    private JmsService jmsService;
+    private SOAPValidationService soapValidationService;
 
     @Autowired
     public ResponseGenerator(LogService logService, GroovyService groovyService, MessageValidationService messageValidationService, DataFileService dataFileService, MockConfigContainer configContainer, JmsService jmsService, SOAPValidationService soapValidationService) {
-        ResponseGenerator.logService = logService;
-        ResponseGenerator.groovyService = groovyService;
-        ResponseGenerator.messageValidationService = messageValidationService;
-        ResponseGenerator.dataFileService = dataFileService;
-        ResponseGenerator.configContainer = configContainer;
-        ResponseGenerator.jmsService = jmsService;
-        ResponseGenerator.soapValidationService = soapValidationService;
+        this.logService = logService;
+        this.groovyService = groovyService;
+        this.messageValidationService = messageValidationService;
+        this.dataFileService = dataFileService;
+        this.configContainer = configContainer;
+        this.jmsService = jmsService;
+        this.soapValidationService = soapValidationService;
+        logService.setMaxRowsCount(configContainer.getConfig().getMainConfig().getMaxLogsCount());
     }
 
     public MockMessage proceedJmsRequest(MockMessage mockMessage) throws Exception {
@@ -70,7 +74,6 @@ public class ResponseGenerator {
             log(mockMessage, MessageType.RQ);
             throw e;
         }
-
         System system = responseMockMessage.getSystem();
         IntegrationPoint integrationPoint = responseMockMessage.getIntegrationPoint();
         String outcomeQueue = system.getMockOutcomeQueue();
@@ -87,13 +90,25 @@ public class ResponseGenerator {
         mockMessage.setTransactionId(UUID.randomUUID());
         mockMessage.setProtocol(Protocol.SOAP);
         final System systemByName = configContainer.getSystemByName(systemName);
+
         mockMessage.setSystem(systemByName);
         return proceedAbstractMessageRequest(mockMessage);
     }
 
     private MockMessage proceedAbstractMessageRequest(MockMessage mockMessage) {
+        //do not proceed disabled system
+        if (!mockMessage.getSystem().getEnabled()) mockMessage.setSendMessage(false);
+
         try {
             findIntegrationPoint(mockMessage);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to find Integration point for request:\n" + mockMessage.getPayload(), e);
+        }
+
+        //do not proceed disabled integrationPoint
+        if (!mockMessage.getIntegrationPoint().getEnabled()) mockMessage.setSendMessage(false);
+
+        try {
             log(mockMessage, MessageType.RQ);
             validate(mockMessage, MessageType.RQ);
             if (mockMessage.isFaultMessage()) log(mockMessage, MessageType.RQ);
@@ -121,8 +136,7 @@ public class ResponseGenerator {
      * Returns integration point by system and payload from mock message
      *
      * @param mockMessage incoming message
-     * @throws XPathExpressionException
-     * @throws SaxonApiException
+     * @throws SaxonApiException if xml not well formed
      */
     protected void findIntegrationPoint(MockMessage mockMessage) throws SaxonApiException, XmlException {
         final System system = mockMessage.getSystem();
@@ -193,9 +207,67 @@ public class ResponseGenerator {
         final IntegrationPoint integrationPoint = mockMessage.getIntegrationPoint();
         final String payload = mockMessage.getPayload();
 
-        String message = dataFileService.getDefaultMessage(system.getSystemName(), integrationPoint.getName());
-        String script = dataFileService.getDefaultScript(system.getSystemName(), integrationPoint.getName());
+        UUID messageTemplateId = getDispatchedMessageTemplateId(mockMessage);
+        String message;
+        String script;
+        if (messageTemplateId != null) {
+            message = dataFileService.getMessage(system.getSystemName(), integrationPoint.getName(), messageTemplateId.toString());
+            script = dataFileService.getScript(system.getSystemName(), integrationPoint.getName(), messageTemplateId.toString());
+        } else {
+            message = dataFileService.getDefaultMessage(system.getSystemName(), integrationPoint.getName());
+            script = dataFileService.getDefaultScript(system.getSystemName(), integrationPoint.getName());
+        }
         mockMessage.setPayload(groovyService.execute(payload, message, script));
+    }
+
+    /**
+     * Dispatch request and return UUID of template or null if no template is acceptable
+     *
+     * @param mockMessage request message
+     * @return UUID or null
+     */
+    private UUID getDispatchedMessageTemplateId(MockMessage mockMessage) {
+        final IntegrationPoint integrationPoint = mockMessage.getIntegrationPoint();
+
+        if (integrationPoint.getSequenceEnabled()) {
+            //SEQUENCE Mechanism
+            List<MessageTemplate> sequenceTemplateList = integrationPoint.getMessageTemplates().getSequenceTemplateList();
+            int responseSequenceNum = integrationPoint.getResponseSequenceNum();
+            if (responseSequenceNum > sequenceTemplateList.size() - 1) {
+                //get First
+                integrationPoint.setResponseSequenceNum(0);
+                return sequenceTemplateList.get(0).getTemplateId();
+            } else {
+                //get Next
+                integrationPoint.setResponseSequenceNum(responseSequenceNum + 1);
+                return sequenceTemplateList.get(responseSequenceNum).getTemplateId();
+            }
+        } else {
+            return evaluateDispatcherExpression(mockMessage);
+        }
+    }
+
+    /**
+     * Dispatch request by existent dispatcher implementations (XPATH, REGEX, GROOVY)
+     *
+     * @param mockMessage request message
+     * @return UUID of template or null
+     */
+    private UUID evaluateDispatcherExpression(MockMessage mockMessage) {
+        String payload = mockMessage.getPayload();
+        MovableList<MessageTemplate> messageTemplates = mockMessage.getIntegrationPoint().getMessageTemplates().getMessageTemplateList();
+        for (MessageTemplate messageTemplate : messageTemplates) {
+            DispatcherTypes dispatcherType = messageTemplate.getDispatcherType();
+            if (DispatcherUtils.check(payload,
+                    dispatcherType,
+                    messageTemplate.getDispatcherExpression(),
+                    messageTemplate.getRegexGroups(),
+                    messageTemplate.getValue())) {
+
+                return messageTemplate.getTemplateId();
+            }
+        }
+        return null;
     }
 
     /**
@@ -208,15 +280,22 @@ public class ResponseGenerator {
     private void validate(MockMessage mockMessage, MessageType messageType) {
         if (mockMessage.isFaultMessage()) return;
         final String systemName = mockMessage.getSystem().getSystemName();
-        final String payload = mockMessage.getPayload();
 
-        log.debug("Validate [" + systemName + "] " + messageType.name());
-        List<String> validationErrors = messageValidationService.validate(payload, systemName);
-        if (validationErrors.size() > 0) {
-            mockMessage.setPayload(wrapMessageWithSoapFault("Validation error", ValidationUtils.getSolidErrorMessage(validationErrors)));
-            mockMessage.setFaultMessage(true);
+        Boolean globalValidationEnabled = configContainer.getConfig().getMainConfig().getValidationEnabled();
+        Boolean systemValidationEnabled = mockMessage.getSystem().getValidationEnabled();
+        Boolean integrationPointValidationEnabled = mockMessage.getIntegrationPoint().getValidationEnabled();
+
+        if (globalValidationEnabled && systemValidationEnabled && integrationPointValidationEnabled) {
+            final String payload = mockMessage.getPayload();
+
+            log.debug("Validate [" + systemName + "] " + messageType.name());
+            List<String> validationErrors = messageValidationService.validate(payload, systemName);
+            if (validationErrors.size() > 0) {
+                mockMessage.setPayload(wrapMessageWithSoapFault(messageType.name() + " Validation error", ValidationUtils.getSolidErrorMessage(validationErrors)));
+                mockMessage.setFaultMessage(true);
+            }
+            log.debug("Validation status: OK!");
         }
-        log.debug("Validation status: OK!");
     }
 
     private void assertElementName(MockMessage mockMessage, MessageType messageType) throws SaxonApiException, XmlException, MessageValidationException {

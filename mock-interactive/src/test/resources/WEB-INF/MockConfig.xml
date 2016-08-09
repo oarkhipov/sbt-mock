@@ -1,6 +1,10 @@
 <MockConfig xmlns="http://sbrf.ru/mockService2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://sbrf.ru/mockService2">
+    <mainConfig>
+        <checksum>734f55afb07376d0c11ba42b5b7902fd</checksum>
+    </mainConfig>
     <systems>
+
         <system name="CRM">
             <!-- XSD с элементами по умолчанию (путь указывается от корневой директории системы WEB-INF/data/CRM/) -->
             <remoteRootSchema>CRMIntegrationSchema.xsd</remoteRootSchema>
@@ -14,15 +18,15 @@
              System-JMS, System-SOAP -->
             <protocol>JMS</protocol>
 
-            <queueConnectionFactory>java:comp/env/jms/ESB.CRM.CF</queueConnectionFactory>
+            <queueConnectionFactory>jms/Q.LEGAL.CF</queueConnectionFactory>
             <!-- Входящая очередь заглушки -->
-            <mockIncomeQueue>java:comp/env/jms/ESB.CRM.IN</mockIncomeQueue>
+            <mockIncomeQueue>jms/Q.LEGAL.TO.CRMORG</mockIncomeQueue>
             <!-- Исходящая очередь заглушки -->
-            <mockOutcomeQueue>java:comp/env/jms/ESB.CRM.OUT</mockOutcomeQueue>
+            <mockOutcomeQueue>jms/Q.LEGAL.FROM.CRMORG.SYNCRESP</mockOutcomeQueue>
             <!-- Исходящая очередь драйвера -->
-            <driverOutcomeQueue>java:comp/env/jms/ESB.CRM.REQUEST</driverOutcomeQueue>
+            <driverOutcomeQueue>jms/Q.LEGAL.FROM.CRMORG</driverOutcomeQueue>
             <!-- Входящая очередь драйвера -->
-            <driverIncomeQueue>java:comp/env/jms/ESB.CRM.RESPONSE</driverIncomeQueue>
+            <driverIncomeQueue>jms/Q.LEGAL.TO.CRMORG.SYNCRESP</driverIncomeQueue>
 
             <!-- Указатель на корневой элемент для генерации тестового сообщения-->
             <!-- Optional -->
@@ -221,13 +225,28 @@
                 </integrationPoint>
             </integrationPoints>
         </system>
-        <system name="ECM">
-            <remoteRootSchema>http://10.116.96.11:9080/urpa_ecm/services/port/?wsdl</remoteRootSchema>
-            <localRootSchema></localRootSchema>
-            <integrationPointSelector></integrationPointSelector>
+        <system name="Spyne">
+            <remoteRootSchema>http://localhost:8080/path/to/dir/spyne.wsdl</remoteRootSchema>
+            <localRootSchema/>
+            <integrationPointSelector>
+                <tag ns="http://schemas.xmlsoap.org/wsdl/soap/">Envelope</tag>
+                <tag ns="http://schemas.xmlsoap.org/wsdl/soap/">Header</tag>
+                <tag ns="http://schemas.xmlsoap.org/wsdl/soap/">Operation-name</tag>
+            </integrationPointSelector>
             <protocol>SOAP</protocol>
-            <rootElement></rootElement>
-            <integrationPoints></integrationPoints>
+            <rootElement ns="http://schemas.xmlsoap.org/wsdl/soap/">Envelope</rootElement>
+            <integrationPoints>
+                <integrationPoint name="say_hello">
+                    <xpathValidation>
+                        <tag ns="http://schemas.xmlsoap.org/wsdl/soap/">Envelope</tag>
+                        <tag ns="http://schemas.xmlsoap.org/wsdl/soap/">Header</tag>
+                        <tag ns="http://sbrf.ru/prpc/finrep/10">getParticipantFactorsReq</tag>
+                    </xpathValidation>
+
+                    <type>Mock</type>
+                    <rootElement ns="http://schemas.xmlsoap.org/wsdl/soap/">Envelope</rootElement>
+                </integrationPoint>
+            </integrationPoints>
         </system>
     </systems>
 </MockConfig>

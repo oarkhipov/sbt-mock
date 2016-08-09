@@ -84,7 +84,7 @@
             &nbsp;&nbsp;
             <span id="test" title="Test"
                   class="actionButtons glyphicon glyphicon-wrench btn btn-default"></span>
-            <c:if test="${link=='driver'}">
+            <c:if test="${link=='driver' && enabled}">
                 &nbsp;&nbsp;
                 <button id="send" title="Send" class="actionButtons btn btn-default">
                     <span class="glyphicon glyphicon-send"></span>

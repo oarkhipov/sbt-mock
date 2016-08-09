@@ -460,3 +460,8 @@ sub, .sub {
     opacity: 1;
     filter: alpha(opacity=100); /*IE8 and earlier*/
 }
+
+.disabledByConfig {
+    color: gray !important;
+    text-decoration: line-through;
+}

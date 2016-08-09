@@ -17,6 +17,22 @@
       action="<%=request.getContextPath()%>/api/system/<c:choose><c:when test="${system != null && system.systemName != ''}">update/${system.systemName}</c:when><c:otherwise>add</c:otherwise></c:choose>/"
       class="form-horizontal">
     <div class="form-group">
+        <label for="enabled" class="control-label col-sm-2">Enabled:</label>
+
+        <div class="col-sm-10">
+            <input type="checkbox" name="enabled" id="enabled" class="form-control"
+                   <c:if test="${system.enabled==null || system.enabled}">checked</c:if>/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="validationEnabled" class="control-label col-sm-2">Validation enabled:</label>
+
+        <div class="col-sm-10">
+            <input type="checkbox" name="validationEnabled" id="validationEnabled" class="form-control"
+                   <c:if test="${system.validationEnabled==null || system.validationEnabled}">checked</c:if>/>
+        </div>
+    </div>
+    <div class="form-group">
         <label for="name" class="control-label col-sm-2">System:</label>
 
         <div class="col-sm-10">
@@ -34,7 +50,7 @@
         </div>
     </div>
     <input type="hidden"
-           value="<c:choose><c:when test="${system.protocol}!=''">${system.protocol}</c:when><c:otherwise>JMS</c:otherwise></c:choose>"
+           value="<c:choose><c:when test="${system.protocol != ''}">${system.protocol}</c:when><c:otherwise>JMS</c:otherwise></c:choose>"
            name="protocol" id="protocol"/>
 
     <div id="protocol-container" class="centered-pills">
@@ -73,7 +89,8 @@
                                id="queueConnectionFactory"
                                placeholder="JNDI Name"
                                value="${system.queueConnectionFactory}"
-                               onkeyup="checkJndiName(event, this)"/>
+                               onkeyup="checkJndiName(event, this)"
+                               onfocusout="checkJndiName(event, this)"/>
                     </div>
                 </div>
 
@@ -88,7 +105,8 @@
                                 <input type="text" class="form-control" name="mockIncomeQueue" id="mockIncomeQueue"
                                        placeholder="JNDI Name"
                                        value="${system.mockIncomeQueue}"
-                                       onkeyup="checkJndiName(event, this)"/>
+                                       onkeyup="checkJndiName(event, this)"
+                                       onfocusout="checkJndiName(event, this)"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -99,7 +117,8 @@
                                 <input type="text" class="form-control" name="mockOutcomeQueue" id="mockOutcomeQueue"
                                        placeholder="JNDI Name"
                                        value="${system.mockOutcomeQueue}"
-                                       onkeyup="checkJndiName(event, this)"/>
+                                       onkeyup="checkJndiName(event, this)"
+                                       onfocusout="checkJndiName(event, this)"/>
                             </div>
                         </div>
                     </div>
@@ -117,7 +136,8 @@
                                        id="driverOutcomeQueue"
                                        placeholder="JNDI Name"
                                        value="${system.driverOutcomeQueue}"
-                                       onkeyup="checkJndiName(event, this)"/>
+                                       onkeyup="checkJndiName(event, this)"
+                                       onfocusout="checkJndiName(event, this)"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -128,7 +148,8 @@
                                 <input type="text" class="form-control" name="driverIncomeQueue" id="driverIncomeQueue"
                                        placeholder="JNDI Name"
                                        value="${system.driverIncomeQueue}"
-                                       onkeyup="checkJndiName(event, this)"/>
+                                       onkeyup="checkJndiName(event, this)"
+                                       onfocusout="checkJndiName(event, this)"/>
                             </div>
                         </div>
                     </div>

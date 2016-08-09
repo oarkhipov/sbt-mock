@@ -17,6 +17,10 @@
               <property name="suffix" value=".jsp"/>
        </bean>
 
+       <bean id="version" class="java.lang.String">
+              <constructor-arg value="test.version" type="java.lang.String"/>
+       </bean>
+
        <!-- gateway for testing feature -->
        <int:gateway service-interface="ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService">
               <int:method name="test" request-channel="test" reply-channel="test"/>

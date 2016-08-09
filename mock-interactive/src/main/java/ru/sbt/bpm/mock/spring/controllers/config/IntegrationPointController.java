@@ -1,13 +1,16 @@
 package ru.sbt.bpm.mock.spring.controllers.config;
 
-import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
-import ru.sbt.bpm.mock.config.entities.*;
+import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.entities.System;
+import ru.sbt.bpm.mock.config.entities.Systems;
 import ru.sbt.bpm.mock.spring.service.IntegrationPointNameSuggestionService;
 
 import java.util.ArrayList;
@@ -21,24 +24,24 @@ import java.util.List;
 @Controller
 public class IntegrationPointController {
 
+    @Autowired
     private MockConfigContainer configContainer;
+    @Autowired
     private IntegrationPointNameSuggestionService suggestionService;
 
-    @Autowired
-    public IntegrationPointController(@NonNull MockConfigContainer configContainer,
-                                      @NonNull IntegrationPointNameSuggestionService suggestionService) {
-        this.configContainer = configContainer;
-        this.suggestionService = suggestionService;
-    }
 
     @RequestMapping(value = "/ip/add/", method = RequestMethod.GET)
     public String add(Model model,
                       @RequestParam(required = false, value = "system") String systemName) {
+        model.addAttribute("enabled", true);
         model.addAttribute("systems", configContainer.getConfig().getSystems().getSystems());
         model.addAttribute("systemName", systemName);
         model.addAttribute("integrationPointName", "");
         model.addAttribute("suggestedNames", "");
-        model.addAttribute("adding",true);
+        model.addAttribute("sequenceEnabled", false);
+        model.addAttribute("validationEnabled", true);
+        model.addAttribute("delayMs", null);
+        model.addAttribute("adding", true);
         return "integrationPoint/form";
     }
 
@@ -50,9 +53,10 @@ public class IntegrationPointController {
         model.addAttribute("systems", systems.getSystems());
         System systemObject = systems.getSystemByName(system);
         assert systemObject != null;
-        model.addAttribute("systemName", system);
         IntegrationPoint integrationPoint = systemObject.getIntegrationPoints().getIntegrationPointByName(name);
         assert integrationPoint != null;
+        model.addAttribute("enabled", integrationPoint.getEnabled());
+        model.addAttribute("systemName", system);
         model.addAttribute("integrationPointName", name);
         model.addAttribute("isMock", integrationPoint.isMock());
         model.addAttribute("isDriver", integrationPoint.isDriver());
@@ -60,6 +64,9 @@ public class IntegrationPointController {
         model.addAttribute("xsdFile", integrationPoint.getXsdFile());
         model.addAttribute("rootElement", integrationPoint.getRootElement());
         model.addAttribute("xpathValidation", integrationPoint.getXpathValidatorSelector() != null ? integrationPoint.getXpathValidatorSelector().getElementSelectors() : null);
+        model.addAttribute("validationEnabled", integrationPoint.getValidationEnabled());
+        model.addAttribute("sequenceEnabled", integrationPoint.getSequenceEnabled());
+        model.addAttribute("delayMs", integrationPoint.getDelayMs());
         model.addAttribute("adding", false);
 
         List<String> integrationPointNames = new ArrayList<String>() {{
