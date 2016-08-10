@@ -224,7 +224,7 @@ public class MockSpringContextGeneratorService {
                         // Generating Driver JMS beans + channels + gateway
                         if (jndiExist(driverOutputString, driverInputString)) {
                             String jndiDriverRequestQueueName = createJndiConnectionObjects(driverOutputString, CF_SUFFIX + QUEUE_POSTFIX, String.format("Driver Request Queue for [%s]:[%s]", queueConnectionFactory, driverOutputString));
-                            String jndiDriverResponseQueueName = createJndiConnectionObjects(driverInputString, CF_SUFFIX + QUEUE_POSTFIX, String.format("Driver MessageTemplate Queue for [%s]:[%s]", queueConnectionFactory, driverInputString));
+                            String jndiDriverResponseQueueName = createJndiConnectionObjects(driverInputString, CF_SUFFIX + QUEUE_POSTFIX, String.format("Driver Response Queue for [%s]:[%s]", queueConnectionFactory, driverInputString));
 
                             // Создание каналов outbound gateway
                             String driverRequestChannel = createChannel(driverOutputString, CF_SUFFIX + CHANNEL_POSTFIX);
@@ -245,7 +245,7 @@ public class MockSpringContextGeneratorService {
         if (systems != null)
             for (ru.sbt.bpm.mock.config.entities.System system : systems) {
                 if ((system.getProtocol() == Protocol.JMS) && system.getEnabled()) {
-                    /**
+                    /*
                      * Mock
                      */
                     String mockIncomeQueue = system.getMockIncomeQueue();
@@ -267,7 +267,7 @@ public class MockSpringContextGeneratorService {
 
                         createServiceActivatorWithExpressions(mockRouterChannel, mockOutboundChannel, String.format("Extractor service activator for [%s]:[%s]", systemQueueConnectionFactory, systemMockOutcomeQueue));
                     }
-                    /**
+                    /*
                      * Driver
                      */
                     String driverOutcomeQueue = system.getDriverOutcomeQueue();
@@ -409,7 +409,7 @@ public class MockSpringContextGeneratorService {
     private String createJmsOutboundGateway(String connectionFactoryName, String jndiDriverRequest, String
             jndiDriverResponse, String driverRequestChannel, String driverResponseChannel, String
                                                     jndiConnectionFactory) {
-        String jmsBeanName = generateBeanNameLowCamelStyle(connectionFactoryName, JMS_OUTBOUND_GATEWAY_POSTFIX);
+        String jmsBeanName = generateBeanNameLowCamelStyle(connectionFactoryName, makeSuffix(driverRequestChannel) + makeSuffix(driverResponseChannel) + JMS_OUTBOUND_GATEWAY_POSTFIX);
 
         String timeout = DEFAULT_REPLY_TIMEOUT;
         String configDriverTimeout = container.getConfig().getMainConfig().getDriverTimeout();
