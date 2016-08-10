@@ -22,6 +22,7 @@ $().ready(function () {
 function applyActionButtonsEvents() {
     $("#send").click(function () {
         //showInfo("Sending...");
+        setResponse("Loading...");
         sendDisable(true);
         var parts = QueryString["ip"].split("__");
         $.ajax({
