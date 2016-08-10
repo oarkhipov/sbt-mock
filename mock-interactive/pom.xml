@@ -139,7 +139,13 @@
         <dependency>
             <groupId>in.jlibs</groupId>
             <artifactId>jlibs-xsd</artifactId>
-            <version>2.2</version>
+            <version>2.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>in.jlibs</groupId>
+            <artifactId>jlibs-xml</artifactId>
+            <version>2.2.1</version>
         </dependency>
 
         <dependency>
