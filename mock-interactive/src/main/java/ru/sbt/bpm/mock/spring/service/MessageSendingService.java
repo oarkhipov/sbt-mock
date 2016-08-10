@@ -42,7 +42,6 @@ public class MessageSendingService {
     ResponseGenerator responseGenerator;
 
     public synchronized String send(MockMessage message) throws IOException {
-        message.setTransactionId(UUID.randomUUID());
         responseGenerator.log(message, MessageType.RQ);
         Protocol protocol = message.getProtocol();
         if (protocol == Protocol.JMS) {

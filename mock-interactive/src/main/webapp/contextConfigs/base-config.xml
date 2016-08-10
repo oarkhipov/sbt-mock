@@ -60,8 +60,6 @@
     <int:gateway id="systemEntry"
                  error-channel="DriverInboundResponse"
                  service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService"
-                 default-reply-timeout="30000"
-                 default-request-timeout="30000"
     >
         <int:method name="sendMockMessage" request-channel="DriverRouterChannelInput"
                     reply-channel="DriverInboundResponse"/>
