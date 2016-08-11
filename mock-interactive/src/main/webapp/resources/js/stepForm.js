@@ -362,7 +362,7 @@ Array.prototype.remove = function (from, to) {
 };
 
 function moveMessageUp(templateId) {
-    window.location.hash = openedCollapsedIp;
+    //TODO
 }
 
 function expandAllIp() {
