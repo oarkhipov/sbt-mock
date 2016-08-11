@@ -42,6 +42,7 @@ public class MessageSendingService {
     ResponseGenerator responseGenerator;
 
     public synchronized String send(MockMessage message) throws IOException {
+        message.setTransactionId(UUID.randomUUID());
         responseGenerator.log(message, MessageType.RQ);
         Protocol protocol = message.getProtocol();
         if (protocol == Protocol.JMS) {
@@ -54,7 +55,9 @@ public class MessageSendingService {
     }
 
     public String sendJMS(MockMessage message) {
-        message.setTransactionId(UUID.randomUUID());
+        if (message.getTransactionId() == null) {
+            message.setTransactionId(UUID.randomUUID());
+        }
         ru.sbt.bpm.mock.config.entities.System messageSystem = message.getSystem();
         MockMessage responseMessage = new MockMessage(Protocol.JMS, messageSystem.getQueueConnectionFactory(), messageSystem.getDriverIncomeQueue(), "");
         String responseString;
@@ -74,7 +77,9 @@ public class MessageSendingService {
     }
 
     protected String sendWs(MockMessage message) throws IOException {
-        message.setTransactionId(UUID.randomUUID());
+        if (message.getTransactionId() == null) {
+            message.setTransactionId(UUID.randomUUID());
+        }
         HttpClient httpClient = HttpClientBuilder.create().build();
 
         ru.sbt.bpm.mock.config.entities.System messageSystem = message.getSystem();
