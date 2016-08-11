@@ -15,12 +15,12 @@ $(function () {
                         alert("Choose integration point!");
                         return false;
                     }
-                    History.pushState({}, "Integration points", "?ip=" + int_point+"#" + systemId);
+                    History.pushState({}, "Integration points", "?ip=" + int_point + "#" + systemId);
                 }
             }
             if (currentIndex == 1) {
                 if (newIndex == 0) {
-                    History.pushState({}, "Integration points", "?#"+ systemId);
+                    History.pushState({}, "Integration points", "?#" + systemId);
                 }
             }
             return true;
@@ -40,6 +40,11 @@ $(function () {
     $("#wizard>.steps>ul>li").click(function () {
         updateWizardHeight();
     });
+
+    $(".collapseController").click(function () {
+        updateWizardHeight();
+    })
+
 });
 
 function htmlDecode(text) {
@@ -54,7 +59,10 @@ var int_point = null;
 
 function updateWizardHeight() {
     //set wizard height
-    $(".wizard > .content").css("cssText", "height:" + $(".wizard > .content > .body.current").css("height") + " !important;");
+    var newHeight = $(".wizard > .content > .body.current").css("height");
+    newHeight = newHeight.substr(0,newHeight.length-2);
+    newHeight = eval(newHeight) + 20;
+    $(".wizard > .content").css("cssText", "height:" + newHeight + "px !important;");
 }
 
 function chooseIntPoint(pointName) {
@@ -215,7 +223,7 @@ function addMessageTemplate(systemName, ipName) {
     BootstrapDialog.show({
         size: BootstrapDialog.SIZE_WIDE,
         title: "New Message Template for " + systemName + " - " + ipName,
-        message: $("<div/>").load("messageTemplate/add/"+systemName + "/"+ ipName + "/")
+        message: $("<div/>").load("messageTemplate/add/" + systemName + "/" + ipName + "/")
     });
 }
 
@@ -264,7 +272,7 @@ $().ready(function () {
                 .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
                     $(this).removeClass("animated fadeInRight");
                 });
-            $.cookie("edit","true")
+            $.cookie("edit", "true")
         },
         function () {
             //Disable
@@ -296,7 +304,7 @@ $().ready(function () {
                 openedCollapsedIp.push(arrayItem);
             }
             // console.log(openedCollapsedIp)
-            $.cookie("openedTabs",openedCollapsedIp)
+            $.cookie("openedTabs", openedCollapsedIp)
         })
         .on('hidden.bs.collapse', function () {
             var system = $(this).attr("data-system");
@@ -310,12 +318,12 @@ $().ready(function () {
                 openedCollapsedIp.remove(openedCollapsedIp.indexOf(arrayItem));
             }
             // console.log(openedCollapsedIp)
-            $.cookie("openedTabs",openedCollapsedIp)
+            $.cookie("openedTabs", openedCollapsedIp)
         });
 
     if ($.cookie("openedTabs")) {
         var openedTabs = $.cookie("openedTabs").split(",");
-        for (var i = 0; i < openedTabs.length; i ++) {
+        for (var i = 0; i < openedTabs.length; i++) {
             // console.log("Open tab: " + openedTabs[i]);
             $("#" + openedTabs[i] + " .collapseController").click();
         }
@@ -351,5 +359,17 @@ Array.prototype.remove = function (from, to) {
 
 function moveMessageUp(templateId) {
     window.location.hash = openedCollapsedIp;
+}
 
+function expandAllIp() {
+    $("tr[data-system]").each(function () {
+        // openedCollapsedIp
+    });
+    // $.cookie("openedTabs",openedCollapsedIp);
+    //window.location.reload();
+}
+
+function collapseAllIp() {
+    $.removeCookie("openedTabs");
+    window.location.reload();
 }
