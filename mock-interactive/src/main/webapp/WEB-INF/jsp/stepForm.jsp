@@ -74,13 +74,27 @@
         <div id="wizard">
             <h2>Integration point</h2>
             <section>
-                <div align="right">
-                    <button class="btn btn-success btn-sm" onclick="addSysForm()">
-                        <span class="glyphicon glyphicon-plus"></span> Add System
-                    </button>
-                    <button class="btn btn-default btm-sm" onclick="showSettings()">
-                        <span class="glyphicon glyphicon-cog"></span>
-                    </button>
+                <div>
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <button class="btn btn-default btn-sm" onclick="expandAllIp()">
+                                    <span class="glyphicon glyphicon-expand"></span> Expand
+                                </button>
+                                <button class="btn btn-default btn-sm" onclick="collapseAllIp()">
+                                    <span class="glyphicon glyphicon-collapse-up"></span> Collapse
+                                </button>
+                            </td>
+                            <td align="right">
+                                <button class="btn btn-success btn-sm" onclick="addSysForm()">
+                                    <span class="glyphicon glyphicon-plus"></span> Add System
+                                </button>
+                                <button class="btn btn-default btn-sm" onclick="showSettings()">
+                                    <span class="glyphicon glyphicon-cog"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
                     <span style="line-height: 5pt; display: block">&nbsp;</span>
 
                     <div id="mockPanel" class="panel panel-default" style="margin-bottom: 5pt">
@@ -349,24 +363,26 @@
                             </table>
                         </div>
                     </div>
-                    <button class="btn btn-default btn-sm"
-                            onclick="window.location.href='<%=request.getContextPath()%>/config/'">
-                        <span class="glyphicon glyphicon-list"></span> Show config
-                    </button>
-                    <button class="btn btn-default btn-sm"
-                            onclick="window.location.href='<%=request.getContextPath()%>/config/export/'">
-                        <span class="glyphicon glyphicon-cloud-download"></span> Export
-                    </button>
-                    <button class="btn btn-default btn-sm" onclick="importForm()">
-                        <span class="glyphicon glyphicon-cloud-upload"></span> Import
-                    </button>
-                    &nbsp;&nbsp;
-                    <button class="btn btn-default btn-sm" onclick="window.location.href='FrameMock/'">
-                        <span class="glyphicon glyphicon-modal-window"></span> FrameMock
-                    </button>
-                    <button class="btn btn-info btn-sm" onclick="window.location.href='log/'">
-                        <span class="glyphicon glyphicon-list-alt"></span> Show Logs
-                    </button>
+                    <div style="width:100%; text-align: right">
+                        <button class="btn btn-default btn-sm"
+                                onclick="window.location.href='<%=request.getContextPath()%>/config/'">
+                            <span class="glyphicon glyphicon-list"></span> Show config
+                        </button>
+                        <button class="btn btn-default btn-sm"
+                                onclick="window.location.href='<%=request.getContextPath()%>/config/export/'">
+                            <span class="glyphicon glyphicon-cloud-download"></span> Export
+                        </button>
+                        <button class="btn btn-default btn-sm" onclick="importForm()">
+                            <span class="glyphicon glyphicon-cloud-upload"></span> Import
+                        </button>
+                        &nbsp;&nbsp;
+                        <button class="btn btn-default btn-sm" onclick="window.location.href='FrameMock/'">
+                            <span class="glyphicon glyphicon-modal-window"></span> FrameMock
+                        </button>
+                        <button class="btn btn-info btn-sm" onclick="window.location.href='log/'">
+                            <span class="glyphicon glyphicon-list-alt"></span> Show Logs
+                        </button>
+                    </div>
                 </div>
             </section>
         </div>

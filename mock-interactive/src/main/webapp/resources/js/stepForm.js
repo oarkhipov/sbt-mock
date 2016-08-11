@@ -321,6 +321,10 @@ $().ready(function () {
             $.cookie("openedTabs", openedCollapsedIp)
         });
 
+    if ($.cookie("expanded")) {
+        $(".collapseController").click();
+    }
+
     if ($.cookie("openedTabs")) {
         var openedTabs = $.cookie("openedTabs").split(",");
         for (var i = 0; i < openedTabs.length; i++) {
@@ -362,14 +366,13 @@ function moveMessageUp(templateId) {
 }
 
 function expandAllIp() {
-    $("tr[data-system]").each(function () {
-        // openedCollapsedIp
-    });
-    // $.cookie("openedTabs",openedCollapsedIp);
-    //window.location.reload();
+    $.removeCookie("openedTabs");
+    $.cookie("expanded", true);
+    window.location.reload();
 }
 
 function collapseAllIp() {
     $.removeCookie("openedTabs");
+    $.removeCookie("expanded");
     window.location.reload();
 }
