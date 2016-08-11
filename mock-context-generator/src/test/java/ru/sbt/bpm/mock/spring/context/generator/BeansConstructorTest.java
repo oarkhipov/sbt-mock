@@ -33,13 +33,7 @@ public class BeansConstructorTest extends AbstractConfigGenerator {
                 + ".org/schema/integration http://www.springframework"
                 + ".org/schema/integration/spring-integration.xsd         http://www.springframework"
                 + ".org/schema/integration/jms http://www.springframework"
-                + ".org/schema/integration/jms/spring-integration-jms.xsd\"/>"
-                + "<bean class=\"java.lang.String\">"
-                + "<constructor-arg type=\"java.lang.String\" value=\"jms/Q.APKKB\"/>"
-                + "<constructor-arg type=\"java.lang.String\" value=\"jms/ESB.APKKB.OUT\"/>"
-                + "<constructor-arg type=\"java.lang.String\" value=\"jms/ESB.APKKB.IN\"/>"
-                + "</bean>"
-                + "</beans>";
+                + ".org/schema/integration/jms/spring-integration-jms.xsd\"/>";
 
         compareResults(expected, beans, "BeansConstructorTest :: testCreateBeans");
     }
