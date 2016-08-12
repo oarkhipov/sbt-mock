@@ -151,7 +151,7 @@ public class SystemApiController {
         }
 
         XpathSelector xpathSelector = null;
-        if (integrationPointSelectorNamespace != null && integrationPointSelectorElementName != null) {
+        if (integrationPointSelectorNamespace != null) {
             xpathSelector = new XpathSelector(integrationPointSelectorNamespace, integrationPointSelectorElementName);
         }
 

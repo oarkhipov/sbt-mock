@@ -7,8 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import reactor.tuple.Tuple;
 import reactor.tuple.Tuple2;
+import ru.sbt.bpm.mock.config.MockConfig;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
+import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService;
@@ -51,8 +53,8 @@ public class MockController {
 
     @RequestMapping(value = "/mock/{systemName}/{integrationPointName}/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE + ";charset=utf-8")
     public String getDefaultMessage(@PathVariable String systemName,
-                      @PathVariable String integrationPointName,
-                      Model model) throws IOException, TransformerException {
+                                    @PathVariable String integrationPointName,
+                                    Model model) throws IOException, TransformerException {
         return getMessageTemplate(systemName, integrationPointName, null, model);
     }
 
@@ -86,7 +88,6 @@ public class MockController {
         }
         return "editor";
     }
-
 
 
     @ResponseBody
@@ -272,17 +273,20 @@ public class MockController {
 
         ru.sbt.bpm.mock.config.entities.System system = configContainer.getSystemByName(systemName);
         IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
+
         try {
             //check if Test validation was OK
             if (ajaxObject.getError() == null || ajaxObject.getError().length() == 0) {
                 compiledXml = groovyService.execute(test, xml, script);
-                if (messageValidationService.assertMessageElementName(compiledXml, system, integrationPoint, MessageType.RS)) {
-                    final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
-                    if (validationErrors.size() != 0) {
-                        ajaxObject.setError("Message validation:\n" + ValidationUtils.getSolidErrorMessage(validationErrors));
+                if (driverController.validationNeeded(systemName, integrationPointName)) {
+                    if (messageValidationService.assertMessageElementName(compiledXml, system, integrationPoint, MessageType.RS)) {
+                        final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
+                        if (validationErrors.size() != 0) {
+                            ajaxObject.setError("Message validation:\n" + ValidationUtils.getSolidErrorMessage(validationErrors));
+                        }
+                    } else {
+                        ajaxObject.setError("Message assertion fail");
                     }
-                } else {
-                    ajaxObject.setError("Message assertion fail");
                 }
             }
         } catch (JmsMessageValidationException e) {
@@ -297,25 +301,27 @@ public class MockController {
 
     private AjaxObject validateTest(String test, String systemName, String integrationPointName) {
         AjaxObject ajaxObject = new AjaxObject();
-        if (test != null && test.length() > 0) {
-            ru.sbt.bpm.mock.config.entities.System system = configContainer.getSystemByName(systemName);
-            IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
-            try {
-                if (messageValidationService.assertMessageElementName(test, system, integrationPoint, MessageType.RQ)) {
-                    final List<String> validationErrors = messageValidationService.validate(test, systemName);
-                    if (validationErrors.size() != 0) {
-                        ajaxObject.setError("Test message validation:\n" + ValidationUtils.getSolidErrorMessage(validationErrors));
+        if (driverController.validationNeeded(systemName, integrationPointName)) {
+            if (test != null && test.length() > 0) {
+                ru.sbt.bpm.mock.config.entities.System system = configContainer.getSystemByName(systemName);
+                IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
+                try {
+                    if (messageValidationService.assertMessageElementName(test, system, integrationPoint, MessageType.RQ)) {
+                        final List<String> validationErrors = messageValidationService.validate(test, systemName);
+                        if (validationErrors.size() != 0) {
+                            ajaxObject.setError("Test message validation:\n" + ValidationUtils.getSolidErrorMessage(validationErrors));
+                        }
+                    } else {
+                        //assertion fault
+                        ajaxObject.setError("Test message assertion fail");
                     }
-                } else {
-                    //assertion fault
-                    ajaxObject.setError("Test message assertion fail");
+                } catch (JmsMessageValidationException e) {
+                    ajaxObject.setError(e.getMessage());
+                } catch (MessageValidationException e) {
+                    ajaxObject.setError(e.getMessage());
+                } catch (Exception e) {
+                    ajaxObject.setErrorFromException(e);
                 }
-            } catch (JmsMessageValidationException e) {
-                ajaxObject.setError(e.getMessage());
-            } catch (MessageValidationException e) {
-                ajaxObject.setError(e.getMessage());
-            } catch (Exception e) {
-                ajaxObject.setErrorFromException(e);
             }
         }
         return ajaxObject;

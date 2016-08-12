@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import reactor.tuple.Tuple;
 import reactor.tuple.Tuple2;
+import ru.sbt.bpm.mock.config.MockConfig;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.entities.System;
@@ -312,15 +313,27 @@ public class DriverController {
             IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
 
             compiledXml = groovyService.execute(test, xml, script);
-            if (messageValidationService.assertMessageElementName(compiledXml, system, integrationPoint, MessageType.RQ)) {
-                final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
-                if (validationErrors.size() != 0) {
-                    ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
+            if (validationNeeded(systemName, integrationPointName)) {
+                if (messageValidationService.assertMessageElementName(compiledXml, system, integrationPoint, MessageType.RQ)) {
+                    final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
+                    if (validationErrors.size() != 0) {
+                        ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
+                    }
                 }
             }
         } catch (Exception e) {
             ajaxObject.setErrorFromException(e);
         }
         return Tuple.of(ajaxObject, compiledXml);
+    }
+
+    boolean validationNeeded(String systemName, String integrationPointName) {
+        MockConfig config = configContainer.getConfig();
+        if (!config.getMainConfig().getValidationEnabled()) return false;
+        System systemByName = config.getSystems().getSystemByName(systemName);
+        if (!systemByName.getValidationEnabled()) return  false;
+        IntegrationPoint integrationPointByName = systemByName.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
+        if (!integrationPointByName.getValidationEnabled()) return false;
+        return true;
     }
 }

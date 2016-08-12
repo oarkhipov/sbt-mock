@@ -326,7 +326,7 @@ public class ResponseGenerator {
         logService.write(entity);
     }
 
-    public String wrapMessageWithSoapFault(String code, String message) {
+    private String wrapMessageWithSoapFault(String code, String message) {
         return String.format("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">\n" +
                 "  <soapenv:Body>\n" +
                 "    <soapenv:Fault>\n" +
