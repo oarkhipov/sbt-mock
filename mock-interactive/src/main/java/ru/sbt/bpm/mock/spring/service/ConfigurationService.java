@@ -9,6 +9,7 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.GenericWebApplicationContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 import ru.sbt.bpm.mock.config.MockConfig;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
@@ -128,7 +129,13 @@ public class ConfigurationService {
         configContainer.getConfig().getMainConfig().setConfigChecksum(generateChecksum());
         saveConfig();
         FileUtils.writeStringToFile(new File(servletConfigAbsolutePath), xml);
-        ((XmlWebApplicationContext) applicationContext).refresh();
+        if (applicationContext instanceof XmlWebApplicationContext) {
+            ((XmlWebApplicationContext) applicationContext).refresh();
+        } else if (applicationContext instanceof GenericWebApplicationContext) {
+            ((GenericWebApplicationContext) applicationContext).refresh();
+        } else {
+            throw new RuntimeException("Unable to refresh Spring context!");
+        }
     }
 
     private String generateChecksum() {
