@@ -8,6 +8,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.support.GenericWebApplicationContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
@@ -34,7 +36,7 @@ import java.util.zip.ZipOutputStream;
 @Service
 public class ConfigurationService {
 
-    private final
+    private
     ApplicationContext applicationContext;
 
     private final
@@ -129,12 +131,11 @@ public class ConfigurationService {
         configContainer.getConfig().getMainConfig().setConfigChecksum(generateChecksum());
         saveConfig();
         FileUtils.writeStringToFile(new File(servletConfigAbsolutePath), xml);
-        if (applicationContext instanceof XmlWebApplicationContext) {
-            ((XmlWebApplicationContext) applicationContext).refresh();
-        } else if (applicationContext instanceof GenericWebApplicationContext) {
-            ((GenericWebApplicationContext) applicationContext).refresh();
+        if (applicationContext.getClass().equals(GenericApplicationContext.class)) {
+            applicationContext = new GenericApplicationContext(applicationContext);
+            ((GenericApplicationContext) applicationContext).refresh();
         } else {
-            throw new RuntimeException("Unable to refresh Spring context!");
+            ((ConfigurableApplicationContext) applicationContext).refresh();
         }
     }
 

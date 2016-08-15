@@ -26,7 +26,7 @@ public class ConfigurationServiceTest extends AbstractTestNGSpringContextTests {
         FileUtils.writeByteArrayToFile(new File(xsdZip), configurationService.compressConfiguration());
     }
 
-    @Test(dependsOnMethods = "testCompressConfiguration", expectedExceptions = ClassCastException.class)
+    @Test(dependsOnMethods = "testCompressConfiguration")
     public void testUnzipConfiguration() throws Exception {
         File configFile = new File(xsdZip);
         configurationService.unzipConfiguration(configFile);
