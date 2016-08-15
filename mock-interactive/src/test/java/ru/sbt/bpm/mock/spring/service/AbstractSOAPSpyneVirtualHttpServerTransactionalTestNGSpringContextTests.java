@@ -70,7 +70,9 @@ public class AbstractSOAPSpyneVirtualHttpServerTransactionalTestNGSpringContextT
     @Override
     protected void springTestContextAfterTestClass() throws Exception {
         super.springTestContextAfterTestClass();
-        server.stop();
+        if (server != null) {
+            server.stop();
+        }
     }
 
     @SuppressWarnings("serial")
