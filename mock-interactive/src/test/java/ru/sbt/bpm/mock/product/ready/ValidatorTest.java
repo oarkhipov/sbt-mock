@@ -23,7 +23,7 @@ import static org.testng.Assert.assertTrue;
  */
 
 @Slf4j
-@WebAppConfiguration("mock-interactive/src/main/webapp")
+@WebAppConfiguration
 @ContextConfiguration({"/env/mockapp-servlet-test.xml"})
 public class ValidatorTest extends AbstractTestNGSpringContextTests {
 
