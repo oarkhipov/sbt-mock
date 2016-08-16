@@ -20,8 +20,8 @@ import static org.testng.Assert.assertTrue;
 
 @Slf4j
 @ContextConfiguration({"/env/mockapp-servlet-test.xml"})
-@WebAppConfiguration("classpath:.")
-public class GeneratorTest extends AbstractSOAPSpyneVirtualHttpServerTransactionalTestNGSpringContextTests {
+@WebAppConfiguration("mock-interactive/src/main/webapp")
+public class GeneratorTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     MockConfigContainer container;
@@ -32,8 +32,7 @@ public class GeneratorTest extends AbstractSOAPSpyneVirtualHttpServerTransaction
     @Autowired
     MessageValidationService messageValidationService;
 
-    //TODO
-    @Test(enabled = false)
+    @Test
     public void testGenerateAndValidateRsMessage() {
         boolean assertSuccess = true;
         for (ru.sbt.bpm.mock.config.entities.System system : container.getConfig().getSystems().getSystems())
