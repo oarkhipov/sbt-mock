@@ -8,7 +8,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.testng.annotations.Test;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.enums.MessageType;
-import ru.sbt.bpm.mock.mocked.service.TestMessageValidationService;
 import ru.sbt.bpm.mock.spring.service.XmlGeneratorService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 
@@ -20,7 +19,7 @@ import static org.testng.Assert.assertTrue;
 
 @Slf4j
 @ContextConfiguration({"/env/mockapp-servlet-test.xml"})
-@WebAppConfiguration
+@WebAppConfiguration("classpath:.")
 public class GeneratorTest extends AbstractTestNGSpringContextTests {
 
     @Autowired

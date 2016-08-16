@@ -43,7 +43,7 @@ public class MockConfigTest {
 
     @BeforeClass
     public void init() throws Exception {
-        configContainer = MockConfigContainer.getInstance("src/test/resources/env/MockConfig.xml");
+        configContainer = MockConfigContainer.getInstance("mock-interactive/src/test/resources/env/MockConfig.xml");
         configContainer.init();
     }
 }

@@ -39,7 +39,7 @@ public class MockSpringContextGeneratorTestMZPConfig extends AbstractTestNGSprin
 				"       xmlns:int=\"http://www.springframework.org/schema/integration\"\n" +
 				"       xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\"\n" +
 				"       xmlns=\"http://www.springframework.org/schema/beans\"\n" +
-				"       xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans.xsd&#xA;        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd&#xA;        http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd\">\n" +
+				"       xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans.xsd        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd        http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd\">\n" +
 				"   <import resource=\"../contextConfigs/base-config.xml\"/>\n" +
 				"   <import resource=\"../contextConfigs/logging-config.xml\"/>\n" +
 				"   <!--Connection Factory for jndi [jms/ESB.PROMETHEUS.CRM.CF]--><bean class=\"org.springframework.jndi.JndiObjectFactoryBean\"\n" +
@@ -66,12 +66,12 @@ public class MockSpringContextGeneratorTestMZPConfig extends AbstractTestNGSprin
 				"         id=\"jmsEsbPrometheusCrmResponse_jmsEsbPrometheusCrmCf_queue\">\n" +
 				"      <property name=\"jndiName\" value=\"jms/ESB.PROMETHEUS.CRM.RESPONSE\"/>\n" +
 				"   </bean>\n" +
-				"   <!--Driver MessageTemplate Queue for [jms/ESB.PROMETHEUS.CRM.CF]:[jms/ESB.PROMETHEUS.CRM.REQUEST]--><bean class=\"org.springframework.jndi.JndiObjectFactoryBean\"\n" +
+				"   <!--Driver Response Queue for [jms/ESB.PROMETHEUS.CRM.CF]:[jms/ESB.PROMETHEUS.CRM.REQUEST]--><bean class=\"org.springframework.jndi.JndiObjectFactoryBean\"\n" +
 				"         id=\"jmsEsbPrometheusCrmRequest_jmsEsbPrometheusCrmCf_queue\">\n" +
 				"      <property name=\"jndiName\" value=\"jms/ESB.PROMETHEUS.CRM.REQUEST\"/>\n" +
 				"   </bean>\n" +
 				"   <int:channel id=\"jmsEsbPrometheusCrmResponse_jmsEsbPrometheusCrmCf_channel\"/>\n" +
-				"   <int-jms:outbound-gateway id=\"jmsEsbPrometheusCrmCf_jmsout\"\n" +
+				"   <int-jms:outbound-gateway id=\"jmsEsbPrometheusCrmCf_jmsesbprometheuscrmresponse_jmsesbprometheuscrmcf_channel_driverinboundresponse_jmsout\"\n" +
 				"                             request-channel=\"jmsEsbPrometheusCrmResponse_jmsEsbPrometheusCrmCf_channel\"\n" +
 				"                             reply-channel=\"DriverInboundResponse\"\n" +
 				"                             receive-timeout=\"30000\"\n" +
@@ -104,12 +104,12 @@ public class MockSpringContextGeneratorTestMZPConfig extends AbstractTestNGSprin
 				"         id=\"jmsQPrometheusJupiterRegIn_jmsQPrometheusJupiterSaCf_queue\">\n" +
 				"      <property name=\"jndiName\" value=\"jms/Q.PROMETHEUS.JUPITER-REG.IN\"/>\n" +
 				"   </bean>\n" +
-				"   <!--Driver MessageTemplate Queue for [jms/Q.PROMETHEUS.JUPITER-SA.CF]:[jms/Q.PROMETHEUS.JUPITER-REG.OUT]--><bean class=\"org.springframework.jndi.JndiObjectFactoryBean\"\n" +
+				"   <!--Driver Response Queue for [jms/Q.PROMETHEUS.JUPITER-SA.CF]:[jms/Q.PROMETHEUS.JUPITER-REG.OUT]--><bean class=\"org.springframework.jndi.JndiObjectFactoryBean\"\n" +
 				"         id=\"jmsQPrometheusJupiterRegOut_jmsQPrometheusJupiterSaCf_queue\">\n" +
 				"      <property name=\"jndiName\" value=\"jms/Q.PROMETHEUS.JUPITER-REG.OUT\"/>\n" +
 				"   </bean>\n" +
 				"   <int:channel id=\"jmsQPrometheusJupiterRegIn_jmsQPrometheusJupiterSaCf_channel\"/>\n" +
-				"   <int-jms:outbound-gateway id=\"jmsQPrometheusJupiterSaCf_jmsout\"\n" +
+				"   <int-jms:outbound-gateway id=\"jmsQPrometheusJupiterSaCf_jmsqprometheusjupiterregin_jmsqprometheusjupitersacf_channel_driverinboundresponse_jmsout\"\n" +
 				"                             request-channel=\"jmsQPrometheusJupiterRegIn_jmsQPrometheusJupiterSaCf_channel\"\n" +
 				"                             reply-channel=\"DriverInboundResponse\"\n" +
 				"                             receive-timeout=\"30000\"\n" +
@@ -138,7 +138,7 @@ public class MockSpringContextGeneratorTestMZPConfig extends AbstractTestNGSprin
 				"                            reply-channel=\"jmsEsbPrometheusMdMOut_jmsEsbPrometheusMdMCf_channel\"\n" +
 				"                            id=\"jmsEsbPrometheusMdMCf_jmsesbprometheusmdmin_jmsesbprometheusmdmcf_channel_jmsesbprometheusmdmout_jmsesbprometheusmdmcf_channel_jmsin\"\n" +
 				"                            connection-factory=\"jmsEsbPrometheusMdMCf_jndiConnectionFactory\"/>\n" +
-				"   <int-jms:outbound-gateway id=\"jmsEsbPrometheusMdMCf_jmsout\"\n" +
+				"   <int-jms:outbound-gateway id=\"jmsEsbPrometheusMdMCf_jmsesbprometheusmdmin_jmsesbprometheusmdmcf_channel_driverinboundresponse_jmsout\"\n" +
 				"                             request-channel=\"jmsEsbPrometheusMdMIn_jmsEsbPrometheusMdMCf_channel\"\n" +
 				"                             reply-channel=\"DriverInboundResponse\"\n" +
 				"                             receive-timeout=\"30000\"\n" +
@@ -171,12 +171,12 @@ public class MockSpringContextGeneratorTestMZPConfig extends AbstractTestNGSprin
 				"         id=\"jmsEsbPrometheusAsyncRequest_jmsEsbPrometheusAsyncCf_queue\">\n" +
 				"      <property name=\"jndiName\" value=\"jms/ESB.PROMETHEUS.ASYNC.REQUEST\"/>\n" +
 				"   </bean>\n" +
-				"   <!--Driver MessageTemplate Queue for [jms/ESB.PROMETHEUS.ASYNC.CF]:[jms/ESB.PROMETHEUS.ASYNC.RESPONSE]--><bean class=\"org.springframework.jndi.JndiObjectFactoryBean\"\n" +
+				"   <!--Driver Response Queue for [jms/ESB.PROMETHEUS.ASYNC.CF]:[jms/ESB.PROMETHEUS.ASYNC.RESPONSE]--><bean class=\"org.springframework.jndi.JndiObjectFactoryBean\"\n" +
 				"         id=\"jmsEsbPrometheusAsyncResponse_jmsEsbPrometheusAsyncCf_queue\">\n" +
 				"      <property name=\"jndiName\" value=\"jms/ESB.PROMETHEUS.ASYNC.RESPONSE\"/>\n" +
 				"   </bean>\n" +
 				"   <int:channel id=\"jmsEsbPrometheusAsyncRequest_jmsEsbPrometheusAsyncCf_channel\"/>\n" +
-				"   <int-jms:outbound-gateway id=\"jmsEsbPrometheusAsyncCf_jmsout\"\n" +
+				"   <int-jms:outbound-gateway id=\"jmsEsbPrometheusAsyncCf_jmsesbprometheusasyncrequest_jmsesbprometheusasynccf_channel_driverinboundresponse_jmsout\"\n" +
 				"                             request-channel=\"jmsEsbPrometheusAsyncRequest_jmsEsbPrometheusAsyncCf_channel\"\n" +
 				"                             reply-channel=\"DriverInboundResponse\"\n" +
 				"                             receive-timeout=\"30000\"\n" +
@@ -209,12 +209,12 @@ public class MockSpringContextGeneratorTestMZPConfig extends AbstractTestNGSprin
 				"         id=\"jmsQPrometheusJupiterResponse_jmsQPrometheusJupiterRegCf_queue\">\n" +
 				"      <property name=\"jndiName\" value=\"jms/Q.PROMETHEUS.JUPITER.RESPONSE\"/>\n" +
 				"   </bean>\n" +
-				"   <!--Driver MessageTemplate Queue for [jms/Q.PROMETHEUS.JUPITER-REG.CF]:[jms/Q.PROMETHEUS.JUPITER.REQUEST]--><bean class=\"org.springframework.jndi.JndiObjectFactoryBean\"\n" +
+				"   <!--Driver Response Queue for [jms/Q.PROMETHEUS.JUPITER-REG.CF]:[jms/Q.PROMETHEUS.JUPITER.REQUEST]--><bean class=\"org.springframework.jndi.JndiObjectFactoryBean\"\n" +
 				"         id=\"jmsQPrometheusJupiterRequest_jmsQPrometheusJupiterRegCf_queue\">\n" +
 				"      <property name=\"jndiName\" value=\"jms/Q.PROMETHEUS.JUPITER.REQUEST\"/>\n" +
 				"   </bean>\n" +
 				"   <int:channel id=\"jmsQPrometheusJupiterResponse_jmsQPrometheusJupiterRegCf_channel\"/>\n" +
-				"   <int-jms:outbound-gateway id=\"jmsQPrometheusJupiterRegCf_jmsout\"\n" +
+				"   <int-jms:outbound-gateway id=\"jmsQPrometheusJupiterRegCf_jmsqprometheusjupiterresponse_jmsqprometheusjupiterregcf_channel_driverinboundresponse_jmsout\"\n" +
 				"                             request-channel=\"jmsQPrometheusJupiterResponse_jmsQPrometheusJupiterRegCf_channel\"\n" +
 				"                             reply-channel=\"DriverInboundResponse\"\n" +
 				"                             receive-timeout=\"30000\"\n" +
@@ -343,7 +343,7 @@ public class MockSpringContextGeneratorTestMZPConfig extends AbstractTestNGSprin
 		//noinspection Duplicates
 		try {
 			Diff diff = new Diff(actualString, expectedString);
-			if (!diff.identical()) {
+			if (!diff.similar()) {
 				assertEquals(actual, expected, diff.toString());
 			}
 

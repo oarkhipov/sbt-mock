@@ -14,9 +14,9 @@ import java.io.File;
 public class WsdlMessageValidatorTest {
 
     private String getWsdlPath() throws Exception {
-        final String currentPath = new java.io.File(".").getCanonicalPath();
-//		final String wsdlUrl = "file:" + currentPath + File.separator + ".."  + File.separator + "spec" + File.separator + "wsdl" + File.separator + "spyne.wsdl";
-        final String wsdlUrl = "file:" + currentPath + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "wsdl" + File.separator + "spyne.wsdl";
+        final String moduleHome = new File(this.getClass().getClassLoader().getResource("").getFile()).getParentFile().getParentFile().getCanonicalPath();
+//		final String wsdlUrl = "file:" + moduleHome + File.separator + ".."  + File.separator + "spec" + File.separator + "wsdl" + File.separator + "spyne.wsdl";
+        final String wsdlUrl = "file:" + moduleHome + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "wsdl" + File.separator + "spyne.wsdl";
         return wsdlUrl;
     }
 

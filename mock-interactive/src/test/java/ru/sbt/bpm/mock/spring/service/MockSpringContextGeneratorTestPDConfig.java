@@ -39,7 +39,7 @@ public class MockSpringContextGeneratorTestPDConfig extends AbstractTestNGSpring
 				"       xmlns:int=\"http://www.springframework.org/schema/integration\"\n" +
 				"       xmlns:int-jms=\"http://www.springframework.org/schema/integration/jms\"\n" +
 				"       xmlns=\"http://www.springframework.org/schema/beans\"\n" +
-				"       xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans.xsd&#xA;        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd&#xA;        http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd\">\n" +
+				"       xsi:schemaLocation=\"http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans.xsd        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd        http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd\">\n" +
 				"   <import resource=\"../contextConfigs/base-config.xml\"/>\n" +
 				"   <import resource=\"../contextConfigs/logging-config.xml\"/>\n" +
 				"   <!--Connection Factory for jndi [java:comp/env/jms/Q.LEGAL.CF]--><bean class=\"org.springframework.jndi.JndiObjectFactoryBean\"\n" +
@@ -66,12 +66,12 @@ public class MockSpringContextGeneratorTestPDConfig extends AbstractTestNGSpring
 				"         id=\"javaCompEnvJmsQLegaLFromCrmorg_javaCompEnvJmsQLegaLCf_queue\">\n" +
 				"      <property name=\"jndiName\" value=\"java:comp/env/jms/Q.LEGAL.FROM.CRMORG\"/>\n" +
 				"   </bean>\n" +
-				"   <!--Driver MessageTemplate Queue for [java:comp/env/jms/Q.LEGAL.CF]:[java:comp/env/jms/Q.LEGAL.TO.CRMORG]--><bean class=\"org.springframework.jndi.JndiObjectFactoryBean\"\n" +
+				"   <!--Driver Response Queue for [java:comp/env/jms/Q.LEGAL.CF]:[java:comp/env/jms/Q.LEGAL.TO.CRMORG]--><bean class=\"org.springframework.jndi.JndiObjectFactoryBean\"\n" +
 				"         id=\"javaCompEnvJmsQLegaLToCrmorg_javaCompEnvJmsQLegaLCf_queue\">\n" +
 				"      <property name=\"jndiName\" value=\"java:comp/env/jms/Q.LEGAL.TO.CRMORG\"/>\n" +
 				"   </bean>\n" +
 				"   <int:channel id=\"javaCompEnvJmsQLegaLFromCrmorg_javaCompEnvJmsQLegaLCf_channel\"/>\n" +
-				"   <int-jms:outbound-gateway id=\"javaCompEnvJmsQLegaLCf_jmsout\"\n" +
+				"   <int-jms:outbound-gateway id=\"javaCompEnvJmsQLegaLCf_javacompenvjmsqlegalfromcrmorg_javacompenvjmsqlegalcf_channel_driverinboundresponse_jmsout\"\n" +
 				"                             request-channel=\"javaCompEnvJmsQLegaLFromCrmorg_javaCompEnvJmsQLegaLCf_channel\"\n" +
 				"                             reply-channel=\"DriverInboundResponse\"\n" +
 				"                             receive-timeout=\"30000\"\n" +

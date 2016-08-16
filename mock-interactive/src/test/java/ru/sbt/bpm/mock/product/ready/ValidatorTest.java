@@ -9,7 +9,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
-import ru.sbt.bpm.mock.mocked.service.TestMessageValidationService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 
 import java.io.IOException;
@@ -24,7 +23,7 @@ import static org.testng.Assert.assertTrue;
  */
 
 @Slf4j
-@WebAppConfiguration
+@WebAppConfiguration("classpath:.")
 @ContextConfiguration({"/env/mockapp-servlet-test.xml"})
 public class ValidatorTest extends AbstractTestNGSpringContextTests {
 
