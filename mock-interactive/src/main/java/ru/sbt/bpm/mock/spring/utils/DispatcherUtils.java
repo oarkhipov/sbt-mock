@@ -5,6 +5,7 @@ import groovy.lang.GroovyShell;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.XdmItem;
+import net.sf.saxon.s9api.XdmValue;
 import ru.sbt.bpm.mock.config.enums.DispatcherTypes;
 
 import java.util.ArrayList;
@@ -32,8 +33,8 @@ public class DispatcherUtils {
 
     private static boolean checkXpath(String payload, String dispatcherExpression, String value) {
         try {
-            XdmItem xdmItem = (XdmItem) XmlUtils.evaluateXpath(XmlUtils.compactXml(payload), dispatcherExpression);
-            return xdmItem.getStringValue().equals(value);
+            XdmValue xdmValue =  XmlUtils.evaluateXpath(XmlUtils.compactXml(payload), dispatcherExpression).itemAt(0);
+            return xdmValue.toString().equals(value);
         } catch (SaxonApiException e) {
             log.error("Exception at XPATH dispatcher process!", e);
             return false;
