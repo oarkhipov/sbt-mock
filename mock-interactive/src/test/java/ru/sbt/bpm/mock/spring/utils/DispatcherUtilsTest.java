@@ -193,6 +193,7 @@ public class DispatcherUtilsTest {
                 "</ns2:Envelope>\n";
         String xpath = "/*[local-name()='Envelope' and namespace-uri()='http://sbrf.ru/NCPCA/SAPLM/GetLimitMessageElements/']/*[local-name()='Body' and namespace-uri()='http://sbrf.ru/NCPCA/SAPLM/GetLimitMessageElements/']/*[local-name()='GetLimitRq' and namespace-uri()='http://sbrf.ru/NCPCA/SAPLM/GetLimitRq/']/*[local-name()='LimitFilter' and namespace-uri()='http://sbrf.ru/NCPCA/SAPLM/GetLimitRq/']/*[local-name()='LimCharRange' and namespace-uri()='http://sbrf.ru/NCPCA/SAPLM/types']/*[local-name()='TRanges' and namespace-uri()='http://sbrf.ru/NCPCA/SAPLM/types']/*[local-name()='Option' and namespace-uri()='http://sbrf.ru/NCPCA/SAPLM/types'][1]/text()";
         assertTrue( DispatcherUtils.check(xml, DispatcherTypes.XPATH, xpath, null, "EQ") );
+        assertTrue( DispatcherUtils.check(xml, DispatcherTypes.XPATH, "//*[local-name()='Low' and namespace-uri()='http://sbrf.ru/NCPCA/SAPLM/types' and contains(text(),'NO_DEAL')]/text()", null, "NO_DEAL") );
     }
 
 }
