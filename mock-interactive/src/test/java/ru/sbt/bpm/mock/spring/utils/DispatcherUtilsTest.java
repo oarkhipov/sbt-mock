@@ -65,6 +65,11 @@ public class DispatcherUtilsTest {
     }
 
     @Test
+    public void testCheckXpathConcat() throws Exception {
+        assertTrue( DispatcherUtils.check(xml, DispatcherTypes.XPATH, "concat(//*:errorText/text(),//*:clientSystemTaskID/text())", null, "errorText1clientSystemT11") );
+    }
+
+    @Test
     public void testSapGetLimitXpathSuccess() throws Exception {
         String xml = "<ns2:Envelope\n" +
                 "        xmlns:ns1=\"http://sbrf.ru/ESB/mq/headers\"\n" +
