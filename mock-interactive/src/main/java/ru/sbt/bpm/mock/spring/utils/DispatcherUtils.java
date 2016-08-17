@@ -2,6 +2,7 @@ package ru.sbt.bpm.mock.spring.utils;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
+import groovy.util.XmlParser;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.XdmItem;
@@ -71,7 +72,7 @@ public class DispatcherUtils {
             put("request",payload);
         }});
         GroovyShell groovyShell = new GroovyShell(binding);
-        String groovyResult = String.valueOf(groovyShell.evaluate(dispatcherExpression));
+        String groovyResult = String.valueOf(groovyShell.evaluate("def requestDom = new XmlParser().parseText(request);\n" + dispatcherExpression));
         return groovyResult.equals(value);
     }
 

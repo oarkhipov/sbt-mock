@@ -28,7 +28,7 @@
     </div>
     <div class="form-group" id="expressionBlock" style="display: none">
         <label for="expression">Dispatcher expression:
-            <span id="groovyInfo" style="display: none;" data-toggle="popover" data-content="request variable contains request message. You should return result to activate GROOVY dispatching mechanism" class="glyphicon glyphicon-question-sign"></span>
+            <span id="groovyInfo" style="display: none;" data-toggle="popover" data-content="request variable contains request message. requestDom variable contains XmlParsed request. You should return result to activate GROOVY dispatching mechanism" class="glyphicon glyphicon-question-sign"></span>
         </label>
         <textarea name="expression" style="display: none"></textarea>
         <div id="expression" class="form-control"><c:out value="${template.dispatcherExpression}" escapeXml="true"/></div>
