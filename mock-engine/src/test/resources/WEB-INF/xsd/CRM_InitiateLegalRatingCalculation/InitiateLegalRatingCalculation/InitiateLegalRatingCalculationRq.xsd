@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2016, Sberbank and/or its affiliates. All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted provided that the following conditions
+  ~ are met:
+  ~
+  ~   - Redistributions of source code must retain the above copyright
+  ~     notice, this list of conditions and the following disclaimer.
+  ~
+  ~   - Redistributions in binary form must reproduce the above copyright
+  ~     notice, this list of conditions and the following disclaimer in the
+  ~     documentation and/or other materials provided with the distribution.
+  ~
+  ~   - Neither the name of Sberbank or the names of its
+  ~     contributors may be used to endorse or promote products derived
+  ~     from this software without specific prior written permission.
+  ~
+  ~ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+  ~ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+  ~ THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+  ~ PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+  ~ CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+  ~ EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+  ~ PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  ~ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  ~ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  ~ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  ~ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="http://sbrf.ru/NCPCA/CRM/InitiateLegalRatingCalculationRq/"
+    targetNamespace="http://sbrf.ru/NCPCA/CRM/InitiateLegalRatingCalculationRq/"
+    xmlns:com="http://sbrf.ru/NCPCA/CRM/CommonTypes/"
+			elementFormDefault="qualified">
+    <xs:import namespace="http://sbrf.ru/NCPCA/CRM/CommonTypes/" schemaLocation="../CRMIntegrationTypes.xsd"/>
+    <xs:element name="InitiateLegalRatingCalculationRq" type="tns:InitiateLegalRatingCalculationRq_Type"/>
+    <xs:complexType name="InitiateLegalRatingCalculationRq_Type">
+        <xs:sequence>
+            <xs:element name="Rating" type="tns:RatingRq_Type">
+                <xs:annotation>
+                    <xs:documentation>Рейтинг</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="RatingRq_Type">
+        <xs:sequence>
+            <xs:element name="RatingId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор карточки рейтинга (Id BPM/CRM)</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="RatingModelCode">
+                <xs:annotation>
+                    <xs:documentation>Код интеграции рейтинговой модели</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="RatingModelId">
+                <xs:annotation>
+                    <xs:documentation>Уникальный идентификатор модели в CRM</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ProjectId" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Id проекта в CRM</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ObjectId">
+                <xs:annotation>
+                    <xs:documentation>Id Карточки организации в CRM / Id КГ в CRM</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Role">
+                <xs:annotation>
+                    <xs:documentation>Роль пользователя в команде рейтинга</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ListOfRatingPeriod" type="tns:ListOfRatingPeriodRq_Type" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Количественные показатели</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ListOfFixedFactor" type="tns:ListOfFixedFactorRq_Type" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Неколичественные показатели</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ListOfRatingSupport" type="tns:ListOfRatingSupportRq_Type" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Неколичественные показатели</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ListOfTeamMember" type="com:ListOfTeamMember_Type" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ListOfRatingPeriodRq_Type">
+        <xs:sequence>
+            <xs:element name="RatingPeriod" type="tns:RatingPeriodRq_Type" minOccurs="1" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Периоды</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RatingPeriodRq_Type">
+        <xs:sequence>
+            <xs:element name="Period">
+                <xs:annotation>
+                    <xs:documentation>Наименование периода отчетности</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="QuarterFO" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Квартал, к которому относится финансовый отчет</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="YearFO" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Год, к которому относится финансовый отчет</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ListOfCardinalFactor" type="tns:ListOfCardinalFactorRq_Type" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Неколичественные показатели</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ListOfCardinalFactorRq_Type">
+        <xs:sequence>
+            <xs:element name="CardinalFactor" type="tns:CardinalFactorRq_Type" minOccurs="1" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Список показателей</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CardinalFactorRq_Type">
+        <xs:sequence>
+            <xs:element name="FactorIntegrationId">
+                <xs:annotation>
+                    <xs:documentation>Интеграционный код показателя</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="NumValue" type="xs:decimal">
+                <xs:annotation>
+                    <xs:documentation>Числовое значение показателя</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="FlafFO" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Признак, что показатель подгружен из ФО</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ListOfFixedFactorRq_Type">
+        <xs:sequence>
+            <xs:element name="FixedFactor" type="tns:FixedFactorRq_Type" minOccurs="1" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Неколичественные показатели</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FixedFactorRq_Type">
+        <xs:sequence>
+            <xs:element name="FactorIntegrationId">
+                <xs:annotation>
+                    <xs:documentation>Интеграционный код показателя</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ValueIntegrationId" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Интеграционный код значения</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Comments" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Пояснения к заполнению</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="4000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ListOfRatingSupportRq_Type">
+        <xs:sequence>
+            <xs:element name="RatingSupport" type="tns:RatingSupportRq_Type" minOccurs="1" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Субъект</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RatingSupportRq_Type">
+        <xs:sequence>
+            <xs:element name="IntegrationId">
+                <xs:annotation>
+                    <xs:documentation>Интеграционный код типа субъекта</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ListOfSupportFactor" type="tns:ListOfSupportFactorRq_Type" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Показатели субъекта</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ListOfSupportFactorRq_Type">
+        <xs:sequence>
+            <xs:element name="SupportFactor" type="tns:SupportFactorRq_Type" minOccurs="1" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Субъект</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SupportFactorRq_Type">
+        <xs:sequence>
+            <xs:element name="FactorIntegrationId">
+                <xs:annotation>
+                    <xs:documentation>Код интеграции</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ValueIntegrationId" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Интеграционный код значения</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="FreeValue" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Произвольное пользовательское значение показателя</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

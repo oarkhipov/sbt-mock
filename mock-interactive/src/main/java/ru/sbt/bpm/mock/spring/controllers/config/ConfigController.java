@@ -113,7 +113,7 @@ public class ConfigController {
                                        @RequestParam Integer maxLogsCount,
                                        @RequestParam(required = false) Boolean  validationEnabled) throws JAXBException, IOException {
         MockConfig config = mockConfigContainer.getConfig();
-        boolean reinitNeeded = false;
+        boolean reInitNeeded = false;
         MainConfig mainConfig = config.getMainConfig();
         if (mainConfig == null) {
             config.setMainConfig(new MainConfig());
@@ -122,7 +122,7 @@ public class ConfigController {
 
         if (mainConfig.getDriverTimeout() == null || !mainConfig.getDriverTimeout().equals(driverTimeout)) {
             mainConfig.setDriverTimeout(driverTimeout);
-            reinitNeeded = true;
+            reInitNeeded = true;
         }
 
         mainConfig.setMaxLogsCount(maxLogsCount);
@@ -134,7 +134,7 @@ public class ConfigController {
 
         configurationService.saveConfig();
 
-        if (reinitNeeded) {
+        if (reInitNeeded) {
             configurationService.reInitSpringContext();
         }
         return "redirect:/";

@@ -1,0 +1,12 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:spy="spyne.xsd">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <spy:say_helloResponse>
+            <!--Optional:-->
+            <spy:say_helloResult>
+                <!--Zero or more repetitions:-->
+                <spy:string>test</spy:string>
+            </spy:say_helloResult>
+        </spy:say_helloResponse>
+    </soapenv:Body>
+</soapenv:Envelope>

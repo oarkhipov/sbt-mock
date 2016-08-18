@@ -53,8 +53,8 @@ import ru.sbt.bpm.mock.spring.service.MessageSendingService;
 import ru.sbt.bpm.mock.spring.service.XmlGeneratorService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
-import ru.sbt.bpm.mock.spring.utils.AjaxObject;
-import ru.sbt.bpm.mock.spring.utils.SaveFile;
+import ru.sbt.bpm.mock.utils.AjaxObject;
+import ru.sbt.bpm.mock.utils.SaveFile;
 
 import javax.xml.transform.TransformerException;
 import java.io.File;
@@ -290,7 +290,7 @@ public class DriverController {
 
         if (ajaxObject.getError() == null || ajaxObject.getError().length() == 0) {
             String compiledXml = ajaxObjectWithCompiledXml.getT2();
-            ru.sbt.bpm.mock.config.entities.System systemByName = configContainer.getSystemByName(systemName);
+            System systemByName = configContainer.getSystemByName(systemName);
             IntegrationPoint integrationPointByName = systemByName.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
 
             MockMessage mockMessage = new MockMessage(systemByName.getProtocol(),
@@ -340,7 +340,7 @@ public class DriverController {
         AjaxObject ajaxObject = new AjaxObject();
         String compiledXml = "";
         try {
-            ru.sbt.bpm.mock.config.entities.System system = configContainer.getSystemByName(systemName);
+            System system = configContainer.getSystemByName(systemName);
             IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
 
             compiledXml = groovyService.execute(test, xml, script);

@@ -49,7 +49,7 @@ import ru.sbt.bpm.mock.spring.service.ConfigurationService;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.XsdAnalysisService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
-import ru.sbt.bpm.mock.spring.utils.ExceptionUtils;
+import ru.sbt.bpm.mock.utils.ExceptionUtils;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;

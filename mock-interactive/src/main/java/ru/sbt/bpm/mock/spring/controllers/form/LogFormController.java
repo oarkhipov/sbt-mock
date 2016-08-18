@@ -41,8 +41,8 @@ import reactor.tuple.Tuple2;
 import ru.sbt.bpm.mock.logging.entities.LogsApiEntity;
 import ru.sbt.bpm.mock.logging.entities.LogsEntity;
 import ru.sbt.bpm.mock.logging.spring.services.LogService;
-import ru.sbt.bpm.mock.spring.logging.LogApiEntityBuilder;
-import ru.sbt.bpm.mock.spring.logging.LogControllerResponseBuilder;
+import ru.sbt.bpm.mock.logging.LogApiEntityBuilder;
+import ru.sbt.bpm.mock.logging.LogControllerResponseBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.TransformerException;

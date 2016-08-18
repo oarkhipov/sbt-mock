@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2016, Sberbank and/or its affiliates. All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted provided that the following conditions
+  ~ are met:
+  ~
+  ~   - Redistributions of source code must retain the above copyright
+  ~     notice, this list of conditions and the following disclaimer.
+  ~
+  ~   - Redistributions in binary form must reproduce the above copyright
+  ~     notice, this list of conditions and the following disclaimer in the
+  ~     documentation and/or other materials provided with the distribution.
+  ~
+  ~   - Neither the name of Sberbank or the names of its
+  ~     contributors may be used to endorse or promote products derived
+  ~     from this software without specific prior written permission.
+  ~
+  ~ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+  ~ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+  ~ THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+  ~ PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+  ~ CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+  ~ EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+  ~ PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  ~ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  ~ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  ~ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  ~ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sbrf.ru/NCPCA/CRM/InitiateRatingPDFinalizationRs/" xmlns:com="http://sbrf.ru/NCPCA/CRM/CommonTypes/" targetNamespace="http://sbrf.ru/NCPCA/CRM/InitiateRatingPDFinalizationRs/" elementFormDefault="qualified">
+	<xs:import namespace="http://sbrf.ru/NCPCA/CRM/CommonTypes/" schemaLocation="../CRMIntegrationTypes.xsd"/>
+	<xs:element name="InitiateRatingPDFinalizationRs" type="tns:InitiateRatingPDFinalizationRs_Type"/>
+	<xs:complexType name="InitiateRatingPDFinalizationRs_Type">
+		<xs:sequence>
+			<xs:element name="Rating" type="tns:RatingRs_Type"/>		
+			<xs:element name="ListOfError" type="com:ListOfError_Type">
+				<xs:annotation>
+					<xs:documentation>Список ошибок</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RatingRs_Type">
+		<xs:sequence>
+			<xs:element name="RatingId">
+				<xs:annotation>
+					<xs:documentation>Идентификатор карточки рейтинга (Id BPM/CRM)</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="EndDate" type="xs:date" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Дата след. актуализации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PD" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вероятность дефолта в %</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RatingStatus" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус рейтинга</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ListOfFinAddParameter" type="tns:ListOfFinAddParameterRs_Type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ListOfFinAddParameterRs_Type">
+		<xs:annotation>
+			<xs:documentation>Список дополнительных параметров по финализации</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FinAddParameter" type="tns:FinAddParameterRs_Type" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Дополнительные параметры</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FinAddParameterRs_Type">
+		<xs:sequence>
+			<xs:element name="Order" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Порядок</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Name">
+				<xs:annotation>
+					<xs:documentation>Название параметра</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Value">
+				<xs:annotation>
+					<xs:documentation>Значение</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -36,12 +36,12 @@ import com.eviware.soapui.impl.wsdl.mock.WsdlMockDispatcher;
 import com.eviware.soapui.impl.wsdl.mock.WsdlMockService;
 import com.eviware.soapui.impl.wsdl.support.soap.SoapMessageBuilder;
 import com.eviware.soapui.impl.wsdl.support.soap.SoapVersion;
+import ru.sbt.bpm.mock.config.entities.System;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
-import ru.sbt.bpm.mock.config.entities.*;
 import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.spring.bean.ResponseGenerator;
 import ru.sbt.bpm.mock.spring.bean.pojo.MockMessage;
@@ -49,7 +49,6 @@ import ru.sbt.bpm.mock.spring.service.message.validation.mockObjects.MockHttpSer
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -71,7 +70,7 @@ public class WebServiceEmulatorController {
     @ResponseBody
     synchronized String getWsdl(@PathVariable String webServiceName, HttpServletRequest request) throws IOException {
         if (request.getQueryString().equalsIgnoreCase("wsdl")) {
-            ru.sbt.bpm.mock.config.entities.System systemByName = configContainer.getSystemByName(webServiceName);
+            System systemByName = configContainer.getSystemByName(webServiceName);
             if (systemByName.getProtocol() == Protocol.SOAP) {
                 URL url = new URL(request.getRequestURL().toString());
                 WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(webServiceName);

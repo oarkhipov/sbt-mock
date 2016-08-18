@@ -31,7 +31,7 @@
 
 package ru.sbt.bpm.mock.spring.controllers.api;
 
-import lombok.NonNull;
+import ru.sbt.bpm.mock.config.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,14 +40,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import reactor.tuple.Tuple;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
-import ru.sbt.bpm.mock.config.entities.*;
 import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.spring.service.ConfigurationService;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 
 import java.io.IOException;
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * @author sbt-bochev-as on 23.12.2015.

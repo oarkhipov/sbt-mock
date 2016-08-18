@@ -1,5 +1,6 @@
 package ru.sbt.bpm.mock.product.ready;
 
+import ru.sbt.bpm.mock.config.entities.System;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -10,7 +11,6 @@ import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.enums.MessageType;
-import ru.sbt.bpm.mock.mocked.service.TestMessageValidationService;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.GroovyService;
 import ru.sbt.bpm.mock.spring.service.XmlGeneratorService;
@@ -51,7 +51,7 @@ public class DataTest extends AbstractTestNGSpringContextTests {
 
     private int validateAllSystems() {
         int assertionErrors = 0;
-        for (ru.sbt.bpm.mock.config.entities.System system : container.getConfig().getSystems().getSystems()) {
+        for (System system : container.getConfig().getSystems().getSystems()) {
             String systemName = system.getSystemName();
 
             log.info("=========================================================================================");
@@ -86,7 +86,7 @@ public class DataTest extends AbstractTestNGSpringContextTests {
         return assertionErrors;
     }
 
-    private void validateMock(ru.sbt.bpm.mock.config.entities.System system, IntegrationPoint intPoint) throws Exception {
+    private void validateMock(System system, IntegrationPoint intPoint) throws Exception {
         String systemName = system.getSystemName();
         String integrationPointName = intPoint.getName();
 
@@ -111,7 +111,7 @@ public class DataTest extends AbstractTestNGSpringContextTests {
         messageValidationService.validate(message, systemName);
     }
 
-    private void validateDriver(ru.sbt.bpm.mock.config.entities.System system, IntegrationPoint intPoint) throws Exception {
+    private void validateDriver(System system, IntegrationPoint intPoint) throws Exception {
         String integrationPointName = intPoint.getName();
         String systemName = system.getSystemName();
 

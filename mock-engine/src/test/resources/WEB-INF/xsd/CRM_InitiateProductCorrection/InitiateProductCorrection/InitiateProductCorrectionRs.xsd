@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2016, Sberbank and/or its affiliates. All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted provided that the following conditions
+  ~ are met:
+  ~
+  ~   - Redistributions of source code must retain the above copyright
+  ~     notice, this list of conditions and the following disclaimer.
+  ~
+  ~   - Redistributions in binary form must reproduce the above copyright
+  ~     notice, this list of conditions and the following disclaimer in the
+  ~     documentation and/or other materials provided with the distribution.
+  ~
+  ~   - Neither the name of Sberbank or the names of its
+  ~     contributors may be used to endorse or promote products derived
+  ~     from this software without specific prior written permission.
+  ~
+  ~ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+  ~ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+  ~ THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+  ~ PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+  ~ CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+  ~ EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+  ~ PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  ~ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  ~ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  ~ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  ~ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  -->
+
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="http://sbrf.ru/NCPCA/CRM/InitiateProductCorrectionRs/"
+        xmlns:com="http://sbrf.ru/NCPCA/CRM/CommonTypes/"
+        targetNamespace="http://sbrf.ru/NCPCA/CRM/InitiateProductCorrectionRs/"
+        elementFormDefault="qualified">
+
+    <import namespace="http://sbrf.ru/NCPCA/CRM/CommonTypes/" schemaLocation="../CRMIntegrationTypes.xsd"/>
+
+    <element name="InitiateProductCorrectionRs" type="tns:InitiateProductCorrectionRs_Type"/>
+
+    <complexType name="InitiateProductCorrectionRs_Type">
+        <sequence>
+            <element name="AccountInfo" type="tns:AccountInfo_Type">
+                <annotation>
+                    <documentation/>
+                </annotation>
+            </element>
+            <element name="ListOfError" type="com:ListOfError_Type" minOccurs="0">
+                <annotation>
+                    <documentation>Список ошибок</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="AccountInfo_Type">
+        <sequence>
+            <element name="AccountId">
+                <annotation>
+                    <documentation>Id Карточки организации в CRM</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="15"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="ListOfProduct" type="tns:ListOfProductInfo_Type">
+                <annotation>
+                    <documentation>Список продуктов</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="ListOfProductInfo_Type">
+        <sequence>
+            <element name="ProductInfo" type="tns:ProductInfo_Type">
+                <annotation>
+                    <documentation>Gродукт</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="ProductInfo_Type">
+        <sequence>
+            <element name="ProductId">
+                <annotation>
+                    <documentation>ID Продукта из Организации</documentation>
+                </annotation>
+                <simpleType>
+                    <restriction base="string">
+                        <maxLength value="15"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+</schema>

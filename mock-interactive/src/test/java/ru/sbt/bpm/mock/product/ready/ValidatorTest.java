@@ -1,6 +1,7 @@
 package ru.sbt.bpm.mock.product.ready;
 
 
+import ru.sbt.bpm.mock.config.entities.System;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -36,7 +37,7 @@ public class ValidatorTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testInit() throws IOException, SAXException {
         boolean assertSucceed = true;
-        for (ru.sbt.bpm.mock.config.entities.System system : container.getConfig().getSystems().getSystems()) {
+        for (System system : container.getConfig().getSystems().getSystems()) {
             try {
                 log.info("=========================================================================================");
                 log.info("");

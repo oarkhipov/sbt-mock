@@ -1,0 +1,16 @@
+<configuration>
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>%d{yyyy-MM-dd}.%d{HH:mm:ss} [%thread] %-4level %logger{36}:%line\(%M\) - %msg %n
+            </Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+    </appender>
+
+    <root>
+        <level value="WARN" />
+        <appender-ref ref="consoleAppender" />
+    </root>
+</configuration>

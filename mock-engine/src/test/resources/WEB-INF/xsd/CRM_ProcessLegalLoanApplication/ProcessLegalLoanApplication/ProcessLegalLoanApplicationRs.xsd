@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2016, Sberbank and/or its affiliates. All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted provided that the following conditions
+  ~ are met:
+  ~
+  ~   - Redistributions of source code must retain the above copyright
+  ~     notice, this list of conditions and the following disclaimer.
+  ~
+  ~   - Redistributions in binary form must reproduce the above copyright
+  ~     notice, this list of conditions and the following disclaimer in the
+  ~     documentation and/or other materials provided with the distribution.
+  ~
+  ~   - Neither the name of Sberbank or the names of its
+  ~     contributors may be used to endorse or promote products derived
+  ~     from this software without specific prior written permission.
+  ~
+  ~ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+  ~ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+  ~ THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+  ~ PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+  ~ CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+  ~ EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+  ~ PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  ~ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  ~ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  ~ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  ~ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  -->
+
+<xs:schema 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns="http://www.w3.org/2001/XMLSchema" 
+			xmlns:tns="http://sbrf.ru/NCPCA/CRM/ProcessLegalLoanApplicationRs/" 
+			targetNamespace="http://sbrf.ru/NCPCA/CRM/ProcessLegalLoanApplicationRs/"
+			xmlns:com="http://sbrf.ru/NCPCA/CRM/CommonTypes/"
+			elementFormDefault="qualified">
+    
+    <import namespace="http://sbrf.ru/NCPCA/CRM/CommonTypes/" schemaLocation="../CRMIntegrationTypes.xsd"/>
+	<xs:element name="ProcessLegalLoanApplicationRs" type="tns:ProcessLegalLoanApplicationRs_Type"/>
+    <xs:complexType name="ProcessLegalLoanApplicationRs_Type">
+        <xs:sequence>
+            <xs:element name="DealInfo" type="tns:DealInfoRs_Type" >
+                <xs:annotation>
+                    <xs:documentation>Данные по сделке</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DealInfoRs_Type">
+        <xs:sequence>
+			<xs:element name="MessageType">
+				<xs:annotation>
+					<xs:documentation>Тип сообщения, параметр необходим для обработки сообщения</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+            <xs:element name="DealID">
+                <xs:annotation>
+                    <xs:documentation>ID сделки в CRM</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="SymbolicURL">
+                <xs:annotation>
+                    <xs:documentation>URL для открытия окна с отображение интерфейса ВРМ из CRM</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="1000" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ListOfError" type="com:ListOfError_Type" >
+                <xs:annotation>
+                    <xs:documentation>Список ошибок</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

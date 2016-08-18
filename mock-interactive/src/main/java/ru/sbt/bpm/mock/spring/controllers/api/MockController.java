@@ -38,7 +38,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import reactor.tuple.Tuple;
 import reactor.tuple.Tuple2;
-import ru.sbt.bpm.mock.config.MockConfig;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.entities.System;
@@ -52,7 +51,7 @@ import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationServic
 import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
 import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.JmsMessageValidationException;
 import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MessageValidationException;
-import ru.sbt.bpm.mock.spring.utils.AjaxObject;
+import ru.sbt.bpm.mock.utils.AjaxObject;
 
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
@@ -95,7 +94,7 @@ public class MockController {
                                      @PathVariable String templateId,
                                      Model model) throws IOException, TransformerException {
 
-        ru.sbt.bpm.mock.config.entities.System system = configContainer.getSystemByName(systemName);
+        System system = configContainer.getSystemByName(systemName);
         model.addAttribute("systemName", systemName);
         model.addAttribute("name", integrationPointName);
         model.addAttribute("link", "mock");
@@ -302,7 +301,7 @@ public class MockController {
         AjaxObject ajaxObject = validateTest(test, systemName, integrationPointName);
         String compiledXml = "";
 
-        ru.sbt.bpm.mock.config.entities.System system = configContainer.getSystemByName(systemName);
+        System system = configContainer.getSystemByName(systemName);
         IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
 
         try {
@@ -334,7 +333,7 @@ public class MockController {
         AjaxObject ajaxObject = new AjaxObject();
         if (driverController.validationNeeded(systemName, integrationPointName)) {
             if (test != null && test.length() > 0) {
-                ru.sbt.bpm.mock.config.entities.System system = configContainer.getSystemByName(systemName);
+                System system = configContainer.getSystemByName(systemName);
                 IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
                 try {
                     if (messageValidationService.assertMessageElementName(test, system, integrationPoint, MessageType.RQ)) {

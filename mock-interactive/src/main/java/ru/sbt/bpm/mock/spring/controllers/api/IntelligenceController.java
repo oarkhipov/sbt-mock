@@ -42,7 +42,6 @@ import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.spring.service.JndiNameService;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -71,7 +70,7 @@ public class IntelligenceController {
     @RequestMapping(value = "/api/getJndi/", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getAllJndi(@RequestParam(required = false) String substring) {
         Set<String> allJndi = new TreeSet<String>();
-        Set<ru.sbt.bpm.mock.config.entities.System> systems = configContainer.getConfig().getSystems().getSystems();
+        Set<System> systems = configContainer.getConfig().getSystems().getSystems();
         for (System system : systems) {
             allJndi.add(system.getQueueConnectionFactory());
             allJndi.add(system.getMockIncomeQueue());

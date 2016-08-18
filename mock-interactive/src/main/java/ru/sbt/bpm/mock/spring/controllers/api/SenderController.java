@@ -40,7 +40,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.sbt.bpm.mock.spring.integration.gateway.ClientService;
-import ru.sbt.bpm.mock.spring.utils.AjaxObject;
+import ru.sbt.bpm.mock.utils.AjaxObject;
 
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
