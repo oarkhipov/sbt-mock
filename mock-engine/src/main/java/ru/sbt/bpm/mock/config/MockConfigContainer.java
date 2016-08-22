@@ -33,15 +33,15 @@ package ru.sbt.bpm.mock.config;
 
 import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.thoughtworks.xstream.XStream;
-import ru.sbt.bpm.mock.config.entities.*;
-import ru.sbt.bpm.mock.config.serialization.MockDomDriver;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import reactor.tuple.Tuple;
 import reactor.tuple.Tuple3;
+import ru.sbt.bpm.mock.config.entities.*;
 import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.serialization.MockDomDriver;
 
@@ -61,6 +61,7 @@ import java.util.UUID;
  */
 @NoArgsConstructor
 @Component
+@Slf4j
 public class MockConfigContainer {
 
     public static final Class[] CONFIG_CLASSES = {
@@ -132,16 +133,18 @@ public class MockConfigContainer {
         File resourceFile;
         if (applicationContext == null) {
             resourceFile = new File(filePath);
+            basePath = new File("").getAbsolutePath();
         } else {
             basePath = applicationContext.getResource("").getFile().getAbsolutePath();
             resourceFile = applicationContext.getResource(filePath).getFile();
         }
 
+        log.warn("Basepath: " + basePath);
+
         FileReader fileReader = new FileReader(resourceFile);
         XStream xStream = new XStream(new MockDomDriver());
         // Mapping данных из xml в классы
         xStream.processAnnotations(CONFIG_CLASSES);
-
 
         this.config = (MockConfig) xStream.fromXML(fileReader);
 

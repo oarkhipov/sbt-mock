@@ -86,7 +86,7 @@ public class XsdAnalysisService {
             Map<String, List<Tuple2<String, String>>>>();
 
 
-    public void reInit() throws IOException, SaxonApiException {
+    void reInit() throws IOException, SaxonApiException {
         mapNamespacesByXpath.clear();
         mapOfElements.clear();
         init();
@@ -253,11 +253,13 @@ public class XsdAnalysisService {
      */
     private List<File> getFilesFromDir(File dir) {
         List<File> listFiles = new ArrayList<File>();
-        for (File fileEntry : dir.listFiles())
-            if (fileEntry.isDirectory())
-                listFiles.addAll(getFilesFromDir(fileEntry));
-            else
-                listFiles.add(fileEntry);
+        if (dir != null && dir.listFiles() != null) {
+            for (File fileEntry : dir.listFiles())
+                if (fileEntry.isDirectory())
+                    listFiles.addAll(getFilesFromDir(fileEntry));
+                else
+                    listFiles.add(fileEntry);
+        }
         return listFiles;
     }
 }

@@ -169,7 +169,7 @@ public class ResponseGenerator {
      * @param mockMessage incoming message
      * @throws SaxonApiException if xml not well formed
      */
-    protected void findIntegrationPoint(MockMessage mockMessage) throws SaxonApiException, XmlException {
+    void findIntegrationPoint(MockMessage mockMessage) throws SaxonApiException, XmlException {
         final System system = mockMessage.getSystem();
         Protocol protocol = system.getProtocol();
         if (protocol == Protocol.JMS) {

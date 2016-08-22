@@ -24,8 +24,7 @@ import static org.testng.Assert.assertTrue;
  */
 
 @Slf4j
-@WebAppConfiguration
-@ContextConfiguration({"/env/mockapp-servlet-test.xml"})
+@ContextConfiguration({"/env/mockapp-servlet-prod.xml"})
 public class ValidatorTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
@@ -34,7 +33,7 @@ public class ValidatorTest extends AbstractTestNGSpringContextTests {
     @Autowired
     MessageValidationService validator;
 
-    @Test
+    @Test(enabled = false)
     public void testInit() throws IOException, SAXException {
         boolean assertSucceed = true;
         for (System system : container.getConfig().getSystems().getSystems()) {

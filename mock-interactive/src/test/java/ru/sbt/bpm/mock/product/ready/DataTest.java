@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
@@ -25,8 +24,7 @@ import static org.testng.Assert.assertEquals;
  */
 
 @Slf4j
-@ContextConfiguration({"/env/mockapp-servlet-test.xml"})
-@WebAppConfiguration("classpath:.")
+@ContextConfiguration({"/env/mockapp-servlet-prod.xml"})
 public class DataTest extends AbstractTestNGSpringContextTests {
 
     @Autowired

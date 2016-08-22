@@ -57,14 +57,14 @@ import java.nio.charset.Charset;
 @Slf4j
 public class AbstractSOAPSpyneVirtualHttpServerTransactionalTestNGSpringContextTests extends AbstractTransactionalTestNGSpringContextTests {
 
-    public static final String SIMPLE_REQUEST = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:spy=\"spyne.xsd\">\n" +
+    public static final String SIMPLE_REQUEST = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:spy=\"spyne.examples.hello\">\n" +
             "   <soapenv:Header/>\n" +
             "   <soapenv:Body>\n" +
             "      <spy:say_hello/>" +
             "   </soapenv:Body>\n" +
             "</soapenv:Envelope>";
 
-    public static final String SIMPLE_RESPONSE = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:spy=\"spyne.xsd\">\n" +
+    public static final String SIMPLE_RESPONSE = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:spy=\"spyne.examples.hello\">\n" +
             "   <soapenv:Header/>\n" +
             "   <soapenv:Body>\n" +
             "      <spy:say_helloResponse>\n" +

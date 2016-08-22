@@ -1,13 +1,12 @@
 package ru.sbt.bpm.mock.product.ready;
 
-import ru.sbt.bpm.mock.config.entities.System;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.testng.annotations.Test;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.spring.service.XmlGeneratorService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
@@ -19,8 +18,7 @@ import static org.testng.Assert.assertTrue;
  */
 
 @Slf4j
-@ContextConfiguration({"/env/mockapp-servlet-test.xml"})
-@WebAppConfiguration
+@ContextConfiguration({"/env/mockapp-servlet-prod.xml"})
 public class GeneratorTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
@@ -32,7 +30,7 @@ public class GeneratorTest extends AbstractTestNGSpringContextTests {
     @Autowired
     MessageValidationService messageValidationService;
 
-    @Test
+    @Test(enabled = false)
     public void testGenerateAndValidateRsMessage() {
         boolean assertSuccess = true;
         for (System system : container.getConfig().getSystems().getSystems())

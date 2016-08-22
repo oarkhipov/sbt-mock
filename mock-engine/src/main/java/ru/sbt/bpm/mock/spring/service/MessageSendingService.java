@@ -86,7 +86,7 @@ public class MessageSendingService {
         throw new IllegalStateException("No such protocol implementation [" + protocol + "]");
     }
 
-    public String sendJMS(MockMessage message) {
+    private String sendJMS(MockMessage message) {
         if (message.getTransactionId() == null) {
             message.setTransactionId(UUID.randomUUID());
         }
@@ -108,7 +108,7 @@ public class MessageSendingService {
         return responseString;
     }
 
-    protected String sendWs(MockMessage message) throws IOException {
+    String sendWs(MockMessage message) throws IOException {
         if (message.getTransactionId() == null) {
             message.setTransactionId(UUID.randomUUID());
         }

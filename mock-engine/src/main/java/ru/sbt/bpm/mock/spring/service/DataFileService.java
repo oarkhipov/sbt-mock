@@ -74,7 +74,7 @@ public class DataFileService {
         return configContainer.getBasePath() + contextDir + relativePath;
     }
 
-    public File getContextFile(String relativePath) {
+    private File getContextFile(String relativePath) {
         try {
             return new File(getContextFilePath(relativePath));
         } catch (IOException e) {
@@ -82,7 +82,7 @@ public class DataFileService {
         }
     }
 
-    public File getContextDataFile(String relativePath) {
+    File getContextDataFile(String relativePath) {
         return getContextFile(dataPath + relativePath);
     }
 
@@ -95,7 +95,7 @@ public class DataFileService {
         return file;
     }
 
-    public File getConfigFile() {
+    File getConfigFile() {
         return new File(configContainer.getBasePath() + configContainer.getFilePath());
     }
 
@@ -125,7 +125,7 @@ public class DataFileService {
      *
      * @param rootDir корневая директория поиска
      */
-    public List<File> searchDirs(File rootDir) {
+    private List<File> searchDirs(File rootDir) {
         List<File> files = new ArrayList<File>();
         File[] listFiles = rootDir.listFiles();
         if (listFiles != null) {
@@ -163,7 +163,7 @@ public class DataFileService {
     }
 
 
-    public String getDataFileContent(String systemName, String integrationPointName, String fileName) throws IOException {
+    private String getDataFileContent(String systemName, String integrationPointName, String fileName) throws IOException {
         File file = getContextDataFile(systemName, integrationPointName, fileName);
         log.debug("Getting file: " + file.getAbsolutePath());
         if (!file.exists()) {
@@ -205,12 +205,12 @@ public class DataFileService {
      * @return ресурс xml
      * @throws IOException
      */
-    public File getContextDataFile(String systemName, String integrationPoint, String fileName) throws IOException {
+    private File getContextDataFile(String systemName, String integrationPoint, String fileName) throws IOException {
         return getContextDataFile(systemName + File.separator + integrationPoint + File.separator +
                 fileName);
     }
 
-    public File getXsdFile(String systemName, String xsdFile) throws IOException {
+    File getXsdFile(String systemName, String xsdFile) throws IOException {
         if (xsdFile.toLowerCase().startsWith("http")) {
             //TODO test file from url
             return new File(xsdFile);
@@ -296,7 +296,7 @@ public class DataFileService {
         unzipFile(xsdZipFile, xsdDirectoryFile.getAbsolutePath());
     }
 
-    public void unzipFile(File zipFile, String placeToUnzip) throws IOException {
+    void unzipFile(File zipFile, String placeToUnzip) throws IOException {
         ZipFile zipFileArch = new ZipFile(zipFile);
         Enumeration<?> enumeration = zipFileArch.entries();
 

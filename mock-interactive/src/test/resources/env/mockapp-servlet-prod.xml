@@ -9,7 +9,7 @@
     <beans:import resource="../contextConfigs/base-config-prod.xml"/>
 
     <beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
-        <beans:constructor-arg value="/WEB-INF/MockConfig.xml" type="java.lang.String"/>
+        <beans:constructor-arg value="WEB-INF/MockConfig.xml" type="java.lang.String"/>
     </beans:bean>
 
     <beans:bean id="version" class="java.lang.String">
@@ -27,8 +27,8 @@
     <channel id="DriverInboundResponse"/>
 
     <!-- Генерация ответа -->
-    <service-activator input-channel="MockInboundRequest" output-channel="MockOutboundResponse"
-                       expression="@responseGenerator.proceedJmsRequest(payload)"/>
+    <!--<service-activator input-channel="MockInboundRequest" output-channel="MockOutboundResponse"-->
+                       <!--expression="@responseGenerator.proceedJmsRequest(payload)"/>-->
 
 
     <!-- Mock gateway to send requests to outbound -->

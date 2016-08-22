@@ -106,7 +106,7 @@ public class XmlGeneratorService {
         throw new IllegalStateException("Reached unreachable code in xml generator");
     }
 
-    public String generateJmsSystemMessage(String systemName) throws Exception {
+    String generateJmsSystemMessage(String systemName) throws Exception {
         System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
         return generateJmsMessage(system, null, null, false);
     }

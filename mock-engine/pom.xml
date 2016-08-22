@@ -37,7 +37,7 @@
     <parent>
         <groupId>ru.sbt.bpm.mock</groupId>
         <artifactId>mock-interactive-parent</artifactId>
-        <version>3.7.1</version>
+        <version>3.7.2</version>
     </parent>
     
     <artifactId>mock-engine</artifactId>
@@ -354,64 +354,86 @@
         <shaded-jar.name>${project.artifactId}-${project.version}.jar</shaded-jar.name>
     </properties>
 
-    <!--<build>-->
-        <!--<plugins>-->
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <artifactSet>
+                        <includes>
+                            <include>ru.sbt.bpm.mock:mock-engine</include>
+                        </includes>
+                    </artifactSet>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.wvengen</groupId>
+                <artifactId>proguard-maven-plugin</artifactId>
+                <version>2.0.13</version>
+                <executions>
+                    <execution>
+                        <id>proguard</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>proguard</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <obfuscate>true</obfuscate>
+                    <injar>${shaded-jar.name}</injar>
+                    <libs>
+                        <lib>${java.home}/lib/rt.jar</lib>
+                        <lib>${java.home}/lib/jce.jar</lib>
+                        <lib>${java.home}/lib/ext/sunjce_provider.jar</lib>
+                    </libs>
+                    <injarNotExistsSkip>true</injarNotExistsSkip>
+                    <proguardInclude>${project.basedir}/src/main/rules.pro</proguardInclude>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.proguard</groupId>
+                        <artifactId>proguard-base</artifactId>
+                        <version>5.2.1</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                </dependencies>
+            </plugin>
             <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-shade-plugin</artifactId>-->
-                <!--<version>2.3</version>-->
+                <!--<artifactId>maven-dependency-plugin</artifactId>-->
                 <!--<executions>-->
                     <!--<execution>-->
                         <!--<phase>package</phase>-->
                         <!--<goals>-->
-                            <!--<goal>shade</goal>-->
+                            <!--<goal>copy</goal>-->
                         <!--</goals>-->
                     <!--</execution>-->
                 <!--</executions>-->
                 <!--<configuration>-->
-                    <!--<artifactSet>-->
-                        <!--<includes>-->
-                            <!--<include>ru.sbt.bpm.mock:*</include>-->
-                        <!--</includes>-->
-                        <!--&lt;!&ndash;<excludes>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<exclude>ru.sbt.bpm.mock:artifact-name</exclude>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</excludes>&ndash;&gt;-->
-                    <!--</artifactSet>-->
+                    <!--<artifactItems>-->
+                        <!--<artifactItem>-->
+                            <!--<groupId>${project.parent.groupId}</groupId>-->
+                            <!--<artifactId>${project.artifactId}</artifactId>-->
+                            <!--<version>${project.version}</version>-->
+                            <!--<overWrite>true</overWrite>-->
+                        <!--</artifactItem>-->
+                    <!--</artifactItems>-->
+                    <!--<outputDirectory>${project.basedir}/libs</outputDirectory>-->
                 <!--</configuration>-->
             <!--</plugin>-->
-            <!--<plugin>-->
-                <!--<groupId>com.github.wvengen</groupId>-->
-                <!--<artifactId>proguard-maven-plugin</artifactId>-->
-                <!--<version>2.0.13</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>proguard</id>-->
-                        <!--<phase>package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>proguard</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-                <!--<configuration>-->
-                    <!--<obfuscate>true</obfuscate>-->
-                    <!--<injar>${shaded-jar.name}</injar>-->
-                    <!--<libs>-->
-                        <!--<lib>${java.home}/lib/rt.jar</lib>-->
-                        <!--<lib>${java.home}/lib/jce.jar</lib>-->
-                        <!--<lib>${java.home}/lib/ext/sunjce_provider.jar</lib>-->
-                    <!--</libs>-->
-                    <!--<injarNotExistsSkip>true</injarNotExistsSkip>-->
-                    <!--<proguardInclude>${project.basedir}/src/main/rules.pro</proguardInclude>-->
-                <!--</configuration>-->
-                <!--<dependencies>-->
-                    <!--<dependency>-->
-                        <!--<groupId>net.sf.proguard</groupId>-->
-                        <!--<artifactId>proguard-base</artifactId>-->
-                        <!--<version>5.2.1</version>-->
-                        <!--<scope>runtime</scope>-->
-                    <!--</dependency>-->
-                <!--</dependencies>-->
-            <!--</plugin>-->
-        <!--</plugins>-->
-    <!--</build>-->
+        </plugins>
+    </build>
 </project>
