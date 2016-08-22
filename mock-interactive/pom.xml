@@ -36,7 +36,7 @@
     <parent>
         <groupId>ru.sbt.bpm.mock</groupId>
         <artifactId>mock-interactive-parent</artifactId>
-        <version>3.7.2</version>
+        <version>3.8.0</version>
     </parent>
 
     <artifactId>mock-interactive</artifactId>
@@ -155,27 +155,61 @@
 
     <build>
         <plugins>
+            <!--<plugin>-->
+                <!--<artifactId>maven-resources-plugin</artifactId>-->
+                <!--<version>3.0.1</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>copy-prod-configs</id>-->
+                        <!--<phase>validate</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>copy-resources</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<outputDirectory>${project.basedir}/WEB-INF</outputDirectory>-->
+                            <!--<resources>-->
+                                <!--<resource>-->
+                                    <!--<directory>${project.basedir}/src/main/webapp/WEB-INF</directory>-->
+                                    <!--<filtering>true</filtering>-->
+                                <!--</resource>-->
+                            <!--</resources>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
             <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.0.1</version>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <version>1.5.2.1</version>
                 <executions>
                     <execution>
-                        <id>copy-prod-configs</id>
-                        <phase>validate</phase>
+                        <id>generate-manual</id>
+                        <phase>generate-resources</phase>
                         <goals>
-                            <goal>copy-resources</goal>
+                            <goal>process-asciidoc</goal>
                         </goals>
-                        <configuration>
-                            <outputDirectory>${project.basedir}/WEB-INF</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${project.basedir}/src/main/webapp/WEB-INF</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <backend>pdf</backend>
+                    <!--<sourceHighlighter>rouge</sourceHighlighter>-->
+                    <doctype>book</doctype>
+                    <attributes>
+                        <version>${project.parent.version}</version>
+                    </attributes>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj-pdf</artifactId>
+                        <version>1.5.0-alpha.8</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.jruby</groupId>
+                        <artifactId>jruby-complete</artifactId>
+                        <version>1.7.21</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
