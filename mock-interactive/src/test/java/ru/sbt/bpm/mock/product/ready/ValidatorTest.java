@@ -33,7 +33,7 @@ public class ValidatorTest extends AbstractTestNGSpringContextTests {
     @Autowired
     MessageValidationService validator;
 
-    @Test(enabled = false)
+    @Test
     public void testInit() throws IOException, SAXException {
         boolean assertSucceed = true;
         for (System system : container.getConfig().getSystems().getSystems()) {

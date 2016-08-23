@@ -30,7 +30,7 @@ public class GeneratorTest extends AbstractTestNGSpringContextTests {
     @Autowired
     MessageValidationService messageValidationService;
 
-    @Test(enabled = false)
+    @Test
     public void testGenerateAndValidateRsMessage() {
         boolean assertSuccess = true;
         for (System system : container.getConfig().getSystems().getSystems())
