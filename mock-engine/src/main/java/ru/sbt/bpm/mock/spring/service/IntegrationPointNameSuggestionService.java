@@ -57,10 +57,10 @@ import java.util.List;
 public class IntegrationPointNameSuggestionService {
 
     @Autowired
-    MockConfigContainer configContainer;
+    private MockConfigContainer configContainer;
 
     @Autowired
-    XmlGeneratorService generatorService;
+    private XmlGeneratorService generatorService;
 
     public List<String> suggestName(System system) throws Exception {
         return suggestName(system, true);

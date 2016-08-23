@@ -66,13 +66,14 @@ import java.util.List;
 public class XmlGeneratorService {
 
     @Autowired
-    MockConfigContainer configContainer;
+    private MockConfigContainer configContainer;
 
     @Autowired
-    DataFileService dataFileService;
+    private DataFileService dataFileService;
 
     @Autowired
-    GroovyService groovyService;
+    private GroovyService groovyService;
+
     private XSInstance xsInstance;
 
     @PostConstruct
@@ -106,7 +107,7 @@ public class XmlGeneratorService {
         throw new IllegalStateException("Reached unreachable code in xml generator");
     }
 
-    String generateJmsSystemMessage(String systemName) throws Exception {
+    public String generateJmsSystemMessage(String systemName) throws Exception {
         System system = configContainer.getConfig().getSystems().getSystemByName(systemName);
         return generateJmsMessage(system, null, null, false);
     }

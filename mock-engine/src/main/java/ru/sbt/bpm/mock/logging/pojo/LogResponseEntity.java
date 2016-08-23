@@ -42,8 +42,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class LogResponseEntity {
-    long draw;
-    long recordsTotal;
-    long recordsFiltered;
-    LogResponseDataEntity[] data;
+    private long draw;
+    private long recordsTotal;
+    private long recordsFiltered;
+    private LogResponseDataEntity[] data;
 }

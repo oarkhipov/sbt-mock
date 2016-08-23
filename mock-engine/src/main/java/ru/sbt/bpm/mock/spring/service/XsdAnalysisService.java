@@ -76,9 +76,11 @@ public class XsdAnalysisService {
     };
 
     @Autowired
-    MockConfigContainer configContainer;
+    private MockConfigContainer configContainer;
+
     @Autowired
-    DataFileService dataFileService;
+    private DataFileService dataFileService;
+
     // Maps
     private Map<String, Set<String>> mapNamespacesByXpath = new HashMap<String,
             Set<String>>();
@@ -86,7 +88,7 @@ public class XsdAnalysisService {
             Map<String, List<Tuple2<String, String>>>>();
 
 
-    void reInit() throws IOException, SaxonApiException {
+    public void reInit() throws IOException, SaxonApiException {
         mapNamespacesByXpath.clear();
         mapOfElements.clear();
         init();

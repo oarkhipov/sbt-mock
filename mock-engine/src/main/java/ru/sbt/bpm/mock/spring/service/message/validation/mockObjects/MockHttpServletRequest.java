@@ -55,9 +55,9 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
 
     private String method;
-    long dateHeader;
-    Cookie[] cookies;
-    byte[] content;
+    private long dateHeader;
+    private Cookie[] cookies;
+    private byte[] content;
 
     @Override
     public String getAuthType() {

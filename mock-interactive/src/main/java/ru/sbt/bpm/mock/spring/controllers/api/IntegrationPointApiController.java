@@ -81,6 +81,7 @@ public class IntegrationPointApiController {
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(system);
         XpathSelector xpathSelector = xpathValidatorNamespace != null ? new XpathSelector(xpathValidatorNamespace, xpathValidatorElementName) : null;
         if (delayMs == null) delayMs = 1000;
+        if (answerRequired == null) answerRequired = false;
         IntegrationPoint newIntegrationPoint =
                 new IntegrationPoint(name,
                         type,

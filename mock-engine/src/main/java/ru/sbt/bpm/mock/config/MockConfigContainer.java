@@ -132,6 +132,7 @@ public class MockConfigContainer {
 
         File resourceFile;
         if (applicationContext == null) {
+            log.warn("ApplicationContext is NULL!");
             resourceFile = new File(filePath);
             basePath = new File("").getAbsolutePath();
         } else {
