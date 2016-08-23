@@ -13,17 +13,20 @@
 
 #-keepclasseswithmembers public class * { public *;}
 
-#-keep public class * {
-#   public java.lang.String concatStrings(java.lang.String[]);
-#}
-
 -keep public interface * { *; }
+
+-keepdirectories
+#-keep @org.springframework.stereotype.Component class *
+-keepclassmembers class * {
+    @org.springframework.beans.factory.annotation.Autowired *;
+}
 
 #Config Classes
 -keep public class ru.sbt.bpm.mock.config.MockConfig { public *; }
 -keep public class ru.sbt.bpm.mock.config.MockConfigContainer { public *; }
--keep public class ru.sbt.bpm.mock.config.entities.** { public *; }
--keep public class ru.sbt.bpm.mock.config.entities.** { public *; }
+-keep public class ru.sbt.bpm.mock.config.entities.** {
+    *;
+}
 #Services
 -keep public class ru.sbt.bpm.mock.spring.bean.MessageAggregator { public *;}
 -keep public class ru.sbt.bpm.mock.spring.bean.pojo.MockMessage { public *;}

@@ -62,7 +62,7 @@ public class DataFileService {
     private final String xsdPath = "xsd" + File.separator;
 
     @Autowired
-    MockConfigContainer configContainer;
+    private MockConfigContainer configContainer;
 
     /**
      * Возвращает ресурс, лежащий в contextDir
@@ -82,7 +82,7 @@ public class DataFileService {
         }
     }
 
-    File getContextDataFile(String relativePath) {
+    public File getContextDataFile(String relativePath) {
         return getContextFile(dataPath + relativePath);
     }
 
@@ -95,7 +95,7 @@ public class DataFileService {
         return file;
     }
 
-    File getConfigFile() {
+    public File getConfigFile() {
         return new File(configContainer.getBasePath() + configContainer.getFilePath());
     }
 
@@ -172,7 +172,7 @@ public class DataFileService {
         return FileUtils.readFileToString(file, "UTF-8");
     }
 
-    void clearData() throws IOException {
+    public void clearData() throws IOException {
         //data clear
         File rootDir = getContextDataFile("");
         List<File> files = searchFiles(rootDir, "");
@@ -210,7 +210,7 @@ public class DataFileService {
                 fileName);
     }
 
-    File getXsdFile(String systemName, String xsdFile) throws IOException {
+    public File getXsdFile(String systemName, String xsdFile) throws IOException {
         if (xsdFile.toLowerCase().startsWith("http")) {
             //TODO test file from url
             return new File(xsdFile);
@@ -296,7 +296,7 @@ public class DataFileService {
         unzipFile(xsdZipFile, xsdDirectoryFile.getAbsolutePath());
     }
 
-    void unzipFile(File zipFile, String placeToUnzip) throws IOException {
+    public void unzipFile(File zipFile, String placeToUnzip) throws IOException {
         ZipFile zipFileArch = new ZipFile(zipFile);
         Enumeration<?> enumeration = zipFileArch.entries();
 

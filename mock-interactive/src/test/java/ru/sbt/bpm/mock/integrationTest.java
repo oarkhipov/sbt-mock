@@ -29,36 +29,52 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ru.sbt.bpm.mock.logging.pojo;
+package ru.sbt.bpm.mock;
 
-import lombok.NoArgsConstructor;
-import ru.sbt.bpm.mock.logging.entities.LogsEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.annotations.Test;
+import ru.sbt.bpm.mock.spring.controllers.api.DriverController;
+import ru.sbt.bpm.mock.spring.service.DataFileService;
+import ru.sbt.bpm.mock.spring.service.MessageSendingService;
+
+import java.io.File;
+
+import static org.testng.AssertJUnit.assertTrue;
 
 /**
- * @author sbt-bochev-as on 28.04.2016.
- *         <p/>
+ * @author sbt-bochev-as on 23.08.2016.
+ *         <p>
  *         Company: SBT - Moscow
  */
-@NoArgsConstructor
-public class LogResponseDataEntity {
-    private String ts;
-    private String transactionId;
-    private String protocol;
-    private String systemName;
-    private String integrationPointName;
-    private String fullEndpoint;
-    private String shortEndpoint;
-    private String messageState;
+@ContextConfiguration("classpath:env/mockapp-servlet-test.xml")
+public class integrationTest extends AbstractTestNGSpringContextTests {
 
+    @Autowired
+    private DataFileService dataFileService;
 
-    public LogResponseDataEntity(LogsEntity entity) {
-        ts = entity.getTs().toString();
-        transactionId = entity.getTransactionId()!=null?entity.getTransactionId():"-- Unknown --";
-        protocol = entity.getProtocol();
-        systemName = entity.getSystemName();
-        integrationPointName = entity.getIntegrationPointName();
-        fullEndpoint = entity.getFullEndpoint();
-        shortEndpoint = entity.getShortEndpoint();
-        messageState = entity.getMessageState();
+    @Autowired
+    private MessageSendingService messageSendingService;
+
+    @Autowired
+    private DriverController driverController;
+
+    @Test
+    public void mainTest() throws Exception {
+        File configFile = dataFileService.getConfigFile();
+        assertTrue(configFile.exists());
     }
+
+    @Test
+    public void messageTest() throws Exception {
+        assertTrue(messageSendingService != null);
+    }
+
+    @Test
+    public void driverTest() throws Exception {
+        assertTrue(driverController != null);
+
+    }
+
 }

@@ -44,7 +44,7 @@ import lombok.NoArgsConstructor;
  * on 25.11.2015.
  */
 @XStreamAlias("tag")
-@XStreamConverter(value = ToAttributedValueConverter.class, strings = "element", nulls = {String.class})
+@XStreamConverter(value = ToAttributedValueConverter.class, strings = "element")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

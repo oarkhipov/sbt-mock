@@ -114,7 +114,7 @@ public class GroovyService {
         return mockXml;
     }
 
-    Tuple2<String, String> extractVariablesFromInlineExpressions(String content) throws IOException {
+    public Tuple2<String, String> extractVariablesFromInlineExpressions(String content) throws IOException {
         log.debug("Begin content variable extraction");
         StringBuilder extractedVariablesStringBuilder = new StringBuilder();
         if (content.contains("${=")) {

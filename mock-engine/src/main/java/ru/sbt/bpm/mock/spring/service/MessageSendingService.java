@@ -65,13 +65,13 @@ import java.util.UUID;
 public class MessageSendingService {
 
     @Autowired
-    ClientService clientService;
+    private ClientService clientService;
 
     @Autowired
-    MockConfigContainer configContainer;
+    private MockConfigContainer configContainer;
 
     @Autowired
-    ResponseGenerator responseGenerator;
+    private ResponseGenerator responseGenerator;
 
     public synchronized String send(MockMessage message) throws IOException {
         message.setTransactionId(UUID.randomUUID());
@@ -108,7 +108,7 @@ public class MessageSendingService {
         return responseString;
     }
 
-    String sendWs(MockMessage message) throws IOException {
+    public String sendWs(MockMessage message) throws IOException {
         if (message.getTransactionId() == null) {
             message.setTransactionId(UUID.randomUUID());
         }

@@ -53,7 +53,7 @@ import java.util.regex.Pattern;
 
 @Slf4j
 public class SaveFile {
-    static String rootpath;
+    public static String rootpath;
     private static SaveFile ourInstance = new SaveFile();
     public int logSize = 5;//TODO засунуть в конфиг
     protected String slash;

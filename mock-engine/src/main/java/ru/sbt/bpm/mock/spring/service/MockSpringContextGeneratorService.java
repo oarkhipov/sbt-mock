@@ -203,7 +203,7 @@ public class MockSpringContextGeneratorService {
         mapMockChannels.clear();
     }
 
-    void reInit() {
+    public void reInit() {
         clean();
         initBeans();
     }
@@ -213,7 +213,7 @@ public class MockSpringContextGeneratorService {
      *
      * @return
      */
-    Beans generateContext() {
+    public Beans generateContext() {
         if (systems != null)
             for (System system : systems) {
                 if ( (system.getProtocol() == Protocol.JMS) && system.getEnabled()) {

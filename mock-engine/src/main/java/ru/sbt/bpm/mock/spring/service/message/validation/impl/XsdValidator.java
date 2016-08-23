@@ -59,8 +59,8 @@ import java.util.List;
 @Slf4j
 public class XsdValidator implements MessageValidator {
 
-    SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-    List<String> errors = new LinkedList<String>();
+    private SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+    private List<String> errors = new LinkedList<String>();
     private final Validator validator;
 
     public XsdValidator(List<File> xsdFiles) throws SAXException {
