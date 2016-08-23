@@ -274,7 +274,9 @@ response.reasonCount = ru.sbt.bpm.mock.spring.utils.XmlUtils.evaluateXpath(reque
 
 === Диспетчеризация по Xpath
 
-[source,c]
-/ //*:Product/*:NetMargin/text()
+[source,xml]
+---------------------------
+//*:Product/*:NetMargin/text()
 count('//*:Products//*:Product/*:NetMargin')
 /*:ObjectID[contains(text(), '0000')]/text()
+---------------------------
