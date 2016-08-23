@@ -41,8 +41,7 @@
 === Добавление системы
 
 . На вкладке Integration point нажать кнопку ``Add System``
- [[img-addSystem]]
- image:images/addSystem.jpg[alt="Добавление системы"]
+image:images/addSystem.jpg[alt="Добавление системы"]
 . В появившемся окне указать следующие данные:
   .. Название системы
   .. Имя файла с корневым элементом (с указанием пути относительно корневой папки системы)
@@ -116,8 +115,9 @@ TIP: При указании ``Integration point Selector`` заполнение
  image:images/addMessage.jpg[alt="Добавить шаблон"]
 . Нажать ``Save``
 . После этого шаблон появится во вложенном списке интеграционной точки, готовый для настройки.
- [[img-newTemplate]]
- image:images/newTemplate.jpg[alt="Добавленный шаблон"]
+
+[[img-newTemplate]]
+image:images/newTemplate.jpg[alt="Добавленный шаблон"]
 
 == Работа с заглушкой
 
