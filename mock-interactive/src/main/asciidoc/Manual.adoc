@@ -212,3 +212,69 @@ image:images/newTemplate.jpg[alt="Добавленный шаблон"]
 === Frame Mock
 
 
+== Приложение
+
+=== Динамическая генерация полей сообщения
+
+==== Скрипт:
+[source,groovy]
+response.reqTime = new java.util.Date().format("yyyy-MM-dd'T'hh:mm:ss")
+response.prob = new Random().nextInt(10)*10
+response.messageID=org.apache.commons.lang.RandomStringUtils.randomNumeric(32)
+
+==== Сообщение:
+[source,xml]
+<ns:Envelope xmlns:ns="http://sbrf.ru/">
+  <ns3:Header xmlns:ns3="http://sbrf.ru/ESB/mq/headers">
+    <ns3:message-id>${messageID}</ns3:message-id>
+    <ns3:request-time>${reqTime}</ns3:request-time>
+    <ns3:operation-name>RatingFinalPDRs</ns3:operation-name>
+    <ns3:user-name>user${org.apache.commons.lang.RandomStringUtils.randomNumeric(6)}</ns3:user-name>
+  </ns3:Header>
+  <ns:Body>
+    <ns1:RatingFinalPDRs xmlns:ns1="http://sbrf.ru/NCPCA/AMRLiRT/RatingFinalPDRs/">
+      <ns1:Status>
+        <ns4:StatusCode xmlns:ns4="http://sbrf.ru/NCPCA/AMRLiRT/CommonTypes/">0</ns4:StatusCode>
+    </ns1:Status>
+      <ns1:DefaultProbability>${prob}</ns1:DefaultProbability>
+    </ns1:RatingFinalPDRs>
+  </ns:Body>
+</ns:Envelope>
+
+=== Парсинг входящего сообщения
+
+==== Скрипт:
+[source,groovy]
+def ns= new groovy.xml.Namespace("http://sbrf.ru/NCPCA/DIS/ChangeUnderwritingDecisionStatusMessageElements/")
+def ns2= new groovy.xml.Namespace("http://sbrf.ru/NCPCA/DIS/ChangeUnderwritingDecisionStatusRq/")
+response.DISRequestID = requestDom[ns.Body][ns2.ChangeUnderwritingDecisionStatusRq][ns2.DataFields][ns2.DISHeaders][ns2.DISRequestID].text()
+response.underwriterWorkID=requestDom[ns.Body][ns2.ChangeUnderwritingDecisionStatusRq][ns2.DataFields][ns2.DISHeaders][ns2.UnderwriterWorkID].text()
+response.reasonCount = ru.sbt.bpm.mock.spring.utils.XmlUtils.evaluateXpath(request,'count(//*:Reason)')
+
+==== Сообщение:
+[source,xml]
+<ns:Envelope xmlns:ns="http://sbrf.ru/NCPCA/DIS/ChangeUnderwritingDecisionStatusMessageElements/">
+  <ns:Body>
+    <ns1:ChangeUnderwritingDecisionStatusRs xmlns:ns1="http://sbrf.ru/NCPCA/DIS/ChangeUnderwritingDecisionStatusRs/">
+      <ns1:DataFields>
+        <ns1:DISHeaders>
+          <ns1:DISRequestID>${DISRequestID}</ns1:DISRequestID>
+          <ns1:UnderwriterWorkID>${underwriterWorkID}</ns1:UnderwriterWorkID>
+        </ns1:DISHeaders>
+        <ns1:ReasonCount>${reasonCount}</ns1:ReasonCount>
+        <ns1:Status>
+          <ns1:StatusCode>0</ns1:StatusCode>
+          <ns1:ServerStatusCode>E0</ns1:ServerStatusCode>
+          <ns1:StatusDesc>OK</ns1:StatusDesc>
+        </ns1:Status>
+      </ns1:DataFields>
+    </ns1:ChangeUnderwritingDecisionStatusRs>
+  </ns:Body>
+</ns:Envelope>
+
+=== Диспетчеризация по Xpath
+
+[source,c]
+/ //*:Product/*:NetMargin/text()
+count('//*:Products//*:Product/*:NetMargin')
+/*:ObjectID[contains(text(), '0000')]/text()
