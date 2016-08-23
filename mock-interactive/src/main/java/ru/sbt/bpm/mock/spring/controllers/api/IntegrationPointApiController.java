@@ -138,6 +138,8 @@ public class IntegrationPointApiController {
         System systemObject = configContainer.getConfig().getSystems().getSystemByName(system);
         IntegrationPoint integrationPoint = systemObject.getIntegrationPoints().getIntegrationPointByName(name);
 
+        if (answerRequired == null) answerRequired = false;
+
         if (!integrationPoint.getName().equals(newIntegrationPointName)) {
             integrationPoint.setName(newIntegrationPointName);
             dataFileService.moveDataFiles(system, name, newIntegrationPointName);

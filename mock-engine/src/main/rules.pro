@@ -30,7 +30,10 @@
 #Services
 -keep public class ru.sbt.bpm.mock.spring.bean.MessageAggregator { public *;}
 -keep public class ru.sbt.bpm.mock.spring.bean.pojo.MockMessage { public *;}
--keep public class ru.sbt.bpm.mock.spring.service.*Service { public *;}
+-keep public class ru.sbt.bpm.mock.spring.service.*Service {
+    public *;
+    private <fields>;
+}
 -keep public class ru.sbt.bpm.mock.spring.service.message.* { public *;}
 -keep public class ru.sbt.bpm.mock.spring.service.message.validation.exceptions.* { public *;}
 -keep public class ru.sbt.bpm.mock.spring.service.message.validation.*Service { public *;}
