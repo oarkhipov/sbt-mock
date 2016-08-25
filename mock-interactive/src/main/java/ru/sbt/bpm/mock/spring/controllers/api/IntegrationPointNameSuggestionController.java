@@ -63,7 +63,9 @@ public class IntegrationPointNameSuggestionController {
             stringBuilder.append("\"").append(name).append("\", ");
         }
         int length = stringBuilder.length();
-        stringBuilder.replace(length - 2, length, "");
+        if (length > 1) {
+            stringBuilder.replace(length - 2, length, "");
+        }
         stringBuilder.append("]");
         return stringBuilder.toString();
     }

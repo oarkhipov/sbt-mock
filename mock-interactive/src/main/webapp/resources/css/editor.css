@@ -41,11 +41,13 @@
 #code {
     height: 400px;
     border: 1px gainsboro solid;
+    z-index: 0;
 }
 
 #resCode {
     height: 648px;
     border: 1px gainsboro solid;
+    z-index: 0;
 }
 
 #codeWrapper {
