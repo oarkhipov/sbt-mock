@@ -333,10 +333,13 @@ public class SystemApiController {
     public String uploadSchema(@PathVariable String system,
                                @RequestParam MultipartFile file) throws IOException, SAXException, SaxonApiException {
         File tempFile = new File(file.getOriginalFilename() + "_" + java.lang.System.currentTimeMillis());
-        file.transferTo(tempFile);
-        dataFileService.uploadSchema(system, tempFile);
-        if (!tempFile.delete()) {
-            tempFile.deleteOnExit();
+        try {
+            file.transferTo(tempFile);
+            dataFileService.uploadSchema(system, tempFile);
+        } finally {
+            if (!tempFile.delete()) {
+                tempFile.deleteOnExit();
+            }
         }
         validationService.reInitValidator(system);
         xsdAnalysisService.reInit(system);

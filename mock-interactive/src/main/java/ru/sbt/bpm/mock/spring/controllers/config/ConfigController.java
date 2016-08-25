@@ -88,10 +88,13 @@ public class ConfigController {
     @RequestMapping(value = "/config/import", method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
     public String importConfig(@RequestParam MultipartFile file) throws IOException, SaxonApiException, JAXBException {
         File tempFile = new File(file.getOriginalFilename() + "_" + System.currentTimeMillis());
-        file.transferTo(tempFile);
-        configurationService.unzipConfiguration(tempFile);
-        if (!tempFile.delete()) {
-            tempFile.deleteOnExit();
+        try {
+            file.transferTo(tempFile);
+            configurationService.unzipConfiguration(tempFile);
+        } finally {
+            if (!tempFile.delete()) {
+                tempFile.deleteOnExit();
+            }
         }
         return "OK!";
     }

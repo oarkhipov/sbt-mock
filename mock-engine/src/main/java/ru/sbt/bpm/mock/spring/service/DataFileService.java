@@ -312,6 +312,9 @@ public class DataFileService {
                 parentFile.mkdirs();
             }
             if (file.isDirectory()) {
+                if (file.exists()) {
+                    file.delete();
+                }
                 file.mkdir();
             } else {
                 //Extract file
