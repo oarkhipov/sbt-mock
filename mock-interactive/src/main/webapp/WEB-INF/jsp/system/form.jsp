@@ -81,7 +81,7 @@
         </div>
     </div>
     <input type="hidden"
-           value="<c:choose><c:when test="${system.protocol != ''}">${system.protocol}</c:when><c:otherwise>JMS</c:otherwise></c:choose>"
+           value="<c:choose><c:when test="${system != null && system.protocol != ''}">${system.protocol}</c:when><c:otherwise>JMS</c:otherwise></c:choose>"
            name="protocol" id="protocol"/>
 
     <div id="protocol-container" class="centered-pills">
