@@ -19,6 +19,7 @@
 #-keep @org.springframework.stereotype.Component class *
 -keepclassmembers class * {
     @org.springframework.beans.factory.annotation.Autowired *;
+    @javax.annotation.PostConstruct *;
 }
 
 #Config Classes
