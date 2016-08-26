@@ -50,3 +50,5 @@
 
 #Logging
 -keep public class ru.sbt.bpm.mock.logging.** { public *;}
+
+-keep public class ru.sbt.bpm.mock.utils.AjaxObject { private <fields>;}
