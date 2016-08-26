@@ -311,11 +311,8 @@ public class DataFileService {
             if (parentFile != null) {
                 parentFile.mkdirs();
             }
-            if (file.isDirectory()) {
-                if (file.exists()) {
-                    file.delete();
-                }
-                file.mkdir();
+            if (zipEntry.isDirectory()) {
+                parentFile.mkdirs();
             } else {
                 //Extract file
                 InputStream inputStream = zipFileArch.getInputStream(zipEntry);
