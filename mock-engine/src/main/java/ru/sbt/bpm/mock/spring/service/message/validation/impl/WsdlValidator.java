@@ -76,6 +76,6 @@ public class WsdlValidator implements MessageValidator {
     }
 
     public WsdlProject getWsdlProject() {
-        return wsdlMessageValidator.getWsdlProject();
+        return wsdlMessageValidator == null ? null : wsdlMessageValidator.getWsdlProject();
     }
 }
