@@ -214,7 +214,7 @@ image::newTemplate.jpg[title="Добавленный шаблон",alt="Доба
 
 === Frame Mock
 
-При наличии интеграций по средствам фрейма следует использовать модуль FrameMock для эмуляции интеграционного взаимодействия.
+При наличии интеграций посредством фрейма следует использовать модуль FrameMock для эмуляции интеграционного взаимодействия.
 Для настройки FrameMock необходимо в ``DSS`` у нужных endpoint-ов указать: \\http:{ip_host}:{port}/mock/FrameMock/ .
 После этого при вызове фрейма внешней системы, на странице будут отображаться передаваемые параметры со значениями.
 
@@ -249,6 +249,15 @@ response.messageID=org.apache.commons.lang.RandomStringUtils.randomNumeric(32)
 
 === Парсинг входящего сообщения
 
+Для парсинга входящего сообщения используется 2 параметра, которые передаются в скрипт.
+
+``request`` - текст входящего сообщения
+
+``requestDom`` - DOM объект, для доступа к нодам сообщения.
+
+TIP: requestDom указывает на корневой элемент сообщения.
+ Это значит, что при обращении к элементу сообщения, необходимо описывать путь со второго по иерархии элемента XML
+
 ==== Скрипт:
 [source,groovy]
 def ns= new groovy.xml.Namespace("http://sbrf.ru/NCPCA/DIS/ChangeUnderwritingDecisionStatusMessageElements/")
@@ -256,6 +265,10 @@ def ns2= new groovy.xml.Namespace("http://sbrf.ru/NCPCA/DIS/ChangeUnderwritingDe
 response.DISRequestID = requestDom[ns.Body][ns2.ChangeUnderwritingDecisionStatusRq][ns2.DataFields][ns2.DISHeaders][ns2.DISRequestID].text()
 response.underwriterWorkID=requestDom[ns.Body][ns2.ChangeUnderwritingDecisionStatusRq][ns2.DataFields][ns2.DISHeaders][ns2.UnderwriterWorkID].text()
 response.reasonCount = ru.sbt.bpm.mock.spring.utils.XmlUtils.evaluateXpath(request,'count(//*:Reason)')
+
+TIP: В случае, если необходимо обратиться к элементу, имя которого состоит из нескольких слов, объединённых разделителем, необходимо имя элемента взять в одинарные кавычки.
+
+TIP: Например: _requestDom[ns.Body][ns.Header][ns.'message-id'].text()_
 
 ==== Сообщение:
 [source,xml]
