@@ -92,20 +92,22 @@ public class SOAPValidationService {
 
         WsdlProject wsdlProject = wsdlValidator.getWsdlProject();
         configContainer.getWsdlProjectMap().put(systemName, wsdlProject);
-        //create testsuite
-        WsdlTestSuite testSuite = wsdlProject.addNewTestSuite("TestSuite");
-        WsdlTestCase testCase = testSuite.addNewTestCase("TestCase");
+        if (wsdlProject != null) {
+            //create testsuite
+            WsdlTestSuite testSuite = wsdlProject.addNewTestSuite("TestSuite");
+            WsdlTestCase testCase = testSuite.addNewTestCase("TestCase");
 
-        WsdlMockService mockService = wsdlProject.addNewMockService("MockService");
-        //init test steps for all operations
-        for (Operation operation : wsdlProject.getInterfaceList().get(0).getOperationList()) {
-            WsdlOperation wsdlOperation = (WsdlOperation) operation;
-            TestStepConfig testStepConfig = WsdlTestRequestStepFactory.createConfig(wsdlOperation, wsdlOperation.getName());
-            testCase.addTestStep(testStepConfig);
-            mockService.addNewMockOperation(operation);
+            WsdlMockService mockService = wsdlProject.addNewMockService("MockService");
+            //init test steps for all operations
+            for (Operation operation : wsdlProject.getInterfaceList().get(0).getOperationList()) {
+                WsdlOperation wsdlOperation = (WsdlOperation) operation;
+                TestStepConfig testStepConfig = WsdlTestRequestStepFactory.createConfig(wsdlOperation, wsdlOperation.getName());
+                testCase.addTestStep(testStepConfig);
+                mockService.addNewMockOperation(operation);
+            }
+
+            validator.put(systemName, wsdlValidator);
         }
-
-        validator.put(systemName, wsdlValidator);
     }
 
     private WsdlValidator initLocalWsdlValidator(System system, String localRootSchema) throws IOException {

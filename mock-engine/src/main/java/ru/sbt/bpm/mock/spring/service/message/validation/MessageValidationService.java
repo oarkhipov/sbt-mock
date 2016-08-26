@@ -49,10 +49,7 @@ import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MessageValid
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -131,7 +128,12 @@ public class MessageValidationService {
      * @param systemName подпапка из директорий xsd и data, по которым будет производится ваидация
      * @return признак валидности
      */
-    public List<String> validate(String xml, String systemName) {
+    public List<String> validate(String xml, final String systemName) {
+        if (validator.get(systemName) == null) {
+            return new ArrayList<String>(){{
+                add(String.format("Validator for system [%s] is not initiated!", systemName));
+            }};
+        }
         return validator.get(systemName).validate(xml);
     }
 
