@@ -50,7 +50,7 @@ public class GroovyServiceTest extends AbstractTestNGSpringContextTests {
         assertEquals(randomAlphanumeric, groovyService.execute("", randomAlphanumeric, ""));
     }
 
-    @Test(timeOut = 10000)
+    @Test(timeOut = 15000)
     public void testCompileHugeDynamicAlphaNumericInlineText() throws Exception {
         String randomAlphanumeric = RandomStringUtils.randomAlphanumeric(1000000);
         assertEquals("3" + randomAlphanumeric + "5", groovyService.execute("", "${= new Integer(3)}" + randomAlphanumeric + "${= new Integer(5)}", ""));

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2016, Sberbank and/or its affiliates. All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted provided that the following conditions
+  ~ are met:
+  ~
+  ~   - Redistributions of source code must retain the above copyright
+  ~     notice, this list of conditions and the following disclaimer.
+  ~
+  ~   - Redistributions in binary form must reproduce the above copyright
+  ~     notice, this list of conditions and the following disclaimer in the
+  ~     documentation and/or other materials provided with the distribution.
+  ~
+  ~   - Neither the name of Sberbank or the names of its
+  ~     contributors may be used to endorse or promote products derived
+  ~     from this software without specific prior written permission.
+  ~
+  ~ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+  ~ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+  ~ THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+  ~ PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+  ~ CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+  ~ EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+  ~ PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  ~ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  ~ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  ~ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  ~ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  -->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans		http://www.springframework.org/schema/beans/spring-beans.xsd
+		 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		 http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		 http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
+
+    <context:component-scan base-package="ru.sbt.bpm.mock.spring, ru.sbt.bpm.mock.logging.spring"/>
+
+    <bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
+        <constructor-arg value="/env/EmptyMockConfig.xml" type="java.lang.String"/>
+    </bean>
+
+    <bean id="version" class="java.lang.String">
+        <constructor-arg value="test" type="java.lang.String"/>
+    </bean>
+
+    <jpa:repositories base-package="ru.sbt.bpm.mock.logging.repository"/>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="ru.sbt.bpm.mock.logging"/>
+        <property name="jpaDialect">
+            <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect"/>
+        </property>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
+                <property name="generateDdl" value="false"/>
+                <property name="database" value="H2"/>
+                <property name="showSql" value="false"/>
+                <property name="databasePlatform" value="org.eclipse.persistence.platform.database.H2Platform"/>
+            </bean>
+        </property>
+        <property name="jpaPropertyMap">
+            <map>
+                <entry key="eclipselink.weaving" value="false"/>
+                <entry key="eclipselink.cache.shared.default" value="false"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.h2.Driver"/>
+        <property name="url" value="jdbc:h2:./target/mock;AUTO_SERVER=TRUE"/>
+        <property name="username" value="test"/>
+        <property name="password" value="test"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <jdbc:initialize-database ignore-failures="ALL">
+        <jdbc:script location="classpath:dbInit.sql"/>
+    </jdbc:initialize-database>
+
+    <!-- gateway for testing feature -->
+    <int:gateway service-interface="ru.sbt.bpm.mock.spring.integration.gateway.TestGatewayService">
+        <int:method name="test" request-channel="test" reply-channel="test"/>
+    </int:gateway>
+    <int:channel id="test"/>
+
+    <!-- DRIVER PART -->
+    <int:channel id="DriverOutboundRequest"/>
+    <int:channel id="DriverInboundResponse"/>
+
+    <int:channel id="DriverRouterChannelInput"/>
+    <!-- Mock gateway to send requests to outbound -->
+    <int:gateway id="systemEntry"
+                 error-channel="DriverInboundResponse"
+                 service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService"
+    >
+        <int:method name="send" request-channel="DriverRouterChannelInput"
+                    reply-channel="DriverInboundResponse"/>
+    </int:gateway>
+
+    <int:delayer id="delay" input-channel="DriverRouterChannelInput" output-channel="DriverInboundResponse" default-delay="15000"/>
+
+</beans>
