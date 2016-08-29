@@ -49,6 +49,9 @@
 -keep public class ru.sbt.bpm.mock.spring.service.message.validation.mockObjects.MockHttpServletResponse { public *;}
 
 #Logging
--keep public class ru.sbt.bpm.mock.logging.** { public *;}
+-keep public class ru.sbt.bpm.mock.logging.** {
+    private <fields>;
+    public *;
+}
 
 -keep public class ru.sbt.bpm.mock.utils.AjaxObject { private <fields>;}
