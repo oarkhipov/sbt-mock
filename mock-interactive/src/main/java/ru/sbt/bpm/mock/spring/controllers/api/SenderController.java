@@ -77,7 +77,7 @@ public class SenderController {
                 ajaxObject.setData(response);
                 ajaxObject.setInfo("DONE!");
         } catch (Exception e) {
-            ajaxObject.setErrorFromException(e);
+            ajaxObject.setError(e);
         }
 
         return ajaxObject.toJSON();

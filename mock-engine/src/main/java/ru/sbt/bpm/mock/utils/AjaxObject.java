@@ -59,7 +59,7 @@ public class AjaxObject {
 
     public AjaxObject(String info, Exception e, String data) {
         this.info = info;
-        setErrorFromException(e);
+        setError(e);
         this.data = data;
     }
 
@@ -83,11 +83,11 @@ public class AjaxObject {
         return gson.toJson(this);
     }
 
-    public void setErrorFromException(Exception exception) {
+    public void setError(Exception exception) {
         final String exceptionStackTrace = ExceptionUtils.getExceptionStackTrace(exception);
-        String[] splittedExceptions = exceptionStackTrace.split("\n");
-        splittedExceptions = Arrays.copyOf(splittedExceptions, 10);
-        final String joinedExceptions = StringUtils.join(splittedExceptions, "<br/>");
+        String[] splitExceptions = exceptionStackTrace.split("\n");
+        splitExceptions = Arrays.copyOf(splitExceptions, 10);
+        final String joinedExceptions = StringUtils.join(splitExceptions, "<br/>");
         setError(joinedExceptions);
     }
 

@@ -49,6 +49,8 @@ import ru.sbt.bpm.mock.spring.service.ConfigurationService;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.XsdAnalysisService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
+import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
+import ru.sbt.bpm.mock.utils.AjaxObject;
 import ru.sbt.bpm.mock.utils.ExceptionUtils;
 
 import javax.xml.bind.JAXBException;
@@ -161,11 +163,7 @@ public class SystemApiController {
             }
         }
 
-        if (rootSchema != null) {
-            if (systemObject.getRemoteRootSchema() == null || !systemObject.getRemoteRootSchema().equals(rootSchema)) {
-                systemObject.setRemoteRootSchema(rootSchema);
-            }
-        }
+        systemObject.setRemoteRootSchema(rootSchema);
 
         String localRootSchema = null;
         if (rootSchema != null) {
@@ -344,5 +342,22 @@ public class SystemApiController {
         validationService.reInitValidator(system);
         xsdAnalysisService.reInit(system);
         return "OK!";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/api/system/{systemName}/validate")
+    public String validate(@PathVariable String systemName, @RequestParam String message) {
+        AjaxObject ajaxObject = new AjaxObject();
+        try {
+        List<String> validationErrors = validationService.validate(message, systemName);
+        if (validationErrors.isEmpty()) {
+            ajaxObject.setInfo("Valid");
+        } else {
+            ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
+        }
+        } catch (Exception e) {
+            ajaxObject.setError(e);
+        }
+        return ajaxObject.toJSON();
     }
 }

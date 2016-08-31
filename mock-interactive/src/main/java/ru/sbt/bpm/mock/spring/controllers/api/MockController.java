@@ -206,7 +206,7 @@ public class MockController {
         try {
             ajaxObject.setData(generatorService.generate(systemName, integrationPointName, MessageType.RS, false));
         } catch (Exception e) {
-            ajaxObject.setErrorFromException(e);
+            ajaxObject.setError(e);
         }
         return ajaxObject.toJSON();
     }
@@ -220,7 +220,7 @@ public class MockController {
         try {
             ajaxObject.setData(generatorService.generate(systemName, integrationPointName, MessageType.RS, true));
         } catch (Exception e) {
-            ajaxObject.setErrorFromException(e);
+            ajaxObject.setError(e);
         }
         return ajaxObject.toJSON();
     }
@@ -234,7 +234,7 @@ public class MockController {
         try {
             ajaxObject.setData(generatorService.generate(systemName, integrationPointName, MessageType.RQ, false));
         } catch (Exception e) {
-            ajaxObject.setErrorFromException(e);
+            ajaxObject.setError(e);
         }
         return ajaxObject.toJSON();
     }
@@ -248,7 +248,7 @@ public class MockController {
         try {
             ajaxObject.setData(generatorService.generate(systemName, integrationPointName, MessageType.RQ, true));
         } catch (Exception e) {
-            ajaxObject.setErrorFromException(e);
+            ajaxObject.setError(e);
         }
         return ajaxObject.toJSON();
     }
@@ -324,7 +324,7 @@ public class MockController {
         } catch (MessageValidationException e) {
             ajaxObject.setError(e.getMessage());
         } catch (Exception e) {
-            ajaxObject.setErrorFromException(e);
+            ajaxObject.setError(e);
         }
         return Tuple.of(ajaxObject, compiledXml);
     }
@@ -350,7 +350,7 @@ public class MockController {
                 } catch (MessageValidationException e) {
                     ajaxObject.setError(e.getMessage());
                 } catch (Exception e) {
-                    ajaxObject.setErrorFromException(e);
+                    ajaxObject.setError(e);
                 }
             }
         }

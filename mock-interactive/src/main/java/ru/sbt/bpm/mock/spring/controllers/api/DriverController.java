@@ -193,9 +193,9 @@ public class DriverController {
                     saver.writeStringToFile(testFile, test);
                     ajaxObject.setInfo("Saved!");
                 } catch (IOException e) {
-                    ajaxObject.setErrorFromException(e);
+                    ajaxObject.setError(e);
                 } catch (Exception e) {
-                    ajaxObject.setErrorFromException(e);
+                    ajaxObject.setError(e);
                 }
             }
         }
@@ -257,7 +257,7 @@ public class DriverController {
         try {
             ajaxObject.setData(generatorService.generate(systemName, integrationPointName, MessageType.RQ, true));
         } catch (Exception e) {
-            ajaxObject.setErrorFromException(e);
+            ajaxObject.setError(e);
         }
         return ajaxObject.toJSON();
     }
@@ -271,7 +271,7 @@ public class DriverController {
         try {
             ajaxObject.setData(generatorService.generate(systemName, integrationPointName, MessageType.RQ, false));
         } catch (Exception e) {
-            ajaxObject.setErrorFromException(e);
+            ajaxObject.setError(e);
         }
         return ajaxObject.toJSON();
     }
@@ -353,7 +353,7 @@ public class DriverController {
                 }
             }
         } catch (Exception e) {
-            ajaxObject.setErrorFromException(e);
+            ajaxObject.setError(e);
         }
         return Tuple.of(ajaxObject, compiledXml);
     }

@@ -58,7 +58,7 @@ public class XmlGeneratorController {
         try {
             ajaxObject.setData(generatorService.generate(system, integrationPointName, MessageType.RQ, filtered));
         } catch (Exception e) {
-            ajaxObject.setErrorFromException(e);
+            ajaxObject.setError(e);
         }
         return ajaxObject.toJSON();
     }
@@ -70,7 +70,7 @@ public class XmlGeneratorController {
         try {
             ajaxObject.setData(generatorService.generate(system, integrationPointName, MessageType.RS, filtered));
         } catch (Exception e) {
-            ajaxObject.setErrorFromException(e);
+            ajaxObject.setError(e);
         }
         return ajaxObject.toJSON();
     }

@@ -143,7 +143,8 @@
                                 <tbody>
                                 <c:forEach var="system" items="${list.systems}">
                                     <tr id="${system.systemName}">
-                                        <td style="vertical-align: top; padding-top: 10px" class="<c:if test="${system.enabled == false}">disabledByConfig</c:if>">
+                                        <td style="vertical-align: top; padding-top: 10px"
+                                            class="<c:if test="${system.enabled == false}">disabledByConfig</c:if>">
                                             <span class="label label-<c:if test="${system.protocol eq 'JMS'}">warning</c:if><c:if test="${system.protocol eq 'SOAP'}">info</c:if> ">${system.protocol}</span>
                                                 ${system.systemName}
                                         </td>
@@ -159,8 +160,8 @@
                                                           title="Validation disabled (inherited)"></span>
                                                 </c:when>
                                                 <%--<c:otherwise>--%>
-                                                    <%--<span class="glyphicon glyphicon-ok-circle btn-success btn-xs icon-grey-link"--%>
-                                                          <%--title="Validation Enabled"></span>--%>
+                                                <%--<span class="glyphicon glyphicon-ok-circle btn-success btn-xs icon-grey-link"--%>
+                                                <%--title="Validation Enabled"></span>--%>
                                                 <%--</c:otherwise>--%>
                                             </c:choose>
                                         </td>
@@ -201,7 +202,8 @@
                                     <%-- MOCKS --%>
 
                                     <c:forEach var="mockIntegrationPoint" items="${system.mockIntegrationPoints}">
-                                        <tr id="${system.systemName}__${mockIntegrationPoint.name}" class="<c:if test="${system.enabled == false || mockIntegrationPoint.enabled == false}">disabledByConfig</c:if>">
+                                        <tr id="${system.systemName}__${mockIntegrationPoint.name}"
+                                            class="<c:if test="${system.enabled == false || mockIntegrationPoint.enabled == false}">disabledByConfig</c:if>">
                                             <td align="right">
                                                 <span class="glyphicon glyphicon-menu-right"
                                                       style="opacity: 0.6"></span>
@@ -227,8 +229,8 @@
                                                               title="Validation disabled (inherited)"></span>
                                                     </c:when>
                                                     <%--<c:otherwise>--%>
-                                                        <%--<span class="glyphicon glyphicon-ok-circle btn-success btn-xs icon-grey-link"--%>
-                                                              <%--title="Validation Enabled"></span>--%>
+                                                    <%--<span class="glyphicon glyphicon-ok-circle btn-success btn-xs icon-grey-link"--%>
+                                                    <%--title="Validation Enabled"></span>--%>
                                                     <%--</c:otherwise>--%>
                                                 </c:choose>
                                             </td>
@@ -297,7 +299,8 @@
                                     <%-- DRIVERS --%>
 
                                     <c:forEach var="driverIntegrationPoint" items="${system.driverIntegrationPoints}">
-                                        <tr id="${system.systemName}__${driverIntegrationPoint.name}" class="<c:if test="${system.enabled == false || driverIntegrationPoint.enabled == false}">disabledByConfig</c:if>">
+                                        <tr id="${system.systemName}__${driverIntegrationPoint.name}"
+                                            class="<c:if test="${system.enabled == false || driverIntegrationPoint.enabled == false}">disabledByConfig</c:if>">
                                             <td align="right">
                                                 <span class="glyphicon glyphicon-menu-right"
                                                       style="opacity: 0.6"></span>
@@ -323,8 +326,8 @@
                                                               title="Validation disabled (inherited)"></span>
                                                     </c:when>
                                                     <%--<c:otherwise>--%>
-                                                        <%--<span class="glyphicon glyphicon-ok-circle btn-success btn-xs icon-grey-link"--%>
-                                                              <%--title="Validation Enabled"></span>--%>
+                                                    <%--<span class="glyphicon glyphicon-ok-circle btn-success btn-xs icon-grey-link"--%>
+                                                    <%--title="Validation Enabled"></span>--%>
                                                     <%--</c:otherwise>--%>
                                                 </c:choose>
                                             </td>
@@ -432,23 +435,13 @@
         <ul class="dropdown-menu dropdown-menu-right"
             aria-labelledby="dropdownMenu_main">
             <li id="editingEnabler"><a href="#"><span>Enable</span> editing</a></li>
-            <li><a href="log/">Show Logs</a></li>
-            <li class="dropdown-submenu">
-                <a tabindex="-1" href="#">Validation</a>
-                <ul class="dropdown-menu">
-                    <li><a href="#" onclick="reinitValidator()">Update all</a></li>
-                    <li><a href="#">Validate all IPs</a></li>
-                </ul>
-            </li>
-
-            <li class="dropdown-submenu">
-                <a tabindex="-1" href="#">Context</a>
-                <ul class="dropdown-menu">
-                    <li><a tabindex="-1" href="<%=request.getContextPath()%>/info" target="_blank">Show Spring
-                        context</a></li>
-                    <li><a tabindex="-1" href="#" onclick="refreshContext()">Refresh Spring context</a></li>
-                </ul>
-            </li>
+            <li><a href="#" onclick="reinitValidator()">Update all validators</a></li>
+            <li><a href="#">Validate all IPs</a></li>
+            <li class="divider"></li>
+            <li><a tabindex="-1" href="<%=request.getContextPath()%>/info" target="_blank">Show Spring
+                context</a></li>
+            <li><a tabindex="-1" href="#" onclick="refreshContext()">Refresh Spring context</a></li>
+            <li class="divider"></li>
             <li><a href="#" onclick="showSettings()"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
             <li class="divider"></li>
             <li><a href="#"><span class="glyphicon glyphicon-copyright-mark"></span> Copyright</a></li>
