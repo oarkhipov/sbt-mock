@@ -44,6 +44,7 @@ import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.config.MockConfig;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.config.entities.MainConfig;
 import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.spring.context.generator.service.SpringContextGeneratorService;
@@ -121,11 +122,23 @@ public class ConfigurationService {
         for (File file : fileList) {
             addZipEntity(zipOutputStream, file.getPath().replace(rootDirectory.getPath() + File.separator, ""), file);
         }
+
+        //export config without checksum
+        MainConfig mainConfig = configContainer.getConfig().getMainConfig();
+        String configChecksum = mainConfig.getConfigChecksum();
+        mainConfig.setConfigChecksum("");
+        saveConfig();
+
         //Add config
         File configFile = dataFileService.getConfigFile();
         addZipEntity(zipOutputStream, configFile.getName(), configFile);
 
         zipOutputStream.finish();
+
+        //restore Checksum
+        mainConfig.setConfigChecksum(configChecksum);
+        saveConfig();
+
         return byteArrayOutputStream.toByteArray();
     }
 
