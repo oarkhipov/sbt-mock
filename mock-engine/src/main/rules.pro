@@ -55,3 +55,6 @@
 }
 
 -keep public class ru.sbt.bpm.mock.utils.AjaxObject { private <fields>;}
+
+#Keep utils for Groovy scripts
+-keep public class ru.sbt.bpm.mock.utils.XmlUtils { public static *;}
