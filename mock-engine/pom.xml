@@ -37,7 +37,7 @@
     <parent>
         <groupId>ru.sbt.bpm.mock</groupId>
         <artifactId>mock-interactive-parent</artifactId>
-        <version>3.8.0</version>
+        <version>3.8.1</version>
     </parent>
     
     <artifactId>mock-engine</artifactId>
