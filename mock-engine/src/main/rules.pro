@@ -1,5 +1,7 @@
 -optimizations !class/marking/final
 
+-dontoptimize
+
 -dontnote javax.activation.**
 -dontnote javax.xml.**
 -dontnote org.w3c.dom.**
