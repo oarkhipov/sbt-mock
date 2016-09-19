@@ -189,6 +189,7 @@
                                                             <a href="<%=request.getContextPath()%>/ws/${system.systemName}?wsdl"
                                                                target="_blank">Show WSDL</a></li>
                                                     </c:if>
+                                                    <li><a href="#" onclick="showValidationForm('${system.systemName}')">Validate some message</a></li>
                                                     <li role="separator" class="divider"></li>
                                                     <li><a href="#" onclick="editSysForm('${system.systemName}')">Edit
                                                         System</a></li>

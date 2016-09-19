@@ -386,6 +386,59 @@ function showSettings() {
     });
 }
 
+function showValidationForm(system) {
+    var editor;
+    BootstrapDialog.show({
+        size: BootstrapDialog.SIZE_WIDE,
+        title: "Validate message for system " + system,
+        message: "<pre id='messageBody' style='min-height: 200px; content: asd'></pre>",
+        onshown: function () {
+            ace.require("ace/ext/language_tools");
+            editor = ace.edit("messageBody");
+            editor.getSession().setMode("ace/mode/xml");
+            editor.setTheme("ace/theme/tomorrow");
+            editor.setOptions({
+                showGutter: true,
+                maxLines: Infinity
+            });
+            editor.$blockScrolling = Infinity;
+            // editor.setValue(vkbeautify.xml(htmlDecode(data)), 1);
+            editor.getSession().setUseWrapMode(true);
+        },
+        closable: false,
+        buttons: [{
+            label: "Validate",
+            cssClass: "btn-success",
+            action: function () {
+                var message = editor.getValue();
+                if (message) {
+                    $.ajax({
+                        url: "api/system/"+system+"/validate/",
+                        type: "POST",
+                        data: {
+                            message: message
+                        },
+                        success: function (obj) {
+                            obj = htmlDecode(obj);
+                            obj = $.parseJSON(obj);
+                            showInfo(obj.info);
+                            showError(obj.error);
+                        },
+                        fail: function () {
+                            showError("Unable to validate! Try again later...");
+                        }
+                    });
+                }
+            }
+        }, {
+            label: "Close",
+            action: function (dialogItself) {
+                dialogItself.close();
+            }
+        }]
+    });
+}
+
 Array.prototype.remove = function (from, to) {
     var rest = this.slice((to || from) + 1 || this.length);
     this.length = from < 0 ? this.length + from : from;

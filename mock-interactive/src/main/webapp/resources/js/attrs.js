@@ -90,3 +90,56 @@ $().ready(function () {
         return this;
     };
 }(jQuery));
+
+String.prototype.replaceAll2 = function (search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
+
+function showInfo(text) {
+    if (text) {
+        $.notify({
+            //options
+            icon: 'glyphicon glyphicon-info-sign',
+            message: htmlDecode(text)
+        }, {
+            //    settings
+            type: "success",
+            allow_dismiss: true,
+            placement: {
+                from: "bottom"
+            },
+            delay: 2000,
+            animate: {
+                enter: 'animated fadeInUp',
+                exit: 'animated fadeOutDown'
+            },
+            z_index:1100
+        });
+    }
+}
+function showError(text) {
+    if (text) {
+        text = text.replaceAll2("\\r\\n", "<br/>");
+        text = text.replaceAll2("\\n\\r", "<br/>");
+        text = text.replaceAll2("\\n", "<br/>");
+        text = text.replaceAll2("\\r", "");
+        $.notify({
+            //options
+            icon: 'glyphicon glyphicon-warning-sign',
+            message: text
+        }, {
+            //    settings
+            type: "danger",
+            placement: {
+                from: "bottom"
+            },
+            delay: 0,
+            animate: {
+                enter: 'animated fadeInUp',
+                exit: 'animated fadeOutDown'
+            },
+            z_index:1100
+        });
+    }
+}

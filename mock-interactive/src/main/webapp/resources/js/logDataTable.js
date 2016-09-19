@@ -101,6 +101,7 @@ $(document).ready(function () {
                 url: "../api/log/getMessage/" + ts + "/",
                 success: function (data) {
                     BootstrapDialog.show({
+                        size: BootstrapDialog.SIZE_WIDE,
                         title: row.systemName + " " + row.integrationPointName + " (" + row.messageState + ") message",
                         message: "<pre id='messageBody'></pre>",
                         onshown: function () {

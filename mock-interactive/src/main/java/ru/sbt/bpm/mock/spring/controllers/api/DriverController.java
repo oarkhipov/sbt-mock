@@ -97,8 +97,8 @@ public class DriverController {
 
     @RequestMapping(value = "/driver/{systemName}/{integrationPointName}/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE + ";charset=utf-8")
     public String getDefaultMessage(@PathVariable String systemName,
-                      @PathVariable String integrationPointName,
-                      Model model) throws IOException, TransformerException {
+                                    @PathVariable String integrationPointName,
+                                    Model model) throws IOException, TransformerException {
         getMessageTemplate(systemName, integrationPointName, null, model);
         return "editor";
     }
@@ -360,9 +360,10 @@ public class DriverController {
 
     boolean validationNeeded(String systemName, String integrationPointName) {
         MockConfig config = configContainer.getConfig();
+        if (config == null) return true;
         if (!config.getMainConfig().getValidationEnabled()) return false;
         System systemByName = config.getSystems().getSystemByName(systemName);
-        if (!systemByName.getValidationEnabled()) return  false;
+        if (!systemByName.getValidationEnabled()) return false;
         IntegrationPoint integrationPointByName = systemByName.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
         if (!integrationPointByName.getValidationEnabled()) return false;
         return true;
