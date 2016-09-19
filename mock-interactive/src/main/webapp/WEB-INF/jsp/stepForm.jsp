@@ -267,7 +267,7 @@
                                                        onclick="chooseIntPoint('${system.systemName}__mock__${mockIntegrationPoint.name}__${messageTemplate.templateId}'); return false;">
                                                         <span class="glyphicon glyphicon-link"></span>
                                                             ${messageTemplate.caption}<c:if
-                                                                test="${messageTemplate.value.length() > 0}">
+                                                                test="${messageTemplate.value.length() gt 0}">
                                                         (${messageTemplate.value})</c:if></a>
                                                 </td>
                                                 <td>&nbsp;</td>
@@ -364,7 +364,7 @@
                                                        onclick="chooseIntPoint('${system.systemName}__driver__${driverIntegrationPoint.name}__${messageTemplate.templateId}'); return false;">
                                                         <span class="glyphicon glyphicon-link"></span>
                                                             ${messageTemplate.caption}<c:if
-                                                                test="${messageTemplate.value.length() > 0}">
+                                                                test="${messageTemplate.value.length() gt 0}">
                                                         (${messageTemplate.value})</c:if></a>
                                                 </td>
                                                 <td>&nbsp;</td>
