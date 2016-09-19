@@ -45,14 +45,14 @@
 </head>
 <body>
 <form method="post"
-      action="<%=request.getContextPath()%>/api/system/<c:choose><c:when test="${system != null && system.systemName != ''}">update/${system.systemName}</c:when><c:otherwise>add</c:otherwise></c:choose>/"
+      action="<%=request.getContextPath()%>/api/system/<c:choose><c:when test="${system ne null && system.systemName ne ''}">update/${system.systemName}</c:when><c:otherwise>add</c:otherwise></c:choose>/"
       class="form-horizontal">
     <div class="form-group">
         <label for="enabled" class="control-label col-sm-2">Enabled:</label>
 
         <div class="col-sm-10">
             <input type="checkbox" name="enabled" id="enabled" class="form-control"
-                   <c:if test="${system.enabled==null || system.enabled}">checked</c:if>/>
+                   <c:if test="${system.enabled eq null || system.enabled}">checked</c:if>/>
         </div>
     </div>
     <div class="form-group">
@@ -60,7 +60,7 @@
 
         <div class="col-sm-10">
             <input type="checkbox" name="validationEnabled" id="validationEnabled" class="form-control"
-                   <c:if test="${system.validationEnabled==null || system.validationEnabled}">checked</c:if>/>
+                   <c:if test="${system.validationEnabled eq null || system.validationEnabled}">checked</c:if>/>
         </div>
     </div>
     <div class="form-group">
@@ -81,20 +81,20 @@
         </div>
     </div>
     <input type="hidden"
-           value="<c:choose><c:when test="${system != null && system.protocol != ''}">${system.protocol}</c:when><c:otherwise>JMS</c:otherwise></c:choose>"
+           value="<c:choose><c:when test="${system ne null && system.protocol ne ''}">${system.protocol}</c:when><c:otherwise>JMS</c:otherwise></c:choose>"
            name="protocol" id="protocol"/>
 
     <div id="protocol-container" class="centered-pills">
         <ul class="nav nav-pills">
-            <li class="<c:if test="${system.protocol == 'JMS' || system.protocol != 'SOAP'}">active</c:if>">
+            <li class="<c:if test="${system.protocol eq 'JMS' || system.protocol ne 'SOAP'}">active</c:if>">
                 <a href="#JMS" data-toggle="tab">JMS</a></li>
-            <li class="<c:if test="${system.protocol == 'SOAP'}">active</c:if>"><a href="#SOAP"
+            <li class="<c:if test="${system.protocol eq 'SOAP'}">active</c:if>"><a href="#SOAP"
                                                                                    data-toggle="tab">SOAP</a>
             </li>
         </ul>
         <div class="tab-content">
             <div id="JMS"
-                 class="tab-pane <c:if test="${system.protocol == 'JMS' || system.protocol != 'SOAP'}">active</c:if>">
+                 class="tab-pane <c:if test="${system.protocol eq 'JMS' || system.protocol ne 'SOAP'}">active</c:if>">
 
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="integrationPointSelector">integration Point
@@ -204,7 +204,7 @@
                     </div>
                 </div>
             </div>
-            <div id="SOAP" class="tab-pane <c:if test="${system.protocol == 'SOAP'}">active</c:if>">
+            <div id="SOAP" class="tab-pane <c:if test="${system.protocol eq 'SOAP'}">active</c:if>">
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="driverIncomeQueue">Driver WebService Endpoint:</label>
 

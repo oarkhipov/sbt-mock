@@ -43,7 +43,7 @@
 </head>
 <body>
 <form method="post"
-      action="<%=request.getContextPath()%>/api/messageTemplate/<c:choose><c:when test="${template.templateId != null}">update/${template.templateId}</c:when><c:otherwise>add/${systemName}/${integrationPointName}</c:otherwise></c:choose>/">
+      action="<%=request.getContextPath()%>/api/messageTemplate/<c:choose><c:when test="${template.templateId ne null}">update/${template.templateId}</c:when><c:otherwise>add/${systemName}/${integrationPointName}</c:otherwise></c:choose>/">
     <div class="form-group">
         <label for="name">Message template caption:</label>
         <input type="text" id="name" name="name" class="form-control" value="${template.caption}">

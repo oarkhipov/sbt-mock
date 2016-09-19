@@ -55,13 +55,13 @@
                 </div>
                 <%--WAS 7 compatible style (legacy)--%>
                 <c:if test='${protocol eq "JMS"}'>
-                    <c:if test="${link=='mock' || xpath.length()>0}">
+                    <c:if test="${link eq 'mock' || xpath.length()>0}">
                         <div>
                             <b>Xpath assertion:</b> <i><c:out value="${xpath}"/></i>
                         </div>
                     </c:if>
                 </c:if>
-                <c:if test="${template != null}">
+                <c:if test="${template ne null}">
                     <div>
                         <input type="hidden" id="templateId" value="${template.templateId}">
                         <b>MessageTemplate:</b> ${template.caption}<c:if test="${template.value}"> (${template.value})</c:if>
@@ -73,7 +73,7 @@
             <div class="editActions" style="margin-left: 20px;">
         <span class="btn btn-warning btn-xs glyphicon glyphicon-pencil"
                 <c:choose>
-                    <c:when test="${template != null}">
+                    <c:when test="${template ne null}">
                         onclick="editMessageTemplate('${systemName}', '${name}', '${template.templateId}', '${template.caption}')"
                     </c:when>
                     <c:otherwise>
@@ -83,7 +83,7 @@
         ></span>
                 <span class="btn btn-danger btn-xs glyphicon glyphicon-trash"
                         <c:choose>
-                            <c:when test="${template != null}">
+                            <c:when test="${template ne null}">
                                 onclick="deleteMessageTemplate('${systemName}', '${name}', '${template.templateId}', '${template.caption}')"
                             </c:when>
                             <c:otherwise>
@@ -115,7 +115,7 @@
             &nbsp;&nbsp;
             <span id="test" title="Test"
                   class="actionButtons glyphicon glyphicon-wrench btn btn-default"></span>
-            <c:if test="${link=='driver' && enabled}">
+            <c:if test="${link eq 'driver' && enabled}">
                 &nbsp;&nbsp;
                 <button id="send" title="Send" class="actionButtons btn btn-default">
                     <span class="glyphicon glyphicon-send"></span>
@@ -126,7 +126,7 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#tabs-1"><span class="glyphicon glyphicon-console"></span>
                     Script</a></li>
-                <c:if test="${link=='mock'}">
+                <c:if test="${link eq 'mock'}">
                     <li><a data-toggle="tab" href="#tabs-2"><span class="glyphicon glyphicon-list-alt"></span> Test</a>
                     </li>
                 </c:if>
@@ -135,7 +135,7 @@
                 <div id="tabs-1" class="tab-pane active">
                     <div id="scriptCode"><c:out value="${script}" escapeXml="true"/></div>
                 </div>
-                <c:if test="${link=='mock'}">
+                <c:if test="${link eq 'mock'}">
                     <div id="tabs-2" class="tab-pane">
                         <div id="testCode"><c:out value="${test}" escapeXml="true"/></div>
                         <div id="testCodeButtons">
@@ -158,7 +158,7 @@
 </form>
 
 <script src="<%=request.getContextPath()%>/resources/js/editor.js"></script>
-<c:if test="${link=='driver'}">
+<c:if test="${link eq 'driver'}">
     <script src="<%=request.getContextPath()%>/resources/js/editor_driver.js"></script>
 </c:if>
 

@@ -62,7 +62,7 @@
         <label for="validationEnabled">
             <input type="checkbox" name="validationEnabled"
                    id="validationEnabled"
-                   <c:if test="${config.validationEnabled==null || config.validationEnabled}">checked</c:if>/>
+                   <c:if test="${config.validationEnabled eq null || config.validationEnabled}">checked</c:if>/>
             Enable Global message validation
         </label>
     </div>

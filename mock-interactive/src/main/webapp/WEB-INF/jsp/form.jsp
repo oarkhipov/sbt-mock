@@ -71,7 +71,7 @@
                 </ul>
             </div>
             <div class="workarea">
-                <c:if test="${object != null}">
+                <c:if test="${object ne null}">
                     <form method="POST">
                         <div >
                             <textarea class="objarea" name="object">

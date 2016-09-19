@@ -45,13 +45,13 @@
 </head>
 <body>
 <form method="post" class="form-horizontal"
-      action="<%=request.getContextPath()%>/api/ip/<c:choose><c:when test="${integrationPointName != ''}">update/${systemName}/${integrationPointName}</c:when><c:otherwise>add</c:otherwise></c:choose>/">
+      action="<%=request.getContextPath()%>/api/ip/<c:choose><c:when test="${integrationPointName ne ''}">update/${systemName}/${integrationPointName}</c:when><c:otherwise>add</c:otherwise></c:choose>/">
     <div class="form-group">
         <label for="enabled" class="control-label col-sm-2">Enabled:</label>
 
         <div class="col-sm-10">
             <input type="checkbox" name="enabled" id="enabled" class="form-control"
-                   <c:if test="${enabled==null || enabled}">checked</c:if>/>
+                   <c:if test="${enabled eq null || enabled}">checked</c:if>/>
         </div>
     </div>
     <div class="form-group">
@@ -80,7 +80,7 @@
                     >
                 <c:forEach items="${suggestedNames}" var="ipName">
                     <option name="${ipName}"
-                            <c:if test="${ipName == integrationPointName}">selected</c:if> >${ipName}</option>
+                            <c:if test="${ipName eq integrationPointName}">selected</c:if> >${ipName}</option>
                 </c:forEach>
             </select>
         </div>
@@ -113,7 +113,7 @@
 
         <div class="col-sm-10">
             <input type="checkbox" name="sequenceEnabled" id="sequenceEnabled" class="form-control"
-                   <c:if test="${sequenceEnabled==null || sequenceEnabled}">checked</c:if>/>
+                   <c:if test="${sequenceEnabled eq null || sequenceEnabled}">checked</c:if>/>
         </div>
     </div>
     <div class="form-group">
@@ -180,7 +180,7 @@
 
                 <div class="col-sm-10">
                     <input type="checkbox" name="validationEnabled" id="validationEnabled" class="form-control"
-                           <c:if test="${validationEnabled==null || validationEnabled}">checked</c:if>/>
+                           <c:if test="${validationEnabled eq null || validationEnabled}">checked</c:if>/>
                 </div>
             </div>
             <div class="form-group">
@@ -188,7 +188,7 @@
 
                 <div class="col-sm-10">
                     <input type="checkbox" name="answerRequired" id="answerRequired" class="form-control"
-                           <c:if test="${isAnswerRequired==null || isAnswerRequired}">checked</c:if>/>
+                           <c:if test="${isAnswerRequired eq null || isAnswerRequired}">checked</c:if>/>
                 </div>
             </div>
             <div class="form-group">

@@ -144,18 +144,18 @@
                                 <c:forEach var="system" items="${list.systems}">
                                     <tr id="${system.systemName}">
                                         <td style="vertical-align: top; padding-top: 10px"
-                                            class="<c:if test="${system.enabled == false}">disabledByConfig</c:if>">
+                                            class="<c:if test="${system.enabled eq false}">disabledByConfig</c:if>">
                                             <span class="label label-<c:if test="${system.protocol eq 'JMS'}">warning</c:if><c:if test="${system.protocol eq 'SOAP'}">info</c:if> ">${system.protocol}</span>
                                                 ${system.systemName}
                                         </td>
                                         <td colspan="2">&nbsp;</td>
                                         <td align="center">
                                             <c:choose>
-                                                <c:when test="${system.validationEnabled == false}">
+                                                <c:when test="${system.validationEnabled eq false}">
                                                     <span class="glyphicon glyphicon-ban-circle btn-danger btn btn-xs"
                                                           title="Validation disabled"></span>
                                                 </c:when>
-                                                <c:when test="${globalValidation == false}">
+                                                <c:when test="${globalValidation eq false}">
                                                     <span class="glyphicon glyphicon-ban-circle icon-grey-link btn btn-danger btn-xs"
                                                           title="Validation disabled (inherited)"></span>
                                                 </c:when>
@@ -183,7 +183,7 @@
                                                         schema</a></li>
                                                     <li><a href="#" onclick="reinitValidator('${system.systemName}')">Update
                                                         Validator</a></li>
-                                                    <c:if test="${system.protocol=='SOAP'}">
+                                                    <c:if test="${system.protocol eq 'SOAP'}">
                                                         <li role="separator" class="divider"></li>
                                                         <li>
                                                             <a href="<%=request.getContextPath()%>/ws/${system.systemName}?wsdl"
@@ -204,7 +204,7 @@
 
                                     <c:forEach var="mockIntegrationPoint" items="${system.mockIntegrationPoints}">
                                         <tr id="${system.systemName}__${mockIntegrationPoint.name}"
-                                            class="<c:if test="${system.enabled == false || mockIntegrationPoint.enabled == false}">disabledByConfig</c:if>">
+                                            class="<c:if test="${system.enabled eq false || mockIntegrationPoint.enabled eq false}">disabledByConfig</c:if>">
                                             <td align="right">
                                                 <span class="glyphicon glyphicon-menu-right"
                                                       style="opacity: 0.6"></span>
@@ -217,15 +217,15 @@
                                                 style="cursor: pointer;">${mockIntegrationPoint.name}</td>
                                             <td align="center">
                                                 <c:choose>
-                                                    <c:when test="${mockIntegrationPoint.validationEnabled == false}">
+                                                    <c:when test="${mockIntegrationPoint.validationEnabled eq false}">
                                                         <span class="glyphicon glyphicon-ban-circle btn-danger btn btn-xs"
                                                               title="Validation disabled"></span>
                                                     </c:when>
-                                                    <c:when test="${system.validationEnabled == false}">
+                                                    <c:when test="${system.validationEnabled eq false}">
                                                         <span class="glyphicon glyphicon-ban-circle icon-grey-link btn btn-danger btn-xs"
                                                               title="Validation disabled (inherited)"></span>
                                                     </c:when>
-                                                    <c:when test="${globalValidation == false}">
+                                                    <c:when test="${globalValidation eq false}">
                                                         <span class="glyphicon glyphicon-ban-circle icon-grey-link btn btn-danger btn-xs"
                                                               title="Validation disabled (inherited)"></span>
                                                     </c:when>
@@ -301,7 +301,7 @@
 
                                     <c:forEach var="driverIntegrationPoint" items="${system.driverIntegrationPoints}">
                                         <tr id="${system.systemName}__${driverIntegrationPoint.name}"
-                                            class="<c:if test="${system.enabled == false || driverIntegrationPoint.enabled == false}">disabledByConfig</c:if>">
+                                            class="<c:if test="${system.enabled eq false || driverIntegrationPoint.enabled eq false}">disabledByConfig</c:if>">
                                             <td align="right">
                                                 <span class="glyphicon glyphicon-menu-right"
                                                       style="opacity: 0.6"></span>
@@ -314,15 +314,15 @@
                                                 style="cursor: pointer;">${driverIntegrationPoint.name}</td>
                                             <td align="center">
                                                 <c:choose>
-                                                    <c:when test="${driverIntegrationPoint.validationEnabled == false}">
+                                                    <c:when test="${driverIntegrationPoint.validationEnabled eq false}">
                                                         <span class="glyphicon glyphicon-ban-circle btn-danger btn btn-xs"
                                                               title="Validation disabled"></span>
                                                     </c:when>
-                                                    <c:when test="${system.validationEnabled == false}">
+                                                    <c:when test="${system.validationEnabled eq false}">
                                                         <span class="glyphicon glyphicon-ban-circle icon-grey-link btn btn-danger btn-xs"
                                                               title="Validation disabled (inherited)"></span>
                                                     </c:when>
-                                                    <c:when test="${globalValidation == false}">
+                                                    <c:when test="${globalValidation eq false}">
                                                         <span class="glyphicon glyphicon-ban-circle icon-grey-link btn btn-danger btn-xs"
                                                               title="Validation disabled (inherited)"></span>
                                                     </c:when>
