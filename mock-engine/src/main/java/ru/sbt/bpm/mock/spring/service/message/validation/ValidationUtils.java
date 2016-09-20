@@ -66,7 +66,7 @@ public class ValidationUtils {
                 .transform(new Function<MockMessageValidationException, Long>() {
                     @Override
                     public Long apply(MockMessageValidationException e) {
-                        return e.getLineNumber();
+                        return e.getLineNumber() + 1;
                     }
                 })
                 .toString();
