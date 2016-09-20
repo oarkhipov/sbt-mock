@@ -146,7 +146,7 @@ image::newTemplate.jpg[title="Добавленный шаблон",alt="Доба
 
 .Статусы сообщений
 |===
-|Навзание типа |Описание
+|Название типа |Описание
 
 |RCVPE
 |Получено, но не определена точка интеграции
@@ -258,17 +258,49 @@ response.messageID=org.apache.commons.lang.RandomStringUtils.randomNumeric(32)
 TIP: requestDom указывает на корневой элемент сообщения.
  Это значит, что при обращении к элементу сообщения, необходимо описывать путь со второго по иерархии элемента XML
 
+.Методы для работы с объектом requestDom
+|===
+|Название метода |Описание
+
+|text()
+|Возвращает текст найденного элемента в сообщении как строку
+
+|size()
+|Возвращает число найденных элементов в сообщении
+|===
+
+При необходимости можно искать элементы во входящем сообщении, используя XPath.
+Для этого нужно:
+
+. Сделать в начале скрипта импорт: ru.sbt.bpm.mock.utils.XmlUtils
+. Вызвать метод XmlUtils.evaluateXpath() с параметрами ``request`` и ``xpathExpression`` с приведением к строковому типу посредством toString()
+. В случае, если метод вернет массив элементов, для приведения следует использовать последовательный вызов методов itemAt(i).getStringValue()
+
 ==== Скрипт:
 [source,groovy]
+import ru.sbt.bpm.mock.utils.XmlUtils
 def ns= new groovy.xml.Namespace("http://sbrf.ru/NCPCA/DIS/ChangeUnderwritingDecisionStatusMessageElements/")
 def ns2= new groovy.xml.Namespace("http://sbrf.ru/NCPCA/DIS/ChangeUnderwritingDecisionStatusRq/")
+def rlist=""
 response.DISRequestID = requestDom[ns.Body][ns2.ChangeUnderwritingDecisionStatusRq][ns2.DataFields][ns2.DISHeaders][ns2.DISRequestID].text()
 response.underwriterWorkID=requestDom[ns.Body][ns2.ChangeUnderwritingDecisionStatusRq][ns2.DataFields][ns2.DISHeaders][ns2.UnderwriterWorkID].text()
-response.reasonCount = ru.sbt.bpm.mock.spring.utils.XmlUtils.evaluateXpath(request,'count(//*:Reason)')
+response.reasonCount = XmlUtils.evaluateXpath(request,'count(//*:Reason)')
+for (int i=0; i<XmlUtils.evaluateXpath(request,'count(//*:Reason)').toString().toInteger())
+{
+    rlist+="""<ns1:Reason>
+    <ns1:ReasonId>${(i+1)}</ns1:ReasonId>
+    <ns1:ReasonDesc>${XmlUtils.evaluateXpath(request,'//*:ReasonDesc[contains(text(), "Дефицит")]').itemAt(i).getStringValue()}</ns1:ReasonDesc>
+    </ns1:Reason>
+    """
+}
+response.reasonList=rList
 
 TIP: В случае, если необходимо обратиться к элементу, имя которого состоит из нескольких слов, объединённых разделителем, необходимо имя элемента взять в одинарные кавычки.
 
 TIP: Например: _requestDom[ns.Body][ns.Header][ns.'message-id'].text()_
+
+TIP: Количество символов в одной строкой переменной, определенной в скрипте, не может превыть 65536
+
 
 ==== Сообщение:
 [source,xml]
@@ -281,6 +313,8 @@ TIP: Например: _requestDom[ns.Body][ns.Header][ns.'message-id'].text()_
           <ns1:UnderwriterWorkID>${underwriterWorkID}</ns1:UnderwriterWorkID>
         </ns1:DISHeaders>
         <ns1:ReasonCount>${reasonCount}</ns1:ReasonCount>
+        <ns1:Reasons>${reasonList}
+        </ns1:Reasons>
         <ns1:Status>
           <ns1:StatusCode>0</ns1:StatusCode>
           <ns1:ServerStatusCode>E0</ns1:ServerStatusCode>
@@ -298,4 +332,5 @@ TIP: Например: _requestDom[ns.Body][ns.Header][ns.'message-id'].text()_
 //*:Product/*:NetMargin/text()
 count('//*:Products//*:Product/*:NetMargin')
 /*:ObjectID[contains(text(), '0000')]/text()
+concat(//*:GetForecastRAROCRq//*:Product/*:NetMargin/text(), //*:ListOfCalcDetails//*:Value[contains(text(), "H")]/text())
 ---------------------------
