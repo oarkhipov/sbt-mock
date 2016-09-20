@@ -144,8 +144,11 @@ public class ResponseGenerator {
             log(mockMessage, MessageType.RQ);
             validate(mockMessage, MessageType.RQ);
             if (mockMessage.isFaultMessage()) log(mockMessage, MessageType.RQ);
-            Boolean answerRequired = mockMessage.getIntegrationPoint().getAnswerRequired();
-            if (answerRequired == null || answerRequired) {
+            Boolean answerRequired =
+                    mockMessage.getIntegrationPoint().getEnabled()
+                    &&
+                    mockMessage.getIntegrationPoint().getAnswerRequired();
+            if (answerRequired) {
                 generateResponse(mockMessage);
                 delay(mockMessage);
                 validate(mockMessage, MessageType.RS);
