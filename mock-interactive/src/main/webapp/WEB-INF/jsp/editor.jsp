@@ -37,6 +37,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!doctype html>
 <html>
 <head>
@@ -55,7 +56,7 @@
                 </div>
                 <%--WAS 7 compatible style (legacy)--%>
                 <c:if test='${protocol eq "JMS"}'>
-                    <c:if test="${link eq 'mock' || xpath.length()>0}">
+                    <c:if test="${link eq 'mock' || fn:length(xpath)  gt 0}">
                         <div>
                             <b>Xpath assertion:</b> <i><c:out value="${xpath}"/></i>
                         </div>

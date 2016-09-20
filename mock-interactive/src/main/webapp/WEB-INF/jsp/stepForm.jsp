@@ -37,6 +37,8 @@
 --%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -267,7 +269,7 @@
                                                        onclick="chooseIntPoint('${system.systemName}__mock__${mockIntegrationPoint.name}__${messageTemplate.templateId}'); return false;">
                                                         <span class="glyphicon glyphicon-link"></span>
                                                             ${messageTemplate.caption}<c:if
-                                                                test="${messageTemplate.value.length() gt 0}">
+                                                                test="${fn:length(messageTemplate.value) gt 0}">
                                                         (${messageTemplate.value})</c:if></a>
                                                 </td>
                                                 <td>&nbsp;</td>
@@ -364,7 +366,7 @@
                                                        onclick="chooseIntPoint('${system.systemName}__driver__${driverIntegrationPoint.name}__${messageTemplate.templateId}'); return false;">
                                                         <span class="glyphicon glyphicon-link"></span>
                                                             ${messageTemplate.caption}<c:if
-                                                                test="${messageTemplate.value.length() gt 0}">
+                                                                test="${fn:length(messageTemplate.value) gt 0}">
                                                         (${messageTemplate.value})</c:if></a>
                                                 </td>
                                                 <td>&nbsp;</td>
