@@ -10,6 +10,7 @@ import ru.sbt.bpm.mock.spring.bean.pojo.MockMessage;
 import ru.sbt.bpm.mock.spring.service.XmlGeneratorService;
 import ru.sbt.bpm.mock.spring.service.message.JmsService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
+import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MockMessageValidationException;
 
 import java.util.List;
 
@@ -40,10 +41,10 @@ public class ResponseGeneratorTest extends AbstractTestNGSpringContextTests {
     @Test(enabled = false)
     public void testGetSystemName() throws Exception {
         String payload1 = generatorService.generate("CRM", "getReferenceData", MessageType.RQ, true);
-        List<String> validationErrors = messageValidationService.validate(payload1, "CRM");
+        List<MockMessageValidationException> validationErrors = messageValidationService.validate(payload1, "CRM");
         if (validationErrors.size() > 0 ) {
             logger.error(payload1);
-            for (String validationError : validationErrors) {
+            for (MockMessageValidationException validationError : validationErrors) {
                 logger.error(validationError);
             }
         }
@@ -53,7 +54,7 @@ public class ResponseGeneratorTest extends AbstractTestNGSpringContextTests {
         validationErrors = messageValidationService.validate(payload2, "CRM");
         if (validationErrors.size() > 0 ) {
             logger.error(payload2);
-            for (String validationError : validationErrors) {
+            for (MockMessageValidationException validationError : validationErrors) {
                 logger.error(validationError);
             }
         }

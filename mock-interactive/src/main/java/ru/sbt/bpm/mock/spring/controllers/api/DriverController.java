@@ -53,6 +53,7 @@ import ru.sbt.bpm.mock.spring.service.MessageSendingService;
 import ru.sbt.bpm.mock.spring.service.XmlGeneratorService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
+import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MockMessageValidationException;
 import ru.sbt.bpm.mock.utils.AjaxObject;
 import ru.sbt.bpm.mock.utils.SaveFile;
 
@@ -346,9 +347,9 @@ public class DriverController {
             compiledXml = groovyService.execute(test, xml, script);
             if (validationNeeded(systemName, integrationPointName)) {
                 if (messageValidationService.assertMessageElementName(compiledXml, system, integrationPoint, MessageType.RQ)) {
-                    final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
+                    final List<MockMessageValidationException> validationErrors = messageValidationService.validate(compiledXml, systemName);
                     if (validationErrors.size() != 0) {
-                        ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
+                        ajaxObject.setError(ValidationUtils.getValidationHtmlErrorMessage(compiledXml, validationErrors));
                     }
                 }
             }
@@ -360,7 +361,7 @@ public class DriverController {
 
     boolean validationNeeded(String systemName, String integrationPointName) {
         MockConfig config = configContainer.getConfig();
-        if (config == null) return true;
+        if (config.getMainConfig() == null) return true;
         if (!config.getMainConfig().getValidationEnabled()) return false;
         System systemByName = config.getSystems().getSystemByName(systemName);
         if (!systemByName.getValidationEnabled()) return false;

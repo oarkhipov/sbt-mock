@@ -51,6 +51,7 @@ import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationServic
 import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
 import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.JmsMessageValidationException;
 import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MessageValidationException;
+import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MockMessageValidationException;
 import ru.sbt.bpm.mock.utils.AjaxObject;
 
 import javax.xml.transform.TransformerException;
@@ -310,9 +311,9 @@ public class MockController {
                 compiledXml = groovyService.execute(test, xml, script);
                 if (driverController.validationNeeded(systemName, integrationPointName)) {
                     if (messageValidationService.assertMessageElementName(compiledXml, system, integrationPoint, MessageType.RS)) {
-                        final List<String> validationErrors = messageValidationService.validate(compiledXml, systemName);
+                        final List<MockMessageValidationException> validationErrors = messageValidationService.validate(compiledXml, systemName);
                         if (validationErrors.size() != 0) {
-                            ajaxObject.setError("Message validation:\n" + ValidationUtils.getSolidErrorMessage(validationErrors));
+                            ajaxObject.setError("Message validation:\n" + ValidationUtils.getValidationHtmlErrorMessage(compiledXml, validationErrors));
                         }
                     } else {
                         ajaxObject.setError("Message assertion fail");
@@ -337,9 +338,9 @@ public class MockController {
                 IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(integrationPointName);
                 try {
                     if (messageValidationService.assertMessageElementName(test, system, integrationPoint, MessageType.RQ)) {
-                        final List<String> validationErrors = messageValidationService.validate(test, systemName);
+                        final List<MockMessageValidationException> validationErrors = messageValidationService.validate(test, systemName);
                         if (validationErrors.size() != 0) {
-                            ajaxObject.setError("Test message validation:\n" + ValidationUtils.getSolidErrorMessage(validationErrors));
+                            ajaxObject.setError("Test message validation:\n" + ValidationUtils.getValidationHtmlErrorMessage(test, validationErrors));
                         }
                     } else {
                         //assertion fault

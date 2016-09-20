@@ -36,7 +36,10 @@ import net.sf.saxon.s9api.SaxonApiException;
 import org.apache.xmlbeans.XmlException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.helpers.LocatorImpl;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
 import ru.sbt.bpm.mock.config.entities.System;
@@ -45,6 +48,7 @@ import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MessageValidationException;
+import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MockMessageValidationException;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
@@ -128,10 +132,10 @@ public class MessageValidationService {
      * @param systemName подпапка из директорий xsd и data, по которым будет производится ваидация
      * @return признак валидности
      */
-    public List<String> validate(String xml, final String systemName) {
+    public List<MockMessageValidationException> validate(String xml, final String systemName) {
         if (validator.get(systemName) == null) {
-            return new ArrayList<String>(){{
-                add(String.format("Validator for system [%s] is not initiated!", systemName));
+            return new ArrayList<MockMessageValidationException>(){{
+                add(new MockMessageValidationException(String.format("Validator for system [%s] is not initiated!", systemName)));
             }};
         }
         return validator.get(systemName).validate(xml);

@@ -460,3 +460,41 @@ function collapseAllIp() {
     $.removeCookie("expanded");
     window.location.reload();
 }
+
+function showValidationErrorForm(base64message, errorLinesArray) {
+    showMessageForm("Validation error message", Base64.decode(base64message), errorLinesArray)
+}
+
+function showMessageForm(title, message, markupLinesString) {
+    var markups = [];
+    if (markupLinesString) {
+        markups = JSON.parse(markupLinesString);
+    }
+    BootstrapDialog.show({
+        size: BootstrapDialog.SIZE_WIDE,
+        title: title,
+        message: "<pre id='messageBody'></pre>",
+        onshown: function () {
+            ace.require("ace/ext/language_tools");
+            var editor = ace.edit("messageBody");
+            editor.getSession().setMode("ace/mode/xml");
+            editor.setTheme("ace/theme/tomorrow");
+            editor.setOptions({
+                readOnly: true,
+                showGutter: true,
+                highlightActiveLine: false,
+                maxLines: Infinity
+            });
+            editor.$blockScrolling = Infinity;
+            editor.setValue(vkbeautify.xml(message), 1);
+            editor.renderer.$cursorLayer.element.style.display = "none";
+            editor.getSession().setUseWrapMode(true);
+            //errors markup
+            var Range = ace.require('ace/range').Range;
+            for (var i = 0; i < markups.length; i++) {
+                editor.getSession().addMarker(new Range(markups[i],0,markups[i],200), "errorMarker", "line")
+            }
+
+        }
+    });
+}

@@ -57,6 +57,7 @@ import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationServic
 import ru.sbt.bpm.mock.spring.service.message.validation.SOAPValidationService;
 import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
 import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MessageValidationException;
+import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MockMessageValidationException;
 import ru.sbt.bpm.mock.utils.DispatcherUtils;
 import ru.sbt.bpm.mock.utils.ExceptionUtils;
 import ru.sbt.bpm.mock.utils.XmlUtils;
@@ -320,7 +321,7 @@ public class ResponseGenerator {
             final String payload = mockMessage.getPayload();
 
             log.debug("Validate [" + systemName + "] " + messageType.name());
-            List<String> validationErrors = messageValidationService.validate(payload, systemName);
+            List<MockMessageValidationException> validationErrors = messageValidationService.validate(payload, systemName);
             if (validationErrors.size() > 0) {
                 mockMessage.setPayload(wrapMessageWithSoapFault(messageType.name() + " Validation error", ValidationUtils.getSolidErrorMessage(validationErrors)));
                 mockMessage.setFaultMessage(true);

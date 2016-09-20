@@ -37,6 +37,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
+import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MockMessageValidationException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,8 +58,8 @@ public class TestMessageValidationService extends MessageValidationService {
     }
 
     @Override
-    public List<String> validate(String xml, String systemName) {
-        return new ArrayList<String>();
+    public List<MockMessageValidationException> validate(String xml, String systemName) {
+        return new ArrayList<MockMessageValidationException>();
     }
 
     @Override

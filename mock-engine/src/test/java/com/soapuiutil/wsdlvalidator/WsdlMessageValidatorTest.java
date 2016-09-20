@@ -3,8 +3,11 @@ package com.soapuiutil.wsdlvalidator;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MockMessageValidationException;
 
 import java.io.File;
+import java.net.URL;
+import java.util.List;
 
 /**
  * Test class
@@ -14,10 +17,10 @@ import java.io.File;
 public class WsdlMessageValidatorTest {
 
     private String getWsdlPath() throws Exception {
-        final String moduleHome = new File(this.getClass().getClassLoader().getResource("").getFile()).getParentFile().getParentFile().getCanonicalPath();
-//		final String wsdlUrl = "file:" + moduleHome + File.separator + ".."  + File.separator + "spec" + File.separator + "wsdl" + File.separator + "spyne.wsdl";
-        final String wsdlUrl = "file:" + moduleHome + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "wsdl" + File.separator + "spyne.wsdl";
-        return wsdlUrl;
+        URL rootResource = this.getClass().getClassLoader().getResource("");
+        assert rootResource != null;
+        final String moduleHome = new File(rootResource.getFile()).getParentFile().getParentFile().getCanonicalPath();
+        return "file:" + moduleHome + File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "wsdl" + File.separator + "spyne.wsdl";
     }
 
     private String getSoapEnvelope(final String innerContent) {
@@ -42,10 +45,10 @@ public class WsdlMessageValidatorTest {
         final String wsdlUrl = getWsdlPath();
 
         final WsdlMessageValidator rubyValidationWrapper = new WsdlMessageValidator(wsdlUrl);
-        final String[] assertionErrors = rubyValidationWrapper.validateSchemaCompliance(responseString);
+        final List<MockMessageValidationException> assertionErrors = rubyValidationWrapper.validateSchemaCompliance(responseString);
 
-        System.out.println("assertion count : " + assertionErrors.length);
-        Assert.assertEquals(1, assertionErrors.length);
+        System.out.println("assertion count : " + assertionErrors.size());
+        Assert.assertEquals(1, assertionErrors.size());
     }
 
     @Test
@@ -62,10 +65,10 @@ public class WsdlMessageValidatorTest {
         final String wsdlUrl = getWsdlPath();
 
         final WsdlMessageValidator rubyValidationWrapper = new WsdlMessageValidator(wsdlUrl);
-        final String[] assertionErrors = rubyValidationWrapper.validateSchemaCompliance(responseString);
+        final List assertionErrors = rubyValidationWrapper.validateSchemaCompliance(responseString);
 
-        System.out.println("assertion count : " + assertionErrors.length);
-        Assert.assertEquals(2, assertionErrors.length);
+        System.out.println("assertion count : " + assertionErrors.size());
+        Assert.assertEquals(2, assertionErrors.size());
     }
 
     @Test
@@ -81,9 +84,9 @@ public class WsdlMessageValidatorTest {
 
 
         final WsdlMessageValidator rubyValidationWrapper = new WsdlMessageValidator(wsdlUrl);
-        final String[] assertionErrors = rubyValidationWrapper.validateSchemaCompliance(responseString);
+        final List assertionErrors = rubyValidationWrapper.validateSchemaCompliance(responseString);
 
-        System.out.println("assertion count : " + assertionErrors.length);
-        Assert.assertEquals(0, assertionErrors.length);
+        System.out.println("assertion count : " + assertionErrors.size());
+        Assert.assertEquals(0, assertionErrors.size());
     }
 }

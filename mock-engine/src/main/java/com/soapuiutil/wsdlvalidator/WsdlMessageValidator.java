@@ -53,10 +53,13 @@ import org.apache.xmlbeans.XmlObject;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xmlsoap.schemas.soap.envelope.Envelope;
+import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MockMessageValidationException;
 import ru.sbt.bpm.mock.spring.service.message.validation.mockObjects.MockHttpServletRequest;
 
 import javax.xml.namespace.QName;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 //import org.apache.log4j.Logger;
@@ -155,7 +158,7 @@ public class WsdlMessageValidator {
      * @return
      * @throws WsdlMessageValidatorException
      */
-    public String[] validateSchemaCompliance(final String message)
+    public List<MockMessageValidationException> validateSchemaCompliance(final String message)
             throws WsdlMessageValidatorException {
 
         WsdlMockOperation wsdlMockOperation;
@@ -219,7 +222,7 @@ public class WsdlMessageValidator {
         }
     }
 
-    private String[] performValidation(String message, WsdlMockOperation wsdlMockOperation, String messageType) throws Exception {
+    private List<MockMessageValidationException> performValidation(String message, WsdlMockOperation wsdlMockOperation, String messageType) throws Exception {
         WsdlMockResponse mockResponse = null;
         final String mockOperationName = wsdlMockOperation.getName();
         try {
@@ -267,13 +270,13 @@ public class WsdlMessageValidator {
             }
 
             assert assertionErrors != null;
-            final String[] stringErrors = new String[assertionErrors.length];
+            final List<MockMessageValidationException> errors = new LinkedList<MockMessageValidationException>();
 
-            for (int i = 0; i < assertionErrors.length; i++) {
-                stringErrors[i] = assertionErrors[i].toString();
+            for (AssertionError assertionError : assertionErrors) {
+                errors.add(new MockMessageValidationException(assertionError.getMessage(), assertionError.getLineNumber()));
             }
 
-            return stringErrors;
+            return errors;
         } finally {
             if (mockResponse != null) {
                 wsdlMockOperation.removeMockResponse(mockResponse);

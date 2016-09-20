@@ -29,23 +29,38 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ru.sbt.bpm.mock.spring.service.message.validation;
+package ru.sbt.bpm.mock.spring.service.message.validation.exceptions;
 
-import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MockMessageValidationException;
-
-import java.util.List;
+import lombok.Getter;
+import org.xml.sax.SAXParseException;
 
 /**
- * @author sbt-bochev-as on 10.03.2016.
- *         <p/>
+ * @author sbt-bochev-as on 19.09.2016.
+ *         <p>
  *         Company: SBT - Moscow
  */
-public interface MessageValidator {
-    /**
-     * Validate message
-     *
-     * @param xml message to validate
-     * @return list of errors
-     */
-    List<MockMessageValidationException> validate(String xml);
+public class MockMessageValidationException extends RuntimeException {
+
+    @Getter private String errorMessage;
+    @Getter private long lineNumber;
+
+    public MockMessageValidationException(String message, long lineNumber) {
+        this.errorMessage = message;
+        this.lineNumber = lineNumber;
+    }
+
+    public MockMessageValidationException(String message) {
+        this.errorMessage = message;
+        this.lineNumber = 0;
+    }
+
+    public MockMessageValidationException(SAXParseException exception) {
+        errorMessage = exception.getLocalizedMessage();
+        lineNumber = exception.getLineNumber();
+    }
+
+    @Override
+    public String toString() {
+        return "error [" + lineNumber + "]: " + errorMessage;
+    }
 }

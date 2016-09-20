@@ -35,7 +35,9 @@ import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.soapuiutil.wsdlvalidator.WsdlMessageValidator;
 import com.soapuiutil.wsdlvalidator.WsdlMessageValidatorException;
 import lombok.extern.slf4j.Slf4j;
+import org.xml.sax.SAXParseException;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidator;
+import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MockMessageValidationException;
 import ru.sbt.bpm.mock.utils.ExceptionUtils;
 import ru.sbt.bpm.mock.utils.XmlUtils;
 
@@ -64,13 +66,13 @@ public class WsdlValidator implements MessageValidator {
     }
 
     @Override
-    public List<String> validate(String xml) {
-        List<String> result = new ArrayList<String>();
+    public List<MockMessageValidationException> validate(String xml) {
+        List<MockMessageValidationException> result = new ArrayList<MockMessageValidationException>();
         try {
             assert wsdlMessageValidator != null;
-            result = Arrays.asList(wsdlMessageValidator.validateSchemaCompliance(XmlUtils.compactXml(xml)));
+            result = wsdlMessageValidator.validateSchemaCompliance(XmlUtils.compactXml(xml));
         } catch (WsdlMessageValidatorException e) {
-            result.add(ExceptionUtils.getExceptionStackTrace(e));
+            result.add(new MockMessageValidationException(ExceptionUtils.getExceptionStackTrace(e)));
         }
         return result;
     }

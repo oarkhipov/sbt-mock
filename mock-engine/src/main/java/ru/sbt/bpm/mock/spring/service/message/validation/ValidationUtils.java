@@ -31,12 +31,13 @@
 
 package ru.sbt.bpm.mock.spring.service.message.validation;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Transformer;
+import com.google.common.base.Function;
+import com.google.common.collect.FluentIterable;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.Base64Utils;
+import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MockMessageValidationException;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -45,19 +46,32 @@ import java.util.List;
  *         Company: SBT - Moscow
  */
 public class ValidationUtils {
-    public static String getSolidErrorMessage(List<String> errors) {
-        Collection errorCollection = CollectionUtils.collect(errors, new Transformer() {
-            @Override
-            public Object transform(Object o) {
-                String error = (String) o;
-                String[] errorLines = error.split("\\r?\\n");
-                if (errorLines.length > 10) {
-                    errorLines = Arrays.copyOf(errorLines, 10);
-                }
-                return StringUtils.join(errorLines, "\n");
-            }
-        });
-        final String errorString = StringUtils.join(errorCollection.iterator(), ",\n");
+    public static String getSolidErrorMessage(List<MockMessageValidationException> exceptions) {
+        if (exceptions.size() > 5) {
+            exceptions = exceptions.subList(0, 4);
+        }
+        final String errorString = StringUtils.join(exceptions, ",\n");
         return "Validation errors list:\n" + errorString;
+    }
+
+    public static String getValidationHtmlErrorMessage(String message, List<MockMessageValidationException> exceptions) {
+        String solidErrorMessage = getSolidErrorMessage(exceptions);
+
+        String base64EncodedMessage = null;
+        try {
+            base64EncodedMessage = Base64Utils.encodeToString(message.getBytes("UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+        }
+        String errorLinesString = FluentIterable.from(exceptions)
+                .transform(new Function<MockMessageValidationException, Long>() {
+                    @Override
+                    public Long apply(MockMessageValidationException e) {
+                        return e.getLineNumber();
+                    }
+                })
+                .toString();
+
+        return solidErrorMessage + "\n" +
+                "<a href='#' onclick='showValidationErrorForm(\"" + base64EncodedMessage + "\",\"" + errorLinesString + "\");'>Details >></a>";
     }
 }

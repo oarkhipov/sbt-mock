@@ -35,7 +35,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+import org.xml.sax.helpers.LocatorImpl;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidator;
+import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MockMessageValidationException;
 import ru.sbt.bpm.mock.utils.FileResourceResolver;
 import ru.sbt.bpm.mock.utils.WebResourceResolver;
 
@@ -60,7 +62,7 @@ import java.util.List;
 public class XsdValidator implements MessageValidator {
 
     private SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-    private List<String> errors = new LinkedList<String>();
+    private List<MockMessageValidationException> errors = new LinkedList<MockMessageValidationException>();
     private final Validator validator;
 
     public XsdValidator(List<File> xsdFiles) throws SAXException {
@@ -85,24 +87,24 @@ public class XsdValidator implements MessageValidator {
     }
 
     @Override
-    public synchronized List<String> validate(String xml) {
+    public synchronized List<MockMessageValidationException> validate(String xml) {
         errors.clear();
-        List<String> result = new ArrayList<String>();
+        List<MockMessageValidationException> result = new ArrayList<MockMessageValidationException>();
         InputStream stream = null;
         try {
             stream = new ByteArrayInputStream(xml.getBytes("UTF-8"));
             validator.validate(new StreamSource(stream));
         } catch (UnsupportedEncodingException e) {
             String message = "Unsupported Encoding UTF-8";
-            result.add(message);
+            result.add(new MockMessageValidationException(message));
             log.error(message, e);
         } catch (IOException e) {
             String message = "IOException while validating message";
-            result.add(message);
+            result.add(new MockMessageValidationException(message));
             log.error(message, e);
         } catch (SAXException e) {
             String message = "SAXException while validating message";
-            result.add(message);
+            result.add(new MockMessageValidationException(message));
             log.error(message, e);
         } finally {
             if (stream != null) {
@@ -134,7 +136,7 @@ public class XsdValidator implements MessageValidator {
             }
 
             private void handle(SAXParseException exception) throws SAXException {
-                errors.add("error [" + exception.getLineNumber() + ":" + exception.getColumnNumber() + "]: " + exception.getMessage());
+                errors.add(new MockMessageValidationException(exception));
             }
         });
     }

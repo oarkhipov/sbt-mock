@@ -50,6 +50,7 @@ import ru.sbt.bpm.mock.spring.service.DataFileService;
 import ru.sbt.bpm.mock.spring.service.XsdAnalysisService;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidationService;
 import ru.sbt.bpm.mock.spring.service.message.validation.ValidationUtils;
+import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MockMessageValidationException;
 import ru.sbt.bpm.mock.utils.AjaxObject;
 import ru.sbt.bpm.mock.utils.ExceptionUtils;
 
@@ -349,7 +350,7 @@ public class SystemApiController {
     public String validate(@PathVariable String systemName, @RequestParam String message) {
         AjaxObject ajaxObject = new AjaxObject();
         try {
-        List<String> validationErrors = validationService.validate(message, systemName);
+        List<MockMessageValidationException> validationErrors = validationService.validate(message, systemName);
         if (validationErrors.isEmpty()) {
             ajaxObject.setInfo("Valid");
         } else {
