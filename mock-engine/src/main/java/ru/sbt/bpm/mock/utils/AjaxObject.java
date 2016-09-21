@@ -49,7 +49,7 @@ public class AjaxObject {
     private transient Gson gson = new Gson();
     @Getter private String info;
     @Getter private String error;
-    @Getter private String data;
+    @Getter private Object data;
 
     public AjaxObject() {
         this.info = "";

@@ -60,9 +60,12 @@ public class DataFileService {
     private final String contextDir = "/WEB-INF/";
     private final String dataPath = "data" + File.separator;
     private final String xsdPath = "xsd" + File.separator;
-
     @Autowired
     private MockConfigContainer configContainer;
+
+    public List<File> getSchemaFileList(String systemName) throws IOException {
+        return searchFiles(getSystemXsdDirectoryFile(systemName), "");
+    }
 
     /**
      * Возвращает ресурс, лежащий в contextDir
