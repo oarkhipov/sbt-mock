@@ -80,9 +80,10 @@ public class IntegrationPointNameSuggestionService {
     private List<String> suggestWsName(System system, boolean filterExist) {
         WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(system.getSystemName());
         ArrayList<String> suggestedOperationNames = new ArrayList<String>();
-        Interface anInterface = wsdlProject.getInterfaceList().get(0);
-        for (Operation operation : anInterface.getOperationList()) {
-            suggestedOperationNames.add(operation.getName());
+        for (Interface anInterface : wsdlProject.getInterfaceList()) {
+            for (Operation operation : anInterface.getOperationList()) {
+                suggestedOperationNames.add(operation.getName());
+            }
         }
         if (filterExist) {
             suggestedOperationNames = (ArrayList<String>) CollectionUtils.removeAll(suggestedOperationNames, system.getIntegrationPointNames());

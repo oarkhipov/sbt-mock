@@ -40,6 +40,11 @@ import com.eviware.soapui.impl.wsdl.testcase.WsdlTestCase;
 import com.eviware.soapui.impl.wsdl.teststeps.registry.WsdlTestRequestStepFactory;
 import com.eviware.soapui.model.iface.Interface;
 import com.eviware.soapui.model.iface.Operation;
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.xmlbeans.XmlException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +64,7 @@ import ru.sbt.bpm.mock.utils.XmlUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -75,6 +81,28 @@ public class SOAPValidationService {
     private MockConfigContainer configContainer;
     @Autowired
     private DataFileService dataFileService;
+
+    public static WsdlOperation getWsdlOperation(WsdlProject wsdlProject, final IntegrationPoint integrationPoint) {
+        List<Operation> wsdlOperations =
+                Lists.newArrayList(
+                        Iterables.concat(
+                                FluentIterable.from(wsdlProject.getInterfaceList())
+                                        .transform(new Function<Interface, List<Operation>>() {
+                                            @Override
+                                            public List<Operation> apply(Interface anInterface) {
+                                                return anInterface.getOperationList();
+                                            }
+                                        })
+                        )
+                );
+
+        return (WsdlOperation) Iterables.find(wsdlOperations, new Predicate<Operation>() {
+            @Override
+            public boolean apply(Operation operation1) {
+                return operation1.getName().equals(integrationPoint.getName());
+            }
+        });
+    }
 
     public void init(Map<String, MessageValidator> validator, System system, String systemName, String remoteRootSchema, String localRootSchema, String remoteSchemaInLowerCase) throws IOException {
         WsdlValidator wsdlValidator;
@@ -99,13 +127,14 @@ public class SOAPValidationService {
 
             WsdlMockService mockService = wsdlProject.addNewMockService("MockService");
             //init test steps for all operations
-            for (Operation operation : wsdlProject.getInterfaceList().get(0).getOperationList()) {
-                WsdlOperation wsdlOperation = (WsdlOperation) operation;
-                TestStepConfig testStepConfig = WsdlTestRequestStepFactory.createConfig(wsdlOperation, wsdlOperation.getName());
-                testCase.addTestStep(testStepConfig);
-                mockService.addNewMockOperation(operation);
+            for (Interface anInterface : wsdlProject.getInterfaceList()) {
+                for (Operation operation : anInterface.getOperationList()) {
+                    WsdlOperation wsdlOperation = (WsdlOperation) operation;
+                    TestStepConfig testStepConfig = WsdlTestRequestStepFactory.createConfig(wsdlOperation, wsdlOperation.getName());
+                    testCase.addTestStep(testStepConfig);
+                    mockService.addNewMockOperation(operation);
+                }
             }
-
             validator.put(systemName, wsdlValidator);
         }
     }
@@ -119,9 +148,11 @@ public class SOAPValidationService {
         return wsdlValidator;
     }
 
-    public boolean assertByOperation(String xml, System system, IntegrationPoint integrationPoint, MessageType messageType) throws XmlException, SoapMessageValidationException {
+    public boolean assertByOperation(String xml, System system, final IntegrationPoint integrationPoint, MessageType messageType) throws XmlException, SoapMessageValidationException {
         WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(system.getSystemName());
-        WsdlOperation operation = (WsdlOperation) wsdlProject.getInterfaceList().get(0).getOperationByName(integrationPoint.getName());
+
+        WsdlOperation operation = getWsdlOperation(wsdlProject, integrationPoint);
+
         String elementName = getSoapMessageElementName(XmlUtils.compactXml(xml));
         assert elementName != null;
         assert !elementName.isEmpty();

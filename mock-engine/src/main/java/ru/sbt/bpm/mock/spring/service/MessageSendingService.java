@@ -31,9 +31,7 @@
 
 package ru.sbt.bpm.mock.spring.service;
 
-import com.eviware.soapui.impl.wsdl.WsdlOperation;
 import com.eviware.soapui.impl.wsdl.WsdlProject;
-import ru.sbt.bpm.mock.config.entities.System;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -45,11 +43,13 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
+import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.config.enums.Protocol;
 import ru.sbt.bpm.mock.spring.bean.ResponseGenerator;
 import ru.sbt.bpm.mock.spring.bean.pojo.MockMessage;
 import ru.sbt.bpm.mock.spring.integration.gateway.ClientService;
+import ru.sbt.bpm.mock.spring.service.message.validation.SOAPValidationService;
 import ru.sbt.bpm.mock.utils.ExceptionUtils;
 
 import java.io.IOException;
@@ -117,8 +117,7 @@ public class MessageSendingService {
         System messageSystem = message.getSystem();
         WsdlProject wsdlProject = configContainer.getWsdlProjectMap().get(messageSystem.getSystemName());
 
-
-        String operationName = ((WsdlOperation) wsdlProject.getInterfaceList().get(0).getOperationByName(message.getIntegrationPoint().getName())).getAction();
+        String operationName = SOAPValidationService.getWsdlOperation(wsdlProject, message.getIntegrationPoint()).getAction();
         HttpPost httpPost = new HttpPost(messageSystem.getDriverWebServiceEndpoint());
         httpPost.addHeader("Content-Type", "application/xml");
         httpPost.addHeader("SOAP-Action", operationName);
@@ -139,4 +138,5 @@ public class MessageSendingService {
         return responseString;
 
     }
+
 }
