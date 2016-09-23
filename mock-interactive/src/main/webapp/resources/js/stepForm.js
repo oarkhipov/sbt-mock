@@ -391,7 +391,7 @@ function showValidationForm(system) {
     BootstrapDialog.show({
         size: BootstrapDialog.SIZE_WIDE,
         title: "Validate message for system " + system,
-        message: "<pre id='messageBody' style='min-height: 200px; content: asd'></pre>",
+        message: "<pre id='messageBody' style='min-height: 200px;'></pre>",
         onshown: function () {
             ace.require("ace/ext/language_tools");
             editor = ace.edit("messageBody");
@@ -407,6 +407,16 @@ function showValidationForm(system) {
         },
         closable: false,
         buttons: [{
+            label: "Linerize",
+            action: function() {
+                editor.setValue(editor.getValue().replaceAll2("\n",""),1);
+            }
+        }, {
+            label: "Prettify",
+            action: function() {
+                editor.setValue(vkbeautify.xml(editor.getValue()), 1);
+            }
+        }, {
             label: "Validate",
             cssClass: "btn-success",
             action: function () {

@@ -65,6 +65,11 @@ $().ready(function () {
     }
 
     updateWizardHeight();
+
+    //Enable editing if parameter EDIT is set
+    if ($.cookie("edit")) {
+        $("#editingEnabler").click();
+    }
 });
 
 function setResponse(text) {
