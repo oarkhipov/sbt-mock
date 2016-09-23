@@ -66,9 +66,11 @@ $().ready(function () {
 
     updateWizardHeight();
 
-    //Enable editing if parameter EDIT is set
+    //Enable editing if parameter EDIT is set and edit buttons hidden for no reason
     if ($.cookie("edit")) {
-        $("#editingEnabler").click();
+        if($(".editActions").css("visibility") == "hidden") {
+            $("#editingEnabler").click();
+        }
     }
 });
 
