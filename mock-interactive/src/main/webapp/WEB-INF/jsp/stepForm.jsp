@@ -441,6 +441,7 @@
             <li><a href="#" onclick="reinitValidator()">Update all validators</a></li>
             <li><a href="#">Validate all IPs</a></li>
             <li class="divider"></li>
+            <li><a href="log/">Show Logs</a></li>
             <li><a tabindex="-1" href="<%=request.getContextPath()%>/info" target="_blank">Show Spring
                 context</a></li>
             <li><a tabindex="-1" href="#" onclick="refreshContext()">Refresh Spring context</a></li>
