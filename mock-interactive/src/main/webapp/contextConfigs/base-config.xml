@@ -68,7 +68,7 @@
     </int:gateway>
     <int:channel id="test"/>
 
-    <bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
+    <bean id="mockConfigContainer" class="ru.sbt.bpm.mock.config.MockConfigContainer">
         <constructor-arg value="/WEB-INF/MockConfig.xml" type="java.lang.String"/>
     </bean>
 

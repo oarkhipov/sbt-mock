@@ -298,7 +298,7 @@
                                     </includes>
                                     <replacements>
                                         <replacement>
-                                            <token>jdbc:h2:/tmp/</token>
+                                            <token>jdbc:h2:</token>
                                             <value>jdbc:h2:./</value>
                                         </replacement>
                                     </replacements>
@@ -349,7 +349,7 @@
                                     <resources>
                                         <resource>
                                             <directory>src/test/resources/preProdConfigs</directory>
-                                            <!--<filtering>true</filtering>-->
+                                            <filtering>true</filtering>
                                         </resource>
                                     </resources>
                                     <overwrite>true</overwrite>

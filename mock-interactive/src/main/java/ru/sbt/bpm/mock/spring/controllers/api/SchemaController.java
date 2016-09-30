@@ -59,14 +59,14 @@ public class SchemaController {
     @RequestMapping(value = "/api/schema/{systemName}/files/content/", produces = MediaType.TEXT_PLAIN_VALUE + ";charset=utf-8")
     public String getXSDFileContent(
             @PathVariable("systemName") String systemName,
-            @RequestParam(required = true) String fileName) throws Exception {
+            @RequestParam String fileName) throws Exception {
 
         AjaxObject resObject = new AjaxObject();
 
         try {
 
-            String fileContent = FileUtils.readFileToString(dataFileService.getXsdFile(systemName, fileName));
-            resObject.setData(StringEscapeUtils.escapeHtml4(fileContent));
+            String fileContent = FileUtils.readFileToString(dataFileService.getXsdFile(systemName, fileName), "UTF-8");
+            resObject.setData(fileContent);
 
         } catch (Exception e) {
             resObject.setError(e);

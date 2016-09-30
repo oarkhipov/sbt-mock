@@ -58,4 +58,11 @@ public class MockConfig {
         }
         return systems;
     }
+
+    public MainConfig getMainConfig() {
+        if (mainConfig == null) {
+            mainConfig = new MainConfig();
+        }
+        return mainConfig;
+    }
 }

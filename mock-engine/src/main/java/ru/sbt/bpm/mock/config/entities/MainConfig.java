@@ -53,4 +53,11 @@ public class MainConfig {
 
     @XStreamAlias("validationEnabled")
     private Boolean validationEnabled;
+
+    @XStreamAlias("dbPath")
+    private String dbPath;
+
+    public String getDbPath() {
+        return dbPath != null ? dbPath : "/tmp";
+    }
 }

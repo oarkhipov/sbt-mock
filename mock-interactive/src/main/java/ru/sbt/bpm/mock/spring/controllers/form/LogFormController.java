@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import reactor.tuple.Tuple2;
+import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.logging.entities.LogsApiEntity;
 import ru.sbt.bpm.mock.logging.entities.LogsEntity;
 import ru.sbt.bpm.mock.logging.spring.services.LogService;
@@ -60,8 +61,12 @@ public class LogFormController {
     @Autowired
     LogService logService;
 
+    @Autowired
+    MockConfigContainer mockConfigContainer;
+
     @RequestMapping(value = "/log/", method = RequestMethod.GET)
     public String get(Model model) throws IOException, TransformerException {
+        model.addAttribute("config",mockConfigContainer.getConfig());
         model.addAttribute("name", "Mock Driver Log");
         model.addAttribute("link", "driver");
         model.addAttribute("object", "<tag>Type request here ...</tag>");

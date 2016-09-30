@@ -89,6 +89,7 @@
 <![endif]-->
 
 <input type="button" value="BACK" onclick="window.location.href='../'"/>
+Database path: ${config.mainConfig.dbPath}
 
 <div id="tooltip" data-toggle="tooltip" data-placement="right" data-animation="false" data-trigger="manual"
      data-html="true" title="Tooltip text" style="position:absolute; width: 100px"></div>
