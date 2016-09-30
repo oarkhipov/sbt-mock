@@ -149,6 +149,7 @@
                                             class="<c:if test="${system.enabled eq false}">disabledByConfig</c:if>">
                                             <span class="label label-<c:if test="${system.protocol eq 'JMS'}">warning</c:if><c:if test="${system.protocol eq 'SOAP'}">info</c:if> ">${system.protocol}</span>
                                                 ${system.systemName}
+                                            <span class="count-badge badge" data-system="${system.systemName}">x</span>
                                         </td>
                                         <td colspan="2">&nbsp;</td>
                                         <td align="center">

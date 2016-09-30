@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
+import ru.sbt.bpm.mock.utils.AjaxObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,8 +32,7 @@ public class SchemaController {
     public String getSchemaFileNamesList(
             @PathVariable("systemName") String systemName) throws Exception {
 
-        Map<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
-
+        AjaxObject resObject= new AjaxObject();
 
         try {
             ArrayList<String> schemaFileNames = new ArrayList<String>();
@@ -43,17 +43,15 @@ public class SchemaController {
                 schemaFileNames.add(file.getAbsolutePath().substring(parentDirPathLength + 1));
             }
 
-            map.put("data", schemaFileNames);
+            resObject.setData(schemaFileNames);
 
         } catch (Exception e) {
-            return e.getMessage();
-            //map.put("error", e.getMessage());
-            //ajaxObject.setError(e);
+
+            resObject.setError(e);
         }
 
 
-        return new Gson().toJson(map);
-
+        return resObject.toJSON();
     }
 
     @ResponseBody
@@ -62,19 +60,20 @@ public class SchemaController {
             @PathVariable("systemName") String systemName,
             @RequestParam(required = true) String fileName) throws Exception {
 
-        HashMap<String, String> map = new HashMap<String, String>();
+        AjaxObject resObject = new AjaxObject();
 
         try {
 
+
+
             String fileContent = FileUtils.readFileToString(dataFileService.getXsdFile(systemName, fileName));
-            map.put("data", fileContent);
+            resObject.setData(fileContent);
 
         } catch (Exception e) {
-            map.put("error", e.getMessage());
+            resObject.setError(e);
         }
 
-
-        return new Gson().toJson(map);
+        return  resObject.toJSON();
 
     }
 

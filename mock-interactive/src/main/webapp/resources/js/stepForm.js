@@ -76,7 +76,159 @@ $(function () {
         updateWizardHeight();
     })
 
+    updateSchemaCounterBadges();
+
 });
+
+
+//=================================================логика отображения файлов схемы ==========================================
+//=================================================================начало====================================================
+
+//обновим бейджы и навесим на них логгику с данными
+function updateSchemaCounterBadges() {
+
+    $(".count-badge").each(function (index, value) {
+
+            var localThis = $(this);
+            var localSystemName = localThis.attr("data-system");
+            //console.log(localThis);
+
+            $.post("/api/schema/" + localSystemName + "/files/list/")
+                .success(function (data) {
+
+                    var response = jQuery.parseJSON(data);
+
+                    localThis.text(response.data.length);
+
+                    var sortedData = response.data;
+
+                    sortedData.sort(
+                        function (a, b) {
+
+                            //получим пути (отсечем имена файлов)
+                            var aPath = /(.*)\\/.exec(a) == null ? "" : /(.*)\\/.exec(a)[0];
+                            var bPath = /(.*)\\/.exec(b) == null ? "" : /(.*)\\/.exec(b)[0];
+
+                            //разобьем путь в массив
+                            var aPathSplit = aPath.split("\\");
+                            var bPathSplit = bPath.split("\\");
+
+                            //если пути не равны - значит сравниваем друг с другом папки разного уровня вложенности
+                            if (aPath != bPath) {
+
+                                var minIndex = Math.min(aPathSplit.length, bPathSplit.length);
+
+                                var aa = aPathSplit.slice(0, minIndex - 1).join("\\");
+                                var bb = bPathSplit.slice(0, minIndex - 1).join("\\");
+
+                                if (aa == bb) {
+                                    return aPathSplit.length < bPathSplit.length;
+                                } else {
+                                    return aa > bb;
+                                }
+
+                            } else {//если это файл в одной и той же директории, то сортируем как обычно
+
+                                return a < b;
+
+                            }
+
+                        }
+                    );
+
+                    //в list сразу откроем корневой тег ol
+                    var list = "<ul class='bbb'><li class='root'>/</li>";
+
+                    var prevPath = "";
+
+                    $.each(response.data, function (index, value) {
+
+                        var currPath = /(.*)\\/.exec(value) == null ? "/" : /(.*)\\/.exec(value)[0];
+                        var fileName = /.*\\([^\\]*)/.exec(value) == null ? value : /.*\\([^\\]*)/.exec(value)[1];
+
+                        if (prevPath != currPath) {
+
+                            var prevPathSplit = prevPath.split("\\");
+                            var currPathSplit = currPath.split("\\");
+
+                            var currentFolder = /.*\\(.+)/.exec(currPath) == null ? currPath : /.*\\(.+)/.exec(currPath)[1];
+
+                            var i = 0;
+                            while (currPathSplit[i] == prevPathSplit[i] && i < currPathSplit.length) {
+                                i++;
+                            }
+
+                            //закрыть открытые списки
+                            var j = 0 + i;
+
+                            while (j < (prevPathSplit.length - 1)) {
+                                list = list + "</ul></li>";
+                                j++;
+                            }
+
+                            //открыть новые списки
+                            var j = 0 + i;
+                            while (j < (currPathSplit.length - 1)) {
+                                list = list + "<li><span class='glyphicon glyphicon-folder-open' style='opacity: 0.5; margin-right: 7px'></span><span>" + currPathSplit[j] + "</span><ul>";
+                                j++;
+                            }
+
+
+                            //если последний элемент
+                            if (index == (response.data.length - 1)) {
+
+                                for (i = 0; i < currPathSplit.length - 1; i++) {
+                                    list = list + "<li></li>";
+                                }
+
+                            }
+                            prevPath = currPath;
+                        }
+
+                        list = list + "<li><a href='#' data-systemName='" + localSystemName + "' data-fileName='" + value + "' onclick='showSchemaFileContent(this)'>" + fileName + "</a></li>";
+
+                    });
+
+                    //закрыть корневой тег ol
+                    list = list + "</ul>";
+
+                    var template = $('<div class="popover schemaPopoverControl" style="width: auto; max-width: 600px; z-index:1010;"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>');
+                    template.mouseleave(function () {
+                        $(".popover").hide();
+                    });
+
+                    //инициализация поповера
+                    localThis.popover({
+                        html: true,
+                        title: 'Schema files',
+                        content: list,
+                        template: template
+
+                    });
+
+                });
+        }
+    )
+}
+
+
+//отобразить  XML контент файла схемы
+function showSchemaFileContent(aliSchemaElem) {
+
+    var fileName = $(aliSchemaElem).attr("data-fileName");
+    var systemName = $(aliSchemaElem).attr("data-systemName");
+
+    $.post("/api/schema/" + systemName + "/files/content/", {fileName: fileName})
+        .success(function (data) {
+
+            var response = jQuery.parseJSON(data);
+            showMessageForm(fileName, response.data);
+
+        });
+}
+
+//=================================================================конец====================================================
+
 
 function htmlDecode(text) {
     return $('<div/>').html(text).text();
@@ -91,7 +243,7 @@ var int_point = null;
 function updateWizardHeight() {
     //set wizard height
     var newHeight = $(".wizard > .content > .body.current").css("height");
-    newHeight = newHeight.substr(0,newHeight.length-2);
+    newHeight = newHeight.substr(0, newHeight.length - 2);
     newHeight = eval(newHeight) + 20;
     $(".wizard > .content").css("cssText", "height:" + newHeight + "px !important;");
 }
@@ -408,12 +560,12 @@ function showValidationForm(system) {
         closable: false,
         buttons: [{
             label: "Linerize",
-            action: function() {
-                editor.setValue(editor.getValue().replaceAll2("\n",""),1);
+            action: function () {
+                editor.setValue(editor.getValue().replaceAll2("\n", ""), 1);
             }
         }, {
             label: "Prettify",
-            action: function() {
+            action: function () {
                 editor.setValue(vkbeautify.xml(editor.getValue()), 1);
             }
         }, {
@@ -423,7 +575,7 @@ function showValidationForm(system) {
                 var message = editor.getValue();
                 if (message) {
                     $.ajax({
-                        url: "api/system/"+system+"/validate/",
+                        url: "api/system/" + system + "/validate/",
                         type: "POST",
                         data: {
                             message: message
@@ -502,7 +654,7 @@ function showMessageForm(title, message, markupLinesString) {
             //errors markup
             var Range = ace.require('ace/range').Range;
             for (var i = 0; i < markups.length; i++) {
-                editor.getSession().addMarker(new Range(markups[i],0,markups[i],200), "errorMarker", "line")
+                editor.getSession().addMarker(new Range(markups[i], 0, markups[i], 200), "errorMarker", "line")
             }
 
         }

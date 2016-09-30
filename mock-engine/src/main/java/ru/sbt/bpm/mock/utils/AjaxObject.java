@@ -71,8 +71,12 @@ public class AjaxObject {
         this.error = fixNewLine(error);
     }
 
-    public void setData(String data) {
-        this.data = StringEscapeUtils.escapeHtml4(StringEscapeUtils.unescapeJava(fixNewLine(data)));
+    public void setData(Object data) {
+        if (data instanceof String) {
+            this.data = StringEscapeUtils.escapeHtml4(StringEscapeUtils.unescapeJava(fixNewLine((String) data)));
+        } else {
+            this.data = data;
+        }
     }
 
     private String fixNewLine(String text) {
