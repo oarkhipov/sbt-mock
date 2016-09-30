@@ -2,6 +2,7 @@ package ru.sbt.bpm.mock.spring.controllers.api;
 
 import com.google.gson.Gson;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -64,10 +65,8 @@ public class SchemaController {
 
         try {
 
-
-
             String fileContent = FileUtils.readFileToString(dataFileService.getXsdFile(systemName, fileName));
-            resObject.setData(fileContent);
+            resObject.setData(StringEscapeUtils.escapeHtml4(fileContent));
 
         } catch (Exception e) {
             resObject.setError(e);

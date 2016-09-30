@@ -33,7 +33,6 @@
  * Created by sbt-bochev-as on 01.07.2016.
  */
 var table;
-var tooltipVisible = false;
 $(document).ready(function () {
 
     table = $('#example').DataTable({
@@ -50,7 +49,7 @@ $(document).ready(function () {
         "search": {
             "regex": true
         },
-        "order": [[0, "desc"],[1, "desc"]],
+        "order": [[0, "desc"], [1, "desc"]],
         "fnDrawCallback": function () {
             //Get page number on client. Please note: number start from 0 So
             //for the first page you will see 0 second page 1 third page 2...
@@ -95,7 +94,6 @@ $(document).ready(function () {
     tableElement.on('click', 'tr', function () {
         var row = table.row(this).data();
         var ts = encodeURIComponent(row.ts);
-        hideTooltip();
         if (ts) {
             $.ajax({
                 url: "../api/log/getMessage/" + ts + "/",
@@ -119,9 +117,6 @@ $(document).ready(function () {
                             editor.setValue(vkbeautify.xml(htmlDecode(data)), 1);
                             editor.renderer.$cursorLayer.element.style.display = "none";
                             editor.getSession().setUseWrapMode(true);
-                            //for errors markup
-                            // var Range = ace.require('ace/range').Range;
-                            // editor.getSession().addMarker(new Range(1,0,1,200), "errorMarker", "line")
                         }
                     });
 
@@ -129,54 +124,8 @@ $(document).ready(function () {
             });
         }
     });
-
-    $(tableElement).hoverIntent({
-        over: showTooltip,
-        out: hideTooltip,
-        selector: 'tr',
-        interval: 1000
-    });
-
-    function showTooltip() {
-        tooltipVisible = true;
-        var tooltip = $("#tooltip");
-        var data = table.row(this).data();
-        var ts = encodeURIComponent(data.ts);
-        if (ts && (ts != tooltip.attr("data-ts"))) {
-            tooltip.attr('title', '<span class="glyphicon-refresh-animate glyphicon-refresh glyphicon"></span> Loading...</div>')
-                .attr('data-original-title', '<span class="glyphicon-refresh-animate glyphicon-refresh glyphicon"></span> Loading...')
-                .attr('data-ts', ts);
-            $.ajax({
-                url: "../api/log/getMessage/" + ts + "/",
-                success: function (data) {
-                    var xml = htmlEncode(vkbeautify.xml(htmlDecode(data)));
-                    tooltip.attr('title', "")
-                        .attr('data-original-title', "<div id=\"tooltipBody\" style='text-align: left'>" + xml + "</div>");
-                    $('[data-toggle="tooltip"]').tooltip('show')
-                }
-            });
-        }
-    }
-
-    function hideTooltip() {
-        tooltipVisible = false;
-        $('[data-toggle="tooltip"]').tooltip('hide')
-    }
-
-    tableElement.on('mousemove', 'tr', function (e) {
-        var tooltip = $("#tooltip");
-        tooltip.css({top: e.pageY, left: e.pageX - 80});
-        if  (tooltipVisible) {
-            $('[data-toggle="tooltip"]').tooltip('show')
-        }
-
-    });
 });
 
 function htmlDecode(text) {
     return $('<div/>').html(text).text();
-}
-
-function htmlEncode(text) {
-    return $('<div/>').text(text).html();
 }

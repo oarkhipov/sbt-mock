@@ -87,13 +87,15 @@ $(function () {
 //обновим бейджы и навесим на них логгику с данными
 function updateSchemaCounterBadges() {
 
-    $(".count-badge").each(function (index, value) {
+    $(".count-badge")
+        .css("cursor","pointer")
+        .each(function (index, value) {
 
             var localThis = $(this);
             var localSystemName = localThis.attr("data-system");
             //console.log(localThis);
 
-            $.post("/api/schema/" + localSystemName + "/files/list/")
+            $.post("api/schema/" + localSystemName + "/files/list/")
                 .success(function (data) {
 
                     var response = jQuery.parseJSON(data);
@@ -151,8 +153,6 @@ function updateSchemaCounterBadges() {
                             var prevPathSplit = prevPath.split("\\");
                             var currPathSplit = currPath.split("\\");
 
-                            var currentFolder = /.*\\(.+)/.exec(currPath) == null ? currPath : /.*\\(.+)/.exec(currPath)[1];
-
                             var i = 0;
                             while (currPathSplit[i] == prevPathSplit[i] && i < currPathSplit.length) {
                                 i++;
@@ -202,8 +202,10 @@ function updateSchemaCounterBadges() {
                         html: true,
                         title: 'Schema files',
                         content: list,
-                        template: template
-
+                        template: template,
+                        trigger: "manual"
+                    }).click(function (e) {
+                        $(this).popover('show');
                     });
 
                 });
@@ -218,11 +220,11 @@ function showSchemaFileContent(aliSchemaElem) {
     var fileName = $(aliSchemaElem).attr("data-fileName");
     var systemName = $(aliSchemaElem).attr("data-systemName");
 
-    $.post("/api/schema/" + systemName + "/files/content/", {fileName: fileName})
+    $.post("api/schema/" + systemName + "/files/content/", {fileName: fileName})
         .success(function (data) {
 
             var response = jQuery.parseJSON(data);
-            showMessageForm(fileName, response.data);
+            showMessageForm(fileName, htmlDecode(response.data));
 
         });
 }
