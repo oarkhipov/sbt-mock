@@ -33,10 +33,7 @@ package ru.sbt.bpm.mock.spring.controllers.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import reactor.tuple.Tuple3;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
@@ -46,6 +43,7 @@ import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.enums.DispatcherTypes;
 import ru.sbt.bpm.mock.spring.service.ConfigurationService;
 import ru.sbt.bpm.mock.spring.service.DataFileService;
+import ru.sbt.bpm.mock.spring.service.DispatcherService;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -65,6 +63,8 @@ public class MessageTemplateApiController {
     private ConfigurationService configurationService;
     @Autowired
     private DataFileService dataFileService;
+    @Autowired
+    private DispatcherService dispatcherService;
 
     @RequestMapping(value = "/api/messageTemplate/add/{systemName}/{integrationPointName}/", method = RequestMethod.POST)
     public String add(@PathVariable String systemName,
@@ -110,5 +110,16 @@ public class MessageTemplateApiController {
         dataFileService.deleteDataFiles(entitiesByMessageTemplateUUID.getT1().getSystemName(), integrationPoint.getName(), messageTemplate.getTemplateId().toString());
         configurationService.saveConfig();
         return "redirect:/";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/api/messageTemplate/check/", method = RequestMethod.POST)
+    public String checkDispatchingRule(@RequestParam String payload,
+                                       @RequestParam String dispatcherTypeString,
+                                       @RequestParam String dispatcherExpression,
+                                       @RequestParam String regexGroups,
+                                       @RequestParam String value) {
+        return String.valueOf(
+                dispatcherService.test(payload, DispatcherTypes.valueOf(dispatcherTypeString), dispatcherExpression, regexGroups, value));
     }
 }
