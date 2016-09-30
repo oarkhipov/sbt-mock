@@ -152,7 +152,7 @@ public class SystemApiController {
             }
         }
 
-        if (!systemObject.getSystemName().equals(systemName)) {
+        if (!systemObject.getSystemName().equals(newSystemName)) {
             systemObject.setSystemName(newSystemName);
             dataFileService.moveSystemDir(systemName, newSystemName);
         }
