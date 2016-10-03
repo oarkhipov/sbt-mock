@@ -99,7 +99,7 @@
 
 <form>
     <div id="codeWrapper">
-        <span>Message</span>
+        <span><c:if test="${link eq 'driver'}">Request</c:if><c:if test="${link eq 'mock'}">Response</c:if> message</span>
 
         <div id="code"><c:out value="${message}" escapeXml="true"/></div>
         <div id="actionButtonsDiv">
@@ -128,7 +128,7 @@
                 <li class="active"><a data-toggle="tab" href="#tabs-1"><span class="glyphicon glyphicon-console"></span>
                     Script</a></li>
                 <c:if test="${link eq 'mock'}">
-                    <li><a data-toggle="tab" href="#tabs-2"><span class="glyphicon glyphicon-list-alt"></span> Test</a>
+                    <li><a data-toggle="tab" href="#tabs-2"><span class="glyphicon glyphicon-list-alt"></span> Request example(test)</a>
                     </li>
                 </c:if>
             </ul>
@@ -152,7 +152,7 @@
         </div>
     </div>
     <div id="resCodeWrapper">
-        <span>Response</span>
+        <span><c:if test="${link eq 'driver'}">Request preview / Response</c:if><c:if test="${link eq 'mock'}">Response preview</c:if></span>
 
         <div id="resCode"></div>
     </div>
