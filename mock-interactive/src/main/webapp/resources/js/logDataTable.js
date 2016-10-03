@@ -54,6 +54,7 @@ $(document).ready(function () {
             //Get page number on client. Please note: number start from 0 So
             //for the first page you will see 0 second page 1 third page 2...
             //Un-comment below alert to see page number
+            setTransactionHandlers();
         },
         initComplete: function () {
             this.api().columns().every(function () {
@@ -86,7 +87,11 @@ $(document).ready(function () {
             {"mData": "fullEndpoint"},
             {"mData": "shortEndpoint"},
             {"mData": "messageState"}
-        ]
+        ],
+        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+            $('td:eq(1)', nRow).html("<a href=# class='transactionFilter'>" + aData.transactionId + "</a>");
+            return nRow;
+        }
     });
 
     var tableElement = $("#example tbody");
@@ -128,4 +133,13 @@ $(document).ready(function () {
 
 function htmlDecode(text) {
     return $('<div/>').html(text).text();
+}
+
+function setTransactionHandlers() {
+    $(".transactionFilter").click(function (event) {
+        event.preventDefault();
+        var value = $(this).html();
+        table.search(value).draw();
+        return false;
+    });
 }
