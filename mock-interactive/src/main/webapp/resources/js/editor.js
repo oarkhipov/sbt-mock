@@ -68,9 +68,7 @@ $().ready(function () {
 
     //Enable editing if parameter EDIT is set and edit buttons hidden for no reason
     if ($.cookie("edit")) {
-        if($(".editActions").css("visibility") == "hidden") {
-            $("#editingEnabler").click();
-        }
+        $(".wizard").find(".editActions:visible").css("visibility", "visible");
     }
 });
 

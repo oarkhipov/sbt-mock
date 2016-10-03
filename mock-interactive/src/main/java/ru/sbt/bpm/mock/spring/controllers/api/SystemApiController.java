@@ -240,7 +240,11 @@ public class SystemApiController {
         systemObject.setValidationEnabled(validationEnabled);
 
         configurationService.saveConfig();
-        validationService.reInitValidator(systemName);
+        if (newSystemName != null) {
+            validationService.reInitValidator(newSystemName);
+        } else {
+            validationService.reInitValidator(systemName);
+        }
         if (needToReInitSpringContext) {
             configurationService.reInitSpringContext();
         }
