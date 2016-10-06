@@ -93,6 +93,12 @@
 
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/vkbeautify.0.99.00.beta.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery.cookie.js"></script>
+    <script>
+        var path = window.location.pathname;
+        if (path.indexOf("/",path.length -1) == -1) {
+            window.location.href = path + "/";
+        }
+    </script>
 </head>
 <body>
 <!--[if lt IE 7]>
