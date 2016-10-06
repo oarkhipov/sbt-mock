@@ -97,6 +97,7 @@ public class SystemApiController {
                       @RequestParam(required = false) boolean validationEnabled,
                       @RequestParam(value = "rootElementNamespace", required = false) String rootElementNamespace,
                       @RequestParam(value = "rootElementName", required = false) String rootElementName) throws IOException, SAXException, JAXBException {
+        if (name == null || name.isEmpty()) return "redirect:/";
         Systems systems = configContainer.getConfig().getSystems();
         XpathSelector xpathSelector = null;
         if (integrationPointSelectorNamespace != null && integrationPointSelectorElementName != null) {
@@ -354,12 +355,12 @@ public class SystemApiController {
     public String validate(@PathVariable String systemName, @RequestParam String message) {
         AjaxObject ajaxObject = new AjaxObject();
         try {
-        List<MockMessageValidationException> validationErrors = validationService.validate(message, systemName);
-        if (validationErrors.isEmpty()) {
-            ajaxObject.setInfo("Valid");
-        } else {
-            ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
-        }
+            List<MockMessageValidationException> validationErrors = validationService.validate(message, systemName);
+            if (validationErrors.isEmpty()) {
+                ajaxObject.setInfo("Valid");
+            } else {
+                ajaxObject.setError(ValidationUtils.getSolidErrorMessage(validationErrors));
+            }
         } catch (Exception e) {
             ajaxObject.setError(e);
         }
