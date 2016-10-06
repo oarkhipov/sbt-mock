@@ -64,6 +64,8 @@ import ru.sbt.bpm.mock.utils.XmlUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -106,16 +108,23 @@ public class SOAPValidationService {
 
     public void init(Map<String, MessageValidator> validator, System system, String systemName, String remoteRootSchema, String localRootSchema, String remoteSchemaInLowerCase) throws IOException {
         WsdlValidator wsdlValidator;
-        if (localRootSchema != null && !localRootSchema.isEmpty()) {
-            wsdlValidator = initLocalWsdlValidator(system, localRootSchema);
-        } else {
-            if (remoteSchemaInLowerCase.startsWith("http://") || remoteSchemaInLowerCase.startsWith("ftp://")) {
-                wsdlValidator = new WsdlValidator(remoteRootSchema);
-            } else {
-                system.setLocalRootSchema(remoteRootSchema);
-                wsdlValidator = initLocalWsdlValidator(system, system.getLocalRootSchema());
-            }
 
+        if (remoteSchemaInLowerCase.startsWith("http://") || remoteSchemaInLowerCase.startsWith("ftp://")) {
+            if (checkRemoteConnection(remoteRootSchema)) {
+                wsdlValidator = new WsdlValidator(remoteRootSchema, dataFileService.getSystemXsdDirectoryFile(systemName));
+            } else {
+                String cachedPath = new URL(remoteRootSchema).getPath();
+                if (isSchemaCached(system, cachedPath)) {
+                    wsdlValidator = initLocalWsdlValidator(system,cachedPath);
+                } else {
+                    return;
+                }
+
+
+            }
+        } else {
+            system.setLocalRootSchema(remoteRootSchema);
+            wsdlValidator = initLocalWsdlValidator(system, system.getLocalRootSchema());
         }
 
         WsdlProject wsdlProject = wsdlValidator.getWsdlProject();
@@ -137,6 +146,19 @@ public class SOAPValidationService {
             }
             validator.put(systemName, wsdlValidator);
         }
+    }
+
+    private boolean isSchemaCached(System system, String cachedPath) {
+        File directoryFile = dataFileService.getSystemXsdDirectoryFile(system.getSystemName());
+        File schemaFile = new File(directoryFile.getAbsolutePath() + cachedPath);
+        return schemaFile.exists();
+    }
+
+    private boolean checkRemoteConnection(String remoteRootSchema) throws IOException {
+        URL url = new URL(remoteRootSchema);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.connect();
+        return connection.getResponseCode() == 200;
     }
 
     private WsdlValidator initLocalWsdlValidator(System system, String localRootSchema) throws IOException {
