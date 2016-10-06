@@ -104,6 +104,8 @@ function updateSchemaCounterBadges() {
 
                     var sortedData = response.data;
 
+
+
                     sortedData.sort(
                         function (a, b) {
 
@@ -144,6 +146,8 @@ function updateSchemaCounterBadges() {
                     var prevPath = "";
 
                     $.each(response.data, function (index, value) {
+
+                        value = value.replace("/","\\");
 
                         var currPath = /(.*)\\/.exec(value) == null ? "/" : /(.*)\\/.exec(value)[0];
                         var fileName = /.*\\([^\\]*)/.exec(value) == null ? value : /.*\\([^\\]*)/.exec(value)[1];
