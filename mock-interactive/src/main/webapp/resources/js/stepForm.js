@@ -212,6 +212,7 @@ function updateSchemaCounterBadges() {
                         template: template,
                         trigger: "manual"
                     }).click(function (e) {
+                        $(".popover").hide();
                         $(this).popover('show');
                     });
 
