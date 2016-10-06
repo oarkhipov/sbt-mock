@@ -104,8 +104,9 @@ function updateSchemaCounterBadges() {
 
                     //если разделитьель вдруг будет '/' вместо каноничного \
                     $.each (response.data, function( index, value){
-                        value = value.replaceAll2("/","\\");
+                        response.data[index] = value.replaceAll2("/","\\");
                     });
+
 
                     var sortedData = response.data;
 
