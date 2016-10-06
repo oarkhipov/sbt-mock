@@ -31,18 +31,23 @@
 
 package ru.sbt.bpm.mock.spring.service.message.validation.impl;
 
+import com.eviware.soapui.impl.support.definition.DefinitionCache;
+import com.eviware.soapui.impl.support.definition.InterfaceDefinitionPart;
 import com.eviware.soapui.impl.wsdl.WsdlProject;
+import com.eviware.soapui.model.iface.Interface;
 import com.soapuiutil.wsdlvalidator.WsdlMessageValidator;
 import com.soapuiutil.wsdlvalidator.WsdlMessageValidatorException;
 import lombok.extern.slf4j.Slf4j;
-import org.xml.sax.SAXParseException;
+import org.apache.commons.io.FileUtils;
 import ru.sbt.bpm.mock.spring.service.message.validation.MessageValidator;
 import ru.sbt.bpm.mock.spring.service.message.validation.exceptions.MockMessageValidationException;
 import ru.sbt.bpm.mock.utils.ExceptionUtils;
 import ru.sbt.bpm.mock.utils.XmlUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -57,11 +62,34 @@ public class WsdlValidator implements MessageValidator {
 
     private WsdlMessageValidator wsdlMessageValidator;
 
-    public WsdlValidator(String wsdlUrl) {
+    public WsdlValidator(String wsdlUrl) throws IOException {
+        this(wsdlUrl, null);
+    }
+
+    public WsdlValidator(String wsdlUrl, File systemSchemaDirectory) throws IOException {
+        if (systemSchemaDirectory != null) {
+            FileUtils.cleanDirectory(systemSchemaDirectory);
+        }
         try {
             wsdlMessageValidator = new WsdlMessageValidator(wsdlUrl);
+            if (wsdlUrl.toLowerCase().startsWith("http://")) {
+                if (systemSchemaDirectory == null) {
+                    throw new IllegalStateException("No system schema root directory path specified");
+                }
+                for (Interface anInterface : getWsdlProject().getInterfaceList()) {
+                    DefinitionCache definitionCache = anInterface.getDefinitionContext().getInterfaceDefinition().getDefinitionCache();
+                    for (InterfaceDefinitionPart interfaceDefinitionPart : definitionCache.getDefinitionParts()) {
+                        URL url = new URL(interfaceDefinitionPart.getUrl());
+                        String path = url.getPath();
+                        String content = interfaceDefinitionPart.getContent();
+                        cacheResource(systemSchemaDirectory.getAbsolutePath(), path, content);
+                    }
+                }
+            }
         } catch (WsdlMessageValidatorException e) {
             log.error("Exception in wsdl validator Constructor", e);
+        } catch (Exception e) {
+            log.error("Exception while wsdl content was caching");
         }
     }
 
@@ -79,5 +107,12 @@ public class WsdlValidator implements MessageValidator {
 
     public WsdlProject getWsdlProject() {
         return wsdlMessageValidator == null ? null : wsdlMessageValidator.getWsdlProject();
+    }
+
+    private void cacheResource(String systemPath, String fileSubPath, String content) throws IOException {
+        String filePath = systemPath + fileSubPath;
+        File file = new File(filePath);
+        FileUtils.forceMkdir(file.getParentFile());
+        FileUtils.writeStringToFile(file, content);
     }
 }
