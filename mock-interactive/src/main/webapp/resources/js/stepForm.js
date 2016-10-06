@@ -102,9 +102,12 @@ function updateSchemaCounterBadges() {
 
                     localThis.text(response.data.length);
 
+                    //если разделитьель вдруг будет '/' вместо каноничного \
+                    $.each (response.data, function( index, value){
+                        value = value.replaceAll2("/","\\");
+                    });
+
                     var sortedData = response.data;
-
-
 
                     sortedData.sort(
                         function (a, b) {
@@ -147,7 +150,7 @@ function updateSchemaCounterBadges() {
 
                     $.each(response.data, function (index, value) {
 
-                        value = value.replace("/","\\");
+
 
                         var currPath = /(.*)\\/.exec(value) == null ? "/" : /(.*)\\/.exec(value)[0];
                         var fileName = /.*\\([^\\]*)/.exec(value) == null ? value : /.*\\([^\\]*)/.exec(value)[1];
