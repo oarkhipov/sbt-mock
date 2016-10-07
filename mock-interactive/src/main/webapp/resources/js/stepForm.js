@@ -107,8 +107,6 @@ function updateSchemaCounterBadges() {
                         response.data[index]= [value, value.replaceAll2("/","\\")];
                     });
 
-                    console.log(response.data);
-
 
                     var sortedData = response.data;
 
