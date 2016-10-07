@@ -104,8 +104,10 @@ function updateSchemaCounterBadges() {
 
                     //если разделитьель вдруг будет '/' вместо каноничного \
                     $.each (response.data, function( index, value){
-                        response.data[index] = value.replaceAll2("/","\\");
+                        response.data[index]= [value, value.replaceAll2("/","\\")];
                     });
+
+                    console.log(response.data);
 
 
                     var sortedData = response.data;
@@ -113,6 +115,8 @@ function updateSchemaCounterBadges() {
                     sortedData.sort(
                         function (a, b) {
 
+                            a = a[1];
+                            b = b[1];
                             //получим пути (отсечем имена файлов)
                             var aPath = /(.*)\\/.exec(a) == null ? "" : /(.*)\\/.exec(a)[0];
                             var bPath = /(.*)\\/.exec(b) == null ? "" : /(.*)\\/.exec(b)[0];
@@ -151,10 +155,10 @@ function updateSchemaCounterBadges() {
 
                     $.each(response.data, function (index, value) {
 
+                        var value1 = value[1];
 
-
-                        var currPath = /(.*)\\/.exec(value) == null ? "/" : /(.*)\\/.exec(value)[0];
-                        var fileName = /.*\\([^\\]*)/.exec(value) == null ? value : /.*\\([^\\]*)/.exec(value)[1];
+                        var currPath = /(.*)\\/.exec(value1) == null ? "/" : /(.*)\\/.exec(value1)[0];
+                        var fileName = /.*\\([^\\]*)/.exec(value1) == null ? value1 : /.*\\([^\\]*)/.exec(value1)[1];
 
                         if (prevPath != currPath) {
 
@@ -193,7 +197,7 @@ function updateSchemaCounterBadges() {
                             prevPath = currPath;
                         }
 
-                        list = list + "<li><a href='#' data-systemName='" + localSystemName + "' data-fileName='" + value + "' onclick='showSchemaFileContent(this)'>" + fileName + "</a></li>";
+                        list = list + "<li><a href='#' data-systemName='" + localSystemName + "' data-fileName='" + value[0] + "' onclick='showSchemaFileContent(this)'>" + fileName + "</a></li>";
 
                     });
 
