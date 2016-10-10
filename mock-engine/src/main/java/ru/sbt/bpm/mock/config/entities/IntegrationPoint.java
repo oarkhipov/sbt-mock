@@ -46,7 +46,6 @@ import reactor.tuple.Tuple2;
  *         Company: SBT - Saint-Petersburg
  */
 @XStreamAlias("integrationPoint")
-//@NoArgsConstructor
 @Data
 public class IntegrationPoint {
 
@@ -196,5 +195,12 @@ public class IntegrationPoint {
             validationEnabled = true;
         }
         return validationEnabled;
+    }
+
+    public Boolean getAnswerRequired() {
+        if (answerRequired == null) {
+            answerRequired = true;
+        }
+        return answerRequired;
     }
 }
