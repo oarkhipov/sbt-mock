@@ -32,10 +32,9 @@
 package ru.sbt.bpm.mock.config.entities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import ru.sbt.bpm.mock.config.enums.DispatcherTypes;
 import lombok.Data;
-import ru.sbt.bpm.mock.config.serialization.CdataValue;
 import ru.sbt.bpm.mock.config.enums.DispatcherTypes;
+import ru.sbt.bpm.mock.config.serialization.CdataValue;
 
 import java.util.UUID;
 
@@ -67,6 +66,9 @@ public class MessageTemplate {
 
     @XStreamAlias("value")
     private String value;
+
+    @XStreamAlias("mockChains")
+    private MockChains mockChains;
 
     public MessageTemplate() {
         templateId = UUID.randomUUID();

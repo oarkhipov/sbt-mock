@@ -33,52 +33,36 @@ package ru.sbt.bpm.mock.config.entities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
-import lombok.Getter;
-import ru.sbt.bpm.mock.config.container.MovableList;
-import ru.sbt.bpm.mock.config.enums.DispatcherTypes;
 import lombok.Data;
-import ru.sbt.bpm.mock.config.container.MovableList;
-import ru.sbt.bpm.mock.config.enums.DispatcherTypes;
+import lombok.Getter;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.UUID;
 
 /**
- * @author sbt-bochev-as on 28.07.2016.
+ * @author sbt-bochev-as on 18.10.2016.
  *         <p>
  *         Company: SBT - Moscow
  */
-
 @Data
-@XStreamAlias("messageTemplates")
-public class MessageTemplates {
+@XStreamAlias("mockChains")
+public class MockChains {
 
     @Getter(lazy = true)
-    @XStreamImplicit(itemFieldName = "messageTemplate")
-    private final MovableList<MessageTemplate> messageTemplateList = initList();
+    @XStreamImplicit(itemFieldName = "mockChain")
+    private final List<MockChain> mockChainList = initList();
 
-    public static MovableList<MessageTemplate> initList() {
-        return new MovableList<MessageTemplate>();
+    private List<MockChain> initList() {
+        return new LinkedList<MockChain>();
     }
 
-    public MessageTemplate findMessageTemplateByUUID(UUID templateUuid) {
-        for (MessageTemplate messageTemplate : messageTemplateList) {
-            if (messageTemplate.getTemplateId().equals(templateUuid)) {
-                return messageTemplate;
+    public MockChain findById(UUID uuid) {
+        for (MockChain mockChain : mockChainList) {
+            if (mockChain.getId().equals(uuid)) {
+                return mockChain;
             }
         }
-        throw new NoSuchElementException("No template with UUID [" + templateUuid.toString() + "]");
-    }
-
-    public List<MessageTemplate> getSequenceTemplateList() {
-        LinkedList<MessageTemplate> sequenceTemplates = new LinkedList<MessageTemplate>();
-        for (MessageTemplate messageTemplate : messageTemplateList) {
-            if (messageTemplate.getDispatcherType().equals(DispatcherTypes.SEQUENCE)) {
-                sequenceTemplates.add(messageTemplate);
-            }
-        }
-        return sequenceTemplates;
+        return null;
     }
 }

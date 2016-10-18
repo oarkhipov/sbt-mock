@@ -32,53 +32,36 @@
 package ru.sbt.bpm.mock.config.entities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
-import lombok.Getter;
-import ru.sbt.bpm.mock.config.container.MovableList;
-import ru.sbt.bpm.mock.config.enums.DispatcherTypes;
 import lombok.Data;
-import ru.sbt.bpm.mock.config.container.MovableList;
-import ru.sbt.bpm.mock.config.enums.DispatcherTypes;
+import ru.sbt.bpm.mock.config.serialization.CdataValue;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.UUID;
 
 /**
- * @author sbt-bochev-as on 28.07.2016.
+ * @author sbt-bochev-as on 18.10.2016.
  *         <p>
  *         Company: SBT - Moscow
  */
-
 @Data
-@XStreamAlias("messageTemplates")
-public class MessageTemplates {
+@XStreamAlias("mockChain")
+public class MockChain {
+    @XStreamAlias("id")
+    private UUID id;
 
-    @Getter(lazy = true)
-    @XStreamImplicit(itemFieldName = "messageTemplate")
-    private final MovableList<MessageTemplate> messageTemplateList = initList();
+    @XStreamAlias("delay")
+    private Long delay;
 
-    public static MovableList<MessageTemplate> initList() {
-        return new MovableList<MessageTemplate>();
-    }
+    @XStreamAlias("system")
+    private String calledSystemName;
 
-    public MessageTemplate findMessageTemplateByUUID(UUID templateUuid) {
-        for (MessageTemplate messageTemplate : messageTemplateList) {
-            if (messageTemplate.getTemplateId().equals(templateUuid)) {
-                return messageTemplate;
-            }
-        }
-        throw new NoSuchElementException("No template with UUID [" + templateUuid.toString() + "]");
-    }
+    @XStreamAlias("integrationPoint")
+    private String calledIntegrationPointName;
 
-    public List<MessageTemplate> getSequenceTemplateList() {
-        LinkedList<MessageTemplate> sequenceTemplates = new LinkedList<MessageTemplate>();
-        for (MessageTemplate messageTemplate : messageTemplateList) {
-            if (messageTemplate.getDispatcherType().equals(DispatcherTypes.SEQUENCE)) {
-                sequenceTemplates.add(messageTemplate);
-            }
-        }
-        return sequenceTemplates;
-    }
+    @CdataValue
+    @XStreamAlias("script")
+    private String script;
+
+    @CdataValue
+    @XStreamAlias("test")
+    private String test;
 }

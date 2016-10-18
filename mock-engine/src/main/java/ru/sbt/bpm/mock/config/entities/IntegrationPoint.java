@@ -101,6 +101,9 @@ public class IntegrationPoint {
     @XStreamAlias("messageTemplates")
     private MessageTemplates messageTemplates;
 
+    @XStreamAlias("mockChains")
+    private MockChains mockChains;
+
     public IntegrationPoint(
             String name,
             String integrationPointType,
