@@ -37,8 +37,6 @@ import lombok.Getter;
 import ru.sbt.bpm.mock.config.container.MovableList;
 import ru.sbt.bpm.mock.config.enums.DispatcherTypes;
 import lombok.Data;
-import ru.sbt.bpm.mock.config.container.MovableList;
-import ru.sbt.bpm.mock.config.enums.DispatcherTypes;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -64,7 +62,7 @@ public class MessageTemplates {
     }
 
     public MessageTemplate findMessageTemplateByUUID(UUID templateUuid) {
-        for (MessageTemplate messageTemplate : messageTemplateList) {
+        for (MessageTemplate messageTemplate : (Iterable<MessageTemplate>)messageTemplateList) {
             if (messageTemplate.getTemplateId().equals(templateUuid)) {
                 return messageTemplate;
             }
@@ -74,7 +72,7 @@ public class MessageTemplates {
 
     public List<MessageTemplate> getSequenceTemplateList() {
         LinkedList<MessageTemplate> sequenceTemplates = new LinkedList<MessageTemplate>();
-        for (MessageTemplate messageTemplate : messageTemplateList) {
+        for (MessageTemplate messageTemplate : (Iterable<MessageTemplate>)messageTemplateList) {
             if (messageTemplate.getDispatcherType().equals(DispatcherTypes.SEQUENCE)) {
                 sequenceTemplates.add(messageTemplate);
             }

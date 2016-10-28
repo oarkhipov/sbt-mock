@@ -29,40 +29,47 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ru.sbt.bpm.mock.config.entities;
+package ru.sbt.bpm.mock.tests;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
-import lombok.Data;
-import lombok.Getter;
+import org.apache.commons.io.FileUtils;
+import org.apache.xmlbeans.XmlOptions;
+import org.testng.annotations.Test;
+import org.apache.poi.xwpf.usermodel.*;
+import javax.xml.bind.DatatypeConverter;
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 /**
- * @author sbt-bochev-as on 18.10.2016.
+ * @author sbt-bochev-as on 28.10.2016.
  *         <p>
  *         Company: SBT - Moscow
  */
-@Data
-@XStreamAlias("mockChains")
-public class MockChains {
+public class FileGenerationTest {
+    @Test
+    public void testDocumentCreation() throws Exception {
+        XWPFDocument doc = new XWPFDocument();
 
-    @Getter(lazy = true)
-    @XStreamImplicit(itemFieldName = "mockChain")
-    private final List<MockChain> mockChainList = initList();
+        XWPFParagraph p1 = doc.createParagraph();
+        XWPFRun run = p1.createRun();
+        String request = "SomeText";
+        request = request.replaceAll("&amp;lt;","&lt;").replaceAll("&amp;gt;",">").replaceAll("&amp;quot;","\"");
 
-    private List<MockChain> initList() {
-        return new LinkedList<MockChain>();
-    }
+        run.setText("Содержимое запроса:");
+        p1 = doc.createParagraph();
+        run = p1.createRun();
+        run.setText(request);
 
-    public MockChain findById(UUID uuid) {
-        for (MockChain mockChain : (Iterable<MockChain>)mockChainList) {
-            if (mockChain.getId().equals(uuid)) {
-                return mockChain;
-            }
-        }
-        return null;
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        doc.write(byteArrayOutputStream);
+
+//        byteArrayOutputStream.writeTo(new FileOutputStream("test.doc"));
+
+        String res = DatatypeConverter.printBase64Binary(byteArrayOutputStream.toByteArray());
+
+        assertTrue(res.length() > 0);
+
     }
 }
