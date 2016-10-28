@@ -53,7 +53,6 @@ import java.util.UUID;
 @XStreamAlias("messageTemplates")
 public class MessageTemplates {
 
-    @Getter(lazy = true)
     @XStreamImplicit(itemFieldName = "messageTemplate")
     private final MovableList<MessageTemplate> messageTemplateList = initList();
 
@@ -62,7 +61,7 @@ public class MessageTemplates {
     }
 
     public MessageTemplate findMessageTemplateByUUID(UUID templateUuid) {
-        for (MessageTemplate messageTemplate : (Iterable<MessageTemplate>)messageTemplateList) {
+        for (MessageTemplate messageTemplate : messageTemplateList) {
             if (messageTemplate.getTemplateId().equals(templateUuid)) {
                 return messageTemplate;
             }
@@ -72,7 +71,7 @@ public class MessageTemplates {
 
     public List<MessageTemplate> getSequenceTemplateList() {
         LinkedList<MessageTemplate> sequenceTemplates = new LinkedList<MessageTemplate>();
-        for (MessageTemplate messageTemplate : (Iterable<MessageTemplate>)messageTemplateList) {
+        for (MessageTemplate messageTemplate : messageTemplateList) {
             if (messageTemplate.getDispatcherType().equals(DispatcherTypes.SEQUENCE)) {
                 sequenceTemplates.add(messageTemplate);
             }

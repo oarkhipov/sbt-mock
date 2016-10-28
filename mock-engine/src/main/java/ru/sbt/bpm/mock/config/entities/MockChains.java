@@ -49,7 +49,6 @@ import java.util.UUID;
 @XStreamAlias("mockChains")
 public class MockChains {
 
-    @Getter(lazy = true)
     @XStreamImplicit(itemFieldName = "mockChain")
     private final List<MockChain> mockChainList = initList();
 
@@ -58,7 +57,7 @@ public class MockChains {
     }
 
     public MockChain findById(UUID uuid) {
-        for (MockChain mockChain : (Iterable<MockChain>)mockChainList) {
+        for (MockChain mockChain : mockChainList) {
             if (mockChain.getId().equals(uuid)) {
                 return mockChain;
             }
