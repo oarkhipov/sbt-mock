@@ -54,10 +54,17 @@ import java.util.UUID;
 public class MessageTemplates {
 
     @XStreamImplicit(itemFieldName = "messageTemplate")
-    private final MovableList<MessageTemplate> messageTemplateList = initList();
+    private MovableList<MessageTemplate> messageTemplateList = initList();
 
     public static MovableList<MessageTemplate> initList() {
         return new MovableList<MessageTemplate>();
+    }
+
+    public List<MessageTemplate> getMessageTemplateList() {
+        if (messageTemplateList == null) {
+            messageTemplateList = initList();
+        }
+        return messageTemplateList;
     }
 
     public MessageTemplate findMessageTemplateByUUID(UUID templateUuid) {
