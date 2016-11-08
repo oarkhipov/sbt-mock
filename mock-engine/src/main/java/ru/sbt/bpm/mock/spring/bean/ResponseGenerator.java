@@ -290,7 +290,7 @@ public class ResponseGenerator {
      */
     private UUID evaluateDispatcherExpression(MockMessage mockMessage) {
         String payload = mockMessage.getPayload();
-        MovableList<MessageTemplate> messageTemplates = mockMessage.getIntegrationPoint().getMessageTemplates().getMessageTemplateList();
+        List<MessageTemplate> messageTemplates = mockMessage.getIntegrationPoint().getMessageTemplates().getMessageTemplateList();
         for (MessageTemplate messageTemplate : messageTemplates) {
             DispatcherTypes dispatcherType = messageTemplate.getDispatcherType();
             if (DispatcherUtils.check(payload,
