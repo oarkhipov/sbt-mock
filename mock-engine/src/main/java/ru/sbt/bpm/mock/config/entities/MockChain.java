@@ -32,7 +32,9 @@
 package ru.sbt.bpm.mock.config.entities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.sbt.bpm.mock.config.serialization.CdataValue;
 
 import java.util.UUID;
@@ -58,10 +60,24 @@ public class MockChain {
     private String calledIntegrationPointName;
 
     @CdataValue
+    @XStreamAlias("templateMessage")
+    private String templateMessage;
+
+    @CdataValue
     @XStreamAlias("script")
     private String script;
 
     @CdataValue
     @XStreamAlias("test")
     private String test;
+
+    public MockChain(Long delay, String calledSystemName, String calledIntegrationPointName, String templateMessage, String script, String test) {
+        this.id = UUID.randomUUID();
+        this.delay = delay;
+        this.calledSystemName = calledSystemName;
+        this.calledIntegrationPointName = calledIntegrationPointName;
+        this.templateMessage = templateMessage;
+        this.script = script;
+        this.test = test;
+    }
 }

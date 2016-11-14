@@ -29,47 +29,65 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ru.sbt.bpm.mock.config.entities;
+package ru.sbt.bpm.mock.chain.entities;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
- * @author sbt-bochev-as on 18.10.2016.
+ * @author sbt-bochev-as on 10.11.2016.
  *         <p>
  *         Company: SBT - Moscow
  */
 @Data
-@XStreamAlias("mockChains")
-public class MockChains {
+@NoArgsConstructor
+@Entity
+@Table(name = "CHAINS", schema = "PUBLIC", catalog = "MOCK")
+@IdClass(ChainsEntityPK.class)
+public class ChainsEntity {
+    @Id
+    @Column(name = "ID")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_GENERATOR")
+    @SequenceGenerator(name = "SEQ_GENERATOR", sequenceName = "SEQ_GENERATOR", allocationSize = 1)
+    private long id;
 
-    @XStreamImplicit(itemFieldName = "mockChain")
-    private List<MockChain> mockChainList = initList();
+    @Id
+    @Column(name = "TS")
+    private Timestamp ts;
 
-    private List<MockChain> initList() {
-        return new LinkedList<MockChain>();
-    }
+    @Basic
+    @Column(name = "TRIGGERTIME")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date triggerTime;
 
-    public MockChain findById(UUID uuid) {
-        for (MockChain mockChain : mockChainList) {
-            if (mockChain.getId().equals(uuid)) {
-                return mockChain;
-            }
-        }
-        return null;
-    }
+    @Basic
+    @Column(name = "SYSTEM")
+    private String system;
 
-    public List<MockChain> getMockChainList() {
-        if (mockChainList == null) {
-            mockChainList = initList();
-        }
-        return mockChainList;
+    @Basic
+    @Column(name = "INTEGRATIONPOINT")
+    private String integrationPoint;
+
+    @Basic
+    @Column(name = "MESSAGETEMPLATEID")
+    private String messageTemplateId;
+
+    @Basic
+    @Column(name = "MESSAGE")
+    private String message;
+
+    public ChainsEntity(Date triggerTime, String system, String integrationPoint, String messageTemplateId, String message) {
+        this.ts = new Timestamp(System.currentTimeMillis());
+        this.triggerTime = triggerTime;
+        this.system = system;
+        this.integrationPoint = integrationPoint;
+        this.messageTemplateId = messageTemplateId;
+        this.message = message;
     }
 }

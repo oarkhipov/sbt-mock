@@ -38,12 +38,11 @@ import net.sf.saxon.s9api.XdmValue;
 import org.apache.xmlbeans.XmlException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.sbt.bpm.mock.chain.service.ChainsService;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
 import ru.sbt.bpm.mock.config.container.MovableList;
-import ru.sbt.bpm.mock.config.entities.IntegrationPoint;
-import ru.sbt.bpm.mock.config.entities.MessageTemplate;
+import ru.sbt.bpm.mock.config.entities.*;
 import ru.sbt.bpm.mock.config.entities.System;
-import ru.sbt.bpm.mock.config.entities.XpathSelector;
 import ru.sbt.bpm.mock.config.enums.DispatcherTypes;
 import ru.sbt.bpm.mock.config.enums.MessageType;
 import ru.sbt.bpm.mock.config.enums.Protocol;
@@ -62,7 +61,9 @@ import ru.sbt.bpm.mock.utils.DispatcherUtils;
 import ru.sbt.bpm.mock.utils.ExceptionUtils;
 import ru.sbt.bpm.mock.utils.XmlUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 /**
@@ -81,9 +82,10 @@ public class ResponseGenerator {
     private MockConfigContainer configContainer;
     private JmsService jmsService;
     private SOAPValidationService soapValidationService;
+    private ChainsService chainsService;
 
     @Autowired
-    public ResponseGenerator(LogService logService, GroovyService groovyService, MessageValidationService messageValidationService, DataFileService dataFileService, MockConfigContainer configContainer, JmsService jmsService, SOAPValidationService soapValidationService) {
+    public ResponseGenerator(LogService logService, GroovyService groovyService, MessageValidationService messageValidationService, DataFileService dataFileService, MockConfigContainer configContainer, JmsService jmsService, SOAPValidationService soapValidationService, ChainsService chainsService) {
         this.logService = logService;
         this.groovyService = groovyService;
         this.messageValidationService = messageValidationService;
@@ -91,6 +93,7 @@ public class ResponseGenerator {
         this.configContainer = configContainer;
         this.jmsService = jmsService;
         this.soapValidationService = soapValidationService;
+        this.chainsService = chainsService;
         logService.setMaxRowsCount(configContainer.getConfig().getMainConfig().getMaxLogsCount());
     }
 
@@ -144,6 +147,7 @@ public class ResponseGenerator {
             log(mockMessage, MessageType.RQ);
             validate(mockMessage, MessageType.RQ);
             if (mockMessage.isFaultMessage()) log(mockMessage, MessageType.RQ);
+            execMockChain(mockMessage);
             Boolean answerRequired =
                     mockMessage.getIntegrationPoint().getEnabled()
                     &&
@@ -164,6 +168,51 @@ public class ResponseGenerator {
             mockMessage.setPayload(wrapMessageWithSoapFault("Server", ExceptionUtils.getExceptionStackTrace(e)));
         }
         return mockMessage;
+    }
+
+    protected void execMockChain(MockMessage mockMessage) throws Exception {
+        UUID dispatchedMessageTemplateId = getDispatchedMessageTemplateId(mockMessage);
+        IntegrationPoint integrationPoint = mockMessage.getIntegrationPoint();
+        MessageTemplate messageTemplateByUUID = null;
+        try {
+            messageTemplateByUUID = integrationPoint.getMessageTemplates().findMessageTemplateByUUIDWithNoExceptions(dispatchedMessageTemplateId);
+        } catch (NoSuchElementException e){}
+
+        List<MockChain> mockChains = new ArrayList<MockChain>();
+
+        List<MockChain> messageTemplateMockChainList;
+        if (messageTemplateByUUID == null) {
+            messageTemplateMockChainList = new ArrayList<MockChain>();
+        } else {
+            messageTemplateMockChainList = messageTemplateByUUID.getMockChains().getMockChainList();
+        }
+
+        if (messageTemplateMockChainList.size() == 0) {
+            List<MockChain> integrationPointMockChainList = integrationPoint.getMockChains().getMockChainList();
+            if (integrationPointMockChainList.size() != 0) {
+                mockChains.addAll(integrationPointMockChainList);
+            }
+        } else {
+            mockChains.addAll(messageTemplateMockChainList);
+        }
+
+        for (MockChain mockChain : mockChains) {
+            addMockChain(mockChain, mockMessage, dispatchedMessageTemplateId);
+        }
+
+    }
+
+    private void addMockChain(MockChain mockChain, MockMessage mockMessage, UUID messageTemplateId) throws Exception {
+        Long delayMs = mockChain.getDelay();
+        String calledSystemName = mockChain.getCalledSystemName();
+        String calledIntegrationPointName = mockChain.getCalledIntegrationPointName();
+
+        String payload = mockMessage.getPayload();
+        String templateMessage = mockChain.getTemplateMessage();
+        String script = mockChain.getScript();
+        String compiledPayload = groovyService.execute(payload, templateMessage, script);
+
+        chainsService.addMockChain(delayMs,calledSystemName, calledIntegrationPointName, messageTemplateId, compiledPayload);
     }
 
 
@@ -315,12 +364,7 @@ public class ResponseGenerator {
     private void validate(MockMessage mockMessage, MessageType messageType) {
         if (mockMessage.isFaultMessage()) return;
         final String systemName = mockMessage.getSystem().getSystemName();
-
-        Boolean globalValidationEnabled = configContainer.getConfig().getMainConfig().getValidationEnabled();
-        Boolean systemValidationEnabled = mockMessage.getSystem().getValidationEnabled();
-        Boolean integrationPointValidationEnabled = mockMessage.getIntegrationPoint().getValidationEnabled();
-
-        if (globalValidationEnabled && systemValidationEnabled && integrationPointValidationEnabled) {
+        if (isValidationEnabled(mockMessage)) {
             final String payload = mockMessage.getPayload();
 
             log.debug("Validate [" + systemName + "] " + messageType.name());
@@ -331,6 +375,14 @@ public class ResponseGenerator {
             }
             log.debug("Validation status: OK!");
         }
+    }
+
+    private boolean isValidationEnabled(MockMessage mockMessage) {
+        Boolean globalValidationEnabled = configContainer.getConfig().getMainConfig().getValidationEnabled();
+        Boolean systemValidationEnabled = mockMessage.getSystem().getValidationEnabled();
+        Boolean integrationPointValidationEnabled = mockMessage.getIntegrationPoint().getValidationEnabled();
+
+        return globalValidationEnabled && systemValidationEnabled && integrationPointValidationEnabled;
     }
 
     private void assertElementName(MockMessage mockMessage, MessageType messageType) throws SaxonApiException, XmlException, MessageValidationException {

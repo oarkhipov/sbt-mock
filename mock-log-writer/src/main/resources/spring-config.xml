@@ -36,8 +36,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
        <!--<bean class="org.springframework.beans.factory.config.MethodInvokingBean" depends-on=""-->
-       <context:component-scan base-package="ru.sbt.bpm.mock.logging"/>
-       <jpa:repositories base-package="ru.sbt.bpm.mock.logging.repository"/>
+       <context:component-scan base-package="ru.sbt.bpm.mock.logging, ru.sbt.bpm.mock.chain"/>
+       <jpa:repositories base-package="ru.sbt.bpm.mock.logging.repository, ru.sbt.bpm.mock.chain.repository"/>
 
        <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
               <property name="dataSource" ref="dataSource"/>

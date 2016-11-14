@@ -206,4 +206,11 @@ public class IntegrationPoint {
         }
         return answerRequired;
     }
+
+    public MockChains getMockChains() {
+        if (mockChains == null) {
+            mockChains = new MockChains();
+        }
+        return mockChains;
+    }
 }

@@ -29,47 +29,56 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ru.sbt.bpm.mock.config.entities;
+package ru.sbt.bpm.mock.chain.service;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
-import lombok.Data;
-import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Temporal;
+import org.springframework.stereotype.Service;
+import ru.sbt.bpm.mock.chain.entities.ChainsEntity;
+import ru.sbt.bpm.mock.chain.repository.ChainsRepository;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
+import javax.persistence.TemporalType;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 /**
- * @author sbt-bochev-as on 18.10.2016.
+ * @author sbt-bochev-as on 10.11.2016.
  *         <p>
  *         Company: SBT - Moscow
  */
-@Data
-@XStreamAlias("mockChains")
-public class MockChains {
 
-    @XStreamImplicit(itemFieldName = "mockChain")
-    private List<MockChain> mockChainList = initList();
+@Service
+public class ChainsService {
 
-    private List<MockChain> initList() {
-        return new LinkedList<MockChain>();
+    @Autowired
+    ChainsRepository repository;
+
+    public List<ChainsEntity> getChainsToExecute() {
+        return getChainsToExecute(new Date(System.currentTimeMillis()));
     }
 
-    public MockChain findById(UUID uuid) {
-        for (MockChain mockChain : mockChainList) {
-            if (mockChain.getId().equals(uuid)) {
-                return mockChain;
-            }
-        }
-        return null;
+    public List<ChainsEntity> getChainsInQueue() {
+        return repository.findAll();
     }
 
-    public List<MockChain> getMockChainList() {
-        if (mockChainList == null) {
-            mockChainList = initList();
-        }
-        return mockChainList;
+    public List<ChainsEntity> getChainsToExecute(Date date) {
+        return repository.findByTriggerTimeBefore(date);
+    }
+
+    public void checkExecutedChain(ChainsEntity chainsEntity) {
+        repository.delete(chainsEntity);
+    }
+
+    public void addMockChain(Long delay, String calledSystemName, String calledIntegrationPointName, UUID messageTemplateId, String payload) {
+        Date triggerTime = new Date(System.currentTimeMillis() + delay);
+        ChainsEntity chainsEntity = new ChainsEntity(
+                triggerTime,
+                calledSystemName,
+                calledIntegrationPointName,
+                messageTemplateId == null ? "" : messageTemplateId.toString(),
+                payload
+        );
+        repository.save(chainsEntity);
     }
 }

@@ -35,12 +35,13 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:int="http://www.springframework.org/schema/integration"
        xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
     <mvc:annotation-driven/>
     <mvc:resources mapping="resources/**" location="/resources/"/>
 
-    <context:component-scan base-package="ru.sbt.bpm.mock.logging"/>
+    <context:component-scan base-package="ru.sbt.bpm.mock.logging, ru.sbt.bpm.mock.chain"/>
     <context:component-scan base-package="ru.sbt.bpm.mock.spring"/>
 
     <context:property-placeholder location="META-INF/maven/ru.sbt.bpm.mock/mock-interactive/pom.properties"
@@ -95,4 +96,9 @@
         <int:method name="sendMockMessage" request-channel="DriverRouterChannelInput"
                     reply-channel="DriverInboundResponse"/>
     </int:gateway>
+
+    <task:annotation-driven executor="executor" scheduler="scheduler"/>
+    <task:executor id="executor" pool-size="5"/>
+    <task:scheduler id="scheduler" pool-size="1"/>
+
 </beans>

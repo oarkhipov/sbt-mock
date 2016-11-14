@@ -68,12 +68,20 @@ public class MessageTemplates {
     }
 
     public MessageTemplate findMessageTemplateByUUID(UUID templateUuid) {
+        MessageTemplate messageTemplate = findMessageTemplateByUUIDWithNoExceptions(templateUuid);
+        if (messageTemplate == null) {
+            throw new NoSuchElementException("No template with UUID [" + templateUuid.toString() + "]");
+        }
+        return messageTemplate;
+    }
+
+    public MessageTemplate findMessageTemplateByUUIDWithNoExceptions(UUID templateUuid) {
         for (MessageTemplate messageTemplate : messageTemplateList) {
             if (messageTemplate.getTemplateId().equals(templateUuid)) {
                 return messageTemplate;
             }
         }
-        throw new NoSuchElementException("No template with UUID [" + templateUuid.toString() + "]");
+        return null;
     }
 
     public List<MessageTemplate> getSequenceTemplateList() {

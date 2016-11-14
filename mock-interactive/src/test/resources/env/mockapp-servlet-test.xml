@@ -41,7 +41,7 @@
 		 http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 		 http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
 
-    <context:component-scan base-package="ru.sbt.bpm.mock.spring, ru.sbt.bpm.mock.logging.spring"/>
+    <context:component-scan base-package="ru.sbt.bpm.mock.spring, ru.sbt.bpm.mock.logging.spring, ru.sbt.bpm.mock.chain"/>
 
     <bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
         <constructor-arg value="/env/EmptyMockConfig.xml" type="java.lang.String"/>
@@ -51,11 +51,11 @@
         <constructor-arg value="test" type="java.lang.String"/>
     </bean>
 
-    <jpa:repositories base-package="ru.sbt.bpm.mock.logging.repository"/>
+    <jpa:repositories base-package="ru.sbt.bpm.mock.logging.repository, , ru.sbt.bpm.mock.chain.repository"/>
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="packagesToScan" value="ru.sbt.bpm.mock.logging"/>
+        <property name="packagesToScan" value="ru.sbt.bpm.mock.logging, ru.sbt.bpm.mock.chain"/>
         <property name="jpaDialect">
             <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect"/>
         </property>

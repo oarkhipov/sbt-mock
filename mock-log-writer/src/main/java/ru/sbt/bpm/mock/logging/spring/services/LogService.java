@@ -65,9 +65,9 @@ import java.util.List;
 @Service
 public class LogService {
 
-    final QLogsEntity logsEntity = QLogsEntity.logsEntity;
+    private final QLogsEntity logsEntity = QLogsEntity.logsEntity;
 
-    final Gson gson = new GsonBuilder().registerTypeAdapter(LogsEntity.class, new LogsEntityAdapter()).setPrettyPrinting().create();
+    private final Gson gson = new GsonBuilder().registerTypeAdapter(LogsEntity.class, new LogsEntityAdapter()).setPrettyPrinting().create();
 
     @Autowired
     LogsRepository logRepository;

@@ -29,47 +29,29 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ru.sbt.bpm.mock.config.entities;
+package ru.sbt.bpm.mock.chain.entities;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import lombok.Data;
-import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
- * @author sbt-bochev-as on 18.10.2016.
+ * @author sbt-bochev-as on 10.11.2016.
  *         <p>
  *         Company: SBT - Moscow
  */
 @Data
-@XStreamAlias("mockChains")
-public class MockChains {
+public class ChainsEntityPK implements Serializable {
+    @Column(name = "ID")
+    @Id
+    private long id;
 
-    @XStreamImplicit(itemFieldName = "mockChain")
-    private List<MockChain> mockChainList = initList();
-
-    private List<MockChain> initList() {
-        return new LinkedList<MockChain>();
-    }
-
-    public MockChain findById(UUID uuid) {
-        for (MockChain mockChain : mockChainList) {
-            if (mockChain.getId().equals(uuid)) {
-                return mockChain;
-            }
-        }
-        return null;
-    }
-
-    public List<MockChain> getMockChainList() {
-        if (mockChainList == null) {
-            mockChainList = initList();
-        }
-        return mockChainList;
-    }
+    @Column(name = "TS")
+    @Id
+    private Timestamp ts;
 }

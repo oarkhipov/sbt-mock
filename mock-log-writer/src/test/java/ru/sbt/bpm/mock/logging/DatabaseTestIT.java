@@ -32,7 +32,7 @@ public class DatabaseTestIT extends AbstractTransactionalTestNGSpringContextTest
     @Autowired
     LogsRepository logsRepository;
 
-    public void fillData() throws InterruptedException {
+    private void fillData() throws InterruptedException {
         logsRepository.save(new LogsEntity(
                 UUID.randomUUID(),
                 "someProtocol",

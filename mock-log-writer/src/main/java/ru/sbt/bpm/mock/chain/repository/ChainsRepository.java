@@ -29,47 +29,22 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ru.sbt.bpm.mock.config.entities;
+package ru.sbt.bpm.mock.chain.repository;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
-import lombok.Data;
-import lombok.Getter;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Temporal;
+import ru.sbt.bpm.mock.chain.entities.ChainsEntity;
+import ru.sbt.bpm.mock.chain.entities.ChainsEntityPK;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
+import javax.persistence.TemporalType;
+import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 /**
- * @author sbt-bochev-as on 18.10.2016.
+ * @author sbt-bochev-as on 10.11.2016.
  *         <p>
  *         Company: SBT - Moscow
  */
-@Data
-@XStreamAlias("mockChains")
-public class MockChains {
-
-    @XStreamImplicit(itemFieldName = "mockChain")
-    private List<MockChain> mockChainList = initList();
-
-    private List<MockChain> initList() {
-        return new LinkedList<MockChain>();
-    }
-
-    public MockChain findById(UUID uuid) {
-        for (MockChain mockChain : mockChainList) {
-            if (mockChain.getId().equals(uuid)) {
-                return mockChain;
-            }
-        }
-        return null;
-    }
-
-    public List<MockChain> getMockChainList() {
-        if (mockChainList == null) {
-            mockChainList = initList();
-        }
-        return mockChainList;
-    }
+public interface ChainsRepository extends JpaRepository<ChainsEntity, ChainsEntityPK> {
+    List<ChainsEntity> findByTriggerTimeBefore(@Temporal(TemporalType.TIMESTAMP) Date date);
 }

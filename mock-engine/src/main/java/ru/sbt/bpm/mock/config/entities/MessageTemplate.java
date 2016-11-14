@@ -82,4 +82,11 @@ public class MessageTemplate {
         this.regexGroups = regexGroups;
         this.value = value;
     }
+
+    public MockChains getMockChains() {
+        if (mockChains == null) {
+            mockChains = new MockChains();
+        }
+        return mockChains;
+    }
 }
