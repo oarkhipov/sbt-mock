@@ -52,7 +52,6 @@ import java.util.Date;
 public class ChainsEntity {
     @Id
     @Column(name = "ID")
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_GENERATOR")
     @SequenceGenerator(name = "SEQ_GENERATOR", sequenceName = "SEQ_GENERATOR", allocationSize = 1)
     private long id;
@@ -63,7 +62,7 @@ public class ChainsEntity {
 
     @Basic
     @Column(name = "TRIGGERTIME")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIME)
     private Date triggerTime;
 
     @Basic

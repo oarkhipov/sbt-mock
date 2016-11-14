@@ -31,3 +31,7 @@ CREATE TABLE IF NOT EXISTS PUBLIC.chains
 CREATE UNIQUE INDEX IF NOT EXISTS "chains_id_uindex" ON PUBLIC.chains (id);
 CREATE INDEX IF NOT EXISTS "chains_triggerTime_system_integrationPoint_messageTemplateId_index" ON PUBLIC.chains (triggerTime DESC, system, integrationPoint, messageTemplateId);
 
+CREATE SEQUENCE IF NOT EXISTS "SEQ_GENERATOR"
+  START WITH 1
+  INCREMENT BY 1
+  CACHE 1;

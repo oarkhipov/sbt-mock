@@ -46,5 +46,5 @@ import java.util.List;
  *         Company: SBT - Moscow
  */
 public interface ChainsRepository extends JpaRepository<ChainsEntity, ChainsEntityPK> {
-    List<ChainsEntity> findByTriggerTimeBefore(@Temporal(TemporalType.TIMESTAMP) Date date);
+    List<ChainsEntity> findByTriggerTimeBefore(@Temporal(TemporalType.TIME) Date date);
 }
