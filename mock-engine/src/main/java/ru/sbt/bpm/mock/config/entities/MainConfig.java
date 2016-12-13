@@ -34,6 +34,11 @@ package ru.sbt.bpm.mock.config.entities;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 
+import java.io.File;
+import java.io.IOException;
+import java.lang.*;
+import java.lang.System;
+
 /**
  * @author SBT-Bochev-AS on 01.08.2016.
  *         <p>
@@ -58,6 +63,22 @@ public class MainConfig {
     private String dbPath;
 
     public String getDbPath() {
-        return dbPath != null ? dbPath : "/tmp";
+        if (dbPath == null){
+            String dfltPath = null;
+            dfltPath = java.lang.System.getProperty("java.io.tmpdir");
+            //System.out.print(">>>>>>>  dfltPath="+dfltPath);
+            if (dfltPath == null || dfltPath.equals("")){
+                try {
+                    File tmp = File.createTempFile("tmp",null);
+                    dfltPath = tmp.getParentFile().getAbsolutePath();
+                } catch (IOException e) {
+                    dfltPath = "/tmp";
+                }
+            }
+            return dfltPath;
+        } else {
+            return dbPath;
+        }
+        /*        return dbPath != null ? dbPath : "/tmp";*/
     }
 }
