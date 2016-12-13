@@ -33,10 +33,12 @@ package ru.sbt.bpm.mock.spring.bean;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ru.sbt.bpm.mock.chain.entities.ChainsEntity;
+import ru.sbt.bpm.mock.chain.entities.ChainsEntityPK;
 import ru.sbt.bpm.mock.chain.service.ChainsService;
 import ru.sbt.bpm.mock.config.MockConfig;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
@@ -56,7 +58,7 @@ import java.util.List;
  */
 
 @Slf4j
-@Service
+@Component
 public class MockChainActionExecutor {
 
     @Autowired
@@ -68,31 +70,44 @@ public class MockChainActionExecutor {
     @Autowired
     MockConfigContainer configContainer;
 
-    @Scheduled(fixedDelay = 1000)
+    public void execute(ChainsEntity chainsEntity) {
+        log.debug("Execute chain: " + chainsEntity);
+        String systemName = chainsEntity.getSystem();
+        System system = configContainer.getSystemByName(systemName);
+        IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(chainsEntity.getIntegrationPoint());
+
+        Protocol protocol = system.getProtocol();
+        String queueConnectionFactory = system.getQueueConnectionFactory();
+        String driverOutcomeQueue = system.getDriverOutcomeQueue();
+        String messagePayload = chainsEntity.getMessage();
+
+        MockMessage mockMessage = new MockMessage(protocol, queueConnectionFactory, driverOutcomeQueue, messagePayload);
+        mockMessage.setSystem(system);
+        mockMessage.setIntegrationPoint(integrationPoint);
+
+        try {
+            log.debug("{}.{} before messageSendingService.send(mockMessage)",this.getClass().getSimpleName(),"findProperMockChainAndFireIt");
+            messageSendingService.send(mockMessage);
+            log.debug("{}.{} after messageSendingService.send(mockMessage)",this.getClass().getSimpleName(),"findProperMockChainAndFireIt");
+            chainsService.checkExecutedChain(chainsEntity);
+        } catch (IOException e) {
+            log.error("{}.{}.{}:{}",this.getClass().getSimpleName(),"findProperMockChainAndFireIt",e.getClass().getName(),e.getMessage(),e);
+        }
+    }
+
+    public void execute(ChainsEntityPK pk) {
+        ChainsEntity chainsEntity = chainsService.get(pk.getId());
+        execute(chainsEntity);
+        chainsService.remove(pk.getId());
+    }
+
+
+    //@Scheduled(fixedDelay = 1000)
     public void findProperMockChainAndFireIt() {
-        log.warn("Chains in Queue: " + chainsService.getChainsInQueue());
+        log.debug("Chains in Queue: {}" + chainsService.getChainsInQueue());
         List<ChainsEntity> chainsToExecute = chainsService.getChainsToExecute();
         for (ChainsEntity chainsEntity : chainsToExecute) {
-            log.warn("Execute chain: " + chainsEntity);
-            String systemName = chainsEntity.getSystem();
-            System system = configContainer.getSystemByName(systemName);
-            IntegrationPoint integrationPoint = system.getIntegrationPoints().getIntegrationPointByName(chainsEntity.getIntegrationPoint());
-
-            Protocol protocol = system.getProtocol();
-            String queueConnectionFactory = system.getQueueConnectionFactory();
-            String driverOutcomeQueue = system.getDriverOutcomeQueue();
-            String messagePayload = chainsEntity.getMessage();
-
-            MockMessage mockMessage = new MockMessage(protocol, queueConnectionFactory, driverOutcomeQueue, messagePayload);
-            mockMessage.setSystem(system);
-            mockMessage.setIntegrationPoint(integrationPoint);
-
-            try {
-                messageSendingService.send(mockMessage);
-                chainsService.checkExecutedChain(chainsEntity);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            execute(chainsEntity);
         }
 
     }

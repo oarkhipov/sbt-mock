@@ -37,10 +37,12 @@ import net.sf.saxon.s9api.XdmNode;
 import net.sf.saxon.s9api.XdmValue;
 import org.apache.xmlbeans.XmlException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Component;
+import ru.sbt.bpm.mock.chain.entities.ChainsEntity;
+import ru.sbt.bpm.mock.chain.entities.ChainsEntityPK;
 import ru.sbt.bpm.mock.chain.service.ChainsService;
 import ru.sbt.bpm.mock.config.MockConfigContainer;
-import ru.sbt.bpm.mock.config.container.MovableList;
 import ru.sbt.bpm.mock.config.entities.*;
 import ru.sbt.bpm.mock.config.entities.System;
 import ru.sbt.bpm.mock.config.enums.DispatcherTypes;
@@ -61,10 +63,7 @@ import ru.sbt.bpm.mock.utils.DispatcherUtils;
 import ru.sbt.bpm.mock.utils.ExceptionUtils;
 import ru.sbt.bpm.mock.utils.XmlUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author sbt-bochev-as on 23.11.2015.
@@ -83,9 +82,12 @@ public class ResponseGenerator {
     private JmsService jmsService;
     private SOAPValidationService soapValidationService;
     private ChainsService chainsService;
+    private TaskScheduler scheduler;
+    private MockChainActionExecutor mockChainActionExecutor;
+
 
     @Autowired
-    public ResponseGenerator(LogService logService, GroovyService groovyService, MessageValidationService messageValidationService, DataFileService dataFileService, MockConfigContainer configContainer, JmsService jmsService, SOAPValidationService soapValidationService, ChainsService chainsService) {
+    public ResponseGenerator(LogService logService, GroovyService groovyService, MessageValidationService messageValidationService, DataFileService dataFileService, MockConfigContainer configContainer, JmsService jmsService, SOAPValidationService soapValidationService, ChainsService chainsService, TaskScheduler scheduler, MockChainActionExecutor mockChainActionExecutor) {
         this.logService = logService;
         this.groovyService = groovyService;
         this.messageValidationService = messageValidationService;
@@ -94,6 +96,8 @@ public class ResponseGenerator {
         this.jmsService = jmsService;
         this.soapValidationService = soapValidationService;
         this.chainsService = chainsService;
+        this.scheduler = scheduler;
+        this.mockChainActionExecutor = mockChainActionExecutor;
         logService.setMaxRowsCount(configContainer.getConfig().getMainConfig().getMaxLogsCount());
     }
 
@@ -202,7 +206,29 @@ public class ResponseGenerator {
 
     }
 
+    public static class ExecChainEntity implements Runnable{
+
+        @Autowired
+        MockChainActionExecutor mockChainActionExecutor;
+
+        private ChainsEntityPK pk;
+
+        public ExecChainEntity(ChainsEntityPK pk, MockChainActionExecutor mockChainActionExecutor){
+            this.pk = pk;
+            this.mockChainActionExecutor = mockChainActionExecutor;
+        }
+
+        @Override
+        public void run() {
+            log.warn("{}.run.entered: {}",this.getClass().getName(),pk);
+
+            mockChainActionExecutor.execute(pk);
+            log.warn("{}.run.finished: {}",this.getClass().getName(),pk);
+        }
+    }
+
     private void addMockChain(MockChain mockChain, MockMessage mockMessage, UUID messageTemplateId) throws Exception {
+        log.debug("{}.{}.entered",getClass().getSimpleName(),"addMockChain");
         Long delayMs = mockChain.getDelay();
         String calledSystemName = mockChain.getCalledSystemName();
         String calledIntegrationPointName = mockChain.getCalledIntegrationPointName();
@@ -212,7 +238,20 @@ public class ResponseGenerator {
         String script = mockChain.getScript();
         String compiledPayload = groovyService.execute(payload, templateMessage, script);
 
-        chainsService.addMockChain(delayMs,calledSystemName, calledIntegrationPointName, messageTemplateId, compiledPayload);
+        ChainsEntity chainsEntity = chainsService.addMockChain(delayMs,calledSystemName, calledIntegrationPointName, messageTemplateId, compiledPayload);
+
+        scheduler.schedule(new ExecChainEntity(chainsEntity.getPK(), mockChainActionExecutor), new Date(java.lang.System.currentTimeMillis()+delayMs));
+        chainsService.put(chainsEntity);
+
+        log.debug("=====  ChainsInQueue  ==============");
+        List<ChainsEntity> list = chainsService.getChainsInQueue();
+        log.debug("  size = "+list.size());
+        for (ChainsEntity e : list) {
+            log.debug("e="+e);
+        }
+        log.debug("====================================");
+
+        log.debug("{}.{}.finished",getClass().getSimpleName(),"addMockChain");
     }
 
 
