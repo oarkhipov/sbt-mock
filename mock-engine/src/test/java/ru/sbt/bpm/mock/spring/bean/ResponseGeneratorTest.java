@@ -111,13 +111,14 @@ public class ResponseGeneratorTest extends AbstractTransactionalTestNGSpringCont
         List<ChainsEntity> chainsInQueue = chainsService.getChainsInQueue();
         assertEquals(chainsInQueue.size(), 1);
         assertEquals(chainsService.getChainsToExecute().size(), 0);
-
         ChainsEntity chainsEntity = chainsInQueue.get(0);
+
         assertEquals(chainsEntity.getMessage(), payload);
 
         Thread.sleep(1200);
         assertEquals(chainsService.getChainsInQueue().size(), 1);
 //        assertEquals(chainsService.getChainsToExecute().size(), 1);
+        Thread.sleep(4000);
     }
 
     private void addChainToConfig(String systemName, String integrationPointName, IntegrationPoint integrationPoint) {

@@ -42,4 +42,7 @@
 
     <bridge input-channel="DriverOutboundRequest" output-channel="DriverInboundResponse"/>
 
+    <task:annotation-driven executor="executor" scheduler="scheduler"/>
+    <task:executor id="executor" pool-size="5"/>
+    <task:scheduler id="scheduler" pool-size="1"/>
 </beans:beans>

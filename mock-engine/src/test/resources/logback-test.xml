@@ -9,8 +9,13 @@
         </filter>
     </appender>
 
+    <logger name="ru.sbt" additivity="false">
+        <level value="TRACE" />
+        <appender-ref ref="consoleAppender" />
+    </logger>
+
     <root>
-        <level value="WARN" />
+        <level value="INFO" />
         <appender-ref ref="consoleAppender" />
     </root>
 </configuration>
