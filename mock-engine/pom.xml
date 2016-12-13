@@ -369,7 +369,7 @@
         <profile>
             <id>obfuscate-engine</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <plugins>
