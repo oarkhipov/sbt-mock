@@ -34,13 +34,15 @@ package ru.sbt.bpm.mock.chain.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Temporal;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ru.sbt.bpm.mock.chain.entities.ChainsEntity;
+import ru.sbt.bpm.mock.chain.entities.ChainsEntityPK;
 import ru.sbt.bpm.mock.chain.repository.ChainsRepository;
 
 import javax.persistence.TemporalType;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.sql.Timestamp;
+import java.util.*;
 
 /**
  * @author sbt-bochev-as on 10.11.2016.
@@ -50,12 +52,12 @@ import java.util.UUID;
 
 @Service
 public class ChainsService {
-
     @Autowired
     ChainsRepository repository;
+    Map<Long,ChainsEntity> cache = new HashMap<Long,ChainsEntity>();
 
     public List<ChainsEntity> getChainsToExecute() {
-        return getChainsToExecute(new Date(System.currentTimeMillis()));
+        return getChainsToExecute(new Timestamp(System.currentTimeMillis()));
     }
 
     public List<ChainsEntity> getChainsInQueue() {
@@ -70,8 +72,23 @@ public class ChainsService {
         repository.delete(chainsEntity);
     }
 
-    public void addMockChain(Long delay, String calledSystemName, String calledIntegrationPointName, UUID messageTemplateId, String payload) {
-        Date triggerTime = new Date(System.currentTimeMillis() + delay);
+    public void put(ChainsEntity e){
+        cache.put(e.getId(),e);
+    }
+
+    public ChainsEntity get(Long id){
+        return cache.get(id);
+    }
+
+    public void remove(Long id){
+        cache.remove(id);
+    }
+
+
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public ChainsEntity addMockChain(Long delay, String calledSystemName, String calledIntegrationPointName, UUID messageTemplateId, String payload) {
+        Timestamp triggerTime = new Timestamp(System.currentTimeMillis() + delay);
         ChainsEntity chainsEntity = new ChainsEntity(
                 triggerTime,
                 calledSystemName,
@@ -79,6 +96,12 @@ public class ChainsService {
                 messageTemplateId == null ? "" : messageTemplateId.toString(),
                 payload
         );
-        repository.save(chainsEntity);
+        chainsEntity = repository.saveAndFlush(chainsEntity);
+        return chainsEntity;
     }
+
+    public ChainsEntity getOne(ChainsEntityPK pk){
+        return repository.getOne(pk);
+    }
+
 }

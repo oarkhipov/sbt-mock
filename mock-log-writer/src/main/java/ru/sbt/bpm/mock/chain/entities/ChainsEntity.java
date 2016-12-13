@@ -89,4 +89,11 @@ public class ChainsEntity {
         this.messageTemplateId = messageTemplateId;
         this.message = message;
     }
+
+    public ChainsEntityPK getPK(){
+        ChainsEntityPK pk = new ChainsEntityPK();
+        pk.setId(getId());
+        pk.setTs(getTs());
+        return pk;
+    }
 }

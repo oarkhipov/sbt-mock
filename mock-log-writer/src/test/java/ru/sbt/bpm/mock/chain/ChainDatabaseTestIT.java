@@ -42,6 +42,8 @@ import ru.sbt.bpm.mock.chain.repository.ChainsRepository;
 import ru.sbt.bpm.mock.chain.service.ChainsService;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -65,9 +67,10 @@ public class ChainDatabaseTestIT extends AbstractTransactionalTestNGSpringContex
 
     public void fillData() throws InterruptedException {
         for (int i = 0; i < 10; i++) {
-            long dateLong = Date.UTC(2016, i + 1, 1, 0, 0, 0);
+            Calendar date = Calendar.getInstance();
+            date.set(2016, i + 1, 1, 0, 0, 0);
             repository.save(new ChainsEntity(
-                    new Date(dateLong),
+                    new Timestamp(date.getTimeInMillis()),
                     "system" + i,
                     "integrationPoint1",
                     UUID.randomUUID().toString(),
@@ -82,7 +85,7 @@ public class ChainDatabaseTestIT extends AbstractTransactionalTestNGSpringContex
         fillData();
         List<ChainsEntity> entities = repository.findAll();
         for (ChainsEntity chainsEntity : entities) {
-            System.out.println(chainsEntity);
+            logger.info(chainsEntity);
         }
         assertEquals(entities.size(), 10);
     }
@@ -90,7 +93,9 @@ public class ChainDatabaseTestIT extends AbstractTransactionalTestNGSpringContex
     @Test
     public void FindByDateTest() throws Exception {
         fillData();
-        List<ChainsEntity> shortEndpointName = chainsService.getChainsToExecute(new Date(2016, 5, 2));
+        Calendar date = Calendar.getInstance();
+        date.set(2016, 5, 2);
+        List<ChainsEntity> shortEndpointName = chainsService.getChainsToExecute(new Date(date.getTimeInMillis()));
         assertTrue(shortEndpointName.size() == 5);
     }
 
@@ -101,5 +106,11 @@ public class ChainDatabaseTestIT extends AbstractTransactionalTestNGSpringContex
         ChainsEntity entity = page.getContent().get(0);
         chainsService.checkExecutedChain(entity);
         assertTrue(repository.findAll().size() == 9);
+
+        page = repository.findAll(new PageRequest(0, 1));
+        entity = page.getContent().get(0);
+        chainsService.checkExecutedChain(entity);
+        assertTrue(repository.findAll().size() == 8);
+        repository.flush();
     }
 }

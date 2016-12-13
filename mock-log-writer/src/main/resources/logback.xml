@@ -41,7 +41,7 @@
     </appender>
 
     <appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>c:/tmp/rest-demo.log</File>
+        <File>${user.home}\AppData\Local\Temp\rest-demo.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
             <FileNamePattern>rest-demo.%d{yyyy-MM-dd}.log</FileNamePattern>
@@ -57,7 +57,7 @@
     <appender name="minuteRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover every minute -->
-            <FileNamePattern>c:/tmp/minutes/rest-demo-minute.%d{yyyy-MM-dd_HH-mm}.log</FileNamePattern>
+            <FileNamePattern>${user.home}\AppData\Local\Temp\minutes\rest-demo-minute.%d{yyyy-MM-dd_HH-mm}.log</FileNamePattern>
 
             <!-- keep 30 minutes' worth of history -->
             <maxHistory>30</maxHistory>
