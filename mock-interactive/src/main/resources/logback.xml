@@ -40,20 +40,18 @@
         </filter>
     </appender>
 
-    <!--<appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
-        <!--<File>c:/tmp/rest-demo.log</File>-->
-        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
-            <!--&lt;!&ndash; daily rollover &ndash;&gt;-->
-            <!--<FileNamePattern>rest-demo.%d{yyyy-MM-dd}.log</FileNamePattern>-->
+    <!--appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${user.home}\temp\MockApp.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>MockApp.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>%d{HH:mm:ss} [%thread] %-5level %logger{35} - %msg %n</Pattern>
+        </encoder>
+    </appender-->
 
-            <!--&lt;!&ndash; keep 30 days' worth of history &ndash;&gt;-->
-            <!--<maxHistory>30</maxHistory>-->
-        <!--</rollingPolicy>-->
 
-        <!--<encoder>-->
-            <!--<Pattern>%d{HH:mm:ss} [%thread] %-5level %logger{35} - %msg %n</Pattern>-->
-        <!--</encoder>-->
-    <!--</appender>-->
     <!--<appender name="minuteRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
         <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
             <!--&lt;!&ndash; rollover every minute &ndash;&gt;-->
@@ -68,15 +66,23 @@
         <!--</encoder>-->
     <!--</appender>-->
 
-    <logger name="org.codingpedia" additivity="false">
+    <!--logger name="org.codingpedia" additivity="false">
         <level value="DEBUG" />
-        <!--<appender-ref ref="dailyRollingFileAppender"/>-->
-        <!--<appender-ref ref="minuteRollingFileAppender"/>-->
         <appender-ref ref="consoleAppender" />
+    </logger-->
+
+    <!--logger name="ru.sbt" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="dailyRollingFileAppender"/>
     </logger>
+    <logger name="org.spring" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="dailyRollingFileAppender"/>
+    </logger-->
 
     <root>
-        <level value="INFO" />
-        <appender-ref ref="consoleAppender" />
+        <level value="INFO"/>
+        <appender-ref ref="cosoleAppender" />
+        <!--appender-ref ref="dailyRollingFileAppender"/-->
     </root>
 </configuration>
