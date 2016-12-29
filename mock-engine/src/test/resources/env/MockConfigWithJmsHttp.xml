@@ -233,7 +233,7 @@
             </integrationPoints>
         </system>
         <system name="CRM2">
-            <remoteRootSchema>http://localhost:8080/path/to/dir/CRMIntegrationSchema.xsd</remoteRootSchema>
+            <remoteRootSchema>http://localhost:8085/path/to/dir/CRMIntegrationSchema.xsd</remoteRootSchema>
             <localRootSchema/>
             <integrationPointSelector>
                 <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>

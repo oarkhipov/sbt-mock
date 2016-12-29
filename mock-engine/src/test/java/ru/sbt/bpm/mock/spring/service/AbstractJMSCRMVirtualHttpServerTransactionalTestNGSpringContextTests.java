@@ -3,7 +3,6 @@ package ru.sbt.bpm.mock.spring.service;
 import org.apache.commons.io.FileUtils;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.servlet.ServletHandler;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -33,7 +32,7 @@ public abstract class AbstractJMSCRMVirtualHttpServerTransactionalTestNGSpringCo
     @Override
     public void springTestContextBeforeTestClass() throws Exception {
         super.springTestContextBeforeTestClass();
-        server = new Server(8080);
+        server = new Server(8085);
         ServletHandler handler = new ServletHandler();
         server.setHandler(handler);
         handler.addServletWithMapping(MockServlet.class, "/");

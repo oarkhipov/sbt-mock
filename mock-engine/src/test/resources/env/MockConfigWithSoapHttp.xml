@@ -233,7 +233,7 @@
             </integrationPoints>
         </system>
         <system name="Spyne">
-            <remoteRootSchema>http://localhost:8080/path/to/dir/spyne.wsdl</remoteRootSchema>
+            <remoteRootSchema>http://localhost:8085/path/to/dir/spyne.wsdl</remoteRootSchema>
             <localRootSchema/>
             <integrationPointSelector>
                 <tag ns="http://schemas.xmlsoap.org/wsdl/soap/">Envelope</tag>

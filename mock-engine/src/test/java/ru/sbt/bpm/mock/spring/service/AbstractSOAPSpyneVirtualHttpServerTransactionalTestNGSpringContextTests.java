@@ -90,7 +90,7 @@ public class AbstractSOAPSpyneVirtualHttpServerTransactionalTestNGSpringContextT
     @Override
     protected void springTestContextBeforeTestClass() throws Exception {
         super.springTestContextBeforeTestClass();
-        server = new Server(8080);
+        server = new Server(8085);
         ServletHandler handler = new ServletHandler();
         server.setHandler(handler);
         handler.addServletWithMapping(MockServlet.class, "/");
