@@ -46,3 +46,10 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 /mock-interactive/src/main/webapp/WEB-INF/MC1.xml
+
+/ear-builder/target/
+/mock-interactive/target/
+/mock-engine/target/
+/mock-interactive/target/
+/mock-log-writer/target/
+/mock-context-generator/target/
