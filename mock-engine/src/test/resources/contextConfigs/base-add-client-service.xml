@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://www.springframework.org/schema/beans"
+             xmlns:int="http://www.springframework.org/schema/integration"
+             xmlns:task="http://www.springframework.org/schema/task"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration	http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-tak.xsd">
+
+    <int:channel id="MockInboundRequestAggregated"/>
+    <int:channel id="MockOutboundRouterResponse"/>
+    <int:service-activator input-channel="MockInboundRequestAggregated" output-channel="MockOutboundRouterResponse"
+                           expression="@responseGenerator.proceedJmsRequest(payload)"/>
+
+    <int:channel id="DriverOutboundRequest"/>
+
+    <int:channel id="DriverInboundResponse"/>
+
+    <int:gateway id="systemEntry"
+             default-request-channel="DriverOutboundRequest"
+             default-reply-channel="DriverInboundResponse"
+             error-channel="DriverInboundResponse"
+             service-interface="ru.sbt.bpm.mock.spring.integration.gateway.ClientService"
+             default-reply-timeout="30000"
+             default-request-timeout="30000"
+    />
+
+    <bean id="mockConfigContainer" class="ru.sbt.bpm.mock.config.MockConfigContainer">
+        <constructor-arg value="#MOCK_CONFIG#" type="java.lang.String"/>
+    </bean>
+</beans>

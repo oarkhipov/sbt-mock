@@ -1,0 +1,40 @@
+<MockConfig>
+  <mainConfig>
+    <checksum>6b8778739694a7db0cf95390557fd752</checksum>
+    <validationEnabled>true</validationEnabled>
+  </mainConfig>
+  <systems>
+    <system name="CRM">
+      <enabled>true</enabled>
+      <remoteRootSchema>CRMIntegrationSchema.xsd</remoteRootSchema>
+      <localRootSchema>CRMIntegrationSchema.xsd</localRootSchema>
+      <integrationPointSelector>
+        <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+        <tag ns="http://sbrf.ru/legal/enquiry/integration"></tag>
+      </integrationPointSelector>
+      <protocol>JMS</protocol>
+      <queueConnectionFactory>jms/CF</queueConnectionFactory>
+      <mockIncomeQueue>jms/INBOUND_QUEUE</mockIncomeQueue>
+      <mockOutcomeQueue>jms/OUTBOUND_QUEUE</mockOutcomeQueue>
+      <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+      <integrationPoints>
+        <integrationPoint name="processRequest">
+          <enabled>true</enabled>
+          <type>Mock</type>
+          <xpathValidation>
+            <tag ns="http://sbrf.ru/legal/enquiry/integration">Envelope</tag>
+            <tag ns="http://sbrf.ru/legal/enquiry/integration">confirmationMessage</tag>
+          </xpathValidation>
+          <answerRequired>true</answerRequired>
+          <xsdFile>CRMIntegrationSchema.xsd</xsdFile>
+          <rootElement ns="http://sbrf.ru/legal/enquiry/integration">Envelope</rootElement>
+          <sequenceEnabled>false</sequenceEnabled>
+          <validationEnabled>true</validationEnabled>
+          <messageTemplates/>
+          <mockChains/>
+        </integrationPoint>
+      </integrationPoints>
+      <validationEnabled>true</validationEnabled>
+    </system>
+  </systems>
+</MockConfig>

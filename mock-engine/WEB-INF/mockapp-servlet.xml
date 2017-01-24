@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans.xsd        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd        http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
+   <import resource="../contextConfigs/base-config.xml"/>
+   <import resource="../contextConfigs/logging-config.xml"/>
+   <!--Connection Factory for jndi [jms/CF]--><bean class="org.springframework.jndi.JndiObjectFactoryBean"
+         id="jmsCf_jndiConnectionFactory">
+      <property name="jndiName" value="jms/CF"/>
+   </bean>
+   <!--Mock Inbound Queue for [jms/CF]:[jms/INBOUND_QUEUE]--><bean class="org.springframework.jndi.JndiObjectFactoryBean"
+         id="jmsInbound_queue_jmsCf_queue">
+      <property name="jndiName" value="jms/INBOUND_QUEUE"/>
+   </bean>
+   <!--Mock Outbound Queue for [jms/CF]:[jms/OUTBOUND_QUEUE]--><bean class="org.springframework.jndi.JndiObjectFactoryBean"
+         id="jmsOutbOund_queue_jmsCf_queue">
+      <property name="jndiName" value="jms/OUTBOUND_QUEUE"/>
+   </bean>
+   <int:channel id="jmsInbound_queue_jmsCf_channel"/>
+   <int:channel id="jmsOutbOund_queue_jmsCf_channel"/>
+   <!--Inbound gateway for queues pair [jms/CF]:[jms/INBOUND_QUEUE] -> [jms/CF]:[jms/OUTBOUND_QUEUE]--><int-jms:inbound-gateway request-destination="jmsInbound_queue_jmsCf_queue"
+                            default-reply-destination="jmsOutbOund_queue_jmsCf_queue"
+                            request-channel="jmsInbound_queue_jmsCf_channel"
+                            reply-channel="jmsOutbOund_queue_jmsCf_channel"
+                            id="jmsCf_jmsinbound_queue_jmscf_channel_jmsoutbound_queue_jmscf_channel_jmsin"
+                            connection-factory="jmsCf_jndiConnectionFactory"/>
+   <!--Aggregator for [jms/CF]:[jms/INBOUND_QUEUE]--><int:service-activator output-channel="MockInboundRequestAggregated"
+                          input-channel="jmsInbound_queue_jmsCf_channel"
+                          method="aggregate">
+      <bean class="ru.sbt.bpm.mock.spring.bean.MessageAggregator">
+         <constructor-arg type="ru.sbt.bpm.mock.config.enums.Protocol" value="JMS"/>
+         <constructor-arg type="java.lang.String" value="jms/CF"/>
+         <constructor-arg type="java.lang.String" value="jms/INBOUND_QUEUE"/>
+      </bean>
+   </int:service-activator>
+   <int:channel id="jmsOutbOund_queue_routerChannel"/>
+   <!--MOCK ROUTER--><int:router input-channel="MockOutboundRouterResponse"
+               expression="payload.jmsConnectionFactoryName+'_'+payload.queue"
+               id="MockRouter">
+      <int:mapping value="jms/CF_jms/OUTBOUND_QUEUE"
+                   channel="jmsOutbOund_queue_routerChannel"/>
+   </int:router>
+   <!--Extractor service activator for [jms/CF]:[jms/OUTBOUND_QUEUE]--><int:service-activator output-channel="jmsOutbOund_queue_jmsCf_channel"
+                          input-channel="jmsOutbOund_queue_routerChannel"
+                          expression="payload.payload"/>
+</beans>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns="http://www.springframework.org/schema/integration"
+             xmlns:jms="http://www.springframework.org/schema/integration/jms"
+             xmlns:jee="http://www.springframework.org/schema/jee"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration	http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
+
+    <beans:import resource="../contextConfigs/base-config-context-generator.xml"/>
+
+    <beans:bean class="ru.sbt.bpm.mock.config.MockConfigContainer">
+        <beans:constructor-arg value="/env/MockConfigSimpleProxy.xml" type="java.lang.String"/>
+    </beans:bean>
+
+    <jee:jndi-lookup id="jmsCf_jndiConnectionFactory" jndi-name="jms/CF"/>
+    <jee:jndi-lookup id="jmsInbound_queue_jmsCf_queue" jndi-name="jms/INBOUND_QUEUE"/>
+
+
+    <beans:bean id="version" class="java.lang.String">
+        <beans:constructor-arg type="java.lang.String" value="test.version"/>
+    </beans:bean>
+
+    <!--beans:bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <beans:property name="targetConnectionFactory">
+            <beans:bean class="org.apache.activemq.ActiveMQConnectionFactory">
+                <beans:property name="brokerURL" value="vm://localhost"/>
+            </beans:bean>
+        </beans:property>
+        <beans:property name="sessionCacheSize" value="10"/>
+    </beans:bean-->
+
+    <jee:jndi-lookup id="connectionFactory" jndi-name="jms/CF"/>
+    <jee:jndi-lookup id="requestQueue" jndi-name="jms/INBOUND_QUEUE"/>
+    <jee:jndi-lookup id="replyQueue" jndi-name="jms/OUTBOUND_QUEUE"/>
+    <jee:jndi-lookup id="requestTopic" jndi-name="jms/REQUEST_TOPIC"/>
+
+    <!--beans:bean id="requestQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <beans:constructor-arg value="queue.demo"/>
+    </beans:bean>
+
+    <beans:bean id="requestQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <beans:property name="jndiName" value="jms/INBOUND_QUEUE"/>
+    </beans:bean>
+
+    <beans:bean id="requestTopic" class="org.apache.activemq.command.ActiveMQTopic">
+        <beans:constructor-arg value="topic.demo"/>
+    </beans:bean>
+
+    <beans:bean id="replyQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <beans:constructor-arg value="jms"/>
+    </beans:bean-->
+
+    <!--jms:inbound-gateway id="jmsin"
+                         request-destination="requestQueue"
+                         request-channel="demoChannel"
+                         reply-channel="demoReply"/>
+
+    <channel id="demoChannel"/>
+    <channel id="demoReply"/>
+
+    <channel id="stdinToJmsoutChannel"/>
+
+    <jms:outbound-gateway request-channel="stdinToJmsoutChannel"
+                          request-destination="requestQueue"
+                          reply-destination="replyQueue"
+                          reply-channel="jmsReplyChannel"/>
+
+    <channel id="jmsReplyChannel" />
+
+
+    <bridge input-channel="jmsReplyChannel" output-channel="queueChannel"/>
+
+    <channel id="queueChannel">
+        <queue />
+    </channel>
+
+    <service-activator input-channel="demoChannel"  method="upperCase" output-channel="demoReply">
+        <beans:bean class="ru.sbt.bpm.mock.spring.utils.DemoBean"/>
+    </service-activator-->
+
+    <!--service-activator input-channel="jmsReplyChannel"  method="out1">
+            <beans:bean class="ru.sbt.bpm.mock.spring.utils.DemoBean"/>
+    </service-activator-->
+
+</beans:beans>
