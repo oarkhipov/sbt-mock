@@ -52,3 +52,4 @@ crashlytics-build.properties
 /mock-interactive/target
 /mock-log-writer/target
 /mock-engine/activemq-data
+/mock-engine/mockMod_*.dat
