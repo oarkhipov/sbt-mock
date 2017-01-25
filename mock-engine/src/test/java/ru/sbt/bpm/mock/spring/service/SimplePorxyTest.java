@@ -2,8 +2,11 @@ package ru.sbt.bpm.mock.spring.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
@@ -39,6 +42,9 @@ public class SimplePorxyTest extends AbstractTestNGSpringContextTests {
     @Autowired
     MockConfigContainer mockConfigContainer;
 
+    @Autowired
+    ResourceLoader resourceLoader;
+
     @Test
     public void testSimpleProxy () throws JAXBException {
         String actual = generatorService.toXml(generator.generateContext());
@@ -63,15 +69,19 @@ public class SimplePorxyTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testSimpleProxy2 () throws Exception {
         String actual = generatorService.toXml(generator.generateContext());
-        Resource o = applicationContext.getResource("/env");
-        File envDir = o.getFile();
-        //GenericApplicationContext parent = new GenericApplicationContext();
+        Resource envDirResource = applicationContext.getResource("/env");
+        File envDir = envDirResource.getFile();
+        GenericApplicationContext parent = new GenericApplicationContext();
+        parent.setResourceLoader(resourceLoader);
+        parent.refresh();
         //MockConfigContainer mockConfigContainer = new MockConfigContainer("/env/MockConfigSimpleProxy.xml");
         //parent.getBeanFactory().registerSingleton("mockConfigContainer",mockConfigContainer);
         //parent.refresh();
         //ClassPathXmlApplicationContext  base = new ClassPathXmlApplicationContext(new String[]{"/contextConfigs/base-add-client-service.xml"}, parent);
 
-        String addBeans = "    <int:channel id=\"MockInboundRequestAggregated\"/>\n" +
+
+        String addBeans = "\n" +
+                "    <int:channel id=\"MockInboundRequestAggregated\"/>\n" +
                 "    <int:channel id=\"MockOutboundRouterResponse\"/>\n" +
                 "    <int:service-activator input-channel=\"MockInboundRequestAggregated\" output-channel=\"MockOutboundRouterResponse\"\n" +
                 "                           expression=\"@responseGenerator.proceedJmsRequest(payload)\"/>\n" +
@@ -86,14 +96,12 @@ public class SimplePorxyTest extends AbstractTestNGSpringContextTests {
                 "             error-channel=\"DriverInboundResponse\"\n" +
                 "             service-interface=\"ru.sbt.bpm.mock.spring.integration.gateway.ClientService\"\n" +
                 "             default-reply-timeout=\"30000\"\n" +
-                "             default-request-timeout=\"30000\"\n" +
-                "    />\n" +
-                "\n" +
-                "    <bean id=\"mockConfigContainer\" class=\"ru.sbt.bpm.mock.config.MockConfigContainer\">\n" +
-                "        <constructor-arg value=\"src\\test\\resources\\env\\MockConfigSimpleProxy.xml\" type=\"java.lang.String\"/>\n" +
-                "    </bean>\n"+
+                "             default-request-timeout=\"30000\"/>\n" +
                 "    <bean id=\"version\" class=\"java.lang.String\">\n" +
                 "        <constructor-arg type=\"java.lang.String\" value=\"test.version\"/>\n" +
+                "    </bean>\n"+
+                "    <bean id=\"mockConfigContainer\" class=\"ru.sbt.bpm.mock.config.MockConfigContainer\">\n" +
+                "        <constructor-arg value=\"/env/MockConfigSimpleProxy.xml\" type=\"java.lang.String\"/>\n" +
                 "    </bean>\n"+
                 "</beans>\n";
 
@@ -101,42 +109,55 @@ public class SimplePorxyTest extends AbstractTestNGSpringContextTests {
         actual = actual.replace("</beans>",addBeans);
 
         File contextXML = File.createTempFile("~AppContext_SimpleProxy",".tmpxml",envDir);
+        String contextResource = "/env/"+contextXML.getName();
         log.debug("=============:"+contextXML.getAbsolutePath());
         PrintWriter out = new PrintWriter(contextXML);
         out.print(actual);
         out.flush();
         out.close();
-        FileSystemXmlApplicationContext context = null;
+        ClassPathXmlApplicationContext context = null;
 
         try {
-            context = new FileSystemXmlApplicationContext(new String[]{contextXML.getAbsolutePath()});
+            context = new ClassPathXmlApplicationContext(new String[]{contextResource},parent);
             XmlGeneratorService xmlGeneratorService = context.getBean(XmlGeneratorService.class);
-            String payload = xmlGeneratorService.generate("CRM", "processRequest", MessageType.RS, true);
+            String payload = xmlGeneratorService.generate("CRM", "getReferenceData", MessageType.RQ, true);
             ResponseGenerator responseGenerator = (ResponseGenerator) context.getBean("responseGenerator");
             log.debug("responseGenerator.class = " + responseGenerator.getClass().getName());
 
-            if (false){
-            InitialContext jndiContext = new InitialContext();
-            Queue requestQueue = (Queue) jndiContext.lookup("jms/INBOUND_QUEUE");
-            Queue replyQueue = (Queue) jndiContext.lookup("jms/OUTBOUND_QUEUE");
-            QueueConnectionFactory qconFactory = (QueueConnectionFactory) jndiContext.lookup("jms/CF");
-        /*Queue requestQueue = applicationContext.getBean("requestQueue",Queue.class);
-        Queue replyQueue = applicationContext.getBean("replyQueue",Queue.class);
-        QueueConnectionFactory qconFactory = (QueueConnectionFactory) applicationContext.getBean("connectionFactory");*/
-            QueueConnection qcon = qconFactory.createQueueConnection();
-            QueueSession qsession = qcon.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
-            QueueSender qsender = qsession.createSender(requestQueue);
-            TextMessage msg = qsession.createTextMessage();
-            msg.setText(payload);
-            msg.setJMSReplyTo(replyQueue);
-            qcon.start();
-            qsender.send(msg);
+            if (true){
+                log.info(
+                    "\n==============***REQUEST MESSAGE***================\n"+
+                    payload
+                    +"\n=================================================\n"
+                );
 
-            QueueReceiver r = qsession.createReceiver(replyQueue);
-            TextMessage replyMsg = (TextMessage) r.receive(5000);
-            if (replyMsg != null)
-                log.info("***REPLY MESSAGE***: " + replyMsg.getText());}
+                InitialContext jndiContext = new InitialContext();
+                Queue requestQueue = (Queue) jndiContext.lookup("jms/INBOUND_QUEUE");
+                Queue replyQueue = (Queue) jndiContext.lookup("jms/OUTBOUND_QUEUE");
+                QueueConnectionFactory qconFactory = (QueueConnectionFactory) jndiContext.lookup("jms/CF");
+                /*Queue requestQueue = applicationContext.getBean("requestQueue",Queue.class);
+                Queue replyQueue = applicationContext.getBean("replyQueue",Queue.class);
+                QueueConnectionFactory qconFactory = (QueueConnectionFactory) applicationContext.getBean("connectionFactory");*/
+                QueueConnection qcon = qconFactory.createQueueConnection();
+                QueueSession qsession = qcon.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+                QueueSender qsender = qsession.createSender(requestQueue);
 
+                TextMessage msg = qsession.createTextMessage();
+                msg.setText(payload);
+                msg.setJMSReplyTo(replyQueue);
+                qcon.start();
+                qsender.send(msg);
+
+                QueueReceiver r = qsession.createReceiver(replyQueue);
+                TextMessage replyMsg = (TextMessage) r.receive(5000);
+                if (replyMsg != null) {
+                    log.info(
+                            "\n==============***REPLY MESSAGE***================\n"+
+                                    replyMsg.getText()
+                           +"\n=================================================\n"
+                    );
+                }
+            }
         } finally {
             if (context!=null) context.close();
         }

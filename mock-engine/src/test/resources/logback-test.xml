@@ -10,17 +10,17 @@
     </appender>
 
     <logger name="ru.sbt" additivity="false">
-        <level value="TRACE" />
+        <level value="INFO" />
         <appender-ref ref="consoleAppender" />
     </logger>
 
     <logger name="org.springframework" additivity="false">
-        <level value="INFO" />
+        <level value="WARN" />
         <appender-ref ref="consoleAppender" />
     </logger>
 
     <root>
-        <level value="INFO" />
+        <level value="WARN" />
         <appender-ref ref="consoleAppender" />
     </root>
 </configuration>

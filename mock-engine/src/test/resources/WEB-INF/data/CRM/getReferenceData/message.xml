@@ -1,0 +1,5 @@
+<ns:Envelope xmlns:ns="http://sbrf.ru/legal/enquiry/integration">
+  <ns:confirmationMessage>
+    <ns:clientSystemTaskID>${taskId}</ns:clientSystemTaskID>
+  </ns:confirmationMessage>
+</ns:Envelope>
